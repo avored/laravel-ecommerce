@@ -1,0 +1,11 @@
+.sortable_product_images li{
+    float: left;
+    margin-right: 10px;
+    list-style: none;   
+}
+
+.vbottom {
+    display: inline-block;
+    vertical-align: bottom;
+    float: none;
+}
