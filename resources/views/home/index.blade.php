@@ -22,6 +22,7 @@
 
                 </div>
             @endforeach
+            {!! $products->render() !!}
         </div>
     </div>
 @endsection
