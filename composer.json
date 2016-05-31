@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "mage2/laravel-ecommerce",
+    "description": "Mage2 Laravel Ecommerce",
+    "keywords": ["framework", "laravel","Ecommerce","E-commerce","Shop"],
     "license": "MIT",
     "type": "project",
     "require": {
