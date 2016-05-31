@@ -14,4 +14,10 @@ class OrderController extends Controller {
         return view('order.index')->with('products', $sessionProducts);
     }
 
+    public function placeOrder(Request $request) {
+        return $request->all();
+
+
+    }
+
 }
