@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
+Route::get('/home', 'HomeController@index');
 
 Route::group(['prefix' => '/admin'], function() {
     Route::auth();
@@ -29,4 +28,4 @@ Route::group(['prefix' => '/admin'], function() {
 });
 
 
-Route::get('/home', 'HomeController@index');
+
