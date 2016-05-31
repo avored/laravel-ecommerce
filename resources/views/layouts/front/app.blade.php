@@ -20,8 +20,8 @@
 </div>
 @include('layouts.front.footer')
 
-<script src="/js/materialize.js"></script>
 <script src="/js/jquery-1.12.4.js"></script>
+<script src="/js/materialize.js"></script>
 <script src="/js/main.js"></script>
 
 
