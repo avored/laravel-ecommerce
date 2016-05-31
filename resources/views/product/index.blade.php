@@ -16,15 +16,18 @@
                 </thead>
 
                 <tbody>
+                    @foreach($products as $product)
                     <tr>
-                        <td>ID</td>
-                        <td>Title</td>
-                        <td>Price</td>
+                        <td>{{ $product->id }}</td>
+                        <td>{{ $product->title }}</td>
+                        <td>{{ $product->price }}</td>
                     </tr>
+                    @endforeach
 
                 </tbody>
 
             </table>
+            {!! $products->render() !!}
         </div>
     </div>
 @endsection
