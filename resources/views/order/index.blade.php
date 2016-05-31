@@ -178,95 +178,48 @@
             </div>
 
             <div class="col s6">
-                <h3 id="order_review_heading">Your order</h3>
-                <div id="order_review" class="woocommerce-checkout-review-order">
-                    <table class="shop_table woocommerce-checkout-review-order-table">
-                        <thead>
-                            <tr>
-                                <th class="product-name">Product</th>
-                                <th class="product-total">Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="cart_item">
-                                <td class="product-name">
-                                    Happy Ninja&nbsp;							 <strong class="product-quantity">× 1</strong>													</td>
-                                <td class="product-total">
-                                    <span class="amount">$35.00</span>						</td>
-                            </tr>
-                        </tbody>
-                        <tfoot>
-
-                            <tr class="cart-subtotal">
-                                <th>Subtotal</th>
-                                <td><span class="amount">$35.00</span></td>
-                            </tr>
-
-
-
-
-                            <tr class="shipping">
-                                <th>Shipping</th>
-                                <td data-title="Shipping">
-                                    <p>There are no shipping methods available. Please double check your address, or contact us if you need any help.</p>
-
-
-                                </td>
-                            </tr>
-
-
-
-
-
-
-                            <tr class="order-total">
-                                <th>Total</th>
-                                <td><strong><span class="amount">$35.00</span></strong> </td>
-                            </tr>
-
-
-                        </tfoot>
-                    </table>
-
-
-
-                    <div id="payment" class="woocommerce-checkout-payment">
-                        <ul class="wc_payment_methods payment_methods methods">
-                            <li class="wc_payment_method payment_method_cheque">
-                                <input id="payment_method_cheque" type="radio" class="input-radio" name="payment_method" value="cheque" checked="checked" data-order_button_text="">
-
-                                <label for="payment_method_cheque">
-                                    Cheque Payment 	</label>
-                                <div class="payment_box payment_method_cheque">
-                                    <p>Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                </div>
-                            </li>
-                            <li class="wc_payment_method payment_method_paypal">
-                                <input id="payment_method_paypal" type="radio" class="input-radio" name="payment_method" value="paypal" data-order_button_text="Proceed to PayPal">
-
-                                <label for="payment_method_paypal">
-                                    PayPal <img src="https://www.paypalobjects.com/webstatic/mktg/Logo/AM_mc_vs_ms_ae_UK.png" alt="PayPal Acceptance Mark"><a href="https://www.paypal.com/gb/webapps/mpp/paypal-popup" class="about_paypal" onclick="javascript:window.open('https://www.paypal.com/gb/webapps/mpp/paypal-popup', 'WIPaypal', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700');
-                                            return false;" title="What is PayPal?">What is PayPal?</a>	</label>
-                                <div class="payment_box payment_method_paypal" style="display:none;">
-                                    <p>Pay via PayPal; you can pay with your credit card if you don’t have a PayPal account.</p>
-                                </div>
-                            </li>
+                <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <h5>Shipping Option</h5>
+                        <ul class="collection">
+                            <li class="collection-item"><p>
+                                    <input name="shipping_option" type="radio" value="free_shipping" id="shipping_1" />
+                                    <label for="shipping_1">Free Shipping</label>
+                                </p></li>
+                            <li class="collection-item"><p>
+                                    <input name="shipping_option" type="radio" value="fixed_rate" id="shipping_2" />
+                                    <label for="shipping_2">Fixed Rate ($5.00)</label>
+                                </p></li>
                         </ul>
-                        <div class="form-row place-order">
-                            <noscript>
-                            Since your browser does not support JavaScript, or it is disabled, please ensure you click the &lt;em&gt;Update Totals&lt;/em&gt; button before placing your order. You may be charged more than the amount stated above if you fail to do so.			&lt;br/&gt;&lt;input type="submit" class="button alt" name="woocommerce_checkout_update_totals" value="Update totals" /&gt;
-                            </noscript>
 
+                    </div> <!-- END OF SHIPPING ROW -->
+                    
+                    <div class="row">
+                        <h5>Payment Option</h5>
+                        <ul class="collection">
+                            <li class="collection-item"><p>
+                                    <input name="payment_option" value="internet_banking" type="radio" id="payment_1" />
+                                    <label for="payment_1">Internet Banking</label>
+                                </p></li>
+                            <li class="collection-item"><p>
+                                    <input name="payment_option" value="payment_by_cheque" type="radio" id="payment_2" />
+                                    <label for="payment_2">Payment By Cheque</label>
+                                </p></li>
+                        </ul>
 
+                    </div> <!-- END OF SHIPPING ROW -->
 
-                            <input type="submit" class="button alt" name="woocommerce_checkout_place_order" id="place_order" value="Place order" data-value="Place order">
-
-                            <input type="hidden" id="_wpnonce" name="_wpnonce" value="993cc9283e"><input type="hidden" name="_wp_http_referer" value="/checkout/?wc-ajax=update_order_review">	</div>
+                    <div class=" input-group">
+                        <div class="right">
+                            <button type="submit" class="btn btn-primary btn-submit-fix">Place Order</button>
+                        </div>
                     </div>
+                    <div class="clearfix"></div>
+                </div> <!-- END OF RIGHT CARD DIV CONTENT -->
 
-
-
-                </div>
+            </div> <!-- END OF RIGHT CARD DIV -->
+                
             </div>
     </div>
 
