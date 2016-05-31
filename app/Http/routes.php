@@ -13,6 +13,9 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index');
+Route::get('/add-to-cart/{id}', 'CartController@addToCart');
+
+
 
 Route::group(['prefix' => '/admin'], function() {
     Route::auth();

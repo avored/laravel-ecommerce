@@ -1,25 +1,14 @@
 <nav class="white" role="navigation">
     <div class="nav-wrapper container">
-        <a id="logo-container" href="/admin" class="brand-logo">Mage2 Admin</a>
+        <a id="logo-container" href="/admin" class="brand-logo">Mage2</a>
         <ul class="right hide-on-med-and-down">
-            @if(Auth::check())
-                <li><a href="/">Front</a></li>
-                <li><a href="/admin/product">Product</a></li>
-                <li><a href="/admin/logout">Logout</a></li>
-            @else
-                <li><a href="/admin/login">Login</a></li>
-                <li><a href="/admin/register">Register</a></li>
-            @endif
+                <li><a href="/cart">Cart</a></li>
+                <li><a href="/admin">Admin</a></li>
         </ul>
 
         <ul id="nav-mobile" class="side-nav">
-            @if(Auth::check())
-                <li><a href="/">Front</a></li>
-                <li><a href="/admin/product">Product</a></li>
-            @else
-                <li><a href="/admin/login">Login</a></li>
-                <li><a href="/admin/register">Register</a></li>
-            @endif
+            <li><a href="/cart">Cart</a></li>
+            <li><a href="/admin">Admin</a></li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
