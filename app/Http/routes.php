@@ -16,7 +16,8 @@ Route::get('/home', 'HomeController@index');
 Route::get('/add-to-cart/{id}', 'CartController@addToCart');
 Route::get('/cart', 'CartController@index');
 Route::post('/cart/action', 'CartController@action');
-Route::get('/checkout', 'OrderController@index');
+Route::get('/checkout', 'OrderController@checkoutPage');
+Route::get('/checkout/order-successfull', 'OrderController@success');
 Route::post('/checkout/place-order', 'OrderController@placeOrder');
 
 
@@ -30,6 +31,7 @@ Route::group(['prefix' => '/admin'], function() {
         Route::get('/', 'AdminController@index');
 
         Route::resource('/product','ProductController');
+        Route::resource('/order','OrderController');
     });
 
 });
