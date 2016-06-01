@@ -15,7 +15,7 @@ class RedirectIfNotCustomer
 	 * @param  string|null  $guard
 	 * @return mixed
 	 */
-	public function handle($request, Closure $next, $guard = 'customers')
+	public function handle($request, Closure $next, $guard = 'customer')
 	{
 	    if (!Auth::guard($guard)->check()) {
 	        return redirect('/');
