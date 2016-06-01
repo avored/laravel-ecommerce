@@ -21,6 +21,14 @@ Route::get('/checkout/order-successfull', 'OrderController@success');
 Route::post('/checkout/place-order', 'OrderController@placeOrder');
 
 
+ Route::get('/customer/login','Customer\AuthController@showLoginForm');
+    Route::post('/customer/login','Customer\AuthController@login');
+    Route::get('/customer/logout','Customer\AuthController@logout');
+
+    // Registration Routes...
+    Route::get('customer/register', 'Customer\AuthController@showRegistrationForm');
+    Route::post('customer/register', 'Customer\AuthController@register');
+
 
 Route::group(['prefix' => '/admin'], function() {
     Route::auth();
