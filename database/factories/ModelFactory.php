@@ -33,6 +33,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker , $data) {
 $factory->define(App\Product::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->name,
-        'price' => $faker->randomFloat(6),
+        'price' => $faker->randomFloat(6, 0,1000),
     ];
 });

@@ -1,7 +1,6 @@
 <?php
 
 use App\Customer;
-use App\User;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -34,6 +33,27 @@ class CustomerAuthControllerTest extends TestCase
                     ->type('admin123', 'password')
                     ->press('login')
                     ->seePageIs('/my-account');
-        Customer::destroy($customer->id);
+        Customer::where('email', '=', $customer->email)->delete();
+    }
+
+    /**
+     * A basic test example.
+     *
+     * @return void
+     */
+    public function testRegisterAction()
+    {
+        //$user = factory(User::class,1)->create(['password' => bcrypt('admin123')]);
+
+        //$this->visit('/customer/register')
+        //    ->type('first name','first_name')
+        //    ->type('last name','last_name')
+        //    ->type('test@unittest.com', 'email')
+        //    ->type('admin123', 'password')
+        //    ->type('admin123','password_confirmation')
+        //    ->press('register')
+            //->seePageIs('/my-account')
+        //    ;
+        //Customer::where('email', '=', 'test@unittest.com')->delete();
     }
 }

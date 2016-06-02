@@ -17,7 +17,7 @@
 
                 <div class="input-field">
                     {!! csrf_field() !!}
-                    <button type="submit">Create</button>
+                    <button name="create" type="submit">Create</button>
                 </div>
             </form>
         </div>

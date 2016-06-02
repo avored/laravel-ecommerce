@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col s12">
-            <h1>Create Products</h1>
+            <h1>Edit Products</h1>
             <form method="post" action="/admin/product/{{$product->id}}">
                 <div class="input-field">
                     <input placeholder="" id="product_title_text" value="{{ $product->title }}" autofocus type="text" name="title" />
@@ -19,7 +19,7 @@
                     {!! csrf_field() !!}
                     <input type="hidden" name="_method" value="put"/>
                     <input type="hidden" name="id" value="{{$product->id}}" />
-                    <button type="submit">Create</button>
+                    <button name="update" type="submit">Update</button>
                 </div>
             </form>
         </div>
