@@ -4,9 +4,10 @@ namespace App;
 
 use App\Order;
 use App\Address;
-use Illuminate\Database\Eloquent\Model;
 
-class Customer extends Model
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class Customer extends Authenticatable 
 {
     /**
      * The attributes that are mass assignable.

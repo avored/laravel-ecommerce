@@ -26,13 +26,13 @@ class CustomerAuthControllerTest extends TestCase
      */
     public function testPostLoginAction()
     {
-        $customer = factory(User::class,1)->create(['password' => 'admin123']);
+        $customer = factory(Customer::class,1)->create(['password' => 'admin123']);
         
-        $this->visit('/admin/login')
+        $this->visit('/customer/login')
                     ->type($customer->email, 'email')
                     ->type('admin123', 'password')
                     ->press('login')
-                    ->seePageIs('/admin');
-        User::destroy($customer->id);
+                    ->seePageIs('/my-account');
+        Customer::destroy($customer->id);
     }
 }
