@@ -28,12 +28,16 @@ Route::post('/customer/login', 'Customer\AuthController@login');
 Route::get('/customer/logout', 'Customer\AuthController@logout');
 
 // Registration Routes...
-Route::get('customer/register', 'Customer\AuthController@showRegistrationForm');
-Route::post('customer/register', 'Customer\AuthController@register');
+Route::get('/customer/register', 'Customer\AuthController@showRegistrationForm');
+Route::post('/customer/register', 'Customer\AuthController@register');
 
-Route::get('my-account', 'MyAccountController@index');
-Route::get('my-account/edit', 'MyAccountController@edit');
-Route::post('my-account/edit', 'MyAccountController@update');
+Route::get('/my-account',   'MyAccountController@index');
+
+Route::get('/my-account/edit',  'MyAccountController@edit');
+Route::post('/my-account/edit', 'MyAccountController@update');
+
+Route::get('/my-account/address/create',    'MyAccountController@addressCreate');
+Route::post('/my-account/address/',          'MyAccountController@addressStore');
 
 
 Route::group(['prefix' => '/admin'], function() {

@@ -23,6 +23,7 @@
     </div>
     <div id="address" class="col s12">
         <h2>Address</h2>
+        <div class="right"><a href="/my-account/address/create">Create Address</a></div>
         @foreach($customer->addresses as $address)
             <div class="col s4">
 

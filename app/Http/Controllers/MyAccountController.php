@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Address;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
@@ -25,6 +26,20 @@ class MyAccountController extends Controller
         $user = Customer::findorfail(Auth::guard('customer')->user()->id);
         $user->update($request->all());
         return redirect('my-account');
+    }
+
+    public function addressCreate() {
+
+        $customer = Customer::findorfail( Auth::guard('customer')->user()->id);
+        return view('my-account.create-address')->with('customer', $customer);
+    }
+
+    public function addressStore(Request $request) {
+        $customer = Customer::findorfail( Auth::guard('customer')->user()->id);
+        $request->merge(['customer_id' => $customer->id]);
+
+        Address::create($request->all());
+        return redirect('/my-account');
     }
     
 }
