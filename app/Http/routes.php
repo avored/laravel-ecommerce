@@ -30,6 +30,8 @@ Route::get('customer/register', 'Customer\AuthController@showRegistrationForm');
 Route::post('customer/register', 'Customer\AuthController@register');
 
 Route::get('my-account', 'MyAccountController@index');
+Route::get('my-account/edit', 'MyAccountController@edit');
+Route::post('my-account/edit', 'MyAccountController@update');
 
 
 Route::group(['prefix' => '/admin'], function() {
