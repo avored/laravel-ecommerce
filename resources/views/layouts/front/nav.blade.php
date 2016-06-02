@@ -2,8 +2,13 @@
     <div class="nav-wrapper container">
         <a id="logo-container" href="/" class="brand-logo">Mage2</a>
         <ul class="right hide-on-med-and-down">
+
+            @if(!Auth::guard('customer')->check()):
             <li><a href="/customer/login">Login</a></li>
             <li><a href="/customer/register">Register</a></li>
+            @else
+                <li><a href="/customer/logout">Logout</a></li>
+            @endif
             <li><a href="/checkout">Checkout</a></li>
             <li><a href="/cart">Cart</a></li>
             <li><a href="/admin">Admin</a></li>

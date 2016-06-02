@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Order;
+use App\Customer;
 use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
@@ -11,5 +12,9 @@ class Address extends Model
 
     public function order() {
         return $this->belongsTo(Order::class);
+    }
+
+    public function customer() {
+        return $this->belongsTo(Customer::class);
     }
 }

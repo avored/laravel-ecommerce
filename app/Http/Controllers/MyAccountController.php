@@ -13,14 +13,13 @@ class MyAccountController extends Controller
     }
     
     public function index(){
-        $user = Auth::guard('customer')->user();
-        
-        
-        return view('my-account.index')->with('user', $user);
+        $customer = Customer::findorfail( Auth::guard('customer')->user()->id);
+
+        return view('my-account.index')->with('customer', $customer);
     }
     public function edit(){
-        $user = Auth::guard('customer')->user();
-        return view('my-account.edit')->with('user', $user);
+        $customer = Customer::findorfail( Auth::guard('customer')->user()->id);
+        return view('my-account.edit')->with('customer', $customer);
     }
     public function update(Request $request){
         $user = Customer::findorfail(Auth::guard('customer')->user()->id);

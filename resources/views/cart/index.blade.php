@@ -5,6 +5,13 @@
 <div class="row">
     <div class="col s12">
         <h1>Cart</h1>
+
+        @if(count($products) >= 0)
+            <div class="col s12">
+                <p>There is no Product in cart</p>
+                <a href="/" class="btn btn-primary">Continue Shopping</a>
+            </div>
+        @else
         <div class="col s12">
             <div class="col s3">Image</div>
             <div class="col s4"> Title</div>
@@ -28,6 +35,7 @@
             </form>
             @endforeach
         </div>
+        @endif
     </div>
 </div>
 @endsection

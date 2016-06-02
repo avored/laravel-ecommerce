@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Order;
+use App\Address;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
@@ -23,4 +25,11 @@ class Customer extends Model
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function addresses() {
+        return $this->hasMany(Address::class);
+    }
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
 }
