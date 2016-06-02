@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col s12">
             <h1>Mage2 Site</h1>
-            @foreach($products as $product)
+           
                 <div class="col s4">
                     <div class="card">
                         <div class="card-content">
@@ -20,8 +20,6 @@
                     </div>
 
                 </div>
-            @endforeach
-            {!! $products->render() !!}
         </div>
     </div>
 @endsection

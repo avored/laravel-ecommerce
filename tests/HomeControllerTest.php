@@ -4,15 +4,18 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class IndexControllerTest extends TestCase
+class HomeControllerTest extends TestCase
 {
     /**
      * A basic functional test example.
      *
      * @return void
      */
-    public function testBasicExample()
+    public function testIndexAction()
     {
-        $this->assertTrue(true);
+        $product = factory(App\Product::class)->create();
+        $this->visit('/')
+                    ->see($product->title)
+                    ->see($product->price);
     }
 }

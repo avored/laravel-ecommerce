@@ -35,6 +35,12 @@ class ProductController extends Controller
         $product->update($request->all());
         return redirect('/admin/product');
     }
+    
+    
+    public function view($id) {
+        $product = Product::findorfail($id);
+        return view('product.view')->with('product', $product);
+    }
 
     public function destroy($id) {
         Product::destroy($id);
