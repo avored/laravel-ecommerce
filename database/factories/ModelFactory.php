@@ -17,7 +17,7 @@ $factory->define(App\Customer::class, function (Faker\Generator $faker , $data) 
         'last_name' => $faker->lastName,
         'email' => $faker->safeEmail,
         'system_user' => 0,
-        'password' =>  (isset($data['password'])) ? bcrypt($data['password']) : bcrypt(str_random(10)),
+        'password' =>  (isset($data['password'])) ? ($data['password']) : bcrypt(str_random(10)),
         'remember_token' => str_random(10),
     ];
 });

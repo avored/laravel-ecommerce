@@ -26,7 +26,8 @@ class CustomerAuthControllerTest extends TestCase
      */
     public function testPostLoginAction()
     {
-        $customer = factory(Customer::class,1)->create(['password' => 'admin123']);
+        
+        $customer = factory(Customer::class,1)->create(['password' => bcrypt('admin123')]);
         
         $this->visit('/customer/login')
                     ->type($customer->email, 'email')
