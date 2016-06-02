@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Product;
 
 class HomeControllerTest extends TestCase
 {
@@ -13,9 +14,10 @@ class HomeControllerTest extends TestCase
      */
     public function testIndexAction()
     {
-        $product = factory(App\Product::class)->create();
+        $product = factory(Product::class)->create();
         $this->visit('/')
-                    ->see($product->title)
-                    ->see($product->price);
+                    ->see('Mage2 Site');
+
+        Product::destroy($product->id);
     }
 }

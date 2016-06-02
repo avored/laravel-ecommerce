@@ -10,6 +10,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     protected $baseUrl = 'http://polymer';
 
     public function setUp() {
+        ini_set('xdebug.max_nesting_level', 120);
         parent::setUp();
 
         $this->prepareForTests();
@@ -31,6 +32,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase {
     public function prepareForTests() {
         Config::set('database.default', 'sqlite');
         Artisan::call('migrate');
+
     }
 
 }
