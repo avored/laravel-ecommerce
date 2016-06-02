@@ -6,7 +6,7 @@
     <div class="col s12">
         <h1>Cart</h1>
 
-        @if(count($products) >= 0)
+        @if(count($products) <= 0)
             <div class="col s12">
                 <p>There is no Product in cart</p>
                 <a href="/" class="btn btn-primary">Continue Shopping</a>

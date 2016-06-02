@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Customer;
 use App\Address;
 use App\Order;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
@@ -18,9 +19,15 @@ class OrderController extends Controller {
         return view('order.index')->with('orders', $orders);
     }
     public function checkoutPage() {
-
+        $customer = null;
+        if(Auth::guard('customer')->check()) {
+            $customer = Customer::findorfail(Auth::guard('customer')->user()->id);
+        }
+        
         $sessionProducts = Session::get('products');
-        return view('order.checkout-page')->with('products', $sessionProducts);
+        return view('order.checkout-page')
+                        ->with('customer', $customer)
+                        ->with('products', $sessionProducts);
     }
 
     public function placeOrder(Request $request) {

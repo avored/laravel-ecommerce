@@ -8,6 +8,7 @@
         <form action="/checkout/place-order" method="post">
 
             <div class="col s6" >
+                @if(null === $customer)
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title">Checkout As</span>
@@ -22,6 +23,8 @@
                         </div>
                     </div>
                 </div>
+              
+                @endif
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title">Billing Info</span>
