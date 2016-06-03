@@ -16,7 +16,9 @@ Route::get('/home', 'HomeController@index');
 Route::get('/add-to-cart/{id}', 'CartController@addToCart');
 Route::get('/cart', 'CartController@index');
 
-Route::get('/checkout/new', 'CheckoutController@index');
+Route::get('/checkout/step1', 'CheckoutController@step1');
+Route::post('/checkout/step2', 'CheckoutController@step2');
+Route::post('/checkout/step3', 'CheckoutController@step3');
 
 Route::post('/cart/action', 'CartController@action');
 
