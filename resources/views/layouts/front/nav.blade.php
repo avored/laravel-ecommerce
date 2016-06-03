@@ -9,7 +9,7 @@
             @else
                 <li><a href="/customer/logout">Logout</a></li>
             @endif
-            <li><a href="/checkout">Checkout</a></li>
+            <li><a href="/checkout/new">Checkout</a></li>
             <li><a href="/cart">Cart</a></li>
             <li><a href="/admin">Admin</a></li>
         </ul>
