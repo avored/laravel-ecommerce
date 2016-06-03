@@ -39,6 +39,9 @@ Route::post('/my-account/edit', 'MyAccountController@update');
 Route::get('/my-account/address/create',    'MyAccountController@addressCreate');
 Route::post('/my-account/address/',          'MyAccountController@addressStore');
 
+Route::get('/my-account/address/{id}/edit',    'MyAccountController@addressEdit');
+Route::put('/my-account/address/{id}',          'MyAccountController@addressUpdate');
+
 
 Route::group(['prefix' => '/admin'], function() {
     Route::auth();

@@ -30,6 +30,7 @@
 
             <div class="card">
                 <div class="card-content">
+                    <span class="right"><a href="/my-account/address/{{$address->id}}/edit">Edit</a></span>
                     {{ $address->first_name }} {{ $address->last_name }} <br/>
                     {{$address->phone }} <br/>
                     {{$address->address_1}} <br/>

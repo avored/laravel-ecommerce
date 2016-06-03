@@ -42,4 +42,23 @@ class MyAccountController extends Controller
         return redirect('/my-account');
     }
     
+    
+    public function addressEdit($id) {
+        
+         $customer = Customer::findorfail( Auth::guard('customer')->user()->id);
+         $address = Address::findorfail($id);
+        return view('my-account.edit-address')
+                    ->with('customer', $customer)
+                    ->with('address', $address)
+                    ;
+        
+    }
+    public function addressUpdate($id , Request $request) {
+        
+         $customer = Customer::findorfail( Auth::guard('customer')->user()->id);
+         $address = Address::findorfail($id);
+         $address->update($request->all());
+        return redirect('/my-account');
+        
+    }
 }
