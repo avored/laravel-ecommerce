@@ -28,4 +28,10 @@ class HomeController extends Controller
         $products = Product::paginate(9);
         return view('home.index')->with('products', $products);
     }
+    
+    public function material()
+    {
+        $products = Product::paginate(9);
+        return view('home.material')->with('products', $products);
+    }
 }
