@@ -19,6 +19,10 @@ Route::get('/cart', 'CartController@index');
 Route::get('/checkout/step1', 'CheckoutController@step1');
 Route::post('/checkout/step2', 'CheckoutController@step2');
 Route::post('/checkout/step3', 'CheckoutController@step3');
+Route::post('/checkout/step4', 'CheckoutController@step4');
+Route::post('/checkout/step5', 'CheckoutController@step5');
+Route::post('/checkout/step6', 'CheckoutController@step6');
+Route::post('/checkout/step7', 'CheckoutController@step7');
 
 Route::post('/cart/action', 'CartController@action');
 

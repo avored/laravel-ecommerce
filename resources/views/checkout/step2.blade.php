@@ -13,19 +13,19 @@
                         <span class="card-title">Billing Info</span>
                         <div class="row">
                             <div class="input-field col s6">
-                                <input type="text" name="shipping[first_name]" id="shipping_first_name" value="">
+                                <input type="text" name="billing[first_name]" id="shipping_first_name" value="">
                                 <label for="shipping_first_name" class="">First Name 
                                     <abbr class="required" title="required">*</abbr></label>
                             </div>
                             <div class="input-field col s6">
-                                <input type="text" name="shipping[last_name]" id="shipping_last_name" value="">
+                                <input type="text" name="billing[last_name]" id="shipping_last_name" value="">
                                 <label for="shipping_last_name" class="">Last Name 
                                     <abbr class="required" title="required">*</abbr>
                                 </label>
                             </div>
                         </div>
                         <div class="input-field">
-                            <input type="text" name="shipping[company_name]" id="shipping_company_name" value="">
+                            <input type="text" name="billing[company_name]" id="shipping_company_name" value="">
                             <label for="shipping_company_name" class="">Company Name</label>
                         </div>
                         <div class="input-field">
@@ -49,35 +49,35 @@
                             <label for="shipping_phone" class="">Country <abbr class="required" title="required">*</abbr></label>
                         </div>
                         <div class="input-field">
-                            <input type="text" name="shipping[address_1]" id="shipping_address_1" value="">
+                            <input type="text" name="billing[address_1]" id="shipping_address_1" value="">
                             <label for="shipping_address_1" class="">Address Line 1
                                 <abbr class="required" title="required">*</abbr>
                             </label>
                         </div>
                         <div class="input-field">
-                            <input type="text" name="shipping[address_2]" id="shipping_address_2" value="">
+                            <input type="text" name="billing[address_2]" id="shipping_address_2" value="">
                             <label for="shipping_address_2" class="">Address Line 2
                             </label>
                         </div>
                         <div class="input-field">
-                            <input type="text" name="shipping[city]" id="shipping_city" value="">
+                            <input type="text" name="billing[city]" id="shipping_city" value="">
                             <label for="shipping_city" class="">City
                                 <abbr class="required" title="required">*</abbr>
                             </label>
                         </div>
                         <div class="input-field">
-                            <input type="text" name="shipping[state]" id="shipping_state" value="">
+                            <input type="text" name="billing[state]" id="shipping_state" value="">
                             <label for="shipping_state" class="">State
                             </label>
                         </div>
                         <div class="input-field">
-                            <input type="text" name="shipping[postcode]" id="shipping_postcode" value="">
+                            <input type="text" name="billing[postcode]" id="shipping_postcode" value="">
                             <label for="shipping_postcode" class="">Post Code
                                 <abbr class="required" title="required">*</abbr>
                             </label>
                         </div>
                         <div class="input-field">
-                            <input type="text" name="shipping[phone]" id="shipping_phone" value="">
+                            <input type="text" name="billing[phone]" id="shipping_phone" value="">
                             <label for="shipping_phone" class="">Phone 
                                 <abbr class="required" title="required">*</abbr>
                             </label>

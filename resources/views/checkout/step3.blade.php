@@ -6,7 +6,7 @@
     <div class="col s12">
         <h1>Checkout</h1>
         <div class="col offset-s3 s6" >
-            <form action="/checkout/step3" method="post">
+            <form action="/checkout/step4" method="post">
                 {{ csrf_field() }}
                 <div class="card">
                     <div class="card-content">
