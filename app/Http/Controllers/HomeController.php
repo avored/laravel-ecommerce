@@ -31,7 +31,7 @@ class HomeController extends Controller
     
     public function material()
     {
-        $products = Product::paginate(9);
+        $products = Product::paginate(20);
         return view('home.material')->with('products', $products);
     }
 }

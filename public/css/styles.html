@@ -1,4 +1,11 @@
+<style>
 
+    a {
+        text-decoration: none;
+        color: inherit;
+    }    
+
+</style>
 <style is="custom-style">
 
     body {
@@ -20,12 +27,15 @@
         --app-drawer-layout-content-transition: margin 0.2s;
     }
 
-    app-drawer {
+    app-toolbar {
+        height: 50px;
+    }
 
-    --app-drawer-content-container: {
-         width: 200px;
-         background-color: #fff;
-     }
+    app-drawer {
+        --app-drawer-content-container: {
+            width: 256px;
+            background-color: #fff;
+        }
     }
 
     .drawer-content {
@@ -33,14 +43,55 @@
         height: calc(100% - 80px);
         overflow: auto;
     }
-    
+
     .container {
         margin-left: 20px;
         margin-right: 20px;
     }
     paper-card {
         margin-bottom: 20px;
-        width:100%;
+    }
+    paper-button.indigo {
+        background-color: var(--paper-light-blue-900);
+        color: white;
+
     }
 
+    paper-button.indigo:hover {
+        background-color: var(--paper-blue-300) !important;
+        color: white !important;
+    };
+
+
+    .flex-vertical {
+        @apply(--layout-vertical);
+    }
+
+    .flex-horizontal {
+        @apply(--layout-horizontal);
+    }
+    .flex1child {
+        @apply(--layout-flex-1);
+        min-width: var(--layout-flex-1);
+    }
+
+    .flex2child {
+        @apply(--layout-flex-2);
+    }
+
+    .flex3child {
+        @apply(--layout-flex-3);
+        -ms-flex-preferred-size: 25%;
+        -webkit-flex-basis: 25%;
+        flex-basis: 25%;
+        max-width: 25%;
+    }
+    .flex4child {
+        @apply(--layout-flex-4);
+    }
+
+    .flex-wrap {
+        @apply(--layout-wrap);
+        width: 100%;
+    }
 </style>
