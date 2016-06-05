@@ -50,6 +50,7 @@
     }
     paper-card {
         margin-bottom: 20px;
+        width: 100%;
     }
     paper-button.indigo {
         background-color: var(--paper-light-blue-900);
@@ -57,7 +58,7 @@
 
     }
 
-    paper-button.indigo:hover {
+    paper-button.indigo:hover,paper-button.indigo:focus , paper-button.indigo:active  {
         background-color: var(--paper-blue-300) !important;
         color: white !important;
     };
@@ -83,8 +84,9 @@
         @apply(--layout-flex-3);
         -ms-flex-preferred-size: 25%;
         -webkit-flex-basis: 25%;
-        flex-basis: 25%;
-        max-width: 25%;
+        flex-basis: 23%;
+        max-width: 23%;
+        padding: 0 1%;
     }
     .flex4child {
         @apply(--layout-flex-4);
@@ -93,5 +95,17 @@
     .flex-wrap {
         @apply(--layout-wrap);
         width: 100%;
+    }
+     .flex6child {
+        @apply(--layout-flex-3);
+        -ms-flex-preferred-size: 48%;
+        -webkit-flex-basis: 48%;
+        flex-basis: 48%;
+        max-width: 48%;
+        padding: 0 1%;
+    }
+    
+    paper-input {
+        padding: 8px 0 20px;
     }
 </style>
