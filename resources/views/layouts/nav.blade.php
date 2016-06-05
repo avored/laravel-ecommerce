@@ -87,6 +87,15 @@
     </paper-icon-item>
 </a>
 
+<a href="/admin/page" title="Page List">
+    <paper-icon-item>
+        <iron-icon icon="inbox" item-icon></iron-icon>
+        <span>
+            Page
+        </span>
+    </paper-icon-item>
+</a>
+
 
 
 

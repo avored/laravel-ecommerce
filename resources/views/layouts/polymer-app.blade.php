@@ -31,6 +31,7 @@
 
     <link rel="import" href="/bower_components/iron-form/iron-form.html">
     <link rel="import" href="/bower_components/paper-input/paper-input.html">
+    <link rel="import" href="/bower_components/paper-input/paper-textarea.html">
     <link rel="import" href="/bower_components/paper-checkbox/paper-checkbox.html">
 
     <link rel="import" href="/bower_components/font-roboto/roboto.html">
