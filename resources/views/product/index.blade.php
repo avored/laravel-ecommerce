@@ -1,9 +1,8 @@
-@extends('layouts.admin.app')
+@extends('layouts.polymer-app')
 
 @section('content')
 
-    <div class="row">
-        <div class="col s12">
+
             <h1>Products</h1>
             <div class="right">
                 <a href="/admin/product/create/" class="btn btn-primary">Create</a>
@@ -46,6 +45,5 @@
 
             </table>
             {!! $products->render() !!}
-        </div>
-    </div>
+
 @endsection
