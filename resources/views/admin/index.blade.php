@@ -1,17 +1,11 @@
-@extends('layouts.admin.app')
+@extends('layouts.polymer-app')
 
 @section('content')
 
-    <div class="row">
-        <div class="col s12">
-            <div class="card">
-                <div class="card-content">
-                    <h1>Dashboard</h1>
-                    <p>
-                        You are logged in!
-                    </p>
-                </div>
-            </div>
+    <paper-card heading="Dashboard">
+        <div class="card-content">You are logged in !!</div>
+        <div class="card-actions">
+            <a href="/admin/logout"><paper-button> <iron-icon icon="visibility-off" item-icon></iron-icon> Logout</paper-button></a>
         </div>
-    </div>
+    </paper-card>
 @endsection

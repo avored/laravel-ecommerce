@@ -3,10 +3,48 @@
     a {
         text-decoration: none;
         color: inherit;
-    }    
+    }
+
+    .pagination li {
+        display: inline-block;
+        font-size: 1.2rem;
+        padding: 0 10px;
+        line-height: 30px;
+        border-radius: 2px;
+        text-align: center;
+    }
+
+    .pagination li a {
+        color: #444;
+    }
+
+    .pagination li.active a {
+        color: #fff;
+    }
+
+    .pagination li.active {
+        background-color: #ee6e73;
+    }
+
+    .pagination li.disabled a {
+        cursor: default;
+        color: #999;
+    }
+
+    .pagination li i {
+        font-size: 2.2rem;
+        vertical-align: middle;
+    }
+
+    .pagination li.pages ul li {
+        display: inline-block;
+        float: none;
+    }
+
+
 
 </style>
-<style is="custom-style">
+<style is="custom-style" include="iron-flex iron-flex-reverse iron-flex-alignment iron-flex-factors iron-positioning ">
 
     body {
         margin: 0;
@@ -50,61 +88,36 @@
     }
     paper-card {
         margin-bottom: 20px;
-        width: 100%;
-    }
-    paper-button.indigo {
-        background-color: var(--paper-light-blue-900);
-        color: white;
 
     }
+
+    paper-card.product {
+        padding-right: 1%;
+    }
+
+    paper-button.indigo {
+        background-color: var(--paper-blue-600);
+        color: white;
+    }
+
 
     paper-button.indigo:hover,paper-button.indigo:focus , paper-button.indigo:active  {
-        background-color: var(--paper-blue-300) !important;
+        background-color: var(--paper-light-blue-900);
         color: white !important;
     };
 
-
-    .flex-vertical {
-        @apply(--layout-vertical);
+    .product_row .product.flex-1:last-child {
+        margin-right: 0px;;
+    }
+    .product.flex-1 {
+        margin-right: 20px;
+    }
+    .price {
+        color: var(--paper-light-blue-900);
+        font-weight: bold;
     }
 
-    .flex-horizontal {
-        @apply(--layout-horizontal);
-    }
-    .flex1child {
-        @apply(--layout-flex-1);
-        min-width: var(--layout-flex-1);
-    }
 
-    .flex2child {
-        @apply(--layout-flex-2);
-    }
-
-    .flex3child {
-        @apply(--layout-flex-3);
-        -ms-flex-preferred-size: 25%;
-        -webkit-flex-basis: 25%;
-        flex-basis: 23%;
-        max-width: 23%;
-        padding: 0 1%;
-    }
-    .flex4child {
-        @apply(--layout-flex-4);
-    }
-
-    .flex-wrap {
-        @apply(--layout-wrap);
-        width: 100%;
-    }
-     .flex6child {
-        @apply(--layout-flex-3);
-        -ms-flex-preferred-size: 48%;
-        -webkit-flex-basis: 48%;
-        flex-basis: 48%;
-        max-width: 48%;
-        padding: 0 1%;
-    }
-    
     paper-input {
         padding: 8px 0 20px;
     }
