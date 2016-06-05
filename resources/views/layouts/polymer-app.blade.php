@@ -19,6 +19,7 @@
     <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
 
+    <link rel="import" href="/bower_components/paper-badge/paper-badge.html">
     <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
     
     <link rel="import" href="/bower_components/paper-fab/paper-fab.html">
