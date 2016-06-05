@@ -20,6 +20,8 @@
 
 
     <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+    
+    <link rel="import" href="/bower_components/paper-fab/paper-fab.html">
 
     <link rel="import" href="/bower_components/paper-styles/color.html">
     <link rel="import" href="/bower_components/paper-styles/default-theme.html">

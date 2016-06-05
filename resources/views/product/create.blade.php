@@ -1,24 +1,17 @@
-@extends('layouts.admin.app')
+@extends('layouts.polymer-app')
 
 @section('content')
 
     <div class="row">
         <div class="col s12">
-            <h1>Create Products</h1>
-            <form method="post" action="/admin/product">
-                <div class="input-field">
-                    <input placeholder="" id="product_title_text" autofocus type="text" name="title" />
-                    <label for="product_title_text">Title</label>
-                </div>
-                <div class="input-field">
-                    <input id="product_price_text" type="text" name="price" />
-                    <label for="product_price_text">Price</label>
-                </div>
-
-                <div class="input-field">
-                    {!! csrf_field() !!}
-                    <button name="create" type="submit">Create</button>
-                </div>
+            <h1>Edit Products</h1>
+            <form method="post" id="productCreate" action="/admin/product">
+                {!! csrf_field() !!}
+                <paper-input autofocus autocomplete="true"  required auto-validate error-message="Title is Required" 
+                                name="title"label="Title"></paper-input>
+                <paper-input autofocus autocomplete="true"  required auto-validate error-message="Price is Required" 
+                                name="price" label="Price"></paper-input>
+                <paper-button onclick="document.getElementById('productCreate').submit();" raised class="indigo">Create</paper-button>
             </form>
         </div>
     </div>
