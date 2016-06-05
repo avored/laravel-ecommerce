@@ -20,6 +20,7 @@
 
 
     <link rel="import" href="/bower_components/paper-badge/paper-badge.html">
+    <link rel="import" href="/mage2-elements/rich-textarea/rich-textarea.html">
     <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
     
     <link rel="import" href="/bower_components/paper-fab/paper-fab.html">

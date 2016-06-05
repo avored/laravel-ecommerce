@@ -16,4 +16,10 @@ class PageController extends Controller
     public function create() {
         return view('page.create');
     }
+    
+     
+    public function store(Request $request) {
+        return $request->all();
+        return view('page.create');
+    }
 }
