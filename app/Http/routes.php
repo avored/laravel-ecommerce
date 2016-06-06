@@ -64,6 +64,7 @@ Route::group(['prefix' => '/admin'], function() {
         Route::resource('/product', 'ProductController');
         Route::resource('/order', 'OrderController');
         Route::resource('/page', 'PageController');
+        Route::resource('/category', 'CategoryController');
     });
 });
 

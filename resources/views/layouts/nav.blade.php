@@ -38,7 +38,7 @@
 
 @endif
 
-<a href="/Cart" title="Cart">
+<a href="/cart" title="Cart">
     <paper-icon-item>
         <iron-icon icon="inbox" item-icon></iron-icon>
         <span>
