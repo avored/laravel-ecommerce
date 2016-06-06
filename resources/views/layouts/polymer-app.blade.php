@@ -16,15 +16,18 @@
     {{-- <link href="{{ elixir('css/app.css') }}" rel="stylesheet"> --}} -->
 
 
-    <script src="/bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="/bower_components/webcomponentsjs/webcomponents.js"></script>
 
-
+    <link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
+    <link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
+    <link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
+    <link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
+    <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
+    <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
     <link rel="import" href="/bower_components/paper-badge/paper-badge.html">
     <link rel="import" href="/mage2-elements/rich-textarea/rich-textarea.html">
     <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
-    
     <link rel="import" href="/bower_components/paper-fab/paper-fab.html">
-
     <link rel="import" href="/bower_components/paper-styles/color.html">
     <link rel="import" href="/bower_components/paper-styles/default-theme.html">
     <link rel="import" href="/bower_components/paper-styles/shadow.html">
@@ -43,12 +46,6 @@
     <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
     <link rel="import" href="/bower_components/paper-button/paper-button.html">
 
-    <link rel="import" href="/bower_components/app-layout/app-drawer-layout/app-drawer-layout.html">
-    <link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
-    <link rel="import" href="/bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
-    <link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
-    <link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
-    <link rel="import" href="/bower_components/app-layout/app-toolbar/app-toolbar.html">
 
 
     <link rel="import" href="/css/styles.html">
