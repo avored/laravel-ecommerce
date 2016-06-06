@@ -1,0 +1,40 @@
+{
+  "name": "app-pouchdb",
+  "version": "0.9.1",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "description": "Custom Elements for working with PouchDB.",
+  "main": [
+    "app-pouchdb-document.html",
+    "app-pouchdb-query.html",
+    "app-pouchdb-index.html",
+    "app-pouchdb-conflict-resolution.html",
+    "app-pouchdb-database-behavior.html"
+  ],
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/PolymerElements/app-pouchdb",
+  "private": true,
+  "ignore": [],
+  "dependencies": {
+    "polymer": "polymer/polymer#^v1.2.0",
+    "pouchdb": "^5.3.1",
+    "pouchdb-find": "^0.9.0",
+    "promise-polyfill": "polymerlabs/promise-polyfill#^1.0.0",
+    "app-storage": "polymerelements/app-storage#~0.9.0"
+  },
+  "devDependencies": {
+    "web-component-tester": "^4.0.0",
+    "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
+    "paper-input": "polymerelements/paper-input#^1.0.0",
+    "paper-styles": "polymerelements/paper-styles#^1.0.0",
+    "font-roboto": "polymerelements/font-roboto#^1.0.0",
+    "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
+    "iron-icon": "polymerelements/iron-icon#^1.0.0",
+    "paper-fab": "polymerelements/paper-fab#^1.0.0",
+    "iron-icons": "polymerelements/iron-icons#^1.0.0",
+    "paper-button": "polymerelements/paper-button#^1.0.0",
+    "platinum-sw": "polymerelements/platinum-sw#^1.3.0",
+    "note-app-elements": "polymerlabs/note-app-elements"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "en": {
+    "header_1": "Translation and localization",
+    "header_2": "Plurals and genders",
+    "greeting": "Hello!",
+    "intro": "My name is {name}",
+    "cats": "I have {numCats, number} cats. Almost {pctBlack, number, percent} of them are black.",
+    "sale": "Sale begins {start, date, medium}, at {time, time, short}. Everything is {price, number, USD}.",
+    "fruit": "{num, plural, =0 {no apples} =1 {one apple} other {# apples}}",
+    "bananas": "{name} ate {num, plural, =0 {no bananas} =1 {a banana} other {# bananas}} {gender, select, male {at his house.} female {at her house.} other {at their house.}}"
+  },
+  "fr": {
+    "header_1": "Traduction et localisation",
+    "header_2": "Pluriels et les sexes",
+    "greeting": "Bonjour!",
+    "intro": "Je m'appelle {name}",
+    "cats": "J'ai {numCats, number} chats. Près de {pctBlack, number, percent} sont noirs.",
+    "sale": "Vente commence {start, date, medium} à {time, time, short}. Tout est {price, number, USD}.",
+    "fruit": "pomme",
+    "fruit": "{num, plural, =0 {pas de pommes} =1 {une pomme} other {# pommes}}",
+    "bananas": "{name} mange {num, plural, =0 {pas de bananes} =1 {une banane} other {# bananes}} {gender, select, male {chez lui.} female {chez elle.} other {chez leur.}}"
+  }
+}

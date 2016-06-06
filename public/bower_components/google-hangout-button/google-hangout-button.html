@@ -1,0 +1,142 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../google-apis/google-plusone-api.html">
+
+<!--
+Element providing a button to start a Google Hangout.
+
+##### Example
+
+    <google-hangout-button></google-hangout-button>
+
+@demo
+-->
+<dom-module id="google-hangout-button">
+  <style>
+    :host, span {
+      display: inline-block;
+    }
+  </style>
+  <template>
+    <google-plusone-api id="plusone" on-api-load="_load"></google-plusone-api>
+    <span id="container"></span>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'google-hangout-button',
+
+    /**
+     * Fired when the hangout api is loaded but before rendering the button.
+     *
+     * @event google-hangout-button-pregame
+     * @param {Object} e Event parameters.
+     */
+
+    /**
+     * Fired when the button is rendered and ready to use.
+     *
+     * @event google-hangout-button-ready
+     * @param {Object} e Event parameters.
+     */
+
+     properties: {
+
+      /**
+       * Specifies what type of Hangout should be started.
+       * Valid values are 'normal', 'onair', 'party' and 'moderated'
+       *
+       * See the [Hangout button parameter reference](https://developers.google.com/+/hangouts/button#hangout_button_parameters)
+       * for more details.
+       */
+      type: {
+        type: String,
+        value: 'normal'
+      },
+
+      /**
+       * Specifies the Google+ Hangout apps to launch when a user clicks the
+       * Hangout button. Invalid objects and parameters are ignored.
+       *
+       * See the [Initial app parameters reference](https://developers.google.com/+/hangouts/button#initial_app_parameters)
+       * for more details.
+       */
+      apps: {
+        type: Array,
+        value: function() { return []; }
+      },
+
+      /**
+       * Specifies the list of people to invite when the user clicks the
+       * Hangout button. Invalid objects and parameters are ignored.
+       *
+       * See the [Invite parameters reference](https://developers.google.com/+/hangouts/button#invite_parameters)
+       * for more details.
+       */
+      invites: {
+        type: Array,
+        value: function() { return []; }
+      },
+
+      /**
+       * Pre-populates the topic field for Hangouts on Air. Note that users can
+       * change the topic of the Hangout after they have joined.
+       */
+      topic: {
+        type: String,
+        value: null
+      },
+
+      /**
+       * Specifies the width of the button.
+       */
+      width: {
+        type: Number,
+        value: 136
+      },
+
+      _loaded: {
+        type: Boolean,
+        value: false
+      }
+    },
+
+    _load: function() {
+      // TODO(sjmiles): pre/post shenanigans required because gapi.hangout.render
+      // throws if not rendered into main document light-dom
+      var container = this._pregame();
+      this.$.plusone.api.hangout.render(container, {
+        'render': 'createhangout',
+        'hangout_type': this.type,
+        'initial_apps': this.apps,
+        'invites': this.invites,
+        'topic': this.topic,
+        'widget_size': this.width
+      });
+      this._postgame(container);
+    },
+    _pregame: function() {
+      var object = document.createElement('span');
+      document.body.appendChild(object);
+      this.fire('google-hangout-button-pregame');
+      return object;
+    },
+    _postgame: function(object) {
+      // when the iframe finishes it's dirty business, snarf it into the shadow-root
+      var iframe = object.firstElementChild;
+      iframe.addEventListener('load', function() {
+        if (!this._loaded) {
+          // TODO(sjmiles): appending directly to shadowRoot not working under polyfill
+          //this.shadowRoot.appendChild(object);
+          this.$.container.appendChild(object);
+          this._loaded = true;
+          this.fire('google-hangout-button-ready');
+        }
+      }.bind(this));
+    },
+    ready: function () {
+      this.apps = this.apps || [];
+      this.invites = this.invites || [];
+    }
+  });
+</script>

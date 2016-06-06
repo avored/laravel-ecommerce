@@ -1,0 +1,294 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<script>
+(function() {
+  'use strict';
+
+  function testAppStorageDocumentCompatibility(extendedContext) {
+    var context = {
+      tagName: 'unknown-element',
+      awaitUpdate: function() {
+        return Promise.resolve();
+      },
+      fetchStoredValue: function() {
+        return Promise.resolve();
+      },
+      unsetValue: function(storage) {
+        storage.set('data', null);
+        return storage.transactionsComplete;
+      }
+    };
+
+    function awaitStoredValue(storage, path) {
+      return storage.transactionsComplete.then(function() {
+        return context.fetchStoredValue(
+            storage.memoryPathToStoragePath(path), storage);
+      });
+    }
+
+    Object.assign(context, extendedContext);
+
+    suite('app storage compatibility: <' + context.tagName + '>', function() {
+      suite('basic storage scenarios', function() {
+        var storage;
+
+        setup(function() {
+          storage = fixture('BasicStorage');
+          storage.set('data', {});
+          return storage.transactionsComplete;
+        });
+
+        teardown(function() {
+          return context.unsetValue(storage);
+        });
+
+        suite('setting properties', function() {
+          test('sets primitive values', function() {
+            storage.set('data.numberProperty', 1);
+            return awaitStoredValue(storage, 'data.numberProperty')
+                .then(function(value) {
+                  storage;
+                  expect(value).to.be.equal(1);
+                });
+          });
+
+          test('sets object values', function() {
+            storage.set('data.objectProperty', { foo: 1 });
+            return awaitStoredValue(storage, 'data.objectProperty')
+                .then(function(value) {
+                  expect(value).to.be.eql({
+                    foo: 1
+                  });
+                });
+          });
+
+          test('sets array values', function() {
+            storage.set('data.arrayProperty', [1, 2, 3]);
+            return awaitStoredValue(storage, 'data.arrayProperty')
+                .then(function(value) {
+                  expect(value).to.be.eql([1, 2, 3]);
+                });
+          });
+        });
+
+        suite('updating properties', function() {
+          test('updates primitive values', function() {
+            storage.set('data.numberProperty', 1);
+
+            return awaitStoredValue(storage, 'data.numberProperty')
+                .then(function(value) {
+                  storage.set('data.numberProperty', 2);
+                  return awaitStoredValue(storage, 'data.numberProperty')
+                }).then(function(value) {
+                  expect(value).to.be.eql(2);
+                });
+          });
+
+          test('updates object values', function() {
+            storage.set('data.objectProperty', {
+              foo: 1
+            });
+
+            return awaitStoredValue(storage, 'data.objectProperty')
+                .then(function(value) {
+                  storage.set('data.objectProperty.bar', 2);
+                  return awaitStoredValue(storage, 'data.objectProperty');
+                }).then(function(value) {
+                  expect(value).to.be.eql({
+                    foo: 1,
+                    bar: 2
+                  });
+                });
+          });
+
+          test('updates array values', function() {
+            storage.set('data.arrayProperty', [1, 2, 3]);
+
+            return awaitStoredValue(storage, 'data.arrayProperty')
+                .then(function(value) {
+                  storage.set('data.arrayProperty', [1, 2, 3, 4]);
+                  return awaitStoredValue(storage, 'data.arrayProperty');
+                }).then(function(value) {
+                  expect(value).to.be.eql([1, 2, 3, 4]);
+                });
+          });
+
+          suite('manipulating arrays', function() {
+            setup(function() {
+              storage.set('data.arrayProperty', [1, 2, 3]);
+
+              return awaitStoredValue(storage, 'data.arrayProperty')
+                  .then(function(value) {
+                    expect(value).to.be.eql([1, 2, 3]);
+                  });
+            });
+
+            test('updates after array push', function() {
+              storage.push('data.arrayProperty', 4);
+
+              return awaitStoredValue(storage, 'data.arrayProperty')
+                  .then(function(value) {
+                    expect(value).to.be.eql([1, 2, 3, 4]);
+                  });
+            });
+
+            test('updates after array pop', function() {
+              storage.pop('data.arrayProperty');
+
+              return awaitStoredValue(storage, 'data.arrayProperty')
+                  .then(function(value) {
+                    expect(value).to.be.eql([1, 2]);
+                  });
+            });
+
+            test('updates after additive array splice', function() {
+              storage.splice('data.arrayProperty', 1, 0, 4);
+
+              return awaitStoredValue(storage, 'data.arrayProperty')
+                  .then(function(value) {
+                    expect(value).to.be.eql([1, 4, 2, 3]);
+                  });
+            });
+
+            test('updates after subtractive array splice', function() {
+              storage.splice('data.arrayProperty', 1, 1);
+
+              return awaitStoredValue(storage, 'data.arrayProperty')
+                  .then(function(value) {
+                    expect(value).to.be.eql([1, 3]);
+                  });
+            });
+
+            test('updates after complex array splice', function() {
+              storage.splice('data.arrayProperty', 1, 1, 4);
+
+              return awaitStoredValue(storage, 'data.arrayProperty')
+                  .then(function(value) {
+                    expect(value).to.be.eql([1, 4, 3]);
+                  });
+            });
+          });
+        });
+
+        suite('removing properties', function() {
+          test('removes primitive values', function() {
+            storage.set('data.numberProperty', 1);
+
+            return awaitStoredValue(storage, 'data.numberProperty')
+                .then(function() {
+                  storage.set('data.numberProperty', null);
+                  return awaitStoredValue(storage, 'data.numberProperty');
+                }).then(function(value) {
+                  expect(value).to.not.be.ok;
+                });
+          });
+
+          test('removes object values', function() {
+            storage.set('data.objectProperty', { foo: 1, bar: 2 });
+
+            return awaitStoredValue(storage, 'data.objectProperty')
+                .then(function() {
+                  storage.set('data.objectProperty.bar', null);
+                  return awaitStoredValue(storage, 'data.objectProperty');
+                }).then(function(value) {
+                  expect(value.foo).to.be.ok;
+                  expect(value.bar).to.not.be.ok;
+                });
+          });
+
+          test('removes array values', function() {
+            storage.set('data.arrayProperty', [1, 2, 3]);
+
+            return awaitStoredValue(storage, 'data.arrayProperty')
+                .then(function() {
+                  storage.pop('data.arrayProperty');
+                  return awaitStoredValue(storage, 'data.arrayProperty');
+                }).then(function(value) {
+                  storage;
+                  expect(value).to.be.eql([1, 2]);
+                });
+          });
+        });
+      });
+
+      suite('syncing storage scenarios', function() {
+        var storageOne;
+        var storageTwo;
+
+        setup(function() {
+          var syncingStorage = fixture('SyncingStorage');
+
+          storageOne = syncingStorage[0];
+          storageTwo = syncingStorage[1];
+
+          return Promise.all([
+            storageOne.transactionsComplete,
+            storageTwo.transactionsComplete
+          ]);
+        });
+
+        teardown(function() {
+          context.unsetValue(storageOne);
+          return context.awaitUpdate(storageTwo).then(function() {
+            expect(storageTwo.data).to.be.eql(storageOne.data);
+          });
+        });
+
+        test('syncs primitives across elements', function() {
+          storageOne.set('data.numberProperty', 1);
+
+          return Promise.all([
+            awaitStoredValue(storageOne, 'data.numberProperty'),
+            context.awaitUpdate(storageTwo)
+          ]).then(function(results) {
+            var value = results[0];
+            expect(value).to.be.equal(1);
+            expect(storageOne.get('data.numberProperty')).to.be.equal(value);
+            expect(storageTwo.get('data.numberProperty')).to.be.equal(value);
+          });
+        });
+
+        test('syncs object values across elements', function() {
+          var objectValue = { foo: 1 };
+          storageOne.set('data.objectProperty', objectValue);
+
+          return Promise.all([
+            awaitStoredValue(storageOne, 'data.objectProperty.foo'),
+            context.awaitUpdate(storageTwo)
+          ]).then(function(results) {
+            var value = results[0];
+            expect(value).to.be.equal(1);
+            expect(storageOne.get('data.objectProperty')).to.be.eql(objectValue);
+            expect(storageTwo.get('data.objectProperty')).to.be.eql(objectValue);
+          });
+        });
+
+        test('syncs array values across elements', function() {
+          var arrayValue = [1, 2, 3];
+          storageOne.set('data.arrayProperty', arrayValue);
+
+          return Promise.all([
+            awaitStoredValue(storageOne, 'data.arrayProperty.0'),
+            context.awaitUpdate(storageTwo)
+          ]).then(function(results) {
+            var value = results[0];
+            expect(value).to.be.equal(1);
+            expect(storageOne.get('data.arrayProperty')).to.be.eql(arrayValue);
+            expect(storageTwo.get('data.arrayProperty')).to.be.eql(arrayValue);
+          });
+        });
+      });
+    });
+  }
+
+  window.testAppStorageDocumentCompatibility =
+      testAppStorageDocumentCompatibility;
+})();
+</script>

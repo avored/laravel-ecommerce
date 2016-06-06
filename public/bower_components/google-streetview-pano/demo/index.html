@@ -1,0 +1,55 @@
+<!doctype html>
+<!-- Copyright (c) 2014 Google Inc. All rights reserved. -->
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <title>google-streetview-pano Demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="../google-streetview-pano.html">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: black;
+    }
+    google-streetview-pano {
+      display: block;
+      height: 80%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <google-streetview-pano pano-id="RjEjGqu4ymMAAAAGOtaGAQ" heading="350" pitch="-2" zoom="0.8" disable-default-ui></google-streetview-pano>
+
+  <button onclick="showMachu();">Show me Machu Pichu</button>
+  <button onclick="showBrazil();">Show me Brazil</button>
+  <button onclick="showStatue();">Show me Statue of Vishnu</button>
+
+  <script>
+  var pano = document.querySelector('google-streetview-pano');
+  function showMachu() {
+    pano.heading = 330;
+    pano.pitch = -2;
+    pano.zoom = 0.8;
+    pano.panoId = 'VsCKIVGfvpEAAAQJKfdW1w';
+  }
+  function showBrazil() {
+    pano.heading = 210;
+    pano.pitch = 15;
+    pano.zoom = 0.2;
+    pano.panoId = 'CkmCkfwvIGUAAAQW-qy0KQ';
+  }
+  function showStatue() {
+    pano.heading = 80;
+    pano.pitch = 7;
+    pano.zoom = 0.2;
+    pano.panoId = 'pVFRQcvJ2IEAAAGuvUxa_w';
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!doctype html>
+<!-- Copyright (c) 2015 Google Inc. All rights reserved. -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>google-sheet tests</title>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../../platform/platform.js"></script>
+  <link rel="import" href="../../../polymer-test-tools/tools.html">
+  <script src="../../../polymer-test-tools/htmltest.js"></script>
+
+  <link rel="import" href="../google-sheets.html">
+</head>
+<body>
+
+<div>
+  <p>Tests live private spreadsheet data.</p>
+  <p>This test needs to be run manually, standalone in order to fetch an OAuth token.</p>
+
+  <b>NOTES:</b><br>
+  <li>run manually off of localhost:3000/google-sheets/tests/private.html. Can also run from port 8080.</li>
+  <li>use the account: webcomponents.test@gmail.com</li>
+</div>
+
+<google-sheets id="sheet" gid="1"
+       clientId="750497606405-1hq66meqmr4dp09dn54j9ggv85vbv0gp.apps.googleusercontent.com"
+       key="0AjqzxJ5RoRrWdGh2S0RRYURXTlNHdm9pQlFuM1ZwZWc"></google-sheets>
+
+<script>
+document.addEventListener('polymer-ready', function() {
+
+  (function() {
+    var sheet = document.querySelector('#sheet');
+    var root = sheet.shadowRoot;
+
+    // Test set attributes.
+    assert.equal(sheet.key,
+        '0AjqzxJ5RoRrWdGh2S0RRYURXTlNHdm9pQlFuM1ZwZWc', ".key was not updated");
+    assert.equal(sheet.gid, 1, '.gid was not updated');
+    assert.equal(sheet.clientId,
+        '750497606405-1hq66meqmr4dp09dn54j9ggv85vbv0gp.apps.googleusercontent.com', ".clientId was not set");
+
+    sheet.addEventListener('google-sheet-data', function(e) {
+
+      switch (e.detail.type) {
+        case 'spreadsheets':
+          assert.isTrue(this.spreadsheets.length > 0,
+              '.spreadsheets should be populated for private feeds.');
+          break;
+        case 'tab':
+          assert.equal(this.tab.title, 'SECONDTAB', '.tab.title is incorrect');
+          break;
+        case 'rows':
+          assert.lengthOf(this.rows.authors, 1, '.rows.authors array');
+
+          var name = this.rows.authors[0].name;
+          var email = this.rows.authors[0].email
+
+          assert.equal(email, 'webcomponents.test@gmail.com', 'author email not set correctly');
+          assert.equal(name, 'webcomponents.test', 'author name not set correctly');
+
+          assert.equal(this.rows[0].title.$t, 'FIRST NAME', '"name" column was incorrect');
+          assert.equal(this.rows[1].gsx$state.$t, 'OR', '"state" column was incorrect');
+
+          break;
+        default:
+          // Noop
+      }
+
+      done();
+
+    });
+
+  })();
+
+});
+</script>
+</body>
+</html>
+

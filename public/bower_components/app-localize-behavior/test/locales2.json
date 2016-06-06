@@ -1,0 +1,10 @@
+{
+  "en": {
+    "greeting": "hello!",
+    "intro": "my name is {name}! i have {numCats, number} cats!"
+  },
+  "fr": {
+    "greeting": "bonjour!",
+    "intro": "je m'apelle {name}! j'ai {numCats, number} chats!"
+  }
+}

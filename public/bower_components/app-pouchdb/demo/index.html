@@ -1,0 +1,77 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <meta name="description" content="A basic app for keeping notes.">
+
+  <title>Notes</title>
+
+  <link rel="manifest" href="../../note-app-elements/manifest.json">
+
+  <!-- Older Chrome and other browsers -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="Notes">
+  <meta name="theme-color" content="#9C27B0">
+  <link rel="icon" sizes="192x192" href="images/icon-4x.png">
+
+  <!-- Mobile Safari -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#9C27B0">
+  <meta name="apple-mobile-web-app-title" content="Notes">
+  <link rel="apple-touch-icon" href="../../note-app-elements/images/icon-square-3x.png">
+
+  <!-- Windows -->
+  <meta name="msapplication-TileColor" content="#9C27B0">
+  <meta name="msapplication-TileImage" content="../../note-app-elements/images/icon-inverted-3x.png">
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-animations-js/web-animations-next.min.js"></script>
+  <link rel="import" href="../../platinum-sw/platinum-sw-elements.html">
+  <link rel="import" href="../pouchdb-sync.html">
+  <link rel="import" href="note-app.html">
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body unresolved>
+  <!-- Configure Service Worker caching: -->
+  <platinum-sw-register
+      auto-register
+      skip-waiting
+      clients-claim
+      reload-on-install
+      href="../sw-import.js">
+    <platinum-sw-cache
+        default-cache-strategy="networkFirst">
+    </platinum-sw-cache>
+  </platinum-sw-register>
+
+  <!-- Synchronize remote and local DB: -->
+  <!--
+  <app-pouchdb-sync
+      src="http://example.com:5984/notes"
+      target="notes"
+      bidirectional>
+  </app-pouchdb-sync>
+  -->
+
+  <!-- Instantiate the Notes app: -->
+  <note-app></note-app>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="platinum-bluetooth-device">
+  <template>
+    <content id="services" select="platinum-bluetooth-service">
+    </content>
+  </template>
+</dom-module>
+
+<script>
+  (function() {
+    'use strict';
+
+    var SUPPORTED = 'bluetooth' in navigator;
+
+    // This allows us to use BluetoothDevice related attributes type in
+    // browsers where it is not defined.
+    if (!('BluetoothDevice' in window)) {
+      window.BluetoothDevice = {};
+    }
+
+    /**
+     * The `<platinum-bluetooth-device>` element allows you to [discover nearby
+     * bluetooth devices][1] thanks to the young [Web Bluetooth API][2]. It is
+     * currently only partially implemented in Chrome OS 45 and Chrome 49 for
+     * Android behind the experimental flag
+     * `chrome://flags/#enable-web-bluetooth`.
+     *
+     * `<platinum-bluetooth-device>` is used as a parent element for
+     * `<platinum-bluetooth-service>` child elements.
+     *
+     * For instance, here's how to request a nearby bluetooth device advertising
+     * Battery service:
+     *
+     * ```html
+     * <platinum-bluetooth-device services-filter='["battery_service"]'>
+     * </platinum-bluetooth-device>
+     * ```
+     * ```js
+     * button.addEventListener('click', function() {
+     *   document.querySelector('platinum-bluetooth-device').request()
+     *   .then(function(device) { console.log(device.name); })
+     *   .catch(function(error) { console.error(error); });
+     * });
+     * ```
+     *
+     * You can also request a nearby bluetooth device by setting a filter on
+     * a name or name Prefix:
+     *
+     * ```html
+     * <platinum-bluetooth-device name-filter='foobar'>
+     * </platinum-bluetooth-device>
+     * ```
+     * ```html
+     * <platinum-bluetooth-device name-prefix-filter='foo'>
+     * </platinum-bluetooth-device>
+     * ```
+     *
+     * And you can combine some of the filters as well. Here's how to request a
+     * nearby bluetooth device advertising Battery service and whose name is
+     * "foobar":
+     *
+     * ```html
+     * <platinum-bluetooth-device services-filter='["battery_service"]'
+     *                            name-filter='foobar'>
+     * </platinum-bluetooth-device>
+     * ```
+     *
+     * If you filter just by name, then you must use `optional-services-filter`
+     * to get access to any services:
+     *
+     * ```html
+     * <platinum-bluetooth-device name-filter='foobar'
+     *                            optional-services-filter='["battery_service"]'>
+     * </platinum-bluetooth-device>
+     * ```
+     *
+     * Disconnecting manually from a connected bluetooth device is pretty
+     * straightforward:
+     *
+     * ```js
+     * disconnectButton.addEventListener('click', function() {
+     *   document.querySelector('platinum-bluetooth-device').disconnect();
+     * });
+     * ```
+     *
+     * [1]: https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web
+     * [2]: https://github.com/WebBluetoothCG/web-bluetooth
+     *
+     * @hero hero.svg
+     * @demo
+     */
+
+    Polymer({
+
+      is: 'platinum-bluetooth-device',
+
+      properties: {
+
+        /**
+         * Indicates whether the Web Bluetooth API is supported by
+         * this browser.
+         */
+        supported: {
+          readOnly: true,
+          type: Boolean,
+          value: SUPPORTED
+        },
+
+        /**
+         * Bluetooth GATT services filter. You may provide either the
+         * full Bluetooth UUID as a string or a short 16- or 32-bit form as
+         * integers like 0x180d.
+         */
+        servicesFilter: {
+          type: Array,
+          observer: '_filterChanged'
+        },
+
+        /**
+         * Device name filter.
+         */
+        nameFilter: {
+          type: String,
+          observer: '_filterChanged'
+        },
+
+        /**
+         * Device name prefix filter.
+         */
+        namePrefixFilter: {
+          type: String,
+          observer: '_filterChanged'
+        },
+
+        /**
+         * Optional Bluetooth GATT services filter. This implies that if you
+         * filter just by name, you must use `optionalServicesFilter` to get
+         * access to any services. You may provide either the full Bluetooth
+         * UUID as a string or a short 16- or 32-bit form as integers like
+         * 0x180d.
+         */
+        optionalServicesFilter: {
+          type: Array,
+          observer: '_filterChanged'
+        },
+
+        /**
+         * Current Bluetooth device picked by user.
+         */
+        device: {
+          type: BluetoothDevice,
+          readOnly: true,
+          observer: '_deviceChanged'
+        }
+
+      },
+
+      /**
+       * Update all services when device changes.
+       */
+      _deviceChanged: function() {
+        this._services = Polymer.dom(this.$.services).getDistributedNodes();
+        for (var i = 0; i < this._services.length; i++) {
+          this._services[i]._device = this.device;
+        }
+      },
+
+      /**
+       * Reset device when services-filter, name-filter or name-prefix-filter
+       * property is changed.
+       */
+      _filterChanged: function() {
+        this._setDevice(null);
+      },
+
+      created: function() {
+        this._services = [];
+      },
+
+      /**
+       * Reset device to pick a new device.
+       */
+      reset: function() {
+        this._setDevice(null);
+      },
+
+      /**
+       * Request a nearby bluetooth device and returns a Promise that will
+       * resolve when user picked one Bluetooth device based on filters.
+       *
+       * It must be called on user gesture.
+       *
+       * @return {Promise<BluetoothDevice>}
+       */
+      request: function() {
+        if (!this.supported) {
+          return Promise.reject(new Error('Your browser does not support Bluetooth'));
+        }
+        if (this.device) {
+          this._deviceChanged();
+          // Resolve promise if user already picked one device.
+          return Promise.resolve(this.device);
+        }
+
+        var options = {filters: []};
+        if (this.servicesFilter) {
+          options.filters.push({services: this.servicesFilter});
+        }
+        if (this.nameFilter) {
+          options.filters.push({name: this.nameFilter});
+        }
+        if (this.namePrefixFilter) {
+          options.filters.push({namePrefix: this.namePrefixFilter});
+        }
+        if (this.optionalServicesFilter) {
+          options.optionalServices = this.optionalServicesFilter;
+        }
+
+        if (options.filters.length == 0) {
+          return Promise.reject(new Error('Please set Bluetooth options filters.'));
+        }
+        var self = this;
+        return navigator.bluetooth.requestDevice(options)
+          .then(function(device) {
+            // Cache device for later use.
+            self._setDevice(device);
+            return self.device;
+          });
+      },
+
+      /**
+       * Disconnect GATT Server connection from current bluetooth device.
+       */
+      disconnect: function() {
+        this._services = Polymer.dom(this.$.services).getDistributedNodes();
+        for (var i = 0; i < this._services.length; i++) {
+          this._services[i]._disconnectGattServer();
+        }
+      }
+
+    });
+  })();
+</script>

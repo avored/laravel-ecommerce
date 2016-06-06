@@ -1,0 +1,78 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../paper-fab/paper-fab.html">
+<link rel="import" href="../../app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="../../note-app-elements/na-elements.html">
+
+<link rel="import" href="../app-pouchdb-query.html">
+<link rel="import" href="../app-pouchdb-document.html">
+<link rel="import" href="../app-pouchdb-conflict-resolution.html">
+
+<dom-module id="note-app">
+  <template>
+    <style include="note-app-shared-styles"></style>
+
+    <na-toolbar></na-toolbar>
+
+    <app-pouchdb-confict-resolution
+        strategy="firstWriteWins">
+    </app-pouchdb-conflict-resolution>
+
+    <app-pouchdb-query
+        id="query"
+        db-name="notes"
+        selector="_id $gt 0"
+        fields='["_id", "title", "body"]'
+        sort='["_id"]'
+        data="{{data}}">
+    </app-pouchdb-query>
+
+    <div class="notes">
+      <template is="dom-repeat" items="[[data]]" as="note">
+        <na-note
+            id$="[[note._id]]"
+            title="[[note.title]]"
+            body="[[note.body]]"
+            on-tap="edit">
+        </na-note>
+      </template>
+    </div>
+
+    <app-pouchdb-document
+        id="document"
+        db-name="notes"
+        doc-id="[[editableNoteId]]"
+        data="{{editableNote}}">
+    </app-pouchdb-document>
+
+    <paper-fab icon="add" on-tap="create"></paper-fab>
+
+    <na-editor
+        id="editor"
+        note="{{editableNote}}"
+        on-close="commitChange">
+    </na-editor>
+
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'note-app',
+
+        behaviors: [
+          Polymer.NoteAppBehavior
+        ]
+      });
+    })();
+  </script>
+</dom-module>

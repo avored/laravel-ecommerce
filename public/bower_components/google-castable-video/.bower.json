@@ -1,0 +1,36 @@
+{
+  "name": "google-castable-video",
+  "version": "1.0.2",
+  "authors": [
+    "Thorsten Schaeff <thorsten.schaeff@gmail.com>"
+  ],
+  "description": "HTML5 Video Element with extended Chromecast functionality.",
+  "keywords": [
+    "video",
+    "chromecast",
+    "polymer",
+    "web-components"
+  ],
+  "main": "google-castable-video.html",
+  "license": "Apache-2",
+  "homepage": "https://github.com/GoogleWebComponents/google-castable-video",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
+  },
+  "_release": "1.0.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.2",
+    "commit": "607f70287b99c3e1d113fc944dab1424172fa360"
+  },
+  "_source": "git://github.com/GoogleWebComponents/google-castable-video.git",
+  "_target": "^1.0.0",
+  "_originalSource": "GoogleWebComponents/google-castable-video"
+}

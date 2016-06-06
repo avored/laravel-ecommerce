@@ -1,0 +1,57 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>app-localstorage tests</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <script src="../../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../../web-component-tester/browser.js"></script>
+
+  <link rel="import" href="../app-storage-compatibility-suite.html">
+  <link rel="import" href="../../app-localstorage/app-localstorage-document.html">
+</head>
+<body>
+
+  <test-fixture id="BasicStorage">
+    <template>
+      <app-localstorage-document key="app-localstorage-test" data="{}">
+      </app-localstorage-document>
+    </template>
+  </test-fixture>
+
+  <test-fixture id="SyncingStorage">
+    <template>
+      <app-localstorage-document key="app-localstorage-test" data="{}">
+      </app-localstorage-document>
+      <app-localstorage-document key="app-localstorage-test" data="{}">
+      </app-localstorage-document>
+    </template>
+  </test-fixture>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function() {
+      testAppStorageDocumentCompatibility({
+        tagName: 'app-localstorage-document',
+        fetchStoredValue: function(storagePath) {
+          var parts = storagePath.split('.');
+          var value = JSON.parse(localStorage.getItem('app-localstorage-test'));
+
+          parts.shift();
+
+          return Promise.resolve(Polymer.Base.get(parts.join('.'), value));
+        }
+      });      
+    })
+  </script>
+</body>
+</html>

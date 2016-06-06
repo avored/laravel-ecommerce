@@ -1,0 +1,48 @@
+{
+  "name": "google-web-components",
+  "version": "1.0.1",
+  "homepage": "https://github.com/GoogleWebComponents/google-web-components",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "description": "Google Web Components",
+  "keywords": [
+    "google",
+    "services",
+    "sign-in",
+    "maps",
+    "hangouts",
+    "charts"
+  ],
+  "license": "BSD",
+  "dependencies": {
+    "google-apis": "GoogleWebComponents/google-apis#^1.0.0",
+    "google-feeds": "GoogleWebComponents/google-feeds#^1.0.0",
+    "google-map": "GoogleWebComponents/google-map#^1.0.0",
+    "google-signin": "GoogleWebComponents/google-signin#^1.0.0",
+    "google-sheets": "GoogleWebComponents/google-sheets#^1.0.1",
+    "google-youtube": "GoogleWebComponents/google-youtube#^1.1.0",
+    "google-analytics": "GoogleWebComponents/google-analytics#^1.0.0",
+    "google-calendar": "GoogleWebComponents/google-calendar#^1.0.0",
+    "google-chart": "GoogleWebComponents/google-chart#^1.0.0",
+    "google-castable-video": "GoogleWebComponents/google-castable-video#^1.0.0",
+    "google-hangout-button": "GoogleWebComponents/google-hangout-button#^1.0.0",
+    "google-url-shortener": "GoogleWebComponents/google-url-shortener#^1.0.0",
+    "google-youtube-upload": "GoogleWebComponents/google-youtube-upload#^1.0.0",
+    "google-streetview-pano": "GoogleWebComponents/google-streetview-pano#^1.0.0",
+    "firebase-element": "GoogleWebComponents/firebase-element#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
+  },
+  "_release": "1.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v1.0.1",
+    "commit": "ef8594348ae69db818629db4599927ea187e596c"
+  },
+  "_source": "git://github.com/GoogleWebComponents/google-web-components.git",
+  "_target": "^1.0.1",
+  "_originalSource": "GoogleWebComponents/google-web-components",
+  "_direct": true
+}

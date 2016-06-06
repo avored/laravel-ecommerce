@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>google-castable-video Demo</title>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../google-castable-video.html">
+
+</head>
+<body>
+
+  <p>An example of using <code>&lt;google-castable-video></code>:</p>
+
+  <video is="google-castable-video" width="500">
+    <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/big_buck_bunny_1080p.mp4" type="video/mp4">
+    <source src="https://bennugd-vlc.googlecode.com/files/big_buck_bunny_480p.webm" type="video/webm"></source>
+  </video>
+
+  <div id="controls">
+    <button id="play">PLAY</button>
+    <button id="pause">PAUSE</button>
+    <button id="cast">START CASTING</button>
+    <input id="progress" type="range" min="0" max="100" value="0">
+  </div>
+
+  <script>
+    var vid = document.querySelector("video");
+    var playButton = document.querySelector("#play");
+    var pauseButton = document.querySelector("#pause");
+    var castButton = document.querySelector("#cast");
+    var progressSlider = document.querySelector("#progress");
+
+    playButton.addEventListener("click", function(){
+      vid.play();
+    });
+
+    pauseButton.addEventListener("click", function(){
+      vid.pause();
+    });
+
+    castButton.addEventListener("click", function(){
+      vid.launchSessionManager();
+    });
+
+    progressSlider.addEventListener("mouseup", function(){
+      var duration = vid.duration;
+      var newPosition = ( duration / 100 ) * this.value;
+      vid.currentTime = newPosition;
+    });
+
+    //IMPORTANT use this to get the currentTime even when casting
+    vid.addEventListener("google-castable-video-timeupdate",function(e){
+      var duration = vid.duration;
+      var currentTime = e.detail.currentTime;
+      progressSlider.value = currentTime * ( 100 / duration );
+    });
+
+    //listen for casting event to change icon
+    vid.addEventListener("google-castable-video-casting",function(e){
+      if (e.detail.casting) {
+        castButton.innerHTML = "STOP CASTING";
+      } else {
+        castButton.innerHTML = "START CASTING";
+      }
+    });
+  </script>
+
+</body>
+</html>

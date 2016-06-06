@@ -1,0 +1,46 @@
+<!doctype html>
+<!-- Copyright (c) 2015 Google Inc. All rights reserved. -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>google-sheet tests</title>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+  <script src="../../../platform/platform.js"></script>
+  <link rel="import" href="../../../polymer-test-tools/tools.html">
+  <script src="../../../polymer-test-tools/htmltest.js"></script>
+
+  <link rel="import" href="../google-sheets.html">
+</head>
+<body>
+
+<google-sheets id="sheet1"></google-sheets>
+
+<script>
+document.addEventListener('polymer-ready', function() {
+
+  (function() {
+    var sheet = document.querySelector('#sheet1');
+    var root = sheet.shadowRoot;
+
+    // Check defaults.
+    assert.lengthOf(sheet.spreadsheets, 0,
+        '.spreadsheets length should default to 0');
+    assert.lengthOf(sheet.rows, 0, '.rows length should default to 0');
+    assert.isObject(sheet.sheet, '.sheet should default to {}');
+    assert.isObject(sheet.tab, '.tab should default to {}');
+
+    assert.equal(sheet.key, '', ".key default is not ''");
+    assert.equal(sheet.gid, 0, '.gid default is not 0');
+    assert.isFalse(sheet.published, '.published does not default to false');
+    assert.isNotNull(root.querySelector('google-signin-aware'),
+        'google-signin-aware should be created for non-public sheet');
+
+    done();
+
+  })();
+
+});
+</script>
+</body>
+</html>

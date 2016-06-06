@@ -1,0 +1,127 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<dom-module id="platinum-bluetooth-service">
+  <template>
+    <content id="characteristics" select="platinum-bluetooth-characteristic">
+    </content>
+  </template>
+</dom-module>
+
+<script>
+  (function() {
+    'use strict';
+
+    /** The `<platinum-bluetooth-service>` element is used in conjuction with
+     * the `<platinum-bluetooth-characteristic>` element to [read and write
+     * characteristics on nearby bluetooth devices][1] thanks to the young [Web
+     * Bluetooth API][2]. It is currently only partially implemented
+     * in Chrome OS 45 and Chrome 49 for Android behind the experimental flag
+     * `chrome://flags/#enable-web-bluetooth`.
+     *
+     * `<platinum-bluetooth-service>` needs to be a child of a
+     * `<platinum-bluetooth-device>` element.
+     *
+     * For instance, here's how to read battery level from a nearby bluetooth
+     * device advertising Battery service:
+     *
+     * ```html
+     * <platinum-bluetooth-device services-filter='["battery_service"]'>
+     *   <platinum-bluetooth-service service='battery_service'>
+     *     <platinum-bluetooth-characteristic characteristic='battery_level'>
+     *     </platinum-bluetooth-characteristic>
+     *   </platinum-bluetooth-service>
+     * </platinum-bluetooth-device>
+     * ```
+     * ```js
+     * var bluetoothDevice = document.querySelector('platinum-bluetooth-device');
+     * var batteryLevel = document.querySelector('platinum-bluetooth-characteristic');
+     *
+     * button.addEventListener('click', function() {
+     *   bluetoothDevice.request().then(function() {
+     *     return batteryLevel.read().then(function(value) {
+     *       console.log('Battery Level is ' + value.getUint8(0) + '%');
+     *     });
+     *   })
+     *   .catch(function(error) { });
+     * });
+     * ```
+     *
+     * [1]: https://developers.google.com/web/updates/2015/07/interact-with-ble-devices-on-the-web
+     * [2]: https://github.com/WebBluetoothCG/web-bluetooth
+     *
+     * @hero hero.svg
+     * @demo demo/
+     */
+
+    Polymer({
+
+      is: 'platinum-bluetooth-service',
+
+      properties: {
+
+        /**
+         * Required Bluetooth GATT primary service. You may provide either the
+         * full Bluetooth UUID as a string or a short 16- or 32-bit form as
+         * integers like 0x180d.
+         */
+        service: {
+          type: String,
+          observer: '_serviceChanged'
+        },
+
+        /**
+         * Internal variable used that represents the Bluetooth device.
+         */
+        _device: {
+          type: BluetoothDevice,
+          observer: '_deviceChanged'
+        }
+
+      },
+
+      /**
+       * Set the service string on each characteristic child.
+       */
+      _serviceChanged: function() {
+        this._characteristics = Polymer.dom(this.$.characteristics).getDistributedNodes();
+        for (var i = 0; i < this._characteristics.length; i++) {
+          this._characteristics[i].service = this.service;
+        }
+      },
+
+      /**
+       * Set the internal device object on each characteristic child.
+       */
+      _deviceChanged: function() {
+        this._characteristics = Polymer.dom(this.$.characteristics).getDistributedNodes();
+        for (var i = 0; i < this._characteristics.length; i++) {
+          this._characteristics[i]._device = this._device;
+        }
+      },
+
+      /**
+       * Disconnect GATT Server instances on each characteristic child.
+       */
+      _disconnectGattServer: function() {
+        this._characteristics = Polymer.dom(this.$.characteristics).getDistributedNodes();
+        for (var i = 0; i < this._characteristics.length; i++) {
+          this._characteristics[i]._disconnectGattServer();
+        }
+      },
+
+      created: function() {
+        this._characteristics = [];
+      }
+
+    });
+  })();
+</script>

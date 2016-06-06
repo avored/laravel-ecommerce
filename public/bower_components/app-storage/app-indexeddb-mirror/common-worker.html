@@ -1,0 +1,103 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<script>
+  (function() {
+    'use strict';
+
+    var WEB_WORKERS = {};
+    var HAS_SHARED_WORKER = typeof SharedWorker !== 'undefined';
+    var HAS_WEB_WORKER = typeof Worker !== 'undefined';
+    var BASE_URI = document._currentScript.ownerDocument.baseURI;
+    var WORKER_SCOPE_URL =
+        Polymer.ResolveUrl.resolveUrl('common-worker-scope.js', BASE_URI);
+
+    /**
+     * A proxy class for creating `SharedWorker` if available. If not available,
+     * doubles as a `SharedWorker`-like wrapper for commonly held instances of
+     * `WebWorker`.
+     *
+     * When creating `WebWorker` instances, only one `WebWorker` will be created
+     * per value of `workerUrl`. The `WebWorker` instance will be shared amongst
+     * all intances of `CommonWorker`, but a unique `MessageChannel` will be
+     * created for each instance of `CommonWorker` in order to emulate the
+     * unique `port` available to every reference to a `SharedWorker`.
+     *
+     * `WebWorker` instances can listen for a global `connect` event that is
+     * semantically similar to the spec'd `connect` event in a `SharedWorker`.
+     *
+     * @param {string} workerUrl The URL of the worker script to create a worker
+     * instance with.
+     */
+    Polymer.CommonWorker = function CommonWorker (workerUrl) {
+      if (HAS_SHARED_WORKER) {
+        return new SharedWorker(workerUrl);
+
+      } else if (HAS_WEB_WORKER) {
+        if (!WEB_WORKERS.hasOwnProperty(workerUrl)) {
+          WEB_WORKERS.workerUrl =
+              new Worker(WORKER_SCOPE_URL + '?' + workerUrl);
+        }
+
+      } else {
+        console.error('This browser does not support SharedWorker or' +
+'WebWorker, but at least one of those two features is required for' +
+'CommonWorker to do its thing.');
+      }
+
+      this.channel = new MessageChannel();
+      this.webWorker = WEB_WORKERS.workerUrl;
+
+      if (this.webWorker) {
+        this.webWorker.postMessage({
+          type: 'common-worker-connect'
+        }, [this.channel.port2]);
+      }
+    }
+
+    Polymer.CommonWorker.prototype = {
+
+      /**
+       * @type {MessagePort} A port that is unique to each instance of
+       * CommonWorker. Messages posted to this port can be received inside of
+       * the worker instance.
+       */
+      get port() {
+        return this.channel.port1;
+      },
+
+      /**
+       * A proxy method that forwards all calls to the backing `WebWorker`
+       * instance.
+       *
+       * @param {...} addEventListenerArgs The arguments to call the same method
+       * on the `WebWorker` with.
+       */
+      addEventListener: function() {
+        if (this.webWorker) {
+          return this.webWorker.addEventListener.apply(this.webWorker, arguments);
+        }
+      },
+
+      /**
+       * A proxy method that forwards all calls to the backing `WebWorker`
+       * instance.
+       *
+       * @param {...} removeEventListenerArgs The arguments to call the same
+       * method on the `WebWorker` with.
+       */
+      removeEventListener: function() {
+        if (this.webWorker) {
+          return this.webWorker
+              .removeEventListener.apply(this.webWorker, arguments);
+        }
+      }
+    };
+  })();
+</script>

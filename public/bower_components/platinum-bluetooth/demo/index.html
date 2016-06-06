@@ -1,0 +1,245 @@
+<!doctype html>
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>&lt;platinum-bluetooth&gt; Demo</title>
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../marked-element/marked-element.html">
+    <link rel="import" href="../../paper-button/paper-button.html">
+    <link rel="import" href="../../paper-item/paper-item.html">
+    <link rel="import" href="../../paper-material/paper-material.html">
+    <link rel="import" href="../../paper-progress/paper-progress.html">
+
+    <link rel="import" href="../platinum-bluetooth-device.html">
+    <link rel="import" href="../platinum-bluetooth-service.html">
+    <link rel="import" href="../platinum-bluetooth-characteristic.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+
+      body {
+        background-color: #fafafa;
+        margin: 0;
+        padding: 24px;
+      }
+      paper-progress {
+        display: block;
+        padding-bottom: 20px;
+        padding-top: 20px;
+        width: 100%;
+      }
+      paper-button {
+        background-color: #0f9d58;
+        color: white;
+        margin-bottom: 20px;
+      }
+      #actions {
+        width: 100%;
+      }
+      #container {
+        background-color: white;
+        margin: auto;
+        max-width: 800px;
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body unresolved>
+
+    <template is="dom-bind" id="page-template">
+
+    <paper-material id="container" elevation="1">
+      <paper-item>
+        <paper-item-body>
+        <div>The <a href="https://github.com/WebBluetoothCG/web-bluetooth">Web Bluetooth API</a> discovers and communicates with devices over the Bluetooth 4 wireless standard using the <a href="https://developer.bluetooth.org/TechnologyOverview/Pages/GATT.aspx">Generic Attribute Profile (GATT)</a>. It is currently only partially implemented in Chrome OS 45 and Chrome 49 for Android behind the experimental flag <code>chrome://flags/#enable-web-bluetooth</code>.</div>
+        <br/>
+        <div>This demo illustrates the use of the Web Bluetooth API to retrieve battery information and body sensor location, reset energy expended and start/stop heart rate notifications from a nearby Bluetooth Device advertising Battery and Heart Rate information with Bluetooth Low Energy. You may want to try it with the BLE Peripheral Simulator App from the <a target="_blank" href="https://play.google.com/store/apps/details?id=io.github.webbluetoothcg.bletestperipheral">Google Play Store</a>.</div>
+        </paper-item-body>
+      </paper-item>
+
+      <paper-item>
+        <paper-item-body id="actions">
+          <paper-progress></paper-progress>
+          <paper-button id="get-battery-level" raised>Get Battery Level</paper-button>
+          <paper-button id="get-body-sensor-location" raised>Get Body Sensor Location</paper-button>
+          <br/>
+          <paper-button id="reset-energy-expended" raised>Reset Energy Expended</paper-button>
+          <br/>
+          <paper-button id="start-notifications" raised>Start Heart Rate Notifications</paper-button>
+          <paper-button id="stop-notifications" raised>Stop Heart Rate Notifications</paper-button>
+          <br/>
+          <paper-button id="disconnect" raised>Disconnect</paper-button>
+        </paper-item-body>
+      </paper-item>
+
+      <paper-item>
+        <paper-item-body>
+          <marked-element markdown="{{text}}"></marked-element>
+        </paper-item-body>
+      </paper-item>
+    </paper-material>
+
+    <platinum-bluetooth-device services-filter='["battery_service"]' id="battery-device">
+      <platinum-bluetooth-service service="battery_service">
+        <platinum-bluetooth-characteristic characteristic="battery_level">
+        </platinum-bluetooth-characteristic>
+      </platinum-bluetooth-service>
+    </platinum-bluetooth-device>
+
+    <platinum-bluetooth-device services-filter='["heart_rate"]' id="heart-rate-device">
+      <platinum-bluetooth-service service="heart_rate">
+        <platinum-bluetooth-characteristic characteristic="body_sensor_location">
+        </platinum-bluetooth-characteristic>
+        <platinum-bluetooth-characteristic characteristic="heart_rate_control_point">
+        </platinum-bluetooth-characteristic>
+        <platinum-bluetooth-characteristic characteristic="heart_rate_measurement"
+                                           on-value-changed="parseHeartRate">
+        </platinum-bluetooth-characteristic>
+      </platinum-bluetooth-service>
+    </platinum-bluetooth-device>
+    </template>
+
+    <script>
+      document.addEventListener('WebComponentsReady', function() {
+        var template = document.getElementById('page-template');
+
+        var batteryDevice = document.getElementById('battery-device');
+        var batteryLevel = batteryDevice.querySelector('[characteristic=battery_level]');
+
+        var heartRateDevice = document.getElementById('heart-rate-device');
+        var bodySensorLocation = heartRateDevice.querySelector('[characteristic=body_sensor_location]');
+        var heartRateControlPoint = heartRateDevice.querySelector('[characteristic=heart_rate_control_point]');
+        var heartRateMeasurement = heartRateDevice.querySelector('[characteristic=heart_rate_measurement]');
+
+        var getBatteryLevelButton = document.getElementById('get-battery-level');
+        var getBodySensorLocationButton = document.getElementById('get-body-sensor-location');
+        var resetEnergyExpendedButton = document.getElementById('reset-energy-expended');
+        var startNotificationsButton = document.getElementById('start-notifications');
+        var stopNotificationsButton = document.getElementById('stop-notifications');
+        var disconnectButton = document.getElementById('disconnect');
+        var progressBar = document.querySelector('paper-progress');
+
+        var buttons = document.querySelectorAll('paper-button');
+        for (var i = 0; i < buttons.length; i++) {
+          buttons[i].addEventListener('click', buttonClick);
+        }
+
+        getBatteryLevelButton.addEventListener('click', function() {
+          batteryDevice.request().then(function(device) {
+            return batteryLevel.read().then(function(value) {
+              template.text = device.name + ' Battery Level is ' + value.getUint8(0) + '%';
+              progressBar.indeterminate = false;
+            })
+          })
+          .catch(onError);
+        });
+
+        getBodySensorLocationButton.addEventListener('click', function() {
+          heartRateDevice.request().then(function(device) {
+            return bodySensorLocation.read().then(function(value) {
+              var loc = ['other', 'chest', 'wrist', 'finger', 'hand', 'ear lobe', 'foot'];
+              template.text = device.name + ' Body sensor is placed on the ' + loc[value.getUint8(0)];
+              progressBar.indeterminate = false;
+            })
+          })
+          .catch(onError);
+        });
+
+        resetEnergyExpendedButton.addEventListener('click', function() {
+          heartRateDevice.request().then(function(device) {
+            // Writing 1 is the signal to reset energy expended.
+            var resetEnergyExpended = new Uint8Array([1]);
+            return heartRateControlPoint.write(resetEnergyExpended).then(function() {
+              template.text = device.name + ' Energy expended has been reset';
+              progressBar.indeterminate = false;
+            })
+          })
+          .catch(onError);
+        });
+
+        startNotificationsButton.addEventListener('click', function() {
+          heartRateDevice.request().then(function(device) {
+            return heartRateMeasurement.startNotifications().then(function() {
+              template.text = device.name + ' Notifications session has started.';
+              progressBar.indeterminate = false;
+            })
+          })
+          .catch(onError);
+        });
+
+        stopNotificationsButton.addEventListener('click', function() {
+          heartRateDevice.request().then(function(device) {
+            return heartRateMeasurement.stopNotifications().then(function() {
+              template.text = device.name + ' Notifications session has stopped.';
+              progressBar.indeterminate = false;
+            })
+          })
+          .catch(onError);
+        });
+
+        disconnectButton.addEventListener('click', function() {
+          heartRateDevice.disconnect();
+          batteryDevice.disconnect();
+          template.text = 'Bluetooth device(s) disconnected.';
+          progressBar.indeterminate = false;
+        });
+
+        template.parseHeartRate = function(event) {
+          var data = event.target.value;
+          var flags = data.getUint8(0);
+          var rate16Bits = flags & 0x1;
+          var result = {};
+          var index = 1;
+          if (rate16Bits) {
+            result.heartRate = data.getUint16(index, /*littleEndian=*/true);
+            index += 2;
+          } else {
+            result.heartRate = data.getUint8(index);
+            index += 1;
+          }
+          var contactDetected = flags & 0x2;
+          var contactSensorPresent = flags & 0x4;
+          if (contactSensorPresent) {
+            result.contactDetected = !!contactDetected;
+          }
+          var energyPresent = flags & 0x8;
+          if (energyPresent) {
+            result.energyExpended = data.getUint16(index, /*littleEndian=*/true);
+            index += 2;
+          }
+          var rrIntervalPresent = flags & 0x10;
+          if (rrIntervalPresent) {
+            var rrIntervals = [];
+            for (; index + 1 < data.byteLength; index += 2) {
+              rrIntervals.push(data.getUint16(index, /*littleEndian=*/true));
+            }
+            result.rrIntervals = rrIntervals;
+          }
+          template.text = JSON.stringify(result, null, 2);
+        };
+
+        function buttonClick() {
+          progressBar.indeterminate = true;
+          template.text = '';
+        }
+
+        function onError(error) {
+          template.text = 'Argh! ' + error;
+          progressBar.indeterminate = false;
+        }
+      });
+    </script>
+
+  </body>
+</html>

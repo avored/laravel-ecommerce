@@ -1,0 +1,255 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="pouchdb.html">
+<script>
+  (function() {
+    'use strict';
+
+    /**
+     * `Polymer.AppPouchDBDatabaseBehavior` is an abstract implementation that
+     * is intended to be shared by any element that refers to and operates on a
+     * PouchDB database instance. It includes implementation for creating and
+     * configuring a PouchDB database instance, and some advanced macro
+     * operations that might be performed on the database, including "upsert"
+     * and conflict-aware "put" and "post" operations.
+     *
+     * @polymerBehavior
+     */
+    Polymer.AppPouchDBDatabaseBehavior = {
+      properties: {
+        /**
+         * The PouchDB adapter to use. For more information on PouchDB adapters,
+         * please refer to the PouchDB documentation
+         * [here](https://pouchdb.com/api.html#create_database).
+         */
+        adapter: {
+          type: String,
+          value: null
+        },
+
+        /**
+         * The name of the database. This can be either a local database (such
+         * as "cats"), or a remote one (e.g., "https://example.com:5678/cats").
+         */
+        dbName: {
+          type: String
+        },
+
+        /**
+         * The number of document revisions to keep track of. The default value
+         * (0) indicates no limit.
+         */
+        revsLimit: {
+          type: Number,
+          value: 0
+        },
+
+        /**
+         * A reference to the PouchDB database instance that has been created.
+         */
+        db: {
+          type: Object,
+          computed: '__computeDb(dbName, adapter, revsLimit)',
+          notify: true,
+        },
+
+        /**
+         * If true, all attempts to "put" or "post" values into the database
+         * will be automatically structured as an "upsert", where documents are
+         * updated if already available, or created if not.
+         */
+        upsert: {
+          type: Boolean,
+          value: false
+        },
+
+        /**
+         * If desired, assign a function that implements a conflict resolution
+         * strategy. This conflict resolution strategy will take precedence when
+         * a conflict occurs, and will prevent conflict notification events from
+         * being fired.
+         *
+         * Consider using an `app-pouchdb-conflict-resolver` element instead for
+         * a more declarative experience!
+         */
+        resolveConflict: {
+          type: Function,
+          value: null
+        }
+      },
+
+      /**
+       * If the element is configured to `upsert`, this method performs an
+       * "upsert". Otherwise, it performs a conflict-aware "put".
+       *
+       * @param {string} path The path through the PouchDB document to update.
+       * @param {} value The value to update at the provided `path`.
+       * @param {Object} doc The current value of the document in memory.
+       * @return {Promise} A promise that resolves when the document update has
+       * completed, or rejects with any unhandled error.
+       */
+      _put: function(path, value, doc) {
+        if (this.upsert) {
+          return this._upsert(path, value, doc);
+        } else {
+          return this._conflictAwareTransaction('put', doc);
+        }
+      },
+
+      /**
+       * If the element is configured to `upsert`, this method performs an
+       * "upsert". Otherwise, it performs a conflict-aware "post".
+       *
+       * @param {Object} doc The unsaved value of the document to create in the
+       * database.
+       * @return {Promise} A promise that resolves when the document creation
+       * has completed, or rejects with any unhandled error.
+       */
+      _post: function(doc) {
+        if (this.upsert) {
+          return this._upsert('data', doc, doc);
+        } else {
+          return this._conflictAwareTransaction('post', doc);
+        }
+      },
+
+      /**
+       * Updates the document in the database, if it is already created,
+       * otherwise creates it.
+       *
+       * @param {string} path The path through the PouchDB document to update.
+       * @param {} value The value to update at the provided `path`.
+       * @param {Object} doc The current value of the document in memory.
+       * @return {Promise} A promise that resolves when the document has been
+       * updated or created, or rejects with any unhandled error.
+       */
+      _upsert: function(path, value, doc) {
+        var lookup = doc._id != null ?
+            this.db.get(doc._id) :
+            Promise.reject({ status: 404 });
+
+        this._log('Upsert', path, value, doc);
+        return lookup.then(function(existingDoc) {
+          // Update...
+          this._log('Upsert -> update', path, value, doc);
+          if (path === 'data') {
+            value._rev = existingDoc._rev;
+            value._id = existingDoc._id;
+            doc = value;
+          } else {
+            this.set(path, value, {
+              data: existingDoc
+            });
+            doc = existingDoc;
+          }
+
+          return this._conflictAwareTransaction('put', doc);
+        }.bind(this)).catch(function(error) {
+          if (error.status === 404) {
+            // Insert...
+            this._log('Upsert -> insert', path, value, doc);
+            return this._conflictAwareTransaction('post', doc);
+          }
+
+          throw error;
+        }.bind(this));
+      },
+
+      /**
+       * Attempts a transaction with the PouchDB database, catches errors that
+       * result from a conflict, and attempts a conflict resolution process to
+       * complete the transaction.
+       *
+       * Conflict resolution prefers a conflict resolver that has been
+       * configured with the element as the `resolveConflict` property. The
+       * resolving function should have the following signature:
+       *
+       * `resolve(database:PouchDB, method:string, doc:Object, error:Error):Promise`
+       *
+       * It receives an instance of the database, the method attempted, the
+       * document that was attempted to be created or updated, and the error
+       * that was received by the error handler (which will implicitly always
+       * have status code 409). The resolver should return a `Promise` that
+       * resolves or rejects with the outcome of the conflict resolution.
+       *
+       * If no `resolveConflict` property is available, the element will request
+       * conflict resolution strategies by notifying of the conflict with a
+       * `app-pouchdb-conflict` event. The event detail has a `resolveConflict`
+       * method that can be called to pass a handler with the same signature as
+       * described above. The last conflict resolver obtained in this fashion by
+       * the time event propagation completes will be the one used.
+       *
+       * If no conflict resolver is obtained, then the error is re-thrown.
+       *
+       * @param {string} method The method to attempt in a conflict-aware
+       * fashion, such as "put" or "post".
+       * @param {Object} doc The document to perform the method with.
+       * @return {Promise} A promise that resolves or rejects with the outcome
+       * of the conflict-aware transaction.
+       */
+      _conflictAwareTransaction: function(method, doc) {
+        if (!method in this.db) {
+          return Promise.reject('No such method:', method);
+        }
+
+        this._log('Conflict aware:', method, doc);
+        return this.db[method](doc).catch(function(error) {
+          var conflictResolver = null;
+          if (error && error.status === 409) {
+            this._log('Conflict for', method, doc._id, error._rev, error._conflicts);
+            conflictResolver = this.resolveConflict;
+
+            if (!conflictResolver) {
+              this.fire('app-pouchdb-conflict', {
+                resolveConflict: function(_conflictResolver) {
+                  if (_conflictResolver) {
+                    conflictResolver = _conflictResolver;
+                  }
+                }.bind(this)
+              });
+            }
+
+            if (conflictResolver) {
+              this._log('Attempting conflict resolution..', method, doc);
+              return Promise.resolve(conflictResolver.call(this, this.db, method, doc, error));
+            }
+          }
+
+          throw error;
+        }.bind(this));
+      },
+
+      __computeDb: function(name, revsLimit, adapter) {
+        if (this.db) {
+          this.db.removeAllListeners();
+        }
+
+        if (!name) {
+          return null;
+        }
+
+        var options = {
+          auto_compaction: true
+        };
+
+        if (adapter) {
+          options.adapter = adapter;
+        }
+
+        if (revsLimit) {
+          options.revs_limit = revsLimit;
+        }
+
+        return new PouchDB(name, options);
+      }
+    };
+  })();
+</script>
