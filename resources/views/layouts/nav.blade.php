@@ -43,7 +43,7 @@
         <iron-icon icon="inbox" item-icon></iron-icon>
         <span>
             Cart
-        <paper-badge label="3"></paper-badge>
+        <paper-badge label="{{ $cartItems }}"></paper-badge>
         </span>
     </paper-icon-item>
 </a>
