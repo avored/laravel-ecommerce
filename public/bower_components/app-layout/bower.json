@@ -1,0 +1,48 @@
+{
+  "name": "app-layout",
+  "version": "0.9.0",
+  "description": "A set of layout elements for your app",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "private": true,
+  "homepage": "https://github.com/PolymerLabs/app-layout",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerLabs/app-layout"
+  },
+  "main": "app-layout.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "ignore": [],
+  "dependencies": {
+    "polymer": "polymer/polymer#^1.0.0",
+    "iron-flex-layout": "polymerelements/iron-flex-layout#^1.0.0",
+    "iron-media-query": "polymerelements/iron-media-query#^1.0.0",
+    "iron-resizable-behavior": "polymerelements/iron-resizable-behavior#^1.0.0",
+    "iron-scroll-target-behavior": "polymerelements/iron-scroll-target-behavior#^1.0.0"
+  },
+  "devDependencies": {
+    "app-route": "polymerelements/app-route#^0.9.0",
+    "font-roboto": "polymerelements/font-roboto#^1.0.0",
+    "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
+    "iron-icon": "polymerelements/iron-icon#^1.0.0",
+    "iron-icons": "polymerelements/iron-icons#^1.0.0",
+    "iron-list": "polymerelements/iron-list#^1.0.0",
+    "iron-pages": "polymerelements/iron-pages#^1.0.0",
+    "iron-page-url": "polymerelements/iron-page-url#^0.7.0",
+    "paper-card": "polymerelements/paper-card#^1.0.0",
+    "paper-checkbox": "polymerelements/paper-checkbox#^1.0.0",
+    "paper-fab": "polymerelements/paper-fab#^1.0.0",
+    "paper-icon-button": "polymerelements/paper-icon-button#^1.0.0",
+    "paper-item": "polymerelements/paper-item#^1.0.0",
+    "paper-listbox": "polymerelements/paper-listbox#^1.0.0",
+    "paper-menu": "polymerelements/paper-menu#^1.0.0",
+    "paper-menu-button": "polymerelements/paper-menu-button#^1.0.0",
+    "paper-tabs": "polymerelements/paper-tabs#^1.0.0",
+    "paper-progress": "polymerelements/paper-progress#~1.0.2",
+    "paper-styles": "polymerelements/paper-styles#^1.0.0",
+    "test-fixture": "polymerelements/test-fixture#^1.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
+    "web-component-tester": "^4.0.0"
+  }
+}
