@@ -1,0 +1,410 @@
+<!doctype html>
+<!-- Copyright (c) 2014 Google Inc. All rights reserved. -->
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <title>google-chart Demo</title>
+
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../google-chart.html">
+  <style>
+    code {
+      color: #007000;
+    }
+
+    google-chart {
+      height: 300px;
+      width: 400px;
+    }
+
+    #selection-demo {
+      position: relative;
+      height: 300px;
+    }
+
+    #selection-chart {
+      float: left;
+    }
+
+    #selection-display {
+      display: inline-block;
+      position: relative;
+      top: 50%;
+    }
+  </style>
+
+</head>
+<body>
+
+  <p>A simple <code>google-chart</code> looks like this:</p>
+
+  <google-chart
+    cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+    rows='[["Something", 1]]'>
+  </google-chart>
+
+  <p>Charts can be resized with CSS, but you'll need to call the <code>drawChart</code> method when the size changes.</p>
+  <p>Here's a basic responsive example using only CSS and JS. You could also use <code>&lt;iron-media-query&gt;</code>.</p>
+
+  <style>
+    /* Phone and tablet */
+    #resizing_chart {
+      height: 300px;
+      width: 400px;
+    }
+
+    /* Desktop */
+    @media screen and (min-width: 1024px) {
+      #resizing_chart {
+        width: 800px;
+      }
+    }
+  </style>
+
+  <script>
+    var media = window.matchMedia('(min-width: 1024px)');
+
+    media.addListener(function() {
+      document.getElementById('resizing_chart').drawChart();
+    });
+  </script>
+
+  <google-chart
+    id='resizing_chart'
+    type='column'
+    options='{"title": "Responsive chart",
+              "vAxis": {"minValue" : 0, "maxValue": 10}}'
+    cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+    rows='[["Col1", 5.0],["Col2", 5.0],["Col3", 5.0]]'>
+  </google-chart>
+
+  <p>Here's a chart that changes data every 3 seconds:</p>
+
+  <google-chart
+    id='mutating_chart'
+    type='column'
+    options='{"title": "Random data",
+              "vAxis": {"minValue" : 0, "maxValue": 10},
+              "animation": {"duration": "1000"}}'
+    cols='[{"label": "Data", "type": "string"},{"label": "Value", "type": "number"}]'
+    rows='[["Col1", 5.0],["Col2", 5.0],["Col3", 5.0]]'>
+  </google-chart>
+
+  <script>
+    function getRandomValue() {
+      return Math.random() * 10;
+    }
+
+    window.setInterval(function() {
+      var chart = document.getElementById('mutating_chart');
+
+      chart.rows = [["Col1", getRandomValue()],
+                    ["Col2", getRandomValue()],
+                    ["Col3", getRandomValue()]];
+    }, 3000);
+  </script>
+
+  <p>Here's a pie chart with an area selection:</p>
+
+  <div id="selection-demo">
+    <google-chart
+      type="pie"
+      id="selection-chart"
+      options='{"title": "Distribution of days in 2001H1"}'
+      cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+      rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+    </google-chart>
+    <div id="selection-display">
+      Selected row: <span id="selection-label">None</span>.
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('WebComponentsReady', function() {
+      var chart = document.querySelector('#selection-chart');
+      var label = document.querySelector('#selection-label');
+
+      chart.addEventListener('google-chart-render', function() {
+        chart.selection = [{row: 1, column: null}];
+        label.textContent = chart.selection[0].row;
+      });
+
+      document.addEventListener('google-chart-select', function(e) {
+        label.textContent =
+            chart.selection[0] ? chart.selection[0].row : 'None';
+      });
+    });
+  </script>
+
+  <p>Here's a chart defined using <code>data</code>, rather than <code>rows</code> and <code>cols</code>:</p>
+
+  <google-chart
+    type='column'
+    options='{"title": "Inventory"}'
+    data='[["Year", "Things", "Stuff"],
+           ["2004", 1000, 400],
+           ["2005", 1170, 460],
+           ["2006", 660, 1120],
+           ["2007", 1030, 540]]'>
+  </google-chart>
+
+  <p>And one with some pretty complicated styling, where the data is loaded from an external JSON resource using the <code>data</code> attribute:</p>
+
+  <google-chart
+    type='column'
+    options='{"title": "Bar height", "legend": "none"}'
+    data='chart-data.json'>
+  </google-chart>
+
+  <p>Website traffic data by country from an external JSON resource where the data is in raw DataTable format.</p>
+
+  <google-chart
+    type='column'
+    options='{"title": "Visitors by Country", "legend": "none"}'
+    data='country-data.json'>
+  </google-chart>
+
+  <h2>Chart gallery</h2>
+
+  <p>Here's an area chart:</p>
+
+  <google-chart
+    type='area'
+    options='{"title": "Days in a month"}'
+    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+  </google-chart>
+
+  <p>Here's a bar chart:</p>
+
+  <google-chart
+    type='bar'
+    options='{"title": "Days in a month"}'
+    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+  </google-chart>
+
+  <p>Here's a bubble chart:</p>
+
+  <google-chart
+    type='bubble'
+    options='{}'
+    data='[["ID", "Life Expectancy", "Fertility Rate", "Region", "Population"],
+           ["CAN", 80.66, 1.67, "North America", 33739900],
+           ["DEU", 79.84, 1.36, "Europe",        81902307],
+           ["DNK", 78.6,  1.84, "Europe",        5523095],
+           ["EGY", 72.73, 2.78, "Middle East",   79716203],
+           ["GBR", 80.05, 2,    "Europe",        61801570],
+           ["IRN", 72.49, 1.7,  "Middle East",   73137148],
+           ["IRQ", 68.09, 4.77, "Middle East",   31090763],
+           ["ISR", 81.55, 2.96, "Middle East",   7485600],
+           ["RUS", 68.6,  1.54, "Europe",        141850000],
+           ["USA", 78.09, 2.05, "North America", 307007000]]'>
+  </google-chart>
+
+  <p>Here's a candlestick chart:</p>
+
+  <google-chart
+    type='candlestick'
+    options='{"legend": "none"}'
+    data='[["Day", "low", "start", "end", "high"],
+           ["Mon", 20, 28, 38, 45],
+           ["Tue", 31, 38, 55, 66],
+           ["Wed", 50, 55, 77, 80],
+           ["Thu", 77, 77, 66, 50],
+           ["Fri", 68, 66, 22, 15]]'>
+  </google-chart>
+
+  <p>Here's a column chart:</p>
+
+  <google-chart
+    type='column'
+    options='{"title": "Days in a month"}'
+    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+  </google-chart>
+
+  <p>Here's a combo chart:</p>
+
+  <google-chart
+    type='combo'
+    options='{"seriesType": "bars", "series": {"2": {"type": "line"}}}'
+    data='[["Day", "A", "B", "C"],
+           ["Mon", 20, 45, 28],
+           ["Tue", 31, 66, 38],
+           ["Wed", 50, 80, 55],
+           ["Thu", 77, 50, 77],
+           ["Fri", 68, 15, 66]]'>
+  </google-chart>
+
+  <p>Here's a geo chart:</p>
+
+  <google-chart
+    type='geo'
+    data='[["Country", "Popularity"],
+           ["Germany", 200],
+           ["United States", 300],
+           ["Brazil", 400],
+           ["Canada", 500],
+           ["France", 600],
+           ["RU", 700]]'>
+  </google-chart>
+
+  <p>Here's a histogram:</p>
+
+  <google-chart
+    type='histogram'
+    options='{"title": "Days in a month", "legend": "none", "histogram": { "bucketSize": 1 }}'
+    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+  </google-chart>
+
+  <p>Here's a line chart:</p>
+
+  <google-chart
+    id='line_chart'
+    type='line'
+    options='{"title": "Days in a month"}'
+    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+  </google-chart>
+
+  <p>Here's a pie chart:</p>
+
+  <google-chart
+    type='pie'
+    options='{"title": "Distribution of days in 2001H1"}'
+    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+  </google-chart>
+
+  <p>Here's a scatter chart:</p>
+
+  <google-chart
+    type='scatter'
+    options='{"legend": "none"}'
+    data='[["A", "B"],
+           [20, 45],
+           [31, 66],
+           [50, 80],
+           [77, 50],
+           [68, 15]]'>
+  </google-chart>
+
+  <p>Here's a stepped area chart:</p>
+
+  <google-chart
+    type='stepped-area'
+    options='{"title": "Days in a month"}'
+    cols='[{"label": "Month", "type": "string"},{"label": "Days", "type": "number"}]'
+    rows='[["Jan", 31],["Feb", 28],["Mar", 31],["Apr", 30],["May", 31],["Jun", 30]]'>
+  </google-chart>
+
+  <p>Here's a table chart:</p>
+
+  <google-chart
+    type="table"
+    options='{"title": "Inventory"}'
+    data='[["Year", "Things", "Stuff"],
+           ["2004", 1000, 400],
+           ["2005", 1170, 460],
+           ["2006", 660, 1120],
+           ["2007", 1030, 540]]'>
+  </google-chart>
+
+  <p>Here are three gauges:</p>
+
+  <google-chart
+      type='gauge'
+      data='[["Label", "Value"],["Memory", 80],["CPU", 55],["Network", 68]]'
+      options='{"width": 400,
+                "height": 120,
+                "redFrom": 90,
+                "redTo": 100,
+                "yellowFrom":75,
+                "yellowTo": 90,
+                "minorTicks": 5}'>
+  </google-chart>
+
+  <p>Here are three gauges with random data that change every three seconds:</p>
+
+  <google-chart
+      id="mutating_gauge"
+      type="gauge"
+      data='[["Label", "Value"],["Memory", 80],["CPU", 55],["Network", 68]]'
+      options='{"width": 400,
+                "height": 120,
+                "redFrom": 90,
+                "redTo": 100,
+                "yellowFrom": 75,
+                "yellowTo": 90,
+                "minorTicks": 5}'>
+  </google-chart>
+
+  <script>
+    function getRandomGaugeValue(offset, factor) {
+      return offset + Math.round(factor * Math.random());
+    }
+
+    window.setInterval(function() {
+      var gauge = document.getElementById('mutating_gauge');
+
+      gauge.data = [["Label", "Value"],["Memory", getRandomGaugeValue(40, 60)],["CPU", getRandomGaugeValue(40, 60)],["Network", getRandomGaugeValue(60, 20)]];
+
+    }, 3000);
+  </script>
+
+  <p>Here's a treemap:</p>
+
+  <google-chart
+      type="treemap"
+      options='{"showScale": true, "maxPostDepth": 2}'
+      data='[["Location", "Parent", "Value"],
+             ["Global", null, 0],
+             ["America", "Global", 0],
+             ["Europe", "Global", 0],
+             ["Asia", "Global", 0],
+             ["Australia", "Global", 0],
+             ["Africa", "Global", 0],
+             ["Brazil", "America", 11],
+             ["USA", "America", 52],
+             ["Mexico", "America", 24],
+             ["Canada", "America", 16],
+             ["France", "Europe", 42],
+             ["Germany", "Europe", 31],
+             ["Sweden", "Europe", 22],
+             ["Italy", "Europe", 17],
+             ["UK", "Europe", 21],
+             ["China", "Asia", 36],
+             ["Japan", "Asia", 20],
+             ["India", "Asia", 40],
+             ["Laos", "Asia", 4],
+             ["Mongolia", "Asia", 1],
+             ["Israel", "Asia", 12],
+             ["Iran", "Asia", 18],
+             ["Pakistan", "Asia", 11],
+             ["Egypt", "Africa", 21],
+             ["S. Africa", "Africa", 30],
+             ["Sudan", "Africa", 12],
+             ["Congo", "Africa", 10],
+             ["Zaire", "Africa", 8]]'>
+  </google-chart>
+
+  <p>Here's an image of the line chart:</p>
+
+  <div id='line_chart_div'></div>
+
+    <script>
+    document.addEventListener('WebComponentsReady', function() {
+      var chart_div = document.querySelector('#line_chart_div');
+      var chart = document.querySelector('#line_chart');
+
+      chart.addEventListener('google-chart-render', function() {
+        chart_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+      });
+
+    });
+  </script>
+  
+</body>
+</html>

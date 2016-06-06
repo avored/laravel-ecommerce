@@ -1,0 +1,231 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input-behavior.html">
+<link rel="import" href="../paper-input/paper-input-container.html">
+<link rel="import" href="../paper-input/paper-input-error.html">
+<link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+
+<!--
+`gold-cc-cvc-input` is a single-line text field with Material Design styling
+for entering a credit card's CVC (Card Verification Code). It supports both
+4-digit Amex CVCs and non-Amex 3-digit CVCs
+
+    <gold-cc-cvc-input></gold-cc-cvc-input>
+
+    <gold-cc-cvc-input card-type="amex"></gold-cc-cvc-input>
+
+It may include an optional label, which by default is "CVC".
+
+    <gold-cc-cvc-input label="Card Verification Value"></gold-cc-cvc-input>
+
+It can be used together with a `gold-cc-input` by binding the `cardType` property:
+
+    <gold-cc-input card-type="{{cardType}}"></gold-cc-input>
+    <gold-cc-cvc-input card-type="[[cardType]]"></gold-cc-cvc-input>
+
+### Validation
+
+The input considers a valid amex CVC to be 4 digits long, and 3 digits otherwise.
+The `amex` attribute can also be bound to a `gold-cc-input`'s `card-type` attribute.
+
+The input can be automatically validated as the user is typing by using
+the `auto-validate` and `required` attributes. For manual validation, the
+element also has a `validate()` method, which returns the validity of the
+input as well sets any appropriate error messages and styles.
+
+See `Polymer.PaperInputBehavior` for more API docs.
+
+### Styling
+
+See `Polymer.PaperInputContainer` for a list of custom properties used to
+style this element.
+
+@group Gold Elements
+@hero hero.svg
+@demo demo/index.html
+-->
+
+<dom-module id="gold-cc-cvc-input">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      iron-icon {
+        margin-left: 10px;
+      }
+
+      iron-icon[hidden] {
+        display: none !important;
+      }
+
+      .container {
+        @apply(--layout-horizontal);
+      }
+
+      input {
+        @apply(--layout-flex);
+      }
+    </style>
+
+    <paper-input-container id="container"
+        disabled$="[[disabled]]"
+        no-label-float="[[noLabelFloat]]"
+        always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]"
+        invalid="[[invalid]]">
+
+      <label hidden$="[[!label]]">[[label]]</label>
+
+      <div class="container">
+        <input is="iron-input" id="input"
+            aria-labelledby$="[[_ariaLabelledBy]]"
+            aria-describedby$="[[_ariaDescribedBy]]"
+            bind-value="{{value}}"
+            prevent-invalid-input allowed-pattern="[0-9]"
+            required$="[[required]]"
+            type="tel"
+            maxlength$="[[_requiredLength]]"
+            autocomplete="cc-csc"
+            name$="[[name]]"
+            disabled$="[[disabled]]"
+            invalid="{{invalid}}"
+            autofocus$="[[autofocus]]"
+            inputmode$="[[inputmode]]"
+            placeholder$="[[placeholder]]"
+            readonly$="[[readonly]]"
+            size$="[[size]]">
+
+        <iron-icon id="icon" src="cvc_hint.png" hidden$="[[_amex]]" alt="cvc"></iron-icon>
+        <iron-icon id="amexIcon" hidden$="[[!_amex]]" src="cvc_hint_amex.png" alt="amex cvc"></iron-icon>
+      </div>
+
+      <template is="dom-if" if="[[errorMessage]]">
+        <paper-input-error>[[errorMessage]]</paper-input-error>
+      </template>
+
+    </paper-input-container>
+  </template>
+
+  <script>
+    (function() {
+      Polymer({
+
+        is: 'gold-cc-cvc-input',
+
+        properties: {
+
+          /**
+           * The label for this input.
+           */
+          label: {
+            type: String,
+            value: 'CVC'
+          },
+
+          /**
+           * The type of card that the CVC is for.
+           */
+          cardType: {
+            type: String,
+            value: ''
+          },
+
+          _requiredLength: {
+            type: Number,
+            computed: '_computeRequiredLength(cardType)'
+          },
+
+          _amex: {
+            type: Boolean,
+            computed: '_computeIsAmex(cardType)'
+          },
+
+          value: {
+            type: String,
+            observer: '_onValueChanged'
+          }
+        },
+
+        behaviors: [
+          Polymer.PaperInputBehavior,
+          Polymer.IronFormElementBehavior
+        ],
+
+        observers: [
+          '_onFocusedChanged(focused)'
+        ],
+
+        ready: function() {
+          // If there's an initial input, validate it.
+          if (this.value)
+            this._handleAutoValidate();
+        },
+
+        /**
+         * A handler that is called on input
+         */
+        _onValueChanged: function(value, oldValue) {
+          // The initial property assignment is handled by `ready`.
+          if (oldValue == undefined)
+            return;
+          this._handleAutoValidate();
+        },
+
+        _computeRequiredLength: function(cardType) {
+          return this._computeIsAmex(cardType) ? 4 : 3;
+        },
+
+        _computeIsAmex: function(cardType) {
+          return cardType.toLowerCase() == 'amex';
+        },
+
+        /**
+         * Returns true if the element has a valid value, and sets the visual
+         * error state.
+         *
+         * @return {boolean} Whether the input is currently valid or not.
+         */
+        validate: function() {
+          // Empty, non-required input is valid.
+          var valid =
+              (this.$.input.validate() &&
+              this.value.length == this._requiredLength) ||
+              !this.required && this.value == '';
+
+          // Update the container and its addons (i.e. the custom error-message).
+          this.$.container.invalid = !valid;
+          this.$.container.updateAddons({
+            inputElement: this.$.input,
+            value: this.value,
+            invalid: !valid
+          });
+
+          return valid;
+        },
+
+        /**
+         * Overidden from Polymer.IronControlState.
+         */
+        _onFocusedChanged: function(focused) {
+          if (!focused) {
+            this._handleAutoValidate();
+          }
+        }
+      })
+
+    })();
+
+  </script>
+</dom-module>

@@ -1,0 +1,69 @@
+<!doctype html>
+<!-- Copyright (c) 2014 Google Inc. All rights reserved. -->
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+    <title>google-youtube Basic Tests</title>
+    <script src="../../platform/platform.js"></script>
+    <link rel="import" href="../../polymer-test-tools/tools.html">
+    <script src="../../polymer-test-tools/htmltest.js"></script>
+    <link rel="import" href="../google-youtube.html">
+  </head>
+  <body>
+    <google-youtube></google-youtube>
+
+    <script>
+      function testToHHMMSS(googleYouTube) {
+        // Durations in seconds and the formatted string that's expected for each.
+        var durationsToFormattedStrings = {
+          0: '0:00',
+          1: '0:01',
+          '5.4': '0:05',
+          '5.5': '0:06',
+          10: '0:10',
+          60: '1:00',
+          601: '10:01',
+          3600: '1:00:00',
+          3661: '1:01:01',
+          36000: '10:00:00'
+        };
+
+        Object.keys(durationsToFormattedStrings).forEach(function(seconds) {
+          assert.equal(durationsToFormattedStrings[seconds], googleYouTube.toHHMMSS(seconds));
+        });
+      }
+
+      function testPlayMethodAndStateTransitions(googleYouTube) {
+        // Expected state transitions: -1 (unstarted) -> 3 (buffering) -> 1 (playing)
+        var stateTransitions = [-1, 3, 1];
+
+        googleYouTube.addEventListener('google-youtube-state-change', function(e) {
+          // Test that the element's state property always is set to the same property in the event.
+          assert.equal(e.detail.data, googleYouTube.state);
+
+          // Test that the player goes through the expected sequence of state transitions.
+          assert.equal(e.detail.data, stateTransitions.shift());
+
+          // Once the array of expected state transitions have been exhausted, end the test.
+          if (stateTransitions.length == 0) {
+            done();
+          }
+        });
+
+        // Kick off playback.
+        googleYouTube.play();
+      }
+
+      document.addEventListener('polymer-ready', function() {
+        var googleYouTube = document.querySelector('google-youtube');
+
+        testToHHMMSS(googleYouTube);
+
+        // Playback can't be initiated until after the google-youtube-ready event is fired.
+        googleYouTube.addEventListener('google-youtube-ready', function() {
+          testPlayMethodAndStateTransitions(googleYouTube);
+        });
+      });
+    </script>
+  </body>
+</html>

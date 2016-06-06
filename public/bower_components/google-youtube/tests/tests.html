@@ -1,0 +1,13 @@
+<link rel="import" href="../../polymer-test-tools/tools.html">
+<script src="../../polymer-test-tools/mocha-htmltest.js"></script>
+
+<script>
+  mocha.setup({ui: 'tdd', slow: 5000, timeout: 10000, htmlbase: ''});
+
+  htmlSuite('google-youtube', function() {
+    htmlTest('google-youtube-basic.html');
+    htmlTest('google-youtube-custom-thumbnail.html');
+  });
+
+  mocha.run();
+</script>

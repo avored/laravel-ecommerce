@@ -1,0 +1,388 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="google-analytics-loader.html">
+
+<!--
+Element for querying the Google Analytics Core Reporting API.
+
+##### Example
+
+    <google-analytics-query
+      ids="ga:1174"
+      metrics="ga:sessions"
+      dimensions="ga:country"
+      sort="-ga:sessions"
+      max-results="5">
+    </google-analytics-query>
+
+@element google-analytics-query
+@demo
+@homepage https://googlewebcomponents.github.io/google-analytics
+-->
+
+<dom-module id="google-analytics-query">
+
+  <template>
+    <google-analytics-loader all-ready="{{setupReady}}"></google-analytics-loader>
+  </template>
+
+</dom-module>
+
+<script>
+
+  (function() {
+
+    'use strict';
+
+    Polymer({
+
+      is: 'google-analytics-query',
+        /**
+         * Fired when a query is successfully run and data has been stored.
+         *
+         * @event analytics-query-success
+         */
+
+        /**
+         * Fired when an error occurs while running a query.
+         *
+         * @event analytics-query-error
+         */
+
+      properties: {
+
+        /**
+         * The `data` attribute is the response from a query to the Google
+         * Analytics Core Reporting API. This value will be updated as
+         * subsequent requests are made.
+         *
+         * @attribute data
+         * @type object
+         */
+        data: {
+          type: Object,
+          value: function() { return {}},
+          notify: true
+        },
+
+        /**
+         * The `ids` attribute is the unique table ID of the form ga:XXXX,
+         * where XXXX is the Analytics view (profile) ID for which the query
+         * will retrieve the data.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#ids">Core Reporting API parameter reference</a> for more details.
+         *
+         * Note: you can find out the `ids` value for any of your Google Analytics account using the <a href="https://ga-dev-tools.appspot.com/explorer/">Google Analytics query explorer</a>.
+         *
+         * @attribute ids
+         * @type string
+         */
+        ids: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * The `startDate` attribute is the start date for fetching Analytics
+         * data. Requests can specify a start date formatted as YYYY-MM-DD, or
+         * as a relative date (e.g., today, yesterday, or NdaysAgo where N is a
+         * positive integer).
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#startDate">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute startDate
+         * @default '7daysAgo'
+         * @type string
+         */
+        startDate: {
+          type: String,
+          value: '7daysAgo'
+        },
+
+        /**
+         * The `endDate` attribute is the end date for fetching Analytics
+         * data. Requests can specify an end date formatted as YYYY-MM-DD, or
+         * as a relative date (e.g., today, yesterday, or NdaysAgo where N is a
+         * positive integer).
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#endDate">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute endDate
+         * @default 'yesterday'
+         * @type string
+         */
+        endDate: {
+          type: String,
+          value: 'yesterday'
+        },
+
+        /**
+         * The `metrics` attribute is a list of comma-separated metrics,
+         * such as ga:sessions,ga:bounces.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#metrics">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute metrics
+         * @type string
+         */
+        metrics: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * The `dimensions` attribute is a list of comma-separated dimensions
+         * for your Analytics data, such as ga:browser,ga:city.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#dimensions">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute dimensions
+         * @type string
+         */
+        dimensions: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * The `sort` attribute is a list of comma-separated dimensions
+         * and metrics indicating the sorting order and sorting direction for
+         * the returned data.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#sort">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute sort
+         * @type string
+         */
+
+        sort: {
+          type: String,
+          value: ''
+        },
+        /**
+         * The `filters` attribute is dimension or metric filters that restrict
+         * the data returned for your request.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#filters">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute filters
+         * @type string
+         */
+        filters: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * The `segment` attribute segments the data returned for your
+         * request.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#segment">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute segment
+         * @type string
+         */
+        segment: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * The `samplingLevel` attribute sets the desired sampling level.
+         * Allowed Values: `DEFAULT`, `FASTER`, `HIGHER_PRECISION`.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#samplingLevel">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute samplingLevel
+         * @type string
+         */
+
+        samplingLevel: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * The `startIndex` attribute sets the first row of data to retrieve,
+         * starting at 1. Use this parameter as a pagination mechanism along
+         * with the max-results parameter.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#startIndex">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute startIndex
+         * @type integer
+         */
+        startIndex: {
+          type: Number,
+          value: 0
+        },
+
+        /**
+         * The `maxResults` attribute is the maximum number of rows to include
+         * in the response.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#maxResults">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute maxResults
+         * @type integer
+         */
+        maxResults: {
+          type: Number,
+          value: 0
+        },
+
+        /**
+         * The `output` attribute sets the desired output type for the
+         * Analytics data returned in the response. Acceptable values are json
+         * and dataTable.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#output">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute output
+         * @type string
+         */
+        output: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * The `fields` attribute is a selector specifying a subset of
+         * fields to include in the response.
+         *
+         * See the <a href="https://developers.google.com/analytics/devguides/reporting/core/v3/reference#fields">Core Reporting API parameter reference</a> for more details.
+         *
+         * @attribute fields
+         * @type string
+         */
+        fields: {
+          type: String,
+          value: ''
+        },
+
+        /**
+         * GA team internal variable for analytics purposes.
+         */
+        _srcParam: {
+          type: String,
+          value: 'gwc-ga-query'
+        },
+
+        /**
+         * true if data is getting loaded
+         * @attribute loading
+         * @type Boolean
+         */
+        loading: {
+          type: Boolean,
+          value: false,
+          notify: true
+        },
+
+        /**
+         *
+         *
+         * @attribute getDataResponseHandler
+         * @type Function
+         */
+        getDataResponseHandler: {
+          type: Function
+        },
+
+        /**
+         * True if setup is ready
+         *
+         * @attribute setupReady
+         * @type Boolean
+         */
+        setupReady: {
+          type: Boolean,
+          observer: '_setupReadyChanged'
+        }
+
+      },
+
+      observers: [
+        'getData(ids,startDate,endDate,metrics,dimensions,sort,filters,segment,samplingLevel,startIndex,maxResults,output,fields)'
+      ],
+
+      _setupReadyChanged: function(newVal) {
+        if (newVal)
+          this.getData();
+        else
+          this.data = null;
+      },
+
+      /**
+       * Query the Google Analytics Core Reporting API.
+       *
+       * @method getData
+       */
+      getData: function() {
+        if (this.setupReady && this._hasRequiredParams) {
+          this.loading = true;
+          // Required parameters.
+          var query = {
+            'ids': this.ids,
+            'start-date': this.startDate,
+            'end-date': this.endDate,
+            'metrics': this.metrics,
+            '_src': this._srcParam
+          };
+
+          // Optional parameters.
+          if (this.dimensions) query.dimensions = this.dimensions;
+          if (this.sort) query.sort = this.sort;
+          if (this.filters) query.filters = this.filters;
+          if (this.segment) query.segment = this.segment;
+          if (this.samplingLevel) query.samplingLevel = this.samplingLevel;
+          if (this.startIndex) query['start-index'] = this.startIndex;
+          if (this.maxResults) query['max-results'] = this.maxResults;
+          if (this.output) query.output = this.output;
+          if (this.fields) query.fields = this.fields;
+
+          gapi.client.analytics.data.ga.get(query)
+              .execute(this.handleResponse.bind(this));
+
+          return true;
+        }
+      },
+
+      /**
+       * setData sets data fetched by getData.
+       * Use it if you override getData response processing
+       * @method setData
+       */
+      setData: function(data) {
+        this.data = data;
+        this.fire('analytics-query-success', data);
+      },
+
+      /**
+       * The callback for the query run in `getData`. This is a separate
+       * function so subclasses can alter how the response is handled.
+       *
+       * @method handleResponse
+       */
+      handleResponse: function(response) {
+        this.loading = false;
+
+        if (response.error) {
+          this.fire('analytics-query-error', response.error);
+        }
+        else {
+          if (this.getDataResponseHandler)
+            this.getDataResponseHandler(response)
+          else
+            this.setData(response);
+        }
+      },
+
+      get _hasRequiredParams() {
+        return !!(this.ids && this.metrics && this.startDate && this.endDate);
+      },
+
+    });
+
+  }());
+
+</script>

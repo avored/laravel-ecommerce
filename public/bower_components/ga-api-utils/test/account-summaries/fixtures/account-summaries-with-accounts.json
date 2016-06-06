@@ -1,0 +1,166 @@
+{
+  "kind": "analytics#accountSummaries",
+  "username": "joe@gmail.com",
+  "totalResults": 5,
+  "startIndex": 1,
+  "itemsPerPage": 1000,
+  "items": [
+    {
+      "id": "1001",
+      "kind": "analytics#accountSummary",
+      "name": "Account A",
+      "webProperties": [
+        {
+          "kind": "analytics#webPropertySummary",
+          "id": "UA-1001-1",
+          "name": "WebProperty A.A",
+          "internalWebPropertyId": "3001",
+          "level": "STANDARD",
+          "websiteUrl": "http://example.com",
+          "profiles": [
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2001",
+              "name": "Profile A.A.A",
+              "type": "WEB"
+            },
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2002",
+              "name": "Profile A.A.B",
+              "type": "WEB"
+            },
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2003",
+              "name": "Profile A.A.C",
+              "type": "WEB"
+            }
+          ]
+        },
+        {
+          "kind": "analytics#webPropertySummary",
+          "id": "UA-1001-2",
+          "name": "WebProperty A.B",
+          "internalWebPropertyId": "3002",
+          "level": "STANDARD",
+          "websiteUrl": "http://example.com",
+          "profiles": [
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2004",
+              "name": "Profile A.B.A",
+              "type": "WEB"
+            },
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2005",
+              "name": "Profile A.B.B",
+              "type": "WEB"
+            },
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2006",
+              "name": "Profile A.B.C",
+              "type": "WEB"
+            }
+          ]
+        },
+        {
+          "kind": "analytics#webPropertySummary",
+          "id": "UA-1001-3",
+          "name": "WebProperty A.C",
+          "internalWebPropertyId": "3003",
+          "level": "STANDARD",
+          "websiteUrl": "http://example.com",
+          "profiles": [
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2007",
+              "name": "Profile A.C.A",
+              "type": "WEB"
+            },
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2008",
+              "name": "Profile A.C.B",
+              "type": "WEB"
+            },
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2009",
+              "name": "Profile A.C.C",
+              "type": "WEB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1002",
+      "kind": "analytics#accountSummary",
+      "name": "Account B",
+      "webProperties": [
+        {
+          "kind": "analytics#webPropertySummary",
+          "id": "UA-1002-1",
+          "name": "WebProperty B.A",
+          "internalWebPropertyId": "3002",
+          "level": "STANDARD",
+          "websiteUrl": "http://example.com",
+          "profiles": [
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2010",
+              "name": "Profile B.A.A",
+              "type": "WEB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1003",
+      "kind": "analytics#accountSummary",
+      "name": "Account C",
+      "webProperties": [
+        {
+          "kind": "analytics#webPropertySummary",
+          "id": "UA-1003-1",
+          "name": "WebProperty C.A",
+          "internalWebPropertyId": "3003",
+          "level": "STANDARD",
+          "websiteUrl": "http://example.com",
+          "profiles": [
+            {
+              "kind": "analytics#profileSummary",
+              "id": "2011",
+              "name": "Profile C.A.A",
+              "type": "WEB"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "1004",
+      "kind": "analytics#accountSummary",
+      "name": "Account D (Property-less)"
+    },
+    {
+      "id": "1005",
+      "kind": "analytics#accountSummary",
+      "name": "Account E (View-less)",
+      "webProperties": [
+        {
+          "kind": "analytics#webPropertySummary",
+          "id": "UA-1005-1",
+          "name": "WebProperty E.A (View-less)",
+          "internalWebPropertyId": "3005",
+          "level": "STANDARD",
+          "websiteUrl": "http://example.com"
+        }
+      ]
+    }
+  ]
+}

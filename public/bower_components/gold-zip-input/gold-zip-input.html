@@ -1,0 +1,150 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-input/paper-input-behavior.html">
+<link rel="import" href="../paper-input/paper-input-container.html">
+<link rel="import" href="../paper-input/paper-input-error.html">
+<link rel="import" href="../iron-input/iron-input.html">
+<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="zip-validator.html">
+
+<!--
+`gold-zip-input` is a single-line text field with Material Design styling
+for entering a US zip code.
+
+    <gold-zip-input></gold-zip-input>
+
+It may include an optional label, which by default is "Zip Code".
+
+    <gold-zip-input label="Mailing zip code"></gold-zip-input>
+
+### Validation
+
+The input supports both 5 digit zip codes (90210) or the full 9 digit ones,
+separated by a dash (90210-9999).
+
+The input can be automatically validated as the user is typing by using
+the `auto-validate` and `required` attributes. For manual validation, the
+element also has a `validate()` method, which returns the validity of the
+input as well sets any appropriate error messages and styles.
+
+See `Polymer.PaperInputBehavior` for more API docs.
+
+### Styling
+
+See `Polymer.PaperInputContainer` for a list of custom properties used to
+style this element.
+
+@group Gold Elements
+@hero hero.svg
+@demo demo/index.html
+@class gold-zip-input
+-->
+
+<dom-module id="gold-zip-input">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+
+    <paper-input-container id="container"
+        auto-validate="[[autoValidate]]"
+        attr-for-value="bind-value"
+        disabled$="[[disabled]]"
+        no-label-float="[[noLabelFloat]]"
+        always-float-label="[[_computeAlwaysFloatLabel(alwaysFloatLabel,placeholder)]]"
+        invalid="[[invalid]]">
+
+      <label hidden$="[[!label]]">[[label]]</label>
+
+      <zip-validator></zip-validator>
+
+      <input is="iron-input" id="input"
+          aria-labelledby$="[[_ariaLabelledBy]]"
+          aria-describedby$="[[_ariaDescribedBy]]"
+          required$="[[required]]"
+          validator="zip-validator"
+          type="tel"
+          allowed-pattern="[0-9\-]"
+          prevent-invalid-input
+          maxlength="10"
+          bind-value="{{value}}"
+          autocomplete="postal-code"
+          name$="[[name]]"
+          disabled$="[[disabled]]"
+          invalid="{{invalid}}"
+          autofocus$="[[autofocus]]"
+          inputmode$="[[inputmode]]"
+          placeholder$="[[placeholder]]"
+          readonly$="[[readonly]]"
+          size$="[[size]]">
+
+      <template is="dom-if" if="[[errorMessage]]">
+        <paper-input-error id="error">[[errorMessage]]</paper-input-error>
+      </template>
+
+    </paper-input-container>
+  </template>
+
+  <script>
+    (function() {
+      Polymer({
+
+        is: 'gold-zip-input',
+
+        behaviors: [
+          Polymer.PaperInputBehavior,
+          Polymer.IronFormElementBehavior
+        ],
+
+        properties: {
+          /**
+           * The label for this input.
+           */
+          label: {
+            type: String,
+            value: "Zip Code"
+          }
+        },
+
+        observers: [
+          '_computeValue(value)'
+        ],
+
+        _computeValue: function(value) {
+          var start = this.$.input.selectionStart;
+          var previousCharADash = this.value ? this.value.charAt(start - 1) == '-' : false;
+
+          // Remove any already-applied formatting.
+          value = value.replace(/-/g, '');
+
+          // Add a dash after the 5th character
+          if (value.length > 5) {
+            value = value.substr(0,5) + '-' + value.substr(5)
+          }
+          this.updateValueAndPreserveCaret(value.trim());
+
+          // If the character right before the selection is a newly inserted
+          // dash, we need to advance the selection to maintain the caret position.
+          if (!previousCharADash && this.value.charAt(start - 1) == '-') {
+            this.$.input.selectionStart = start + 1;
+            this.$.input.selectionEnd = start + 1;
+          }
+        }
+
+      })
+
+    })();
+
+  </script>
+
+</dom-module>

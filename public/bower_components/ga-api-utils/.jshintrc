@@ -1,0 +1,7 @@
+{
+  "browser": true,
+  "boss": true,
+  "expr": true,
+  "node": true,
+  "quotmark": "single"
+}

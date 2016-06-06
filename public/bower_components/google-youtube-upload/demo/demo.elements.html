@@ -1,0 +1,223 @@
+<link rel="import" href="../../polymer/polymer.html">
+<link rel="import" href="../../google-youtube/google-youtube.html">
+<link rel="import" href="../google-youtube-upload.html">
+
+<dom-module id="youtube-upload-demo-element">
+  <style>
+    label {
+      display: block;
+      margin-top: 1em;
+    }
+
+    input {
+      font-size: 100%;
+      width: 50%;
+    }
+
+    textarea {
+      font-size: 100%;
+      width: 50%;
+      height: 6em;
+    }
+
+    google-youtube-upload {
+      margin-top: 1em;
+    }
+  </style>
+  <template>
+    <p>
+      Upload videos with a
+      <code><a href="index.html" target="_blank">&lt;google-youtube-upload&gt;</a></code>
+      element!
+    </p>
+
+    <template is="dom-if" if="{{canShowPreUpload(state)}}">
+      <div>
+        <label for="video-title">Title:</label>
+        <input id="video-title" type="text" value="{{videoTitle::change}}">
+      </div>
+      <div>
+        <label for="description">Description:</label>
+        <textarea id="description" value="{{description::change}}"></textarea>
+      </div>
+      <div>
+        <label for="privacy-status">Privacy Status:</label>
+        <select id="privacy-status" value="{{privacyStatus::change}}">
+          <option>public</option>
+          <option>unlisted</option>
+          <option>private</option>
+        </select>
+      </div>
+      <google-youtube-upload
+        client-id="1054047045356-j8pgqgls9vdef3rl09hapoicumbte0bo.apps.googleusercontent.com"
+        video-title="{{videoTitle}}"
+        description="{{description}}"
+        privacy-status="{{privacyStatus}}"
+        video-id="{{videoId}}"
+        on-youtube-upload-start="handleYouTubeUploadStart"
+        on-youtube-upload-progress="handleYouTubeUploadProgress"
+        on-youtube-upload-complete="handleYouTubeUploadComplete"
+        on-youtube-upload-fail="handleYouTubeUploadFail"
+        on-youtube-processing-poll="handleYouTubeProcessingPoll"
+        on-youtube-processing-complete="handleYouTubeProcessingComplete"
+        on-youtube-processing-fail="handleYouTubeProcessingFail">
+      </google-youtube-upload>
+    </template>
+
+    <template is="dom-if" if="{{canShowUpload(state)}}">
+      <div>
+        Upload Progress:
+        <progress max="1" value="{{fractionComplete}}"></progress>
+        <span>{{computeProgressText(megabytesPerSecond, minutesRemaining, secondsRemaining)}}</span>
+      </div>
+    </template>
+
+    <template is="dom-if" if="{{canShowUploadComplete(state)}}">
+      <p>
+        Upload complete. Please wait while video id '<span>{{videoId}}</span>' is
+        <a href="https://support.google.com/youtube/answer/71674?ref_topic=2888603" target="_blank">processing</a><span>{{processingEllipses}}</span>
+      </p>
+    </template>
+
+    <template is="dom-if" if="{{canShowProcessingComplete(state)}}" restamp>
+      <p>
+        Processing complete. The video is available at
+        <a href$="{{videoUrl}}" target="_blank">{{videoUrl}}</a>
+        and embedded below:
+      </p>
+      <google-youtube video-id="{{videoId}}"></google-youtube>
+    </template>
+
+    <template is="dom-if" if="{{canShowError(state)}}">
+      <p>{{error}}</p>
+    </template>
+
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: 'youtube-upload-demo-element',
+
+    properties: {
+      state: {
+        type: String,
+        value: 'pre-upload'
+      },
+      processingEllipses: {
+        type: String,
+        value: '...'
+      },
+      megabytesPerSecond: {
+        type: Number,
+        value: 0
+      },
+      minutesRemaining: {
+        type: Number,
+        value: 0
+      },
+      secondsRemaining: {
+        type: Number,
+        value: 0
+      },
+      fractionComplete: {
+        type: Number,
+        value: 0
+      },
+      error: {
+        type: String,
+        value: ''
+      },
+      videoTitle: {
+        type: String,
+        value: 'Untitled Video'
+      },
+      description: {
+        type: String,
+        value: 'Uploaded via a web component! Check out https://github.com/GoogleWebComponents/google-youtube-upload'
+      },
+      privacyStatus: {
+        type: String,
+        value: 'public'
+      },
+      videoId: {
+        type: String,
+        value: ''
+      },
+      videoUrl: {
+        type: String,
+        computed: 'computeVideoUrl(videoId)'
+      }
+    },
+
+    canShowPreUpload: function(state) {
+      return state === 'pre-upload';
+    },
+    canShowUpload: function(state) {
+      return state === 'upload'
+    },
+    canShowUploadComplete: function(state) {
+      return state === 'upload-complete';
+    },
+    canShowProcessingComplete: function(state) {
+      return state === 'processing-complete';
+    },
+    canShowError: function(state) {
+      return state === 'error';
+    },
+    computeProgressText: function( megabytesPerSecond, minutesRemaining, secondsRemaining) {
+      return megabytesPerSecond + "MB/s, " + minutesRemaining + "m" + secondsRemaining + "s remaining";
+    },
+    computeVideoUrl: function(videoId) {
+      return "https://youtu.be/" + videoId;
+    },
+    handleYouTubeUploadStart: function(e) {
+      this.state = 'upload';
+    },
+
+    handleYouTubeUploadProgress: function(e) {
+      this.megabytesPerSecond = (e.detail.bytesPerSecond / (1024 * 1024)).toFixed(2);
+      this.minutesRemaining = Math.floor(e.detail.estimatedSecondsRemaining / 60);
+      this.secondsRemaining = Math.round(e.detail.estimatedSecondsRemaining % 60);
+      this.fractionComplete = e.detail.fractionComplete;
+    },
+
+    handleYouTubeUploadComplete: function(e) {
+      this.state = 'upload-complete';
+    },
+
+    handleYouTubeUploadFail: function(e) {
+      this.error = e.detail;
+      this.state = 'error';
+    },
+
+    handleYouTubeProcessingPoll: function(e) {
+      this.processingEllipses += '.';
+    },
+
+    handleYouTubeProcessingComplete: function(e) {
+      this.state = 'processing-complete';
+    },
+
+    handleYouTubeProcessingFail: function(e) {
+      var error;
+      switch(e.detail.uploadStatus) {
+        case 'failed':
+          error = e.detail.failureReason || 'unknown error';
+        break;
+
+        case 'rejected':
+          error = e.detail.rejectionReason || 'unknown error';
+        break;
+
+        default:
+          error = 'unknown error';
+        break;
+      }
+
+      this.error = 'YouTube processing failed (' + error + ').';
+      this.state = 'error';
+    }
+  });
+
+
+</script>
