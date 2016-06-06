@@ -3,11 +3,11 @@
 @section('content')
 
 
-<h1>Pages</h1>
+<h1>Categories</h1>
 <div class="layout horizontal">
     <div class="flex-12">&nbsp;</div>
     <div class="flex-1">
-        <a href="/admin/page/create">
+        <a href="/admin/category/create">
         <paper-fab icon="add"></paper-fab>
         </a>
     </div>
@@ -19,15 +19,13 @@
 
         <div class="flex-1"><strong>ID</strong></div>
         <div class="flex-1"><strong>Title</strong></div>
-        <div class="flex-1"><strong>Slug</strong></div>
         
     </div>
 
-    @foreach($pages as $page)
+    @foreach($categories as $category)
     <div class="product_row layout horizontal">
-        <div class="flex-1">{{ $page->id }}</div>
-        <div class="flex-1">{{ $page->title }}</div>
-        <div class="flex-1">{{ $page->slug }}</div>
+        <div class="flex-1">{{ $category->id }}</div>
+        <div class="flex-1">{{ $category->title }}</div>
         
     </div>
 
@@ -35,6 +33,6 @@
 
 
 </div>
-{!! $pages->render() !!}
+{!! $categories->render() !!}
 
 @endsection

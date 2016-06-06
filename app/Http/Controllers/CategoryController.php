@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -38,7 +38,8 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        //
+        Category::create($request->all());
+        return redirect('/admin/category');
     }
 
     /**

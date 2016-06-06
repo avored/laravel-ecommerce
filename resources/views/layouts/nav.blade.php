@@ -96,6 +96,15 @@
     </paper-icon-item>
 </a>
 
+<a href="/admin/category" title="Category List">
+    <paper-icon-item>
+        <iron-icon icon="inbox" item-icon></iron-icon>
+        <span>
+            Category
+        </span>
+    </paper-icon-item>
+</a>
+
 
 
 
