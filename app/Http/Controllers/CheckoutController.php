@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
 use App\Payment\ChequePayment\Cheque;
 use App\Payment\InternetBanking\InternetBanking;
+use App\Shipping\FreeShipping\FreeShipping;
 
 class CheckoutController extends Controller
 {
@@ -36,10 +37,10 @@ class CheckoutController extends Controller
         Session::put('orders',$orderData);
         
        
-        
+         $shippingMethods = $this->getShippingMethods();
         return view('checkout.step4')
                     ->with('orderData', $orderData)
-                   
+                   ->with('shippingMethods', $shippingMethods)
                         ;
     }
     public function step5(Request $request) {
@@ -79,6 +80,20 @@ class CheckoutController extends Controller
         foreach($paymentMethod as $paymentClass) {
             if(true === $paymentClass->isEnable()) {
                 $data [$paymentClass->getIdentifier()] = $paymentClass->getLabel();
+            }
+        }
+        
+        return $data;
+    }
+    private function getShippingMethods() {
+        
+        //** get detail from config  **//
+        $shippingMethod = [  
+                        new FreeShipping(),
+                        ];
+        foreach($shippingMethod as $shippingClass) {
+            if(true === $shippingClass->isEnable()) {
+                $data [$shippingClass->getIdentifier()] = $shippingClass->getLabel();
             }
         }
         

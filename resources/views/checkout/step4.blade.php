@@ -13,14 +13,17 @@
                         <div class="row">
                             <h5>Shipping Option</h5>
                             <ul class="collection">
-                                <li class="collection-item"><p>
-                                        <input name="shipping_option" type="radio" value="free_shipping" id="shipping_1" />
-                                        <label for="shipping_1">Free Shipping</label>
-                                    </p></li>
-                                <li class="collection-item"><p>
-                                        <input name="shipping_option" type="radio" value="fixed_rate" id="shipping_2" />
-                                        <label for="shipping_2">Fixed Rate ($5.00)</label>
-                                    </p></li>
+                                 @foreach($shippingMethods as $methodIdentifier => $methodLabel)
+
+                                    <li class="collection-item">
+                                        <p>
+                                            <input name="shipping_option" value="{{ $methodIdentifier }}" type="radio" id="{{$methodIdentifier}}" />
+                                            <label for="{{$methodIdentifier}}">{{ $methodLabel }}</label>
+                                        </p>
+                                    </li>
+                                    @endforeach
+                                
+                                
                             </ul>
 
                         </div> <!-- END OF SHIPPING ROW -->
