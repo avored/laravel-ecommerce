@@ -13,14 +13,13 @@
                         <div class="row">
                             <h5>Payment Option</h5>
                         <ul class="collection">
+                            @foreach($paymentMethods as $methodIdentifier => $methodLabel)
+                            
                             <li class="collection-item"><p>
-                                    <input name="payment_option" value="internet_banking" type="radio" id="payment_1" />
-                                    <label for="payment_1">Internet Banking</label>
+                                    <input name="payment_option" value="{{ $methodIdentifier }}" type="radio" id="{{$methodIdentifier}}" />
+                                    <label for="{{$methodIdentifier}}">{{ $methodLabel }}</label>
                                 </p></li>
-                            <li class="collection-item"><p>
-                                    <input name="payment_option" value="payment_by_cheque" type="radio" id="payment_2" />
-                                    <label for="payment_2">Payment By Cheque</label>
-                                </p></li>
+                            @endforeach
                         </ul>
 
                         </div> <!-- END OF SHIPPING ROW -->
