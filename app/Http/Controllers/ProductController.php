@@ -19,6 +19,7 @@ class ProductController extends Controller
     }
 
     public function store(Request $request) {
+        return $request->all();
         $product = Product::create($request->all());
         return redirect('/admin/product');
 

@@ -18,7 +18,9 @@
                 <div class="card-content"><p>I am a very simple card. I am good at containing small bits of
                         information.
                         I am convenient because I require little markup to use effectively.
-                     arkup to use effectively.</p></div>
+                     arkup to use effectively.</p>
+                    <div class='price'>$ {{ $product->price }}</div>
+                </div>
                 <div class="card-actions">
                     <a class="btn btn-primary" href="/add-to-cart/{{ $product->id }}">
                         <paper-button raised class="custom indigo">Add To Cart

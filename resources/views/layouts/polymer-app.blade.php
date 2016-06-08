@@ -41,10 +41,15 @@
     <link rel="import" href="/bower_components/font-roboto/roboto.html">
     <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
     <link rel="import" href="/bower_components/paper-item/paper-icon-item.html">
+    <link rel="import" href="/bower_components/paper-item/paper-item.html">
     <link rel="import" href="/bower_components/paper-card/paper-card.html">
 
     <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
     <link rel="import" href="/bower_components/paper-button/paper-button.html">
+    <link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
+    <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
+    <link rel="import" href="/bower_components/iron-selector/iron-selector.html">
+    <link rel="import" href="/mage2-elements/mage2-select/mage2-select.html">
 
 
 
