@@ -7,7 +7,7 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "mage2/ecommerce" : "0.1"
+        "mage2/ecommerce" : "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
