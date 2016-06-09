@@ -10,7 +10,9 @@ use App\Customer;
 class MyAccountController extends Controller
 {
     public function __construct() {
-        $this->middleware('customer');
+        
+        
+        $this->middleware('customerauth');
     }
     
     public function index(){

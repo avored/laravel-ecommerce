@@ -147,6 +147,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Mage2\LaravelEcommerce\Mage2LaravelEcommerceProvider::class,
 
         /*
          * Application Service Providers...

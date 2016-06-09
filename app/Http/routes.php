@@ -33,13 +33,11 @@ Route::post('/checkout/place-order', 'OrderController@placeOrder');
 
 Route::get('/product/{id}', 'ProductController@view');
 
-Route::get('/customer/login', 'Customer\AuthController@showLoginForm');
-Route::post('/customer/login', 'Customer\AuthController@login');
-Route::get('/customer/logout', 'Customer\AuthController@logout');
+//Route::get('/customer/login', 'Customer\AuthController@showLoginForm');
+//Route::post('/customer/login', 'Customer\AuthController@login');
+//Route::get('/customer/logout', 'Customer\AuthController@logout');
 
 // Registration Routes...
-Route::get('/customer/register', 'Customer\AuthController@showRegistrationForm');
-Route::post('/customer/register', 'Customer\AuthController@register');
 
 Route::get('/my-account',   'MyAccountController@index');
 
@@ -54,14 +52,14 @@ Route::put('/my-account/address/{id}',          'MyAccountController@addressUpda
 
 
 Route::group(['prefix' => '/admin'], function() {
-    Route::auth();
+    //Route::auth();
 
 
 
     Route::group(['middleware' => 'auth'], function() {
         Route::get('/', 'AdminController@index');
 
-        Route::resource('/product', 'ProductController');
+        
         Route::resource('/order', 'OrderController');
         Route::resource('/page', 'PageController');
         Route::resource('/category', 'CategoryController');
