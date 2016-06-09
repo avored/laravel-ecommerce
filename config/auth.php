@@ -64,11 +64,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => Mage2\Ecommerce\Models\User::class,
         ],
         'customers' => [
             'driver' => 'eloquent',
-            'model' => App\Customer::class,
+            'model' => Mage2\Ecommerce\Models\Customer::class,
         ]
         // 'users' => [
         //     'driver' => 'database',
