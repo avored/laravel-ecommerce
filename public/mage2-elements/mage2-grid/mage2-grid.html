@@ -47,11 +47,10 @@
             </thead>
             <tbody>
                 
-            <template is="dom-repeat" items="{{rows}}" as="row"  >
+            <template is="dom-repeat" items="{{rows}}" as="row">
                 <tr>
-                    <template is="dom-repeat" items="{{headers}}" as="header"  >
-                        <td>{{ _rowData(header,row) }}</td>
-                        
+                    <template is="dom-repeat" items="{{headers}}" as="header">
+                        <td>{{ _rowData(header,row) }}</td>   
                     </template>
                 </tr>
             </template>
