@@ -32,9 +32,6 @@
             height: 56px;
         }
 
-        tr td{
-            cursor: pointer;
-        }
     </style>
     <template>
         <table>
@@ -43,6 +40,8 @@
                     <template is="dom-repeat" items="{{headers}}"   >
                         <th>{{item.title}}</th>
                     </template>
+                        <th>Edit</th>
+                        
                 </tr>
             </thead>
             <tbody>
@@ -52,6 +51,11 @@
                     <template is="dom-repeat" items="{{headers}}" as="header">
                         <td>{{ _rowData(header,row) }}</td>   
                     </template>
+                        <td>
+                            <a href="{{_getEditLink(row, editlinkurl)}}">
+                                {{ editlinklabel }}
+                            </a>
+                        </td>
                 </tr>
             </template>
             </tbody>
@@ -69,12 +73,23 @@
     Polymer({
         is: 'mage2-grid',
         properties: {
+            editlinkurl: String,
+            editlinklabel : String,
             headers: {
                 type: Array
             },
             rows: {
                 type: Array
             }
+            
+        },
+        _getLinkLabel: function(label) {
+            console.info(label);
+            return label;
+        },
+        _getEditLink: function(row,editUrl) {
+            console.info(row,editUrl)
+            return editUrl + "/" + row.id + "/edit";
         },
          _rowData: function (header, row) {
             return row[header.tableKey];
