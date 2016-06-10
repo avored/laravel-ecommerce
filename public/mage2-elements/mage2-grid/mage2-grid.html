@@ -40,7 +40,8 @@
                     <template is="dom-repeat" items="{{headers}}"   >
                         <th>{{item.title}}</th>
                     </template>
-                        <th>Edit</th>
+                        <th>{{ editLinkLabel }}</th>
+                        <th>{{ deleteLinkLabel }}</th>
                         
                 </tr>
             </thead>
@@ -52,9 +53,19 @@
                         <td>{{ _rowData(header,row) }}</td>   
                     </template>
                         <td>
-                            <a href="{{_getEditLink(row, editlinkurl)}}">
-                                {{ editlinklabel }}
+                            <a href="{{_getEditLink(row, editLinkUrl)}}">
+                                {{ editLinkLabel }}
                             </a>
+                        </td>
+                        <td>
+                            <form  method='post'  action=''>
+                                
+                                <a href="" onclick="">
+                                   {{ deleteLinkLabel}}
+                                </a>
+                            </form>
+                               
+                            
                         </td>
                 </tr>
             </template>
@@ -73,8 +84,10 @@
     Polymer({
         is: 'mage2-grid',
         properties: {
-            editlinkurl: String,
-            editlinklabel : String,
+            editLinkUrl: String,
+            editLinkLabel : String,
+            deleteLinkUrl: String,
+            deleteLinkLabel : String,
             headers: {
                 type: Array
             },
@@ -83,13 +96,14 @@
             }
             
         },
-        _getLinkLabel: function(label) {
-            console.info(label);
-            return label;
-        },
         _getEditLink: function(row,editUrl) {
-            console.info(row,editUrl)
             return editUrl + "/" + row.id + "/edit";
+        },
+        _getDeleteLink: function(row,deleteUrl, deleteLable) {
+            var html = "<form  method='post'  action='"+deleteUrl+"/"+row.id+"'></form>" +
+                            "<a href='' onclick='jQuery(this).parents('form:first').submit()'>Delete</a></form>";
+            return html;
+            //return deleteUrl + "/" + row.id + "/delete";
         },
          _rowData: function (header, row) {
             return row[header.tableKey];
