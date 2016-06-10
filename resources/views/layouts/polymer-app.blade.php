@@ -49,7 +49,8 @@
     <link rel="import" href="/bower_components/paper-dropdown-menu/paper-dropdown-menu.html">
     <link rel="import" href="/bower_components/paper-listbox/paper-listbox.html">
     <link rel="import" href="/bower_components/iron-selector/iron-selector.html">
-    <link rel="import" href="/mage2-elements/mage2-select/mage2-select.html">
+    
+    <link rel="import" href="/mage2-elements/mage2-grid/mage2-grid.html">
 
 
 

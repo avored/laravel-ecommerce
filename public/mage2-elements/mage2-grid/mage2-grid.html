@@ -1,0 +1,82 @@
+<!-- Imports polymer -->
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<!-- Defines element markup -->
+<dom-module id="mage2-grid">
+
+    <style is='custom_style'>
+        table{
+            border-spacing: 0px;
+            width:100%;
+        }
+        tr td, tr th{
+            border-bottom: 1px solid #ccc;
+            padding: 6px 28px 6px 28px;
+            box-sizing: border-box;
+        }
+        td{
+            height: 48px;
+        }
+        th{
+            font-weight: 500;
+            text-align:left;
+            white-space: nowrap;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+            color: rgba(0,0,0, .54);
+            font-size:12px;
+            transition: linear .1s color, padding-left .2s linear;
+            box-sizing: border-box;
+            height: 56px;
+        }
+
+        tr td{
+            cursor: pointer;
+        }
+    </style>
+    <template>
+        <table>
+            <thead>
+                <tr>
+            <template is="dom-repeat" items="{{headers}}"   >
+                <th>{{item.title}}</th>
+            </template>
+            </tr>
+            </thead>
+            <tbody>
+            <template is="dom-repeat" items="{{rows}}"   >
+                <tr>
+
+                    <td>{{item.id}}</td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.price}}</td>
+
+                </tr>
+            </template>
+            </tbody>
+
+
+            </tr>
+            </thead>
+
+        </table>
+    </template>
+</dom-module>
+
+<!-- Registers custom element -->
+<script>
+    Polymer({
+        is: 'mage2-grid',
+        properties: {
+            headers: {
+                type: Array
+            },
+            rows: {
+                type: Array
+            }
+        }
+
+    });
+</script>
