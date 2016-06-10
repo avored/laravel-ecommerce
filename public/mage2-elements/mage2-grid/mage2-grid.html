@@ -1,5 +1,6 @@
 <!-- Imports polymer -->
 <link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-icon/iron-icon.html">
 
 <!-- Defines element markup -->
 <dom-module id="mage2-grid">
@@ -43,6 +44,8 @@
             <template is="dom-repeat" items="{{headers}}"   >
                 <th>{{item.title}}</th>
             </template>
+                    <th>Edit</th>
+                    <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -52,6 +55,10 @@
                     <td>{{item.id}}</td>
                     <td>{{item.title}}</td>
                     <td>{{item.price}}</td>
+                    <th>
+                        <iron-icon icon="pencil"></iron-icon>
+                    </th>
+                    <th>DELETE</th>
 
                 </tr>
             </template>
