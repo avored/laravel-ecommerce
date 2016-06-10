@@ -40,32 +40,19 @@
         <table>
             <thead>
                 <tr>
-            <template is="dom-repeat" items="{{headers}}"   >
-                <th>{{item.title}}</th>
-            </template>
-            </tr>
+                    <template is="dom-repeat" items="{{headers}}"   >
+                        <th>{{item.title}}</th>
+                    </template>
+                </tr>
             </thead>
             <tbody>
-            <template is="dom-repeat" items="{{rows}}"   >
+                
             <template is="dom-repeat" items="{{rows}}" as="row"  >
                 <tr>
                     <template is="dom-repeat" items="{{headers}}" as="header"  >
                         <td>{{ _rowData(header,row) }}</td>
                         
                     </template>
-
-                    <td>{{item.id}}</td>
-                    <td>{{item.title}}</td>
-                    <td>{{item.price}}</td>
-
-
-
-
-
-
-
-
-
                 </tr>
             </template>
             </tbody>
@@ -91,7 +78,7 @@
             }
         },
          _rowData: function (header, row) {
-            return row[header.tableKey]
+            return row[header.tableKey];
         }
 
     });
