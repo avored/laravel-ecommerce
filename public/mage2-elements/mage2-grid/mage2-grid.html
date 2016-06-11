@@ -58,11 +58,12 @@
                             </a>
                         </td>
                         <td>
-                            <form  method='post'  action=''>
-                                
-                                <a href="" onclick="">
-                                   {{ deleteLinkLabel}}
-                                </a>
+                            <form  method='post'  action="{{ _getDeleteLink(row, deleteLinkUrl) }}" >
+                                <input type="hidden" name="_token" value="{{ token }}" />
+                                <input type="hidden" name="_method" value="DELETE" />
+                                <button type="submit">
+                                   {{ deleteLinkLabel }}
+                                </button>
                             </form>
                                
                             
@@ -79,11 +80,11 @@
     </template>
 </dom-module>
 
-<!-- Registers custom element -->
 <script>
     Polymer({
         is: 'mage2-grid',
         properties: {
+            token: String,
             editLinkUrl: String,
             editLinkLabel : String,
             deleteLinkUrl: String,
@@ -94,20 +95,16 @@
             rows: {
                 type: Array
             }
-            
         },
         _getEditLink: function(row,editUrl) {
             return editUrl + "/" + row.id + "/edit";
         },
-        _getDeleteLink: function(row,deleteUrl, deleteLable) {
-            var html = "<form  method='post'  action='"+deleteUrl+"/"+row.id+"'></form>" +
-                            "<a href='' onclick='jQuery(this).parents('form:first').submit()'>Delete</a></form>";
-            return html;
-            //return deleteUrl + "/" + row.id + "/delete";
+        _getDeleteLink: function(row, deleteurl) {
+            return deleteurl + "/" + row.id;
+            // + row.id;
         },
          _rowData: function (header, row) {
             return row[header.tableKey];
         }
-
     });
 </script>
