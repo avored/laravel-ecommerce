@@ -15,9 +15,14 @@ jQuery(document).ready(function () {
             this.on("success", function (file,response) {
                 if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
 
-                    complete = file;
-                    console.info(response);
-                    alert('complete')
+                    var hiddenElement = document.createElement('input');
+                    hiddenElement.type = "hidden";
+                    hiddenElement.name= "images[]";
+                    hiddenElement.value = response.id;
+
+                    document.getElementById('image_hidden_element').appendChild(hiddenElement);
+
+
                 }
             });
         }
