@@ -8811,3 +8811,77 @@ Stack trace:
 #46 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(99): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
 #47 C:\wamp\www\polymer\public\index.php(54): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
 #48 {main}  
+[2016-06-24 03:16:05] local.ERROR: exception 'Symfony\Component\Console\Exception\CommandNotFoundException' with message 'Command "make:admin" is not defined.
+
+Did you mean one of these?
+    make:provider
+    make:policy
+    make:request
+    make:seeder
+    make:migration
+    make:test
+    make:model
+    make:middleware
+    make:controller
+    make:console
+    make:event
+    make:job
+    make:listener
+    make:auth' in C:\wamp\www\polymer\vendor\symfony\console\Application.php:512
+Stack trace:
+#0 C:\wamp\www\polymer\vendor\symfony\console\Application.php(183): Symfony\Component\Console\Application->find('make:admin')
+#1 C:\wamp\www\polymer\vendor\symfony\console\Application.php(117): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(107): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 C:\wamp\www\polymer\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  
+[2016-06-24 03:30:02] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'App\Console\Commands\Validator' not found' in C:\wamp\www\polymer\app\Console\Commands\MakeAdmin.php:65
+Stack trace:
+#0 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(133): Symfony\Component\Debug\Exception\FatalErrorException->__construct()
+#1 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(118): Illuminate\Foundation\Bootstrap\HandleExceptions->fatalExceptionFromError()
+#2 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(0): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#3 C:\wamp\www\polymer\app\Console\Commands\MakeAdmin.php(44): App\Console\Commands\MakeAdmin->validator()
+#4 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Container\Container.php(507): App\Console\Commands\MakeAdmin->handle()
+#5 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Container\Container.php(507): call_user_func_array:{C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Container\Container.php:507}()
+#6 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Console\Command.php(169): Illuminate\Container\Container->call()
+#7 C:\wamp\www\polymer\vendor\symfony\console\Command\Command.php(256): Illuminate\Console\Command->execute()
+#8 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Console\Command.php(155): Symfony\Component\Console\Command\Command->run()
+#9 C:\wamp\www\polymer\vendor\symfony\console\Application.php(791): Illuminate\Console\Command->run()
+#10 C:\wamp\www\polymer\vendor\symfony\console\Application.php(186): Symfony\Component\Console\Application->doRunCommand()
+#11 C:\wamp\www\polymer\vendor\symfony\console\Application.php(117): Symfony\Component\Console\Application->doRun()
+#12 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(107): Symfony\Component\Console\Application->run()
+#13 C:\wamp\www\polymer\artisan(36): Illuminate\Foundation\Console\Kernel->handle()
+#14 C:\wamp\www\polymer\artisan(0): {main}()
+#15 {main}  
+[2016-06-24 03:30:56] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to undefined method Illuminate\Validation\Validator::make()' in C:\wamp\www\polymer\app\Console\Commands\MakeAdmin.php:67
+Stack trace:
+#0 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(133): Symfony\Component\Debug\Exception\FatalErrorException->__construct()
+#1 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(118): Illuminate\Foundation\Bootstrap\HandleExceptions->fatalExceptionFromError()
+#2 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(0): Illuminate\Foundation\Bootstrap\HandleExceptions->handleShutdown()
+#3 C:\wamp\www\polymer\app\Console\Commands\MakeAdmin.php(46): App\Console\Commands\MakeAdmin->validator()
+#4 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Container\Container.php(507): App\Console\Commands\MakeAdmin->handle()
+#5 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Container\Container.php(507): call_user_func_array:{C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Container\Container.php:507}()
+#6 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Console\Command.php(169): Illuminate\Container\Container->call()
+#7 C:\wamp\www\polymer\vendor\symfony\console\Command\Command.php(256): Illuminate\Console\Command->execute()
+#8 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Console\Command.php(155): Symfony\Component\Console\Command\Command->run()
+#9 C:\wamp\www\polymer\vendor\symfony\console\Application.php(791): Illuminate\Console\Command->run()
+#10 C:\wamp\www\polymer\vendor\symfony\console\Application.php(186): Symfony\Component\Console\Application->doRunCommand()
+#11 C:\wamp\www\polymer\vendor\symfony\console\Application.php(117): Symfony\Component\Console\Application->doRun()
+#12 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(107): Symfony\Component\Console\Application->run()
+#13 C:\wamp\www\polymer\artisan(36): Illuminate\Foundation\Console\Kernel->handle()
+#14 C:\wamp\www\polymer\artisan(0): {main}()
+#15 {main}  
+[2016-06-24 03:31:57] local.ERROR: exception 'BadMethodCallException' with message 'Method [failes] does not exist.' in C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Validation\Validator.php:3254
+Stack trace:
+#0 C:\wamp\www\polymer\app\Console\Commands\MakeAdmin.php(47): Illuminate\Validation\Validator->__call('failes', Array)
+#1 C:\wamp\www\polymer\app\Console\Commands\MakeAdmin.php(47): Illuminate\Validation\Validator->failes()
+#2 [internal function]: App\Console\Commands\MakeAdmin->handle()
+#3 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Container\Container.php(507): call_user_func_array(Array, Array)
+#4 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Console\Command.php(169): Illuminate\Container\Container->call(Array)
+#5 C:\wamp\www\polymer\vendor\symfony\console\Command\Command.php(256): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#6 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Console\Command.php(155): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#7 C:\wamp\www\polymer\vendor\symfony\console\Application.php(791): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#8 C:\wamp\www\polymer\vendor\symfony\console\Application.php(186): Symfony\Component\Console\Application->doRunCommand(Object(App\Console\Commands\MakeAdmin), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\wamp\www\polymer\vendor\symfony\console\Application.php(117): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\wamp\www\polymer\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(107): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\wamp\www\polymer\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 {main}  
