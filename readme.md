@@ -2,7 +2,9 @@
 
 [![Total Downloads](https://poser.pugx.org/mage2/laravel-ecommerce/d/total.svg)](https://packagist.org/packages/mage2/larave-ecommerce)
 [![Latest Unstable Version](https://poser.pugx.org/mage2/laravel-ecommerce/v/unstable.svg)](https://packagist.org/packages/mage2/laravel-ecommerce)
-[![Analytics](https://ga-beacon.appspot.com/UA-79831356-1/chromeskel_a/readme)](https://github.com/mage2/laravel-ecommerce)
+[![Analytics](https://ga-beacon.appspot.com/UA-79831356-1/mage2/laravel-ecommerce)](https://github.com/igrigorik/ga-beacon)
+
+
 
 
 Mage2 is a Ecommerce application based on Laravel framework.
@@ -26,7 +28,11 @@ Run your migration file:
 
     php artisan migrate
 
-Install Some Dummy Data:
+Create Admin:
+
+    php artisan make:admin
+    
+Install Some Dummy Data (optional):
 
     php artisan db:seed
 
