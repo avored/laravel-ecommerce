@@ -46,4 +46,4 @@ That's it!
 
 
 
-[![](https://ga-beacon.appspot.com/UA-79831356-1?pixel)](https://github.com/igrigorik/ga-beacon)
+[![](https://ga-beacon.appspot.com/UA-79831356-1/laravel-ecommerce?pixel)](https://github.com/mage2/laravel-ecommerce)
