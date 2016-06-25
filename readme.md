@@ -2,7 +2,7 @@
 
 [![Total Downloads](https://poser.pugx.org/mage2/laravel-ecommerce/d/total.svg)](https://packagist.org/packages/mage2/larave-ecommerce)
 [![Latest Unstable Version](https://poser.pugx.org/mage2/laravel-ecommerce/v/unstable.svg)](https://packagist.org/packages/mage2/laravel-ecommerce)
-[![Analytics](https://ga-beacon.appspot.com/UA-79831356-1/mage2/laravel-ecommerce)](https://github.com/igrigorik/ga-beacon)
+[![Analytics](https://ga-beacon.appspot.com/UA-79831356-1/laravel-ecommerce?pixel)](https://github.com/igrigorik/ga-beacon)
 
 
 
