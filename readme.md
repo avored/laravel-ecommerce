@@ -4,7 +4,8 @@
 [![Latest Unstable Version](https://poser.pugx.org/mage2/laravel-ecommerce/v/unstable.svg)](https://packagist.org/packages/mage2/laravel-ecommerce)
 
 
-
+!! Important Notice !!!
+Currently I am converting EAV model instead of Relational Database.
 
 
 Mage2 is a Ecommerce application based on Laravel framework.
