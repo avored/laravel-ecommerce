@@ -27,10 +27,19 @@ class OrderPlacedListner
      */
     public function handle(OrderPlaced $event)
     {
+
+        $order = $event->order;
+
+
         foreach($event->products as $product) {
+
             $productModel = Product::findorfail($product['id']);
-            $productModel->qty = $productModel->qty - $product['qty'];
+            $productModel->available_qty = $productModel->available_qty - $product['qty'];
             $productModel->update();
+
+            $productModel->orders()->sync([$order->id => ['price' => $product['price'],'qty' => $product['qty']]]);
         }
+
+        dd($order->products());
     }
 }
