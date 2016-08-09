@@ -41,10 +41,12 @@ class CheckoutController extends Controller {
 
 
         $user = Auth::user();
-        $addresses = Address::where('user_id', '=', $user->id);
+        $address = Address::where('user_id', '=', $user->id)
+                        ->where('type', '=', 'SHIPPING')->get()->first();
 
+        //return $address;
         return view($this->theme . ".checkout.shipping-address")
-                        ->with('addresses', $addresses)
+                        ->with('address', $address)
         ;
     }
 
@@ -68,20 +70,27 @@ class CheckoutController extends Controller {
 
         $user = Auth::user();
 
-        $addresses = Address::where('user_id', '=', $user->id);
+        $address = Address::where('user_id', '=', $user->id)
+                        ->where('type', '=', 'BILLING')->get()->first();
         return view($this->theme . ".checkout.billing-address")
-                        ->with('addresses', $addresses)
+                        ->with('address', $address)
         ;
     }
 
     public function postBillingAddress(AddressRequest $request) {
+
 
         $orderData = Session::get('order_data');
         $user = Auth::user();
         $request->merge(['user_id' => $user->id]);
         $request->merge(['type' => 'BILLING']);
 
-        $address = Address::create($request->all());
+        if ($request->get('id') >= 0) {
+            $address = Address::findorfail($request->get('id'));
+            $address->update($request->all());
+        } else {
+            $address = Address::create($request->all());
+        }
         $orderData['billing_address_id'] = $orderData['shipping_address_id'] = $address->id;
         Session::put('order_data', $orderData);
 
@@ -102,11 +111,16 @@ class CheckoutController extends Controller {
         $orderData['shipping_method'] = $request->get('shipping_option');
         Session::put('order_data', $orderData);
 
+        if ($request->get('id') >= 0) {
+            $address = Address::findorfail($request->get('id'));
+            $address->update($request->all());
+        } else {
+            $address = Address::create($request->all());
+        }
         return redirect()->route('checkout.step.payment-option');
     }
 
     public function paymentOption() {
-
 
         return view($this->theme . ".checkout.payment-option")
 

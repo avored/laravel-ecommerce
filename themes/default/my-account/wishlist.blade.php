@@ -32,9 +32,17 @@
                                 <td> {{ $wishlist->product->id }}</td>
                                 <td> {{ $wishlist->product->title }}</td>
                                 <td>
-                                    <img src="/uploads/catalog/images/{{ $wishlist->product->getProductImages($first= true)->value }}" title="{{ $wishlist->product->title}}"
-                                        style="max-height: 75px"
-                                    />
+                                    @if(isset($wishlist->product->getProductImages($first = true)->value))
+                                <img alt="{{ $wishlist->product->title }}"
+                                     class="img-responsive"
+                                     style="max-height: 75px"
+                                     src="/uploads/catalog/images/{{ $wishlist->product->getProductImages($first= true)->value }}" />
+                            @else 
+                                <img alt="{{ $wishlist->product->title }}"
+                                     class="img-responsive"
+                                     style="max-height: 75px"
+                                     src="/img/default-product.jpg" />
+                            @endif
                                 </td>
                                 <td>
                                     <a class="btn btn-danger" href="{{ route('wishlist.remove', $wishlist->product_id) }}">Remove from Wishlist</a>

@@ -9,9 +9,15 @@
                 <div class="product col-md-3 service-image-left">
 
                     <center>
-                        <img alt="{{ $product->title }}"
-                             class="img-responsive"
-                             src="/uploads/catalog/images/{{ $product->getProductImages($first= true)->value }}" />
+                       @if(isset($product->getProductImages($first = true)->value))
+                                <img alt="{{ $product->title }}"
+                                     class="img-responsive"
+                                     src="/uploads/catalog/images/{{ $product->getProductImages($first= true)->value }}" />
+                            @else 
+                                <img alt="{{ $product->title }}"
+                                     class="img-responsive"
+                                     src="/img/default-product.jpg" />
+                            @endif
                     </center>
                 </div>
 

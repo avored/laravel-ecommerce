@@ -52,7 +52,7 @@ Route::group(['middleware' => ['website']], function () {
     Route::get('/checkout/step/shipping-address', ['as' => 'checkout.step.shipping-address', 'uses' => 'CheckoutController@shippingAddress']);
     Route::post('/checkout/step/shipping-address', ['as' => 'checkout.shipping-address.post', 'uses' => 'CheckoutController@postShippingAddress']);
 
-    Route::get('/checkout/step/billing-address', ['as' => 'checkout.step.billing-address', 'uses' => 'CheckoutController@shippingAddress']);
+    Route::get('/checkout/step/billing-address', ['as' => 'checkout.step.billing-address', 'uses' => 'CheckoutController@billingAddress']);
     Route::post('/checkout/step/billing-address', ['as' => 'checkout.billing-address.post', 'uses' => 'CheckoutController@postBillingAddress']);
 
     Route::get('/checkout/step/shipping-option', ['as' => 'checkout.step.shipping-option', 'uses' => 'CheckoutController@shippingOption']);

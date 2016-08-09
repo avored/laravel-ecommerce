@@ -9,7 +9,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Shipping Address</div>
                     <div class="panel-body">
-                        {!! Form::open(['route' => 'checkout.billing-address.post']) !!}
+                        {!! Form::model($address,['route' => 'checkout.shipping-address.post']) !!}
 
 
 
@@ -23,7 +23,8 @@
                         @include('template.text',['key' => 'state','label' => 'State'])
                         @include('template.text',['key' => 'country','label' => 'Country'])
                         @include('template.text',['key' => 'phone','label' => 'Phone'])
-
+                        @include('template.hidden',['key' => 'id'])
+                        
                         @include('template.submit',['label' => 'Continue'])
 
                         {!! Form::close() !!}
