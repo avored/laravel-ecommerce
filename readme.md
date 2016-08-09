@@ -1,6 +1,6 @@
 # Crazy Commerce using Laravel 5 E commerce App
 
-[![PHPPackages Rank](http://phppackages.org/p/crazy-ecommerce/website/badge/rank.svg)](http://phppackages.org/p/crazy-ecommerce/website)
+[![PHPPackages Rank](http://phppackages.org/p/mage2/laravel-ecommerce/badge/rank.svg)](http://phppackages.org/p/mage2/laravel-ecommerce)
 
 Mage2 is a Ecommerce application based on Laravel framework.
 
