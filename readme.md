@@ -1,8 +1,8 @@
-# Crazy Commerce using Laravel 5 E commerce App
+# Crazy Commerce using Laravel5 E-commerce App
 
 [![PHPPackages Rank](http://phppackages.org/p/mage2/laravel-ecommerce/badge/rank.svg)](http://phppackages.org/p/mage2/laravel-ecommerce)
 
-Mage2 is a Ecommerce application based on Laravel framework.
+Crazy is a Ecommerce application based on Laravel5 framework.
 
 # Step 1: Install Crazy Commerce with [Composer](https://getcomposer.org/download/).
 
@@ -23,4 +23,4 @@ That's it!
 
 
 
-[![](https://ga-beacon.appspot.com/UA-82113414-1/laravel-ecommerce?pixel)](https://github.com/mage2/laravel-ecommerce)
+[![](https://ga-beacon.appspot.com/UA-79831356-1/laravel-ecommerce?pixel)](https://github.com/mage2/laravel-ecommerce)
