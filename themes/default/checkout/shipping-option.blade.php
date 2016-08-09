@@ -7,7 +7,7 @@
             <h2>Checkout Page</h2>
             <div class="col-md-offset-1 col-md-10">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Shilling Option</div>
+                    <div class="panel-heading">Shipping Option</div>
                     <div class="panel-body">
                         {!! Form::open(['route' => 'checkout.shipping-option.post']) !!}
 

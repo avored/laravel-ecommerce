@@ -14,6 +14,7 @@ class OrderController extends Controller {
 
         Session::forget('cart');
         Session::forget('order_data');
+
         $order = Order::create($orderData);
 
         return redirect()->route('order.success', $order->id);

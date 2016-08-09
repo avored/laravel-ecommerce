@@ -113,7 +113,7 @@ class CheckoutController extends Controller {
         ;
     }
 
-    public function postPaymentOption() {
+    public function postPaymentOption(Request $request) {
 
         $orderData = Session::get('order_data');
         $orderData['payment_method'] = $request->get('payment_option');
@@ -123,8 +123,6 @@ class CheckoutController extends Controller {
     }
 
     public function review() {
-
-
         $cartProducts = Session::get('cart');
         return view($this->theme . ".checkout.review")
                         ->with('cartProducts', $cartProducts)

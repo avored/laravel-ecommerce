@@ -65,7 +65,7 @@ Route::group(['middleware' => ['website']], function () {
     Route::get('/checkout/step/review', ['as' => 'checkout.step.review', 'uses' => 'CheckoutController@review']);
 
     Route::get('/order', ['as' => 'order.index', 'uses' => 'OrderController@index']);
-    Route::get('/order/success', ['as' => 'order.success', 'uses' => 'OrderController@success']);
+    Route::get('/order/success/{id}', ['as' => 'order.success', 'uses' => 'OrderController@success']);
 
 
     Route::group(['middleware' => ['frontauth']], function () {
