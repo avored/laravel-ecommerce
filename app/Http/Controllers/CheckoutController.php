@@ -58,7 +58,13 @@ class CheckoutController extends Controller {
         $request->merge(['type' => 'SHIPPING']);
 
 
-        $address = Address::create($request->all());
+        
+        if ($request->get('id') > 0) {
+            $address = Address::findorfail($request->get('id'));
+            $address->update($request->all());
+        } else {
+            $address = Address::create($request->all());
+        }
         $orderData['shipping_address_id'] = $orderData['shipping_address_id'] = $address->id;
         Session::put('order_data', $orderData);
 
@@ -84,8 +90,7 @@ class CheckoutController extends Controller {
         $user = Auth::user();
         $request->merge(['user_id' => $user->id]);
         $request->merge(['type' => 'BILLING']);
-
-        if ($request->get('id') >= 0) {
+        if ($request->get('id') > 0) {
             $address = Address::findorfail($request->get('id'));
             $address->update($request->all());
         } else {
@@ -111,12 +116,6 @@ class CheckoutController extends Controller {
         $orderData['shipping_method'] = $request->get('shipping_option');
         Session::put('order_data', $orderData);
 
-        if ($request->get('id') >= 0) {
-            $address = Address::findorfail($request->get('id'));
-            $address->update($request->all());
-        } else {
-            $address = Address::create($request->all());
-        }
         return redirect()->route('checkout.step.payment-option');
     }
 
