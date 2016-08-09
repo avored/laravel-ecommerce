@@ -8,11 +8,11 @@ Mage2 is a Ecommerce application based on Laravel framework.
 
 Run composer to create the lavender application:
 
-    composer create-project crazy-commerce/website --stability=dev
+    composer create-project mage2/laravel-ecommerce --stability=dev
     
 Set up your environment config file:
 
-    crazy-commerce/website/.env    
+    crazy-commerce/.env    
 
 # Step 2: go to url
 
@@ -23,4 +23,4 @@ That's it!
 
 
 
-[![](https://ga-beacon.appspot.com/UA-82113414-1/crazy-commerce?pixel)](https://github.com/crazy-commerce/website)
+[![](https://ga-beacon.appspot.com/UA-82113414-1/mage2-laravel-ecommerce?pixel)](https://github.com/mage2-laravel-ecommerce)
