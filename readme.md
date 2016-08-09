@@ -23,4 +23,4 @@ That's it!
 
 
 
-[![](https://ga-beacon.appspot.com/UA-82113414-1/mage2-laravel-ecommerce?pixel)](https://github.com/mage2-laravel-ecommerce)
+[![](https://ga-beacon.appspot.com/UA-82113414-1/laravel-ecommerce?pixel)](https://github.com/mage2/laravel-ecommerce)
