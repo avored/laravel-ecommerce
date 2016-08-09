@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Session;
 use CrazyCommerce\Admin\Models\ProductAttribute;
+use Illuminate\Support\Facades\Config;
+
 class AppServiceProvider extends ServiceProvider {
 
     /**
@@ -14,6 +16,12 @@ class AppServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
+
+        //dd(realpath(base_path('resources/views')));
+        $themePath = realpath(base_path('themes'));
+
+        Config::set('view.paths', [$themePath]);
+
         view()->composer(['crazy::layouts.admin','template.header-nav'], function ($view) {
             $user = Auth::guard('admin')->user();
             $view->with('user', $user);
