@@ -1,0 +1,1 @@
+{!! Form::hidden($key) !!}

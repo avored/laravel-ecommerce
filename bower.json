@@ -1,0 +1,9 @@
+{
+  "name": "crazycommerce",
+  "description": "Laravel 5 based Ecommerce Website",
+  "private": true,
+  "dependencies": {
+    "font-awesome": "~4.6.3",
+    "admin-lte" : "~2.3.5"
+  }
+}

@@ -1,0 +1,134 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Requests\CheckoutUserRequest;
+use CrazyCommerce\Admin\Models\User;
+use Illuminate\Support\Facades\Session;
+use CrazyCommerce\Admin\Models\Address;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AddressRequest;
+
+class CheckoutController extends Controller {
+
+    public function index() {
+
+        $orderData = Session::get('order_data');
+        if (Auth::check()) {
+            $orderData['user_id'] = Auth::user()->id;
+            Session::put('order_data', $orderData);
+            return redirect()->route('checkout.step.shipping-address');
+        }
+        return view($this->theme . ".checkout.index");
+    }
+
+    public function postUser(CheckoutUserRequest $request) {
+        $orderData = Session::get('order_data');
+
+        $request->merge(['password' => bcrypt($request->get('password'))]);
+        $user = User::create($request->all());
+
+        Auth::guard('web')->login($user);
+
+        $orderData['user_id'] = $user->id;
+        Session::put('order_data', $orderData);
+        return redirect()->route('checkout.step.shipping-address');
+    }
+
+    public function shippingAddress() {
+
+
+        $user = Auth::user();
+        $addresses = Address::where('user_id', '=', $user->id);
+
+        return view($this->theme . ".checkout.shipping-address")
+                        ->with('addresses', $addresses)
+        ;
+    }
+
+    public function postShippingAddress(AddressRequest $request) {
+
+        $orderData = Session::get('order_data');
+        $user = Auth::user();
+        $request->merge(['user_id' => $user->id]);
+        $request->merge(['type' => 'SHIPPING']);
+
+
+        $address = Address::create($request->all());
+        $orderData['shipping_address_id'] = $orderData['shipping_address_id'] = $address->id;
+        Session::put('order_data', $orderData);
+
+
+        return redirect()->route('checkout.step.billing-address');
+    }
+
+    public function billingAddress() {
+
+        $user = Auth::user();
+
+        $addresses = Address::where('user_id', '=', $user->id);
+        return view($this->theme . ".checkout.billing-address")
+                        ->with('addresses', $addresses)
+        ;
+    }
+
+    public function postBillingAddress(AddressRequest $request) {
+
+        $orderData = Session::get('order_data');
+        $user = Auth::user();
+        $request->merge(['user_id' => $user->id]);
+        $request->merge(['type' => 'BILLING']);
+
+        $address = Address::create($request->all());
+        $orderData['billing_address_id'] = $orderData['shipping_address_id'] = $address->id;
+        Session::put('order_data', $orderData);
+
+        return redirect()->route('checkout.step.shipping-option');
+    }
+
+    public function shippingOption() {
+
+
+        return view($this->theme . ".checkout.shipping-option")
+
+        ;
+    }
+
+    public function postShippingOption(Request $request) {
+
+        $orderData = Session::get('order_data');
+        $orderData['shipping_method'] = $request->get('shipping_option');
+        Session::put('order_data', $orderData);
+
+        return redirect()->route('checkout.step.payment-option');
+    }
+
+    public function paymentOption() {
+
+
+        return view($this->theme . ".checkout.payment-option")
+
+        ;
+    }
+
+    public function postPaymentOption() {
+
+        $orderData = Session::get('order_data');
+        $orderData['payment_method'] = $request->get('payment_option');
+        Session::put('order_data', $orderData);
+
+        return redirect()->route('checkout.step.review');
+    }
+
+    public function review() {
+
+
+        $cartProducts = Session::get('cart');
+        return view($this->theme . ".checkout.review")
+                        ->with('cartProducts', $cartProducts)
+        ;
+    }
+
+}
