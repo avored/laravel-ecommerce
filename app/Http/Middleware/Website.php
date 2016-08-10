@@ -17,9 +17,9 @@ class Website
      */
     public function handle($request, Closure $next)
     {
+        $website = WebsiteModel::where('host','=', $request->getUriForPath("/"))->get()->first();
 
-        $website = WebsiteModel::where('host','=', $request->getHost())->get()->first();
-
+        //$website = WebsiteModel::findorfail(1);
         Session::put('website_id', $website->id);
 
 

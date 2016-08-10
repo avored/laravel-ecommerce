@@ -63,7 +63,7 @@ class InstallController extends Controller
         ]);
 
         Website::create([
-            'host' => $request->getHost(),
+            'host' => $request->getUriForPath("/"),
             'name' => 'Defaul Website',
             'is_default' => 1
         ]);
