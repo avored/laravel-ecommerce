@@ -1,7 +1,7 @@
 {
     "name": "mage2/laravel-ecommerce",
     "description": "The Laravel 5 E commerce.",
-    "keywords": ["framework", "laravel","ecommerce","laravel5","shop","shopping-cart","e-commerce"],
+    "keywords": ["framework", "laravel","ecommerce","laravel5","shop","shopping-cart","e-commerce","shopping cart","e commerce"],
     "license": "BSD-3-Clause",
     "type": "project",
     "require": {

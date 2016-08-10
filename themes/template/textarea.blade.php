@@ -6,7 +6,7 @@ if(!isset($attributes)) {
 <div class="form-group col-md-12 {{ $errors->has($key) ? ' has-error' : '' }}">
     {!! Form::label($key, $label) !!}
 
-    {!! Form::textarea($key,NULL,['class' => 'form-control']) !!}
+    {!! Form::textarea($key,NULL,$attributes) !!}
 
     @if ($errors->has($key))
         <span class="help-block">
