@@ -18,7 +18,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        dd(Shipping::all());
+        
         $product = new Product();
         $featureProducts = $product->getFeaturedProducts();
         return view($this->theme . '.home')
