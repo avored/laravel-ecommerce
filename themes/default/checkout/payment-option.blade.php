@@ -11,9 +11,21 @@
                     <div class="panel-body">
                         {!! Form::open(['route' => 'checkout.payment-option.post']) !!}
 
-                        @include('template.radio',['key' => 'payment_option','label' => 'Via Internet Banking'])
-                        @include('template.radio',['key' => 'payment_option','label' => 'Payment on Delivery'])
+                        @foreach($paymentOptions as $paymentOption)
 
+                            <div class="form-group col-md-12 {{ $errors->has($paymentOption->getIdentifier()) ? ' has-error' : '' }}">
+
+                                {!! Form::radio('payment_option',$paymentOption->getIdentifier(),['class' =>'form-control','id' => $paymentOption->getIdentifier()]) !!}
+                                {!! Form::label($paymentOption->getIdentifier(), $paymentOption->getTitle() ) !!}
+
+                                @if ($errors->has($paymentOption->getIdentifier()))
+                                    <span class="help-block">
+                                            <strong>{{ $errors->first($paymentOption->getIdentifier()) }}</strong>
+                                        </span>
+                                @endif
+                            </div>
+
+                        @endforeach
                         @include('template.submit',['label' => 'Continue'])
 
                         {!! Form::close() !!}

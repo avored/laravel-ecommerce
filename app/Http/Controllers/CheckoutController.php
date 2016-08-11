@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use CrazyCommerce\Admin\Shipping\Facade\Shipping;
+use CrazyCommerce\Admin\Payment\Facade\Payment;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\CheckoutUserRequest;
@@ -104,9 +106,9 @@ class CheckoutController extends Controller {
 
     public function shippingOption() {
 
-
+        $shillingOptions = Shipping::all();
         return view($this->theme . ".checkout.shipping-option")
-
+                ->with('shillingOptions',$shillingOptions)
         ;
     }
 
@@ -121,14 +123,16 @@ class CheckoutController extends Controller {
 
     public function paymentOption() {
 
+        $paymentOptions = Payment::all();
         return view($this->theme . ".checkout.payment-option")
-
+                ->with('paymentOptions',$paymentOptions)
         ;
     }
 
     public function postPaymentOption(Request $request) {
 
         $orderData = Session::get('order_data');
+
         $orderData['payment_method'] = $request->get('payment_option');
         Session::put('order_data', $orderData);
 
