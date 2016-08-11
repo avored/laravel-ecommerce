@@ -20,6 +20,16 @@ Set up your environment config file:
     
 That's it!
 
+Contributing
+
+
+Crazy laravel5 Ecommerce is in active development and If you want to contribute in this project then simply do the [Pull Request](https://github.com/mage2/laravel-ecommerce/pulls)!
+
+If you find any bug or problem please [raise the issue here](https://github.com/mage2/laravel-ecommerce/issues/new).
+
+This repository provides the consumer application which contains the controllers, models, and views that makes Crazy Laravel5 Ecommerce
+app frontend.
+
 
 
 

@@ -17,12 +17,11 @@ class Website
      */
     public function handle($request, Closure $next)
     {
-        
-        $website = WebsiteModel::where('host','=', $request->getUriForPath(""))->get()->first();
+        $host = str_replace("http://","", $request->getUriForPath(""));
+        $host = str_replace("https://","", $host);
+        $website = WebsiteModel::where('host','=', $host )->get()->first();
         
         Session::put('website_id', $website->id);
-
-
 
         if($website->is_default == 1) {
             Session::put('is_default_website', true);
