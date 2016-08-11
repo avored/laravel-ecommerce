@@ -18,9 +18,9 @@ class AppServiceProvider extends ServiceProvider {
     public function boot() {
 
         //dd(realpath(base_path('resources/views')));
-        $themePath = realpath(base_path('themes'));
+        //$themePath = realpath(base_path('themes'));
 
-        Config::set('view.paths', [$themePath]);
+        //Config::set('view.paths', [$themePath]);
 
         view()->composer(['crazy::layouts.admin','template.header-nav'], function ($view) {
             $user = Auth::guard('admin')->user();
