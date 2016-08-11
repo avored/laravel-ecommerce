@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\AdminUser;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use App\User;
+use CrazyCommerce\Admin\Models\User;
 
 class AuthController extends Controller
 {
