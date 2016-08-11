@@ -10,25 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-
-Route::get('/install', ['as' => 'crazy.install', 'uses' => 'InstallController@index']);
-
-Route::get('/install/database', ['as' => 'crazy.install.database.get', 'uses' => 'InstallController@databaseGet']);
-Route::post('/install', ['as' => 'crazy.install.database.post', 'uses' => 'InstallController@databasePost']);
-
-Route::get('/install/admin', ['as' => 'crazy.install.admin', 'uses' => 'InstallController@admin']);
-Route::post('/install/admin', ['as' => 'crazy.install.admin.post', 'uses' => 'InstallController@adminPost']);
-
-Route::get('/install/success', ['as' => 'crazy.install.success', 'uses' => 'InstallController@success']);
-
-
-
-
-
-
-
-
-Route::group(['middleware' => ['website']], function () {
+Route::group(['middleware' => 'website'], function () {
 
 
     Route::get('/', ['as' => 'home','uses' => 'HomeController@index']);
