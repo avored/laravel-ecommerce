@@ -29,7 +29,11 @@
                             @endforeach
 
 
-                            @include('template.submit',['label' => 'Continue'])
+
+                            <div class="form-group col-md-12">
+                                {!! Form::submit("Continue",['class' => 'btn btn-primary']) !!}
+                            </div>
+
 
                             {!! Form::close() !!}
                         </div>
