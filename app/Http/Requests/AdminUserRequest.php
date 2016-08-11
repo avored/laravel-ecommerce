@@ -27,7 +27,6 @@ class AdminUserRequest extends Request
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:admin_users',
-            'username' => 'required|max:255|unique:admin_users',
             'password' => 'required|min:6|confirmed',
         ];
     }

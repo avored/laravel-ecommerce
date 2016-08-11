@@ -41,6 +41,7 @@ class InstallController extends Controller
     public function databasePost() {
         try {
             Artisan::call('migrate');
+            //Artisan::call('db:seed');
         } catch(Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -58,12 +59,13 @@ class InstallController extends Controller
             'first_name' => $request->get('first_name'),
             'last_name' => $request->get('last_name'),
             'email' => $request->get('email'),
-            'username' => $request->get('username'),
             'password' => bcrypt($request->get('password')),
         ]);
 
+        $host = str_replace("http://", "", $request->getUriForPath(""));
+        $host = str_replace("https://","", $host);
         Website::create([
-            'host' => $request->getUriForPath(""),
+            'host' => $host,
             'name' => 'Defaul Website',
             'is_default' => 1
         ]);
