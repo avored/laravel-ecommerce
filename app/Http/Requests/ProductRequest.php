@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use App\ProductAttribute;
+use CrazyCommerce\Admin\Models\ProductAttribute;
 
 class ProductRequest extends Request
 {
@@ -24,10 +24,12 @@ class ProductRequest extends Request
      */
     public function rules()
     {
-        //@todo redone validation
-        return [];
 
-        $validateArray = [];
+
+        if(count($this->request->get('website_id')) <= 0 ) {
+            $validateArray ['website_id[]'] = 'required';
+        }
+
         $productAttributes = ProductAttribute::all();
 
         foreach($productAttributes as $productAttribute) {
