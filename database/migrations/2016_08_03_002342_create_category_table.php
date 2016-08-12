@@ -17,6 +17,7 @@ class CreateCategoryTable extends Migration
             $table->integer('website_id');
             $table->integer('parent_id');
             $table->string('name');
+            $table->string('slug');
             $table->timestamps();
         });
     }

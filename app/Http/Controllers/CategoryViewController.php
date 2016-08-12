@@ -9,9 +9,9 @@ use App\Http\Requests;
 
 class CategoryViewController extends Controller
 {
-    public function view($id) {
+    public function view($slug) {
 
-        $category = Category::findorfail($id);
+        $category = Category::where('slug','=',$slug)->get()->first();
 
         return view($this->theme. '.category.view')
                     ->with('category', $category)

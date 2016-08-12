@@ -15,7 +15,7 @@ Route::group(['middleware' => 'website'], function () {
 
     Route::get('/', ['as' => 'home','uses' => 'HomeController@index']);
 
-    Route::get('/category/{id}', ['as' => 'category.view', 'uses' => 'CategoryViewController@view']);
+    Route::get('/category/{slug}', ['as' => 'category.view', 'uses' => 'CategoryViewController@view']);
     Route::get('/product/{id}', ['as' => 'product.view', 'uses' => 'ProductViewController@view']);
 
     Route::get('/wishlist/add/{id}', ['as' => 'wishlist.add', 'uses' => 'WishlistController@add']);
