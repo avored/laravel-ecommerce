@@ -8,7 +8,7 @@
                 <div class="col-md-4">
                     <div class="thumbnail">
                         
-                        <a href="{{ route('product.view', $product->id)}}" title="{{ $product->title }}">
+                        <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->title }}">
                             @if(isset($product->getProductImages($first = true)->value))
                                 <img alt="{{ $product->title }}"
                                      class="img-responsive"
@@ -21,7 +21,7 @@
                         </a>
                         <div class="caption">
                             <h3>
-                                <a href="{{ route('product.view', $product->id)}}" title="{{ $product->title }}">
+                                <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->title }}">
                                 {{ $product->title }}
                                 </a>
                             </h3>

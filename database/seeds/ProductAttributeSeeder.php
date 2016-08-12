@@ -42,6 +42,13 @@ class ProductAttributeSeeder extends Seeder
                 'field_type' => 'TEXT',
                 'validation' => 'required|max:255'
             ],
+            [
+                'title' => 'Slug',
+                'identifier' => 'slug',
+                'type' => 'VARCHAR',
+                'field_type' => 'TEXT',
+                'validation' => 'required|max:255|alpha_dash'
+            ],
 
             [
                 'title' => 'Page Title',
@@ -53,7 +60,7 @@ class ProductAttributeSeeder extends Seeder
             [
                 'title' => 'Page Description',
                 'identifier' => 'page_description',
-                'type' => 'VARCHAR',
+                'type' => 'TEXT',
                 'field_type' => 'TEXTAREA',
                 'validation' => 'max:255'
             ],
@@ -146,12 +153,12 @@ class ProductAttributeSeeder extends Seeder
         ]);
 
         AttributeDropdownOption::create([
-            'product_attribute_id' => $inStockAttribute->id,
+            'product_attribute_id' => $trackStockAttribute->id,
             'value' => '1',
             'label' => 'Yes'
         ]);
         AttributeDropdownOption::create([
-            'product_attribute_id' => $inStockAttribute->id,
+            'product_attribute_id' => $trackStockAttribute->id,
             'value' => '0',
             'label' => 'No'
         ]);
