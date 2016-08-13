@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use CrazyCommerce\Admin\Models\ProductAttribute;
+use CrazyCommerce\Admin\Models\OrderStatus;
 use CrazyCommerce\Admin\Models\AttributeDropdownOption;
 class ProductAttributeSeeder extends Seeder
 {
@@ -162,5 +163,10 @@ class ProductAttributeSeeder extends Seeder
             'value' => '0',
             'label' => 'No'
         ]);
+        OrderStatus::insert(
+                        ['title' => 'pending','status' => 1,'is_default' => 1],
+                        ['title' => 'processing','status' => 1,'is_default' => 0],
+                        ['title' => 'complete','status' => 1,'is_default' => 0]
+                );
     }
 }

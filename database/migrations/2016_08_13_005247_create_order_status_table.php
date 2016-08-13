@@ -15,7 +15,7 @@ class CreateOrderStatusTable extends Migration
         Schema::create('order_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->boolean('status');
+            $table->boolean('is_default');
             $table->timestamps();
         });
     }
