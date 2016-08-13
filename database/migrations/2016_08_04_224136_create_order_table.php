@@ -19,6 +19,7 @@ class CreateOrderTable extends Migration
             $table->integer('user_id');
             $table->string('shipping_method');
             $table->string('payment_method');
+            $table->integer('order_status_id');
             $table->timestamps();
         });
     }

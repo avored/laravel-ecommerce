@@ -133,6 +133,7 @@ class CheckoutController extends Controller {
 
         $orderData = Session::get('order_data');
 
+
         $orderData['payment_method'] = $request->get('payment_option');
         Session::put('order_data', $orderData);
 

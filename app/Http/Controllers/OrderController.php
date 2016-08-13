@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use CrazyCommerce\Admin\Models\OrderStatus;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
@@ -15,6 +16,8 @@ class OrderController extends Controller {
         Session::forget('cart');
         Session::forget('order_data');
 
+        $orderStatus = OrderStatus::where('is_default','=',1)->get()->first();
+        $orderData['order_status_id'] = $orderStatus->id;
         $order = Order::create($orderData);
 
         return redirect()->route('order.success', $order->id);
