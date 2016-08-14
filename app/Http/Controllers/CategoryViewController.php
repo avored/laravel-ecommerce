@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use CrazyCommerce\Admin\Models\Category;
+use Mage2\Admin\Models\Category;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

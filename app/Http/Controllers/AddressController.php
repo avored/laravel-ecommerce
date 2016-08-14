@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Auth;
-use CrazyCommerce\Admin\Models\Address;
+use Mage2\Admin\Models\Address;
 use App\Http\Requests;
 
 class AddressController extends Controller {

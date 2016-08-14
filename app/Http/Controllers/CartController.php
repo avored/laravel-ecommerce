@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use CrazyCommerce\Admin\Models\Product;
+use Mage2\Admin\Models\Product;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
 

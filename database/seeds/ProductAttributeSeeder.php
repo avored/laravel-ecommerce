@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use CrazyCommerce\Admin\Models\ProductAttribute;
-use CrazyCommerce\Admin\Models\OrderStatus;
-use CrazyCommerce\Admin\Models\AttributeDropdownOption;
+use Mage2\Admin\Models\ProductAttribute;
+use Mage2\Admin\Models\OrderStatus;
+use Mage2\Admin\Models\AttributeDropdownOption;
 class ProductAttributeSeeder extends Seeder
 {
     /**

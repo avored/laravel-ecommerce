@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use CrazyCommerce\Admin\Models\ProductAttribute;
-use CrazyCommerce\Admin\Models\ProductVarcharValue;
+use Mage2\Admin\Models\ProductAttribute;
+use Mage2\Admin\Models\ProductVarcharValue;
 use Illuminate\Http\Request;
-use CrazyCommerce\Admin\Models\Product;
+use Mage2\Admin\Models\Product;
 use App\Http\Requests;
 
 class ProductViewController extends Controller

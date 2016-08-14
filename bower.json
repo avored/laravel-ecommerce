@@ -1,5 +1,5 @@
 {
-  "name": "crazycommerce",
+  "name": "Mage2",
   "description": "Laravel 5 based Ecommerce Website",
   "private": true,
   "dependencies": {

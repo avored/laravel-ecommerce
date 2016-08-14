@@ -1,10 +1,10 @@
-# Crazy Commerce using Laravel5 E-commerce App V(0.2) -- Current
+# Mage2 Commerce using Laravel5 E-commerce App V(0.2) -- Current
 
 [![PHPPackages Rank](http://phppackages.org/p/mage2/laravel-ecommerce/badge/rank.svg)](http://phppackages.org/p/mage2/laravel-ecommerce)
 
-Crazy is a Ecommerce application based on Laravel5 framework.
+Mage2 is a Ecommerce application based on Laravel5 framework.
 
-# Step 1: Install Crazy Commerce with [Composer](https://getcomposer.org/download/).
+# Step 1: Install Mage2 Commerce with [Composer](https://getcomposer.org/download/).
 
 Run composer to create the lavender application:
 
@@ -12,7 +12,7 @@ Run composer to create the lavender application:
     
 Set up your environment config file:
 
-    crazy-commerce/.env    
+    mage2/laravel-ecommerce/.env    
 
 # Step 2: go to url
 
@@ -23,7 +23,7 @@ That's it!
 ##Contributing
 
 
-Crazy laravel5 Ecommerce is in active development and If you want to contribute in this project then simply do the [Pull Request](https://github.com/mage2/laravel-ecommerce/pulls)!
+Mage2 laravel5 Ecommerce is in active development and If you want to contribute in this project then simply do the [Pull Request](https://github.com/mage2/laravel-ecommerce/pulls)!
 
 If you find any bug or problem please [raise the issue here](https://github.com/mage2/laravel-ecommerce/issues/new).
 

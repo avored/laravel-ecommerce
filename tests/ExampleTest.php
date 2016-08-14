@@ -15,6 +15,6 @@ class ExampleTest extends TestCase
     {
 
         //$this->assertTrue(true);
-        $this->visit('/')->see('Crazy Commerce');
+        $this->visit('/')->see('Mage2 Commerce');
     }
 }

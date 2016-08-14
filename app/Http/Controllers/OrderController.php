@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use CrazyCommerce\Admin\Models\OrderStatus;
+use Mage2\Admin\Models\OrderStatus;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Session;
-use CrazyCommerce\Admin\Models\Order;
+use Mage2\Admin\Models\Order;
 
 class OrderController extends Controller {
 

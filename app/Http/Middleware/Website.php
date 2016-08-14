@@ -3,7 +3,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Session;
-use CrazyCommerce\Admin\Models\Website as WebsiteModel;
+use Mage2\Admin\Models\Website as WebsiteModel;
 
 class Website
 {

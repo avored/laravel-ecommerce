@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use CrazyCommerce\Admin\Models\Product;
+use Mage2\Admin\Models\Product;
 use Illuminate\Http\Request;
-use CrazyCommerce\Admin\Shipping\Facade\Shipping;
+use Mage2\Admin\Shipping\Facade\Shipping;
 
 class HomeController extends Controller
 {

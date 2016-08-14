@@ -149,7 +149,7 @@ return [
 
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        CrazyCommerce\Admin\CrazyCommerceAdminServiceProvider::class,
+        Mage2\Admin\Mage2AdminServiceProvider::class,
 
         /*
          * Application Service Providers...

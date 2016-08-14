@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use CrazyCommerce\Admin\Shipping\Facade\Shipping;
-use CrazyCommerce\Admin\Payment\Facade\Payment;
+use Mage2\Admin\Shipping\Facade\Shipping;
+use Mage2\Admin\Payment\Facade\Payment;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\CheckoutUserRequest;
-use CrazyCommerce\Admin\Models\User;
+use Mage2\Admin\Models\User;
 use Illuminate\Support\Facades\Session;
-use CrazyCommerce\Admin\Models\Address;
+use Mage2\Admin\Models\Address;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddressRequest;
 

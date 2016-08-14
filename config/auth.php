@@ -72,11 +72,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => CrazyCommerce\Admin\Models\User::class,
+            'model' => Mage2\Admin\Models\User::class,
         ],
         'admin' => [
             'driver' => 'eloquent',
-            'model' => CrazyCommerce\Admin\Models\AdminUser::class,
+            'model' => Mage2\Admin\Models\AdminUser::class,
         ],
 
         // 'users' => [
