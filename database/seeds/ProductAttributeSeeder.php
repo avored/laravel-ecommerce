@@ -56,7 +56,7 @@ class ProductAttributeSeeder extends Seeder
                 'identifier' => 'page_title',
                 'type' => 'VARCHAR',
                 'field_type' => 'TEXT',
-                'validation' => 'required|max:255'
+                'validation' => 'max:255'
             ],
             [
                 'title' => 'Page Description',
