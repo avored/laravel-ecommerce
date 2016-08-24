@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelativeProductTable extends Migration
+class CreateRelatedProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class CreateRelativeProductTable extends Migration
      */
     public function up()
     {
-         Schema::create('relative_products', function (Blueprint $table) {
+         Schema::create('related_products', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id');
-            $table->integer('relative_product_id');
+            $table->integer('related_products_id');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateRelativeProductTable extends Migration
      */
     public function down()
     {
-        Schema::drop('relative_products');
+        Schema::drop('related_products');
     }
 }
