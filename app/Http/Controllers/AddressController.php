@@ -5,10 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Auth;
-use Mage2\Admin\Models\Address;
+
 use App\Http\Requests;
+use Mage2\Admin\Models\Repository\AddressRepository;
 
 class AddressController extends Controller {
+
+      /**
+     * @var PostRepository
+     */
+    protected $repository;
+
+    public function __construct(AddressRepository $repository){
+        $this->repository = $repository;
+        parent::__construct();
+    }
 
     /**
      * Display a listing of the resource.
@@ -17,7 +28,8 @@ class AddressController extends Controller {
      */
     public function index() {
         $user = Auth::user();
-        $addresses = Address::where('user_id', '=', $user->id)->get();
+        //$addresses = Address::where('user_id', '=', $user->id)->get();
+        $addresses = $this->repository->all(); //Address::where('user_id', '=', $user->id)->get();
         return view($this->theme . ".my-account.address")
                         ->with('user', $user)
                         ->with('addresses', $addresses)
