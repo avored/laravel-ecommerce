@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Mage2\Admin\Models\ProductAttribute;
+use Mage2\Admin\Eloquents\Models\ProductAttribute;
 use Mage2\Admin\Models\OrderStatus;
 use Mage2\Admin\Models\AttributeDropdownOption;
 class ProductAttributeSeeder extends Seeder
