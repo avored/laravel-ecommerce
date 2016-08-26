@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Mage2\Admin\Models\ProductAttribute;
-use Mage2\Admin\Models\ProductVarcharValue;
+use Mage2\Admin\Eloquents\Models\ProductAttribute;
+use Mage2\Admin\Eloquents\Models\ProductVarcharValue;
 use Illuminate\Http\Request;
-use Mage2\Admin\Models\Product;
+use Mage2\Admin\Eloquents\Models\Product;
 use App\Http\Requests;
 
 class ProductViewController extends Controller

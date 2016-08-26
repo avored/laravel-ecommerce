@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Mage2\Admin\Models\Product;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
+use Mage2\Admin\Eloquents\Repository\ProductRepository;
 
 class CartController extends Controller
 {
+    /**
+     * @var AddressRepository
+     */
+    protected $productRepository;
+
+    public function __construct(ProductRepository $repository){
+        $this->productRepository = $repository;
+        parent::__construct();
+    }
     public function addToCart($id) {
         $cart = Session::get('cart');
-        $product = Product::findorfail($id);
+        $product = $this->productRepository->findorfail($id);
         
         if(isset($cart[$id])) {
             $cart[$id]['qty'] += 1;

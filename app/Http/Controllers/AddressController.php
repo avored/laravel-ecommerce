@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
 use Mage2\Admin\Models\Repository\AddressRepository;
-
+use Mage2\Admin\Models\Address;
 class AddressController extends Controller {
 
-      /**
-     * @var PostRepository
+    /**
+     * @var AddressRepository
      */
-    protected $repository;
+    protected $addressRepository;
 
     public function __construct(AddressRepository $repository){
-        $this->repository = $repository;
+        $this->addressRepository = $repository;
         parent::__construct();
     }
 
@@ -29,7 +29,7 @@ class AddressController extends Controller {
     public function index() {
         $user = Auth::user();
         //$addresses = Address::where('user_id', '=', $user->id)->get();
-        $addresses = $this->repository->all(); //Address::where('user_id', '=', $user->id)->get();
+        $addresses = $this->addressRepository->getAllByUserId($user->id); //Address::where('user_id', '=', $user->id)->get();
         return view($this->theme . ".my-account.address")
                         ->with('user', $user)
                         ->with('addresses', $addresses)

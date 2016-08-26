@@ -3,13 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use Mage2\Admin\Models\Product;
+
 use Illuminate\Http\Request;
+use Mage2\Admin\Eloquents\Repository\ProductRepository;
 use Mage2\Admin\Shipping\Facade\Shipping;
 
 class HomeController extends Controller
 {
 
+    /**
+     * @var AddressRepository
+     */
+    protected $productRepository;
+
+    public function __construct(ProductRepository $repository){
+        $this->productRepository = $repository;
+        parent::__construct();
+    }
 
     /**
      * Show the application dashboard.
@@ -19,8 +29,8 @@ class HomeController extends Controller
     public function index()
     {
         
-        $product = new Product();
-        $featureProducts = $product->getFeaturedProducts();
+
+        $featureProducts = $this->productRepository->getFeaturedProducts();
         return view($this->theme . '.home')
                 ->with('featuredProducts', $featureProducts);
     }

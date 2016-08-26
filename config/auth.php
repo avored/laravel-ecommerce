@@ -72,11 +72,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Mage2\Admin\Models\User::class,
+            'model' => Mage2\Admin\Eloquents\Models\User::class,
         ],
         'admin' => [
             'driver' => 'eloquent',
-            'model' => Mage2\Admin\Models\AdminUser::class,
+            'model' => Mage2\Admin\Eloquents\Models\AdminUser::class,
         ],
 
         // 'users' => [

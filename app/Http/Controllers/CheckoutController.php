@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Mage2\Admin\Eloquents\Repository\AddressRepository;
+use Mage2\Admin\Eloquents\Repository\UserRepository;
 use Mage2\Admin\Shipping\Facade\Shipping;
 use Mage2\Admin\Payment\Facade\Payment;
 use Illuminate\Http\Request;
@@ -15,6 +17,18 @@ use App\Http\Requests\AddressRequest;
 
 class CheckoutController extends Controller {
 
+    /**
+     * @var AddressRepository
+     */
+    protected $userRepository;
+    protected $addressRepository;
+
+    public function __construct(UserRepository $repository,
+                                AddressRepository $addressRepository){
+        $this->userRepository = $repository;
+        $this->addressRepository = $addressRepository;
+        parent::__construct();
+    }
     public function index() {
 
         $orderData = Session::get('order_data');
@@ -30,7 +44,7 @@ class CheckoutController extends Controller {
         $orderData = Session::get('order_data');
 
         $request->merge(['password' => bcrypt($request->get('password'))]);
-        $user = User::create($request->all());
+        $user = $this->userRepository->create($request->all());
 
         Auth::guard('web')->login($user);
 
@@ -43,7 +57,7 @@ class CheckoutController extends Controller {
 
 
         $user = Auth::user();
-        $address = Address::where('user_id', '=', $user->id)
+        $address = $this->addressRepository->where('user_id', '=', $user->id)
                         ->where('type', '=', 'SHIPPING')->get()->first();
 
         //return $address;
@@ -62,10 +76,10 @@ class CheckoutController extends Controller {
 
         
         if ($request->get('id') > 0) {
-            $address = Address::findorfail($request->get('id'));
+            $address = $this->addressRepository->findorfail($request->get('id'));
             $address->update($request->all());
         } else {
-            $address = Address::create($request->all());
+            $address = $this->addressRepository->create($request->all());
         }
         $orderData['shipping_address_id'] = $orderData['shipping_address_id'] = $address->id;
         Session::put('order_data', $orderData);
@@ -78,7 +92,7 @@ class CheckoutController extends Controller {
 
         $user = Auth::user();
 
-        $address = Address::where('user_id', '=', $user->id)
+        $address = $this->addressRepository->where('user_id', '=', $user->id)
                         ->where('type', '=', 'BILLING')->get()->first();
         return view($this->theme . ".checkout.billing-address")
                         ->with('address', $address)
@@ -93,10 +107,10 @@ class CheckoutController extends Controller {
         $request->merge(['user_id' => $user->id]);
         $request->merge(['type' => 'BILLING']);
         if ($request->get('id') > 0) {
-            $address = Address::findorfail($request->get('id'));
+            $address = $this->addressRepository->findorfail($request->get('id'));
             $address->update($request->all());
         } else {
-            $address = Address::create($request->all());
+            $address = $this->addressRepository->create($request->all());
         }
         $orderData['billing_address_id'] = $orderData['shipping_address_id'] = $address->id;
         Session::put('order_data', $orderData);
