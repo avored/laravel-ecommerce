@@ -13,7 +13,7 @@
 
 
 
-$app = new Illuminate\Foundation\Application(
+$app = new Mage2\Admin\Foundation\Application(
     realpath(__DIR__.'/../')
 );
 
