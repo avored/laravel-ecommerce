@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
-use Mage2\Admin\Models\Product;
+use Mage2\Admin\Eloquents\Models\Product;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
 use Mage2\Admin\Eloquents\Repository\ProductRepository;

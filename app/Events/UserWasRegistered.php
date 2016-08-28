@@ -4,7 +4,7 @@ namespace App\Events;
 
 use App\Events\Event;
 use Illuminate\Queue\SerializesModels;
-use Mage2\Admin\Models\User;
+use Mage2\Admin\Eloquents\Models\User;
 
 class UserWasRegistered extends Event
 {

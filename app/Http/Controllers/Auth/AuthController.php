@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-use Mage2\Admin\Models\User;
+use Mage2\Admin\Eloquents\Models\User;
 use Illuminate\Support\Facades\Event;
 use App\Events\UserWasRegistered;
 use Illuminate\Support\Facades\Auth;

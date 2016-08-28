@@ -7,8 +7,8 @@ use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Auth;
 
 use App\Http\Requests;
-use Mage2\Admin\Models\Repository\AddressRepository;
-use Mage2\Admin\Models\Address;
+use Mage2\Admin\Eloquents\Repository\AddressRepository;
+use Mage2\Admin\Eloquents\Models\Address;
 class AddressController extends Controller {
 
     /**

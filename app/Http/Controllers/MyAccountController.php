@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserProfileRequest;
 use App\Http\Requests;
-use Mage2\Admin\Models\Address;
+use Mage2\Admin\Eloquents\Models\Address;
 use App\Http\Requests\AddressRequest;
 use Illuminate\Support\Facades\Auth;
 

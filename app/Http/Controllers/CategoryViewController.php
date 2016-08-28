@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Mage2\Admin\Eloquents\Repository\CategoryRepository;
-use Mage2\Admin\Models\Category;
+use Mage2\Admin\Eloquents\Models\Category;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;

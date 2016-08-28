@@ -9,9 +9,9 @@ use Mage2\Admin\Payment\Facade\Payment;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\CheckoutUserRequest;
-use Mage2\Admin\Models\User;
+use Mage2\Admin\Eloquents\Models\User;
 use Illuminate\Support\Facades\Session;
-use Mage2\Admin\Models\Address;
+use Mage2\Admin\Eloquents\Models\Address;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddressRequest;
 

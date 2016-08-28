@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Mage2\Admin\Models\Wishlist;
+use Mage2\Admin\Eloquents\Models\Wishlist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
