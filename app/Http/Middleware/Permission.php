@@ -22,11 +22,13 @@ class Permission {
 
         if (isset($action['as']) && strpos($action['as'], "admin") === 0) {
             $adminUser = Auth::guard('admin')->user();
-            $role = $adminUser->role;
+            if (null !== $adminUser) {
+                $role = $adminUser->role;
 
-            foreach ($role->permissions as $permission) {
-                if ($permission->route_name == $action['as']) {
-                    $findIt = true;
+                foreach ($role->permissions as $permission) {
+                    if (isset($permission->route_name) && $permission->route_name == $action['as']) {
+                        $findIt = true;
+                    }
                 }
             }
         }
