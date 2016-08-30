@@ -30,7 +30,7 @@ class AddressController extends Controller {
         $user = Auth::user();
         //$addresses = Address::where('user_id', '=', $user->id)->get();
         $addresses = $this->addressRepository->getAllByUserId($user->id); //Address::where('user_id', '=', $user->id)->get();
-        return view($this->theme . ".my-account.address")
+        return view("my-account.address")
                         ->with('user', $user)
                         ->with('addresses', $addresses)
         ;
@@ -43,7 +43,7 @@ class AddressController extends Controller {
      */
     public function create() {
         $user = Auth::user();
-        return view($this->theme . ".my-account.create-address")
+        return view("my-account.create-address")
                         ->with('user', $user)
         ;
     }
@@ -81,7 +81,7 @@ class AddressController extends Controller {
     public function edit($id) {
         $user = Auth::user();
         $address = Address::findorfail($id);
-        return view($this->theme . ".my-account.edit-address")
+        return view("my-account.edit-address")
                         ->with('user', $user)
                         ->with('address', $address)
         ;

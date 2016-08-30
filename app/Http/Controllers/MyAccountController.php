@@ -14,7 +14,7 @@ class MyAccountController extends Controller
     public function home() {
 
         $user = Auth::user();
-        return view($this->theme.".my-account.home")
+        return view("my-account.home")
                 ->with('user', $user)
                 ;
     }
@@ -22,7 +22,7 @@ class MyAccountController extends Controller
     public function edit() {
 
         $user = Auth::user();
-        return view($this->theme.".my-account.edit")
+        return view("my-account.edit")
             ->with('user', $user)
             ;
     }

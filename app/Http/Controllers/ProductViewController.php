@@ -14,7 +14,7 @@ class ProductViewController extends Controller
 
         $product = $this->_getProductBySlug($slug);
 
-        return view($this->theme . ".product.view")
+        return view("product.view")
                 ->with('product', $product);
     }
 

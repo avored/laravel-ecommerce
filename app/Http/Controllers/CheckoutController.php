@@ -37,7 +37,7 @@ class CheckoutController extends Controller {
             Session::put('order_data', $orderData);
             return redirect()->route('checkout.step.shipping-address');
         }
-        return view($this->theme . ".checkout.index");
+        return view("checkout.index");
     }
 
     public function postUser(CheckoutUserRequest $request) {
@@ -61,7 +61,7 @@ class CheckoutController extends Controller {
                         ->where('type', '=', 'SHIPPING')->get()->first();
 
         //return $address;
-        return view($this->theme . ".checkout.shipping-address")
+        return view("checkout.shipping-address")
                         ->with('address', $address)
         ;
     }
@@ -94,7 +94,7 @@ class CheckoutController extends Controller {
 
         $address = $this->addressRepository->where('user_id', '=', $user->id)
                         ->where('type', '=', 'BILLING')->get()->first();
-        return view($this->theme . ".checkout.billing-address")
+        return view("checkout.billing-address")
                         ->with('address', $address)
         ;
     }
@@ -121,7 +121,7 @@ class CheckoutController extends Controller {
     public function shippingOption() {
 
         $shillingOptions = Shipping::all();
-        return view($this->theme . ".checkout.shipping-option")
+        return view("checkout.shipping-option")
                 ->with('shillingOptions',$shillingOptions)
         ;
     }
@@ -138,7 +138,7 @@ class CheckoutController extends Controller {
     public function paymentOption() {
 
         $paymentOptions = Payment::all();
-        return view($this->theme . ".checkout.payment-option")
+        return view("checkout.payment-option")
                 ->with('paymentOptions',$paymentOptions)
         ;
     }
@@ -156,7 +156,7 @@ class CheckoutController extends Controller {
 
     public function review() {
         $cartProducts = Session::get('cart');
-        return view($this->theme . ".checkout.review")
+        return view("checkout.review")
                         ->with('cartProducts', $cartProducts)
         ;
     }

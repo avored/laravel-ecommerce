@@ -31,7 +31,7 @@ class HomeController extends Controller
         
 
         $featureProducts = $this->productRepository->getFeaturedProducts();
-        return view($this->theme . '.home')
+        return view('home')
                 ->with('featuredProducts', $featureProducts);
     }
 }

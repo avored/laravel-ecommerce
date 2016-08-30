@@ -24,7 +24,7 @@ class CategoryViewController extends Controller
 
         $category = $this->categoryRepository->where('slug','=',$slug)->get()->first();
 
-        return view($this->theme. 'category.view')
+        return view('category.view')
                     ->with('category', $category)
             ;
 

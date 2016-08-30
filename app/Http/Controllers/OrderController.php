@@ -26,7 +26,7 @@ class OrderController extends Controller {
     public function success($id) {
 
         $order = Order::findorfail($id);
-        return view($this->theme . '.order.success')
+        return view('order.success')
                         ->with('order', $order);
     }
 

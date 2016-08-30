@@ -51,8 +51,8 @@ use AuthenticatesAndRegistersUsers,
         } else {
             $this->redirectTo = '/my-account';
         }
-        $this->loginView = $this->theme . ".auth.login";
-        $this->registerView = $this->theme . ".auth.register";
+        $this->loginView = "auth.login";
+        $this->registerView = "auth.register";
         //dd($this->loginView);
     }
 

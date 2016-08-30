@@ -42,7 +42,7 @@ class CartController extends Controller
     public function view() {
         
         $cartProducts = Session::get('cart');
-        return view($this->theme. ".cart.view")
+        return view("cart.view")
                 ->with('cartProducts', $cartProducts)
                 ;
     }

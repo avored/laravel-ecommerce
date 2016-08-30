@@ -32,7 +32,7 @@ class WishlistController extends Controller
 
 
 
-        return view($this->theme. '.my-account.wishlist')
+        return view('my-account.wishlist')
                     ->with('wishlists', $wishlists);
     }
 
