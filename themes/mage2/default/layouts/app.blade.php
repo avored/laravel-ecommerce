@@ -5,8 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Mage2 Commerce @yield('title')</title>
-
+        <title>{{ $title }}</title>
+        <meta name="description" content="{{ $description }}">
         <!-- Fonts -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" >
 
@@ -18,7 +18,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" ></script>
         {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
-    @yield('custom-script')
+
+        @yield('custom-script')
 
 </head>
 <body id="app-layout">

@@ -23,7 +23,7 @@ class Controller extends BaseController {
 
     public function __construct() {
 
-        $path = realpath(base_path('themes/default'));
+        $path = realpath(base_path('themes/mage2/default'));
         View::addLocation($path);
         $this->websiteId = Session::get('website_id');
         $this->defaultWebsiteId = Session::get('default_website_id');
