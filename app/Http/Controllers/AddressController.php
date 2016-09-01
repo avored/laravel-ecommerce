@@ -57,7 +57,7 @@ class AddressController extends Controller {
     public function store(AddressRequest $request) {
         $user = Auth::user();
         $request->merge(['user_id' => $user->id]);
-        Address::create($request->all());
+        $this->addressRepository->create($request->all());
 
         return redirect()->route('my-account.address.index');
     }
@@ -80,7 +80,8 @@ class AddressController extends Controller {
      */
     public function edit($id) {
         $user = Auth::user();
-        $address = Address::findorfail($id);
+        $address = $this->addressRepository->findorfail($id);
+
         return view("my-account.edit-address")
                         ->with('user', $user)
                         ->with('address', $address)
@@ -95,7 +96,7 @@ class AddressController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(AddressRequest $request, $id) {
-        $address = Address::findorfail($id);
+        $address = $this->addressRepository->findorfail($id);
         $address->update($request->all());
         
         return redirect()->route('my-account.address.index');
