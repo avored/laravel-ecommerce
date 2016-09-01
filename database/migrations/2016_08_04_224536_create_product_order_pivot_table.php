@@ -17,7 +17,7 @@ class CreateProductOrderPivotTable extends Migration
             $table->integer('product_id');
             $table->integer('order_id');
             $table->integer('qty');
-            $table->float('price',8,6);
+            $table->decimal('price',11,6);
             $table->timestamps();
         });
     }
