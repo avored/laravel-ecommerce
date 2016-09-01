@@ -12,6 +12,7 @@ class OrderController extends Controller {
 
     public function index() {
         $orderData = Session::get('order_data');
+        $orderProductData = Session::get('cart');
 
         Session::forget('cart');
         Session::forget('order_data');
@@ -19,6 +20,8 @@ class OrderController extends Controller {
         $orderStatus = OrderStatus::where('is_default','=',1)->get()->first();
         $orderData['order_status_id'] = $orderStatus->id;
         $order = Order::create($orderData);
+
+        $this->syncOrderProductData($order, $orderProductData);
 
         return redirect()->route('order.success', $order->id);
     }
@@ -28,6 +31,18 @@ class OrderController extends Controller {
         $order = Order::findorfail($id);
         return view('order.success')
                         ->with('order', $order);
+    }
+
+
+    public function syncOrderProductData($order, $orderProducts) {
+        //Only use pivot fields only @latner on use Collection and then use pluck method rather then foreach
+        foreach($orderProducts as $i => $orderProduct) {
+            unset($orderProduct['model']);
+            unset($orderProduct['id']);
+            $orderProducts[$i] = $orderProduct;
+        }
+
+        $order->products()->sync($orderProducts);
     }
 
 }
