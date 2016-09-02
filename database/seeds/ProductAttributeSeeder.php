@@ -164,9 +164,9 @@ class ProductAttributeSeeder extends Seeder
             'label' => 'No'
         ]);
         OrderStatus::insert(
-                        ['title' => 'pending','status' => 1,'is_default' => 1],
-                        ['title' => 'processing','status' => 1,'is_default' => 0],
-                        ['title' => 'complete','status' => 1,'is_default' => 0]
+                        ['title' => 'pending','is_default' => 1],
+                        ['title' => 'processing','is_default' => 0],
+                        ['title' => 'complete','is_default' => 0]
                 );
     }
 }
