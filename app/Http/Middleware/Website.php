@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Session;
 use Mage2\Admin\Eloquents\Repository\WebsiteRepository;
-
+use Illuminate\Support\Facades\Cache;
 class Website
 {
     /**
@@ -26,10 +26,20 @@ class Website
      */
     public function handle($request, Closure $next)
     {
+
         $host = str_replace("http://","", $request->getUriForPath(""));
         $host = str_replace("https://","", $host);
-        $website = $this->websiteRepository->where('host','=', $host )->get()->first();
-        
+
+
+        $cacheKey = "default_website_middleware_query";
+
+        if(Cache::has($cacheKey)) {
+            $website = Cache::get($cacheKey);
+        } else {
+            $website = $this->websiteRepository->where('host', '=', $host)->get()->first();
+            Cache::put($cacheKey,$website,$minute = 100);
+        }
+
         Session::put('website_id', $website->id);
 
         if($website->is_default == 1) {
