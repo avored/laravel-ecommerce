@@ -33,6 +33,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             'throttle:60,1',
+            'bindings',
         ],
     ];
 
@@ -47,6 +48,7 @@ class Kernel extends HttpKernel
         'frontauth' => \App\Http\Middleware\FrontAuthenticate::class,
         'adminauth' => \App\Http\Middleware\AdminAuthenticate::class,
         'website' => \App\Http\Middleware\Website::class,
+        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'frontguest' => \App\Http\Middleware\RedirectIfFrontAuthenticated::class,
