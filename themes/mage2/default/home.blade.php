@@ -61,6 +61,10 @@
         <div class="clearfix">
             <p>&nbsp;</p>
         </div>
+        @if(count($featuredProducts) <= 0)
+        <p>Sorry No Feature Product</p>
+        @else
+        
         <div class="col-md-12">
             <div class="panel panel-primary">
                 <div class="panel-heading"><h4>Featured Products</h4></div>
@@ -105,6 +109,7 @@
             </div>
 
         </div>
+        @endif
     </div>
 </div>
 @endsection
