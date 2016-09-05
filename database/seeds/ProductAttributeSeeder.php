@@ -61,7 +61,7 @@ class ProductAttributeSeeder extends Seeder
             [
                 'title' => 'Page Description',
                 'identifier' => 'page_description',
-                'type' => 'TEXT',
+                'type' => 'VARCHAR',
                 'field_type' => 'TEXTAREA',
                 'validation' => 'max:255'
             ],
@@ -78,7 +78,7 @@ class ProductAttributeSeeder extends Seeder
             [
                 'title' => 'Description',
                 'identifier' => 'description',
-                'type' => 'VARCHAR',
+                'type' => 'TEXT',
                 'field_type' => 'TEXTAREA',
                 'validation' => 'required'
             ],
