@@ -26,6 +26,7 @@ class Permission {
             if (null !== $adminUser) {
                 $role = $adminUser->role;
 
+                
                 foreach ($role->permissions as $permission) {
                     if (isset($permission->route_name) && $permission->route_name == $action['as']) {
                         $findIt = true;
@@ -34,8 +35,8 @@ class Permission {
             }
         }
 
-        if ($findIt === true) {
-            return $next($request);
+        if ($findIt === false) {
+            abort(403, 'Unauthorized action.');
         }
 
         //@todo it should throw exception

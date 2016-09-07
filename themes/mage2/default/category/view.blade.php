@@ -12,11 +12,11 @@
                             @if(isset($product->getProductImages($first = true)->value))
                                 <img alt="{{ $product->title }}"
                                      class="img-responsive"
-                                     src="/uploads/catalog/images/{{ $product->getProductImages($first= true)->value }}" />
+                                     src="{{ asset('/uploads/catalog/images/'. $product->getProductImages($first= true)->value) }}" />
                             @else 
                                 <img alt="{{ $product->title }}"
                                      class="img-responsive"
-                                     src="/img/default-product.jpg" />
+                                     src="{{ asset('/img/default-product.jpg') }}" />
                             @endif
                         </a>
                         <div class="caption">

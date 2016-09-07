@@ -36,12 +36,12 @@
                                 <img alt="{{ $wishlist->product->title }}"
                                      class="img-responsive"
                                      style="max-height: 75px"
-                                     src="/uploads/catalog/images/{{ $wishlist->product->getProductImages($first= true)->value }}" />
+                                     src="{{ asset('/uploads/catalog/images/'. $wishlist->product->getProductImages($first= true)->value) }}" />
                             @else 
                                 <img alt="{{ $wishlist->product->title }}"
                                      class="img-responsive"
                                      style="max-height: 75px"
-                                     src="/img/default-product.jpg" />
+                                     src="/img/default-product.jpg) }}" />
                             @endif
                                 </td>
                                 <td>

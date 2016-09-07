@@ -24,8 +24,7 @@
         ],
         "psr-4": {
             "App\\": "app/",
-            "Mage2\\Framework\\" : "packages/mage2/framework/src/",
-            "Mage2\\Admin\\" : "packages/crazy/src/"
+            "Mage2\\Admin\\" : "packages/mage2/src/"
         }
     },
     "autoload-dev": {

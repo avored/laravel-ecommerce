@@ -28,12 +28,12 @@
                                 <img alt="{{ $product['model']->title }}"
                                      class="img-responsive"
                                      style="height: 72px;"
-                                     src="/uploads/catalog/images/{{ $product['model']->getProductImages($first= true)->value }}" />
+                                     src="{{ asset('/uploads/catalog/images/'. $product['model']->getProductImages($first= true)->value) }}" />
                                 @else 
                                 <img alt="{{ $product['model']->title }}"
                                      class="img-responsive"
                                      style="height: 72px;"
-                                     src="/img/default-product.jpg" />
+                                     src="{{ asset('/img/default-product.jpg') }}" />
                                 @endif
 
                                 <div class="media-body">
