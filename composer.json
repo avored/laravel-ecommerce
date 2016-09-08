@@ -7,9 +7,10 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.3.*",
-        "laravelcollective/html": "~5.0",
+        "laravelcollective/html": "~5.3",
         "mage2/admin" : "dev-master",
-        "barryvdh/laravel-debugbar" : "2.2.*"
+        "barryvdh/laravel-debugbar" : "2.2.*",
+        "barryvdh/laravel-dompdf" : "0.7"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -24,7 +25,7 @@
         ],
         "psr-4": {
             "App\\": "app/",
-            "Mage2\\Admin\\" : "packages/mage2/src/"
+            "Mage2\\Admin\\" : "packages/crazy/src/"
         }
     },
     "autoload-dev": {
