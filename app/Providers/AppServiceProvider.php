@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
-        view()->composer('layouts.app', function ($view) {
+        view()->composer('*', function ($view) {
 
             $configTitle = Config::where('key','=','site_page_title')->get()->first();
             $configDesc = Config::where('key','=','site_page_description')->get()->first();
@@ -22,8 +22,12 @@ class AppServiceProvider extends ServiceProvider {
             $title          = (isset($configTitle->value)) ? $configTitle->value : "Mage2 Ecommerce";
             $description    = (isset($configDesc->value)) ? $configDesc->value : "Mage2 Ecommerce Laravel5 App";
 
+            $title          = (isset($view->title)) ? $view->title : $title;
+            $description    = (isset($view->description)) ? $view->description : $description;
+
             $view->with('title', $title);
             $view->with('description', $description);
+
         });
     }
 
