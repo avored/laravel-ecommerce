@@ -1,23 +1,10 @@
 @extends('layouts.admin')
 
-@section('header-title')
-<h1>
-    Category List
-    <!--<small>Sub title</small> -->
-</h1>
-@endsection
-@section('bread-crumb')
-    <ol class="breadcrumb">
-        <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li><a href="{{ route('admin.category.index') }}"><i class="fa fa-link"></i>Category</a></li>
-        <li class="active">List</li>
-    </ol>
-@endsection
-
 @section('content')
 <div class="row">
     <div class="col s12">
-        <div class="right">
+        <div> Category List</div>
+        <div class="pull-right">
             <a href="{{ route('admin.category.create') }}"
                class="btn btn-primary"> Create Category</a>
         </div>
@@ -28,7 +15,7 @@
         <p>Sorry No Category Found</p>
 
         @else
-        <table class="bordered">
+        <table class="table">
             <thead>
             <th>ID</th>
             <th>Name</th>

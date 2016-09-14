@@ -26,19 +26,6 @@
 
             </ul>
 
-            <!--Navbar icons-->
-            <ul class="nav navbar-nav nav-flex-icons">
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light"><i class="fa fa-facebook"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light"><i class="fa fa-twitter"></i></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light"><i class="fa fa-instagram"></i></a>
-                </li>
-            </ul>
-
         </div>
         <!--/.Collapse content-->
 
