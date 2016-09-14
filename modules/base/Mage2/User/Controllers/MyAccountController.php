@@ -19,6 +19,7 @@ class MyAccountController extends Controller
     public function edit() {
 
         $user = Auth::user();
+        
         return view("my-account.edit")
             ->with('user', $user)
             ;

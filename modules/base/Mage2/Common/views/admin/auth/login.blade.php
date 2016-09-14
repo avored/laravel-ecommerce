@@ -6,7 +6,7 @@
             <div class="col s6 offset-s3">
                 <div class="card card-default">
                     <div class="card-content">
-                        <div class="cart-title"><h5>Mage2 Admin Login</h5></div>
+                        <div class="card-title"><h5>Mage2 Admin Login</h5></div>
                         <form class="form-horizontal" role="form" method="POST"
                               action="{{ route('admin.login.post') }}">
                             {{ csrf_field() }}

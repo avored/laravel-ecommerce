@@ -6,7 +6,7 @@
                 <div class="main-title-wrapper">
                     <h1>
                         Edit User
-                        <!--<small>Sub title</small> -->
+                    
                     </h1>
                 </div>
 
