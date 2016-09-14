@@ -1,0 +1,2 @@
+@include('mage2::template.text',['key' => 'title','label' => 'Order Status Title'])
+@include('mage2::template.select',['key' => 'is_default','label' => 'Is Default','options' => ['0' => 'No','1' => 'Yes']])
