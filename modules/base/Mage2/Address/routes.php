@@ -17,7 +17,7 @@ Route::group(['middleware' => ['web', 'adminauth','website'], 'namespace' => "Ma
 
 
 
-Route::group(['middleware' => ['frontauth','web','website']], function () {
+Route::group(['middleware' => ['frontauth','web','website'],  'namespace' => "Mage2\Address\Controllers"] ,  function () {
 
   Route::resource('/my-account/address', 'AddressController', ['names' => [
       'index' => 'my-account.address.index',

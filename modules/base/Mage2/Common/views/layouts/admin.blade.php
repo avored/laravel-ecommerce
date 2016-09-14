@@ -10,9 +10,18 @@
 
     <title>{{ config('app.name', 'Mage2 Ecommerce') }}</title>
 
-    <!-- Styles -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+     <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="{{ asset('css/mdb.css') }}" rel="stylesheet">
+
+    <!-- Your custom styles (optional) -->
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
 
     <!-- Scripts -->
     <script>
@@ -21,9 +30,18 @@
         ]); ?>
     </script>
      <!-- Scripts -->
-    <script src="{{ asset('/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('/js/materialize.min.js') }}"></script>
-    <script src="{{ asset('/js/app.js') }}"></script>
+      <!-- JQuery -->
+    <script src="{{ asset('/js/jquery.js') }}"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{{ asset('js/tether.js') }}"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{{ asset('js/mdb.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </head>
 <body>
 <div class="container-fluid">
