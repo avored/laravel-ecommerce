@@ -5,7 +5,7 @@ namespace Mage2\Common\Controllers;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
 class AdminLoginController extends Controller {
     /*
       |--------------------------------------------------------------------------
@@ -42,6 +42,17 @@ use AuthenticatesUsers;
     }
     protected function guard() {
         return Auth::guard('admin');
+    }
+    
+     public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect('/admin');
     }
 
 }

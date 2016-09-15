@@ -23,12 +23,12 @@ Route::group(['middleware' => ['web','website'],'namespace' => "Mage2\Common\Con
     Route::get('/admin/logout', ['as' => 'admin.logout', 'uses' => 'AdminLoginController@logout']);
 
 
-    Route::get('/login', ['as' => 'front.login', 'uses' => 'LoginController@showLoginForm']);
-    Route::post('/login', ['as' => 'front.logincheck', 'uses' => 'LoginController@login']);
-    Route::get('/logout', ['as' => 'front.logout', 'uses' => 'LoginController@logout']);
+    Route::get('/login', ['as' => 'login', 'uses' => 'LoginController@showLoginForm']);
+    Route::post('/login', ['as' => 'login.post', 'uses' => 'LoginController@login']);
+    Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
-    Route::get('/register', ['as' => 'front.register', 'uses' => 'RegisterController@showRegistrationForm']);
-    Route::post('/register', ['as' => 'front.registercheck', 'uses' => 'RegisterController@register']);
+    Route::get('/register', ['as' => 'register', 'uses' => 'RegisterController@showRegistrationForm']);
+    Route::post('/register', ['as' => 'register.post', 'uses' => 'RegisterController@register']);
 
     //Route::post('/admin/logout', ['as' => 'admin.logout', 'uses' => 'AuthController@logout']);
 

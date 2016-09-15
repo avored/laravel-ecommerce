@@ -25,7 +25,7 @@
                 <a href="{{ route('wishlist.list') }}" class="collection-item">
                     <i class="glyphicon glyphicon-user"></i>
                     My Wishlist</a>
-                <a href="{{ route('front.logout') }}" class="collection-item">
+                <a href="{{ route('logout') }}" class="collection-item">
                     <i class="glyphicon glyphicon-log-out"></i>
                     Logout </a>
 

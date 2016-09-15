@@ -10,8 +10,8 @@
             <li><a href="{{ route('cart.view') }}">Cart ({{$cart}})</a></li>
             <li><a href="{{ route('checkout.index') }}">Checkout</a></li>
             @if (Auth::guest())
-                <li><a href="{{ route('front.login') }}">Login</a></li>
-                <li><a href="{{ route('front.register') }}">Register</a></li>
+                <li><a href="{{ route('login') }}">Login</a></li>
+                <li><a href="{{ route('register') }}">Register</a></li>
             @else
                 <li class="dropdown">
 
@@ -21,7 +21,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="{{ route('my-account.home') }}"><i class="fa fa-btn fa-user"></i> My Account</a></li>
-                        <li><a href="{{ route('front.logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
+                        <li><a href="{{ route('logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
                     </ul>
                 </li>
             @endif

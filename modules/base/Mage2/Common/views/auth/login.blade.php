@@ -8,7 +8,7 @@
                     <div class="card-content">
                         <div class="card-title"><h5>Mage2 Login</h5></div>
                         <form class="form-horizontal" role="form" method="POST"
-                              action="{{ route('admin.login.post') }}">
+                              action="{{ route('login.post') }}">
                             {{ csrf_field() }}
 
                             <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}">

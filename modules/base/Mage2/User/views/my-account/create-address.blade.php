@@ -3,10 +3,10 @@
 @section('content')
     <div class="container">
 <div class="row profile">
-    <div class="col-md-2">
+    <div class="col s2">
         @include('my-account.sidebar')
     </div>
-    <div class="col-md-10">
+    <div class="col s10">
         <h3>Address Create</h3>
         <div class="profile-content">
 
