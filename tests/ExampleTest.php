@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\App;
 
 class ExampleTest extends TestCase
 {
-    public function setUp() {
-        parent::setUp();
-    }
 
     /**
      * A basic functional test example.
@@ -21,4 +18,5 @@ class ExampleTest extends TestCase
         $this->assertTrue(true);
         $this->visit('/admin/login')->see('Mage2 Admin Login');
     }
+
 }

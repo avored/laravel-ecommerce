@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
+
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -7,7 +9,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      *
      * @var string
      */
-    protected $baseUrl = 'http://cms';
+    protected $baseUrl = 'http://mage2-ecommerce';
 
     /**
      * Creates the application.
@@ -17,9 +19,16 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function createApplication()
     {
         $app = require __DIR__.'/../bootstrap/app.php';
-
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
     }
+
+    public function setUp()
+    {
+        parent::setUp();
+        //putenv('DB_CONNECTION=sqlite_testing');
+        Artisan::call('migrate');
+    }
+
 }
