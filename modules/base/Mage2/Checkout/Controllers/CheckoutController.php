@@ -4,12 +4,10 @@ namespace Mage2\Checkout\Controllers;
 
 use Mage2\Address\Models\Address;
 use Mage2\User\Models\User;
-use Mage2\Admin\Shipping\Facade\Shipping;
-use Mage2\Admin\Payment\Facade\Payment;
+use Mage2\Framework\Shipping\Facade\Shipping;
+use Mage2\Framework\Payment\Facade\Payment;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Mage2\Checkout\Requests\CheckoutUserRequest;
-
 use Illuminate\Support\Facades\Session;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;

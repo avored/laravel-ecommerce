@@ -26,14 +26,28 @@
         <!-- Scripts -->
         <script>
             window.Laravel = <?php
-echo json_encode([
-    'csrfToken' => csrf_token(),
-]);
+                echo json_encode([
+                    'csrfToken' => csrf_token(),
+                ]);
 ?>
         </script>
 
     </head>
     <body class="fixed-sn">
+    <!-- Scripts -->
+    <!-- JQuery -->
+    <script src="{{ asset('/js/jquery.js') }}"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{{ asset('js/tether.js') }}"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{{ asset('js/mdb.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/forms.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         <div class="container">
             @include("layouts.admin-nav")
 
@@ -44,18 +58,6 @@ echo json_encode([
 
 
         </div>
-        <!-- Scripts -->
-        <!-- JQuery -->
-        <script src="{{ asset('/js/jquery.js') }}"></script>
 
-        <!-- Bootstrap tooltips -->
-        <script type="text/javascript" src="{{ asset('js/tether.js') }}"></script>
-
-        <!-- Bootstrap core JavaScript -->
-        <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
-
-        <!-- MDB core JavaScript -->
-        <script type="text/javascript" src="{{ asset('js/mdb.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
     </body>
 </html>

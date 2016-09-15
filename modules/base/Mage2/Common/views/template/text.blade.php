@@ -3,7 +3,7 @@ if(!isset($attributes)) {
     $attributes = [];
 }
 ?>
-<div class="input-field {{ $errors->has($key) ? ' has-error' : '' }}">
+<div class="md-form {{ $errors->has($key) ? ' has-error' : '' }}">
     {!! Form::label($key, $label) !!}
     @if(!$isDefaultWebsite)
      <div class="input-group">
@@ -27,12 +27,12 @@ if(!isset($attributes)) {
     @endif
 </div>
 <script>
-jQuery(document).ready(function() {
-    jQuery(document).on('change','.same_as_default',function(e) {
-        if(jQuery(this).is(':checked')) {
-            jQuery(this).parents('.input-group:first').find('input[type="text"]').attr('disabled',true);
+$(document).ready(function() {
+    $(document).on('change','.same_as_default',function(e) {
+        if($(this).is(':checked')) {
+            $(this).parents('.input-group:first').find('input[type="text"]').attr('disabled',true);
         } else {
-            jQuery(this).parents('.input-group:first').find('input[type="text"]').attr('disabled',false);
+            $(this).parents('.input-group:first').find('input[type="text"]').attr('disabled',false);
         }
     })
 });

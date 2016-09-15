@@ -1,10 +1,11 @@
 <?php
 if(!isset($attributes)) {
-    $attributes = [];
+    $attributes = ['class' => 'mdb-select'];
+    $attributes = ['multiple' => 'true'];
 }
 ?>
-<div class="input-field col-md-12 {{ $errors->has($key) ? ' has-error' : '' }}">
-    
+<div class="md-form col-md-12 {{ $errors->has($key) ? ' has-error' : '' }}">
+
 
     @if(!$isDefaultWebsite)
         <div class="input-group">
@@ -13,7 +14,7 @@ if(!isset($attributes)) {
             $attributes['disabled'] = true;
             ?>
                 {!! Form::select($key,$options,NULL,$attributes) !!}
-            <div class="input-group-addon">
+            <div class="input-group-addon ">
                 Same as Default {!! Form::checkbox('same_as_default' . $key, 'value', true, ['class' => 'same_as_default']) !!}
             </div>
         </div>
