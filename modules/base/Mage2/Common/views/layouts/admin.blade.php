@@ -10,17 +10,7 @@
 
         <title>{{ config('app.name', 'Mage2 Ecommerce') }}</title>
 
-        <!-- Font Awesome -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-
-        <!-- Bootstrap core CSS -->
-        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-
-        <!-- Material Design Bootstrap -->
-        <link href="{{ asset('css/mdb.css') }}" rel="stylesheet">
-
-        <!-- Your custom styles (optional) -->
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
         <!-- Scripts -->
@@ -33,30 +23,15 @@
         </script>
 
     </head>
-    <body class="fixed-sn">
+    <body>
     <!-- Scripts -->
     <!-- JQuery -->
     <script src="{{ asset('/js/jquery.js') }}"></script>
-
-    <!-- Bootstrap tooltips -->
-    <script type="text/javascript" src="{{ asset('js/tether.js') }}"></script>
-
-    <!-- Bootstrap core JavaScript -->
-    <script type="text/javascript" src="{{ asset('js/bootstrap.js') }}"></script>
-
-    <!-- MDB core JavaScript -->
-    <script type="text/javascript" src="{{ asset('js/mdb.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/forms.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
-        <div class="container">
+        <div class="container-fluid">
             @include("layouts.admin-nav")
-
-            <main style="margin-top: 5rem;">
-                @yield('content')
-            </main>
-
-
-
+            
+            @yield('content')
         </div>
 
     </body>

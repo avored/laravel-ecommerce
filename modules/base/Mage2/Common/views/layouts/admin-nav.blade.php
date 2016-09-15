@@ -1,34 +1,40 @@
-<nav class="navbar navbar-dark navbar-fixed-top scrolling-navbar primary-color">
+<nav class="light-blue  lighten-1" role="navigation">
+    <div class="nav-wrapper ">
+        <a id="logo-container" href="{{ route('admin.dashboard') }}" class="brand-logo">Mage2 Admin</a>
+        <ul class="right hide-on-med-and-down">
 
-    <!-- Collapse button-->
-    <button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapseEx">
-        <i class="fa fa-bars"></i></button>
+            <!-- Authentication Links -->
+            @foreach($adminMenus as $menu)
+                <li><a href="{{ $menu['url'] }}">{{ $menu['label'] }}</a></li>
+            @endforeach
+            @if (Auth::guard('admin')->guest())
+                <li><a href="{{ url('admin.login') }}">Login</a></li>
+            @else
+                <li><a href="{{ route('admin.logout') }}">Logout</a></li>
+            @endif
 
-    <div class="container">
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
 
-        <!--Collapse content-->
-        <div class="collapse navbar-toggleable-xs" id="collapseEx">
-            <!--Navbar Brand-->
-            <a class="navbar-brand waves-effect waves-light" href="" >Mage2 Admin</a>
-            <!--Links-->
-            <ul class="nav navbar-nav">
-                
-                @foreach($adminMenus as $menu) 
-                <li class="nav-item">
-                    <a class="nav-link waves-effect waves-light" href="{{ $menu['url'] }}">{{ $menu['label'] }}</a>
+            <!-- Authentication Links -->
+            @foreach($adminMenus as $menu)
+                <li><a href="{{ $menu['url'] }}">{{ $menu['label'] }}</a></li>
+            @endforeach
+            @if (Auth::guard('admin')->guest())
+                <li><a href="{{ url('admin.login') }}">Login</a></li>
+            @else
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        {{ Auth::guard('admin')->user()->name }} <span class="caret"></span>
+                    </a>
+
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ route('admin.logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                    </ul>
                 </li>
-                @endforeach
-                @if (Auth::guard('admin')->guest())
-                <li class="nav-item"><a class="nav-link waves-effect waves-light"  href="{{ url('admin.login') }}">Login</a></li>
-                @else
-                <li class="nav-item"><a class="nav-link waves-effect waves-light"  href="{{ route('admin.logout') }}">Logout</a></li>
-                @endif
+            @endif
+        </ul>
 
-            </ul>
-
-        </div>
-        <!--/.Collapse content-->
-
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
-
 </nav>
