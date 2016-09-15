@@ -30,7 +30,7 @@
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         <div class="container-fluid">
             @include("layouts.admin-nav")
-            
+
             @yield('content')
         </div>
 

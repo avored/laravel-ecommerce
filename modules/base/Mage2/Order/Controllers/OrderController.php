@@ -6,8 +6,7 @@ use Mage2\Order\Models\Order;
 use Mage2\Framework\Http\Controllers\Controller; 
 use Illuminate\Support\Facades\Session;
 use Mage2\Order\Models\OrderStatus;
-
-//use Barryvdh\DomPDF\Facade as PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class OrderController extends Controller
 {
@@ -73,9 +72,9 @@ class OrderController extends Controller
         //$view = view('order.view')->with('order', $order);
 
 
-        $view = view('order.pdf')->with('order', $order);
+        $view = view('order.view')->with('order', $order);
 
-        PDF::loadHTML($view->render())->save('my_stored_file.pdf')->stream('download.pdf');
+        //PDF::loadHTML($view->render())->save('my_stored_file.pdf')->stream('download.pdf');
         //dd($view->render());die;
         //PDF::loadHTML($view->render())->save('my_stored_file.pdf')->stream('download.pdf');
 
