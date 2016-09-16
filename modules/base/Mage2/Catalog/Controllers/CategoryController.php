@@ -51,7 +51,6 @@ class CategoryController extends Controller
     public function store(CategoryRequest $request)
     {
         $request->merge(['website_id' => $this->websiteId]);
-
         Category::create($request->all());
 
         return redirect()->route('admin.category.index');
@@ -115,7 +114,8 @@ class CategoryController extends Controller
     }
 
     private function _getCategoryOptions() {
-        $options =  Collection::make(['0' => 'please select'])->toArray() +  Category::pluck('name','id')->toArray();
+        
+        $options =  Collection::make(['0' => 'please select'] + Category::pluck('name','id')->toArray())->toArray() ;
 
         return $options;
     }

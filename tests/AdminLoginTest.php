@@ -13,7 +13,7 @@ class AdminLoginTest extends TestCase
      *
      * @return void
      */
-    public function testBasicExample()
+    public function testGetLogin()
     {
         $this->assertTrue(true);
         $this->visit('/admin/login')->see('Mage2 Admin Login');

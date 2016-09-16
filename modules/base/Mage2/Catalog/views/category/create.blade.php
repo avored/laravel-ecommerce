@@ -2,18 +2,18 @@
 
 
 @section('content')
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"><h3>Create Category</h3></div>
-                    <div class="card-block">
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-title"><h3>Create Category</h3></div>
                 {!! Form::open(['route' => 'admin.category.store']) !!}
-                    @include('category._fields')
-                    @include('template.submit',['label' => 'Create Category'])
-                    
+                @include('category._fields')
+                @include('template.submit',['label' => 'Create Category'])
+
                 {!! Form::close() !!}
-                    </div>
-                </div>
             </div>
         </div>
+    </div>
+</div>
 @endsection

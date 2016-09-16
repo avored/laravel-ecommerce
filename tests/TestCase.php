@@ -32,4 +32,17 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         Artisan::call('migrate');
     }
 
+     /**
+     * A basic functional test example.
+     *
+     * @return void
+     */
+    public function adminUserLogin()
+    {
+        $this->visit('/admin/login')
+                ->type('admin@admin.com','email')
+                ->type('admin123','password')
+                ->press('Login');
+
+    }
 }

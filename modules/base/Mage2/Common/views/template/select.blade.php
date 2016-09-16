@@ -1,7 +1,7 @@
 <?php
 if(!isset($attributes)) {
     $attributes = ['class' => 'mdb-select'];
-    $attributes = ['multiple' => 'true'];
+    //$attributes = ['multiple' => 'true'];
 }
 ?>
 <div class="md-form col-md-12 {{ $errors->has($key) ? ' has-error' : '' }}">

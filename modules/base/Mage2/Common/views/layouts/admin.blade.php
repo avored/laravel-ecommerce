@@ -27,6 +27,7 @@
     <!-- Scripts -->
     <!-- JQuery -->
     <script src="{{ asset('/js/jquery.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         <div class="container-fluid">
             @include("layouts.admin-nav")
