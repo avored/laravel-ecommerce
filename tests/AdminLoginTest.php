@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\App;
 
-class ExampleTest extends TestCase
+class AdminLoginTest extends TestCase
 {
 
     /**
@@ -17,6 +17,23 @@ class ExampleTest extends TestCase
     {
         $this->assertTrue(true);
         $this->visit('/admin/login')->see('Mage2 Admin Login');
+    }
+
+    /**
+     * A basic functional test example.
+     *
+     * @return void
+     */
+    public function testLoginPost()
+    {
+        $this->assertTrue(true);
+        $this->visit('/admin/login')
+                ->type('admin@admin.com','email')
+                ->type('admin123','password')
+                ->press('Login')
+                ->seePageIs('/admin')
+                ->see("Admin");
+
     }
 
 }
