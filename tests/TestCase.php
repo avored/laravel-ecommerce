@@ -26,6 +26,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     public function setUp()
     {
+        
         parent::setUp();
         //putenv('DB_CONNECTION=sqlite_testing');
         Artisan::call('migrate');
