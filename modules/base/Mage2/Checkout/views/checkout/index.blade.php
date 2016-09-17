@@ -3,18 +3,18 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-sm-12 col-md-12">
+        <div class="col-sm-12 col s12">
             <h2>Checkout Page</h2>
             <div class="account-wrapper">
-                <div class="col-md-6 col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Create Account</div>
-                        <div class="panel-body">
+                <div class="col s6 col-sm-12">
+                    <div class="card card-default">
+                        <div class="card-content">
+                        <div class="card-title">Create Account</div>
                             {!! Form::open(['url' => '/checkout/step/user','method' => 'post']) !!}
 
-                            <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
-                                <label for="first_name" class="control-label">First Name</label>
-                                <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}">
+                            <div class="input-field{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                                <label for="first_name" >First Name</label>
+                                <input id="first_name" type="text"  name="first_name" value="{{ old('first_name') }}">
                                 @if ($errors->has('first_name'))
                                     <span class="help-block">
                                 <strong>{{ $errors->first('first_name') }}</strong>
@@ -22,9 +22,9 @@
                                 @endif
                             </div>
 
-                            <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
-                                <label for="last_name" class="control-label">Last Name</label>
-                                <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}">
+                            <div class="input-field{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                                <label for="last_name" >Last Name</label>
+                                <input id="last_name" type="text"  name="last_name" value="{{ old('last_name') }}">
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">
                                 <strong>{{ $errors->first('last_name') }}</strong>
@@ -32,10 +32,10 @@
                                 @endif
                             </div>
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="control-label">Email</label>
+                            <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" >Email</label>
 
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <input id="email" type="email"  name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -45,9 +45,9 @@
                             </div>
 
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="control-label">Password</label>
-                                <input id="password" type="password" class="form-control" name="password" value="">
+                            <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <label for="password" >Password</label>
+                                <input id="password" type="password"  name="password" value="">
                                 @if ($errors->has('password'))
                                     <span class="help-block">
                                 <strong>{{ $errors->first('password') }}</strong>
@@ -55,9 +55,9 @@
                                 @endif
                             </div>
 
-                            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                <label for="password_confirmation" class="control-label">Confirm Password</label>
-                                <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" value="">
+                            <div class="input-field{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                <label for="password_confirmation" >Confirm Password</label>
+                                <input id="password_confirmation" type="password"  name="password_confirmation" value="">
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help-block">
                                 <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -66,7 +66,7 @@
                             </div>
 
 
-                            <div class="form-group col-md-12">
+                            <div class="input-field">
                                 {!! Form::submit("Register",['class' => 'btn btn-primary']) !!}
                             </div>
 
@@ -75,17 +75,17 @@
 
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Login</div>
-                        <div class="panel-body">
+                <div class="col s6">
+                    <div class="card card-default">
+                        <div class="card-content">
+                        <div class="card-title">Login</div>
                             {!! Form::open(['url' => '/login','method' => 'post']) !!}
 
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="control-label">Email</label>
+                            <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" >Email</label>
 
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <input id="email" type="email"  name="email" value="{{ old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -95,9 +95,9 @@
                             </div>
 
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="control-label">Password</label>
-                                <input id="password" type="password" class="form-control" name="password" value="">
+                            <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <label for="password" >Password</label>
+                                <input id="password" type="password"  name="password" value="">
                                 @if ($errors->has('password'))
                                     <span class="help-block">
                                 <strong>{{ $errors->first('password') }}</strong>
@@ -107,7 +107,7 @@
 
 
                             <input type="hidden" name="page" value="checkout" />
-                            <div class="form-group col-md-12">
+                            <div class="input-field">
                                 {!! Form::submit("Login",['class' => 'btn btn-primary']) !!}
                             </div>
 

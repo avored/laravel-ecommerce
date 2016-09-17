@@ -3,18 +3,17 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 col-md-12">
+            <div class="col s12">
                 <h2>Checkout Page</h2>
 
-                <div class="col-md-offset-1 col-md-10">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Shipping Option</div>
-                        <div class="panel-body">
+                    <div class="card card-default">
+                        <div class="card-content">
+                        <div class="card-title">Shipping Option</div>
                             {!! Form::open(['route' => 'checkout.shipping-option.post']) !!}
 
                             @foreach($shillingOptions as $shippingOption)
 
-                                <div class="form-group col-md-12 {{ $errors->has($shippingOption->getIdentifier()) ? ' has-error' : '' }}">
+                                <div class="input-group {{ $errors->has($shippingOption->getIdentifier()) ? ' has-error' : '' }}">
 
                                     {!! Form::radio('shipping_option',$shippingOption->getIdentifier(),['class' =>'form-control','id' => $shippingOption->getIdentifier()]) !!}
                                     {!! Form::label($shippingOption->getIdentifier(), $shippingOption->getTitle() . " " . $shippingOption->getAmount()) !!}
@@ -25,21 +24,15 @@
                                         </span>
                                     @endif
                                 </div>
-
                             @endforeach
-
-
-
-                            <div class="form-group col-md-12">
+                            <div class="input-group">
                                 {!! Form::submit("Continue",['class' => 'btn btn-primary']) !!}
                             </div>
-
 
                             {!! Form::close() !!}
                         </div>
                     </div>
 
-                </div>
             </div>
         </div>
     </div>

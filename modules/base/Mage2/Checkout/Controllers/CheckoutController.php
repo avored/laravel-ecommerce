@@ -51,6 +51,9 @@ class CheckoutController extends Controller {
         $address = Address::where('user_id', '=', $user->id)
                         ->where('type', '=', 'SHIPPING')->get()->first();
 
+        if(Null === $address) {
+            $address = new Address();
+        }
         //return $address;
         return view("checkout.shipping-address")
                         ->with('address', $address)
@@ -85,6 +88,9 @@ class CheckoutController extends Controller {
 
         $address = Address::where('user_id', '=', $user->id)
                         ->where('type', '=', 'BILLING')->get()->first();
+        if(Null === $address) {
+            $address = new Address();
+        }
         return view("checkout.billing-address")
                         ->with('address', $address)
         ;
