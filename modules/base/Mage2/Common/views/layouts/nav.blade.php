@@ -13,15 +13,15 @@
                 <li><a href="{{ route('login') }}">Login</a></li>
                 <li><a href="{{ route('register') }}">Register</a></li>
             @else
-                <li class="dropdown">
+                <li>
 
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{ Auth::user()->full_name }} <span class="caret"></span>
+                    <a href="#" class="dropdown-button"  data-activates="my-account-nav"  data-beloworigin="true" >
+                        {{ Auth::user()->full_name }}
                     </a>
 
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('my-account.home') }}"><i class="fa fa-btn fa-user"></i> My Account</a></li>
-                        <li><a href="{{ route('logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout</a></li>
+                    <ul id="my-account-nav" class="light-blue" style="display: none">
+                        <li><a href="{{ route('my-account.home') }}">My Account</a></li>
+                        <li><a href="{{ route('logout') }}">Logout</a></li>
                     </ul>
                 </li>
             @endif
