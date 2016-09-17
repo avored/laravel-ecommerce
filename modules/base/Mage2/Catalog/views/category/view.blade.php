@@ -2,42 +2,48 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col s12">
         @if(count($category->products) <= 0)
         <p>Sorry No Product Found</p>
         @else
         @foreach($category->products as $product)
-        <div class="col-md-4">
-            <div class="thumbnail">
+        <div class="col s4">
+            <div class="card card-default">
+                <div class="card-content">
+                    <div class="card-title">
+                        <h3 style="font-size: 18px;">
+                            <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->title }}">
+                                {{ $product->title }}
+                            </a>
+                        </h3>
 
-                <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->title }}">
-                    @if(isset($product->getProductImages($first = true)->value))
-                    <img alt="{{ $product->title }}"
-                         class="img-responsive"
-                         src="{{ asset('/uploads/catalog/images/'. $product->getProductImages($first= true)->value) }}" />
-                    @else 
-                    <img alt="{{ $product->title }}"
-                         class="img-responsive"
-                         src="{{ asset('/img/default-product.jpg') }}" />
-                    @endif
-                </a>
-                <div class="caption">
-                    <h3>
+
                         <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->title }}">
-                            {{ $product->title }}
+                            @if(isset($product->getProductImages($first = true)->value))
+                            <img alt="{{ $product->title }}"
+                                 class="responsive-img"
+                                 src="{{ asset('/uploads/catalog/images/'. $product->getProductImages($first= true)->value) }}" />
+                            @else 
+                            <img alt="{{ $product->title }}"
+                                 class="responsive-img"
+                                 src="{{ asset('/img/default-product.jpg') }}" />
+                            @endif
                         </a>
-                    </h3>
-                    <p>
-                        {{ $product->price }}
-                    </p>
-                    <p>
-                        <a class="btn btn-primary" href="{{ route('cart.add-to-cart', $product->id) }}">Add to Cart</a>
-                        @if(isset(Auth::user()->id) && Auth::user()->isInWishlist($product->id))
-                        <a class="btn btn-danger" href="{{ route('wishlist.remove', $product->id) }}">Remove from Wishlist</a>
-                        @else
-                        <a class="btn btn-warning" href="{{ route('wishlist.add', $product->id) }}">Add to Wishlist</a>
-                        @endif
-                    </p>
+                        <div class="caption">
+
+                            <p>
+                                {{ $product->price }}
+                            </p>
+                            <div class="card-action">
+                                <a  href="{{ route('cart.add-to-cart', $product->id) }}" style="font-size: 15px">Add to Cart</a>
+                                @if(isset(Auth::user()->id) && Auth::user()->isInWishlist($product->id))
+                                <a  href="{{ route('wishlist.remove', $product->id) }}"  style="font-size: 15px">Remove from Wishlist</a>
+                                @else
+                                <a  href="{{ route('wishlist.add', $product->id) }}"  style="font-size: 15px">Add to Wishlist</a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
