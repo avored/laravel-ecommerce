@@ -4,8 +4,8 @@ use Illuminate\Database\Seeder;
 use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Order\Models\OrderStatus;
 use Mage2\Attribute\Models\AttributeDropdownOption;
-
-class ProductAttributeSeeder extends Seeder
+use Mage2\TaxClass\Models\Country;
+class Mage2EcommerceDataSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -188,5 +188,18 @@ class ProductAttributeSeeder extends Seeder
                         ['title' => 'processing','is_default' => 0],
                         ['title' => 'complete','is_default' => 0]
                 );
+
+
+        $path = public_path() . "/countries.json";
+
+        $json = json_decode(file_get_contents($path), true);
+        foreach($json as $code => $name) {
+            $countires[] = ['code' => $code,'name' => $name];
+        }
+
+        Country::insert($countires);
+
+
     }
+
 }

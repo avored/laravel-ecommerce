@@ -6,13 +6,14 @@ namespace Mage2\TaxClass\Controllers;
 use Mage2\TaxClass\Models\TaxClass;
 use Mage2\TaxClass\Requests\TaxClassRequest;
 use Mage2\Framework\Http\Controllers\Controller;
-
+use Mage2\TaxClass\Models\Country;
 class TaxClassController extends Controller
 {
 
     public function __construct(){
         parent::__construct();
     }
+
     /**
      * Display a listing of the resource.
      *
