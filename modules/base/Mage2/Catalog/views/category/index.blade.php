@@ -3,10 +3,12 @@
 @section('content')
 <div class="row">
     <div class="col s12">
-        <div> Category List</div>
-        <div class="pull-right">
+        <div class="main-title-wrapper">
+        <h1> Category List</h1>
+        <div class="right">
             <a href="{{ route('admin.category.create') }}"
                class="btn btn-primary"> Create Category</a>
+        </div>
         </div>
         <div class="clearfix"></div>
         <br/>

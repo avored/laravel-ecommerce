@@ -6,7 +6,7 @@
     <div class="col s12">
         <div class="main-title-wrapper">
             <h1>Product List</h1>
-            <div class="pull-right">
+            <div class="right">
                 <a href="{{ route('admin.product.create') }}"
                    class="btn btn-primary"> Create Product</a>
             </div>

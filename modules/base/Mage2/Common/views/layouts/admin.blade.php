@@ -21,7 +21,11 @@
                 ]);
 ?>
         </script>
-
+        <style>
+            .content-wrapper {
+                margin: 20px 0px;
+            }
+        </style>
     </head>
     <body>
     <!-- Scripts -->
@@ -31,8 +35,9 @@
     <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         <div class="container-fluid">
             @include("layouts.admin-nav")
-
+            <div class="content-wrapper">
             @yield('content')
+            </div>
         </div>
 
     </body>

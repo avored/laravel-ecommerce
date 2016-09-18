@@ -1,12 +1,13 @@
 <?php
 if(!isset($attributes)) {
-    $attributes = ['class' => 'mdb-select'];
+    $attributes = [];
     //$attributes = ['multiple' => 'true'];
 }
 ?>
-<div class="md-form col s12 {{ $errors->has($key) ? ' has-error' : '' }}">
+<div class="input-field  {{ $errors->has($key) ? ' has-error' : '' }}">
 
 
+    <!--
     @if(!$isDefaultWebsite)
         <div class="input-group">
 
@@ -19,9 +20,14 @@ if(!isset($attributes)) {
             </div>
         </div>
     @else
-        {!! Form::select($key,$options,NULL,$attributes) !!}
     @endif
-{!! Form::label($key, $label) !!}
+
+    {!! Form::label($key, $label) !!}
+    -->
+
+    {!! Form::select($key,$options,NULL,$attributes) !!}
+
+
 
 
     @if ($errors->has($key))
@@ -30,7 +36,7 @@ if(!isset($attributes)) {
             </span>
     @endif
 </div>
-<script>
+<!--script>
     jQuery(document).ready(function() {
         jQuery(document).on('change','.same_as_default',function(e) {
             if(jQuery(this).is(':checked')) {
@@ -40,4 +46,4 @@ if(!isset($attributes)) {
             }
         })
     });
-</script>
+</script-->

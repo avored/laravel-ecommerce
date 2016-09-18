@@ -3,7 +3,7 @@ if(!isset($attributes)) {
     $attributes = [];
 }
 ?>
-<div class="md-form {{ $errors->has($key) ? ' has-error' : '' }}">
+<div class="input-field {{ $errors->has($key) ? ' has-error' : '' }}">
     {!! Form::label($key, $label) !!}
     @if(!$isDefaultWebsite)
      <div class="input-group">

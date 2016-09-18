@@ -135,6 +135,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
             $cart = count(Session::get('cart'));
             $categoryModel = new Category();
             $baseCategories = $categoryModel->getAllCategories();
+
             $view->with('categories', $baseCategories)
                     ->with('cart', $cart)
             ;
