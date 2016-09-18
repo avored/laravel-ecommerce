@@ -8,6 +8,7 @@ if (!isset($attributes)) {
 
 
     {!! Form::select($key,$options,NULL,$attributes) !!}
+    {!! Form::label($key, $label) !!}
 
     @if ($errors->has($key))
     <span class="help-block">

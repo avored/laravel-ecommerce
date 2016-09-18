@@ -6525,3 +6525,10 @@ nav {
   display: inline-block; }
 
 /*# sourceMappingURL=app.css.map */
+.input-field {
+  margin: 2rem 0px;
+}
+.input-field label,
+.input-field label.active{
+    font-size: 1rem;
+}

@@ -25,7 +25,9 @@ if(!isset($attributes)) {
     {!! Form::label($key, $label) !!}
     -->
 
+
     {!! Form::select($key,$options,NULL,$attributes) !!}
+    {!! Form::label($key, $label) !!}
 
 
 

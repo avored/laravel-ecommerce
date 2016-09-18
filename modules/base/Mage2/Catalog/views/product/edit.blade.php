@@ -22,9 +22,8 @@
             @include('product.boxes.images')
             @include('product.boxes.inventory')
             @include('product.boxes.seo')
-
-            @include('product.boxes.extra')
-                    <!--
+            <!--
+            include('product.boxes.extra')
                 include('admin.product._fields', ['websites' => $websites,'categories' => $categories])
             -->
             @include('template.hidden',['key' => 'id'])

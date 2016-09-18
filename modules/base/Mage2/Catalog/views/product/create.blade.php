@@ -23,8 +23,9 @@
                 @include('product.boxes.images')
                 @include('product.boxes.inventory')
                 @include('product.boxes.seo')
-                @include('product.boxes.extra')
+
                 <!--
+                include('product.boxes.extra')
                     include('admin.product._fields',['productAttributes' => $productAttributes,
                                                     'websites' => $websites,
                                                     'categories' => $categories])
