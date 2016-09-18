@@ -12,7 +12,7 @@
 
 
 
-                        <div class="input-field{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                        <div class="input-field col s6{{ $errors->has('first_name') ? ' has-error' : '' }}">
                             <label for="first_name" >First Name</label>
                             <input id="first_name" type="text"  name="first_name" value="{{ $address->first_name }}">
                             @if ($errors->has('first_name'))
@@ -21,7 +21,7 @@
                             </span>
                             @endif
                         </div>
-                        <div class="input-field{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                        <div class="input-field col s6{{ $errors->has('last_name') ? ' has-error' : '' }}">
                             <label for="last_name" >Last Name</label>
                             <input id="last_name" type="text"  name="last_name" value="{{ $address->last_name }}">
                             @if ($errors->has('last_name'))
@@ -30,6 +30,7 @@
                             </span>
                             @endif
                         </div>
+                        <div class="clearfix"></div>
 
                         <div class="input-field{{ $errors->has('address1') ? ' has-error' : '' }}">
                             <label for="address1" >Address1</label>
@@ -107,7 +108,7 @@
 
                         {!! Form::hidden('id') !!}
 
-                        <div class="input-field col s12">
+                        <div class="input-field">
                             {!! Form::submit("Continue",['class' => 'btn btn-primary']) !!}
                         </div>
 
@@ -116,7 +117,7 @@
                     </div>
                 </div>
 
-           
+
         </div>
     </div>
 </div>

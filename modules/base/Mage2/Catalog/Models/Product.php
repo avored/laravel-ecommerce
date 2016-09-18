@@ -73,6 +73,14 @@ class Product extends Model
         return $attributeValue;
     }
 
+    public function getPrice() {
+        $key = "price";
+        $productAttribute = ProductAttribute::where('identifier', '=', $key)->get()->first();
+        $value = $this->_getProductFloatValue($productAttribute);
+
+        return number_format($value,2);
+    }
+
 
     public function getAttribute($key)
     {
@@ -87,11 +95,16 @@ class Product extends Model
             return $websites->all();
         }
 
+        if($key == "price") {
+            return $this->getPrice();
+        }
+
         //
         if ($key == "category_id") {
             $categories = $this->categories()->get()->pluck('id');
             return $categories->all();
         }
+
 
         $value = null;
 

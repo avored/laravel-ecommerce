@@ -83,9 +83,9 @@
 
 
                             <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" >Email</label>
+                                <label for="login-email" >Email</label>
 
-                                <input id="email" type="email"  name="email" value="{{ old('email') }}">
+                                <input id="login-email" type="email"  name="email" value="">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -96,8 +96,8 @@
 
 
                             <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" >Password</label>
-                                <input id="password" type="password"  name="password" value="">
+                                <label for="login-password" >Password</label>
+                                <input id="login-password" type="password"  name="password" value="">
                                 @if ($errors->has('password'))
                                     <span class="help-block">
                                 <strong>{{ $errors->first('password') }}</strong>

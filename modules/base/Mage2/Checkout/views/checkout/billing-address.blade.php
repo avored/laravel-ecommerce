@@ -6,13 +6,14 @@
         <div class="col-sm-12 col s12">
             <h2>Checkout Page</h2>
             <div class="col s12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Billing Address</div>
-                    <div class="panel-body">
+                <div class="card card-default">
+                    <div class="card-content">
+                    <div class="card-title">Billing Address</div>
+
                         {!! Form::model($address,['route' => 'checkout.billing-address.post']) !!}
 
 
-                        <div class="input-field{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                        <div class="input-field col s6 {{ $errors->has('first_name') ? ' has-error' : '' }}">
                             <label for="first_name" class="control-label">First Name</label>
                             <input id="first_name" type="text" class="form-control" name="first_name" value="{{ $address->first_name }}">
                             @if ($errors->has('first_name'))
@@ -21,7 +22,7 @@
                             </span>
                             @endif
                         </div>
-                        <div class="input-field{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                        <div class="input-field col s6{{ $errors->has('last_name') ? ' has-error' : '' }}">
                             <label for="last_name" class="control-label">Last Name</label>
                             <input id="last_name" type="text" class="form-control" name="last_name" value="{{ $address->last_name }}">
                             @if ($errors->has('last_name'))
@@ -30,6 +31,7 @@
                             </span>
                             @endif
                         </div>
+                        <div class="clearfix"></div>
 
                         <div class="input-field{{ $errors->has('address1') ? ' has-error' : '' }}">
                             <label for="address1" class="control-label">Address1</label>
@@ -107,7 +109,7 @@
 
                         {!! Form::hidden('id') !!}
 
-                        <div class="input-field col s12">
+                        <div class="input-field">
                             {!! Form::submit("Continue",['class' => 'btn btn-primary']) !!}
                         </div>
 

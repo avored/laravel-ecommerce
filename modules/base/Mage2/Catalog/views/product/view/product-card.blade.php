@@ -18,8 +18,8 @@
                     {{ $product->title }}
                 </a>
             </h3>
-            <p>
-                {{ $product->price }}
+            <p class="price">
+                $ {{ $product->price }}
             </p>
             <p>
                 <a class="btn btn-primary" href="{{ route('cart.add-to-cart', $product->id) }}">Add to Cart</a>
