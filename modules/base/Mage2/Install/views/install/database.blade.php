@@ -1,7 +1,7 @@
 @extends('layouts.install')
 @section('content')
     <div class="container">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col s6 col-md-offset-3">
             <div class="panel panel-default panel-installation center-block">
                 <div class="panel-heading">Welcome to Mage2 Installation</div>
                 <div class="panel-body">
@@ -11,7 +11,7 @@
 
                     <p>Click Continue to install Database</p>
 
-                    <div class="col-md-12">
+                    <div class="col s12">
                         <button type="submit" class="btn btn-primary">Continue</button>
                     </div>
                     {{ Form::close() }}

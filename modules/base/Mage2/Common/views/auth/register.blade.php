@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            <label for="email" class="col s4 control-label">E-Mail Address</label>
 
 
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                            <label for="password" class="col s4 control-label">Password</label>
 
 
                                 <input id="password" type="password" class="form-control" name="password" required>
@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="input-field{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+                            <label for="password-confirm" class="col s4 control-label">Confirm Password</label>
 
 
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>

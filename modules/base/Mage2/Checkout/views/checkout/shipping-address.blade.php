@@ -107,7 +107,7 @@
 
                         {!! Form::hidden('id') !!}
 
-                        <div class="form-group col-md-12">
+                        <div class="form-group col s12">
                             {!! Form::submit("Continue",['class' => 'btn btn-primary']) !!}
                         </div>
 

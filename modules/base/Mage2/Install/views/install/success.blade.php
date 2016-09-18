@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="container">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col s6 col-md-offset-3">
             <div class="panel panel-default panel-installation center-block">
                 <div class="panel-heading">Welcome to Mage2 Ecommerce App Installation</div>
                 <div class="panel-body">

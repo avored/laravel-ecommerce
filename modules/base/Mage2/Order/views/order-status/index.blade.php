@@ -15,7 +15,7 @@
 
 @section('content')
 <div class="row">
-    <div class="col-md-12">
+    <div class="col s12">
         <div class="pull-right">
             <a href="{{ route('admin.order-status.create') }}"
                class="btn btn-primary"> Create Order Status</a>

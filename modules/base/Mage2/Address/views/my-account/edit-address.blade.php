@@ -112,7 +112,7 @@
                             @endif
                         </div>
 
-                        <div class="form-group col-md-12">
+                        <div class="form-group col s12">
                             <button class="btn btn-primary" type="submit">Update Address</button>
                         </div>
 

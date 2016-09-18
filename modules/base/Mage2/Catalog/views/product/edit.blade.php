@@ -14,7 +14,7 @@
 @endsection
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+        <div class="col s12">
 
             {!! Form::model($product, ['method' => 'PUT', 'route' => ['admin.product.update', $product->id]]) !!}
 

@@ -106,7 +106,7 @@
 
 
 
-            <div class="form-group col-md-12">
+            <div class="form-group col s12">
                 {!! Form::submit("Create Address",['class' => 'btn btn-primary']) !!}
             </div>
 

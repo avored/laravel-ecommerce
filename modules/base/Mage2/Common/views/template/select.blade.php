@@ -4,7 +4,7 @@ if(!isset($attributes)) {
     //$attributes = ['multiple' => 'true'];
 }
 ?>
-<div class="md-form col-md-12 {{ $errors->has($key) ? ' has-error' : '' }}">
+<div class="md-form col s12 {{ $errors->has($key) ? ' has-error' : '' }}">
 
 
     @if(!$isDefaultWebsite)

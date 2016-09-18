@@ -5,7 +5,7 @@ if (!isset($attributes) || true) {
     $attributes ['data-date-format']= 'd-m-yyyy';
 }
 ?>
-<div class="input-field date col-md-12 {{ $errors->has($key) ? ' has-error' : '' }}">
+<div class="input-field date col s12 {{ $errors->has($key) ? ' has-error' : '' }}">
     {!! Form::label($key, $label) !!}
 
     @if(!$isDefaultWebsite)

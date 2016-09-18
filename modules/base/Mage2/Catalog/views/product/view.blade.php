@@ -44,7 +44,7 @@
                 </div>
             </div> 
 
-            <div class="col-md-12 product-info">
+            <div class="col s12 product-info">
                 <ul id="myTab" class="nav nav-tabs nav_tabs">
                     <li class="active"><a href="#service-one" data-toggle="tab">DESCRIPTION</a></li>
                 </ul>

@@ -2,7 +2,7 @@
 
 @section('content')
         <div class="row">
-            <div class="col-md-12">
+            <div class="col s12">
                 <div class="main-title-wrapper">
                     <h1>
                         Create Tax Class

@@ -4,7 +4,7 @@ if (!isset($attributes)) {
     $attributes['multiple'] = true;
 }
 ?>
-<div class="input-field col-md-12 {{ $errors->has($key) ? ' has-error' : '' }}">
+<div class="input-field col s12 {{ $errors->has($key) ? ' has-error' : '' }}">
     {!! Form::label($key, $label) !!}
 
     {!! Form::select($key,$options,NULL,$attributes) !!}

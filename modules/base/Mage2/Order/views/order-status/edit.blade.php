@@ -14,7 +14,7 @@
 @endsection
 @section('content')
         <div class="row">
-            <div class="col-md-12">
+            <div class="col s12">
 
                 {!! Form::model($orderStatus, ['method' => 'PUT', 'route' => ['admin.order-status.update', $orderStatus->id]]) !!}
                         @include('mage2::order-status._fields')

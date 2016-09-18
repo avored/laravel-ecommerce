@@ -12,7 +12,7 @@
 
                 {{ Form::open(['route' => 'mage2.install.admin.post']) }}
 
-                <div class="form-group col-md-12 {{ $errors->has('first_name') ? ' has-error' : '' }}">
+                <div class="form-group col s12 {{ $errors->has('first_name') ? ' has-error' : '' }}">
                     
                     {!! Form::label("first_name", "First Name") !!}
                     {!! Form::text('first_name',NULL,['class' => 'form-control']) !!}
@@ -24,7 +24,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-12 {{ $errors->has('last_name') ? ' has-error' : '' }}">
+                <div class="form-group col s12 {{ $errors->has('last_name') ? ' has-error' : '' }}">
                     {!! Form::label("last_name", "Last Name") !!}
 
                     {!! Form::text('last_name',NULL,['class' => 'form-control']) !!}
@@ -36,7 +36,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-12 {{ $errors->has('email') ? ' has-error' : '' }}">
+                <div class="form-group col s12 {{ $errors->has('email') ? ' has-error' : '' }}">
                     {!! Form::label("email", "Email") !!}
 
                     {!! Form::text('email',NULL,['class' => 'form-control']) !!}
@@ -48,7 +48,7 @@
                     @endif
                 </div>
 
-                <div class="form-group col-md-12 {{ $errors->has('password') ? ' has-error' : '' }}">
+                <div class="form-group col s12 {{ $errors->has('password') ? ' has-error' : '' }}">
                     {!! Form::label('password', 'Password') !!}
 
                     {!! Form::password('password',['class' => 'form-control']) !!}
@@ -59,7 +59,7 @@
                     </span>
                     @endif
                 </div>
-                <div class="form-group col-md-12 {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                <div class="form-group col s12 {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                     {!! Form::label('password_confirmation', 'Confirm Password') !!}
 
                     {!! Form::password('password_confirmation',['class' => 'form-control']) !!}
@@ -72,7 +72,7 @@
                 </div>
                
 
-                <div class="col-md-12">
+                <div class="col s12">
                     <button type="submit" class="btn btn-primary">Continue</button>
                 </div>
                 {{ Form::close() }}

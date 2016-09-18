@@ -46,7 +46,7 @@
 
 
 
-            <div class="input-field col-md-12">
+            <div class="input-field col s12">
                 {!! Form::submit("Update Profile",['class' => 'btn btn-primary']) !!}
             </div>
 
