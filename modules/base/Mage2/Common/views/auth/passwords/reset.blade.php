@@ -13,7 +13,7 @@
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col s4 control-label">E-Mail Address</label>
 
                             <div class="col s6">
@@ -27,7 +27,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col s4 control-label">Password</label>
 
                             <div class="col s6">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                        <div class="input-field{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                             <label for="password-confirm" class="col s4 control-label">Confirm Password</label>
                             <div class="col s6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -54,7 +54,7 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="input-field">
                             <div class="col s6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Reset Password

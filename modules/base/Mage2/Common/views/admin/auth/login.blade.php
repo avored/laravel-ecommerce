@@ -21,71 +21,98 @@
         ]);
         ?>
     </script>
+    <style>
 
+        body{
+            padding: 0;
+            margin: 0;
+            list-style: none;
+
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+        .input-field.has-error input{
+            border: 1px solid crimson;
+            padding: 10px;
+        }
+        h5 {
+            margin: 20px 0px;
+        }
+
+    </style>
 </head>
-<body class="flex-center" style="height: 100%; width: 100%">
+<body style="width: 100%;height: 100%;">
 
-<div class="card" style="width: 50%;">
 
-    <div class="card-header"><h5>Mage2 Admin Login</h5></div>
-    <div class="card-text" style="padding: 20px;">
+    <div class="card" style="width: 50%;">
+        <div class="card-content" style="padding: 20px;">
 
-        <form class="form-horizontal" role="form" method="POST"
-              action="{{ route('admin.login.post') }}">
-            {{ csrf_field() }}
+            <div class="card-title"><h5>Mage2 Admin Login</h5></div>
 
-            <div class="md-form {{ $errors->has('email') ? ' has-error' : '' }}">
-                <label for="email" class="control-label">E-Mail Address</label>
-                <input id="email" type="email" class="form-control" name="email"
-                       value="{{ old('email') }}" required autofocus>
 
-                @if ($errors->has('email'))
-                    <span class="help-block">
+            <div class="col s12">
+            <form method="POST" action="{{ route('admin.login.post') }}">
+                {{ csrf_field(  ) }}
+
+                <div class="input-field {{ $errors->has('email') ? ' has-error' : '' }}">
+                    <label for="email" >E-Mail Address</label>
+                    <input id="email" type="email"  name="email"
+                           value="{{ old('email') }}"  autofocus>
+
+                    @if ($errors->has('email'))
+                        <span class="help-block">
                         <strong>{{ $errors->first('email') }}</strong>
                     </span>
-                @endif
+                    @endif
 
-            </div>
+                </div>
 
-            <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
-                <label for="password" class="control-label">Password</label>
-                <input id="password" type="password" class="form-control" name="password" required>
+                <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
+                    <label for="password" >Password</label>
+                    <input id="password" type="password"  name="password" />
 
-                @if ($errors->has('password'))
-                    <span class="help-block">
+                    @if ($errors->has('password'))
+                        <span class="help-block">
                         <strong>{{ $errors->first('password') }}</strong>
                     </span>
-                @endif
-            </div>
+                    @endif
+                </div>
 
-            <div class="form-group">
-                <p>
-                    <input id="rememberme"  type="checkbox" name="remember"/>
-                    <label for="rememberme">Remember Me</label>
-                </p>
-            </div>
+                <div class="input-field">
+                    <p>
+                        <input id="rememberme" type="checkbox" name="remember"/>
+                        <label for="rememberme">Remember Me</label>
+                    </p>
+                </div>
 
 
+                <div class="input-field">
 
-            <div class="input-field">
+                    <button type="submit" class="btn btn-primary">
+                        Login
+                    </button>
 
-                <button type="submit" class="btn btn-primary">
-                    Login
-                </button>
-
-                <!--a class="btn btn-link" href="{{ url('/admin/password/reset') }}">
+                    <!--a class="btn btn-link" href="{{ url('/admin/password/reset') }}">
                                     Forgot Your Password?
                                 </a-->
-            </div>
+                </div>
 
-        </form>
+            </form>
+            </div>
+        </div>
     </div>
-</div>
 
 
 <!-- Scripts -->
 <!-- JQuery -->
 <script src="{{ asset('/js/jquery.js') }}"></script>
+    <script src="{{ asset('/js/materialize.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

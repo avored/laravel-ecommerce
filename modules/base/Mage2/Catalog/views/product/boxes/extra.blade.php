@@ -8,7 +8,7 @@
                     data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
         </div-->
     </div>
-        <div class="form-group col s12 {{ $errors->has('related_products') ? ' has-error' : '' }}">
+        <div class="input-field col s12 {{ $errors->has('related_products') ? ' has-error' : '' }}">
             {!! Form::label('related_products', 'Related Products') !!}
 
             {!! Form::select('related_products[]',[],NULL,['class' => 'select2-related form-control']) !!}
