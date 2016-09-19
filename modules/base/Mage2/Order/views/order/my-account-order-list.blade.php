@@ -1,7 +1,10 @@
 @extends('layouts.app')
 @section('content')
     <div class="row">
-        <div class="col s12">
+        <div class="col s2">
+            @include('my-account.sidebar')
+        </div>
+        <div class="col s10">
 
             <div class="main-title-wrapper">
                 <h1>
