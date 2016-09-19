@@ -94,7 +94,7 @@
                                 {{ $order->shipping_address->address2 }}<br/>
                                 {{ $order->shipping_address->area }}<br/>
                                 {{ $order->shipping_address->city }}<br/>
-                                {{ $order->shipping_address->state }} {{ $order->shipping_address->country }}<br/>
+                                {{ $order->shipping_address->state }} {{ $order->shipping_address->country->name }}<br/>
                                 {{ $order->shipping_address->phone }}<br/>
                             </p>
                         </div>
@@ -108,7 +108,7 @@
                                 {{ $order->billing_address->address2 }}<br/>
                                 {{ $order->billing_address->area }}<br/>
                                 {{ $order->billing_address->city }}<br/>
-                                {{ $order->billing_address->state }} {{ $order->shipping_address->country }}<br/>
+                                {{ $order->billing_address->state }} {{ $order->shipping_address->country->name }}<br/>
                                 {{ $order->billing_address->phone }}<br/>
                             </p>
                         </div>
