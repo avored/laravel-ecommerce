@@ -29,6 +29,7 @@
             <th>ID</th>
             <th>First Name</th>
             <th>Last Name</th>
+            <th>Email</th>
             <th>EDIT</th>
             <th>DELETE</th>
             </thead>
@@ -38,6 +39,7 @@
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->first_name }}</td>
                     <td>{{ $user->last_name }}</td>
+                    <td>{{ $user->email }}</td>
                     <td>
                         <a href="{{ route('admin.user.edit',$user->id )}}">Edit</a>
                     </td>

@@ -23,7 +23,7 @@
             </p>
             <p>
                 <a class="btn btn-primary" href="{{ route('cart.add-to-cart', $product->id) }}">Add to Cart</a>
-                @if(isset(Auth::user()->id) && Auth::user()->isInWishlist($product->id))
+                @if(Auth::check() && Auth::user()->isInWishlist($product->id))
                     <a class="btn btn-danger" href="{{ route('wishlist.remove', $product->id) }}">Remove from Wishlist</a>
                 @else
                     <a class="btn btn-warning" href="{{ route('wishlist.add', $product->id) }}">Add to Wishlist</a>
