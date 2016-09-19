@@ -5,6 +5,7 @@ namespace Mage2\Order\Models;
 use Illuminate\Database\Eloquent\Model;
 use Mage2\Address\Models\Address;
 use Mage2\Catalog\Models\Product;
+use Mage2\Order\Models\OrderStatus;
 
 class Order extends Model
 {
@@ -19,6 +20,10 @@ class Order extends Model
 
     public function products() {
         return $this->belongsToMany(Product::class,'product_order')->withPivot('price','qty');
+    }
+
+    public function orderStatus() {
+        return $this->belongsTo(OrderStatus::class);
     }
 
     public function getShippingAddressAttribute() {

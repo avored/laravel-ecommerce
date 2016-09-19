@@ -32,4 +32,6 @@ Route::group(['middleware' => ['web', 'frontauth', 'website'], 'namespace' => "M
     Route::get('/order', ['as' => 'order.index', 'uses' => 'OrderController@index']);
     Route::get('/order/success/{id}', ['as' => 'order.success', 'uses' => 'OrderController@success']);
 
+    Route::get('/my-account/order/list', ['as' => 'my-account.order.list', 'uses' => 'OrderController@myAccountOrderList']);
+    Route::get('/my-account/order/{id}/view', ['as' => 'my-account.order.view', 'uses' => 'OrderController@myAccountOrderView']);
 });

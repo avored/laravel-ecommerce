@@ -7,7 +7,7 @@ use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Mage2\Order\Models\OrderStatus;
 use Barryvdh\DomPDF\Facade as PDF;
-
+use Illuminate\Support\Facades\Auth;
 class OrderController extends Controller
 {
     /**
@@ -81,5 +81,23 @@ class OrderController extends Controller
         return $view;
     }
 
+    public function myAccountOrderList() {
+
+        $user = Auth::guard('web')->user();
+        $orders = Order::where('user_id','=', $user->id)->get();
+
+        $view = view('order.my-account-order-list')->with('orders', $orders);
+
+        return $view;
+    }
+
+    public function myAccountOrderView($id) {
+
+        $order = Order::find($id);
+
+        $view = view('order.my-account-order-view')->with('order', $order);
+
+        return $view;
+    }
 
 }

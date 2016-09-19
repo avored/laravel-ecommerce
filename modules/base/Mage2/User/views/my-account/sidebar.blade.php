@@ -14,19 +14,22 @@
         <ul class="collection">
 
                 <a href="{{ route('my-account.home') }}" class="collection-item">
-                    <i class="glyphicon glyphicon-dashboard"></i>
+
                     Overview </a>
                 <a href="{{ route('my-account.edit') }}" class="collection-item">
-                    <i class="glyphicon glyphicon-user"></i>
+
                     Edit Account</a>
+                <a href="{{ route('my-account.order.list') }}" class="collection-item">
+
+                        My Order</a>
                 <a href="{{ route('my-account.address.index') }}" class="collection-item">
-                    <i class="glyphicon glyphicon-home"></i>
+
                     Address </a>
                 <a href="{{ route('wishlist.list') }}" class="collection-item">
-                    <i class="glyphicon glyphicon-user"></i>
+
                     My Wishlist</a>
                 <a href="{{ route('logout') }}" class="collection-item">
-                    <i class="glyphicon glyphicon-log-out"></i>
+
                     Logout </a>
 
         </ul>
