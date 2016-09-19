@@ -29,7 +29,7 @@ class AddressRequest extends Request
             'address1' => 'required|max:255',
             'area' => 'required|max:255',
             'city' => 'required|max:255',
-            'country' => 'required|max:255',
+            'country_id' => 'required',
             'phone' => 'required|max:255',
         ];
     }

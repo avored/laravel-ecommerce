@@ -64,7 +64,7 @@
                             </tr>
                             <tr>
                                 <th>Country</th>
-                                <td> {{ $address->country}}</td>
+                                <td> {{ $address->country->name}}</td>
                             </tr>
                             <tr>
                                 <th>phone</th>

@@ -6,7 +6,7 @@ use Mage2\Address\Requests\AddressRequest;
 use Illuminate\Support\Facades\Auth;
 use Mage2\Address\Models\Address;
 use Mage2\Framework\Http\Controllers\Controller;
-
+use Mage2\TaxClass\Models\Country;
 class AddressController extends Controller {
 
    
@@ -33,8 +33,10 @@ class AddressController extends Controller {
      */
     public function create() {
         $user = Auth::user();
+        $countries = Country::all();
         return view("my-account.create-address")
                         ->with('user', $user)
+                        ->with('countries', $countries)
         ;
     }
 
@@ -72,10 +74,12 @@ class AddressController extends Controller {
         $user = Auth::user();
         $address = Address::findorfail($id);
 
+        $countries = Country::all();
         return view("my-account.edit-address")
                         ->with('user', $user)
                         ->with('address', $address)
-        ;
+                        ->with('countries', $countries)
+            ;
     }
 
     /**

@@ -23,7 +23,7 @@ class CreateAddressTable extends Migration
             $table->string('area');
             $table->string('city');
             $table->string('state');
-            $table->string('country');
+            $table->integer('country_id');
             $table->string('phone');
             $table->timestamps();
         });

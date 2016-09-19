@@ -84,8 +84,16 @@
                         </div>
 
                         <div class="input-field{{ $errors->has('country') ? ' has-error' : '' }}">
+
+                            <select name="country_id" >
+                                @foreach($countries as $country)
+                                    <option @if($address->country_id == $country->id)
+                                            {{ "selected" }}
+                                            @endif
+                                            value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endforeach
+                            </select>
                             <label for="country" class="control-label">Country</label>
-                            <input id="country" type="text" class="form-control" name="country" value="{{ $address->country }}">
                             @if ($errors->has('country'))
                                 <span class="help-block">
                                 <strong>{{ $errors->first('country') }}</strong>

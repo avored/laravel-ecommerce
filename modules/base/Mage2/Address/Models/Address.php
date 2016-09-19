@@ -3,6 +3,7 @@
 namespace Mage2\Address\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Mage2\TaxClass\Models\Country;
 
 class Address extends Model
 {
@@ -16,7 +17,11 @@ class Address extends Model
                     'area',
                     'city',
                     'state',
-                    'country',
+                    'country_id',
                     'phone',
     ];
+
+    public function country() {
+        return $this->belongsTo(Country::class);
+    }
 }

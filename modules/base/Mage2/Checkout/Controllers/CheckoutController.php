@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Mage2\Address\Requests\AddressRequest;
-
+use Mage2\TaxClass\Models\Country;
 class CheckoutController extends Controller {
 
    
@@ -47,6 +47,7 @@ class CheckoutController extends Controller {
     public function shippingAddress() {
 
 
+        $countries = Country::all();
         $user = Auth::user();
         $address = Address::where('user_id', '=', $user->id)
                         ->where('type', '=', 'SHIPPING')->get()->first();
@@ -57,6 +58,7 @@ class CheckoutController extends Controller {
         //return $address;
         return view("checkout.shipping-address")
                         ->with('address', $address)
+                        ->with('countries', $countries)
         ;
     }
 
@@ -85,6 +87,7 @@ class CheckoutController extends Controller {
     public function billingAddress() {
 
         $user = Auth::user();
+        $countries = Country::all();
 
         $address = Address::where('user_id', '=', $user->id)
                         ->where('type', '=', 'BILLING')->get()->first();
@@ -93,6 +96,7 @@ class CheckoutController extends Controller {
         }
         return view("checkout.billing-address")
                         ->with('address', $address)
+                        ->with('countries', $countries)
         ;
     }
 
