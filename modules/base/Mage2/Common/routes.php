@@ -27,6 +27,11 @@ Route::group(['middleware' => ['web','website'],'namespace' => "Mage2\Common\Con
     Route::post('/login', ['as' => 'login.post', 'uses' => 'LoginController@login']);
     Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
 
+    Route::get('/password/reset', ['as' => 'password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
+    Route::post('/password/email', ['as' => 'password.email.post', 'uses' => 'ForgotPasswordController@sendResetLinkEmail']);
+    //Route::post('/login', ['as' => 'login.post', 'uses' => 'LoginController@login']);
+    
+    //Route::auth();
     Route::get('/register', ['as' => 'register', 'uses' => 'RegisterController@showRegistrationForm']);
     Route::post('/register', ['as' => 'register.post', 'uses' => 'RegisterController@register']);
 

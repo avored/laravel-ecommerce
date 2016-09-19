@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col s6 offset-s6">
+        <div class="col s6 offset-s3">
             <div class="card card-default">
                 <div class="card-content">
                     <div class="card-title"><h5>Mage2 Login</h5></div>
@@ -53,9 +53,9 @@
                                 Login
                             </button>
 
-                            <!--a class="btn btn-link" href="{{ url('/admin/password/reset') }}">
+                            <a class="" href="{{ url('/password/reset') }}">
                                     Forgot Your Password?
-                                </a-->
+                            </a>
                         </div>
                 </div>
                 </form>
