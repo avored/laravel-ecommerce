@@ -82,10 +82,8 @@ class OrderController extends Controller
     }
 
     public function myAccountOrderList() {
-
         $user = Auth::guard('web')->user();
         $orders = Order::where('user_id','=', $user->id)->get();
-
         $view = view('order.my-account-order-list')->with('orders', $orders);
 
         return $view;
@@ -94,10 +92,20 @@ class OrderController extends Controller
     public function myAccountOrderView($id) {
 
         $order = Order::find($id);
-
         $view = view('order.my-account-order-view')->with('order', $order);
-
         return $view;
     }
 
+    public function sendEmailInvoice($id) {
+
+        $order = Order::findorfail($id);
+        $view = view('order.pdf')->with('order', $order);
+
+        PDF::loadHTML($view->render())->save(public_path('/uploads/order/invoice/'.$order->id.'.pdf'));
+
+        //dd($view->render());die;
+        //PDF::loadHTML($view->render())->save('my_stored_file.pdf')->stream('download.pdf');
+
+
+    }
 }

@@ -8,9 +8,20 @@
             <div class="main-title-wrapper">
                 <h1>
                     Order View
-                    <!--<small>Sub title</small> -->
-                </h1>
 
+                </h1>
+                <div class="right">
+                    <a class='dropdown-button btn' data-constrainwidth="false" data-beloworigin="true"
+                       href='#' data-activates='order-option-menu'>Options</a>
+
+                    <!-- Dropdown Structure -->
+                    <ul id='order-option-menu'  class='dropdown-content'>
+                        <li><a href="{{ route('admin.order.send-email-invoice', $order->id) }}">SendEmail Invoice</a></li>
+                        <li><a href="#!">two</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#!">three</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="clearfix"></div>
             <br/>
@@ -18,12 +29,6 @@
             <div class="card">
                 <div class="card-content">
                     <h3 class="card-title">Order Basic Info</h3>
-                    <!--div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div-->
-
 
                     <table class="table table-bordered">
                         <tr>
@@ -45,11 +50,6 @@
             <div class="card ">
                 <div class="card-content">
                     <h3 class="card-title">Order Item Info</h3>
-                    <!--div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div-->
 
                     <table class="table table-bordered">
                         <tbody>
