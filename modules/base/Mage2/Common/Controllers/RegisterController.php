@@ -4,6 +4,9 @@ namespace Mage2\Common\Controllers;
 
 use Mage2\User\Models\User;
 use Validator;
+use Illuminate\Http\Request;
+use Mage2\Common\Mail\NewUserMail;
+use Illuminate\Support\Facades\Mail;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -50,11 +53,28 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            //'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
         ]);
     }
 
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+
+        $user = $this->create($request->all());
+        $this->guard()->login($user);
+
+        Mail::to($user->email)->send(new NewUserMail($user));
+        return redirect($this->redirectPath());
+    }
     /**
      * Create a new user instance after a valid registration.
      *
