@@ -53,7 +53,7 @@
     <div class="card" style="width: 50%;">
         <div class="card-content" style="padding: 20px;">
 
-            <div class="card-title"><h5>Mage2 Admin Login</h5></div>
+            <div class="card-title"><span>Mage2 Admin Login</span></div>
 
 
             <div class="col s12">

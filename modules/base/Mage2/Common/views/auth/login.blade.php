@@ -5,16 +5,16 @@
         <div class="col s6 offset-s3">
             <div class="card card-default">
                 <div class="card-content">
-                    <div class="card-title"><h5>Mage2 Login</h5></div>
+                    <div class="card-title"><span>Mage2 Login</span></div>
                     <form class="form-horizontal" role="form" method="POST"
                           action="{{ route('login.post') }}">
                         {{ csrf_field() }}
 
                         <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col s4 control-label">E-Mail Address</label>
+                            <label for="email" >E-Mail Address</label>
 
 
-                            <input id="email" type="email" class="form-control" name="email"
+                            <input id="email" type="email" name="email"
                                    value="{{ old('email') }}" required autofocus>
 
                             @if ($errors->has('email'))
@@ -26,10 +26,10 @@
                         </div>
 
                         <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col s4 control-label">Password</label>
+                            <label for="password" >Password</label>
 
 
-                            <input id="password" type="password" class="form-control" name="password" required>
+                            <input id="password" type="password" name="password" required>
 
                             @if ($errors->has('password'))
                                 <span class="help-block">

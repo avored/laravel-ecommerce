@@ -2,12 +2,16 @@
 
 namespace Mage2\Order\Controllers;
 
+use Illuminate\Support\Facades\Mail;
 use Mage2\Order\Models\Order;
 use Mage2\Framework\Http\Controllers\Controller; 
 use Illuminate\Support\Facades\Session;
 use Mage2\Order\Models\OrderStatus;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
+use Mage2\Order\Mail\OrderInvoicedMail;
+use Mage2\User\Models\User;
+
 class OrderController extends Controller
 {
     /**
@@ -99,13 +103,22 @@ class OrderController extends Controller
     public function sendEmailInvoice($id) {
 
         $order = Order::findorfail($id);
+
+        $user  = User::find($order->user_id);
+
+
+
         $view = view('order.pdf')->with('order', $order);
 
-        PDF::loadHTML($view->render())->save(public_path('/uploads/order/invoice/'.$order->id.'.pdf'));
+        $path= public_path('/uploads/order/invoice/'.$order->id.'.pdf');
+        PDF::loadHTML($view->render())->save($path );
 
+        Mail::to($user->email)->send(new OrderInvoicedMail($order, $path));
+        //Mail::send();
         //dd($view->render());die;
         //PDF::loadHTML($view->render())->save('my_stored_file.pdf')->stream('download.pdf');
 
+        //return redirect()->back();
 
     }
 }
