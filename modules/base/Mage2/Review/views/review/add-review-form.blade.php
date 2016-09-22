@@ -59,13 +59,13 @@
     @endif
 
 
-    <div class="input-field   {{ $errors->has('content') ? ' has-error' : '' }}">
-        {!! Form::label('content', "Content") !!}
-        {!! Form::textarea('content',NULL,['class' => 'materialize-textarea']) !!}
-        @if ($errors->has('content'))
+    <div class="input-field   {{ $errors->has('comment') ? ' has-error' : '' }}">
+        {!! Form::label('comment', "Comment") !!}
+        {!! Form::textarea('comment',NULL,['class' => 'materialize-textarea']) !!}
+        @if ($errors->has('comment'))
             <p>
             <span class="help-block">
-                <strong>{{ $errors->first('content') }}</strong>
+                <strong>{{ $errors->first('comment') }}</strong>
             </span>
             </p>
         @endif

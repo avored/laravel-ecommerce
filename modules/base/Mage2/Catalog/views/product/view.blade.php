@@ -62,8 +62,8 @@
                     <div id="review">
 
                         <div class="review-wrapper">
-                            @include('review.review-list',['product' => $product])
-                            <div class="review-form-wrapper" style="display: none;">
+                            @include('review.list',['product' => $product])
+                            <div class="review-form-wrapper" >
                             <h1>Add Review</h1>
                             @include('review.add-review-form',['product' => $product])
                             </div>

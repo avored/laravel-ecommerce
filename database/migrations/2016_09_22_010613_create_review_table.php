@@ -18,7 +18,7 @@ class CreateReviewTable extends Migration
             $table->integer('user_id');
             $table->integer('product_id');
             $table->float('star');
-            $table->string('content');
+            $table->string('comment');
             $table->timestamps();
         });
     }

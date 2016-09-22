@@ -10,7 +10,7 @@ use Mage2\Catalog\Models\Category;
 use Mage2\Install\Models\Website;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Attribute\Models\ProductAttribute;
-
+use Mage2\Review\Models\Review;
 class Product extends Model
 {
     protected $fillable = [];
@@ -33,6 +33,10 @@ class Product extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
     public function websites()
     {
         return $this->belongsToMany(Website::class);
@@ -105,6 +109,9 @@ class Product extends Model
             return $categories->all();
         }
 
+        if ($key == "reviews") {
+            return $this->reviews()->get();
+        }
 
         $value = null;
 
