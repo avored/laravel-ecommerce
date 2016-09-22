@@ -19,6 +19,7 @@ class CreateReviewTable extends Migration
             $table->integer('product_id');
             $table->float('star');
             $table->string('comment');
+            $table->enum('status',['ENABLED','DISABLED']);
             $table->timestamps();
         });
     }

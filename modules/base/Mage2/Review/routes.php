@@ -21,3 +21,17 @@ Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Review\C
     ]]);
 
 });
+
+
+
+Route::group(['middleware' => ['web', 'website','adminauth'], 'namespace' => "Mage2\Review\Controllers"], function () {
+    Route::resource('/admin/review', 'AdminReviewController', ['names' => [
+        'index'     => 'admin.review.index',
+        'create'    => 'admin.review.create',
+        'store'     => 'admin.review.store',
+        'edit'      => 'admin.review.edit',
+        'update'    => 'admin.review.update',
+        'destroy'   => 'admin.review.destroy',
+    ]]);
+
+});

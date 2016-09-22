@@ -28,11 +28,11 @@ class ReviewRequest extends Request
         if(!Auth::check()) {
             $validateArray['first_name']    = 'required|max:255';
             $validateArray['last_name']     = 'required|max:255';
-            $validateArray['email']         = 'required|max:255|unique:users';
+            $validateArray['email']         = 'required|max:255|email';
         }
 
         $validateArray['star']      = 'required|max:255';
-        $validateArray['content']   = 'required';
+        $validateArray['comment']   = 'required';
 
         return $validateArray;
 

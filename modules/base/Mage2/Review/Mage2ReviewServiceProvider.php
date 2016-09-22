@@ -48,7 +48,11 @@ class Mage2ReviewServiceProvider extends ServiceProvider {
     }
     
     public function registerAdminMenu() {
-        //AdminMenu::registerMenu($adminMenu);
+        $adminMenu = [
+            'label' => 'Review',
+            'url' => route('admin.review.index'),
+        ];
+        AdminMenu::registerMenu($adminMenu);
     }
 
    

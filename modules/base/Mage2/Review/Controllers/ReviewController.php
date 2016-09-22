@@ -12,18 +12,20 @@ class ReviewController extends Controller
 {
 
 
-    public function store(ReviewRequest $request) {
+    public function store(ReviewRequest $request)
+    {
+        if (!Auth::check()) {
+            $user = User::where('email', '=', $request->get('email'))->get()->first();
 
-        if(Auth::check()) {
-            $request->merge(['user_id' => Auth::user()->id]);
+            if (null === $user) {
+                $request->merge(['password' => str_random($length = 6)]);
+                $user = User::create($request->all());
+            }
         } else {
-
-            $request->merge(['password' => str_random($length=6)]);
-            $user = User::create($request->all());
-            $request->merge(['user_id' => $user->id]);
+            $user = Auth::user();
         }
 
-
+        $request->merge(['user_id' => $user->id]);
         Review::create($request->all());
 
         return redirect()->back();

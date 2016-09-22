@@ -77,6 +77,10 @@ class Product extends Model
         return $attributeValue;
     }
 
+    public function getReviews()  {
+        return $this->reviews()->where('status' , '=' ,'ENABLED')->get();
+    }
+
     public function getPrice() {
         $key = "price";
         $productAttribute = ProductAttribute::where('identifier', '=', $key)->get()->first();
