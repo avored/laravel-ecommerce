@@ -52,7 +52,7 @@
                 <div class="col s12 product-info">
                     <ul class="tabs">
                         <li class="tab col s3"><a href="#description">DESCRIPTION</a></li>
-                        <li class="tab col s3"><a href="#review">REVIEW</a></li>
+                        <li class="tab col s3"><a class="active" href="#review">REVIEW</a></li>
                     </ul>
 
                     <div id="description">
@@ -60,9 +60,13 @@
                     </div>
 
                     <div id="review">
-                        <h1>Add Review</h1>
-                        <div class="form-wrapper">
-                            @include('review.add-review-form')
+
+                        <div class="review-wrapper">
+                            @include('review.review-list',['product' => $product])
+                            <div class="review-form-wrapper" style="display: none;">
+                            <h1>Add Review</h1>
+                            @include('review.add-review-form',['product' => $product])
+                            </div>
                         </div>
                     </div>
 

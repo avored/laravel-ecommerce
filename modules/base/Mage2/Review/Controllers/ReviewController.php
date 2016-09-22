@@ -2,47 +2,31 @@
 
 namespace Mage2\Review\Controllers;
 
-use Mage2\Review\Models\Wishlist;
+use Mage2\Review\Models\Review;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-
+use Mage2\Review\Requests\ReviewRequest;
+use Mage2\User\Models\User;
 
 class ReviewController extends Controller
 {
-    public function __construct() {
-        parent::__construct();
-        $this->middleware(['frontauth']);
-    }
-
-    public function add($id) {
-        Wishlist::create([
-            'user_id' => Auth::user()->id,
-            'website_id' => $this->websiteId,
-            'product_id' => $id
-        ]);
-
-        return redirect()->back();
-    }
-
-    public function mylist() {
-        $wishlists = Wishlist::where([
-                    'user_id' => Auth::user()->id,
-                    'website_id' => $this->websiteId
-                ])->get();
 
 
+    public function store(ReviewRequest $request) {
 
-        return view('my-account.wishlist')
-                    ->with('wishlists', $wishlists);
-    }
+        if(Auth::check()) {
+            $request->merge(['user_id' => Auth::user()->id]);
+        } else {
 
-    public function remove($id) {
-        Wishlist::where([
-            'user_id' => Auth::user()->id,
-            'website_id' => $this->websiteId,
-            'product_id' => $id
-        ])->delete();
+            $request->merge(['password' => str_random($length=6)]);
+            $user = User::create($request->all());
+            $request->merge(['user_id' => $user->id]);
+        }
+
+
+        Review::create($request->all());
 
         return redirect()->back();
     }
+
 }

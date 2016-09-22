@@ -10,7 +10,14 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web','website','frontauth'], 'namespace' => "Mage2\Review\Controllers"], function () {
-
+Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Review\Controllers"], function () {
+    Route::resource('/review', 'ReviewController', ['names' => [
+        'index'     => 'review.index',
+        'create'    => 'review.create',
+        'store'     => 'review.store',
+        'edit'      => 'review.edit',
+        'update'    => 'review.update',
+        'destroy'   => 'review.destroy',
+    ]]);
 
 });
