@@ -13,4 +13,5 @@ return [
     "Mage2\\Wishlist\\"     => base_path('/modules/base/Mage2/Wishlist'),
     "Mage2\\Checkout\\"     => base_path('/modules/base/Mage2/Checkout'),
     "Mage2\\Review\\"       => base_path('/modules/base/Mage2/Review'),
+    "Mage2\\ContactUs\\"    => base_path('/modules/base/Mage2/ContactUs'),
 ];
