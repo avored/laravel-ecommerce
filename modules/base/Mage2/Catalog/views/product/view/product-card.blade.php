@@ -18,6 +18,7 @@
                     {{ $product->title }}
                 </a>
             </h3>
+
             <p class="price">
                 $ {{ $product->price }}
             </p>

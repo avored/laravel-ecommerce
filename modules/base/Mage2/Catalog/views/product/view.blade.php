@@ -24,8 +24,11 @@
 
                     <div class="col s7">
                         <h1 class="product-title">{{ $product->title }}</h1>
-                        <hr>
+                        <p>
+                            <a href="#">Add Review</a>
+                        </p>
                         <div class="product-price">$ {{ $product->price }}</div>
+
                         <div class="product-stock">In Stock</div>
                         <hr>
                         <div class="btn-group">
@@ -49,10 +52,18 @@
                 <div class="col s12 product-info">
                     <ul class="tabs">
                         <li class="tab col s3"><a href="#description">DESCRIPTION</a></li>
+                        <li class="tab col s3"><a href="#review">REVIEW</a></li>
                     </ul>
 
                     <div id="description">
                         <p>{!! $product->description !!}</p>
+                    </div>
+
+                    <div id="review">
+                        <h1>Add Review</h1>
+                        <div class="form-wrapper">
+                            @include('review.add-review-form')
+                        </div>
                     </div>
 
                 </div>

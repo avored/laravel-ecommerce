@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ asset('/css/jquery.rateyo.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
@@ -23,6 +24,7 @@
      <!-- Scripts -->
     <script src="{{ asset('/js/jquery.js') }}"></script>
     <script src="{{ asset('/js/materialize.min.js') }}"></script>
+    <script src="{{ asset('/js/jquery.rateyo.min.js') }}"></script>
     <script src="{{ asset('/js/app.js') }}"></script>
 </head>
 <body>
