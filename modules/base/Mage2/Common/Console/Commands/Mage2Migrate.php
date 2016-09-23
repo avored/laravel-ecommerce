@@ -3,9 +3,10 @@
 namespace Mage2\Common\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Migrations\Migrator;
 
-class Mage2Migrate extends Command
-{
+class Mage2Migrate extends Command {
+
     /**
      * The name and signature of the console command.
      *
@@ -25,8 +26,8 @@ class Mage2Migrate extends Command
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(Migrator $migrator) {
+        $this->migrator = $migrator;
         parent::__construct();
     }
 
@@ -35,12 +36,11 @@ class Mage2Migrate extends Command
      *
      * @return mixed
      */
-    public function handle()
-    {
+    public function handle() {
         $this->info("Building Command Artisan");
-
         return;
-        if (! $this->confirmToProceed()) {
+
+        if (!$this->confirmToProceed()) {
             return;
         }
 
@@ -68,4 +68,20 @@ class Mage2Migrate extends Command
             $this->call('db:seed', ['--force' => true]);
         }
     }
+
+    /**
+     * Prepare the migration database for running.
+     *
+     * @return void
+     */
+    protected function prepareDatabase() {
+        $this->migrator->setConnection($this->option('database'));
+
+        if (!$this->migrator->repositoryExists()) {
+            $options = ['--database' => $this->option('database')];
+
+            $this->call('migrate:install', $options);
+        }
+    }
+
 }

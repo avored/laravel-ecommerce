@@ -15,6 +15,7 @@ use Mage2\Common\Middleware\FrontAuthenticate;
 use Mage2\Common\Middleware\RedirectIfFrontAuthenticated;
 use Illuminate\Support\Facades\Session;
 use Mage2\Common\Console\Commands\Mage2Migrate;
+use Illuminate\Database\Migrations\Migrator;
 
 class Mage2CommonServiceProvider extends ServiceProvider {
 
@@ -25,7 +26,6 @@ class Mage2CommonServiceProvider extends ServiceProvider {
      */
     public function boot() {
 
-        $this->registerCommand();
 
         $this->registerAdminMenu();
         $this->registerMiddleware();
@@ -40,7 +40,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
     public function register() {
         $this->mapWebRoutes();
         $this->registerViewPath();
-       
+        $this->registerCommand();
     }
 
     /**
@@ -55,26 +55,30 @@ class Mage2CommonServiceProvider extends ServiceProvider {
         require (__DIR__ . '/routes.php');
     }
 
-
     protected function registerViewPath() {
         View::addLocation(__DIR__ . "/views");
     }
-    
+
     public function registerAdminMenu() {
-       
+
 
         /*
-        $adminMenu = [
-            'label' => 'Pages',
-            'url' => route('admin.login'),
-        ]; 
-        AdminMenu::registerMenu($adminMenu);
+          $adminMenu = [
+          'label' => 'Pages',
+          'url' => route('admin.login'),
+          ];
+          AdminMenu::registerMenu($adminMenu);
          * 
          */
     }
 
     public function registerCommand() {
-        $this->commands([Mage2Migrate::class]);
+        //$this->{'register' . "" . 'Command'}();
+
+        $this->commands('command.mage2.migrate');
+        $this->app->singleton('command.mage2.migrate', function ($app) {
+            return new Mage2Migrate($app['migrator']);
+        });
     }
 
     public function registerMiddleware() {
@@ -87,9 +91,9 @@ class Mage2CommonServiceProvider extends ServiceProvider {
         $router->middleware('frontguest', RedirectIfFrontAuthenticated::class);
         $router->middleware('website', WebsiteMiddleware::class);
     }
-    
+
     public function registerViewComposerData() {
-          view()->composer(['layouts.admin', 'template.header-nav'], function ($view) {
+        view()->composer(['layouts.admin', 'template.header-nav'], function ($view) {
             $user = Auth::guard('admin')->user();
             $view->with('user', $user);
         });
@@ -98,7 +102,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
         view()->composer('*', function ($view) {
             $view->with('isDefaultWebsite', Session::get('is_default_website'));
         });
-        
+
         view()->composer(['my-account.sidebar'], function ($view) {
             $user = Auth::user();
             $view->with('user', $user);
@@ -148,4 +152,5 @@ class Mage2CommonServiceProvider extends ServiceProvider {
             ;
         });
     }
+
 }
