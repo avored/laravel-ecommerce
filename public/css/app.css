@@ -6553,3 +6553,9 @@ h5, h6 {
     font-size: 1.5rem;
     margin: 10px 0px;
 }
+.chip.notification {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  height: inherit;
+}
