@@ -14,6 +14,7 @@ use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Common\Middleware\FrontAuthenticate;
 use Mage2\Common\Middleware\RedirectIfFrontAuthenticated;
 use Illuminate\Support\Facades\Session;
+use Mage2\Common\Console\Commands\Mage2Migrate;
 
 class Mage2CommonServiceProvider extends ServiceProvider {
 
@@ -23,6 +24,8 @@ class Mage2CommonServiceProvider extends ServiceProvider {
      * @return void
      */
     public function boot() {
+
+        $this->registerCommand();
 
         $this->registerAdminMenu();
         $this->registerMiddleware();
@@ -68,6 +71,10 @@ class Mage2CommonServiceProvider extends ServiceProvider {
         AdminMenu::registerMenu($adminMenu);
          * 
          */
+    }
+
+    public function registerCommand() {
+        $this->commands([Mage2Migrate::class]);
     }
 
     public function registerMiddleware() {

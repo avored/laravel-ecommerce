@@ -5,7 +5,7 @@
         <div class="row">
             <div class="item-container">
 
-               
+
                 @if(session()->has('notificationText'))
                     <div class="chip notification">
                         {{ session()->get('notificationText') }}
