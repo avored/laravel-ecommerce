@@ -85,33 +85,25 @@ $style = [
                             <tr>
                                 <td style="{{ $fontFamily }} {{ $style['email-body_cell'] }}">
                                     <!-- Greeting -->
-                                    <h1 style="{{ $style['header-1'] }}">
-                                        Welcome To {{ config('app.name') }}
-                                    </h1>
+                                    <h6 style="{{ $style['header-1'] }}">
+                                        Thanks for Sending Inquiry at {{ config('app.name') }}
+                                    </h6>
 
                                     <!-- Intro -->
 
                                     <p style="{{ $style['paragraph'] }}">
-                                        Thanks for creating new Account at {{ config('app.name') }}
+                                        Name: {{ $data['full_name'] }}
+                                    </p>
+                                    <p style="{{ $style['paragraph'] }}">
+                                        Email: {{ $data['email'] }}
+                                    </p>
+                                    <p style="{{ $style['paragraph'] }}">
+                                        Phone: {{ $data['phone'] }}
+                                    </p>
+                                    <p style="{{ $style['paragraph'] }}">
+                                        Message: {{ $data['message'] }}
                                     </p>
 
-
-
-                                        <table style="{{ $style['body_action'] }}" align="center" width="100%"
-                                               cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td align="center">
-
-
-                                                    <a href="{{ route('my-account.home')}}"
-                                                       style="{{ $fontFamily }} {{ $style['button'] }} {{ $style['button--blue'] }}"
-                                                       class="button"
-                                                       target="_blank">
-                                                        My Account
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </table>
 
 
 

@@ -25,6 +25,8 @@
                     </ul>
                 </li>
             @endif
+
+            <li><a href="{{ route('contact-us.get') }}">Contact Us</a></li>
         </ul>
         
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
