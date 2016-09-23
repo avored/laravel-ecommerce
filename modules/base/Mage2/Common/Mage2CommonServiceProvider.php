@@ -14,8 +14,6 @@ use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Common\Middleware\FrontAuthenticate;
 use Mage2\Common\Middleware\RedirectIfFrontAuthenticated;
 use Illuminate\Support\Facades\Session;
-use Mage2\Common\Console\Commands\Mage2Migrate;
-use Illuminate\Database\Migrations\Migrator;
 
 class Mage2CommonServiceProvider extends ServiceProvider {
 
@@ -40,7 +38,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
     public function register() {
         $this->mapWebRoutes();
         $this->registerViewPath();
-        $this->registerCommand();
+        
     }
 
     /**
@@ -72,15 +70,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
          */
     }
 
-    public function registerCommand() {
-        //$this->{'register' . "" . 'Command'}();
-
-        $this->commands('command.mage2.migrate');
-        $this->app->singleton('command.mage2.migrate', function ($app) {
-            return new Mage2Migrate($app['migrator']);
-        });
-    }
-
+  
     public function registerMiddleware() {
         $router = $this->app['router'];
 

@@ -144,6 +144,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
+        Mage2\Framework\Foundation\Provider\ConsoleServiceProvider::class,
         Mage2\Framework\Foundation\Provider\ModuleServiceProvider::class,
         Mage2\Framework\Foundation\Provider\ViewServiceProvider::class,
     /*
