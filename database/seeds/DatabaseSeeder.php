@@ -11,6 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(Mage2EcommerceData::class);
+        $this->call(Mage2EcommerceDataSeeder::class);
     }
 }
