@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Common\Database\Seeds;
+namespace Mage2\TaxClass\Database\Seeds;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
