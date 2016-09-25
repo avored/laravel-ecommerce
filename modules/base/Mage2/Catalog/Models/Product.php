@@ -86,6 +86,9 @@ class Product extends Model
         $productAttribute = ProductAttribute::where('identifier', '=', $key)->get()->first();
         $value = $this->_getProductFloatValue($productAttribute);
 
+        if(NULL === $value) {
+            return NULL;
+        }
         return number_format($value,2);
     }
 

@@ -391,6 +391,7 @@ class ProductController extends Controller {
 
     private function _saveProductFloatValue($product, $identifier, $productAttribute, $value) {
 
+        
         $createNewRecord = false;
         if ($this->isDefaultWebsite == false) {
             $attributeValue = $productAttribute
