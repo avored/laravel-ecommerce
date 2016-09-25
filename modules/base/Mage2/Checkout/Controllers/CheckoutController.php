@@ -148,8 +148,13 @@ class CheckoutController extends Controller {
 
         $orderData = Session::get('order_data');
 
+        $paymentMethod = Payment::get($request->get('payment_option'));
+        $paymentMethod->process($orderData);
 
         $orderData['payment_method'] = $request->get('payment_option');
+
+
+        dd('die');
         Session::put('order_data', $orderData);
 
         return redirect()->route('checkout.step.review');

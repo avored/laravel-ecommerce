@@ -14,4 +14,6 @@ return [
     "Mage2\\Checkout\\"     => base_path('/modules/base/Mage2/Checkout'),
     "Mage2\\Review\\"       => base_path('/modules/base/Mage2/Review'),
     "Mage2\\ContactUs\\"    => base_path('/modules/base/Mage2/ContactUs'),
+    "Mage2\\Paypal\\"       => base_path('/modules/base/Mage2/Paypal'),
+    "Mage2\\Pickup\\"       => base_path('/modules/base/Mage2/Pickup'),
 ];
