@@ -21,6 +21,16 @@
                             </span>
                         </div>
                         <div>
+                            <span>Curl PHP Extension</span>
+                            <span class="pull-right">
+                                @if($result['curl'] == true)
+                                    <i class="glyphicon glyphicon-ok glyphicon "></i>
+                                @else
+                                    <i class="glyphicon glyphicon-remove glyphicon "></i>
+                                @endif
+                            </span>
+                        </div>
+                        <div>
                             <span>PDO PHP Extension</span><span class="pull-right">
                                 @if($result['pdo'] == true)
                                     <i class="glyphicon glyphicon-ok glyphicon "></i>

@@ -17,7 +17,8 @@ class InstallController extends Controller
                         'openssl',
                         'pdo',
                         'mbstring',
-                        'tokenizer'];
+                        'tokenizer',
+                        'curl'];
 
 
     public function index() {
