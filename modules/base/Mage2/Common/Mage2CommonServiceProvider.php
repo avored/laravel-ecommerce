@@ -60,14 +60,14 @@ class Mage2CommonServiceProvider extends ServiceProvider {
     public function registerAdminMenu() {
 
 
-        /*
+
           $adminMenu = [
-          'label' => 'Pages',
-          'url' => route('admin.login'),
+              'label' => 'Config',
+              'url' => route('admin.config'),
           ];
           AdminMenu::registerMenu($adminMenu);
-         * 
-         */
+
+
     }
 
   

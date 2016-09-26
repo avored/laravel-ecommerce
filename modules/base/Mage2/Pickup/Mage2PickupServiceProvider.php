@@ -45,11 +45,11 @@ class Mage2PickupServiceProvider extends ServiceProvider {
         Payment::put($pickup->getIdentifier(), $pickup);
     }
 
-
     protected function registerViewPath() {
         View::addLocation(__DIR__ . "/views");
     }
-    
+
+
     public function registerAdminMenu() {
         
 

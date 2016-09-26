@@ -12,6 +12,7 @@
 Route::group(['middleware' => ['web','website'],'namespace' => "Mage2\Common\Controllers"], function () {
 
 
+
     Route::get('/', ['as' => 'home','uses' => 'HomeController@index']);
 
 
@@ -45,4 +46,10 @@ Route::group(['middleware' => ['web','website'],'namespace' => "Mage2\Common\Con
     //    
     //    Route::resource('/admin/page', 'PageController');
     //});
+});
+
+Route::group(['middleware' => ['web','website','adminauth'],'namespace' => "Mage2\Common\Controllers"], function () {
+
+    Route::get('/admin/config', ['as' => 'admin.config', 'uses' => 'AdminConfigController@index']);
+
 });
