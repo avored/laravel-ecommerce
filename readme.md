@@ -10,7 +10,7 @@ Mage2 is a Ecommerce application based on Laravel5 framework.
 
 Clone the repository using command:
 
-    git clone https://github.com/ant-vel/antVel.git
+    git clone https://github.com/mage2/laravel-ecommerce.git
 
     composer update
 
