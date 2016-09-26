@@ -56,7 +56,6 @@ class Product extends Model
     {
 
         //$cacheKey = get_class($this) . "_" . __METHOD__;
-
         //if (Cache::has($cacheKey)) {
         //    $attributeValue = Cache::get($cacheKey);
         //} else {
@@ -89,6 +88,12 @@ class Product extends Model
         if(NULL === $value) {
             return NULL;
         }
+        /*
+         * @todo fix bug because during display its fine but 
+         * when it times to do process data into mysql
+         *  it will generate error because of 1,099.99 not decimal(because of comma , )
+         */
+        return $value;
         return number_format($value,2);
     }
 
@@ -170,7 +175,8 @@ class Product extends Model
     private function _getProductVarcharValue($productAttribute)
     {
 
-        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_" .$this->attributes['id'] . "_" . $productAttribute->id;
+        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_"
+        //   .$this->attributes['id'] . "_" . $productAttribute->id;
 
         //if (Cache::has($cacheKey)) {
         //    $value = Cache::get($cacheKey);
@@ -215,7 +221,8 @@ class Product extends Model
         $value = NULL;
         $attributeValue = NULL;
 
-        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_" .$this->attributes['id'] . "_" . $productAttribute->id;
+        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_" 
+        //  .$this->attributes['id'] . "_" . $productAttribute->id;
 
         //if (Cache::has($cacheKey)) {
         //    $value = Cache::get($cacheKey);
@@ -255,7 +262,8 @@ class Product extends Model
         $attributeValue = NULL;
 
 
-        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_" .$this->attributes['id'] . "_" . $productAttribute->id;
+        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_" 
+        //.$this->attributes['id'] . "_" . $productAttribute->id;
 
         //if (Cache::has($cacheKey)) {
         //    $value = Cache::get($cacheKey);
@@ -294,7 +302,8 @@ class Product extends Model
         $value = NULL;
         $attributeValue = NULL;
 
-        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_" .$this->attributes['id'] . "_" . $productAttribute->id;
+        //$cacheKey = get_class($this) . "_" . $this->websiteId . 
+        //"_" .$this->attributes['id'] . "_" . $productAttribute->id;
 
         //if (Cache::has($cacheKey)) {
         //    $value = Cache::get($cacheKey);
@@ -334,7 +343,8 @@ class Product extends Model
         $value = NULL;
         $attributeValue = NULL;
 
-        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_" .$this->attributes['id'] . "_" . $productAttribute->id;
+        //$cacheKey = get_class($this) . "_" . $this->websiteId . 
+        //"_" .$this->attributes['id'] . "_" . $productAttribute->id;
 
         //if (Cache::has($cacheKey)) {
         //    $value = Cache::get($cacheKey);

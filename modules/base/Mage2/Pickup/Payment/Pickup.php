@@ -23,8 +23,12 @@ class Pickup extends Payment  implements PaymentInterface {
         return $this->title;
     }
 
+    /*
+     * Nothing to do
+     * 
+     */
     public function process($orderData) {
-        dd($orderData);
+        return $this;
     }
 
 
