@@ -6,7 +6,20 @@ Mage2 is a Ecommerce application based on Laravel5 framework.
 
 [Demo Mage2 Laravel Ecommerce](http://demo.mage2.website/)
 
-# Step 1: Install Mage2 Commerce with [Composer](https://getcomposer.org/download/).
+# Step 1: Install Mage2 Commerce using [Git](https://git-scm.com/).
+
+Clone the repository using command:
+
+    git clone https://github.com/ant-vel/antVel.git
+
+    composer update
+
+Set up your environment config file:
+
+    mage2/laravel-ecommerce/.env 
+
+composer update/install
+# Step 1: Install Mage2 Commerce using [Composer](https://getcomposer.org/download/).
 
 Run composer to create the lavender application:
 

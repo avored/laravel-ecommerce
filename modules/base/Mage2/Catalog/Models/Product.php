@@ -79,6 +79,11 @@ class Product extends Model
     public function getReviews()  {
         return $this->reviews()->where('status' , '=' ,'ENABLED')->get();
     }
+    
+    /*
+     * 
+     * @return float $value
+     */
 
     public function getPrice() {
         $key = "price";
