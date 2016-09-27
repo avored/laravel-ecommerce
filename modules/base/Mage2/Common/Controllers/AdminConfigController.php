@@ -3,6 +3,7 @@
 namespace Mage2\Common\Controllers;
 
 use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\Framework\View\Facades\AdminConfiguration;
 
 class AdminConfigController extends Controller
 {
@@ -24,6 +25,8 @@ class AdminConfigController extends Controller
      */
     public function index()
     {
-        return view('admin.config.index');
+        $configs = AdminConfiguration::getAll();
+
+        return view('admin.config.index')->with('configs',$configs);
     }
 }

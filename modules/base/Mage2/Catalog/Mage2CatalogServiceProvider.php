@@ -7,6 +7,7 @@ use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\Category;
+use Mage2\Framework\View\Facades\AdminConfiguration;
 
 class Mage2CatalogServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,7 @@ class Mage2CatalogServiceProvider extends ServiceProvider
     {
         $this->mapWebRoutes();
         $this->registerAdminMenu();
+        $this->registerAdminConfiguration();
         $this->registerViewPath();
         $this->registerViewComposerData();
 
@@ -69,6 +71,19 @@ class Mage2CatalogServiceProvider extends ServiceProvider
         ];
         foreach ($adminMenus as $adminMenu) {
             AdminMenu::registerMenu($adminMenu);
+        }
+    }
+
+    public function registerAdminConfiguration() {
+
+        $adminConfigurations[] = [
+            'title' => 'Catalog Configuration',
+            'description' => 'Some Description for Catalog Modules',
+            'edit_action' => route('admin.product.index'),
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
         }
     }
 
