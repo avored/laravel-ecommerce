@@ -5,6 +5,8 @@ namespace Mage2\Paypal;
 use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
+use Mage2\Framework\Payment\Facade\Payment;
+use Mage2\Paypal\Payment\Paypal;
 
 class Mage2PaypalServiceProvider extends ServiceProvider {
 
@@ -25,6 +27,8 @@ class Mage2PaypalServiceProvider extends ServiceProvider {
      */
     public function register() {
         $this->mapWebRoutes();
+        $this->registerPaymentMethod();
+
         $this->registerAdminMenu();
         $this->registerViewPath();
        
@@ -37,9 +41,18 @@ class Mage2PaypalServiceProvider extends ServiceProvider {
      *
      * @param  \Illuminate\Routing\Router  $router
      * @return void
-     */
+
     protected function mapWebRoutes() {
         require (__DIR__ . '/routes.php');
+    }
+     */
+
+    protected function mapWebRoutes() {
+        require (__DIR__ . '/routes.php');
+    }
+    protected function registerPaymentMethod() {
+        $paypal = new Paypal();
+        Payment::put($paypal->getIdentifier(), $paypal);
     }
 
 

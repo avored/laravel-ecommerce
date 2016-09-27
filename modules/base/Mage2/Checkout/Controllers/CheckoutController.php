@@ -2,11 +2,13 @@
 
 namespace Mage2\Checkout\Controllers;
 
+use Illuminate\Support\Facades\Redirect;
 use Mage2\Address\Models\Address;
 use Mage2\User\Models\User;
 use Mage2\Framework\Shipping\Facade\Shipping;
 use Mage2\Framework\Payment\Facade\Payment;
 use Illuminate\Http\Request;
+
 use Mage2\Checkout\Requests\CheckoutUserRequest;
 use Illuminate\Support\Facades\Session;
 use Mage2\Framework\Http\Controllers\Controller;
@@ -149,15 +151,17 @@ class CheckoutController extends Controller {
         $orderData = Session::get('order_data');
 
         $paymentMethod = Payment::get($request->get('payment_option'));
-        $paymentMethod->process($orderData);
 
+        $redirectUrl  = $paymentMethod->process($orderData);
         $orderData['payment_method'] = $request->get('payment_option');
 
-
-        //dd('die');
         Session::put('order_data', $orderData);
 
-        return redirect()->route('checkout.step.review');
+        if(null === $redirectUrl) {
+            return redirect()->route('checkout.step.review');
+        } else {
+            return Redirect::to($redirectUrl);
+        }
     }
 
     public function review() {

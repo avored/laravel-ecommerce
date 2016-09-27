@@ -14,7 +14,7 @@
 
                             <div class="input-field {{ $errors->has($paymentOption->getIdentifier()) ? ' has-error' : '' }}">
 
-                                {!! Form::radio('payment_option',$paymentOption->getIdentifier(),['class' =>'form-control','id' => $paymentOption->getIdentifier()]) !!}
+                                {!! Form::radio('payment_option',$paymentOption->getIdentifier(),null,['id' => $paymentOption->getIdentifier()]) !!}
                                 {!! Form::label($paymentOption->getIdentifier(), $paymentOption->getTitle() ) !!}
 
                                 @if ($errors->has($paymentOption->getIdentifier()))
