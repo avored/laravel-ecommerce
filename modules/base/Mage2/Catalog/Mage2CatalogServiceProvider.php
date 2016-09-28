@@ -79,7 +79,7 @@ class Mage2CatalogServiceProvider extends ServiceProvider
         $adminConfigurations[] = [
             'title' => 'Catalog Configuration',
             'description' => 'Some Description for Catalog Modules',
-            'edit_action' => route('admin.product.index'),
+            'edit_action' => route('admin.configuration.catalog'),
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {

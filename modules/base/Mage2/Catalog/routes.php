@@ -31,9 +31,11 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
 
     Route::get('/admin/product-search', 'ProductController@searchProduct');
 
+
     Route::post('/admin/product-image/upload', 'ProductController@uploadImage');
     Route::post('/admin/product-image/delete', 'ProductController@deleteImage');
 
+    Route::get('/admin/configuration/catalog', ['as' => 'admin.configuration.catalog','uses' => 'ConfigurationController@getConfiguration']);
 });
 
 
