@@ -7,6 +7,7 @@ use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Payment\Facade\Payment;
 use Mage2\Paypal\Payment\Paypal;
+use Mage2\Framework\View\Facades\AdminConfiguration;
 
 class Mage2PaypalServiceProvider extends ServiceProvider {
 
@@ -28,8 +29,8 @@ class Mage2PaypalServiceProvider extends ServiceProvider {
     public function register() {
         $this->mapWebRoutes();
         $this->registerPaymentMethod();
-
         $this->registerAdminMenu();
+        $this->registerAdminConfiguration();
         $this->registerViewPath();
        
     }
@@ -65,6 +66,19 @@ class Mage2PaypalServiceProvider extends ServiceProvider {
 
       
         //AdminMenu::registerMenu($adminMenu);
+    }
+    
+    public function registerAdminConfiguration() {
+
+        $adminConfigurations[] = [
+            'title' => 'Paypal Configuration',
+            'description' => 'Some Description for Catalog Modules',
+            'edit_action' => route('admin.configuration.paypal'),
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
     }
 
    

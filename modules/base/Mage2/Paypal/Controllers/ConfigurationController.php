@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Catalog\Controllers;
+namespace Mage2\Paypal\Controllers;
 
 use Illuminate\Support\Collection;
 
@@ -23,17 +23,8 @@ class ConfigurationController extends Controller
     {
         //$categories = Category::orderBy('id','desc')->paginate(10);
 
-        return view('catalog.admin.configuration.index')
+        return view('paypal.admin.configuration.index')
             ;
     }
 
-    /**
-     * Stora the Catalog Configuration.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-       return $request->all();
-    }
 }
