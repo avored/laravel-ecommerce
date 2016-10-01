@@ -46,4 +46,5 @@ If you find any bug or problem please submit here [Mage2 Ecommerce Forum](http:/
 
 
 
+
 [![](https://ga-beacon.appspot.com/UA-79831356-1/laravel-ecommerce?pixel)](https://github.com/mage2/laravel-ecommerce)
