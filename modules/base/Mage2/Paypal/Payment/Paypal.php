@@ -136,11 +136,11 @@ class Paypal extends PaymentFramework  implements PaymentInterface {
     public function setApiContext($clientId=null, $clientSecret=null, $requestId=null) {
         if(null === $clientId) {
             //$clientId  = config('paypal.api-client-d');
-            $clientId = 'ATZjCWR_NAYcKnF_-QIK3d7EXl5RWvR6GUSL6oswPaUhWQwe6IXTBPsjfQ8DyKXdMn_Hic8vUPQ-Y4uv';
+            $clientId = '';
         }
         if(null === $clientSecret) {
             //$clientSecret = config('paypal.api-client-secret');
-            $clientSecret = 'EHrgg5KeXo-pMjWt74GWePYffmUaJue9Fd1L26oR-J3V53Vlrtl6SUfcUkKgSr673gw3kQWy82aJTe-9';
+            $clientSecret = '';
         }
 
         $credentials =  new OAuthTokenCredential($clientId, $clientSecret);
