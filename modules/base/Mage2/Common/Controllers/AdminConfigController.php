@@ -54,6 +54,6 @@ class AdminConfigController extends Controller
                 $configuration->update(['configuration_value' => $value]);
             }
         }
-        return redirect()->back()->with('message', "All Configuration saved.");
+        return redirect()->back()->with('notificationText', "All Configuration saved.");
     }
 }

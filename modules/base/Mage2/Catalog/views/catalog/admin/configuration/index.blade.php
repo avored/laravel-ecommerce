@@ -11,7 +11,14 @@
         <div class="clearfix"></div>
 
         <br/>
-        <p>Config Fields</p>
+        <div class="paypal-form-wrapper">
+
+            {!! Form::model($configurations, ['route' => 'admin.configuration.store']) !!}
+            @include('template.text',['key' => 'no_of_product_category_page','label' => 'No of Product in Category Page'])
+            @include('template.submit',['label' => 'Save Configuration'])
+
+            {!! Form::close() !!}
+        </div>
     </div>
 </div>
 @endsection

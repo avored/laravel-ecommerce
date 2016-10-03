@@ -10,15 +10,16 @@
 
         <title>{{ config('app.name', 'Mage2 Ecommerce') }}</title>
 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
         <!-- Scripts -->
         <script>
             window.Laravel = <?php
-                echo json_encode([
-                    'csrfToken' => csrf_token(),
-                ]);
+echo json_encode([
+    'csrfToken' => csrf_token(),
+]);
 ?>
         </script>
         <style>
@@ -28,15 +29,26 @@
         </style>
     </head>
     <body>
-    <!-- Scripts -->
-    <!-- JQuery -->
-    <script src="{{ asset('/js/jquery.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+        <!-- Scripts -->
+        <!-- JQuery -->
+        <script src="{{ asset('/js/jquery.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         <div class="container-fluid">
             @include("layouts.admin-nav")
             <div class="content-wrapper">
-            @yield('content')
+                <div class="row">
+                    <div class="col s12">
+
+                        @if(session()->has('notificationText'))
+                        <div class="chip notification">
+                            {{ session()->get('notificationText') }}
+                            <i class="close material-icons">close</i>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                @yield('content')
             </div>
         </div>
 

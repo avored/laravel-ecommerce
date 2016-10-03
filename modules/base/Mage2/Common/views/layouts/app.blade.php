@@ -32,6 +32,17 @@
     @include("layouts.nav")
 
     <div class="section">
+        <div class="row">
+            <div class="col s12">
+                
+        @if(session()->has('notificationText'))
+                    <div class="chip notification">
+                        {{ session()->get('notificationText') }}
+                        <i class="close material-icons">close</i>
+                    </div>
+                @endif
+            </div>
+        </div>
         @yield('content')
     </div>
 </div>

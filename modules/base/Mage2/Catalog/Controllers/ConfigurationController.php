@@ -7,6 +7,7 @@ use Illuminate\Support\Collection;
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Requests\CategoryRequest;
 use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\Common\Models\Configuration;
 
 class ConfigurationController extends Controller
 {
@@ -21,9 +22,9 @@ class ConfigurationController extends Controller
      */
     public function getConfiguration()
     {
-        //$categories = Category::orderBy('id','desc')->paginate(10);
-
+        $configurations = Configuration::all()->pluck('configuration_value','configuration_key');
         return view('catalog.admin.configuration.index')
+                ->with('configurations',$configurations)
             ;
     }
 

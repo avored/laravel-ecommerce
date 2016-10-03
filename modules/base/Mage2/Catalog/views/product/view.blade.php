@@ -6,12 +6,7 @@
             <div class="item-container">
 
 
-                @if(session()->has('notificationText'))
-                    <div class="chip notification">
-                        {{ session()->get('notificationText') }}
-                        <i class="close material-icons">close</i>
-                    </div>
-                @endif
+                
 
                 <div class="col s12">
                     <div class="product col s3 service-image-left">
