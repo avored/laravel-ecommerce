@@ -55,7 +55,7 @@
                 <div class="col s12 product-info">
                     <ul class="tabs">
                         <li class="tab col s3"><a href="#description">DESCRIPTION</a></li>
-                        <li class="tab col s3"><a class="active" href="#review">REVIEW</a></li>
+                        <li class="tab col s3"><a href="#review">REVIEW</a></li>
                     </ul>
 
                     <div id="description">
