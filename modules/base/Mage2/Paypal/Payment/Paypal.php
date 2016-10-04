@@ -37,7 +37,7 @@ use PayPal\Api\WebProfile;
 use PayPal\Core\PayPalConfigManager as PPConfigManager;
 use PayPal\Rest\ApiContext;
 
-
+use Mage2\Common\Models\Configuration;
 
 class Paypal extends PaymentFramework  implements PaymentInterface {
 
@@ -136,11 +136,12 @@ class Paypal extends PaymentFramework  implements PaymentInterface {
     public function setApiContext($clientId=null, $clientSecret=null, $requestId=null) {
         if(null === $clientId) {
             //$clientId  = config('paypal.api-client-d');
-            $clientId = '';
+            
+            $clientId = Configuration::getConfiguration('paypal_client_id');;
         }
         if(null === $clientSecret) {
             //$clientSecret = config('paypal.api-client-secret');
-            $clientSecret = '';
+            $clientSecret = Configuration::getConfiguration('paypal_client_secret');;;
         }
 
         $credentials =  new OAuthTokenCredential($clientId, $clientSecret);
