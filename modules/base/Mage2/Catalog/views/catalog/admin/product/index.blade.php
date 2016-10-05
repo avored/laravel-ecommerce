@@ -52,6 +52,9 @@
         @endif
 
     </div>
+    <div class="center-block col s12">
+        {!! $products->links() !!}
+    </div>
 </div>
 @endsection
 

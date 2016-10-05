@@ -41,7 +41,7 @@ class ProductController extends Controller {
         $website = Website::findorfail($this->websiteId);
         $products = $website->products()->paginate(10);
 
-        return view('product.index')
+        return view('catalog.admin.product.index')
                         ->with('products', $products)
         ;
     }
