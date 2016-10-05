@@ -3,11 +3,12 @@
 namespace Mage2\FreeShipping\Shipping;
 
 use Mage2\Framework\Shipping\ShippingInterface;
-
-class FreeShipping implements ShippingInterface {
+use Mage2\Framework\Shipping\Shipping;
+class FreeShipping extends Shipping implements ShippingInterface {
 
     protected $identifier;
     protected $title;
+    protected $amount;
 
     public function __construct() {
         $this->identifier = "freeshipping";
@@ -22,8 +23,16 @@ class FreeShipping implements ShippingInterface {
         return $this->title;
     }
 
-    public function getAmount() {
-        return "0.00";
+    public function getAmount($orderData, $cartProducts) {
+        $this->process($orderData, $cartProducts);
+        
+        return $this->amount;
+    }
+    
+    public function process($orderData, $cartProducts) {
+        //execute the shipping api here
+        $this->amount = "0.00";
+        return $this;
     }
 
 }

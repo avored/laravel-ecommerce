@@ -27,7 +27,7 @@ class Pickup extends Payment  implements PaymentInterface {
      * Nothing to do
      * 
      */
-    public function process($orderData) {
+    public function process($orderData, $cartProducts) {
         return $this;
     }
 
