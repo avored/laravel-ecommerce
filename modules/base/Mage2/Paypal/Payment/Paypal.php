@@ -36,15 +36,13 @@ use PayPal\Api\Transactions;
 use PayPal\Api\WebProfile;
 use PayPal\Core\PayPalConfigManager as PPConfigManager;
 use PayPal\Rest\ApiContext;
-
 use Mage2\Common\Models\Configuration;
 
-class Paypal extends PaymentFramework  implements PaymentInterface {
+class Paypal extends PaymentFramework implements PaymentInterface {
 
     protected $identifier;
     protected $title;
     private $_apiContext;
-
 
     public function __construct() {
         $this->identifier = "paypal";
@@ -63,7 +61,9 @@ class Paypal extends PaymentFramework  implements PaymentInterface {
      * Nothing to do
      * 
      */
-    public function process($orderData) {
+
+    public function process($orderData, $cartProducts = []) {
+
 
         $this->setApiContext();
 
@@ -80,40 +80,41 @@ class Paypal extends PaymentFramework  implements PaymentInterface {
         $payer = new Payer();
         $payer->setPaymentMethod("paypal");
 
-        $item1 = new Item();
-        $item1->setName('Ground Coffee 40 oz')
-            ->setCurrency('USD')
-            ->setQuantity(1)
-            ->setSku("123123") // Similar to `item_number` in Classic API
-            ->setPrice(7.5);
-        $item2 = new Item();
-        $item2->setName('Granola bars')
-            ->setCurrency('USD')
-            ->setQuantity(5)
-            ->setSku("321321") // Similar to `item_number` in Classic API
-            ->setPrice(2);
-
         $itemList = new ItemList();
-        $itemList->setItems(array($item1, $item2));
+        $total = 0;
+        foreach ($cartProducts as $product) {
+            $item = new Item();
+            $model = $product['model'];
+            
+            $item->setName($model->title)
+                    ->setCurrency('USD')
+                    ->setQuantity($product['qty'])
+                    ->setSku($model->sku) // Similar to `item_number` in Classic API
+                    ->setPrice($product['price']);
+            $itemList->addItem($item);
+            $total += $product['price'];
+        }
+
+       
 
         $details = new Details();
-        $details->setShipping(1.2)
-            ->setTax(1.3)
-            ->setSubtotal(17.50);
+        $details->setShipping(0.00)
+                //->setTax(1.3)
+                ->setSubtotal($total);
 
 
         $amount = new Amount();
         $amount->setCurrency("USD")
-            ->setTotal(20)
-            ->setDetails($details);
+                ->setTotal($total)
+                ->setDetails($details);
 
 
 
         $transaction = new Transaction();
         $transaction->setAmount($amount)
-            ->setItemList($itemList)
-            ->setDescription("Payment description")
-            ->setInvoiceNumber(uniqid());
+                ->setItemList($itemList)
+                ->setDescription("Payment description")
+                ->setInvoiceNumber(uniqid());
 
 
         $redirectUrls = new RedirectUrls();
@@ -130,25 +131,26 @@ class Paypal extends PaymentFramework  implements PaymentInterface {
         $redirectUrl = $response->links[1]->href;
 
         return $redirectUrl;
-
     }
 
-    public function setApiContext($clientId=null, $clientSecret=null, $requestId=null) {
-        if(null === $clientId) {
+    public function setApiContext($clientId = null, $clientSecret = null, $requestId = null) {
+        if (null === $clientId) {
             //$clientId  = config('paypal.api-client-d');
-            
-            $clientId = Configuration::getConfiguration('paypal_client_id');;
+
+            $clientId = Configuration::getConfiguration('paypal_client_id');
+            ;
         }
-        if(null === $clientSecret) {
+        if (null === $clientSecret) {
             //$clientSecret = config('paypal.api-client-secret');
-            $clientSecret = Configuration::getConfiguration('paypal_client_secret');;;
+            $clientSecret = Configuration::getConfiguration('paypal_client_secret');
+            ;
+            ;
         }
 
-        $credentials =  new OAuthTokenCredential($clientId, $clientSecret);
+        $credentials = new OAuthTokenCredential($clientId, $clientSecret);
 
-        $this->_apiContext  = new ApiContext($credentials, $requestId);
+        $this->_apiContext = new ApiContext($credentials, $requestId);
         return $this;
     }
-
 
 }

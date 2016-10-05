@@ -16,8 +16,9 @@ class PaypalController extends Controller
         return redirect()->route('checkout.step.review');
     }
     public function cancel(Request $request) {
-
-        return $request->all();
+        //@todo not sure what to do with cancel payment  now...
+        //PaypalRecord::create($request->all());
+        return redirect()->route('checkout.step.payment-option');
     }
 
 }

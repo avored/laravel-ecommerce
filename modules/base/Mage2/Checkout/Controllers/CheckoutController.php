@@ -149,10 +149,11 @@ class CheckoutController extends Controller {
     public function postPaymentOption(Request $request) {
 
         $orderData = Session::get('order_data');
+        $cartProducts = Session::get('cart');
 
         $paymentMethod = Payment::get($request->get('payment_option'));
 
-        $redirectUrl  = $paymentMethod->process($orderData);
+        $redirectUrl  = $paymentMethod->process($orderData, $cartProducts);
         $orderData['payment_method'] = $request->get('payment_option');
 
         Session::put('order_data', $orderData);
