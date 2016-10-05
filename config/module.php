@@ -16,4 +16,5 @@ return [
     "Mage2\\ContactUs\\"    => base_path('/modules/base/Mage2/ContactUs'),
     "Mage2\\Paypal\\"       => base_path('/modules/base/Mage2/Paypal'),
     "Mage2\\Pickup\\"       => base_path('/modules/base/Mage2/Pickup'),
+    "Mage2\\FreeShipping\\" => base_path('/modules/base/Mage2/FreeShipping'),
 ];
