@@ -1,11 +1,7 @@
 <?php
 
-namespace Mage2\Catalog\Controllers;
+namespace Mage2\TaxClass\Controllers;
 
-use Illuminate\Support\Collection;
-
-use Mage2\Catalog\Models\Category;
-use Mage2\Catalog\Requests\CategoryRequest;
 use Mage2\Framework\Http\Controllers\Controller;
 use Mage2\Common\Models\Configuration;
 
@@ -23,7 +19,7 @@ class ConfigurationController extends Controller
     public function getConfiguration()
     {
         $configurations = Configuration::all()->pluck('configuration_value','configuration_key');
-        return view('catalog.admin.configuration.index')
+        return view('tax-class.admin.configuration.index')
                 ->with('configurations',$configurations)
             ;
     }

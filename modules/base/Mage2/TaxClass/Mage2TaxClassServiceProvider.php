@@ -5,6 +5,7 @@ namespace Mage2\TaxClass;
 use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
+use Mage2\Framework\View\Facades\AdminConfiguration;
 
 class Mage2TaxClassServiceProvider extends ServiceProvider {
 
@@ -25,7 +26,8 @@ class Mage2TaxClassServiceProvider extends ServiceProvider {
      */
     public function register() {
         $this->mapWebRoutes();
-        $this->registerAdminMenu();
+        //$this->registerAdminMenu();
+        $this->registerAdminConfiguration();
         $this->registerViewPath();
        
     }
@@ -55,6 +57,19 @@ class Mage2TaxClassServiceProvider extends ServiceProvider {
             'url' => route('admin.tax-class.index'),
         ]; 
         AdminMenu::registerMenu($adminMenu);
+    }
+    
+     public function registerAdminConfiguration() {
+
+        $adminConfigurations[] = [
+            'title' => 'Tax Configuration',
+            'description' => 'Defined the amount of tax applied to product.',
+            'edit_action' => route('admin.configuration.tax-class'),
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
     }
 
    

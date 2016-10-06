@@ -12,6 +12,7 @@
  */
 Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\TaxClass\Controllers"], function () {
 
+    /*
     Route::resource('/admin/tax-class', 'TaxClassController', ['names' => [
             'index' => 'admin.tax-class.index',
             'create' => 'admin.tax-class.create',
@@ -20,4 +21,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
             'update' => 'admin.tax-class.update',
             'destroy' => 'admin.tax-class.destroy',
     ]]);
+     * 
+     */
+    Route::get('/admin/configuration/tax-class', ['as' => 'admin.configuration.tax-class','uses' => 'ConfigurationController@getConfiguration']);
 });
