@@ -68,10 +68,10 @@ class Paypal extends PaymentFramework implements PaymentInterface {
         $this->setApiContext();
 
         $this->_apiContext->setConfig(array(
-            'mode' => 'sandbox',
-            'service.EndPoint' => 'https://api.sandbox.paypal.com',
+            'mode' => Configuration::getConfiguration('paypal_payment_mode'),
+            'service.EndPoint' => Configuration::getConfiguration('paypal_payment_url'),//paypal_payment_log
             'http.ConnectionTimeOut' => 30,
-            'log.LogEnabled' => true,
+            'log.LogEnabled' => Configuration::getConfiguration('paypal_payment_log'),
             'log.FileName' => storage_path('logs/paypal.log'),
             'log.LogLevel' => 'FINE'
         ));

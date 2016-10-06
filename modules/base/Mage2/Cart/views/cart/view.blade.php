@@ -74,19 +74,33 @@
                     <div class="col s1 text-right"><h6><strong>${{ $total }}</strong></h6></div>
                 </div>
 
-                <div class="col s12">
+                <!--div class="col s12">
                     <div class="col s8">   </div>
                     <div class="col s1">   </div>
                     <div class="col s1">   </div>
                     <div class="col s1"><h6>Estimated shipping</h6></div>
                     <div class="col s1 text-right"><h6><strong>$0.00</strong></h6></div>
-                </div>
+                </div-->
+                <!--div class="col s12">
+                    <div class="col s8">   </div>
+                    <div class="col s1">   </div>
+                    <div class="col s1">   </div>
+                    <div class="col s1"><h6>Estimated shipping</h6></div>
+                    <div class="col s1 text-right"><h6><strong>$0.00</strong></h6></div>
+                </div-->
                 <div class="col s12">
                     <div class="col s8">   </div>
                     <div class="col s1">   </div>
                     <div class="col s1">   </div>
+                    <div class="col s1"><h6>Tax</h6></div>
+                    <div class="col s1 text-right"><h6><strong>${{ "2.12" }}</strong></h6></div>
+                </div>
+                 <div class="col s12">
+                    <div class="col s8"> &nbsp;  </div>
+                    <div class="col s1">&nbsp;   </div>
+                    <div class="col s1"> &nbsp;   </div>
                     <div class="col s1"><h6>Total</h6></div>
-                    <div class="col s1 text-right"><h6><strong>${{ $total }}</strong></h6></div>
+                    <div class="col s1 text-right"><h6><strong>${{ ($total + 2.12) }}</strong></h6></div>
                 </div>
                 <div class="col s12">
                     <div class="col s6">   </div>

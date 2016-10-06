@@ -11,6 +11,7 @@ class ProductViewController extends Controller
 {
     public function view($slug) {
 
+        
         $product = $this->_getProductBySlug($slug);
 
 
@@ -33,8 +34,10 @@ class ProductViewController extends Controller
     private function _getProductBySlug($slug) {
         $slugAttribute = ProductAttribute::where('identifier','=','slug')->get()->first();
         $productVarcharValue = ProductVarcharValue::where('product_attribute_id','=', $slugAttribute->id)
+                                                ->where('value','=',$slug)
                                                 ->where('website_id','=', $this->websiteId)->get()->first();
 
+                              
         $product = Product::findorfail($productVarcharValue->product_id);
         return $product;
     }
