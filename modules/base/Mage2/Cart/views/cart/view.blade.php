@@ -13,7 +13,7 @@
             <div class="col s1 ">Price</div>
             <div class="col s1">Total</div>
             <div class="col s1"> </div>
-            <?php $total = 0; ?>
+            <?php $total = 0; $taxTotal = 0; ?>
             @foreach($cartProducts as $product)
             <div class="clearfix">
                 <div class="col s12">
@@ -52,6 +52,7 @@
                         <input type="hidden" name="id" value="{{$product['model']->id}}" />
                     </div>
                     <?php $total += ($product['price'] * $product['qty'] ) ?>
+                    <?php $taxTotal += ($product['tax_amount'] * $product['qty'] ) ?>
                     <div class="col-sm-1 col s1 text-center"><strong>${{ $product['price']}}</strong></div>
                     <div class="col-sm-1 col s1 text-center"><strong>${{ ($product['price'] * $product['qty'] )}}</strong></div>
                     <div class="col-sm-1 col s1">
@@ -93,14 +94,14 @@
                     <div class="col s1">   </div>
                     <div class="col s1">   </div>
                     <div class="col s1"><h6>Tax</h6></div>
-                    <div class="col s1 text-right"><h6><strong>${{ "2.12" }}</strong></h6></div>
+                    <div class="col s1 text-right"><h6><strong>${{ number_format($taxTotal,2) }}</strong></h6></div>
                 </div>
                  <div class="col s12">
                     <div class="col s8"> &nbsp;  </div>
                     <div class="col s1">&nbsp;   </div>
                     <div class="col s1"> &nbsp;   </div>
                     <div class="col s1"><h6>Total</h6></div>
-                    <div class="col s1 text-right"><h6><strong>${{ ($total + 2.12) }}</strong></h6></div>
+                    <div class="col s1 text-right"><h6><strong>${{ number_format(($total + $taxTotal),2) }}</strong></h6></div>
                 </div>
                 <div class="col s12">
                     <div class="col s6">   </div>

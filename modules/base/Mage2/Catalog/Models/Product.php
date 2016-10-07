@@ -11,6 +11,7 @@ use Mage2\Install\Models\Website;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Review\Models\Review;
+use Mage2\Common\Models\Configuration;
 class Product extends Model
 {
     protected $fillable = [];
@@ -80,6 +81,15 @@ class Product extends Model
         return $this->reviews()->where('status' , '=' ,'ENABLED')->get();
     }
     
+    public function getTaxAmount() {
+        $taxPercentage = Configuration::getConfiguration('mage2_tax_class_percentage_of_tax');
+        $price = $this->price;
+        
+        $taxAmount = ($taxPercentage * $price / 100);
+        return $taxAmount;
+    }
+
+
     /*
      * 
      * @return float $value

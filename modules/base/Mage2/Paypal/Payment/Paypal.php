@@ -81,7 +81,8 @@ class Paypal extends PaymentFramework implements PaymentInterface {
         $payer->setPaymentMethod("paypal");
 
         $itemList = new ItemList();
-        $total = 0;
+        $subTotal = 0;
+        $taxTotal = 0;
         foreach ($cartProducts as $product) {
             $item = new Item();
             $model = $product['model'];
@@ -92,15 +93,17 @@ class Paypal extends PaymentFramework implements PaymentInterface {
                     ->setSku($model->sku) // Similar to `item_number` in Classic API
                     ->setPrice($product['price']);
             $itemList->addItem($item);
-            $total += $product['price'];
+            $subTotal += $product['price'] * $product['qty'];
+            $taxTotal += $product['tax_amount'] * $product['qty'];
         }
 
-       
+       $total = $subTotal + $taxTotal; 
 
+       
         $details = new Details();
         $details->setShipping(0.00)
-                //->setTax(1.3)
-                ->setSubtotal($total);
+                ->setTax($taxTotal)
+                ->setSubtotal($subTotal);
 
 
         $amount = new Amount();

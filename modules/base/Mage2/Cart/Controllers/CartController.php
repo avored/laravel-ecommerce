@@ -28,6 +28,7 @@ class CartController extends Controller
             $cart [$id] = ['id' => $id,
                             'qty' => 1,
                             'price' => $product->price,
+                            'tax_amount' => $product->getTaxAmount(),
                             'model' => $product,
                         ];
             
