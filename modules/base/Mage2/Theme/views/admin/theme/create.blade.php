@@ -5,13 +5,14 @@
             <div class="col s12">
                 <div class="main-title-wrapper">
                     <h1>
-                        Create Tax Class
+                        Create Theme
                         <!--<small>Sub title</small> -->
                     </h1>
                 </div>
-                {!! Form::open(['route' => 'admin.tax-class.store']) !!}
-                    @include('tax-class._fields')
-                    @include('template.submit',['label' => 'Create TaxClass'])
+                {!! Form::open(['route' => 'admin.theme.store','files' => true]) !!}
+                    @include('template.file',['key' => 'theme_zip_file','label' => 'Upload Theme File'])
+
+                    @include('template.submit',['label' => 'Create Theme'])
                     
                 {!! Form::close() !!}
             </div>
