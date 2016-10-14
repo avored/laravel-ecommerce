@@ -16,4 +16,8 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
 
     Route::get('/admin/themes/create', ['as' => 'admin.theme.create','uses' => 'ThemeController@create']);
     Route::post('/admin/themes', ['as' => 'admin.theme.store','uses' => 'ThemeController@store']);
+    
+    Route::get('/admin/themes/{name}', ['as' => 'admin.theme.active','uses' => 'ThemeController@active']);
+    
+    Route::delete('/admin/themes/{name}', ['as' => 'admin.theme.destroy','uses' => 'ThemeController@destroy']);
 });

@@ -22,8 +22,8 @@ class ThemeController extends Controller
     {
 
         $themes = ThemeFacade::all();
-        dd($themes);
-        return view('admin.theme.index');
+        
+        return view('admin.theme.index')->with('themes', $themes);
     }
 
     /**

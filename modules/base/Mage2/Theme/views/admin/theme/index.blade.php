@@ -14,39 +14,32 @@
             </div>
         </div>
 
-        <!--
-        <?php /**
+        
         <div class="clearfix"></div>
         <br/>
-        @if(count($taxThemes) <= 0)
+        @if(count($themes) <= 0)
 
-        <p>Sorry No Tax Class Found</p>
+        <p>Sorry No Theme Found</p>
 
         @else
         
         <table class="table table-bordered table-responsive">
             <thead>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Percentage</th>
-            <th>Country</th>
-            <th>State</th>
-            <th>EDIT</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Action</th>
             <th>DELETE</th>
             </thead>
             <tbody>
-                @foreach($taxClasses as $taxClass)
+                @foreach($themes as $theme)
                 <tr>
-                    <td>{{ $taxClass->id }}</td>
-                    <td>{{ $taxClass->title }}</td>
-                    <td>{{ $taxClass->percentage }}</td>
-                    <td>{{ $taxClass->country_code }}</td>
-                    <td>{{ $taxClass->state_code }}</td>
+                    <td>{{ $theme['name'] }}</td>
+                    <td>{{ $theme['description'] }}</td>
                     <td>
-                        <a href="{{ route('admin.tax-class.edit',$taxClass->id )}}">Edit</a>
+                        <a href="{{ route('admin.theme.active',$theme['name'] )}}">Activate</a>
                     </td>
                     <td>
-                        {!! Form::open(['method' => 'DELETE', 'route' => ['admin.tax-class.destroy',$taxClass->id]]) !!}
+                        {!! Form::open(['method' => 'DELETE', 'route' => ['admin.theme.destroy',$theme['name']]]) !!}
                         <a href="#" onclick="jQuery(this).parents('form:first').submit()">Delete</a>
                         {!! Form::close() !!}
                     </td>
@@ -55,9 +48,7 @@
             </tbody>
         </table>
         @endif
-         * 
-         */ ?>
-        -->
+        
     </div>
 </div>
 @endsection
