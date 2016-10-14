@@ -28,7 +28,6 @@
             <th>Name</th>
             <th>Description</th>
             <th>Action</th>
-            <th>DELETE</th>
             </thead>
             <tbody>
                 @foreach($themes as $theme)
@@ -36,13 +35,18 @@
                     <td>{{ $theme['name'] }}</td>
                     <td>{{ $theme['description'] }}</td>
                     <td>
-                        <a href="{{ route('admin.theme.active',$theme['name'] )}}">Activate</a>
-                    </td>
-                    <td>
-                        {!! Form::open(['method' => 'DELETE', 'route' => ['admin.theme.destroy',$theme['name']]]) !!}
-                        <a href="#" onclick="jQuery(this).parents('form:first').submit()">Delete</a>
+                        @if($activeTheme != $theme['name'])
+                        {!! Form::open(['method' => 'POST', 'route' => ['admin.configuration.store']]) !!}
+                        {!! Form::hidden('theme_path_info',$theme['path']) !!}
+                        {!! Form::hidden('theme_name',$theme['name']) !!}
+                        <button type="submit" class="btn btn-primary">Activate</a>
                         {!! Form::close() !!}
+                        @else 
+                        
+                        <button class="btn disabled">Activate</button>
+                        @endif
                     </td>
+                   
                 </tr>
                 @endforeach
             </tbody>

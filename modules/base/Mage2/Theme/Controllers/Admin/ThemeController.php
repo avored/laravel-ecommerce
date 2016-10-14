@@ -5,6 +5,7 @@ namespace Mage2\Theme\Controllers\Admin;
 use Mage2\Framework\Theme\Facade\Theme as ThemeFacade;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Mage2\Common\Models\Configuration;
 
 class ThemeController extends Controller
 {
@@ -22,8 +23,12 @@ class ThemeController extends Controller
     {
 
         $themes = ThemeFacade::all();
+        $activeTheme = Configuration::getConfiguration('theme_name');
         
-        return view('admin.theme.index')->with('themes', $themes);
+        return view('admin.theme.index')
+                    ->with('themes', $themes)
+                    ->with('activeTheme', $activeTheme)
+            ;
     }
 
     /**
