@@ -12,7 +12,7 @@ class Configuration extends Model
         $model = new static();
         
         $row = $model->where('configuration_key','=',$key)->first();
-        if($row->configuration_value != NULL) {
+        if($row != NULL) {
             return $row->configuration_value;
         }
         

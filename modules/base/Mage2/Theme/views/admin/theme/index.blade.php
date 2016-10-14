@@ -37,8 +37,8 @@
                     <td>
                         @if($activeTheme != $theme['name'])
                         {!! Form::open(['method' => 'POST', 'route' => ['admin.configuration.store']]) !!}
-                        {!! Form::hidden('theme_path_info',$theme['path']) !!}
-                        {!! Form::hidden('theme_name',$theme['name']) !!}
+                        {!! Form::hidden('active_theme_path',$theme['path']) !!}
+                        {!! Form::hidden('active_theme_name',$theme['name']) !!}
                         <button type="submit" class="btn btn-primary">Activate</a>
                         {!! Form::close() !!}
                         @else 
