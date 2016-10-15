@@ -37,6 +37,7 @@ use PayPal\Api\WebProfile;
 use PayPal\Core\PayPalConfigManager as PPConfigManager;
 use PayPal\Rest\ApiContext;
 use Mage2\Common\Models\Configuration;
+use Mage2\Framework\Shipping\Facade\Shipping;
 
 class Paypal extends PaymentFramework implements PaymentInterface {
 
@@ -69,7 +70,7 @@ class Paypal extends PaymentFramework implements PaymentInterface {
 
         $this->_apiContext->setConfig(array(
             'mode' => Configuration::getConfiguration('paypal_payment_mode'),
-            'service.EndPoint' => Configuration::getConfiguration('paypal_payment_url'),//paypal_payment_log
+            'service.EndPoint' => Configuration::getConfiguration('paypal_payment_url'), //paypal_payment_log
             'http.ConnectionTimeOut' => 30,
             'log.LogEnabled' => Configuration::getConfiguration('paypal_payment_log'),
             'log.FileName' => storage_path('logs/paypal.log'),
@@ -86,7 +87,7 @@ class Paypal extends PaymentFramework implements PaymentInterface {
         foreach ($cartProducts as $product) {
             $item = new Item();
             $model = $product['model'];
-            
+
             $item->setName($model->title)
                     ->setCurrency('USD')
                     ->setQuantity($product['qty'])
@@ -97,11 +98,14 @@ class Paypal extends PaymentFramework implements PaymentInterface {
             $taxTotal += $product['tax_amount'] * $product['qty'];
         }
 
-       $total = $subTotal + $taxTotal; 
+        $total = $subTotal + $taxTotal;
 
-       
+        $shippingOption = $orderData['shipping_method'];
+        
+        $shipping = Shipping::get($shippingOption);
+
         $details = new Details();
-        $details->setShipping(0.00)
+        $details->setShipping($shipping->getAmount())
                 ->setTax($taxTotal)
                 ->setSubtotal($subTotal);
 
