@@ -8,7 +8,7 @@
     @else
 
     <div class="col s12">
-        <div class="card-title"><h4>Inside Module Featured Products</h4></div>
+        <div class="card-title"><h4>Inside Theme Featured Products</h4></div>
         @foreach($featuredProducts as $product)
         <div class="col s4">
             @include('product.view.product-card',['product'=> $product])
