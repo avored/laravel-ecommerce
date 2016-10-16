@@ -1,4 +1,4 @@
-# Mage2 Commerce using Laravel5 E-commerce App V(0.7) -- Current
+# Mage2 Commerce using Laravel5 E-commerce App V(0.8) -- Current
 
 [![PHPPackages Rank](http://phppackages.org/p/mage2/laravel-ecommerce/badge/rank.svg)](http://phppackages.org/p/mage2/laravel-ecommerce)
 
