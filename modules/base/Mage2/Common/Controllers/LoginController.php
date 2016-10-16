@@ -5,8 +5,11 @@ namespace Mage2\Common\Controllers;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
-class LoginController extends Controller {
+class LoginController extends Controller
+{
     /*
       |--------------------------------------------------------------------------
       | Login Controller
@@ -18,7 +21,7 @@ class LoginController extends Controller {
       |
      */
 
-use AuthenticatesUsers;
+    use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login / registration.
@@ -32,11 +35,21 @@ use AuthenticatesUsers;
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('frontguest', ['except' => 'logout']);
+
+        $url = URL::previous();
+        $checkoutUrl = route('checkout.index');
+
+        if ($url == $checkoutUrl) {
+            $this->redirectTo = $checkoutUrl;
+        }
+
     }
 
-    protected function guard() {
+    protected function guard()
+    {
         return Auth::guard('web');
     }
 
