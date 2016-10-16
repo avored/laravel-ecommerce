@@ -20,7 +20,7 @@ class AddressController extends Controller {
         $user = Auth::user();
         //$addresses = Address::where('user_id', '=', $user->id)->get();
         $addresses = Address::where('user_id', '=', $user->id)->get();
-        return view("my-account.address")
+        return view("address.my-account.address")
                         ->with('user', $user)
                         ->with('addresses', $addresses)
         ;
@@ -34,7 +34,7 @@ class AddressController extends Controller {
     public function create() {
         $user = Auth::user();
         $countries = Country::all();
-        return view("my-account.create-address")
+        return view("address.my-account.create-address")
                         ->with('user', $user)
                         ->with('countries', $countries)
         ;
@@ -75,7 +75,7 @@ class AddressController extends Controller {
         $address = Address::findorfail($id);
 
         $countries = Country::all();
-        return view("my-account.edit-address")
+        return view("address.my-account.edit-address")
                         ->with('user', $user)
                         ->with('address', $address)
                         ->with('countries', $countries)
