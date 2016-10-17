@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\User\Controllers;
+namespace Mage2\User\Controllers\Admin;
 
 
 use Mage2\User\Models\User;
@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('user.index')
+        return view('admin.user.user.index')
                 ->with('users' , $users)
                 ;
     }
@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        return view('admin.user.user.create');
     }
 
     /**
@@ -68,7 +68,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findorfail($id);
-        return view('user.edit')
+        return view('admin.user.user.edit')
                     ->with('user', $user)
                     ;
     }

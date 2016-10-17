@@ -1,12 +1,12 @@
 <?php
 
-namespace Mage2\Review\Controllers;
+namespace Mage2\Review\Controllers\Admin;
 
 use Mage2\Review\Models\Review;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AdminReviewController extends Controller
+class ReviewController extends Controller
 {
 
     public function index() {

@@ -10,7 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Order\Controllers"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Order\Controllers\Admin"], function () {
 
 
     Route::resource('/admin/order-status', 'OrderStatusController', ['names' => [
@@ -22,7 +22,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
             'destroy' => 'admin.order-status.destroy',
     ]]);
 
-    Route::get('/admin/order', ['as' => 'admin.order.index', 'uses' => 'OrderController@adminindex']);
+    Route::get('/admin/order', ['as' => 'admin.order.index', 'uses' => 'OrderController@index']);
     Route::get('/admin/order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
     Route::get('/admin/order/{id}/send-email-invoice', ['as' => 'admin.order.send-email-invoice', 'uses' => 'OrderController@sendEmailInvoice']);
 });

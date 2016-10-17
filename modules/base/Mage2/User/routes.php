@@ -10,7 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth','website'], 'namespace' => "Mage2\User\Controllers"], function () {
+Route::group(['middleware' => ['web', 'adminauth','website'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
 
       Route::resource('/admin/user', 'UserController',['names' => [
             'index' => 'admin.user.index',
@@ -20,9 +20,6 @@ Route::group(['middleware' => ['web', 'adminauth','website'], 'namespace' => "Ma
             'update' => 'admin.user.update',
             'destroy' => 'admin.user.destroy',
         ]]);
-
-
-
 
 });
 Route::group(['middleware' => ['web', 'frontauth','website'], 'namespace' => "Mage2\User\Controllers"], function () {

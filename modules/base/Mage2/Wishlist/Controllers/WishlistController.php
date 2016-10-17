@@ -32,7 +32,7 @@ class WishlistController extends Controller
 
 
 
-        return view('my-account.wishlist')
+        return view('wishlist.my-account.wishlist')
                     ->with('wishlists', $wishlists);
     }
 

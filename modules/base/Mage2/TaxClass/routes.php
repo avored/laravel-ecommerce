@@ -10,7 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\TaxClass\Controllers"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\TaxClass\Controllers\Admin"], function () {
 
     /*
     Route::resource('/admin/tax-class', 'TaxClassController', ['names' => [

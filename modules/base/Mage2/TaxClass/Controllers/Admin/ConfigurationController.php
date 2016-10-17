@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\TaxClass\Controllers;
+namespace Mage2\TaxClass\Controllers\Admin;
 
 use Mage2\Framework\Http\Controllers\Controller;
 use Mage2\Common\Models\Configuration;
@@ -19,7 +19,7 @@ class ConfigurationController extends Controller
     public function getConfiguration()
     {
         $configurations = Configuration::all()->pluck('configuration_value','configuration_key');
-        return view('tax-class.admin.configuration.index')
+        return view('admin.configuration.index')
                 ->with('configurations',$configurations)
             ;
     }

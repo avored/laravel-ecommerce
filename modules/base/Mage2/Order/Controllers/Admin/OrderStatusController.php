@@ -1,11 +1,11 @@
 <?php
-namespace Mage2\Order\Controllers;
+namespace Mage2\Order\Controllers\Admin;
 
 use Mage2\Order\Models\OrderStatus;
 use Mage2\Order\Requests\OrderStatusRequest;
 use Mage2\Framework\Http\Controllers\Controller;
 
-class orderStatusController extends Controller
+class OrderStatusController extends Controller
 {
    
     public function __construct(){
@@ -21,7 +21,7 @@ class orderStatusController extends Controller
     public function index()
     {
         $orderStatuses = OrderStatus::paginate(10);
-        return view('order-status.index')
+        return view('admin.order-status.index')
             ->with('orderStatuses' , $orderStatuses)
             ;
     }
@@ -34,7 +34,7 @@ class orderStatusController extends Controller
     public function create()
     {
 
-        return view('order-status.create')
+        return view('admin.order-status.create')
 
             ;
     }
@@ -81,7 +81,7 @@ class orderStatusController extends Controller
     {
 
         $orderStatus = OrderStatus::findorfail($id);
-        return view('order-status.edit')
+        return view('admin.order-status.edit')
             ->with('orderStatus', $orderStatus)
 
             ;

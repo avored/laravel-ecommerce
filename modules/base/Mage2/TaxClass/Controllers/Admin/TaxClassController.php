@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\TaxClass\Controllers;
+namespace Mage2\TaxClass\Controllers\Admin;
 
 
 use Mage2\TaxClass\Models\TaxClass;
@@ -22,7 +22,7 @@ class TaxClassController extends Controller
     public function index()
     {
         $taxClasses = TaxClass::paginate(10);
-        return view('tax-class.index')
+        return view('admin.tax-class.index')
                 ->with('taxClasses' , $taxClasses)
                 ;
     }
@@ -34,7 +34,7 @@ class TaxClassController extends Controller
      */
     public function create()
     {
-        return view('tax-class.create');
+        return view('admin.tax-class.create');
     }
 
     /**
@@ -69,7 +69,7 @@ class TaxClassController extends Controller
     public function edit($id)
     {
         $taxClass = TaxClass::findorfail($id);
-        return view('tax-class.edit')
+        return view('admin.tax-class.edit')
                     ->with('taxClass', $taxClass)
                     ;
     }
