@@ -33,7 +33,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.user.create');
+        return view('admin.user.user.create')
+         ->with('editMethod', true);
     }
 
     /**
@@ -70,6 +71,7 @@ class UserController extends Controller
         $user = User::findorfail($id);
         return view('admin.user.user.edit')
                     ->with('user', $user)
+                    ->with('editMethod', true)
                     ;
     }
 
