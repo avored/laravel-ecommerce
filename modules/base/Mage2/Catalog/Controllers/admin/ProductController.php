@@ -1,8 +1,7 @@
 <?php
 
-namespace Mage2\Catalog\Controllers;
+namespace Mage2\Catalog\Controllers\Admin;
 
-use Illuminate\Support\Collection;
 use Mage2\Catalog\Models\Category;
 use Mage2\Install\Models\Website;
 use Mage2\Framework\Http\Controllers\Controller;
@@ -41,7 +40,7 @@ class ProductController extends Controller {
         $website = Website::findorfail($this->websiteId);
         $products = $website->products()->paginate(10);
 
-        return view('catalog.admin.product.index')
+        return view('admin.catalog.product.index')
                         ->with('products', $products)
         ;
     }
@@ -56,7 +55,7 @@ class ProductController extends Controller {
         $websites = Website::pluck('name', 'id');
         $categories = $this->_getCategoryOptions();
         $productAttributes = ProductAttribute::all();
-        return view('product.create')
+        return view('admin.catalog.product.create')
                         ->with('productAttributes', $productAttributes)
                         ->with('categories', $categories)
                         ->with('websites', $websites)
@@ -106,7 +105,7 @@ class ProductController extends Controller {
         $categories = $this->_getCategoryOptions();
         $websites = Website::pluck('name', 'id');
         $productAttributes = ProductAttribute::all();
-        return view('product.edit')
+        return view('admin.catalog.product.edit')
                         ->with('product', $product)
                         ->with('websites', $websites)
                         ->with('categories', $categories)
@@ -155,7 +154,7 @@ class ProductController extends Controller {
         $relativePath = implode("/", str_split(strtolower(str_random(3)))) . "/";
         $image->move($destinationPath . $relativePath, $image->getClientOriginalName());
 
-        return view('product.upload-image')
+        return view('admin.catalog.product.upload-image')
                         ->with('path', "/" . $destinationPath . $relativePath . $image->getClientOriginalName())
                         ->with('dbPath', $relativePath . $image->getClientOriginalName());
     }

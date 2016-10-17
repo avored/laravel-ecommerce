@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Catalog\Controllers;
+namespace Mage2\Catalog\Controllers\Admin;
 
 use Illuminate\Support\Collection;
 
@@ -23,7 +23,7 @@ class ConfigurationController extends Controller
     public function getConfiguration()
     {
         $configurations = Configuration::all()->pluck('configuration_value','configuration_key');
-        return view('catalog.admin.configuration.index')
+        return view('admin.configuration.index')
                 ->with('configurations',$configurations)
             ;
     }

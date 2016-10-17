@@ -23,7 +23,7 @@
 
         @include('template.select',['key' => 'is_featured','label' => 'Is Featured', 'options' => $isFeaturedOptions])
 
-        @include('product.fields.category',['key' => 'category_id[]',
+        @include('admin.catalog.product.fields.category',['key' => 'category_id[]',
         'label' => 'Category',
         'options' => $categories
         ])

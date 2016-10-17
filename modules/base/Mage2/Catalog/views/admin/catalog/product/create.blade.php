@@ -19,10 +19,10 @@
                 {!! Form::open(['route' => 'admin.product.store']) !!}
 
 
-                @include('product.boxes.basic',['categories' => $categories])
-                @include('product.boxes.images')
-                @include('product.boxes.inventory')
-                @include('product.boxes.seo')
+                @include('admin.catalog.product.boxes.basic',['categories' => $categories])
+                @include('admin.catalog.product.boxes.images')
+                @include('admin.catalog.product.boxes.inventory')
+                @include('admin.catalog.product.boxes.seo')
 
                 <!--
                 include('product.boxes.extra')

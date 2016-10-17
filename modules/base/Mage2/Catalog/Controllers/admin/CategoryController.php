@@ -1,9 +1,8 @@
 <?php
 
-namespace Mage2\Catalog\Controllers;
+namespace Mage2\Catalog\Controllers\Admin;
 
 use Illuminate\Support\Collection;
-
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Requests\CategoryRequest;
 use Mage2\Framework\Http\Controllers\Controller;
@@ -24,7 +23,7 @@ class CategoryController extends Controller
     {
         //$categories = Category::orderBy('id','desc')->paginate(10);
         $categories = Category::paginate(10);
-        return view('category.index')
+        return view('admin.catalog.category.index')
                 ->with('categories' , $categories)
             ;
     }
@@ -37,7 +36,7 @@ class CategoryController extends Controller
     public function create()
     {
         $categoryOptions = $this->_getCategoryOptions();
-        return view('category.create')
+        return view('admin.catalog.category.create')
                 ->with('categoryOptions', $categoryOptions)
             ;
     }
@@ -78,7 +77,7 @@ class CategoryController extends Controller
     {
         $categoryOptions = $this->_getCategoryOptions();
         $category = Category::findorfail($id);
-        return view('category.edit')
+        return view('admin.catalog.category.edit')
             ->with('category', $category)
             ->with('categoryOptions', $categoryOptions)
             ;
