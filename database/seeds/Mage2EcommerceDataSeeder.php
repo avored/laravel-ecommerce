@@ -28,7 +28,7 @@ class Mage2EcommerceDataSeeder extends Seeder
                 'identifier' => 'price',
                 'type' => 'FLOAT',
                 'field_type' => 'TEXT',
-                'validation' => 'required|max:255|regex:/^-?\\d*(\\.\\d+)?$/'
+                'validation' => 'required|max:8|regex:/^-?\\d*(\\.\\d+)?$/'
             ],
             [
                 'title' => 'Image',
