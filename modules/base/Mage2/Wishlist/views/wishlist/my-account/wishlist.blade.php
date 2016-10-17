@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row profile">
         <div class="col s2">
-            @include('my-account.sidebar')
+            @include('address.my-account.sidebar')
         </div>
         <div class="col s10">
             <div class="title">

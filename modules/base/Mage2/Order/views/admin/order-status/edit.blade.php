@@ -17,10 +17,10 @@
             <div class="col s12">
 
                 {!! Form::model($orderStatus, ['method' => 'PUT', 'route' => ['admin.order-status.update', $orderStatus->id]]) !!}
-                        @include('mage2::order-status._fields')
+                        @include('admin.order-status._fields')
                     
-                        @include('mage2::template.hidden',['key' => 'id'])
-                        @include('mage2::template.submit',['label' => 'Update Order Status'])
+                        @include('template.hidden',['key' => 'id'])
+                        @include('template.submit',['label' => 'Update Order Status'])
                     
                 {!! Form::close() !!}
             </div>

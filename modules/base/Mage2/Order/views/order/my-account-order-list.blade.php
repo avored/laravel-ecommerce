@@ -2,7 +2,7 @@
 @section('content')
     <div class="row">
         <div class="col s2">
-            @include('my-account.sidebar')
+            @include('address.my-account.sidebar')
         </div>
         <div class="col s10">
 

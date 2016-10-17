@@ -13,7 +13,7 @@
                                 </h1>
                             </div>
                         {!! Form::model($category, ['method' => 'PUT', 'route' => ['admin.category.update', $category->id]]) !!}
-                        @include('category._fields')
+                        @include('admin.catalog.category._fields')
 
                         @include('template.hidden',['key' => 'id'])
                         @include('template.submit',['label' => 'Update Category'])

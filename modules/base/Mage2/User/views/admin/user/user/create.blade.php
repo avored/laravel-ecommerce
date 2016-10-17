@@ -10,7 +10,7 @@
                     </h1>
                 </div>
                 {!! Form::open(['route' => 'admin.user.store']) !!}
-                    @include('user._fields')
+                    @include('admin.user.user._fields')
                     @include('template.submit',['label' => 'Create User'])
                     
                 {!! Form::close() !!}

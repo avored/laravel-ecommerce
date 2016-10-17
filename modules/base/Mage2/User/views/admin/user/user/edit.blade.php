@@ -11,7 +11,7 @@
                 </div>
 
                 {!! Form::model($user, ['method' => 'PUT', 'route' => ['admin.user.update', $user->id]]) !!}
-                        @include('user._fields',['editMethod' => true])
+                        @include('admin.user.user._fields',['editMethod' => true])
                     
                         @include('template.hidden',['key' => 'id'])
                         @include('template.submit',['label' => 'Update User'])

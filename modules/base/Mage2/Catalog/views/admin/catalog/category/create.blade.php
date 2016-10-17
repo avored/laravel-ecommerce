@@ -8,7 +8,7 @@
             <div class="card-content">
                 <div class="card-title"><h3>Create Category</h3></div>
                 {!! Form::open(['route' => 'admin.category.store']) !!}
-                @include('category._fields')
+                @include('admin.catalog.category._fields')
                 @include('template.submit',['label' => 'Create Category'])
 
                 {!! Form::close() !!}

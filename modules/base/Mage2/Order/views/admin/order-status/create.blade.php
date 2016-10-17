@@ -9,7 +9,7 @@
             </div>
             <div class="col s12">
                 {!! Form::open(['route' => 'admin.order-status.store']) !!}
-                    @include('order-status._fields')
+                    @include('admin.order-status._fields')
                     @include('template.submit',['label' => 'Create Order Status'])
                     
                 {!! Form::close() !!}
