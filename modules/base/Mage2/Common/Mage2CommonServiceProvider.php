@@ -99,7 +99,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
         });
 
 
-        view()->composer('product.boxes.inventory', function ($view) {
+        view()->composer('admin.catalog.product.boxes.inventory', function ($view) {
             $productAttrobuteModel = new ProductAttribute();
             $trackStockOptions = $productAttrobuteModel->getTrackStockOptions();
             $inStockOptions = $productAttrobuteModel->getInStockOptions();
@@ -110,7 +110,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
 
             ;
         });
-        view()->composer('product.boxes.basic', function ($view) {
+        view()->composer('admin.catalog.product.boxes.basic', function ($view) {
             $productAttrobuteModel = new ProductAttribute();
             $isFeaturedOptions = $productAttrobuteModel->getIsFeaturedOptions();
             $statusOptions = $productAttrobuteModel->getStatusOptions();
@@ -119,7 +119,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
                     ->with('statusOptions', $statusOptions)
             ;
         });
-        view()->composer('product.boxes.inventory', function ($view) {
+        view()->composer('admin.catalog.product.boxes.inventory', function ($view) {
             $productAttrobuteModel = new ProductAttribute();
             $isTaxableOptions = $productAttrobuteModel->getIsTaxableOptions();
             $view

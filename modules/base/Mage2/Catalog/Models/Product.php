@@ -109,7 +109,7 @@ class Product extends Model
          *  it will generate error because of 1,099.99 not decimal(because of comma , )
          */
         return $value;
-        return number_format($value,2);
+        //return number_format($value,2);
     }
 
 
