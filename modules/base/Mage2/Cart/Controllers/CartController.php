@@ -1,14 +1,10 @@
 <?php
-
 namespace Mage2\Cart\Controllers;
-
 
 use Illuminate\Http\Request;
 use Mage2\Catalog\Models\Product;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-
-
 
 class CartController extends Controller
 {
@@ -41,7 +37,7 @@ class CartController extends Controller
     public function view() {
         
         $cartProducts = Session::get('cart');
-        return view("cart.view")
+        return view("cart.cart.view")
                 ->with('cartProducts', $cartProducts)
                 ;
     }
