@@ -1,5 +1,4 @@
 <?php
-
 namespace Mage2\Checkout\Controllers;
 
 use Illuminate\Support\Facades\Redirect;
@@ -8,13 +7,13 @@ use Mage2\User\Models\User;
 use Mage2\Framework\Shipping\Facade\Shipping;
 use Mage2\Framework\Payment\Facade\Payment;
 use Illuminate\Http\Request;
-
 use Mage2\Checkout\Requests\CheckoutUserRequest;
 use Illuminate\Support\Facades\Session;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Mage2\Address\Requests\AddressRequest;
 use Mage2\TaxClass\Models\Country;
+
 class CheckoutController extends Controller {
 
    

@@ -12,7 +12,7 @@ class ContactUsController extends Controller
 {
 
     public function getContactUs() {
-        return view('contact-us');
+        return view('contact-us.contact-us');
     }
 
     public function postContactUs(ContactUsRequest $request)
