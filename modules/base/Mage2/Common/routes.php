@@ -18,12 +18,6 @@ Route::group(['middleware' => ['web','website'],'namespace' => "Mage2\Common\Con
 
     Route::get('/admin', ['as' => 'admin.dashboard', 'uses' => 'AdminController@index']);
 
-    Route::get('/admin/login', ['as' => 'admin.login', 'uses' => 'AdminLoginController@showLoginForm']);
-    Route::post('/admin/login', ['as' => 'admin.login.post', 'uses' => 'AdminLoginController@login']);
-    
-    Route::get('/admin/logout', ['as' => 'admin.logout', 'uses' => 'AdminLoginController@logout']);
-
-
     Route::get('/login', ['as' => 'login', 'uses' => 'LoginController@showLoginForm']);
     Route::post('/login', ['as' => 'login.post', 'uses' => 'LoginController@login']);
     Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
