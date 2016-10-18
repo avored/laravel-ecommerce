@@ -6,10 +6,14 @@
     <div class="col s12">
         <div class="card">
             <div class="card-content">
-                <div class="card-title"><h3>Create Category</h3></div>
+                <div class="card-title">Create Category</div>
                 {!! Form::open(['route' => 'admin.category.store']) !!}
                 @include('admin.catalog.category._fields')
-                @include('template.submit',['label' => 'Create Category'])
+
+                <div class="input-field">
+                    {!! Form::submit("Create Category",['class' => 'btn btn-primary']) !!}
+                    {!! Form::button("cancel",['class' => 'btn disabled','onclick' => 'location="' . route('admin.category.index'). '"']) !!}
+                </div>
 
                 {!! Form::close() !!}
             </div>

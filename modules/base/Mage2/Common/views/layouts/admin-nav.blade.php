@@ -1,4 +1,4 @@
-<nav class="light-blue  lighten-1" role="navigation">
+<nav class="" role="navigation">
     <div class="nav-wrapper ">
         <a id="logo-container" href="{{ route('admin.dashboard') }}" class="brand-logo">Mage2 Admin</a>
         <ul class="right hide-on-med-and-down">

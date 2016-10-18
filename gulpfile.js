@@ -16,9 +16,4 @@ elixir(function(mix) {
     mix.sass([
         'materialize.scss',
     ]);
-
-
-    mix.webpack([
-        'bin/materialize.js',
-    ]);
 });

@@ -7,16 +7,19 @@
                 <div class="card card-default">
                     <div class="card-content">
                             <div class="card-title">
-                                <h1>
+
                                     Edit Category
                                     <!--<small>Sub title</small> -->
-                                </h1>
+
                             </div>
                         {!! Form::model($category, ['method' => 'PUT', 'route' => ['admin.category.update', $category->id]]) !!}
                         @include('admin.catalog.category._fields')
 
                         @include('template.hidden',['key' => 'id'])
-                        @include('template.submit',['label' => 'Update Category'])
+                        <div class="input-field">
+                            {!! Form::submit("Update Category",['class' => 'btn btn-primary']) !!}
+                            {!! Form::button("cancel",['class' => 'btn disabled','onclick' => 'location="' . route('admin.category.index'). '"']) !!}
+                        </div>
 
                         {!! Form::close() !!}
                     </div>

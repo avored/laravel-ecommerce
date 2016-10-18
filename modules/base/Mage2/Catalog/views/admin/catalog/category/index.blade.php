@@ -5,7 +5,7 @@
     <div class="col s12">
         <div class="main-title-wrapper">
         <h1> Category List</h1>
-        <div class="right">
+        <div class="right" style="margin: 1rem 0px;">
             <a href="{{ route('admin.category.create') }}"
                class="btn btn-primary"> Create Category</a>
         </div>
@@ -17,7 +17,7 @@
         <p>Sorry No Category Found</p>
 
         @else
-        <table class="table">
+        <table class="table bordered tablegrid">
             <thead>
             <th>ID</th>
             <th>Name</th>
@@ -50,6 +50,9 @@
                 @endforeach
             </tbody>
         </table>
+
+            <div class="clearfix"></div>
+            {!! $categories->links() !!}
         @endif
     </div>
 </div>

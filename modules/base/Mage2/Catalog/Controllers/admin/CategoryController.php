@@ -9,11 +9,7 @@ use Mage2\Framework\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-  
-    public function __construct(){
-      
-        parent::__construct();
-    }
+
     /**
      * Display a listing of the Category.
      *
@@ -21,7 +17,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //$categories = Category::orderBy('id','desc')->paginate(10);
         $categories = Category::paginate(10);
         return view('admin.catalog.category.index')
                 ->with('categories' , $categories)

@@ -27,7 +27,10 @@
                 include('admin.product._fields', ['websites' => $websites,'categories' => $categories])
             -->
             @include('template.hidden',['key' => 'id'])
-            @include('template.submit',['label' => 'Update Product'])
+            <div class="input-field">
+                {!! Form::submit("Update Product",['class' => 'btn btn-primary']) !!}
+                {!! Form::button("Cancel",['class' => 'btn btn-default']) !!}
+            </div>
 
             {!! Form::close() !!}
         </div>
