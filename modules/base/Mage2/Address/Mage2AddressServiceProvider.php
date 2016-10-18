@@ -50,10 +50,10 @@ class Mage2AddressServiceProvider extends ServiceProvider {
     public function registerAdminMenu() {
         
 
-        $adminMenu = [
-            'label' => 'Products',
-            'url' => route('admin.product.index'),
-        ]; 
+        //$adminMenu = [
+        //    'label' => 'Products',
+        //    'url' => route('admin.product.index'),
+        //];
         //AdminMenu::registerMenu($adminMenu);
     }
 
