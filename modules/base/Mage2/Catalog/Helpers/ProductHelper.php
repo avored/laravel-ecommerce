@@ -1,11 +1,27 @@
 <?php
+
 namespace Mage2\Catalog\Helpers;
 
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Attribute\Models\ProductAttribute;
+use Mage2\Catalog\Requests\ProductRequest;
+use Illuminate\Support\Facades\Session;
 
 class ProductHelper {
+
+    public $websiteId;
+    public $defaultWebsiteId;
+    public $isDefaultWebsite;
+
+    //public $theme;
+
+    public function __construct() {
+
+        $this->websiteId = Session::get('website_id');
+        $this->defaultWebsiteId = Session::get('default_website_id');
+        $this->isDefaultWebsite = Session::get('is_default_website');
+    }
 
     /**
      * Insert or update product into pivot table
@@ -52,6 +68,7 @@ class ProductHelper {
             if ($product->$identifier == $request->get($identifier)) {
                 continue;
             }
+
 
             switch ($productAttribute->type) {
                 case "VARCHAR":

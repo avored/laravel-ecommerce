@@ -79,7 +79,7 @@ class ProductController extends Controller {
             $this->productHelper->saveProduct($product, $request);
             $this->productHelper->saveRelatedProducts($product, $request);
             $this->productHelper->saveCategory($product, $request);
-            $this->productHelper->saveProductImaegs($product, $request);
+            $this->productHelper->saveProductImages($product, $request);
             $this->productHelper->saveProductAttribute($product, $request);
             
         } catch (\Exception $e) {
@@ -127,19 +127,16 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(ProductRequest $request, $id) {
-
-        $product = Product::findorfail($id);
-
         try {
-
+            $product = Product::findorfail($id);
             $this->productHelper->saveProduct($product, $request);
             $this->productHelper->saveRelatedProducts($product, $request);
             $this->productHelper->saveCategory($product, $request);
 
-            $this->productHelper->saveProductImaegs($product, $request);
+            $this->productHelper->saveProductImages($product, $request);
             $this->productHelper->saveProductAttribute($product, $request);
         } catch (\Exception $e) {
-            echo 'Error in Saving Product: ', $e->getMessage(), "\n";
+            throw new \Exception('Error in Saving Product: '. $e->getMessage());
         }
         return redirect()->route('admin.product.index');
     }
