@@ -1,0 +1,45 @@
+body {
+    background-color: #E0E0E0;
+}
+.has-error input {
+    border: 1px solid maroon;
+}
+.has-error.input-field label {
+    left:10px;
+    top: 0.3rem;
+}
+input:not([type]):focus:not([readonly]),
+  input[type=text]:focus:not([readonly]),
+  input[type=password]:focus:not([readonly]),
+  input[type=email]:focus:not([readonly]),
+  input[type=url]:focus:not([readonly]),
+  input[type=time]:focus:not([readonly]),
+  input[type=date]:focus:not([readonly]),
+  input[type=datetime]:focus:not([readonly]),
+  input[type=datetime-local]:focus:not([readonly]),
+  input[type=tel]:focus:not([readonly]),
+  input[type=number]:focus:not([readonly]),
+  input[type=search]:focus:not([readonly]),
+  textarea.materialize-textarea:focus:not([readonly]) {
+      border: inherit;
+      border-top: 0px;
+      border-left: 0px;
+      border-right: 0px;
+  }
+.has-error.input-field .help-block {
+    background: maroon;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 15px;
+    position: relative;
+}
+.has-error.input-field .help-block:after {
+    position: absolute;
+    top: -10px;
+    content: "";
+    left: 20px;
+    border-style: solid;
+    border-color: transparent transparent maroon;
+    border-width: 5px;
+}
