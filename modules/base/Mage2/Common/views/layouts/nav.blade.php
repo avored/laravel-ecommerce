@@ -1,4 +1,4 @@
-<nav class="light-blue  lighten-1" role="navigation">
+<nav role="navigation">
     <div class="nav-wrapper ">
         <a id="logo-container" href="{{ route('home') }}" class="brand-logo">Mage2</a>
 
