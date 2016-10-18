@@ -2,11 +2,11 @@
 
 /*
   |--------------------------------------------------------------------------
-  | Application Routes
+  | Mage2 Order Module Routes
   |--------------------------------------------------------------------------
   |
-  | Here is where you can register all of the routes for an application.
-  | It's a breeze. Simply tell Laravel the URIs it should respond to
+  | Here is where you can register all of the routes for an mage2 order  modules.
+  | It's a breeze. Simply tell mage2 order module the URI it should respond to
   | and give it the controller to call when that URI is requested.
   |
  */

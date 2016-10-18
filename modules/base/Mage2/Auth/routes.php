@@ -37,6 +37,4 @@ Route::group(['middleware' => ['frontauth', 'web', 'website'], 'namespace' => "M
     Route::get('/register', ['as' => 'register', 'uses' => 'RegisterController@showRegistrationForm']);
     Route::post('/register', ['as' => 'register.post', 'uses' => 'RegisterController@register']);
 
-
-
 });
