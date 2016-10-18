@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Common\Controllers;
+namespace Mage2\Auth\Controllers;
 
 use Mage2\User\Models\User;
 use Validator;

@@ -9,42 +9,19 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web','website'],'namespace' => "Mage2\Common\Controllers"], function () {
 
-
-
-    Route::get('/', ['as' => 'home','uses' => 'HomeController@index']);
-
-
-    Route::get('/admin', ['as' => 'admin.dashboard', 'uses' => 'AdminController@index']);
-
-    Route::get('/login', ['as' => 'login', 'uses' => 'LoginController@showLoginForm']);
-    Route::post('/login', ['as' => 'login.post', 'uses' => 'LoginController@login']);
-    Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
-
-    Route::get('/password/reset/{token}', ['as' => 'password.reset.token', 'uses' => 'ResetPasswordController@showResetForm']);
-    Route::post('/password/reset', ['as' => 'password.reset.token', 'uses' => 'ResetPasswordController@reset']);
-    
-    Route::get('/password/reset', ['as' => 'password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
-    Route::post('/password/email', ['as' => 'password.email.post', 'uses' => 'ForgotPasswordController@sendResetLinkEmail']);
-    //Route::post('/login', ['as' => 'login.post', 'uses' => 'LoginController@login']);
-    
-    //Route::auth();
-    Route::get('/register', ['as' => 'register', 'uses' => 'RegisterController@showRegistrationForm']);
-    Route::post('/register', ['as' => 'register.post', 'uses' => 'RegisterController@register']);
-
-    //Route::post('/admin/logout', ['as' => 'admin.logout', 'uses' => 'AuthController@logout']);
-
-    //Route::group(['middleware' => 'adminauth'], function () {
-    //    Route::get('/admin', ['as' => 'admin.index', 'uses' => 'HomeController@index']);
-    //    
-    //    Route::resource('/admin/page', 'PageController');
-    //});
-});
 
 Route::group(['middleware' => ['web','website','adminauth'],'namespace' => "Mage2\Common\Controllers"], function () {
 
     Route::get('/admin/config', ['as' => 'admin.configuration', 'uses' => 'AdminConfigController@index']);
     Route::post('/admin/config', ['as' => 'admin.configuration.store', 'uses' => 'AdminConfigController@store']);
+
+});
+
+
+Route::group(['middleware' => ['web','website'],'namespace' => "Mage2\Common\Controllers"], function () {
+
+    Route::get('/', ['as' => 'home','uses' => 'HomeController@index']);
+    Route::get('/admin', ['as' => 'admin.dashboard', 'uses' => 'AdminController@index']);
 
 });
