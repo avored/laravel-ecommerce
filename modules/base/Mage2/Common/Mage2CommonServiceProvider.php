@@ -5,14 +5,10 @@ namespace Mage2\Common;
 use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
-use Mage2\Common\Middleware\AdminAuthenticate;
-use Mage2\Common\Middleware\RedirectIfAdminAuthenticated;
 use Mage2\Common\Middleware\Website as WebsiteMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Mage2\Catalog\Models\Category;
 use Mage2\Attribute\Models\ProductAttribute;
-use Mage2\Common\Middleware\FrontAuthenticate;
-use Mage2\Common\Middleware\RedirectIfFrontAuthenticated;
 use Illuminate\Support\Facades\Session;
 
 class Mage2CommonServiceProvider extends ServiceProvider {
@@ -73,12 +69,6 @@ class Mage2CommonServiceProvider extends ServiceProvider {
   
     public function registerMiddleware() {
         $router = $this->app['router'];
-
-        // '' => \Mage2\Auth\Middleware\RedirectIfAdminAuthenticated::class,
-        $router->middleware('adminauth', AdminAuthenticate::class);
-        $router->middleware('adminguest', RedirectIfAdminAuthenticated::class);
-        $router->middleware('frontauth', FrontAuthenticate::class);
-        $router->middleware('frontguest', RedirectIfFrontAuthenticated::class);
         $router->middleware('website', WebsiteMiddleware::class);
     }
 

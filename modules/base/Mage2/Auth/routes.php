@@ -10,7 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Auth\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Auth\Controllers\Admin"], function () {
 
     Route::get('/admin/login', ['as' => 'admin.login', 'uses' => 'LoginController@showLoginForm']);
     Route::post('/admin/login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
@@ -21,7 +21,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
 });
 
 
-Route::group(['middleware' => ['frontauth', 'web', 'website'], 'namespace' => "Mage2\Auth\Controllers"], function () {
+Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Auth\Controllers"], function () {
 
 
     Route::get('/login', ['as' => 'login', 'uses' => 'LoginController@showLoginForm']);

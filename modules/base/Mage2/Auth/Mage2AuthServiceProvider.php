@@ -1,10 +1,15 @@
 <?php
-
 namespace Mage2\Auth;
 
 use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
+
+use Mage2\Auth\Middleware\AdminAuthenticate;
+use Mage2\Auth\Middleware\RedirectIfAdminAuthenticated;
+use Mage2\Auth\Middleware\FrontAuthenticate;
+use Mage2\Auth\Middleware\RedirectIfFrontAuthenticated;
+
 
 class Mage2AuthServiceProvider extends ServiceProvider {
 
@@ -24,6 +29,7 @@ class Mage2AuthServiceProvider extends ServiceProvider {
      * @return void
      */
     public function register() {
+        $this->registerMiddleware();
         $this->mapWebRoutes();
         $this->registerAdminMenu();
         $this->registerViewPath();
@@ -49,6 +55,20 @@ class Mage2AuthServiceProvider extends ServiceProvider {
      */
     protected function registerViewPath() {
         View::addLocation(__DIR__ . "/views");
+    }
+
+    /**
+     * Register the middleware for the mage2 auth modules.
+     *
+     * @return void
+     */
+    public function registerMiddleware() {
+        $router = $this->app['router'];
+
+        $router->middleware('adminauth', AdminAuthenticate::class);
+        $router->middleware('adminguest', RedirectIfAdminAuthenticated::class);
+        $router->middleware('frontauth', FrontAuthenticate::class);
+        $router->middleware('frontguest', RedirectIfFrontAuthenticated::class);
     }
 
 

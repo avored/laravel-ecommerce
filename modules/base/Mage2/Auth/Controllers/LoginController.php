@@ -37,6 +37,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+
         $this->middleware('frontguest', ['except' => 'logout']);
 
         $url = URL::previous();
@@ -53,4 +54,13 @@ class LoginController extends Controller
         return Auth::guard('web');
     }
 
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
 }
