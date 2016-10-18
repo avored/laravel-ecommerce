@@ -11,32 +11,38 @@ use Illuminate\Http\Request;
 use Mage2\Catalog\Models\Product;
 use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Catalog\Models\RelatedProduct;
+use Mage2\Catalog\Helpers\CategoryHelper;
+use Mage2\Catalog\Helpers\ProductHelper;
 
 class ProductController extends Controller {
 
-    //protected $productRepository;
-    //protected $websiteRepository;
-    //protected $productAttributeRepository;
-    //protected $relatedProductRepository;
-    //protected $categoryRepository;
+    /**
+     *
+     * @var \Mage2\Catalog\Helpers\CategoryHelper
+     * 
+     */
+    protected $categoryHelper;
 
-    
-    public function __construct() {
-        //$this->productRepository = $repository;
-        //$this->websiteRepository = $websiteRepository;
-        //$this->productAttributeRepository = $productAttributeRepository;
-        //$this->relatedProductRepository = $relatedProductRepository;
-        //$this->categoryRepository = $categoryRepository;
+    /**
+     *
+     * @var \Mage2\Catalog\Helpers\ProductHelper
+     * 
+     */
+    protected $productHelper;
+
+    public function __construct(CategoryHelper $categoryHelper, ProductHelper $productHelper) {
+        $this->categoryHelper = $categoryHelper;
+        $this->productHelper = $productHelper;
         parent::__construct();
     }
-    
+
     /**
      * Display a listing of the resource.
      * r
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        
+
         $website = Website::findorfail($this->websiteId);
         $products = $website->products()->paginate(10);
 
@@ -53,7 +59,7 @@ class ProductController extends Controller {
     public function create() {
 
         $websites = Website::pluck('name', 'id');
-        $categories = $this->_getCategoryOptions();
+        $categories = $this->categoryHelper->getCategoryOptions();
         $productAttributes = ProductAttribute::all();
         return view('admin.catalog.product.create')
                         ->with('productAttributes', $productAttributes)
@@ -123,13 +129,17 @@ class ProductController extends Controller {
 
         $product = Product::findorfail($id);
 
-        $this->_saveProduct($product, $request);
-        $this->_saveRelatedProducts($product, $request);
-        $this->_saveCategory($product, $request);
+        try {
 
-        $this->_saveProductImages($product, $request);
-        $this->_saveProductAttribute($product, $request);
+            $this->_saveProduct($product, $request);
+            $this->_saveRelatedProducts($product, $request);
+            $this->_saveCategory($product, $request);
 
+            $this->_saveProductImages($product, $request);
+            $this->_saveProductAttribute($product, $request);
+        } catch (\Exception $e) {
+            echo 'Error in Saving Product: ', $e->getMessage(), "\n";
+        }
         return redirect()->route('admin.product.index');
     }
 
@@ -390,7 +400,7 @@ class ProductController extends Controller {
 
     private function _saveProductFloatValue($product, $identifier, $productAttribute, $value) {
 
-        
+
         $createNewRecord = false;
         if ($this->isDefaultWebsite == false) {
             $attributeValue = $productAttribute
@@ -447,11 +457,6 @@ class ProductController extends Controller {
                         'website_id' => $this->websiteId,
             ]);
         }
-    }
-
-    private function _getCategoryOptions() {
-        $options = Category::pluck('name', 'id');
-        return $options;
     }
 
 }

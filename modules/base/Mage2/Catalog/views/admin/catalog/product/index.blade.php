@@ -6,7 +6,7 @@
     <div class="col s12">
         <div class="main-title-wrapper">
             <h1>Product List</h1>
-            <div class="right">
+            <div class="right" style="margin: 1rem 0px;">
                 <a href="{{ route('admin.product.create') }}"
                    class="btn btn-primary"> Create Product</a>
             </div>
@@ -19,7 +19,7 @@
         <p>Sorry No Product Found</p>
 
         @else
-        <table class="table">
+        <table class="table bordered tablegrid">
             <thead>
             <th>ID</th>
             <th>Title</th>
