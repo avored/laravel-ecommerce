@@ -200,6 +200,7 @@ class Mage2EcommerceDataSeeder extends Seeder
         Country::insert($countires);
 
 
+
     }
 
 }

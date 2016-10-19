@@ -15,7 +15,7 @@ class ThemeController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the theme.
      *
      * @return \Illuminate\Http\Response
      */
@@ -32,7 +32,7 @@ class ThemeController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new theme.
      *
      * @return \Illuminate\Http\Response
      */
@@ -42,9 +42,9 @@ class ThemeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created theme in database.
      *
-     * @param  \Mage2\Framework\Http\Request $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -66,59 +66,6 @@ class ThemeController extends Controller
         return redirect()->route('admin.theme.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $Theme = Theme::findorfail($id);
-        return view('tax-class.edit')
-                    ->with('Theme', $Theme)
-                    ;
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\ThemeRequest  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(ThemeRequest $request, $id)
-    {
-       
-        $Theme = Theme::findorfail($id);
-        $Theme->update($request->all());
-
-        return redirect()->route('admin.tax-class.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        Theme::destroy($id);
-
-        return redirect()->route('admin.tax-class.index');
-    }
 
     /**
      * @param \Illuminate\Http\UploadedFile $file

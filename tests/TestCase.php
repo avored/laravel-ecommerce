@@ -30,7 +30,8 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         
         parent::setUp();
         putenv('DB_CONNECTION=sqlite_testing');
-        Artisan::call('migrate');
+        Artisan::call('mage2:migrate');
+        //Artisan::call('db:seed');
     }
 
      /**

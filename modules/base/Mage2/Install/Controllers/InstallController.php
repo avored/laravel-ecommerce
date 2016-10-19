@@ -43,8 +43,8 @@ class InstallController extends Controller
 
     public function databasePost() {
         try {
-            //Artisan::call('mage2:migrate');
-            //Artisan::call('db:seed');
+            Artisan::call('mage2:migrate');
+            Artisan::call('db:seed');
         } catch(Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -58,9 +58,6 @@ class InstallController extends Controller
 
     public function adminPost(AdminUserRequest $request) {
 
-       
-        //dd($request);
-        //return $request->all();
         AdminUser::create([
                                 'first_name' => $request->get('first_name'),
                                 'last_name' => $request->get('last_name'),
