@@ -32,7 +32,7 @@ class AdminLoginTest extends TestCase
                 ->type('admin123','password')
                 ->press('Login')
                 ->seePageIs('/admin')
-                ->see("Admin");
+                ->see("Mage2 Admin");
 
     }
 

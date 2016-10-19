@@ -19,27 +19,41 @@
             <exclude>
                 <file>./modules/base/Mage2/Address/routes.php</file>
                 <file>./modules/base/Mage2/Attribute/routes.php</file>
+                <file>./modules/base/Mage2/Auth/routes.php</file>
                 <file>./modules/base/Mage2/Cart/routes.php</file>
                 <file>./modules/base/Mage2/Catalog/routes.php</file>
+                <file>./modules/base/Mage2/ContactUs/routes.php</file>
                 <file>./modules/base/Mage2/Checkout/routes.php</file>
                 <file>./modules/base/Mage2/Common/routes.php</file>
                 <file>./modules/base/Mage2/Install/routes.php</file>
+                <file>./modules/base/Mage2/Paypal/routes.php</file>
                 <file>./modules/base/Mage2/Order/routes.php</file>
                 <file>./modules/base/Mage2/TaxClass/routes.php</file>
                 <file>./modules/base/Mage2/User/routes.php</file>
+                <file>./modules/base/Mage2/Review/routes.php</file>
                 <file>./modules/base/Mage2/Wishlist/routes.php</file>
+                <file>./modules/base/Mage2/Theme/routes.php</file>
+
+
                 
                 <directory>./modules/base/Mage2/Address/views</directory>
                 <directory>./modules/base/Mage2/Attribute/views</directory>
+                <directory>./modules/base/Mage2/Auth/views</directory>
                 <directory>./modules/base/Mage2/Cart/views</directory>
                 <directory>./modules/base/Mage2/Catalog/views</directory>
+                <directory>./modules/base/Mage2/ContactUs/views</directory>
                 <directory>./modules/base/Mage2/Checkout/views</directory>
                 <directory>./modules/base/Mage2/Common/views</directory>
                 <directory>./modules/base/Mage2/Install/views</directory>
                 <directory>./modules/base/Mage2/Order/views</directory>
+                <directory>./modules/base/Mage2/Paypal/views</directory>
+                <directory>./modules/base/Mage2/Review/views</directory>
                 <directory>./modules/base/Mage2/TaxClass/views</directory>
                 <directory>./modules/base/Mage2/User/views</directory>
                 <directory>./modules/base/Mage2/Wishlist/views</directory>
+
+                <directory>./modules/base/Mage2/Address/Database</directory>
+
             </exclude>
         </whitelist>
     </filter>
