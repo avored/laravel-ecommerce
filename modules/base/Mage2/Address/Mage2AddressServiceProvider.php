@@ -5,6 +5,7 @@ namespace Mage2\Address;
 use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
+use Mage2\Framework\View\Facades\AdminConfiguration;
 
 class Mage2AddressServiceProvider extends ServiceProvider {
 
@@ -26,6 +27,7 @@ class Mage2AddressServiceProvider extends ServiceProvider {
     public function register() {
         $this->mapWebRoutes();
         $this->registerAdminMenu();
+        $this->registerAdminConfiguration();
         $this->registerViewPath();
        
     }
@@ -55,6 +57,19 @@ class Mage2AddressServiceProvider extends ServiceProvider {
         //    'url' => route('admin.product.index'),
         //];
         //AdminMenu::registerMenu($adminMenu);
+    }
+    
+    public function registerAdminConfiguration() {
+
+        $adminConfigurations[] = [
+            'title' => 'Address Configuration',
+            'description' => 'Set Default Country for Store',
+            'edit_action' => route('admin.configuration.address'),
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
     }
 
    

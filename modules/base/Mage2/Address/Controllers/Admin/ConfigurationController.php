@@ -1,13 +1,11 @@
 <?php
 
-namespace Mage2\Catalog\Controllers\Admin;
+namespace Mage2\Address\Controllers\Admin;
 
-use Illuminate\Support\Collection;
-
-use Mage2\Catalog\Models\Category;
-use Mage2\Catalog\Requests\CategoryRequest;
 use Mage2\Framework\Http\Controllers\Controller;
 use Mage2\Common\Models\Configuration;
+use Mage2\TaxClass\Models\Country;
+use Illuminate\Database\Eloquent\Collection;
 
 class ConfigurationController extends Controller
 {
@@ -22,9 +20,18 @@ class ConfigurationController extends Controller
      */
     public function getConfiguration()
     {
+        $countries = $this->_getCountriesOptions();
         $configurations = Configuration::all()->pluck('configuration_value','configuration_key');
-        return view('admin.catalog.configuration.index')
+        return view('admin.address.configuration.index')
                 ->with('configurations',$configurations)
+                ->with('countries',$countries)
             ;
     }
+    
+    private function _getCountriesOptions() {
+        $options = Collection::make([0 => 'Please Select'] + Country::getCountriesOptions()->toArray());
+        return $options;
+    }
+    
+   
 }
