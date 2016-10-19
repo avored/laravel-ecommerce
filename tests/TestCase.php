@@ -73,10 +73,24 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         $host = str_replace("http://", "", $this->baseUrl);
         $host = str_replace("https://","", $host);
-        Website::create([
-            'host' => $host,
-            'name' => 'Defaul Website',
-            'is_default' => 1
+        $website = Website::create([
+                    'host' => $host,
+                    'name' => 'Defaul Website',
+                    'is_default' => 1
+                ]);
+
+        Configuration::create([
+            'configuration_key' => 'active_theme_path',
+            'configuration_value' => base_path('themes/mage2/default'),
+            'website_id' => $website->id
+
+
+        ]);
+         Configuration::create([
+             'configuration_key' => 'active_theme_name',
+             'configuration_value' => 'mage2-default',
+             'website_id' => $website->id
+
         ]);
     }
 }
