@@ -70,7 +70,7 @@
         .extension-list  div{
             border: 1px solid #ccc;
             padding: 10px;
-            background: #00b3ee;
+
             margin-bottom: 10px;
         }
     </style>
