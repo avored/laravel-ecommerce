@@ -33,7 +33,10 @@ echo json_encode([
         <!-- Scripts -->
         <!-- JQuery -->
         <script src="{{ asset('/js/jquery.js') }}"></script>
+        
         <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+        <script src="//cdn.ckeditor.com/4.5.11/basic/ckeditor.js"></script>
+        
         <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         <div class="container-fluid">
             @include("layouts.admin-nav")
