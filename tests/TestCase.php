@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Schema;
 use Mage2\Auth\Models\AdminUser;
 use Mage2\Install\Models\Website;
 use Mage2\Common\Models\Configuration;
+use Illuminate\Support\Facades\Session;
 
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -14,7 +15,11 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @var string
      */
     protected $baseUrl = 'http://mage2-ecommerce';
+      public $websiteId;
+    public $defaultWebsiteId;
+    public $isDefaultWebsite;
 
+ 
     /**
      * Creates the application.
      *
@@ -93,5 +98,12 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
              'website_id' => $website->id
 
         ]);
+    }
+    
+    public function setupWebsiteIdFromSession() {
+           
+        $this->websiteId = Session::get('website_id');
+        $this->defaultWebsiteId = Session::get('default_website_id');
+        $this->isDefaultWebsite = Session::get('is_default_website');
     }
 }
