@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schema;
+use Mage2\Auth\Models\AdminUser;
+use Mage2\Install\Models\Website;
 
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -27,11 +30,22 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     public function setUp()
     {
-        
+
+
         parent::setUp();
+
         putenv('DB_CONNECTION=sqlite_testing');
-        Artisan::call('mage2:migrate');
+        if(!Schema::hasTable('migrations')){
+
+            Artisan::call('mage2:migrate');
+            Artisan::call('db:seed');
+            $this->setupAdminUserAndWebsite();
+
+
+        }
+
         //Artisan::call('db:seed');
+
     }
 
      /**
@@ -46,5 +60,23 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
                 ->type('admin123','password')
                 ->press('Login');
 
+    }
+
+    private function setupAdminUserAndWebsite() {
+        AdminUser::create([
+            'first_name' => "test User",
+            'last_name' => "test User",
+            'email' => "admin@admin.com",
+            'password' => bcrypt("admin123"),
+            'role_id' => 1, // @todo change this one??
+        ]);
+
+        $host = str_replace("http://", "", $this->baseUrl);
+        $host = str_replace("https://","", $host);
+        Website::create([
+            'host' => $host,
+            'name' => 'Defaul Website',
+            'is_default' => 1
+        ]);
     }
 }
