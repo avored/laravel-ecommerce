@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Mage2\Auth\Models\AdminUser;
 use Mage2\Install\Models\Website;
+use Mage2\Common\Models\Configuration;
 
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {

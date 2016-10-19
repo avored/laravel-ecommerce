@@ -4,6 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Auth;
+use Mage2\Catalog\Models\Category;
 
 class AdminCategoryControllerTest extends TestCase
 {
@@ -32,6 +33,10 @@ class AdminCategoryControllerTest extends TestCase
     {
         $this->adminUserLogin();
         $this->assertTrue(true);
+        
+        //@todo If we run test second time it will fail. (try to use data using faker).
+        Category::where('slug','=','test-category')->delete();
+        
         $this->visit('/admin/category/create')
                     ->see("Create Category")
                     ->type('Test Category','name')
