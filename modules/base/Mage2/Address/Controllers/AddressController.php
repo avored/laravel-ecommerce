@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Mage2\Address\Models\Address;
 use Mage2\Framework\Http\Controllers\Controller;
 use Mage2\TaxClass\Models\Country;
+use Mage2\Common\Models\Configuration;
+
 class AddressController extends Controller {
 
    
@@ -34,9 +36,12 @@ class AddressController extends Controller {
     public function create() {
         $user = Auth::user();
         $countries = Country::all();
+        $defaultCountry = Configuration::getConfiguration("mage2_address_default_country");
+        
         return view("address.my-account.create-address")
                         ->with('user', $user)
                         ->with('countries', $countries)
+                        ->with('defaultCountry', $defaultCountry)
         ;
     }
 

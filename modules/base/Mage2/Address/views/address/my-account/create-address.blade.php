@@ -89,7 +89,7 @@
 
                 <select name="country_id" >
                     @foreach($countries as $country)
-                    <option @if(isset($address->country_id)  && $address->country_id == $country->id)
+                    <option @if($defaultCountry == $country->id)
                              {{ "selected" }}
                              @endif
                              value="{{ $country->id }}">{{ $country->name }}</option>
