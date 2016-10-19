@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
     <div class="row profile">
         <div class="col s2">
             @include('my-account.sidebar')
@@ -60,5 +59,4 @@
             @endif
         </div>
     </div>
-</div>
 @endsection
