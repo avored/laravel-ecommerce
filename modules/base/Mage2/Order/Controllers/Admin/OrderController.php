@@ -11,6 +11,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use Mage2\Order\Mail\OrderInvoicedMail;
 use Mage2\User\Models\User;
+use Mage2\Order\Requests\UpdateOrderStatusRequest;
 
 class OrderController extends Controller
 {
@@ -59,5 +60,27 @@ class OrderController extends Controller
         Mail::to($user->email)->send(new OrderInvoicedMail($order, $path));
       
 
+    }
+
+    public function changeStatus($id) {
+
+        $order = Order::findorfail($id);
+
+        $orderStatus = OrderStatus::all()->pluck('title','id');
+
+        $view = view('admin.order.view')
+                ->with('order', $order)
+                ->with('orderStatus',$orderStatus)
+                ->with('changeStatus',true);
+        return $view;
+    }
+
+
+    public function updateStatus($id, UpdateOrderStatusRequest $request) {
+
+        $order = Order::findorfail($id);
+        $order->update($request->all());
+
+        return redirect()->route('admin.order.index');
     }
 }

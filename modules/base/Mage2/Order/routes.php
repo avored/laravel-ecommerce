@@ -25,6 +25,9 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
     Route::get('/admin/order', ['as' => 'admin.order.index', 'uses' => 'OrderController@index']);
     Route::get('/admin/order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
     Route::get('/admin/order/{id}/send-email-invoice', ['as' => 'admin.order.send-email-invoice', 'uses' => 'OrderController@sendEmailInvoice']);
+
+    Route::get('/admin/order/{id}/change-status', ['as' => 'admin.order.change-status', 'uses' => 'OrderController@changeStatus']);
+    Route::put('/admin/order/{id}/update-status', ['as' => 'admin.order.update-status', 'uses' => 'OrderController@updateStatus']);
 });
 
 

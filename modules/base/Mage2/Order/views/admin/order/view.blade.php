@@ -17,9 +17,9 @@
                     <!-- Dropdown Structure -->
                     <ul id='order-option-menu'  class='dropdown-content'>
                         <li><a href="{{ route('admin.order.send-email-invoice', $order->id) }}">SendEmail Invoice</a></li>
-                        <li><a href="#!">two</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#!">three</a></li>
+                        <li><a href="{{ route('admin.order.change-status', $order->id) }}">Change Status</a></li>
+                        <!--li class="divider"></li>
+                        <li><a href="#!">three</a></li-->
                     </ul>
                 </div>
             </div>
@@ -42,6 +42,22 @@
                         <tr>
                             <th>Payment Method</th>
                             <td>{{ $order->payment_method }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>
+                                @if(isset($changeStatus) && $changeStatus ===true)
+                                    {!! Form::open(['method' => 'put','route' => ['admin.order.update-status',$order->id]]) !!}
+                                    @include('template.select',['key' => 'order_status_id','label' => 'OrderStatus', 'options' => $orderStatus])
+
+                                    @include('template.submit',['label' => 'Save'])
+                                    {!! Form::close() !!}
+                                @else
+                                    {{ $order->orderStatus->title }}
+                                @endif
+
+
+                            </td>
                         </tr>
                     </table>
                 </div>
