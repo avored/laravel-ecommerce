@@ -51,7 +51,7 @@ class Mage2PageServiceProvider extends ServiceProvider {
     
     public function registerAdminMenu() {
         $adminMenu = [
-            'label' => 'Page',
+            'label' => 'Pages',
             'url' => route('admin.page.index'),
         ];
         AdminMenu::registerMenu($adminMenu);

@@ -3,18 +3,15 @@
 namespace Mage2\Page\Controllers\Admin;
 
 use Mage2\Page\Requests\PageRequest;
-use Illuminate\Support\Facades\Auth;
 use Mage2\Page\Models\Page;
 use Mage2\Framework\Http\Controllers\Controller;
-
-
 
 class PageController extends Controller {
 
    
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -26,7 +23,7 @@ class PageController extends Controller {
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new page.
      *
      * @return \Illuminate\Http\Response
      */
@@ -38,7 +35,7 @@ class PageController extends Controller {
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created page in database.
      *
      * @param  \Mage2\Page\Requests\PageRequest  $request
      * @return \Illuminate\Http\Response
@@ -50,7 +47,7 @@ class PageController extends Controller {
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified page.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -60,7 +57,7 @@ class PageController extends Controller {
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified page.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -73,7 +70,7 @@ class PageController extends Controller {
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified page in database.
      *
      * @param  \Mage2\Page\Requests\Page  $request
      * @param  int  $id
@@ -87,7 +84,7 @@ class PageController extends Controller {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified page from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
