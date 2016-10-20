@@ -48,7 +48,7 @@ class AddressController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\AddressRequest  $request
+     * @param  \Mage2\Address\Requests\AddressRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(AddressRequest $request) {

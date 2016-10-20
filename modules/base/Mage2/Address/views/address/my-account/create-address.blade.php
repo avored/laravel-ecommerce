@@ -114,9 +114,24 @@
                 @endif
             </div>
 
+            <div class="input-field{{ $errors->has('type') ? ' has-error' : '' }}">
 
-            <div class="input-field col s12">
-                {!! Form::submit("Create Address",['class' => 'btn btn-primary']) !!}
+                <select name="type">
+                    <option value="SHIPPING">Shipping</option>
+                    <option value="BILLING">Billing</option>
+                </select>
+                @if ($errors->has('type'))
+                    <span class="help-block">
+                    <strong>{{ $errors->first('type') }}</strong>
+                </span>
+                @endif
+
+                <label for="phone" class="control-label">Addresss Type</label>
+            </div>
+
+
+            <div class="input-field">
+                <input class="btn btn-primary" type="submit" name="create_address" value="Create Address">
             </div>
 
             {!! Form::close() !!}

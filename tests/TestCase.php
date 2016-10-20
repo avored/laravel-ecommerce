@@ -6,6 +6,7 @@ use Mage2\Auth\Models\AdminUser;
 use Mage2\Install\Models\Website;
 use Mage2\Common\Models\Configuration;
 use Illuminate\Support\Facades\Session;
+use Mage2\User\Models\User;
 
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
@@ -15,11 +16,11 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @var string
      */
     protected $baseUrl = 'http://mage2-ecommerce';
-      public $websiteId;
+    public $websiteId;
     public $defaultWebsiteId;
     public $isDefaultWebsite;
 
- 
+
     /**
      * Creates the application.
      *
@@ -27,7 +28,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
-        $app = require __DIR__.'/../bootstrap/app.php';
+        $app = require __DIR__ . '/../bootstrap/app.php';
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
 
@@ -41,7 +42,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         parent::setUp();
 
         putenv('DB_CONNECTION=sqlite_testing');
-        if(!Schema::hasTable('migrations')){
+        if (!Schema::hasTable('migrations')) {
 
             Artisan::call('mage2:migrate');
             Artisan::call('db:seed');
@@ -54,7 +55,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     }
 
-     /**
+    /**
      * A basic functional test example.
      *
      * @return void
@@ -62,13 +63,40 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     public function adminUserLogin()
     {
         $this->visit('/admin/login')
-                ->type('admin@admin.com','email')
-                ->type('admin123','password')
-                ->press('Login');
+            ->type('admin@admin.com', 'email')
+            ->type('admin123', 'password')
+            ->press('Login');
 
     }
 
-    private function setupAdminUserAndWebsite() {
+
+    public function frontAuthTest()
+    {
+        $this->_createFrontUser();
+        $this->visit('/login')
+            ->see('Mage2 Login')
+            ->type('front@front.com', 'email')
+            ->type('admin123', 'password')
+            ->press('Login')
+            ->seePageIs('/my-account');
+
+    }
+
+    private function _createFrontUser()
+    {
+        if (count((User::where('email', '=', 'front@front.com')->get())) <= 0) {
+            User::create([
+                'first_name' => "test User",
+                'last_name' => "test User",
+                'email' => "front@front.com",
+                'password' => bcrypt("admin123"),
+            ]);
+        }
+    }
+
+
+    private function setupAdminUserAndWebsite()
+    {
         AdminUser::create([
             'first_name' => "test User",
             'last_name' => "test User",
@@ -78,12 +106,12 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         ]);
 
         $host = str_replace("http://", "", $this->baseUrl);
-        $host = str_replace("https://","", $host);
+        $host = str_replace("https://", "", $host);
         $website = Website::create([
-                    'host' => $host,
-                    'name' => 'Defaul Website',
-                    'is_default' => 1
-                ]);
+            'host' => $host,
+            'name' => 'Defaul Website',
+            'is_default' => 1
+        ]);
 
         Configuration::create([
             'configuration_key' => 'active_theme_path',
@@ -92,16 +120,17 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
 
         ]);
-         Configuration::create([
-             'configuration_key' => 'active_theme_name',
-             'configuration_value' => 'mage2-default',
-             'website_id' => $website->id
+        Configuration::create([
+            'configuration_key' => 'active_theme_name',
+            'configuration_value' => 'mage2-default',
+            'website_id' => $website->id
 
         ]);
     }
-    
-    public function setupWebsiteIdFromSession() {
-           
+
+    public function setupWebsiteIdFromSession()
+    {
+
         $this->websiteId = Session::get('website_id');
         $this->defaultWebsiteId = Session::get('default_website_id');
         $this->isDefaultWebsite = Session::get('is_default_website');
