@@ -12,6 +12,7 @@ return [
     "Mage2\\FreeShipping\\" => base_path('/modules/base/Mage2/FreeShipping'),
     "Mage2\\Install\\"      => base_path('/modules/base/Mage2/Install'),
     "Mage2\\Order\\"        => base_path('/modules/base/Mage2/Order'),
+    "Mage2\\Page\\"         => base_path('/modules/base/Mage2/Page'),
     "Mage2\\Paypal\\"       => base_path('/modules/base/Mage2/Paypal'),
     "Mage2\\Pickup\\"       => base_path('/modules/base/Mage2/Pickup'),
     "Mage2\\Review\\"       => base_path('/modules/base/Mage2/Review'),
