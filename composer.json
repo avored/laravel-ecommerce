@@ -1,6 +1,6 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
+    "name": "mage2/laravel-ecommerce",
+    "description": "Mage2 Laravel5 Ecommerce.",
     "keywords": ["framework", "laravel","ecommerce","laravel5","shop","shopping-cart","e-commerce","shopping cart","e commerce"],
     "license": "GPL-3.0",
     "type": "project",
