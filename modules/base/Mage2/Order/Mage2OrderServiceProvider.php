@@ -51,7 +51,7 @@ class Mage2OrderServiceProvider extends ServiceProvider {
         
 
         $adminMenu = [
-            'label' => 'Order',
+            'label' => 'Orders',
             'url' => route('admin.order.index'),
         ]; 
         AdminMenu::registerMenu($adminMenu);

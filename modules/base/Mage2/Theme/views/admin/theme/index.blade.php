@@ -10,7 +10,7 @@
             </h1>
             <div class="right">
                 <a href="{{ route('admin.theme.create') }}"
-                   class="btn btn-primary">Create Theme</a>
+                   class="btn btn-primary">Upload Theme</a>
             </div>
         </div>
 
@@ -23,7 +23,7 @@
 
         @else
         
-        <table class="table table-bordered table-responsive">
+        <table class="table bordered tablegrid">
             <thead>
             <th>Name</th>
             <th>Description</th>
@@ -36,7 +36,7 @@
                     <td>{{ $theme['description'] }}</td>
                     <td>
                         @if($activeTheme != $theme['name'])
-                        {!! Form::open(['method' => 'POST', 'route' => ['admin.configuration.store']]) !!}
+                        {!! Form::open(['method' => 'POST', 'route' => ['admin.theme.activate',$theme['name']]]) !!}
                         {!! Form::hidden('active_theme_path',$theme['path']) !!}
                         {!! Form::hidden('active_theme_name',$theme['name']) !!}
                         <button type="submit" class="btn btn-primary">Activate</a>

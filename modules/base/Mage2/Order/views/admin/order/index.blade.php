@@ -18,11 +18,12 @@
         <p>Sorry No Order Found</p>
 
         @else
-        <table class="table table-bordered table-responsive">
+        <table class="table bordered tablegrid">
             <thead>
             <th>ID</th>
             <th>Shipping Method</th>
             <th>Payment Method</th>
+            <th>Status</th>
             <th>View</th>
             </thead>
             <tbody>
@@ -31,7 +32,7 @@
                     <td>{{ $order->id }}</td>
                     <td>{{ $order->shipping_method }}</td>
                     <td>{{ $order->payment_method }}</td>
-
+                    <td>{{ $order->orderStatus->title }}</td>
                     <td>
                         <a href="{{ route('admin.order.view',$order->id )}}">View</a>
                     </td>

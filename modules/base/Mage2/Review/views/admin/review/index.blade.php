@@ -19,7 +19,7 @@
 
         @else
         
-        <table class="table table-bordered table-responsive">
+        <table class="table bordered tablegrid">
             <thead>
             <th>ID</th>
             <th>User Name</th>

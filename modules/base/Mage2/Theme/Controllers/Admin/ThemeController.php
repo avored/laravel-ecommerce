@@ -6,6 +6,7 @@ use Mage2\Framework\Theme\Facade\Theme as ThemeFacade;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Mage2\Common\Models\Configuration;
+use Mage2\Framework\Theme\Facade\Theme;
 
 class ThemeController extends Controller
 {
@@ -63,8 +64,26 @@ class ThemeController extends Controller
             throwException('Error in Zip Extract error.');
         }
 
+
         return redirect()->route('admin.theme.index');
     }
+
+
+    /**
+     * @param \Illuminate\Http\UploadedFile $file
+     *
+     */
+    public function activate($name){
+        $theme = Theme::get($name);
+
+
+        $this->publishes($theme['assets_folder'], public_path("vendor/" . $theme['name'] ),'public');
+
+        //todo save into configuration
+        dd($theme);
+    }
+
+
 
 
     /**
