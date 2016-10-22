@@ -75,10 +75,8 @@ class ThemeController extends Controller {
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-        //Artisan::call("vendor:publish --tag={$name}");
-        //$this->publishes($theme['assets_folder'], public_path("vendor/" . $theme['name'] ),'public');
-        //todo save into configuration
-        dd($theme);
+        
+        return redirect()->route('admin.theme.index');
     }
 
     /**
