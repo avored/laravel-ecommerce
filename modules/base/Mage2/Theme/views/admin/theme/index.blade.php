@@ -31,14 +31,16 @@
             </thead>
             <tbody>
                 @foreach($themes as $theme)
+            
+                <?php $actualTheme = Theme::getByPath($theme) ?>
                 <tr>
-                    <td>{{ $theme['name'] }}</td>
-                    <td>{{ $theme['description'] }}</td>
+                    <td>{{ $actualTheme['name'] }}</td>
+                    <td>{{ $actualTheme['description'] }}</td>
                     <td>
-                        @if($activeTheme != $theme['name'])
-                        {!! Form::open(['method' => 'POST', 'route' => ['admin.theme.activate',$theme['name']]]) !!}
-                        {!! Form::hidden('active_theme_path',$theme['path']) !!}
-                        {!! Form::hidden('active_theme_name',$theme['name']) !!}
+                        @if($activeTheme != $actualTheme['name'])
+                        {!! Form::open(['method' => 'POST', 'route' => ['admin.theme.activate',$actualTheme['name']]]) !!}
+                        {!! Form::hidden('active_theme_path',$actualTheme['path']) !!}
+                        {!! Form::hidden('active_theme_name',$actualTheme['name']) !!}
                         <button type="submit" class="btn btn-primary">Activate</a>
                         {!! Form::close() !!}
                         @else 

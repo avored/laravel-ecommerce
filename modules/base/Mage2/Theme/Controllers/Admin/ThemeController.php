@@ -7,11 +7,11 @@ use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Mage2\Common\Models\Configuration;
 use Mage2\Framework\Theme\Facade\Theme;
+use Illuminate\Support\Facades\Artisan;
 
-class ThemeController extends Controller
-{
+class ThemeController extends Controller {
 
-    public function __construct(){
+    public function __construct() {
         parent::__construct();
     }
 
@@ -20,16 +20,15 @@ class ThemeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
 
         $themes = config('theme');
         $activeTheme = Configuration::getConfiguration('active_theme_name');
 
         return view('admin.theme.index')
-                    ->with('themes', $themes)
-                    ->with('activeTheme', $activeTheme)
-            ;
+                        ->with('themes', $themes)
+                        ->with('activeTheme', $activeTheme)
+        ;
     }
 
     /**
@@ -37,8 +36,7 @@ class ThemeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('admin.theme.create');
     }
 
@@ -48,18 +46,16 @@ class ThemeController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $filePath = $this->handleImageUpload($request->file('theme_zip_file'));
 
         $zip = new \ZipArchive();
 
 
-        if ($zip->open($filePath ) === TRUE) {
+        if ($zip->open($filePath) === TRUE) {
             $extractPath = base_path('themes');
             $zip->extractTo($extractPath);
             $zip->close();
-
         } else {
             throwException('Error in Zip Extract error.');
         }
@@ -68,35 +64,35 @@ class ThemeController extends Controller
         return redirect()->route('admin.theme.index');
     }
 
-
     /**
      * @param \Illuminate\Http\UploadedFile $file
      *
      */
-    public function activate($name){
+    public function activate($name) {
         $theme = Theme::get($name);
-
-
-        $this->publishes($theme['assets_folder'], public_path("vendor/" . $theme['name'] ),'public');
-
+        try {
+            Artisan::call('vendor:publish --tag=mage2-basic');
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+        //Artisan::call("vendor:publish --tag={$name}");
+        //$this->publishes($theme['assets_folder'], public_path("vendor/" . $theme['name'] ),'public');
         //todo save into configuration
         dd($theme);
     }
 
-
-
-
     /**
      * @param \Illuminate\Http\UploadedFile $file
      *
      */
-    public function handleImageUpload($file){
+    public function handleImageUpload($file) {
         // $file = $request->file('image'); or
         // $fileName = 'somename';
         $destinationPath = public_path('uploads/mage2/themes');
         $fileName = $file->getClientOriginalName();
         $file->move($destinationPath, $fileName);
 
-        return $destinationPath . DIRECTORY_SEPARATOR .$fileName;
+        return $destinationPath . DIRECTORY_SEPARATOR . $fileName;
     }
+
 }

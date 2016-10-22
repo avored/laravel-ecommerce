@@ -208,5 +208,6 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Theme' => Mage2\Framework\Theme\Facade\Theme::class
     ],
 ];
