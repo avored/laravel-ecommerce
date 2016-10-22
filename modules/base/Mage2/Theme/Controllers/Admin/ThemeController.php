@@ -24,7 +24,7 @@ class ThemeController extends Controller {
 
         $themes = config('theme');
         $activeTheme = Configuration::getConfiguration('active_theme_identifier');
-        
+
         return view('admin.theme.index')
                         ->with('themes', $themes)
                         ->with('activeTheme', $activeTheme)
