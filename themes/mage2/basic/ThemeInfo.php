@@ -28,6 +28,7 @@ class ThemeInfo extends ServiceProvider {
             'name' => 'mage2-basic',
             'description' => "Mage2 Basic Theme",
             'path' => __DIR__,
+            'provider' => self::class,
             'assets_folder' => __DIR__ . DIRECTORY_SEPARATOR . 'assets',
         ];
         Theme::put('mage2-basic', $themeInfo);

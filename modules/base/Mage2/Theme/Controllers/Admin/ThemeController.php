@@ -71,7 +71,7 @@ class ThemeController extends Controller {
     public function activate($name) {
         $theme = Theme::get($name);
         try {
-            Artisan::call('vendor:publish --tag=mage2-basic');
+            Artisan::call("vendor:publish",['--tag' => $name]);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
