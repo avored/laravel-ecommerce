@@ -45,7 +45,7 @@
                         {!! Form::close() !!}
                         @else 
                         
-                        <button class="btn disabled">Activate</button>
+                        <button class="btn disabled">Active</button>
                         @endif
                     </td>
                    

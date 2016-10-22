@@ -23,8 +23,8 @@ class ThemeController extends Controller {
     public function index() {
 
         $themes = config('theme');
-        $activeTheme = Configuration::getConfiguration('active_theme_name');
-
+        $activeTheme = Configuration::getConfiguration('active_theme_identifier');
+        
         return view('admin.theme.index')
                         ->with('themes', $themes)
                         ->with('activeTheme', $activeTheme)
@@ -71,6 +71,16 @@ class ThemeController extends Controller {
     public function activate($name) {
         $theme = Theme::get($name);
         try {
+            Configuration::create([
+                    'website_id' => $this->defaultWebsiteId,
+                    'configuration_key' => 'active_theme_identifier' ,
+                    'configuration_value' => $name
+            ]);
+            Configuration::create([
+                'website_id' => $this->defaultWebsiteId,
+                'configuration_key' => 'active_theme_path' ,
+                'configuration_value' => $theme['path']
+            ]);
             Artisan::call("vendor:publish",['--tag' => $name]);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
