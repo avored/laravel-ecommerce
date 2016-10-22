@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row">
-
+    <p>Test 1</p>
     @if(count($featuredProducts) <= 0)
     <p>Sorry No Feature Product</p>
     @else

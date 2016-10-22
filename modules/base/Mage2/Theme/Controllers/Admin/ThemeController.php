@@ -23,9 +23,9 @@ class ThemeController extends Controller
     public function index()
     {
 
-        $themes = ThemeFacade::all();
+        $themes = config('theme');
         $activeTheme = Configuration::getConfiguration('active_theme_name');
-        
+
         return view('admin.theme.index')
                     ->with('themes', $themes)
                     ->with('activeTheme', $activeTheme)
