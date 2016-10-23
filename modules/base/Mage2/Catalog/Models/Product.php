@@ -4,14 +4,12 @@ namespace Mage2\Catalog\Models;
 use Illuminate\Container\Container;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
-use Mage2\Catalog\Models\Category;
 use Mage2\Install\Models\Website;
-use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Review\Models\Review;
-use Mage2\Common\Models\Configuration;
+use Mage2\Configuration\Models\Configuration;
+
 class Product extends Model
 {
     protected $fillable = [];

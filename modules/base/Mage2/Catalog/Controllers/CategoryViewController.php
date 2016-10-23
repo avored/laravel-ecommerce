@@ -4,7 +4,7 @@ namespace Mage2\Catalog\Controllers;
 
 use Mage2\Catalog\Models\Category;
 use Mage2\Framework\Http\Controllers\Controller;
-use Mage2\Common\Models\Configuration;
+use Mage2\Configuration\Models\Configuration;
 
 class CategoryViewController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Common\Controllers;
+namespace Mage2\Dashboard\Controllers;
 
 use Mage2\Framework\Http\Controllers\Controller;
 use Mage2\Catalog\Models\Product;

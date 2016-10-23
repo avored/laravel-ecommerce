@@ -36,7 +36,7 @@ use PayPal\Api\Transactions;
 use PayPal\Api\WebProfile;
 use PayPal\Core\PayPalConfigManager as PPConfigManager;
 use PayPal\Rest\ApiContext;
-use Mage2\Common\Models\Configuration;
+use Mage2\Configuration\Models\Configuration;
 use Mage2\Framework\Shipping\Facade\Shipping;
 
 class Paypal extends PaymentFramework implements PaymentInterface {

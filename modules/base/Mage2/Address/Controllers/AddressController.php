@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Mage2\Address\Models\Address;
 use Mage2\Framework\Http\Controllers\Controller;
 use Mage2\TaxClass\Models\Country;
-use Mage2\Common\Models\Configuration;
+use Mage2\Configuration\Models\Configuration;
 
 class AddressController extends Controller {
 

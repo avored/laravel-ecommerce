@@ -1,13 +1,13 @@
 <?php
 
-namespace Mage2\Common\Controllers;
+namespace Mage2\Configuration\Controllers\Admin;
 
 use Mage2\Framework\Http\Controllers\Controller;
 use Mage2\Framework\View\Facades\AdminConfiguration;
 use Illuminate\Http\Request;
-use Mage2\Common\Models\Configuration;
+use Mage2\Configuration\Models\Configuration;
 
-class AdminConfigController extends Controller
+class ConfigurationController extends Controller
 {
     /**
      * Create a new controller instance.

@@ -2,12 +2,9 @@
 
 namespace Mage2\Paypal\Controllers;
 
-use Illuminate\Support\Collection;
-
-use Mage2\Catalog\Models\Category;
-use Mage2\Catalog\Requests\CategoryRequest;
 use Mage2\Framework\Http\Controllers\Controller;
-use Mage2\Common\Models\Configuration;
+use Mage2\Configuration\Models\Configuration;
+
 class ConfigurationController extends Controller
 {
   

@@ -5,7 +5,7 @@ namespace Mage2\Theme\Controllers\Admin;
 use Mage2\Framework\Theme\Facade\Theme as ThemeFacade;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Mage2\Common\Models\Configuration;
+use Mage2\Configuration\Models\Configuration;
 use Mage2\Framework\Theme\Facade\Theme;
 use Illuminate\Support\Facades\Artisan;
 

@@ -21,7 +21,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
     public function boot() {
 
 
-        $this->registerAdminMenu();
+        //$this->registerAdminMenu();
         $this->registerMiddleware();
         $this->registerViewComposerData();
     }

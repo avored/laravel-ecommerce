@@ -13,14 +13,9 @@
 
 Route::group(['middleware' => ['web','website','adminauth'],'namespace' => "Mage2\Common\Controllers"], function () {
 
-    Route::get('/admin/config', ['as' => 'admin.configuration', 'uses' => 'AdminConfigController@index']);
-    Route::post('/admin/config', ['as' => 'admin.configuration.store', 'uses' => 'AdminConfigController@store']);
-
 });
 
 
 Route::group(['middleware' => ['web','website'],'namespace' => "Mage2\Common\Controllers"], function () {
-
-
 
 });

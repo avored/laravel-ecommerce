@@ -3,7 +3,7 @@
 namespace Mage2\Address\Controllers\Admin;
 
 use Mage2\Framework\Http\Controllers\Controller;
-use Mage2\Common\Models\Configuration;
+use Mage2\Configuration\Models\Configuration;
 use Mage2\TaxClass\Models\Country;
 use Illuminate\Database\Eloquent\Collection;
 
