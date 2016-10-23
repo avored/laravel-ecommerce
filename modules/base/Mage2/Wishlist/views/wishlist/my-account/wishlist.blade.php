@@ -20,7 +20,6 @@
                 <div class="panel-body">
                     <table class="table table-responsive">
                         <thead>
-                            <th>ID</th>
                             <th>Product Title</th>
                             <th>Product Image</th>
                             <th>Action</th>
@@ -28,7 +27,6 @@
                         <tbody>
                             @foreach($wishlists as $wishlist)
                             <tr>
-                                <td> {{ $wishlist->product->id }}</td>
                                 <td> {{ $wishlist->product->title }}</td>
                                 <td>
                                     @if(isset($wishlist->product->getProductImages($first = true)->value))
@@ -49,12 +47,9 @@
                             </tr>
                             @endforeach
                         </tbody>
-
-
                     </table>
                 </div>
             </div>
-
 
             @endif
         </div>
