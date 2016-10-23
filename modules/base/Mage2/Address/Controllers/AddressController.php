@@ -14,7 +14,7 @@ class AddressController extends Controller {
    
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the user addresses.
      *
      * @return \Illuminate\Http\Response
      */
@@ -29,7 +29,7 @@ class AddressController extends Controller {
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new user addresses.
      *
      * @return \Illuminate\Http\Response
      */
@@ -46,7 +46,7 @@ class AddressController extends Controller {
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created user addresses in database.
      *
      * @param  \Mage2\Address\Requests\AddressRequest  $request
      * @return \Illuminate\Http\Response
@@ -60,7 +60,7 @@ class AddressController extends Controller {
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified user addresses.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -70,7 +70,7 @@ class AddressController extends Controller {
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified user addresses.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -88,7 +88,7 @@ class AddressController extends Controller {
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified user addresses in database.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -102,7 +102,7 @@ class AddressController extends Controller {
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified user address from database.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

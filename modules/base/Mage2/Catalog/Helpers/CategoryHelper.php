@@ -4,8 +4,9 @@ namespace Mage2\Catalog\Helpers;
 
 use Mage2\Catalog\Models\Category;
 use Illuminate\Support\Facades\Session;
+use Mage2\Framework\Support\Helper;
 
-class CategoryHelper {
+class CategoryHelper extends Helper{
 
     public $websiteId;
     public $defaultWebsiteId;

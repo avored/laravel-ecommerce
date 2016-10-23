@@ -4,15 +4,21 @@ namespace Mage2\Address\Controllers\Admin;
 
 use Mage2\Framework\Http\Controllers\Controller;
 use Mage2\Configuration\Models\Configuration;
-use Mage2\TaxClass\Models\Country;
-use Illuminate\Database\Eloquent\Collection;
+use Mage2\Address\Helpers\AddressHelper;
 
 class ConfigurationController extends Controller
 {
   
-    public function __construct(){
-      
+    /**
+     * Address Helper Instance
+     * 
+     * @var \Mage2\Address\Helpers\AddressHelper 
+     */
+    public $addressHelper;
+    
+    public function __construct(AddressHelper $addressHelper){
         parent::__construct();
+        $this->addressHelper = $addressHelper;
     }
     /**
      * Display a listing of the Catalog Configuration
@@ -20,18 +26,12 @@ class ConfigurationController extends Controller
      */
     public function getConfiguration()
     {
-        $countries = $this->_getCountriesOptions();
+        $countries = $this->addressHelper->getCountriesOptions();
         $configurations = Configuration::all()->pluck('configuration_value','configuration_key');
         return view('admin.address.configuration.index')
                 ->with('configurations',$configurations)
                 ->with('countries',$countries)
             ;
     }
-    
-    private function _getCountriesOptions() {
-        $options = Collection::make([0 => 'Please Select'] + Country::getCountriesOptions()->toArray());
-        return $options;
-    }
-    
-   
+ 
 }

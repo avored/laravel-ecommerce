@@ -1,5 +1,4 @@
 <?php
-
 namespace Mage2\Catalog\Helpers;
 
 use Mage2\Catalog\Models\Category;
@@ -7,8 +6,9 @@ use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Catalog\Requests\ProductRequest;
 use Illuminate\Support\Facades\Session;
+use Mage2\Framework\Support\Helper;
 
-class ProductHelper {
+class ProductHelper  extends Helper{
 
     public $websiteId;
     public $defaultWebsiteId;
