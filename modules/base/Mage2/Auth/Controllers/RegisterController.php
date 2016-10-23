@@ -5,7 +5,7 @@ namespace Mage2\Auth\Controllers;
 use Mage2\User\Models\User;
 use Validator;
 use Illuminate\Http\Request;
-use Mage2\Common\Mail\NewUserMail;
+use Mage2\Auth\Mail\NewUserMail;
 use Illuminate\Support\Facades\Mail;
 use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;

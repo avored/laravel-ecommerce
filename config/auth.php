@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard'     => 'web',
         'passwords' => 'users',
     ],
 
@@ -37,18 +37,18 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'session',
-            'provider' => 'users',
+            'driver'    => 'session',
+            'provider'  => 'users',
         ],
 
         'admin' => [
-            'driver' => 'session',
-            'provider' => 'adminusers',
+            'driver'    => 'session',
+            'provider'  => 'adminusers',
         ],
 
         'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
+            'driver'    => 'token',
+            'provider'  => 'users',
         ],
     ],
 
@@ -71,12 +71,12 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
-            'model' => Mage2\User\Models\User::class,
+            'driver'    => 'eloquent',
+            'model'     => Mage2\User\Models\User::class,
         ],
         'adminusers' => [
-            'driver' => 'eloquent',
-            'model' => Mage2\Auth\Models\AdminUser::class,
+            'driver'    => 'eloquent',
+            'model'     => Mage2\Auth\Models\AdminUser::class,
         ],
 
         // 'users' => [
@@ -106,9 +106,9 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'users',
-            'table' => 'password_resets',
-            'expire' => 60,
+            'provider'  => 'users',
+            'table'     => 'password_resets',
+            'expire'    => 60,
         ],
     ],
 
