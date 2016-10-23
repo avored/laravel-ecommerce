@@ -5,7 +5,7 @@
     <div class="col s4">
         <div class="card">
             <div class="card-content">
-                <div class="card-title">Widget 1</div>
+                <div class="card-title">Dashboard Widget 1</div>
                 <p>Widget Content</p>
             </div>
         </div>
