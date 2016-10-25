@@ -2,23 +2,24 @@
 
 namespace Mage2\Common;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
+use Mage2\Attribute\Models\ProductAttribute;
+use Mage2\Catalog\Models\Category;
+use Mage2\Common\Middleware\Website as WebsiteMiddleware;
 use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminMenu;
-use Illuminate\Support\Facades\View;
-use Mage2\Common\Middleware\Website as WebsiteMiddleware;
-use Illuminate\Support\Facades\Auth;
-use Mage2\Catalog\Models\Category;
-use Mage2\Attribute\Models\ProductAttribute;
-use Illuminate\Support\Facades\Session;
 
-class Mage2CommonServiceProvider extends ServiceProvider {
-
+class Mage2CommonServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
 
 
         //$this->registerAdminMenu();
@@ -31,10 +32,10 @@ class Mage2CommonServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->mapWebRoutes();
         $this->registerViewPath();
-        
     }
 
     /**
@@ -42,37 +43,37 @@ class Mage2CommonServiceProvider extends ServiceProvider {
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
-    protected function mapWebRoutes() {
-        require (__DIR__ . '/routes.php');
+    protected function mapWebRoutes()
+    {
+        require __DIR__.'/routes.php';
     }
 
-    protected function registerViewPath() {
-        View::addLocation(__DIR__ . "/views");
+    protected function registerViewPath()
+    {
+        View::addLocation(__DIR__.'/views');
     }
 
-    public function registerAdminMenu() {
-
-
-
-          $adminMenu = [
+    public function registerAdminMenu()
+    {
+        $adminMenu = [
               'label' => 'Configuration',
-              'url' => route('admin.configuration'),
+              'url'   => route('admin.configuration'),
           ];
-          AdminMenu::registerMenu($adminMenu);
-
-
+        AdminMenu::registerMenu($adminMenu);
     }
 
-  
-    public function registerMiddleware() {
+    public function registerMiddleware()
+    {
         $router = $this->app['router'];
         $router->middleware('website', WebsiteMiddleware::class);
     }
 
-    public function registerViewComposerData() {
+    public function registerViewComposerData()
+    {
         view()->composer(['layouts.admin', 'template.header-nav'], function ($view) {
             $user = Auth::guard('admin')->user();
             $view->with('user', $user);
@@ -96,9 +97,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
 
             $view
                     ->with('trackStockOptions', $trackStockOptions)
-                    ->with('inStockOptions', $inStockOptions)
-
-            ;
+                    ->with('inStockOptions', $inStockOptions);
         });
         view()->composer('admin.catalog.product.boxes.basic', function ($view) {
             $productAttrobuteModel = new ProductAttribute();
@@ -106,15 +105,13 @@ class Mage2CommonServiceProvider extends ServiceProvider {
             $statusOptions = $productAttrobuteModel->getStatusOptions();
             $view
                     ->with('isFeaturedOptions', $isFeaturedOptions)
-                    ->with('statusOptions', $statusOptions)
-            ;
+                    ->with('statusOptions', $statusOptions);
         });
         view()->composer('admin.catalog.product.boxes.inventory', function ($view) {
             $productAttrobuteModel = new ProductAttribute();
             $isTaxableOptions = $productAttrobuteModel->getIsTaxableOptions();
             $view
-                    ->with('isTaxableOptions', $isTaxableOptions)
-            ;
+                    ->with('isTaxableOptions', $isTaxableOptions);
         });
 
         view()->composer('layouts.app', function ($view) {
@@ -128,9 +125,7 @@ class Mage2CommonServiceProvider extends ServiceProvider {
             $baseCategories = $categoryModel->getAllCategories();
 
             $view->with('categories', $baseCategories)
-                    ->with('cart', $cart)
-            ;
+                    ->with('cart', $cart);
         });
     }
-
 }

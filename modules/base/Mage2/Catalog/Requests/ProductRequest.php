@@ -2,8 +2,8 @@
 
 namespace Mage2\Catalog\Requests;
 
-use Mage2\Framework\Http\Request;
 use Mage2\Attribute\Models\ProductAttribute;
+use Mage2\Framework\Http\Request;
 
 class ProductRequest extends Request
 {
@@ -34,7 +34,7 @@ class ProductRequest extends Request
         $productAttributes = ProductAttribute::all();
 
         foreach ($productAttributes as $productAttribute) {
-            if ($productAttribute->validation != "") {
+            if ($productAttribute->validation != '') {
                 $validateArray [$productAttribute->identifier] = $productAttribute->validation;
             }
         }
@@ -47,7 +47,5 @@ class ProductRequest extends Request
         //      'type' => 'required',
         //      'user.email' => 'required|email|unique:users,email,' . $user->id,
         //];
-
-
     }
 }

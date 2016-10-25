@@ -2,84 +2,66 @@
 
 namespace Mage2\Paypal\Payment;
 
-use Mage2\Framework\Payment\PaymentInterface;
+use Mage2\Configuration\Models\Configuration;
 use Mage2\Framework\Payment\Payment as PaymentFramework;
-use PayPal\Auth\OAuthTokenCredential;
-use Illuminate\Support\Facades\Redirect;
-use PayPal\Api\Address;
+use Mage2\Framework\Payment\PaymentInterface;
+use Mage2\Framework\Shipping\Facade\Shipping;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
-use PayPal\Api\Authorization;
-use PayPal\Api\Capture;
-use PayPal\Api\CreditCard;
-use PayPal\Api\CreditCardToken;
-use PayPal\Api\FlowConfig;
-use PayPal\Api\FundingInstrument;
 use PayPal\Api\Item;
 use PayPal\Api\ItemList;
-use PayPal\Api\InputFields;
 use PayPal\Api\Links;
-use PayPal\Api\Payee;
 use PayPal\Api\Payer;
-use PayPal\Api\PayerInfo;
 use PayPal\Api\Payment;
-use PayPal\Api\PaymentExecution;
-use PayPal\Api\PaymentHistory;
-use PayPal\Api\Presentation;
 use PayPal\Api\RedirectUrls;
-use PayPal\Api\Refund;
-use PayPal\Api\RelatedResources;
 use PayPal\Api\Sale;
-use PayPal\Api\ShippingAddress;
 use PayPal\Api\Transaction;
-use PayPal\Api\Transactions;
-use PayPal\Api\WebProfile;
-use PayPal\Core\PayPalConfigManager as PPConfigManager;
+use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Rest\ApiContext;
-use Mage2\Configuration\Models\Configuration;
-use Mage2\Framework\Shipping\Facade\Shipping;
 
-class Paypal extends PaymentFramework implements PaymentInterface {
-
+class Paypal extends PaymentFramework implements PaymentInterface
+{
     protected $identifier;
     protected $title;
     private $_apiContext;
 
-    public function __construct() {
-        $this->identifier = "paypal";
-        $this->title = "Paypal";
+    public function __construct()
+    {
+        $this->identifier = 'paypal';
+        $this->title = 'Paypal';
     }
 
-    public function getIdentifier() {
+    public function getIdentifier()
+    {
         return $this->identifier;
     }
 
-    public function getTitle() {
+    public function getTitle()
+    {
         return $this->title;
     }
 
     /*
      * Nothing to do
-     * 
+     *
      */
 
-    public function process($orderData, $cartProducts = []) {
-
-
+    public function process($orderData, $cartProducts = [])
+    {
         $this->setApiContext();
 
-        $this->_apiContext->setConfig(array(
-            'mode' => Configuration::getConfiguration('paypal_payment_mode'),
-            'service.EndPoint' => Configuration::getConfiguration('paypal_payment_url'), //paypal_payment_log
+        $this->_apiContext->setConfig([
+            'mode'                   => Configuration::getConfiguration('paypal_payment_mode'),
+            'service.EndPoint'       => Configuration::getConfiguration('paypal_payment_url'), //paypal_payment_log
             'http.ConnectionTimeOut' => 30,
-            'log.LogEnabled' => Configuration::getConfiguration('paypal_payment_log'),
-            'log.FileName' => storage_path('logs/paypal.log'),
-            'log.LogLevel' => 'FINE'
-        ));
+            'log.LogEnabled'         => Configuration::getConfiguration('paypal_payment_log'),
+            'log.FileName'           => storage_path('logs/paypal.log'),
+            'log.LogLevel'           => 'FINE',
+        ]);
 
 
         $payer = new Payer();
-        $payer->setPaymentMethod("paypal");
+        $payer->setPaymentMethod('paypal');
 
         $itemList = new ItemList();
         $subTotal = 0;
@@ -101,7 +83,7 @@ class Paypal extends PaymentFramework implements PaymentInterface {
         $total = $subTotal + $taxTotal;
 
         $shippingOption = $orderData['shipping_method'];
-        
+
         $shipping = Shipping::get($shippingOption);
 
         $details = new Details();
@@ -111,7 +93,7 @@ class Paypal extends PaymentFramework implements PaymentInterface {
 
 
         $amount = new Amount();
-        $amount->setCurrency("USD")
+        $amount->setCurrency('USD')
                 ->setTotal($total)
                 ->setDetails($details);
 
@@ -120,7 +102,7 @@ class Paypal extends PaymentFramework implements PaymentInterface {
         $transaction = new Transaction();
         $transaction->setAmount($amount)
                 ->setItemList($itemList)
-                ->setDescription("Payment description")
+                ->setDescription('Payment description')
                 ->setInvoiceNumber(uniqid());
 
 
@@ -132,7 +114,7 @@ class Paypal extends PaymentFramework implements PaymentInterface {
         $payment->setIntent('sale');
         $payment->setPayer($payer);
         $payment->setRedirectUrls($redirectUrls);
-        $payment->setTransactions(array($transaction));
+        $payment->setTransactions([$transaction]);
 
         $response = $payment->create($this->_apiContext);
         $redirectUrl = $response->links[1]->href;
@@ -140,24 +122,22 @@ class Paypal extends PaymentFramework implements PaymentInterface {
         return $redirectUrl;
     }
 
-    public function setApiContext($clientId = null, $clientSecret = null, $requestId = null) {
+    public function setApiContext($clientId = null, $clientSecret = null, $requestId = null)
+    {
         if (null === $clientId) {
             //$clientId  = config('paypal.api-client-d');
 
             $clientId = Configuration::getConfiguration('paypal_client_id');
-            ;
         }
         if (null === $clientSecret) {
             //$clientSecret = config('paypal.api-client-secret');
             $clientSecret = Configuration::getConfiguration('paypal_client_secret');
-            ;
-            ;
         }
 
         $credentials = new OAuthTokenCredential($clientId, $clientSecret);
 
         $this->_apiContext = new ApiContext($credentials, $requestId);
+
         return $this;
     }
-
 }

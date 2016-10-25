@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class PaypalRecord extends Model
 {
-    protected $fillable = ['paymentId','token','PayerID'];
+    protected $fillable = ['paymentId', 'token', 'PayerID'];
 }

@@ -1,16 +1,17 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
-class CreateWishlistTable extends Migration {
-
+class CreateWishlistTable extends Migration
+{
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('wishlists', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('website_id')->unsigned();
@@ -25,8 +26,8 @@ class CreateWishlistTable extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::drop('wishlists');
     }
-
 }

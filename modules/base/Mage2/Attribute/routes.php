@@ -11,7 +11,5 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth','website'], 'namespace' => "Mage2\Attribute\Controllers"], function () {
-
-
+Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Attribute\Controllers"], function () {
 });

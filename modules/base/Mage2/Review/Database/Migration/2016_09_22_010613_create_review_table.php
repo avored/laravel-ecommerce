@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateReviewTable extends Migration
 {
@@ -19,10 +19,8 @@ class CreateReviewTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->float('star');
             $table->string('comment');
-            $table->enum('status',['ENABLED','DISABLED'])->default('DISABLED');
+            $table->enum('status', ['ENABLED', 'DISABLED'])->default('DISABLED');
             $table->timestamps();
-            
-          
         });
     }
 

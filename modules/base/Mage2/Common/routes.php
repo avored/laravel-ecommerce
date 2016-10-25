@@ -11,11 +11,9 @@
  */
 
 
-Route::group(['middleware' => ['web','website','adminauth'],'namespace' => "Mage2\Common\Controllers"], function () {
-
+Route::group(['middleware' => ['web', 'website', 'adminauth'], 'namespace' => "Mage2\Common\Controllers"], function () {
 });
 
 
-Route::group(['middleware' => ['web','website'],'namespace' => "Mage2\Common\Controllers"], function () {
-
+Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Common\Controllers"], function () {
 });

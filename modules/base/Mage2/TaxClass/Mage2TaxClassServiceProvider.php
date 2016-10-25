@@ -2,21 +2,20 @@
 
 namespace Mage2\TaxClass;
 
-use Mage2\Framework\Support\ServiceProvider;
-use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
+use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminConfiguration;
+use Mage2\Framework\View\Facades\AdminMenu;
 
-class Mage2TaxClassServiceProvider extends ServiceProvider {
-
+class Mage2TaxClassServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
-
-       
+    public function boot()
+    {
     }
 
     /**
@@ -24,12 +23,12 @@ class Mage2TaxClassServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->mapWebRoutes();
         //$this->registerAdminMenu();
         $this->registerAdminConfiguration();
         $this->registerViewPath();
-       
     }
 
     /**
@@ -37,32 +36,33 @@ class Mage2TaxClassServiceProvider extends ServiceProvider {
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
-    protected function mapWebRoutes() {
-        require (__DIR__ . '/routes.php');
+    protected function mapWebRoutes()
+    {
+        require __DIR__.'/routes.php';
     }
 
-
-    protected function registerViewPath() {
-        View::addLocation(__DIR__ . "/views");
+    protected function registerViewPath()
+    {
+        View::addLocation(__DIR__.'/views');
     }
-    
-    public function registerAdminMenu() {
-        
 
+    public function registerAdminMenu()
+    {
         $adminMenu = [
             'label' => 'Tax Class',
-            'url' => route('admin.tax-class.index'),
-        ]; 
+            'url'   => route('admin.tax-class.index'),
+        ];
         AdminMenu::registerMenu($adminMenu);
     }
-    
-     public function registerAdminConfiguration() {
 
+    public function registerAdminConfiguration()
+    {
         $adminConfigurations[] = [
-            'title' => 'Tax Configuration',
+            'title'       => 'Tax Configuration',
             'description' => 'Defined the amount of tax applied to product.',
             'edit_action' => route('admin.configuration.tax-class'),
         ];
@@ -71,6 +71,4 @@ class Mage2TaxClassServiceProvider extends ServiceProvider {
             AdminConfiguration::registerConfiguration($adminConfiguration);
         }
     }
-
-   
 }

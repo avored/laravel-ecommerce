@@ -2,9 +2,9 @@
 
 namespace Mage2\Review\Models;
 
-use Mage2\User\Models\User;
-use Mage2\Catalog\Models\Product;
 use Illuminate\Database\Eloquent\Model;
+use Mage2\Catalog\Models\Product;
+use Mage2\User\Models\User;
 
 class Review extends Model
 {

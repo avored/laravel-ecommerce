@@ -11,21 +11,20 @@
   |
  */
 Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Catalog\Controllers\Admin"], function () {
-
     Route::resource('/admin/product', 'ProductController', ['names' => [
-            'index' => 'admin.product.index',
-            'create' => 'admin.product.create',
-            'store' => 'admin.product.store',
-            'edit' => 'admin.product.edit',
-            'update' => 'admin.product.update',
+            'index'   => 'admin.product.index',
+            'create'  => 'admin.product.create',
+            'store'   => 'admin.product.store',
+            'edit'    => 'admin.product.edit',
+            'update'  => 'admin.product.update',
             'destroy' => 'admin.product.destroy',
     ]]);
     Route::resource('/admin/category', 'CategoryController', ['names' => [
-            'index' => 'admin.category.index',
-            'create' => 'admin.category.create',
-            'store' => 'admin.category.store',
-            'edit' => 'admin.category.edit',
-            'update' => 'admin.category.update',
+            'index'   => 'admin.category.index',
+            'create'  => 'admin.category.create',
+            'store'   => 'admin.category.store',
+            'edit'    => 'admin.category.edit',
+            'update'  => 'admin.category.update',
             'destroy' => 'admin.category.destroy',
     ]]);
 
@@ -35,13 +34,11 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
     Route::post('/admin/product-image/upload', 'ProductController@uploadImage');
     Route::post('/admin/product-image/delete', 'ProductController@deleteImage');
 
-    Route::get('/admin/configuration/catalog', ['as' => 'admin.configuration.catalog','uses' => 'ConfigurationController@getConfiguration']);
+    Route::get('/admin/configuration/catalog', ['as' => 'admin.configuration.catalog', 'uses' => 'ConfigurationController@getConfiguration']);
 });
 
 
 Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Catalog\Controllers"], function () {
-
     Route::get('/category/{slug}', ['as' => 'category.view', 'uses' => 'CategoryViewController@view']);
     Route::get('/product/{slug}', ['as' => 'product.view', 'uses' => 'ProductViewController@view']);
-
 });

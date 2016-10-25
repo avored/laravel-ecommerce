@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateProductAttributeTable extends Migration
 {
@@ -16,8 +16,8 @@ class CreateProductAttributeTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->string('identifier')->unique();
-            $table->enum('field_type',['TEXT','TEXTAREA','SELECT','FILE','DATETIME']);
-            $table->enum('type',['VARCHAR','TEXT','INTEGER','FLOAT','DATETIME','FILE']);
+            $table->enum('field_type', ['TEXT', 'TEXTAREA', 'SELECT', 'FILE', 'DATETIME']);
+            $table->enum('type', ['VARCHAR', 'TEXT', 'INTEGER', 'FLOAT', 'DATETIME', 'FILE']);
             $table->string('validation');
             $table->timestamps();
         });

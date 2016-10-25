@@ -11,8 +11,7 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth','website'], 'namespace' => "Mage2\Page\Controllers\Admin"], function () {
-
+Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Page\Controllers\Admin"], function () {
     Route::resource('/admin/page', 'PageController', ['names' => [
         'index'     => 'admin.page.index',
         'create'    => 'admin.page.create',
@@ -21,13 +20,9 @@ Route::group(['middleware' => ['web', 'adminauth','website'], 'namespace' => "Ma
         'update'    => 'admin.page.update',
         'destroy'   => 'admin.page.destroy',
     ]]);
-
 });
 
 
 
-Route::group(['middleware' => ['frontauth','web','website'],  'namespace' => "Mage2\Page\Controllers"] ,  function () {
-
-
-
+Route::group(['middleware' => ['frontauth', 'web', 'website'],  'namespace' => "Mage2\Page\Controllers"], function () {
 });

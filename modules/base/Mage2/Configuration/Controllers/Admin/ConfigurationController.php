@@ -2,10 +2,10 @@
 
 namespace Mage2\Configuration\Controllers\Admin;
 
-use Mage2\Framework\Http\Controllers\Controller;
-use Mage2\Framework\View\Facades\AdminConfiguration;
 use Illuminate\Http\Request;
 use Mage2\Configuration\Models\Configuration;
+use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\Framework\View\Facades\AdminConfiguration;
 
 class ConfigurationController extends Controller
 {
@@ -20,7 +20,6 @@ class ConfigurationController extends Controller
         parent::__construct();
     }
 
-
     /**
      * Show the application dashboard.
      *
@@ -30,10 +29,9 @@ class ConfigurationController extends Controller
     {
         $configs = AdminConfiguration::getAll();
 
-        return view('admin.config.index')->with('configs',$configs);
+        return view('admin.config.index')->with('configs', $configs);
     }
-    
-    
+
     /**
      * Show the application dashboard.
      *
@@ -41,11 +39,9 @@ class ConfigurationController extends Controller
      */
     public function store(Request $request)
     {
-        
-        foreach ($request->except(['_token','_method']) as $key => $value) {
-            
-            $configuration = Configuration::where('configuration_key','=',$key)->get()->first();
-            if(null === $configuration) {
+        foreach ($request->except(['_token', '_method']) as $key => $value) {
+            $configuration = Configuration::where('configuration_key', '=', $key)->get()->first();
+            if (null === $configuration) {
                 $data['configuration_key'] = $key;
                 $data['configuration_value'] = $value;
                 $data['website_id'] = $this->websiteId;
@@ -54,6 +50,7 @@ class ConfigurationController extends Controller
                 $configuration->update(['configuration_value' => $value]);
             }
         }
-        return redirect()->back()->with('notificationText', "All Configuration saved.");
+
+        return redirect()->back()->with('notificationText', 'All Configuration saved.');
     }
 }

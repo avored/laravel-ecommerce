@@ -2,21 +2,20 @@
 
 namespace Mage2\Address;
 
-use Mage2\Framework\Support\ServiceProvider;
-use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
+use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminConfiguration;
+use Mage2\Framework\View\Facades\AdminMenu;
 
-class Mage2AddressServiceProvider extends ServiceProvider {
-
+class Mage2AddressServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
-
-       
+    public function boot()
+    {
     }
 
     /**
@@ -24,12 +23,12 @@ class Mage2AddressServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->mapWebRoutes();
         $this->registerAdminMenu();
         $this->registerAdminConfiguration();
         $this->registerViewPath();
-       
     }
 
     /**
@@ -37,20 +36,23 @@ class Mage2AddressServiceProvider extends ServiceProvider {
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
-    protected function mapWebRoutes() {
-        require (__DIR__ . '/routes.php');
+    protected function mapWebRoutes()
+    {
+        require __DIR__.'/routes.php';
     }
 
-
-    protected function registerViewPath() {
-        View::addLocation(__DIR__ . "/views");
+    protected function registerViewPath()
+    {
+        View::addLocation(__DIR__.'/views');
     }
-    
-    public function registerAdminMenu() {
-        
+
+    public function registerAdminMenu()
+    {
+
 
         //$adminMenu = [
         //    'label' => 'Products',
@@ -58,11 +60,11 @@ class Mage2AddressServiceProvider extends ServiceProvider {
         //];
         //AdminMenu::registerMenu($adminMenu);
     }
-    
-    public function registerAdminConfiguration() {
 
+    public function registerAdminConfiguration()
+    {
         $adminConfigurations[] = [
-            'title' => 'Address Configuration',
+            'title'       => 'Address Configuration',
             'description' => 'Set Default Country for Store',
             'edit_action' => route('admin.configuration.address'),
         ];
@@ -71,6 +73,4 @@ class Mage2AddressServiceProvider extends ServiceProvider {
             AdminConfiguration::registerConfiguration($adminConfiguration);
         }
     }
-
-   
 }

@@ -89,7 +89,7 @@ return [
       | will not be safe. Please do this before deploying an application!
       |
      */
-    'key'    => env('APP_KEY'),
+    'key'       => env('APP_KEY'),
     'cipher'    => 'AES-256-CBC',
     /*
       |--------------------------------------------------------------------------
@@ -103,7 +103,7 @@ return [
       | Available Settings: "single", "daily", "syslog", "errorlog"
       |
      */
-    'log'    => env('APP_LOG', 'single'),
+    'log'          => env('APP_LOG', 'single'),
     'log_level'    => env('APP_LOG_LEVEL', 'debug'),
     /*
       |--------------------------------------------------------------------------
@@ -207,6 +207,6 @@ return [
         'Form'         => Collective\Html\FormFacade::class,
         'Html'         => Collective\Html\HtmlFacade::class,
         'PDF'          => Barryvdh\DomPDF\Facade::class,
-        'Theme'        => Mage2\Framework\Theme\Facade\Theme::class
+        'Theme'        => Mage2\Framework\Theme\Facade\Theme::class,
     ],
 ];

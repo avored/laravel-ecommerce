@@ -2,16 +2,15 @@
 
 namespace Mage2\Catalog;
 
-use Mage2\Framework\Support\ServiceProvider;
-use Mage2\Framework\View\Facades\AdminMenu;
-use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\View;
 use Mage2\Catalog\Models\Category;
+use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminConfiguration;
+use Mage2\Framework\View\Facades\AdminMenu;
 
 class Mage2CatalogServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -19,8 +18,6 @@ class Mage2CatalogServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
-
     }
 
     /**
@@ -35,7 +32,6 @@ class Mage2CatalogServiceProvider extends ServiceProvider
         $this->registerAdminConfiguration();
         $this->registerViewPath();
         $this->registerViewComposerData();
-
     }
 
     /**
@@ -43,41 +39,39 @@ class Mage2CatalogServiceProvider extends ServiceProvider
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
     protected function mapWebRoutes()
     {
-        require(__DIR__ . '/routes.php');
+        require __DIR__.'/routes.php';
     }
-
 
     protected function registerViewPath()
     {
-        View::addLocation(__DIR__ . "/views");
+        View::addLocation(__DIR__.'/views');
     }
 
     public function registerAdminMenu()
     {
-
-
         $adminMenus[] = [
             'label' => 'Category',
-            'url' => route('admin.category.index'),
+            'url'   => route('admin.category.index'),
         ];
         $adminMenus[] = [
             'label' => 'Products',
-            'url' => route('admin.product.index'),
+            'url'   => route('admin.product.index'),
         ];
         foreach ($adminMenus as $adminMenu) {
             AdminMenu::registerMenu($adminMenu);
         }
     }
 
-    public function registerAdminConfiguration() {
-
+    public function registerAdminConfiguration()
+    {
         $adminConfigurations[] = [
-            'title' => 'Catalog Configuration',
+            'title'       => 'Catalog Configuration',
             'description' => 'Some Description for Catalog Modules',
             'edit_action' => route('admin.configuration.catalog'),
         ];
@@ -101,6 +95,5 @@ class Mage2CatalogServiceProvider extends ServiceProvider
             $view->with('categories', $baseCategories)
                 ->with('cart', $cart);
         });
-
     }
 }

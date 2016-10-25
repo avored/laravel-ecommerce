@@ -4,14 +4,15 @@ namespace Mage2\User\Requests;
 
 use Mage2\Framework\Http\Request;
 
-class UserRequest extends Request {
-
+class UserRequest extends Request
+{
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize() {
+    public function authorize()
+    {
         return true;
     }
 
@@ -20,16 +21,16 @@ class UserRequest extends Request {
      *
      * @return array
      */
-    public function rules() {
+    public function rules()
+    {
         $validation['first_name'] = 'required|max:255';
         $validation['last_name'] = 'required|max:255';
-        
-        if($this->getMethod() == "POST") {
+
+        if ($this->getMethod() == 'POST') {
             $validation['email'] = 'required|email|max:255|unique:users';
-            $validation['password'] = 'required|min:6|confirmed';   
+            $validation['password'] = 'required|min:6|confirmed';
         }
-        
+
         return $validation;
     }
-
 }

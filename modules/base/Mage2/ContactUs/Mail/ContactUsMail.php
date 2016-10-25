@@ -2,7 +2,6 @@
 
 namespace Mage2\ContactUs\Mail;
 
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
@@ -12,6 +11,7 @@ class ContactUsMail extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
+
     /**
      * Create a new message instance.
      *
@@ -29,7 +29,6 @@ class ContactUsMail extends Mailable
      */
     public function build()
     {
-
         return $this->view('mail.contact-us');
     }
 }

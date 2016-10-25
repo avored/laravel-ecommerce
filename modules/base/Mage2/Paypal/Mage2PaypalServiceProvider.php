@@ -2,23 +2,22 @@
 
 namespace Mage2\Paypal;
 
-use Mage2\Framework\Support\ServiceProvider;
-use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Payment\Facade\Payment;
-use Mage2\Paypal\Payment\Paypal;
+use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminConfiguration;
+use Mage2\Framework\View\Facades\AdminMenu;
+use Mage2\Paypal\Payment\Paypal;
 
-class Mage2PaypalServiceProvider extends ServiceProvider {
-
+class Mage2PaypalServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
-
-       
+    public function boot()
+    {
     }
 
     /**
@@ -26,13 +25,13 @@ class Mage2PaypalServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->mapWebRoutes();
         $this->registerPaymentMethod();
         $this->registerAdminMenu();
         $this->registerAdminConfiguration();
         $this->registerViewPath();
-       
     }
 
     /**
@@ -40,38 +39,38 @@ class Mage2PaypalServiceProvider extends ServiceProvider {
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
-
-    protected function mapWebRoutes() {
-        require (__DIR__ . '/routes.php');
-    }
      */
-
-    protected function mapWebRoutes() {
-        require (__DIR__ . '/routes.php');
+    protected function mapWebRoutes()
+    {
+        require __DIR__.'/routes.php';
     }
-    protected function registerPaymentMethod() {
+
+    protected function registerPaymentMethod()
+    {
         $paypal = new Paypal();
         Payment::put($paypal->getIdentifier(), $paypal);
     }
 
-
-    protected function registerViewPath() {
-        View::addLocation(__DIR__ . "/views");
+    protected function registerViewPath()
+    {
+        View::addLocation(__DIR__.'/views');
     }
-    
-    public function registerAdminMenu() {
-        
 
-      
+    public function registerAdminMenu()
+    {
+
+
+
         //AdminMenu::registerMenu($adminMenu);
     }
-    
-    public function registerAdminConfiguration() {
 
+    public function registerAdminConfiguration()
+    {
         $adminConfigurations[] = [
-            'title' => 'Paypal Configuration',
+            'title'       => 'Paypal Configuration',
             'description' => 'Some Description for Catalog Modules',
             'edit_action' => route('admin.configuration.paypal'),
         ];
@@ -80,6 +79,4 @@ class Mage2PaypalServiceProvider extends ServiceProvider {
             AdminConfiguration::registerConfiguration($adminConfiguration);
         }
     }
-
-   
 }

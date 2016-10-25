@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateForeignKeys extends Migration
 {
@@ -16,7 +16,7 @@ class CreateForeignKeys extends Migration
         //addresses table foreign key setup
         Schema::table('addresses', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');;
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
 
         //product_varchar_values table foreign key setup

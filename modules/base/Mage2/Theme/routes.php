@@ -11,16 +11,15 @@
   |
  */
 Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Theme\Controllers\Admin"], function () {
+    Route::get('/admin/themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
 
-    Route::get('/admin/themes', ['as' => 'admin.theme.index','uses' => 'ThemeController@index']);
+    Route::get('/admin/themes/create', ['as' => 'admin.theme.create', 'uses' => 'ThemeController@create']);
+    Route::post('/admin/themes', ['as' => 'admin.theme.store', 'uses' => 'ThemeController@store']);
 
-    Route::get('/admin/themes/create', ['as' => 'admin.theme.create','uses' => 'ThemeController@create']);
-    Route::post('/admin/themes', ['as' => 'admin.theme.store','uses' => 'ThemeController@store']);
-    
-    Route::get('/admin/themes/{name}', ['as' => 'admin.theme.active','uses' => 'ThemeController@active']);
-    
-    Route::delete('/admin/themes/{name}', ['as' => 'admin.theme.destroy','uses' => 'ThemeController@destroy']);
+    Route::get('/admin/themes/{name}', ['as' => 'admin.theme.active', 'uses' => 'ThemeController@active']);
+
+    Route::delete('/admin/themes/{name}', ['as' => 'admin.theme.destroy', 'uses' => 'ThemeController@destroy']);
 
 
-    Route::post('/admin/themes/{name}', ['as' => 'admin.theme.activate','uses' => 'ThemeController@activate']);
+    Route::post('/admin/themes/{name}', ['as' => 'admin.theme.activate', 'uses' => 'ThemeController@activate']);
 });

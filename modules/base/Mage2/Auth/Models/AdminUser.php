@@ -2,8 +2,8 @@
 
 namespace Mage2\Auth\Models;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class AdminUser extends Authenticatable
 {
@@ -14,7 +14,7 @@ class AdminUser extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name' ,'email', 'password', 'role_id'
+        'first_name', 'last_name', 'email', 'password', 'role_id',
     ];
 
     /**
@@ -25,12 +25,14 @@ class AdminUser extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    
-    public function getFullNameAttribute() {
-        return $this->attributes['first_name'] . " " . $this->attributes['last_name'];
+
+    public function getFullNameAttribute()
+    {
+        return $this->attributes['first_name'].' '.$this->attributes['last_name'];
     }
-    
-    public function role() {
+
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
 }

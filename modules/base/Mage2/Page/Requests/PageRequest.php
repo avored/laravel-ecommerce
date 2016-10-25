@@ -24,13 +24,13 @@ class PageRequest extends Request
     public function rules()
     {
         $validationRule = [];
-        $validationRule['title'] = "required|max:255";
-        $validationRule['content'] = "required";
-        if($this->getMethod() == "POST") {
-            $validationRule['slug'] = "required|max:255|alpha_dash|unique:pages";
+        $validationRule['title'] = 'required|max:255';
+        $validationRule['content'] = 'required';
+        if ($this->getMethod() == 'POST') {
+            $validationRule['slug'] = 'required|max:255|alpha_dash|unique:pages';
         }
-        if($this->getMethod() == "PUT") {
-            $validationRule['slug'] = "required|max:255|alpha_dash";
+        if ($this->getMethod() == 'PUT') {
+            $validationRule['slug'] = 'required|max:255|alpha_dash';
         }
 
         return $validationRule;

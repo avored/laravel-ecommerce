@@ -11,19 +11,14 @@
   |
  */
 Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Auth\Controllers\Admin"], function () {
-
     Route::get('/admin/login', ['as' => 'admin.login', 'uses' => 'LoginController@showLoginForm']);
     Route::post('/admin/login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
 
     Route::get('/admin/logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
-
-
 });
 
 
 Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Auth\Controllers"], function () {
-
-
     Route::get('/login', ['as' => 'login', 'uses' => 'LoginController@showLoginForm']);
     Route::post('/login', ['as' => 'login.post', 'uses' => 'LoginController@login']);
     Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
@@ -36,5 +31,4 @@ Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Auth\Con
 
     Route::get('/register', ['as' => 'register', 'uses' => 'RegisterController@showRegistrationForm']);
     Route::post('/register', ['as' => 'register.post', 'uses' => 'RegisterController@register']);
-
 });

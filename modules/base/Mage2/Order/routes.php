@@ -11,14 +11,12 @@
   |
  */
 Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Order\Controllers\Admin"], function () {
-
-
     Route::resource('/admin/order-status', 'OrderStatusController', ['names' => [
-            'index' => 'admin.order-status.index',
-            'create' => 'admin.order-status.create',
-            'store' => 'admin.order-status.store',
-            'edit' => 'admin.order-status.edit',
-            'update' => 'admin.order-status.update',
+            'index'   => 'admin.order-status.index',
+            'create'  => 'admin.order-status.create',
+            'store'   => 'admin.order-status.store',
+            'edit'    => 'admin.order-status.edit',
+            'update'  => 'admin.order-status.update',
             'destroy' => 'admin.order-status.destroy',
     ]]);
 
@@ -32,7 +30,6 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
 
 
 Route::group(['middleware' => ['web', 'frontauth', 'website'], 'namespace' => "Mage2\Order\Controllers"], function () {
-
     Route::get('/order', ['as' => 'order.index', 'uses' => 'OrderController@index']);
     Route::get('/order/success/{id}', ['as' => 'order.success', 'uses' => 'OrderController@success']);
 

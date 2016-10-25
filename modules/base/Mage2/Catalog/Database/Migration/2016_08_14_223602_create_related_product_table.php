@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateRelatedProductTable extends Migration
 {
@@ -12,13 +12,11 @@ class CreateRelatedProductTable extends Migration
      */
     public function up()
     {
-         Schema::create('related_products', function (Blueprint $table) {
+        Schema::create('related_products', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->integer('related_products_id')->unsigned();
             $table->timestamps();
-            
-          
         });
     }
 

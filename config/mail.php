@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'driver' =>  "mail",  //env('MAIL_DRIVER', 'mailgun'),
+    'driver' => 'mail',  //env('MAIL_DRIVER', 'mailgun'),
 
     /*
     |--------------------------------------------------------------------------
@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => "",//env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => '', //env('MAIL_HOST', 'smtp.mailgun.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => 'ind.purvesh@gmail.com',
-        'name' => 'Purvesh',
+        'name'    => 'Purvesh',
     ],
 
     /*

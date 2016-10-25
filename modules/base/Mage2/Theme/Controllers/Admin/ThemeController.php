@@ -2,16 +2,16 @@
 
 namespace Mage2\Theme\Controllers\Admin;
 
-use Mage2\Framework\Theme\Facade\Theme as ThemeFacade;
-use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Mage2\Configuration\Models\Configuration;
-use Mage2\Framework\Theme\Facade\Theme;
 use Illuminate\Support\Facades\Artisan;
+use Mage2\Configuration\Models\Configuration;
+use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\Framework\Theme\Facade\Theme;
 
-class ThemeController extends Controller {
-
-    public function __construct() {
+class ThemeController extends Controller
+{
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -20,15 +20,14 @@ class ThemeController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-
+    public function index()
+    {
         $themes = config('theme');
         $activeTheme = Configuration::getConfiguration('active_theme_identifier');
 
         return view('admin.theme.index')
                         ->with('themes', $themes)
-                        ->with('activeTheme', $activeTheme)
-        ;
+                        ->with('activeTheme', $activeTheme);
     }
 
     /**
@@ -36,23 +35,26 @@ class ThemeController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         return view('admin.theme.create');
     }
 
     /**
      * Store a newly created theme in database.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $filePath = $this->handleImageUpload($request->file('theme_zip_file'));
 
         $zip = new \ZipArchive();
 
 
-        if ($zip->open($filePath) === TRUE) {
+        if ($zip->open($filePath) === true) {
             $extractPath = base_path('themes');
             $zip->extractTo($extractPath);
             $zip->close();
@@ -66,41 +68,40 @@ class ThemeController extends Controller {
 
     /**
      * @param \Illuminate\Http\UploadedFile $file
-     *
      */
-    public function activate($name) {
+    public function activate($name)
+    {
         $theme = Theme::get($name);
         try {
             Configuration::create([
-                    'website_id' => $this->defaultWebsiteId,
-                    'configuration_key' => 'active_theme_identifier' ,
-                    'configuration_value' => $name
+                    'website_id'          => $this->defaultWebsiteId,
+                    'configuration_key'   => 'active_theme_identifier',
+                    'configuration_value' => $name,
             ]);
             Configuration::create([
-                'website_id' => $this->defaultWebsiteId,
-                'configuration_key' => 'active_theme_path' ,
-                'configuration_value' => $theme['path']
+                'website_id'          => $this->defaultWebsiteId,
+                'configuration_key'   => 'active_theme_path',
+                'configuration_value' => $theme['path'],
             ]);
-            Artisan::call("vendor:publish",['--tag' => $name]);
+            Artisan::call('vendor:publish', ['--tag' => $name]);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-        
+
         return redirect()->route('admin.theme.index');
     }
 
     /**
      * @param \Illuminate\Http\UploadedFile $file
-     *
      */
-    public function handleImageUpload($file) {
+    public function handleImageUpload($file)
+    {
         // $file = $request->file('image'); or
         // $fileName = 'somename';
         $destinationPath = public_path('uploads/mage2/themes');
         $fileName = $file->getClientOriginalName();
         $file->move($destinationPath, $fileName);
 
-        return $destinationPath . DIRECTORY_SEPARATOR . $fileName;
+        return $destinationPath.DIRECTORY_SEPARATOR.$fileName;
     }
-
 }

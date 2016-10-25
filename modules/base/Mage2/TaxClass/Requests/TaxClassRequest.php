@@ -24,9 +24,9 @@ class TaxClassRequest extends Request
     public function rules()
     {
         return [
-            'title' => 'required|max:255',
+            'title'        => 'required|max:255',
             'country_code' => 'required|max:255',
-            'percentage' => 'required|max:255',
+            'percentage'   => 'required|max:255',
         ];
     }
 }

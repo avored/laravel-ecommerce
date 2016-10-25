@@ -10,7 +10,6 @@
   |
  */
 Route::group(['middleware' => 'web', 'namespace' => "Mage2\Install\Controllers"], function () {
-
     Route::get('/install', ['as' => 'mage2.install', 'uses' => 'InstallController@index']);
 
     Route::get('/install/database', ['as' => 'mage2.install.database.get', 'uses' => 'InstallController@databaseGet']);
@@ -20,6 +19,4 @@ Route::group(['middleware' => 'web', 'namespace' => "Mage2\Install\Controllers"]
     Route::post('/install/admin', ['as' => 'mage2.install.admin.post', 'uses' => 'InstallController@adminPost']);
 
     Route::get('/install/success', ['as' => 'mage2.install.success', 'uses' => 'InstallController@success']);
-
-
 });

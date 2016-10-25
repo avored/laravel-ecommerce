@@ -2,21 +2,20 @@
 
 namespace Mage2\Page;
 
-use Mage2\Framework\Support\ServiceProvider;
-use Mage2\Framework\View\Facades\AdminMenu;
 use Illuminate\Support\Facades\View;
+use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminConfiguration;
+use Mage2\Framework\View\Facades\AdminMenu;
 
-class Mage2PageServiceProvider extends ServiceProvider {
-
+class Mage2PageServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
-
-       
+    public function boot()
+    {
     }
 
     /**
@@ -24,12 +23,12 @@ class Mage2PageServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->mapWebRoutes();
         $this->registerAdminMenu();
         //$this->registerAdminConfiguration();
         $this->registerViewPath();
-       
     }
 
     /**
@@ -37,27 +36,31 @@ class Mage2PageServiceProvider extends ServiceProvider {
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
-    protected function mapWebRoutes() {
-        require (__DIR__ . '/routes.php');
+    protected function mapWebRoutes()
+    {
+        require __DIR__.'/routes.php';
     }
 
-
-    protected function registerViewPath() {
-        View::addLocation(__DIR__ . "/views");
+    protected function registerViewPath()
+    {
+        View::addLocation(__DIR__.'/views');
     }
-    
-    public function registerAdminMenu() {
+
+    public function registerAdminMenu()
+    {
         $adminMenu = [
             'label' => 'Pages',
-            'url' => route('admin.page.index'),
+            'url'   => route('admin.page.index'),
         ];
         AdminMenu::registerMenu($adminMenu);
     }
-    
-    public function registerAdminConfiguration() {
+
+    public function registerAdminConfiguration()
+    {
 
         //$adminConfigurations[] = [
         //    'title' => 'Address Configuration',
@@ -69,6 +72,4 @@ class Mage2PageServiceProvider extends ServiceProvider {
         //      AdminConfiguration::registerConfiguration($adminConfiguration);
         //}
     }
-
-   
 }

@@ -10,13 +10,10 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web','website'], 'namespace' => "Mage2\Cart\Controllers"], function () {
+Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Cart\Controllers"], function () {
+    Route::get('/add-to-cart/{id}', ['as' => 'cart.add-to-cart', 'uses' => 'CartController@addToCart']);
 
-  Route::get('/add-to-cart/{id}', ['as' => 'cart.add-to-cart', 'uses' => 'CartController@addToCart']);
-
-  Route::get('/cart/view', ['as' => 'cart.view', 'uses' => 'CartController@view']);
-  Route::put('/cart/update', ['as' => 'cart.update', 'uses' => 'CartController@update']);
-  Route::get('/cart/destroy/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
-
-
+    Route::get('/cart/view', ['as' => 'cart.view', 'uses' => 'CartController@view']);
+    Route::put('/cart/update', ['as' => 'cart.update', 'uses' => 'CartController@update']);
+    Route::get('/cart/destroy/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
 });

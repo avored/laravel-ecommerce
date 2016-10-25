@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateOrderTable extends Migration
 {
@@ -21,8 +21,6 @@ class CreateOrderTable extends Migration
             $table->string('payment_method');
             $table->integer('order_status_id')->unsigned();
             $table->timestamps();
-            
-          
         });
     }
 

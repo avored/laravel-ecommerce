@@ -21,7 +21,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
             'update' => 'admin.tax-class.update',
             'destroy' => 'admin.tax-class.destroy',
     ]]);
-     * 
+     *
      */
-    Route::get('/admin/configuration/tax-class', ['as' => 'admin.configuration.tax-class','uses' => 'ConfigurationController@getConfiguration']);
+    Route::get('/admin/configuration/tax-class', ['as' => 'admin.configuration.tax-class', 'uses' => 'ConfigurationController@getConfiguration']);
 });

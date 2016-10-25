@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreatePivotProductWebsiteTable extends Migration
 {
@@ -17,8 +17,6 @@ class CreatePivotProductWebsiteTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->integer('website_id')->unsigned();
             $table->timestamps();
-            
-            
         });
     }
 
