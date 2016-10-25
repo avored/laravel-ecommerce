@@ -26,8 +26,6 @@ class CreateAddressTable extends Migration
             $table->integer('country_id')->unsigned();;
             $table->string('phone');
             $table->timestamps();
-            
-          
         });
     }
 

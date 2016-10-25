@@ -19,8 +19,6 @@ class CreateProductOrderPivotTable extends Migration
             $table->integer('qty');
             $table->decimal('price',11,6);
             $table->timestamps();
-            
-            
         });
     }
 

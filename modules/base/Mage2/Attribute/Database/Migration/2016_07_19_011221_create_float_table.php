@@ -19,8 +19,6 @@ class CreateFloatTable extends Migration
             $table->integer('product_attribute_id')->unsigned();
             $table->float('value');
             $table->timestamps();
-            
-           
         });
     }
 
