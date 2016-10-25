@@ -14,11 +14,13 @@ class CreateDatetimeTable extends Migration
     {
         Schema::create('product_datetime_values', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('website_id');
-            $table->integer('product_id');
-            $table->integer('product_attribute_id');
+            $table->integer('website_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->integer('product_attribute_id')->unsigned();
             $table->timestamp('value');
             $table->timestamps();
+            
+            
         });
     }
 

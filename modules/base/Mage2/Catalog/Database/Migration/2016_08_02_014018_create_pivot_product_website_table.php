@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelatedProductTable extends Migration
+class CreatePivotProductWebsiteTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,13 @@ class CreateRelatedProductTable extends Migration
      */
     public function up()
     {
-         Schema::create('related_products', function (Blueprint $table) {
+        Schema::create('product_website', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
-            $table->integer('related_products_id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('website_id')->unsigned();
             $table->timestamps();
+            
+            
         });
     }
 
@@ -27,6 +29,6 @@ class CreateRelatedProductTable extends Migration
      */
     public function down()
     {
-        Schema::drop('related_products');
+        //
     }
 }

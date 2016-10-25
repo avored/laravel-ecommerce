@@ -14,7 +14,7 @@ class CreateAddressTable extends Migration
     {
          Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
              $table->enum('type',['SHIPPING','BILLING']);
             $table->string('first_name');
             $table->string('last_name');
@@ -23,9 +23,11 @@ class CreateAddressTable extends Migration
             $table->string('area');
             $table->string('city');
             $table->string('state');
-            $table->integer('country_id');
+            $table->integer('country_id')->unsigned();;
             $table->string('phone');
             $table->timestamps();
+            
+          
         });
     }
 

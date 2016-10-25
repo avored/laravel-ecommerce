@@ -14,11 +14,13 @@ class CreateProductOrderPivotTable extends Migration
     {
         Schema::create('product_order', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id');
-            $table->integer('order_id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('order_id')->unsigned();
             $table->integer('qty');
             $table->decimal('price',11,6);
             $table->timestamps();
+            
+            
         });
     }
 

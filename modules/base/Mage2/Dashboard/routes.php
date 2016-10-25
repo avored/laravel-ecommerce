@@ -17,6 +17,6 @@ Route::group(['middleware' => ['web', 'adminauth','website'], 'namespace' => "Ma
 
 
 
-Route::group(['middleware' => ['frontauth','web','website'],  'namespace' => "Mage2\Dashboard\Controllers"] ,  function () {
+Route::group(['middleware' => ['web','website'],  'namespace' => "Mage2\Dashboard\Controllers"] ,  function () {
     Route::get('/', ['as' => 'home','uses' => 'HomeController@index']);
 });

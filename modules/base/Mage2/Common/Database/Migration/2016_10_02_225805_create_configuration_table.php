@@ -15,10 +15,12 @@ class CreateConfigurationTable extends Migration
     {
         Schema::create('configurations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('website_id');
+            $table->integer('website_id')->unsigned();
             $table->string('configuration_key');
             $table->string('configuration_value');
             $table->timestamps();
+            
+            
         });
     }
 

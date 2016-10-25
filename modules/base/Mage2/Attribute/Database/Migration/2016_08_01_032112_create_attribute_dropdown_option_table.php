@@ -14,10 +14,12 @@ class CreateAttributeDropdownOptionTable extends Migration
     {
         Schema::create('attribute_dropdown_options', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_attribute_id');
+            $table->integer('product_attribute_id')->unsigned();
             $table->string('value');
             $table->string('label');
             $table->timestamps();
+            
+            
         });
     }
 
