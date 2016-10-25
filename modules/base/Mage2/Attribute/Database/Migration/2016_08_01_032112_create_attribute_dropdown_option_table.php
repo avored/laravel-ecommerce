@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateAttributeDropdownOptionTable extends Migration
 {
@@ -18,8 +18,6 @@ class CreateAttributeDropdownOptionTable extends Migration
             $table->string('value');
             $table->string('label');
             $table->timestamps();
-            
-            
         });
     }
 

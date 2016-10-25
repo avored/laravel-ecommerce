@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateIntegerTable extends Migration
 {
@@ -19,7 +19,6 @@ class CreateIntegerTable extends Migration
             $table->integer('product_attribute_id')->unsigned();
             $table->integer('value');
             $table->timestamps();
-            
         });
     }
 

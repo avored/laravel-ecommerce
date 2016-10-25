@@ -1,21 +1,20 @@
-<?php 
+<?php
+
 namespace Mage2\Auth\Mail;
 
-use Mage2\User\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Notifications\Messages\MailMessage;
+use Mage2\User\Models\User;
 
 class NewUserMail extends Mailable
 {
     use Queueable, SerializesModels;
     /**
-     *
-     * @var \Mage2\User\Models\User 
-     * 
+     * @var \Mage2\User\Models\User
      */
     public $user;
+
     /**
      * Create a new message instance.
      *
@@ -25,6 +24,7 @@ class NewUserMail extends Mailable
     {
         $this->user = $user;
     }
+
     /**
      * Build the message.
      *

@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Mage2\Attribute\Models\AttributeDropdownOption;
 use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Order\Models\OrderStatus;
-use Mage2\Attribute\Models\AttributeDropdownOption;
 use Mage2\TaxClass\Models\Country;
+
 class Mage2EcommerceDataSeeder extends Seeder
 {
     /**
@@ -16,191 +17,187 @@ class Mage2EcommerceDataSeeder extends Seeder
     {
         ProductAttribute::insert([
             [
-                'title' => 'Title',
+                'title'      => 'Title',
                 'identifier' => 'title',
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'field_type' => 'TEXT',
-                'validation' => 'required|max:255'
+                'validation' => 'required|max:255',
             ],
 
             [
-                'title' => 'Price',
+                'title'      => 'Price',
                 'identifier' => 'price',
-                'type' => 'FLOAT',
+                'type'       => 'FLOAT',
                 'field_type' => 'TEXT',
-                'validation' => 'required|max:8|regex:/^-?\\d*(\\.\\d+)?$/'
+                'validation' => 'required|max:8|regex:/^-?\\d*(\\.\\d+)?$/',
             ],
             [
-                'title' => 'Image',
+                'title'      => 'Image',
                 'identifier' => 'image',
-                'type' => 'FILE',
+                'type'       => 'FILE',
                 'field_type' => 'FILE',
-                'validation' => ''
+                'validation' => '',
             ],
             [
-                'title' => 'SKU',
+                'title'      => 'SKU',
                 'identifier' => 'sku',
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'field_type' => 'TEXT',
-                'validation' => 'required|max:255'
+                'validation' => 'required|max:255',
             ],
             [
-                'title' => 'Slug',
+                'title'      => 'Slug',
                 'identifier' => 'slug',
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'field_type' => 'TEXT',
-                'validation' => 'required|max:255|alpha_dash'
+                'validation' => 'required|max:255|alpha_dash',
             ],
 
             [
-                'title' => 'Page Title',
+                'title'      => 'Page Title',
                 'identifier' => 'page_title',
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'field_type' => 'TEXT',
-                'validation' => 'max:255'
+                'validation' => 'max:255',
             ],
             [
-                'title' => 'Page Description',
+                'title'      => 'Page Description',
                 'identifier' => 'page_description',
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'field_type' => 'TEXTAREA',
-                'validation' => 'max:255'
+                'validation' => 'max:255',
             ],
 
             [
-                'title' => 'Qty',
+                'title'      => 'Qty',
                 'identifier' => 'qty',
-                'type' => 'VARCHAR',
+                'type'       => 'VARCHAR',
                 'field_type' => 'TEXT',
-                'validation' => ''
+                'validation' => '',
             ],
 
 
             [
-                'title' => 'Description',
+                'title'      => 'Description',
                 'identifier' => 'description',
-                'type' => 'TEXT',
+                'type'       => 'TEXT',
                 'field_type' => 'TEXTAREA',
-                'validation' => 'required'
+                'validation' => 'required',
             ],
 
 
         ]);
 
         $statusAttribute = ProductAttribute::create([
-            'title' => 'Status',
+            'title'      => 'Status',
             'identifier' => 'status',
-            'type' => 'VARCHAR',
+            'type'       => 'VARCHAR',
             'field_type' => 'SELECT',
-            'validation' => 'required'
+            'validation' => 'required',
         ]);
 
         AttributeDropdownOption::create([
             'product_attribute_id' => $statusAttribute->id,
-            'value' => '1',
-            'label' => 'Enabled'
+            'value'                => '1',
+            'label'                => 'Enabled',
         ]);
         AttributeDropdownOption::create([
             'product_attribute_id' => $statusAttribute->id,
-            'value' => '0',
-            'label' => 'Disabled'
+            'value'                => '0',
+            'label'                => 'Disabled',
         ]);
-        
+
         $isTaxableAttribute = ProductAttribute::create([
-            'title' => 'Is Taxable',
+            'title'      => 'Is Taxable',
             'identifier' => 'is_taxable',
-            'type' => 'VARCHAR',
+            'type'       => 'VARCHAR',
             'field_type' => 'SELECT',
-            'validation' => 'required'
+            'validation' => 'required',
         ]);
 
         AttributeDropdownOption::create([
             'product_attribute_id' => $isTaxableAttribute->id,
-            'value' => '1',
-            'label' => 'Yes'
+            'value'                => '1',
+            'label'                => 'Yes',
         ]);
         AttributeDropdownOption::create([
             'product_attribute_id' => $isTaxableAttribute->id,
-            'value' => '0',
-            'label' => 'No'
+            'value'                => '0',
+            'label'                => 'No',
         ]);
 
 
 
         $featureAttribute = ProductAttribute::create([
-            'title' => 'Is Featured',
+            'title'      => 'Is Featured',
             'identifier' => 'is_featured',
-            'type' => 'VARCHAR',
+            'type'       => 'VARCHAR',
             'field_type' => 'SELECT',
-            'validation' => 'required'
+            'validation' => 'required',
         ]);
 
         AttributeDropdownOption::create([
             'product_attribute_id' => $featureAttribute->id,
-            'value' => '0',
-            'label' => 'No'
+            'value'                => '0',
+            'label'                => 'No',
         ]);
 
         AttributeDropdownOption::create([
             'product_attribute_id' => $featureAttribute->id,
-            'value' => '1',
-            'label' => 'Yes'
+            'value'                => '1',
+            'label'                => 'Yes',
         ]);
 
         $inStockAttribute = ProductAttribute::create([
-                                            'title' => 'In Stock',
+                                            'title'      => 'In Stock',
                                             'identifier' => 'in_stock',
-                                            'type' => 'VARCHAR',
+                                            'type'       => 'VARCHAR',
                                             'field_type' => 'SELECT',
-                                            'validation' => 'required'
+                                            'validation' => 'required',
                                         ]);
         AttributeDropdownOption::create([
             'product_attribute_id' => $inStockAttribute->id,
-            'value' => '1',
-            'label' => 'Yes'
+            'value'                => '1',
+            'label'                => 'Yes',
         ]);
         AttributeDropdownOption::create([
             'product_attribute_id' => $inStockAttribute->id,
-            'value' => '0',
-            'label' => 'No'
+            'value'                => '0',
+            'label'                => 'No',
         ]);
 
         $trackStockAttribute = ProductAttribute::create([
-            'title' => 'Track Stock',
+            'title'      => 'Track Stock',
             'identifier' => 'track_stock',
-            'type' => 'VARCHAR',
+            'type'       => 'VARCHAR',
             'field_type' => 'SELECT',
-            'validation' => ''
+            'validation' => '',
         ]);
 
         AttributeDropdownOption::create([
             'product_attribute_id' => $trackStockAttribute->id,
-            'value' => '1',
-            'label' => 'Yes'
+            'value'                => '1',
+            'label'                => 'Yes',
         ]);
         AttributeDropdownOption::create([
             'product_attribute_id' => $trackStockAttribute->id,
-            'value' => '0',
-            'label' => 'No'
+            'value'                => '0',
+            'label'                => 'No',
         ]);
         OrderStatus::insert(
-                        ['title' => 'pending','is_default' => 1],
-                        ['title' => 'processing','is_default' => 0],
-                        ['title' => 'complete','is_default' => 0]
+                        ['title' => 'pending', 'is_default' => 1],
+                        ['title' => 'processing', 'is_default' => 0],
+                        ['title' => 'complete', 'is_default' => 0]
                 );
 
 
-        $path = public_path() . "/countries.json";
+        $path = public_path().'/countries.json';
 
         $json = json_decode(file_get_contents($path), true);
-        foreach($json as $code => $name) {
-            $countires[] = ['code' => $code,'name' => $name];
+        foreach ($json as $code => $name) {
+            $countires[] = ['code' => $code, 'name' => $name];
         }
 
         Country::insert($countires);
-
-
-
     }
-
 }

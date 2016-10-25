@@ -4,7 +4,6 @@ namespace Mage2\Order\Requests;
 
 use Mage2\Framework\Http\Request;
 
-
 class OrderStatusRequest extends Request
 {
     /**
@@ -24,7 +23,6 @@ class OrderStatusRequest extends Request
      */
     public function rules()
     {
-
         $rules = [];
         $rules['title'] = 'required|max:255';
         $rules['is_default'] = 'required|max:1';

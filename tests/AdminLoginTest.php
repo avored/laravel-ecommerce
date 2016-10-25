@@ -1,13 +1,8 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Support\Facades\App;
 
 class AdminLoginTest extends TestCase
 {
-
     /**
      * A basic functional test example.
      *
@@ -16,7 +11,7 @@ class AdminLoginTest extends TestCase
     public function testGetLogin()
     {
         $this->assertTrue(true);
-        $this->visit($this->baseUrl. '/admin/login')
+        $this->visit($this->baseUrl.'/admin/login')
                     ->seePageIs($this->baseUrl.'/admin/login')
                     ->see('Mage2 Admin Login');
     }
@@ -30,12 +25,10 @@ class AdminLoginTest extends TestCase
     {
         $this->assertTrue(true);
         $this->visit('/admin/login')
-                ->type('admin@admin.com','email')
-                ->type('admin123','password')
+                ->type('admin@admin.com', 'email')
+                ->type('admin123', 'password')
                 ->press('Login')
                 ->seePageIs('/admin')
-                ->see("Mage2 Admin");
-
+                ->see('Mage2 Admin');
     }
-
 }

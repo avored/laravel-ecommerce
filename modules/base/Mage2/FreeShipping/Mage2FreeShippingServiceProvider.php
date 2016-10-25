@@ -2,22 +2,21 @@
 
 namespace Mage2\FreeShipping;
 
+use Illuminate\Support\Facades\View;
 use Mage2\Framework\Shipping\Facade\Shipping;
 use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminMenu;
-use Illuminate\Support\Facades\View;
 use Mage2\FreeShipping\Shipping\FreeShipping;
 
-class Mage2FreeShippingServiceProvider extends ServiceProvider {
-
+class Mage2FreeShippingServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
-
-       
+    public function boot()
+    {
     }
 
     /**
@@ -25,11 +24,11 @@ class Mage2FreeShippingServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerShippingOption();
         $this->registerAdminMenu();
         $this->registerViewPath();
-       
     }
 
     /**
@@ -37,22 +36,23 @@ class Mage2FreeShippingServiceProvider extends ServiceProvider {
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
-    protected function registerShippingOption() {
+    protected function registerShippingOption()
+    {
         $freeShipping = new FreeShipping();
         Shipping::put($freeShipping->getIdentifier(), $freeShipping);
     }
 
-    protected function registerViewPath() {
-        View::addLocation(__DIR__ . "/views");
+    protected function registerViewPath()
+    {
+        View::addLocation(__DIR__.'/views');
     }
 
-
-    public function registerAdminMenu() {
+    public function registerAdminMenu()
+    {
         //AdminMenu::registerMenu($adminMenu);
     }
-
-   
 }

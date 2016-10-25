@@ -2,15 +2,13 @@
 
 namespace Mage2\Catalog\Models;
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Session;
 use Mage2\Install\Models\Website;
-use Mage2\Catalog\Models\Product;
 
 class Category extends Model
 {
-
-    protected $fillable = ['website_id', 'parent_id', 'name','slug'];
+    protected $fillable = ['website_id', 'parent_id', 'name', 'slug'];
     protected $websiteId;
     protected $defaultWebsiteId;
     protected $isDefaultWebsite;
@@ -28,15 +26,16 @@ class Category extends Model
         return $this->belongsTo(Website::class);
     }
 
-    public function products() {
+    public function products()
+    {
         return $this->belongsToMany(Product::class);
     }
 
     public function getParentNameAttribute()
     {
-
         $parentCategory = $this->where('id', '=', $this->attributes['parent_id'])->get()->first();
-        return (NULL != $parentCategory) ? $parentCategory->name : "";
+
+        return (null != $parentCategory) ? $parentCategory->name : '';
     }
 
     public function parentCategory()
@@ -56,17 +55,16 @@ class Category extends Model
         $rootCategories = $this->where('parent_id', '=', '0')->where('website_id', '=', $this->websiteId)->get();
         $data = $this->list_categories($rootCategories);
 
-       return $data;
+        return $data;
     }
 
-    public function list_categories( $categories)
+    public function list_categories($categories)
     {
         $data = [];
 
         foreach ($categories as $category) {
-
             $data[] = [
-                'object' => $category,
+                'object'   => $category,
                 'children' => $this->list_categories($category->children),
             ];
         }
@@ -78,5 +76,4 @@ class Category extends Model
     {
         return $this->where('parent_id', '=', $id)->get();
     }
-
 }

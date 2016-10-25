@@ -2,22 +2,21 @@
 
 namespace Mage2\Pickup;
 
+use Illuminate\Support\Facades\View;
 use Mage2\Framework\Payment\Facade\Payment;
 use Mage2\Framework\Support\ServiceProvider;
 use Mage2\Framework\View\Facades\AdminMenu;
-use Illuminate\Support\Facades\View;
 use Mage2\Pickup\Payment\Pickup;
 
-class Mage2PickupServiceProvider extends ServiceProvider {
-
+class Mage2PickupServiceProvider extends ServiceProvider
+{
     /**
      * Bootstrap any application services.
      *
      * @return void
      */
-    public function boot() {
-
-       
+    public function boot()
+    {
     }
 
     /**
@@ -25,11 +24,11 @@ class Mage2PickupServiceProvider extends ServiceProvider {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerPaymentMethod();
         $this->registerAdminMenu();
         $this->registerViewPath();
-       
     }
 
     /**
@@ -37,25 +36,26 @@ class Mage2PickupServiceProvider extends ServiceProvider {
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
+     * @param \Illuminate\Routing\Router $router
+     *
      * @return void
      */
-    protected function registerPaymentMethod() {
+    protected function registerPaymentMethod()
+    {
         $pickup = new Pickup();
         Payment::put($pickup->getIdentifier(), $pickup);
     }
 
-    protected function registerViewPath() {
-        View::addLocation(__DIR__ . "/views");
+    protected function registerViewPath()
+    {
+        View::addLocation(__DIR__.'/views');
     }
 
+    public function registerAdminMenu()
+    {
 
-    public function registerAdminMenu() {
-        
 
-      
+
         //AdminMenu::registerMenu($adminMenu);
     }
-
-   
 }

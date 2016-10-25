@@ -2,15 +2,14 @@
 
 namespace Mage2\TaxClass\Controllers\Admin;
 
-
+use Mage2\Framework\Http\Controllers\Controller;
 use Mage2\TaxClass\Models\TaxClass;
 use Mage2\TaxClass\Requests\TaxClassRequest;
-use Mage2\Framework\Http\Controllers\Controller;
 
 class TaxClassController extends Controller
 {
-
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -22,9 +21,9 @@ class TaxClassController extends Controller
     public function index()
     {
         $taxClasses = TaxClass::paginate(10);
+
         return view('admin.tax-class.index')
-                ->with('taxClasses' , $taxClasses)
-                ;
+                ->with('taxClasses', $taxClasses);
     }
 
     /**
@@ -40,19 +39,22 @@ class TaxClassController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\TaxClassRequest  $request
+     * @param \App\Http\Requests\TaxClassRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(TaxClassRequest $request)
     {
         TaxClass::create($request->all());
+
         return redirect()->route('admin.tax-class.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -63,27 +65,28 @@ class TaxClassController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $taxClass = TaxClass::findorfail($id);
+
         return view('admin.tax-class.edit')
-                    ->with('taxClass', $taxClass)
-                    ;
+                    ->with('taxClass', $taxClass);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\TaxClassRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\TaxClassRequest $request
+     * @param int                                $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(TaxClassRequest $request, $id)
     {
-       
         $taxClass = TaxClass::findorfail($id);
         $taxClass->update($request->all());
 
@@ -93,7 +96,8 @@ class TaxClassController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

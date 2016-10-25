@@ -4,7 +4,6 @@ namespace Mage2\Order\Requests;
 
 use Mage2\Framework\Http\Request;
 
-
 class UpdateOrderStatusRequest extends Request
 {
     /**
@@ -24,7 +23,6 @@ class UpdateOrderStatusRequest extends Request
      */
     public function rules()
     {
-
         $rules = [];
         $rules['order_status_id'] = 'required';
 

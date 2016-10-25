@@ -1,9 +1,8 @@
 <?php
+
 namespace Mage2\Install\Requests;
 
 use Mage2\Framework\Http\Request;
-
-
 
 class AdminUserRequest extends Request
 {
@@ -24,12 +23,11 @@ class AdminUserRequest extends Request
      */
     public function rules()
     {
-        
         return [
             'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:admin_users',
-            'password' => 'required|min:6|confirmed',
+            'last_name'  => 'required|max:255',
+            'email'      => 'required|email|max:255|unique:admin_users',
+            'password'   => 'required|min:6|confirmed',
         ];
     }
 }

@@ -2,11 +2,13 @@
 
 namespace Mage2\Auth\Controllers\Admin;
 
-use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-class LoginController extends Controller {
+use Illuminate\Support\Facades\Auth;
+use Mage2\Framework\Http\Controllers\Controller;
+
+class LoginController extends Controller
+{
     /*
       |--------------------------------------------------------------------------
       | Login Controller
@@ -32,19 +34,22 @@ use AuthenticatesUsers;
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('adminguest', ['except' => 'logout']);
     }
 
-
-    public function showLoginForm() {
+    public function showLoginForm()
+    {
         return view('admin.auth.login');
     }
-    protected function guard() {
+
+    protected function guard()
+    {
         return Auth::guard('admin');
     }
-    
-     public function logout(Request $request)
+
+    public function logout(Request $request)
     {
         $this->guard()->logout();
 
@@ -54,5 +59,4 @@ use AuthenticatesUsers;
 
         return redirect('/admin');
     }
-
 }

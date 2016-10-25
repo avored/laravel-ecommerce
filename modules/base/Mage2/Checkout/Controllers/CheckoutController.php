@@ -1,38 +1,42 @@
 <?php
+
 namespace Mage2\Checkout\Controllers;
 
-use Illuminate\Support\Facades\Redirect;
-use Mage2\Address\Models\Address;
-use Mage2\User\Models\User;
-use Mage2\Framework\Shipping\Facade\Shipping;
-use Mage2\Framework\Payment\Facade\Payment;
 use Illuminate\Http\Request;
-use Mage2\Checkout\Requests\CheckoutUserRequest;
-use Illuminate\Support\Facades\Session;
-use Mage2\Framework\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
+use Mage2\Address\Models\Address;
 use Mage2\Address\Requests\AddressRequest;
+use Mage2\Checkout\Requests\CheckoutUserRequest;
+use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\Framework\Payment\Facade\Payment;
+use Mage2\Framework\Shipping\Facade\Shipping;
 use Mage2\TaxClass\Models\Country;
+use Mage2\User\Models\User;
 
-class CheckoutController extends Controller {
-
-   
-    public function __construct(){
-       
+class CheckoutController extends Controller
+{
+    public function __construct()
+    {
         parent::__construct();
     }
-    public function index() {
 
+    public function index()
+    {
         $orderData = Session::get('order_data');
         if (Auth::check()) {
             $orderData['user_id'] = Auth::user()->id;
             Session::put('order_data', $orderData);
+
             return redirect()->route('checkout.step.shipping-address');
         }
-        return view("checkout.index");
+
+        return view('checkout.index');
     }
 
-    public function postUser(CheckoutUserRequest $request) {
+    public function postUser(CheckoutUserRequest $request)
+    {
         $orderData = Session::get('order_data');
 
         $request->merge(['password' => bcrypt($request->get('password'))]);
@@ -42,36 +46,35 @@ class CheckoutController extends Controller {
 
         $orderData['user_id'] = $user->id;
         Session::put('order_data', $orderData);
+
         return redirect()->route('checkout.step.shipping-address');
     }
 
-    public function shippingAddress() {
-
-
+    public function shippingAddress()
+    {
         $countries = Country::all();
         $user = Auth::user();
         $address = Address::where('user_id', '=', $user->id)
                         ->where('type', '=', 'SHIPPING')->get()->first();
 
-        if(Null === $address) {
+        if (null === $address) {
             $address = new Address();
         }
         //return $address;
-        return view("checkout.shipping-address")
+        return view('checkout.shipping-address')
                         ->with('address', $address)
-                        ->with('countries', $countries)
-        ;
+                        ->with('countries', $countries);
     }
 
-    public function postShippingAddress(AddressRequest $request) {
-
+    public function postShippingAddress(AddressRequest $request)
+    {
         $orderData = Session::get('order_data');
         $user = Auth::user();
         $request->merge(['user_id' => $user->id]);
         $request->merge(['type' => 'SHIPPING']);
 
 
-        
+
         if ($request->get('id') > 0) {
             $address = Address::findorfail($request->get('id'));
             $address->update($request->all());
@@ -85,25 +88,24 @@ class CheckoutController extends Controller {
         return redirect()->route('checkout.step.billing-address');
     }
 
-    public function billingAddress() {
-
+    public function billingAddress()
+    {
         $user = Auth::user();
         $countries = Country::all();
 
         $address = Address::where('user_id', '=', $user->id)
                         ->where('type', '=', 'BILLING')->get()->first();
-        if(Null === $address) {
+        if (null === $address) {
             $address = new Address();
         }
-        return view("checkout.billing-address")
+
+        return view('checkout.billing-address')
                         ->with('address', $address)
-                        ->with('countries', $countries)
-        ;
+                        ->with('countries', $countries);
     }
 
-    public function postBillingAddress(AddressRequest $request) {
-
-
+    public function postBillingAddress(AddressRequest $request)
+    {
         $orderData = Session::get('order_data');
         $user = Auth::user();
         $request->merge(['user_id' => $user->id]);
@@ -120,16 +122,16 @@ class CheckoutController extends Controller {
         return redirect()->route('checkout.step.shipping-option');
     }
 
-    public function shippingOption() {
-
+    public function shippingOption()
+    {
         $shillingOptions = Shipping::all();
-        return view("checkout.shipping-option")
-                ->with('shillingOptions',$shillingOptions)
-        ;
+
+        return view('checkout.shipping-option')
+                ->with('shillingOptions', $shillingOptions);
     }
 
-    public function postShippingOption(Request $request) {
-
+    public function postShippingOption(Request $request)
+    {
         $orderData = Session::get('order_data');
         $orderData['shipping_method'] = $request->get('shipping_option');
         Session::put('order_data', $orderData);
@@ -137,38 +139,38 @@ class CheckoutController extends Controller {
         return redirect()->route('checkout.step.payment-option');
     }
 
-    public function paymentOption() {
-
+    public function paymentOption()
+    {
         $paymentOptions = Payment::all();
-        return view("checkout.payment-option")
-                ->with('paymentOptions',$paymentOptions)
-        ;
+
+        return view('checkout.payment-option')
+                ->with('paymentOptions', $paymentOptions);
     }
 
-    public function postPaymentOption(Request $request) {
-
+    public function postPaymentOption(Request $request)
+    {
         $orderData = Session::get('order_data');
         $cartProducts = Session::get('cart');
 
         $paymentMethod = Payment::get($request->get('payment_option'));
 
-        $redirectUrl  = $paymentMethod->process($orderData, $cartProducts);
+        $redirectUrl = $paymentMethod->process($orderData, $cartProducts);
         $orderData['payment_method'] = $request->get('payment_option');
 
         Session::put('order_data', $orderData);
 
-        if(null === $redirectUrl) {
+        if (null === $redirectUrl) {
             return redirect()->route('checkout.step.review');
         } else {
             return Redirect::to($redirectUrl);
         }
     }
 
-    public function review() {
+    public function review()
+    {
         $cartProducts = Session::get('cart');
-        return view("checkout.review")
-                        ->with('cartProducts', $cartProducts)
-        ;
-    }
 
+        return view('checkout.review')
+                        ->with('cartProducts', $cartProducts);
+    }
 }

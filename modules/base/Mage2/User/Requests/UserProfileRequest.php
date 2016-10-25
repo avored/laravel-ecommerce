@@ -1,4 +1,5 @@
 <?php
+
 namespace Mage2\User\Requests;
 
 use Mage2\Framework\Http\Request;
@@ -24,7 +25,7 @@ class UserProfileRequest extends Request
     {
         return [
             'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
+            'last_name'  => 'required|max:255',
         ];
     }
 }

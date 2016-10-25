@@ -1,9 +1,8 @@
 <?php
+
 namespace Mage2\Catalog\Requests;
 
 use Mage2\Framework\Http\Request;
-
-
 
 class CategoryRequest extends Request
 {
@@ -24,15 +23,15 @@ class CategoryRequest extends Request
      */
     public function rules()
     {
-        
         $validationRule = [];
-        $validationRule['name'] = "required|max:255";
-        if($this->getMethod() == "POST") {
-            $validationRule['slug'] = "required|max:255|alpha_dash|unique:categories";
+        $validationRule['name'] = 'required|max:255';
+        if ($this->getMethod() == 'POST') {
+            $validationRule['slug'] = 'required|max:255|alpha_dash|unique:categories';
         }
-        if($this->getMethod() == "PUT") {
-            $validationRule['slug'] = "required|max:255|alpha_dash";
+        if ($this->getMethod() == 'PUT') {
+            $validationRule['slug'] = 'required|max:255|alpha_dash';
         }
+
         return $validationRule;
     }
 }

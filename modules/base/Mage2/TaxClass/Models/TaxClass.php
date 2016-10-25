@@ -12,6 +12,6 @@ class TaxClass extends Model
                     'state_code',
                     'post_code',
                     'percentage',
-                    'priority'
+                    'priority',
     ];
 }

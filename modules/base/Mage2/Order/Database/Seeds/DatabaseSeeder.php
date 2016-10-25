@@ -1,5 +1,7 @@
 <?php
+
 namespace Mage2\Order\Database\Seeds;
+
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder

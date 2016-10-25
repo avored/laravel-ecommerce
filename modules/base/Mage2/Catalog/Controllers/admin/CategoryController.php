@@ -9,7 +9,6 @@ use Mage2\Framework\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
-
     /**
      * Display a listing of the Category.
      *
@@ -18,9 +17,9 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::paginate(10);
+
         return view('admin.catalog.category.index')
-                ->with('categories' , $categories)
-            ;
+                ->with('categories', $categories);
     }
 
     /**
@@ -31,15 +30,16 @@ class CategoryController extends Controller
     public function create()
     {
         $categoryOptions = $this->_getCategoryOptions();
+
         return view('admin.catalog.category.create')
-                ->with('categoryOptions', $categoryOptions)
-            ;
+                ->with('categoryOptions', $categoryOptions);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\CategoryRequest  $request
+     * @param \App\Http\Requests\CategoryRequest $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request)
@@ -48,30 +48,31 @@ class CategoryController extends Controller
         Category::create($request->all());
 
         return redirect()->route('admin.category.index');
-
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
         $categoryOptions = $this->_getCategoryOptions();
         $category = Category::findorfail($id);
+
         return view('admin.catalog.category.edit')
             ->with('category', $category)
-            ->with('categoryOptions', $categoryOptions)
-            ;
+            ->with('categoryOptions', $categoryOptions);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\CategoryRequest  $request
-     * @param  int  $id
+     * @param \App\Http\Requests\CategoryRequest $request
+     * @param int                                $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(CategoryRequest $request, $id)
@@ -86,7 +87,8 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -96,9 +98,9 @@ class CategoryController extends Controller
         return redirect()->route('admin.category.index');
     }
 
-    private function _getCategoryOptions() {
-        
-        $options =  Collection::make(['0' => 'please select'] + Category::pluck('name','id')->toArray())->toArray() ;
+    private function _getCategoryOptions()
+    {
+        $options = Collection::make(['0' => 'please select'] + Category::pluck('name', 'id')->toArray())->toArray();
 
         return $options;
     }

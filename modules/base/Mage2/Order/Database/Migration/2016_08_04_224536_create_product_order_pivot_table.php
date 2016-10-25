@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateProductOrderPivotTable extends Migration
 {
@@ -17,7 +17,7 @@ class CreateProductOrderPivotTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->integer('order_id')->unsigned();
             $table->integer('qty');
-            $table->decimal('price',11,6);
+            $table->decimal('price', 11, 6);
             $table->timestamps();
         });
     }
