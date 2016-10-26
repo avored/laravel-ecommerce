@@ -7,6 +7,7 @@ use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Catalog\Requests\ProductRequest;
 use Mage2\Framework\Support\Helper;
+use Illuminate\Support\Facades\Cache;
 
 class ProductHelper extends Helper
 {
@@ -129,6 +130,7 @@ class ProductHelper extends Helper
 
     private function _saveProductVarcharValue($product, $identifier, $productAttribute, $value)
     {
+        
         $createNewRecord = false;
         if ($this->isDefaultWebsite == false) {
             $attributeValue = $productAttribute
@@ -141,8 +143,10 @@ class ProductHelper extends Helper
                 $createNewRecord = true;
             }
         }
+       
 
         if (null === $product->$identifier || $createNewRecord == true) {
+            
             $productAttribute->productVarcharValues()->create([
                 'product_id' => $product->id,
                 'website_id' => $this->websiteId,
@@ -155,6 +159,8 @@ class ProductHelper extends Helper
                         'value'      => $value,
                         'website_id' => $this->websiteId,
             ]);
+            $cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
+            Cache::forget($cacheKey);
         }
     }
 
@@ -187,6 +193,8 @@ class ProductHelper extends Helper
                         'value'      => $value,
                         'website_id' => $this->websiteId,
             ]);
+            $cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
+            Cache::forget($cacheKey);
         }
     }
 
@@ -217,6 +225,8 @@ class ProductHelper extends Helper
                         'value'      => $value,
                         'website_id' => $this->websiteId,
             ]);
+            $cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
+            Cache::forget($cacheKey);
         }
     }
 
@@ -247,6 +257,8 @@ class ProductHelper extends Helper
                         'value'      => $value,
                         'website_id' => $this->websiteId,
             ]);
+            $cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
+            Cache::forget($cacheKey);
         }
     }
 
@@ -277,6 +289,8 @@ class ProductHelper extends Helper
                         'value'      => $value,
                         'website_id' => $this->websiteId,
             ]);
+            $cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
+            Cache::forget($cacheKey);
         }
     }
 }

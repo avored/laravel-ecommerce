@@ -178,8 +178,7 @@ class Product extends Model {
 
     private function _getProductVarcharValue($productAttribute) {
 
-        $cacheKey = get_class($this) . "_" . $this->websiteId .
-                "_" . $this->attributes['id'] . "_" . $productAttribute->title;
+        $cacheKey = get_class($this) . "_" . $this->attributes['id']  ."_" . $this->websiteId . "_" . $productAttribute->title;
         if (Cache::has($cacheKey)) {
             $value = Cache::get($cacheKey);
         } else {
@@ -217,8 +216,7 @@ class Product extends Model {
         $value = null;
         $attributeValue = null;
 
-        $cacheKey = get_class($this) . "_" . $this->websiteId . "_"
-          .$this->attributes['id'] . "_" . $productAttribute->title;
+        $cacheKey = get_class($this) . "_" . $this->attributes['id']  . "_" .  $this->websiteId . "_" . $productAttribute->title;
         if (Cache::has($cacheKey)) {
             $value = Cache::get($cacheKey);
         } else {
@@ -254,8 +252,7 @@ class Product extends Model {
         $attributeValue = null;
 
 
-        $cacheKey = get_class($this) . "_" . $this->websiteId . "_"
-        .$this->attributes['id'] . "_" . $productAttribute->title;
+        $cacheKey = get_class($this) . "_" . $this->attributes['id'] . "_" .  $this->websiteId . "_" . $productAttribute->title;
         if (Cache::has($cacheKey)) {
             $value = Cache::get($cacheKey);
         } else {
@@ -290,8 +287,7 @@ class Product extends Model {
         $value = null;
         $attributeValue = null;
 
-        $cacheKey = get_class($this) . "_" . $this->websiteId .
-        "_" .$this->attributes['id'] . "_" . $productAttribute->id;
+        $cacheKey = get_class($this) . "_" . $this->attributes['id'] . "_" .  $this->websiteId . "_" . $productAttribute->title;
         if (Cache::has($cacheKey)) {
             $value = Cache::get($cacheKey);
         } else {
@@ -327,8 +323,7 @@ class Product extends Model {
         $value = null;
         $attributeValue = null;
 
-        $cacheKey = get_class($this) . "_" . $this->websiteId .
-        "_" .$this->attributes['id'] . "_" . $productAttribute->title;
+        $cacheKey = get_class($this) . "_" . $this->attributes['id'] . "_" . $this->websiteId . "_" . $productAttribute->title;
         if (Cache::has($cacheKey)) {
             $value = Cache::get($cacheKey);
         } else {
