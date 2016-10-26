@@ -9,61 +9,54 @@ use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Configuration\Models\Configuration;
 use Mage2\Install\Models\Website;
 use Mage2\Review\Models\Review;
+use Illuminate\Support\Facades\Cache;
 
-class Product extends Model
-{
+class Product extends Model {
+
     protected $fillable = [];
-
     protected $websiteId;
     protected $defaultWebsiteId;
     protected $isDefaultWebsite;
 
-    public function __construct(array $attributes = [])
-    {
+    public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->websiteId = Session::get('website_id');
         $this->defaultWebsiteId = Session::get('default_website_id');
         $this->isDefaultWebsite = Session::get('is_default_website');
     }
 
-    public function categories()
-    {
+    public function categories() {
         return $this->belongsToMany(Category::class);
     }
 
-    public function reviews()
-    {
+    public function reviews() {
         return $this->hasMany(Review::class);
     }
 
-    public function websites()
-    {
+    public function websites() {
         return $this->belongsToMany(Website::class);
     }
 
-    public function relatedProducts()
-    {
+    public function relatedProducts() {
         return $this->hasMany(RelatedProduct::class);
     }
 
-    public function orders()
-    {
+    public function orders() {
         return $this->hasMany(Order::class, 'product_order');
     }
 
-    public function getProductImages($first = false)
-    {
+    public function getProductImages($first = false) {
 
         //$cacheKey = get_class($this) . "_" . __METHOD__;
         //if (Cache::has($cacheKey)) {
         //    $attributeValue = Cache::get($cacheKey);
         //} else {
 
-            $productAttribute = ProductAttribute::where('identifier', '=', 'image')->get()->first();
+        $productAttribute = ProductAttribute::where('identifier', '=', 'image')->get()->first();
         $attributeValue = $productAttribute
-                ->productVarcharValues()
-                ->where('product_id', '=', $this->attributes['id'])
-                ->where('website_id', '=', $this->websiteId)->get();
+                        ->productVarcharValues()
+                        ->where('product_id', '=', $this->attributes['id'])
+                        ->where('website_id', '=', $this->websiteId)->get();
         //}
 
         if (true == $first) {
@@ -75,13 +68,11 @@ class Product extends Model
         return $attributeValue;
     }
 
-    public function getReviews()
-    {
+    public function getReviews() {
         return $this->reviews()->where('status', '=', 'ENABLED')->get();
     }
 
-    public function getTaxAmount()
-    {
+    public function getTaxAmount() {
         $taxPercentage = Configuration::getConfiguration('mage2_tax_class_percentage_of_tax');
         $price = $this->price;
 
@@ -95,8 +86,7 @@ class Product extends Model
      * @return float $value
      */
 
-    public function getPrice()
-    {
+    public function getPrice() {
         $key = 'price';
         $productAttribute = ProductAttribute::where('identifier', '=', $key)->get()->first();
         $value = $this->_getProductFloatValue($productAttribute);
@@ -113,8 +103,7 @@ class Product extends Model
         //return number_format($value,2);
     }
 
-    public function getAttribute($key)
-    {
+    public function getAttribute($key) {
         if (isset($this->attributes[$key])) {
             return $this->attributes[$key];
         }
@@ -147,8 +136,8 @@ class Product extends Model
         //if(Cache::has($cacheKey)) {
         //    $productAttribute = Cache::get($cacheKey);
         //} else {
-            $productAttribute = ProductAttribute::where('identifier', '=', $key)->get()->first();
-            //Cache::put($cacheKey , $productAttribute, $minute = 100);
+        $productAttribute = ProductAttribute::where('identifier', '=', $key)->get()->first();
+        //Cache::put($cacheKey , $productAttribute, $minute = 100);
         //}
 
 
@@ -187,202 +176,188 @@ class Product extends Model
         return $value;
     }
 
-    private function _getProductVarcharValue($productAttribute)
-    {
+    private function _getProductVarcharValue($productAttribute) {
 
-        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_"
-        //   .$this->attributes['id'] . "_" . $productAttribute->id;
-
-        //if (Cache::has($cacheKey)) {
-        //    $value = Cache::get($cacheKey);
-        //} else {
+        $cacheKey = get_class($this) . "_" . $this->websiteId .
+                "_" . $this->attributes['id'] . "_" . $productAttribute->title;
+        if (Cache::has($cacheKey)) {
+            $value = Cache::get($cacheKey);
+        } else {
 
             $value = null;
+            $attributeValue = null;
+
+            if (!$this->isDefaultWebsite) {
+                $attributeValue = $productAttribute
+                                ->productVarcharValues()
+                                ->where('product_id', '=', $this->attributes['id'])
+                                ->where('website_id', '=', $this->websiteId)
+                                ->get()->first();
+            }
+
+            if (null === $attributeValue) {
+                $attributeValue = $productAttribute
+                                ->productVarcharValues()
+                                ->where('product_id', '=', $this->attributes['id'])
+                                ->where('website_id', '=', $this->defaultWebsiteId)
+                                ->get()->first();
+            }
+
+            if (isset($attributeValue->value)) {
+                $value = $attributeValue->value;
+                Cache::put($cacheKey, $value, $minute = 100);
+            }
+        }
+
+
+        return $value;
+    }
+
+    private function _getProductIntegerValue($productAttribute) {
+        $value = null;
         $attributeValue = null;
+
+        $cacheKey = get_class($this) . "_" . $this->websiteId . "_"
+          .$this->attributes['id'] . "_" . $productAttribute->title;
+        if (Cache::has($cacheKey)) {
+            $value = Cache::get($cacheKey);
+        } else {
+
 
         if (!$this->isDefaultWebsite) {
             $attributeValue = $productAttribute
-                    ->productVarcharValues()
-                    ->where('product_id', '=', $this->attributes['id'])
-                    ->where('website_id', '=', $this->websiteId)
-                    ->get()->first();
+                            ->productIntegerValues()
+                            ->where('product_id', '=', $this->attributes['id'])
+                            ->where('website_id', '=', $this->websiteId)
+                            ->get()->first();
         }
 
         if (null === $attributeValue) {
             $attributeValue = $productAttribute
-                    ->productVarcharValues()
-                    ->where('product_id', '=', $this->attributes['id'])
-                    ->where('website_id', '=', $this->defaultWebsiteId)
-                    ->get()->first();
+                            ->productIntegerValues()
+                            ->where('product_id', '=', $this->attributes['id'])
+                            ->where('website_id', '=', $this->defaultWebsiteId)
+                            ->get()->first();
         }
 
         if (isset($attributeValue->value)) {
             $value = $attributeValue->value;
-                //Cache::put($cacheKey, $value, $minute = 100);
+            Cache::put($cacheKey, $value, $minute = 100);
         }
 
-
-
-        //}
-
-
+        }
         return $value;
     }
 
-    private function _getProductIntegerValue($productAttribute)
-    {
+    private function _getProductFloatValue($productAttribute) {
         $value = null;
         $attributeValue = null;
 
-        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_"
-        //  .$this->attributes['id'] . "_" . $productAttribute->id;
 
-        //if (Cache::has($cacheKey)) {
-        //    $value = Cache::get($cacheKey);
-        //} else {
+        $cacheKey = get_class($this) . "_" . $this->websiteId . "_"
+        .$this->attributes['id'] . "_" . $productAttribute->title;
+        if (Cache::has($cacheKey)) {
+            $value = Cache::get($cacheKey);
+        } else {
+        if (!$this->isDefaultWebsite) {
+            $attributeValue = $productAttribute
+                            ->productFloatValues()
+                            ->where('product_id', '=', $this->attributes['id'])
+                            ->where('website_id', '=', $this->websiteId)
+                            ->get()->first();
+        }
+
+        //dd($attributeValue);
+        if (null === $attributeValue) {
+            $attributeValue = $productAttribute
+                            ->productFloatValues()
+                            ->where('product_id', '=', $this->attributes['id'])
+                            ->where('website_id', '=', $this->defaultWebsiteId)
+                            ->get()->first();
+        }
+
+        if (isset($attributeValue->value)) {
+            $value = $attributeValue->value;
+            Cache::put($cacheKey, $value, $minute = 100);
+        }
 
 
-            if (!$this->isDefaultWebsite) {
-                $attributeValue = $productAttribute
-                    ->productIntegerValues()
-                    ->where('product_id', '=', $this->attributes['id'])
-                    ->where('website_id', '=', $this->websiteId)
-                    ->get()->first();
-            }
+        }
+        return $value;
+    }
+
+    private function _getProductTextValue($productAttribute) {
+        $value = null;
+        $attributeValue = null;
+
+        $cacheKey = get_class($this) . "_" . $this->websiteId .
+        "_" .$this->attributes['id'] . "_" . $productAttribute->id;
+        if (Cache::has($cacheKey)) {
+            $value = Cache::get($cacheKey);
+        } else {
+
+
+        if (!$this->isDefaultWebsite) {
+            $attributeValue = $productAttribute
+                            ->productTextValues()
+                            ->where('product_id', '=', $this->attributes['id'])
+                            ->where('website_id', '=', $this->websiteId)
+                            ->get()->first();
+        }
 
         if (null === $attributeValue) {
             $attributeValue = $productAttribute
-                    ->productIntegerValues()
-                    ->where('product_id', '=', $this->attributes['id'])
-                    ->where('website_id', '=', $this->defaultWebsiteId)
-                    ->get()->first();
+                            ->productTextValues()
+                            ->where('product_id', '=', $this->attributes['id'])
+                            ->where('website_id', '=', $this->defaultWebsiteId)
+                            ->get()->first();
         }
 
         if (isset($attributeValue->value)) {
             $value = $attributeValue->value;
-                //Cache::put($cacheKey, $value, $minute = 100);
-        }
-
-        //}
-        return $value;
-    }
-
-    private function _getProductFloatValue($productAttribute)
-    {
-        $value = null;
-        $attributeValue = null;
-
-
-        //$cacheKey = get_class($this) . "_" . $this->websiteId . "_"
-        //.$this->attributes['id'] . "_" . $productAttribute->id;
-
-        //if (Cache::has($cacheKey)) {
-        //    $value = Cache::get($cacheKey);
-        //} else {
-            if (!$this->isDefaultWebsite) {
-                $attributeValue = $productAttribute
-                    ->productFloatValues()
-                    ->where('product_id', '=', $this->attributes['id'])
-                    ->where('website_id', '=', $this->websiteId)
-                    ->get()->first();
-            }
-
-            //dd($attributeValue);
-            if (null === $attributeValue) {
-                $attributeValue = $productAttribute
-                    ->productFloatValues()
-                    ->where('product_id', '=', $this->attributes['id'])
-                    ->where('website_id', '=', $this->defaultWebsiteId)
-                    ->get()->first();
-            }
-
-        if (isset($attributeValue->value)) {
-            $value = $attributeValue->value;
-                //Cache::put($cacheKey, $value, $minute = 100);
+            Cache::put($cacheKey, $value, $minute = 100);
         }
 
 
-        //}
+        }
         return $value;
     }
 
-    private function _getProductTextValue($productAttribute)
-    {
+    private function _getProductDatetimeValue($productAttribute) {
         $value = null;
         $attributeValue = null;
 
-        //$cacheKey = get_class($this) . "_" . $this->websiteId .
-        //"_" .$this->attributes['id'] . "_" . $productAttribute->id;
-
-        //if (Cache::has($cacheKey)) {
-        //    $value = Cache::get($cacheKey);
-        //} else {
-
-
-            if (!$this->isDefaultWebsite) {
-                $attributeValue = $productAttribute
-                    ->productTextValues()
-                    ->where('product_id', '=', $this->attributes['id'])
-                    ->where('website_id', '=', $this->websiteId)
-                    ->get()->first();
-            }
+        $cacheKey = get_class($this) . "_" . $this->websiteId .
+        "_" .$this->attributes['id'] . "_" . $productAttribute->title;
+        if (Cache::has($cacheKey)) {
+            $value = Cache::get($cacheKey);
+        } else {
+        if (!$this->isDefaultWebsite) {
+            $attributeValue = $productAttribute
+                            ->productDatetimeValues()
+                            ->where('product_id', '=', $this->attributes['id'])
+                            ->where('website_id', '=', $this->websiteId)
+                            ->get()->first();
+        }
 
         if (null === $attributeValue) {
             $attributeValue = $productAttribute
-                    ->productTextValues()
-                    ->where('product_id', '=', $this->attributes['id'])
-                    ->where('website_id', '=', $this->defaultWebsiteId)
-                    ->get()->first();
+                            ->productDatetimeValues()
+                            ->where('product_id', '=', $this->attributes['id'])
+                            ->where('website_id', '=', $this->defaultWebsiteId)
+                            ->get()->first();
         }
 
         if (isset($attributeValue->value)) {
             $value = $attributeValue->value;
-                //Cache::put($cacheKey, $value, $minute = 100);
+            Cache::put($cacheKey, $value, $minute = 100);
         }
 
-
-        //}
+        }
         return $value;
     }
 
-    private function _getProductDatetimeValue($productAttribute)
-    {
-        $value = null;
-        $attributeValue = null;
-
-        //$cacheKey = get_class($this) . "_" . $this->websiteId .
-        //"_" .$this->attributes['id'] . "_" . $productAttribute->id;
-
-        //if (Cache::has($cacheKey)) {
-        //    $value = Cache::get($cacheKey);
-        //} else {
-            if (!$this->isDefaultWebsite) {
-                $attributeValue = $productAttribute
-                    ->productDatetimeValues()
-                    ->where('product_id', '=', $this->attributes['id'])
-                    ->where('website_id', '=', $this->websiteId)
-                    ->get()->first();
-            }
-
-        if (null === $attributeValue) {
-            $attributeValue = $productAttribute
-                    ->productDatetimeValues()
-                    ->where('product_id', '=', $this->attributes['id'])
-                    ->where('website_id', '=', $this->defaultWebsiteId)
-                    ->get()->first();
-        }
-
-        if (isset($attributeValue->value)) {
-            $value = $attributeValue->value;
-                //Cache::put($cacheKey, $value, $minute = 100);
-        }
-
-        //}
-        return $value;
-    }
-
-    public function getFeaturedProducts($paginate = 4)
-    {
+    public function getFeaturedProducts($paginate = 4) {
         $attribute = ProductAttribute::where('identifier', '=', 'is_featured')->get()->first();
 
         $products = Collection::make([]);
@@ -394,4 +369,5 @@ class Product extends Model
 
         return $products;
     }
+
 }

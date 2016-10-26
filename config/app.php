@@ -147,6 +147,7 @@ return [
         Mage2\Framework\Foundation\Provider\ModuleServiceProvider::class,
         Mage2\Framework\Foundation\Provider\ConsoleServiceProvider::class,
         Mage2\Framework\Foundation\Provider\ViewServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
     /*
      * Package Service Providers...
      */
@@ -208,5 +209,6 @@ return [
         'Html'         => Collective\Html\HtmlFacade::class,
         'PDF'          => Barryvdh\DomPDF\Facade::class,
         'Theme'        => Mage2\Framework\Theme\Facade\Theme::class,
+        'Debugbar'     => Barryvdh\Debugbar\Facade::class,
     ],
 ];
