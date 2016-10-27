@@ -2,10 +2,10 @@
 
 namespace Mage2\Wishlist\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Mage2\Catalog\Models\Product;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class Wishlist extends Model
+class Wishlist extends BaseModel
 {
     protected $fillable = ['website_id', 'user_id', 'product_id'];
 

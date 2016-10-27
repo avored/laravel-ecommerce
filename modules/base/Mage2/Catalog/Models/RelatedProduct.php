@@ -2,9 +2,9 @@
 
 namespace Mage2\Catalog\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class RelatedProduct extends Model
+class RelatedProduct extends BaseModel
 {
     protected $fillable = ['product_id', 'related_product_id'];
 

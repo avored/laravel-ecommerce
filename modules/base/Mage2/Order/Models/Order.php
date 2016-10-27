@@ -2,11 +2,11 @@
 
 namespace Mage2\Order\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Mage2\Address\Models\Address;
 use Mage2\Catalog\Models\Product;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class Order extends Model
+class Order extends BaseModel
 {
     protected $fillable = [
                     'shipping_address_id',

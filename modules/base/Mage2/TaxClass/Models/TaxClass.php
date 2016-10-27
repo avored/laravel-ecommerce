@@ -2,9 +2,9 @@
 
 namespace Mage2\TaxClass\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class TaxClass extends Model
+class TaxClass extends BaseModel
 {
     protected $fillable = [
                     'title',

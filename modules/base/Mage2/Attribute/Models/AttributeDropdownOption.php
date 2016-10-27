@@ -2,9 +2,9 @@
 
 namespace Mage2\Attribute\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class AttributeDropdownOption extends Model
+class AttributeDropdownOption extends BaseModel
 {
     protected $fillable = ['product_attribute_id', 'value', 'label'];
 

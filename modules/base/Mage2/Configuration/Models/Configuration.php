@@ -2,9 +2,9 @@
 
 namespace Mage2\configuration\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class Configuration extends Model
+class Configuration extends BaseModel
 {
     protected $fillable = ['website_id', 'configuration_key', 'configuration_value'];
 

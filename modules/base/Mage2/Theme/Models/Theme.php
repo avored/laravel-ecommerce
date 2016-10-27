@@ -2,9 +2,9 @@
 
 namespace Mage2\Theme\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class Theme extends Model
+class Theme extends BaseModel
 {
     protected $fillable = [];
 }

@@ -2,9 +2,9 @@
 
 namespace Mage2\Order\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class OrderStatus extends Model
+class OrderStatus extends BaseModel
 {
     protected $fillable = ['title', 'is_default'];
 

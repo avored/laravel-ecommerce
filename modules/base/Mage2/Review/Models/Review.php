@@ -2,11 +2,11 @@
 
 namespace Mage2\Review\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Mage2\Catalog\Models\Product;
+use Mage2\Framework\Http\Models\BaseModel;
 use Mage2\User\Models\User;
 
-class Review extends Model
+class Review extends BaseModel
 {
     protected $fillable = ['product_id', 'user_id', 'star', 'comment', 'status'];
 

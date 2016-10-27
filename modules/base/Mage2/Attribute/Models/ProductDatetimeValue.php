@@ -3,9 +3,9 @@
 namespace Mage2\Attribute\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class ProductDatetimeValue extends Model
+class ProductDatetimeValue extends BaseModel
 {
     protected $fillable = ['website_id', 'product_id', 'attribute_id', 'value'];
     protected $dates = ['created_at', 'updated_at', 'value'];

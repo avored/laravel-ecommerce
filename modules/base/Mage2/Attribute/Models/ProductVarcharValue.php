@@ -2,9 +2,9 @@
 
 namespace Mage2\Attribute\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class ProductVarcharValue extends Model
+class ProductVarcharValue extends BaseModel
 {
     protected $fillable = ['website_id', 'product_id', 'attribute_id', 'value'];
 

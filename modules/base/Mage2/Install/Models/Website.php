@@ -2,11 +2,11 @@
 
 namespace Mage2\Install\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Models\Product;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class Website extends Model
+class Website extends BaseModel
 {
     protected $fillable = ['name', 'host', 'is_default'];
 

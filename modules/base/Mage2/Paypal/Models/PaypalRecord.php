@@ -2,9 +2,9 @@
 
 namespace Mage2\Paypal\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\Http\Models\BaseModel;
 
-class PaypalRecord extends Model
+class PaypalRecord extends BaseModel
 {
     protected $fillable = ['paymentId', 'token', 'PayerID'];
 }

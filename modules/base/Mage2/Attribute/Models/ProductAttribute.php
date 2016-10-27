@@ -2,9 +2,10 @@
 
 namespace Mage2\Attribute\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
-class ProductAttribute extends Model
+use Mage2\Framework\Http\Models\BaseModel;
+
+class ProductAttribute extends BaseModel
 {
     protected $fillable = ['title', 'identifier', 'field_type', 'type', 'validation'];
 

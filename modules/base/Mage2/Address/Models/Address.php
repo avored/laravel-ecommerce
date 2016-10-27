@@ -2,10 +2,10 @@
 
 namespace Mage2\Address\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\Http\Models\BaseModel;
 use Mage2\TaxClass\Models\Country;
 
-class Address extends Model
+class Address extends BaseModel
 {
     protected $fillable = [
                     'user_id',
