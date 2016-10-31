@@ -3,7 +3,7 @@
 namespace Mage2\Paypal\Controllers;
 
 use Mage2\Configuration\Models\Configuration;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 
 class ConfigurationController extends Controller
 {

@@ -4,7 +4,7 @@ namespace Mage2\Catalog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
-use Mage2\Framework\Http\Models\BaseModel;
+use Mage2\System\Models\BaseModel;
 use Mage2\Install\Models\Website;
 
 class Category extends BaseModel

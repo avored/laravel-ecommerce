@@ -2,7 +2,7 @@
 
 namespace Mage2\Dashboard\Controllers\Admin;
 
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 
 class AdminController extends Controller
 {

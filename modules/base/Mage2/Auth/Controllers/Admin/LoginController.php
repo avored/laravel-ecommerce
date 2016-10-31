@@ -5,7 +5,7 @@ namespace Mage2\Auth\Controllers\Admin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 
 class LoginController extends Controller
 {

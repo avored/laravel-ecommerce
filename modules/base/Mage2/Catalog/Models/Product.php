@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Configuration\Models\Configuration;
-use Mage2\Framework\Http\Models\BaseModel;
+use Mage2\System\Models\BaseModel;
 use Mage2\Install\Models\Website;
 use Mage2\Review\Models\Review;
 use Illuminate\Support\Facades\Cache;

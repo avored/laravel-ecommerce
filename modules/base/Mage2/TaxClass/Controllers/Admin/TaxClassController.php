@@ -2,7 +2,7 @@
 
 namespace Mage2\TaxClass\Controllers\Admin;
 
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 use Mage2\TaxClass\Models\TaxClass;
 use Mage2\TaxClass\Requests\TaxClassRequest;
 

@@ -3,7 +3,7 @@
 namespace Mage2\ContactUs\Requests;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Framework\Http\Request;
+use Mage2\System\Requests\Request;
 
 class ContactUsRequest extends Request
 {

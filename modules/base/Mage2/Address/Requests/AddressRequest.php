@@ -2,7 +2,7 @@
 
 namespace Mage2\Address\Requests;
 
-use Mage2\Framework\Http\Request;
+use Mage2\System\Requests\Request;
 
 class AddressRequest extends Request
 {

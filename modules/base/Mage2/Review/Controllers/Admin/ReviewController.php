@@ -3,7 +3,7 @@
 namespace Mage2\Review\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 use Mage2\Review\Models\Review;
 
 class ReviewController extends Controller

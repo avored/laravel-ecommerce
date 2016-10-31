@@ -3,7 +3,7 @@
 namespace Mage2\Wishlist\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 use Mage2\Wishlist\Models\Wishlist;
 
 class WishlistController extends Controller

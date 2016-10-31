@@ -5,7 +5,7 @@ namespace Mage2\Cart\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\Product;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 
 class CartController extends Controller
 {

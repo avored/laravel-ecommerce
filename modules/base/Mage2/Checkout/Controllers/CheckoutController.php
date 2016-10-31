@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Mage2\Address\Models\Address;
 use Mage2\Address\Requests\AddressRequest;
 use Mage2\Checkout\Requests\CheckoutUserRequest;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 use Mage2\Framework\Payment\Facade\Payment;
 use Mage2\Framework\Shipping\Facade\Shipping;
 use Mage2\TaxClass\Models\Country;

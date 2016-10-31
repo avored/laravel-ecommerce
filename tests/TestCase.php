@@ -56,17 +56,17 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         $app->singleton(
             Illuminate\Contracts\Http\Kernel::class,
-            Mage2\Framework\Http\Kernel::class
+            Mage2\System\Kernel::class
         );
 
         $app->singleton(
             Illuminate\Contracts\Console\Kernel::class,
-            Mage2\Framework\Console\Kernel::class
+            Mage2\System\Console\Kernel::class
         );
 
         $app->singleton(
             Illuminate\Contracts\Debug\ExceptionHandler::class,
-            Mage2\Framework\Exceptions\Handler::class
+            Mage2\System\Exceptions\Handler::class
         );
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();

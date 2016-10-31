@@ -3,7 +3,7 @@
 namespace Mage2\Paypal\Controllers;
 
 use Illuminate\Http\Request;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 use Mage2\Paypal\Models\PaypalRecord;
 
 class PaypalController extends Controller

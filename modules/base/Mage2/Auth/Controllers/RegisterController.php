@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Mage2\Auth\Mail\NewUserMail;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 use Mage2\User\Models\User;
 use Validator;
 

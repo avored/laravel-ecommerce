@@ -3,7 +3,7 @@
 namespace Mage2\TaxClass\Models;
 
 use Mage2\Address\Models\Address;
-use Mage2\Framework\Http\Models\BaseModel;
+use Mage2\System\Models\BaseModel;
 
 class Country extends BaseModel
 {

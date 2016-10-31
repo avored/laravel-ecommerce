@@ -4,7 +4,7 @@ namespace Mage2\Configuration\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Mage2\Configuration\Models\Configuration;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 use Mage2\Framework\View\Facades\AdminConfiguration;
 
 class ConfigurationController extends Controller

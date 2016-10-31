@@ -2,7 +2,7 @@
 
 namespace Mage2\Attribute\Models;
 
-use Mage2\Framework\Http\Models\BaseModel;
+use Mage2\System\Models\BaseModel;
 
 class AttributeDropdownOption extends BaseModel
 {

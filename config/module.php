@@ -18,6 +18,7 @@ return [
     'Mage2\\Paypal\\'           => base_path('/modules/base/Mage2/Paypal'),
     'Mage2\\Pickup\\'           => base_path('/modules/base/Mage2/Pickup'),
     'Mage2\\Review\\'           => base_path('/modules/base/Mage2/Review'),
+    'Mage2\\System\\'           => base_path('/modules/base/Mage2/System'),
     'Mage2\\TaxClass\\'         => base_path('/modules/base/Mage2/TaxClass'),
     'Mage2\\Theme\\'            => base_path('/modules/base/Mage2/Theme'),
     'Mage2\\User\\'             => base_path('/modules/base/Mage2/User'),

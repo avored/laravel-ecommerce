@@ -2,7 +2,7 @@
 
 namespace Mage2\User\Controllers\Admin;
 
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 use Mage2\User\Models\User;
 use Mage2\User\Requests\UserRequest;
 

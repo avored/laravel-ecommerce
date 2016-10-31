@@ -2,7 +2,7 @@
 
 namespace Mage2\Install\Requests;
 
-use Mage2\Framework\Http\Request;
+use Mage2\System\Requests\Request;
 
 class AdminUserRequest extends Request
 {

@@ -5,7 +5,7 @@ namespace Mage2\Catalog\Controllers\Admin;
 use Illuminate\Support\Collection;
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Requests\CategoryRequest;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Controllers\Controller;
 
 class CategoryController extends Controller
 {
