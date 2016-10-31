@@ -13,7 +13,7 @@ class Module extends BaseModule
      *
      * @var bool
      */
-    protected $defer = true;
+    //protected $defer = true;
     /**
      * Bootstrap any application services.
      *

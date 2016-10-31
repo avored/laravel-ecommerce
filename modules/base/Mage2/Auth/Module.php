@@ -17,7 +17,7 @@ class Module extends BaseModule
      *
      * @var bool
      */
-    protected $defer = true;
+    //protected $defer = true;
     /**
      * Bootstrap mage2 auth module services.
      *

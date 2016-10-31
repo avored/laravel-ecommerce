@@ -15,7 +15,7 @@ class Module extends BaseModule
      *
      * @var bool
      */
-    protected $defer = true;
+    //protected $defer = true;
     /**
      * Bootstrap any application services.
      *
@@ -63,7 +63,7 @@ class Module extends BaseModule
             'label' => 'Pages',
             'url'   => route('admin.page.index'),
         ];
-        AdminMenu::registerMenu($adminMenu);
+        //AdminMenu::registerMenu($adminMenu);
     }
 
     public function registerAdminConfiguration()

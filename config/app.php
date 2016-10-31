@@ -124,7 +124,7 @@ return [
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
-        //Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
+        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
@@ -156,7 +156,11 @@ return [
     /*
      * Application Service Providers...
      */
+        Mage2\System\Providers\AppServiceProvider::class,
+        Mage2\System\Providers\AuthServiceProvider::class,
+        
         Mage2\System\Module::class,
+        Mage2\Dashboard\Module::class,
         
         Mage2\Address\Module::class,
         Mage2\Attribute\Module::class,
@@ -166,7 +170,6 @@ return [
         Mage2\Checkout\Module::class,
         Mage2\Configuration\Module::class,
         Mage2\ContactUs\Module::class,
-        Mage2\Dashboard\Module::class,
         Mage2\FreeShipping\Module::class,
         Mage2\Install\Module::class,
         Mage2\Order\Module::class,
@@ -233,7 +236,7 @@ return [
         'PDF'          => Barryvdh\DomPDF\Facade::class,
         'Theme'        => Mage2\System\Theme\Facade\Theme::class,
         'Debugbar'     => Barryvdh\Debugbar\Facade::class,
-        //'AdminConfiguration' => Mage2\System\View\Facades\AdminConfiguration::class,
-        //'AdminMenu' => Mage2\System\View\Facades\AdminMenu::class,
+        'AdminConfiguration' => Mage2\System\View\Facades\AdminConfiguration::class,
+        'AdminMenu' => Mage2\System\View\Facades\AdminMenu::class,
     ],
 ];
