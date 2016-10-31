@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Catalog\Requests\ProductRequest;
-use Mage2\Framework\Support\Helper;
+use Mage2\System\Helper\Helper;
 use Illuminate\Support\Facades\Cache;
 
 class ProductHelper extends Helper

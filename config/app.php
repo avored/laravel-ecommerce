@@ -124,7 +124,7 @@ return [
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
         Illuminate\Cache\CacheServiceProvider::class,
-        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
+        //Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
         Illuminate\Cookie\CookieServiceProvider::class,
         Illuminate\Database\DatabaseServiceProvider::class,
         Illuminate\Encryption\EncryptionServiceProvider::class,
@@ -144,19 +144,42 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
-        Mage2\Framework\Foundation\Provider\ModuleServiceProvider::class,
-        Mage2\Framework\Foundation\Provider\ConsoleServiceProvider::class,
-        Mage2\Framework\Foundation\Provider\ViewServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
     /*
      * Package Service Providers...
      */
 
+        Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
+        //Mage2\Framework\Form\FormServiceProvider::class,
     //
 
     /*
      * Application Service Providers...
      */
+        Mage2\System\Module::class,
+        
+        Mage2\Address\Module::class,
+        Mage2\Attribute\Module::class,
+        Mage2\Auth\Module::class,
+        Mage2\Cart\Module::class,
+        Mage2\Catalog\Module::class,
+        Mage2\Checkout\Module::class,
+        Mage2\Configuration\Module::class,
+        Mage2\ContactUs\Module::class,
+        Mage2\Dashboard\Module::class,
+        Mage2\FreeShipping\Module::class,
+        Mage2\Install\Module::class,
+        Mage2\Order\Module::class,
+        Mage2\Page\Module::class,
+        Mage2\Paypal\Module::class,
+        Mage2\Pickup\Module::class,
+        Mage2\Review\Module::class,
+        Mage2\TaxClass\Module::class,
+        Mage2\Theme\Module::class,
+        Mage2\User\Module::class,
+        Mage2\Wishlist\Module::class,
+        
+        
     //App\Providers\AppServiceProvider::class,
     // App\Providers\BroadcastServiceProvider::class,
     //App\Providers\AuthServiceProvider::class,
@@ -208,7 +231,9 @@ return [
         'Form'         => Collective\Html\FormFacade::class,
         'Html'         => Collective\Html\HtmlFacade::class,
         'PDF'          => Barryvdh\DomPDF\Facade::class,
-        'Theme'        => Mage2\Framework\Theme\Facade\Theme::class,
+        'Theme'        => Mage2\System\Theme\Facade\Theme::class,
         'Debugbar'     => Barryvdh\Debugbar\Facade::class,
+        //'AdminConfiguration' => Mage2\System\View\Facades\AdminConfiguration::class,
+        //'AdminMenu' => Mage2\System\View\Facades\AdminMenu::class,
     ],
 ];

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Mage2\Configuration\Models\Configuration;
 use Mage2\System\Controllers\Controller;
-use Mage2\Framework\Theme\Facade\Theme;
+use Mage2\System\Theme\Facade\Theme;
 
 class ThemeController extends Controller
 {

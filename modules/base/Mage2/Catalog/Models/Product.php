@@ -188,18 +188,18 @@ class Product extends BaseModel {
 
             if (!$this->isDefaultWebsite) {
                 $attributeValue = $productAttribute
-                                ->productVarcharValues()
-                                ->where('product_id', '=', $this->attributes['id'])
-                                ->where('website_id', '=', $this->websiteId)
-                                ->get()->first();
+                                        ->productVarcharValues()
+                                        ->where('product_id', '=', $this->attributes['id'])
+                                        ->where('website_id', '=', $this->websiteId)
+                                        ->get()->first();
             }
 
             if (null === $attributeValue) {
                 $attributeValue = $productAttribute
-                                ->productVarcharValues()
-                                ->where('product_id', '=', $this->attributes['id'])
-                                ->where('website_id', '=', $this->defaultWebsiteId)
-                                ->get()->first();
+                                        ->productVarcharValues()
+                                        ->where('product_id', '=', $this->attributes['id'])
+                                        ->where('website_id', '=', $this->defaultWebsiteId)
+                                        ->get()->first();
             }
 
             if (isset($attributeValue->value)) {
@@ -207,7 +207,7 @@ class Product extends BaseModel {
                 Cache::put($cacheKey, $value, $minute = 100);
             }
         }
-
+        
 
         return $value;
     }
@@ -224,18 +224,18 @@ class Product extends BaseModel {
 
         if (!$this->isDefaultWebsite) {
             $attributeValue = $productAttribute
-                            ->productIntegerValues()
-                            ->where('product_id', '=', $this->attributes['id'])
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
+                                    ->productIntegerValues()
+                                    ->where('product_id', '=', $this->attributes['id'])
+                                    ->where('website_id', '=', $this->websiteId)
+                                    ->get()->first();
         }
 
         if (null === $attributeValue) {
             $attributeValue = $productAttribute
-                            ->productIntegerValues()
-                            ->where('product_id', '=', $this->attributes['id'])
-                            ->where('website_id', '=', $this->defaultWebsiteId)
-                            ->get()->first();
+                                    ->productIntegerValues()
+                                    ->where('product_id', '=', $this->attributes['id'])
+                                    ->where('website_id', '=', $this->defaultWebsiteId)
+                                    ->get()->first();
         }
 
         if (isset($attributeValue->value)) {
@@ -258,19 +258,19 @@ class Product extends BaseModel {
         } else {
         if (!$this->isDefaultWebsite) {
             $attributeValue = $productAttribute
-                            ->productFloatValues()
-                            ->where('product_id', '=', $this->attributes['id'])
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
+                                    ->productFloatValues()
+                                    ->where('product_id', '=', $this->attributes['id'])
+                                    ->where('website_id', '=', $this->websiteId)
+                                    ->get()->first();
         }
 
         //dd($attributeValue);
         if (null === $attributeValue) {
             $attributeValue = $productAttribute
-                            ->productFloatValues()
-                            ->where('product_id', '=', $this->attributes['id'])
-                            ->where('website_id', '=', $this->defaultWebsiteId)
-                            ->get()->first();
+                                    ->productFloatValues()
+                                    ->where('product_id', '=', $this->attributes['id'])
+                                    ->where('website_id', '=', $this->defaultWebsiteId)
+                                    ->get()->first();
         }
 
         if (isset($attributeValue->value)) {
@@ -295,18 +295,18 @@ class Product extends BaseModel {
 
         if (!$this->isDefaultWebsite) {
             $attributeValue = $productAttribute
-                            ->productTextValues()
-                            ->where('product_id', '=', $this->attributes['id'])
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
+                                    ->productTextValues()
+                                    ->where('product_id', '=', $this->attributes['id'])
+                                    ->where('website_id', '=', $this->websiteId)
+                                    ->get()->first();
         }
 
         if (null === $attributeValue) {
             $attributeValue = $productAttribute
-                            ->productTextValues()
-                            ->where('product_id', '=', $this->attributes['id'])
-                            ->where('website_id', '=', $this->defaultWebsiteId)
-                            ->get()->first();
+                                    ->productTextValues()
+                                    ->where('product_id', '=', $this->attributes['id'])
+                                    ->where('website_id', '=', $this->defaultWebsiteId)
+                                    ->get()->first();
         }
 
         if (isset($attributeValue->value)) {
@@ -329,18 +329,18 @@ class Product extends BaseModel {
         } else {
         if (!$this->isDefaultWebsite) {
             $attributeValue = $productAttribute
-                            ->productDatetimeValues()
-                            ->where('product_id', '=', $this->attributes['id'])
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
+                                    ->productDatetimeValues()
+                                    ->where('product_id', '=', $this->attributes['id'])
+                                    ->where('website_id', '=', $this->websiteId)
+                                    ->get()->first();
         }
 
         if (null === $attributeValue) {
             $attributeValue = $productAttribute
-                            ->productDatetimeValues()
-                            ->where('product_id', '=', $this->attributes['id'])
-                            ->where('website_id', '=', $this->defaultWebsiteId)
-                            ->get()->first();
+                                    ->productDatetimeValues()
+                                    ->where('product_id', '=', $this->attributes['id'])
+                                    ->where('website_id', '=', $this->defaultWebsiteId)
+                                    ->get()->first();
         }
 
         if (isset($attributeValue->value)) {

@@ -4,7 +4,7 @@ namespace Mage2\Catalog\Helpers;
 
 use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\Category;
-use Mage2\Framework\Support\Helper;
+use Mage2\System\Helper\Helper;
 
 class CategoryHelper extends Helper
 {

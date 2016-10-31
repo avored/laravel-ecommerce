@@ -2,8 +2,8 @@
 
 namespace Mage2\Pickup\Payment;
 
-use Mage2\Framework\Payment\Payment;
-use Mage2\Framework\Payment\PaymentInterface;
+use Mage2\System\Payment\Payment;
+use Mage2\System\Payment\PaymentInterface;
 
 class Pickup extends Payment implements PaymentInterface
 {
