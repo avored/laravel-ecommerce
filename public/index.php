@@ -45,7 +45,7 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$compiledPath = __DIR__.'/cache/compiled.php';
+$compiledPath = __DIR__.'/storage/framework/bootstrap/cache/compiled.php';
 
 if (file_exists($compiledPath)) {
     require $compiledPath;
