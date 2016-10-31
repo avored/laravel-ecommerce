@@ -22,6 +22,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerAdminMenu();
     }
 
     /**
@@ -32,7 +33,7 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-        $this->registerAdminMenu();
+
         $this->registerViewPath();
     }
 
@@ -61,6 +62,6 @@ class Module extends BaseModule
             'label' => 'Orders',
             'url'   => route('admin.order.index'),
         ];
-        //AdminMenu::registerMenu($adminMenu);
+        AdminMenu::registerMenu($adminMenu);
     }
 }

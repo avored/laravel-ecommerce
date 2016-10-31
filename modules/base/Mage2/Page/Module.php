@@ -23,6 +23,8 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerAdminMenu();
+        $this->registerAdminConfiguration();
     }
 
     /**
@@ -33,8 +35,7 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-        $this->registerAdminMenu();
-        //$this->registerAdminConfiguration();
+
         $this->registerViewPath();
     }
 
@@ -63,20 +64,10 @@ class Module extends BaseModule
             'label' => 'Pages',
             'url'   => route('admin.page.index'),
         ];
-        //AdminMenu::registerMenu($adminMenu);
+        AdminMenu::registerMenu($adminMenu);
     }
 
     public function registerAdminConfiguration()
     {
-
-        //$adminConfigurations[] = [
-        //    'title' => 'Address Configuration',
-        //    'description' => 'Set Default Country for Store',
-        //    'edit_action' => route('admin.configuration.address'),
-        //];
-
-        //foreach ($adminConfigurations as $adminConfiguration) {
-        //      AdminConfiguration::registerConfiguration($adminConfiguration);
-        //}
     }
 }

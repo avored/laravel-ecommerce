@@ -25,6 +25,9 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerAdminMenu();
+        $this->registerAdminConfiguration();
+
     }
 
     /**
@@ -36,8 +39,6 @@ class Module extends BaseModule
     {
         $this->mapWebRoutes();
         $this->registerPaymentMethod();
-        $this->registerAdminMenu();
-        $this->registerAdminConfiguration();
         $this->registerViewPath();
     }
 
@@ -83,7 +84,7 @@ class Module extends BaseModule
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {
-            //AdminConfiguration::registerConfiguration($adminConfiguration);
+            AdminConfiguration::registerConfiguration($adminConfiguration);
         }
     }
 }

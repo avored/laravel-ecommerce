@@ -25,6 +25,8 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerAdminMenu();
+        $this->registerAdminConfiguration();
     }
 
     /**
@@ -35,8 +37,8 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-        //$this->registerAdminConfiguration();
-        //$this->registerAdminMenu();
+        //
+
         $this->registerViewPath();
         $this->registerViewComposerData();
     }

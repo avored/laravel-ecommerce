@@ -2,10 +2,9 @@
 
 namespace Mage2\Configuration;
 
-use Illuminate\Support\Facades\Session;
+
 use Illuminate\Support\Facades\View;
 use Mage2\System\View\Facades\AdminMenu;
-
 use Mage2\Framework\Support\BaseModule;
 
 class Module extends BaseModule

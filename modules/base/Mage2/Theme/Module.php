@@ -23,6 +23,8 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerAdminMenu();
+        $this->registerAdminConfiguration();
     }
 
     /**
@@ -33,8 +35,7 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-        $this->registerAdminMenu();
-        //$this->registerAdminConfiguration();
+
         $this->registerViewPath();
     }
 
@@ -63,19 +64,19 @@ class Module extends BaseModule
             'label' => 'Themes',
             'url'   => route('admin.theme.index'),
         ];
-        //AdminMenu::registerMenu($adminMenu);
+        AdminMenu::registerMenu($adminMenu);
     }
 
     public function registerAdminConfiguration()
     {
-        $adminConfigurations[] = [
-             'title'       => 'Theme Configuration',
-             'description' => 'Defined the amount of tax applied to product.',
-             'edit_action' => route('admin.configuration.theme'),
-         ];
+        //$adminConfigurations[] = [
+        //     'title'       => 'Theme Configuration',
+        //     'description' => 'Defined the amount of tax applied to product.',
+        //     'edit_action' => route('admin.configuration.theme'),
+         //];
 
-        foreach ($adminConfigurations as $adminConfiguration) {
+        //foreach ($adminConfigurations as $adminConfiguration) {
             //AdminConfiguration::registerConfiguration($adminConfiguration);
-        }
+        //}
     }
 }

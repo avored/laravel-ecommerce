@@ -22,8 +22,6 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        
-
         //$this->registerMiddleware();
     }
 
@@ -36,7 +34,7 @@ class Module extends BaseModule
     {
         
         $this->mapWebRoutes();
-        $this->registerAdminMenu();
+
         $this->registerViewPath();
     }
 
@@ -59,14 +57,4 @@ class Module extends BaseModule
         View::addLocation(__DIR__.'/views');
     }
 
-    public function registerAdminMenu()
-    {
-        return true;
-
-        $adminMenu = [
-            'label' => 'Pages',
-            'url'   => route('admin.page.index'),
-        ];
-        AdminMenu::registerMenu($adminMenu);
-    }
 }

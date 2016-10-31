@@ -23,7 +23,10 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerAdminMenu();
+        $this->registerAdminConfiguration();
     }
+
 
     /**
      * Register any application services.
@@ -33,8 +36,7 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-        //$this->registerAdminMenu();
-        $this->registerAdminConfiguration();
+
         $this->registerViewPath();
     }
 
@@ -59,11 +61,11 @@ class Module extends BaseModule
 
     public function registerAdminMenu()
     {
-        $adminMenu = [
-            'label' => 'Tax Class',
-            'url'   => route('admin.tax-class.index'),
-        ];
-        AdminMenu::registerMenu($adminMenu);
+        //$adminMenu = [
+        //    'label' => 'Tax Class',
+        //    'url'   => route('admin.tax-class.index'),
+        //];
+        //AdminMenu::registerMenu($adminMenu);
     }
 
     public function registerAdminConfiguration()
@@ -75,7 +77,7 @@ class Module extends BaseModule
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {
-            //AdminConfiguration::registerConfiguration($adminConfiguration);
+            AdminConfiguration::registerConfiguration($adminConfiguration);
         }
     }
 }

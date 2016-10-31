@@ -24,6 +24,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerAdminMenu();
     }
 
     /**
@@ -34,7 +35,7 @@ class Module extends BaseModule
     public function register()
     {
         $this->registerPaymentMethod();
-        $this->registerAdminMenu();
+
         $this->registerViewPath();
     }
 
@@ -60,9 +61,6 @@ class Module extends BaseModule
 
     public function registerAdminMenu()
     {
-
-
-
         //AdminMenu::registerMenu($adminMenu);
     }
 }

@@ -24,6 +24,8 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerShippingOption();
+        $this->registerAdminMenu();
     }
 
     /**
@@ -33,8 +35,7 @@ class Module extends BaseModule
      */
     public function register()
     {
-        $this->registerShippingOption();
-        $this->registerAdminMenu();
+
         $this->registerViewPath();
     }
 
