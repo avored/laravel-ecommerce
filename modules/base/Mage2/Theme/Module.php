@@ -63,7 +63,7 @@ class Module extends BaseModule
             'label' => 'Themes',
             'url'   => route('admin.theme.index'),
         ];
-        AdminMenu::registerMenu($adminMenu);
+        //AdminMenu::registerMenu($adminMenu);
     }
 
     public function registerAdminConfiguration()
@@ -75,7 +75,7 @@ class Module extends BaseModule
          ];
 
         foreach ($adminConfigurations as $adminConfiguration) {
-            AdminConfiguration::registerConfiguration($adminConfiguration);
+            //AdminConfiguration::registerConfiguration($adminConfiguration);
         }
     }
 }

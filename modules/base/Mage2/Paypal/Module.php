@@ -83,7 +83,7 @@ class Module extends BaseModule
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {
-            AdminConfiguration::registerConfiguration($adminConfiguration);
+            //AdminConfiguration::registerConfiguration($adminConfiguration);
         }
     }
 }

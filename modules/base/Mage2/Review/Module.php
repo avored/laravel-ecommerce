@@ -61,6 +61,6 @@ class Module extends BaseModule
             'label' => 'Review',
             'url'   => route('admin.review.index'),
         ];
-        AdminMenu::registerMenu($adminMenu);
+        //AdminMenu::registerMenu($adminMenu);
     }
 }

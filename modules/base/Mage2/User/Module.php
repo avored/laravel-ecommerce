@@ -60,6 +60,6 @@ class Module extends BaseModule
             'label' => 'Users',
             'url'   => route('admin.user.index'),
         ];
-        AdminMenu::registerMenu($adminMenu);
+        //AdminMenu::registerMenu($adminMenu);
     }
 }
