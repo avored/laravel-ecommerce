@@ -9,6 +9,8 @@ use Mage2\Framework\View\Facades\AdminMenu;
 use Mage2\System\Middleware\EncryptCookies;
 use Mage2\System\Middleware\VerifyCsrfToken;
 use Mage2\System\Middleware\Website as WebsiteMiddleware;
+use Illuminate\Support\Facades\Session;
+use Mage2\Catalog\Models\Category;
 
 class Mage2SystemServiceProvider extends ServiceProvider
 {
