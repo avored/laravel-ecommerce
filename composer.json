@@ -45,7 +45,6 @@
       "Mage2\\Cart\\": "modules/base/Mage2/Cart/",
       "Mage2\\Catalog\\": "modules/base/Mage2/Catalog/",
       "Mage2\\Checkout\\": "modules/base/Mage2/Checkout/",
-      "Mage2\\Common\\": "modules/base/Mage2/Common/",
       "Mage2\\Configuration\\": "modules/base/Mage2/Configuration/",
       "Mage2\\ContactUs\\": "modules/base/Mage2/ContactUs/",
       "Mage2\\Dashboard\\": "modules/base/Mage2/Dashboard/",

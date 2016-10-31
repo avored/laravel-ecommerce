@@ -7,7 +7,6 @@ return [
     'Mage2\\Cart\\'             => base_path('/modules/base/Mage2/Cart'),
     'Mage2\\Checkout\\'         => base_path('/modules/base/Mage2/Checkout'),
     'Mage2\\Catalog\\'          => base_path('/modules/base/Mage2/Catalog'),
-    'Mage2\\Common\\'           => base_path('/modules/base/Mage2/Common'),
     'Mage2\\Configuration\\'    => base_path('/modules/base/Mage2/Configuration'),
     'Mage2\\ContactUs\\'        => base_path('/modules/base/Mage2/ContactUs'),
     'Mage2\\Dashboard\\'        => base_path('/modules/base/Mage2/Dashboard'),

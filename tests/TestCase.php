@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use Mage2\Auth\Models\AdminUser;
-use Mage2\Common\Models\Configuration;
+use Mage2\Configuration\Models\Configuration;
 use Mage2\Install\Models\Website;
 use Mage2\User\Models\User;
 
