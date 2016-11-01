@@ -8,6 +8,6 @@ class Payment extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'Payment';
+        return 'Mage2\System\Payment\PaymentManager';
     }
 }

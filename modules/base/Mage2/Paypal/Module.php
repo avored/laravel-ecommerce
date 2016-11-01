@@ -5,9 +5,7 @@ namespace Mage2\Paypal;
 use Illuminate\Support\Facades\View;
 use Mage2\System\Payment\Facade\Payment;
 use Mage2\System\View\Facades\AdminConfiguration;
-use Mage2\System\View\Facades\AdminMenu;
 use Mage2\Paypal\Payment\Paypal;
-
 use Mage2\Framework\Support\BaseModule;
 
 class Module extends BaseModule
@@ -17,7 +15,7 @@ class Module extends BaseModule
      *
      * @var bool
      */
-    //protected $defer = true;
+    protected $defer = true;
     /**
      * Bootstrap any application services.
      *
@@ -53,7 +51,7 @@ class Module extends BaseModule
      */
     protected function mapWebRoutes()
     {
-        require __DIR__.'/routes.php';
+        require __DIR__.'/routes/web.php';
     }
 
     protected function registerPaymentMethod()
@@ -69,9 +67,6 @@ class Module extends BaseModule
 
     public function registerAdminMenu()
     {
-
-
-
         //AdminMenu::registerMenu($adminMenu);
     }
 

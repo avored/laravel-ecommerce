@@ -8,6 +8,6 @@ class Theme extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'Theme';
+        return 'Mage2\System\Theme\ThemeManager';
     }
 }

@@ -8,6 +8,6 @@ class Shipping extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'Shipping';
+        return 'Mage2\System\Shipping\ShippingManager';
     }
 }

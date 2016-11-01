@@ -8,6 +8,6 @@ class AdminMenu extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'AdminMenu';
+        return 'Mage2\System\View\AdminMenu';
     }
 }

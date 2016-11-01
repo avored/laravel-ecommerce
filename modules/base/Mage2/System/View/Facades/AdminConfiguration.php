@@ -8,6 +8,6 @@ class AdminConfiguration extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'AdminConfiguration';
+        return 'Mage2\System\View\AdminConfiguration';
     }
 }
