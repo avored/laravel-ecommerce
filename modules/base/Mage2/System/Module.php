@@ -39,8 +39,12 @@ class Module extends BaseModule {
         $this->registerAdminConfigurationManager();
         $this->registerAdminConfigurationFacade();
 
-        $this->registerTheme();
+        //
         $this->registerAdminMenuFacade();
+        $this->_registerShippingFacade();
+        $this->_registerPaymentFacade();
+        $this->_registerThemeFacade();
+
         $this->app['request']->server->set('HTTPS', 'off');
         
 
@@ -63,11 +67,10 @@ class Module extends BaseModule {
         //$this->registerAdminConfiguration();
         $this->registerViewPath();
         $this->registerViewComposerData();
-        $this->_registerShippingFacade();
+        $this->registerTheme();
+
         //$this->registerUrlGenerator();
 
-        $this->_registerPaymentFacade();
-        $this->_registerThemeFacade();
          $this->app->bind('view.finder', function ($app) {
             $paths = $app['config']['view.paths'];
 
