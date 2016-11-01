@@ -10,9 +10,7 @@
 
     <title>{{ config('app.name', 'Mage2 Ecommerce') }}</title>
 
-    <!-- Styles -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('/vendor/mage2-admin/css/appscss.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -21,21 +19,31 @@
         ]); ?>
             
     </script>
-    
-     <!-- Scripts -->
-    <script src="{{ asset('/js/jquery.min.js') }}"></script>
-    <script src="{{ asset('/js/materialize.min.js') }}"></script>
-    <script src="{{ asset('/js/app.js') }}"></script>
+
+
+    <script src="{{ asset('/vendor/mage2-admin/js/all.js') }}"></script>
+    <style>
+        body {
+            width: 100%;
+            height: 100%;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container-fluid {
+           width: 100%;
+        }
+        .flex-row {
+            width:100%;
+        }
+
+
+    </style>
 </head>
 <body>
+
 <div class="container-fluid">
-   
-
-    <div class="section">
         @yield('content')
-    </div>
-
-   
 </div>
 </body>
 </html>

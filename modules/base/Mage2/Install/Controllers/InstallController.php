@@ -57,11 +57,12 @@ class InstallController extends Controller
     public function adminPost(AdminUserRequest $request)
     {
         AdminUser::create([
-                                'first_name' => $request->get('first_name'),
-                                'last_name'  => $request->get('last_name'),
-                                'email'      => $request->get('email'),
-                                'password'   => bcrypt($request->get('password')),
-                                'role_id'    => 1, // @todo change this one??
+                                'first_name'    => $request->get('first_name'),
+                                'last_name'     => $request->get('last_name'),
+                                'email'         => $request->get('email'),
+                                'password'      => bcrypt($request->get('password')),
+                                'is_super_user' => 1, // @todo change this one??
+                                'role_id'       => 1, // @todo change this one??
                             ]);
 
         $host = str_replace('http://', '', $request->getUriForPath(''));

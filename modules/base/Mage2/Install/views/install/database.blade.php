@@ -1,10 +1,11 @@
 @extends('layouts.install')
 @section('content')
-    <div class="container">
-        <div class="col s6 offset-s3">
-            <div class="card card-default center-block">
-                <div class="card-content">
-                <div class="card-title">Welcome to Mage2 Installation</div>
+
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Welcome to Mage2 Installation</div>
+                <div class="panel-body">
+
 
                     <h2 class="text-center">Database Setup</h2>
 
@@ -20,5 +21,5 @@
                 </div>
             </div>
         </div>
-    </div>
+
 @endsection
