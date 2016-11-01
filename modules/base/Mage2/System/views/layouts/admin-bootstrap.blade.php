@@ -11,8 +11,8 @@
         <title>{{ config('app.name', 'Mage2 Ecommerce') }}</title>
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/admin.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendor/mage2-admin/css/appscss.css') }}" rel="stylesheet">
+        <link href="{{ asset('vendor/mage2-admin/css/appless.css') }}" rel="stylesheet">
 
 
         <!-- Scripts -->
@@ -32,20 +32,17 @@ echo json_encode([
     <body>
         <!-- Scripts -->
         <!-- JQuery -->
-        <script src="{{ asset('/js/jquery.js') }}"></script>
-        
-        <script type="text/javascript" src="{{ asset('js/materialize.min.js') }}"></script>
+        <script src="{{ asset('/vendor/mage2-admin/js/all.js') }}"></script>
+        <script src="{{ asset('/vendor/mage2-admin/js/scripts.js') }}"></script>
+
         <script src="//cdn.ckeditor.com/4.5.11/basic/ckeditor.js"></script>
-        
-        <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
 
 
-            @include("layouts.admin-nav")
 
-            <div class="content-wrapper">
+        @include("layouts.admin-bootstrap-nav")
+        <div class="container">
                 <div class="row">
-                    <div class="col s12">
-
+                    <div class="col-md-12">
                         @if(session()->has('notificationText'))
                         <div class="chip notification">
                             {{ session()->get('notificationText') }}
@@ -54,8 +51,10 @@ echo json_encode([
                         @endif
                     </div>
                 </div>
-                @yield('content')
-            </div>
+
+            @yield('content')
+        </div>
+
 
 
 

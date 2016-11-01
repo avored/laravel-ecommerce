@@ -45,7 +45,7 @@ class Module extends BaseModule {
         $this->app['request']->server->set('HTTPS', 'off');
         
          //parent::boot();
-        View::composer('layouts.admin-nav', function ($view) {
+        View::composer(['layouts.admin-nav','layouts.admin-bootstrap-nav'], function ($view) {
             $adminMenus = (array) AdminMenuFacade::getMenuItems();
             $view->with('adminMenus', $adminMenus);
         });
@@ -90,19 +90,6 @@ class Module extends BaseModule {
         //$router = $this->app['router'];
         //$router->middleware('web', EncryptCookies::class);
         //$router->middleware('web', VerifyCsrfToken::class);
-    }
-
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @param \Illuminate\Routing\Router $router
-     *
-     * @return void
-     */
-    protected function mapWebRoutes() {
-        require __DIR__ . '/routes.php';
     }
 
     protected function registerViewPath() {

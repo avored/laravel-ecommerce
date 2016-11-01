@@ -150,7 +150,7 @@ return [
      */
 
         Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
-        //Mage2\Framework\Form\FormServiceProvider::class,
+        Mage2\Framework\Form\FormServiceProvider::class,
     //
 
     /*
@@ -238,5 +238,6 @@ return [
         'Debugbar'     => Barryvdh\Debugbar\Facade::class,
         'AdminConfiguration' => Mage2\System\View\Facades\AdminConfiguration::class,
         'AdminMenu' => Mage2\System\View\Facades\AdminMenu::class,
+        'Mage2Form' => \Mage2\Framework\Form\Contracts\FormFacade::class,
     ],
 ];

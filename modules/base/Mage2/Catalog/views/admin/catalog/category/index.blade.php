@@ -1,11 +1,11 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
 <div class="row">
-    <div class="col s12">
-        <div class="main-title-wrapper">
-        <h1> Category List</h1>
-        <div class="right" style="margin: 1rem 0px;">
+    <div class="col-md-12">
+        <div class="main-title-wrap">
+        <span class="title"> Category List</span>
+        <div class="pull-right" style="margin: 1rem 0px;">
             <a href="{{ route('admin.category.create') }}"
                class="btn btn-primary"> Create Category</a>
         </div>
@@ -17,7 +17,7 @@
         <p>Sorry No Category Found</p>
 
         @else
-        <table class="table bordered tablegrid">
+        <table class="table table-grid bordered tablegrid">
             <thead>
             <th>ID</th>
             <th>Name</th>

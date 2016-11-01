@@ -11,7 +11,7 @@ class AdminConfiguration
         $this->adminConfiguration[] = $adminConfiguration;
     }
 
-    public function getAll()
+    public function All()
     {
         return $this->adminConfiguration;
     }

@@ -27,9 +27,9 @@ class ConfigurationController extends Controller
      */
     public function index()
     {
-        $configs = AdminConfiguration::getAll();
+        $configurations = AdminConfiguration::All();
 
-        return view('admin.config.index')->with('configs', $configs);
+        return view('admin.configuration.index')->with('configurations', $configurations);
     }
 
     /**
