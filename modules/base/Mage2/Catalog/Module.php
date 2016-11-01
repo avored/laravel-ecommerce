@@ -9,7 +9,7 @@ use Mage2\System\View\Facades\AdminConfiguration;
 use Mage2\System\View\Facades\AdminMenu;
 
 use Mage2\Framework\Support\BaseModule;
-
+use Mage2\Framework\Support\Facades\Permission;
 class Module extends BaseModule
 {
      /**
@@ -39,6 +39,7 @@ class Module extends BaseModule
         $this->mapWebRoutes();
         $this->registerViewPath();
         $this->registerViewComposerData();
+        $this->registerPermissions();
     }
 
     /**
@@ -102,5 +103,23 @@ class Module extends BaseModule
             $view->with('categories', $baseCategories)
                 ->with('cart', $cart);
         });
+    }
+
+    /**
+     *  Register Permission for the roles
+     *
+     *
+     */
+    protected function registerPermissions() {
+        $permissions = [
+            ['title' => 'Category List',     'routes' => 'category.index'],
+            ['title' => 'Category Create',   'routes' => "category.create,category.store"],
+            ['title' => 'Category Edit',     'routes' => "category.edit, category.update"],
+            ['title' => 'Category Destroy',  'routes' => "category.destroy"],
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::add($permission);
+        }
     }
 }
