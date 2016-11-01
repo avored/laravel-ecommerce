@@ -35,8 +35,7 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
-        //dd('test');
-        //$this->registerModule();
+
         $this->registerAdminConfigurationManager();
         $this->registerAdminConfigurationFacade();
 
@@ -44,7 +43,7 @@ class Module extends BaseModule {
         $this->registerAdminMenuFacade();
         $this->app['request']->server->set('HTTPS', 'off');
         
-         //parent::boot();
+
         View::composer(['layouts.admin-nav','layouts.admin-bootstrap-nav'], function ($view) {
             $adminMenus = (array) AdminMenuFacade::getMenuItems();
             $view->with('adminMenus', $adminMenus);
