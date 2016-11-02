@@ -17,6 +17,9 @@
         <p>Sorry No Category Found</p>
 
         @else
+
+                {!! $dataGrid->render() !!}
+        <!--
         <table class="table table-grid bordered tablegrid">
             <thead>
             <th>ID</th>
@@ -28,31 +31,33 @@
             <th>DELETE</th>
             </thead>
             <tbody>
-                @foreach($categories as $category)
+                foreach($categories as $category)
                 <tr>
 
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->name }}</td>
-                    <td>{{ $category->slug }}</td>
-                    <td>{{ $category->parent_name }}</td>
-                    <td>{{ $category->website->name }}</td>
+                    <td> $category->id }}</td>
+                    <td> $category->name }}</td>
+                    <td> $category->slug }}</td>
+                    <td> $category->parent_name }}</td>
+                    <td> $category->website->name }}</td>
 
                     <td>
-                        <a href="{{ route('admin.category.edit',$category->id )}}">Edit</a>
+                        <a href=" route('admin.category.edit',$category->id )}}">Edit</a>
                     </td>
                     <td>
-                        {!! Form::open(['method' => 'DELETE', 'route' => ['admin.category.destroy',$category->id]]) !!}
+                         Form::open(['method' => 'DELETE', 'route' => ['admin.category.destroy',$category->id]]) !!}
                         <a href="#" onclick="jQuery(this).parents('form:first').submit()">Delete</a>
-                        {!! Form::close() !!}
+                         Form::close() !!}
                     </td>
 
                 </tr>
-                @endforeach
+                endforeach
             </tbody>
         </table>
 
             <div class="clearfix"></div>
-            {!! $categories->links() !!}
+             $categories->links() !!}
+
+        -->
         @endif
     </div>
 </div>

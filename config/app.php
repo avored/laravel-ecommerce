@@ -151,6 +151,7 @@ return [
 
         Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
         Mage2\Framework\Form\FormServiceProvider::class,
+        Mage2\Framework\DataGrid\DataGridServiceProvider::class,
     //
 
     /*
