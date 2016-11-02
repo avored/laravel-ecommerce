@@ -19,7 +19,7 @@
             {!! Form::bind($product, ['method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}
 
             @include('admin.catalog.product.boxes.basic',['categories' => $categories])
-            
+            @include('admin.catalog.product.boxes.images')
             
             @include('admin.catalog.product.boxes.inventory')
             @include('admin.catalog.product.boxes.seo')
