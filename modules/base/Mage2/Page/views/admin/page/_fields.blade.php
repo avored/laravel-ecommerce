@@ -1,5 +1,5 @@
-@include('template.text',['key' => 'title','label' => 'Title'])
-@include('template.text',['key' => 'slug','label' => 'Slug'])
-@include('template.editor',['key' => 'content','label' => 'Content'])
-@include('template.text',['key' => 'meta_title','label' => 'Meta Title'])
-@include('template.text',['key' => 'meta_description','label' => 'Meta Description'])
+{!! Form::text('title','Title') !!}
+{!! Form::text('slug','Slug') !!}
+{!! Form::textarea('content','Content') !!}
+{!! Form::text('meta_title','Meta Title') !!}
+{!! Form::text('meta_description','Meta Description') !!}

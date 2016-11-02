@@ -1,15 +1,15 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 
 @section('content')
 <div class="row">
-    <div class="col s12">
+    <div class="col-md-12">
 
-        <div class="main-title-wrapper">
-            <h1>
+        <div class="main-title-wrap">
+            <span class="title">
                 Order List
                 <!--<small>Sub title</small> -->
-            </h1>
+            </span>
         </div>
         <div class="clearfix"></div>
         <br/>

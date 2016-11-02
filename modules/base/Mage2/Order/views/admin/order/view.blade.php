@@ -1,16 +1,16 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 
 @section('content')
     <div class="row">
         <div class="col s12">
 
-            <div class="main-title-wrapper">
-                <h1>
+            <div class="main-title-wrap">
+                <span class='title'>
                     Order View
 
                 </h1>
-                <div class="right">
+                <div class="pull-right">
                     <a class='dropdown-button btn' data-constrainwidth="false" data-beloworigin="true"
                        href='#' data-activates='order-option-menu'>Options</a>
 
@@ -26,9 +26,9 @@
             <div class="clearfix"></div>
             <br/>
 
-            <div class="card">
-                <div class="card-content">
-                    <h3 class="card-title">Order Basic Info</h3>
+            <div class="panel panel-default">
+                <h3 class="panel-heading">Order Basic Info</h3>
+                <div class="panel-body">
 
                     <table class="table table-bordered">
                         <tr>
@@ -47,10 +47,10 @@
                             <th>Status</th>
                             <td>
                                 @if(isset($changeStatus) && $changeStatus ===true)
-                                    {!! Form::open(['method' => 'put','route' => ['admin.order.update-status',$order->id]]) !!}
-                                    @include('template.select',['key' => 'order_status_id','label' => 'OrderStatus', 'options' => $orderStatus])
-
-                                    @include('template.submit',['label' => 'Save'])
+                                    {!! Form::open(['method' => 'put','action' => route('admin.order.update-status',$order->id)]) !!}
+                                    
+                                    {!! Form::select('order_status_id','OrderStatus', $orderStatus) !!}
+                                    {!! Form::submit('Save') !!}
                                     {!! Form::close() !!}
                                 @else
                                     {{ $order->orderStatus->title }}
@@ -63,9 +63,9 @@
                 </div>
 
             </div>
-            <div class="card ">
-                <div class="card-content">
-                    <h3 class="card-title">Order Item Info</h3>
+            <div class="panel-default panel ">
+                <h3 class="panel-heading">Order Item Info</h3>
+                <div class="panel-body">
 
                     <table class="table table-bordered">
                         <tbody>
@@ -91,16 +91,11 @@
                 </div>
 
             </div>
-            <div class="card">
-                <div class="card-content">
-                    <h3 class="card-title">Order Address Info</h3>
-                    <!--div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div-->
+            <div class="panel-default panel">
+                <h3 class="panel-heading">Order Address Info</h3>
+                <div class="panel-body">
                     <div class="row">
-                        <div class="col s6">
+                        <div class="col-md-6">
                             <h6>Shipping Info</h6>
 
                             <p>
@@ -114,7 +109,7 @@
                                 {{ $order->shipping_address->phone }}<br/>
                             </p>
                         </div>
-                        <div class="col s6">
+                        <div class="col-md-6">
                             <h6>Billing Info</h6>
 
                             <p>

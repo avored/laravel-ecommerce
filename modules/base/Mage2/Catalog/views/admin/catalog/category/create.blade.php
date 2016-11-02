@@ -8,7 +8,7 @@
             <div class="panel-heading">Create Category</div>
             <div class="panel-body">
 
-                {!! Mage2Form::open(['action' =>  route('admin.category.store'),'method' => 'POST']) !!}
+                {!! Form::open(['action' =>  route('admin.category.store'),'method' => 'POST']) !!}
                 @include('admin.catalog.category._fields')
 
                 <div class="input-field">

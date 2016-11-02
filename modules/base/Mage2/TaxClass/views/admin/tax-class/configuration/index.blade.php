@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
 
@@ -13,11 +13,10 @@
         <br/>
         <div class="paypal-form-wrapper">
 
-            {!! Form::model($configurations, ['route' => 'admin.configuration.store']) !!}
-            @include('template.text',['key' => 'mage2_tax_class_percentage_of_tax','label' => 'Percentage of Tax'])
+            {!! Form::bind($configurations, ['action' => route('admin.configuration.store'),'method' => 'POST']) !!}
+            {!! Form::text('mage2_tax_class_percentage_of_tax', 'Percentage of Tax') !!}
             
-            
-            @include('template.submit',['label' => 'Save Configuration'])
+            {!! Form::submit('Save Configuration') !!}
 
             {!! Form::close() !!}
         </div>

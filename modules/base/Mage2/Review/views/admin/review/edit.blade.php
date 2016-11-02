@@ -1,36 +1,26 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
-        <div class="row">
-            <div class="col m8 offset-m2 s12">
-                <div class="main-title-wrapper">
-                    <h1>
-                        Edit Review
-                        <!--<small>Sub title</small> -->
-                    </h1>
+<div class="row">
+    <div class="col-md-12">
+        <div class="main-title-wrap">
+            <span class="title">
+                Edit Review
+            </span>
 
-                </div>
-                {!! Form::model($review, ['method' => 'PUT', 'route' => ['admin.review.update', $review->id]]) !!}
-
-                        <div class="input-field">
-                            <label>User Full Name</label>
-                            <input type="text" name="user_full_name" disabled value="{{ $review->user->full_name }}" />
-                        </div>
-                        <div class="input-field">
-                            <label>Product Title</label>
-                            <input type="text" name="product_title" disabled value="{{ $review->product->title }}" />
-                        </div>
-                        <div class="input-field">
-                            <label>Star</label>
-                            <input type="text" name="star" disabled value="{{ $review->star }}" />
-                        </div>
-                        @include('template.select',['key' => 'status','label' => 'Status','options' => ['ENABLED' => "Enabled",'DISABLED' => 'Disabled']])
-
-
-                        @include('template.hidden',['key' => 'id'])
-                        @include('template.submit',['label' => 'Update Review'])
-                    
-                {!! Form::close() !!}
-            </div>
         </div>
+        {!! Form::bind($review, ['method' => 'PUT', 'action' => route('admin.review.update', $review->id)]) !!}
+
+        {!! Form::text('user_full_name', 'User Full Name',['disabled' => true]) !!}
+        {!! Form::text('product_title', 'Product Title',['disabled' => true]) !!}
+        {!! Form::text('star', 'Star',['disabled' => true]) !!}
+        {!! Form::select('status', 'Status', ['ENABLED' => "Enabled",'DISABLED' => 'Disabled']) !!}
+
+
+        @include('template.hidden',['key' => 'id'])
+        {!! Form::submit('Update Review') !!}
+
+        {!! Form::close() !!}
+    </div>
+</div>
 @endsection

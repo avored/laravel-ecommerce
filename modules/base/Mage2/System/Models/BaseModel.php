@@ -43,20 +43,24 @@ class BaseModel extends Model
     }
     */
 
+    /**
     public static function  all($columns = ['*'])
     {
-        $model = new static();
+        $model = new static;
 
         $cacheKey = get_class($model) . "_all" ;
         if (Cache::has($cacheKey)) {
             return Cache::get($cacheKey);
         }
-        $rows = call_user_func_array([static::query(), 'all'], [$columns]);
+        $rows = $model->all($columns);
         //$rows = parent::all($columns);
 
         Cache::put($cacheKey, $rows, $minute = 100);
         return $rows;
     }
+     * 
+    
+     */
 
     
     public static function paginate($perPage = null, 

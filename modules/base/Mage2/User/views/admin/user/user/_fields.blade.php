@@ -1,11 +1,14 @@
-@include('template.text',['key' => 'first_name','label' => 'First Name'])
-@include('template.text',['key' => 'last_name','label' => 'Last Name'])
+
+{!! Form::text('first_name','First Name') !!}
+{!! Form::text('last_name','Last Name') !!}
+
 @if($editMethod == true) 
     <?php $attributes = ['disabled' => true];?>
 @else
     <?php $attributes = []; ?>
 @endif
+{!! Form::text('email','Email',$attributes) !!}
 
-@include('template.text',['key' => 'email','label' => 'Email', 'attributes' => $attributes])
-@include('template.password',['key' => 'password','label' => 'Password'])
-@include('template.password',['key' => 'password_confirmation','label' => 'Confirm Password'])
+{!! Form::password('password','Password') !!}
+{!! Form::password('password_confirmation','Confirm Password') !!}
+

@@ -1,14 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
 <div class="row">
-    <div class="col s12">
-    <div class="main-title-wrapper">
-        <h1>
+    <div class="col-md-12">
+    <div class="main-title-wrap">
+        <span class="title">
             Page List
             <!--<small>Sub title</small> -->
-        </h1>
-        <div class="right" style="margin: 1rem 0px;">
+        </span>
+        <div class="pull-right" style="margin: 1rem 0px;">
             <a href="{{ route('admin.page.create') }}"
                class="btn btn-primary"> Create Page</a>
         </div>
@@ -45,7 +45,7 @@
                         <a href="{{ route('admin.page.edit',$page->id )}}">Edit</a>
                     </td>
                     <td>
-                        {!! Form::open(['method' => 'DELETE', 'route' => ['admin.page.destroy',$page->id]]) !!}
+                        {!! Form::open(['method' => 'DELETE', 'action' => route('admin.page.destroy',$page->id)]) !!}
                         <a href="#" onclick="jQuery(this).parents('form:first').submit()">Delete</a>
                         {!! Form::close() !!}
                     </td>

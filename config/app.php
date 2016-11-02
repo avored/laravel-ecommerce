@@ -143,7 +143,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
     /*
      * Package Service Providers...
@@ -234,14 +233,12 @@ return [
         'URL'          => Illuminate\Support\Facades\URL::class,
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
-        'Form'         => Collective\Html\FormFacade::class,
-        'Html'         => Collective\Html\HtmlFacade::class,
         'PDF'          => Barryvdh\DomPDF\Facade::class,
         'Theme'        => Mage2\System\Theme\Facade\Theme::class,
         'Debugbar'     => Barryvdh\Debugbar\Facade::class,
         'AdminConfiguration' => Mage2\System\View\Facades\AdminConfiguration::class,
         'AdminMenu' => Mage2\System\View\Facades\AdminMenu::class,
-        'Mage2Form' => \Mage2\Framework\Form\Contracts\FormFacade::class,
+        'Form' => Mage2\Framework\Form\Contracts\FormFacade::class,
         'Payment' => Mage2\System\Payment\Facade\Payment::class,
     ],
 ];

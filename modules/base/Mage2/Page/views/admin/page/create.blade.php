@@ -1,18 +1,16 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
         <div class="row">
-            <div class="col s12">
-                <div class="main-title-wrapper">
-                    <h1>
+            <div class="col-md-12">
+                <div class="main-title-wrap">
+                    <span class="title">
                         Create Page
-                        <!--<small>Sub title</small> -->
-                    </h1>
+                    </span>
                 </div>
-                {!! Form::open(['route' => 'admin.page.store']) !!}
+                {!! Form::open(['method' => 'post','action' => route('admin.page.store')]) !!}
                     @include('admin.page._fields')
-                    @include('template.submit',['label' => 'Create Page'])
-                    
+                    {!! Form::submit('Create Page') !!}                    
                 {!! Form::close() !!}
             </div>
         </div>

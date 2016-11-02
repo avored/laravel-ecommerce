@@ -12,7 +12,7 @@
         </div>
         <div class="clearfix"></div>
         <br/>
-        @if(count($categories) <= 0)
+        @if(count($dataGrid->data) <= 0)
 
         <p>Sorry No Category Found</p>
 

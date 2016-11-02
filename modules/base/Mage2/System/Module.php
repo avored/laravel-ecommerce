@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Mage2\System\View\FileViewFinder;
-
-
+use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\Framework\Support\BaseModule;
 
 class Module extends BaseModule {

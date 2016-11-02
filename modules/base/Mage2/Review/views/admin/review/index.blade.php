@@ -1,13 +1,13 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
 <div class="row">
     <div class="col s12">
-        <div class="main-title-wrapper">
-            <h1>
+        <div class="main-title-wrap">
+            <span class="title">
                 Review List
                 <!--<small>Sub title</small> -->
-            </h1>
+            </span>>
 
         </div>
 
@@ -41,7 +41,7 @@
                         <a href="{{ route('admin.review.edit',$review->id )}}">Edit</a>
                     </td>
                     <td>
-                        {!! Form::open(['method' => 'DELETE', 'route' => ['admin.review.destroy',$review->id]]) !!}
+                        {!! Form::open(['method' => 'DELETE', 'action' => route('admin.review.destroy',$review->id)]) !!}
                         <a href="#" onclick="jQuery(this).parents('form:first').submit()">Delete</a>
                         {!! Form::close() !!}
                     </td>

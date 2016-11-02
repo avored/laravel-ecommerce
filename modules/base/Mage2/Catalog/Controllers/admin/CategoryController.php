@@ -5,9 +5,9 @@ namespace Mage2\Catalog\Controllers\Admin;
 use Illuminate\Support\Collection;
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Requests\CategoryRequest;
-use Mage2\Framework\DataGrid\DataGrid;
 use Mage2\System\Controllers\Controller;
-use Mage2\Framework\DataGrid\DataGridFacade;
+use Mage2\Framework\DataGrid\DataGridFacade as DataGrid; 
+
 class CategoryController extends Controller
 {
     /**
@@ -17,10 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(10);
-
         $category = new Category();
-        $dataGrid = DataGridFacade::make($category);
+        $dataGrid = DataGrid::make($category);
 
         $dataGrid->addColumn(DataGrid::textColumn('name','Category Name'));
         $dataGrid->addColumn(DataGrid::textColumn('slug','Category Slug'));
@@ -36,13 +34,8 @@ class CategoryController extends Controller
                     '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>'.
                     "</form>";
         }));
-
-        //Form::open(['method' => 'DELETE', 'route' => ['admin.category.destroy',$category->id]]) !!}
-        //<a href="#" onclick="jQuery(this).parents('form:first').submit()">Delete</a>
-        //Form::close()
-
+        
         return view('admin.catalog.category.index')
-                ->with('categories', $categories)
                 ->with('dataGrid', $dataGrid)
                 ;
     }

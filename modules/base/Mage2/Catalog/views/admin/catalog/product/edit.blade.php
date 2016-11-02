@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 @section('header-title')
     <h1>
         Edit Product
@@ -16,14 +16,16 @@
     <div class="row">
         <div class="col s12">
 
-            {!! Form::model($product, ['method' => 'PUT', 'route' => ['admin.product.update', $product->id]]) !!}
+            {!! Form::bind($product, ['method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}
 
             @include('admin.catalog.product.boxes.basic',['categories' => $categories])
-            @include('admin.catalog.product.boxes.images')
+            
+            
             @include('admin.catalog.product.boxes.inventory')
             @include('admin.catalog.product.boxes.seo')
             <!--
-            include('product.boxes.extra')
+            include('admin.catalog.product.boxes.images')
+                include('product.boxes.extra')
                 include('admin.product._fields', ['websites' => $websites,'categories' => $categories])
             -->
             @include('template.hidden',['key' => 'id'])

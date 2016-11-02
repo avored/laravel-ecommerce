@@ -21,7 +21,7 @@ class ConfigurationController extends Controller
     {
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
-        return view('admin.configuration.index')
+        return view('admin.tax-class.configuration.index')
                 ->with('configurations', $configurations);
     }
 }

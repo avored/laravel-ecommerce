@@ -1,4 +1,2 @@
-@include('template.select2',['key' => $key,
-                                   'label' => $label,
-                                   'options' => $options
-                           ])
+
+{!! Form::select($key, $label, $option) !!}

@@ -47,7 +47,7 @@ class Module extends BaseModule
      */
     protected function mapWebRoutes()
     {
-        require __DIR__.'/routes.php';
+        require __DIR__.'/routes/web.php';
     }
 
     protected function registerViewPath()

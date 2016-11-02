@@ -13,12 +13,12 @@
                     </div>
                     <div class="panel-body">
 
-                        {!! Mage2Form::bind($category, ['method' => 'PUT', 'action' => route('admin.category.update', $category->id)]) !!}
+                        {!! Form::bind($category, ['method' => 'PUT', 'action' => route('admin.category.update', $category->id)]) !!}
                         @include('admin.catalog.category._fields')
 
-                        {!! Mage2Form::submit("Update Category",['class' => 'btn btn-primary']) !!}
-                        {!! Mage2Form::button("cancel",['class' => 'btn disabled','onclick' => 'location="' . route('admin.category.index'). '"']) !!}
-                        {!! Mage2Form::close() !!}
+                        {!! Form::submit("Update Category",['class' => 'btn btn-primary']) !!}
+                        {!! Form::button("cancel",['class' => 'btn disabled','onclick' => 'location="' . route('admin.category.index'). '"']) !!}
+                        {!! Form::close() !!}
                     </div>
                 </div>
 

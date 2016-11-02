@@ -1,5 +1,5 @@
 
-{!! Mage2Form::text('name','Category Name') !!}
-{!! Mage2Form::text('slug','Category Slug') !!}
-{!! Mage2Form::select('parent_id','Parent Category',$categoryOptions) !!}
+{!! Form::text('name','Category Name') !!}
+{!! Form::text('slug','Category Slug') !!}
+{!! Form::select('parent_id','Parent Category',$categoryOptions) !!}
 

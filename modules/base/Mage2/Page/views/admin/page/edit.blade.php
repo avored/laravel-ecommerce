@@ -1,18 +1,19 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
         <div class="row">
-            <div class="col s12">
-                <div class="main-title-wrapper">
-                    <h1>
+            <div class="col-md-12">
+                <div class="main-title-wrap">
+                    <span class="title">
                         Edit Page
-                    </h1>
+                    </span>
                 </div>
 
-                {!! Form::model($page, ['method' => 'PUT', 'route' => ['admin.page.update', $page->id]]) !!}
+                {!! Form::bind($page, ['method' => 'PUT', 'action' => route('admin.page.update', $page->id)]) !!}
                         @include('admin.page._fields')
+                        
                         @include('template.hidden',['key' => 'id'])
-                        @include('template.submit',['label' => 'Update Page'])
+                        {!! Form::submit('Update Page') !!}
                     
                 {!! Form::close() !!}
             </div>

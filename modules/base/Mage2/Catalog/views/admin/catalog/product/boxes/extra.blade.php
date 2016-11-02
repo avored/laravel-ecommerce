@@ -9,6 +9,7 @@
         </div-->
     </div>
         <div class="input-field col s12 {{ $errors->has('related_products') ? ' has-error' : '' }}">
+            
             {!! Form::label('related_products', 'Related Products') !!}
 
             {!! Form::select('related_products[]',[],NULL,['class' => 'select2-related form-control']) !!}

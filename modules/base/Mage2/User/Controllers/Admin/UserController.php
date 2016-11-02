@@ -5,13 +5,10 @@ namespace Mage2\User\Controllers\Admin;
 use Mage2\System\Controllers\Controller;
 use Mage2\User\Models\User;
 use Mage2\User\Requests\UserRequest;
+use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * Display a listing of the resource.
@@ -20,10 +17,26 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $user = new User();
+        $dataGrid = DataGrid::make($user);
+
+        $dataGrid->addColumn(DataGrid::textColumn('first_name','First Name'));
+        $dataGrid->addColumn(DataGrid::textColumn('last_name','Last Name'));
+        $dataGrid->addColumn(DataGrid::textColumn('email','Email'));
+        $dataGrid->addColumn(DataGrid::linkColumn('edit','Edit',function($label , $row) {
+            return "<a href='". route('admin.user.edit', $row->id)."'>Edit</a>";
+        }));
+
+        $dataGrid->addColumn(DataGrid::linkColumn('destroy','Destroy',function($label , $row) {
+            return "<form method='post' action='".route('admin.user.destroy', $row->id)."'>" .
+                    "<input type='hidden' name='_method' value='delete'/>".
+                    csrf_field() .
+                    '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>'.
+                    "</form>";
+        }));
 
         return view('admin.user.user.index')
-                ->with('users', $users);
+                ->with('dataGrid', $dataGrid);
     }
 
     /**
