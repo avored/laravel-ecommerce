@@ -31,8 +31,9 @@ class CategoryController extends Controller
 
         $dataGrid->addColumn(DataGrid::linkColumn('destroy','Destroy',function($label , $row) {
             return "<form method='post' action='".route('admin.category.destroy', $row->id)."'>" .
+                    "<input type='hidden' name='_method' value='delete'/>".
                     csrf_field() .
-                    '<a href="#" onclick="jQuery(this).parents("form:first").submit()">Destroy</a>'.
+                    '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>'.
                     "</form>";
         }));
 
