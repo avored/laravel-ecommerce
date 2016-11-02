@@ -1,20 +1,21 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
         <div class="row">
-            <div class="col s12">
-                <div class="main-title-wrapper">
-                    <h1>
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
                         Create Theme
-                        <!--<small>Sub title</small> -->
-                    </h1>
-                </div>
-                {!! Form::open(['route' => 'admin.theme.store','files' => true]) !!}
-                    @include('template.file',['key' => 'theme_zip_file','label' => 'Upload Theme File'])
+                    </div>
+                    <div class="panel-body">
+                        {!! Form::open(['action' => route('admin.theme.store'),'files' => true]) !!}
+                        {!! Form::file('theme_zip_file', 'Upload Theme File') !!}
+                        {!! Form::submit('Create Theme') !!}
 
-                    @include('template.submit',['label' => 'Create Theme'])
-                    
-                {!! Form::close() !!}
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+
             </div>
         </div>
 @endsection

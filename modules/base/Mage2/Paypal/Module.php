@@ -15,7 +15,7 @@ class Module extends BaseModule
      *
      * @var bool
      */
-    protected $defer = true;
+    //protected $defer = true;
     /**
      * Bootstrap any application services.
      *
@@ -23,8 +23,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        $this->registerAdminMenu();
-        $this->registerAdminConfiguration();
+
 
     }
 
@@ -35,6 +34,9 @@ class Module extends BaseModule
      */
     public function register()
     {
+        $this->registerAdminMenu();
+        $this->registerAdminConfiguration();
+
         $this->mapWebRoutes();
         $this->registerPaymentMethod();
         $this->registerViewPath();

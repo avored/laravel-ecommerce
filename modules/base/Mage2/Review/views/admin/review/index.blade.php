@@ -6,19 +6,12 @@
         <div class="main-title-wrap">
             <span class="title">
                 Review List
-                <!--<small>Sub title</small> -->
-            </span>>
-
+            </span>
         </div>
 
-        <div class="clearfix"></div>
-        <br/>
         @if(count($reviews) <= 0)
-
-        <p>Sorry No Review Found</p>
-
+            <p>Sorry No Review Found</p>
         @else
-        
         <table class="table bordered tablegrid">
             <thead>
             <th>ID</th>

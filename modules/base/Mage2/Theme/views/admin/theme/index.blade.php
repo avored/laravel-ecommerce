@@ -1,14 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
 <div class="row">
-    <div class="col s12">
-        <div class="main-title-wrapper">
-            <h1>
+    <div class="col-md-23">
+        <div class="main-title-wrap">
+            <span class="title">
                 Theme List
                 <!--<small>Sub title</small> -->
-            </h1>
-            <div class="right">
+            </span>
+            <div class="pull-right">
                 <a href="{{ route('admin.theme.create') }}"
                    class="btn btn-primary">Upload Theme</a>
             </div>
@@ -38,10 +38,10 @@
                     <td>{{ $actualTheme['description'] }}</td>
                     <td>
                         @if($activeTheme != $actualTheme['name'])
-                        {!! Form::open(['method' => 'POST', 'route' => ['admin.theme.activate',$actualTheme['name']]]) !!}
+                        {!! Form::open(['method' => 'POST', 'action' => route('admin.theme.activate',$actualTheme['name'])]) !!}
                         {!! Form::hidden('active_theme_path',$actualTheme['path']) !!}
                         {!! Form::hidden('active_theme_name',$actualTheme['name']) !!}
-                        <button type="submit" class="btn btn-primary">Activate</a>
+                        <button type="submit" class="btn btn-primary">Activate</button>
                         {!! Form::close() !!}
                         @else 
                         
