@@ -158,8 +158,8 @@ return [
      */
         Mage2\System\Providers\AppServiceProvider::class,
         Mage2\System\Providers\AuthServiceProvider::class,
-        
-        Mage2\System\Module::class,
+
+
         Mage2\Dashboard\Module::class,
         
         Mage2\Address\Module::class,
@@ -181,6 +181,8 @@ return [
         Mage2\Theme\Module::class,
         Mage2\User\Module::class,
         Mage2\Wishlist\Module::class,
+
+        Mage2\System\Module::class,
         
         
     //App\Providers\AppServiceProvider::class,
@@ -239,5 +241,6 @@ return [
         'AdminConfiguration' => Mage2\System\View\Facades\AdminConfiguration::class,
         'AdminMenu' => Mage2\System\View\Facades\AdminMenu::class,
         'Mage2Form' => \Mage2\Framework\Form\Contracts\FormFacade::class,
+        'Payment' => Mage2\System\Payment\Facade\Payment::class,
     ],
 ];

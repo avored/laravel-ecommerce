@@ -2,17 +2,18 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col s6 offset-s3">
-            <div class="card card-default">
-                <div class="card-content">
-                    <div class="card-title">Welcome to Mage2 Ecommerce Installation</div>
 
-                    <h6 class="text-center">Create Admin Account</h6>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h1>Welcome to Mage2 Ecommerce Installation</h1></div>
+                <div class="panel-body">
+
+
+                    <h4 class="text-center">Create Admin Account</h4>
 
                     {{ Form::open(['route' => 'mage2.install.admin.post']) }}
 
-                    <div class="input-field {{ $errors->has('first_name') ? ' has-error' : '' }}">
+                    <div class="form-group {{ $errors->has('first_name') ? ' has-error' : '' }}">
 
                         {!! Form::label("first_name", "First Name") !!}
                         {!! Form::text('first_name',NULL,['class' => 'form-control']) !!}
@@ -24,7 +25,7 @@
                         @endif
                     </div>
 
-                    <div class="input-field {{ $errors->has('last_name') ? ' has-error' : '' }}">
+                    <div class="form-group {{ $errors->has('last_name') ? ' has-error' : '' }}">
                         {!! Form::label("last_name", "Last Name") !!}
 
                         {!! Form::text('last_name',NULL,['class' => 'form-control']) !!}
@@ -36,7 +37,7 @@
                         @endif
                     </div>
 
-                    <div class="input-field {{ $errors->has('email') ? ' has-error' : '' }}">
+                    <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                         {!! Form::label("email", "Email") !!}
 
                         {!! Form::text('email',NULL,['class' => 'form-control']) !!}
@@ -48,7 +49,7 @@
                         @endif
                     </div>
 
-                    <div class="input-field {{ $errors->has('password') ? ' has-error' : '' }}">
+                    <div class="form-group {{ $errors->has('password') ? ' has-error' : '' }}">
                         {!! Form::label('password', 'Password') !!}
 
                         {!! Form::password('password',['class' => 'form-control']) !!}
@@ -59,7 +60,7 @@
                     </span>
                         @endif
                     </div>
-                    <div class="input-field {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                    <div class="form-group {{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                         {!! Form::label('password_confirmation', 'Confirm Password') !!}
 
                         {!! Form::password('password_confirmation',['class' => 'form-control']) !!}
@@ -80,5 +81,5 @@
                 </div>
             </div>
         </div>
-    </div>
+
 @endsection

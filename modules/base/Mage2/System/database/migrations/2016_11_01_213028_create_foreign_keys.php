@@ -114,10 +114,10 @@ class CreateForeignKeys extends Migration
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
         });
 
-        Schema::table('permission_role', function (Blueprint $table) {
-            $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
-        });
+        //Schema::table('permission_role', function (Blueprint $table) {
+        //    $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
+        //    $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+        //});
     }
 
     /**

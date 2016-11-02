@@ -18,6 +18,7 @@ class CategoryController extends Controller
     {
         $categories = Category::paginate(10);
 
+
         return view('admin.catalog.category.index')
                 ->with('categories', $categories);
     }

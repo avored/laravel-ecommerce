@@ -2,8 +2,8 @@
 
 @section('content')
 
-    <div id="row flex-row">
-        <div class="col-md-6 col-md-offset-3">
+
+        <div class="col-md-6">
             <div class="panel panel-default">
                     <div class="panel-heading">
                         <h1>Welcome to Mage2 Ecommerce Installation</h1>
@@ -70,8 +70,6 @@
             </div>
 
 
-
-    </div>
 
 
     <style>

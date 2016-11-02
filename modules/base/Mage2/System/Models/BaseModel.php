@@ -77,6 +77,15 @@ class BaseModel extends Model
 
     }
 
+    public static function create(array $attributes = [])
+    {
+        $model = new static;
+        $model->forgetCommonQueryCache();
+
+        return parent::create($attributes);
+    }
+
+
     public function update(array $attributes = [], array $options = [])
     {
         $cacheKey = get_class($this) . "_" . $this->attributes['id'];

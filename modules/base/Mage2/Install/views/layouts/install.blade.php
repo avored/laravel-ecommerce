@@ -26,23 +26,36 @@
         body {
             width: 100%;
             height: 100%;
-            display:flex;
-            justify-content: center;
-            align-items: center;
         }
         .container-fluid {
-           width: 100%;
-        }
-        .flex-row {
-            width:100%;
-        }
 
+
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        -webkit-box-align: center;
+            justify-content: center;;
+            align-items: center;
+        }
+        .installation-panel {
+            width: 60%;
+
+            text-align: center;
+        }
 
     </style>
+    <script>
+        jQuery(document).ready(function() {
+            jQuery('.container-fluid').height(jQuery(document).height())
+        })
+    </script>
 </head>
 <body>
 
-<div class="container-fluid">
+<div class="container-fluid" style="height: 100%">
         @yield('content')
 </div>
 </body>
