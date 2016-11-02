@@ -49,7 +49,7 @@
         });
         jQuery('.product-image-element').change(function (e) {
             var files = e.target.files;
-
+            alert('test')
             if (files.length <= 0) {
                 return;
             }

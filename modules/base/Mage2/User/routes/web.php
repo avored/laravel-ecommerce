@@ -10,6 +10,14 @@
   | and give it the controller to call when that URI is requested.
   |
  */
+Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
+
+    Route::get('/admin/login', ['as' => 'admin.login', 'uses' => 'LoginController@showLoginForm']);
+    Route::post('/admin/login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
+
+    Route::get('/admin/logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
+});
+
 Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
     Route::resource('/admin/user', 'UserController', ['names' => [
             'index'   => 'admin.user.index',
@@ -20,10 +28,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
             'destroy' => 'admin.user.destroy',
         ]]);
 
-    Route::get('/admin/login', ['as' => 'admin.login', 'uses' => 'LoginController@showLoginForm']);
-    Route::post('/admin/login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
 
-    Route::get('/admin/logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
 });
 Route::group(['middleware' => ['web', 'frontauth', 'website'], 'namespace' => "Mage2\User\Controllers"], function () {
     Route::get('/my-account', ['as' => 'my-account.home', 'uses' => 'MyAccountController@home']);

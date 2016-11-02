@@ -11,7 +11,7 @@
     <title>Mage2 Admin Login</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/mage2-admin/css/appscss.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -37,7 +37,7 @@
             justify-content: center;
 
         }
-        .input-field.has-error input{
+        .form-group.has-error input{
             border: 1px solid crimson;
             padding: 10px;
         }
@@ -50,19 +50,16 @@
 <body style="width: 100%;height: 100%;">
 
 
-    <div class="card" style="width: 50%;">
-        <div class="card-content" style="padding: 20px;">
-
-            <div class="card-title"><span>Mage2 Admin Login</span></div>
-
-
-            <div class="col s12">
+    <div class="panel panel-primary" style="width: 50%;">
+        <div class="panel-heading"><span>Mage2 Admin Login</span></div>
+        <div class="panel-body" style="padding: 20px;">
+            
             <form method="POST" action="{{ route('admin.login.post') }}">
                 {{ csrf_field(  ) }}
 
-                <div class="input-field {{ $errors->has('email') ? ' has-error' : '' }}">
+                <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                     <label for="email" >E-Mail Address</label>
-                    <input id="email" type="email"  name="email"
+                    <input id="email" type="email"  name="email" class="form-control"
                            value="{{ old('email') }}"  autofocus>
 
                     @if ($errors->has('email'))
@@ -73,9 +70,9 @@
 
                 </div>
 
-                <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
+                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                     <label for="password" >Password</label>
-                    <input id="password" type="password"  name="password" />
+                    <input id="password" class="form-control" type="password"  name="password" />
 
                     @if ($errors->has('password'))
                         <span class="help-block">
@@ -84,15 +81,14 @@
                     @endif
                 </div>
 
-                <div class="input-field">
-                    <p>
-                        <input id="rememberme" type="checkbox" name="remember"/>
-                        <label for="rememberme">Remember Me</label>
-                    </p>
+                <div class="checkbox">
+                    <label>
+                        <input id="rememberme" type="checkbox" name="remember"/> Remember Me
+                    </label>
                 </div>
 
 
-                <div class="input-field">
+                <div class="form-group">
 
                     <button type="submit" class="btn btn-primary">
                         Login
@@ -105,14 +101,12 @@
 
             </form>
             </div>
-        </div>
+
     </div>
 
 
 <!-- Scripts -->
 <!-- JQuery -->
-<script src="{{ asset('/js/jquery.js') }}"></script>
-    <script src="{{ asset('/js/materialize.min.js') }}"></script>
-<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/mage2-admin/js/all.js') }}"></script>
 </body>
 </html>

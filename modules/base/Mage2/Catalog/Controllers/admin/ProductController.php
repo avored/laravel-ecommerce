@@ -72,6 +72,8 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        //return $request->all();
+
         try {
             $product = Product::create();
             $this->productHelper->saveProduct($product, $request);

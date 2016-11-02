@@ -1,20 +1,15 @@
 @extends('layouts.admin-bootstrap')
-@section('header-title')
-    <h1>
-        Edit Product
-        <!--<small>Sub title</small> -->
-    </h1>
-@endsection
-@section('bread-crumb')
-    <ol class="breadcrumb">
-        <li><a href="{{ route('admin.dashboard') }}"><i class="fa fa-dashboard"></i> Admin</a></li>
-        <li><a href="{{ route('admin.product.index') }}"><i class="fa fa-link"></i>Product</a></li>
-        <li class="active">Edit</li>
-    </ol>
-@endsection
+
 @section('content')
     <div class="row">
-        <div class="col s12">
+        <div class="main-title-wrap">
+            <span class="title">Edit Product</span>
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-md-12">
 
             {!! Form::bind($product, ['method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}
 
