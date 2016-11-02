@@ -1,6 +1,5 @@
 <?php
-
-namespace Mage2\Auth\Controllers\Admin;
+namespace Mage2\User\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;

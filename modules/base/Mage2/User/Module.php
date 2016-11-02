@@ -5,6 +5,11 @@ namespace Mage2\User;
 use Illuminate\Support\Facades\View;
 use Mage2\System\View\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
+use Mage2\User\Middleware\AdminAuthenticate;
+use Mage2\User\Middleware\FrontAuthenticate;
+use Mage2\User\Middleware\RedirectIfAdminAuthenticated;
+use Mage2\User\Middleware\RedirectIfFrontAuthenticated;
+
 
 class Module extends BaseModule
 {
@@ -21,6 +26,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerMiddleware();
         $this->registerAdminMenu();
     }
 
@@ -35,6 +41,21 @@ class Module extends BaseModule
 
         $this->registerViewPath();
     }
+    /**
+     * Register the middleware for the mage2 auth modules.
+     *
+     * @return void
+     */
+    public function registerMiddleware()
+    {
+        $router = $this->app['router'];
+
+        $router->middleware('adminauth', AdminAuthenticate::class);
+        $router->middleware('adminguest', RedirectIfAdminAuthenticated::class);
+        $router->middleware('frontauth', FrontAuthenticate::class);
+        $router->middleware('frontguest', RedirectIfFrontAuthenticated::class);
+    }
+
 
     /**
      * Define the "web" routes for the application.

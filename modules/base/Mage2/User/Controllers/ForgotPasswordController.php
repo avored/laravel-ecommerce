@@ -1,6 +1,5 @@
 <?php
-
-namespace Mage2\Auth\Controllers;
+namespace Mage2\User\Controllers;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Mage2\System\Controllers\Controller;

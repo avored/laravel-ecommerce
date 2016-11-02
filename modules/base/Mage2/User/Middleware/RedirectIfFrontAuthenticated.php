@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Auth\Middleware;
+namespace Mage2\User\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;

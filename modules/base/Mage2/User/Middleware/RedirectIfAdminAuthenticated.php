@@ -1,11 +1,11 @@
 <?php
 
-namespace Mage2\Auth\Middleware;
+namespace Mage2\User\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class AdminAuthenticate
+class RedirectIfAdminAuthenticated
 {
     /**
      * Handle an incoming request.
@@ -18,12 +18,8 @@ class AdminAuthenticate
      */
     public function handle($request, Closure $next, $guard = 'admin')
     {
-        if (Auth::guard($guard)->guest()) {
-            if ($request->ajax() || $request->wantsJson()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->route('admin.login');
-            }
+        if (Auth::guard($guard)->check()) {
+            return redirect('/admin');
         }
 
         return $next($request);

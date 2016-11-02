@@ -76,7 +76,7 @@ return [
         ],
         'adminusers' => [
             'driver'    => 'eloquent',
-            'model'     => Mage2\Auth\Models\AdminUser::class,
+            'model'     => Mage2\User\Models\AdminUser::class,
         ],
 
         // 'users' => [

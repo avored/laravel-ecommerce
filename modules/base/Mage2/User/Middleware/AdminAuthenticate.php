@@ -1,11 +1,10 @@
 <?php
-
-namespace Mage2\Auth\Middleware;
+namespace Mage2\User\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class FrontAuthenticate
+class AdminAuthenticate
 {
     /**
      * Handle an incoming request.
@@ -16,13 +15,13 @@ class FrontAuthenticate
      *
      * @return mixed
      */
-    public function handle($request, Closure $next, $guard = 'web')
+    public function handle($request, Closure $next, $guard = 'admin')
     {
         if (Auth::guard($guard)->guest()) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->guest('/login');
+                return redirect()->route('admin.login');
             }
         }
 
