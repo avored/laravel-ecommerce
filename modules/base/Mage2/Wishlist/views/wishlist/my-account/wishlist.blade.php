@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
     <div class="row profile">
-        <div class="col s2">
+        <div class="col-md-2">
             @include('my-account.sidebar')
         </div>
-        <div class="col s10">
+        <div class="col-md-10">
             <div class="title">
                 <h4>My Wishlist</h4>
             </div>

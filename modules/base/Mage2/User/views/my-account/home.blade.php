@@ -1,15 +1,15 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
 <div class="row profile">
-    <div class="col s2">
+    <div class="col-md-2">
         @include('my-account.sidebar')
     </div>
-    <div class="col s10">
+    <div class="col-md-10">
 
-        <div class="card card-default">
-            <div class="card-content">
-                <div class="card-title">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="panel-heading">
                     Profile Details Panel
                 </div>
 

@@ -1,16 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 @section('content')
     <div class="row">
-        <div class="col s2">
+        <div class="col-md-2">
             @include('my-account.sidebar')
         </div>
-        <div class="col s10">
+        <div class="col-md-10">
 
-            <div class="main-title-wrapper">
-                <h1>
+            <div class="main-title-wrap">
+                <span class="title">
                     Order List
                     <!--<small>Sub title</small> -->
-                </h1>
+                </span>
             </div>
             <div class="clearfix"></div>
             <br/>

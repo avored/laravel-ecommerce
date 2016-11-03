@@ -1,14 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
 <div class="row profile">
-    <div class="col s2">
+    <div class="col-md-2">
         @include('my-account.sidebar')
     </div>
-    <div class="col s10">
-        <div class="main-title-wrapper">
-            <h1>Addresses</h1>
-            <div class="right">
+    <div class="col-md-10">
+        <div class="main-title-wrap">
+            <span class="title">Addresses</span>
+            <div class="pull-right">
                 <a class="btn btn-primary" href="{{ route('my-account.address.create')}}" >Create Address</a>
             </div>
             <span class="clearfix"></span><br/><br/>
@@ -17,20 +17,20 @@
         <p>Sorry No Address Found</p>
         @else
         @foreach($addresses as $address)
-        <div class="col s6">
-            <div class="card card-default">
-                <div class="card-content ">
-                    <div class="card-title">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                    <div class="panel-heading">
                         @if($address->type == "SHIPPING")
                         <span>Shipping Address</span>
                         @else
                         <span>Billing Address</span>
                         @endif
-                        <span class="right">
+                        <span class="pull-right">
                             <a href="{{ route('my-account.address.edit', $address->id)}}">Edit</a>
                         </span>
 
                     </div>
+                <div class="panel-body ">
                     <table class="table table-responsive">
                         <tbody>
                             <tr>

@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
     <div class="row">
-        <div class="col s2">
+        <div class="col-md-2">
             @include('my-account.sidebar')
         </div>
-        <div class="col s10">
+        <div class="col-md-10">
 
             <div class="main-title-wrapper">
                 <h1>
@@ -17,9 +17,9 @@
             <div class="clearfix"></div>
             <br/>
 
-            <div class="card">
-                <div class="card-content">
-                    <h3 class="card-title">Order Basic Info</h3>
+            <div class="panel">
+                <div class="panel-body">
+                    <h3 class="panel-heading">Order Basic Info</h3>
                     <!--div class="box-tools pull-right">
                         <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fa fa-minus"></i>
@@ -44,9 +44,9 @@
                 </div>
 
             </div>
-            <div class="card ">
-                <div class="card-content">
-                    <h3 class="card-title">Order Item Info</h3>
+            <div class="panel ">
+                <div class="panel-body">
+                    <h3 class="panel-heading">Order Item Info</h3>
                     <!--div class="box-tools pull-right">
                         <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fa fa-minus"></i>
@@ -77,16 +77,16 @@
                 </div>
 
             </div>
-            <div class="card">
-                <div class="card-content">
-                    <h3 class="card-title">Order Address Info</h3>
+            <div class="panel">
+                <div class="panel-body">
+                    <h3 class="panel-heading">Order Address Info</h3>
                     <!--div class="box-tools pull-right">
                         <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fa fa-minus"></i>
                         </button>
                     </div-->
                     <div class="row">
-                        <div class="col s6">
+                        <div class="col-md-6">
                             <h6>Shipping Info</h6>
 
                             <p>
@@ -100,7 +100,7 @@
                                 {{ $order->shipping_address->phone }}<br/>
                             </p>
                         </div>
-                        <div class="col s6">
+                        <div class="col-md-6">
                             <h6>Billing Info</h6>
 
                             <p>
