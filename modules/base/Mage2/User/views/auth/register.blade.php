@@ -1,19 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col s8 offset-s2">
-            <div class="card card-default">
-                <div class="card-content">
-                <div class="card-title">Register</div>
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Register</div>
+                <div class="panel-body">
 
+                    <div class="col-md-12">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                         {{ csrf_field() }}
 
-                        <div class="input-field{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
                             <label for="first_name">First Name</label>
-                                <input id="first_name" type="text" name="first_name" value="{{ old('first_name') }}" required autofocus>
+                            <input id="first_name" type="text" class="form-control" name="first_name" value="{{ old('first_name') }}" required autofocus>
 
                                 @if ($errors->has('first_name'))
                                     <span class="help-block">
@@ -23,9 +24,9 @@
 
                         </div>
 
-                        <div class="input-field{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
                             <label for="last_name">Last Name</label>
-                            <input id="last_name" type="text" name="last_name" value="{{ old('last_name') }}" required autofocus>
+                            <input id="last_name" type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" required autofocus>
 
                             @if ($errors->has('last_name'))
                                 <span class="help-block">
@@ -35,7 +36,7 @@
 
                         </div>
 
-                        <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col s4 control-label">E-Mail Address</label>
 
 
@@ -49,7 +50,7 @@
 
                         </div>
 
-                        <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col s4 control-label">Password</label>
 
 
@@ -63,7 +64,7 @@
 
                         </div>
 
-                        <div class="input-field{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                             <label for="password-confirm" class="col s4 control-label">Confirm Password</label>
 
 
@@ -77,7 +78,7 @@
 
                         </div>
 
-                        <div class="input-field">
+                        <div class="form-group">
 
                                 <button type="submit" class="btn btn-primary">
                                     Register
@@ -86,6 +87,7 @@
                         </div>
                     </form>
                 </div>
+                    </div>
             </div>
         </div>
     </div>

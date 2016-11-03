@@ -1,20 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
     <div class="row">
-        <div class="col s6 offset-s3">
-            <div class="card card-default">
-                <div class="card-content">
-                    <div class="card-title"><span>Mage2 Login</span></div>
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading"><span>Mage2 Login</span></div>
+                <div class="panel-body">
+                    <div class="col-md-12">
                     <form class="form-horizontal" role="form" method="POST"
                           action="{{ route('login.post') }}">
                         {{ csrf_field() }}
 
-                        <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" >E-Mail Address</label>
 
 
-                            <input id="email" type="email" name="email"
+                            <input id="email" type="email" name="email" class="form-control"
                                    value="{{ old('email') }}" required autofocus>
 
                             @if ($errors->has('email'))
@@ -25,11 +26,11 @@
 
                         </div>
 
-                        <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" >Password</label>
 
 
-                            <input id="password" type="password" name="password" required>
+                            <input id="password" class="form-control" type="password" name="password" required>
 
                             @if ($errors->has('password'))
                                 <span class="help-block">
@@ -39,15 +40,16 @@
 
                         </div>
 
-                        <div class="">
-                            <p>
+                        <div class="checkbox">
+                            <label>
                                 <input id="rememberme" type="checkbox" name="remember"/>
-                                <label for="rememberme">Remember Me</label>
-                            </p>
+                               Remember Me
+                            </label>
                         </div>
 
-
-                        <div class="input-field">
+                        <div class="clearfix">
+                        </div>
+                        <div class="form-group">
 
                             <button type="submit" class="btn btn-primary">
                                 Login
@@ -57,8 +59,11 @@
                                     Forgot Your Password?
                             </a>
                         </div>
-                </div>
+                
+                    
                 </form>
+                    </div>
+                    
             </div>
         </div>
     </div>
