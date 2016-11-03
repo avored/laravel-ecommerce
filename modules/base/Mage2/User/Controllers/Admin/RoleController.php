@@ -6,6 +6,8 @@ use Mage2\System\Controllers\Controller;
 use Mage2\User\Models\Role;
 use Mage2\User\Requests\Admin\RoleRequst;
 use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
+use Illuminate\Database\Eloquent\Collection;
+use Mage2\User\Models\Permission;
 
 class RoleController extends Controller
 {
@@ -20,23 +22,23 @@ class RoleController extends Controller
         $user = new Role();
         $dataGrid = DataGrid::make($user);
 
-        $dataGrid->addColumn(DataGrid::textColumn('name','Role Name'));
-        $dataGrid->addColumn(DataGrid::textColumn('description','Role Description'));
+        $dataGrid->addColumn(DataGrid::textColumn('name', 'Role Name'));
+        $dataGrid->addColumn(DataGrid::textColumn('description', 'Role Description'));
 
-        $dataGrid->addColumn(DataGrid::linkColumn('edit','Edit',function($label , $row) {
-            return "<a href='". route('admin.role.edit', $row->id)."'>Edit</a>";
+        $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($label, $row) {
+            return "<a href='" . route('admin.role.edit', $row->id) . "'>Edit</a>";
         }));
 
-        $dataGrid->addColumn(DataGrid::linkColumn('destroy','Destroy',function($label , $row) {
-            return "<form method='post' action='".route('admin.role.destroy', $row->id)."'>" .
-                    "<input type='hidden' name='_method' value='delete'/>".
-                    csrf_field() .
-                    '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>'.
-                    "</form>";
+        $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($label, $row) {
+            return "<form method='post' action='" . route('admin.role.destroy', $row->id) . "'>" .
+            "<input type='hidden' name='_method' value='delete'/>" .
+            csrf_field() .
+            '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
+            "</form>";
         }));
 
         return view('admin.user.role.index')
-                ->with('dataGrid', $dataGrid);
+            ->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -59,8 +61,15 @@ class RoleController extends Controller
      */
     public function store(RoleRequst $request)
     {
-        Role::create($request->all());
-        return redirect()->route('admin.role.index')->with('notificationText'," New Role has been Created Successfully!");
+
+        try {
+            $role = Role::create($request->all());
+            $this->_saveRolePermissions($request, $role);
+
+        } catch (\Exception $e) {
+            echo 'Caught exception: ', $e->getMessage(), "\n";
+        }
+        return redirect()->route('admin.role.index')->with('notificationText', " New Role has been Created Successfully!");
     }
 
     /**
@@ -87,23 +96,27 @@ class RoleController extends Controller
         $role = Role::findorfail($id);
 
         return view('admin.user.role.edit')
-                    ->with('role', $role);
+            ->with('role', $role);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Mage2\User\Requests\Admin\RoleRequst $request
-     * @param int                            $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
     public function update(RoleRequst $request, $id)
     {
-        $role = Role::findorfail($id);
-        $role->update($request->all());
-
-        return redirect()->route('admin.role.index')->with('notificationText'," Role Updates Successfully!");
+        try {
+            $role = Role::findorfail($id);
+            $role->update($request->all());
+            $this->_saveRolePermissions($request, $role);
+        } catch (\Exception $e) {
+            echo 'Caught exception: ', $e->getMessage(), "\n";
+        }
+        return redirect()->route('admin.role.index')->with('notificationText', " Role Updates Successfully!");
     }
 
     /**
@@ -117,6 +130,40 @@ class RoleController extends Controller
     {
         Role::destroy($id);
 
-        return redirect()->route('admin.role.index')->with('notificationText'," Role Destroy Successfully!");
+        return redirect()->route('admin.role.index')->with('notificationText', " Role Destroy Successfully!");
+    }
+
+    private function _saveRolePermissions($request, $role)
+    {
+
+
+        if (count($request->get('permissions')) > 0) {
+            //$permissionIds = Collection::make([]);
+            foreach ($request->get('permissions') as $key => $value) {
+                //save it into db
+                if ($value != 1) {
+                    continue;
+                }
+
+
+                $permissions = explode(',', $key);
+
+                foreach ($permissions as $permissionName) {
+                    if (null === ($permissionModel = Permission::getPermissionByName($permissionName))) {
+                        $permissionModel = Permission::create(['name' => $permissionName]);
+                    }
+                    $permissionIds[] = $permissionModel->id;
+
+
+                }
+
+
+            }
+        }
+
+
+        $ids = array_unique($permissionIds);
+        $role->permissions()->sync($ids);
+        return $this;
     }
 }

@@ -11,7 +11,8 @@
         </div>
 
         {!! Form::bind($user, ['method' => 'PUT', 'action' => route('admin.user.update', $user->id)]) !!}
-        @include('admin.user.user._fields',['editMethod' => true])
+
+        @include('admin.user.user._fields',['editMethod' => true,'roles' => $roles])
 
         @include('template.hidden',['key' => 'id'])
         {!! Form::submit("Update User",['class' => 'btn btn-primary']) !!}

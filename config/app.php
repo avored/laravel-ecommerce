@@ -241,5 +241,6 @@ return [
         'AdminMenu' => Mage2\System\View\Facades\AdminMenu::class,
         'Form' => Mage2\Framework\Form\Contracts\FormFacade::class,
         'Payment' => Mage2\System\Payment\Facade\Payment::class,
+        'Permission' => \Mage2\Framework\Support\Facades\Permission::class,
     ],
 ];

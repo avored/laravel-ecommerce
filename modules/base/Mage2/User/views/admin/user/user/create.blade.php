@@ -10,7 +10,7 @@
                     </span>
                 </div>
                 {!! Form::open(['method' => 'post','action' =>  route('admin.user.store')]) !!}
-                    @include('admin.user.user._fields',['editMethod' => false])
+                    @include('admin.user.user._fields',['editMethod' => false,'roles' => $roles])
                     {!! Form::submit("Create User",['class' => 'btn btn-primary']) !!}
                     {!! Form::button("cancel",['class' => 'btn ','onclick' => 'location="' . route('admin.user.index'). '"']) !!}
                     
