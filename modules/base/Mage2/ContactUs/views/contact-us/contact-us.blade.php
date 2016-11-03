@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
     <div class="row">
-        <div class="col s12">
+        <div class="col-md-10 col-md-offset-1">
             <h2>Contact US</h2>
 
             <div class="contact-us-wrapper">
@@ -11,18 +11,18 @@
 
 
                     @if(!Auth::check())
-                    <div class="input-field col s6">
+                    <div class="form-group col s6">
                         <label>First Name</label>
-                        <input type="text" name="first_name" value=""/>
+                        <input type="text" class="form-control" name="first_name" value=""/>
                         @if ($errors->has('first_name'))
                             <span class="help-block">
                             <strong>{{ $errors->first('first_name') }}</strong>
                             </span>
                         @endif
                     </div>
-                    <div class="input-field col s6">
+                    <div class="form-group col s6">
                         <label>Last Name</label>
-                        <input type="text" name="last_name" value=""/>
+                        <input type="text" class="form-control" name="last_name" value=""/>
                         @if ($errors->has('last_name'))
                             <span class="help-block">
                             <strong>{{ $errors->first('last_name') }}</strong>
@@ -31,9 +31,9 @@
                     </div>
                     <div class="clearfix"></div>
 
-                    <div class="input-field">
+                    <div class="form-group">
                         <label>Email</label>
-                        <input type="text" name="email"/>
+                        <input type="text" class="form-control" name="email"/>
                         @if ($errors->has('email'))
                             <span class="help-block">
                             <strong>{{ $errors->first('email') }}</strong>
@@ -45,9 +45,9 @@
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                     @endif
 
-                    <div class="input-field">
+                    <div class="form-group">
                         <label>Phone</label>
-                        <input type="text" name="phone"/>
+                        <input type="text" class="form-control" name="phone"/>
                         @if ($errors->has('phone'))
                             <span class="help-block">
                             <strong>{{ $errors->first('phone') }}</strong>
@@ -55,9 +55,9 @@
                         @endif
                     </div>
 
-                    <div class="input-field">
+                    <div class="form-group">
                         <label>Message</label>
-                        <textarea class="materialize-textarea" name="message"></textarea>
+                        <textarea class="form-control" name="message"></textarea>
                         @if ($errors->has('message'))
                             <span class="help-block">
                             <strong>{{ $errors->first('message') }}</strong>
@@ -65,7 +65,7 @@
                         @endif
                     </div>
 
-                    <div class="input-field">
+                    <div class="form-group">
                         <button class="btn btn-primary">Send Message</button>
                     </div>
                 </form>
