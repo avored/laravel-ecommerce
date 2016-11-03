@@ -1,14 +1,14 @@
-<div class="card card-primary">
-    <div class="card-content">
+<div class="panel panel-primary">
+    <div class="panel-body">
 
         <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->title }}">
             @if(isset($product->getProductImages($first = true)->value))
                 <img alt="{{ $product->title }}"
-                     class="responsive-img"
+                     class="img-responsive"
                      src="{{ asset('/uploads/catalog/images/'. $product->getProductImages($first= true)->value) }}" />
             @else
                 <img alt="{{ $product->title }}"
-                     class="responsive-img"
+                     class="img-responsive"
                      src="{{ asset('/img/default-product.jpg') }}" />
             @endif
         </a>
