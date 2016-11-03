@@ -38,10 +38,6 @@ echo json_encode([
         <script src="//cdn.ckeditor.com/4.5.11/basic/ckeditor.js"></script>
 
 
-
-
-
-        </div>
         @include("layouts.admin-bootstrap-nav")
         <div class="container">
                 <div class="row">
@@ -59,9 +55,5 @@ echo json_encode([
 
             @yield('content')
         </div>
-
-
-
-
     </body>
 </html>

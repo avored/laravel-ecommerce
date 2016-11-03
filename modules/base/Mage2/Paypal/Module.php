@@ -34,10 +34,10 @@ class Module extends BaseModule
      */
     public function register()
     {
+        $this->mapWebRoutes();
+
         $this->registerAdminMenu();
         $this->registerAdminConfiguration();
-
-        $this->mapWebRoutes();
         $this->registerPaymentMethod();
         $this->registerViewPath();
     }

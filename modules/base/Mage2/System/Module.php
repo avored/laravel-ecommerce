@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\View;
 use Composer\Autoload\ClassLoader;
 use Illuminate\Support\Facades\App;
 use Mage2\System\Payment\PaymentManager;
-use Mage2\System\Routing\UrlGenerator;
 use Mage2\System\Shipping\ShippingManager;
 use Mage2\System\Theme\ThemeManager;
 use Mage2\System\View\AdminConfiguration;
@@ -18,7 +17,7 @@ use Mage2\Catalog\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Mage2\System\View\FileViewFinder;
 use Mage2\Attribute\Models\ProductAttribute;
-use Mage2\Framework\Support\BaseModule;
+use Illuminate\View\ViewServiceProvider as BaseModule;
 
 class Module extends BaseModule {
 
@@ -45,12 +44,13 @@ class Module extends BaseModule {
         $this->_registerThemeFacade();
 
         $this->app['request']->server->set('HTTPS', 'off');
-        
 
-        View::composer(['layouts.admin-bootstrap-nav'], function ($view) {
+
+        View::composer(['layouts.admin-nav','layouts.admin-bootstrap-nav'], function ($view) {
             $adminMenus = (array) AdminMenuFacade::getMenuItems();
             $view->with('adminMenus', $adminMenus);
         });
+
     }
 
     /**
@@ -59,7 +59,14 @@ class Module extends BaseModule {
      * @return void
      */
     public function register() {
-        
+        parent::register();
+        $this->app->bind('view.finder', function ($app) {
+            $paths = $app['config']['view.paths'];
+
+            return new FileViewFinder($app['files'], $paths);
+        });
+
+
         $this->registerMiddleware();
         //$this->mapWebRoutes();
         //$this->registerAdminMenu();
@@ -70,11 +77,7 @@ class Module extends BaseModule {
 
         //$this->registerUrlGenerator();
 
-         $this->app->bind('view.finder', function ($app) {
-            $paths = $app['config']['view.paths'];
 
-            return new FileViewFinder($app['files'], $paths);
-        });
     }
 
     /**
@@ -146,7 +149,7 @@ class Module extends BaseModule {
                     ->with('isTaxableOptions', $isTaxableOptions);
         });
 
-        view()->composer('layouts.app', function ($view) {
+        view()->composer(['layouts.app','layouts.app-bootstrap'], function ($view) {
             //$websiteId = Session::get('website_id');
             //$baseCategories = Category::where('parent_id','=','')
             //                        ->where('website_id','=',$websiteId)
@@ -188,7 +191,7 @@ class Module extends BaseModule {
         }
     }
 
-  
+
 
     private function _registerShippingFacade()
     {
@@ -232,7 +235,7 @@ class Module extends BaseModule {
 
     public function registerAdminMenuFacade()
     {
-        
+
         App::bind('AdminMenu', function () {
             return new AdminMenu();
         });
@@ -252,14 +255,14 @@ class Module extends BaseModule {
     }
     public function registerAdminConfigurationFacade()
     {
-        
+
         //App::bind('AdminConfiguration', function () {
         //    return new AdminConfigurationManager();
         //});
         $this->app->alias('AdminConfiguration', 'Mage2\System\View\AdminConfiguration');
     }
-    
-    
+
+
      /**
      * Get the services provided by the provider.
      *

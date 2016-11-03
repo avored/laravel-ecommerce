@@ -16,7 +16,7 @@ class FileViewFinder extends LaravelFileViewFinder
     {
         $paths = array_reverse($paths);
         //var_dump($name);
-        //dd($paths);
+
 
         foreach ((array) $paths as $path) {
             //var_dump($path);

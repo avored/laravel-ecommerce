@@ -1,24 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
 
         <div class="row">
             <div class="item-container">
-
-
-                
-
-                <div class="col s12">
-                    <div class="product col s3 service-image-left">
+                <div class="col-md-12">
+                    <div class="product col-md-3 service-image-left">
 
                         <center>
                             @if(isset($product->getProductImages($first = true)->value))
                                 <img alt="{{ $product->title }}"
-                                     class="responsive-img"
+                                     class="img-responsive"
                                      src="{{ asset('/uploads/catalog/images/'. $product->getProductImages($first= true)->value)  }}"/>
                             @else
                                 <img alt="{{ $product->title }}"
-                                     class="responsive-img"
+                                     class="img-responsive"
                                      src="{{ asset('/img/default-product.jpg') }}"/>
                             @endif
                         </center>

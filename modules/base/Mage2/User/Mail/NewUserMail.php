@@ -1,6 +1,5 @@
 <?php
-
-namespace Mage2\Auth\Mail;
+namespace Mage2\User\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
