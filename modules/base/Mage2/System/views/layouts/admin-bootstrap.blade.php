@@ -39,14 +39,19 @@ echo json_encode([
 
 
 
+
+
+        </div>
         @include("layouts.admin-bootstrap-nav")
         <div class="container">
                 <div class="row">
                     <div class="col-md-12">
                         @if(session()->has('notificationText'))
-                        <div class="chip notification">
-                            {{ session()->get('notificationText') }}
-                            <i class="close material-icons">close</i>
+                            <div class="alert alert-success alert-dismissible" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                                <strong>Success!</strong> {{ session()->get('notificationText') }}
+
                         </div>
                         @endif
                     </div>

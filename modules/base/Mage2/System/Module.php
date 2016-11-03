@@ -47,7 +47,7 @@ class Module extends BaseModule {
         $this->app['request']->server->set('HTTPS', 'off');
         
 
-        View::composer(['layouts.admin-nav','layouts.admin-bootstrap-nav'], function ($view) {
+        View::composer(['layouts.admin-bootstrap-nav'], function ($view) {
             $adminMenus = (array) AdminMenuFacade::getMenuItems();
             $view->with('adminMenus', $adminMenus);
         });

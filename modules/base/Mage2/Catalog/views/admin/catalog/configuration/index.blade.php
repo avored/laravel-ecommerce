@@ -1,27 +1,21 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
 
 <div class="row">
-    <div class="col s12">
-        <div class="main-title-wrapper">
-            <h1>Catalog Configuration List</h1>
+    <div class="col-md-12">
+        <div class="main-title-wrap">
+            <span class="title">Catalog Configuration List</span>
 
         </div>
-        <div class="clearfix"></div>
 
-        <br/>
         <div class="paypal-form-wrapper">
 
-            {!! Form::model($configurations, ['route' => 'admin.configuration.store']) !!}
-            @include('template.text',['key' => 'mage2_catalog_no_of_product_category_page','label' => 'No of Product in Category Page'])
-            
-            @include('template.select',[    'key' => 'mage2_catalog_cart_page_display_taxamount',
-                                            'label' => 'Display Tax Amouny on Cart Page',
-                                            'options' => ['yes' => 'Yes', 'no' => 'No']
-                                    ])
-            
-            @include('template.submit',['label' => 'Save Configuration'])
+            {!! Form::bind($configurations, ['method' => 'post', 'action' => route('admin.configuration.store')]) !!}
+            {!! Form::text('mage2_catalog_no_of_product_category_page', 'No of Product in Category Page') !!}
+
+            {!! Form::select('mage2_catalog_cart_page_display_taxamount', 'Display Tax Amouny on Cart Page',['yes' => 'Yes', 'no' => 'No']) !!}
+            {!!  Form::submit('Save Configuration') !!}
 
             {!! Form::close() !!}
         </div>
