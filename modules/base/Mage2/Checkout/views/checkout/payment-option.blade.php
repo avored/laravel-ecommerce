@@ -1,21 +1,21 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
 
     <div class="row">
-        <div class="col s12">
+        <div class="col-md-12">
             <h2>Checkout Page</h2>
-                <div class="card card-default">
-                    <div class="card-content">
-                    <div class="card-title">Payment Option</div>
-                        {!! Form::open(['route' => 'checkout.payment-option.post']) !!}
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                    <div class="panel-heading">Payment Option</div>
+                        {!! Form::open(['method' => 'post','action' => route('checkout.payment-option.post')]) !!}
 
                         @foreach($paymentOptions as $paymentOption)
 
-                            <div class="input-field {{ $errors->has($paymentOption->getIdentifier()) ? ' has-error' : '' }}">
+                            <div class="form-group {{ $errors->has($paymentOption->getIdentifier()) ? ' has-error' : '' }}">
 
-                                {!! Form::radio('payment_option',$paymentOption->getIdentifier(),null,['id' => $paymentOption->getIdentifier()]) !!}
-                                {!! Form::label($paymentOption->getIdentifier(), $paymentOption->getTitle() ) !!}
+                                {!! Form::radio('payment_option',$paymentOption->getTitle(),$paymentOption->getIdentifier(),['id' => $paymentOption->getIdentifier()]) !!}
+                                
 
                                 @if ($errors->has($paymentOption->getIdentifier()))
                                     <span class="help-block">
@@ -26,9 +26,7 @@
 
                         @endforeach
 
-                        <div class="input-field">
-                            {!! Form::submit("Continue",['class' => 'btn btn-primary']) !!}
-                        </div>
+                            {!! Form::submit("Continue") !!}
 
                         {!! Form::close() !!}
                     </div>

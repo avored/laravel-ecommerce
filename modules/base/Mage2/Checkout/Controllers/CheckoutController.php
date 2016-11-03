@@ -154,6 +154,7 @@ class CheckoutController extends Controller
 
         $paymentMethod = Payment::get($request->get('payment_option'));
 
+        
         $redirectUrl = $paymentMethod->process($orderData, $cartProducts);
         $orderData['payment_method'] = $request->get('payment_option');
 

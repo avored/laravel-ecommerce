@@ -1,22 +1,22 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
 
         <div class="row">
-            <div class="col s12">
+            <div class="col-md-12">
                 <h2>Checkout Page</h2>
 
-                    <div class="card card-default">
-                        <div class="card-content">
-                        <div class="card-title">Shipping Option</div>
-                            {!! Form::open(['route' => 'checkout.shipping-option.post']) !!}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Shipping Option</div>
+                        <div class="panel-body">
+                            {!! Form::open(['method'=>'post','action' => route('checkout.shipping-option.post')]) !!}
 
                             @foreach($shillingOptions as $shippingOption)
 
                                 <div class="input-group {{ $errors->has($shippingOption->getIdentifier()) ? ' has-error' : '' }}">
 
-                                    {!! Form::radio('shipping_option',$shippingOption->getIdentifier(),['class' =>'form-control','id' => $shippingOption->getIdentifier()]) !!}
-                                    {!! Form::label($shippingOption->getIdentifier(), $shippingOption->getTitle() . " " . $shippingOption->getAmount()) !!}
+                                    {!! Form::radio('shipping_option',$shippingOption->getTitle() . " " . $shippingOption->getAmount(),$shippingOption->getIdentifier(),['class' =>'form-control','id' => $shippingOption->getIdentifier()]) !!}
+                                   
 
                                     @if ($errors->has($shippingOption->getIdentifier()))
                                         <span class="help-block">
