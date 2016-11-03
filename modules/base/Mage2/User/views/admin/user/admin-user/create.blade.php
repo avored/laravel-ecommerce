@@ -9,10 +9,10 @@
                         <!--<small>Sub title</small> -->
                     </span>
                 </div>
-                {!! Form::open(['method' => 'post','action' =>  route('admin.user.store')]) !!}
-                    @include('admin.user.user._fields',['editMethod' => false,'roles' => $roles])
+                {!! Form::open(['method' => 'post','action' =>  route('admin.admin-user.store')]) !!}
+                    @include('admin.user.admin-user._fields',['editMethod' => false,'roles' => $roles])
                     {!! Form::submit("Create User",['class' => 'btn btn-primary']) !!}
-                    {!! Form::button("cancel",['class' => 'btn ','onclick' => 'location="' . route('admin.user.index'). '"']) !!}
+                    {!! Form::button("cancel",['class' => 'btn ','onclick' => 'location="' . route('admin.admin-user.index'). '"']) !!}
                     
                 {!! Form::close() !!}
             </div>

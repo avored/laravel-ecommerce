@@ -25,13 +25,13 @@ Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\User\Con
 });
 
 Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
-    Route::resource('/admin/user', 'UserController', ['names' => [
-            'index'   => 'admin.user.index',
-            'create'  => 'admin.user.create',
-            'store'   => 'admin.user.store',
-            'edit'    => 'admin.user.edit',
-            'update'  => 'admin.user.update',
-            'destroy' => 'admin.user.destroy',
+    Route::resource('/admin/admin-user', 'AdminUserController', ['names' => [
+            'index'   => 'admin.admin-user.index',
+            'create'  => 'admin.admin-user.create',
+            'store'   => 'admin.admin-user.store',
+            'edit'    => 'admin.admin-user.edit',
+            'update'  => 'admin.admin-user.update',
+            'destroy' => 'admin.admin-user.destroy',
         ]]);
 
     Route::resource('/admin/role', 'RoleController', ['names' => [

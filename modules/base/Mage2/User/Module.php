@@ -79,8 +79,8 @@ class Module extends BaseModule
     public function registerAdminMenu()
     {
         $adminMenu = [
-            'label' => 'Users',
-            'url'   => route('admin.user.index'),
+            'label' => 'Admin Users',
+            'url'   => route('admin.admin-user.index'),
         ];
         AdminMenu::registerMenu($adminMenu);
 

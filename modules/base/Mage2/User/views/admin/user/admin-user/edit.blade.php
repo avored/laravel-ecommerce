@@ -10,13 +10,13 @@
             </h1>
         </div>
 
-        {!! Form::bind($user, ['method' => 'PUT', 'action' => route('admin.user.update', $user->id)]) !!}
+        {!! Form::bind($user, ['method' => 'PUT', 'action' => route('admin.admin-user.update', $user->id)]) !!}
 
-        @include('admin.user.user._fields',['editMethod' => true,'roles' => $roles])
+        @include('admin.user.admin-user._fields',['editMethod' => true,'roles' => $roles])
 
         @include('template.hidden',['key' => 'id'])
         {!! Form::submit("Update User",['class' => 'btn btn-primary']) !!}
-        {!! Form::button("cancel",['class' => 'btn ','onclick' => 'location="' . route('admin.user.index'). '"']) !!}
+        {!! Form::button("cancel",['class' => 'btn ','onclick' => 'location="' . route('admin.admin-user.index'). '"']) !!}
 
         {!! Form::close() !!}
     </div>
