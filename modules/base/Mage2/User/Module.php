@@ -83,5 +83,11 @@ class Module extends BaseModule
             'url'   => route('admin.user.index'),
         ];
         AdminMenu::registerMenu($adminMenu);
+
+        $adminRoleMenu = [
+            'label' => 'Roles',
+            'url'   => route('admin.role.index'),
+        ];
+        AdminMenu::registerMenu($adminRoleMenu);
     }
 }

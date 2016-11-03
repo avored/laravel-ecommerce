@@ -34,6 +34,15 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
             'destroy' => 'admin.user.destroy',
         ]]);
 
+    Route::resource('/admin/role', 'RoleController', ['names' => [
+        'index'   => 'admin.role.index',
+        'create'  => 'admin.role.create',
+        'store'   => 'admin.role.store',
+        'edit'    => 'admin.role.edit',
+        'update'  => 'admin.role.update',
+        'destroy' => 'admin.role.destroy',
+    ]]);
+
 
 });
 Route::group(['middleware' => ['web', 'frontauth', 'website'], 'namespace' => "Mage2\User\Controllers"], function () {

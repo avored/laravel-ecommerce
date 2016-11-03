@@ -9,8 +9,8 @@
                         <!--<small>Sub title</small> -->
                     </span>
                 </div>
-                {!! Form::open(['action' =>  route('admin.user.store')]) !!}
-                    @include('admin.user.user._fields')
+                {!! Form::open(['method' => 'post','action' =>  route('admin.user.store')]) !!}
+                    @include('admin.user.user._fields',['editMethod' => false])
                     {!! Form::submit("Create User",['class' => 'btn btn-primary']) !!}
                     {!! Form::button("cancel",['class' => 'btn ','onclick' => 'location="' . route('admin.user.index'). '"']) !!}
                     
