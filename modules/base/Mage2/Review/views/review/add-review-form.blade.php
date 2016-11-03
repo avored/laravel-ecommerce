@@ -1,7 +1,7 @@
 <form action="{{ route('review.store') }}" method="post">
     {{ csrf_field() }}
 
-    <div class="input-field {{ $errors->has('star') ? ' has-error' : '' }}">
+    <div class="form-group {{ $errors->has('star') ? ' has-error' : '' }}">
         <p>Please Select Rating</p>
 
         <div id="rateYo"></div>
@@ -17,10 +17,10 @@
     </div>
 
     @if(!Auth::check())
-        <div class="input-field col s6  {{ $errors->has('first_name') ? ' has-error' : '' }}">
+        <div class="form-group col s6  {{ $errors->has('first_name') ? ' has-error' : '' }}">
 
             <label for="first_name">First Name</label>
-            <input type="text" name="first_name" id="first_name" value="" />
+            <input type="text" name="first_name" class="form-control" id="first_name" value="" />
             @if ($errors->has('first_name'))
                 <p>
                 <span class="help-block">
@@ -29,10 +29,10 @@
                 </p>
             @endif
         </div>
-        <div class="input-field col s6  {{ $errors->has('last_name') ? ' has-error' : '' }}">
+        <div class="form-group col s6  {{ $errors->has('last_name') ? ' has-error' : '' }}">
 
             <label for="last_name">Last Name</label>
-            <input type="text" name="last_name" id="last_name" value="" />
+            <input type="text" name="last_name" class="form-control" id="last_name" value="" />
             @if ($errors->has('last_name'))
                 <p>
                 <span class="help-block">
@@ -41,10 +41,10 @@
                 </p>
             @endif
         </div>
-        <div class="input-field col s12  {{ $errors->has('email') ? ' has-error' : '' }}">
+        <div class="form-group col s12  {{ $errors->has('email') ? ' has-error' : '' }}">
 
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" value="" />
+            <input type="text" name="email" id="email" class="form-control" value="" />
             @if ($errors->has('email'))
                 <p>
                 <span class="help-block">
@@ -59,9 +59,10 @@
     @endif
 
 
-    <div class="input-field   {{ $errors->has('comment') ? ' has-error' : '' }}">
-        {!! Form::label('comment', "Comment") !!}
-        {!! Form::textarea('comment',NULL,['class' => 'materialize-textarea']) !!}
+    <div class="form-group   {{ $errors->has('comment') ? ' has-error' : '' }}">
+        
+        
+        {!! Form::textarea('comment',"Comment") !!}
         @if ($errors->has('comment'))
             <p>
             <span class="help-block">

@@ -1,26 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
 <div class="row">
-    <div class="col s12">
+    <div class="col-md-12">
         <h2>Cart Page</h2>
         @if(count($cartProducts) <= 0)
         <p>Sorry No Product Found</p>
         @else
         <div class="cart-list">
-            <div class="col s8">Product</div>
-            <div class="col s1" style="text-align: center">Quantity</div>
-            <div class="col s1 ">Price</div>
-            <div class="col s1">Total</div>
-            <div class="col s1"> </div>
+            <div class="col-md-8">Product</div>
+            <div class="col-md-1" style="text-align: center">Quantity</div>
+            <div class="col-md-1 ">Price</div>
+            <div class="col-md-1">Total</div>
+            <div class="col-md-1"> </div>
             <?php $total = 0; $taxTotal = 0; ?>
             @foreach($cartProducts as $product)
             <div class="clearfix">
-                <div class="col s12">
+                <div class="col-md-12">
 
                     {!! Form::open(['method' => 'put', 'route' => 'cart.update']) !!}
 
-                    <div class="col s8">
+                    <div class="col-md-8">
                         <div class="media">
 
                             @if(isset($product['model']->getProductImages($first = true)->value))
@@ -46,16 +46,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col s1">
+                    <div class="col-md-1">
                         <input type="text" class="form-control" name="qty"
                                value="{{ $product['qty']}}">
                         <input type="hidden" name="id" value="{{$product['model']->id}}" />
                     </div>
                     <?php $total += ($product['price'] * $product['qty'] ) ?>
                     <?php $taxTotal += ($product['tax_amount'] * $product['qty'] ) ?>
-                    <div class="col-sm-1 col s1 text-center"><strong>${{ $product['price']}}</strong></div>
-                    <div class="col-sm-1 col s1 text-center"><strong>${{ ($product['price'] * $product['qty'] )}}</strong></div>
-                    <div class="col-sm-1 col s1">
+                    <div class="col-sm-1 col-md-1 text-center"><strong>${{ $product['price']}}</strong></div>
+                    <div class="col-sm-1 col-md-1 text-center"><strong>${{ ($product['price'] * $product['qty'] )}}</strong></div>
+                    <div class="col-sm-1 col-md-1">
                         <a href="#" onclick="jQuery(this).parents('form:first').submit()" >
                             <span class="glyphicon glyphicon-edit"></span> Update
                         </a>
@@ -67,52 +67,52 @@
                 </div>
                 @endforeach
                 <div class="clearfix"></div>
-                <div class="col s12">
-                    <div class="col s8"> &nbsp;  </div>
-                    <div class="col s1">&nbsp;   </div>
-                    <div class="col s1"> &nbsp;   </div>
-                    <div class="col s1"><h6>Subtotal</h6></div>
-                    <div class="col s1 text-right"><h6><strong>${{ $total }}</strong></h6></div>
+                <div class="col-md-12">
+                    <div class="col-md-8"> &nbsp;  </div>
+                    <div class="col-md-1">&nbsp;   </div>
+                    <div class="col-md-1"> &nbsp;   </div>
+                    <div class="col-md-1"><h6>Subtotal</h6></div>
+                    <div class="col-md-1 text-right"><h6><strong>${{ $total }}</strong></h6></div>
                 </div>
 
-                <!--div class="col s12">
-                    <div class="col s8">   </div>
-                    <div class="col s1">   </div>
-                    <div class="col s1">   </div>
-                    <div class="col s1"><h6>Estimated shipping</h6></div>
-                    <div class="col s1 text-right"><h6><strong>$0.00</strong></h6></div>
+                <!--div class="col-md-12">
+                    <div class="col-md-8">   </div>
+                    <div class="col-md-1">   </div>
+                    <div class="col-md-1">   </div>
+                    <div class="col-md-1"><h6>Estimated shipping</h6></div>
+                    <div class="col-md-1 text-right"><h6><strong>$0.00</strong></h6></div>
                 </div-->
-                <!--div class="col s12">
-                    <div class="col s8">   </div>
-                    <div class="col s1">   </div>
-                    <div class="col s1">   </div>
-                    <div class="col s1"><h6>Estimated shipping</h6></div>
-                    <div class="col s1 text-right"><h6><strong>$0.00</strong></h6></div>
+                <!--div class="col-md-12">
+                    <div class="col-md-8">   </div>
+                    <div class="col-md-1">   </div>
+                    <div class="col-md-1">   </div>
+                    <div class="col-md-1"><h6>Estimated shipping</h6></div>
+                    <div class="col-md-1 text-right"><h6><strong>$0.00</strong></h6></div>
                 </div-->
-                <div class="col s12">
-                    <div class="col s8">   </div>
-                    <div class="col s1">   </div>
-                    <div class="col s1">   </div>
-                    <div class="col s1"><h6>Tax</h6></div>
-                    <div class="col s1 text-right"><h6><strong>${{ number_format($taxTotal,2) }}</strong></h6></div>
+                <div class="col-md-12">
+                    <div class="col-md-8">   </div>
+                    <div class="col-md-1">   </div>
+                    <div class="col-md-1">   </div>
+                    <div class="col-md-1"><h6>Tax</h6></div>
+                    <div class="col-md-1 text-right"><h6><strong>${{ number_format($taxTotal,2) }}</strong></h6></div>
                 </div>
-                 <div class="col s12">
-                    <div class="col s8"> &nbsp;  </div>
-                    <div class="col s1">&nbsp;   </div>
-                    <div class="col s1"> &nbsp;   </div>
-                    <div class="col s1"><h6>Total</h6></div>
-                    <div class="col s1 text-right"><h6><strong>${{ number_format(($total + $taxTotal),2) }}</strong></h6></div>
+                 <div class="col-md-12">
+                    <div class="col-md-8"> &nbsp;  </div>
+                    <div class="col-md-1">&nbsp;   </div>
+                    <div class="col-md-1"> &nbsp;   </div>
+                    <div class="col-md-1"><h6>Total</h6></div>
+                    <div class="col-md-1 text-right"><h6><strong>${{ number_format(($total + $taxTotal),2) }}</strong></h6></div>
                 </div>
-                <div class="col s12">
-                    <div class="col s6">   </div>
-                    <div class="col s1">   </div>
-                    <div class="col s1">   </div>
-                    <div class="col s2"> 
+                <div class="col-md-12">
+                    <div class="col-md-6">   </div>
+                    <div class="col-md-1">   </div>
+                    <div class="col-md-1">   </div>
+                    <div class="col-md-2"> 
                         <a href="{{ route('home') }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
                         </a>
                     </div>
-                    <div class="col s2 text-right"> 
+                    <div class="col-md-2 text-right"> 
                         <a href="{{ route('checkout.index') }}" class="btn btn-success">
                             Checkout <span class="glyphicon glyphicon-play"></span>
                         </a>

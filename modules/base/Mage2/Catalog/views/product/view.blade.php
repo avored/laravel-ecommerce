@@ -6,7 +6,6 @@
             <div class="item-container">
                 <div class="col-md-12">
                     <div class="product col-md-3 service-image-left">
-
                         <center>
                             @if(isset($product->getProductImages($first = true)->value))
                                 <img alt="{{ $product->title }}"
@@ -21,7 +20,7 @@
                     </div>
 
 
-                    <div class="col s7">
+                    <div class="col-md-7">
                         <h1 class="product-title">{{ $product->title }}</h1>
                         <p>
                             <a href="#">Add Review</a>
@@ -48,7 +47,7 @@
                     </div>
                 </div>
 
-                <div class="col s12 product-info">
+                <div class="col-md-12 product-info">
                     <ul class="tabs">
                         <li class="tab col s3"><a href="#description">DESCRIPTION</a></li>
                         <li class="tab col s3"><a href="#review">REVIEW</a></li>

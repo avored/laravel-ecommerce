@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
 <div class="container">
@@ -10,10 +10,10 @@
                     <div class="card-content">
                     <div class="card-title">Billing Address</div>
 
-                        {!! Form::model($address,['route' => 'checkout.billing-address.post']) !!}
+                        {!! Form::bind($address,['method' => 'post','action' => route('checkout.billing-address.post')]) !!}
 
 
-                        <div class="input-field col s6 {{ $errors->has('first_name') ? ' has-error' : '' }}">
+                        <div class="form-group col-md-6 {{ $errors->has('first_name') ? ' has-error' : '' }}">
                             <label for="first_name" class="control-label">First Name</label>
                             <input id="first_name" type="text" class="form-control" name="first_name" value="{{ $address->first_name }}">
                             @if ($errors->has('first_name'))
@@ -22,7 +22,7 @@
                             </span>
                             @endif
                         </div>
-                        <div class="input-field col s6{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                        <div class="form-group col-md-6{{ $errors->has('last_name') ? ' has-error' : '' }}">
                             <label for="last_name" class="control-label">Last Name</label>
                             <input id="last_name" type="text" class="form-control" name="last_name" value="{{ $address->last_name }}">
                             @if ($errors->has('last_name'))
@@ -33,7 +33,7 @@
                         </div>
                         <div class="clearfix"></div>
 
-                        <div class="input-field{{ $errors->has('address1') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
                             <label for="address1" class="control-label">Address1</label>
                             <input id="address1" type="text" class="form-control" name="address1" value="{{ $address->address1 }}">
                             @if ($errors->has('address1'))
@@ -43,7 +43,7 @@
                             @endif
                         </div>
 
-                        <div class="input-field{{ $errors->has('address2') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('address2') ? ' has-error' : '' }}">
                             <label for="address2" class="control-label">Address2</label>
                             <input id="address2" type="text" class="form-control" name="address2" value="{{ $address->address2 }}">
                             @if ($errors->has('address2'))
@@ -53,7 +53,7 @@
                             @endif
                         </div>
 
-                        <div class="input-field{{ $errors->has('area') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('area') ? ' has-error' : '' }}">
                             <label for="area" class="control-label">Area</label>
                             <input id="area" type="text" class="form-control" name="area" value="{{ $address->area }}">
                             @if ($errors->has('area'))
@@ -63,7 +63,7 @@
                             @endif
                         </div>
 
-                        <div class="input-field{{ $errors->has('city') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
                             <label for="city" class="control-label">City</label>
                             <input id="city" type="text" class="form-control" name="city" value="{{ $address->city }}">
                             @if ($errors->has('city'))
@@ -73,7 +73,7 @@
                             @endif
                         </div>
 
-                        <div class="input-field{{ $errors->has('state') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
                             <label for="state" class="control-label">State</label>
                             <input id="state" type="text" class="form-control" name="state" value="{{ $address->state }}">
                             @if ($errors->has('state'))
@@ -83,9 +83,9 @@
                             @endif
                         </div>
 
-                        <div class="input-field{{ $errors->has('country') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
 
-                            <select name="country_id" >
+                            <select name="country_id" class="form-control" >
                                 @foreach($countries as $country)
                                     <option @if($address->country_id == $country->id)
                                             {{ "selected" }}
@@ -102,7 +102,7 @@
                         </div>
 
 
-                        <div class="input-field{{ $errors->has('phone') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
                             <label for="phone" class="control-label">Phone</label>
                             <input id="phone" type="text" class="form-control" name="phone" value="{{ $address->phone }}">
                             @if ($errors->has('phone'))
@@ -117,7 +117,7 @@
 
                         {!! Form::hidden('id') !!}
 
-                        <div class="input-field">
+                        <div class="form-group">
                             {!! Form::submit("Continue",['class' => 'btn btn-primary']) !!}
                         </div>
 
