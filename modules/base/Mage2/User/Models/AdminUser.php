@@ -3,6 +3,7 @@ namespace Mage2\User\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Mage2\User\Notifications\ResetPassword;
 
 class AdminUser extends Authenticatable
 {
@@ -24,6 +25,18 @@ class AdminUser extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
+    }
+
 
     public function getFullNameAttribute()
     {

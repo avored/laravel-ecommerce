@@ -1,19 +1,20 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
-<div class="container">
+
     <div class="row">
-        <div class="col s12">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Reset Password</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
+                    <div class="col-md-12">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/password/reset') }}">
                         {{ csrf_field() }}
 
                         <input type="hidden" name="token" value="{{ $token }}">
 
-                        <div class="input-field{{ $errors->has('email') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col s4 control-label">E-Mail Address</label>
 
                             <div class="col s6">
@@ -27,7 +28,7 @@
                             </div>
                         </div>
 
-                        <div class="input-field{{ $errors->has('password') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                             <label for="password" class="col s4 control-label">Password</label>
 
                             <div class="col s6">
@@ -41,7 +42,7 @@
                             </div>
                         </div>
 
-                        <div class="input-field{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                             <label for="password-confirm" class="col s4 control-label">Confirm Password</label>
                             <div class="col s6">
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
@@ -54,17 +55,18 @@
                             </div>
                         </div>
 
-                        <div class="input-field">
-                            <div class="col s6 col-md-offset-4">
+                        <div class="form-group">
+
                                 <button type="submit" class="btn btn-primary">
                                     Reset Password
                                 </button>
-                            </div>
+
                         </div>
                     </form>
+                        </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 @endsection

@@ -16,6 +16,12 @@ Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\User\Con
     Route::post('/admin/login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
 
     Route::get('/admin/logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
+
+    Route::get('/admin/password/reset/{token}', ['as' => 'password.reset.token', 'uses' => 'ResetPasswordController@showResetForm']);
+    Route::post('/admin/password/reset', ['as' => 'password.reset.token', 'uses' => 'ResetPasswordController@reset']);
+
+    Route::get('/admin/password/reset', ['as' => 'password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
+
 });
 
 Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {

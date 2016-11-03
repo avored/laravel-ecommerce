@@ -40,7 +40,7 @@ use AuthenticatesUsers;
 
     public function showLoginForm()
     {
-        return view('admin.auth.login');
+        return view('admin.user.auth.login');
     }
 
     protected function guard()
