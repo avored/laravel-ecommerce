@@ -112,10 +112,10 @@ class Module extends BaseModule
      */
     protected function registerPermissions() {
         $permissions = [
-            ['title' => 'Category List',     'routes' => 'category.index'],
-            ['title' => 'Category Create',   'routes' => "category.create,category.store"],
-            ['title' => 'Category Edit',     'routes' => "category.edit, category.update"],
-            ['title' => 'Category Destroy',  'routes' => "category.destroy"],
+            ['title' => 'Category List',     'routes' => 'admin.category.index'],
+            ['title' => 'Category Create',   'routes' => "admin.category.create,admin.category.store"],
+            ['title' => 'Category Edit',     'routes' => "admin.category.edit,admin.category.update"],
+            ['title' => 'Category Destroy',  'routes' => "admin.category.destroy"],
         ];
 
         foreach ($permissions as $permission) {

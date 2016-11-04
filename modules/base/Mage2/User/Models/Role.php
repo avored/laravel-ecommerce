@@ -31,7 +31,15 @@ class Role extends Model
     }
 
     public function hasPermission($permissionName) {
-        return $this->permissions->pluck('name')->contains($permissionName);
+        $permissions = explode(',', $permissionName);
+
+        $returnData = true;
+        foreach($permissions as $permission) {
+            if($this->permissions->pluck('name')->contains($permission) == false) {
+                $returnData = false;
+            }
+        }
+        return $returnData;
     }
 }
 

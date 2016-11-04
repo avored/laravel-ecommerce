@@ -19,17 +19,17 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $user = new Role();
-        $dataGrid = DataGrid::make($user);
+        $role = new Role();
+        $dataGrid = DataGrid::make($role);
 
         $dataGrid->addColumn(DataGrid::textColumn('name', 'Role Name'));
         $dataGrid->addColumn(DataGrid::textColumn('description', 'Role Description'));
 
-        $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($label, $row) {
+        $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
             return "<a href='" . route('admin.role.edit', $row->id) . "'>Edit</a>";
         }));
 
-        $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($label, $row) {
+        $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
             return "<form method='post' action='" . route('admin.role.destroy', $row->id) . "'>" .
             "<input type='hidden' name='_method' value='delete'/>" .
             csrf_field() .
@@ -153,15 +153,9 @@ class RoleController extends Controller
                         $permissionModel = Permission::create(['name' => $permissionName]);
                     }
                     $permissionIds[] = $permissionModel->id;
-
-
                 }
-
-
             }
         }
-
-
         $ids = array_unique($permissionIds);
         $role->permissions()->sync($ids);
         return $this;

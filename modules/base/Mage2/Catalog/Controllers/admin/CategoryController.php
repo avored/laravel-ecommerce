@@ -5,10 +5,11 @@ namespace Mage2\Catalog\Controllers\Admin;
 use Illuminate\Support\Collection;
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Requests\CategoryRequest;
-use Mage2\System\Controllers\Controller;
-use Mage2\Framework\DataGrid\DataGridFacade as DataGrid; 
-
-class CategoryController extends Controller
+use Mage2\System\Controllers\AdminController;
+use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
+use Illuminate\Support\Facades\Gate;
+use Mage2\User\Models\AdminUser;
+class CategoryController extends AdminController
 {
     /**
      * Display a listing of the Category.
@@ -17,27 +18,31 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
         $category = new Category();
+        //dd(Gate::authorize('hasPermission', [AdminUser::class,"admin.category.destroy"]));
         $dataGrid = DataGrid::make($category);
 
-        $dataGrid->addColumn(DataGrid::textColumn('name','Category Name'));
-        $dataGrid->addColumn(DataGrid::textColumn('slug','Category Slug'));
-        $dataGrid->addColumn(DataGrid::textColumn('parent_name','Parent Category Name'));
-        $dataGrid->addColumn(DataGrid::linkColumn('edit','Edit',function($label , $row) {
-            return "<a href='". route('admin.category.edit', $row->id)."'>Edit</a>";
+        $dataGrid->addColumn(DataGrid::textColumn('name', 'Category Name'));
+        $dataGrid->addColumn(DataGrid::textColumn('slug', 'Category Slug'));
+        $dataGrid->addColumn(DataGrid::textColumn('parent_name', 'Parent Category Name'));
+        $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
+            return "<a href='" . route('admin.category.edit', $row->id) . "'>Edit</a>";
         }));
 
-        $dataGrid->addColumn(DataGrid::linkColumn('destroy','Destroy',function($label , $row) {
-            return "<form method='post' action='".route('admin.category.destroy', $row->id)."'>" .
-                    "<input type='hidden' name='_method' value='delete'/>".
-                    csrf_field() .
-                    '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>'.
-                    "</form>";
-        }));
-        
+
+        //if ($this->authorize('', 'admin.category.destroy')) {
+            $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
+                return "<form method='post' action='" . route('admin.category.destroy', $row->id) . "'>" .
+                "<input type='hidden' name='_method' value='delete'/>" .
+                csrf_field() .
+                '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
+                "</form>";
+            }));
+        //}
+
         return view('admin.catalog.category.index')
-                ->with('dataGrid', $dataGrid)
-                ;
+            ->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -50,13 +55,13 @@ class CategoryController extends Controller
         $categoryOptions = $this->_getCategoryOptions();
 
         return view('admin.catalog.category.create')
-                ->with('categoryOptions', $categoryOptions);
+            ->with('categoryOptions', $categoryOptions);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Http\Requests\CategoryRequest $request
+     * @param \Mage2\Catalog\Requests\CategoryRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -89,7 +94,7 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param \App\Http\Requests\CategoryRequest $request
-     * @param int                                $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */

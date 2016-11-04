@@ -9,10 +9,19 @@ use Mage2\User\Middleware\AdminAuthenticate;
 use Mage2\User\Middleware\FrontAuthenticate;
 use Mage2\User\Middleware\RedirectIfAdminAuthenticated;
 use Mage2\User\Middleware\RedirectIfFrontAuthenticated;
+use Illuminate\Support\Facades\Gate;
+use Mage2\User\Policies\AdminUserPolicy;
+use Mage2\User\Models\AdminUser;
+use Illuminate\Auth\Access\Gate as LaravelGate;
+use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 
 
 class Module extends BaseModule
 {
+    protected $policies = [
+        AdminUser::class => AdminUserPolicy::class,
+    ];
+
      /**
      * Indicates if loading of the provider is deferred.
      *
@@ -28,6 +37,7 @@ class Module extends BaseModule
     {
         $this->registerMiddleware();
         $this->registerAdminMenu();
+        $this->registerPolicies();
     }
 
     /**
@@ -38,9 +48,26 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-
         $this->registerViewPath();
+        //$this->registerAccessGate();
     }
+
+
+    /**
+     * Register the policy for the admin user
+     *
+     * @return void
+     */
+    public function registerPolicies() {
+
+
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
+        }
+
+    }
+
+
     /**
      * Register the middleware for the mage2 auth modules.
      *
@@ -55,6 +82,7 @@ class Module extends BaseModule
         $router->middleware('frontauth', FrontAuthenticate::class);
         $router->middleware('frontguest', RedirectIfFrontAuthenticated::class);
     }
+
 
 
     /**

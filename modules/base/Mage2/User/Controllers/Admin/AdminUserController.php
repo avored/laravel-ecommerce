@@ -63,9 +63,10 @@ class AdminUserController extends Controller
      */
     public function store(AdminUserRequest $request)
     {
+        $request->merge(['password' => bcrypt($request->get('password'))]);
         AdminUser::create($request->all());
 
-        return redirect()->route('admin.user.index');
+        return redirect()->route('admin.admin-user.index');
     }
 
     /**
