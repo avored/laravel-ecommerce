@@ -15,7 +15,6 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        $this->registerAdminMenu();
         //$this->registerAdminConfiguration();
     }
 
@@ -27,8 +26,7 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-
-
+        $this->registerAdminConfiguration();
         $this->registerViewPath();
     }
 
@@ -43,25 +41,28 @@ class Module extends BaseModule
      */
     protected function mapWebRoutes()
     {
-        require __DIR__.'/routes.php';
+        require __DIR__.'/routes/web.php';
     }
 
+   /**
+     * add path to view finder.
+     *
+     * @param \Illuminate\Routing\Router $router
+     *
+     * @return void
+     */
     protected function registerViewPath()
     {
         View::addLocation(__DIR__.'/views');
     }
 
-    public function registerAdminMenu()
-    {
-
-
-        //$adminMenu = [
-        //    'label' => 'Products',
-        //    'url' => route('admin.product.index'),
-        //];
-        //AdminMenu::registerMenu($adminMenu);
-    }
-
+    /**
+     * Register Admin Configuration for the Address Modules
+     *
+     * @param \Illuminate\Routing\Router $router
+     *
+     * @return void
+     */
     public function registerAdminConfiguration()
     {
         $adminConfigurations[] = [

@@ -1,25 +1,18 @@
-@extends('layouts.admin')
+@extends('layouts.admin-bootstrap')
 
 @section('content')
 
 <div class="row">
-    <div class="col s12">
-        <div class="main-title-wrapper">
-            <h1>Address Configuration List</h1>
-
+    <div class="col-md-12">
+        <div class="main-title-wrap">
+            <span class="title">Address Configuration List</span>
         </div>
-        <div class="clearfix"></div>
-
-        <br/>
         <div class="paypal-form-wrapper">
 
-            {!! Form::model($configurations, ['route' => 'admin.configuration.store']) !!}
-            @include('template.select',[  'key' => 'mage2_address_default_country',
-                                        'label' => 'Please Select Default Country',
-                                        'options' => $countries])
-            
-            
-            @include('template.submit',['label' => 'Save Configuration'])
+            {!! Form::bind($configurations, ['method' => 'post','action' => route('admin.configuration.store')]) !!}
+            {!! Form::select('mage2_address_default_country', 'Select Default Country',$countries) !!}
+
+            {!! Form::submit('Save Configuration') !!}
 
             {!! Form::close() !!}
         </div>

@@ -31,6 +31,7 @@ class ConfigurationController extends Controller
         $countries = $this->addressHelper->getCountriesOptions();
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
+    
         return view('admin.address.configuration.index')
                 ->with('configurations', $configurations)
                 ->with('countries', $countries);

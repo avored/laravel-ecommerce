@@ -21,11 +21,7 @@
                 @foreach($adminMenus as $menu)
                     <li><a href="{{ $menu['url'] }}">{{ $menu['label'] }}</a></li>
                 @endforeach
-                @if (Auth::guard('admin')->guest())
-                    <li><a href="{{ url('admin.login') }}">Login</a></li>
-                @else
                     <li><a href="{{ route('admin.logout') }}">Logout</a></li>
-                @endif
             </ul>
         </div><!-- /.navbar-collapse -->
 </div>

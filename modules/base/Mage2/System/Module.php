@@ -100,14 +100,6 @@ class Module extends BaseModule {
         View::addLocation(__DIR__ . '/views');
     }
 
-    public function registerAdminMenu() {
-        $adminMenu = [
-            'label' => 'Tax Class',
-            'url' => route('admin.tax-class.index'),
-        ];
-        //AdminMenuFacade::registerMenu($adminMenu);
-    }
-
     public function registerViewComposerData() {
         view()->composer(['layouts.admin', 'template.header-nav'], function ($view) {
             $user = Auth::guard('admin')->user();
