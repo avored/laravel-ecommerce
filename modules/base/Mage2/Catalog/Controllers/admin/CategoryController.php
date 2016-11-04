@@ -9,40 +9,41 @@ use Mage2\System\Controllers\AdminController;
 use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
 use Illuminate\Support\Facades\Gate;
 use Mage2\User\Models\AdminUser;
-class CategoryController extends AdminController
-{
+
+class CategoryController extends AdminController {
+
     /**
      * Display a listing of the Category.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
 
         $category = new Category();
-        //dd(Gate::authorize('hasPermission', [AdminUser::class,"admin.category.destroy"]));
         $dataGrid = DataGrid::make($category);
 
         $dataGrid->addColumn(DataGrid::textColumn('name', 'Category Name'));
         $dataGrid->addColumn(DataGrid::textColumn('slug', 'Category Slug'));
         $dataGrid->addColumn(DataGrid::textColumn('parent_name', 'Parent Category Name'));
-        $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
-            return "<a href='" . route('admin.category.edit', $row->id) . "'>Edit</a>";
-        }));
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.category.edit"])) {
+            $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
+                return "<a href='" . route('admin.category.edit', $row->id) . "'>Edit</a>";
+            }));
+        }
 
 
-        //if ($this->authorize('', 'admin.category.destroy')) {
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.category.destroy"])) {
             $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
                 return "<form method='post' action='" . route('admin.category.destroy', $row->id) . "'>" .
-                "<input type='hidden' name='_method' value='delete'/>" .
-                csrf_field() .
-                '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
-                "</form>";
+                        "<input type='hidden' name='_method' value='delete'/>" .
+                        csrf_field() .
+                        '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
+                        "</form>";
             }));
-        //}
+        } 
 
         return view('admin.catalog.category.index')
-            ->with('dataGrid', $dataGrid);
+                        ->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -50,12 +51,11 @@ class CategoryController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         $categoryOptions = $this->_getCategoryOptions();
 
         return view('admin.catalog.category.create')
-            ->with('categoryOptions', $categoryOptions);
+                        ->with('categoryOptions', $categoryOptions);
     }
 
     /**
@@ -65,8 +65,7 @@ class CategoryController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request)
-    {
+    public function store(CategoryRequest $request) {
         $request->merge(['website_id' => $this->websiteId]);
         Category::create($request->all());
 
@@ -80,14 +79,13 @@ class CategoryController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         $categoryOptions = $this->_getCategoryOptions();
         $category = Category::findorfail($id);
 
         return view('admin.catalog.category.edit')
-            ->with('category', $category)
-            ->with('categoryOptions', $categoryOptions);
+                        ->with('category', $category)
+                        ->with('categoryOptions', $categoryOptions);
     }
 
     /**
@@ -98,8 +96,7 @@ class CategoryController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
-    {
+    public function update(CategoryRequest $request, $id) {
         $category = Category::findorfail($id);
 
         $category->update($request->all());
@@ -114,17 +111,16 @@ class CategoryController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         Category::destroy($id);
 
         return redirect()->route('admin.category.index');
     }
 
-    private function _getCategoryOptions()
-    {
+    private function _getCategoryOptions() {
         $options = Collection::make(['0' => 'please select'] + Category::pluck('name', 'id')->toArray())->toArray();
 
         return $options;
     }
+
 }
