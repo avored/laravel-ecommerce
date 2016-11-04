@@ -59,12 +59,9 @@ class Module extends BaseModule
      * @return void
      */
     public function registerPolicies() {
-
-
         foreach ($this->policies as $key => $value) {
             Gate::policy($key, $value);
         }
-
     }
 
 
@@ -106,15 +103,15 @@ class Module extends BaseModule
 
     public function registerAdminMenu()
     {
-        $adminMenu = [
+        $adminUserMenu = [
             'label' => 'Admin Users',
-            'url'   => route('admin.admin-user.index'),
+            'route'   => 'admin.admin-user.index',
         ];
-        AdminMenu::registerMenu($adminMenu);
+        AdminMenu::registerMenu($adminUserMenu);
 
         $adminRoleMenu = [
             'label' => 'Roles',
-            'url'   => route('admin.role.index'),
+            'route'   => 'admin.role.index',
         ];
         AdminMenu::registerMenu($adminRoleMenu);
     }

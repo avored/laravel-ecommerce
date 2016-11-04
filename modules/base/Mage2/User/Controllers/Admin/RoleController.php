@@ -2,14 +2,14 @@
 
 namespace Mage2\User\Controllers\Admin;
 
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Mage2\User\Models\Role;
 use Mage2\User\Requests\Admin\RoleRequst;
 use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
 use Illuminate\Database\Eloquent\Collection;
 use Mage2\User\Models\Permission;
 
-class RoleController extends Controller
+class RoleController extends AdminController
 {
 
     /**

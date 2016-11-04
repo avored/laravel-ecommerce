@@ -4,10 +4,10 @@ namespace Mage2\Configuration\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Mage2\Configuration\Models\Configuration;
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Mage2\System\View\Facades\AdminConfiguration;
 
-class ConfigurationController extends Controller
+class ConfigurationController extends AdminController
 {
     /**
      * Create a new controller instance.

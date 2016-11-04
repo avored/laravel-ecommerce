@@ -2,9 +2,9 @@
 namespace Mage2\User\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 
-class ForgotPasswordController extends Controller
+class ForgotPasswordController extends AdminController
 {
     /*
       |--------------------------------------------------------------------------
@@ -27,6 +27,7 @@ use SendsPasswordResetEmails;
     public function __construct()
     {
         $this->middleware('frontguest');
+        parent::__construct();
     }
 
     protected function guard()

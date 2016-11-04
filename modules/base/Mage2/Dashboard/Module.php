@@ -4,6 +4,7 @@ namespace Mage2\Dashboard;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
+use Mage2\System\View\Facades\AdminMenu;
 
 class Module extends BaseModule
 {
@@ -20,8 +21,8 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        //$this->registerAdminMenu();
-        //$this->registerAdminConfiguration();
+        $this->registerAdminMenu();
+        
     }
 
     /**
@@ -32,7 +33,6 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-
         $this->registerViewPath();
     }
 
@@ -53,5 +53,14 @@ class Module extends BaseModule
     protected function registerViewPath()
     {
         View::addLocation(__DIR__.'/views');
+    }
+    
+     public function registerAdminMenu()
+    {
+        $adminMenu = [
+              'label' => 'Dashboard',
+              'route'   => 'admin.dashboard',
+          ];
+        AdminMenu::registerMenu($adminMenu);
     }
 }

@@ -3,10 +3,10 @@
 namespace Mage2\Review\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Mage2\Review\Models\Review;
 
-class ReviewController extends Controller
+class ReviewController extends AdminController
 {
     public function index()
     {

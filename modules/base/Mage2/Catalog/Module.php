@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\View;
 use Mage2\Catalog\Models\Category;
 use Mage2\System\View\Facades\AdminConfiguration;
 use Mage2\System\View\Facades\AdminMenu;
-
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Support\Facades\Permission;
+
 class Module extends BaseModule
 {
      /**
@@ -65,11 +65,11 @@ class Module extends BaseModule
     {
         $adminMenus[] = [
             'label' => 'Category',
-            'url'   => route('admin.category.index'),
+            'route'   => 'admin.category.index',
         ];
         $adminMenus[] = [
             'label' => 'Products',
-            'url'   => route('admin.product.index'),
+            'route'   => 'admin.product.index',
         ];
         foreach ($adminMenus as $adminMenu) {
             AdminMenu::registerMenu($adminMenu);

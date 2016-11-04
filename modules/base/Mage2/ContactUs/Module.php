@@ -53,14 +53,4 @@ class Module extends BaseModule
     {
         View::addLocation(__DIR__.'/views');
     }
-
-    /*
-    public function registerAdminMenu() {
-        $adminMenu = [
-            'label' => 'Review',
-            'url' => route('admin.review.index'),
-        ];
-        AdminMenu::registerMenu($adminMenu);
-    }
-    */
 }

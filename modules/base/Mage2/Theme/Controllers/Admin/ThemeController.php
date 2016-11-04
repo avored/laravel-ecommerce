@@ -5,15 +5,12 @@ namespace Mage2\Theme\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Mage2\Configuration\Models\Configuration;
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Mage2\System\Theme\Facade\Theme;
 
-class ThemeController extends Controller
+class ThemeController extends AdminController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
+   
 
     /**
      * Display a listing of the theme.

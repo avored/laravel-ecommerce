@@ -2,11 +2,11 @@
 
 namespace Mage2\Page\Controllers\Admin;
 
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Mage2\Page\Models\Page;
 use Mage2\Page\Requests\PageRequest;
 
-class PageController extends Controller
+class PageController extends AdminController
 {
     /**
      * Display a listing of the Page.

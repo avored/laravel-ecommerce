@@ -2,16 +2,13 @@
 
 namespace Mage2\Order\Controllers\Admin;
 
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Mage2\Order\Models\OrderStatus;
 use Mage2\Order\Requests\OrderStatusRequest;
 
-class OrderStatusController extends Controller
+class OrderStatusController extends AdminController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    
 
     /**
      * Display a listing of the resource.

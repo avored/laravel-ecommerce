@@ -3,12 +3,12 @@
 namespace Mage2\User\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Auth;
 
-class ResetPasswordController extends Controller
+class ResetPasswordController extends AdminController
 {
     /*
     |--------------------------------------------------------------------------
@@ -31,6 +31,7 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('adminguest');
+        parent::__construct();
     }
     /**
      * Get the broker to be used during password reset.

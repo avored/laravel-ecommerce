@@ -21,7 +21,6 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        $this->registerAdminMenu();
     }
 
     /**
@@ -32,7 +31,6 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-
         $this->registerViewPath();
     }
 
@@ -47,7 +45,7 @@ class Module extends BaseModule
      */
     protected function mapWebRoutes()
     {
-        require __DIR__.'/routes.php';
+        require __DIR__.'/routes/web.php';
     }
 
     /**
@@ -64,8 +62,4 @@ class Module extends BaseModule
         View::addLocation(__DIR__.'/views');
     }
 
-    public function registerAdminMenu()
-    {
-        //Asj kppop[,dminMenu::registerMenu($adminMenu);
-    }
 }

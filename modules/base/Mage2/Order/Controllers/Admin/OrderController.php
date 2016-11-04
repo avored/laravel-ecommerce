@@ -4,22 +4,15 @@ namespace Mage2\Order\Controllers\Admin;
 
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Mail;
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Mage2\Order\Mail\OrderInvoicedMail;
 use Mage2\Order\Models\Order;
 use Mage2\Order\Models\OrderStatus;
 use Mage2\Order\Requests\UpdateOrderStatusRequest;
 use Mage2\User\Models\User;
 
-class OrderController extends Controller
+class OrderController extends AdminController
 {
-    /**
-     * @var CategoryRepository
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function index()
     {

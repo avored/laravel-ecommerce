@@ -23,7 +23,6 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        $this->registerAdminMenu();
         $this->registerAdminConfiguration();
     }
 
@@ -35,37 +34,14 @@ class Module extends BaseModule
      */
     public function register()
     {
-        $this->mapWebRoutes();
-
         $this->registerViewPath();
     }
 
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @param \Illuminate\Routing\Router $router
-     *
-     * @return void
-     */
-    protected function mapWebRoutes()
-    {
-        require __DIR__.'/routes.php';
-    }
+   
 
     protected function registerViewPath()
     {
         View::addLocation(__DIR__.'/views');
-    }
-
-    public function registerAdminMenu()
-    {
-        //$adminMenu = [
-        //    'label' => 'Tax Class',
-        //    'url'   => route('admin.tax-class.index'),
-        //];
-        //AdminMenu::registerMenu($adminMenu);
     }
 
     public function registerAdminConfiguration()
@@ -73,7 +49,7 @@ class Module extends BaseModule
         $adminConfigurations[] = [
             'title'       => 'Tax Configuration',
             'description' => 'Defined the amount of tax applied to product.',
-            'edit_action' => route('admin.configuration.tax-class'),
+            'edit_action' => ('admin.configuration.tax-class'),
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {

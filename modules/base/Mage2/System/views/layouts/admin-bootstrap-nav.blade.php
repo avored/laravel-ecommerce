@@ -19,7 +19,11 @@
             <ul class="nav navbar-nav navbar-right">
                 <!-- Authentication Links -->
                 @foreach($adminMenus as $menu)
-                    <li><a href="{{ $menu['url'] }}">{{ $menu['label'] }}</a></li>
+                    @can('hasPermission',[Mage2\User\Models\AdminUser::class,$menu['route']])
+                    <li><a href="{{ route($menu['route']) }}">{{ $menu['label'] }}</a></li>
+                    @else
+                    <li>{{ $menu['label'] }}</li>
+                    @endcan
                 @endforeach
                     <li><a href="{{ route('admin.logout') }}">Logout</a></li>
             </ul>

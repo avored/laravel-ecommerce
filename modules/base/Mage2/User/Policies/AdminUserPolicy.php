@@ -9,8 +9,6 @@ class AdminUserPolicy {
 
     use HandlesAuthorization;
 
-
-
     /**
      * Determine whether the user can has permissions to access route.
      *
@@ -22,7 +20,6 @@ class AdminUserPolicy {
         if($adminUser->is_super_admin == 1) {
             return true;
         }
-
 
         $role = $adminUser->role;
         return $role->hasPermission($permissionName);

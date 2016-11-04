@@ -3,14 +3,11 @@
 namespace Mage2\TaxClass\Controllers\Admin;
 
 use Mage2\Configuration\Models\Configuration;
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 
-class ConfigurationController extends Controller
+class ConfigurationController extends AdminController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
+   
 
     /**
      * Display a listing of the Catalog Configuration.

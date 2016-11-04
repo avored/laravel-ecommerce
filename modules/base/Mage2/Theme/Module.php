@@ -3,9 +3,7 @@
 namespace Mage2\Theme;
 
 use Illuminate\Support\Facades\View;
-use Mage2\System\View\Facades\AdminConfiguration;
 use Mage2\System\View\Facades\AdminMenu;
-
 use Mage2\Framework\Support\BaseModule;
 
 class Module extends BaseModule
@@ -24,7 +22,6 @@ class Module extends BaseModule
     public function boot()
     {
         $this->registerAdminMenu();
-        $this->registerAdminConfiguration();
     }
 
     /**
@@ -50,7 +47,7 @@ class Module extends BaseModule
      */
     protected function mapWebRoutes()
     {
-        require __DIR__.'/routes.php';
+        require __DIR__.'/routes/web.php';
     }
 
     protected function registerViewPath()
@@ -62,21 +59,8 @@ class Module extends BaseModule
     {
         $adminMenu = [
             'label' => 'Themes',
-            'url'   => route('admin.theme.index'),
+            'route'   => 'admin.theme.index',
         ];
         AdminMenu::registerMenu($adminMenu);
-    }
-
-    public function registerAdminConfiguration()
-    {
-        //$adminConfigurations[] = [
-        //     'title'       => 'Theme Configuration',
-        //     'description' => 'Defined the amount of tax applied to product.',
-        //     'edit_action' => route('admin.configuration.theme'),
-         //];
-
-        //foreach ($adminConfigurations as $adminConfiguration) {
-            //AdminConfiguration::registerConfiguration($adminConfiguration);
-        //}
     }
 }

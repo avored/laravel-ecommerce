@@ -2,14 +2,14 @@
 
 namespace Mage2\User\Controllers\Admin;
 
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Mage2\User\Models\AdminUser;
 use Mage2\User\Models\Role;
 use Mage2\User\Requests\Admin\AdminUserRequest;
 use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
 use Illuminate\Support\Collection;
 
-class AdminUserController extends Controller
+class AdminUserController extends AdminController
 {
 
     /**

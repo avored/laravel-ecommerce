@@ -9,10 +9,10 @@ use Mage2\Catalog\Helpers\CategoryHelper;
 use Mage2\Catalog\Helpers\ProductHelper;
 use Mage2\Catalog\Models\Product;
 use Mage2\Catalog\Requests\ProductRequest;
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Mage2\Install\Models\Website;
 
-class ProductController extends Controller
+class ProductController extends AdminController
 {
     /**
      * @var \Mage2\Catalog\Helpers\CategoryHelper

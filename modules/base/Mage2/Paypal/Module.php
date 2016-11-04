@@ -23,8 +23,6 @@ class Module extends BaseModule
      */
     public function boot()
     {
-
-
     }
 
     /**
@@ -35,8 +33,6 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-
-        $this->registerAdminMenu();
         $this->registerAdminConfiguration();
         $this->registerPaymentMethod();
         $this->registerViewPath();
@@ -67,10 +63,6 @@ class Module extends BaseModule
         View::addLocation(__DIR__.'/views');
     }
 
-    public function registerAdminMenu()
-    {
-        //AdminMenu::registerMenu($adminMenu);
-    }
 
     public function registerAdminConfiguration()
     {

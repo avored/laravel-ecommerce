@@ -2,16 +2,13 @@
 
 namespace Mage2\TaxClass\Controllers\Admin;
 
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 use Mage2\TaxClass\Models\TaxClass;
 use Mage2\TaxClass\Requests\TaxClassRequest;
 
-class TaxClassController extends Controller
+class TaxClassController extends AdminController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
+  
 
     /**
      * Display a listing of the resource.

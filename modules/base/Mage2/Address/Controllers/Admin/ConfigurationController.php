@@ -4,9 +4,9 @@ namespace Mage2\Address\Controllers\Admin;
 
 use Mage2\Address\Helpers\AddressHelper;
 use Mage2\Configuration\Models\Configuration;
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController;
 
-class ConfigurationController extends Controller
+class ConfigurationController extends AdminController
 {
     /**
      * Address Helper Instance.

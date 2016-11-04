@@ -23,8 +23,6 @@ class Module extends BaseModule
     public function boot()
     {
         $this->registerAdminMenu();
-        //$this->registerMiddleware();
-        //$this->registerViewComposerData();
     }
 
     /**
@@ -61,7 +59,7 @@ class Module extends BaseModule
     {
         $adminMenu = [
               'label' => 'Configuration',
-              'url'   => route('admin.configuration'),
+              'route'   => 'admin.configuration',
           ];
         AdminMenu::registerMenu($adminMenu);
     }

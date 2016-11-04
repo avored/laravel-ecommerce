@@ -22,7 +22,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        $this->registerAdminMenu();
+        //
     }
 
     /**
@@ -33,7 +33,6 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-
         $this->registerViewPath();
     }
 
@@ -54,16 +53,5 @@ class Module extends BaseModule
     protected function registerViewPath()
     {
         View::addLocation(__DIR__.'/views');
-    }
-
-    public function registerAdminMenu()
-    {
-        $adminMenus = [
-            'label' => 'Cart',
-            'url'   => route('cart.view'),
-        ];
-
-
-        //AdminMenu::registerMenu($adminMenu);
     }
 }

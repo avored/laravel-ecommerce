@@ -2,9 +2,9 @@
 
 namespace Mage2\Dashboard\Controllers\Admin;
 
-use Mage2\System\Controllers\Controller;
+use Mage2\System\Controllers\AdminController as BaseAdminController;
 
-class AdminController extends Controller
+class AdminController extends BaseAdminController
 {
     /**
      * Create a new controller instance.
@@ -13,7 +13,9 @@ class AdminController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('adminauth');
+        
     }
 
     /**

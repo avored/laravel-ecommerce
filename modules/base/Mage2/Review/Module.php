@@ -33,7 +33,6 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
-
         $this->registerViewPath();
     }
 
@@ -60,7 +59,7 @@ class Module extends BaseModule
     {
         $adminMenu = [
             'label' => 'Review',
-            'url'   => route('admin.review.index'),
+            'route'   => 'admin.review.index',
         ];
         AdminMenu::registerMenu($adminMenu);
     }
