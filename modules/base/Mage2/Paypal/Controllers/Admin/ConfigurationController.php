@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Paypal\Controllers;
+namespace Mage2\Paypal\Controllers\Admin;
 
 use Mage2\Configuration\Models\Configuration;
 use Mage2\System\Controllers\Controller;
@@ -21,7 +21,7 @@ class ConfigurationController extends Controller
     {
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
-        return view('paypal.admin.configuration.index')
+        return view('admin.paypal.configuration.index')
                 ->with('configurations', $configurations);
     }
 }
