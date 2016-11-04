@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\configuration\Models;
+namespace Mage2\Configuration\Models;
 
 use Mage2\System\Models\BaseModel;
 
