@@ -8,6 +8,7 @@ use Mage2\User\Models\Role;
 use Mage2\User\Requests\Admin\AdminUserRequest;
 use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Gate;
 
 class AdminUserController extends AdminController
 {

@@ -8,6 +8,7 @@ use Mage2\User\Requests\Admin\RoleRequst;
 use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
 use Illuminate\Database\Eloquent\Collection;
 use Mage2\User\Models\Permission;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends AdminController
 {
