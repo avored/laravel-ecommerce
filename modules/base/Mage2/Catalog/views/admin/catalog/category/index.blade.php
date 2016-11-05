@@ -6,11 +6,7 @@
         <div class="main-title-wrap">
         <span class="title"> Category List</span>
         <div class="pull-right" style="margin: 1rem 0px;">
-            <?php
-            //policy('hasPermission');
-            //can("hasPermission",[\Mage2\User\Models\AdminUser::class,"admin.category.create"])
-            //if (Auth::guard('admin')->user()->can('hasPermission', [\Mage2\User\Models\AdminUser::class,"admin.category.create"]))
-            ?>
+
             @can('hasPermission',[\Mage2\User\Models\AdminUser::class,'admin.category.create'])
             <a href="{{ route('admin.category.create') }}"
                class="btn btn-primary"> Create Category</a>

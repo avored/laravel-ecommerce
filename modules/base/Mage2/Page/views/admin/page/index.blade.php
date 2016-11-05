@@ -9,8 +9,13 @@
             <!--<small>Sub title</small> -->
         </span>
         <div class="pull-right" style="margin: 1rem 0px;">
+
+            @can('hasPermission',[\Mage2\User\Models\AdminUser::class,'admin.page.create'])
             <a href="{{ route('admin.page.create') }}"
                class="btn btn-primary"> Create Page</a>
+            @else
+                <span class="btn btn-default" disabled>Create Page</span>
+                @endcan
         </div>
 
     </div>
@@ -18,41 +23,12 @@
 
         <div class="clearfix"></div>
         <br/>
-        @if(count($pages) <= 0)
+        @if(count($dataGrid->data) <= 0)
 
         <p>Sorry No Page Found</p>
 
         @else
-        
-        <table class="table bordered tablegrid">
-            <thead>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Slug</th>
-            <th>Meta Title</th>
-
-            <th>EDIT</th>
-            <th>DELETE</th>
-            </thead>
-            <tbody>
-                @foreach($pages as $page)
-                <tr>
-                    <td>{{ $page->id }}</td>
-                    <td>{{ $page->title }}</td>
-                    <td>{{ $page->slug }}</td>
-                    <td>{{ $page->meta_title}}</td>
-                    <td>
-                        <a href="{{ route('admin.page.edit',$page->id )}}">Edit</a>
-                    </td>
-                    <td>
-                        {!! Form::open(['method' => 'DELETE', 'action' => route('admin.page.destroy',$page->id)]) !!}
-                        <a href="#" onclick="jQuery(this).parents('form:first').submit()">Delete</a>
-                        {!! Form::close() !!}
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+        {!! $dataGrid->render() !!}
         @endif
 
     </div>

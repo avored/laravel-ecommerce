@@ -11,7 +11,7 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Page\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\Page\Controllers\Admin"], function () {
     Route::resource('/admin/page', 'PageController', ['names' => [
         'index'     => 'admin.page.index',
         'create'    => 'admin.page.create',

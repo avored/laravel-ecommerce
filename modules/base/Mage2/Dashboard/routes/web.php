@@ -11,7 +11,7 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Dashboard\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\Dashboard\Controllers\Admin"], function () {
     Route::get('/admin', ['as' => 'admin.dashboard', 'uses' => 'AdminController@index']);
 });
 

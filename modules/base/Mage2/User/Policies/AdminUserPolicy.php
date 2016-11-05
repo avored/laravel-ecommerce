@@ -17,6 +17,7 @@ class AdminUserPolicy {
      */
     public function hasPermission(AdminUser $adminUser, $permissionName) {
 
+
         if($adminUser->is_super_admin == 1) {
             return true;
         }

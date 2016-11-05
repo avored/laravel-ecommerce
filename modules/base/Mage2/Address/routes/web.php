@@ -11,7 +11,7 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Address\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\Address\Controllers\Admin"], function () {
     Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address', 'uses' => 'ConfigurationController@getConfiguration']);
 });
 

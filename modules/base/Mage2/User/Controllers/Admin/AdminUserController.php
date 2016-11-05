@@ -25,17 +25,22 @@ class AdminUserController extends AdminController
         $dataGrid->addColumn(DataGrid::textColumn('first_name', 'First Name'));
         $dataGrid->addColumn(DataGrid::textColumn('last_name', 'Last Name'));
         $dataGrid->addColumn(DataGrid::textColumn('email', 'Email'));
-        $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
-            return "<a href='" . route('admin.admin-user.edit', $row->id) . "'>Edit</a>";
-        }));
 
-        $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
-            return "<form method='post' action='" . route('admin.admin-user.destroy', $row->id) . "'>" .
-            "<input type='hidden' name='_method' value='delete'/>" .
-            csrf_field() .
-            '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
-            "</form>";
-        }));
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.admin-user.edit"])) {
+            $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
+                return "<a href='" . route('admin.admin-user.edit', $row->id) . "'>Edit</a>";
+            }));
+        }
+
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.admin-user.edit"])) {
+            $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
+                return "<form method='post' action='" . route('admin.admin-user.destroy', $row->id) . "'>" .
+                "<input type='hidden' name='_method' value='delete'/>" .
+                csrf_field() .
+                '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
+                "</form>";
+            }));
+        }
 
         return view('admin.user.admin-user.index')
             ->with('dataGrid', $dataGrid);

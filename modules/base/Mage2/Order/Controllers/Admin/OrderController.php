@@ -10,16 +10,31 @@ use Mage2\Order\Models\Order;
 use Mage2\Order\Models\OrderStatus;
 use Mage2\Order\Requests\UpdateOrderStatusRequest;
 use Mage2\User\Models\User;
+use Mage2\User\Models\AdminUser;
+use Illuminate\Support\Facades\Gate;
+use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
 
 class OrderController extends AdminController
 {
 
     public function index()
     {
-        $orders = Order::paginate(10);
+        $model  = new Order();
+        $dataGrid = DataGrid::make($model);
+
+        $dataGrid->addColumn(DataGrid::textColumn('id', 'Order ID'));
+        $dataGrid->addColumn(DataGrid::textColumn('shipping_method', 'Shipping Method'));
+        $dataGrid->addColumn(DataGrid::textColumn('payment_method', 'Payment Method'));
+        $dataGrid->addColumn(DataGrid::textColumn('order_status_title', 'Order Status'));
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.order.view"])) {
+
+            $dataGrid->addColumn(DataGrid::linkColumn('view', 'View', function ($row) {
+                return "<a href='" . route('admin.order.view', $row->id) . "'>View</a>";
+            }));
+        }
 
         return view('admin.order.index')
-                ->with('orders', $orders);
+                ->with('dataGrid', $dataGrid);
     }
 
     public function view($id)

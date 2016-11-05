@@ -25,17 +25,21 @@ class RoleController extends AdminController
         $dataGrid->addColumn(DataGrid::textColumn('name', 'Role Name'));
         $dataGrid->addColumn(DataGrid::textColumn('description', 'Role Description'));
 
-        $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
-            return "<a href='" . route('admin.role.edit', $row->id) . "'>Edit</a>";
-        }));
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.role.edit"])) {
+            $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
+                return "<a href='" . route('admin.role.edit', $row->id) . "'>Edit</a>";
+            }));
+        }
 
-        $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
-            return "<form method='post' action='" . route('admin.role.destroy', $row->id) . "'>" .
-            "<input type='hidden' name='_method' value='delete'/>" .
-            csrf_field() .
-            '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
-            "</form>";
-        }));
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.role.edit"])) {
+            $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
+                return "<form method='post' action='" . route('admin.role.destroy', $row->id) . "'>" .
+                "<input type='hidden' name='_method' value='delete'/>" .
+                csrf_field() .
+                '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
+                "</form>";
+            }));
+        }
 
         return view('admin.user.role.index')
             ->with('dataGrid', $dataGrid);

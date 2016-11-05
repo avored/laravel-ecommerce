@@ -14,7 +14,8 @@ use Mage2\User\Policies\AdminUserPolicy;
 use Mage2\User\Models\AdminUser;
 use Illuminate\Auth\Access\Gate as LaravelGate;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
-
+use Mage2\User\Middleware\Permission;
+use Mage2\Framework\Support\Facades\Permission as PermissionFacade;
 
 class Module extends BaseModule
 {
@@ -49,7 +50,7 @@ class Module extends BaseModule
     {
         $this->mapWebRoutes();
         $this->registerViewPath();
-        //$this->registerAccessGate();
+        $this->registerPermissions();
     }
 
 
@@ -74,6 +75,7 @@ class Module extends BaseModule
     {
         $router = $this->app['router'];
 
+        $router->middleware('permission', Permission::class);
         $router->middleware('adminauth', AdminAuthenticate::class);
         $router->middleware('adminguest', RedirectIfAdminAuthenticated::class);
         $router->middleware('frontauth', FrontAuthenticate::class);
@@ -114,5 +116,24 @@ class Module extends BaseModule
             'route'   => 'admin.role.index',
         ];
         AdminMenu::registerMenu($adminRoleMenu);
+    }
+
+
+    /**
+     *  Register Permission for the roles
+     *
+     * @return void
+     */
+    protected function registerPermissions() {
+        $permissions = [
+            ['title' => 'Role List',     'routes' => 'admin.role.index'],
+            ['title' => 'Role Create',   'routes' => "admin.role.create,admin.role.store"],
+            ['title' => 'Role Edit',     'routes' => "admin.role.edit,admin.role.update"],
+            ['title' => 'Role Destroy',  'routes' => "admin.role.destroy"],
+        ];
+
+        foreach ($permissions as $permission) {
+            PermissionFacade::add($permission);
+        }
     }
 }

@@ -5,6 +5,9 @@ namespace Mage2\Page\Controllers\Admin;
 use Mage2\System\Controllers\AdminController;
 use Mage2\Page\Models\Page;
 use Mage2\Page\Requests\PageRequest;
+use Mage2\User\Models\AdminUser;
+use Illuminate\Support\Facades\Gate;
+use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
 
 class PageController extends AdminController
 {
@@ -15,10 +18,34 @@ class PageController extends AdminController
      */
     public function index()
     {
-        $pages = Page::paginate(10);
+        $model = new Page();
+        $dataGrid = DataGrid::make($model);
+
+        $dataGrid->addColumn(DataGrid::textColumn('id', 'Page Id'));
+        $dataGrid->addColumn(DataGrid::textColumn('title', 'Page Title'));
+        $dataGrid->addColumn(DataGrid::textColumn('slug', 'Page Slug'));
+        $dataGrid->addColumn(DataGrid::textColumn('meta_title', 'Page Meta Title'));
+
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.page.edit"])) {
+            $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
+                return "<a href='" . route('admin.page.edit', $row->id) . "'>Edit</a>";
+            }));
+        }
+
+
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.page.destroy"])) {
+            $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
+                return "<form method='post' action='" . route('admin.page.destroy', $row->id) . "'>" .
+                "<input type='hidden' name='_method' value='delete'/>" .
+                csrf_field() .
+                '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
+                "</form>";
+            }));
+        }
+
 
         return view('admin.page.index')
-                        ->with('pages', $pages);
+                        ->with('dataGrid', $dataGrid);
     }
 
     /**

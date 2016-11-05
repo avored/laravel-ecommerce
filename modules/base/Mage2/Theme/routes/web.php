@@ -10,7 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\Theme\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\Theme\Controllers\Admin"], function () {
     Route::get('/admin/themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
 
     Route::get('/admin/themes/create', ['as' => 'admin.theme.create', 'uses' => 'ThemeController@create']);

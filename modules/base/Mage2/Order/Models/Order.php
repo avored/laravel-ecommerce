@@ -34,6 +34,10 @@ class Order extends BaseModel
         return $shippingAddress;
     }
 
+    public function getOrderStatusTitleAttribute() {
+        return $this->orderStatus->title;
+    }
+
     public function getBillingAddressAttribute()
     {
         $address = Address::findorfail($this->attributes['billing_address_id']);

@@ -108,7 +108,7 @@ class Module extends BaseModule
     /**
      *  Register Permission for the roles
      *
-     *
+     * @return void
      */
     protected function registerPermissions() {
         $permissions = [

@@ -6,7 +6,13 @@
     <div class="main-title-wrap">
         <span class="title">Role List</span>
         <div class="pull-right">
-            <a href="{{ route('admin.role.create') }}"class="btn btn-primary"> Create Role</a>
+
+            @can('hasPermission',[\Mage2\User\Models\AdminUser::class,'admin.category.create'])
+                <a href="{{ route('admin.role.create') }}"class="btn btn-primary"> Create Role</a>
+            @else
+                <span class="btn btn-default" disabled>Create Role</span>
+            @endcan
+
         </div>
 
     </div>

@@ -22,7 +22,7 @@
                     @can('hasPermission',[Mage2\User\Models\AdminUser::class,$menu['route']])
                     <li><a href="{{ route($menu['route']) }}">{{ $menu['label'] }}</a></li>
                     @else
-                    <li>{{ $menu['label'] }}</li>
+                    <li><a href="#" title="no permission">{{ $menu['label'] }}</a></li>
                     @endcan
                 @endforeach
                     <li><a href="{{ route('admin.logout') }}">Logout</a></li>

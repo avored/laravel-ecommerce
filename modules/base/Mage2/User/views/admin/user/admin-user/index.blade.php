@@ -9,8 +9,14 @@
             <!--<small>Sub title</small> -->
         </span>
         <div class="pull-right">
-            <a href="{{ route('admin.admin-user.create') }}"
-               class="btn btn-primary"> Create Admin User</a>
+
+
+            @can('hasPermission',[\Mage2\User\Models\AdminUser::class,'admin.category.create'])
+                <a  href="{{ route('admin.admin-user.create') }}"
+                    class="btn btn-primary"> Create Admin User</a>
+            @else
+                <span class="btn btn-default" disabled>Create Admin User</span>
+            @endcan
         </div>
     </div>
 
