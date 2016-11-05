@@ -14,7 +14,7 @@
         {!! Form::textarea('description','Description') !!}
         
         {!! Form::text('price','Price') !!}
-        
+       
         {!! Form::select('status','Status',$statusOptions) !!}
         {!! Form::select('is_featured','Is Featured',$isFeaturedOptions) !!}
 
@@ -25,11 +25,25 @@
         
         include('template.editor',['key' => '','label' => '','attributes' => ['class' => 'bootstrap-wysywig materialize-textarea']])
         -->
+        
+        @if(!isset($productCategories)) 
+            <?php $productCategories = []; ?>
+        @endif
+        @if(!isset($productWebsites)) 
+            <?php $productWebsites = []; ?>
+        @endif
 
-
-
-        {!! Form::select("category_id[]", "Category", $categories) !!}
-        {!! Form::select("website_id[]", "Website", $websites) !!}
+        {!! Form::select("category_id[]", "Category", $categories,
+                            ['class' => 'form-control select2',
+                            'multiple' => 'true',
+                            'value' => $productCategories
+                            ]
+                        ) !!}
+        {!! Form::select("website_id[]", "Website", $websites,
+                            [   'class' => 'form-control select2',
+                                'multiple' => 'true',
+                                'value' => $productWebsites
+                            ]) !!}
         
     </div>
 

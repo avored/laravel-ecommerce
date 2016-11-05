@@ -11,9 +11,18 @@
 
         <div class="col-md-12">
 
+            <?php 
+            $productCategories = $product->categories()->get()->pluck('id')->toArray();
+            $productWebsites = $product->websites()->get()->pluck('id')->toArray();
+            
+            ?>
             {!! Form::bind($product, ['method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}
 
-            @include('admin.catalog.product.boxes.basic',['categories' => $categories])
+            
+            @include('admin.catalog.product.boxes.basic',
+                            ['categories' => $categories, 
+                            'productCategories' => $productCategories,
+                            'productWebsites' => $productWebsites])
             @include('admin.catalog.product.boxes.images')
             
             @include('admin.catalog.product.boxes.inventory')
