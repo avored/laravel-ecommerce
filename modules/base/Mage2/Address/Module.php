@@ -68,7 +68,7 @@ class Module extends BaseModule
         $adminConfigurations[] = [
             'title'       => 'Address Configuration',
             'description' => 'Set Default Country for Store',
-            'edit_action' => route('admin.configuration.address'),
+            'edit_action' => 'admin.configuration.address',
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {

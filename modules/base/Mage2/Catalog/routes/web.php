@@ -28,11 +28,10 @@ Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'nam
             'destroy' => 'admin.category.destroy',
     ]]);
 
-    Route::get('/admin/product-search', 'ProductController@searchProduct');
-
-
-    Route::post('/admin/product-image/upload', 'ProductController@uploadImage');
-    Route::post('/admin/product-image/delete', 'ProductController@deleteImage');
+    Route::get('/admin/product-search', ['as' => 'admin.product.search','uses' => 'ProductController@searchProduct']);
+    
+    Route::post('/admin/product-image/upload', ['as' => 'admin.product.upload-image','uses' =>'ProductController@uploadImage']);
+    Route::post('/admin/product-image/delete', ['as' => 'admin.product.delete-image','uses' =>'ProductController@deleteImage']);
 
     Route::get('/admin/configuration/catalog', ['as' => 'admin.configuration.catalog', 'uses' => 'ConfigurationController@getConfiguration']);
 });

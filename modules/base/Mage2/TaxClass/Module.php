@@ -4,8 +4,6 @@ namespace Mage2\TaxClass;
 
 use Illuminate\Support\Facades\View;
 use Mage2\System\View\Facades\AdminConfiguration;
-use Mage2\System\View\Facades\AdminMenu;
-
 use Mage2\Framework\Support\BaseModule;
 
 class Module extends BaseModule
@@ -34,6 +32,7 @@ class Module extends BaseModule
      */
     public function register()
     {
+        $this->registerWebRoute();
         $this->registerViewPath();
     }
 
@@ -44,12 +43,15 @@ class Module extends BaseModule
         View::addLocation(__DIR__.'/views');
     }
 
+    protected function registerWebRoute() {
+        require (__DIR__ . "/routes/web.php");
+    }
     public function registerAdminConfiguration()
     {
         $adminConfigurations[] = [
             'title'       => 'Tax Configuration',
             'description' => 'Defined the amount of tax applied to product.',
-            'edit_action' => ('admin.configuration.tax-class'),
+            'edit_action' =>'admin.configuration.tax-class',
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {

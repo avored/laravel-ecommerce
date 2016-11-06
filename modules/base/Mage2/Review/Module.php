@@ -4,7 +4,7 @@ namespace Mage2\Review;
 
 use Illuminate\Support\Facades\View;
 use Mage2\System\View\Facades\AdminMenu;
-
+use Mage2\Framework\Support\Facades\Permission;
 use Mage2\Framework\Support\BaseModule;
 
 class Module extends BaseModule
@@ -34,6 +34,7 @@ class Module extends BaseModule
     {
         $this->mapWebRoutes();
         $this->registerViewPath();
+        $this->registerPermissions();
     }
 
     /**
@@ -62,5 +63,25 @@ class Module extends BaseModule
             'route'   => 'admin.review.index',
         ];
         AdminMenu::registerMenu($adminMenu);
+    }
+    
+   /**
+     *  Register Permission for the roles
+     *
+     * @return void
+     */
+    protected function registerPermissions() {
+        $permissions = [
+            ['title' => 'Review List',     'routes' => 'admin.review.index'],
+            ['title' => 'Review Create',   'routes' => "admin.review.create,admin.review.store"],
+            ['title' => 'Review Edit',     'routes' => "admin.review.edit,admin.review.update"],
+            ['title' => 'Review Destroy',  'routes' => "admin.review.destroy"],
+            
+          
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::add($permission);
+        }
     }
 }

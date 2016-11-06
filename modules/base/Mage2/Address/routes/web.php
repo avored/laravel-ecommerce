@@ -15,8 +15,6 @@ Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'nam
     Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address', 'uses' => 'ConfigurationController@getConfiguration']);
 });
 
-
-
 Route::group(['middleware' => ['frontauth', 'web', 'website'],  'namespace' => "Mage2\Address\Controllers"], function () {
     Route::resource('/my-account/address', 'AddressController', ['names' => [
       'index'   => 'my-account.address.index',

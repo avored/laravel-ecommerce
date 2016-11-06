@@ -81,7 +81,7 @@ class Module extends BaseModule
         $adminConfigurations[] = [
             'title'       => 'Catalog Configuration',
             'description' => 'Some Description for Catalog Modules',
-            'edit_action' => route('admin.configuration.catalog'),
+            'edit_action' => 'admin.configuration.catalog',
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {
@@ -116,6 +116,11 @@ class Module extends BaseModule
             ['title' => 'Category Create',   'routes' => "admin.category.create,admin.category.store"],
             ['title' => 'Category Edit',     'routes' => "admin.category.edit,admin.category.update"],
             ['title' => 'Category Destroy',  'routes' => "admin.category.destroy"],
+            
+            ['title' => 'Product List',     'routes' => 'admin.product.index,admin.product.search'],
+            ['title' => 'Product Create ',  'routes' => "admin.product.create,admin.product.store,admin.product.upload-image"],
+            ['title' => 'Product Edit',     'routes' => "admin.product.edit,admin.product.update,admin.product.search,admin.product.upload-image"],
+            ['title' => 'Product Destroy',  'routes' => "admin.product.destroy",'admin.product.search'],
         ];
 
         foreach ($permissions as $permission) {

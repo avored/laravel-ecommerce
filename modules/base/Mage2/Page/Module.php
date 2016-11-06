@@ -5,7 +5,7 @@ namespace Mage2\Page;
 use Illuminate\Support\Facades\View;
 use Mage2\System\View\Facades\AdminConfiguration;
 use Mage2\System\View\Facades\AdminMenu;
-
+use Mage2\Framework\Support\Facades\Permission;
 use Mage2\Framework\Support\BaseModule;
 
 class Module extends BaseModule
@@ -35,6 +35,7 @@ class Module extends BaseModule
     {
         $this->mapWebRoutes();
         $this->registerViewPath();
+        $this->registerPermissions();
     }
 
     /**
@@ -65,4 +66,24 @@ class Module extends BaseModule
         AdminMenu::registerMenu($adminMenu);
     }
 
+     
+    
+    /**
+     *  Register Permission for the roles
+     *
+     * @return void
+     */
+    protected function registerPermissions() {
+        $permissions = [
+            ['title' => 'Order List',     'routes' => 'admin.order.index'],
+            ['title' => 'Order View, Send Email Invoice to Customer',   'routes' => "admin.order.view,admin.order.send-email-invoice"],
+            ['title' => 'Order Update Status',     'routes' => "admin.order.change-status,admin.order.update-status"],
+            
+           
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::add($permission);
+        }
+    }
 }

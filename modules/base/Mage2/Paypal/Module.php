@@ -16,14 +16,6 @@ class Module extends BaseModule
      * @var bool
      */
     //protected $defer = true;
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-    }
 
     /**
      * Register any application services.
@@ -69,7 +61,7 @@ class Module extends BaseModule
         $adminConfigurations[] = [
             'title'       => 'Paypal Configuration',
             'description' => 'Some Description for Catalog Modules',
-            'edit_action' => route('admin.configuration.paypal'),
+            'edit_action' => 'admin.configuration.paypal',
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {

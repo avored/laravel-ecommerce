@@ -5,6 +5,7 @@ namespace Mage2\Theme;
 use Illuminate\Support\Facades\View;
 use Mage2\System\View\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
+use Mage2\Framework\Support\Facades\Permission;
 
 class Module extends BaseModule
 {
@@ -34,6 +35,7 @@ class Module extends BaseModule
         $this->mapWebRoutes();
 
         $this->registerViewPath();
+        $this->registerPermissions();
     }
 
     /**
@@ -62,5 +64,26 @@ class Module extends BaseModule
             'route'   => 'admin.theme.index',
         ];
         AdminMenu::registerMenu($adminMenu);
+    }
+    
+       
+   /**
+     *  Register Permission for the roles
+     *
+     * @return void
+     */
+    protected function registerPermissions() {
+        $permissions = [
+            ['title' => 'Theme List',     'routes' => 'admin.theme.index'],
+            ['title' => 'Theme Upload',   'routes' => "admin.theme.create,admin.theme.store"],
+            ['title' => 'Theme Activate',   'routes' => "admin.theme.activate"],
+            ['title' => 'Theme Destroy',  'routes' => "admin.theme.destroy"],
+            
+          
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::add($permission);
+        }
     }
 }
