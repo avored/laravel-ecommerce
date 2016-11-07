@@ -14,12 +14,22 @@ class CartController extends Controller
         parent::__construct();
     }
 
-    public function addToCart($id)
+    public function addToCart(Request $request, $id)
     {
+        
         $cart = Session::get('cart');
         $product = Product::findorfail($id);
 
-        if (isset($cart[$id])) {
+        if(null !== $request->get('qty') && !isset($cart[$id])) {
+             $cart [$id] = ['id'          => $id,
+                            'qty'        => $request->get('qty'),
+                            'price'      => $product->price,
+                            'tax_amount' => $product->getTaxAmount(),
+                            'model'      => $product,
+                        ];
+        } elseif (null !== $request->get('qty') && isset($cart[$id])) {
+            $cart[$id]['qty'] += $request->get('qty');
+        } elseif(null === $request->get('qty') && isset($cart[$id])) {
             $cart[$id]['qty'] += 1;
         } else {
             $cart [$id] = ['id'          => $id,

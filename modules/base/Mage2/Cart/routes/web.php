@@ -11,6 +11,7 @@
   |
  */
 Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Cart\Controllers"], function () {
+    
     Route::get('/add-to-cart/{id}', ['as' => 'cart.add-to-cart', 'uses' => 'CartController@addToCart']);
 
     Route::get('/cart/view', ['as' => 'cart.view', 'uses' => 'CartController@view']);
