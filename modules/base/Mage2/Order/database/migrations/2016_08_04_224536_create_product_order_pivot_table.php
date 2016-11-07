@@ -18,6 +18,7 @@ class CreateProductOrderPivotTable extends Migration
             $table->integer('order_id')->unsigned();
             $table->integer('qty');
             $table->decimal('price', 11, 6);
+            $table->decimal('tax_amount', 11, 6);
             $table->timestamps();
         });
     }

@@ -22,7 +22,7 @@ class WishlistController extends Controller
             'product_id' => $id,
         ]);
 
-        return redirect()->back();
+        return redirect()->back()->with('notificationText',"Product Added into your Wishlist Successfully!!");
     }
 
     public function mylist()
@@ -46,6 +46,6 @@ class WishlistController extends Controller
             'product_id' => $id,
         ])->delete();
 
-        return redirect()->back();
+        return redirect()->back()->with('notificationText',"Product Removed from your Wishlist Successfully!!");;
     }
 }

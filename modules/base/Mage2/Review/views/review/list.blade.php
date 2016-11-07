@@ -1,5 +1,5 @@
 @if(count($reviews = $product->getReviews()) >0)
-<table class="bordered">
+<table class="table table-responsive">
     <tr>
         <th>Name</th>
         <th>Rating</th>
@@ -13,8 +13,6 @@
                 <td>{{ $review->star }}</td>
                 <td>{{ $review->comment }}</td>
             </tr>
-
-
     @endforeach
 </table>
 @endif

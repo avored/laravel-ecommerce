@@ -11,7 +11,12 @@
 
         <h4>Inside Theme Featured Products</h4>
         <div class="row">
+            <?php  $i =0; ?>
         @foreach($featuredProducts as $product)
+            @if($i %3 == 0)
+                <div class="clearfix"></div>
+            @endif
+            <?php $i++ ?>
         <div class="col-md-4">
             @include('product.view.product-panel',['product'=> $product])
         </div>

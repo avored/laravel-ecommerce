@@ -12,14 +12,14 @@
 
                         @foreach($paymentOptions as $paymentOption)
 
-                            <div class="form-group {{ $errors->has($paymentOption->getIdentifier()) ? ' has-error' : '' }}">
+                            <div class="form-group {{ $errors->has('payment_option') ? ' has-error' : '' }}">
 
                                 {!! Form::radio('payment_option',$paymentOption->getTitle(),$paymentOption->getIdentifier(),['id' => $paymentOption->getIdentifier()]) !!}
                                 
 
-                                @if ($errors->has($paymentOption->getIdentifier()))
+                                @if ($errors->has('payment_option'))
                                     <span class="help-block">
-                                            <strong>{{ $errors->first($paymentOption->getIdentifier()) }}</strong>
+                                            <strong>{{ $errors->first('payment_option') }}</strong>
                                         </span>
                                 @endif
                             </div>

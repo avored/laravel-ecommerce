@@ -4,7 +4,7 @@
 <div class="row">
     <div class="col-md-12">
         <h2>Review Order</h2>
-        <table class="table table-responsive">
+        <table class="table table-responsive ">
             <thead>
                 <tr>
                     <th>Product</th>

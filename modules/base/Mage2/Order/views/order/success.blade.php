@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.app-bootstrap')
 
 @section('content')
-<div class="container">
+
     <div class="row">
-        <div class="col s12">
+        <div class="col-md-12">
 
             <h1>Order Place Successfully!</h1>
 
@@ -11,5 +11,5 @@
             <a class="btn btn-primary" href="{{ route('home') }}">Continue Shopping</a>
         </div>
     </div>
-</div>
+
 @endsection

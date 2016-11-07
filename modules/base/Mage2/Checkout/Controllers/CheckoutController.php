@@ -14,6 +14,8 @@ use Mage2\System\Payment\Facade\Payment;
 use Mage2\System\Shipping\Facade\Shipping;
 use Mage2\TaxClass\Models\Country;
 use Mage2\User\Models\User;
+use Mage2\Checkout\Requests\ShippingOptionRequest;
+use Mage2\Checkout\Requests\PaymentOptionRequest;
 
 class CheckoutController extends Controller
 {
@@ -130,7 +132,7 @@ class CheckoutController extends Controller
                 ->with('shillingOptions', $shillingOptions);
     }
 
-    public function postShippingOption(Request $request)
+    public function postShippingOption(ShippingOptionRequest $request)
     {
         $orderData = Session::get('order_data');
         $orderData['shipping_method'] = $request->get('shipping_option');
@@ -147,7 +149,7 @@ class CheckoutController extends Controller
                 ->with('paymentOptions', $paymentOptions);
     }
 
-    public function postPaymentOption(Request $request)
+    public function postPaymentOption(PaymentOptionRequest $request)
     {
         $orderData = Session::get('order_data');
         $cartProducts = Session::get('cart');

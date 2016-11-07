@@ -7,20 +7,19 @@
         @if(count($cartProducts) <= 0)
         <p>Sorry No Product Found</p>
         @else
-        <div class="cart-list">
-            <div class="col-md-8">Product</div>
-            <div class="col-md-1" style="text-align: center">Quantity</div>
-            <div class="col-md-1 ">Price</div>
-            <div class="col-md-1">Total</div>
-            <div class="col-md-1"> </div>
+        <table class="table table-responsive">
+            <tr>
+                <th class="col-md-8">Product</th>
+                <th class="col-md-1" style="text-align: center">Quantity</th>
+                <th class="col-md-1 ">Price</th>
+                <th class="col-md-1">Total</th>
+                <th class="col-md-1"> </th>
+            </tr>
             <?php $total = 0; $taxTotal = 0; ?>
             @foreach($cartProducts as $product)
-            <div class="clearfix">
-                <div class="col-md-12">
-
+                <tr>
                     {!! Form::open(['method' => 'put', 'route' => 'cart.update']) !!}
-
-                    <div class="col-md-8">
+                    <td class="col-md-8">
                         <div class="media">
 
                             @if(isset($product['model']->getProductImages($first = true)->value))
@@ -45,81 +44,77 @@
                                 <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-1">
+                    </td>
+                    <td class="col-md-1">
                         <input type="text" class="form-control" name="qty"
                                value="{{ $product['qty']}}">
                         <input type="hidden" name="id" value="{{$product['model']->id}}" />
-                    </div>
+                    </td>
                     <?php $total += ($product['price'] * $product['qty'] ) ?>
                     <?php $taxTotal += ($product['tax_amount'] * $product['qty'] ) ?>
-                    <div class="col-sm-1 col-md-1 text-center"><strong>${{ $product['price']}}</strong></div>
-                    <div class="col-sm-1 col-md-1 text-center"><strong>${{ ($product['price'] * $product['qty'] )}}</strong></div>
-                    <div class="col-sm-1 col-md-1">
-                        <a href="#" onclick="jQuery(this).parents('form:first').submit()" >
-                            <span class="glyphicon glyphicon-edit"></span> Update
-                        </a>
-                        <a href="{{ route('cart.destroy', $product['model']->id)}}" >
-                            <span class="glyphicon glyphicon-remove"></span> Remove
-                        </a>
-                    </div>
-                    {!! Form::close() !!}
-                </div>
-                @endforeach
-                <div class="clearfix"></div>
-                <div class="col-md-12">
-                    <div class="col-md-8"> &nbsp;  </div>
-                    <div class="col-md-1">&nbsp;   </div>
-                    <div class="col-md-1"> &nbsp;   </div>
-                    <div class="col-md-1"><h6>Subtotal</h6></div>
-                    <div class="col-md-1 text-right"><h6><strong>${{ $total }}</strong></h6></div>
-                </div>
+                    <td class="col-sm-1 col-md-1 text-center"><strong>${{ $product['price']}}</strong></td>
+                    <td class="col-sm-1 col-md-1 text-center"><strong>${{ ($product['price'] * $product['qty'] )}}</strong></td>
+                    <td class="col-sm-1 col-md-1">
+                        <div class="btn-group">
+                            <a  class="btn btn-warning" href="#" onclick="jQuery(this).parents('form:first').submit()" >
+                                Update
+                            </a>
+                            <button type="button"
+                                    class="btn dropdown-toggle"
+                                    data-toggle="dropdown" >
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li> <a class="btn" href="{{ route('cart.destroy', $product['model']->id)}}" >
+                                        Remove
+                                    </a></li>
+                            </ul>
+                        </div>
 
-                <!--div class="col-md-12">
-                    <div class="col-md-8">   </div>
-                    <div class="col-md-1">   </div>
-                    <div class="col-md-1">   </div>
-                    <div class="col-md-1"><h6>Estimated shipping</h6></div>
-                    <div class="col-md-1 text-right"><h6><strong>$0.00</strong></h6></div>
-                </div-->
-                <!--div class="col-md-12">
-                    <div class="col-md-8">   </div>
-                    <div class="col-md-1">   </div>
-                    <div class="col-md-1">   </div>
-                    <div class="col-md-1"><h6>Estimated shipping</h6></div>
-                    <div class="col-md-1 text-right"><h6><strong>$0.00</strong></h6></div>
-                </div-->
-                <div class="col-md-12">
-                    <div class="col-md-8">   </div>
-                    <div class="col-md-1">   </div>
-                    <div class="col-md-1">   </div>
-                    <div class="col-md-1"><h6>Tax</h6></div>
-                    <div class="col-md-1 text-right"><h6><strong>${{ number_format($taxTotal,2) }}</strong></h6></div>
-                </div>
-                 <div class="col-md-12">
-                    <div class="col-md-8"> &nbsp;  </div>
-                    <div class="col-md-1">&nbsp;   </div>
-                    <div class="col-md-1"> &nbsp;   </div>
-                    <div class="col-md-1"><h6>Total</h6></div>
-                    <div class="col-md-1 text-right"><h6><strong>${{ number_format(($total + $taxTotal),2) }}</strong></h6></div>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-6">   </div>
-                    <div class="col-md-1">   </div>
-                    <div class="col-md-1">   </div>
-                    <div class="col-md-2"> 
+                    </td>
+                    {!! Form::close() !!}
+                </tr>
+                @endforeach
+
+                <tr >
+                    <td class="col-md-8"> &nbsp;  </td>
+                    <td class="col-md-1">&nbsp;   </td>
+                    <td class="col-md-1"> &nbsp;   </td>
+                    <td class="col-md-1"><h6>Subtotal</h6></td>
+                    <td class="col-md-1 text-right"><h6><strong>${{ $total }}</strong></h6></td>
+                </tr>
+                <tr >
+                    <td class="col-md-8">   </td>
+                    <td class="col-md-1">   </td>
+                    <td class="col-md-1">   </td>
+                    <td class="col-md-1"><h6>Tax</h6></td>
+                    <td class="col-md-1 text-right"><h6><strong>${{ number_format($taxTotal,2) }}</strong></h6></td>
+                </tr>
+                 <tr >
+                    <td class="col-md-8"> &nbsp;  </td>
+                    <td class="col-md-1">&nbsp;   </td>
+                    <td class="col-md-1"> &nbsp;   </td>
+                    <td class="col-md-1"><h6>Total</h6></td>
+                    <td class="col-md-1 text-right"><h6><strong>${{ number_format(($total + $taxTotal),2) }}</strong></h6></td>
+                </tr>
+                <tr >
+                    <td class="col-md-8">   </td>
+                    <td class="col-md-1">   </td>
+                    <td class="col-md-1">   </td>
+                    <td class="col-md-1">
                         <a href="{{ route('home') }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
                         </a>
-                    </div>
-                    <div class="col-md-2 text-right"> 
+                    </td>
+                    <td class="col-md-1 text-right">
                         <a href="{{ route('checkout.index') }}" class="btn btn-success">
                             Checkout <span class="glyphicon glyphicon-play"></span>
                         </a>
-                    </div>
-                </div>
+                    </td>
+                </tr>
+</table>
 
-            </div>
 
             @endif
         </div>

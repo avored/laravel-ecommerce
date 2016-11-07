@@ -13,14 +13,14 @@
 
                             @foreach($shillingOptions as $shippingOption)
 
-                                <div class="input-group {{ $errors->has($shippingOption->getIdentifier()) ? ' has-error' : '' }}">
+                                <div class="input-group {{ $errors->has('shipping_option') ? ' has-error' : '' }}">
 
                                     {!! Form::radio('shipping_option',$shippingOption->getTitle() . " " . $shippingOption->getAmount(),$shippingOption->getIdentifier(),['class' =>'form-control','id' => $shippingOption->getIdentifier()]) !!}
                                    
 
-                                    @if ($errors->has($shippingOption->getIdentifier()))
+                                    @if ($errors->has('shipping_option'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first($shippingOption->getIdentifier()) }}</strong>
+                                            <strong>{{ $errors->first('shipping_option') }}</strong>
                                         </span>
                                     @endif
                                 </div>
