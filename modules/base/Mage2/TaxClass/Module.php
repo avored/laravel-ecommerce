@@ -32,7 +32,7 @@ class Module extends BaseModule
      */
     public function register()
     {
-        //$this->registerWebRoute();
+        $this->registerWebRoute();
         $this->registerViewPath();
     }
 
