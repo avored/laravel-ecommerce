@@ -86,7 +86,7 @@ $app->singleton(
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    Mage2\System\Console\Kernel::class
+    Illuminate\Foundation\Console\Kernel::class
 );
 
 $app->singleton(

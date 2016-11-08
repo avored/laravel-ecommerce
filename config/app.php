@@ -158,8 +158,8 @@ return [
     /*
      * Application Service Providers...
      */
-        Mage2\System\Providers\AppServiceProvider::class,
-        Mage2\System\Providers\AuthServiceProvider::class,
+        //Mage2\System\Providers\AppServiceProvider::class,
+        //Mage2\System\Providers\AuthServiceProvider::class,
 
 
         Mage2\Dashboard\Module::class,
