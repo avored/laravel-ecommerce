@@ -3,9 +3,13 @@
 @section('content')
 
     <div class="row">
-        <div class="col-sm-12 col s12">
+        <div class="col-md-12">
             <h2>Checkout Page</h2>
-            <div class="account-wrapper">
+            @if(count($cartProducts) <= 0)
+                <p>Sorry No Product Found</p>
+                <p> <a href="{{ route('home') }}">Start Shopping</a> </p>
+            @else
+                <div class="account-wrapper">
                 <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">Create Account</div>
@@ -116,6 +120,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 @endsection

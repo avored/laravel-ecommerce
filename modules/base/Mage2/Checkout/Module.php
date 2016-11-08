@@ -22,7 +22,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        //
+        $this->registerViewComposer();
     }
 
     /**
@@ -53,5 +53,12 @@ class Module extends BaseModule
     protected function registerViewPath()
     {
         View::addLocation(__DIR__.'/views');
+    }
+
+    protected function registerViewComposer() {
+
+        View::composer(
+            ['checkout.index','checkout.shipping-address'], 'Mage2\Checkout\ViewComposers\CheckoutComposer'
+        );
     }
 }

@@ -5,6 +5,10 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <h2>Checkout Page</h2>
+            @if(count($cartProducts) <= 0)
+                <p>Sorry No Product Found</p>
+                <p> <a href="{{ route('home') }}">Start Shopping</a> </p>
+            @else
                 <div class="panel panel-default">
                     <div class="panel-heading">Shipping Address</div>
                     <div class="panel-body">
@@ -123,7 +127,7 @@
                     </div>
                 </div>
 
-
+            @endif
         </div>
     </div>
 </div>
