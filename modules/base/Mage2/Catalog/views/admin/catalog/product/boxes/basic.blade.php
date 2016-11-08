@@ -11,7 +11,7 @@
         {!! Form::text('slug','Slug') !!}
         {!! Form::text('sku','SKU') !!}
         
-        {!! Form::textarea('description','Description') !!}
+        {!! Form::textarea('description','Description',['class' => 'ckeditor']) !!}
         
         {!! Form::text('price','Price') !!}
        
