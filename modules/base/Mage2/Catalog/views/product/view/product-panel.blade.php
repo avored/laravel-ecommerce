@@ -19,7 +19,7 @@
                 </a>
             </h3>
 
-            <p class="price">
+            <p class="product-price">
                 $ {{ $product->price }}
             </p>
             <p>

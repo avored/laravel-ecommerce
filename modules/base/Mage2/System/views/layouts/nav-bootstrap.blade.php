@@ -17,7 +17,6 @@
 
 
             <ul class="nav navbar-nav navbar-right">
-
             <li><a href="{{ url('/') }}">Home</a></li>
             @include('layouts.category-tree',['categories', $categories])
             <li><a href="{{ route('cart.view') }}">Cart ({{$cart}})</a></li>
@@ -26,13 +25,12 @@
                 <li><a href="{{ route('login') }}">Login</a></li>
                 <li><a href="{{ route('register') }}">Register</a></li>
             @else
-                <li>
-
-                    <a href="#" class="dropdown-button"  data-activates="my-account-nav"  data-beloworigin="true" >
+                <li class="dropdown">
+                    <a href="#" title="My Account" class="dropdown-toggle"  data-toggle="dropdown" >
                         {{ Auth::user()->full_name }}
                     </a>
 
-                    <ul id="my-account-nav" class="light-blue" style="display: none">
+                    <ul class="dropdown-menu">
                         <li><a href="{{ route('my-account.home') }}">My Account</a></li>
                         <li><a href="{{ route('logout') }}">Logout</a></li>
                     </ul>

@@ -172,8 +172,11 @@ class CheckoutController extends Controller
     public function review()
     {
         $cartProducts = Session::get('cart');
+        $orderData = Session::get('order_data');
+        $shippingPrice = Shipping::get($orderData['shipping_method'])->getAmount();
 
         return view('checkout.review')
-                        ->with('cartProducts', $cartProducts);
+                        ->with('cartProducts', $cartProducts)
+                        ->with('shippingPrice',$shippingPrice);
     }
 }
