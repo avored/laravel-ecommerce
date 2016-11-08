@@ -3,10 +3,9 @@
 namespace Mage2\Address\Helpers;
 
 use Illuminate\Database\Eloquent\Collection;
-use Mage2\System\Helper\Helper;
 use Mage2\TaxClass\Models\Country;
 
-class AddressHelper extends Helper
+class AddressHelper
 {
     /**
      * Get the list of the Contries Options from Country Model.

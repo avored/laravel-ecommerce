@@ -2,7 +2,7 @@
 
 namespace Mage2\Install\Requests;
 
-use Mage2\System\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
 class AdminUserRequest extends Request
 {

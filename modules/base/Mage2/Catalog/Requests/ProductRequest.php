@@ -3,7 +3,7 @@
 namespace Mage2\Catalog\Requests;
 
 use Mage2\Attribute\Models\ProductAttribute;
-use Mage2\System\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
 class ProductRequest extends Request
 {

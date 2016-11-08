@@ -3,7 +3,7 @@
 namespace Mage2\Review\Requests;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\System\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
 class ReviewRequest extends Request
 {

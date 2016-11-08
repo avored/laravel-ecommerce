@@ -2,7 +2,7 @@
 
 namespace Mage2\Order\Requests;
 
-use Mage2\System\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
 class OrderStatusRequest extends Request
 {

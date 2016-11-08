@@ -2,7 +2,7 @@
 
 namespace Mage2\Checkout\Requests;
 
-use Mage2\System\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
 class CheckoutUserRequest extends Request
 {
