@@ -3,7 +3,7 @@
 namespace Mage2\User\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use Mage2\System\Controllers\AdminController;
+use Mage2\Framework\System\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Auth;

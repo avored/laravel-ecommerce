@@ -4,7 +4,7 @@ namespace Mage2\Install\Controllers;
 
 use Illuminate\Support\Facades\Artisan;
 use Mage2\User\Models\AdminUser;
-use Mage2\System\Controllers\Controller;
+use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Install\Models\Website;
 use Mage2\Install\Requests\AdminUserRequest;
 use Mage2\User\Models\Role;

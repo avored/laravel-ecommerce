@@ -3,7 +3,7 @@
 namespace Mage2\Review\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Mage2\System\Controllers\AdminController;
+use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Review\Models\Review;
 use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
 use Illuminate\Support\Facades\Gate;

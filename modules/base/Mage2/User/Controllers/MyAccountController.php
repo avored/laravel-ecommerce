@@ -3,7 +3,7 @@
 namespace Mage2\User\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\System\Controllers\Controller;
+use Mage2\Framework\System\Controllers\Controller;
 use Mage2\User\Requests\UserProfileRequest;
 
 class MyAccountController extends Controller

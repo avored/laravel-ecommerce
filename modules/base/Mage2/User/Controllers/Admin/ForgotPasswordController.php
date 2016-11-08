@@ -2,7 +2,7 @@
 namespace Mage2\User\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Mage2\System\Controllers\AdminController;
+use Mage2\Framework\System\Controllers\AdminController;
 
 class ForgotPasswordController extends AdminController
 {

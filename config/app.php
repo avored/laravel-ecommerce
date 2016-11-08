@@ -142,13 +142,18 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
+        Mage2\Framework\System\Module::class,
+
+
+
         Barryvdh\DomPDF\ServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
-
-        Mage2\System\Module::class,
     /*
      * Package Service Providers...
      */
+
+
 
         Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
         Mage2\Framework\Form\FormServiceProvider::class,
@@ -158,12 +163,7 @@ return [
     /*
      * Application Service Providers...
      */
-        //Mage2\System\Providers\AppServiceProvider::class,
-        //Mage2\System\Providers\AuthServiceProvider::class,
-
-
         Mage2\Dashboard\Module::class,
-        
         Mage2\Address\Module::class,
         Mage2\Attribute\Module::class,
         Mage2\Cart\Module::class,
@@ -235,12 +235,12 @@ return [
         'Validator'    => Illuminate\Support\Facades\Validator::class,
         'View'         => Illuminate\Support\Facades\View::class,
         'PDF'          => Barryvdh\DomPDF\Facade::class,
-        'Theme'        => Mage2\System\Theme\Facade\Theme::class,
+        'Theme'        => Mage2\Framework\System\Theme\Facade\Theme::class,
         'Debugbar'     => Barryvdh\Debugbar\Facade::class,
-        'AdminConfiguration' => Mage2\System\View\Facades\AdminConfiguration::class,
-        'AdminMenu' => Mage2\System\View\Facades\AdminMenu::class,
+        'AdminConfiguration'=> Mage2\Framework\System\View\Facades\AdminConfiguration::class,
+        'AdminMenu' => Mage2\Framework\System\View\Facades\AdminMenu::class,
         'Form' => Mage2\Framework\Form\Contracts\FormFacade::class,
-        'Payment' => Mage2\System\Payment\Facade\Payment::class,
-        'Permission' => \Mage2\Framework\Support\Facades\Permission::class,
+        'Payment' => Mage2\Framework\System\Payment\Facade\Payment::class,
+        'Permission' => Mage2\Framework\Support\Facades\Permission::class,
     ],
 ];

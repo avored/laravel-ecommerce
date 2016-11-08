@@ -2,10 +2,10 @@
 
 namespace Mage2\Themes\Mage2\Basic;
 
-//use Mage2\Framework\Support\ServiceProvider;
+
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Mage2\System\Theme\Facade\Theme;
+use Mage2\Framework\System\Theme\Facade\Theme;
 
 class ThemeInfo extends ServiceProvider
 {

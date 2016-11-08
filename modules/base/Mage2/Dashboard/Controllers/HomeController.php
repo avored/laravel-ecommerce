@@ -3,7 +3,7 @@
 namespace Mage2\Dashboard\Controllers;
 
 use Mage2\Catalog\Models\Product;
-use Mage2\System\Controllers\Controller;
+use Mage2\Framework\System\Controllers\Controller;
 
 class HomeController extends Controller
 {

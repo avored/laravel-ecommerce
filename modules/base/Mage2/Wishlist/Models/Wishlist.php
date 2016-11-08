@@ -3,7 +3,7 @@
 namespace Mage2\Wishlist\Models;
 
 use Mage2\Catalog\Models\Product;
-use Mage2\System\Models\BaseModel;
+use Mage2\Framework\System\Models\BaseModel;
 
 class Wishlist extends BaseModel
 {

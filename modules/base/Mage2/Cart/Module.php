@@ -3,8 +3,6 @@
 namespace Mage2\Cart;
 
 use Illuminate\Support\Facades\View;
-use Mage2\System\View\Facades\AdminMenu;
-
 use Mage2\Framework\Support\BaseModule;
 
 class Module extends BaseModule

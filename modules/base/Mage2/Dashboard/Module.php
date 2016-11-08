@@ -4,7 +4,7 @@ namespace Mage2\Dashboard;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
-use Mage2\System\View\Facades\AdminMenu;
+use Mage2\Framework\System\View\Facades\AdminMenu;
 
 class Module extends BaseModule
 {

@@ -4,7 +4,7 @@ namespace Mage2\Order\Models;
 
 use Mage2\Address\Models\Address;
 use Mage2\Catalog\Models\Product;
-use Mage2\System\Models\BaseModel;
+use Mage2\Framework\System\Models\BaseModel;
 
 class Order extends BaseModel
 {

@@ -2,7 +2,7 @@
 
 namespace Mage2\User\Controllers\Admin;
 
-use Mage2\System\Controllers\AdminController;
+use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\User\Models\Role;
 use Mage2\User\Requests\Admin\RoleRequst;
 use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;

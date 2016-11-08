@@ -3,8 +3,8 @@
 namespace Mage2\FreeShipping\Shipping;
 
 use Illuminate\Support\Facades\Session;
-use Mage2\System\Shipping\Shipping;
-use Mage2\System\Shipping\ShippingInterface;
+use Mage2\Framework\System\Shipping\Shipping;
+use Mage2\Framework\System\Shipping\ShippingInterface;
 
 class FreeShipping extends Shipping implements ShippingInterface
 {

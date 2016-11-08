@@ -2,7 +2,7 @@
 
 namespace Mage2\Configuration\Models;
 
-use Mage2\System\Models\BaseModel;
+use Mage2\Framework\System\Models\BaseModel;
 
 class Configuration extends BaseModel
 {

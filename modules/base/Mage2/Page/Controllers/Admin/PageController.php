@@ -2,7 +2,7 @@
 
 namespace Mage2\Page\Controllers\Admin;
 
-use Mage2\System\Controllers\AdminController;
+use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Page\Models\Page;
 use Mage2\Page\Requests\PageRequest;
 use Mage2\User\Models\AdminUser;

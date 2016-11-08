@@ -2,7 +2,7 @@
 
 namespace Mage2\TaxClass\Models;
 
-use Mage2\System\Models\BaseModel;
+use Mage2\Framework\System\Models\BaseModel;
 
 class TaxClass extends BaseModel
 {

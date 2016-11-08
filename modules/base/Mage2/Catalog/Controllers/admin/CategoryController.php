@@ -5,7 +5,7 @@ namespace Mage2\Catalog\Controllers\Admin;
 use Illuminate\Support\Collection;
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Requests\CategoryRequest;
-use Mage2\System\Controllers\AdminController;
+use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
 use Illuminate\Support\Facades\Gate;
 use Mage2\User\Models\AdminUser;

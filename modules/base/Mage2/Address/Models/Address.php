@@ -2,7 +2,7 @@
 
 namespace Mage2\Address\Models;
 
-use Mage2\System\Models\BaseModel;
+use Mage2\Framework\System\Models\BaseModel;
 use Mage2\TaxClass\Models\Country;
 
 class Address extends BaseModel

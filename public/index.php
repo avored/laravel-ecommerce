@@ -81,7 +81,7 @@ $app = new Mage2\Framework\Foundation\Application(
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
-    Mage2\System\Kernel::class
+    Mage2\Framework\System\Kernel::class
 );
 
 $app->singleton(
@@ -91,7 +91,7 @@ $app->singleton(
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    Mage2\System\Exceptions\Handler::class
+    Mage2\Frameowrk\System\Exceptions\Handler::class
 );
 
 
@@ -112,6 +112,7 @@ $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 $response = $kernel->handle(
     $request = Illuminate\Http\Request::capture()
 );
+
 
 $response->send();
 

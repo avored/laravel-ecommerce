@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Mage2\ContactUs\Mail\ContactUsMail;
 use Mage2\ContactUs\Requests\ContactUsRequest;
-use Mage2\System\Controllers\Controller;
+use Mage2\Framework\System\Controllers\Controller;
 
 class ContactUsController extends Controller
 {

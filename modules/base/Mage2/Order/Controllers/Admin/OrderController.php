@@ -4,7 +4,7 @@ namespace Mage2\Order\Controllers\Admin;
 
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Mail;
-use Mage2\System\Controllers\AdminController;
+use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Order\Mail\OrderInvoicedMail;
 use Mage2\Order\Models\Order;
 use Mage2\Order\Models\OrderStatus;

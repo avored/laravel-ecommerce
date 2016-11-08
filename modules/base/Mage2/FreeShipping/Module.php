@@ -3,8 +3,7 @@
 namespace Mage2\FreeShipping;
 
 use Illuminate\Support\Facades\View;
-use Mage2\System\Shipping\Facade\Shipping;
-use Mage2\System\View\Facades\AdminMenu;
+use Mage2\Framework\System\Shipping\Facade\Shipping;
 use Mage2\FreeShipping\Shipping\FreeShipping;
 
 use Mage2\Framework\Support\BaseModule;
