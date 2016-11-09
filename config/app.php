@@ -240,7 +240,7 @@ return [
         'AdminConfiguration'=> Mage2\Framework\Configuration\Facades\AdminConfiguration::class,
         'AdminMenu' => Mage2\Framework\System\View\Facades\AdminMenu::class,
         'Form' => Mage2\Framework\Form\Contracts\FormFacade::class,
-        'Payment' => Mage2\Framework\Payment\Facade\Payment::class,
+        'Payment' => Mage2\Framework\Payment\Facades\Payment::class,
         'Permission' => Mage2\Framework\Support\Facades\Permission::class,
     ],
 ];

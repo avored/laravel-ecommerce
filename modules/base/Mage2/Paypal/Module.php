@@ -3,7 +3,7 @@
 namespace Mage2\Paypal;
 
 use Illuminate\Support\Facades\View;
-use Mage2\Framework\Payment\Facade\Payment;
+use Mage2\Framework\Payment\Facades\Payment;
 use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Paypal\Payment\Paypal;
 use Mage2\Framework\Support\BaseModule;
