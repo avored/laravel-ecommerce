@@ -5,7 +5,7 @@ namespace Mage2\Catalog;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Mage2\Catalog\Models\Category;
-use Mage2\Framework\System\View\Facades\AdminConfiguration;
+use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Framework\System\View\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Support\Facades\Permission;

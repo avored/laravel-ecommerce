@@ -237,7 +237,7 @@ return [
         'PDF'          => Barryvdh\DomPDF\Facade::class,
         'Theme'        => Mage2\Framework\System\Theme\Facade\Theme::class,
         'Debugbar'     => Barryvdh\Debugbar\Facade::class,
-        'AdminConfiguration'=> Mage2\Framework\System\View\Facades\AdminConfiguration::class,
+        'AdminConfiguration'=> Mage2\Framework\Configuration\Facades\AdminConfiguration::class,
         'AdminMenu' => Mage2\Framework\System\View\Facades\AdminMenu::class,
         'Form' => Mage2\Framework\Form\Contracts\FormFacade::class,
         'Payment' => Mage2\Framework\System\Payment\Facade\Payment::class,

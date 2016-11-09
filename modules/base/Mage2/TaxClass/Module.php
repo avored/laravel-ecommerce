@@ -3,7 +3,7 @@
 namespace Mage2\TaxClass;
 
 use Illuminate\Support\Facades\View;
-use Mage2\Framework\System\View\Facades\AdminConfiguration;
+use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Framework\Support\BaseModule;
 
 class Module extends BaseModule
