@@ -5,7 +5,7 @@ namespace Mage2\Themes\Mage2\Basic;
 
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use Mage2\Framework\System\Theme\Facade\Theme;
+use Mage2\Framework\Theme\Facade\Theme;
 
 class ThemeInfo extends ServiceProvider
 {

@@ -3,7 +3,7 @@
 namespace Mage2\Pickup;
 
 use Illuminate\Support\Facades\View;
-use Mage2\Framework\System\Payment\Facade\Payment;
+use Mage2\Framework\Payment\Facade\Payment;
 use Mage2\Framework\System\View\Facades\AdminMenu;
 use Mage2\Pickup\Payment\Pickup;
 

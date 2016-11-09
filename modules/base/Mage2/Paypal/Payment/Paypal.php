@@ -3,9 +3,9 @@
 namespace Mage2\Paypal\Payment;
 
 use Mage2\Configuration\Models\Configuration;
-use Mage2\Framework\System\Payment\Payment as PaymentFramework;
-use Mage2\Framework\System\Payment\PaymentInterface;
-use Mage2\Framework\System\Shipping\Facade\Shipping;
+use Mage2\Framework\Payment\Payment as PaymentFramework;
+use Mage2\Framework\Payment\PaymentInterface;
+use Mage2\Framework\Shipping\Facade\Shipping;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;

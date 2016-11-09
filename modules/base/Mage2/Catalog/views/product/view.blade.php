@@ -23,7 +23,7 @@
                     <div class="col-md-8">
                         <h1 class="product-title">{{ $product->title }}</h1>
 
-                        <div class="product-price">$ {{ $product->price }}</div>
+                        <div class="product-price">$ {{ number_format($product->price,2) }}</div>
 
                         {!! Form::open(['method' => 'get','action' => route('cart.add-to-cart', $product->id)]) !!}
                         <div class="product-stock">In Stock</div>
