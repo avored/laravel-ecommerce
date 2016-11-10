@@ -3,7 +3,7 @@
 namespace Mage2\User;
 
 use Illuminate\Support\Facades\View;
-use Mage2\Framework\System\View\Facades\AdminMenu;
+use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\User\Middleware\AdminAuthenticate;
 use Mage2\User\Middleware\FrontAuthenticate;
@@ -12,8 +12,6 @@ use Mage2\User\Middleware\RedirectIfFrontAuthenticated;
 use Illuminate\Support\Facades\Gate;
 use Mage2\User\Policies\AdminUserPolicy;
 use Mage2\User\Models\AdminUser;
-use Illuminate\Auth\Access\Gate as LaravelGate;
-use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Mage2\User\Middleware\Permission;
 use Mage2\Framework\Support\Facades\Permission as PermissionFacade;
 

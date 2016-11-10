@@ -3,7 +3,7 @@
 namespace Mage2\Home\ViewComposers;
 
 use Illuminate\View\View;
-use Mage2\Framework\System\View\Facades\AdminMenu;
+use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 
 class AdminNavComposer {
 

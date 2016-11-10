@@ -3,7 +3,7 @@
 namespace Mage2\Theme;
 
 use Illuminate\Support\Facades\View;
-use Mage2\Framework\System\View\Facades\AdminMenu;
+use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Support\Facades\Permission;
 
