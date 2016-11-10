@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\System\View\Facades\AdminMenu;
 
-class Module extends BaseModule
-{
-     /**
+class Module extends BaseModule {
+
+    /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
@@ -19,10 +19,8 @@ class Module extends BaseModule
      *
      * @return void
      */
-    public function boot()
-    {
+    public function boot() {
         $this->registerAdminMenu();
-        
     }
 
     /**
@@ -30,10 +28,10 @@ class Module extends BaseModule
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         $this->mapWebRoutes();
         $this->registerViewPath();
+        $this->registerViewComposer();
     }
 
     /**
@@ -45,22 +43,28 @@ class Module extends BaseModule
      *
      * @return void
      */
-    protected function mapWebRoutes()
-    {
-        require __DIR__.'/routes/web.php';
+    protected function mapWebRoutes() {
+        require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath()
-    {
-        View::addLocation(__DIR__.'/views');
+    protected function registerViewPath() {
+        View::addLocation(__DIR__ . '/views');
     }
-    
-     public function registerAdminMenu()
-    {
+
+    public function registerAdminMenu() {
         $adminMenu = [
-              'label' => 'Dashboard',
-              'route'   => 'admin.dashboard',
-          ];
+            'label' => 'Dashboard',
+            'route' => 'admin.dashboard',
+        ];
         AdminMenu::registerMenu($adminMenu);
     }
+
+    protected function registerViewComposer() {
+        View::composer(['layouts.admin-nav', 'layouts.admin-bootstrap-nav'], 
+                        'Mage2\Home\ViewComposers\AdminNavComposer');
+        
+        View::composer(['layouts.app-bootstrap'], 
+                        'Mage2\Home\ViewComposers\LayoutAppComposer');
+    }
+
 }

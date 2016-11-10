@@ -40,6 +40,7 @@ class Module extends BaseModule
         $this->registerViewPath();
         $this->registerViewComposerData();
         $this->registerPermissions();
+        
     }
 
     /**
@@ -91,18 +92,10 @@ class Module extends BaseModule
 
     public function registerViewComposerData()
     {
-        view()->composer('layouts.app', function ($view) {
-            //$websiteId = Session::get('website_id');
-            //$baseCategories = Category::where('parent_id','=','')
-            //                        ->where('website_id','=',$websiteId)
-            //                        ->get();
-
-            $cart = count(Session::get('cart'));
-            $categoryModel = new Category();
-            $baseCategories = $categoryModel->getAllCategories();
-            $view->with('categories', $baseCategories)
-                ->with('cart', $cart);
-        });
+         View::composer(['admin.catalog.product.boxes.inventory'], 
+                        'Mage2\Catalog\ViewComposers\ProductBoxInventoryComposer');
+         View::composer(['admin.catalog.product.boxes.basic'], 
+                        'Mage2\Catalog\ViewComposers\ProductBoxBasicComposer');
     }
 
     /**
