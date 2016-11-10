@@ -7,6 +7,7 @@ use Illuminate\View\View;
 
 class MyAccountSidebarComposer {
 
+    
     /**
      * Bind data to the view.
      *
