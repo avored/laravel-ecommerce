@@ -66,6 +66,12 @@ class Module extends BaseModule
     }
 
 
+    public function registerViewComposerData()
+    {
+         View::composer(['my-account.sidebar'], 
+                        'Mage2\User\ViewComposers\MyAccountSidebarComposer');
+         
+    }
     /**
      * Register the middleware for the mage2 auth modules.
      *
