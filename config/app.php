@@ -163,7 +163,7 @@ return [
     /*
      * Application Service Providers...
      */
-        Mage2\Dashboard\Module::class,
+        Mage2\Home\Module::class,
         Mage2\Address\Module::class,
         Mage2\Attribute\Module::class,
         Mage2\Cart\Module::class,

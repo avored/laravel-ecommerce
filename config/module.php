@@ -8,7 +8,7 @@ return [
     'Mage2\\Catalog\\'          => base_path('/modules/base/Mage2/Catalog'),
     'Mage2\\Configuration\\'    => base_path('/modules/base/Mage2/Configuration'),
     'Mage2\\ContactUs\\'        => base_path('/modules/base/Mage2/ContactUs'),
-    'Mage2\\Dashboard\\'        => base_path('/modules/base/Mage2/Dashboard'),
+    'Mage2\\Home\\'        => base_path('/modules/base/Mage2/Home'),
     'Mage2\\FreeShipping\\'     => base_path('/modules/base/Mage2/FreeShipping'),
     'Mage2\\Install\\'          => base_path('/modules/base/Mage2/Install'),
     'Mage2\\Order\\'            => base_path('/modules/base/Mage2/Order'),
