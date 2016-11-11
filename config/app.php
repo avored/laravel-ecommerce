@@ -156,7 +156,7 @@ return [
         Mage2\Framework\System\Module::class,
         Mage2\Framework\Foundation\Providers\ModuleServiceProvider::class,
         Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
-        //Mage2\Framework\DataGrid\DataGridServiceProvider::class,
+        Mage2\Framework\DataGrid\DataGridServiceProvider::class,
         //Mage2\Framework\Form\FormServiceProvider::class,
     //
 
@@ -230,7 +230,7 @@ return [
         'Debugbar'      => Barryvdh\Debugbar\Facade::class,
 
 
-        'Theme'         => Mage2\Framework\Theme\Facade\Theme::class,
+        'Theme'         => Mage2\Framework\Theme\Facades\Theme::class,
         'DataGrid'      => Mage2\Framework\DataGrid\Facades\DataGrid::class,
         'AdminConfiguration'=> Mage2\Framework\Configuration\Facades\AdminConfiguration::class,
         'AdminMenu'     => Mage2\Framework\AdminMenu\Facades\AdminMenu::class,
