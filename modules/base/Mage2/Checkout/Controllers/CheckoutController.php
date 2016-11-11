@@ -11,7 +11,7 @@ use Mage2\Address\Requests\AddressRequest;
 use Mage2\Checkout\Requests\CheckoutUserRequest;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Framework\Payment\Facades\Payment;
-use Mage2\Framework\Shipping\Facade\Shipping;
+use Mage2\Framework\Shipping\Facades\Shipping;
 use Mage2\TaxClass\Models\Country;
 use Mage2\User\Models\User;
 use Mage2\Checkout\Requests\ShippingOptionRequest;
