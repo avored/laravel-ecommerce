@@ -154,9 +154,9 @@ return [
      */
 
         Mage2\Framework\System\Module::class,
-
         Mage2\Framework\Foundation\Providers\ModuleServiceProvider::class,
         Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
+        Mage2\Framework\Form\FormServiceProvider::class,
     //
 
     /*
@@ -230,7 +230,7 @@ return [
         'Debugbar'      => Barryvdh\Debugbar\Facade::class,
         'AdminConfiguration'=> Mage2\Framework\Configuration\Facades\AdminConfiguration::class,
         'AdminMenu'     => Mage2\Framework\AdminMenu\Facades\AdminMenu::class,
-        'Form'          => Mage2\Framework\Form\Contracts\FormFacade::class,
+        'Form'          => Mage2\Framework\Form\Facades\FormFacade::class,
         'Payment'       => Mage2\Framework\Payment\Facades\Payment::class,
         'Permission'    => Mage2\Framework\Support\Facades\Permission::class,
     ],

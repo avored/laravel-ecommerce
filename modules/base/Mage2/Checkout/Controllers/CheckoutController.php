@@ -26,6 +26,7 @@ class CheckoutController extends Controller
 
     public function index()
     {
+
         $orderData = Session::get('order_data');
         if (Auth::check()) {
             $orderData['user_id'] = Auth::user()->id;
