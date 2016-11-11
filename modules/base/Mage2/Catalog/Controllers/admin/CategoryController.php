@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Requests\CategoryRequest;
 use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
+use Mage2\Framework\DataGrid\Facades\DataGrid;
 use Illuminate\Support\Facades\Gate;
 use Mage2\User\Models\AdminUser;
 

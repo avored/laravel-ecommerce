@@ -7,7 +7,7 @@ use Mage2\Page\Models\Page;
 use Mage2\Page\Requests\PageRequest;
 use Mage2\User\Models\AdminUser;
 use Illuminate\Support\Facades\Gate;
-use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
+use Mage2\Framework\DataGrid\Facades\DataGrid;
 
 class PageController extends AdminController
 {

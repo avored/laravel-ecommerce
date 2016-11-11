@@ -12,7 +12,7 @@ use Mage2\Order\Requests\UpdateOrderStatusRequest;
 use Mage2\User\Models\User;
 use Mage2\User\Models\AdminUser;
 use Illuminate\Support\Facades\Gate;
-use Mage2\Framework\DataGrid\DataGridFacade as DataGrid;
+use Mage2\Framework\DataGrid\Facades\DataGrid;
 
 class OrderController extends AdminController
 {
