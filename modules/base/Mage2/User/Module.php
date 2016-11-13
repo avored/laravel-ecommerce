@@ -37,6 +37,7 @@ class Module extends BaseModule
         $this->registerMiddleware();
         $this->registerAdminMenu();
         $this->registerPolicies();
+        $this->registerViewComposerData();
     }
 
     /**
@@ -66,7 +67,7 @@ class Module extends BaseModule
 
     public function registerViewComposerData()
     {
-         View::composer(['my-account.sidebar'], 
+         View::composer(['user.my-account.sidebar'], 
                         'Mage2\User\ViewComposers\MyAccountSidebarComposer');
          
     }

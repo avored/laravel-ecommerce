@@ -4,7 +4,7 @@
 <div class="row profile">
     
     <div class="col-md-2">
-        @include('my-account.sidebar')
+        @include('user.my-account.sidebar')
     </div>
     <div class="col-md-10">
         <h3>Profile Edit</h3>

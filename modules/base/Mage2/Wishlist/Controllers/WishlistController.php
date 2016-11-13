@@ -32,6 +32,7 @@ class WishlistController extends Controller
                     'website_id' => $this->websiteId,
                 ])->get();
 
+        
 
 
         return view('wishlist.my-account.wishlist')

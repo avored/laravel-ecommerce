@@ -12,7 +12,7 @@ class MyAccountController extends Controller
     {
         $user = Auth::user();
 
-        return view('my-account.home')
+        return view('user.my-account.home')
                 ->with('user', $user);
     }
 
@@ -20,7 +20,7 @@ class MyAccountController extends Controller
     {
         $user = Auth::user();
 
-        return view('my-account.edit')
+        return view('user.my-account.edit')
             ->with('user', $user);
     }
 
