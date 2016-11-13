@@ -1,7 +1,11 @@
 <div class="profile-sidebar">
 
     <div class="profile-userpic">
-        <img src="http://placehold.it/500x500" class="img-responsive" alt="">
+        @if($user->image_path == "")
+            <img src="http://placehold.it/500x500" class="img-responsive" alt="">
+        @else
+            <img src="{{ asset("/uploads/users/" .$user->image_path) }}" class="img-responsive" alt="">
+        @endif
     </div>
     <div class="text-center">
         <div class="profile-usertitle-name">
@@ -21,6 +25,11 @@
                 <a href="{{ route('my-account.edit') }}" class="collection-item">
 
                     Edit Account</a>
+            </li>
+            <li>
+                <a href="{{ route('my-account.upload-image') }}" class="collection-item">
+
+                    Upload Image</a>
             </li>
             <li>
                 <a href="{{ route('my-account.order.list') }}" class="collection-item">

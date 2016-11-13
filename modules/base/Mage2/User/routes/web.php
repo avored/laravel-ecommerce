@@ -49,6 +49,9 @@ Route::group(['middleware' => ['web', 'frontauth', 'website'], 'namespace' => "M
     Route::get('/my-account', ['as' => 'my-account.home', 'uses' => 'MyAccountController@home']);
     Route::get('/my-account/edit', ['as' => 'my-account.edit', 'uses' => 'MyAccountController@edit']);
     Route::post('/my-account/edit', ['as' => 'my-account.store', 'uses' => 'MyAccountController@store']);
+    
+    Route::get('/my-account/upload-image', ['as' => 'my-account.upload-image', 'uses' => 'MyAccountController@uploadImage']);
+    Route::post('/my-account/upload-image', ['as' => 'my-account.upload-image.post', 'uses' => 'MyAccountController@uploadImagePost']);
 });
 
 

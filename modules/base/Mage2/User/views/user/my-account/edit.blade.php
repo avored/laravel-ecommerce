@@ -10,8 +10,7 @@
         <h3>Profile Edit</h3>
         <div class="profile-content">
 
-            <form action="{{ route('my-account.store') }}" method="POST">
-                {{ csrf_field() }}
+            {!! Form::bind($user, ['action' => route('my-account.store') , 'method' => 'post']) !!}
            
             
             <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
@@ -42,6 +41,9 @@
                 </span>
                 @endif
             </div>
+                
+            {!! Form::text('phone','Phone') !!}
+            {!! Form::text('company_name','Company Name') !!}
 
 
 
@@ -51,7 +53,7 @@
             </div>
 
 
-             </form>
+             {!! Form::close() !!}
         </div>
     </div>
 </div>

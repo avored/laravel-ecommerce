@@ -8,10 +8,10 @@
     <div class="col-md-10">
 
         <div class="panel panel-default">
+            <div class="panel-heading">
+                Profile Details Panel
+            </div>
             <div class="panel-body">
-                <div class="panel-heading">
-                    Profile Details Panel
-                </div>
 
                 <table class="table table-responsive">
                     <tbody>
@@ -26,6 +26,14 @@
                         <tr>
                             <th>Email</th>
                             <td> {{ $user->email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Phone</th>
+                            <td> {{ $user->phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>Company Name</th>
+                            <td> {{ $user->company_name }}</td>
                         </tr>
 
                     </tbody>
