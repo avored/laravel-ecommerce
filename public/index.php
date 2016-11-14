@@ -91,7 +91,7 @@ $app->singleton(
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    Mage2\Frameowrk\System\Exceptions\Handler::class
+    Mage2\Framework\Exceptions\Handler::class
 );
 
 

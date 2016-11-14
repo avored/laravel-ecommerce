@@ -47,6 +47,11 @@
                     My Wishlist</a>
             </li>
             <li>
+                <a href="{{ route('my-account.change-password') }}" class="collection-item">
+
+                    Change Password</a>
+            </li>
+            <li>
                 <a href="{{ route('logout') }}" class="collection-item">
 
                     Logout </a>

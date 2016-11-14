@@ -4,6 +4,8 @@ namespace Mage2\User\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Mage2\User\Requests\ChangePasswordRequest;
+use Mage2\User\Requests\UploadUserImageRequest;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\User\Requests\UserProfileRequest;
 
@@ -34,8 +36,9 @@ class MyAccountController extends Controller {
         return view('user.my-account.upload-image');
     }
 
-    public function uploadImagePost(Request $request) {
-        
+    public function uploadImagePost(UploadUserImageRequest $request) {
+
+        dd('test');
         $user = Auth::user();
         $image = $request->file('profile_image');
         $destinationPath = 'uploads/users/';
@@ -43,9 +46,21 @@ class MyAccountController extends Controller {
         $image->move($destinationPath . $relativePath, $image->getClientOriginalName());
 
         $user->update(['image_path' => $relativePath . $image->getClientOriginalName()]);
+
+
+        return redirect()->route('my-account.home')
+                        ->with('notificationText', 'User Profile Image Uploaded successfully!!');
+    }
+
+    public function changePassword() {
+        return view('user.my-account.change-password');
+    }
+    
+    public function changePasswordPost(ChangePasswordRequest $request) {
         
-        
-        return redirect()->route('my-account.home')->with('notificationText', 'User Profile Image Uploaded successfully!!');
+        return $request->all();
+        return redirect()->route('my-account.home')
+                        ->with('notificationText', 'User Password Changed Successfully!');
     }
 
 }
