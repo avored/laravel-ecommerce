@@ -8,6 +8,7 @@ use Mage2\User\Requests\ChangePasswordRequest;
 use Mage2\User\Requests\UploadUserImageRequest;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\User\Requests\UserProfileRequest;
+use Illuminate\Support\Facades\Hash;
 
 class MyAccountController extends Controller {
 
@@ -55,12 +56,17 @@ class MyAccountController extends Controller {
     public function changePassword() {
         return view('user.my-account.change-password');
     }
-    
+
     public function changePasswordPost(ChangePasswordRequest $request) {
-        
-        return $request->all();
-        return redirect()->route('my-account.home')
-                        ->with('notificationText', 'User Password Changed Successfully!');
+
+        $user = Auth::user();
+        if (Hash::check($request->get('current_password') , $user->password ) ) {
+            $user->update(['password' => bcrypt($request->get('password'))]);
+            return redirect()->route('my-account.home')
+                            ->with('notificationText', 'User Password Changed Successfully!');
+        } else {
+            return redirect()->back()->withErrors(['current_password' => 'Your Current Password Wrong!']);
+        }
     }
 
 }

@@ -12,6 +12,9 @@
                 Change Password
             </div>
             <div class="panel-body">
+                <?php 
+                //dd($errors);
+                ?>
                 {!! Form::open(['action' => route('my-account.change-password.post'), 'method' => 'post']) !!}
                 {!! Form::password('current_password','Cuurent Password') !!}
                 {!! Form::password('password','New Password') !!}

@@ -9,7 +9,12 @@
                         <h1>Welcome to Mage2 Ecommerce Installation</h1>
                     </div>
                     <div class="panel-body">
-
+                            <!--
+                             add more extension check list
+                             php file info
+                            -->
+                            
+                            
 
                         <h4 style="text-align: center">Extension Requirement</h4>
                         <div class="extension-list">
