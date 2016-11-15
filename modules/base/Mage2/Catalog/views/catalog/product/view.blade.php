@@ -1,4 +1,4 @@
-@extends('layouts.app-bootstrap')
+@extends('layouts.app')
 
 @section('content')
 
@@ -6,17 +6,7 @@
             <div class="item-container">
                 <div class="col-md-12">
                     <div class="product col-md-4 service-image-left">
-                        <center>
-                            @if(isset($product->getProductImages($first = true)->value))
-                                <img alt="{{ $product->title }}"
-                                     class="img-responsive"
-                                     src="{{ asset('/uploads/catalog/images/'. $product->getProductImages($first= true)->value)  }}"/>
-                            @else
-                                <img alt="{{ $product->title }}"
-                                     class="img-responsive"
-                                     src="{{ asset('/img/default-product.jpg') }}"/>
-                            @endif
-                        </center>
+                        @include('catalog.product.view.product-image',['product' => $product])
                     </div>
 
 

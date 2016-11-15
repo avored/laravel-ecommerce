@@ -1,4 +1,4 @@
-@extends('layouts.admin-bootstrap')
+@extends('layouts.admin')
 
 @section('content')
         <div class="row">

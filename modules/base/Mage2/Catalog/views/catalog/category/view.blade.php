@@ -1,4 +1,4 @@
-@extends('layouts.app-bootstrap')
+@extends('layouts.app')
 
 @section('content')
 <div class="row">
@@ -9,7 +9,7 @@
         <?php $i =0; ?>
         @foreach($products as $product)
         <div class="col-md-4">
-            @include('product.view.product-panel',['product' => $product])
+            @include('catalog.product.view.product-panel',['product' => $product])
         </div>
         <?php  $i++; ?>
         @if($i %3 == 0 && $i > 0)

@@ -1,4 +1,4 @@
-@extends('layouts.app-bootstrap')
+@extends('layouts.app')
 
 @section('content')
 <div class="row">
@@ -13,7 +13,7 @@
         </div>
         @foreach($featuredProducts as $product)
         <div class="col-md-4">
-            @include('product.view.product-panel',['product'=> $product])
+            @include('catalog.product.view.product-panel',['product'=> $product])
         </div>
         @endforeach
 

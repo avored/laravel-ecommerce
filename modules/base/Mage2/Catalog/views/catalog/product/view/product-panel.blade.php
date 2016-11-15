@@ -2,15 +2,7 @@
     <div class="panel-body">
 
         <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->title }}">
-            @if(isset($product->getProductImages($first = true)->value))
-            <img alt="{{ $product->title }}"
-                 class="img-responsive"
-                 src="{{ asset('/uploads/catalog/images/'. $product->getProductImages($first= true)->value) }}" />
-            @else
-            <img alt="{{ $product->title }}"
-                 class="img-responsive"
-                 src="{{ asset('/img/default-product.jpg') }}" />
-            @endif
+            @include('catalog.product.view.product-image',['product' => $product])
         </a>
         <div class="caption">
             <h3 >

@@ -60,10 +60,10 @@ class Module extends BaseModule {
     }
 
     protected function registerViewComposer() {
-        View::composer(['layouts.admin-nav', 'layouts.admin-bootstrap-nav'], 
+        View::composer(['layouts.admin-nav', 'layouts.admin-nav'],
                         'Mage2\Home\ViewComposers\AdminNavComposer');
         
-        View::composer(['layouts.app-bootstrap'], 
+        View::composer(['layouts.app'],
                         'Mage2\Home\ViewComposers\LayoutAppComposer');
     }
 

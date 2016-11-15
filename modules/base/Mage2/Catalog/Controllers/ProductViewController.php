@@ -14,7 +14,7 @@ class ProductViewController extends Controller
         $product = $this->_getProductBySlug($slug);
 
 
-        $view = view('product.view')
+        $view = view('catalog.product.view')
                 ->with('product', $product);
 
         $title = $product->page_title;

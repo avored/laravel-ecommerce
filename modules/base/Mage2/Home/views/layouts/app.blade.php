@@ -39,7 +39,7 @@
 <script src="//cdn.ckeditor.com/4.5.11/basic/ckeditor.js"></script>
 
 
-@include("layouts.nav-bootstrap")
+@include("layouts.nav")
 <div class="container">
     <div class="row">
         <div class="col-md-12">

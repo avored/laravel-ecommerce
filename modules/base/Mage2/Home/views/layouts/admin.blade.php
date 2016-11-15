@@ -38,7 +38,7 @@ echo json_encode([
         <script src="//cdn.ckeditor.com/4.5.11/basic/ckeditor.js"></script>
 
 
-        @include("layouts.admin-bootstrap-nav")
+        @include("layouts.admin-nav")
         <div class="container">
                 <div class="row">
                     <div class="col-md-12">
