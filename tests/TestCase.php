@@ -66,7 +66,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         $app->singleton(
             Illuminate\Contracts\Debug\ExceptionHandler::class,
-            Mage2\Framework\System\Exceptions\Handler::class
+            Mage2\Framework\Exceptions\Handler::class
         );
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
@@ -84,6 +84,9 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
             Artisan::call('mage2:migrate');
             Artisan::call('db:seed');
             $this->setupAdminUserAndWebsite();
+
+
+
         }
 
         //Artisan::call('db:seed');
