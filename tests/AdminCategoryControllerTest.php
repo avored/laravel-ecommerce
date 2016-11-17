@@ -29,7 +29,7 @@ class AdminCategoryControllerTest extends TestCase
                 ->see('Create Category')
                 ->type('Test Category', 'name')
                 ->type('test-category', 'slug')
-                ->select('0', 'parent_id')
+                //->select('0', 'parent_id')
                 ->press('Create Category')
                 ->seePageIs('/admin/category')
                 ->see('Test Category');

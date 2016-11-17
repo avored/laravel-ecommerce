@@ -135,6 +135,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
             'last_name'  => 'test User',
             'email'      => 'admin@admin.com',
             'password'   => bcrypt('admin123'),
+            'is_super_admin' => 1,
             'role_id'    => 1, // @todo change this one??
         ]);
 
