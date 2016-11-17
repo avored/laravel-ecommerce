@@ -16,7 +16,7 @@
                         <div class="col-md-12">
 
                             <form class="form-horizontal" role="form" method="POST"
-                                  action="{{ url('/password/email') }}">
+                                  action="{{ url('/admin/password/email') }}">
                                 {{ csrf_field() }}
 
                                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
