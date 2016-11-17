@@ -7,7 +7,7 @@ use Mage2\User\Models\AdminUser;
 use Mage2\Configuration\Models\Configuration;
 use Mage2\Install\Models\Website;
 use Mage2\User\Models\User;
-
+use Mage2\User\Models\Role;
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -130,13 +130,17 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     private function setupAdminUserAndWebsite()
     {
+        $role = Role::create(['name' => 'Administrator',
+                                'description' => 'administrator role'
+                        ]);
+        
         AdminUser::create([
             'first_name' => 'test User',
             'last_name'  => 'test User',
             'email'      => 'admin@admin.com',
             'password'   => bcrypt('admin123'),
             'is_super_admin' => 1,
-            'role_id'    => 1, // @todo change this one??
+            'role_id'    => $role->id, // @todo change this one??
         ]);
 
         $host = str_replace('http://', '', $this->baseUrl);
