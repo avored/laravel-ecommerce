@@ -26,7 +26,7 @@ use SendsPasswordResetEmails;
      */
     public function __construct()
     {
-        $this->middleware('frontguest');
+        $this->middleware('adminguest');
         parent::__construct();
     }
 

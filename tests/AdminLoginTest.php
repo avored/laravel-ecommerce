@@ -30,4 +30,28 @@ class AdminLoginTest extends TestCase
                 ->seePageIs('/admin')
                 ->see('Mage2 Admin');
     }
+
+    /**
+     * A basic functional test example.
+     *
+     * @return void
+     */
+    public function testAdminLogout()
+    {
+
+        $this->visit($this->baseUrl.'/admin/logout')
+            ->seePageIs($this->baseUrl.'/admin/login')
+          ;
+    }
+
+    public function testAdminPasswordReset()
+    {
+
+        $this->visit($this->baseUrl.'/admin/password/reset')
+            ->see('Reset Password')
+            ->type('admin@admin.com','email')
+            ->press('Send Password Reset Link')
+
+        ;
+    }
 }

@@ -140,7 +140,7 @@ class RoleController extends AdminController
 
     private function _saveRolePermissions($request, $role)
     {
-
+        $permissionIds = [];
 
         if (count($request->get('permissions')) > 0) {
             //$permissionIds = Collection::make([]);
