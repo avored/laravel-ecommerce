@@ -3,6 +3,7 @@ namespace Mage2\User\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Mage2\Framework\System\Controllers\AdminController;
+use Illuminate\Support\Facades\Password;
 
 class ForgotPasswordController extends AdminController
 {
@@ -52,6 +53,7 @@ use SendsPasswordResetEmails;
      */
     public function showLinkRequestForm()
     {
+
         return view('admin.user.auth.passwords.email');
     }
 }

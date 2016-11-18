@@ -36,6 +36,8 @@ class AdminRoleTest extends TestCase {
                 ->seePageIs('/admin/role')
                 ->see($roleName)
         ;
+        //Delete created role
+        Role::all()->last()->delete();
     }
 
     /**

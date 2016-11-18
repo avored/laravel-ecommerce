@@ -51,6 +51,8 @@ class AdminLoginTest extends TestCase
             ->see('Reset Password')
             ->type('admin@admin.com','email')
             ->press('Send Password Reset Link')
+            ->seePageIs('/admin/password/reset')
+            ->see('We have e-mailed your password reset link!')
 
         ;
     }
