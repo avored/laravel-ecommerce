@@ -14,7 +14,6 @@
 
         @include('admin.user.admin-user._fields',['editMethod' => true,'roles' => $roles])
 
-        @include('template.hidden',['key' => 'id'])
         {!! Form::submit("Update User",['class' => 'btn btn-primary']) !!}
         {!! Form::button("cancel",['class' => 'btn ','onclick' => 'location="' . route('admin.admin-user.index'). '"']) !!}
 
