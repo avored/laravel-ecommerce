@@ -55,6 +55,10 @@ class AdminRoleTest extends TestCase {
         $this->visit('/admin/role/' . $role->id. '/edit')
             ->see('Edit Role')
             ->seeInField('name',$role->name)
+                ->type('abc test name','name')
+                ->press('Update Role')
+                ->seePageIs('/admin/role')
+                ->see('abc test name')
         ;
 
         $this->_deleteRole($role->id);
@@ -65,9 +69,11 @@ class AdminRoleTest extends TestCase {
         $this->adminUserLogin();
 
         $role = $this->_creteRole();
-        $this->visit('/admin/role')
-            ->see($role->name);
-        $this->_deleteRole($role->id);
+        $this->visit('/admin/role')->see($role->name);
+        $this->makeRequest('delete', '/admin/role/' . $role->id)
+                ->seePageIs('/admin/role')
+                ->dontSee($role->name);
+        //$this->_deleteRole($role->id);
     }
 
     private function _creteRole() {
