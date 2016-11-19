@@ -9,17 +9,7 @@ use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 
 class ConfigurationController extends AdminController
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('adminauth');
-        parent::__construct();
-    }
-
+   
     /**
      * Show the application dashboard.
      *
@@ -27,7 +17,7 @@ class ConfigurationController extends AdminController
      */
     public function index()
     {
-        $configurations = AdminConfiguration::All();
+        $configurations = AdminConfiguration::all();
 
         return view('admin.configuration.index')->with('configurations', $configurations);
     }
