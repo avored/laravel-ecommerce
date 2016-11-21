@@ -12,6 +12,7 @@ use Mage2\Order\Requests\UpdateOrderStatusRequest;
 use Mage2\User\Models\User;
 use Mage2\User\Models\AdminUser;
 use Illuminate\Support\Facades\Gate;
+use Mage2\Order\Mail\UpdateOrderStatusMail;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
 
 class OrderController extends AdminController
@@ -82,7 +83,12 @@ class OrderController extends AdminController
     {
         $order = Order::findorfail($id);
         $order->update($request->all());
-
+        
+        $userEmail = $order->user->email;
+        $orderStatusTitle = $order->order_status_title;
+        
+        Mail::to($userEmail)->send(new UpdateOrderStatusMail($orderStatusTitle));
+        
         return redirect()->route('admin.order.index');
     }
 }

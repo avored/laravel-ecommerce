@@ -5,6 +5,7 @@ namespace Mage2\Order\Models;
 use Mage2\Address\Models\Address;
 use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Models\BaseModel;
+use Mage2\User\Models\User;
 
 class Order extends BaseModel
 {
@@ -20,6 +21,10 @@ class Order extends BaseModel
     public function products()
     {
         return $this->belongsToMany(Product::class, 'product_order')->withPivot('price', 'qty');
+    }
+    
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
     public function orderStatus()
