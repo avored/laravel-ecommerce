@@ -39,7 +39,6 @@ class MyAccountController extends Controller {
 
     public function uploadImagePost(UploadUserImageRequest $request) {
 
-        dd('test');
         $user = Auth::user();
         $image = $request->file('profile_image');
         $destinationPath = 'uploads/users/';
