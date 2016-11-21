@@ -49,7 +49,7 @@
         });
         jQuery('.product-image-element').change(function (e) {
             var files = e.target.files;
-            alert('test')
+            
             if (files.length <= 0) {
                 return;
             }
@@ -65,7 +65,6 @@
             xhr.open('POST', '{{ URL::to("/admin/product-image/upload") }}', true);
             xhr.onload = function (e) {
                 if (this.status == 200) {
-
                     jQuery('.product-image-list').append(this.response);
                 }
             };
