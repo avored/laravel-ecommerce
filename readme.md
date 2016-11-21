@@ -46,5 +46,4 @@ Mage2 laravel5 Ecommerce is in active development and If you want to contribute 
 If you find any bug or problem please submit here [Mage2 Ecommerce Forum](http://mage2.website/forum/) or [raise the issue here](https://github.com/mage2/laravel-ecommerce/issues/new).
 
 
-
 [![](https://ga-beacon.appspot.com/UA-79831356-1/laravel-ecommerce?pixel)](https://github.com/mage2/laravel-ecommerce)
