@@ -26,6 +26,7 @@ class OrderStatusController extends AdminController
         $dataGrid->addColumn(DataGrid::textColumn('id', 'Order ID'));
         $dataGrid->addColumn(DataGrid::textColumn('title', 'Title'));
         $dataGrid->addColumn(DataGrid::textColumn('is_default', 'Is Default'));
+        $dataGrid->addColumn(DataGrid::textColumn('is_last_stage', 'Is Last Stage'));
         if (Gate::allows('hasPermission', [AdminUser::class, "admin.order-status.edit"])) {
 
             $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {

@@ -7,6 +7,9 @@
 
         <div class="main-title-wrap">
             <span class="title"> Order Status List</span>
+            <div class="pull-right">
+                <a href="{{ route('admin.order-status.create') }}" class="btn btn-primary">Create Order Status</a>
+            </div>
         </div>
 
         @if(count($dataGrid->data) <= 0)

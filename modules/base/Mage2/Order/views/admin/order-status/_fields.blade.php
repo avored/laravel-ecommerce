@@ -1,3 +1,3 @@
-@include('template.text',['key' => 'title','label' => 'Order Status Title'])
-@include('template.select',['key' => 'is_default','label' => 'Is Default','options' => ['0' => 'No','1' => 'Yes']])
-@include('template.select',['key' => 'is_last_stage','label' => 'Is Default','options' => ['0' => 'No','1' => 'Yes']])
+{!! Form::text('title','Order Status Title') !!}
+{!! Form::select('is_default','Is Default Order Status',['0' => 'No','1' => 'Yes']) !!}
+{!! Form::select('is_last_stage','Is this last stage of Order Status',['0' => 'No','1' => 'Yes']) !!}
