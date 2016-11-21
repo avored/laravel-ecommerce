@@ -8,9 +8,9 @@
                 <div class="title">Create Order Status</div>
             </div>
             <div class="col s12">
-                {!! Form::open(['route' => 'admin.order-status.store']) !!}
+                {!! Form::open(['method' => 'post','action' => route('admin.order-status.store')]) !!}
                     @include('admin.order-status._fields')
-                    @include('template.submit',['label' => 'Create Order Status'])
+                    {!! Form::submit('Create Order Status') !!}
                     
                 {!! Form::close() !!}
             </div>

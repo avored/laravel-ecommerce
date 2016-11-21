@@ -72,6 +72,12 @@ class OrderStatusController extends AdminController
                 $orderStatus->update();
             }
         }
+        if ($request->get('is_last_stage') == 1) {
+            foreach (OrderStatus::where('is_last_stage', '=', 1)->get() as $orderStatus) {
+                $orderStatus->is_last_stage = 0;
+                $orderStatus->update();
+            }
+        }
 
         OrderStatus::create($request->all());
 

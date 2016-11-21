@@ -16,6 +16,7 @@ class CreateOrderStatusTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->boolean('is_default');
+            $table->boolean('is_last_stage');
             $table->timestamps();
         });
     }

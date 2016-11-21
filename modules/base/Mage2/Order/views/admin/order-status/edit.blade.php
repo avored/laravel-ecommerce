@@ -16,11 +16,10 @@
         <div class="row">
             <div class="col s12">
 
-                {!! Form::model($orderStatus, ['method' => 'PUT', 'route' => ['admin.order-status.update', $orderStatus->id]]) !!}
+                {!! Form::bind($orderStatus, ['method' => 'PUT', 'action' => route('admin.order-status.update', $orderStatus->id)]) !!}
                         @include('admin.order-status._fields')
                     
-                        @include('template.hidden',['key' => 'id'])
-                        @include('template.submit',['label' => 'Update Order Status'])
+                {!! Form::submit('Update Order Status') !!}
                     
                 {!! Form::close() !!}
             </div>
