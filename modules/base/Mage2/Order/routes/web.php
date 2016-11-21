@@ -11,15 +11,8 @@
   |
  */
 Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\Order\Controllers\Admin"], function () {
-    Route::resource('/admin/order-status', 'OrderStatusController', ['names' => [
-            'index'   => 'admin.order-status.index',
-            'create'  => 'admin.order-status.create',
-            'store'   => 'admin.order-status.store',
-            'edit'    => 'admin.order-status.edit',
-            'update'  => 'admin.order-status.update',
-            'destroy' => 'admin.order-status.destroy',
-    ]]);
-
+    Route::resource('/admin/order-status', 'OrderStatusController', ['as' => 'admin' ]);
+   
     Route::get('/admin/order', ['as' => 'admin.order.index', 'uses' => 'OrderController@index']);
     Route::get('/admin/order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
     Route::get('/admin/order/{id}/send-email-invoice', ['as' => 'admin.order.send-email-invoice', 'uses' => 'OrderController@sendEmailInvoice']);

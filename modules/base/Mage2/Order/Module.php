@@ -63,6 +63,11 @@ class Module extends BaseModule
             'route'   => 'admin.order.index',
         ];
         AdminMenu::registerMenu($adminMenu);
+        $orderStatusMenu = [
+            'label' => 'Order Status',
+            'route'   => 'admin.order-status.index',
+        ];
+        AdminMenu::registerMenu($orderStatusMenu);
     }
     
     
@@ -72,11 +77,12 @@ class Module extends BaseModule
      * @return void
      */
     protected function registerPermissions() {
+      
         $permissions = [
-            ['title' => 'Page List',    'routes' => 'admin.page.index'],
-            ['title' => 'Page Create',  'routes' => "admin.page.create,admin.page.store"],
-            ['title' => 'Page Update',  'routes' => "admin.page.edit,admin.page.update"],
-            ['title' => 'Page Destroy', 'routes' => "admin.page.destroy"],
+            ['title' => 'Order Status List',    'routes' => 'admin.order-status.index'],
+            ['title' => 'Order Status Create',  'routes' => "admin.order-status.create,admin.order-status.store"],
+            ['title' => 'Order Status Update',  'routes' => "admin.order-status.edit,admin.order-status.update"],
+            ['title' => 'Order Status Destroy', 'routes' => "admin.order-status.destroy"],
            
         ];
 

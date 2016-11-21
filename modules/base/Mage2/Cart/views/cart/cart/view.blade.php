@@ -18,7 +18,7 @@
             <?php $total = 0; $taxTotal = 0; ?>
             @foreach($cartProducts as $product)
                 <tr>
-                    {!! Form::open(['method' => 'put', 'route' => 'cart.update']) !!}
+                    {!! Form::open(['method' => 'put', 'action' => route('cart.update')]) !!}
                     <td class="col-md-8">
                         <div class="media">
 
@@ -56,7 +56,9 @@
                     <td class="col-sm-1 col-md-1 text-center"><strong>${{ ($product['price'] * $product['qty'] )}}</strong></td>
                     <td class="col-sm-1 col-md-1">
                         <div class="btn-group">
-                            <a  class="btn btn-warning" href="#" onclick="jQuery(this).parents('form:first').submit()" >
+                            <a  class="btn btn-warning" href="#" 
+                                
+                                onclick="x = jQuery(this);jQuery(this).parents('form:first').submit()" >
                                 Update
                             </a>
                             <button type="button"

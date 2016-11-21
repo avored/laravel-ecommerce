@@ -5,6 +5,9 @@ namespace Mage2\Order\Controllers\Admin;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Order\Models\OrderStatus;
 use Mage2\Order\Requests\OrderStatusRequest;
+use Mage2\Framework\DataGrid\Facades\DataGrid;
+use Illuminate\Support\Facades\Gate;
+use Mage2\User\Models\AdminUser;
 
 class OrderStatusController extends AdminController
 {
@@ -17,10 +20,31 @@ class OrderStatusController extends AdminController
      */
     public function index()
     {
-        $orderStatuses = OrderStatus::paginate(10);
+        $model  = new OrderStatus();
+        $dataGrid = DataGrid::make($model);
+
+        $dataGrid->addColumn(DataGrid::textColumn('id', 'Order ID'));
+        $dataGrid->addColumn(DataGrid::textColumn('title', 'Title'));
+        $dataGrid->addColumn(DataGrid::textColumn('is_default', 'Is Default'));
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.order-status.edit"])) {
+
+            $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
+                return "<a href='" . route('admin.order-status.edit', $row->id) . "'>Edit</a>";
+            }));
+        }
+         if (Gate::allows('hasPermission', [AdminUser::class, "admin.order-status.destroy"])) {
+            $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
+                return "<form method='post' action='" . route('admin.order-status.destroy', $row->id) . "'>" .
+                        "<input type='hidden' name='_method' value='delete'/>" .
+                        csrf_field() .
+                        '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
+                        "</form>";
+            }));
+        } 
+
 
         return view('admin.order-status.index')
-            ->with('orderStatuses', $orderStatuses);
+                ->with('dataGrid', $dataGrid);
     }
 
     /**
