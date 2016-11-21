@@ -7,9 +7,9 @@
                 <div class="panel-body">
 
 
-                    <h2 class="text-center">Database Setup</h2>
+                    <h2 class="text-center">Database Data Setup</h2>
 
-                    {!! Form::open(['method' => 'post','action' => route('mage2.install.database.post')]) !!}
+                    {!! Form::open(['method' => 'post','action' => route('mage2.install.database.data.post')]) !!}
 
                     <p>Click Continue to install Database</p>
 

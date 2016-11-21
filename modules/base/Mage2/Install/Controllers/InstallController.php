@@ -35,13 +35,27 @@ class InstallController extends Controller {
         return view('install.extension')->with('result', $result);
     }
 
-    public function databaseGet() {
-        return view('install.database');
+    public function databaseTableGet() {
+        return view('install.database-table');
     }
 
-    public function databasePost() {
+    public function databaseTablePost() {
         try {
             Artisan::call('mage2:migrate');
+            //Artisan::call('db:seed');
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+
+        return redirect()->route('mage2.install.database.data.get');
+    }
+
+    public function databaseDataGet() {
+        return view('install.database-data');
+    }
+    public function databaseDataPost() {
+        try {
+            //Artisan::call('mage2:migrate');
             Artisan::call('db:seed');
         } catch (Exception $e) {
             throw new Exception($e->getMessage());

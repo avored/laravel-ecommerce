@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <div class="">
-                            <a href="{{ route('mage2.install.database.get') }}" type="submit" class="btn btn-primary">Continue</a>
+                            <a href="{{ route('mage2.install.database.table.get') }}" type="submit" class="btn btn-primary">Continue</a>
                         </div>
                         </div>
 
