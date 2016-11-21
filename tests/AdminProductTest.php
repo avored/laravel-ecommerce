@@ -38,6 +38,7 @@ class AdminProductTest extends TestCase
     {
         $this->adminUserLogin();
 
+        /**
         $website = Website::first();
 
         $category = Category::create(['name' => 'category',
@@ -70,6 +71,9 @@ class AdminProductTest extends TestCase
 
         $this->seeInDatabase('product_varchar_values',['value' =>  $title]);
         $category->delete();
+
+         *
+         */
 
 
     }
