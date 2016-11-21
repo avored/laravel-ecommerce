@@ -47,7 +47,7 @@ class AdminUserTest extends TestCase {
         $this->assertRedirectedToRoute('admin.admin-user.index');
         $this->seeInDatabase('admin_users', ['first_name' => 'test user first name']);
 
-        AdminUser::last()->delete();
+        //AdminUser::last()->delete();
     }
 
     /**
