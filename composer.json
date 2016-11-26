@@ -33,9 +33,6 @@
     "symfony/dom-crawler": "3.1.*"
   },
   "autoload": {
-    "classmap": [
-      "database"
-    ],
     "psr-4": {
       "Mage2\\Framework\\": "packages/mage2/framework/src/",
       "Mage2\\Address\\": "modules/base/Mage2/Address/",
