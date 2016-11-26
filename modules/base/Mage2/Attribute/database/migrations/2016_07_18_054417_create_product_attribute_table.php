@@ -14,6 +14,7 @@ class CreateProductAttributeTable extends Migration
     {
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('product_attribute_group_id');
             $table->string('title');
             $table->string('identifier')->unique();
             $table->enum('field_type', ['TEXT', 'TEXTAREA', 'SELECT', 'FILE', 'DATETIME']);

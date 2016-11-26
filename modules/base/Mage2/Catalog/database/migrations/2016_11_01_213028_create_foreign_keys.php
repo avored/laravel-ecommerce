@@ -18,45 +18,57 @@ class CreateForeignKeys extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
+        
+        //addresses table foreign key setup
+        //Schema::table('product_attributes', function (Blueprint $table) {
+        //    $table->foreign('product_attribute_group_id')
+        //            ->references('id')->on('product_attribute_groups')->onDelete('cascade');
+        //});
 
         //product_varchar_values table foreign key setup
         Schema::table('product_varchar_values', function (Blueprint $table) {
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade');
+            $table->foreign('product_attribute_id')
+                    ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_varchar_values table foreign key setup
         Schema::table('product_float_values', function (Blueprint $table) {
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade');
+            $table->foreign('product_attribute_id')
+                    ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_text_values table foreign key setup
         Schema::table('product_text_values', function (Blueprint $table) {
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade');
+            $table->foreign('product_attribute_id')
+                    ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_integer_values table foreign key setup
         Schema::table('product_integer_values', function (Blueprint $table) {
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade');
+            $table->foreign('product_attribute_id')
+                    ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_datetime_values table foreign key setup
         Schema::table('product_datetime_values', function (Blueprint $table) {
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade');
+            $table->foreign('product_attribute_id')
+                    ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_datetime_values table foreign key setup
         Schema::table('attribute_dropdown_options', function (Blueprint $table) {
-            $table->foreign('product_attribute_id')->references('id')->on('product_attributes')->onDelete('cascade');
+            $table->foreign('product_attribute_id')
+                    ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_website table foreign key setup

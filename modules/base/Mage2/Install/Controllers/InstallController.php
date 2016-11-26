@@ -56,7 +56,7 @@ class InstallController extends Controller {
     public function databaseDataPost() {
         try {
             //Artisan::call('mage2:migrate');
-            Artisan::call('db:seed');
+            Artisan::call('mage2:dbseed');
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

@@ -6,7 +6,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class ProductAttribute extends BaseModel
 {
-    protected $fillable = ['title', 'identifier', 'field_type', 'type', 'validation'];
+    protected $fillable = ['title','product_attribute_group_id' ,'identifier', 'field_type', 'type', 'validation'];
 
     /**
      * Product Attribute has many Attribute Dropdown Options.
