@@ -17,12 +17,27 @@
 
 
             <ul class="nav navbar-nav navbar-right">
+                 
                 <!-- Authentication Links -->
                 @foreach($adminMenus as $menu)
+                
                     @can('hasPermission',[Mage2\User\Models\AdminUser::class,$menu['route']])
-                    <li><a href="{{ route($menu['route']) }}">{{ $menu['label'] }}</a></li>
+                    
+                        @if(isset($menu['submenu']))
+                            <li class="dropdown"> 
+                                <a class="dropdown-toggle" href="#">{{ $menu['label'] }} <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                @foreach($menu['submenu'] as $subMenu)
+                                    <li><a href="{{ route($subMenu['route']) }}">{{ $subMenu['label'] }}</a></li>
+                                @endforeach
+                                </ul>
+                            </li>
+                        @else
+                            <li><a href="{{ route($menu['route']) }}">{{ $menu['label'] }}</a></li>
+                        @endif
+                    
                     @else
-                    <li><a href="#" title="no permission">{{ $menu['label'] }}</a></li>
+                        <li><a href="#" title="no permission">{{ $menu['label'] }}</a></li>
                     @endcan
                 @endforeach
                     <li><a href="{{ route('admin.logout') }}">Logout</a></li>
