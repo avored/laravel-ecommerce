@@ -17,9 +17,9 @@
             <p>
                 <a class="btn btn-primary" href="{{ route('cart.add-to-cart', $product->id) }}">Add to Cart</a>
                 @if(Auth::check() && Auth::user()->isInWishlist($product->id))
-                <a class="btn btn-danger" href="{{ route('wishlist.remove', $product->id) }}">Remove from Wishlist</a>
+                <a class="btn btn-danger" href="{{ route('wishlist.remove', $product->slug) }}">Remove from Wishlist</a>
                 @else
-                <a class="btn btn-warning" href="{{ route('wishlist.add', $product->id) }}">Add to Wishlist</a>
+                <a class="btn btn-warning" href="{{ route('wishlist.add', $product->slug) }}">Add to Wishlist</a>
                 @endif
             </p>
         </div>

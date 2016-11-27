@@ -30,13 +30,7 @@ class Category extends BaseModel
     {
         return $this->belongsToMany(Product::class);
     }
-    
-    public function setParentIdAttribute($value) {
-        if(empty($value) || $value == 0 ) {
-            $this->attributes['parent_id'] = null;
-         }
-         $this->attributes['parent_id'] = $value;    
-    }
+   
 
     public function getParentNameAttribute()
     {

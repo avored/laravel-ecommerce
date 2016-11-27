@@ -119,7 +119,7 @@ class CategoryController extends AdminController {
     }
 
     private function _getCategoryOptions() {
-        $options = Collection::make([NULL => 'please select'] + Category::pluck('name', 'id')->toArray())->toArray();
+        $options = Collection::make([0 => 'please select'] + Category::pluck('name', 'id')->toArray())->toArray();
 
         return $options;
     }

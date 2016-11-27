@@ -32,11 +32,11 @@
                             </button>
 
                             @if(isset(Auth::user()->id) && Auth::user()->isInWishlist($product->id))
-                                <a class="btn btn-danger" href="{{ route('wishlist.remove', $product->id) }}">
+                                <a class="btn btn-danger" href="{{ route('wishlist.remove', $product->slug) }}">
                                     Remove from Wishlist
                                 </a>
                             @else
-                                <a class="btn btn-danger" href="{{ route('wishlist.add', $product->id) }}">
+                                <a class="btn btn-danger" href="{{ route('wishlist.add', $product->slug) }}">
                                     Add to Wishlist
                                 </a>
 
