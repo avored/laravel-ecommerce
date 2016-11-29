@@ -98,19 +98,19 @@ class Module extends BaseModule {
     }
 
     public function registerAdminMenu() {
-        $adminUserMenu = [
+        $adminUserMenu = [ 'user' => [
             'label' => 'Users',
             'route' => '#',
-            'submenu' => [[
+            'submenu' => ['admin-users' => [
                             'label' => 'Admin Users',
                             'route' => 'admin.admin-user.index',
-                        ],
+                        ], 'roles' =>
                         [
                             'label' => 'Roles',
                             'route' => 'admin.role.index',
                         ]]
-        ];
-        AdminMenu::registerMenu($adminUserMenu);
+        ]];
+        AdminMenu::registerMenu('mage2-user',$adminUserMenu);
        
     }
 

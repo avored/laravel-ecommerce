@@ -154,9 +154,9 @@ return [
      */
 
         Mage2\Framework\System\Module::class,
-        Mage2\Framework\Foundation\Providers\ModuleServiceProvider::class,
+        Mage2\Framework\Foundation\Providers\Mage2ServiceProvider::class,
         Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
-        Mage2\Framework\DataGrid\DataGridServiceProvider::class,
+        //Mage2\Framework\DataGrid\DataGridServiceProvider::class,
         //Mage2\Framework\Form\FormServiceProvider::class,
     //
 
@@ -182,6 +182,7 @@ return [
         Mage2\Theme\Module::class,
         Mage2\User\Module::class,
         Mage2\Wishlist\Module::class,
+        Mage2\System\Module::class,
 
     ],
     /*
@@ -237,5 +238,6 @@ return [
         'Form'          => Mage2\Framework\Form\Facades\FormFacade::class,
         'Payment'       => Mage2\Framework\Payment\Facades\Payment::class,
         'Permission'    => Mage2\Framework\Support\Facades\Permission::class,
+        'Module'        => Mage2\Framework\Module\Facades\Module::class,
     ],
 ];

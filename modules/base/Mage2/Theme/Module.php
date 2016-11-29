@@ -59,11 +59,11 @@ class Module extends BaseModule
 
     public function registerAdminMenu()
     {
-        $adminMenu = [
+        $adminMenu = [ 'system' => [ 'submenu' => [ 'theme' => [
             'label' => 'Themes',
             'route'   => 'admin.theme.index',
-        ];
-        AdminMenu::registerMenu($adminMenu);
+        ]]]];
+        AdminMenu::registerMenu('mage2-system',$adminMenu);
     }
     
        

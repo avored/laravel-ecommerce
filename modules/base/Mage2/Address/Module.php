@@ -5,6 +5,7 @@ namespace Mage2\Address;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Framework\Support\BaseModule;
+use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
 class Module extends BaseModule
 {
@@ -15,6 +16,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerModule();
         //$this->registerAdminConfiguration();
     }
 
@@ -74,5 +76,14 @@ class Module extends BaseModule
         foreach ($adminConfigurations as $adminConfiguration) {
             AdminConfiguration::registerConfiguration($adminConfiguration);
         }
+    }
+
+    public function registerModule() {
+        ModuleFacade::put($this->getIniqueName(), $this);
+    }
+
+
+    public function getIniqueName() {
+        return 'mage2-address';
     }
 }

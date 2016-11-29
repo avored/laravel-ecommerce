@@ -58,16 +58,21 @@ class Module extends BaseModule
 
     public function registerAdminMenu()
     {
-        $adminMenu = [
-            'label' => 'Orders',
+        $adminMenu = [ 'sale' => [
+            'label' => 'Sales',
+            'route'   => '#'
+        ]];
+        AdminMenu::registerMenu('mage2-order',$adminMenu);
+        $adminMenu = ['sale' => [  'submenu' =>[ 'order' => [
+             'label' => 'Orders',
             'route'   => 'admin.order.index',
-        ];
-        AdminMenu::registerMenu($adminMenu);
-        $orderStatusMenu = [
+        ]]]];
+        AdminMenu::registerMenu('mage2-order',$adminMenu);
+        $orderStatusMenu = [ 'sale' => ['submenu' => [ 'order-status' => [
             'label' => 'Order Status',
             'route'   => 'admin.order-status.index',
-        ];
-        AdminMenu::registerMenu($orderStatusMenu);
+        ]]]];
+        AdminMenu::registerMenu('mage2-order',$orderStatusMenu);
     }
     
     

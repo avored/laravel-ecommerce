@@ -20,7 +20,17 @@
                  
                 <!-- Authentication Links -->
                 @foreach($adminMenus as $menu)
-                
+
+                    <?php
+                        $menu1 = $menu;
+                        //var_dump($menuKey);
+                    //dd(array_values($menu));
+                        $menu = array_values($menu)[0];
+                        if(!isset($menu['route'])) {
+                            //dd($menu);
+                            continue;
+                        }
+                    ?>
                     @can('hasPermission',[Mage2\User\Models\AdminUser::class,$menu['route']])
                     
                         @if(isset($menu['submenu']))
@@ -28,6 +38,17 @@
                                 <a class="dropdown-toggle" href="#">{{ $menu['label'] }} <span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                 @foreach($menu['submenu'] as $subMenu)
+                                    <?php
+                                            //$subMenu1 = $subMenu;
+                                        //$subMenu = array_values($subMenu)[0];
+                                            //var_dump($subMenu);
+                                        if(!isset($subMenu['route'])) {
+                                            //continue;
+                                            dd($subMenu1);
+
+                                        }
+                                    ?>
+
                                     <li><a href="{{ route($subMenu['route']) }}">{{ $subMenu['label'] }}</a></li>
                                 @endforeach
                                 </ul>

@@ -52,11 +52,11 @@ class Module extends BaseModule {
     }
 
     public function registerAdminMenu() {
-        $adminMenu = [
+        $adminMenu = [ 'dashboard' => [
             'label' => 'Dashboard',
             'route' => 'admin.dashboard',
-        ];
-        AdminMenu::registerMenu($adminMenu);
+        ]];
+        AdminMenu::registerMenu('mage2-home',$adminMenu);
     }
 
     protected function registerViewComposer() {

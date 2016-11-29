@@ -53,7 +53,8 @@
       "Mage2\\TaxClass\\": "modules/base/Mage2/TaxClass/",
       "Mage2\\Theme\\": "modules/base/Mage2/Theme/",
       "Mage2\\User\\": "modules/base/Mage2/User/",
-      "Mage2\\Wishlist\\": "modules/base/Mage2/Wishlist/"
+      "Mage2\\Wishlist\\": "modules/base/Mage2/Wishlist/",
+      "Mage2\\System\\": "modules/base/Mage2/System/"
     }
   },
   "autoload-dev": {

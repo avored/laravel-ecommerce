@@ -1,11 +1,11 @@
 <?php
 
-namespace Mage2\Review;
+namespace Mage2\System;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\AdminMenu\Facades\AdminMenu;
-use Mage2\Framework\Support\Facades\Permission;
 use Mage2\Framework\Support\BaseModule;
+use Mage2\Framework\Support\Facades\Permission;
 
 class Module extends BaseModule
 {
@@ -33,6 +33,7 @@ class Module extends BaseModule
     public function register()
     {
         $this->mapWebRoutes();
+
         $this->registerViewPath();
         $this->registerPermissions();
     }
@@ -58,30 +59,25 @@ class Module extends BaseModule
 
     public function registerAdminMenu()
     {
-        $adminMenu = [ 'catalog'  => ['submenu'=> [ 'review' =>[
-            'label' => 'Review',
-            'route'   => 'admin.review.index',
-        ]]]];
-        AdminMenu::registerMenu('mage2-catalog',$adminMenu);
+        $adminMenu = [ 'system' => [
+            'label' => 'System',
+            'route'   => '#',
+            'submenu' => ['module' => [
+                            'label' => 'Module',
+                            'route' => 'admin.module.index',
+                            ]
+                        ]
+        ]];
+        AdminMenu::registerMenu('mage2-system',$adminMenu);
     }
     
+       
    /**
      *  Register Permission for the roles
      *
      * @return void
      */
     protected function registerPermissions() {
-        $permissions = [
-            ['title' => 'Review List',     'routes' => 'admin.review.index'],
-            ['title' => 'Review Create',   'routes' => "admin.review.create,admin.review.store"],
-            ['title' => 'Review Edit',     'routes' => "admin.review.edit,admin.review.update"],
-            ['title' => 'Review Destroy',  'routes' => "admin.review.destroy"],
-            
-          
-        ];
-
-        foreach ($permissions as $permission) {
-            Permission::add($permission);
-        }
+        //
     }
 }
