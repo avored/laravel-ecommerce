@@ -4,7 +4,7 @@ namespace Mage2\Address\Models;
 
 use Mage2\Framework\System\Models\BaseModel;
 use Mage2\TaxClass\Models\Country;
-use Mage2\Configuration\Models\Configuration;
+use Mage2\System\Models\Configuration;
 
 class Address extends BaseModel
 {

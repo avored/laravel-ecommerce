@@ -1,9 +1,9 @@
 <?php
 
-namespace Mage2\Configuration\Controllers\Admin;
+namespace Mage2\System\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Mage2\Configuration\Models\Configuration;
+use Mage2\System\Models\Configuration;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 

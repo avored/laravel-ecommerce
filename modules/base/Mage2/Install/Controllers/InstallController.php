@@ -8,7 +8,7 @@ use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Install\Models\Website;
 use Mage2\Install\Requests\AdminUserRequest;
 use Mage2\User\Models\Role;
-use Mage2\Configuration\Models\Configuration;
+use Mage2\System\Models\Configuration;
 
 
 class InstallController extends Controller {

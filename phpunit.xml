@@ -23,7 +23,7 @@
                 <file>./modules/base/Mage2/Cart/routes/web.php</file>
                 <file>./modules/base/Mage2/Catalog/routes/web.php</file>
                 <file>./modules/base/Mage2/ContactUs/routes/web.php</file>
-                <file>./modules/base/Mage2/Configuration/routes/web.php</file>
+
                 <file>./modules/base/Mage2/Checkout/routes/web.php</file>
                 <file>./modules/base/Mage2/System/routes/web.php</file>
                 <file>./modules/base/Mage2/Install/routes/web.php</file>
@@ -44,7 +44,7 @@
                 <directory>./modules/base/Mage2/Cart/views</directory>
                 <directory>./modules/base/Mage2/Catalog/views</directory>
                 <directory>./modules/base/Mage2/ContactUs/views</directory>
-                <directory>./modules/base/Mage2/Configuration/views</directory>
+               
                 <directory>./modules/base/Mage2/Checkout/views</directory>
                 <directory>./modules/base/Mage2/System/views</directory>
                 <directory>./modules/base/Mage2/Install/views</directory>

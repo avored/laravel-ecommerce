@@ -168,7 +168,6 @@ return [
         Mage2\Cart\Module::class,
         Mage2\Catalog\Module::class,
         Mage2\Checkout\Module::class,
-        Mage2\Configuration\Module::class,
         Mage2\ContactUs\Module::class,
         Mage2\FreeShipping\Module::class,
         Mage2\Install\Module::class,

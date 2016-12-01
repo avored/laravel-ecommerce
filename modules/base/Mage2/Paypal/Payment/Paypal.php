@@ -2,7 +2,7 @@
 
 namespace Mage2\Paypal\Payment;
 
-use Mage2\Configuration\Models\Configuration;
+use Mage2\System\Models\Configuration;
 use Mage2\Framework\Payment\Payment as PaymentFramework;
 use Mage2\Framework\Payment\PaymentInterface;
 use Mage2\Framework\Shipping\Facades\Shipping;
