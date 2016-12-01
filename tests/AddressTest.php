@@ -3,7 +3,7 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Mage2\Address\Models\Address;
+use Mage2\User\Models\Address;
 use Illuminate\Support\Facades\Auth;
 
 class AddressTest extends TestCase

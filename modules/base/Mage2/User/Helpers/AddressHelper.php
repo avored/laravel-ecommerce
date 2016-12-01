@@ -1,6 +1,5 @@
 <?php
-
-namespace Mage2\Address\Helpers;
+namespace Mage2\User\Helpers;
 
 use Illuminate\Database\Eloquent\Collection;
 use Mage2\TaxClass\Models\Country;

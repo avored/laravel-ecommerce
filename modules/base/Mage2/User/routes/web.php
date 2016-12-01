@@ -26,7 +26,12 @@ Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\User\Con
 
 });
 
+
 Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
+
+    Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address', 'uses' => 'ConfigurationController@getConfiguration']);
+
+
     Route::resource('/admin/admin-user', 'AdminUserController', ['names' => [
             'index'   => 'admin.admin-user.index',
             'create'  => 'admin.admin-user.create',
@@ -57,6 +62,17 @@ Route::group(['middleware' => ['web', 'frontauth', 'website'], 'namespace' => "M
     
     Route::get('/my-account/change-password', ['as' => 'my-account.change-password', 'uses' => 'MyAccountController@changePassword']);
     Route::post('/my-account/change-password', ['as' => 'my-account.change-password.post', 'uses' => 'MyAccountController@changePasswordPost']);
+
+    Route::resource('/my-account/address', 'AddressController', ['names' => [
+        'index'   => 'my-account.address.index',
+        'create'  => 'my-account.address.create',
+        'store'   => 'my-account.address.store',
+        'edit'    => 'my-account.address.edit',
+        'update'  => 'my-account.address.update',
+        'destroy' => 'my-account.address.destroy',
+    ]]);
+
+
 });
 
 

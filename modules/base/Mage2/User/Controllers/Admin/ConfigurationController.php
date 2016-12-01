@@ -1,8 +1,7 @@
 <?php
+namespace Mage2\User\Controllers\Admin;
 
-namespace Mage2\Address\Controllers\Admin;
-
-use Mage2\Address\Helpers\AddressHelper;
+use Mage2\User\Helpers\AddressHelper;
 use Mage2\System\Models\Configuration;
 use Mage2\Framework\System\Controllers\AdminController;
 
@@ -11,7 +10,7 @@ class ConfigurationController extends AdminController
     /**
      * Address Helper Instance.
      *
-     * @var \Mage2\Address\Helpers\AddressHelper
+     * @var \Mage2\User\Helpers\AddressHelper
      */
     public $addressHelper;
 

@@ -1,6 +1,5 @@
 <?php
-
-namespace Mage2\Address\Requests;
+namespace Mage2\User\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
 

@@ -1,10 +1,9 @@
 <?php
-
-namespace Mage2\Address\Controllers;
+namespace Mage2\User\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Address\Models\Address;
-use Mage2\Address\Requests\AddressRequest;
+use Mage2\User\Models\Address;
+use Mage2\User\Requests\AddressRequest;
 use Mage2\System\Models\Configuration;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\TaxClass\Models\Country;
@@ -47,7 +46,7 @@ class AddressController extends Controller
     /**
      * Store a newly created user addresses in database.
      *
-     * @param \Mage2\Address\Requests\AddressRequest $request
+     * @param \Mage2\User\Requests\AddressRequest $request
      *
      * @return \Illuminate\Http\Response
      */

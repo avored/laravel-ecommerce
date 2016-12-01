@@ -1,6 +1,5 @@
 <?php
-
-namespace Mage2\Address\Models;
+namespace Mage2\User\Models;
 
 use Mage2\Framework\System\Models\BaseModel;
 use Mage2\TaxClass\Models\Country;
