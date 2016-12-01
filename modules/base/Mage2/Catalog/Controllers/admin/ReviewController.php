@@ -1,10 +1,10 @@
 <?php
 
-namespace Mage2\Review\Controllers\Admin;
+namespace Mage2\Catalog\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Review\Models\Review;
+use Mage2\Catalog\Models\Review;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
 use Illuminate\Support\Facades\Gate;
 use Mage2\User\Models\AdminUser;

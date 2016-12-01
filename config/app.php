@@ -174,7 +174,6 @@ return [
         Mage2\Page\Module::class,
         Mage2\Paypal\Module::class,
         Mage2\Pickup\Module::class,
-        Mage2\Review\Module::class,
         Mage2\TaxClass\Module::class,
         Mage2\Theme\Module::class,
         Mage2\User\Module::class,

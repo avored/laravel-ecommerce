@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Review\Requests;
+namespace Mage2\Catalog\Requests;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest as Request;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Review\Models;
+namespace Mage2\Catalog\Models;
 
 use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Models\BaseModel;

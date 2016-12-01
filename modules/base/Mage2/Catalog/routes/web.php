@@ -28,6 +28,15 @@ Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'nam
             'destroy' => 'admin.category.destroy',
     ]]);
 
+    Route::resource('/admin/review', 'ReviewController', ['names' => [
+        'index'     => 'admin.review.index',
+        'create'    => 'admin.review.create',
+        'store'     => 'admin.review.store',
+        'edit'      => 'admin.review.edit',
+        'update'    => 'admin.review.update',
+        'destroy'   => 'admin.review.destroy',
+    ]]);
+
     Route::get('/admin/product-search', ['as' => 'admin.product.search','uses' => 'ProductController@searchProduct']);
     
     Route::post('/admin/product-image/upload', ['as' => 'admin.product.upload-image','uses' =>'ProductController@uploadImage']);
@@ -40,4 +49,15 @@ Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'nam
 Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Catalog\Controllers"], function () {
     Route::get('/category/{slug}', ['as' => 'category.view', 'uses' => 'CategoryViewController@view']);
     Route::get('/product/{slug}', ['as' => 'product.view', 'uses' => 'ProductViewController@view']);
+
+    Route::resource('/review', 'ReviewController', ['names' => [
+        'index'     => 'review.index',
+        'create'    => 'review.create',
+        'store'     => 'review.store',
+        'edit'      => 'review.edit',
+        'update'    => 'review.update',
+        'destroy'   => 'review.destroy',
+    ]]);
+
+
 });
