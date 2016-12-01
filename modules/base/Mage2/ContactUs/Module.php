@@ -4,7 +4,7 @@ namespace Mage2\ContactUs;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
-
+use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 class Module extends BaseModule
 {
      /**
@@ -20,6 +20,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerModule();
     }
 
     /**
@@ -50,5 +51,17 @@ class Module extends BaseModule
     protected function registerViewPath()
     {
         View::addLocation(__DIR__.'/views');
+    }
+    public function registerModule() {
+        ModuleFacade::put($this->getIdentifier(), $this);
+    }
+
+
+    public function getName() {
+        return 'Mage2 Contact Us';
+    }
+
+    public function getIdentifier() {
+        return 'mage2-contactus';
     }
 }

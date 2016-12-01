@@ -5,8 +5,8 @@ namespace Mage2\FreeShipping;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Shipping\Facades\Shipping;
 use Mage2\FreeShipping\Shipping\FreeShipping;
-
 use Mage2\Framework\Support\BaseModule;
+use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
 class Module extends BaseModule
 {
@@ -23,6 +23,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerModule();
         $this->registerShippingOption();
         $this->registerAdminMenu();
     }
@@ -61,5 +62,17 @@ class Module extends BaseModule
     public function registerAdminMenu()
     {
         //AdminMenu::registerMenu($adminMenu);
+    }
+    public function registerModule() {
+        ModuleFacade::put($this->getIdentifier(), $this);
+    }
+
+
+    public function getName() {
+        return 'Mage2 FreeShipping';
+    }
+
+    public function getIdentifier() {
+        return 'mage2-freeshipping';
     }
 }

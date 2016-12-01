@@ -5,7 +5,7 @@ namespace Mage2\Configuration;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
-
+use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 class Module extends BaseModule
 {
      /**
@@ -21,6 +21,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerModule();
         $this->registerAdminMenu();
     }
 
@@ -61,5 +62,17 @@ class Module extends BaseModule
               'route'   => 'admin.configuration',
           ]]]];
         AdminMenu::registerMenu('mage2-system',$adminMenu);
+    }
+    public function registerModule() {
+        ModuleFacade::put($this->getIdentifier(), $this);
+    }
+
+
+    public function getName() {
+        return 'Mage2 Configuration';
+    }
+
+    public function getIdentifier() {
+        return 'mage2-configuration';
     }
 }

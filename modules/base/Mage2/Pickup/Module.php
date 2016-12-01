@@ -7,6 +7,7 @@ use Mage2\Framework\Payment\Facades\Payment;
 use Mage2\Pickup\Payment\Pickup;
 
 use Mage2\Framework\Support\BaseModule;
+use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
 class Module extends BaseModule
 {
@@ -23,7 +24,8 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        $this->registerAdminMenu();
+        $this->registerModule();
+            //$this->registerAdminMenu();
     }
 
     /**
@@ -34,7 +36,6 @@ class Module extends BaseModule
     public function register()
     {
         $this->registerPaymentMethod();
-
         $this->registerViewPath();
     }
 
@@ -57,9 +58,16 @@ class Module extends BaseModule
     {
         View::addLocation(__DIR__.'/views');
     }
+    public function registerModule() {
+        ModuleFacade::put($this->getIdentifier(), $this);
+    }
 
-    public function registerAdminMenu()
-    {
-        //AdminMenu::registerMenu($adminMenu);
+
+    public function getName() {
+        return 'Mage2 Pickup';
+    }
+
+    public function getIdentifier() {
+        return 'mage2-pickup';
     }
 }

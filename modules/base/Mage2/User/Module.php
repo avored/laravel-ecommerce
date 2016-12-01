@@ -14,6 +14,7 @@ use Mage2\User\Policies\AdminUserPolicy;
 use Mage2\User\Models\AdminUser;
 use Mage2\User\Middleware\Permission;
 use Mage2\Framework\Support\Facades\Permission as PermissionFacade;
+use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
 class Module extends BaseModule {
 
@@ -33,6 +34,7 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
+        $this->registerModule();
         $this->registerMiddleware();
         $this->registerAdminMenu();
         $this->registerPolicies();
@@ -134,6 +136,18 @@ class Module extends BaseModule {
         foreach ($permissions as $permission) {
             PermissionFacade::add($permission);
         }
+    }
+    public function registerModule() {
+        ModuleFacade::put($this->getIdentifier(), $this);
+    }
+
+
+    public function getName() {
+        return 'Mage2 User';
+    }
+
+    public function getIdentifier() {
+        return 'mage2-user';
     }
 
 }

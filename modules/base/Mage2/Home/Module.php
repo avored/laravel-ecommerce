@@ -5,6 +5,7 @@ namespace Mage2\Home;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\AdminMenu\Facades\AdminMenu;
+use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
 class Module extends BaseModule {
 
@@ -20,6 +21,7 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
+        $this->registerModule();
         $this->registerAdminMenu();
     }
 
@@ -65,6 +67,19 @@ class Module extends BaseModule {
         
         View::composer(['layouts.app'],
                         'Mage2\Home\ViewComposers\LayoutAppComposer');
+    }
+
+    public function registerModule() {
+        ModuleFacade::put($this->getIdentifier(), $this);
+    }
+
+
+    public function getName() {
+        return 'Mage2 Home';
+    }
+
+    public function getIdentifier() {
+        return 'mage2-home';
     }
 
 }

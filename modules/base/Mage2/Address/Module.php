@@ -79,11 +79,15 @@ class Module extends BaseModule
     }
 
     public function registerModule() {
-        ModuleFacade::put($this->getIniqueName(), $this);
+        ModuleFacade::put($this->getIdentifier(), $this);
     }
 
 
-    public function getIniqueName() {
+    public function getName() {
+        return 'Mage2 Address';
+    }
+
+    public function getIdentifier() {
         return 'mage2-address';
     }
 }

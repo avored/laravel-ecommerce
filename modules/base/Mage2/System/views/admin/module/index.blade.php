@@ -24,8 +24,8 @@
         
         <table class="table bordered tablegrid">
             <thead>
+            <th>Identifier</th>
             <th>Name</th>
-            <th>Description</th>
             <th>Action</th>
             </thead>
             <tbody>
@@ -33,7 +33,11 @@
             
                 <?php //$actualTheme = Theme::getByPath($theme) ?>
                 <tr>
-                    <td>{{ $name }}</td>
+                    <td>{{ $module->getIdentifier() }}</td>
+                    <td>{{ $module->getName() }}</td>
+                    <td>
+                        <button class="disabled btn btn-primary">Active</button>
+                    </td>
                     <!--td>{ $actualTheme['description'] }}</td>
                     <td>
                         if($activeTheme != $actualTheme['name'])

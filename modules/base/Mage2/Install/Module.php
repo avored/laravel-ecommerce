@@ -20,7 +20,6 @@ class Module extends BaseModule
      */
     public function boot()
     {
-
         //$this->registerMiddleware();
     }
 

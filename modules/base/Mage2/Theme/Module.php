@@ -2,6 +2,7 @@
 
 namespace Mage2\Theme;
 
+use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
@@ -22,6 +23,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
+        $this->registerModule();
         $this->registerAdminMenu();
     }
 
@@ -85,5 +87,17 @@ class Module extends BaseModule
         foreach ($permissions as $permission) {
             Permission::add($permission);
         }
+    }
+    public function registerModule() {
+        ModuleFacade::put($this->getIdentifier(), $this);
+    }
+
+
+    public function getName() {
+        return 'Mage2 Theme';
+    }
+
+    public function getIdentifier() {
+        return 'mage2-theme';
     }
 }
