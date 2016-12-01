@@ -1,10 +1,11 @@
 <?php
 
-namespace Mage2\Attribute\Models;
+namespace Mage2\Catalog\Models;
+
 
 use Mage2\Framework\System\Models\BaseModel;
 
-class ProductVarcharValue extends BaseModel
+class ProductTextValue extends BaseModel
 {
     protected $fillable = ['website_id', 'product_id', 'attribute_id', 'value'];
 

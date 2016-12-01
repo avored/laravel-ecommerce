@@ -5,8 +5,8 @@ namespace Mage2\Wishlist\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Wishlist\Models\Wishlist;
-use Mage2\Attribute\Models\ProductAttribute;
-use Mage2\Attribute\Models\ProductVarcharValue;
+use Mage2\Catalog\Models\ProductAttribute;
+use Mage2\Catalog\Models\ProductVarcharValue;
 
 class WishlistController extends Controller {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Attribute\Models;
+namespace Mage2\Catalog\Models;
 
 use Mage2\Framework\System\Models\BaseModel;
 
@@ -11,7 +11,7 @@ class AttributeDropdownOption extends BaseModel
     /**
      * Attribute Dropdown Options belongs to many Product Attribute.
      *
-     * @return \Mage2\Attribute\Models\ProductAttribute
+     * @return \Mage2\Catalog\Models\ProductAttribute
      */
     public function productAttribute()
     {

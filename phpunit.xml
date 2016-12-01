@@ -18,7 +18,7 @@
             <directory suffix=".php">./modules/base</directory>
             <exclude>
                 <file>./modules/base/Mage2/Address/routes/web.php</file>
-                <file>./modules/base/Mage2/Attribute/routes/web.php</file>
+
                 <file>./modules/base/Mage2/Auth/routes/web.php</file>
                 <file>./modules/base/Mage2/Cart/routes/web.php</file>
                 <file>./modules/base/Mage2/Catalog/routes/web.php</file>
@@ -39,7 +39,7 @@
 
                 
                 <directory>./modules/base/Mage2/Address/views</directory>
-                <directory>./modules/base/Mage2/Attribute/views</directory>
+
                 <directory>./modules/base/Mage2/Auth/views</directory>
                 <directory>./modules/base/Mage2/Cart/views</directory>
                 <directory>./modules/base/Mage2/Catalog/views</directory>

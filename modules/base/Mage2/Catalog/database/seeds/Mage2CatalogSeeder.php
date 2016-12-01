@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Mage2\Attribute\Models\AttributeDropdownOption;
-use Mage2\Attribute\Models\ProductAttribute;
+use Mage2\Catalog\Models\AttributeDropdownOption;
+use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Order\Models\OrderStatus;
 use Mage2\TaxClass\Models\Country;
 use Mage2\Configuration\Models\Configuration;
 use Mage2\Install\Models\Website;
-use Mage2\Attribute\Models\ProductAttributeGroup;
+use Mage2\Catalog\Models\ProductAttributeGroup;
 
 class Mage2CatalogSeeder extends Seeder {
 

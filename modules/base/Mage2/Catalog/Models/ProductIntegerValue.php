@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Attribute\Models;
+namespace Mage2\Catalog\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

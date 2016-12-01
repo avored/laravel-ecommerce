@@ -2,7 +2,7 @@
 
 namespace Mage2\Catalog\ViewComposers;
 
-use Mage2\Attribute\Models\ProductAttribute;
+use Mage2\Catalog\Models\ProductAttribute;
 use Illuminate\View\View;
 
 class ProductBoxInventoryComposer {

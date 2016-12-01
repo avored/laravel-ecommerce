@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Attribute\Models;
+namespace Mage2\Catalog\Models;
 
 use Mage2\Framework\System\Models\BaseModel;
 
@@ -11,7 +11,7 @@ class ProductAttribute extends BaseModel
     /**
      * Product Attribute has many Attribute Dropdown Options.
      *
-     * @return \Mage2\Attribute\Models\AttributeDropdownOption
+     * @return \Mage2\Catalog\Models\AttributeDropdownOption
      */
     public function attributeDropdownOptions()
     {
@@ -21,7 +21,7 @@ class ProductAttribute extends BaseModel
     /**
      * Product Attribute has many Product Varchar Value.
      *
-     * @return \Mage2\Attribute\Models\ProductVarcharValue
+     * @return \Mage2\Catalog\Models\ProductVarcharValue
      */
     public function productVarcharValues()
     {
@@ -31,7 +31,7 @@ class ProductAttribute extends BaseModel
     /**
      * Product Attribute has many Product Date Time Value.
      *
-     * @return \Mage2\Attribute\Models\ProductDatetimeValue
+     * @return \Mage2\Catalog\Models\ProductDatetimeValue
      */
     public function productDatetimeValues()
     {
@@ -41,7 +41,7 @@ class ProductAttribute extends BaseModel
     /**
      * Product Attribute has many Product Float Value.
      *
-     * @return \Mage2\Attribute\Models\ProductFloatValue
+     * @return \Mage2\Catalog\Models\ProductFloatValue
      */
     public function productFloatValues()
     {
@@ -51,7 +51,7 @@ class ProductAttribute extends BaseModel
     /**
      * Product Attribute has many Product Integer Value.
      *
-     * @return \Mage2\Attribute\Models\ProductIntegerValue
+     * @return \Mage2\Catalog\Models\ProductIntegerValue
      */
     public function productIntegerValues()
     {
@@ -61,7 +61,7 @@ class ProductAttribute extends BaseModel
     /**
      * Product Attribute has many Product Text Value.
      *
-     * @return \Mage2\Attribute\Models\ProductTextValue
+     * @return \Mage2\Catalog\Models\ProductTextValue
      */
     public function productTextValues()
     {

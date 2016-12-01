@@ -4,7 +4,7 @@ namespace Mage2\Catalog\Models;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
-use Mage2\Attribute\Models\ProductAttribute;
+use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Configuration\Models\Configuration;
 use Mage2\Framework\System\Models\BaseModel;
 use Mage2\Install\Models\Website;

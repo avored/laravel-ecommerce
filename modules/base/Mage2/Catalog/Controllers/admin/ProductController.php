@@ -4,7 +4,7 @@ namespace Mage2\Catalog\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Mage2\Attribute\Models\ProductAttribute;
+use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Helpers\CategoryHelper;
 use Mage2\Catalog\Helpers\ProductHelper;
 use Mage2\Catalog\Models\Product;

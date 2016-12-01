@@ -11,15 +11,9 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'website'],  'namespace' => "Mage2\Home\Controllers"], function () {
+Route::group(['middleware' => ['web', 'website'],  'namespace' => "Mage2\System\Controllers"], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 });
-
-
-
-
-
-
 
 
 Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\System\Controllers\Admin"], function () {

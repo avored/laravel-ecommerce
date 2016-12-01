@@ -165,7 +165,6 @@ return [
      */
 
         Mage2\Address\Module::class,
-        Mage2\Attribute\Module::class,
         Mage2\Cart\Module::class,
         Mage2\Catalog\Module::class,
         Mage2\Checkout\Module::class,

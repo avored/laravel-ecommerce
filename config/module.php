@@ -2,7 +2,6 @@
 
 return [
     'Mage2\\Address\\'          => base_path('/modules/base/Mage2/Address'),
-    'Mage2\\Attribute\\'        => base_path('/modules/base/Mage2/Attribute'),
     'Mage2\\Cart\\'             => base_path('/modules/base/Mage2/Cart'),
     'Mage2\\Checkout\\'         => base_path('/modules/base/Mage2/Checkout'),
     'Mage2\\Catalog\\'          => base_path('/modules/base/Mage2/Catalog'),

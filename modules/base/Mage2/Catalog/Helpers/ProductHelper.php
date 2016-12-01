@@ -3,7 +3,7 @@
 namespace Mage2\Catalog\Helpers;
 
 use Illuminate\Support\Facades\Session;
-use Mage2\Attribute\Models\ProductAttribute;
+use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Catalog\Requests\ProductRequest;
 use Illuminate\Support\Facades\Cache;
