@@ -25,7 +25,7 @@
                 <file>./modules/base/Mage2/ContactUs/routes/web.php</file>
                 <file>./modules/base/Mage2/Configuration/routes/web.php</file>
                 <file>./modules/base/Mage2/Checkout/routes/web.php</file>
-                <file>./modules/base/Mage2/Home/routes/web.php</file>
+                <file>./modules/base/Mage2/System/routes/web.php</file>
                 <file>./modules/base/Mage2/Install/routes/web.php</file>
                 <file>./modules/base/Mage2/Page/routes/web.php</file>
                 <file>./modules/base/Mage2/Paypal/routes/web.php</file>
@@ -46,7 +46,7 @@
                 <directory>./modules/base/Mage2/ContactUs/views</directory>
                 <directory>./modules/base/Mage2/Configuration/views</directory>
                 <directory>./modules/base/Mage2/Checkout/views</directory>
-                <directory>./modules/base/Mage2/Home/views</directory>
+                <directory>./modules/base/Mage2/System/views</directory>
                 <directory>./modules/base/Mage2/Install/views</directory>
                 <directory>./modules/base/Mage2/Order/views</directory>
                 <directory>./modules/base/Mage2/Page/views</directory>
@@ -57,7 +57,7 @@
                 <directory>./modules/base/Mage2/Wishlist/views</directory>
                 <directory>./modules/base/Mage2/Theme/views</directory>
 
-                <directory>./modules/base/Mage2/Address/Database</directory>
+                <directory>./modules/base/Mage2/Address/database</directory>
 
             </exclude>
         </whitelist>

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Home\ViewComposers;
+namespace Mage2\System\ViewComposers;
 
 use Illuminate\View\View;
 use Mage2\Framework\AdminMenu\Facades\AdminMenu;

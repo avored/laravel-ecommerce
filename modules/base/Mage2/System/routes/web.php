@@ -10,8 +10,22 @@
   | and give it the controller to call when that URI is requested.
   |
  */
+
+Route::group(['middleware' => ['web', 'website'],  'namespace' => "Mage2\Home\Controllers"], function () {
+    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+});
+
+
+
+
+
+
+
+
 Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\System\Controllers\Admin"], function () {
-    
+
+    Route::get('/admin', ['as' => 'admin.dashboard', 'uses' => 'AdminController@index']);
+
     Route::get('/admin/module', ['as' => 'admin.module.index', 'uses' => 'ModuleController@index']);
 
     Route::get('/admin/module/create', ['as' => 'admin.module.create', 'uses' => 'ModuleController@create']);
@@ -19,3 +33,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'nam
 
 
 });
+
+
+
+

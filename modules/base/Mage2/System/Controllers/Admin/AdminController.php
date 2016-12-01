@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Home\Controllers\Admin;
+namespace Mage2\System\Controllers\Admin;
 
 use Mage2\Framework\System\Controllers\AdminController as BaseAdminController;
 

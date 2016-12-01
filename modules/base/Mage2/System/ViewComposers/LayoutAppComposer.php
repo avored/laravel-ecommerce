@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Home\ViewComposers;
+namespace Mage2\System\ViewComposers;
 
 use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\Category;

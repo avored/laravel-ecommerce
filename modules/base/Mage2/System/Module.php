@@ -36,6 +36,7 @@ class Module extends BaseModule
     {
         $this->mapWebRoutes();
         $this->registerViewPath();
+        $this->registerViewComposer();
         $this->registerPermissions();
     }
 
@@ -81,6 +82,16 @@ class Module extends BaseModule
     protected function registerPermissions() {
         //
     }
+
+    protected function registerViewComposer() {
+        View::composer(['layouts.admin-nav', 'layouts.admin-nav'],
+            'Mage2\System\ViewComposers\AdminNavComposer');
+
+        View::composer(['layouts.app'],
+            'Mage2\System\ViewComposers\LayoutAppComposer');
+    }
+
+
 
     public function registerModule() {
         ModuleFacade::put($this->getIdentifier(), $this);
