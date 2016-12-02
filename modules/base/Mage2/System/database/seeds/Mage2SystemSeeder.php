@@ -8,8 +8,9 @@ use Mage2\TaxClass\Models\Country;
 use Mage2\System\Models\Configuration;
 use Mage2\Install\Models\Website;
 use Mage2\Catalog\Models\ProductAttributeGroup;
+use Mage2\System\Models\Module as ModuleModel;
 
-class Mage2CatalogSeeder extends Seeder {
+class Mage2SystemSeeder extends Seeder {
 
     /**
      * Run the database seeds.
@@ -18,6 +19,64 @@ class Mage2CatalogSeeder extends Seeder {
      */
     public function run() {
 
+        
+            ModuleModel::create(['identifier' => 'mage2-cart',
+                                'name'=> 'Mage2 Cart', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-catalog',
+                                'name'=> 'Mage2 Catalog', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-checkout',
+                                'name'=> 'Mage2 Checkout', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-contactus',
+                                'name'=> 'Mage2 Contact Us', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-freeshipping',
+                                'name'=> 'Mage2 Free Shipping', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-order',
+                                'name'=> 'Mage2 Order', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-page',
+                                'name'=> 'Mage2 Paeg', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-paypal',
+                                'name'=> 'Mage2 Paypal', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-pickup',
+                                'name'=> 'Mage2 Pickup', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-system',
+                                'name'=> 'Mage2 System', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-taxclass',
+                                'name'=> 'Mage2 Tax class', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-theme',
+                                'name'=> 'Mage2 Theme', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-user',
+                                'name'=> 'Mage2 User', 
+                                'status' => 'ACTIVE'
+                                ]);
+            ModuleModel::create(['identifier' => 'mage2-wishlist',
+                                'name'=> 'Mage2 Wishlist', 
+                                'status' => 'ACTIVE'
+                                ]);
+        
         $productAttributeGroup = ProductAttributeGroup::create(['title' => 'Basic']);
         $seoGroup = ProductAttributeGroup::create(['title' => 'SEO']);
         $inventoryGroup = ProductAttributeGroup::create(['title' => 'Inventory']);
