@@ -8,24 +8,27 @@ use Mage2\System\Models\Configuration;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Framework\Theme\Facades\Theme;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
+use Mage2\System\Models\Module as ModuleModel;
 
-class ModuleController extends AdminController
-{
-   
+class ModuleController extends AdminController {
 
     /**
      * Display a listing of the theme.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
+
+        
+
+        $modelModules = ModuleModel::all();
         $modules = ModuleFacade::all();
 
         return view('admin.module.index')
                         ->with('modules', $modules)
-                        //->with('activeTheme', $activeTheme)
-                        ;
+                        ->with('modelModules', $modelModules)
+        //->with('activeTheme', $activeTheme)
+        ;
     }
 
     /**
@@ -33,8 +36,7 @@ class ModuleController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
+    public function create() {
         return view('admin.theme.create');
     }
 
@@ -45,8 +47,7 @@ class ModuleController extends AdminController
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $filePath = $this->handleImageUpload($request->file('theme_zip_file'));
 
         $zip = new \ZipArchive();
@@ -67,18 +68,17 @@ class ModuleController extends AdminController
     /**
      * @param \Illuminate\Http\UploadedFile $file
      */
-    public function activate($name)
-    {
+    public function activate($name) {
         $theme = Theme::get($name);
         try {
             Configuration::create([
-                    'website_id'          => $this->defaultWebsiteId,
-                    'configuration_key'   => 'active_theme_identifier',
-                    'configuration_value' => $name,
+                'website_id' => $this->defaultWebsiteId,
+                'configuration_key' => 'active_theme_identifier',
+                'configuration_value' => $name,
             ]);
             Configuration::create([
-                'website_id'          => $this->defaultWebsiteId,
-                'configuration_key'   => 'active_theme_path',
+                'website_id' => $this->defaultWebsiteId,
+                'configuration_key' => 'active_theme_path',
                 'configuration_value' => $theme['path'],
             ]);
             Artisan::call('vendor:publish', ['--tag' => $name]);
@@ -92,14 +92,14 @@ class ModuleController extends AdminController
     /**
      * @param \Illuminate\Http\UploadedFile $file
      */
-    public function handleImageUpload($file)
-    {
+    public function handleImageUpload($file) {
         // $file = $request->file('image'); or
         // $fileName = 'somename';
         $destinationPath = public_path('uploads/mage2/themes');
         $fileName = $file->getClientOriginalName();
         $file->move($destinationPath, $fileName);
 
-        return $destinationPath.DIRECTORY_SEPARATOR.$fileName;
+        return $destinationPath . DIRECTORY_SEPARATOR . $fileName;
     }
+
 }

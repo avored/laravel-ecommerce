@@ -64,18 +64,12 @@ class Mage2SystemSeeder extends Seeder {
                                 'name'=> 'Mage2 Tax class', 
                                 'status' => 'ACTIVE'
                                 ]);
-            ModuleModel::create(['identifier' => 'mage2-theme',
-                                'name'=> 'Mage2 Theme', 
-                                'status' => 'ACTIVE'
-                                ]);
+          
             ModuleModel::create(['identifier' => 'mage2-user',
                                 'name'=> 'Mage2 User', 
                                 'status' => 'ACTIVE'
                                 ]);
-            ModuleModel::create(['identifier' => 'mage2-wishlist',
-                                'name'=> 'Mage2 Wishlist', 
-                                'status' => 'ACTIVE'
-                                ]);
+         
         
         $productAttributeGroup = ProductAttributeGroup::create(['title' => 'Basic']);
         $seoGroup = ProductAttributeGroup::create(['title' => 'SEO']);

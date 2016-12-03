@@ -29,15 +29,22 @@
             <th>Action</th>
             </thead>
             <tbody>
-                @foreach($modules as $name => $module)
+                @foreach($modelModules as $module)
             
                 <?php //$actualTheme = Theme::getByPath($theme) ?>
                 <tr>
-                    <td>{{ $module->getIdentifier() }}</td>
-                    <td>{{ $module->getName() }}</td>
-                    <td>
-                        <button class="disabled btn btn-primary">Active</button>
-                    </td>
+                    <td>{{ $module->identifier }}</td>
+                    <td>{{ $module->name }}</td>
+                    @if($module->status == "ACTIVE")
+                        <td>
+                            <button class="disabled btn btn-primary">Active</button>
+                        </td>
+                    @else 
+                        <td>
+                            <button class="btn btn-primary">Active</button>
+                        </td>
+                    
+                    @endif
                     <!--td>{ $actualTheme['description'] }}</td>
                     <td>
                         if($activeTheme != $actualTheme['name'])
