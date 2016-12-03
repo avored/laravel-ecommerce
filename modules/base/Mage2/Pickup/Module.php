@@ -59,7 +59,7 @@ class Module extends BaseModule
         View::addLocation(__DIR__.'/views');
     }
     public function registerModule() {
-        ModuleFacade::put($this->getIdentifier(), $this);
+        ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
 
