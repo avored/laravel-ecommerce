@@ -176,7 +176,6 @@ return [
         Mage2\Pickup\Module::class,
         Mage2\TaxClass\Module::class,
         Mage2\User\Module::class,
-        Mage2\Wishlist\Module::class,
         Mage2\System\Module::class,
 
     ],

@@ -14,8 +14,6 @@ return [
     'Mage2\\Review\\'           => base_path('/modules/base/Mage2/Review'),
     'Mage2\\System\\'           => base_path('/modules/base/Mage2/System'),
     'Mage2\\TaxClass\\'         => base_path('/modules/base/Mage2/TaxClass'),
-    'Mage2\\Theme\\'            => base_path('/modules/base/Mage2/Theme'),
     'Mage2\\User\\'             => base_path('/modules/base/Mage2/User'),
-    'Mage2\\Wishlist\\'         => base_path('/modules/base/Mage2/Wishlist'),
     'Mage2\\System\\'           => base_path('/modules/base/Mage2/System'),
 ];

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Wishlist\Models;
+namespace Mage2\User\Models;
 
 use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Models\BaseModel;

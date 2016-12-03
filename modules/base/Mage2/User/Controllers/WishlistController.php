@@ -1,10 +1,10 @@
 <?php
 
-namespace Mage2\Wishlist\Controllers;
+namespace Mage2\User\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Mage2\Framework\System\Controllers\Controller;
-use Mage2\Wishlist\Models\Wishlist;
+use Mage2\User\Models\Wishlist;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\ProductVarcharValue;
 
