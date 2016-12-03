@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\System\Controllers;
+namespace Mage2\Feature\Controllers;
 
 use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Controllers\Controller;
@@ -18,8 +18,8 @@ class HomeController extends Controller
         $product = new Product();
         $featureProducts = $product->getFeaturedProducts();
 
+       
         return view('home.index')
-            //->with('featuredProducts', $featureProducts)
-            ;
+            ->with('featuredProducts', $featureProducts);
     }
 }

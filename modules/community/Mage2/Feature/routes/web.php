@@ -11,6 +11,5 @@
   |
  */
 Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Feature\Controllers"], function () {
-    
-
+    Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 });

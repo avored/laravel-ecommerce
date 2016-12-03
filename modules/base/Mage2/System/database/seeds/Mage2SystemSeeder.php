@@ -45,7 +45,7 @@ class Mage2SystemSeeder extends Seeder {
                                 'status' => 'ACTIVE'
                                 ]);
             ModuleModel::create(['identifier' => 'mage2-page',
-                                'name'=> 'Mage2 Paeg', 
+                                'name'=> 'Mage2 Page', 
                                 'status' => 'ACTIVE'
                                 ]);
             ModuleModel::create(['identifier' => 'mage2-paypal',
