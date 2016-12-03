@@ -61,6 +61,11 @@ class Module extends BaseModule
 
     public function registerAdminMenu()
     {
+         $adminMenu = [ 'system' => [ 'submenu' => [ 'theme' => [
+            'label' => 'Themes',
+            'route'   => 'admin.theme.index',
+        ]]]];
+        AdminMenu::registerMenu('mage2-system',$adminMenu);
         $adminMenu = [ 'system' => [
             'label' => 'System',
             'route'   => '#',
@@ -80,7 +85,18 @@ class Module extends BaseModule
      * @return void
      */
     protected function registerPermissions() {
-        //
+         $permissions = [
+            ['title' => 'Theme List',     'routes' => 'admin.theme.index'],
+            ['title' => 'Theme Upload',   'routes' => "admin.theme.create,admin.theme.store"],
+            ['title' => 'Theme Activate',   'routes' => "admin.theme.activate"],
+            ['title' => 'Theme Destroy',  'routes' => "admin.theme.destroy"],
+            
+          
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::add($permission);
+        }
     }
 
     protected function registerViewComposer() {

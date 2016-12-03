@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Theme\Controllers\Admin;
+namespace Mage2\System\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;

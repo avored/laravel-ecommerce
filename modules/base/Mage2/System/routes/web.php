@@ -11,12 +11,12 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'website'],  'namespace' => "Mage2\System\Controllers"], function () {
+Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\System\Controllers"], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 });
 
 
-Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\System\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'website', 'permission'], 'namespace' => "Mage2\System\Controllers\Admin"], function () {
 
     Route::get('/admin/configuration', ['as' => 'admin.configuration', 'uses' => 'ConfigurationController@index']);
     Route::post('/admin/configuration', ['as' => 'admin.configuration.store', 'uses' => 'ConfigurationController@store']);
@@ -30,6 +30,14 @@ Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'nam
     Route::post('/admin/module', ['as' => 'admin.module.store', 'uses' => 'ModuleController@store']);
 
 
+    Route::get('/admin/themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
+
+    Route::get('/admin/themes/create', ['as' => 'admin.theme.create', 'uses' => 'ThemeController@create']);
+    Route::post('/admin/themes', ['as' => 'admin.theme.store', 'uses' => 'ThemeController@store']);
+
+    Route::post('/admin/themes/{name}', ['as' => 'admin.theme.activate', 'uses' => 'ThemeController@activate']);
+
+    Route::delete('/admin/themes/{name}', ['as' => 'admin.theme.destroy', 'uses' => 'ThemeController@destroy']);
 });
 
 
