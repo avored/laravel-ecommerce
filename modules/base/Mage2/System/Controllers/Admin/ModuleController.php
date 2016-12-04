@@ -72,10 +72,13 @@ class ModuleController extends AdminController {
         
         
         $moduleName = $module->getName();
-        $moduleMigrationPath =  "modules" . DIRECTORY_SEPARATOR . "community" . DIRECTORY_SEPARATOR . 
-                        $module->getNameSpace() . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations';
+        $moduleDatabasePath =  "modules" . DIRECTORY_SEPARATOR . "community" . DIRECTORY_SEPARATOR . 
+                        $module->getNameSpace() . DIRECTORY_SEPARATOR . 'database';
         
-        $moduleSeedClass= str_replace("\\", "", $module->getNameSpace()) . "Seeder";
+        $moduleMigrationPath = $moduleDatabasePath . DIRECTORY_SEPARATOR . 'migrations';
+        
+        $moduleSeedClass=  $moduleDatabasePath . DIRECTORY_SEPARATOR . 'seeds';
+        
         
         
         try {
@@ -89,7 +92,7 @@ class ModuleController extends AdminController {
              */
            
             //Artisan::call('mage2:migrate',['--path' => $moduleMigrationPath]);
-            Artisan::call('mage2:dbseed', ['--class' => $moduleSeedClass]);
+            Artisan::call('mage2:dbseed', ['--path' => $moduleSeedClass]);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
