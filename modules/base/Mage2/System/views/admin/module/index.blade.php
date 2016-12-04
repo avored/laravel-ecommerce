@@ -29,26 +29,41 @@
             <th>Action</th>
             </thead>
             <tbody>
-                @foreach($modelModules as $module)
+                @foreach($modules as $module)
             
                 <?php //$actualTheme = Theme::getByPath($theme) ?>
                 <tr>
-                    <td>{{ $module->identifier }}</td>
-                    <td>{{ $module->name }}</td>
-                    @if($module->status == "ACTIVE")
+                    <td>{{ $module->getIdentifier() }}</td>
+                    <td>{{ $module->getName() }}</td>
+                    
+                    <?php
+                    $identifier = $module->getIdentifier();
+                    $curruntModule =  $modelModule->getModuleByIdentifier($identifier);
+                    
+                    ?>
+                    @if(isset($curruntModule->status ) && 
+                        $curruntModule->type != "COMMUNITY" &&
+                        $curruntModule->status == "ACTIVE")
                         <td>
-                            <button class="disabled btn btn-primary">Active</button>
+                            <button class="disabled btn btn-primary">Uninstall</button>
                         </td>
                     @else 
                         <td>
-                            <button class="btn btn-primary">Active</button>
+                             
+                                {!! Form::open(['method' => 'POST', 'action' => 
+                                    route('admin.module.install',$identifier)]) !!}
+                                    <button type="submit" class="btn btn-primary">Install</button>
+                                {!! Form::close() !!}                        
+                            
                         </td>
                     
                     @endif
+                   
                     <!--td>{ $actualTheme['description'] }}</td>
                     <td>
                         if($activeTheme != $actualTheme['name'])
-                        !! Form::open(['method' => 'POST', 'action' => route('admin.theme.activate',$actualTheme['name'])]) !!}
+                        !! Form::open(['method' => 'POST', 'action' => 
+                                    route('admin.theme.activate',$actualTheme['name'])]) !!}
                         !! Form::hidden('active_theme_path',$actualTheme['path']) !!}
                         !! Form::hidden('active_theme_name',$actualTheme['name']) !!}
                         <button type="submit" class="btn btn-primary">Activate</button>

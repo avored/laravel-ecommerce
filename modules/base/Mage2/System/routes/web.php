@@ -28,7 +28,8 @@ Route::group(['middleware' => ['web', 'adminauth', 'website', 'permission'], 'na
 
     Route::get('/admin/module/create', ['as' => 'admin.module.create', 'uses' => 'ModuleController@create']);
     Route::post('/admin/module', ['as' => 'admin.module.store', 'uses' => 'ModuleController@store']);
-
+    
+    Route::post('/admin/module/{identifier}', ['as' => 'admin.module.install', 'uses' => 'ModuleController@install']);
 
     Route::get('/admin/themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
 

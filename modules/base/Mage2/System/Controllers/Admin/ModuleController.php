@@ -19,14 +19,12 @@ class ModuleController extends AdminController {
      */
     public function index() {
 
-        
-
-        $modelModules = ModuleModel::all();
+        $modelModule = new ModuleModel();
         $modules = ModuleFacade::all();
 
         return view('admin.module.index')
                         ->with('modules', $modules)
-                        ->with('modelModules', $modelModules)
+                        ->with('modelModule', $modelModule)
         //->with('activeTheme', $activeTheme)
         ;
     }
@@ -37,7 +35,7 @@ class ModuleController extends AdminController {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('admin.theme.create');
+        return view('admin.module.create');
     }
 
     /**
@@ -48,13 +46,13 @@ class ModuleController extends AdminController {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $filePath = $this->handleImageUpload($request->file('theme_zip_file'));
+        
+        $filePath = $this->handleImageUpload($request->file('module_zip_file'));
 
         $zip = new \ZipArchive();
 
-
         if ($zip->open($filePath) === true) {
-            $extractPath = base_path('themes');
+            $extractPath = base_path('modules/community');
             $zip->extractTo($extractPath);
             $zip->close();
         } else {
@@ -62,31 +60,41 @@ class ModuleController extends AdminController {
         }
 
 
-        return redirect()->route('admin.theme.index');
+        return redirect()->route('admin.module.index');
     }
 
     /**
-     * @param \Illuminate\Http\UploadedFile $file
+     * @param string $identifier
      */
-    public function activate($name) {
-        $theme = Theme::get($name);
+    public function install($identifier) {
+       
+        $module = ModuleFacade::get($identifier);
+        
+        
+        $moduleName = $module->getName();
+        $moduleMigrationPath =  "modules" . DIRECTORY_SEPARATOR . "community" . DIRECTORY_SEPARATOR . 
+                        $module->getNameSpace() . DIRECTORY_SEPARATOR . 'database' . DIRECTORY_SEPARATOR . 'migrations';
+        
+        $moduleSeedClass= str_replace("\\", "", $module->getNameSpace()) . "Seeder";
+        
+        
         try {
-            Configuration::create([
-                'website_id' => $this->defaultWebsiteId,
-                'configuration_key' => 'active_theme_identifier',
-                'configuration_value' => $name,
+            /*
+            ModuleModel::create([
+                'type' => 'COMMUNITY',
+                'identifier' => $identifier,
+                'name' => $moduleName,
             ]);
-            Configuration::create([
-                'website_id' => $this->defaultWebsiteId,
-                'configuration_key' => 'active_theme_path',
-                'configuration_value' => $theme['path'],
-            ]);
-            Artisan::call('vendor:publish', ['--tag' => $name]);
+             * 
+             */
+           
+            //Artisan::call('mage2:migrate',['--path' => $moduleMigrationPath]);
+            Artisan::call('mage2:dbseed', ['--class' => $moduleSeedClass]);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
 
-        return redirect()->route('admin.theme.index');
+        return redirect()->route('admin.module.index');
     }
 
     /**

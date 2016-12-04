@@ -5,12 +5,12 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Upload Theme
+                        Upload Module
                     </div>
                     <div class="panel-body">
-                        {!! Form::open(['action' => route('admin.theme.store'),'files' => true]) !!}
-                        {!! Form::file('theme_zip_file', 'Upload Theme File') !!}
-                        {!! Form::submit('Upload Theme') !!}
+                        {!! Form::open(['method' => 'post','action' => route('admin.module.store'),'files' => true]) !!}
+                        {!! Form::file('module_zip_file', 'Upload Module') !!}
+                        {!! Form::submit('Upload Module') !!}
 
                         {!! Form::close() !!}
                     </div>

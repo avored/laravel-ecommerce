@@ -82,10 +82,10 @@ class Module extends BaseModule
 
 
     public function getName() {
-        return 'Mage2 Payment';
+        return 'Mage2 Paypal';
     }
 
     public function getIdentifier() {
-        return 'mage2-payment';
+        return 'mage2-paypal';
     }
 }

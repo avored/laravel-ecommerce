@@ -6,6 +6,10 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class Module extends BaseModel {
 
-    protected $fillable = ['identifier', 'name','status'];
+    protected $fillable = ['identifier', 'type','name','status'];
 
+    
+    public function getModuleByIdentifier($identifier) {
+        return $this->where('identifier','=',$identifier)->get()->first();
+    }
 }

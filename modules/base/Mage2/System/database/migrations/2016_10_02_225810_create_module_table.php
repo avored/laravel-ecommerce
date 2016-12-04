@@ -16,6 +16,7 @@ class CreateModuleTable extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->increments('id');
             $table->string('identifier')->unique();
+            $table->enum('type',['SYSTEM','COMMUNITY'])->default('COMMUNITY');
             $table->string('name');
             $table->enum('status',['ACTIVE','INACTIVE']);
             $table->timestamps();

@@ -80,6 +80,10 @@ class Module extends BaseModule {
     public function getName() {
         return 'Mage2 Feature Product';
     }
+    
+    public function getNameSpace() {
+        return __NAMESPACE__;
+    }
 
     public function getIdentifier() {
         return 'mage2-feature';
