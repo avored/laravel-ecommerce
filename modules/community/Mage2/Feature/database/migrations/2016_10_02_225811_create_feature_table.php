@@ -13,7 +13,7 @@ class CreateFeatureTable extends Migration
      */
     public function up()
     {
-        ///
+
     }
 
     /**

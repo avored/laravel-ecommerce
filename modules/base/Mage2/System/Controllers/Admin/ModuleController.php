@@ -19,6 +19,7 @@ class ModuleController extends AdminController {
      */
     public function index() {
 
+
         $modelModule = new ModuleModel();
         $modules = ModuleFacade::all();
 
@@ -82,16 +83,14 @@ class ModuleController extends AdminController {
         
         
         try {
-            /*
+
             ModuleModel::create([
                 'type' => 'COMMUNITY',
                 'identifier' => $identifier,
                 'name' => $moduleName,
             ]);
-             * 
-             */
-           
-            //Artisan::call('mage2:migrate',['--path' => $moduleMigrationPath]);
+
+            Artisan::call('mage2:migrate',['--path' => $moduleMigrationPath]);
             Artisan::call('mage2:dbseed', ['--path' => $moduleSeedClass]);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());

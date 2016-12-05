@@ -42,13 +42,23 @@
                     
                     ?>
                     @if(isset($curruntModule->status ) && 
-                        $curruntModule->type != "COMMUNITY" &&
+                        $curruntModule->type == "SYSTEM" &&
                         $curruntModule->status == "ACTIVE")
                         <td>
                             <button class="disabled btn btn-primary">Uninstall</button>
                         </td>
-                    @else 
+
+                    @elseif(isset($curruntModule->status ) &&
+                        $curruntModule->type == "COMMUNITY" &&
+                        $curruntModule->status == "ACTIVE")
+
                         <td>
+                            <button class="btn btn-primary">Uninstall</button>
+                        </td>
+
+
+                    @else
+                    <td>
                              
                                 {!! Form::open(['method' => 'POST', 'action' => 
                                     route('admin.module.install',$identifier)]) !!}
