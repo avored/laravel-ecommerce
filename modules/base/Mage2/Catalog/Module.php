@@ -8,8 +8,8 @@ use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Support\Facades\Permission;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
-class Module extends BaseModule
-{
+
+class Module extends BaseModule {
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -22,8 +22,7 @@ class Module extends BaseModule
      *
      * @return void
      */
-    public function boot()
-    {
+    public function boot() {
         $this->registerModule();
         $this->registerAdminMenu();
         $this->registerAdminConfiguration();
@@ -34,8 +33,7 @@ class Module extends BaseModule
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         $this->mapWebRoutes();
         $this->registerViewPath();
         $this->registerViewComposerData();
@@ -51,35 +49,31 @@ class Module extends BaseModule
      *
      * @return void
      */
-    protected function mapWebRoutes()
-    {
+    protected function mapWebRoutes() {
         require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath()
-    {
+    protected function registerViewPath() {
         View::addLocation(__DIR__ . '/views');
     }
 
-    public function registerAdminMenu()
-    {
+    public function registerAdminMenu() {
 
         $adminUserMenu = ['catalog' => [
-            'label' => 'Catalog',
-            'route' => '#',
-            'submenu' => ['category' => [
-                    'label' => 'Category',
-                    'route' => 'admin.category.index',
-                ], 'product' => [
-                    'label' => 'Products',
-                    'route' => 'admin.product.index',
-                ]]
+                'label' => 'Catalog',
+                'route' => '#',
+                'submenu' => ['category' => [
+                        'label' => 'Category',
+                        'route' => 'admin.category.index',
+                    ], 'product' => [
+                        'label' => 'Products',
+                        'route' => 'admin.product.index',
+                    ]]
         ]];
         AdminMenu::registerMenu('mage2-catalog', $adminUserMenu);
     }
 
-    public function registerAdminConfiguration()
-    {
+    public function registerAdminConfiguration() {
         $adminConfigurations[] = [
             'title' => 'Catalog Configuration',
             'description' => 'Some Description for Catalog Modules',
@@ -91,8 +85,7 @@ class Module extends BaseModule
         }
     }
 
-    public function registerViewComposerData()
-    {
+    public function registerViewComposerData() {
         View::composer(['admin.catalog.product.boxes.inventory'], 'Mage2\Catalog\ViewComposers\ProductBoxInventoryComposer');
         View::composer(['admin.catalog.product.boxes.basic'], 'Mage2\Catalog\ViewComposers\ProductBoxBasicComposer');
     }
@@ -102,8 +95,7 @@ class Module extends BaseModule
      *
      * @return void
      */
-    protected function registerPermissions()
-    {
+    protected function registerPermissions() {
         $permissions = [
             ['title' => 'Category List', 'routes' => 'admin.category.index'],
             ['title' => 'Category Create', 'routes' => "admin.category.create,admin.category.store"],
@@ -124,9 +116,12 @@ class Module extends BaseModule
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
-
     public function getName() {
         return 'Mage2 Catalog';
+    }
+
+    public function getNameSpace() {
+        return __NAMESPACE__;
     }
 
     public function getIdentifier() {

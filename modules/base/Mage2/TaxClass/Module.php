@@ -7,9 +7,9 @@ use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
-class Module extends BaseModule
-{
-     /**
+class Module extends BaseModule {
+
+    /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
@@ -20,40 +20,34 @@ class Module extends BaseModule
      *
      * @return void
      */
-    public function boot()
-    {
+    public function boot() {
         $this->registerModule();
         $this->registerAdminConfiguration();
     }
-
 
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         $this->registerWebRoute();
         $this->registerViewPath();
     }
 
-   
-
-    protected function registerViewPath()
-    {
-        View::addLocation(__DIR__.'/views');
+    protected function registerViewPath() {
+        View::addLocation(__DIR__ . '/views');
     }
 
     protected function registerWebRoute() {
         require (__DIR__ . "/routes/web.php");
     }
-    public function registerAdminConfiguration()
-    {
+
+    public function registerAdminConfiguration() {
         $adminConfigurations[] = [
-            'title'       => 'Tax Configuration',
+            'title' => 'Tax Configuration',
             'description' => 'Defined the amount of tax applied to product.',
-            'edit_action' =>'admin.configuration.tax-class',
+            'edit_action' => 'admin.configuration.tax-class',
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {
@@ -65,12 +59,16 @@ class Module extends BaseModule
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
-
     public function getName() {
         return 'Mage2 TaxClass';
+    }
+
+    public function getNameSpace() {
+        return __NAMESPACE__;
     }
 
     public function getIdentifier() {
         return 'mage2-taxclass';
     }
+
 }

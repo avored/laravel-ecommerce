@@ -101,19 +101,18 @@ class Module extends BaseModule {
 
     public function registerAdminMenu() {
         $adminUserMenu = [ 'user' => [
-            'label' => 'Users',
-            'route' => '#',
-            'submenu' => ['admin-users' => [
-                            'label' => 'Admin Users',
-                            'route' => 'admin.admin-user.index',
-                        ], 'roles' =>
-                        [
-                            'label' => 'Roles',
-                            'route' => 'admin.role.index',
-                        ]]
+                'label' => 'Users',
+                'route' => '#',
+                'submenu' => ['admin-users' => [
+                        'label' => 'Admin Users',
+                        'route' => 'admin.admin-user.index',
+                    ], 'roles' =>
+                    [
+                        'label' => 'Roles',
+                        'route' => 'admin.role.index',
+                    ]]
         ]];
-        AdminMenu::registerMenu('mage2-user',$adminUserMenu);
-       
+        AdminMenu::registerMenu('mage2-user', $adminUserMenu);
     }
 
     /**
@@ -137,13 +136,17 @@ class Module extends BaseModule {
             PermissionFacade::add($permission);
         }
     }
+
     public function registerModule() {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
-
     public function getName() {
         return 'Mage2 User';
+    }
+
+    public function getNameSpace() {
+        return __NAMESPACE__;
     }
 
     public function getIdentifier() {

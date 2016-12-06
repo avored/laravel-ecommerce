@@ -8,9 +8,9 @@ use Mage2\FreeShipping\Shipping\FreeShipping;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
-class Module extends BaseModule
-{
-     /**
+class Module extends BaseModule {
+
+    /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
@@ -21,8 +21,7 @@ class Module extends BaseModule
      *
      * @return void
      */
-    public function boot()
-    {
+    public function boot() {
         $this->registerModule();
         $this->registerShippingOption();
         $this->registerAdminMenu();
@@ -33,8 +32,7 @@ class Module extends BaseModule
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
 
         $this->registerViewPath();
     }
@@ -48,31 +46,33 @@ class Module extends BaseModule
      *
      * @return void
      */
-    protected function registerShippingOption()
-    {
+    protected function registerShippingOption() {
         $freeShipping = new FreeShipping();
         Shipping::put($freeShipping->getIdentifier(), $freeShipping);
     }
 
-    protected function registerViewPath()
-    {
-        View::addLocation(__DIR__.'/views');
+    protected function registerViewPath() {
+        View::addLocation(__DIR__ . '/views');
     }
 
-    public function registerAdminMenu()
-    {
+    public function registerAdminMenu() {
         //AdminMenu::registerMenu($adminMenu);
     }
+
     public function registerModule() {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
-
 
     public function getName() {
         return 'Mage2 FreeShipping';
     }
 
+    public function getNameSpace() {
+        return __NAMESPACE__;
+    }
+
     public function getIdentifier() {
         return 'mage2-freeshipping';
     }
+
 }
