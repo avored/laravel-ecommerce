@@ -38,12 +38,10 @@
       "Mage2\\Cart\\": "modules/base/Mage2/Cart/",
       "Mage2\\Catalog\\": "modules/base/Mage2/Catalog/",
       "Mage2\\Checkout\\": "modules/base/Mage2/Checkout/",
-      "Mage2\\FreeShipping\\": "modules/base/Mage2/FreeShipping/",
       "Mage2\\Install\\": "modules/base/Mage2/Install/",
       "Mage2\\Order\\": "modules/base/Mage2/Order/",
       "Mage2\\Page\\": "modules/base/Mage2/Page/",
       "Mage2\\Paypal\\": "modules/base/Mage2/Paypal/",
-      "Mage2\\Pickup\\": "modules/base/Mage2/Pickup/",
       "Mage2\\TaxClass\\": "modules/base/Mage2/TaxClass/",
       "Mage2\\User\\": "modules/base/Mage2/User/",
       "Mage2\\System\\": "modules/base/Mage2/System/"

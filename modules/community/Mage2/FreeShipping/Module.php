@@ -60,7 +60,7 @@ class Module extends BaseModule {
     }
 
     public function registerModule() {
-        ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
+        ModuleFacade::put($this->getIdentifier(), $this);
     }
 
     public function getName() {
