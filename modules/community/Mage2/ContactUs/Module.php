@@ -5,9 +5,10 @@ namespace Mage2\ContactUs;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
-class Module extends BaseModule
-{
-     /**
+
+class Module extends BaseModule {
+
+    /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
@@ -18,8 +19,7 @@ class Module extends BaseModule
      *
      * @return void
      */
-    public function boot()
-    {
+    public function boot() {
         $this->registerModule();
     }
 
@@ -28,8 +28,7 @@ class Module extends BaseModule
      *
      * @return void
      */
-    public function register()
-    {
+    public function register() {
         $this->mapWebRoutes();
         $this->registerViewPath();
     }
@@ -43,19 +42,21 @@ class Module extends BaseModule
      *
      * @return void
      */
-    protected function mapWebRoutes()
-    {
-        require __DIR__.'/routes/web.php';
+    protected function mapWebRoutes() {
+        require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath()
-    {
-        View::addLocation(__DIR__.'/views');
+    protected function registerViewPath() {
+        View::addLocation(__DIR__ . '/views');
     }
+
     public function registerModule() {
-        ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
+        ModuleFacade::put($this->getIdentifier(), $this);
     }
 
+    public function getNameSpace() {
+        return __NAMESPACE__;
+    }
 
     public function getName() {
         return 'Mage2 Contact Us';
@@ -64,4 +65,5 @@ class Module extends BaseModule
     public function getIdentifier() {
         return 'mage2-contactus';
     }
+
 }

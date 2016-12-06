@@ -38,7 +38,6 @@
       "Mage2\\Cart\\": "modules/base/Mage2/Cart/",
       "Mage2\\Catalog\\": "modules/base/Mage2/Catalog/",
       "Mage2\\Checkout\\": "modules/base/Mage2/Checkout/",
-      "Mage2\\ContactUs\\": "modules/base/Mage2/ContactUs/",
       "Mage2\\FreeShipping\\": "modules/base/Mage2/FreeShipping/",
       "Mage2\\Install\\": "modules/base/Mage2/Install/",
       "Mage2\\Order\\": "modules/base/Mage2/Order/",

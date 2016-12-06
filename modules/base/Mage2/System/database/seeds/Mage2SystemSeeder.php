@@ -35,11 +35,7 @@ class Mage2SystemSeeder extends Seeder {
                                 'name'=> 'Mage2 Checkout', 
                                 'status' => 'ACTIVE'
                                 ]);
-            ModuleModel::create(['identifier' => 'mage2-contactus',
-                                'type' => 'SYSTEM',
-                                'name'=> 'Mage2 Contact Us', 
-                                'status' => 'ACTIVE'
-                                ]);
+         
             ModuleModel::create(['identifier' => 'mage2-freeshipping',
                                 'type' => 'SYSTEM',
                                 'name'=> 'Mage2 Free Shipping', 
