@@ -264,6 +264,7 @@ class Mage2SystemSeeder extends Seeder {
         );
 
 
+
         $path = public_path() . '/countries.json';
 
         $json = json_decode(file_get_contents($path), true);
