@@ -148,7 +148,7 @@ return [
 
 
         Barryvdh\DomPDF\ServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
+        //Barryvdh\Debugbar\ServiceProvider::class,
     /*
      * Package Service Providers...
      */
@@ -219,7 +219,7 @@ return [
         'Validator'     => Illuminate\Support\Facades\Validator::class,
         'View'          => Illuminate\Support\Facades\View::class,
         'PDF'           => Barryvdh\DomPDF\Facade::class,
-        'Debugbar'      => Barryvdh\Debugbar\Facade::class,
+        //'Debugbar'      => Barryvdh\Debugbar\Facade::class,
 
 
         'Theme'         => Mage2\Framework\Theme\Facades\Theme::class,
