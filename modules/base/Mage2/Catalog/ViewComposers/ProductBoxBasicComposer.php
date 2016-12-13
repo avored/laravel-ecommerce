@@ -14,9 +14,12 @@ class ProductBoxBasicComposer {
      * @return void
      */
     public function compose(View $view) {
-         $productAttrobuteModel = new ProductAttribute();
-            $isFeaturedOptions = $productAttrobuteModel->getIsFeaturedOptions();
-            $statusOptions = $productAttrobuteModel->getStatusOptions();
+
+            $productAttrobuteModel  = new ProductAttribute();
+
+            $isFeaturedOptions      = $productAttrobuteModel->getIsFeaturedOptions();
+            $statusOptions          = $productAttrobuteModel->getStatusOptions();
+
             $view
                     ->with('isFeaturedOptions', $isFeaturedOptions)
                     ->with('statusOptions', $statusOptions);

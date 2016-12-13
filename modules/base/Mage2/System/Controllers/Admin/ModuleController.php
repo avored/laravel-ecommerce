@@ -19,7 +19,6 @@ class ModuleController extends AdminController {
      */
     public function index() {
 
-
         $modelModule = new ModuleModel();
         $modules = ModuleFacade::all();
 

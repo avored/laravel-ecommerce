@@ -19,8 +19,14 @@ class LayoutAppComposer {
         $categoryModel = new Category();
         $baseCategories = $categoryModel->getAllCategories();
 
+        $metaTitle = config('app.name', 'Mage2 Ecommerce');
+        $metaDescription = "Mage2 Laravel Ecommerce";
+
+
         $view->with('categories', $baseCategories)
-                ->with('cart', $cart);
+                ->with('cart', $cart)
+                ->with('metaTitle', $metaTitle)
+                ->with('metaDescription', $metaDescription);
     }
 
 }

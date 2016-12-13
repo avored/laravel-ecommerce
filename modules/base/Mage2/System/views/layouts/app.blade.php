@@ -8,7 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Mage2 Ecommerce') }}</title>
+    <title>{{ $metaTitle }}</title>
+    <meta name="description" content="{{ $metaDescription }}"/>
 
     <link href="{{ asset('vendor/mage2-basic/css/appscss.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/mage2-basic/css/appless.css') }}" rel="stylesheet">

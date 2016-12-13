@@ -198,29 +198,6 @@ class Mage2SystemSeeder extends Seeder {
             'label' => 'No',
         ]);
 
-
-
-        $featureAttribute = ProductAttribute::create([
-                    'title' => 'Is Featured',
-                    'product_attribute_group_id' => $productAttributeGroup->id,
-                    'identifier' => 'is_featured',
-                    'type' => 'VARCHAR',
-                    'field_type' => 'SELECT',
-                    'validation' => 'required',
-        ]);
-
-        AttributeDropdownOption::create([
-            'product_attribute_id' => $featureAttribute->id,
-            'value' => '0',
-            'label' => 'No',
-        ]);
-
-        AttributeDropdownOption::create([
-            'product_attribute_id' => $featureAttribute->id,
-            'value' => '1',
-            'label' => 'Yes',
-        ]);
-
         $inStockAttribute = ProductAttribute::create([
                     'title' => 'In Stock',
                     'product_attribute_group_id' => $inventoryGroup->id,
