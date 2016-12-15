@@ -89,6 +89,7 @@ class Mage2SystemSeeder extends Seeder {
                 'product_attribute_group_id' => $productAttributeGroup->id,
                 'identifier' => 'title',
                 'type' => 'VARCHAR',
+                'is_system' => 1,
                 'field_type' => 'TEXT',
                 'validation' => 'required|max:255',
             ],
@@ -97,6 +98,7 @@ class Mage2SystemSeeder extends Seeder {
                 'product_attribute_group_id' => $productAttributeGroup->id,
                 'identifier' => 'price',
                 'type' => 'FLOAT',
+                'is_system' => 1,
                 'field_type' => 'TEXT',
                 'validation' => 'required|max:8|regex:/^-?\\d*(\\.\\d+)?$/',
             ],
@@ -106,6 +108,7 @@ class Mage2SystemSeeder extends Seeder {
                 'identifier' => 'image',
                 'type' => 'FILE',
                 'field_type' => 'FILE',
+                'is_system' => 1,
                 'validation' => '',
             ],
             [
@@ -113,6 +116,7 @@ class Mage2SystemSeeder extends Seeder {
                 'product_attribute_group_id' => $productAttributeGroup->id,
                 'identifier' => 'sku',
                 'type' => 'VARCHAR',
+                'is_system' => 1,
                 'field_type' => 'TEXT',
                 'validation' => 'required|max:255',
             ],
@@ -121,6 +125,7 @@ class Mage2SystemSeeder extends Seeder {
                 'product_attribute_group_id' => $productAttributeGroup->id,
                 'identifier' => 'slug',
                 'type' => 'VARCHAR',
+                'is_system' => 1,
                 'field_type' => 'TEXT',
                 'validation' => 'required|max:255|alpha_dash',
             ],
@@ -138,6 +143,7 @@ class Mage2SystemSeeder extends Seeder {
                 'identifier' => 'page_description',
                 'type' => 'VARCHAR',
                 'field_type' => 'TEXTAREA',
+                'is_system' => 1,
                 'validation' => 'max:255',
             ],
             [
@@ -146,6 +152,7 @@ class Mage2SystemSeeder extends Seeder {
                 'identifier' => 'qty',
                 'type' => 'VARCHAR',
                 'field_type' => 'TEXT',
+                'is_system' => 1,
                 'validation' => '',
             ],
             [
@@ -154,6 +161,7 @@ class Mage2SystemSeeder extends Seeder {
                 'identifier' => 'description',
                 'type' => 'TEXT',
                 'field_type' => 'TEXTAREA',
+                'is_system' => 1,
                 'validation' => 'required',
             ],
         ]);
@@ -164,6 +172,7 @@ class Mage2SystemSeeder extends Seeder {
                     'identifier' => 'status',
                     'type' => 'VARCHAR',
                     'field_type' => 'SELECT',
+                    'is_system' => 1,
                     'validation' => 'required',
         ]);
 
@@ -184,6 +193,7 @@ class Mage2SystemSeeder extends Seeder {
                     'identifier' => 'is_taxable',
                     'type' => 'VARCHAR',
                     'field_type' => 'SELECT',
+                    'is_system' => 1,
                     'validation' => 'required',
         ]);
 
@@ -198,12 +208,16 @@ class Mage2SystemSeeder extends Seeder {
             'label' => 'No',
         ]);
 
+
+
+    
         $inStockAttribute = ProductAttribute::create([
                     'title' => 'In Stock',
                     'product_attribute_group_id' => $inventoryGroup->id,
                     'identifier' => 'in_stock',
                     'type' => 'VARCHAR',
                     'field_type' => 'SELECT',
+                    'is_system' => 1,
                     'validation' => 'required',
         ]);
         AttributeDropdownOption::create([
@@ -223,6 +237,7 @@ class Mage2SystemSeeder extends Seeder {
                     'identifier' => 'track_stock',
                     'type' => 'VARCHAR',
                     'field_type' => 'SELECT',
+                    'is_system' => 1,
                     'validation' => '',
         ]);
 

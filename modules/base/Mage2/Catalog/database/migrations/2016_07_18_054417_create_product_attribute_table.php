@@ -19,6 +19,7 @@ class CreateProductAttributeTable extends Migration
             $table->string('identifier')->unique();
             $table->enum('field_type', ['TEXT', 'TEXTAREA', 'SELECT', 'FILE', 'DATETIME']);
             $table->enum('type', ['VARCHAR', 'TEXT', 'INTEGER', 'FLOAT', 'DATETIME', 'FILE']);
+            $table->tinyInteger('is_system')->default(0);
             $table->string('validation');
             $table->timestamps();
         });
