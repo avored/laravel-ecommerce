@@ -134,6 +134,7 @@ class Mage2SystemSeeder extends Seeder {
                 'product_attribute_group_id' => $seoGroup->id,
                 'identifier' => 'page_title',
                 'type' => 'VARCHAR',
+                'is_system' => 1,
                 'field_type' => 'TEXT',
                 'validation' => 'max:255',
             ],
