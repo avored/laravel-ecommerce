@@ -22,7 +22,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'website', 'permission'], 'na
     Route::post('/admin/configuration', ['as' => 'admin.configuration.store', 'uses' => 'ConfigurationController@store']);
 
 
-    Route::get('/admin', ['as' => 'admin.dashboard', 'uses' => 'AdminController@index']);
+    Route::get('/admin', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
 
     Route::get('/admin/module', ['as' => 'admin.module.index', 'uses' => 'ModuleController@index']);
 

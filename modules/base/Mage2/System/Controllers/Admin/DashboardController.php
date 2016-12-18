@@ -2,9 +2,9 @@
 
 namespace Mage2\System\Controllers\Admin;
 
-use Mage2\Framework\System\Controllers\AdminController as BaseAdminController;
+use Mage2\Framework\System\Controllers\AdminController;
 
-class AdminController extends BaseAdminController
+class DashboardController extends AdminController
 {
 
     /**
