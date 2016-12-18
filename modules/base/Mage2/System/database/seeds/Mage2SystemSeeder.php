@@ -6,7 +6,6 @@ use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Order\Models\OrderStatus;
 use Mage2\TaxClass\Models\Country;
 use Mage2\System\Models\Configuration;
-use Mage2\Install\Models\Website;
 use Mage2\Catalog\Models\ProductAttributeGroup;
 use Mage2\System\Models\Module as ModuleModel;
 
@@ -79,9 +78,22 @@ class Mage2SystemSeeder extends Seeder {
                                 ]);
          
         
-        $productAttributeGroup = ProductAttributeGroup::create(['title' => 'Basic']);
-        $seoGroup = ProductAttributeGroup::create(['title' => 'SEO']);
-        $inventoryGroup = ProductAttributeGroup::create(['title' => 'Inventory']);
+        $productAttributeGroup  = ProductAttributeGroup::create(['title' => 'Basic',
+                                                                'identifier' => 'basic',
+                                                                'sort_order' => 0
+                                                                ]);
+        $inventoryGroup         = ProductAttributeGroup::create(['title' => 'Inventory',
+                                                                'identifier' => 'inventory',
+                                                                'sort_order' => 2
+                                                                ]);
+        $imageGroup             = ProductAttributeGroup::create(['title' => 'Image',
+                                                                'identifier' => 'image',
+                                                                'sort_order' => 1
+                                                                ]);
+        $seoGroup               = ProductAttributeGroup::create(['title' => 'SEO',
+                                                                'identifier'=> 'seo',
+                                                                'sort_order' => 3
+                                                                ]);
 
         ProductAttribute::insert([
             [
@@ -90,6 +102,7 @@ class Mage2SystemSeeder extends Seeder {
                 'identifier' => 'title',
                 'type' => 'VARCHAR',
                 'is_system' => 1,
+                'sort_order' => 0,
                 'field_type' => 'TEXT',
                 'validation' => 'required|max:255',
             ],
@@ -99,12 +112,13 @@ class Mage2SystemSeeder extends Seeder {
                 'identifier' => 'price',
                 'type' => 'FLOAT',
                 'is_system' => 1,
+                'sort_order' => 4,
                 'field_type' => 'TEXT',
                 'validation' => 'required|max:8|regex:/^-?\\d*(\\.\\d+)?$/',
             ],
             [
                 'title' => 'Image',
-                'product_attribute_group_id' => 0,
+                'product_attribute_group_id' => $imageGroup->id,
                 'identifier' => 'image',
                 'type' => 'FILE',
                 'field_type' => 'FILE',
@@ -117,6 +131,7 @@ class Mage2SystemSeeder extends Seeder {
                 'identifier' => 'sku',
                 'type' => 'VARCHAR',
                 'is_system' => 1,
+                'sort_order' => 2,
                 'field_type' => 'TEXT',
                 'validation' => 'required|max:255',
             ],
@@ -126,6 +141,7 @@ class Mage2SystemSeeder extends Seeder {
                 'identifier' => 'slug',
                 'type' => 'VARCHAR',
                 'is_system' => 1,
+                'sort_order' => 1,
                 'field_type' => 'TEXT',
                 'validation' => 'required|max:255|alpha_dash',
             ],
@@ -135,6 +151,7 @@ class Mage2SystemSeeder extends Seeder {
                 'identifier' => 'page_title',
                 'type' => 'VARCHAR',
                 'is_system' => 1,
+                'sort_order' => 0,
                 'field_type' => 'TEXT',
                 'validation' => 'max:255',
             ],
@@ -145,6 +162,7 @@ class Mage2SystemSeeder extends Seeder {
                 'type' => 'VARCHAR',
                 'field_type' => 'TEXTAREA',
                 'is_system' => 1,
+                'sort_order' => 1,
                 'validation' => 'max:255',
             ],
             [
@@ -154,6 +172,7 @@ class Mage2SystemSeeder extends Seeder {
                 'type' => 'VARCHAR',
                 'field_type' => 'TEXT',
                 'is_system' => 1,
+                'sort_order' => 2,
                 'validation' => '',
             ],
             [
@@ -163,6 +182,7 @@ class Mage2SystemSeeder extends Seeder {
                 'type' => 'TEXT',
                 'field_type' => 'TEXTAREA',
                 'is_system' => 1,
+                'sort_order' => 3,
                 'validation' => 'required',
             ],
         ]);
@@ -174,6 +194,7 @@ class Mage2SystemSeeder extends Seeder {
                     'type' => 'VARCHAR',
                     'field_type' => 'SELECT',
                     'is_system' => 1,
+                    'sort_order' => 5,
                     'validation' => 'required',
         ]);
 
@@ -195,6 +216,7 @@ class Mage2SystemSeeder extends Seeder {
                     'type' => 'VARCHAR',
                     'field_type' => 'SELECT',
                     'is_system' => 1,
+                    'sort_order' => 3,
                     'validation' => 'required',
         ]);
 
@@ -219,6 +241,7 @@ class Mage2SystemSeeder extends Seeder {
                     'type' => 'VARCHAR',
                     'field_type' => 'SELECT',
                     'is_system' => 1,
+                    'sort_order' => 0,
                     'validation' => 'required',
         ]);
         AttributeDropdownOption::create([
@@ -239,6 +262,7 @@ class Mage2SystemSeeder extends Seeder {
                     'type' => 'VARCHAR',
                     'field_type' => 'SELECT',
                     'is_system' => 1,
+                    'sort_order' => 0,
                     'validation' => '',
         ]);
 

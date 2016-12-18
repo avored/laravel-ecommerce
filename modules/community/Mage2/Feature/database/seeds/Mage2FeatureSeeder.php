@@ -23,6 +23,7 @@ class Mage2FeatureSeeder extends Seeder {
             'identifier' => 'is_featured',
             'type' => 'VARCHAR',
             'field_type' => 'SELECT',
+            'sort_order' => 10,
             'validation' => 'required',
         ]);
 

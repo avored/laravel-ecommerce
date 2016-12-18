@@ -15,6 +15,8 @@ class CreateProductAttributeGroupTable extends Migration
         Schema::create('product_attribute_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
+            $table->string('identifier');
+            $table->integer('sort_order');
             $table->timestamps();
         });
     }
