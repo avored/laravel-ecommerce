@@ -165,14 +165,15 @@ class ProductHelper
 
     private function _saveProductIntegerValue($product, $identifier, $productAttribute, $value)
     {
+        var_dump($identifier);
         $createNewRecord = false;
 
         if ($this->isDefaultWebsite == false) {
             $attributeValue = $productAttribute
-                            ->productIntegerValues()
-                            ->where('product_id', '=', $product->id)
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
+                                    ->productIntegerValues()
+                                    ->where('product_id', '=', $product->id)
+                                    ->where('website_id', '=', $this->websiteId)
+                                    ->get()->first();
 
             if (null === $attributeValue) {
                 $createNewRecord = true;
@@ -181,19 +182,20 @@ class ProductHelper
 
         if (null === $product->$identifier || $createNewRecord == true) {
             $productAttribute->productIntegerValues()->create([
-                'product_id' => $product->id,
-                'website_id' => $this->websiteId,
-                'value'      => $value,
-            ]);
+                                                    'product_id' => $product->id,
+                                                    'website_id' => $this->websiteId,
+                                                    'value'      => $value,
+                                                ]);
         } else {
             $productAttribute->productIntegerValues()
-                    ->where('product_id', '=', $product->id)->get()->first()
-                    ->update([
-                        'value'      => $value,
-                        'website_id' => $this->websiteId,
-            ]);
-            $cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
-            Cache::forget($cacheKey);
+                                                ->where('product_id', '=', $product->id)->get()->first()
+                                                ->update([
+                                                    'value'      => $value,
+                                                    'website_id' => $this->websiteId,
+                                                ]);
+            
+            //$cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
+            //Cache::forget($cacheKey);
         }
     }
 

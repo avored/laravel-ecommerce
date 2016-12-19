@@ -135,6 +135,7 @@ class ProductController extends AdminController
     public function update(ProductRequest $request, $id)
     {
         try {
+            
             $product = Product::findorfail($id);
             $this->productHelper->saveProduct($product, $request);
             $this->productHelper->saveRelatedProducts($product, $request);
