@@ -11,7 +11,6 @@ use Mage2\Catalog\Models\Product;
 use Mage2\Catalog\Requests\ProductRequest;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Install\Models\Website;
-use Mage2\Catalog\Models\ProductAttributeGroup;
 
 class ProductController extends AdminController
 {
@@ -115,13 +114,13 @@ class ProductController extends AdminController
 
         $categories = $this->categoryHelper->getCategoryOptions();
         $websites = Website::pluck('name', 'id');
-        $productAttributeGroups = ProductAttributeGroup::orderBy('sort_order','ASC')->get();
+        $productAttributes = ProductAttribute::all();
 
         return view('admin.catalog.product.edit')
                         ->with('product', $product)
                         ->with('websites', $websites)
                         ->with('categories', $categories)
-                        ->with('productAttributeGroups', $productAttributeGroups);
+                        ->with('productAttributes', $productAttributes);
     }
 
     /**

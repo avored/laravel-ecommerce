@@ -180,7 +180,7 @@ class Mage2SystemSeeder extends Seeder {
                 'product_attribute_group_id' => $productAttributeGroup->id,
                 'identifier' => 'description',
                 'type' => 'TEXT',
-                'field_type' => 'TEXTAREA',
+                'field_type' => 'CKEDITOR',
                 'is_system' => 1,
                 'sort_order' => 3,
                 'validation' => 'required',

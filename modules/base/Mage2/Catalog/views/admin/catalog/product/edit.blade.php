@@ -19,14 +19,23 @@
             {!! Form::bind($product, ['method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}
 
             
-            @include('admin.catalog.product.boxes.basic',
+            
+            @foreach($productAttributeGroups as $group)
+                @if($group->identifier == "image")
+                    @include('admin.catalog.product.boxes.images' )
+                @else
+                    @include('admin.catalog.product.panel',['group' => $group] )
+                @endif
+            @endforeach
+            <!--
+            include('admin.catalog.product.boxes.basic',
                             ['categories' => $categories, 
                             'productCategories' => $productCategories,
                             'productWebsites' => $productWebsites])
-            @include('admin.catalog.product.boxes.images')
+            include('admin.catalog.product.boxes.images')
             
-            @include('admin.catalog.product.boxes.inventory')
-            @include('admin.catalog.product.boxes.seo')
+            include('admin.catalog.product.boxes.inventory')
+            include('admin.catalog.product.boxes.seo')
             <!--
             include('admin.catalog.product.boxes.images')
                 include('product.boxes.extra')

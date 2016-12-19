@@ -11,7 +11,7 @@
   |
  */
 Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\Catalog\Controllers\Admin"], function () {
-    Route::resource('/admin/product', 'ProductController', ['as' =>  'admin']);
+    Route::resource('/admin/product', 'ProductController', ['as' =>  'admin']);    
     Route::resource('/admin/category', 'CategoryController', ['as' =>  'admin']);
 
     Route::resource('/admin/review', 'ReviewController', ['as' => 'admin']);
