@@ -53,7 +53,10 @@
                         $curruntModule->status == "ACTIVE")
 
                         <td>
-                            <button class="btn btn-primary">Uninstall</button>
+                            {!! Form::open(['method' => 'POST', 'action' => 
+                                    route('admin.module.uninstall',$identifier)]) !!}
+                                    <button class="btn btn-primary">Uninstall</button>
+                                {!! Form::close() !!} 
                         </td>
 
 

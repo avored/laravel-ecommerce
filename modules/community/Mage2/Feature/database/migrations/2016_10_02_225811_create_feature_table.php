@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mage2\Catalog\Models\ProductAttribute;
 
 class CreateFeatureTable extends Migration
 {
@@ -23,6 +24,6 @@ class CreateFeatureTable extends Migration
      */
     public function down()
     {
-       //
+            
     }
 }

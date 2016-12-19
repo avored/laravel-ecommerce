@@ -64,12 +64,53 @@ class ModuleController extends AdminController {
     }
 
     /**
+     * Installtion of module 
+     * 
+     * 
      * @param string $identifier
      */
     public function install($identifier) {
        
         $module = ModuleFacade::get($identifier);
         
+        
+        $moduleName = $module->getName();
+        $moduleDatabasePath =  "modules" . DIRECTORY_SEPARATOR . "community" . DIRECTORY_SEPARATOR . 
+                        $module->getNameSpace() . DIRECTORY_SEPARATOR . 'database';
+        
+        $moduleMigrationPath = $moduleDatabasePath . DIRECTORY_SEPARATOR . 'migrations';
+        
+        $moduleSeedClass=  $moduleDatabasePath . DIRECTORY_SEPARATOR . 'seeds';
+        
+        
+        
+        try {
+
+            ModuleModel::create([
+                'type' => 'COMMUNITY',
+                'identifier' => $identifier,
+                'name' => $moduleName,
+            ]);
+
+            Artisan::call('mage2:migrate',['--path' => $moduleMigrationPath]);
+            Artisan::call('mage2:dbseed', ['--path' => $moduleSeedClass]);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+
+        return redirect()->route('admin.module.index');
+    }
+    /**
+     * UnInstalltion of module 
+     * 
+     * 
+     * @param string $identifier
+     */
+    public function uninstall($identifier) {
+       
+        $module = ModuleFacade::get($identifier);
+        
+        dd($module);
         
         $moduleName = $module->getName();
         $moduleDatabasePath =  "modules" . DIRECTORY_SEPARATOR . "community" . DIRECTORY_SEPARATOR . 
