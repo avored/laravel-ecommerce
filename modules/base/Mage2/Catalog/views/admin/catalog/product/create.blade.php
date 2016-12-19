@@ -13,11 +13,14 @@
                 {!! Form::open(['action' => route('admin.product.store'),'method' => 'post']) !!}
 
 
-                @include('admin.catalog.product.boxes.basic',['categories' => $categories])
-                @include('admin.catalog.product.boxes.images')
-
-                @include('admin.catalog.product.boxes.inventory')
-                @include('admin.catalog.product.boxes.seo')
+                 
+                @foreach($productAttributeGroups as $group)
+                    @if($group->identifier == "image")
+                        @include('admin.catalog.product.boxes.images' )
+                    @else
+                        @include('admin.catalog.product.panel',['group' => $group] )
+                    @endif
+                @endforeach
 
                 <!--
                 include('product.boxes.extra')

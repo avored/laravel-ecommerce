@@ -56,10 +56,10 @@ class ProductController extends AdminController
     {
         $websites = Website::pluck('name', 'id');
         $categories = $this->categoryHelper->getCategoryOptions();
-        $productAttributes = ProductAttribute::all();
+        $productAttributeGroups = ProductAttributeGroup::orderBy('sort_order','ASC')->get();
 
         return view('admin.catalog.product.create')
-                        ->with('productAttributes', $productAttributes)
+                        ->with('productAttributeGroups', $productAttributeGroups)
                         ->with('categories', $categories)
                         ->with('websites', $websites);
     }
