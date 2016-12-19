@@ -76,8 +76,9 @@ class ProductAttribute extends BaseModel
         return $this->hasMany(ProductTextValue::class);
     }
 
-    public function getDropdownOptionsByAttrubuteIdentifier($identifier) {
+    public function getDropdownOptions() {
         
+        $identifier = $this->attributes['identifier'];
         $attribute = $this->where('identifier', '=', $identifier)->get()->first();
         return $attribute->attributeDropdownOptions->pluck('label', 'value');
     }
