@@ -3,7 +3,7 @@
     <div class="form-group {{ $errors->has('star') ? ' has-error' : '' }}">
         <p>Please Select Rating</p>
 
-        <div id="rateYo"></div>
+        <div id="rating"></div>
         <input type="hidden" name="star" id="product-page-create-review" value=""/>
         @if ($errors->has('star'))
         <p>
@@ -26,11 +26,9 @@
 
     {!! Form::submit('Create Review') !!}
     <script>
-        $(document).ready(function () {
-            $("#rateYo").rateYo({
-                onSet: function (rating, rateYoInstance) {
-                    $("#product-page-create-review").val(rating);
-                }
+        jQuery(document).ready(function () {
+            jQuery("#rating").rating({
+               
             });
         });
     </script>

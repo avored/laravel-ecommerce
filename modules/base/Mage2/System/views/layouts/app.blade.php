@@ -13,7 +13,7 @@
 
     <link href="{{ asset('vendor/mage2-basic/css/appscss.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/mage2-basic/css/appless.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/mage2-basic/css/jquery.rateyo.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/mage2-basic/css/star-rating.min.css') }}" rel="stylesheet">
 
 
     <!-- Scripts -->
@@ -34,8 +34,7 @@
 <!-- Scripts -->
 <!-- JQuery -->
 <script src="{{ asset('/vendor/mage2-basic/js/all.js') }}"></script>
-<script src="{{ asset('/vendor/mage2-basic/js/jquery.rateyo.min.js') }}"></script>
-<script src="{{ asset('/vendor/mage2-basic/js/scripts.js') }}"></script>
+<script src="{{ asset('/vendor/mage2-basic/js/star-rating.min.js') }}"></script>
 
 <script src="//cdn.ckeditor.com/4.5.11/basic/ckeditor.js"></script>
 
