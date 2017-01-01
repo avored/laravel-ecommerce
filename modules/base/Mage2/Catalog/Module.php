@@ -26,6 +26,7 @@ class Module extends BaseModule {
         $this->registerModule();
         $this->registerAdminMenu();
         $this->registerAdminConfiguration();
+        $this->registerViewPath();
     }
 
     /**
@@ -35,7 +36,6 @@ class Module extends BaseModule {
      */
     public function register() {
         $this->mapWebRoutes();
-        $this->registerViewPath();
         $this->registerViewComposerData();
         $this->registerPermissions();
     }
@@ -54,6 +54,7 @@ class Module extends BaseModule {
     }
 
     protected function registerViewPath() {
+        $this->loadViewsFrom(__DIR__ . '/views', 'mage2catalog');
         View::addLocation(__DIR__ . '/views');
     }
 

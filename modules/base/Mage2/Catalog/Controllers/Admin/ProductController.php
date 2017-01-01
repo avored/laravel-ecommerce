@@ -43,7 +43,7 @@ class ProductController extends AdminController
         $website = Website::findorfail($this->websiteId);
         $products = $website->products()->paginate(10);
 
-        return view('admin.catalog.product.index')
+        return view('mage2catalog::admin.catalog.product.index')
                         ->with('products', $products);
     }
 
@@ -58,7 +58,7 @@ class ProductController extends AdminController
         $categories = $this->categoryHelper->getCategoryOptions();
         $productAttributeGroups = ProductAttributeGroup::orderBy('sort_order','ASC')->get();
 
-        return view('admin.catalog.product.create')
+        return view('mage2catalog::admin.catalog.product.create')
                         ->with('productAttributeGroups', $productAttributeGroups)
                         ->with('categories', $categories)
                         ->with('websites', $websites);
@@ -117,7 +117,7 @@ class ProductController extends AdminController
         $websites = Website::pluck('name', 'id');
         $productAttributeGroups = ProductAttributeGroup::orderBy('sort_order','ASC')->get();
 
-        return view('admin.catalog.product.edit')
+        return view('mage2catalog::admin.catalog.product.edit')
                         ->with('product', $product)
                         ->with('websites', $websites)
                         ->with('categories', $categories)
@@ -173,7 +173,7 @@ class ProductController extends AdminController
         $relativePath = implode('/', str_split(strtolower(str_random(3)))).'/';
         $image->move($destinationPath.$relativePath, $image->getClientOriginalName());
 
-        return view('admin.catalog.product.upload-image')
+        return view('mage2catalog::admin.catalog.product.upload-image')
                         ->with('path', '/'.$destinationPath.$relativePath.$image->getClientOriginalName())
                         ->with('dbPath', $relativePath.$image->getClientOriginalName());
     }

@@ -42,7 +42,7 @@ class CategoryController extends AdminController {
             }));
         } 
 
-        return view('admin.catalog.category.index')
+        return view('mage2catalog::admin.catalog.category.index')
                         ->with('dataGrid', $dataGrid);
     }
 
@@ -54,7 +54,7 @@ class CategoryController extends AdminController {
     public function create() {
         $categoryOptions = $this->_getCategoryOptions();
 
-        return view('admin.catalog.category.create')
+        return view('mage2catalog::admin.catalog.category.create')
                         ->with('categoryOptions', $categoryOptions);
     }
 
@@ -84,7 +84,7 @@ class CategoryController extends AdminController {
         $categoryOptions = $this->_getCategoryOptions();
         $category = Category::findorfail($id);
 
-        return view('admin.catalog.category.edit')
+        return view('mage2catalog::admin.catalog.category.edit')
                         ->with('category', $category)
                         ->with('categoryOptions', $categoryOptions);
     }

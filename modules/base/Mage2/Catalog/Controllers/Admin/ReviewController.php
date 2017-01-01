@@ -39,14 +39,14 @@ class ReviewController extends AdminController
             }));
         }
 
-        return view('admin.review.index')->with('dataGrid', $dataGrid);
+        return view('mage2catalog::admin.review.index')->with('dataGrid', $dataGrid);
     }
 
     public function edit($id)
     {
         $review = Review::find($id);
 
-        return view('admin.review.edit')->with('review', $review);
+        return view('mage2catalog::admin.review.edit')->with('review', $review);
     }
 
     public function update($id, Request $request)

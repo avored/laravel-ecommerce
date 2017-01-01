@@ -18,7 +18,7 @@ class ConfigurationController extends AdminController
     {
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
-        return view('admin.catalog.configuration.index')
+        return view('mage2catalog::admin.catalog.configuration.index')
                 ->with('configurations', $configurations);
     }
 }
