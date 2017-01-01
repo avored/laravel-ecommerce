@@ -123,6 +123,7 @@ class Mage2SystemSeeder extends Seeder {
                 'type' => 'FILE',
                 'field_type' => 'FILE',
                 'is_system' => 1,
+                'sort_order' => 0,
                 'validation' => '',
             ],
             [
