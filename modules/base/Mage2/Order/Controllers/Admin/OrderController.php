@@ -34,7 +34,7 @@ class OrderController extends AdminController
             }));
         }
 
-        return view('admin.order.index')
+        return view('mage2order::admin.order.index')
                 ->with('dataGrid', $dataGrid);
     }
 
@@ -44,7 +44,7 @@ class OrderController extends AdminController
         //$view = view('order.view')->with('order', $order);
 
 
-        $view = view('admin.order.view')->with('order', $order);
+        $view = view('mage2order::admin.order.view')->with('order', $order);
 
         //PDF::loadHTML($view->render())->save('my_stored_file.pdf')->stream('download.pdf');
         //dd($view->render());die;
@@ -58,7 +58,7 @@ class OrderController extends AdminController
         $order = Order::findorfail($id);
         $user = User::find($order->user_id);
 
-        $view = view('admin.order.pdf')->with('order', $order);
+        $view = view('mage2order::admin.order.pdf')->with('order', $order);
         $path = public_path('/uploads/order/invoice/'.$order->id.'.pdf');
         PDF::loadHTML($view->render())->save($path);
 
@@ -71,7 +71,7 @@ class OrderController extends AdminController
 
         $orderStatus = OrderStatus::all()->pluck('title', 'id');
 
-        $view = view('admin.order.view')
+        $view = view('mage2order::admin.order.view')
                 ->with('order', $order)
                 ->with('orderStatus', $orderStatus)
                 ->with('changeStatus', true);

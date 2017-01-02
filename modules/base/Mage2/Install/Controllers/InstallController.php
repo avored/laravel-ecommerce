@@ -32,11 +32,11 @@ class InstallController extends Controller {
         }
 
 
-        return view('install.extension')->with('result', $result);
+        return view('mage2install::install.extension')->with('result', $result);
     }
 
     public function databaseTableGet() {
-        return view('install.database-table');
+        return view('mage2install::install.database-table');
     }
 
     public function databaseTablePost() {
@@ -51,7 +51,7 @@ class InstallController extends Controller {
     }
 
     public function databaseDataGet() {
-        return view('install.database-data');
+        return view('mage2install::install.database-data');
     }
     public function databaseDataPost() {
         try {
@@ -65,7 +65,7 @@ class InstallController extends Controller {
     }
 
     public function admin() {
-        return view('install.admin');
+        return view('mage2install::install.admin');
     }
 
     public function adminPost(AdminUserRequest $request) {
@@ -109,7 +109,7 @@ class InstallController extends Controller {
     }
 
     public function success() {
-        return view('install.success');
+        return view('mage2install::install.success');
     }
 
 }

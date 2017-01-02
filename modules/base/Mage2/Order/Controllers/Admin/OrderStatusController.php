@@ -44,7 +44,7 @@ class OrderStatusController extends AdminController
         } 
 
 
-        return view('admin.order-status.index')
+        return view('mage2order::admin.order-status.index')
                 ->with('dataGrid', $dataGrid);
     }
 
@@ -55,7 +55,7 @@ class OrderStatusController extends AdminController
      */
     public function create()
     {
-        return view('admin.order-status.create');
+        return view('mage2order::admin.order-status.create');
     }
 
     /**
@@ -108,7 +108,7 @@ class OrderStatusController extends AdminController
     {
         $orderStatus = OrderStatus::findorfail($id);
 
-        return view('admin.order-status.edit')
+        return view('mage2order::admin.order-status.edit')
             ->with('orderStatus', $orderStatus);
     }
 

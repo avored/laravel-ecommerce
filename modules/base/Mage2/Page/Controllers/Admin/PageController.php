@@ -44,7 +44,7 @@ class PageController extends AdminController
         }
 
 
-        return view('admin.page.index')
+        return view('mage2page::admin.page.index')
                         ->with('dataGrid', $dataGrid);
     }
 
@@ -55,7 +55,7 @@ class PageController extends AdminController
      */
     public function create()
     {
-        return view('admin.page.create');
+        return view('mage2page::admin.page.create');
     }
 
     /**
@@ -95,7 +95,7 @@ class PageController extends AdminController
     {
         $page = Page::findorfail($id);
 
-        return view('admin.page.edit')
+        return view('mage2page::admin.page.edit')
                         ->with('page', $page);
     }
 

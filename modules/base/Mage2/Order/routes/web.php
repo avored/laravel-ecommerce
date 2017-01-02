@@ -10,7 +10,9 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\Order\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 
+                                'namespace' => "Mage2\Order\Controllers\Admin"], function () {
+    
     Route::resource('/admin/order-status', 'OrderStatusController', ['as' => 'admin' ]);
    
     Route::get('/admin/order', ['as' => 'admin.order.index', 'uses' => 'OrderController@index']);
@@ -22,7 +24,8 @@ Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'nam
 });
 
 
-Route::group(['middleware' => ['web', 'frontauth', 'website'], 'namespace' => "Mage2\Order\Controllers"], function () {
+Route::group(['middleware' => ['web', 'frontauth', 'website'], 
+                            'namespace' => "Mage2\Order\Controllers"], function () {
     Route::get('/order', ['as' => 'order.index', 'uses' => 'OrderController@index']);
     Route::get('/order/success/{id}', ['as' => 'order.success', 'uses' => 'OrderController@success']);
 

@@ -50,7 +50,9 @@ class Module extends BaseModule
 
     protected function registerViewPath()
     {
-        View::addLocation(__DIR__.'/views');
+        
+        $this->loadViewsFrom(__DIR__.'/views', 'mage2install');
+        //View::addLocation(__DIR__.'/views');
     }
 
 }

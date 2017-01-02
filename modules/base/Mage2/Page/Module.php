@@ -51,7 +51,8 @@ class Module extends BaseModule {
     }
 
     protected function registerViewPath() {
-        View::addLocation(__DIR__ . '/views');
+        $this->loadViewsFrom(__DIR__. '/views', 'mage2page');
+        //View::addLocation(__DIR__ . '/views');
     }
 
     public function registerAdminMenu() {

@@ -51,6 +51,7 @@ class Module extends BaseModule {
     }
 
     protected function registerViewPath() {
+        $this->loadViewsFrom(__DIR__ . "/views", "mage2order");
         View::addLocation(__DIR__ . '/views');
     }
 
