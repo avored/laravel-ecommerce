@@ -42,7 +42,7 @@ class RoleController extends AdminController
             }));
         }
 
-        return view('admin.user.role.index')
+        return view('mage2user::admin.user.role.index')
             ->with('dataGrid', $dataGrid);
     }
 
@@ -53,7 +53,7 @@ class RoleController extends AdminController
      */
     public function create()
     {
-        return view('admin.user.role.create');
+        return view('mage2user::admin.user.role.create');
 
     }
 
@@ -100,7 +100,7 @@ class RoleController extends AdminController
     {
         $role = Role::findorfail($id);
 
-        return view('admin.user.role.edit')
+        return view('mage2user::admin.user.role.edit')
             ->with('role', $role);
     }
 
@@ -149,10 +149,7 @@ class RoleController extends AdminController
                 if ($value != 1) {
                     continue;
                 }
-
-
                 $permissions = explode(',', $key);
-
                 foreach ($permissions as $permissionName) {
                     if (null === ($permissionModel = Permission::getPermissionByName($permissionName))) {
                         $permissionModel = Permission::create(['name' => $permissionName]);

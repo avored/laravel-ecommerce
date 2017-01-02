@@ -18,7 +18,7 @@ class ConfigurationController extends AdminController
     {
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
-        return view('admin.tax-class.configuration.index')
+        return view('mage2taxclass::admin.tax-class.configuration.index')
                 ->with('configurations', $configurations);
     }
 }

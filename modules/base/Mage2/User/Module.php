@@ -96,6 +96,7 @@ class Module extends BaseModule {
     }
 
     protected function registerViewPath() {
+        $this->loadViewsFrom(__DIR__. '/views', 'mage2user');
         View::addLocation(__DIR__ . '/views');
     }
 

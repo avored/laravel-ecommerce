@@ -22,7 +22,7 @@ class ThemeController extends AdminController
         $themes = config('theme');
         $activeTheme = Configuration::getConfiguration('active_theme_identifier');
 
-        return view('admin.theme.index')
+        return view('mage2system::admin.theme.index')
                         ->with('themes', $themes)
                         ->with('activeTheme', $activeTheme);
     }
@@ -34,7 +34,7 @@ class ThemeController extends AdminController
      */
     public function create()
     {
-        return view('admin.theme.create');
+        return view('mage2system::admin.theme.create');
     }
 
     /**

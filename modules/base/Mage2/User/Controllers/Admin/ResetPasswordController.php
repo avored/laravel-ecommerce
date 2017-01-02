@@ -59,8 +59,8 @@ class ResetPasswordController extends AdminController
      */
     public function showResetForm(Request $request, $token = null)
     {
-        return view('admin.user.auth.passwords.reset')->with(
-            ['token' => $token, 'email' => $request->email]
+        return view('mage2user::admin.user.auth.passwords.reset')
+                ->with(['token' => $token, 'email' => $request->email]
         );
     }
 }

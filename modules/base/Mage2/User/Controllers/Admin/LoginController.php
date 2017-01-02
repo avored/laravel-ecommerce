@@ -41,7 +41,7 @@ use AuthenticatesUsers;
 
     public function showLoginForm()
     {
-        return view('admin.user.auth.login');
+        return view('mage2user::admin.user.auth.login');
     }
 
     protected function guard()

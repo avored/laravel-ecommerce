@@ -54,6 +54,6 @@ use SendsPasswordResetEmails;
     public function showLinkRequestForm()
     {
 
-        return view('admin.user.auth.passwords.email');
+        return view('mage2user::admin.user.auth.passwords.email');
     }
 }

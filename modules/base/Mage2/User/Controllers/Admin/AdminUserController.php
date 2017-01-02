@@ -43,7 +43,7 @@ class AdminUserController extends AdminController
             }));
         }
 
-        return view('admin.user.admin-user.index')
+        return view('mage2user::admin.user.admin-user.index')
             ->with('dataGrid', $dataGrid);
     }
 
@@ -55,7 +55,7 @@ class AdminUserController extends AdminController
     public function create()
     {
         $roles = $this->_getRoleOptions();
-        return view('admin.user.admin-user.create')
+        return view('mage2user::admin.user.admin-user.create')
             ->with('roles', $roles)
             ->with('editMethod', true);
     }
@@ -98,7 +98,7 @@ class AdminUserController extends AdminController
     {
         $user = AdminUser::findorfail($id);
         $roles = $this->_getRoleOptions();
-        return view('admin.user.admin-user.edit')
+        return view('mage2user::admin.user.admin-user.edit')
             ->with('user', $user)
             ->with('roles', $roles)
             ->with('editMethod', true);

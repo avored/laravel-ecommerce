@@ -22,7 +22,7 @@ class ModuleController extends AdminController {
         $modelModule = new ModuleModel();
         $modules = ModuleFacade::all();
 
-        return view('admin.module.index')
+        return view('mage2system::admin.module.index')
                         ->with('modules', $modules)
                         ->with('modelModule', $modelModule)
         //->with('activeTheme', $activeTheme)
@@ -35,7 +35,7 @@ class ModuleController extends AdminController {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('admin.module.create');
+        return view('mage2system::admin.module.create');
     }
 
     /**

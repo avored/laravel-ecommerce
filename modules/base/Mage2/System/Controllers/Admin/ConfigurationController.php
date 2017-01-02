@@ -19,7 +19,7 @@ class ConfigurationController extends AdminController
     {
         $configurations = AdminConfiguration::all();
 
-        return view('admin.configuration.index')->with('configurations', $configurations);
+        return view('mage2system::admin.configuration.index')->with('configurations', $configurations);
     }
 
     /**

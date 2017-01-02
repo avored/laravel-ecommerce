@@ -14,6 +14,6 @@ class DashboardController extends AdminController
      */
     public function index()
     {
-        return view('admin.home');
+        return view('mage2system::admin.home');
     }
 }
