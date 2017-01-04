@@ -12,11 +12,15 @@ class ReviewController extends Controller
 {
     public function store(ReviewRequest $request)
     {
+        dd($request->all());
         if (!Auth::check()) {
             $user = User::where('email', '=', $request->get('email'))->get()->first();
 
             if (null === $user) {
+
                 $request->merge(['password' => str_random($length = 6)]);
+                $request->merge(['status' => 'review']);
+
                 $user = User::create($request->all());
             }
         } else {

@@ -29,7 +29,7 @@
             
         @endforeach
         
-        @if($group->identifier == "basic-info")
+        @if($group->identifier == "basic")
              @if(!isset($productCategories)) 
                 <?php $productCategories = []; ?>
             @endif

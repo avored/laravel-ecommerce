@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
            
-
+            $table->enum('status',['REVIEW','WEBSITE'])->default('WEBSITE');
             $table->rememberToken();
             $table->timestamps();
         });

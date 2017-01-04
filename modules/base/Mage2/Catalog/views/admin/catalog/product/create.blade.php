@@ -16,9 +16,9 @@
                  
                 @foreach($productAttributeGroups as $group)
                     @if($group->identifier == "image")
-                        @include('admin.catalog.product.boxes.images' )
+                        @include('mage2catalog::admin.catalog.product.boxes.images' )
                     @else
-                        @include('admin.catalog.product.panel',['group' => $group] )
+                        @include('mage2catalog::admin.catalog.product.panel',['group' => $group] )
                     @endif
                 @endforeach
 

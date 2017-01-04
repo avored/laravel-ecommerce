@@ -52,7 +52,7 @@ class Module extends BaseModule {
     }
 
     protected function registerViewPath() {
-        $this->loadViewsFrom(__DIR__, 'mage2system');
+        $this->loadViewsFrom(__DIR__ . "/views", 'mage2system');
         View::addLocation(__DIR__ . '/views');
     }
 

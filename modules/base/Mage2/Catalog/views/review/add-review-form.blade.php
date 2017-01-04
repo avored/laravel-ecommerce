@@ -3,8 +3,8 @@
     <div class="form-group {{ $errors->has('star') ? ' has-error' : '' }}">
         <p>Please Select Rating</p>
 
-        <div id="rating"></div>
-        <input type="hidden" name="star" id="product-page-create-review" value=""/>
+        <div id="rating123"></div>
+        <input type="hidden" name="star" id="rating" value=""/>
         @if ($errors->has('star'))
         <p>
             <span class="help-block">
