@@ -144,6 +144,8 @@ class ProductHelper
         }
        
 
+
+
         if (null === $product->$identifier || $createNewRecord == true) {
             
             $productAttribute->productVarcharValues()->create([

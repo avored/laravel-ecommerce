@@ -178,10 +178,10 @@ class Product extends BaseModel {
 
     private function _getProductVarcharValue($productAttribute) {
 
-        $cacheKey = get_class($this) . "_" . $this->attributes['id']  ."_" . $this->websiteId . "_" . $productAttribute->title;
-        if (Cache::has($cacheKey)) {
-            $value = Cache::get($cacheKey);
-        } else {
+        //$cacheKey = get_class($this) . "_" . $this->attributes['id']  ."_" . $this->websiteId . "_" . $productAttribute->title;
+        //if (Cache::has($cacheKey)) {
+            //$value = Cache::get($cacheKey);
+        //} else {
 
             $value = null;
             $attributeValue = null;
@@ -204,9 +204,9 @@ class Product extends BaseModel {
 
             if (isset($attributeValue->value)) {
                 $value = $attributeValue->value;
-                Cache::put($cacheKey, $value, $minute = 100);
+                //Cache::put($cacheKey, $value, $minute = 100);
             }
-        }
+        //}
         
 
         return $value;
@@ -355,6 +355,9 @@ class Product extends BaseModel {
     public function getFeaturedProducts($paginate = 4) {
         $attribute = ProductAttribute::where('identifier', '=', 'is_featured')->get()->first();
 
+        if($attribute == NULL) {
+            return null;
+        }
         $products = Collection::make([]);
         $varcharValues = $attribute->productVarcharValues()->where('value', '=', 1)->get();
 
