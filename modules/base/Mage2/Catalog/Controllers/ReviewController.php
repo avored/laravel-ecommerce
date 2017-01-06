@@ -18,15 +18,19 @@ class ReviewController extends Controller
 
             if (null === $user) {
 
-                $request->merge(['password' => str_random($length = 6)]);
-                $request->merge(['status' => 'REVIEW']);
+                $requestData = $request->all();                
+                
+                $password = bcrypt(str_random($length = 6));
+                
+                $requestData['password'] = $password;
+                $requestData['status']  =  'REVIEW';
 
-                $user = User::create($request->all());
+                //dd($requestData->all());
+                $user = User::create($requestData);
             }
         } else {
             $user = Auth::user();
         }
-
         $request->merge(['user_id' => $user->id]);
         Review::create($request->all());
 
