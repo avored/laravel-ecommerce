@@ -63,13 +63,18 @@ class Module extends BaseModule {
         $adminUserMenu = ['catalog' => [
                 'label' => 'Catalog',
                 'route' => '#',
-                'submenu' => ['category' => [
-                        'label' => 'Category',
-                        'route' => 'admin.category.index',
-                    ], 'product' => [
-                        'label' => 'Products',
-                        'route' => 'admin.product.index',
-                    ]]
+                'submenu' => [
+                                'category' => [
+                                    'label' => 'Category',
+                                    'route' => 'admin.category.index',
+                                ], 'product' => [
+                                    'label' => 'Products',
+                                    'route' => 'admin.product.index',
+                                ], 'review' => [
+                                    'label' => 'Review',
+                                    'route' => 'admin.review.index',
+                                ]
+                            ]
         ]];
         AdminMenu::registerMenu('mage2-catalog', $adminUserMenu);
     }

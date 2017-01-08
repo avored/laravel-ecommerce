@@ -17,7 +17,7 @@
         {!! Form::select('status', 'Status', ['ENABLED' => "Enabled",'DISABLED' => 'Disabled']) !!}
 
 
-        @include('template.hidden',['key' => 'id'])
+       
         {!! Form::submit('Update Review') !!}
 
         {!! Form::close() !!}
