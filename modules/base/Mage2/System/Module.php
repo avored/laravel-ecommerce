@@ -65,9 +65,14 @@ class Module extends BaseModule {
         $adminMenu = [ 'system' => [
                 'label' => 'System',
                 'route' => '#',
-                'submenu' => ['module' => [
+                'submenu' => [
+                    'module' => [
                         'label' => 'Module',
                         'route' => 'admin.module.index',
+                    ],
+                    'configuration' => [
+                        'label' => 'Configuration',
+                        'route' => 'admin.configuration',
                     ]
                 ]
         ]];
