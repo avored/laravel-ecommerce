@@ -14,7 +14,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {     
         $product = new Product();
         $featureProducts = $product->getFeaturedProducts();
 
