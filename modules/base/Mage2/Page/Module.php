@@ -96,4 +96,7 @@ class Module extends BaseModule {
         return 'mage2-page';
     }
 
+    public function getPath() {
+        return __DIR__;
+    }
 }

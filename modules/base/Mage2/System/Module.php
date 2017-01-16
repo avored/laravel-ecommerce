@@ -119,4 +119,8 @@ class Module extends BaseModule {
         return 'mage2-system';
     }
 
+    public function getPath() {
+        return __DIR__;
+    }
+
 }

@@ -41,7 +41,7 @@ class Mage2FeatureSchema extends Migration
             'label' => 'Yes',
         ]);
 
-        dd('install');
+       
     }
 
     /**

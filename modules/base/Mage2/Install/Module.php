@@ -54,5 +54,9 @@ class Module extends BaseModule
         $this->loadViewsFrom(__DIR__.'/views', 'mage2install');
         //View::addLocation(__DIR__.'/views');
     }
+    
+    public function getPath() {
+        return __DIR__;
+    }
 
 }

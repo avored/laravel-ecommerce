@@ -9,7 +9,7 @@ use Mage2\Install\Models\Website;
 use Mage2\Install\Requests\AdminUserRequest;
 use Mage2\User\Models\Role;
 use Mage2\System\Models\Configuration;
-
+use Mage2\Framework\Module\Facades\Module;
 
 class InstallController extends Controller {
 
@@ -22,6 +22,7 @@ class InstallController extends Controller {
 
     public function index() {
 
+        
         $result = [];
         foreach ($this->extensions as $ext) {
             if (extension_loaded($ext)) {
@@ -40,12 +41,29 @@ class InstallController extends Controller {
     }
 
     public function databaseTablePost() {
+        
+        $modules = Module::systemAll();
+
+        try {
+
+            foreach ($modules as $module) {
+                $identifier = $module->getIdentifier();
+                Artisan::call('mage2:module:install',  ['moduleidentifier' => $identifier]);
+            }
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+        
+        /**
         try {
             Artisan::call('mage2:migrate');
             //Artisan::call('db:seed');
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
+         * 
+         * 
+         */
 
         return redirect()->route('mage2.install.database.data.get');
     }
@@ -53,6 +71,7 @@ class InstallController extends Controller {
     public function databaseDataGet() {
         return view('mage2install::install.database-data');
     }
+
     public function databaseDataPost() {
         try {
             //Artisan::call('mage2:migrate');
@@ -88,23 +107,23 @@ class InstallController extends Controller {
                     'is_default' => 1,
         ]);
 
-        Configuration::create(['configuration_key' => 'active_theme_identifier', 
-                                'configuration_value' => 'mage2-basic',
-                                'website_id' => $website->id]);
-        
-        Configuration::create(['configuration_key' => 'active_theme_path', 
-                                'configuration_value' => base_path('themes\mage2\basic'),
-                                'website_id' => $website->id]);
-        Configuration::create(['configuration_key' => 'mage2_catalog_no_of_product_category_page', 
-                                'configuration_value' => 9,
-                                'website_id' => $website->id]);
-        Configuration::create(['configuration_key' => 'mage2_catalog_cart_page_display_taxamount', 
-                                'configuration_value' => 'yes',
-                                'website_id' => $website->id]);
-        Configuration::create(['configuration_key' => 'mage2_tax_class_percentage_of_tax', 
-                                'configuration_value' => 15,
-                                'website_id' => $website->id]);
-        
+        Configuration::create(['configuration_key' => 'active_theme_identifier',
+            'configuration_value' => 'mage2-basic',
+            'website_id' => $website->id]);
+
+        Configuration::create(['configuration_key' => 'active_theme_path',
+            'configuration_value' => base_path('themes\mage2\basic'),
+            'website_id' => $website->id]);
+        Configuration::create(['configuration_key' => 'mage2_catalog_no_of_product_category_page',
+            'configuration_value' => 9,
+            'website_id' => $website->id]);
+        Configuration::create(['configuration_key' => 'mage2_catalog_cart_page_display_taxamount',
+            'configuration_value' => 'yes',
+            'website_id' => $website->id]);
+        Configuration::create(['configuration_key' => 'mage2_tax_class_percentage_of_tax',
+            'configuration_value' => 15,
+            'website_id' => $website->id]);
+
         return redirect()->route('mage2.install.success');
     }
 

@@ -92,7 +92,7 @@ class Product extends BaseModel {
         $value = $this->_getProductFloatValue($productAttribute);
 
         if (null === $value) {
-            return;
+            return NULL;
         }
         /*
          * @todo fix bug because during display its fine but

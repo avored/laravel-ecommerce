@@ -73,5 +73,9 @@ class Module extends BaseModule {
     public function getIdentifier() {
         return 'mage2-checkout';
     }
+    
+    public function getPath() {
+        return __DIR__;
+    }
 
 }

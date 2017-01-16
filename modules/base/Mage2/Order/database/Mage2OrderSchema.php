@@ -1,0 +1,63 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class Mage2OrderSchema extends Migration {
+
+    /**
+     * Install the Mage2 Catalog Module Schema.
+     *
+     * @return void
+     */
+    public function install() {
+        Schema::create('orders', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('shipping_address_id')->unsigned();
+            $table->integer('billing_address_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->string('shipping_method');
+            $table->string('payment_method');
+            $table->integer('order_status_id')->unsigned();
+            $table->timestamps();
+        });
+        Schema::create('product_order', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('order_id')->unsigned();
+            $table->integer('qty');
+            $table->decimal('price', 11, 6);
+            $table->decimal('tax_amount', 11, 6);
+            $table->timestamps();
+        });
+        Schema::create('order_statuses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->boolean('is_default')->default(0);
+            $table->boolean('is_last_stage')->default(0);
+            $table->timestamps();
+        });
+        
+        
+
+
+        //orders table foreign key setup
+        Schema::table('product_order', function (Blueprint $table) {
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
+    }
+
+    /**
+     * Uninstall the Mage2 Catalog Module Schema.
+     *
+     * @return void
+     */
+    public function uninstall() {
+        Schema::drop('orders');
+        Schema::drop('product_order');
+        Schema::drop('order_statuses');
+    }
+
+}

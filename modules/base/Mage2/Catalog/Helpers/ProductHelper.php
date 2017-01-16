@@ -238,10 +238,10 @@ class ProductHelper
         $createNewRecord = false;
         if ($this->isDefaultWebsite == false) {
             $attributeValue = $productAttribute
-                            ->productFloatValues()
-                            ->where('product_id', '=', $product->id)
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
+                                    ->productFloatValues()
+                                    ->where('product_id', '=', $product->id)
+                                    ->where('website_id', '=', $this->websiteId)
+                                    ->get()->first();
             if (null === $attributeValue) {
                 $createNewRecord = true;
             }

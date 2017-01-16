@@ -133,5 +133,9 @@ class Module extends BaseModule {
     public function getIdentifier() {
         return 'mage2-catalog';
     }
+    
+    public function getPath() {
+        return __DIR__;
+    }
 
 }

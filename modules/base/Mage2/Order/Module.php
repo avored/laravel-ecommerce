@@ -108,4 +108,7 @@ class Module extends BaseModule {
         return 'mage2-order';
     }
 
+    public function getPath() {
+        return __DIR__;
+    }
 }
