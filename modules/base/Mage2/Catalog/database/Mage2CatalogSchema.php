@@ -3,6 +3,9 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mage2\Catalog\Models\ProductAttributeGroup;
+use Mage2\Catalog\Models\AttributeDropdownOption;
+use Mage2\Catalog\Models\ProductAttribute;
 
 class Mage2CatalogSchema extends Migration {
 
@@ -212,9 +215,214 @@ class Mage2CatalogSchema extends Migration {
         });
 
         //configurations table foreign key setup
-      
 
-      
+
+
+        $productAttributeGroup  = ProductAttributeGroup::create(['title' => 'Basic',
+            'identifier' => 'basic',
+            'sort_order' => 0
+        ]);
+        $inventoryGroup         = ProductAttributeGroup::create(['title' => 'Inventory',
+            'identifier' => 'inventory',
+            'sort_order' => 2
+        ]);
+        $imageGroup             = ProductAttributeGroup::create(['title' => 'Image',
+            'identifier' => 'image',
+            'sort_order' => 1
+        ]);
+        $seoGroup               = ProductAttributeGroup::create(['title' => 'SEO',
+            'identifier'=> 'seo',
+            'sort_order' => 3
+        ]);
+
+
+
+        ProductAttribute::insert([
+            [
+                'title' => 'Title',
+                'product_attribute_group_id' => $productAttributeGroup->id,
+                'identifier' => 'title',
+                'type' => 'VARCHAR',
+                'is_system' => 1,
+                'sort_order' => 0,
+                'field_type' => 'TEXT',
+                'validation' => 'required|max:255',
+            ],
+            [
+                'title' => 'Price',
+                'product_attribute_group_id' => $productAttributeGroup->id,
+                'identifier' => 'price',
+                'type' => 'FLOAT',
+                'is_system' => 1,
+                'sort_order' => 4,
+                'field_type' => 'TEXT',
+                'validation' => 'required|max:8|regex:/^-?\\d*(\\.\\d+)?$/',
+            ],
+            [
+                'title' => 'Image',
+                'product_attribute_group_id' => $imageGroup->id,
+                'identifier' => 'image',
+                'type' => 'FILE',
+                'field_type' => 'FILE',
+                'is_system' => 1,
+                'sort_order' => 0,
+                'validation' => '',
+            ],
+            [
+                'title' => 'SKU',
+                'product_attribute_group_id' => $productAttributeGroup->id,
+                'identifier' => 'sku',
+                'type' => 'VARCHAR',
+                'is_system' => 1,
+                'sort_order' => 2,
+                'field_type' => 'TEXT',
+                'validation' => 'required|max:255',
+            ],
+            [
+                'title' => 'Slug',
+                'product_attribute_group_id' => $productAttributeGroup->id,
+                'identifier' => 'slug',
+                'type' => 'VARCHAR',
+                'is_system' => 1,
+                'sort_order' => 1,
+                'field_type' => 'TEXT',
+                'validation' => 'required|max:255|alpha_dash',
+            ],
+            [
+                'title' => 'Page Title',
+                'product_attribute_group_id' => $seoGroup->id,
+                'identifier' => 'page_title',
+                'type' => 'VARCHAR',
+                'is_system' => 1,
+                'sort_order' => 0,
+                'field_type' => 'TEXT',
+                'validation' => 'max:255',
+            ],
+            [
+                'title' => 'Page Description',
+                'product_attribute_group_id' => $seoGroup->id,
+                'identifier' => 'page_description',
+                'type' => 'VARCHAR',
+                'field_type' => 'TEXTAREA',
+                'is_system' => 1,
+                'sort_order' => 1,
+                'validation' => 'max:255',
+            ],
+            [
+                'title' => 'Qty',
+                'product_attribute_group_id' => $inventoryGroup->id,
+                'identifier' => 'qty',
+                'type' => 'VARCHAR',
+                'field_type' => 'TEXT',
+                'is_system' => 1,
+                'sort_order' => 2,
+                'validation' => '',
+            ],
+            [
+                'title' => 'Description',
+                'product_attribute_group_id' => $productAttributeGroup->id,
+                'identifier' => 'description',
+                'type' => 'TEXT',
+                'field_type' => 'CKEDITOR',
+                'is_system' => 1,
+                'sort_order' => 3,
+                'validation' => 'required',
+            ],
+        ]);
+
+        $statusAttribute = ProductAttribute::create([
+            'title' => 'Status',
+            'product_attribute_group_id' => $productAttributeGroup->id,
+            'identifier' => 'status',
+            'type' => 'VARCHAR',
+            'field_type' => 'SELECT',
+            'is_system' => 1,
+            'sort_order' => 5,
+            'validation' => 'required',
+        ]);
+
+        AttributeDropdownOption::create([
+            'product_attribute_id' => $statusAttribute->id,
+            'value' => '1',
+            'label' => 'Enabled',
+        ]);
+        AttributeDropdownOption::create([
+            'product_attribute_id' => $statusAttribute->id,
+            'value' => '0',
+            'label' => 'Disabled',
+        ]);
+
+        $isTaxableAttribute = ProductAttribute::create([
+            'title' => 'Is Taxable',
+            'product_attribute_group_id' => $inventoryGroup->id,
+            'identifier' => 'is_taxable',
+            'type' => 'VARCHAR',
+            'field_type' => 'SELECT',
+            'is_system' => 1,
+            'sort_order' => 3,
+            'validation' => 'required',
+        ]);
+
+        AttributeDropdownOption::create([
+            'product_attribute_id' => $isTaxableAttribute->id,
+            'value' => '1',
+            'label' => 'Yes',
+        ]);
+        AttributeDropdownOption::create([
+            'product_attribute_id' => $isTaxableAttribute->id,
+            'value' => '0',
+            'label' => 'No',
+        ]);
+
+
+
+
+        $inStockAttribute = ProductAttribute::create([
+            'title' => 'In Stock',
+            'product_attribute_group_id' => $inventoryGroup->id,
+            'identifier' => 'in_stock',
+            'type' => 'VARCHAR',
+            'field_type' => 'SELECT',
+            'is_system' => 1,
+            'sort_order' => 0,
+            'validation' => 'required',
+        ]);
+        AttributeDropdownOption::create([
+            'product_attribute_id' => $inStockAttribute->id,
+            'value' => '1',
+            'label' => 'Yes',
+        ]);
+        AttributeDropdownOption::create([
+            'product_attribute_id' => $inStockAttribute->id,
+            'value' => '0',
+            'label' => 'No',
+        ]);
+
+        $trackStockAttribute = ProductAttribute::create([
+            'title' => 'Track Stock',
+            'product_attribute_group_id' => $inventoryGroup->id,
+            'identifier' => 'track_stock',
+            'type' => 'VARCHAR',
+            'field_type' => 'SELECT',
+            'is_system' => 1,
+            'sort_order' => 0,
+            'validation' => '',
+        ]);
+
+        AttributeDropdownOption::create([
+            'product_attribute_id' => $trackStockAttribute->id,
+            'value' => '1',
+            'label' => 'Yes',
+        ]);
+        AttributeDropdownOption::create([
+            'product_attribute_id' => $trackStockAttribute->id,
+            'value' => '0',
+            'label' => 'No',
+        ]);
+
+
+
+
 
     }
 

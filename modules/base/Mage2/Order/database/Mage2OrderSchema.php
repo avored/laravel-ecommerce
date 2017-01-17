@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mage2\Order\Models\OrderStatus;
 
 class Mage2OrderSchema extends Migration {
 
@@ -47,6 +48,16 @@ class Mage2OrderSchema extends Migration {
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
+
+
+
+
+        OrderStatus::insert(
+            ['title' => 'pending', 'is_default' => 1, 'is_last_stage' => 0],
+            ['title' => 'processing', 'is_default' => 0, 'is_last_stage' => 0],
+            ['title' => 'complete', 'is_default' => 0, 'is_last_stage' => 1]
+        );
+
     }
 
     /**
