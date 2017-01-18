@@ -56,7 +56,7 @@ class Mage2CatalogSchema extends Migration {
             $table->integer('website_id')->unsigned();
             $table->integer('product_id')->unsigned();
             $table->integer('product_attribute_id')->unsigned();
-            $table->float('value');
+            $table->decimal('value',10,6);
             $table->timestamps();
         });
         Schema::create('product_text_values', function (Blueprint $table) {

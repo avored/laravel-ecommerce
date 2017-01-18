@@ -65,7 +65,8 @@ class InstallController extends Controller {
          * 
          */
 
-        return redirect()->route('mage2.install.database.data.get');
+        return redirect()->route('mage2.install.admin');
+        //return redirect()->route('mage2.install.database.data.get');
     }
 
     public function databaseDataGet() {
