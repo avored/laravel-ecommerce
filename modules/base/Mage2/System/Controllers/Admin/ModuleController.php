@@ -70,21 +70,12 @@ class ModuleController extends AdminController {
      * @param string $identifier
      */
     public function install($identifier) {
-       
+
         $module = ModuleFacade::get($identifier);
-        
-        
         $moduleName = $module->getName();
-        $moduleDatabasePath =  "modules" . DIRECTORY_SEPARATOR . "community" . DIRECTORY_SEPARATOR . 
-                        $module->getNameSpace() . DIRECTORY_SEPARATOR . 'database';
-        
-        $moduleMigrationPath = $moduleDatabasePath . DIRECTORY_SEPARATOR . 'migrations';
-        
-        $moduleSeedClass=  $moduleDatabasePath . DIRECTORY_SEPARATOR . 'seeds';
-        
-        
-        
+
         try {
+
 
             ModuleModel::create([
                 'type' => 'COMMUNITY',
@@ -92,11 +83,11 @@ class ModuleController extends AdminController {
                 'name' => $moduleName,
             ]);
 
-            Artisan::call('mage2:migrate',['--path' => $moduleMigrationPath]);
-            Artisan::call('mage2:dbseed', ['--path' => $moduleSeedClass]);
+            Artisan::call('mage2:module:install',  ['moduleidentifier' => $identifier]);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
+
 
         return redirect()->route('admin.module.index');
     }
@@ -107,13 +98,24 @@ class ModuleController extends AdminController {
      * @param string $identifier
      */
     public function uninstall($identifier) {
-       
+
+        try {
+            //ModuleModel::where('identifier','=',$identifier)->get()->first()->delete();
+            Artisan::call('mage2:module:uninstall',  ['moduleidentifier' => $identifier]);
+        } catch (Exception $e) {
+            throw new Exception($e->getMessage());
+        }
+
+
+        return redirect()->route('admin.module.index');
+
+        /**
         $module = ModuleFacade::get($identifier);
         
         dd($module);
-        
+
         $moduleName = $module->getName();
-        $moduleDatabasePath =  "modules" . DIRECTORY_SEPARATOR . "community" . DIRECTORY_SEPARATOR . 
+        $moduleDatabasePath =  "modules" . DIRECTORY_SEPARATOR . "community" . DIRECTORY_SEPARATOR .
                         $module->getNameSpace() . DIRECTORY_SEPARATOR . 'database';
         
         $moduleMigrationPath = $moduleDatabasePath . DIRECTORY_SEPARATOR . 'migrations';
@@ -137,7 +139,10 @@ class ModuleController extends AdminController {
         }
 
         return redirect()->route('admin.module.index');
+         */
+
     }
+
 
     /**
      * @param \Illuminate\Http\UploadedFile $file

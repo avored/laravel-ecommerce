@@ -256,7 +256,7 @@ class Mage2CatalogSchema extends Migration {
                 'is_system' => 1,
                 'sort_order' => 4,
                 'field_type' => 'TEXT',
-                'validation' => 'required|max:8|regex:/^-?\\d*(\\.\\d+)?$/',
+                'validation' => 'required|numeric|regex:/^-?\\d*(\\.\\d+)?$/',
             ],
             [
                 'title' => 'Image',
