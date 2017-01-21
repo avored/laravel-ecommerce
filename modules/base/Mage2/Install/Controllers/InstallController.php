@@ -64,7 +64,7 @@ class InstallController extends Controller
         }
 
 
-        var_dump($identifier);
+
         return view('mage2install::install.database-table')
                                 ->with('modules', $modules)
                                 ->with('sessionData',$sessionData)
