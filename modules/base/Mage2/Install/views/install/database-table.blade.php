@@ -8,7 +8,7 @@
 
                     <h2 class="text-center">Database Table Setup</h2>
 
-                    {!! Form::open(['method' => 'post','action' => route('mage2.install.database.table.post')]) !!}
+                    {!! Form::open(['id' => 'install-module-form','method' => 'post','action' => route('mage2.install.database.table.post')]) !!}
 
                     <p>Click Continue to install Database</p>
 
@@ -27,10 +27,13 @@
                                 <td>{{ $module->getName() }}</td>
 
                                 <td>
-                                {!! Form::open(['method' => 'POST', 'action' =>
-                                            route('admin.module.install',$module->getIdentifier())]) !!}
-                                <button type="submit" class="btn disabled btn-primary">Install</button>
-                                {!! Form::close() !!}
+
+                                @if($sessionData[$module->getIdentifier()] == "uninstall")
+                                    <button type="button" class="btn disabled btn-primary">UnInstall</button>
+                                @else
+                                    <button type="button" class="btn disabled btn-primary">Install</button>
+                                @endif
+
                                 </td>
                                             <!--td>{ $actualTheme['description'] }}</td>
                     <td>
@@ -53,12 +56,33 @@
                     </table>
 
                     <div class="col s12">
-                        <button type="submit" class="btn btn-primary">Install All</button>
+                        <input type="hidden" name="identifier" value="{{ $identifier }}">
+                        <button type="submit" class="btn btn-primary">Install Next</button>
                     </div>
                     {!! Form::close() !!}
 
                 </div>
             </div>
         </div>
+<script>
+
+    jQuery(document).ready(function() {
+
+        //var auto = setTimeout(function(){ autoRefresh(); }, 100);
+
+        function submitform(){
+            //alert('1000')
+            //jQuery('#install-module-form').submit();
+        }
+
+        function autoRefresh(){
+            //clearTimeout(auto);
+            //auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
+        }
+
+    });
+</script>
+
+
 
 @endsection

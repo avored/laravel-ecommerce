@@ -3,6 +3,7 @@
 namespace Mage2\Install\Controllers;
 
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Http\Request;
 use Mage2\User\Models\AdminUser;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Install\Models\Website;
@@ -10,8 +11,10 @@ use Mage2\Install\Requests\AdminUserRequest;
 use Mage2\User\Models\Role;
 use Mage2\System\Models\Configuration;
 use Mage2\Framework\Module\Facades\Module;
+use Illuminate\Support\Facades\Session;
 
-class InstallController extends Controller {
+class InstallController extends Controller
+{
 
     public $extensions = [
         'openssl',
@@ -20,9 +23,10 @@ class InstallController extends Controller {
         'tokenizer',
         'curl',];
 
-    public function index() {
+    public function index()
+    {
 
-        
+
         $result = [];
         foreach ($this->extensions as $ext) {
             if (extension_loaded($ext)) {
@@ -36,44 +40,102 @@ class InstallController extends Controller {
         return view('mage2install::install.extension')->with('result', $result);
     }
 
-    public function databaseTableGet() {
-        return view('mage2install::install.database-table');
+    public function databaseTableGet()
+    {
+
+        $sessionData = session()->get('install-module');
+
+        $modules = Module::systemAll();
+
+        if (!Session::has('install-module')) {
+
+            foreach ($modules as $module) {
+                $sessionData [$module->getIdentifier()] = 'uninstall';
+            }
+
+            session()->put('install-module', $sessionData);
+            //dd(session()->get('install-module'));
+        }
+
+        foreach($sessionData as $identifier => $status) {
+            if($status == "uninstall") {
+                break;
+            }
+        }
+
+
+        var_dump($identifier);
+        return view('mage2install::install.database-table')
+                                ->with('modules', $modules)
+                                ->with('sessionData',$sessionData)
+                                ->with('identifier',$identifier);
     }
 
-    public function databaseTablePost() {
-        
-        $modules = Module::systemAll();
+    public function databaseTablePost(Request $request)
+    {
+
+        $hasUninstallModule = false;
+        $sessionData = Session::pull('install-module');
+        $identifier = $request->get('identifier');
+
+        $module = Module::get($identifier);
+
 
         try {
 
-            foreach ($modules as $module) {
-                $identifier = $module->getIdentifier();
-                Artisan::call('mage2:module:install',  ['moduleidentifier' => $identifier]);
-            }
+            //foreach ($modules as $module) {
+            $identifier = $module->getIdentifier();
+            Artisan::call('mage2:module:install', ['moduleidentifier' => $identifier]);
+            //}
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-        
-        /**
+
+
+
+        foreach($sessionData as $setIdentifier => $status) {
+            if($setIdentifier == $identifier) {
+                $sessionData[$setIdentifier] = "install";
+            }
+        }
+        //dd($sessionData);
+
+        Session::put('install-module',$sessionData);
+
+        //dd(Session::get('install-module'));
+
+        foreach($sessionData as $identifier => $status) {
+            if($status == "uninstall") {
+                $hasUninstallModule = true;
+                break;
+            }
+        }
+
+        /*
+         *
+
         try {
             Artisan::call('mage2:migrate');
             //Artisan::call('db:seed');
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
-         * 
-         * 
-         */
+        */
+        if(true === $hasUninstallModule) {
+            return redirect()->route('mage2.install.database.table.get');
+        }
 
         return redirect()->route('mage2.install.admin');
         //return redirect()->route('mage2.install.database.data.get');
     }
 
-    public function databaseDataGet() {
+    public function databaseDataGet()
+    {
         return view('mage2install::install.database-data');
     }
 
-    public function databaseDataPost() {
+    public function databaseDataPost()
+    {
         try {
             //Artisan::call('mage2:migrate');
             Artisan::call('mage2:dbseed');
@@ -84,11 +146,13 @@ class InstallController extends Controller {
         return redirect()->route('mage2.install.admin');
     }
 
-    public function admin() {
+    public function admin()
+    {
         return view('mage2install::install.admin');
     }
 
-    public function adminPost(AdminUserRequest $request) {
+    public function adminPost(AdminUserRequest $request)
+    {
         $role = Role::create(['name' => 'administraotr', 'description' => 'Administrator Role has all access']);
 
         AdminUser::create([
@@ -103,9 +167,9 @@ class InstallController extends Controller {
         $host = str_replace('http://', '', $request->getUriForPath(''));
         $host = str_replace('https://', '', $host);
         $website = Website::create([
-                    'host' => $host,
-                    'name' => 'Defaul Website',
-                    'is_default' => 1,
+            'host' => $host,
+            'name' => 'Defaul Website',
+            'is_default' => 1,
         ]);
 
         Configuration::create(['configuration_key' => 'active_theme_identifier',
@@ -128,7 +192,8 @@ class InstallController extends Controller {
         return redirect()->route('mage2.install.success');
     }
 
-    public function success() {
+    public function success()
+    {
         return view('mage2install::install.success');
     }
 
