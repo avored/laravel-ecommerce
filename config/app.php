@@ -243,9 +243,10 @@ return [
         'URL'           => Illuminate\Support\Facades\URL::class,
         'Validator'     => Illuminate\Support\Facades\Validator::class,
         'View'          => Illuminate\Support\Facades\View::class,
-        'PDF'           => Barryvdh\DomPDF\Facade::class,
-        //'Debugbar'      => Barryvdh\Debugbar\Facade::class,
 
+        'PDF'           => Barryvdh\DomPDF\Facade::class,
+
+        // MAGE2 FRAMEWORK FACADES
         'Theme'         => Mage2\Framework\Theme\Facades\Theme::class,
         'DataGrid'      => Mage2\Framework\DataGrid\Facades\DataGrid::class,
         'AdminConfiguration'=> Mage2\Framework\Configuration\Facades\AdminConfiguration::class,

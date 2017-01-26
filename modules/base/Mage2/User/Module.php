@@ -125,7 +125,6 @@ class Module extends BaseModule {
      */
     protected function registerPermissions() {
 
-
         $permissions = [
             ['title' => 'Role List', 'routes' => 'admin.role.index'],
             ['title' => 'Role Create', 'routes' => "admin.role.create,admin.role.store"],

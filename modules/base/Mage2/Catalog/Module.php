@@ -102,6 +102,7 @@ class Module extends BaseModule {
      * @return void
      */
     protected function registerPermissions() {
+
         $permissions = [
             ['title' => 'Category List', 'routes' => 'admin.category.index'],
             ['title' => 'Category Create', 'routes' => "admin.category.create,admin.category.store"],
