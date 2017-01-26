@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\View;
 use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
-use Mage2\Framework\Support\Facades\Permission;
+use Mage2\Framework\Auth\Facades\Permission;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
 class Module extends BaseModule {

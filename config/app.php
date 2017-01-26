@@ -120,6 +120,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -142,6 +143,30 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -221,14 +246,13 @@ return [
         'PDF'           => Barryvdh\DomPDF\Facade::class,
         //'Debugbar'      => Barryvdh\Debugbar\Facade::class,
 
-
         'Theme'         => Mage2\Framework\Theme\Facades\Theme::class,
         'DataGrid'      => Mage2\Framework\DataGrid\Facades\DataGrid::class,
         'AdminConfiguration'=> Mage2\Framework\Configuration\Facades\AdminConfiguration::class,
         'AdminMenu'     => Mage2\Framework\AdminMenu\Facades\AdminMenu::class,
         'Form'          => Mage2\Framework\Form\Facades\FormFacade::class,
         'Payment'       => Mage2\Framework\Payment\Facades\Payment::class,
-        'Permission'    => Mage2\Framework\Support\Facades\Permission::class,
+        'Permission'    => Mage2\Framework\Auth\Facades\Permission::class,
         'Module'        => Mage2\Framework\Module\Facades\Module::class,
     ],
 ];

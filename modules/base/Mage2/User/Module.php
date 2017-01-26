@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Gate;
 use Mage2\User\Policies\AdminUserPolicy;
 use Mage2\User\Models\AdminUser;
 use Mage2\User\Middleware\Permission;
-use Mage2\Framework\Support\Facades\Permission as PermissionFacade;
+use Mage2\Framework\Auth\Facades\Permission as PermissionFacade;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
+use Mage2\Framework\Auth\Access\Permission as PermissionTest;
 
 class Module extends BaseModule {
 
@@ -47,6 +48,7 @@ class Module extends BaseModule {
      * @return void
      */
     public function register() {
+
         $this->mapWebRoutes();
         $this->registerViewPath();
         $this->registerPermissions();
@@ -75,11 +77,11 @@ class Module extends BaseModule {
     public function registerMiddleware() {
         $router = $this->app['router'];
 
-        $router->middleware('permission', Permission::class);
-        $router->middleware('adminauth', AdminAuthenticate::class);
-        $router->middleware('adminguest', RedirectIfAdminAuthenticated::class);
-        $router->middleware('frontauth', FrontAuthenticate::class);
-        $router->middleware('frontguest', RedirectIfFrontAuthenticated::class);
+        $router->aliasMiddleware('permission', Permission::class);
+        $router->aliasMiddleware('adminauth', AdminAuthenticate::class);
+        $router->aliasMiddleware('adminguest', RedirectIfAdminAuthenticated::class);
+        $router->aliasMiddleware('frontauth', FrontAuthenticate::class);
+        $router->aliasMiddleware('frontguest', RedirectIfFrontAuthenticated::class);
     }
 
     /**
@@ -122,6 +124,8 @@ class Module extends BaseModule {
      * @return void
      */
     protected function registerPermissions() {
+
+
         $permissions = [
             ['title' => 'Role List', 'routes' => 'admin.role.index'],
             ['title' => 'Role Create', 'routes' => "admin.role.create,admin.role.store"],

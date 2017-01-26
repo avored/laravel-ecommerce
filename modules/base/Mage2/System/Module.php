@@ -5,7 +5,7 @@ namespace Mage2\System;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
-use Mage2\Framework\Support\Facades\Permission;
+use Mage2\Framework\Auth\Facades\Permission;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
 class Module extends BaseModule {
@@ -85,6 +85,7 @@ class Module extends BaseModule {
      * @return void
      */
     protected function registerPermissions() {
+
         $permissions = [
             ['title' => 'Theme List', 'routes' => 'admin.theme.index'],
             ['title' => 'Theme Upload', 'routes' => "admin.theme.create,admin.theme.store"],

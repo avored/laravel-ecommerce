@@ -4,7 +4,7 @@ namespace Mage2\Page;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\AdminMenu\Facades\AdminMenu;
-use Mage2\Framework\Support\Facades\Permission;
+use Mage2\Framework\Auth\Facades\Permission;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
@@ -69,6 +69,7 @@ class Module extends BaseModule {
      * @return void
      */
     protected function registerPermissions() {
+
         $permissions = [
             ['title' => 'Order List', 'routes' => 'admin.order.index'],
             ['title' => 'Order View, Send Email Invoice to Customer', 'routes' => "admin.order.view,admin.order.send-email-invoice"],
