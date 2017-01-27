@@ -40,6 +40,7 @@ class Module extends BaseModule {
         $this->registerAdminMenu();
         $this->registerPolicies();
         $this->registerViewComposerData();
+        $this->registerTranslationPath();
     }
 
     /**
@@ -51,6 +52,7 @@ class Module extends BaseModule {
 
         $this->mapWebRoutes();
         $this->registerViewPath();
+
         $this->registerPermissions();
     }
 
@@ -101,6 +103,11 @@ class Module extends BaseModule {
         $this->loadViewsFrom(__DIR__. '/views', 'mage2user');
         View::addLocation(__DIR__ . '/views');
     }
+
+    protected function registerTranslationPath() {
+        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2user");
+    }
+
 
     public function registerAdminMenu() {
         $adminUserMenu = [ 'user' => [

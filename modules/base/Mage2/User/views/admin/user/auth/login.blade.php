@@ -60,7 +60,7 @@
             {{ csrf_field(  ) }}
 
             <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
-                <label for="email">E-Mail Address</label>
+                <label for="email">{{ __('mage2user::login.email-address') }}</label>
                 <input id="email" type="email" name="email" class="form-control"
                        value="{{ old('email') }}" autofocus>
 
@@ -73,7 +73,7 @@
             </div>
 
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                <label for="password">Password</label>
+                <label for="password">{{ __('mage2user::login.password') }}</label>
                 <input id="password" class="form-control" type="password" name="password"/>
 
                 @if ($errors->has('password'))
@@ -85,7 +85,7 @@
 
             <div class="checkbox">
                 <label>
-                    <input id="rememberme" type="checkbox" name="remember"/> Remember Me
+                    <input id="rememberme" type="checkbox" name="remember"/> {{ __('mage2user::login.remember-me') }}
                 </label>
             </div>
 
@@ -93,11 +93,11 @@
             <div class="form-group">
 
                 <button type="submit" class="btn btn-primary">
-                    Login
+                    {{ __('mage2user::login.login') }}
                 </button>
 
                 <a class="btn btn-link" href="{{ url('/admin/password/reset') }}">
-                    Forgot Your Password?
+                    {{ __('mage2user::login.forgot-your-password') }}?
                 </a>
             </div>
 

@@ -4,10 +4,10 @@ namespace Mage2\Themes\Mage2\Basic;
 
 
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
+use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Theme\Facades\Theme;
 
-class ThemeInfo extends ServiceProvider
+class ThemeInfo extends BaseModule
 {
     public function boot()
     {
