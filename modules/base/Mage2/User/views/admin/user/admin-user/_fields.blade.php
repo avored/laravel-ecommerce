@@ -13,4 +13,6 @@
 {!! Form::password('password_confirmation','Confirm Password') !!}
 
 
-{!! Form::select('role_id','User Role', $roles) !!}
+<!--
+!! Form::select('role_id','User Role', $roles) !}
+-->

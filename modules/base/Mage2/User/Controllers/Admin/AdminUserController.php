@@ -10,6 +10,7 @@ use Mage2\Framework\DataGrid\Facades\DataGrid;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Gate;
 
+
 class AdminUserController extends AdminController
 {
 
@@ -70,6 +71,13 @@ class AdminUserController extends AdminController
     public function store(AdminUserRequest $request)
     {
         $request->merge(['password' => bcrypt($request->get('password'))]);
+
+
+        //TMP only once we add user role then remove it???
+
+        $role = Role::all()->first();
+        $request->merge(['role_id' => $role->id]);
+
         AdminUser::create($request->all());
 
         return redirect()->route('admin.admin-user.index');
