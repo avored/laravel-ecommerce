@@ -434,7 +434,7 @@ class Mage2CatalogSchema extends Migration {
     public function uninstall() {
 
         Schema::drop('product_attribute_groups');
-        Schema:drop('product_attributes');
+        Schema::drop('product_attributes');
         Schema::drop('products');
         Schema::drop('product_varchar_values');
         Schema::drop('product_float_values');
