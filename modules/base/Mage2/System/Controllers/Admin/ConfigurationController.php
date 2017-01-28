@@ -31,16 +31,35 @@ class ConfigurationController extends AdminController
     {
         foreach ($request->except(['_token', '_method']) as $key => $value) {
             $configuration = Configuration::where('configuration_key', '=', $key)->get()->first();
+
             if (null === $configuration) {
                 $data['configuration_key'] = $key;
                 $data['configuration_value'] = $value;
                 $data['website_id'] = $this->websiteId;
+
+
                 Configuration::create($data);
+
+
             } else {
                 $configuration->update(['configuration_value' => $value]);
             }
         }
 
+
         return redirect()->back()->with('notificationText', 'All Configuration saved.');
+    }
+
+    /**
+     * Display a Paypal Configuration.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getGeneralConfiguration()
+    {
+        $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
+
+        return view('mage2system::admin.configuration.general-configuration')
+            ->with('configurations', $configurations);
     }
 }

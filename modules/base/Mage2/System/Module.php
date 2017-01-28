@@ -7,6 +7,8 @@ use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Auth\Facades\Permission;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
+use Mage2\Framework\Configuration\Facades\AdminConfiguration;
+
 
 class Module extends BaseModule {
 
@@ -35,6 +37,7 @@ class Module extends BaseModule {
         $this->mapWebRoutes();
         $this->registerViewPath();
         $this->registerViewComposer();
+        $this->registerAdminConfiguration();
         $this->registerPermissions();
     }
 
@@ -54,6 +57,23 @@ class Module extends BaseModule {
     protected function registerViewPath() {
         $this->loadViewsFrom(__DIR__ . "/views", 'mage2system');
         View::addLocation(__DIR__ . '/views');
+    }
+
+    /**
+     *
+     *
+     * @return void
+     */
+    public function registerAdminConfiguration() {
+        $adminConfigurations[] = [
+            'title' => 'General Configuration',
+            'description' => 'General System Settings',
+            'edit_action' => 'admin.configuration.general',
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
     }
 
     public function registerAdminMenu() {

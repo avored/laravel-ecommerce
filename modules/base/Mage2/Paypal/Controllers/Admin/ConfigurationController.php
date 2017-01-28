@@ -10,7 +10,7 @@ class ConfigurationController extends AdminController
   
 
     /**
-     * Display a listing of the Catalog Configuration.
+     * Display a Paypal Configuration.
      *
      * @return \Illuminate\Http\Response
      */

@@ -18,6 +18,8 @@ Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\System\C
 
 Route::group(['middleware' => ['web', 'adminauth', 'website', 'permission'], 'namespace' => "Mage2\System\Controllers\Admin"], function () {
 
+    Route::get('/admin/configuration/general', ['as' => 'admin.configuration.general', 'uses' => 'ConfigurationController@getGeneralConfiguration']);
+
     Route::get('/admin/configuration', ['as' => 'admin.configuration', 'uses' => 'ConfigurationController@index']);
     Route::post('/admin/configuration', ['as' => 'admin.configuration.store', 'uses' => 'ConfigurationController@store']);
 

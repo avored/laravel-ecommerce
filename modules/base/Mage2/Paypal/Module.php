@@ -54,14 +54,24 @@ class Module extends BaseModule {
         Payment::put($paypal->getIdentifier(), $paypal);
     }
 
+    /**
+     * Register view path for the Paypal modules
+     *
+     * @return void
+     */
     protected function registerViewPath() {
         View::addLocation(__DIR__ . '/views');
     }
 
+    /**
+     * Register Admin Configuration for system modules
+     *
+     * @return void
+     */
     public function registerAdminConfiguration() {
         $adminConfigurations[] = [
             'title' => 'Paypal Configuration',
-            'description' => 'Some Description for Catalog Modules',
+            'description' => 'Paypal configuration value',
             'edit_action' => 'admin.configuration.paypal',
         ];
 

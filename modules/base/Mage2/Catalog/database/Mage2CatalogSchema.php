@@ -15,7 +15,7 @@ class Mage2CatalogSchema extends Migration {
      * @return void
      */
     public function install() {
-        
+
         Schema::create('product_attribute_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
@@ -139,7 +139,7 @@ class Mage2CatalogSchema extends Migration {
             $table->timestamps();
         });
 
-       
+
         //addresses table foreign key setup
         //Schema::table('product_attributes', function (Blueprint $table) {
         //    $table->foreign('product_attribute_group_id')
@@ -150,7 +150,7 @@ class Mage2CatalogSchema extends Migration {
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_attribute_id')
-                    ->references('id')->on('product_attributes')->onDelete('cascade');
+                ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_varchar_values table foreign key setup
@@ -158,7 +158,7 @@ class Mage2CatalogSchema extends Migration {
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_attribute_id')
-                    ->references('id')->on('product_attributes')->onDelete('cascade');
+                ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_text_values table foreign key setup
@@ -166,7 +166,7 @@ class Mage2CatalogSchema extends Migration {
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_attribute_id')
-                    ->references('id')->on('product_attributes')->onDelete('cascade');
+                ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_integer_values table foreign key setup
@@ -174,7 +174,7 @@ class Mage2CatalogSchema extends Migration {
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_attribute_id')
-                    ->references('id')->on('product_attributes')->onDelete('cascade');
+                ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_datetime_values table foreign key setup
@@ -182,13 +182,13 @@ class Mage2CatalogSchema extends Migration {
             $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_attribute_id')
-                    ->references('id')->on('product_attributes')->onDelete('cascade');
+                ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_datetime_values table foreign key setup
         Schema::table('attribute_dropdown_options', function (Blueprint $table) {
             $table->foreign('product_attribute_id')
-                    ->references('id')->on('product_attributes')->onDelete('cascade');
+                ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
         //product_website table foreign key setup
@@ -256,7 +256,7 @@ class Mage2CatalogSchema extends Migration {
                 'is_system' => 1,
                 'sort_order' => 4,
                 'field_type' => 'TEXT',
-                'validation' => 'required|numeric|regex:/^-?\\d*(\\.\\d+)?$/',
+                'validation' => 'required|max:8|regex:/^-?\\d*(\\.\\d+)?$/',
             ],
             [
                 'title' => 'Image',
@@ -432,7 +432,7 @@ class Mage2CatalogSchema extends Migration {
      * @return void
      */
     public function uninstall() {
-        
+
         Schema::drop('product_attribute_groups');
         Schema:drop('product_attributes');
         Schema::drop('products');

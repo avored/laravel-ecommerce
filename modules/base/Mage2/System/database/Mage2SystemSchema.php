@@ -18,8 +18,8 @@ class Mage2SystemSchema extends Migration {
        Schema::create('configurations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('website_id')->unsigned();
-            $table->string('configuration_key');
-            $table->string('configuration_value');
+            $table->string('configuration_key')->nullable()->default(null);
+            $table->string('configuration_value')->nullable()->default(null);
             $table->timestamps();
         });
         

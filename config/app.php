@@ -145,33 +145,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         Barryvdh\DomPDF\ServiceProvider::class,
         //Barryvdh\Debugbar\ServiceProvider::class,
     /*
