@@ -73,6 +73,7 @@ class Module extends BaseModule {
             'title' => 'Paypal Configuration',
             'description' => 'Paypal configuration value',
             'edit_action' => 'admin.configuration.paypal',
+            'sort_order' => 5
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {

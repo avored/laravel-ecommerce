@@ -69,6 +69,7 @@ class Module extends BaseModule {
             'title' => 'General Configuration',
             'description' => 'General System Settings',
             'edit_action' => 'admin.configuration.general',
+            'sort_order' => 0
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {

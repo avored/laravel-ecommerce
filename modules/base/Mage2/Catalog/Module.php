@@ -84,6 +84,7 @@ class Module extends BaseModule {
             'title' => 'Catalog Configuration',
             'description' => 'Some Description for Catalog Modules',
             'edit_action' => 'admin.configuration.catalog',
+            'sort_order' => 1
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {

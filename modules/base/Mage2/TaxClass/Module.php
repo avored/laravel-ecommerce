@@ -49,6 +49,7 @@ class Module extends BaseModule {
             'title' => 'Tax Configuration',
             'description' => 'Defined the amount of tax applied to product.',
             'edit_action' => 'admin.configuration.tax-class',
+            'sort_order' => 3
         ];
 
         foreach ($adminConfigurations as $adminConfiguration) {
