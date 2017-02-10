@@ -1,4 +1,4 @@
-# Mage2 Commerce using Laravel5 E-commerce App V(0.9) -- Current
+# Mage2 Commerce using Laravel5 E-commerce App V(1.0) -- Current
 
 [![Join the chat at https://gitter.im/Mage2-Ecommerce-Laravel/Lobby](https://badges.gitter.im/Mage2-Ecommerce-Laravel/Lobby.svg)](https://gitter.im/Mage2-Ecommerce-Laravel/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![PHPPackages Rank](http://phppackages.org/p/mage2/laravel-ecommerce/badge/rank.svg)](http://phppackages.org/p/mage2/laravel-ecommerce) [![Total Downloads](https://poser.pugx.org/mage2/laravel-ecommerce/downloads)](https://packagist.org/packages/mage2/laravel-ecommerce)
 
@@ -21,6 +21,7 @@ Set up your environment config file:
     mage2/laravel-ecommerce/.env 
 
 composer update/install
+
 # Step 1: Install Mage2 Commerce using [Composer](https://getcomposer.org/download/).
 
 Run composer to create the lavender application:
