@@ -31,6 +31,18 @@ class Paypal extends PaymentFramework implements PaymentInterface
         $this->title = 'Paypal';
     }
 
+
+    public function isEnabled()
+    {
+        $isEnabled = Configuration::getConfiguration('is_paypal_enabled');
+
+        if(null === $isEnabled || false == $isEnabled) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function getIdentifier()
     {
         return $this->identifier;

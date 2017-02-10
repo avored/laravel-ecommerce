@@ -21,6 +21,12 @@ class Pickup extends Payment implements PaymentInterface
         return $this->identifier;
     }
 
+    public function isEnabled()
+    {
+        return true;
+    }
+
+
     public function getTitle()
     {
         return $this->title;

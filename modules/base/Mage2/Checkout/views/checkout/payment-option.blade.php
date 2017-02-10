@@ -12,6 +12,9 @@
 
                         @foreach($paymentOptions as $paymentOption)
 
+
+                            @if(true === $paymentOption->isEnabled())
+
                             <div class="form-group {{ $errors->has('payment_option') ? ' has-error' : '' }}">
 
                                 {!! Form::radio('payment_option',$paymentOption->getTitle(),$paymentOption->getIdentifier(),['id' => $paymentOption->getIdentifier()]) !!}
@@ -23,6 +26,8 @@
                                         </span>
                                 @endif
                             </div>
+
+                            @endif
 
                         @endforeach
 

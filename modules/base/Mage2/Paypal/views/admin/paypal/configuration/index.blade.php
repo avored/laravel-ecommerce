@@ -10,7 +10,8 @@
         <div class="paypal-form-wrapper">
 
             {!! Form::bind($configurations, ['method' => 'post','action' => route('admin.configuration.store')]) !!}
-            
+
+            {!! Form::select('is_paypal_enabled','Is Enabled?',[false => 'Disabled',true => 'Enabled']) !!}
             {!! Form::text('paypal_client_id','Paypal Client Id') !!}
             {!! Form::text('paypal_client_secret','Paypal Client Secret') !!}
             {!! Form::select('paypal_payment_mode','Payment Mode',['sandbox' => 'Sandbox','live' => 'Live']) !!}
