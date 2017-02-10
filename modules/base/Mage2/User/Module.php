@@ -15,6 +15,7 @@ use Mage2\User\Models\AdminUser;
 use Mage2\User\Middleware\Permission;
 use Mage2\Framework\Auth\Facades\Permission as PermissionFacade;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
+use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Framework\Auth\Access\Permission as PermissionTest;
 
 class Module extends BaseModule {
@@ -52,7 +53,7 @@ class Module extends BaseModule {
 
         $this->mapWebRoutes();
         $this->registerViewPath();
-
+        $this->registerAdminConfiguration();
         $this->registerPermissions();
     }
 
@@ -84,6 +85,26 @@ class Module extends BaseModule {
         $router->aliasMiddleware('adminguest', RedirectIfAdminAuthenticated::class);
         $router->aliasMiddleware('frontauth', FrontAuthenticate::class);
         $router->aliasMiddleware('frontguest', RedirectIfFrontAuthenticated::class);
+    }
+
+
+    /**
+     * Register Admin Configuration for the Address Modules
+     *
+     * @param \Illuminate\Routing\Router $router
+     *
+     * @return void
+     */
+    public function registerAdminConfiguration() {
+        $adminConfigurations[] = [
+            'title' => 'Address Configuration',
+            'description' => 'Set Default Country for Store',
+            'edit_action' => 'admin.configuration.address',
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
     }
 
     /**

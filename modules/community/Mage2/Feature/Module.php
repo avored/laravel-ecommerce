@@ -3,7 +3,6 @@
 namespace Mage2\Feature;
 
 use Illuminate\Support\Facades\View;
-use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
@@ -26,7 +25,7 @@ class Module extends BaseModule {
      */
     public function register() {
         $this->mapWebRoutes();
-        $this->registerAdminConfiguration();
+
         $this->registerViewPath();
     }
 
@@ -54,24 +53,6 @@ class Module extends BaseModule {
         View::addLocation(__DIR__ . '/views');
     }
 
-    /**
-     * Register Admin Configuration for the Address Modules
-     *
-     * @param \Illuminate\Routing\Router $router
-     *
-     * @return void
-     */
-    public function registerAdminConfiguration() {
-        $adminConfigurations[] = [
-            'title' => 'Address Configuration',
-            'description' => 'Set Default Country for Store',
-            'edit_action' => 'admin.configuration.address',
-        ];
-
-        foreach ($adminConfigurations as $adminConfiguration) {
-            AdminConfiguration::registerConfiguration($adminConfiguration);
-        }
-    }
 
     public function registerModule() {
         ModuleFacade::put($this->getIdentifier(), $this, $type ="community");
