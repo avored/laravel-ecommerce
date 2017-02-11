@@ -24,8 +24,8 @@ class Module extends BaseModule {
      * @return void
      */
     public function register() {
-        $this->mapWebRoutes();
 
+        $this->mapWebRoutes();
         $this->registerViewPath();
     }
 
@@ -34,12 +34,13 @@ class Module extends BaseModule {
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param \Illuminate\Routing\Router $router
      *
      * @return void
      */
     protected function mapWebRoutes() {
+
         require __DIR__ . '/routes/web.php';
+
     }
 
     /**

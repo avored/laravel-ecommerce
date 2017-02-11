@@ -55,5 +55,6 @@ echo json_encode([
 
             @yield('content')
         </div>
+        @include('layouts.admin-footer')
     </body>
 </html>
