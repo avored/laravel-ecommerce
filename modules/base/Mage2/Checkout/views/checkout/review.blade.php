@@ -69,9 +69,7 @@
                     <td>  </td>
                     <td>  </td>
                     <td>
-                        <button type="button" class="btn btn-default">
-                            Continue Shopping
-                        </button>
+
                     </td>
                     <td>
                         <a href="{{ route('order.index') }}" class="btn btn-success">
