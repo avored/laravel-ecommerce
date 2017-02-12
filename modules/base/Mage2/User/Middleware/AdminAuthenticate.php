@@ -3,6 +3,8 @@ namespace Mage2\User\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
+
 
 class AdminAuthenticate
 {
@@ -23,6 +25,11 @@ class AdminAuthenticate
             } else {
                 return redirect()->route('admin.login');
             }
+        }
+
+        $user = Auth::user();
+        if(isset($user->language) && !empty($user->language)) {
+            App::setLocale($user->language);
         }
 
         return $next($request);

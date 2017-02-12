@@ -27,6 +27,7 @@ class Mage2UserSchema extends Migration {
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('language')->nullable()->default('en');
             $table->rememberToken();
             $table->timestamps();
         });

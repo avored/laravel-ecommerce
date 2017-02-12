@@ -18,6 +18,8 @@
                     
                     {!! Form::password('password','Password') !!}
                     {!! Form::password('password_confirmation','Confirm Password') !!}
+
+                    {!! Form::select('language','Language',['en' => 'English']) !!}
                     
                     {!! Form::submit('Continue') !!}
 
