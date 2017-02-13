@@ -70,6 +70,9 @@ class Module extends BaseModule {
                                 ], 'product' => [
                                     'label' => 'Products',
                                     'route' => 'admin.product.index',
+                                ], 'attributes' => [
+                                    'label' => 'Attribute',
+                                    'route' => 'admin.attribute.index',
                                 ], 'review' => [
                                     'label' => 'Review',
                                     'route' => 'admin.review.index',
@@ -95,6 +98,7 @@ class Module extends BaseModule {
     public function registerViewComposerData() {
         View::composer(['admin.catalog.product.boxes.inventory'], 'Mage2\Catalog\ViewComposers\ProductBoxInventoryComposer');
         View::composer(['admin.catalog.product.boxes.basic'], 'Mage2\Catalog\ViewComposers\ProductBoxBasicComposer');
+        View::composer(['admin.attribute._fields'], 'Mage2\Catalog\ViewComposers\ProductAttributeFieldComposer');
     }
 
     /**

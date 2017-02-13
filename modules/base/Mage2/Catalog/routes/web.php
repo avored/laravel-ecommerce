@@ -16,6 +16,8 @@ Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'nam
 
     Route::resource('/admin/review', 'ReviewController', ['as' => 'admin']);
 
+    Route::resource('/admin/attribute', 'AttributeController', ['as' => 'admin']);
+
     Route::get('/admin/product-search', ['as' => 'admin.product.search','uses' => 'ProductController@searchProduct']);
     
     Route::post('/admin/product-image/upload', ['as' => 'admin.product.upload-image','uses' =>'ProductController@uploadImage']);
