@@ -17,7 +17,6 @@ class AttributeController extends AdminController
         $model = new ProductAttribute();
         $model = $model->where('is_system','=', 0);
 
-
         $dataGrid = DataGrid::make($model);
 
         $dataGrid->addColumn(DataGrid::textColumn('id', 'Id'));
@@ -30,7 +29,6 @@ class AttributeController extends AdminController
                 return "<a href='" . route('admin.attribute.edit', $row->id) . "'>Edit</a>";
             }));
         }
-
 
         if (Gate::allows('hasPermission', [AdminUser::class, "admin.attribute.destroy"])) {
             $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
@@ -47,13 +45,12 @@ class AttributeController extends AdminController
     }
 
     public function create() {
-        return view('mage2catalog::admin.attribute.create');
+        return view('mage2catalog::admin.catalog.attribute.create');
     }
 
     public function store(AttributeRequest $request) {
 
         $request->merge(['validation' => implode("|", $request->get('validation'))]);
-
         ProductAttribute::create($request->all());
 
         return redirect()->route('admin.attribute.index');
@@ -64,25 +61,20 @@ class AttributeController extends AdminController
     public function edit($id) {
 
         $attribute = ProductAttribute::find($id);
-
         return view('mage2catalog::admin.catalog.attribute.edit')->with('attribute', $attribute);
-
 
     }
 
     public function update(AttributeRequest $request,$id) {
 
         $request->merge(['validation' => implode("|", $request->get('validation'))]);
-
         $attribute = ProductAttribute::find($id);
         $attribute->update($request->all());
         return redirect()->route('admin.attribute.index');
 
-
     }
 
     public function destroy($id) {
-
 
         ProductAttribute::destroy($id);
 
