@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <div class="main-title-wrap">
                     <span class="title">
-                        Create Page
+                        Create Product Attribute
                     </span>
                 </div>
                 {!! Form::open(['method' => 'post','action' => route('admin.attribute.store')]) !!}

@@ -42,7 +42,6 @@ class Module extends BaseModule {
         require __DIR__ . '/routes/web.php';
 
     }
-
     /**
      * add path to view finder.
      *

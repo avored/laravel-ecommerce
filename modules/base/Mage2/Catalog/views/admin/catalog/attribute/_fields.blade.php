@@ -35,17 +35,19 @@
 
 
     <div class="dynamic-field-row-template hidden">
-        <div class="form-group col-md-6">
-            <label>Label</label>
-            <input disabled class="form-control" name="label[__RANDOM_STRING__]"/>
-        </div>
-        <div class="form-group col-md-6">
-            <label>Value</label>
+        <div class="dynamic-field-row">
+            <div class="form-group col-md-6">
+                <label>Label</label>
+                <input disabled class="form-control" name="label[__RANDOM_STRING__]"/>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Value</label>
 
         <span class="input-group">
             <input disabled class="form-control" name="value[__RANDOM_STRING__]"/>
             <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
         </span>
+            </div>
         </div>
     </div>
 </div>
@@ -55,11 +57,11 @@
 
     jQuery(document).ready(function () {
 
-        jQuery('.add-field').on('click', function (e) {
-            e.stopPropagation();
+        jQuery(document).on('click', '.add-field',function (e) {
+
+            e.preventDefault();
+
             var rowTemplate = jQuery('.dynamic-field-row-template').html();
-
-
             var randomString = "";
             var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -71,31 +73,39 @@
 
             jQuery(e.target).html('Remove');
 
-            jQuery('.dynamic-field-row').append(rowTemplate);
-            jQuery('.dynamic-field-row').append(rowTemplate);
+            jQuery(e.target).removeClass('add-field');
+            jQuery(e.target).addClass('remove-field');
+
+            jQuery(e.target).parents('.dynamic-field-row:first').after(rowTemplate);
+            //jQuery('.dynamic-field-row').after(rowTemplate);
+            //jQuery('.dynamic-field-row').append(rowTemplate);
 
             console.info(rowTemplate);
+
+        });
+        jQuery(document).on('click', '.remove-field',function (e) {
+
+            e.preventDefault();
+            jQuery(e.target).parents('.dynamic-field-row:first').remove();
 
         })
         jQuery('#field_type').on('change', function (e) {
             //e.stopPropogation();
+
+            jQuery('.dynamic-field input').attr('disabled', true);
+            jQuery('.dynamic-field').addClass('hidden');
+            jQuery('.validate_field').val('');
+            jQuery('.validate_field').trigger('change.select2');
+
 
             if (jQuery(e.target).val() == "TEXT") {
                 jQuery('.validate_field').val('max:255');
                 jQuery('.validate_field').trigger('change.select2');
             }
 
-            if (jQuery(e.target).val() == "SELECT") {
-                if (jQuery('.dynamic-field').hasClass('hidden')) {
-
-                    jQuery('.dynamic-field').removeClass('hidden');
-                    jQuery('.dynamic-field input').attr('disabled', false);
-
-                } else {
-                    jQuery('.dynamic-field').addClass('hidden');
-                    jQuery('.dynamic-field input').attr('disabled', true);
-                }
-
+            if (jQuery(e.target).val() == "SELECT" && jQuery('.dynamic-field').hasClass('hidden')) {
+                jQuery('.dynamic-field').removeClass('hidden');
+                jQuery('.dynamic-field input').attr('disabled', false);
 
             }
 
