@@ -8,6 +8,7 @@ use Mage2\User\Models\AdminUser;
 use Illuminate\Support\Facades\Gate;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
 use Mage2\Catalog\Requests\AttributeRequest;
+use Mage2\Catalog\Models\AttributeDropdownOption;
 
 class AttributeController extends AdminController
 {
@@ -51,7 +52,17 @@ class AttributeController extends AdminController
     public function store(AttributeRequest $request) {
 
         $request->merge(['validation' => implode("|", $request->get('validation'))]);
-        ProductAttribute::create($request->all());
+        $productAttribute = ProductAttribute::create($request->all());
+
+
+        foreach($request->get('dropdown-options') as $key => $val) {
+                if($key == "__RANDOM_STRING__") {
+                    continue;
+                }
+            if(!is_int($key)) {
+                $productAttribute->attributeDropdownOptions()->create($val);
+            }
+        }
 
         return redirect()->route('admin.attribute.index');
 
@@ -70,6 +81,23 @@ class AttributeController extends AdminController
         $request->merge(['validation' => implode("|", $request->get('validation'))]);
         $attribute = ProductAttribute::find($id);
         $attribute->update($request->all());
+
+
+        foreach($request->get('dropdown-options') as $key => $val) {
+
+            if($key == "__RANDOM_STRING__") {
+                continue;
+            }
+            if(!is_int($key)) {
+                $attribute->attributeDropdownOptions()->create($val);
+            } else {
+
+                $dropdownOption = AttributeDropdownOption::findorfail($key);
+                $dropdownOption->update($val);
+                
+            }
+        }
+
         return redirect()->route('admin.attribute.index');
 
     }

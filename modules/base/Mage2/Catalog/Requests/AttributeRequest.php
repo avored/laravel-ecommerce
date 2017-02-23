@@ -30,6 +30,19 @@ class AttributeRequest extends Request
         $validationRule['type'] = 'required';
         $validationRule['sort_order'] = 'required';
 
+
+        foreach($this->request->get('dropdown-options') as $key => $val)
+        {
+            if($key == "__RANDOM_STRING__") {
+                continue;
+            }
+            $validationRule['dropdown-options.'.$key . ".value"] = 'required';
+            //$validationRule['dropdown-options.'.$key . ""] = 'required';
+        }
+        //dd('test');
+        //$validationRule['.*.value']  = "required";
+
+
         if ($this->getMethod() == 'POST') {
             $validationRule['identifier'] = 'required|max:255|alpha_dash|unique:product_attributes';
         }
@@ -37,6 +50,7 @@ class AttributeRequest extends Request
             $validationRule['identifier'] = 'required|max:255|alpha_dash';
         }
 
+        //dd($validationRule);
         return $validationRule;
     }
 }

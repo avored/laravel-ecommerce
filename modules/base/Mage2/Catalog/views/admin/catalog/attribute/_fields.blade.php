@@ -17,34 +17,85 @@
 
 {!! Form::text('sort_order','Sort Order') !!}
 
-<div class="dynamic-field hidden">
-    <div class="dynamic-field-row">
-        <div class="form-group col-md-6">
-            <label>Label</label>
-            <input disabled class="form-control" name="label[{{ strtolower(str_random('6')) }}]"/>
-        </div>
-        <div class="form-group col-md-6">
-            <label>Value</label>
+
+<?php
+
+$pool = 'abcdefghijklmnopqrstuvwxyz';
+
+$randomString = substr(str_shuffle(str_repeat($pool, 6)), 0, 6);
+
+$hiddenClass = "hidden";
+$editMode = false;
+if (isset($attribute) && $attribute->attributeDropdownOptions->count() > 0) {
+    $editMode = true;
+    $hiddenClass = "";
+}
+?>
+
+<div class="dynamic-field {{ $hiddenClass }}">
+
+    @if($editMode === true)
+
+        @foreach($attribute->attributeDropdownOptions as $key => $dropdownOptionModel)
+
+            <div class="dynamic-field-row">
+
+                <div class="form-group col-md-6">
+                    <label>Label</label>
+                    <input class="form-control" name="dropdown-options[{{ $dropdownOptionModel->id }}][label]"
+                           value="{{ $dropdownOptionModel->label }}"/>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Value</label>
 
         <span class="input-group">
-            <input disabled class="form-control" name="value[{{ strtolower(str_random('6')) }}]"/>
-            <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
+            <input class="form-control" name="dropdown-options[{{ $dropdownOptionModel->id }}][value]"
+                   value="{{ $dropdownOptionModel->value }}"/>
+
+            @if ($loop->last)
+                <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
+            @else
+                <span class="input-group-addon  remove-field" style='cursor: pointer'>Remove</span>
+
+            @endif
+
+
         </span>
-        </div>
-    </div>
+                </div>
+            </div>
 
+        @endforeach
 
-    <div class="dynamic-field-row-template hidden">
+    @else
+
         <div class="dynamic-field-row">
             <div class="form-group col-md-6">
                 <label>Label</label>
-                <input disabled class="form-control" name="label[__RANDOM_STRING__]"/>
+                <input disabled class="form-control" name="dropdown-options[{{ $randomString }}][label]"/>
             </div>
             <div class="form-group col-md-6">
                 <label>Value</label>
 
         <span class="input-group">
-            <input disabled class="form-control" name="value[__RANDOM_STRING__]"/>
+            <input disabled class="form-control" name="dropdown-options[{{ $randomString }}][value]"/>
+            <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
+        </span>
+            </div>
+        </div>
+
+    @endif
+
+    <div class="dynamic-field-row-template hidden">
+        <div class="dynamic-field-row">
+            <div class="form-group col-md-6">
+                <label>Label</label>
+                <input  class="form-control" name="dropdown-options[__RANDOM_STRING__][label]"/>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Value</label>
+
+        <span class="input-group">
+            <input  class="form-control" name="dropdown-options[__RANDOM_STRING__][value]"/>
             <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
         </span>
             </div>
@@ -57,7 +108,7 @@
 
     jQuery(document).ready(function () {
 
-        jQuery(document).on('click', '.add-field',function (e) {
+        jQuery(document).on('click', '.add-field', function (e) {
 
             e.preventDefault();
 
@@ -69,7 +120,8 @@
                 randomString += possible.charAt(Math.floor(Math.random() * possible.length));
             }
 
-            rowTemplate = rowTemplate.replace(/__RANDOM_STRING__/g, randomString);
+            rowTemplate = rowTemplate.replace("__RANDOM_STRING__", randomString);
+            rowTemplate = rowTemplate.replace("__RANDOM_STRING__", randomString);
 
             jQuery(e.target).html('Remove');
 
@@ -83,7 +135,7 @@
             console.info(rowTemplate);
 
         });
-        jQuery(document).on('click', '.remove-field',function (e) {
+        jQuery(document).on('click', '.remove-field', function (e) {
 
             e.preventDefault();
             jQuery(e.target).parents('.dynamic-field-row:first').remove();
