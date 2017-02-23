@@ -23,6 +23,7 @@
                 @endforeach
 
                 <!--
+                include('mage2catalog::admin.catalog.product.option')
                 include('product.boxes.extra')
                     include('admin.product._fields',['productAttributes' => $productAttributes,
                                                     'websites' => $websites,

@@ -15,7 +15,7 @@ class ProductAttributeFieldComposer {
      */
     public function compose(View $view) {
 
-        $productAttributeGroupOptions  =  ProductAttributeGroup::all()->pluck('title','id');
+        $productAttributeGroupOptions  =  ProductAttributeGroup::where('identifier','=','extra-attributes')->pluck('title','id');
 
 
             $view

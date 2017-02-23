@@ -235,6 +235,11 @@ class Mage2CatalogSchema extends Migration {
             'sort_order' => 3
         ]);
 
+        $productAttributeGroup  = ProductAttributeGroup::create(['title' => 'Extra Attributes',
+            'identifier' => 'extra-attributes',
+            'sort_order' => 4
+        ]);
+
 
 
         ProductAttribute::insert([
@@ -256,7 +261,7 @@ class Mage2CatalogSchema extends Migration {
                 'is_system' => 1,
                 'sort_order' => 4,
                 'field_type' => 'TEXT',
-                'validation' => 'required|max:8|regex:/^-?\\d*(\\.\\d+)?$/',
+                'validation' => 'required|max:16|regex:/^-?\\d*(\\.\\d+)?$/',
             ],
             [
                 'title' => 'Image',

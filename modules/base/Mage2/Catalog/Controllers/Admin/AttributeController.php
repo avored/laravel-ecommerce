@@ -54,15 +54,8 @@ class AttributeController extends AdminController
         $request->merge(['validation' => implode("|", $request->get('validation'))]);
         $productAttribute = ProductAttribute::create($request->all());
 
+        $this->_saveDropdownOptions($productAttribute, $request);
 
-        foreach($request->get('dropdown-options') as $key => $val) {
-                if($key == "__RANDOM_STRING__") {
-                    continue;
-                }
-            if(!is_int($key)) {
-                $productAttribute->attributeDropdownOptions()->create($val);
-            }
-        }
 
         return redirect()->route('admin.attribute.index');
 
@@ -83,20 +76,7 @@ class AttributeController extends AdminController
         $attribute->update($request->all());
 
 
-        foreach($request->get('dropdown-options') as $key => $val) {
-
-            if($key == "__RANDOM_STRING__") {
-                continue;
-            }
-            if(!is_int($key)) {
-                $attribute->attributeDropdownOptions()->create($val);
-            } else {
-
-                $dropdownOption = AttributeDropdownOption::findorfail($key);
-                $dropdownOption->update($val);
-
-            }
-        }
+        $this->_saveDropdownOptions($attribute, $request);
 
         return redirect()->route('admin.attribute.index');
 
@@ -107,5 +87,21 @@ class AttributeController extends AdminController
         ProductAttribute::destroy($id);
 
         return redirect()->route('admin.attribute.index');
+    }
+
+
+    private function _saveDropdownOptions($productAttribute, $request) {
+
+        if(null !== $request->get('dropdown-options') ) {
+
+            foreach ($request->get('dropdown-options') as $key => $val) {
+                if ($key == "__RANDOM_STRING__") {
+                    continue;
+                }
+                if (!is_int($key)) {
+                    $productAttribute->attributeDropdownOptions()->create($val);
+                }
+            }
+        }
     }
 }

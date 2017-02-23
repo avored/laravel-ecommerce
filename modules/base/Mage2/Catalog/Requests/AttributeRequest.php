@@ -31,16 +31,16 @@ class AttributeRequest extends Request
         $validationRule['sort_order'] = 'required';
 
 
-        foreach($this->request->get('dropdown-options') as $key => $val)
-        {
-            if($key == "__RANDOM_STRING__") {
-                continue;
+        if(null !== $this->request->get('dropdown-options') ) {
+
+            foreach ($this->request->get('dropdown-options') as $key => $val) {
+                if ($key == "__RANDOM_STRING__") {
+                    continue;
+                }
+                $validationRule['dropdown-options.' . $key . ".value"] = 'required';
+
             }
-            $validationRule['dropdown-options.'.$key . ".value"] = 'required';
-            //$validationRule['dropdown-options.'.$key . ""] = 'required';
         }
-        //dd('test');
-        //$validationRule['.*.value']  = "required";
 
 
         if ($this->getMethod() == 'POST') {
