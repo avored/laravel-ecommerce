@@ -64,8 +64,7 @@
                         <?php
 
                         $model = new \Mage2\Catalog\Models\ProductAttributeGroup();
-                        $group = $model->where('identifier', '=', 'basic')->first();
-
+                        $group = $model->where('identifier', '=', 'extra-attributes')->first();
                         $attributes = $group->productAttributes()->where('is_system', '=', 0)->orderBy('sort_order')->get();
 
 
