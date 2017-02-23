@@ -7,7 +7,7 @@
     
     <div class="panel-body">
         
-        @foreach($group->productAttributes()->orderBy('sort_order')->get() as $attribute)
+        @foreach($group->productAttributes()->where('is_system','=',1)->orderBy('sort_order')->get() as $attribute)
         
             @if($attribute->field_type == "TEXT")
                  {!! Form::text($attribute->identifier, $attribute->title) !!}

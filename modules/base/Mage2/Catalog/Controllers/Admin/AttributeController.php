@@ -94,7 +94,7 @@ class AttributeController extends AdminController
 
                 $dropdownOption = AttributeDropdownOption::findorfail($key);
                 $dropdownOption->update($val);
-                
+
             }
         }
 

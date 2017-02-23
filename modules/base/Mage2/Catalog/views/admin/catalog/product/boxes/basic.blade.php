@@ -39,11 +39,6 @@
                                 'value' => $productWebsites
                             ]) !!}
 
-
-
-
-
-
         
     </div>
 
