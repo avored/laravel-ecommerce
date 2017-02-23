@@ -67,13 +67,20 @@ class Module extends BaseModule {
                                 'category' => [
                                     'label' => 'Category',
                                     'route' => 'admin.category.index',
-                                ], 'product' => [
-                                    'label' => 'Products',
+                                ]
+                                , 'product' => [
+                                    'label' => 'Product',
                                     'route' => 'admin.product.index',
-                                ], 'attributes' => [
+                                ]
+                                , 'attribute' => [
                                     'label' => 'Attribute',
                                     'route' => 'admin.attribute.index',
-                                ], 'review' => [
+                                ]
+                                , 'option' => [
+                                    'label' => 'Option',
+                                    'route' => 'admin.option.index',
+                                ]
+                                , 'review' => [
                                     'label' => 'Review',
                                     'route' => 'admin.review.index',
                                 ]

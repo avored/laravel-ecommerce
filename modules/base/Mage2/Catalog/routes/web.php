@@ -17,6 +17,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'nam
     Route::resource('/admin/review', 'ReviewController', ['as' => 'admin']);
 
     Route::resource('/admin/attribute', 'AttributeController', ['as' => 'admin']);
+    Route::resource('/admin/option', 'OptionController', ['as' => 'admin']);
 
     Route::get('/admin/product-search', ['as' => 'admin.product.search','uses' => 'ProductController@searchProduct']);
     
