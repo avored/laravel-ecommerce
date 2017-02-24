@@ -97,21 +97,15 @@ class OptionController extends AdminController
     private function _saveDropdownOptions($productOption, $request) {
 
         if(null !== $request->get('dropdown-options') ) {
-
-
             //make sure to delete all existing ones...
             //$productOption->optionDropdownValues()->delete();
-
-
             foreach ($request->get('dropdown-options') as $key => $val) {
                 if ($key == "__RANDOM_STRING__") {
                     continue;
                 }
-
                 if (!is_int($key)) {
                     $productOption->optionDropdownValues()->create($val);
                 } else {
-                    //
                     $productOption->optionDropdownValues()->find($key)->update($val);
                 }
             }

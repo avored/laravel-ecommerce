@@ -1,12 +1,13 @@
 @extends('layouts.admin')
 
 @section('content')
+
     <div class="row">
-        <div class="main-title-wrap">
+        <div class="main-title-wrap col-md-12">
             <span class="title">Edit Product</span>
         </div>
-
     </div>
+
     <div class="row">
 
         <div class="col-md-12">
@@ -22,25 +23,14 @@
             
             @foreach($productAttributeGroups as $group)
                 @if($group->identifier == "image")
-                    @include('admin.catalog.product.boxes.images' )
+                    @include('admin.catalog.product.images' )
                 @else
                     @include('admin.catalog.product.panel',['group' => $group] )
                 @endif
             @endforeach
-            <!--
-            include('admin.catalog.product.boxes.basic',
-                            ['categories' => $categories, 
-                            'productCategories' => $productCategories,
-                            'productWebsites' => $productWebsites])
-            include('admin.catalog.product.boxes.images')
-            
-            include('admin.catalog.product.boxes.inventory')
-            include('admin.catalog.product.boxes.seo')
-            <!--
-            include('admin.catalog.product.boxes.images')
-                include('product.boxes.extra')
-                include('admin.product._fields', ['websites' => $websites,'categories' => $categories])
-            -->
+
+            @include('admin.catalog.product.option');
+
             
             <div class="input-field">
                 {!! Form::submit("Update Product",['class' => 'btn btn-primary']) !!}

@@ -16,20 +16,14 @@
                  
                 @foreach($productAttributeGroups as $group)
                     @if($group->identifier == "image")
-                        @include('mage2catalog::admin.catalog.product.boxes.images' )
+                        @include('mage2catalog::admin.catalog.product.images' )
                     @else
                         @include('mage2catalog::admin.catalog.product.panel',['group' => $group] )
                     @endif
                 @endforeach
 
-                <!--
-                include('mage2catalog::admin.catalog.product.option')
-                include('product.boxes.extra')
-                    include('admin.product._fields',['productAttributes' => $productAttributes,
-                                                    'websites' => $websites,
-                                                    'categories' => $categories])
-                
-                -->
+                @include('admin.catalog.product.option');
+
                 {!! Form::submit('Create Product') !!}
 
                     

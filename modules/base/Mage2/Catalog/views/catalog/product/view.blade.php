@@ -37,7 +37,7 @@
                                 Remove from Wishlist
                             </a>
                         @else
-                            <a class="btn btn-danger" href="{{ route('wishlist.add', $product->slug) }}">
+                            <a class="btn btn-warning" href="{{ route('wishlist.add', $product->slug) }}">
                                 Add to Wishlist
                             </a>
 
