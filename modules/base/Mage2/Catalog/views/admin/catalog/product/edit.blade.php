@@ -14,7 +14,6 @@
 
             <?php 
             $productCategories = $product->categories()->get()->pluck('id')->toArray();
-            $productWebsites = $product->websites()->get()->pluck('id')->toArray();
             
             ?>
             {!! Form::bind($product, ['method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}

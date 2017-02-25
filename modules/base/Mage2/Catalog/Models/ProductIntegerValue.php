@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductIntegerValue extends Model
 {
-    protected $fillable = ['website_id', 'product_id', 'attribute_id', 'value'];
+    protected $fillable = [ 'product_id', 'attribute_id', 'value'];
 
     public function productAttribute()
     {

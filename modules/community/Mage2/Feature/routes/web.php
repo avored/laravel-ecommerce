@@ -10,6 +10,6 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Feature\Controllers"], function () {
+Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Feature\Controllers"], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 });

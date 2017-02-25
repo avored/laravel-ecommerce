@@ -4,6 +4,7 @@ namespace Mage2\Catalog\ViewComposers;
 
 use Illuminate\View\View;
 use Mage2\Catalog\Models\ProductAttributeGroup;
+use Mage2\Catalog\Models\ProductOption;
 
 class ProductAttributeFieldComposer {
 
@@ -18,8 +19,11 @@ class ProductAttributeFieldComposer {
         $productAttributeGroupOptions  =  ProductAttributeGroup::where('identifier','=','extra-attributes')->pluck('title','id');
 
 
+
+
             $view
-                    ->with('productAttributeGroupOptions', $productAttributeGroupOptions);
+                    ->with('productAttributeGroupOptions', $productAttributeGroupOptions)
+                ;
 
     }
 

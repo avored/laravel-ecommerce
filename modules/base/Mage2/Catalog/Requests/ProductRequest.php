@@ -27,9 +27,7 @@ class ProductRequest extends Request
 
         //@todo validation is not working yet??
 
-        if (count($this->request->get('website_id')) <= 0) {
-            $validateArray ['website_id[]'] = 'required';
-        }
+
 
         $productAttributes = ProductAttribute::all();
 

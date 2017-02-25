@@ -10,7 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\ContactUs\Controllers"], function () {
+Route::group(['middleware' => ['web'], 'namespace' => "Mage2\ContactUs\Controllers"], function () {
     Route::get('/contact-us', ['as' => 'contact-us.get', 'uses' => 'ContactUsController@getContactUs']);
     Route::post('/contact-us', ['as' => 'contact-us.post', 'uses' => 'ContactUsController@postContactUs']);
 });

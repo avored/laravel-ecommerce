@@ -10,7 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
 
     Route::get('/admin/login', ['as' => 'admin.login', 'uses' => 'LoginController@showLoginForm']);
     Route::post('/admin/login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
@@ -27,7 +27,7 @@ Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\User\Con
 });
 
 
-Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
 
     Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address', 'uses' => 'ConfigurationController@getConfiguration']);
 
@@ -38,7 +38,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'website'], 'namespace' => "M
 
 
 });
-Route::group(['middleware' => ['web', 'frontauth', 'website'], 'namespace' => "Mage2\User\Controllers"], function () {
+Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\User\Controllers"], function () {
     Route::get('/my-account', ['as' => 'my-account.home', 'uses' => 'MyAccountController@home']);
     Route::get('/my-account/edit', ['as' => 'my-account.edit', 'uses' => 'MyAccountController@edit']);
     Route::post('/my-account/edit', ['as' => 'my-account.store', 'uses' => 'MyAccountController@store']);
@@ -62,7 +62,7 @@ Route::group(['middleware' => ['web', 'frontauth', 'website'], 'namespace' => "M
 
 
 
-Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\User\Controllers"], function () {
+Route::group(['middleware' => ['web'], 'namespace' => "Mage2\User\Controllers"], function () {
     Route::get('/login', ['as' => 'login', 'uses' => 'LoginController@showLoginForm']);
     Route::post('/login', ['as' => 'login.post', 'uses' => 'LoginController@login']);
     Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);

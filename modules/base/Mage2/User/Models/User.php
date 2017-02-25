@@ -11,17 +11,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $websiteId;
-    protected $defaultWebsiteId;
-    protected $isDefaultWebsite;
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        $this->websiteId = Session::get('website_id');
-        $this->defaultWebsiteId = Session::get('default_website_id');
-        $this->isDefaultWebsite = Session::get('is_default_website');
-    }
+
 
     /**
      * The attributes that are mass assignable.
@@ -48,8 +39,7 @@ class User extends Authenticatable
 
     public function isInWishlist($productId)
     {
-        $wishList = Wishlist::where('website_id', '=', $this->websiteId)
-                            ->where('user_id', '=', $this->attributes['id'])
+        $wishList = Wishlist::where('user_id', '=', $this->attributes['id'])
                             ->where('product_id', '=', $productId)->get();
 
 

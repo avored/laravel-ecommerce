@@ -10,7 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Cart\Controllers"], function () {
+Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Cart\Controllers"], function () {
     
     Route::get('/add-to-cart/{id}', ['as' => 'cart.add-to-cart', 'uses' => 'CartController@addToCart']);
 

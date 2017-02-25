@@ -6,7 +6,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class ProductFloatValue extends BaseModel
 {
-    protected $fillable = ['website_id', 'product_id', 'attribute_id', 'value'];
+    protected $fillable = ['product_id', 'attribute_id', 'value'];
 
     public function productAttribute()
     {

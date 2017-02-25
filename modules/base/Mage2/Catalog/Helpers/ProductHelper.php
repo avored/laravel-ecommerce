@@ -10,18 +10,7 @@ use Illuminate\Support\Facades\Cache;
 
 class ProductHelper
 {
-    public $websiteId;
-    public $defaultWebsiteId;
-    public $isDefaultWebsite;
 
-    //public $theme;
-
-    public function __construct()
-    {
-        $this->websiteId = Session::get('website_id');
-        $this->defaultWebsiteId = Session::get('default_website_id');
-        $this->isDefaultWebsite = Session::get('is_default_website');
-    }
 
     /**
      * Insert or update product into pivot table.
@@ -31,9 +20,7 @@ class ProductHelper
      */
     public function saveProduct($product, ProductRequest $request)
     {
-        if (count($request->get('website_id')) > 0) {
-            $product->websites()->sync($request->get('website_id'));
-        }
+        //Sync Website i was using it .....????
     }
 
     public function saveRelatedProducts($product, ProductRequest $request)
@@ -121,7 +108,6 @@ class ProductHelper
 
             $productAttribute->productVarcharValues()->create([
                 'product_id' => $product->id,
-                'website_id' => $this->websiteId,
                 'value'      => $image,
             ]);
         }
@@ -131,17 +117,15 @@ class ProductHelper
     {
         
         $createNewRecord = false;
-        if ($this->isDefaultWebsite == false) {
+
             $attributeValue = $productAttribute
                             ->productVarcharValues()
-                            ->where('product_id', '=', $product->id)
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
+                            ->where('product_id', '=', $product->id)->get()->first();
 
             if (null === $attributeValue) {
                 $createNewRecord = true;
             }
-        }
+
        
 
 
@@ -150,42 +134,37 @@ class ProductHelper
             
             $productAttribute->productVarcharValues()->create([
                 'product_id' => $product->id,
-                'website_id' => $this->websiteId,
                 'value'      => $value,
             ]);
         } else {
             $productAttribute->productVarcharValues()
                     ->where('product_id', '=', $product->id)->get()->first()
-                    ->update([
-                        'value'      => $value,
-                        'website_id' => $this->websiteId,
-            ]);
-            $cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
-            Cache::forget($cacheKey);
+                    ->update(['value'      => $value,]);
+
+
         }
     }
 
     private function _saveProductIntegerValue($product, $identifier, $productAttribute, $value)
     {
-        var_dump($identifier);
+
         $createNewRecord = false;
 
-        if ($this->isDefaultWebsite == false) {
+
             $attributeValue = $productAttribute
                                     ->productIntegerValues()
                                     ->where('product_id', '=', $product->id)
-                                    ->where('website_id', '=', $this->websiteId)
                                     ->get()->first();
 
             if (null === $attributeValue) {
                 $createNewRecord = true;
             }
-        }
+
 
         if (null === $product->$identifier || $createNewRecord == true) {
             $productAttribute->productIntegerValues()->create([
                                                     'product_id' => $product->id,
-                                                    'website_id' => $this->websiteId,
+
                                                     'value'      => $value,
                                                 ]);
         } else {
@@ -193,32 +172,30 @@ class ProductHelper
                                                 ->where('product_id', '=', $product->id)->get()->first()
                                                 ->update([
                                                     'value'      => $value,
-                                                    'website_id' => $this->websiteId,
+
                                                 ]);
-            
-            //$cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
-            //Cache::forget($cacheKey);
+
         }
     }
 
     private function _saveProductTextValue($product, $identifier, $productAttribute, $value)
     {
         $createNewRecord = false;
-        if ($this->isDefaultWebsite == false) {
+
             $attributeValue = $productAttribute
                             ->productTextValues()
                             ->where('product_id', '=', $product->id)
-                            ->where('website_id', '=', $this->websiteId)
+
                             ->get()->first();
             if (null === $attributeValue) {
                 $createNewRecord = true;
             }
-        }
+
 
         if (null === $product->$identifier || $createNewRecord == true) {
             $productAttribute->productTextValues()->create([
                 'product_id' => $product->id,
-                'website_id' => $this->websiteId,
+
                 'value'      => $value,
             ]);
         } else {
@@ -226,31 +203,29 @@ class ProductHelper
                     ->where('product_id', '=', $product->id)->get()->first()
                     ->update([
                         'value'      => $value,
-                        'website_id' => $this->websiteId,
+
             ]);
-            $cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
-            Cache::forget($cacheKey);
+
         }
     }
 
     private function _saveProductFloatValue($product, $identifier, $productAttribute, $value)
     {
         $createNewRecord = false;
-        if ($this->isDefaultWebsite == false) {
+
             $attributeValue = $productAttribute
                                     ->productFloatValues()
                                     ->where('product_id', '=', $product->id)
-                                    ->where('website_id', '=', $this->websiteId)
                                     ->get()->first();
             if (null === $attributeValue) {
                 $createNewRecord = true;
             }
-        }
+
 
         if (null === $product->$identifier || $createNewRecord == true) {
             $productAttribute->productFloatValues()->create([
                 'product_id' => $product->id,
-                'website_id' => $this->websiteId,
+
                 'value'      => $value,
             ]);
         } else {
@@ -258,31 +233,29 @@ class ProductHelper
                     ->where('product_id', '=', $product->id)->get()->first()
                     ->update([
                         'value'      => $value,
-                        'website_id' => $this->websiteId,
+
             ]);
-            $cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
-            Cache::forget($cacheKey);
+
         }
     }
 
     private function _saveProductDatetimeValue($product, $identifier, $productAttribute, $value)
     {
         $createNewRecord = false;
-        if ($this->isDefaultWebsite == false) {
+
             $attributeValue = $productAttribute
                             ->productDatetimeValues()
                             ->where('product_id', '=', $product->id)
-                            ->where('website_id', '=', $this->websiteId)
                             ->get()->first();
             if (null === $attributeValue) {
                 $createNewRecord = true;
             }
-        }
+
 
         if (null === $product->$identifier || $createNewRecord == true) {
             $productAttribute->productDatetimeValues()->create([
                 'product_id' => $product->id,
-                'website_id' => $this->websiteId,
+
                 'value'      => $value,
             ]);
         } else {
@@ -290,10 +263,9 @@ class ProductHelper
                     ->where('product_id', '=', $product->id)->get()->first()
                     ->update([
                         'value'      => $value,
-                        'website_id' => $this->websiteId,
+
             ]);
-            $cacheKey = get_class($product) . "_" . $product->id . "_" . $this->websiteId . "_" . $productAttribute->title;
-            Cache::forget($cacheKey);
+
         }
     }
 }

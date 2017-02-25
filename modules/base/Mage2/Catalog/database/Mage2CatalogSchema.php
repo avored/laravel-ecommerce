@@ -56,7 +56,7 @@ class Mage2CatalogSchema extends Migration {
 
         Schema::create('product_varchar_values', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('website_id')->unsigned();
+
             $table->integer('product_id')->unsigned();
             $table->integer('product_attribute_id')->unsigned();
             $table->string('value');
@@ -65,7 +65,7 @@ class Mage2CatalogSchema extends Migration {
 
         Schema::create('product_float_values', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('website_id')->unsigned();
+
             $table->integer('product_id')->unsigned();
             $table->integer('product_attribute_id')->unsigned();
             $table->decimal('value',10,6);
@@ -73,7 +73,6 @@ class Mage2CatalogSchema extends Migration {
         });
         Schema::create('product_text_values', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('website_id')->unsigned();
             $table->integer('product_id')->unsigned();
             $table->integer('product_attribute_id')->unsigned();
             $table->text('value');
@@ -81,7 +80,6 @@ class Mage2CatalogSchema extends Migration {
         });
         Schema::create('product_integer_values', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('website_id')->unsigned();
             $table->integer('product_id')->unsigned();
             $table->integer('product_attribute_id')->unsigned();
             $table->integer('value');
@@ -90,7 +88,6 @@ class Mage2CatalogSchema extends Migration {
 
         Schema::create('product_datetime_values', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('website_id')->unsigned();
             $table->integer('product_id')->unsigned();
             $table->integer('product_attribute_id')->unsigned();
             $table->timestamp('value');
@@ -105,24 +102,8 @@ class Mage2CatalogSchema extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('websites', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('host');
-            $table->string('name');
-            $table->tinyInteger('is_default');
-            $table->timestamps();
-        });
-
-        Schema::create('product_website', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->integer('website_id')->unsigned();
-            $table->timestamps();
-        });
-
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('website_id')->unsigned();
             $table->integer('parent_id')->nullable()->default(NULL);
             $table->string('name');
             $table->string('slug');
@@ -159,7 +140,6 @@ class Mage2CatalogSchema extends Migration {
         //});
         //product_varchar_values table foreign key setup
         Schema::table('product_varchar_values', function (Blueprint $table) {
-            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_attribute_id')
                 ->references('id')->on('product_attributes')->onDelete('cascade');
@@ -167,7 +147,6 @@ class Mage2CatalogSchema extends Migration {
 
         //product_varchar_values table foreign key setup
         Schema::table('product_float_values', function (Blueprint $table) {
-            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_attribute_id')
                 ->references('id')->on('product_attributes')->onDelete('cascade');
@@ -175,7 +154,7 @@ class Mage2CatalogSchema extends Migration {
 
         //product_text_values table foreign key setup
         Schema::table('product_text_values', function (Blueprint $table) {
-            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
+
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_attribute_id')
                 ->references('id')->on('product_attributes')->onDelete('cascade');
@@ -183,7 +162,6 @@ class Mage2CatalogSchema extends Migration {
 
         //product_integer_values table foreign key setup
         Schema::table('product_integer_values', function (Blueprint $table) {
-            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_attribute_id')
                 ->references('id')->on('product_attributes')->onDelete('cascade');
@@ -191,7 +169,6 @@ class Mage2CatalogSchema extends Migration {
 
         //product_datetime_values table foreign key setup
         Schema::table('product_datetime_values', function (Blueprint $table) {
-            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->foreign('product_attribute_id')
                 ->references('id')->on('product_attributes')->onDelete('cascade');
@@ -203,16 +180,7 @@ class Mage2CatalogSchema extends Migration {
                 ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
-        //product_website table foreign key setup
-        Schema::table('product_website', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
-        });
 
-        //categories table foreign key setup
-        Schema::table('categories', function (Blueprint $table) {
-            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
-        });
 
         //category_product table foreign key setup
         Schema::table('category_product', function (Blueprint $table) {
@@ -459,8 +427,6 @@ class Mage2CatalogSchema extends Migration {
         Schema::drop('product_integer_values');
         Schema::drop('product_datetime_values');
         Schema::drop('attribute_dropdown_options');
-        Schema::drop('websites');
-        Schema::drop('product_website');
         Schema::drop('categories');
         Schema::drop('category_product');
         Schema::drop('related_products');

@@ -7,7 +7,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class Wishlist extends BaseModel
 {
-    protected $fillable = ['website_id', 'user_id', 'product_id'];
+    protected $fillable = ['user_id', 'product_id'];
 
     public function product()
     {

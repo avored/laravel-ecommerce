@@ -34,8 +34,7 @@ class ProductViewController extends Controller
     {
         $slugAttribute = ProductAttribute::where('identifier', '=', 'slug')->get()->first();
         $productVarcharValue = ProductVarcharValue::where('product_attribute_id', '=', $slugAttribute->id)
-                                                ->where('value', '=', $slug)
-                                                ->where('website_id', '=', $this->websiteId)->get()->first();
+                                                ->where('value', '=', $slug)->get()->first();
 
 
         $product = Product::findorfail($productVarcharValue->product_id);

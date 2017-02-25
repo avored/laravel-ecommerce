@@ -7,7 +7,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class ProductDatetimeValue extends BaseModel
 {
-    protected $fillable = ['website_id', 'product_id', 'attribute_id', 'value'];
+    protected $fillable = ['product_id', 'attribute_id', 'value'];
     protected $dates = ['created_at', 'updated_at', 'value'];
 
     public function setValueAttribute($value)

@@ -10,7 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\Catalog\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth','permission'], 'namespace' => "Mage2\Catalog\Controllers\Admin"], function () {
     Route::resource('/admin/product', 'ProductController', ['as' =>  'admin']);    
     Route::resource('/admin/category', 'CategoryController', ['as' =>  'admin']);
 
@@ -28,7 +28,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'nam
 });
 
 
-Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\Catalog\Controllers"], function () {
+Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Catalog\Controllers"], function () {
     Route::get('/category/{slug}', ['as' => 'category.view', 'uses' => 'CategoryViewController@view']);
     Route::get('/product/{slug}', ['as' => 'product.view', 'uses' => 'ProductViewController@view']);
 

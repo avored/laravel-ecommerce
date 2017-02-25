@@ -34,9 +34,7 @@
                 <?php $productCategories = []; ?>
             @endif
             
-            @if(!isset($productWebsites)) 
-                <?php $productWebsites = []; ?>
-            @endif
+
         
         
             {!! Form::select("category_id[]", "Category", $categories,
@@ -45,11 +43,7 @@
                             'value' => $productCategories
                             ]
                         ) !!}
-            {!! Form::select("website_id[]", "Website", $websites,
-                            [   'class' => 'form-control select2',
-                                'multiple' => 'true',
-                                'value' => $productWebsites
-                            ]) !!}
+
         @endif
 
         <!--

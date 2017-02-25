@@ -17,7 +17,6 @@ class Mage2SystemSchema extends Migration {
 
        Schema::create('configurations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('website_id')->unsigned();
             $table->string('configuration_key')->nullable()->default(null);
             $table->string('configuration_value')->nullable()->default(null);
             $table->timestamps();
@@ -32,13 +31,10 @@ class Mage2SystemSchema extends Migration {
             $table->timestamps();
         });
         
-          Schema::table('configurations', function (Blueprint $table) {
-            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
-        });
 
         ModuleModel::create(['identifier' => 'mage2-cart',
             'name'=> 'Mage2 Cart',
-            'type' => 'SYSTEM',
+            'type' => 'SYeSTEM',
             'status' => 'ACTIVE'
         ]);
         ModuleModel::create(['identifier' => 'mage2-catalog',

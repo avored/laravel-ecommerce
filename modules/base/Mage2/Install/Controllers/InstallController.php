@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Http\Request;
 use Mage2\User\Models\AdminUser;
 use Mage2\Framework\System\Controllers\Controller;
-use Mage2\Install\Models\Website;
 use Mage2\Install\Requests\AdminUserRequest;
 use Mage2\User\Models\Role;
 use Mage2\System\Models\Configuration;
@@ -166,28 +165,19 @@ class InstallController extends Controller
 
         $host = str_replace('http://', '', $request->getUriForPath(''));
         $host = str_replace('https://', '', $host);
-        $website = Website::create([
-            'host' => $host,
-            'name' => 'Defaul Website',
-            'is_default' => 1,
-        ]);
+
 
         Configuration::create(['configuration_key' => 'active_theme_identifier',
-            'configuration_value' => 'mage2-basic',
-            'website_id' => $website->id]);
+            'configuration_value' => 'mage2-basic']);
 
         Configuration::create(['configuration_key' => 'active_theme_path',
-            'configuration_value' => base_path('themes\mage2\basic'),
-            'website_id' => $website->id]);
+            'configuration_value' => base_path('themes\mage2\basic')]);
         Configuration::create(['configuration_key' => 'mage2_catalog_no_of_product_category_page',
-            'configuration_value' => 9,
-            'website_id' => $website->id]);
+            'configuration_value' => 9]);
         Configuration::create(['configuration_key' => 'mage2_catalog_cart_page_display_taxamount',
-            'configuration_value' => 'yes',
-            'website_id' => $website->id]);
+            'configuration_value' => 'yes']);
         Configuration::create(['configuration_key' => 'mage2_tax_class_percentage_of_tax',
-            'configuration_value' => 15,
-            'website_id' => $website->id]);
+            'configuration_value' => 15]);
 
         return redirect()->route('mage2.install.success');
     }

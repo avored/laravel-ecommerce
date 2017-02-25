@@ -11,12 +11,12 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'website'], 'namespace' => "Mage2\System\Controllers"], function () {
+Route::group(['middleware' => ['web'], 'namespace' => "Mage2\System\Controllers"], function () {
     Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 });
 
 
-Route::group(['middleware' => ['web', 'adminauth', 'website', 'permission'], 'namespace' => "Mage2\System\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' => "Mage2\System\Controllers\Admin"], function () {
 
     Route::get('/admin/configuration/general', ['as' => 'admin.configuration.general', 'uses' => 'ConfigurationController@getGeneralConfiguration']);
 

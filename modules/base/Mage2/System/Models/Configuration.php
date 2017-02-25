@@ -6,7 +6,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class Configuration extends BaseModel
 {
-    protected $fillable = ['website_id', 'configuration_key', 'configuration_value'];
+    protected $fillable = ['configuration_key', 'configuration_value'];
 
     public static function getConfiguration($key)
     {

@@ -35,7 +35,6 @@ class ConfigurationController extends AdminController
             if (null === $configuration) {
                 $data['configuration_key'] = $key;
                 $data['configuration_value'] = $value;
-                $data['website_id'] = $this->websiteId;
 
 
                 Configuration::create($data);

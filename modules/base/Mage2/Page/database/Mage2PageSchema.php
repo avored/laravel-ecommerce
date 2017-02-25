@@ -19,7 +19,6 @@ class Mage2PageSchema extends Migration {
             $table->text('content');
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
-            //$table->integer('website_id'); // In future when we enabled multi website
             $table->timestamps();
         });
     }

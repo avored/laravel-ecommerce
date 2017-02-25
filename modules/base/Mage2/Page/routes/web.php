@@ -11,11 +11,11 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth', 'website','permission'], 'namespace' => "Mage2\Page\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth','permission'], 'namespace' => "Mage2\Page\Controllers\Admin"], function () {
     Route::resource('/admin/page', 'PageController', ['as' =>  'admin']);
 });
 
 
 
-Route::group(['middleware' => ['frontauth', 'web', 'website'],  'namespace' => "Mage2\Page\Controllers"], function () {
+Route::group(['middleware' => ['frontauth', 'web'],  'namespace' => "Mage2\Page\Controllers"], function () {
 });

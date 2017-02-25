@@ -11,11 +11,11 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'website', 'adminauth','permission'], 'namespace' => "Mage2\Paypal\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth','permission'], 'namespace' => "Mage2\Paypal\Controllers\Admin"], function () {
     Route::get('/admin/configuration/paypal', ['as' => 'admin.configuration.paypal', 'uses' => 'ConfigurationController@getConfiguration']);
 });
 
-Route::group(['middleware' => ['web', 'website', 'frontauth'], 'namespace' => "Mage2\Paypal\Controllers"], function () {
+Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\Paypal\Controllers"], function () {
     Route::get('/checkout/paypal/store', ['as' => 'paypal.store', 'uses' => 'PaypalController@store']);
     Route::get('/checkout/paypal/cancel', ['as' => 'paypal.cancel', 'uses' => 'PaypalController@cancel']);
 });

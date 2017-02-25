@@ -71,12 +71,11 @@ class ThemeController extends AdminController
         $theme = Theme::get($name);
         try {
             Configuration::create([
-                    'website_id'          => $this->defaultWebsiteId,
+
                     'configuration_key'   => 'active_theme_identifier',
                     'configuration_value' => $name,
             ]);
             Configuration::create([
-                'website_id'          => $this->defaultWebsiteId,
                 'configuration_key'   => 'active_theme_path',
                 'configuration_value' => $theme['path'],
             ]);

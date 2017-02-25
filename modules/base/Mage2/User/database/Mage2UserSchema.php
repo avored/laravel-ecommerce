@@ -70,7 +70,6 @@ class Mage2UserSchema extends Migration {
         
         Schema::create('wishlists', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('website_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->integer('product_id')->unsigned();
             $table->timestamps();
@@ -124,7 +123,6 @@ class Mage2UserSchema extends Migration {
         Schema::table('wishlists', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
         });
         
           //reviews table foreign key setup

@@ -10,7 +10,6 @@ use Mage2\Catalog\Helpers\ProductHelper;
 use Mage2\Catalog\Models\Product;
 use Mage2\Catalog\Requests\ProductRequest;
 use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Install\Models\Website;
 use Mage2\Catalog\Models\ProductAttributeGroup;
 
 class ProductController extends AdminController
@@ -40,8 +39,8 @@ class ProductController extends AdminController
      */
     public function index()
     {
-        $website = Website::findorfail($this->websiteId);
-        $products = $website->products()->paginate(10);
+
+        $products = Product::paginate(10);
 
         return view('mage2catalog::admin.catalog.product.index')
                         ->with('products', $products);
@@ -54,14 +53,13 @@ class ProductController extends AdminController
      */
     public function create()
     {
-        $websites = Website::pluck('name', 'id');
+
         $categories = $this->categoryHelper->getCategoryOptions();
         $productAttributeGroups = ProductAttributeGroup::orderBy('sort_order','ASC')->get();
 
         return view('mage2catalog::admin.catalog.product.create')
                         ->with('productAttributeGroups', $productAttributeGroups)
-                        ->with('categories', $categories)
-                        ->with('websites', $websites);
+                        ->with('categories', $categories);
     }
 
     /**
@@ -114,12 +112,11 @@ class ProductController extends AdminController
         $product = Product::findorfail($id);
 
         $categories = $this->categoryHelper->getCategoryOptions();
-        $websites = Website::pluck('name', 'id');
+
         $productAttributeGroups = ProductAttributeGroup::orderBy('sort_order','ASC')->get();
 
         return view('mage2catalog::admin.catalog.product.edit')
                         ->with('product', $product)
-                        ->with('websites', $websites)
                         ->with('categories', $categories)
                         ->with('productAttributeGroups', $productAttributeGroups);
     }
@@ -166,7 +163,7 @@ class ProductController extends AdminController
 
     public function uploadImage(Request $request)
     {
-        $request->merge(['website_id' => $this->websiteId]);
+
         $imageAttribute = ProductAttribute::where('identifier', '=', 'image')->get()->first();
         $image = $request->file('image');
         $destinationPath = 'uploads/catalog/images/';
@@ -194,7 +191,7 @@ class ProductController extends AdminController
         $query = $request->get('q');
 
         $titleAttribute = ProductAttribute::where('identifier', '=', 'title')->get()->first();
-        $titleCollection = $titleAttribute->productVarcharValues()->where('value', 'like', '%'.$query.'%')->where('website_id', '=', $this->websiteId)->get();
+        $titleCollection = $titleAttribute->productVarcharValues()->where('value', 'like', '%'.$query.'%')->get();
 
         foreach ($titleCollection as $row) {
             $results[] = ['id' => $row->product_id, 'text' => $row->value];

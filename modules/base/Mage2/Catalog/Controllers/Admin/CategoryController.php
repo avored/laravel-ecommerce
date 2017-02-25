@@ -66,8 +66,7 @@ class CategoryController extends AdminController {
      * @return \Illuminate\Http\Response
      */
     public function store(CategoryRequest $request) {
-        $request->merge(['website_id' => $this->websiteId]);
-        
+
         Category::create($request->all());
 
         return redirect()->route('admin.category.index');
