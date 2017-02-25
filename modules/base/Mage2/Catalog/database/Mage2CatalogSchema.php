@@ -215,7 +215,7 @@ class Mage2CatalogSchema extends Migration {
             'sort_order' => 3
         ]);
 
-        $productAttributeGroup  = ProductAttributeGroup::create(['title' => 'Extra Attributes',
+        $extraAttributeGroup  = ProductAttributeGroup::create(['title' => 'Extra Attributes',
             'identifier' => 'extra-attributes',
             'sort_order' => 4
         ]);

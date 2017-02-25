@@ -57,6 +57,7 @@ class ProductController extends AdminController
         $categories = $this->categoryHelper->getCategoryOptions();
         $productAttributeGroups = ProductAttributeGroup::orderBy('sort_order','ASC')->get();
 
+
         return view('mage2catalog::admin.catalog.product.create')
                         ->with('productAttributeGroups', $productAttributeGroups)
                         ->with('categories', $categories);
@@ -114,6 +115,7 @@ class ProductController extends AdminController
         $categories = $this->categoryHelper->getCategoryOptions();
 
         $productAttributeGroups = ProductAttributeGroup::orderBy('sort_order','ASC')->get();
+
 
         return view('mage2catalog::admin.catalog.product.edit')
                         ->with('product', $product)

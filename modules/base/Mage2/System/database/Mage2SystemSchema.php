@@ -34,7 +34,7 @@ class Mage2SystemSchema extends Migration {
 
         ModuleModel::create(['identifier' => 'mage2-cart',
             'name'=> 'Mage2 Cart',
-            'type' => 'SYeSTEM',
+            'type' => 'SYSTEM',
             'status' => 'ACTIVE'
         ]);
         ModuleModel::create(['identifier' => 'mage2-catalog',

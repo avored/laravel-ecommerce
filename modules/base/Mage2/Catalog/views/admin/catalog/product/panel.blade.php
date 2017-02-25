@@ -6,7 +6,10 @@
     
     
     <div class="panel-body">
-        
+
+        <?php
+        //dd($group->productAttributes()->orderBy('sort_order')->get());
+        ?>
         @foreach($group->productAttributes()->orderBy('sort_order')->get() as $attribute)
         
             @if($attribute->field_type == "TEXT")
