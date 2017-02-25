@@ -49,6 +49,16 @@ class Mage2CatalogSchema extends Migration {
             $table->timestamps();
         });
 
+        Schema::create('option_dropdown_values', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_option_id')->unsigned();
+            $table->string('display_text');
+            $table->timestamps();
+            $table->foreign('product_option_id')
+                ->references('id')->on('product_options')->onDelete('cascade');
+
+        });
+
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
@@ -216,7 +226,7 @@ class Mage2CatalogSchema extends Migration {
         ]);
 
         $extraAttributeGroup  = ProductAttributeGroup::create(['title' => 'Extra Attributes',
-            'identifier' => 'extra-attributes',
+            'identifier' => 'extra-ates',
             'sort_order' => 4
         ]);
 
@@ -427,6 +437,7 @@ class Mage2CatalogSchema extends Migration {
         Schema::drop('product_integer_values');
         Schema::drop('product_datetime_values');
         Schema::drop('attribute_dropdown_options');
+        Schema::drop('option_dropdown_options');
         Schema::drop('categories');
         Schema::drop('category_product');
         Schema::drop('related_products');
