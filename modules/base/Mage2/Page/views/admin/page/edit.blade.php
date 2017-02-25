@@ -10,7 +10,7 @@
                 </div>
 
                 {!! Form::bind($page, ['method' => 'PUT', 'action' => route('admin.page.update', $page->id)]) !!}
-                        @include('admin.page._fields')
+                        @include('mage2page::admin.page._fields')
                         
 
                         {!! Form::submit('Update Page') !!}
