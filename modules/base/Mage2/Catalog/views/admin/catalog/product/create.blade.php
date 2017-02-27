@@ -13,14 +13,11 @@
                 {!! Form::open(['action' => route('admin.product.store'),'method' => 'post']) !!}
 
 
-                 
-                @foreach($productAttributeGroups as $group)
-                    @if($group->identifier == "image")
-                        @include('mage2catalog::admin.catalog.product.images' )
-                    @else
-                        @include('mage2catalog::admin.catalog.product.panel',['group' => $group] )
-                    @endif
-                @endforeach
+
+                @include('mage2catalog::admin.catalog.product.basic-panel' )
+                @include('mage2catalog::admin.catalog.product.images' )
+                @include('mage2catalog::admin.catalog.product.inventory-panel' )
+                @include('mage2catalog::admin.catalog.product.seo-panel' )
 
                 @include('admin.catalog.product.option');
 

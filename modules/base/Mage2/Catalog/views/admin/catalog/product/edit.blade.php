@@ -18,18 +18,13 @@
             ?>
             {!! Form::bind($product, ['method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}
 
-            
-            
-            @foreach($productAttributeGroups as $group)
-                @if($group->identifier == "image")
-                    @include('admin.catalog.product.images' )
-                @else
-                    @include('admin.catalog.product.panel',['group' => $group] )
-                @endif
-            @endforeach
 
-            @include('admin.catalog.product.option');
+                @include('mage2catalog::admin.catalog.product.basic-panel' )
+                @include('mage2catalog::admin.catalog.product.images' )
+                @include('mage2catalog::admin.catalog.product.inventory-panel' )
+                @include('mage2catalog::admin.catalog.product.seo-panel' )
 
+                @include('admin.catalog.product.option');
             
             <div class="input-field">
                 {!! Form::submit("Update Product",['class' => 'btn btn-primary']) !!}

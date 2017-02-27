@@ -16,17 +16,10 @@ class Mage2CatalogSchema extends Migration {
      */
     public function install() {
 
-        Schema::create('product_attribute_groups', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->string('identifier');
-            $table->integer('sort_order');
-            $table->timestamps();
-        });
+
 
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_attribute_group_id');
             $table->string('title');
             $table->string('identifier')->unique();
             $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME']);
@@ -224,55 +217,6 @@ class Mage2CatalogSchema extends Migration {
 
 
 
-        $productAttributeGroup  = ProductAttributeGroup::create(['title' => 'Basic',
-            'identifier' => 'basic',
-            'sort_order' => 0
-        ]);
-        $inventoryGroup         = ProductAttributeGroup::create(['title' => 'Inventory',
-            'identifier' => 'inventory',
-            'sort_order' => 2
-        ]);
-        $imageGroup             = ProductAttributeGroup::create(['title' => 'Image',
-            'identifier' => 'image',
-            'sort_order' => 1
-        ]);
-        $seoGroup               = ProductAttributeGroup::create(['title' => 'SEO',
-            'identifier'=> 'seo',
-            'sort_order' => 3
-        ]);
-
-        $extraAttributeGroup  = ProductAttributeGroup::create(['title' => 'Extra Attributes',
-            'identifier' => 'extra-ates',
-            'sort_order' => 4
-        ]);
-
-
-
-        ProductAttribute::insert([
-            [
-                'title' => 'Price',
-                'product_attribute_group_id' => $productAttributeGroup->id,
-                'identifier' => 'price',
-                'type' => 'FLOAT',
-                'is_system' => 1,
-                'sort_order' => 4,
-                'field_type' => 'TEXT',
-                'validation' => 'required|max:16|regex:/^-?\\d*(\\.\\d+)?$/',
-            ],
-            [
-                'title' => 'Image',
-                'product_attribute_group_id' => $imageGroup->id,
-                'identifier' => 'image',
-                'type' => 'FILE',
-                'field_type' => 'FILE',
-                'is_system' => 1,
-                'sort_order' => 0,
-                'validation' => '',
-            ]
-        ]);
-
-
-
     }
 
     /**
@@ -282,7 +226,6 @@ class Mage2CatalogSchema extends Migration {
      */
     public function uninstall() {
 
-        Schema::drop('product_attribute_groups');
         Schema::drop('product_attributes');
         Schema::drop('products');
         Schema::drop('product_varchar_values');
