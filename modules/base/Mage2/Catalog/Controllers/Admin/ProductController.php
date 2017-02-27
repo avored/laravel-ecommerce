@@ -11,8 +11,6 @@ use Mage2\Catalog\Models\Product;
 use Mage2\Catalog\Models\ProductOption;
 use Mage2\Catalog\Requests\ProductRequest;
 use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Catalog\Models\ProductAttributeGroup;
-
 
 class ProductController extends AdminController
 {
@@ -41,7 +39,6 @@ class ProductController extends AdminController
      */
     public function index()
     {
-
         $products = Product::paginate(10);
 
         return view('mage2catalog::admin.catalog.product.index')
@@ -57,11 +54,8 @@ class ProductController extends AdminController
     {
 
         $categories = $this->categoryHelper->getCategoryOptions();
-        $productAttributeGroups = ProductAttributeGroup::orderBy('sort_order','ASC')->get();
-
 
         return view('mage2catalog::admin.catalog.product.create')
-                        ->with('productAttributeGroups', $productAttributeGroups)
                         ->with('categories', $categories);
     }
 
@@ -82,7 +76,7 @@ class ProductController extends AdminController
             $this->productHelper->saveRelatedProducts($product, $request);
             $this->productHelper->saveCategory($product, $request);
             $this->productHelper->saveProductImages($product, $request);
-            $this->productHelper->saveProductAttribute($product, $request);
+            $this->productHelper->saveProductPrice($product, $request);
         } catch (\Exception $e) {
             echo 'Error in Saving Product: ', $e->getMessage(), "\n";
         }
@@ -114,16 +108,12 @@ class ProductController extends AdminController
     {
 
         $product = Product::findorfail($id);
-
         $categories = $this->categoryHelper->getCategoryOptions();
-
-        $productAttributeGroups = ProductAttributeGroup::orderBy('sort_order','ASC')->get();
-
 
         return view('mage2catalog::admin.catalog.product.edit')
                         ->with('product', $product)
-                        ->with('categories', $categories)
-                        ->with('productAttributeGroups', $productAttributeGroups);
+                        ->with('categories', $categories);
+
     }
 
     /**
@@ -144,7 +134,7 @@ class ProductController extends AdminController
             $this->productHelper->saveCategory($product, $request);
 
             $this->productHelper->saveProductImages($product, $request);
-            $this->productHelper->saveProductAttribute($product, $request);
+            $this->productHelper->saveProductPrice($product, $request);
         } catch (\Exception $e) {
             throw new \Exception('Error in Saving Product: '.$e->getMessage());
         }
@@ -175,8 +165,10 @@ class ProductController extends AdminController
         $relativePath = implode('/', str_split(strtolower(str_random(3)))).'/';
         $image->move($destinationPath.$relativePath, $image->getClientOriginalName());
 
+        $tmp = $this->_getTmpString();
         return view('mage2catalog::admin.catalog.product.upload-image')
                         ->with('path', '/'.$destinationPath.$relativePath.$image->getClientOriginalName())
+                        ->with('tmp', $tmp)
                         ->with('dbPath', $relativePath.$image->getClientOriginalName());
     }
 
@@ -215,8 +207,12 @@ class ProductController extends AdminController
         return view('mage2catalog::admin.catalog.product.option-panel-values')
                     ->with('option', $option);
 
+    }
 
+    public function _getTmpString($length = 6) {
 
+        $pool = 'abcdefghijklmnopqrstuvwxyz';
 
+        return substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
     }
 }

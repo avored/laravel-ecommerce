@@ -2,11 +2,12 @@
 
 namespace Mage2\Catalog\Helpers;
 
-use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\ProductAttribute;
+use Mage2\Catalog\Models\ProductImage;
+use Mage2\Catalog\Models\ProductPrice;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Catalog\Requests\ProductRequest;
-use Illuminate\Support\Facades\Cache;
+
 
 class ProductHelper
 {
@@ -95,25 +96,33 @@ class ProductHelper
 
     public function saveProductImages($product, ProductRequest $request)
     {
-        $productAttribute = ProductAttribute::where('identifier', '=', 'image')->get()->first();
-        $productAttribute->productVarcharValues()->where('product_id', '=', $product->id)->delete();
 
 
-
-        if (count($request->get('image')) <= 0) {
-            return true;
+        if(NULL === $request->get('image')) {
+            return $this;
         }
+        foreach ($request->get('image') as $key => $path ) {
 
-        foreach ($request->get('image') as $image) {
-            if (is_int($image)) {
+            if(is_int( $key)){
                 continue;
             }
 
-            $productAttribute->productVarcharValues()->create([
-                'product_id' => $product->id,
-                'value'      => $image,
-            ]);
+            ProductImage::create(['path' => $path, 'product_id' => $product->id]);
         }
+
+        return $this;
+
+
+    }
+
+    public function saveProductPrice($product, ProductRequest $request) {
+        if(NULL === $request->get('price')) {
+            return $this;
+        }
+
+        $price  = ProductPrice::create(['price' => $request->get('price'), 'product_id' => $product->id]);
+
+        return $this;
     }
 
     private function _saveProductVarcharValue($product, $identifier, $productAttribute, $value)

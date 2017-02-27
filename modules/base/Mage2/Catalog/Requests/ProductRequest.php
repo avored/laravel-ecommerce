@@ -26,17 +26,17 @@ class ProductRequest extends Request
     {
 
         //@todo validation is not working yet??
-        $rule['title'] = "required|max:255";
-        $rule ['price'] = "required|max:8|regex:/^-?\\d*(\\.\\d+)?$/";
-        $rule['sku'] = "required|max:255";
-        $rule['slug'] = "required|max:255|alpha_dash";
-        $rule['page_title']  = "max:255";
-        $rule['page_description']  = "max:255";
-        $rule['description']  = "required";
-        $rule['status']  = "required";
-        $rule['is_taxable']  = "required";
-        $rule['in_stock']  = "required";
-        $rule['track_stock']  = "required";
+        $rule['title']              = "required|max:255";
+        $rule ['price']             = "required|max:8|regex:/^-?\\d*(\\.\\d+)?$/";
+        $rule['sku']                = "required|max:255";
+        $rule['slug']               = "required|max:255|alpha_dash";
+        $rule['page_title']         = "max:255";
+        $rule['page_description']   = "max:255";
+        $rule['description']        = "required";
+        $rule['status']             = "required";
+        $rule['is_taxable']         = "required";
+        $rule['in_stock']           = "required";
+        $rule['track_stock']        = "required";
 
         //@todo category validation
 

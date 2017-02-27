@@ -73,6 +73,27 @@ class Mage2CatalogSchema extends Migration {
             $table->timestamps();
         });
 
+
+        Schema::create('product_prices', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->decimal('price',10,6);
+            $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+
+        });
+
+        Schema::create('product_images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->text('path');
+            $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+
+        });
+
         Schema::create('product_varchar_values', function (Blueprint $table) {
             $table->increments('id');
 
@@ -214,8 +235,6 @@ class Mage2CatalogSchema extends Migration {
         });
 
         //configurations table foreign key setup
-
-
 
     }
 

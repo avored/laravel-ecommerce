@@ -7,13 +7,15 @@
 
 
         <div class="product-image-list">
-            @if(isset($product) && count($product->getProductImages()) > 0)
-            @foreach($product->getProductImages() as $image)
+
+            @if(isset($product) && count($product->images()->get()->count()) > 0)
+
+            @foreach($product->images()->get() as $image)
 
             <div class="col-md-3 image-thumbnail" >
                 <button type="button" class="close"><span>X</span></button>
-                <img class="img-thumbnail img-responsive" src="{{ asset("/uploads/catalog/images/". $image->value) }}"/>
-                <input type="hidden" name="image[]" value="{{ $image->value }}" />
+                <img class="img-thumbnail img-responsive" src="{{ asset("/uploads/catalog/images/". $image->path) }}"/>
+                <input type="hidden" name="image[{{ $image->id }}][]" value="{{ $image->path }}" />
             </div>
             @endforeach
             @endif

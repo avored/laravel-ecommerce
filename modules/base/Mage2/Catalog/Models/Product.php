@@ -22,7 +22,13 @@ class Product extends BaseModel {
         return $this->hasMany(Review::class);
     }
 
+    public function prices() {
+        return $this->hasMany(ProductPrice::class);
+    }
 
+    public function images() {
+        return $this->hasMany(ProductImage::class);
+    }
 
     public function relatedProducts() {
         return $this->hasMany(RelatedProduct::class);
@@ -30,28 +36,6 @@ class Product extends BaseModel {
 
     public function orders() {
         return $this->hasMany(Order::class, 'product_order');
-    }
-
-    public function getProductImages($first = false) {
-
-        //$cacheKey = get_class($this) . "_" . __METHOD__;
-        //if (Cache::has($cacheKey)) {
-        //    $attributeValue = Cache::get($cacheKey);
-        //} else {
-
-        $productAttribute = ProductAttribute::where('identifier', '=', 'image')->get()->first();
-        $attributeValue = $productAttribute
-                        ->productVarcharValues()
-                        ->where('product_id', '=', $this->attributes['id'])->get();
-        //}
-
-        if (true == $first) {
-            return $attributeValue->first();
-        }
-
-        //Cache::put($cacheKey, $attributeValue, $minute = 100);
-
-        return $attributeValue;
     }
 
     public function getReviews() {
@@ -73,20 +57,9 @@ class Product extends BaseModel {
      */
 
     public function getPrice() {
-        $key = 'price';
-        $productAttribute = ProductAttribute::where('identifier', '=', $key)->get()->first();
-        $value = $this->_getProductFloatValue($productAttribute);
+        $row = $this->prices()->first();
 
-        if (null === $value) {
-            return NULL;
-        }
-        /*
-         * @todo fix bug because during display its fine but
-         * when it times to do process data into mysql
-         *  it will generate error because of 1,099.99 not decimal(because of comma , )
-         */
-        return $value;
-        //return number_format($value,2);
+        return $row->price;
     }
 
     public function getAttribute($key) {
@@ -96,6 +69,10 @@ class Product extends BaseModel {
 
         if ($key == 'price') {
             return $this->getPrice();
+        }
+
+        if ($key == 'images') {
+            return $this->images();
         }
 
         //
