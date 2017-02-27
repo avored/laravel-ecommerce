@@ -8,9 +8,11 @@ use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Helpers\CategoryHelper;
 use Mage2\Catalog\Helpers\ProductHelper;
 use Mage2\Catalog\Models\Product;
+use Mage2\Catalog\Models\ProductOption;
 use Mage2\Catalog\Requests\ProductRequest;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Catalog\Models\ProductAttributeGroup;
+
 
 class ProductController extends AdminController
 {
@@ -75,7 +77,7 @@ class ProductController extends AdminController
         //return $request->all();
 
         try {
-            $product = Product::create();
+            $product = Product::create($request->all());
             $this->productHelper->saveProduct($product, $request);
             $this->productHelper->saveRelatedProducts($product, $request);
             $this->productHelper->saveCategory($product, $request);
@@ -110,6 +112,7 @@ class ProductController extends AdminController
      */
     public function edit($id)
     {
+
         $product = Product::findorfail($id);
 
         $categories = $this->categoryHelper->getCategoryOptions();
@@ -200,5 +203,20 @@ class ProductController extends AdminController
         }
 
         return response()->json(['results' => $results]);
+    }
+
+
+    public function getAttributeOption(Request $request) {
+
+        $option = ProductOption::findorfail($request->get('id'));
+
+
+
+        return view('mage2catalog::admin.catalog.product.option-panel-values')
+                    ->with('option', $option);
+
+
+
+
     }
 }

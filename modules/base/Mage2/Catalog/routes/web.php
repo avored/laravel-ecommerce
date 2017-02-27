@@ -16,6 +16,8 @@ Route::group(['middleware' => ['web', 'adminauth','permission'], 'namespace' => 
 
     Route::resource('/admin/review', 'ReviewController', ['as' => 'admin']);
 
+    Route::post('/admin/product/attribute-panel', ['as' => 'admin.product-attribute.options','uses' => 'ProductController@getAttributeOption']);
+
     Route::resource('/admin/attribute', 'AttributeController', ['as' => 'admin']);
     Route::resource('/admin/option', 'OptionController', ['as' => 'admin']);
 

@@ -2,7 +2,6 @@
 
 namespace Mage2\Catalog\Controllers\Admin;
 
-
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\User\Models\AdminUser;
 use Illuminate\Support\Facades\Gate;
@@ -14,6 +13,8 @@ class OptionController extends AdminController
 {
     public function index()
     {
+
+
 
         $model = new ProductOption();
         //$model = $model->where('is_system','=', 0);

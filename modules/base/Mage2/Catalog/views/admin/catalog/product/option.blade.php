@@ -10,13 +10,13 @@
 
         <div class="col-md-12">
 
-                <label>Please Select Option</label>
+            <label>Please Select Option</label>
                 <span class="input-group">
 
 
-                    <select class="option-select-field form-control">
+                    <select class="option-select-field form-control" data-token="{{ csrf_token() }}">
                         @foreach($productOptions as $value => $label)
-                        <option value="{{ $value }}">{{ $label }}</option>
+                            <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </select>
 
@@ -26,50 +26,12 @@
 
         <div class="clearfix"></div>
         <hr/>
-        <div class="product-option-accordion">
 
-            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Color
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label>Blue</label>
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label>Image</label>
-                                        <input type="file" class="form-control">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Qty</label>
-                                        <input class="form-control">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label>Price</label>
-                                        <span class="input-group">
-                                        <input class="form-control">
-                                        <a href="#" class="input-group-addon">Add</a>
-                                           </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
+        <div class="panel-group" id="option-accordion" role="tablist" aria-multiselectable="true">
 
 
         </div>
+
 
     </div>
 
@@ -82,7 +44,23 @@
             e.preventDefault();
 
             if(jQuery('.option-select-field').val() != "") {
-                alert('perfect');
+
+
+                var data = {id: jQuery('.option-select-field').val(), _token : jQuery('.option-select-field').attr('data-token') }
+
+                jQuery.ajax({
+                    url : "{{ route('admin.product-attribute.options')  }}",
+                    method : "post",
+                    data: data,
+                    success: function(response) {
+
+                        jQuery('#option-accordion').append(response);
+
+
+                    }
+                })
+
+
             }
             else {
                 alert('Please Select Attribute First');

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Cache;
 
 class Product extends BaseModel {
 
-    protected $fillable = [];
+    protected $fillable = ['title','slug','sku','description','status','in_stock','track_stock','qty','is_taxable','page_title','page_description'];
 
     public function categories() {
         return $this->belongsToMany(Category::class);

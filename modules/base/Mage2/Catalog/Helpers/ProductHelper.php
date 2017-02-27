@@ -20,6 +20,9 @@ class ProductHelper
      */
     public function saveProduct($product, ProductRequest $request)
     {
+        $product->update($request->all());
+
+        return $this;
         //Sync Website i was using it .....????
     }
 
