@@ -97,9 +97,6 @@ class ProductHelper
     public function saveProductImages($product, ProductRequest $request)
     {
 
-
-
-
         $exitingIds = [];
         if(NULL === $request->get('image')) {
             return $this;
@@ -134,11 +131,14 @@ class ProductHelper
     }
 
     public function saveProductPrice($product, ProductRequest $request) {
-        if(NULL === $request->get('price')) {
-            return $this;
-        }
 
-        $price  = ProductPrice::create(['price' => $request->get('price'), 'product_id' => $product->id]);
+        //dd();
+        if($product->prices()->get()->count() > 0) {
+            $product->prices()->get()->first()->update(['price' => $request->get('price')]);
+        } else {
+            $product->prices()->create(['price' => $request->get('price')]);
+        }
+        //$price  = ProductPrice::create(['price' => $request->get('price'), 'product_id' => $product->id]);
 
         return $this;
     }
