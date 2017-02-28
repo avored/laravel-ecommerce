@@ -98,16 +98,34 @@ class ProductHelper
     {
 
 
+
+
+        $exitingIds = [];
         if(NULL === $request->get('image')) {
             return $this;
         }
+
+        $exitingIds = $product->images()->get()->pluck('id')->toArray();
+
         foreach ($request->get('image') as $key => $path ) {
 
-            if(is_int( $key)){
+
+
+            if(is_int($key)) {
+                if(($findKey = array_search($key, $exitingIds)) !== false) {
+                    unset($exitingIds[$findKey]);
+                }
+
                 continue;
             }
 
-            ProductImage::create(['path' => $path, 'product_id' => $product->id]);
+            ProductImage::create(['path' => $path[0], 'product_id' => $product->id]);
+
+        }
+
+        if(count($exitingIds) >0 ) {
+
+            ProductImage::destroy($exitingIds);
         }
 
         return $this;
