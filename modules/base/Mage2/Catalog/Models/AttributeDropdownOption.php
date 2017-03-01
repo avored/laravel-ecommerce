@@ -17,4 +17,14 @@ class AttributeDropdownOption extends BaseModel
     {
         return $this->belongsTo(ProductAttribute::class);
     }
+
+    /**
+     * Attribute Dropdown Options belongs to many Product Attribute.
+     *
+     * @return \Mage2\Catalog\Models\ProductAttribute
+     */
+    public function productVariations()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
 }

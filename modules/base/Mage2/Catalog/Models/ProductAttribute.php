@@ -26,6 +26,16 @@ class ProductAttribute extends BaseModel
     }
 
     /**
+     * Product Attribute has many Attribute Dropdown Options.
+     *
+     * @return \Mage2\Catalog\Models\AttributeDropdownOption
+     */
+    public function productVariations()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
+
+    /**
      * Product Attribute has many Product Varchar Value.
      *
      * @return \Mage2\Catalog\Models\ProductVarcharValue

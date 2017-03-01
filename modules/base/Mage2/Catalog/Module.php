@@ -76,10 +76,11 @@ class Module extends BaseModule {
                                     'label' => 'Attribute',
                                     'route' => 'admin.attribute.index',
                                 ]
-                                , 'option' => [
+
+                                /**, 'option' => [
                                     'label' => 'Option',
                                     'route' => 'admin.option.index',
-                                ]
+                                ]*/
                                 , 'review' => [
                                     'label' => 'Review',
                                     'route' => 'admin.review.index',

@@ -19,11 +19,21 @@ class ProductVariation extends BaseModel
     }
 
     /**
-     * Variation belongs to Product Attribute.
+     * Variation belongs to Product
+     *
+     * @return \Mage2\Catalog\Models\Product
+     */
+    public function productAttribute()
+    {
+        return $this->belongsTo(ProductAttribute::class);
+    }
+
+    /**
+     * Variation belongs to Attribute Dropdown Option.
      *
      * @return \Mage2\Catalog\Models\AttributeDropdownOption
      */
-    public function attrbuteDropdownOptions()
+    public function attributeDropdownOption()
     {
         return $this->belongsTo(AttributeDropdownOption::class);
     }

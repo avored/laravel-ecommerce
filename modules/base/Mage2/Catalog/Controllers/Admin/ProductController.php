@@ -83,6 +83,7 @@ class ProductController extends AdminController
             $this->productHelper->saveCategory($product, $request);
             $this->productHelper->saveProductImages($product, $request);
             $this->productHelper->saveProductPrice($product, $request);
+            $this->productHelper->saveProductAttribute($product, $request);
         } catch (\Exception $e) {
             echo 'Error in Saving Product: ', $e->getMessage(), "\n";
         }
@@ -114,6 +115,7 @@ class ProductController extends AdminController
     {
 
         $product = Product::findorfail($id);
+
         $categories = $this->categoryHelper->getCategoryOptions();
 
         return view('mage2catalog::admin.catalog.product.edit')

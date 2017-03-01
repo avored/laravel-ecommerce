@@ -90,6 +90,11 @@ class Product extends BaseModel {
             return $this->reviews()->get();
         }
 
+
+        if(method_exists($this, $key)) {
+            return $this->$key();
+        }
+
         $value = null;
 
         //$cacheKey = ProductAttribute::class . "_" . $key;

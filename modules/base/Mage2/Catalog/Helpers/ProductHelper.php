@@ -15,7 +15,7 @@ class ProductHelper
 
 
     /**
-     * Insert or update product into pivot table.
+     * Insert or update product into Product table.
      *
      * @param type                                  $product
      * @param \Mage2\Catalog\Helpers\ProductRequest $request
@@ -28,6 +28,14 @@ class ProductHelper
         //Sync Website i was using it .....????
     }
 
+    /**
+     *
+     * Save Related Product into related table
+     *
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
     public function saveRelatedProducts($product, ProductRequest $request)
     {
         if (count($request->get('related_products')) > 0) {
@@ -40,6 +48,13 @@ class ProductHelper
         }
     }
 
+    /**
+     *
+     *  Save Product Category
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
     public function saveCategory($product, ProductRequest $request)
     {
         if (count($request->get('category_id')) > 0) {
@@ -47,6 +62,12 @@ class ProductHelper
         }
     }
 
+    /**
+     * Save Product Attribute with variations
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
     public function saveProductAttribute($product, ProductRequest $request)
     {
 
@@ -66,6 +87,68 @@ class ProductHelper
                 }
             }
         }
+        return $this;
+    }
+
+
+    /**
+     *
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
+    public function saveProductImages($product, ProductRequest $request)
+    {
+
+        $exitingIds = [];
+        if(NULL === $request->get('image')) {
+            return $this;
+        }
+
+        $exitingIds = $product->images()->get()->pluck('id')->toArray();
+
+        foreach ($request->get('image') as $key => $path ) {
+
+
+
+            if(is_int($key)) {
+                if(($findKey = array_search($key, $exitingIds)) !== false) {
+                    unset($exitingIds[$findKey]);
+                }
+
+                continue;
+            }
+
+            ProductImage::create(['path' => $path[0], 'product_id' => $product->id]);
+
+        }
+
+        if(count($exitingIds) >0 ) {
+
+            ProductImage::destroy($exitingIds);
+        }
+
+        return $this;
+
+
+    }
+
+    /**
+     *
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
+    public function saveProductPrice($product, ProductRequest $request) {
+
+        //dd();
+        if($product->prices()->get()->count() > 0) {
+            $product->prices()->get()->first()->update(['price' => $request->get('price')]);
+        } else {
+            $product->prices()->create(['price' => $request->get('price')]);
+        }
+        //$price  = ProductPrice::create(['price' => $request->get('price'), 'product_id' => $product->id]);
+
         return $this;
     }
 
@@ -124,55 +207,6 @@ class ProductHelper
         }
 
         return true;
-    }
-
-    public function saveProductImages($product, ProductRequest $request)
-    {
-
-        $exitingIds = [];
-        if(NULL === $request->get('image')) {
-            return $this;
-        }
-
-        $exitingIds = $product->images()->get()->pluck('id')->toArray();
-
-        foreach ($request->get('image') as $key => $path ) {
-
-
-
-            if(is_int($key)) {
-                if(($findKey = array_search($key, $exitingIds)) !== false) {
-                    unset($exitingIds[$findKey]);
-                }
-
-                continue;
-            }
-
-            ProductImage::create(['path' => $path[0], 'product_id' => $product->id]);
-
-        }
-
-        if(count($exitingIds) >0 ) {
-
-            ProductImage::destroy($exitingIds);
-        }
-
-        return $this;
-
-
-    }
-
-    public function saveProductPrice($product, ProductRequest $request) {
-
-        //dd();
-        if($product->prices()->get()->count() > 0) {
-            $product->prices()->get()->first()->update(['price' => $request->get('price')]);
-        } else {
-            $product->prices()->create(['price' => $request->get('price')]);
-        }
-        //$price  = ProductPrice::create(['price' => $request->get('price'), 'product_id' => $product->id]);
-
-        return $this;
     }
 
     private function _saveProductVarcharValue($product, $identifier, $productAttribute, $value)
