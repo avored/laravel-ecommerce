@@ -69,9 +69,31 @@ class Mage2CatalogSchema extends Migration {
             $table->string('page_title')->nullable()->default(null);
             $table->string('page_description')->nullable()->default(null);
 
+            $table->tinyInteger('has_variation')->nullable()->default(0);
             $table->timestamps();
         });
 
+
+        Schema::create('product_variations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('product_attribute_id')->unsigned();
+            $table->integer('attribute_dropdown_option_id')->unsigned();
+            $table->text('image');
+            $table->decimal('qty',10,6);
+            $table->decimal('price', 10,6);
+
+            $table->timestamps();
+
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+
+            $table->foreign('product_attribute_id')
+                ->references('id')->on('product_attributes')->onDelete('cascade');
+
+            $table->foreign('attribute_dropdown_option_id')
+                ->references('id')->on('attribute_dropdown_options')->onDelete('cascade');
+        });
 
         Schema::create('product_prices', function (Blueprint $table) {
             $table->increments('id');

@@ -12,10 +12,14 @@ use Illuminate\Support\Facades\Cache;
 
 class Product extends BaseModel {
 
-    protected $fillable = ['title','slug','sku','description','status','in_stock','track_stock','qty','is_taxable','page_title','page_description'];
+    protected $fillable = ['title','slug','sku','description','status','in_stock','track_stock','qty','is_taxable','page_title','page_description','has_variation'];
 
     public function categories() {
         return $this->belongsToMany(Category::class);
+    }
+
+    public function productVariations() {
+        return $this->hasMany(ProductVariation::class);
     }
 
     public function reviews() {

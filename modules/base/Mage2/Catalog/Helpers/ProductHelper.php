@@ -5,6 +5,7 @@ namespace Mage2\Catalog\Helpers;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\ProductImage;
 use Mage2\Catalog\Models\ProductPrice;
+use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Catalog\Requests\ProductRequest;
 
@@ -48,51 +49,24 @@ class ProductHelper
 
     public function saveProductAttribute($product, ProductRequest $request)
     {
-        dd($request->get('attribute'));
-        $productAttributes = ProductAttribute::all();
 
-        foreach ($productAttributes as $productAttribute) {
-            $identifier = $productAttribute->identifier;
-            if (null == $request->get($identifier)) {
-                continue;
-            }
-            if ($product->$identifier == $request->get($identifier)) {
-                continue;
-            }
+        $attributes  = $request->get('attribute');
 
 
-            switch ($productAttribute->type) {
-                case 'VARCHAR':
-                    $value = $request->get($identifier);
-                    $this->_saveProductVarcharValue($product, $identifier, $productAttribute, $value);
-                    break;
+        if($attributes !== NULL && count($attributes) >0 ) {
+            //@todo update image to hasvariation = true
+            $product->update(['has_variation' => 1]);
 
-                case 'INTEGER':
-                    $value = $request->get($identifier);
-                    $this->_saveProductIntegerValue($product, $identifier, $productAttribute, $value);
-                    break;
-
-                case 'FLOAT':
-                    $value = $request->get($identifier);
-                    $this->_saveProductFloatValue($product, $identifier, $productAttribute, $value);
-                    break;
-
-                case 'DATETIME':
-                    $value = $request->get($identifier);
-                    $this->_saveProductDatetimeValue($product, $identifier, $productAttribute, $value);
-                    break;
-
-                case 'TEXT':
-                    $value = $request->get($identifier);
-                    $this->_saveProductTextValue($product, $identifier, $productAttribute, $value);
-                    break;
-
-                default:
-                    break;
+            foreach ($attributes as $attributeId => $attribute) {
+                foreach($attribute as $dropdownId => $fieldValue) {
+                    //@todo Upload Image Here then add
+                    $data = ['product_attribute_id' => $attributeId,'attribute_dropdown_option_id' => $dropdownId, 'product_id' => $product->id] + $fieldValue;
+                    
+                    ProductVariation::create($data);
+                }
             }
         }
-
-        return true;
+        return $this;
     }
 
     /**

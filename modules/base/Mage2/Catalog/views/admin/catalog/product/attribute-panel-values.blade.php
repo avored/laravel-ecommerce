@@ -18,29 +18,21 @@
                          style="border: 1px solid #ccc; padding: 10px;margin-bottom: 10px">
                         <label>{{ $dropdownValue->display_text }}</label>
 
-                        <div class="col-md-12 form-group">
-                            <label>SKU</label>
-                            <input type="text" name="attribute[{{ $dropdownValue->id }}][sku]" class="form-control"/>
-                        </div>
-                        <div class="col-md-12">
-                            <label>URL</label>
-                            <input type="text" name="attribute[{{ $dropdownValue->id }}][url]" class="form-control"/>
-                        </div>
                         <div class="clearfix"></div>
                         <div class="col-md-12">
                             <div class="col-md-4 form-group">
                                 <label>Image</label>
-                                <input type="file" name="attribute[{{ $dropdownValue->id }}][image]"
+                                <input type="file" name="attribute[{{ $attribute->id }}][{{ $dropdownValue->id }}][image]"
                                        class="form-control"/>
                             </div>
                             <div class="col-md-4">
                                 <label>Qty</label>
-                                <input type="text" name="attribute[{{ $dropdownValue->id }}][qty]"
+                                <input type="text" name="attribute[{{ $attribute->id }}][{{ $dropdownValue->id }}][qty]"
                                        class="form-control"/>
                             </div>
                             <div class="col-md-4">
                                 <label>Price</label>
-                                <input type="text" name="attribute[{{ $dropdownValue->id }}][price]"
+                                <input type="text" name="attribute[{{ $attribute->id }}][{{ $dropdownValue->id }}][price]"
                                        class="form-control"/>
                             </div>
                         </div>

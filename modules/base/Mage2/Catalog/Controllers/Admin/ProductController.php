@@ -12,6 +12,11 @@ use Mage2\Catalog\Models\ProductOption;
 use Mage2\Catalog\Requests\ProductRequest;
 use Mage2\Framework\System\Controllers\AdminController;
 
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+
+
 class ProductController extends AdminController
 {
     /**
@@ -39,6 +44,7 @@ class ProductController extends AdminController
      */
     public function index()
     {
+
         $products = Product::paginate(10);
 
         return view('mage2catalog::admin.catalog.product.index')
