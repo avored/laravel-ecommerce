@@ -135,6 +135,7 @@ class ProductController extends AdminController
 
             $this->productHelper->saveProductImages($product, $request);
             $this->productHelper->saveProductPrice($product, $request);
+            $this->productHelper->saveProductAttribute($product, $request);
         } catch (\Exception $e) {
             throw new \Exception('Error in Saving Product: '.$e->getMessage());
         }
@@ -198,14 +199,12 @@ class ProductController extends AdminController
     }
 
 
-    public function getAttributeOption(Request $request) {
+    public function getAttribute(Request $request) {
 
-        $option = ProductOption::findorfail($request->get('id'));
+        $attribute = ProductAttribute::findorfail($request->get('id'));
 
-
-
-        return view('mage2catalog::admin.catalog.product.option-panel-values')
-                    ->with('option', $option);
+        return view('mage2catalog::admin.catalog.product.attribute-panel-values')
+                    ->with('attribute', $attribute);
 
     }
 

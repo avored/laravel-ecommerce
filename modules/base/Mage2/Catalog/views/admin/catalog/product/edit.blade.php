@@ -24,7 +24,7 @@
                 @include('mage2catalog::admin.catalog.product.inventory-panel' )
                 @include('mage2catalog::admin.catalog.product.seo-panel' )
 
-                @include('admin.catalog.product.option');
+                @include('admin.catalog.product.attribute');
             
             <div class="input-field">
                 {!! Form::submit("Update Product",['class' => 'btn btn-primary']) !!}

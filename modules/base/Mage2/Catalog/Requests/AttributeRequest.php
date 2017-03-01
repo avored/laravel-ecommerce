@@ -26,7 +26,6 @@ class AttributeRequest extends Request
         $validationRule = [];
         $validationRule['title'] = 'required|max:255';
         $validationRule['field_type'] = 'required';
-        $validationRule['product_attribute_group_id'] = 'required';
         $validationRule['type'] = 'required';
         $validationRule['sort_order'] = 'required';
 
@@ -37,7 +36,7 @@ class AttributeRequest extends Request
                 if ($key == "__RANDOM_STRING__") {
                     continue;
                 }
-                $validationRule['dropdown-options.' . $key . ".value"] = 'required';
+                $validationRule['dropdown-options.' . $key . ".display_text"] = 'required';
 
             }
         }

@@ -6,7 +6,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class AttributeDropdownOption extends BaseModel
 {
-    protected $fillable = ['product_attribute_id', 'value', 'label'];
+    protected $fillable = ['product_attribute_id', 'display_text'];
 
     /**
      * Attribute Dropdown Options belongs to many Product Attribute.

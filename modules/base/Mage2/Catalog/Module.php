@@ -72,10 +72,10 @@ class Module extends BaseModule {
                                     'label' => 'Product',
                                     'route' => 'admin.product.index',
                                 ]
-                                /**, 'attribute' => [
+                                , 'attribute' => [
                                     'label' => 'Attribute',
                                     'route' => 'admin.attribute.index',
-                                ]*/
+                                ]
                                 , 'option' => [
                                     'label' => 'Option',
                                     'route' => 'admin.option.index',
@@ -104,8 +104,7 @@ class Module extends BaseModule {
 
     public function registerViewComposerData() {
         //View::composer(['admin.catalog.product.boxes.inventory'], 'Mage2\Catalog\ViewComposers\ProductBoxInventoryComposer');
-        View::composer(['admin.catalog.product.option'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
-        View::composer(['admin.catalog.attribute._fields'], 'Mage2\Catalog\ViewComposers\ProductAttributeFieldComposer');
+        View::composer(['admin.catalog.product.attribute'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
     }
 
     /**

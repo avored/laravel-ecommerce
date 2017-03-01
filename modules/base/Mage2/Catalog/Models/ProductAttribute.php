@@ -7,7 +7,6 @@ use Mage2\Framework\System\Models\BaseModel;
 class ProductAttribute extends BaseModel
 {
     protected $fillable = ['title',
-                            'product_attribute_group_id' ,
                             'identifier', 
                             'field_type', 
                             'type', 

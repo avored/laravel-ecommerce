@@ -48,6 +48,64 @@ class ProductHelper
 
     public function saveProductAttribute($product, ProductRequest $request)
     {
+        dd($request->get('attribute'));
+        $productAttributes = ProductAttribute::all();
+
+        foreach ($productAttributes as $productAttribute) {
+            $identifier = $productAttribute->identifier;
+            if (null == $request->get($identifier)) {
+                continue;
+            }
+            if ($product->$identifier == $request->get($identifier)) {
+                continue;
+            }
+
+
+            switch ($productAttribute->type) {
+                case 'VARCHAR':
+                    $value = $request->get($identifier);
+                    $this->_saveProductVarcharValue($product, $identifier, $productAttribute, $value);
+                    break;
+
+                case 'INTEGER':
+                    $value = $request->get($identifier);
+                    $this->_saveProductIntegerValue($product, $identifier, $productAttribute, $value);
+                    break;
+
+                case 'FLOAT':
+                    $value = $request->get($identifier);
+                    $this->_saveProductFloatValue($product, $identifier, $productAttribute, $value);
+                    break;
+
+                case 'DATETIME':
+                    $value = $request->get($identifier);
+                    $this->_saveProductDatetimeValue($product, $identifier, $productAttribute, $value);
+                    break;
+
+                case 'TEXT':
+                    $value = $request->get($identifier);
+                    $this->_saveProductTextValue($product, $identifier, $productAttribute, $value);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     *
+     * Please REMOVE THIS FUNCTION
+     * @param $product
+     * @param ProductRequest $request
+     * @return bool
+     *
+     */
+    public function saveProductAttributeOLD($product, ProductRequest $request)
+    {
+        dd($request->all());
         $productAttributes = ProductAttribute::all();
 
         foreach ($productAttributes as $productAttribute) {

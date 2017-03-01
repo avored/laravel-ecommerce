@@ -17,7 +17,6 @@ class Mage2CatalogSchema extends Migration {
     public function install() {
 
 
-
         Schema::create('product_attributes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
@@ -137,8 +136,7 @@ class Mage2CatalogSchema extends Migration {
         Schema::create('attribute_dropdown_options', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_attribute_id')->unsigned();
-            $table->string('value');
-            $table->string('label');
+            $table->string('display_text');
             $table->timestamps();
         });
 
@@ -172,12 +170,6 @@ class Mage2CatalogSchema extends Migration {
             $table->timestamps();
         });
 
-
-        //addresses table foreign key setup
-        //Schema::table('product_attributes', function (Blueprint $table) {
-        //    $table->foreign('product_attribute_group_id')
-        //            ->references('id')->on('product_attribute_groups')->onDelete('cascade');
-        //});
         //product_varchar_values table foreign key setup
         Schema::table('product_varchar_values', function (Blueprint $table) {
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

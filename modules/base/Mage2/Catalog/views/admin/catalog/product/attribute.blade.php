@@ -13,21 +13,20 @@
             <label>Please Select Option</label>
                 <span class="input-group">
 
-
-                    <select class="option-select-field form-control" data-token="{{ csrf_token() }}">
-                        @foreach($productOptions as $value => $label)
+                    <select class="attribute-select-field form-control" data-token="{{ csrf_token() }}">
+                        @foreach($productAttributes as $value => $label)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </select>
 
-                 <a href="#" class="add-product-option input-group-addon">Add</a>
+                 <a href="#" class="add-product-attribute input-group-addon">Add</a>
                 </span>
         </div>
 
         <div class="clearfix"></div>
         <hr/>
 
-        <div class="panel-group" id="option-accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group" id="attribute-accordion" role="tablist" aria-multiselectable="true">
 
 
         </div>
@@ -40,21 +39,21 @@
 
     jQuery(document).ready(function () {
 
-        jQuery(document).on('click','.add-product-option', function(e) {
+        jQuery(document).on('click','.add-product-attribute', function(e) {
             e.preventDefault();
 
-            if(jQuery('.option-select-field').val() != "") {
+            if(jQuery('.attribute-select-field').val() != "") {
 
 
-                var data = {id: jQuery('.option-select-field').val(), _token : jQuery('.option-select-field').attr('data-token') }
+                var data = {id: jQuery('.attribute-select-field').val(), _token : jQuery('.attribute-select-field').attr('data-token') }
 
                 jQuery.ajax({
-                    url : "{{ route('admin.product-attribute.options')  }}",
+                    url : "{{ route('admin.product-attribute.get-attribute')  }}",
                     method : "post",
                     data: data,
                     success: function(response) {
 
-                        jQuery('#option-accordion').append(response);
+                        jQuery('#attribute-accordion').append(response);
 
 
                     }

@@ -1,5 +1,3 @@
-{!! Form::select('product_attribute_group_id','Product Attribute Group' , $productAttributeGroupOptions) !!}
-
 
 {!! Form::text('title','Title') !!}
 {!! Form::text('identifier','Identifier') !!}
@@ -39,28 +37,19 @@ if (isset($attribute) && $attribute->attributeDropdownOptions->count() > 0) {
         @foreach($attribute->attributeDropdownOptions as $key => $dropdownOptionModel)
 
             <div class="dynamic-field-row">
+                <div class="form-group col-md-12">
+                    <label>Display Text</label>
+                    <span class="input-group">
+                        <input class="form-control" name="dropdown-options[{{ $dropdownOptionModel->id }}][display_text]"
+                               value="{{ $dropdownOptionModel->display_text }}"/>
 
-                <div class="form-group col-md-6">
-                    <label>Label</label>
-                    <input class="form-control" name="dropdown-options[{{ $dropdownOptionModel->id }}][label]"
-                           value="{{ $dropdownOptionModel->label }}"/>
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Value</label>
+                        @if ($loop->last)
+                            <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
+                        @else
+                            <span class="input-group-addon  remove-field" style='cursor: pointer'>Remove</span>
+                        @endif
 
-        <span class="input-group">
-            <input class="form-control" name="dropdown-options[{{ $dropdownOptionModel->id }}][value]"
-                   value="{{ $dropdownOptionModel->value }}"/>
-
-            @if ($loop->last)
-                <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
-            @else
-                <span class="input-group-addon  remove-field" style='cursor: pointer'>Remove</span>
-
-            @endif
-
-
-        </span>
+                    </span>
                 </div>
             </div>
 
@@ -69,15 +58,12 @@ if (isset($attribute) && $attribute->attributeDropdownOptions->count() > 0) {
     @else
 
         <div class="dynamic-field-row">
-            <div class="form-group col-md-6">
-                <label>Label</label>
-                <input disabled class="form-control" name="dropdown-options[{{ $randomString }}][label]"/>
-            </div>
-            <div class="form-group col-md-6">
-                <label>Value</label>
+
+            <div class="form-group col-md-12">
+                <label>Display Text</label>
 
         <span class="input-group">
-            <input disabled class="form-control" name="dropdown-options[{{ $randomString }}][value]"/>
+            <input disabled class="form-control" name="dropdown-options[{{ $randomString }}][display_text]"/>
             <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
         </span>
             </div>
@@ -87,15 +73,11 @@ if (isset($attribute) && $attribute->attributeDropdownOptions->count() > 0) {
 
     <div class="dynamic-field-row-template hidden">
         <div class="dynamic-field-row">
-            <div class="form-group col-md-6">
-                <label>Label</label>
-                <input  class="form-control" name="dropdown-options[__RANDOM_STRING__][label]"/>
-            </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
                 <label>Value</label>
 
         <span class="input-group">
-            <input  class="form-control" name="dropdown-options[__RANDOM_STRING__][value]"/>
+            <input  class="form-control" name="dropdown-options[__RANDOM_STRING__][display_text]"/>
             <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
         </span>
             </div>
@@ -121,7 +103,7 @@ if (isset($attribute) && $attribute->attributeDropdownOptions->count() > 0) {
             }
 
             rowTemplate = rowTemplate.replace("__RANDOM_STRING__", randomString);
-            rowTemplate = rowTemplate.replace("__RANDOM_STRING__", randomString);
+            //rowTemplate = rowTemplate.replace("__RANDOM_STRING__", randomString);
 
             jQuery(e.target).html('Remove');
 
