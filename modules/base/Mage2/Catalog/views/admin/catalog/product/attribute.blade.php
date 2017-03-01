@@ -75,6 +75,7 @@
                                                    value="{{ $variation->price }}"
                                                    name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][price]"
                                                    class="form-control"/>
+                                            <input type="hidden" name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][id]" value="{{ $variation->id }}">
                                         </div>
                                     </div>
                                 </div>

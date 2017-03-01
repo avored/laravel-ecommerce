@@ -79,11 +79,23 @@ class ProductHelper
             $product->update(['has_variation' => 1]);
 
             foreach ($attributes as $attributeId => $attribute) {
+
+
                 foreach($attribute as $dropdownId => $fieldValue) {
+
                     //@todo Upload Image Here then add
                     $data = ['product_attribute_id' => $attributeId,'attribute_dropdown_option_id' => $dropdownId, 'product_id' => $product->id] + $fieldValue;
-                    
-                    ProductVariation::create($data);
+
+                    if(isset($fieldValue['id']) && $fieldValue['id'] > 0) {
+                        $variation = ProductVariation::findorfail($fieldValue['id']);
+                        $variation->update($data);
+
+                    } else {
+                        ProductVariation::create($data);
+                    }
+
+
+
                 }
             }
         }
