@@ -84,7 +84,9 @@ class ProductHelper
                 foreach($attribute as $dropdownId => $fieldValue) {
 
                     //@todo Upload Image Here then add
-                    $data = ['product_attribute_id' => $attributeId,'attribute_dropdown_option_id' => $dropdownId, 'product_id' => $product->id] + $fieldValue;
+                    $data = ['product_attribute_id' => $attributeId,
+                            'attribute_dropdown_option_id' => $dropdownId,
+                            'product_id' => $product->id] + $fieldValue;
 
                     if(isset($fieldValue['id']) && $fieldValue['id'] > 0) {
                         $variation = ProductVariation::findorfail($fieldValue['id']);

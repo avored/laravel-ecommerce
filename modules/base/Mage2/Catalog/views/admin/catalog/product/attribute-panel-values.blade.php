@@ -18,8 +18,12 @@
                          style="border: 1px solid #ccc; padding: 10px;margin-bottom: 10px">
                         <label>{{ $dropdownValue->display_text }}</label>
 
+
                         <div class="clearfix"></div>
                         <div class="col-md-12">
+                            <input type="hidden"
+                                   name="attribute[{{ $attribute->id }}][{{ $dropdownValue->id }}][title]"
+                                   value="{{$dropdownValue->display_text}}">
                             <div class="col-md-4 form-group">
                                 <label>Image</label>
                                 <input type="file" name="attribute[{{ $attribute->id }}][{{ $dropdownValue->id }}][image]"
