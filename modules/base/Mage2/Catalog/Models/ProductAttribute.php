@@ -8,11 +8,9 @@ class ProductAttribute extends BaseModel
 {
     protected $fillable = ['title',
                             'identifier', 
-                            'field_type', 
-                            'type', 
+                            'field_type',
                             'is_system' ,
-                            'sort_order' ,
-                            'validation'
+                            'sort_order'
                             ];
 
     /**
@@ -85,45 +83,4 @@ class ProductAttribute extends BaseModel
         return $this->hasMany(ProductTextValue::class);
     }
 
-    public function getDropdownOptions() {
-        
-        $identifier = $this->attributes['identifier'];
-        $attribute = $this->where('identifier', '=', $identifier)->get()->first();
-        return $attribute->attributeDropdownOptions->pluck('label', 'value');
-    }
-
-    public function getTrackStockOptions()
-    {
-        $attribute = $this->where('identifier', '=', 'track_stock')->get()->first();
-
-        return $attribute->attributeDropdownOptions->pluck('label', 'value');
-    }
-
-    public function getIsTaxableOptions()
-    {
-        $attribute = $this->where('identifier', '=', 'is_taxable')->get()->first();
-
-        return $attribute->attributeDropdownOptions->pluck('label', 'value');
-    }
-
-    public function getInStockOptions()
-    {
-        $attribute = $this->where('identifier', '=', 'in_stock')->get()->first();
-
-        return $attribute->attributeDropdownOptions->pluck('label', 'value');
-    }
-
-    public function getIsFeaturedOptions()
-    {
-        $attribute = $this->where('identifier', '=', 'is_featured')->get()->first();
-
-        return $attribute->attributeDropdownOptions->pluck('label', 'value');
-    }
-
-    public function getStatusOptions()
-    {
-        $attribute = $this->where('identifier', '=', 'status')->get()->first();
-
-        return $attribute->attributeDropdownOptions->pluck('label', 'value');
-    }
 }

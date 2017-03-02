@@ -22,7 +22,7 @@
                 @include('admin.catalog.product.attribute');
 
                 {!! Form::submit('Create Product') !!}
-
+                {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.product.index').'"']) !!}
                     
                 {!! Form::close() !!}
             </div>

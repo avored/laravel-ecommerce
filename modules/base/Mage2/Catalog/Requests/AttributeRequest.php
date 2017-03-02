@@ -26,7 +26,6 @@ class AttributeRequest extends Request
         $validationRule = [];
         $validationRule['title'] = 'required|max:255';
         $validationRule['field_type'] = 'required';
-        $validationRule['type'] = 'required';
         $validationRule['sort_order'] = 'required';
 
 

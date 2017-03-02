@@ -28,7 +28,7 @@
             
             <div class="input-field">
                 {!! Form::submit("Update Product",['class' => 'btn btn-primary']) !!}
-                {!! Form::button("Cancel",['class' => 'btn btn-default']) !!}
+                {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.product.index').'"']) !!}
             </div>
 
             {!! Form::close() !!}

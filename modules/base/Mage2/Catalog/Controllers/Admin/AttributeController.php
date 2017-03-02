@@ -51,7 +51,6 @@ class AttributeController extends AdminController
 
     public function store(AttributeRequest $request) {
 
-        $request->merge(['validation' => implode("|", $request->get('validation'))]);
         $productAttribute = ProductAttribute::create($request->all());
 
         $this->_saveDropdownOptions($productAttribute, $request);
@@ -71,7 +70,6 @@ class AttributeController extends AdminController
 
     public function update(AttributeRequest $request,$id) {
 
-        $request->merge(['validation' => implode("|", $request->get('validation'))]);
         $attribute = ProductAttribute::find($id);
         $attribute->update($request->all());
 

@@ -19,6 +19,7 @@
 
        
         {!! Form::submit('Update Review') !!}
+        {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.review.index').'"']) !!}
 
         {!! Form::close() !!}
     </div>

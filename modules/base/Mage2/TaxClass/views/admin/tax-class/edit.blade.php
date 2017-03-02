@@ -11,10 +11,8 @@
 
                 </div>
                 {!! Form::model($taxClass, ['method' => 'PUT', 'route' => ['admin.tax-class.update', $taxClass->id]]) !!}
-                        @include('admin.tax-class._fields')
-                    
-                        @include('template.hidden',['key' => 'id'])
-                        @include('template.submit',['label' => 'Update TaxClass'])
+                        @include('mage2taxclass::admin.tax-class._fields')
+                    {!! Form::submit('Create') !!}
                     
                 {!! Form::close() !!}
             </div>

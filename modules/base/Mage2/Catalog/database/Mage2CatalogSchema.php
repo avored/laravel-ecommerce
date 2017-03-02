@@ -22,10 +22,10 @@ class Mage2CatalogSchema extends Migration {
             $table->string('title');
             $table->string('identifier')->unique();
             $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME']);
-            $table->enum('type', ['VARCHAR', 'TEXT', 'INTEGER', 'FLOAT', 'DATETIME', 'FILE']);
+
             $table->tinyInteger('is_system')->default(0);
             $table->integer('sort_order')->nullable()->default(0);
-            $table->string('validation');
+
             $table->timestamps();
         });
 

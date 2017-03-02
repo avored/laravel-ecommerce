@@ -11,6 +11,7 @@
                 {!! Form::open(['method' => 'post','action' => route('admin.attribute.store')]) !!}
                     @include('admin.catalog.attribute._fields')
                     {!! Form::submit('Create Attribute') !!}
+                    {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.attribute.index').'"']) !!}
                 {!! Form::close() !!}
             </div>
         </div>

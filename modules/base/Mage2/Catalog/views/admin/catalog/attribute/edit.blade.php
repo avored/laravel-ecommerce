@@ -10,8 +10,11 @@
             </div>
 
             {!! Form::bind($attribute, ['method' => 'PUT', 'action' => route('admin.attribute.update', $attribute->id)]) !!}
-            @include('admin.catalog.attribute._fields')
+
+                @include('admin.catalog.attribute._fields')
+
             {!! Form::submit('Update Attribute') !!}
+            {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.attribute.index').'"']) !!}
 
             {!! Form::close() !!}
         </div>

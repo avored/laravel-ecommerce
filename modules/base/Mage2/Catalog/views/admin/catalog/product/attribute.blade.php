@@ -13,7 +13,7 @@
             <label>Please Select Option</label>
                 <span class="input-group">
 
-                    <select class="attribute-select-field form-control" data-token="{{ csrf_token() }}">
+                    <select class="attribute-select-field form-control select2" multiple data-token="{{ csrf_token() }}">
                         @foreach($productAttributes as $value => $label)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
@@ -43,7 +43,6 @@
                         <div class="panel-body">
 
                             @foreach($product->productVariations()->get() as $variation)
-
                                 <?php
                                 //dd($variation->attributeDropdownOption->display_text);
                                 ?>

@@ -11,8 +11,10 @@
                 </div>
                 {!! Form::open(['route' => 'admin.tax-class.store']) !!}
                     @include('admin.tax-class._fields')
-                    @include('template.submit',['label' => 'Create TaxClass'])
-                    
+
+                {!! Form::submit('Create Tax class') !!}
+                {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.tax-class.index').'"']) !!}
+
                 {!! Form::close() !!}
             </div>
         </div>
