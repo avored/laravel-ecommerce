@@ -23,7 +23,7 @@ class Mage2OrderSchema extends Migration {
             $table->integer('order_status_id')->unsigned();
             $table->timestamps();
         });
-        Schema::create('product_order', function (Blueprint $table) {
+        Schema::create('order_product', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->integer('order_id')->unsigned();
@@ -31,7 +31,19 @@ class Mage2OrderSchema extends Migration {
             $table->decimal('price', 11, 6);
             $table->decimal('tax_amount', 11, 6);
             $table->timestamps();
+
+
         });
+
+        Schema::create('order_product_variations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('order_id')->unsigned();
+            $table->integer('product_variation_id')->unsigned();
+            $table->timestamps();
+        });
+
+
         Schema::create('order_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
@@ -39,18 +51,18 @@ class Mage2OrderSchema extends Migration {
             $table->boolean('is_last_stage')->default(0);
             $table->timestamps();
         });
-        
-        
-
 
         //orders table foreign key setup
-        Schema::table('product_order', function (Blueprint $table) {
+        Schema::table('order_product', function (Blueprint $table) {
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
 
-
-
+        Schema::table('order_product_variations', function (Blueprint $table) {
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('product_variation_id')->references('id')->on('product_variations')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
 
         OrderStatus::insert(
             ['title' => 'pending', 'is_default' => 1, 'is_last_stage' => 0],

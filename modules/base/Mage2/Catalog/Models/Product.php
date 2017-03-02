@@ -39,7 +39,7 @@ class Product extends BaseModel {
     }
 
     public function orders() {
-        return $this->hasMany(Order::class, 'product_order');
+        return $this->hasMany(Order::class);
     }
 
     public function getReviews() {

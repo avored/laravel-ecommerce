@@ -42,9 +42,7 @@
                          aria-labelledby="headingOne">
                         <div class="panel-body">
 
-
-
-                            @foreach($product->productVariations->get() as $variation)
+                            @foreach($product->productVariations()->get() as $variation)
 
                                 <?php
                                 //dd($variation->attributeDropdownOption->display_text);
@@ -52,7 +50,7 @@
                                 <div class="col-md-12 single-option-box"
                                      style="border: 1px solid #ccc; padding: 10px;margin-bottom: 10px">
 
-                                    <label>{{ $variation->attributeDropdownOption->display_text }}</label>
+                                    <label>{{ $variation->title }}</label>
 
                                     <div class="clearfix"></div>
                                     <div class="col-md-12">

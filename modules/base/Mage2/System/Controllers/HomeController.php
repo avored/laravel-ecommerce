@@ -14,12 +14,8 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {     
-        $product = new Product();
-        $featureProducts = $product->getFeaturedProducts();
-
+    {
         return view('home.index')
-            //->with('featuredProducts', $featureProducts)
             ;
     }
 }

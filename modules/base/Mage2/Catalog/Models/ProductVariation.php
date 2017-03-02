@@ -6,7 +6,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class ProductVariation extends BaseModel
 {
-    protected $fillable = ['product_id','product_attribute_id','attribute_dropdown_option_id','image', 'qty','price'];
+    protected $fillable = ['product_id','product_attribute_id','attribute_dropdown_option_id','title','image', 'qty','price'];
 
     /**
      * Variation belongs to Product

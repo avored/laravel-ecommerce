@@ -11,6 +11,8 @@ use Mage2\Order\Mail\OrderInvoicedMail;
 use Mage2\Order\Models\Order;
 use Mage2\Order\Models\OrderStatus;
 use Mage2\User\Models\User;
+use Mage2\Order\Models\OrderProductVariation;;
+
 
 class OrderController extends Controller
 {
@@ -41,7 +43,8 @@ class OrderController extends Controller
 
 
 
-        $order = Order::create($orderData);
+        //$order = Order::create($orderData);
+        $order = Order::find(1);
 
         $this->syncOrderProductData($order, $orderProductData);
 
@@ -63,9 +66,19 @@ class OrderController extends Controller
     {
         //Only use pivot fields only @latner on use Collection and then use pluck method rather then foreach
         foreach ($orderProducts as $i => $orderProduct) {
+
+            if(isset($orderProduct['attributes'])) {
+                foreach($orderProduct['attributes'] as $attribute) {
+                    $data = ['order_id' => $order->id,'product_id' => $i,'product_variation_id' => $attribute['variation_id']];
+                    OrderProductVariation::create($data);
+                }
+            }
+
             unset($orderProduct['model']);
             unset($orderProduct['id']);
+            unset($orderProduct['attributes']);
             $orderProducts[$i] = $orderProduct;
+
         }
 
         $order->products()->sync($orderProducts);
