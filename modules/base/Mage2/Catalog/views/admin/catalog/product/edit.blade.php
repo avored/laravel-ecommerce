@@ -16,7 +16,7 @@
             $productCategories = $product->categories()->get()->pluck('id')->toArray();
             
             ?>
-            {!! Form::bind($product, ['method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}
+            {!! Form::bind($product, ['files' => true,'method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}
 
 
                 @include('mage2catalog::admin.catalog.product.basic-panel' )

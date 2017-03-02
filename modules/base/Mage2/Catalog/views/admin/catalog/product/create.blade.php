@@ -10,7 +10,7 @@
     </div>
         <div class="row">
             <div class="col s12">
-                {!! Form::open(['action' => route('admin.product.store'),'method' => 'post']) !!}
+                {!! Form::open(['files' => true,'action' => route('admin.product.store'),'method' => 'post']) !!}
 
 
 

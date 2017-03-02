@@ -8,6 +8,7 @@ use Mage2\Catalog\Models\ProductPrice;
 use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Catalog\Requests\ProductRequest;
+use Illuminate\Http\UploadedFile;
 
 
 class ProductHelper
@@ -80,13 +81,19 @@ class ProductHelper
 
             foreach ($attributes as $attributeId => $attribute) {
 
-
                 foreach($attribute as $dropdownId => $fieldValue) {
 
-                    //@todo Upload Image Here then add
+
+                    if($imageArray = $request->file('attribute')) {
+                        $image = $imageArray[$attributeId][$dropdownId]['image'];
+                        $attributeImagePath = $this->_uploadImage($image);
+                    }
+
                     $data = ['product_attribute_id' => $attributeId,
                             'attribute_dropdown_option_id' => $dropdownId,
+                            'image' => $attributeImagePath,
                             'product_id' => $product->id] + $fieldValue;
+
 
                     if(isset($fieldValue['id']) && $fieldValue['id'] > 0) {
                         $variation = ProductVariation::findorfail($fieldValue['id']);
@@ -104,6 +111,18 @@ class ProductHelper
         return $this;
     }
 
+
+
+    private function _uploadImage(UploadedFile $image)
+    {
+
+
+        $destinationPath = 'uploads/catalog/images/';
+        $relativePath = implode('/', str_split(strtolower(str_random(3)))).'/';
+        $image->move($destinationPath.$relativePath, $image->getClientOriginalName());
+
+        return $relativePath.$image->getClientOriginalName();
+    }
 
     /**
      *
