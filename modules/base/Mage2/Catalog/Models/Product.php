@@ -60,18 +60,19 @@ class Product extends BaseModel {
      * @return float $value
      */
 
-    public function getPrice() {
+    public function getPriceAttribute() {
         $row = $this->prices()->first();
 
         return $row->price;
     }
 
-    public function getAttribute($key) {
+    public function getAttributeOLD($key) {
         if (isset($this->attributes[$key])) {
             return $this->attributes[$key];
         }
 
         if ($key == 'price') {
+
             return $this->getPrice();
         }
 

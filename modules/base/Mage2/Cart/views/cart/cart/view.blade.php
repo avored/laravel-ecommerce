@@ -38,6 +38,7 @@
                                 <h4 class="media-heading">
                                     <a href="{{ route('product.view', $product['model']->slug)}}">
                                         {{ $product['model']->title }}
+
                                     </a>
                                 </h4>
 

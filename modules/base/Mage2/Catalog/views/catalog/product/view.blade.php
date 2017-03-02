@@ -13,25 +13,16 @@
                 <div class="col-md-8">
                     <h1 class="product-title">{{ $product->title }}</h1>
 
-                    <div class="product-price">$ {{ number_format($product->price,2) }}</div>
 
-                    {!! Form::open(['method' => 'get','action' => route('cart.add-to-cart', $product->id)]) !!}
-                    <div class="product-stock">In Stock</div>
-                    <hr>
-                    <div class="row">
+                    <div class="product-price"><span>$</span> <span class="price">{{ number_format($product->price,2) }}</span></div>
 
-                        <div class="form-group col-md-1" style="">
-                            <label>Qty</label>
-                            <input type="text" name="qty" class="form-control" value="1"/>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="">
-                        <button type="submit" class="btn btn-primary"
-                                href="{{ route('cart.add-to-cart', $product->id) }}">
-                            Add to Cart
-                        </button>
+                    @if($product->has_variation == 0 )
+                        @include('catalog.product.view.type.basic-add-to-cart')
+                    @elseif($product->has_variation == 1 )
+                        @include('catalog.product.view.type.variation-add-to-cart')
+                    @endif
 
+                    <div class="pull-left">
                         @if(isset(Auth::user()->id) && Auth::user()->isInWishlist($product->id))
                             <a class="btn btn-danger" href="{{ route('wishlist.remove', $product->slug) }}">
                                 Remove from Wishlist
@@ -42,8 +33,6 @@
                             </a>
 
                         @endif
-
-                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
@@ -51,7 +40,6 @@
             <div class="col-md-12 product-info">
                 <ul class="nav nav-tabs">
                     <li class="tab active"><a data-toggle="tab" href="#description">DESCRIPTION</a></li>
-                    <li class="tab "><a data-toggle="tab" href="#attribute">Attribute</a></li>
                     <li class="tab"><a data-toggle="tab" href="#review">REVIEW</a></li>
                 </ul>
 
@@ -60,30 +48,7 @@
                         <p>{!! $product->description !!}</p>
                     </div>
 
-                    <div id="attribute" class="tab-pane">
-                        <?php
 
-                        $model = new \Mage2\Catalog\Models\ProductAttributeGroup();
-                        $group = $model->where('identifier', '=', 'extra-attributes')->first();
-                        $attributes = $group->productAttributes()->where('is_system', '=', 0)->orderBy('sort_order')->get();
-
-
-                        ?>
-
-                        <p>&nbsp;</p>
-                        <table class="table table-responsive table-bordered">
-                            @foreach($attributes as $att)
-                            <?php
-                            $identifier = $att->identifier;
-                            ?>
-                            <tr>
-
-                                <th>{{ $att->title }}</th>
-                                <td>{{ $product->$identifier }}</td>
-                            </tr>
-                            @endforeach
-                        </table>
-                    </div>
                     <div id="review" class="tab-pane">
 
                         <div class="review-wrapper col-md-12">

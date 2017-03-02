@@ -32,12 +32,7 @@ class ProductViewController extends Controller
 
     private function _getProductBySlug($slug)
     {
-        $slugAttribute = ProductAttribute::where('identifier', '=', 'slug')->get()->first();
-        $productVarcharValue = ProductVarcharValue::where('product_attribute_id', '=', $slugAttribute->id)
-                                                ->where('value', '=', $slug)->get()->first();
-
-
-        $product = Product::findorfail($productVarcharValue->product_id);
+        $product = Product::where('slug', '=', $slug)->get()->first();
 
         return $product;
     }

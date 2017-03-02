@@ -5,6 +5,8 @@ namespace Mage2\Cart\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\Product;
+use Mage2\Catalog\Models\ProductAttribute;
+use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Framework\System\Controllers\Controller;
 
 class CartController extends Controller
@@ -16,9 +18,22 @@ class CartController extends Controller
 
     public function addToCart(Request $request, $id)
     {
-        
+
         $cart = Session::get('cart');
         $product = Product::findorfail($id);
+
+        if($attributes = $request->get('attribute')) {
+            foreach($attributes as $attributeId => $variationId) {
+                $productAttribute = ProductAttribute::find($attributeId);
+                $productVariation = ProductVariation::find($variationId);
+
+                $attribute[] = ['attribute_id' => $attributeId,
+                                'variation_id' => $variationId,
+                                'attribute_title' => $productAttribute->title,
+                                'variation_display_text' => $productVariation->AttributeDropdownOption->display_text
+                                ];
+            }
+        }
 
         if(null !== $request->get('qty') && !isset($cart[$id])) {
              $cart [$id] = ['id'          => $id,
@@ -26,6 +41,7 @@ class CartController extends Controller
                             'price'      => $product->price,
                             'tax_amount' => $product->getTaxAmount(),
                             'model'      => $product,
+                            'attributes' => $attribute,
                         ];
         } elseif (null !== $request->get('qty') && isset($cart[$id])) {
             $cart[$id]['qty'] += $request->get('qty');
@@ -37,6 +53,7 @@ class CartController extends Controller
                             'price'      => $product->price,
                             'tax_amount' => $product->getTaxAmount(),
                             'model'      => $product,
+                            'attributes' => $attribute,
                         ];
         }
         Session::put('cart', $cart);
