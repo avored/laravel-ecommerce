@@ -6,6 +6,8 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use Mage2\Catalog\Models\Product;
+use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Order\Mail\OrderInvoicedMail;
 use Mage2\Order\Models\Order;
@@ -70,15 +72,22 @@ class OrderController extends Controller
             if(isset($orderProduct['attributes'])) {
                 foreach($orderProduct['attributes'] as $attribute) {
                     $data = ['order_id' => $order->id,'product_id' => $i,'product_variation_id' => $attribute['variation_id']];
+
+                    $productVariation = ProductVariation::findorfail($attribute['variation_id']);
+
+                    $productVariation->update(['qty' => ($productVariation->qty-$orderProduct['qty'])]);
                     OrderProductVariation::create($data);
                 }
+            } else {
+
+                $product = Product::findorfail($i);
+                $product->update(['qty' => ($product->qty-$orderProduct['qty'])]);
             }
 
             unset($orderProduct['model']);
             unset($orderProduct['id']);
             unset($orderProduct['attributes']);
             $orderProducts[$i] = $orderProduct;
-
         }
 
         $order->products()->sync($orderProducts);

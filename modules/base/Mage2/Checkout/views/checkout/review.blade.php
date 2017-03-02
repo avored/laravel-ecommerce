@@ -26,7 +26,7 @@
 
                         </td>
                         <td>
-                            <input type="qty" value="{{ $product['qty']}}">
+                            <strong>{{ $product['qty']}}</strong>
                         </td>
                         <td><strong>${{ $product['price']}}</strong></td>
                         <td><strong>${{ ($product['price'] * $product['qty'] )}}</strong></td>
