@@ -14,6 +14,7 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
+
         $this->registerModule();
         //$this->registerAdminConfiguration();
     }
@@ -24,6 +25,7 @@ class Module extends BaseModule {
      * @return void
      */
     public function register() {
+
 
         $this->mapWebRoutes();
         $this->registerViewPath();

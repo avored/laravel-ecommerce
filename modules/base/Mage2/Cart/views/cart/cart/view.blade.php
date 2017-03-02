@@ -22,11 +22,11 @@
                     <td class="col-md-8">
                         <div class="media">
 
-                            @if(isset($product['model']->getProductImages($first = true)->value))
+                            @if(isset($product['model']->images()->get()->first()->path))
                             <img alt="{{ $product['model']->title }}"
                                  class="img-responsive"
                                  style="height: 72px;"
-                                 src="{{ asset('/uploads/catalog/images/'. $product['model']->getProductImages($first= true)->value) }}" />
+                                 src="{{ asset('/uploads/catalog/images/'. $product['model']->images()->get()->first()->path) }}" />
                             @else 
                             <img alt="{{ $product['model']->title }}"
                                  class="img-responsive"

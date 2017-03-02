@@ -29,27 +29,6 @@ class Mage2CatalogSchema extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('product_options', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->string('identifier')->unique();
-            $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME']);
-            $table->enum('type', ['VARCHAR', 'TEXT', 'INTEGER', 'FLOAT', 'DATETIME', 'FILE']);
-            $table->tinyInteger('is_system')->default(0);
-            $table->integer('sort_order')->nullable()->default(0);
-            $table->string('validation');
-            $table->timestamps();
-        });
-
-        Schema::create('option_dropdown_values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_option_id')->unsigned();
-            $table->string('display_text');
-            $table->timestamps();
-            $table->foreign('product_option_id')
-                ->references('id')->on('product_options')->onDelete('cascade');
-
-        });
 
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
@@ -115,46 +94,6 @@ class Mage2CatalogSchema extends Migration {
 
         });
 
-        Schema::create('product_varchar_values', function (Blueprint $table) {
-            $table->increments('id');
-
-            $table->integer('product_id')->unsigned();
-            $table->integer('product_attribute_id')->unsigned();
-            $table->string('value');
-            $table->timestamps();
-        });
-
-        Schema::create('product_float_values', function (Blueprint $table) {
-            $table->increments('id');
-
-            $table->integer('product_id')->unsigned();
-            $table->integer('product_attribute_id')->unsigned();
-            $table->decimal('value',10,6);
-            $table->timestamps();
-        });
-        Schema::create('product_text_values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->integer('product_attribute_id')->unsigned();
-            $table->text('value');
-            $table->timestamps();
-        });
-        Schema::create('product_integer_values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->integer('product_attribute_id')->unsigned();
-            $table->integer('value');
-            $table->timestamps();
-        });
-
-        Schema::create('product_datetime_values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->integer('product_attribute_id')->unsigned();
-            $table->timestamp('value');
-            $table->timestamps();
-        });
-
         Schema::create('attribute_dropdown_options', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_attribute_id')->unsigned();
@@ -192,42 +131,6 @@ class Mage2CatalogSchema extends Migration {
             $table->timestamps();
         });
 
-        //product_varchar_values table foreign key setup
-        Schema::table('product_varchar_values', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_attribute_id')
-                ->references('id')->on('product_attributes')->onDelete('cascade');
-        });
-
-        //product_varchar_values table foreign key setup
-        Schema::table('product_float_values', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_attribute_id')
-                ->references('id')->on('product_attributes')->onDelete('cascade');
-        });
-
-        //product_text_values table foreign key setup
-        Schema::table('product_text_values', function (Blueprint $table) {
-
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_attribute_id')
-                ->references('id')->on('product_attributes')->onDelete('cascade');
-        });
-
-        //product_integer_values table foreign key setup
-        Schema::table('product_integer_values', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_attribute_id')
-                ->references('id')->on('product_attributes')->onDelete('cascade');
-        });
-
-        //product_datetime_values table foreign key setup
-        Schema::table('product_datetime_values', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_attribute_id')
-                ->references('id')->on('product_attributes')->onDelete('cascade');
-        });
-
         //product_datetime_values table foreign key setup
         Schema::table('attribute_dropdown_options', function (Blueprint $table) {
             $table->foreign('product_attribute_id')
@@ -261,13 +164,7 @@ class Mage2CatalogSchema extends Migration {
 
         Schema::drop('product_attributes');
         Schema::drop('products');
-        Schema::drop('product_varchar_values');
-        Schema::drop('product_float_values');
-        Schema::drop('product_text_values');
-        Schema::drop('product_integer_values');
-        Schema::drop('product_datetime_values');
         Schema::drop('attribute_dropdown_options');
-        Schema::drop('option_dropdown_options');
         Schema::drop('categories');
         Schema::drop('category_product');
         Schema::drop('related_products');
