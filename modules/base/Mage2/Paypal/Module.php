@@ -34,6 +34,11 @@ class Module extends BaseModule {
         $this->registerAdminConfiguration();
         $this->registerPaymentMethod();
         $this->registerViewPath();
+        $this->registerTranslationPath();
+    }
+
+    protected function registerTranslationPath() {
+        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2paypal");
     }
 
     /**

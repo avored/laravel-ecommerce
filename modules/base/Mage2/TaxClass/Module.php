@@ -33,7 +33,13 @@ class Module extends BaseModule {
     public function register() {
         $this->registerWebRoute();
         $this->registerViewPath();
+        $this->registerTranslationPath();
     }
+
+    protected function registerTranslationPath() {
+        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2tax-class");
+    }
+
 
     protected function registerViewPath() {
         $this->loadViewsFrom(__DIR__ . '/views', 'mage2taxclass');

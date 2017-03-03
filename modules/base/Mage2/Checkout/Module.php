@@ -32,6 +32,11 @@ class Module extends BaseModule {
     public function register() {
         $this->mapWebRoutes();
         $this->registerViewPath();
+        $this->registerTranslationPath();
+    }
+
+    protected function registerTranslationPath() {
+        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2checkout");
     }
 
     /**

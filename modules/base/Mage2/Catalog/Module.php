@@ -38,7 +38,13 @@ class Module extends BaseModule {
         $this->mapWebRoutes();
         $this->registerViewComposerData();
         $this->registerPermissions();
+        $this->registerTranslationPath();
     }
+
+    protected function registerTranslationPath() {
+        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2catalog");
+    }
+
 
     /**
      * Define the "web" routes for the application.
