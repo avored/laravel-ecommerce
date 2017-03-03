@@ -24,6 +24,7 @@ class Module extends BaseModule {
     public function boot() {
         $this->registerModule();
         $this->registerAdminMenu();
+        $this->registerTranslationPath();
     }
 
     /**
@@ -35,7 +36,7 @@ class Module extends BaseModule {
         $this->mapWebRoutes();
         $this->registerViewPath();
         $this->registerPermissions();
-        $this->registerTranslationPath();
+
 
     }
 

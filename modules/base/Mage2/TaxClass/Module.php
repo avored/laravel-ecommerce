@@ -23,6 +23,7 @@ class Module extends BaseModule {
     public function boot() {
         $this->registerModule();
         $this->registerAdminConfiguration();
+        $this->registerTranslationPath();
     }
 
     /**
@@ -33,7 +34,7 @@ class Module extends BaseModule {
     public function register() {
         $this->registerWebRoute();
         $this->registerViewPath();
-        $this->registerTranslationPath();
+
     }
 
     protected function registerTranslationPath() {

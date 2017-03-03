@@ -27,6 +27,7 @@ class Module extends BaseModule {
         $this->registerAdminMenu();
         $this->registerAdminConfiguration();
         $this->registerViewPath();
+        $this->registerTranslationPath();
     }
 
     /**
@@ -38,7 +39,7 @@ class Module extends BaseModule {
         $this->mapWebRoutes();
         $this->registerViewComposerData();
         $this->registerPermissions();
-        $this->registerTranslationPath();
+
     }
 
     protected function registerTranslationPath() {

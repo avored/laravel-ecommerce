@@ -22,6 +22,7 @@ class Module extends BaseModule {
     public function boot() {
         $this->registerModule();
         $this->registerViewComposer();
+        $this->registerTranslationPath();
     }
 
     /**
@@ -32,7 +33,7 @@ class Module extends BaseModule {
     public function register() {
         $this->mapWebRoutes();
         $this->registerViewPath();
-        $this->registerTranslationPath();
+
     }
 
     protected function registerTranslationPath() {
