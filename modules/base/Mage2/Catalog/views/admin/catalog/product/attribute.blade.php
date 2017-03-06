@@ -1,16 +1,23 @@
-<div class="panel panel-default">
+<div class="panel panel-default main-attribute-panel">
+
     <div class="panel-heading">
         <span>Attributes</span>
     </div>
 
 
     <div class="panel-body">
-        <h4>Product Attribute Panel</h4>
 
+        <div class="panel panel-default">
+            <button type="button" class="remove-attribute close" data-dismiss="alert" aria-label="Close">
+                &times;
+            </button>
+            <div class="panel-heading">
+                Product Attribute Panel
+            </div>
+            <div class="panel-body">
+                <div class="col-md-12">
 
-        <div class="col-md-12">
-
-            <label>Please Select Option</label>
+                    <label>Please Select Option</label>
                 <span class="input-group">
 
                     <select class="attribute-select-field form-control select2" multiple data-token="{{ csrf_token() }}">
@@ -21,87 +28,93 @@
 
                  <a href="#" class="add-product-attribute input-group-addon">Add</a>
                 </span>
-        </div>
-
-        <div class="clearfix"></div>
-        <hr/>
-
-        <div class="panel-group" id="attribute-accordion" role="tablist" aria-multiselectable="true">
-            @if(isset($product) && $product->has_variation == 1)
-                <div class="panel panel-default">
-                    <div class="panel-heading" role="tab" id="headingOne">
-                        <h4 class="panel-title">
-                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
-                               aria-expanded="true"
-                               aria-controls="collapseOne">
-                                Available Variations
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
-                         aria-labelledby="headingOne">
-                        <div class="panel-body">
-
-                            @foreach($product->productVariations()->get() as $variation)
-                                <?php
-                                //dd($variation->attributeDropdownOption->display_text);
-                                ?>
-                                <div class="col-md-12 single-option-box"
-                                     style="border: 1px solid #ccc; padding: 10px;margin-bottom: 10px">
-
-                                    <label>{{ $variation->title }}</label>
-
-                                    <div class="clearfix"></div>
-                                    <div class="col-md-12">
-                                        <div class="col-md-4 form-group">
-                                            <label>Image</label>
-                                            <input type="file"
-                                                   name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][image]"
-                                                   class="form-control"/>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Qty</label>
-                                            <input type="text"
-                                                   value="{{ $variation->qty }}"
-                                                   name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][qty]"
-                                                   class="form-control"/>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Price</label>
-                                            <input type="text"
-                                                   value="{{ $variation->price }}"
-                                                   name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][price]"
-                                                   class="form-control"/>
-                                            <input type="hidden" name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][id]" value="{{ $variation->id }}">
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr/>
-                            @endforeach
-
-
-                        </div>
-                    </div>
                 </div>
-            @endif
+
+                <div class="clearfix"></div>
+                <hr/>
+
+                <div class="panel-group attribute-accordion" id="" role="tablist" aria-multiselectable="true">
+                    @if(isset($product) && $product->has_variation == 1)
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                       aria-expanded="true"
+                                       aria-controls="collapseOne">
+                                        Available Variations
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                                 aria-labelledby="headingOne">
+                                <div class="panel-body">
+
+                                    @foreach($product->productVariations()->get() as $variation)
+                                        <?php
+                                        //dd($variation->attributeDropdownOption->display_text);
+                                        ?>
+                                        <div class="col-md-12 single-option-box"
+                                             style="border: 1px solid #ccc; padding: 10px;margin-bottom: 10px">
+
+                                            <label>{{ $variation->title }}</label>
+
+                                            <div class="clearfix"></div>
+                                            <div class="col-md-12">
+                                                <div class="col-md-4 form-group">
+                                                    <label>Image</label>
+                                                    <input type="file"
+                                                           name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][image]"
+                                                           class="form-control"/>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>Qty</label>
+                                                    <input type="text"
+                                                           value="{{ $variation->qty }}"
+                                                           name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][qty]"
+                                                           class="form-control"/>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <label>Price</label>
+                                                    <input type="text"
+                                                           value="{{ $variation->price }}"
+                                                           name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][price]"
+                                                           class="form-control"/>
+                                                    <input type="hidden" name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][id]" value="{{ $variation->id }}">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr/>
+                                    @endforeach
 
 
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
+            </div>
         </div>
-
-
     </div>
-
 </div>
 <script>
 
     jQuery(document).ready(function () {
 
+        jQuery(document).on('click', '.remove-attribute', function (e) {
+
+            return;
+
+            //if(jQuery('.remove-attribute').length > 1) {
+            //    jQuery(e.target).parent();
+            //} else {
+            //    alert('Sorry not allowed');
+            //}
+        });
         jQuery(document).on('click', '.add-product-attribute', function (e) {
             e.preventDefault();
 
             if (jQuery('.attribute-select-field').val() != "") {
-
-
                 var data = {
                     id: jQuery('.attribute-select-field').val(),
                     _token: jQuery('.attribute-select-field').attr('data-token')
@@ -113,20 +126,22 @@
                     data: data,
                     success: function (response) {
 
-                        jQuery('#attribute-accordion').append(response);
-
-
+                        jQuery('.attribute-accordion').append(response);
+                        //jQuery('#attribute-accordion').append(response.attributeHtml);
+                        //jQuery('.main-attribute-panel .panel-body').append(response.attributeHtml);
                     }
                 })
-
-
             }
             else {
                 alert('Please Select Attribute First');
             }
-
-
         });
 
     })
 </script>
+<style>
+    .remove-attribute {
+        font-size:42px;
+        margin-right: 10px;
+    }
+</style>

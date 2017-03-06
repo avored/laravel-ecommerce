@@ -208,7 +208,7 @@ class ProductController extends AdminController
 
 
     public function getAttribute(Request $request) {
-
+        
         $attribute = ProductAttribute::findorfail($request->get('id'));
 
         return view('mage2catalog::admin.catalog.product.attribute-panel-values')

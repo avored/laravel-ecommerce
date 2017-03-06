@@ -10,6 +10,7 @@ class ProductAttribute extends BaseModel
                             'identifier', 
                             'field_type',
                             'is_system' ,
+                            'use_as_variation',
                             'sort_order'
                             ];
 

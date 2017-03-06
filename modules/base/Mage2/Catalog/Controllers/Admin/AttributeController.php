@@ -10,6 +10,10 @@ use Mage2\Framework\DataGrid\Facades\DataGrid;
 use Mage2\Catalog\Requests\AttributeRequest;
 use Mage2\Catalog\Models\AttributeDropdownOption;
 
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+
 class AttributeController extends AdminController
 {
     public function index()

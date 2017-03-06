@@ -6,7 +6,7 @@
     <div class="col-md-12">
 
         <div class="main-title-wrap">
-            <span class="title"> Order List</span>
+            <span class="title">Order List</span>
         </div>
 
         @if(count($dataGrid->data) <= 0)

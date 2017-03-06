@@ -4,6 +4,8 @@
 
 {!! Form::select('field_type','Field Type',['' => 'Please Select','TEXT' => 'Text','TEXTAREA' => 'Text Area','SELECT' => 'Dropdown'] ) !!}
 
+{!! Form::select('use_as_variation','Use as Variation',['0' => "No",'1' => "Yes"]) !!}
+
 {!! Form::text('sort_order','Sort Order') !!}
 
 

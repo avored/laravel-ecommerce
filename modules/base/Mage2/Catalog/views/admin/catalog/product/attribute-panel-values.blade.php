@@ -17,8 +17,6 @@
                     <div class="col-md-12 single-option-box"
                          style="border: 1px solid #ccc; padding: 10px;margin-bottom: 10px">
                         <label>{{ $dropdownValue->display_text }}</label>
-
-
                         <div class="clearfix"></div>
                         <div class="col-md-12">
                             <input type="hidden"
