@@ -4,10 +4,8 @@
         <span>Attributes</span>
     </div>
 
-
     <div class="panel-body">
-
-        <div class="panel panel-default">
+        <div class="panel panel-default ">
             <button type="button" class="remove-attribute close" data-dismiss="alert" aria-label="Close">
                 &times;
             </button>
@@ -20,13 +18,13 @@
                     <label>Please Select Option</label>
                 <span class="input-group">
 
-                    <select class="attribute-select-field form-control select2" multiple data-token="{{ csrf_token() }}">
+                    <select class="attribute-select-field form-control" data-token="{{ csrf_token() }}">
                         @foreach($productAttributes as $value => $label)
                             <option value="{{ $value }}">{{ $label }}</option>
                         @endforeach
                     </select>
 
-                 <a href="#" class="add-product-attribute input-group-addon">Add</a>
+                 <a href="#" class="add-product-attribute input-group-addon">Use This</a>
                 </span>
                 </div>
 
@@ -95,15 +93,60 @@
 
             </div>
         </div>
+
+
+        <div class="col-md-12">
+        <a class="add-another-panel-button" href="#">Add Another</a>
+        </div>
     </div>
+</div>
+
+<div class="hidden product-attribute-main-panel-template">
+<div class="panel panel-default ">
+    <button type="button" class="remove-attribute close" data-dismiss="alert" aria-label="Close">
+        &times;
+    </button>
+    <div class="panel-heading">
+        Product Attribute Panel
+    </div>
+    <div class="panel-body">
+        <div class="col-md-12">
+
+            <label>Please Select Option</label>
+                <span class="input-group">
+                    <select class="attribute-select-field form-control" data-token="{{ csrf_token() }}">
+                        @foreach($productAttributes as $value => $label)
+                            <option value="{{ $value }}">{{ $label }}</option>
+                        @endforeach
+                    </select>
+
+                 <a href="#" class="add-product-attribute input-group-addon">Use This</a>
+                </span>
+        </div>
+
+        <div class="clearfix"></div>
+        <hr/>
+
+        <div class="panel-group attribute-accordion" id="" role="tablist" aria-multiselectable="true">
+        </div>
+
+    </div>
+</div>
 </div>
 <script>
 
     jQuery(document).ready(function () {
 
-        jQuery(document).on('click', '.remove-attribute', function (e) {
 
-            return;
+        jQuery(document).on('click', '.add-another-panel-button', function (e) {
+
+            e.preventDefault();
+
+            var html = jQuery('.product-attribute-main-panel-template').html();
+
+            jQuery(e.target).parent().before(html);
+
+            //jQuery('.select2').select2();
 
             //if(jQuery('.remove-attribute').length > 1) {
             //    jQuery(e.target).parent();
@@ -111,13 +154,26 @@
             //    alert('Sorry not allowed');
             //}
         });
+
+        jQuery(document).on('click', '.remove-attribute', function (e) {
+
+            console.info(jQuery('.remove-attribute').length);
+
+            if(jQuery('.remove-attribute').length > 2) {
+                jQuery(e.target).parent().remove();
+            } else {
+                alert('Sorry not allowed');
+            }
+        });
         jQuery(document).on('click', '.add-product-attribute', function (e) {
             e.preventDefault();
 
-            if (jQuery('.attribute-select-field').val() != "") {
+            var el = jQuery(e.target);
+
+            if (jQuery(e.target).parent().find('.attribute-select-field:first').val() != "") {
                 var data = {
-                    id: jQuery('.attribute-select-field').val(),
-                    _token: jQuery('.attribute-select-field').attr('data-token')
+                    id: jQuery(e.target).parent().find('.attribute-select-field:first').val(),
+                    _token: jQuery(e.target).parent().find('.attribute-select-field:first').attr('data-token')
                 }
 
                 jQuery.ajax({
@@ -125,8 +181,7 @@
                     method: "post",
                     data: data,
                     success: function (response) {
-
-                        jQuery('.attribute-accordion').append(response);
+                        jQuery(el).parents('.panel-body:first').find('.attribute-accordion').append(response);
                         //jQuery('#attribute-accordion').append(response.attributeHtml);
                         //jQuery('.main-attribute-panel .panel-body').append(response.attributeHtml);
                     }

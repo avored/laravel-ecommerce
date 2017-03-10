@@ -9,9 +9,7 @@
     </div>
     <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
         <div class="panel-body">
-
             @if($attribute->field_type == "SELECT")
-
                 @foreach($attribute->attributeDropdownOptions as $dropdownValue)
 
                     <div class="col-md-12 single-option-box"
