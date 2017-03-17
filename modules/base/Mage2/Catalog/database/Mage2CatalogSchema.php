@@ -42,7 +42,7 @@ class Mage2CatalogSchema extends Migration {
             $table->tinyInteger('status')->nullable()->default(null);
             $table->tinyInteger('in_stock')->nullable()->default(null);
             $table->tinyInteger('track_stock')->nullable()->default(null);
-            $table->decimal('qty',10,6);
+            $table->decimal('qty',10,6)->nullable();
             $table->tinyInteger('is_taxable')->nullable()->default(null);
 
             $table->string('page_title')->nullable()->default(null);
@@ -118,14 +118,14 @@ class Mage2CatalogSchema extends Migration {
             $table->integer('product_id')->unsigned();
             $table->integer('product_attribute_id')->unsigned();
             $table->integer('attribute_dropdown_option_id')->unsigned();
-            $table->string('title')->nullable()->default(null);
-            $table->text('image');
-            $table->decimal('qty',10,6);
-            $table->decimal('price', 10,6);
+            $table->integer('sub_product_id')->unsigned()->nullable();
 
             $table->timestamps();
 
             $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+
+            $table->foreign('sub_product_id')
                 ->references('id')->on('products')->onDelete('cascade');
 
             $table->foreign('product_attribute_id')

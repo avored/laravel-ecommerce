@@ -14,7 +14,7 @@
 
         {!! Form::text('price', 'Price') !!}
 
-        {!! Form::select('status', 'Stats',['0' => 'Enabled','1' => 'Disabled']) !!}
+        {!! Form::select('status', 'Stats',['1' => 'Enabled','0' => 'Disabled']) !!}
 
         @if(!isset($productCategories))
             <?php $productCategories = []; ?>

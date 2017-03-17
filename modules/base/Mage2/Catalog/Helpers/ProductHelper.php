@@ -9,6 +9,7 @@ use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Catalog\Requests\ProductRequest;
 use Illuminate\Http\UploadedFile;
+use Mage2\Catalog\Models\Product;
 
 
 class ProductHelper
@@ -71,9 +72,7 @@ class ProductHelper
      */
     public function saveProductAttribute($product, ProductRequest $request)
     {
-
         $attributes  = $request->get('attribute');
-
 
         if($attributes !== NULL && count($attributes) >0 ) {
             //@todo update image to hasvariation = true
@@ -82,32 +81,42 @@ class ProductHelper
             foreach ($attributes as $attributeId => $attribute) {
 
                 foreach($attribute as $dropdownId => $fieldValue) {
+                    $attributeImagePath = '';
 
-
-                    if($imageArray = $request->file('attribute')) {
-                        $image = $imageArray[$attributeId][$dropdownId]['image'];
-                        $attributeImagePath = $this->_uploadImage($image);
-                    }
-
-                    $data = ['product_attribute_id' => $attributeId,
-                            'attribute_dropdown_option_id' => $dropdownId,
-                            'image' => $attributeImagePath,
-                            'product_id' => $product->id] + $fieldValue;
+                    //if($imageArray = $request->file('attribute')) {
+                    //    $image = $imageArray[$attributeId][$dropdownId]['image'];
+                    //    $attributeImagePath = $this->_uploadImage($image);
+                    //}
 
 
                     if(isset($fieldValue['id']) && $fieldValue['id'] > 0) {
-                        $variation = ProductVariation::findorfail($fieldValue['id']);
-                        $variation->update($data);
+                        $variation  = ProductVariation::findorfail($fieldValue['id']);
+                        $subProduct = $variation->subProduct;
+                        $subProduct->update($fieldValue);
+
+                        $subProduct->prices()->get()->first()->update(['price' => $fieldValue['price']]);
 
                     } else {
-                        ProductVariation::create($data);
+                        $fieldValue['slug'] = $fieldValue['sku'];
+                        $subProduct = Product::create($fieldValue);
+
+                        $subProduct->prices()->create(['price' => $fieldValue['price']]);
+
+                        ProductVariation::create(['sub_product_id' => $subProduct->id,
+                            'product_attribute_id' => $attributeId,
+                            'attribute_dropdown_option_id' => $dropdownId,
+                            'product_id' => $product->id,
+                            'price' => $fieldValue['price']
+                        ]);
+
                     }
-
-
 
                 }
             }
+
         }
+
+
         return $this;
     }
 
@@ -142,18 +151,14 @@ class ProductHelper
 
         foreach ($request->get('image') as $key => $path ) {
 
-
-
             if(is_int($key)) {
                 if(($findKey = array_search($key, $exitingIds)) !== false) {
                     unset($exitingIds[$findKey]);
                 }
-
                 continue;
             }
 
             ProductImage::create(['path' => $path[0], 'product_id' => $product->id]);
-
         }
 
         if(count($exitingIds) >0 ) {
@@ -169,19 +174,16 @@ class ProductHelper
     /**
      *
      * @param \Mage2\Catalog\Models\Product $product
-     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @param array $data
      * @return $this
      */
-    public function saveProductPrice($product, ProductRequest $request) {
+    public function saveProductPrice($product,  $data) {
 
-        //dd();
         if($product->prices()->get()->count() > 0) {
-            $product->prices()->get()->first()->update(['price' => $request->get('price')]);
+            $product->prices()->get()->first()->update(['price' => $data['price']]);
         } else {
-            $product->prices()->create(['price' => $request->get('price')]);
+            $product->prices()->create(['price' => $data['price']]);
         }
-        //$price  = ProductPrice::create(['price' => $request->get('price'), 'product_id' => $product->id]);
-
         return $this;
     }
 

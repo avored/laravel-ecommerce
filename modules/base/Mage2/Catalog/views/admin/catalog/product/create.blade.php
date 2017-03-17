@@ -12,8 +12,6 @@
             <div class="col s12">
                 {!! Form::open(['files' => true,'action' => route('admin.product.store'),'method' => 'post']) !!}
 
-
-
                 @include('mage2catalog::admin.catalog.product.basic-panel' )
                 @include('mage2catalog::admin.catalog.product.images' )
                 @include('mage2catalog::admin.catalog.product.inventory-panel' )

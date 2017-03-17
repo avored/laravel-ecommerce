@@ -16,16 +16,16 @@
                 <div class="col-md-12">
 
                     <label>Please Select Option</label>
-                <span class="input-group">
+                    <span class="input-group">
 
-                    <select class="attribute-select-field form-control" data-token="{{ csrf_token() }}">
-                        @foreach($productAttributes as $value => $label)
-                            <option value="{{ $value }}">{{ $label }}</option>
-                        @endforeach
-                    </select>
+                        <select class="attribute-select-field form-control" data-token="{{ csrf_token() }}">
+                            @foreach($productAttributes as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
+                            @endforeach
+                        </select>
 
-                 <a href="#" class="add-product-attribute input-group-addon">Use This</a>
-                </span>
+                     <a href="#" class="add-product-attribute input-group-addon">Use This</a>
+                    </span>
                 </div>
 
                 <div class="clearfix"></div>
@@ -49,32 +49,40 @@
 
                                     @foreach($product->productVariations()->get() as $variation)
                                         <?php
-                                        //dd($variation->attributeDropdownOption->display_text);
+                                        $subProduct = $variation->subProduct;
                                         ?>
                                         <div class="col-md-12 single-option-box"
                                              style="border: 1px solid #ccc; padding: 10px;margin-bottom: 10px">
 
-                                            <label>{{ $variation->title }}</label>
+                                            <label>{{ $subProduct ->title }}</label>
 
                                             <div class="clearfix"></div>
                                             <div class="col-md-12">
-                                                <div class="col-md-4 form-group">
+
+                                                <div class="col-md-3 form-group">
                                                     <label>Image</label>
                                                     <input type="file"
                                                            name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][image]"
                                                            class="form-control"/>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3 form-group">
+                                                    <label>SKU</label>
+                                                    <input type="text"
+                                                           value="{{ $subProduct->sku }}"
+                                                           name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][sku]"
+                                                           class="form-control"/>
+                                                </div>
+                                                <div class="col-md-3">
                                                     <label>Qty</label>
                                                     <input type="text"
-                                                           value="{{ $variation->qty }}"
+                                                           value="{{ $subProduct->qty }}"
                                                            name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][qty]"
                                                            class="form-control"/>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-3">
                                                     <label>Price</label>
                                                     <input type="text"
-                                                           value="{{ $variation->price }}"
+                                                           value="{{ $subProduct->price }}"
                                                            name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][price]"
                                                            class="form-control"/>
                                                     <input type="hidden" name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][id]" value="{{ $variation->id }}">

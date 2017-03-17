@@ -63,7 +63,7 @@ class Product extends BaseModel {
     public function getPriceAttribute() {
         $row = $this->prices()->first();
 
-        return $row->price;
+        return (isset($row->price)) ? $row->price : null ;
     }
 
     public function getFeaturedProducts($paginate = 4) {
