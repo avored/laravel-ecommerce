@@ -13,6 +13,20 @@
                 Product Attribute Panel
             </div>
             <div class="panel-body">
+                @if(isset($product) && $product->has_variation == 1)
+
+
+                <?php
+
+                $attributes = $product->getAssignedAttributes();
+
+                //todo How does multiple Variation works
+                //$firstVariation = $product->productVariations()->get()->first();
+                //$attribute = $firstVariation->productAttribute;
+
+                ?>
+
+                @foreach($attributes as $attribute)
                 <div class="col-md-12">
 
                     <label>Please Select Option</label>
@@ -20,7 +34,7 @@
 
                         <select class="attribute-select-field form-control" data-token="{{ csrf_token() }}">
                             @foreach($productAttributes as $value => $label)
-                                <option value="{{ $value }}">{{ $label }}</option>
+                                <option <?php echo ($value == $attribute->product_attribute_id) ? "selected" : "" ?>  value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </select>
 
@@ -32,22 +46,22 @@
                 <hr/>
 
                 <div class="panel-group attribute-accordion" id="" role="tablist" aria-multiselectable="true">
-                    @if(isset($product) && $product->has_variation == 1)
+
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="headingOne">
                                 <h4 class="panel-title">
-                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne-{{ $attribute->id }}"
                                        aria-expanded="true"
                                        aria-controls="collapseOne">
                                         Available Variations
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                            <div id="collapseOne-{{ $attribute->id }}" class="panel-collapse collapse in" role="tabpanel"
                                  aria-labelledby="headingOne">
                                 <div class="panel-body">
 
-                                    @foreach($product->productVariations()->get() as $variation)
+                                    @foreach($product->getAssignedVariationBytAttributeId($attribute->product_attribute_id) as $variation)
                                         <?php
                                         $subProduct = $variation->subProduct;
                                         ?>
@@ -96,11 +110,13 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
+
                 </div>
 
+                @endforeach
             </div>
         </div>
+        @endif
 
 
         <div class="col-md-12">

@@ -46,6 +46,25 @@ class Product extends BaseModel {
         return $this->reviews()->where('status', '=', 'ENABLED')->get();
     }
 
+    public function getAssignedAttributes() {
+
+        $productVariationsList = $this->productVariations()->get();
+
+        if($productVariationsList->count() >0 ){
+            return $productVariationsList->unique('product_attribute_id');
+        }
+
+        return null;
+
+    }
+
+    public function getAssignedVariationBytAttributeId($attributeId){
+
+        return $this->productVariations()->where('product_attribute_id','=', $attributeId)->get();
+
+
+    }
+
     public function getTaxAmount() {
         $taxPercentage = Configuration::getConfiguration('mage2_tax_class_percentage_of_tax');
         $price = $this->price;
