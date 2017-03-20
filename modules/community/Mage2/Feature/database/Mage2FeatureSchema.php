@@ -16,29 +16,23 @@ class Mage2FeatureSchema extends Migration
      */
     public function install()
     {
-        
-        $productAttributeGroup = ProductAttributeGroup::where('title', '=','Basic')->get()->first();
 
         $featureAttribute = ProductAttribute::create([
             'title' => 'Is Featured',
-            'product_attribute_group_id' => $productAttributeGroup->id,
             'identifier' => 'is_featured',
-            'type' => 'VARCHAR',
             'field_type' => 'SELECT',
             'sort_order' => 10,
-            'validation' => 'required',
+            'use_as_variation' => '0',
         ]);
 
         AttributeDropdownOption::create([
             'product_attribute_id' => $featureAttribute->id,
-            'value' => '0',
-            'label' => 'No',
+            'display_text' => 'No'
         ]);
 
         AttributeDropdownOption::create([
             'product_attribute_id' => $featureAttribute->id,
-            'value' => '1',
-            'label' => 'Yes',
+            'display_text' => 'Yes'
         ]);
 
        

@@ -17,6 +17,8 @@
                 @include('mage2catalog::admin.catalog.product.inventory-panel' )
                 @include('mage2catalog::admin.catalog.product.seo-panel' )
 
+                @include('mage2catalog::admin.catalog.product.extra-panel' )
+
                 @include('admin.catalog.product.attribute');
 
                 {!! Form::submit('Create Product') !!}

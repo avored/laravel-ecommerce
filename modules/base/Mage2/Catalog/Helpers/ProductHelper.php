@@ -94,6 +94,7 @@ class ProductHelper
                             isset($request->file('attribute')[$attributeId][$dropdownId])
                         ) {
 
+                            //todo delete image file as well....
                             $image = $request->file('attribute')[$attributeId][$dropdownId]['image'];
 
                             $attributeImagePath = $this->_uploadImage($image);

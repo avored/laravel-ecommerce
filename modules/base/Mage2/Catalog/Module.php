@@ -112,7 +112,8 @@ class Module extends BaseModule {
 
     public function registerViewComposerData() {
         //View::composer(['admin.catalog.product.boxes.inventory'], 'Mage2\Catalog\ViewComposers\ProductBoxInventoryComposer');
-        View::composer(['admin.catalog.product.attribute'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
+        View::composer(['mage2catalog::admin.catalog.product.edit'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
+        View::composer(['mage2catalog::admin.catalog.product.create'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
     }
 
     /**
