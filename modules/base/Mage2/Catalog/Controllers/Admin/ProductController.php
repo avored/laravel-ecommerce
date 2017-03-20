@@ -147,8 +147,11 @@ class ProductController extends AdminController
             $this->productHelper->saveProductAttribute($product, $request);
 
         } catch (\Exception $e) {
+
             throw new \Exception('Error in Saving Product: '.$e->getMessage());
         }
+
+
 
         return redirect()->route('admin.product.index');
     }

@@ -89,10 +89,14 @@ class ProductHelper
 
                         $subProduct->prices()->get()->first()->update(['price' => $fieldValue['price']]);
 
-                        if($imageArray = $request->file('attribute')) {
-                            $image = $imageArray[$attributeId][$dropdownId]['image'];
-                            $attributeImagePath = $this->_uploadImage($image);
+                        if($imageArray = $request->file('attribute') &&
+                            isset($request->file('attribute')[$attributeId]) &&
+                            isset($request->file('attribute')[$attributeId][$dropdownId])
+                        ) {
 
+                            $image = $request->file('attribute')[$attributeId][$dropdownId]['image'];
+
+                            $attributeImagePath = $this->_uploadImage($image);
 
                             ProductImage::where('product_id','=', $subProduct->id)->delete();
                             ProductImage::create(['path' => $attributeImagePath, 'product_id' => $subProduct->id]);
@@ -112,7 +116,10 @@ class ProductHelper
                             'price' => $fieldValue['price']
                         ]);
 
-                        if($imageArray = $request->file('attribute')) {
+                        if($imageArray = $request->file('attribute') &&
+                            isset($request->file('attribute')[$attributeId]) &&
+                            isset($request->file('attribute')[$attributeId][$dropdownId])
+                        ) {
                             $image = $imageArray[$attributeId][$dropdownId]['image'];
                             $attributeImagePath = $this->_uploadImage($image);
 
