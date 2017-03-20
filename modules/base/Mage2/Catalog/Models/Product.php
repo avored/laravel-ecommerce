@@ -34,6 +34,8 @@ class Product extends BaseModel {
         return $this->hasMany(ProductImage::class);
     }
 
+
+
     public function relatedProducts() {
         return $this->hasMany(RelatedProduct::class);
     }
@@ -56,6 +58,18 @@ class Product extends BaseModel {
 
         return null;
 
+    }
+
+    public function getImageAttribute() {
+        $defaultPath = "/img/default-product.jpg";
+
+        $image = $this->images()->first();
+
+        if(isset($image->path)) {
+            return  "/uploads/catalog/images/" . $image->path;
+        }
+
+        return $defaultPath;
     }
 
     public function getAssignedVariationBytAttributeId($attributeId){

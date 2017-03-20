@@ -101,6 +101,14 @@
                                                            class="form-control"/>
                                                     <input type="hidden" name="attribute[{{ $variation->product_attribute_id }}][{{ $variation->attribute_dropdown_option_id}}][id]" value="{{ $variation->id }}">
                                                 </div>
+
+                                                <div class="clearfix"></div>
+                                                <div class="cold-md-12">
+
+                                                    <div class="col-md-3">
+                                                        <img src="{{ $subProduct->image }}" class="img-responsive img-thumbnail" style="max-height: 75px;" />
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                         <hr/>

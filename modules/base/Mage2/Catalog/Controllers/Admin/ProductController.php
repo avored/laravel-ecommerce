@@ -145,6 +145,7 @@ class ProductController extends AdminController
             $this->productHelper->saveProductImages($product, $request);
             $this->productHelper->saveProductPrice($product, $request->all());
             $this->productHelper->saveProductAttribute($product, $request);
+
         } catch (\Exception $e) {
             throw new \Exception('Error in Saving Product: '.$e->getMessage());
         }

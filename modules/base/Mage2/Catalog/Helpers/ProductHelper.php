@@ -81,13 +81,6 @@ class ProductHelper
             foreach ($attributes as $attributeId => $attribute) {
 
                 foreach($attribute as $dropdownId => $fieldValue) {
-                    $attributeImagePath = '';
-
-                    //if($imageArray = $request->file('attribute')) {
-                    //    $image = $imageArray[$attributeId][$dropdownId]['image'];
-                    //    $attributeImagePath = $this->_uploadImage($image);
-                    //}
-
 
                     if(isset($fieldValue['id']) && $fieldValue['id'] > 0) {
                         $variation  = ProductVariation::findorfail($fieldValue['id']);
@@ -95,6 +88,16 @@ class ProductHelper
                         $subProduct->update($fieldValue);
 
                         $subProduct->prices()->get()->first()->update(['price' => $fieldValue['price']]);
+
+                        if($imageArray = $request->file('attribute')) {
+                            $image = $imageArray[$attributeId][$dropdownId]['image'];
+                            $attributeImagePath = $this->_uploadImage($image);
+
+
+                            ProductImage::where('product_id','=', $subProduct->id)->delete();
+                            ProductImage::create(['path' => $attributeImagePath, 'product_id' => $subProduct->id]);
+                        }
+
 
                     } else {
                         $fieldValue['slug'] = $fieldValue['sku'];
@@ -108,6 +111,16 @@ class ProductHelper
                             'product_id' => $product->id,
                             'price' => $fieldValue['price']
                         ]);
+
+                        if($imageArray = $request->file('attribute')) {
+                            $image = $imageArray[$attributeId][$dropdownId]['image'];
+                            $attributeImagePath = $this->_uploadImage($image);
+
+                            ProductImage::where('product_id','=', $subProduct->id)->delete();
+
+                            ProductImage::create(['path' => $attributeImagePath, 'product_id' => $subProduct->id]);
+                        }
+
 
                     }
 
