@@ -6,7 +6,7 @@
 
     <div class="panel-body">
         @foreach($extraAttributes as $attribute)
-            
+
             <?php
             $varcharValue = null;
             if(isset($product) && $product->id > 0) {

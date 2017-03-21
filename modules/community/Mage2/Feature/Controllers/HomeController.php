@@ -2,7 +2,7 @@
 
 namespace Mage2\Feature\Controllers;
 
-use Mage2\Catalog\Models\Product;
+use Mage2\Feature\Helpers\FeatureProductHelper;
 use Mage2\Framework\System\Controllers\Controller;
 
 class HomeController extends Controller
@@ -15,8 +15,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $product = new Product();
-        $featureProducts = $product->getFeaturedProducts();
+        $helper = new FeatureProductHelper();
+        $featureProducts = $helper->getFeaturedProducts();
 
        
         return view('home.index')
