@@ -1,4 +1,6 @@
 {!! Form::open(['method' => 'get','action' => route('cart.add-to-cart', $product->id)]) !!}
+
+<input id="product-price-hidden" type="hidden" name="price" value="{{ $product->price }}"/>
 <div class="product-stock">In Stock</div>
 <hr>
 <div class="row">
@@ -9,28 +11,30 @@
 </div>
 
 <?php
-$variation = $product->productVariations->first();
-$attribute = $variation->productAttribute;
-        //dd($attribute);
-//dd($variation->attributeDropdownOptions);
-
+$attributes = $product->getAssignedAttributes();
 ?>
-<div class="form-group">
-    <label>{{$attribute->title}}</label>
-    <select name="attribute[{{ $attribute->id }}]" class="form-control product-variation-dropdown">
+@foreach($product->getAssignedAttributes() as $productVariation)
+    <?php
+    $attribute = $productVariation->productAttribute;
+    ?>
+    <div class="product-attribute form-group">
+        <label>{{$attribute->title}}</label>
+        <select name="attribute[{{ $attribute->id }}]" class="form-control product-variation-dropdown">
 
-        <option data-qty="0" data-price="{{ number_format($product->price,2) }}" value="">Please Select</option>
-        @foreach ($product->productVariations  as $option)
+            <option data-qty="0" data-price="{{ number_format('0.00',2) }}" value="" >Please Select</option>
 
-            <?php $val = $option->attributeDropdownOption ?>
+            @foreach ($attribute->productVariations  as $option)
 
-            <option data-qty="{{ $option->qty }}" data-price="{{ number_format(($product->price + $option->price),2) }}"
-                    value="{{ $option->id }}">{{ $val->display_text }}</option>
+                <?php $subProduct = $option->subProduct; ?>
 
+                <option data-qty="{{ $subProduct->qty }}" data-price="{{ number_format(($subProduct->price),2) }}"
+                        value="{{ $subProduct->id }}">{{ $subProduct->title }}</option>
 
-        @endforeach
-    </select>
-</div>
+            @endforeach
+        </select>
+
+    </div>
+@endforeach
 
 <div class="clearfix"></div>
 <div class="pull-left" style="margin-right: 5px;">
@@ -47,20 +51,32 @@ $attribute = $variation->productAttribute;
         jQuery('.product-variation-dropdown').change(function (e) {
             e.preventDefault();
 
-            val = jQuery(e.target).val();
-            jQuery(e.target).find('option').each(function (index, el) {
-                if (jQuery(el).attr('value') == val) {
+            var basePrice = parseFloat(jQuery('#product-price-hidden').val());
+            var i = 0;
+            var attributePrice = 0;
 
-                    jQuery('.product-price .price').text(jQuery(el).attr('data-price'));
+            jQuery('.product-attribute .product-variation-dropdown').each(function (index, el) {
+                if ( typeof(jQuery(el).val())  != "undefined" &&  jQuery(el).val() != "") {
+                    i++;
+                    var attributeValue = jQuery(el).val();
 
-                    if(jQuery(el).attr('data-qty') <= 0) {
-                        jQuery('.add-to-cart').attr('disabled', true);
-                    } else {
-                        jQuery('.add-to-cart').attr('disabled', false);
-                    }
+                    jQuery(el).find('option').each(function (index, element) {
+
+                        if (jQuery(element).attr('value') == attributeValue) {
+                            attributePrice += parseFloat(jQuery(element).attr('data-price'));
+                        }
+                    });
                 }
             });
 
+            var totalPrice = attributePrice + basePrice;
+            jQuery('.price').text(totalPrice.toFixed(2));
+
+            if(jQuery('.product-variation-dropdown').length == i) {
+                jQuery('.add-to-cart').attr('disabled',false);
+            } else {
+                jQuery('.add-to-cart').attr('disabled',true);
+            }
         });
     });
 </script>

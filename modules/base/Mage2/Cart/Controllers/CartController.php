@@ -22,6 +22,10 @@ class CartController extends Controller
         $cart = Session::get('cart');
         $product = Product::findorfail($id);
 
+        if($product->has_variation == 1 && null === $request->get('attribute') ) {
+            return redirect()->route('product.view', $product->slug);
+        }
+
         if($attributes = $request->get('attribute')) {
             foreach($attributes as $attributeId => $variationId) {
                 $productAttribute = ProductAttribute::find($attributeId);

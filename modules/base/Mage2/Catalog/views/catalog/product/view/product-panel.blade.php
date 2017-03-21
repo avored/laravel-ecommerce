@@ -13,6 +13,7 @@
 
             <p class="product-price">
                 $ {{ number_format($product->price,2) }}
+
             </p>
             <p>
                 <a class="btn btn-primary" href="{{ route('cart.add-to-cart', $product->id) }}">Add to Cart</a>
