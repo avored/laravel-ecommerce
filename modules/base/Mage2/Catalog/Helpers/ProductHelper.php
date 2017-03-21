@@ -5,6 +5,7 @@ namespace Mage2\Catalog\Helpers;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\ProductImage;
 use Mage2\Catalog\Models\ProductPrice;
+use Mage2\Catalog\Models\ProductVarcharValue;
 use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Catalog\Requests\ProductRequest;
@@ -19,7 +20,7 @@ class ProductHelper
     /**
      * Insert or update product into Product table.
      *
-     * @param type                                  $product
+     * @param type $product
      * @param \Mage2\Catalog\Helpers\ProductRequest $request
      */
     public function saveProduct($product, ProductRequest $request)
@@ -57,6 +58,36 @@ class ProductHelper
      * @param \Mage2\Catalog\Requests\ProductRequest $request
      * @return $this
      */
+    public function saveProductExtraAttribute($product, ProductRequest $request)
+    {
+        $extraAttributes = $request->get('modules');
+
+        foreach($extraAttributes['attributes'] as $identifier => $value) {
+            $attribute  = ProductAttribute::where('identifier' , '=', $identifier)->first();
+
+
+            $productVarcharValue = ProductVarcharValue::where('product_id','=', $product->id)->where('product_attribute_id','=', $attribute->id)->first();
+
+            if(null ===  $productVarcharValue) {
+                ProductVarcharValue::create([
+                    'product_id' => $product->id,
+                    'product_attribute_id' => $attribute->id,
+                    'value' => $value
+                ]);
+            } else {
+                $productVarcharValue->update(['value' => $value]);
+            }
+        }
+
+    }
+
+    /**
+     *
+     *  Save Product Category
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
     public function saveCategory($product, ProductRequest $request)
     {
         if (count($request->get('category_id')) > 0) {
@@ -72,24 +103,24 @@ class ProductHelper
      */
     public function saveProductAttribute($product, ProductRequest $request)
     {
-        $attributes  = $request->get('attribute');
+        $attributes = $request->get('attribute');
 
-        if($attributes !== NULL && count($attributes) >0 ) {
+        if ($attributes !== NULL && count($attributes) > 0) {
             //@todo update image to hasvariation = true
             $product->update(['has_variation' => 1]);
 
             foreach ($attributes as $attributeId => $attribute) {
 
-                foreach($attribute as $dropdownId => $fieldValue) {
+                foreach ($attribute as $dropdownId => $fieldValue) {
 
-                    if(isset($fieldValue['id']) && $fieldValue['id'] > 0) {
-                        $variation  = ProductVariation::findorfail($fieldValue['id']);
+                    if (isset($fieldValue['id']) && $fieldValue['id'] > 0) {
+                        $variation = ProductVariation::findorfail($fieldValue['id']);
                         $subProduct = $variation->subProduct;
                         $subProduct->update($fieldValue);
 
                         $subProduct->prices()->get()->first()->update(['price' => $fieldValue['price']]);
 
-                        if($imageArray = $request->file('attribute') &&
+                        if ($imageArray = $request->file('attribute') &&
                             isset($request->file('attribute')[$attributeId]) &&
                             isset($request->file('attribute')[$attributeId][$dropdownId])
                         ) {
@@ -99,12 +130,13 @@ class ProductHelper
 
                             $attributeImagePath = $this->_uploadImage($image);
 
-                            ProductImage::where('product_id','=', $subProduct->id)->delete();
+                            ProductImage::where('product_id', '=', $subProduct->id)->delete();
                             ProductImage::create(['path' => $attributeImagePath, 'product_id' => $subProduct->id]);
                         }
 
 
                     } else {
+
                         $fieldValue['slug'] = $fieldValue['sku'];
                         $subProduct = Product::create($fieldValue);
 
@@ -117,14 +149,14 @@ class ProductHelper
                             'price' => $fieldValue['price']
                         ]);
 
-                        if($imageArray = $request->file('attribute') &&
+                        if ($imageArray = $request->file('attribute') &&
                             isset($request->file('attribute')[$attributeId]) &&
                             isset($request->file('attribute')[$attributeId][$dropdownId])
                         ) {
                             $image = $imageArray[$attributeId][$dropdownId]['image'];
                             $attributeImagePath = $this->_uploadImage($image);
 
-                            ProductImage::where('product_id','=', $subProduct->id)->delete();
+                            ProductImage::where('product_id', '=', $subProduct->id)->delete();
 
                             ProductImage::create(['path' => $attributeImagePath, 'product_id' => $subProduct->id]);
                         }
@@ -142,16 +174,15 @@ class ProductHelper
     }
 
 
-
     private function _uploadImage(UploadedFile $image)
     {
 
 
         $destinationPath = 'uploads/catalog/images/';
-        $relativePath = implode('/', str_split(strtolower(str_random(3)))).'/';
-        $image->move($destinationPath.$relativePath, $image->getClientOriginalName());
+        $relativePath = implode('/', str_split(strtolower(str_random(3)))) . '/';
+        $image->move($destinationPath . $relativePath, $image->getClientOriginalName());
 
-        return $relativePath.$image->getClientOriginalName();
+        return $relativePath . $image->getClientOriginalName();
     }
 
     /**
@@ -164,16 +195,16 @@ class ProductHelper
     {
 
         $exitingIds = [];
-        if(NULL === $request->get('image')) {
+        if (NULL === $request->get('image')) {
             return $this;
         }
 
         $exitingIds = $product->images()->get()->pluck('id')->toArray();
 
-        foreach ($request->get('image') as $key => $path ) {
+        foreach ($request->get('image') as $key => $path) {
 
-            if(is_int($key)) {
-                if(($findKey = array_search($key, $exitingIds)) !== false) {
+            if (is_int($key)) {
+                if (($findKey = array_search($key, $exitingIds)) !== false) {
                     unset($exitingIds[$findKey]);
                 }
                 continue;
@@ -182,7 +213,7 @@ class ProductHelper
             ProductImage::create(['path' => $path[0], 'product_id' => $product->id]);
         }
 
-        if(count($exitingIds) >0 ) {
+        if (count($exitingIds) > 0) {
 
             ProductImage::destroy($exitingIds);
         }
@@ -198,9 +229,10 @@ class ProductHelper
      * @param array $data
      * @return $this
      */
-    public function saveProductPrice($product,  $data) {
+    public function saveProductPrice($product, $data)
+    {
 
-        if($product->prices()->get()->count() > 0) {
+        if ($product->prices()->get()->count() > 0) {
             $product->prices()->get()->first()->update(['price' => $data['price']]);
         } else {
             $product->prices()->create(['price' => $data['price']]);

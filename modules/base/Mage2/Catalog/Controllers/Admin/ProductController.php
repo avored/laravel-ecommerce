@@ -45,7 +45,6 @@ class ProductController extends AdminController
     public function index()
     {
 
-
         $products = Product::where('status','=', 1)->paginate(10);
 
         return view('mage2catalog::admin.catalog.product.index')
@@ -84,6 +83,7 @@ class ProductController extends AdminController
             $this->productHelper->saveProductImages($product, $request);
             $this->productHelper->saveProductPrice($product, $request->all());
             $this->productHelper->saveProductAttribute($product, $request);
+            $this->productHelper->saveProductExtraAttribute($product, $request);
 
         } catch (\Exception $e) {
             echo 'Error in Saving Product: ', $e->getMessage(), "\n";
@@ -145,6 +145,7 @@ class ProductController extends AdminController
             $this->productHelper->saveProductImages($product, $request);
             $this->productHelper->saveProductPrice($product, $request->all());
             $this->productHelper->saveProductAttribute($product, $request);
+            $this->productHelper->saveProductExtraAttribute($product, $request);
 
         } catch (\Exception $e) {
 
