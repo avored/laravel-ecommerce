@@ -22,6 +22,10 @@ RUN /usr/sbin/a2enmod rewrite
 
 ADD 000-laravel.conf /etc/apache2/sites-available/
 
+
+RUN service apache2 start
+
+
 RUN /usr/bin/curl -sS https://getcomposer.org/installer |/usr/bin/php
 RUN /bin/mv composer.phar /usr/local/bin/composer
 RUN /usr/local/bin/composer create-project mage2/laravel-ecommerce /var/www/laravel
