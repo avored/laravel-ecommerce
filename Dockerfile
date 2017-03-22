@@ -28,7 +28,7 @@ RUN service apache2 start
 
 RUN /usr/bin/curl -sS https://getcomposer.org/installer |/usr/bin/php
 RUN /bin/mv composer.phar /usr/local/bin/composer
-RUN /usr/local/bin/composer create-project mage2/laravel-ecommerce /var/www/laravel
+RUN /usr/local/bin/composer create-project mage2/laravel-ecommerce /var/www/laravel --prefer-dist
 RUN /bin/chown www-data:www-data -R /var/www/laravel/storage
 
 EXPOSE 80
