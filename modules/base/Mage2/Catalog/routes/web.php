@@ -31,6 +31,7 @@ Route::group(['middleware' => ['web', 'adminauth','permission'], 'namespace' => 
 
 
 Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Catalog\Controllers"], function () {
+
     Route::get('/category/{slug}', ['as' => 'category.view', 'uses' => 'CategoryViewController@view']);
     Route::get('/product/{slug}', ['as' => 'product.view', 'uses' => 'ProductViewController@view']);
 

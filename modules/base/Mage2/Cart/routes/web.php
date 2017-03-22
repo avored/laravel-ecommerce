@@ -12,7 +12,7 @@
  */
 Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Cart\Controllers"], function () {
     
-    Route::get('/add-to-cart/{id}', ['as' => 'cart.add-to-cart', 'uses' => 'CartController@addToCart']);
+    Route::post('/add-to-cart', ['as' => 'cart.add-to-cart', 'uses' => 'CartController@addToCart']);
 
     Route::get('/cart/view', ['as' => 'cart.view', 'uses' => 'CartController@view']);
     Route::put('/cart/update', ['as' => 'cart.update', 'uses' => 'CartController@update']);

@@ -1,4 +1,4 @@
-{!! Form::open(['method' => 'get','action' => route('cart.add-to-cart', $product->id)]) !!}
+{!! Form::open(['method' => 'post','action' => route('cart.add-to-cart', $product->id)]) !!}
 <div class="product-stock">In Stock</div>
 <hr>
 <div class="row">

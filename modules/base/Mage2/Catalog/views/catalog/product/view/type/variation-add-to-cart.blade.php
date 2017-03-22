@@ -1,5 +1,6 @@
-{!! Form::open(['method' => 'get','action' => route('cart.add-to-cart', $product->id)]) !!}
+{!! Form::open(['method' => 'post','action' => route('cart.add-to-cart')]) !!}
 
+<input type="hidden" name="slug" value="{{ $product->slug }}" />
 <input id="product-price-hidden" type="hidden" name="price" value="{{ $product->price }}"/>
 <div class="product-stock">In Stock</div>
 <hr>

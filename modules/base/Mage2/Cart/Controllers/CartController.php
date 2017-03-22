@@ -16,43 +16,46 @@ class CartController extends Controller
         parent::__construct();
     }
 
-    public function addToCart(Request $request, $id)
+    public function addToCart(Request $request)
     {
 
         $cart = Session::get('cart');
-        $product = Product::findorfail($id);
+        $product = Product::where('slug','=', $request->get('slug'))->first();
 
         if($product->has_variation == 1 && null === $request->get('attribute') ) {
             return redirect()->route('product.view', $product->slug);
         }
 
         if($attributes = $request->get('attribute')) {
-            foreach($attributes as $attributeId => $variationId) {
-                $productAttribute = ProductAttribute::find($attributeId);
-                $productVariation = ProductVariation::find($variationId);
+            foreach($attributes as $attributeId => $subProductId) {
+
+                $subProduct = Product::find($subProductId);
+                $productVariation = ProductVariation::where('product_attribute_id','=',$attributeId)
+                                                ->where('sub_product_id','=', $subProductId)->first();
+
 
                 $attribute[] = ['attribute_id' => $attributeId,
-                                'variation_id' => $variationId,
-                                'attribute_title' => $productAttribute->title,
-                                'variation_display_text' => $productVariation->AttributeDropdownOption->display_text
+                                'variation_id' => $productVariation->id,
+                                'attribute_title' => $subProduct->title,
+                                'variation_display_text' => $subProduct->title
                                 ];
             }
         }
 
-        if(null !== $request->get('qty') && !isset($cart[$id])) {
-             $cart [$id] = ['id'          => $id,
+        if(null !== $request->get('qty') && !isset($cart[$product->id])) {
+             $cart [$product->id] = ['id'          => $product->id,
                             'qty'        => $request->get('qty'),
                             'price'      => $product->price,
                             'tax_amount' => $product->getTaxAmount(),
                             'model'      => $product,
                             'attributes' => $attribute,
                         ];
-        } elseif (null !== $request->get('qty') && isset($cart[$id])) {
-            $cart[$id]['qty'] += $request->get('qty');
-        } elseif(null === $request->get('qty') && isset($cart[$id])) {
-            $cart[$id]['qty'] += 1;
+        } elseif (null !== $request->get('qty') && isset($cart[$product->id])) {
+            $cart[$product->id]['qty'] += $request->get('qty');
+        } elseif(null === $request->get('qty') && isset($cart[$product->id])) {
+            $cart[$product->id]['qty'] += 1;
         } else {
-            $cart [$id] = ['id'          => $id,
+            $cart [$product->id] = ['id'          => $product->id,
                             'qty'        => 1,
                             'price'      => $product->price,
                             'tax_amount' => $product->getTaxAmount(),
