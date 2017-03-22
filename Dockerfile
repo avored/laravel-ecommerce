@@ -1,5 +1,5 @@
-FROM ubuntu:trusty
-MAINTAINER acev <aasisvinayak@gmail.com>
+FROM eboraas/apache-php
+MAINTAINER purvesh <ind.purvesh@gmail.com>
 
 RUN apt-get update && apt-get install -y \
 apache2-bin \
@@ -17,33 +17,19 @@ vim \
 git \
 mysql-client
 
-RUN php5enmod mcrypt
-RUN php5enmod gd
 
-RUN sed -i 's/variables_order = .*/variables_order = "EGPCS"/' /etc/php5/apache2/php.ini
-RUN sed -i 's/variables_order = .*/variables_order = "EGPCS"/' /etc/php5/cli/php.ini
+RUN /usr/sbin/a2enmod rewrite
 
-RUN useradd --uid 1000 --gid 50 docker
+ADD 000-laravel.conf /etc/apache2/sites-available/
+ADD 001-laravel-ssl.conf /etc/apache2/sites-available/
+RUN /usr/sbin/a2dissite '*' && /usr/sbin/a2ensite 000-laravel 001-laravel-ssl
 
-RUN echo export APACHE_RUN_USER=docker >> /etc/apache2/envvars
-RUN echo export APACHE_RUN_GROUP=staff >> /etc/apache2/envvars
-
-
-COPY . /var/www/html
-
-RUN a2enmod rewrite
-
-WORKDIR /var/www/html
-
-RUN chown -R docker /var/www/html
-
-RUN service apache2 start
-
-RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.phar /usr/local/bin/composer
-
-RUN cd /var/www/html/;composer install
-
-RUN cd /var/www/html;php artisan key:generate
-ENTRYPOINT ["/entrypoint.sh"]
+RUN /usr/bin/curl -sS https://getcomposer.org/installer |/usr/bin/php
+RUN /bin/mv composer.phar /usr/local/bin/composer
+RUN /usr/local/bin/composer create-project mage2/laravel-ecommerce /var/www/laravel --prefer-dist
+RUN /bin/chown www-data:www-data -R /var/www/laravel/storage
 
 EXPOSE 80
+EXPOSE 443
+
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
