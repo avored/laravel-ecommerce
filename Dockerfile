@@ -1,4 +1,4 @@
-FROM eboraas/apache-php
+FROM indpurvesh/laravel-ecommerce
 MAINTAINER purvesh <ind.purvesh@gmail.com>
 
 RUN apt-get update && apt-get install -y \
