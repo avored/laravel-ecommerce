@@ -15,14 +15,27 @@
                 $ {{ number_format($product->price,2) }}
 
             </p>
-            <p>
-                <a class="btn btn-primary" href="{{ route('cart.add-to-cart', $product->id) }}">Add to Cart</a>
+            <div>
+                {!! Form::open(['method' => 'post','action' => route('cart.add-to-cart')]) !!}
+                <input type="hidden" name="slug" value="{{ $product->slug }}" />
+            <div class="product-stock">In Stock</div>
+            <hr>
+
+            <div class="clearfix"></div>
+            <div class="pull-left" style="margin-right: 5px;">
+                <button type="submit" class="btn btn-primary"
+                        href="{{ route('cart.add-to-cart', $product->id) }}">
+                    Add to Cart
+                </button>
+            </div>
+            {!! Form::close() !!}
+
                 @if(Auth::check() && Auth::user()->isInWishlist($product->id))
                 <a class="btn btn-danger" href="{{ route('wishlist.remove', $product->slug) }}">Remove from Wishlist</a>
                 @else
                 <a class="btn btn-warning" href="{{ route('wishlist.add', $product->slug) }}">Add to Wishlist</a>
                 @endif
-            </p>
+            </div>
         </div>
     </div>
 </div>
