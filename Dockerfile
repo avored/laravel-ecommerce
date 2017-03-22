@@ -25,10 +25,10 @@ ADD 000-laravel.conf /etc/apache2/sites-available/
 
 RUN service apache2 start
 
+RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.phar /usr/local/bin/composer
 
-RUN /usr/bin/curl -sS https://getcomposer.org/installer |/usr/bin/php
-RUN /bin/mv composer.phar /usr/local/bin/composer
-RUN /usr/local/bin/composer create-project mage2/laravel-ecommerce /var/www/laravel --prefer-dist
+RUN cd /var/www/laravel/;composer create-project mage2/laravel-ecommerce /var/www/laravel
+
 RUN /bin/chown www-data:www-data -R /var/www/laravel/storage
 
 EXPOSE 80
