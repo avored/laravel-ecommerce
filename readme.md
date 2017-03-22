@@ -26,7 +26,7 @@ Set up your environment config file:
 
     mage2/laravel-ecommerce/.env 
 
-composer update/install
+composer update/install 
 
 # Step 1: Install Mage2 Commerce using [Composer](https://getcomposer.org/download/).
 
