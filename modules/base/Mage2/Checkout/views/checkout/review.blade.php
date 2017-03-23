@@ -22,7 +22,7 @@
                 @foreach($cartProducts as $product)
                     <tr>
                         <td>
-                            <strong><a href="#">{{ $product['model']->title }}</a></strong>
+                            <strong><a href="#">{{ $product['title'] }}</a></strong>
 
                         </td>
                         <td>

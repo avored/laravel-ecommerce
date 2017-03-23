@@ -22,34 +22,43 @@
                     <td class="col-md-8">
                         <div class="media">
 
-                            @if(isset($product['model']->images()->get()->first()->path))
-                            <img alt="{{ $product['model']->title }}"
+
+                            <img alt="{{ $product['title'] }}"
                                  class="img-responsive"
                                  style="height: 72px;"
-                                 src="{{ asset('/uploads/catalog/images/'. $product['model']->images()->get()->first()->path) }}" />
-                            @else 
-                            <img alt="{{ $product['model']->title }}"
-                                 class="img-responsive"
-                                 style="height: 72px;"
-                                 src="{{ asset('/img/default-product.jpg') }}" />
-                            @endif
+                                 src="{{ asset( $product['image']) }}" />
+
 
                             <div class="media-body">
                                 <h4 class="media-heading">
-                                    <a href="{{ route('product.view', $product['model']->slug)}}">
-                                        {{ $product['model']->title }}
+                                    <a href="{{ route('product.view', $product['slug'])}}">
+                                        {{ $product['title'] }}
 
                                     </a>
                                 </h4>
 
-                                <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+                                <p>Status: <span class="text-success"><strong>In Stock</strong></span></p>
+
+                                <?php $attributeText = ""; ?>
+                                @if(isset($product['attributes']) && count($product['attributes']) > 0)
+                                    @foreach($product['attributes'] as $attribute)
+                                        @if($loop->last)
+                                        <?php $attributeText .= $attribute['variation_display_text']; ?>
+                                            @else
+                                            <?php $attributeText .= $attribute['variation_display_text'] . ": "; ?>
+                                        @endif
+                                    @endforeach
+                                @endif
+                                <p>Attributes: <span class="text-success"><strong>{{ $attributeText}}</strong></span></p>
+
                             </div>
                         </div>
                     </td>
                     <td class="col-md-1">
                         <input type="text" class="form-control" name="qty"
                                value="{{ $product['qty']}}">
-                        <input type="hidden" name="id" value="{{$product['model']->id}}" />
+
+                        <input type="hidden" name="id" value="{{$product['id']}}" />
                     </td>
                     <?php $total += ($product['price'] * $product['qty'] ) ?>
                     <?php $taxTotal += ($product['tax_amount'] * $product['qty'] ) ?>
@@ -69,7 +78,7 @@
                                 <span class="sr-only">Toggle Dropdown</span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li> <a class="btn" href="{{ route('cart.destroy', $product['model']->id)}}" >
+                                <li> <a class="btn" href="{{ route('cart.destroy', $product['id'])}}" >
                                         Remove
                                     </a></li>
                             </ul>
