@@ -1,6 +1,7 @@
 FROM indpurvesh/laravel-ecommerce
 MAINTAINER purvesh <ind.purvesh@gmail.com>
 
+
 RUN apt-get update && apt-get install -y \
 apache2-bin \
 libapache2-mod-php5 \
