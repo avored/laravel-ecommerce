@@ -2,21 +2,13 @@ FROM indpurvesh/laravel-ecommerce
 MAINTAINER purvesh <ind.purvesh@gmail.com>
 
 
-RUN apt-get update && apt-get install -y \
-apache2-bin \
-libapache2-mod-php5 \
-php5-curl \
-php5-ldap \
-php5-sqlite \
-php5-mysql \
-php5-mcrypt \
-php5-gd \
-patch \
-curl \
-nano \
-vim \
-git \
-mysql-client
+RUN apt-get update -y && \
+    apt-get install -y curl git php5-mcrypt php5-gd && \
+    curl -sS https://getcomposer.org/installer | php && \
+    mv composer.phar /usr/local/bin/composer && \
+    composer self-update && \
+    apt-get remove --purge curl -y && \
+    apt-get clean
 
 
 RUN /usr/sbin/a2enmod rewrite
