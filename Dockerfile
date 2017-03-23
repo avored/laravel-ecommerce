@@ -23,7 +23,6 @@ RUN /usr/sbin/a2enmod rewrite
 
 ADD 000-laravel.conf /etc/apache2/sites-available/
 
-
 RUN service apache2 start
 
 RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.phar /usr/local/bin/composer
