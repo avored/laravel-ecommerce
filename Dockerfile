@@ -20,7 +20,9 @@ RUN apt-get update && apt-get install -y \
 
 
 
-ADD 000-laravel.conf /etc/apache2/sites-available/
+RUN rm /etc/apache2/sites-available/000-default.conf
+
+ADD 000-default.conf /etc/apache2/sites-available/
 
 RUN service apache2 start
 
