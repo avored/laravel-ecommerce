@@ -56,7 +56,7 @@ class Product extends BaseModel {
             return $productVariationsList->unique('product_attribute_id');
         }
 
-        return null;
+        return [];
 
     }
 

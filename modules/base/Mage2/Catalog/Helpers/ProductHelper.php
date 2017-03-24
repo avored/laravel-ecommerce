@@ -173,12 +173,16 @@ class ProductHelper
                 }
             }
 
-            foreach(array_flip($existingIds) as $id) {
-                ProductVariation::destroy($id);
+            if(count($existingIds)>0) {
+                foreach (array_flip($existingIds) as $id) {
+                    ProductVariation::destroy($id);
+                }
             }
 
+        } else {
 
-
+            //only needed when remove all attribute using remove icon during edit product
+            $product->update(['has_variation' => 0]);
         }
 
 

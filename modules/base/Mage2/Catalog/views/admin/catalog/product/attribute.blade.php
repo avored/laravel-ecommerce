@@ -10,7 +10,6 @@
         <?php
 
         $attributes = $product->getAssignedAttributes();
-
         //todo How does multiple Variation works
         //$firstVariation = $product->productVariations()->get()->first();
         //$attribute = $firstVariation->productAttribute;
