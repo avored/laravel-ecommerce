@@ -228,5 +228,6 @@ return [
         'Payment'       => Mage2\Framework\Payment\Facades\Payment::class,
         'Permission'    => Mage2\Framework\Auth\Facades\Permission::class,
         'Module'        => Mage2\Framework\Module\Facades\Module::class,
+        'Image'        => Mage2\Framework\Image\Facades\Image::class,
     ],
 ];

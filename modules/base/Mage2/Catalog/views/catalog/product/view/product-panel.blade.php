@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel">
     <div class="panel-body">
 
         <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->title }}">

@@ -16,6 +16,8 @@ use Mage2\Framework\System\Controllers\AdminController;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 
+use Mage2\Framework\Image\Facades\Image;
+
 
 class ProductController extends AdminController
 {
@@ -173,7 +175,6 @@ class ProductController extends AdminController
 
     public function uploadImage(Request $request)
     {
-
         $imageAttribute = ProductAttribute::where('identifier', '=', 'image')->get()->first();
         $image = $request->file('image');
         $destinationPath = 'uploads/catalog/images/';
