@@ -11,7 +11,7 @@ Mage2 is a Ecommerce application based on Laravel5 framework.
 #Comming Soon
 * Product Attribute (almost done)
 * Bug Fix
-* Tax class
+* Image Service
 
 
 # Step 1: Install Mage2 Commerce using [Git](https://git-scm.com/).
