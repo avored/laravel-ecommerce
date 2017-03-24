@@ -109,11 +109,17 @@ class ProductHelper
             //@todo update image to hasvariation = true
             $product->update(['has_variation' => 1]);
 
+
+            $existingIds = array_flip( $product->productVariations->pluck('id')->toArray());
+
             foreach ($attributes as $attributeId => $attribute) {
 
                 foreach ($attribute as $dropdownId => $fieldValue) {
 
                     if (isset($fieldValue['id']) && $fieldValue['id'] > 0) {
+
+                        unset($existingIds [$fieldValue['id']]);
+
                         $variation = ProductVariation::findorfail($fieldValue['id']);
                         $subProduct = $variation->subProduct;
                         $subProduct->update($fieldValue);
@@ -166,6 +172,12 @@ class ProductHelper
 
                 }
             }
+
+            foreach(array_flip($existingIds) as $id) {
+                ProductVariation::destroy($id);
+            }
+
+
 
         }
 

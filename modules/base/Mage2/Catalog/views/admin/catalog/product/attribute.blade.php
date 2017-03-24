@@ -5,6 +5,18 @@
     </div>
 
     <div class="panel-body">
+
+
+        <?php
+
+        $attributes = $product->getAssignedAttributes();
+
+        //todo How does multiple Variation works
+        //$firstVariation = $product->productVariations()->get()->first();
+        //$attribute = $firstVariation->productAttribute;
+
+        ?>
+        @foreach($attributes as $attribute)
         <div class="panel panel-default ">
             <button type="button" class="remove-attribute close" data-dismiss="alert" aria-label="Close">
                 &times;
@@ -14,21 +26,7 @@
             </div>
             <div class="panel-body">
                 @if(isset($product) && $product->has_variation == 1)
-
-
-                <?php
-
-                $attributes = $product->getAssignedAttributes();
-
-                //todo How does multiple Variation works
-                //$firstVariation = $product->productVariations()->get()->first();
-                //$attribute = $firstVariation->productAttribute;
-
-                ?>
-
-                @foreach($attributes as $attribute)
                 <div class="col-md-12">
-
                     <label>Please Select Option</label>
                     <span class="input-group">
 
@@ -61,12 +59,16 @@
                                  aria-labelledby="headingOne">
                                 <div class="panel-body">
 
+
                                     @foreach($product->getAssignedVariationBytAttributeId($attribute->product_attribute_id) as $variation)
                                         <?php
                                         $subProduct = $variation->subProduct;
                                         ?>
                                         <div class="col-md-12 single-option-box"
                                              style="border: 1px solid #ccc; padding: 10px;margin-bottom: 10px">
+                                            <button type="button" class="remove-variation-attribute close" data-dismiss="alert" aria-label="Close">
+                                                &times;
+                                            </button>
 
                                             <label>{{ $subProduct ->title }}</label>
 
@@ -114,17 +116,18 @@
                                         <hr/>
                                     @endforeach
 
-
                                 </div>
                             </div>
                         </div>
 
                 </div>
 
-                @endforeach
+
             </div>
         </div>
         @endif
+
+        @endforeach
 
 
         <div class="col-md-12">
@@ -169,34 +172,21 @@
 
     jQuery(document).ready(function () {
 
-
         jQuery(document).on('click', '.add-another-panel-button', function (e) {
 
             e.preventDefault();
-
             var html = jQuery('.product-attribute-main-panel-template').html();
-
             jQuery(e.target).parent().before(html);
-
-            //jQuery('.select2').select2();
-
-            //if(jQuery('.remove-attribute').length > 1) {
-            //    jQuery(e.target).parent();
-            //} else {
-            //    alert('Sorry not allowed');
-            //}
         });
 
         jQuery(document).on('click', '.remove-attribute', function (e) {
-
-            console.info(jQuery('.remove-attribute').length);
-
-            if(jQuery('.remove-attribute').length > 2) {
-                jQuery(e.target).parent().remove();
-            } else {
-                alert('Sorry not allowed');
-            }
+            jQuery(e.target).parent().remove();
         });
+
+        jQuery(document).on('click', '.remove-variation-attribute', function (e) {
+            jQuery(e.target).parent().remove();
+        });
+
         jQuery(document).on('click', '.add-product-attribute', function (e) {
             e.preventDefault();
 
@@ -227,7 +217,7 @@
     })
 </script>
 <style>
-    .remove-attribute {
+    .remove-attribute, .remove-variation-attribute {
         font-size:42px;
         margin-right: 10px;
     }
