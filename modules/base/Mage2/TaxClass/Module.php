@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\View;
 use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
+use Mage2\Framework\AdminMenu\Facades\AdminMenu;
+
 
 class Module extends BaseModule {
 
@@ -23,6 +25,7 @@ class Module extends BaseModule {
     public function boot() {
         $this->registerModule();
         $this->registerAdminConfiguration();
+        $this->registerAdminMenu();
         $this->registerTranslationPath();
     }
 
@@ -63,6 +66,43 @@ class Module extends BaseModule {
             AdminConfiguration::registerConfiguration($adminConfiguration);
         }
     }
+
+
+    /**
+     *  Register Permission for the roles
+     *
+     * @return void
+     */
+    protected function registerPermissions() {
+
+        $permissions = [
+
+            /**
+            ['title' => 'Role List', 'routes' => 'admin.role.index'],
+            ['title' => 'Role Create', 'routes' => "admin.role.create,admin.role.store"],
+            ['title' => 'Role Edit', 'routes' => "admin.role.edit,admin.role.update"],
+            ['title' => 'Role Destroy', 'routes' => "admin.role.destroy"],
+             */
+            ['title' => 'Admin User List', 'routes' => 'admin.admin-user.index'],
+            ['title' => 'Admin User Create', 'routes' => "admin.admin-user.create,admin.admin-user.store"],
+            ['title' => 'Admin User  Edit', 'routes' => "admin.admin-user.edit,admin.admin-user.update"],
+            ['title' => 'Admin User  Destroy', 'routes' => "admin.admin-user.destroy"],
+        ];
+
+        foreach ($permissions as $permission) {
+            PermissionFacade::add($permission);
+        }
+    }
+
+    public function registerAdminMenu() {
+
+        $orderStatusMenu = [ 'sale' => ['submenu' => [ 'tax-rule' => [
+            'label' => 'TaxRule',
+            'route' => 'admin.tax-rule.index',
+        ]]]];
+        AdminMenu::registerMenu('mage2-order', $orderStatusMenu);
+    }
+
 
     public function registerModule() {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');

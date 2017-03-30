@@ -4,7 +4,7 @@ namespace Mage2\TaxClass\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
 
-class TaxClassRequest extends Request
+class TaxRuleRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,6 +26,8 @@ class TaxClassRequest extends Request
         return [
             'title'        => 'required|max:255',
             'country_code' => 'required|max:255',
+            'state_code' => 'required|max:255',
+            'post_code' => 'required|max:255',
             'percentage'   => 'required|max:255',
         ];
     }

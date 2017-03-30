@@ -1,5 +1,0 @@
-@include('template.text',['key' => 'title','label' => 'Title'])
-@include('template.text',['key' => 'country_code','label' => 'Country Code'])
-@include('template.text',['key' => 'state_code','label' => 'State Code'])
-@include('template.text',['key' => 'post_code','label' => 'Post Code'])
-@include('template.text',['key' => 'percentage','label' => 'Percentage'])

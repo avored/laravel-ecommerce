@@ -10,6 +10,9 @@ use Mage2\Framework\System\Controllers\Controller;
 use Mage2\User\Requests\UserProfileRequest;
 use Illuminate\Support\Facades\Hash;
 
+use Mage2\Framework\Image\Facades\Image;
+
+
 class MyAccountController extends Controller {
 
     public function home() {
@@ -41,12 +44,10 @@ class MyAccountController extends Controller {
 
         $user = Auth::user();
         $image = $request->file('profile_image');
-        $destinationPath = 'uploads/users/';
-        $relativePath = implode('/', str_split(strtolower(str_random(3)))) . '/';
-        $image->move($destinationPath . $relativePath, $image->getClientOriginalName());
 
-        $user->update(['image_path' => $relativePath . $image->getClientOriginalName()]);
+        $image = Image::upload($image,'default');
 
+        $user->update(['image_path' => $image->relativePath]);
 
         return redirect()->route('my-account.home')
                         ->with('notificationText', 'User Profile Image Uploaded successfully!!');
