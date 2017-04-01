@@ -2,6 +2,7 @@
 
 namespace Mage2\User\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\User\Models\AdminUser;
 use Mage2\User\Models\Role;
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\Gate;
 class AdminUserController extends AdminController
 {
 
+    public function getDataGrid()
+    {
+        return $users = DataGrid::dataTableData(new AdminUser());
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -21,31 +28,7 @@ class AdminUserController extends AdminController
      */
     public function index()
     {
-        $user = new AdminUser();
-        $dataGrid = DataGrid::make($user);
-
-        $dataGrid->addColumn(DataGrid::textColumn('first_name', 'First Name'));
-        $dataGrid->addColumn(DataGrid::textColumn('last_name', 'Last Name'));
-        $dataGrid->addColumn(DataGrid::textColumn('email', 'Email'));
-
-        if (Gate::allows('hasPermission', [AdminUser::class, "admin.admin-user.edit"])) {
-            $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
-                return "<a href='" . route('admin.admin-user.edit', $row->id) . "'>Edit</a>";
-            }));
-        }
-
-        if (Gate::allows('hasPermission', [AdminUser::class, "admin.admin-user.edit"])) {
-            $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
-                return "<form method='post' action='" . route('admin.admin-user.destroy', $row->id) . "'>" .
-                "<input type='hidden' name='_method' value='delete'/>" .
-                csrf_field() .
-                '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
-                "</form>";
-            }));
-        }
-
-        return view('mage2user::admin.user.admin-user.index')
-            ->with('dataGrid', $dataGrid);
+        return view('mage2user::admin.user.admin-user.index');
     }
 
     /**
@@ -142,8 +125,9 @@ class AdminUserController extends AdminController
         return redirect()->route('admin.admin-user.index');
     }
 
-    private function _getRoleOptions() {
+    private function _getRoleOptions()
+    {
 
-        return [0 => 'Please Select'] + Role::all()->pluck('name','id')->toArray();
+        return [0 => 'Please Select'] + Role::all()->pluck('name', 'id')->toArray();
     }
 }

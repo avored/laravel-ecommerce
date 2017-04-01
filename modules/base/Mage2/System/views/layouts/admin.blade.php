@@ -11,9 +11,10 @@
         <title>{{ config('app.name', 'Mage2 Ecommerce') }}</title>
 
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <link href="{{ asset('vendor/mage2-admin/css/appscss.css') }}" rel="stylesheet">
         <link href="{{ asset('vendor/mage2-admin/css/appless.css') }}" rel="stylesheet">
-
+        <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
 
         <!-- Scripts -->
         <script>
@@ -36,6 +37,8 @@ echo json_encode([
         <script src="{{ asset('/vendor/mage2-admin/js/scripts.js') }}"></script>
 
         <script src="//cdn.ckeditor.com/4.5.11/basic/ckeditor.js"></script>
+        <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+        @stack('scripts')
 
 
         @include("layouts.admin-nav")

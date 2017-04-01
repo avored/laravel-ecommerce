@@ -1,32 +1,49 @@
 @extends('layouts.admin')
-
 @section('content')
-<div class="row">
-    <div class="col s12">
-    <div class="main-title-wrap">
-        <span class="title">
-            Admin User List
-            <!--<small>Sub title</small> -->
-        </span>
-        <div class="pull-right">
-
-
-            @can('hasPermission',[\Mage2\User\Models\AdminUser::class,'admin.category.create'])
-                <a  href="{{ route('admin.admin-user.create') }}"
-                    class="btn btn-primary"> Create Admin User</a>
-            @else
-                <span class="btn btn-default" disabled>Create Admin User</span>
-            @endcan
-        </div>
+    <div class="container">
+        <table class="table table-bordered" id="admin-user-table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Edit</th>
+                <th>Destroy</th>
+            </tr>
+            </thead>
+        </table>
     </div>
+@stop
 
-        @if(count($dataGrid->data) <= 0)
-        <p>Sorry No User Found</p>
-        @else
-         {!! $dataGrid->render() !!}
-        @endif
+@push('scripts')
+<script>
+    $(function() {
+        $('#admin-user-table').DataTable({
+            processing: true,
+            searching: false,
+            serverSide: true,
+            ajax: '{!! route('admin.user.data-grid-table.get-data') !!}',
+            columns: [
+                { data: 'id', name: 'id' },
+                { data: 'first_name', name: 'first_name' },
+                { data: 'last_name', name: 'last_name' },
+                { data: 'edit',
+                    name: 'edit',
+                    sortable: false,
+                    render: function ( data, type, object, meta ) {
 
-    </div>
-</div>
-@endsection
-
+                        return '<a href="'+object.id+'">Edit</a>';
+                    }
+                },
+                { data: 'destroy',
+                    name: 'destroy',
+                    sortable: false,
+                    render: function ( data, type, object, meta ) {
+                        return '<a href="'+object.id+'">Destroy</a>';
+                    }
+                }
+            ]
+        });
+    });
+</script>
+@endpush

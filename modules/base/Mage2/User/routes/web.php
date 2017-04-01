@@ -29,7 +29,14 @@ Route::group(['middleware' => ['web'], 'namespace' => "Mage2\User\Controllers\Ad
 
 Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
 
-    Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address', 'uses' => 'ConfigurationController@getConfiguration']);
+    Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address',
+                                                'uses' => 'ConfigurationController@getConfiguration'
+                                                ]);
+
+
+    Route::get('/admin/admin-user/get-datatable-data', ['as' => 'admin.user.data-grid-table.get-data',
+                                                        'uses' => 'AdminUserController@getDataGrid'
+                                                        ]);
 
 
     Route::resource('/admin/admin-user', 'AdminUserController', ['as' => 'admin']);
@@ -39,6 +46,7 @@ Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\User\C
 
 });
 Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\User\Controllers"], function () {
+
     Route::get('/my-account', ['as' => 'my-account.home', 'uses' => 'MyAccountController@home']);
     Route::get('/my-account/edit', ['as' => 'my-account.edit', 'uses' => 'MyAccountController@edit']);
     Route::post('/my-account/edit', ['as' => 'my-account.store', 'uses' => 'MyAccountController@store']);
