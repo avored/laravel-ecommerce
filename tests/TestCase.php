@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
-use Mage2\Auth\Models\AdminUser;
-use Mage2\Common\Models\Configuration;
+use Mage2\User\Models\AdminUser;
+use Mage2\System\Models\Configuration;
 use Mage2\Install\Models\Website;
 use Mage2\User\Models\User;
-
+use Mage2\User\Models\Role;
 abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
     /**
@@ -27,7 +27,48 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      */
     public function createApplication()
     {
-        $app = require __DIR__.'/../bootstrap/app.php';
+        /*
+        |--------------------------------------------------------------------------
+        | Turn On The Lights
+        |--------------------------------------------------------------------------
+        |
+        | We need to illuminate PHP development, so let us turn on the lights.
+        | This bootstraps the framework and gets it ready for use, then it
+        | will load up this application so that we can run it and send
+        | the responses back to the browser and delight our users.
+        |
+        */
+
+        $app = new Mage2\Framework\Foundation\Application(
+            realpath(__DIR__.'/../')
+        );
+
+        /*
+        |--------------------------------------------------------------------------
+        | Bind Important Interfaces
+        |--------------------------------------------------------------------------
+        |
+        | Next, we need to bind some important interfaces into the container so
+        | we will be able to resolve them when needed. The kernels serve the
+        | incoming requests to this application from both the web and CLI.
+        |
+        */
+
+        $app->singleton(
+            Illuminate\Contracts\Http\Kernel::class,
+            Mage2\Framework\System\Kernel::class
+        );
+
+        $app->singleton(
+            Illuminate\Contracts\Console\Kernel::class,
+            Illuminate\Foundation\Console\Kernel::class
+        );
+
+        $app->singleton(
+            Illuminate\Contracts\Debug\ExceptionHandler::class,
+            Mage2\Framework\Exceptions\Handler::class
+        );
+
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
 
@@ -43,6 +84,9 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
             Artisan::call('mage2:migrate');
             Artisan::call('db:seed');
             $this->setupAdminUserAndWebsite();
+
+
+
         }
 
         //Artisan::call('db:seed');
@@ -86,12 +130,17 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     private function setupAdminUserAndWebsite()
     {
+        $role = Role::create(['name' => 'Administrator',
+                                'description' => 'administrator role'
+                        ]);
+        
         AdminUser::create([
             'first_name' => 'test User',
             'last_name'  => 'test User',
             'email'      => 'admin@admin.com',
             'password'   => bcrypt('admin123'),
-            'role_id'    => 1, // @todo change this one??
+            'is_super_admin' => 1,
+            'role_id'    => $role->id, // @todo change this one??
         ]);
 
         $host = str_replace('http://', '', $this->baseUrl);

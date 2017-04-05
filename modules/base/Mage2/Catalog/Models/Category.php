@@ -2,34 +2,21 @@
 
 namespace Mage2\Catalog\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
-use Mage2\Install\Models\Website;
+use Mage2\Framework\System\Models\BaseModel;
 
-class Category extends Model
+class Category extends BaseModel
 {
-    protected $fillable = ['website_id', 'parent_id', 'name', 'slug'];
-    protected $websiteId;
-    protected $defaultWebsiteId;
-    protected $isDefaultWebsite;
+    protected $fillable = [ 'parent_id', 'name', 'slug'];
 
-    public function __construct(array $attributes = [])
-    {
-        $this->websiteId = Session::get('website_id');
-        $this->defaultWebsiteId = Session::get('default_website_id');
-        $this->isDefaultWebsite = Session::get('is_default_website');
-        parent::__construct($attributes);
-    }
 
-    public function website()
-    {
-        return $this->belongsTo(Website::class);
-    }
+
 
     public function products()
     {
         return $this->belongsToMany(Product::class);
     }
+   
 
     public function getParentNameAttribute()
     {
@@ -52,7 +39,7 @@ class Category extends Model
     {
         $data = [];
 
-        $rootCategories = $this->where('parent_id', '=', '0')->where('website_id', '=', $this->websiteId)->get();
+        $rootCategories = $this->where('parent_id', '=', '0')->get();
         $data = $this->list_categories($rootCategories);
 
         return $data;

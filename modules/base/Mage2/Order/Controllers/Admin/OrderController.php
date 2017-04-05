@@ -4,29 +4,38 @@ namespace Mage2\Order\Controllers\Admin;
 
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Mail;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Order\Mail\OrderInvoicedMail;
 use Mage2\Order\Models\Order;
 use Mage2\Order\Models\OrderStatus;
 use Mage2\Order\Requests\UpdateOrderStatusRequest;
 use Mage2\User\Models\User;
+use Mage2\User\Models\AdminUser;
+use Illuminate\Support\Facades\Gate;
+use Mage2\Order\Mail\UpdateOrderStatusMail;
+use Mage2\Framework\DataGrid\Facades\DataGrid;
 
-class OrderController extends Controller
+class OrderController extends AdminController
 {
-    /**
-     * @var CategoryRepository
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function index()
     {
-        $orders = Order::paginate(10);
+        $model  = new Order();
+        $dataGrid = DataGrid::make($model);
 
-        return view('admin.order.index')
-                ->with('orders', $orders);
+        $dataGrid->addColumn(DataGrid::textColumn('id', 'Order ID'));
+        $dataGrid->addColumn(DataGrid::textColumn('shipping_method', 'Shipping Method'));
+        $dataGrid->addColumn(DataGrid::textColumn('payment_method', 'Payment Method'));
+        $dataGrid->addColumn(DataGrid::textColumn('order_status_title', 'Order Status'));
+        if (Gate::allows('hasPermission', [AdminUser::class, "admin.order.view"])) {
+
+            $dataGrid->addColumn(DataGrid::linkColumn('view', 'View', function ($row) {
+                return "<a href='" . route('admin.order.view', $row->id) . "'>View</a>";
+            }));
+        }
+
+        return view('mage2order::admin.order.index')
+                ->with('dataGrid', $dataGrid);
     }
 
     public function view($id)
@@ -35,7 +44,7 @@ class OrderController extends Controller
         //$view = view('order.view')->with('order', $order);
 
 
-        $view = view('admin.order.view')->with('order', $order);
+        $view = view('mage2order::admin.order.view')->with('order', $order);
 
         //PDF::loadHTML($view->render())->save('my_stored_file.pdf')->stream('download.pdf');
         //dd($view->render());die;
@@ -49,7 +58,7 @@ class OrderController extends Controller
         $order = Order::findorfail($id);
         $user = User::find($order->user_id);
 
-        $view = view('admin.order.pdf')->with('order', $order);
+        $view = view('mage2order::admin.order.pdf')->with('order', $order);
         $path = public_path('/uploads/order/invoice/'.$order->id.'.pdf');
         PDF::loadHTML($view->render())->save($path);
 
@@ -62,7 +71,7 @@ class OrderController extends Controller
 
         $orderStatus = OrderStatus::all()->pluck('title', 'id');
 
-        $view = view('admin.order.view')
+        $view = view('mage2order::admin.order.view')
                 ->with('order', $order)
                 ->with('orderStatus', $orderStatus)
                 ->with('changeStatus', true);
@@ -74,7 +83,12 @@ class OrderController extends Controller
     {
         $order = Order::findorfail($id);
         $order->update($request->all());
-
+        
+        $userEmail = $order->user->email;
+        $orderStatusTitle = $order->order_status_title;
+        
+        Mail::to($userEmail)->send(new UpdateOrderStatusMail($orderStatusTitle));
+        
         return redirect()->route('admin.order.index');
     }
 }

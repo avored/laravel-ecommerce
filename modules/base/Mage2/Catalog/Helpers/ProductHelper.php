@@ -2,40 +2,43 @@
 
 namespace Mage2\Catalog\Helpers;
 
-use Illuminate\Support\Facades\Session;
-use Mage2\Attribute\Models\ProductAttribute;
+use Mage2\Catalog\Models\ProductAttribute;
+use Mage2\Catalog\Models\ProductImage;
+use Mage2\Catalog\Models\ProductPrice;
+use Mage2\Catalog\Models\ProductVarcharValue;
+use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Catalog\Models\RelatedProduct;
 use Mage2\Catalog\Requests\ProductRequest;
-use Mage2\Framework\Support\Helper;
+use Illuminate\Http\UploadedFile;
+use Mage2\Catalog\Models\Product;
 
-class ProductHelper extends Helper
+
+class ProductHelper
 {
-    public $websiteId;
-    public $defaultWebsiteId;
-    public $isDefaultWebsite;
 
-    //public $theme;
-
-    public function __construct()
-    {
-        $this->websiteId = Session::get('website_id');
-        $this->defaultWebsiteId = Session::get('default_website_id');
-        $this->isDefaultWebsite = Session::get('is_default_website');
-    }
 
     /**
-     * Insert or update product into pivot table.
+     * Insert or update product into Product table.
      *
-     * @param type                                  $product
+     * @param type $product
      * @param \Mage2\Catalog\Helpers\ProductRequest $request
      */
     public function saveProduct($product, ProductRequest $request)
     {
-        if (count($request->get('website_id')) > 0) {
-            $product->websites()->sync($request->get('website_id'));
-        }
+        $product->update($request->all());
+
+        return $this;
+        //Sync Website i was using it .....????
     }
 
+    /**
+     *
+     * Save Related Product into related table
+     *
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
     public function saveRelatedProducts($product, ProductRequest $request)
     {
         if (count($request->get('related_products')) > 0) {
@@ -48,6 +51,43 @@ class ProductHelper extends Helper
         }
     }
 
+    /**
+     *
+     *  Save Product Category
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
+    public function saveProductExtraAttribute($product, ProductRequest $request)
+    {
+        $extraAttributes = $request->get('modules');
+
+        foreach($extraAttributes['attributes'] as $identifier => $value) {
+            $attribute  = ProductAttribute::where('identifier' , '=', $identifier)->first();
+
+
+            $productVarcharValue = ProductVarcharValue::where('product_id','=', $product->id)->where('product_attribute_id','=', $attribute->id)->first();
+
+            if(null ===  $productVarcharValue) {
+                ProductVarcharValue::create([
+                    'product_id' => $product->id,
+                    'product_attribute_id' => $attribute->id,
+                    'value' => $value
+                ]);
+            } else {
+                $productVarcharValue->update(['value' => $value]);
+            }
+        }
+
+    }
+
+    /**
+     *
+     *  Save Product Category
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
     public function saveCategory($product, ProductRequest $request)
     {
         if (count($request->get('category_id')) > 0) {
@@ -55,228 +95,166 @@ class ProductHelper extends Helper
         }
     }
 
+    /**
+     * Save Product Attribute with variations
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
     public function saveProductAttribute($product, ProductRequest $request)
     {
-        $productAttributes = ProductAttribute::all();
+        $attributes = $request->get('attribute');
 
-        foreach ($productAttributes as $productAttribute) {
-            $identifier = $productAttribute->identifier;
-            if (null == $request->get($identifier)) {
-                continue;
+        if ($attributes !== NULL && count($attributes) > 0) {
+            //@todo update image to hasvariation = true
+            $product->update(['has_variation' => 1]);
+
+
+            $existingIds = array_flip( $product->productVariations->pluck('id')->toArray());
+
+            foreach ($attributes as $attributeId => $attribute) {
+
+                foreach ($attribute as $dropdownId => $fieldValue) {
+
+                    if (isset($fieldValue['id']) && $fieldValue['id'] > 0) {
+
+                        unset($existingIds [$fieldValue['id']]);
+
+                        $variation = ProductVariation::findorfail($fieldValue['id']);
+                        $subProduct = $variation->subProduct;
+                        $subProduct->update($fieldValue);
+
+                        $subProduct->prices()->get()->first()->update(['price' => $fieldValue['price']]);
+
+                        if ($imageArray = $request->file('attribute') &&
+                            isset($request->file('attribute')[$attributeId]) &&
+                            isset($request->file('attribute')[$attributeId][$dropdownId])
+                        ) {
+
+                            //todo delete image file as well....
+                            $image = $request->file('attribute')[$attributeId][$dropdownId]['image'];
+
+                            $attributeImagePath = $this->_uploadImage($image);
+
+                            ProductImage::where('product_id', '=', $subProduct->id)->delete();
+                            ProductImage::create(['path' => $attributeImagePath, 'product_id' => $subProduct->id]);
+                        }
+
+
+                    } else {
+
+                        $fieldValue['slug'] = $fieldValue['sku'];
+                        $subProduct = Product::create($fieldValue);
+
+                        $subProduct->prices()->create(['price' => $fieldValue['price']]);
+
+                        ProductVariation::create(['sub_product_id' => $subProduct->id,
+                            'product_attribute_id' => $attributeId,
+                            'attribute_dropdown_option_id' => $dropdownId,
+                            'product_id' => $product->id,
+                            'price' => $fieldValue['price']
+                        ]);
+
+                        if ($imageArray = $request->file('attribute') &&
+                            isset($request->file('attribute')[$attributeId]) &&
+                            isset($request->file('attribute')[$attributeId][$dropdownId])
+                        ) {
+                            $image = $imageArray[$attributeId][$dropdownId]['image'];
+                            $attributeImagePath = $this->_uploadImage($image);
+
+                            ProductImage::where('product_id', '=', $subProduct->id)->delete();
+
+                            ProductImage::create(['path' => $attributeImagePath, 'product_id' => $subProduct->id]);
+                        }
+
+
+                    }
+
+                }
             }
-            if ($product->$identifier == $request->get($identifier)) {
-                continue;
+
+            if(count($existingIds)>0) {
+                foreach (array_flip($existingIds) as $id) {
+                    ProductVariation::destroy($id);
+                }
             }
 
+        } else {
 
-            switch ($productAttribute->type) {
-                case 'VARCHAR':
-                    $value = $request->get($identifier);
-                    $this->_saveProductVarcharValue($product, $identifier, $productAttribute, $value);
-                    break;
-
-                case 'INTEGER':
-                    $value = $request->get($identifier);
-                    $this->_saveProductIntegerValue($product, $identifier, $productAttribute, $value);
-                    break;
-
-                case 'FLOAT':
-                    $value = $request->get($identifier);
-                    $this->_saveProductFloatValue($product, $identifier, $productAttribute, $value);
-                    break;
-
-                case 'DATETIME':
-                    $value = $request->get($identifier);
-                    $this->_saveProductDatetimeValue($product, $identifier, $productAttribute, $value);
-                    break;
-
-                case 'TEXT':
-                    $value = $request->get($identifier);
-                    $this->_saveProductTextValue($product, $identifier, $productAttribute, $value);
-                    break;
-
-                default:
-                    break;
-            }
+            //only needed when remove all attribute using remove icon during edit product
+            $product->update(['has_variation' => 0]);
         }
 
-        return true;
+
+        return $this;
     }
 
+
+    private function _uploadImage(UploadedFile $image)
+    {
+
+
+        $destinationPath = 'uploads/catalog/images/';
+        $relativePath = implode('/', str_split(strtolower(str_random(3)))) . '/';
+        $image->move($destinationPath . $relativePath, $image->getClientOriginalName());
+
+        return $relativePath . $image->getClientOriginalName();
+    }
+
+    /**
+     *
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @return $this
+     */
     public function saveProductImages($product, ProductRequest $request)
     {
-        $productAttribute = ProductAttribute::where('identifier', '=', 'image')->get()->first();
-        $productAttribute->productVarcharValues()->where('product_id', '=', $product->id)->delete();
 
-
-
-        if (count($request->get('image')) <= 0) {
-            return true;
+        $exitingIds = [];
+        if (NULL === $request->get('image')) {
+            return $this;
         }
 
-        foreach ($request->get('image') as $image) {
-            if (is_int($image)) {
+        $exitingIds = $product->images()->get()->pluck('id')->toArray();
+
+        foreach ($request->get('image') as $key => $path) {
+
+            if (is_int($key)) {
+                if (($findKey = array_search($key, $exitingIds)) !== false) {
+                    unset($exitingIds[$findKey]);
+                }
                 continue;
             }
 
-            $productAttribute->productVarcharValues()->create([
-                'product_id' => $product->id,
-                'website_id' => $this->websiteId,
-                'value'      => $image,
-            ]);
+            ProductImage::create(['path' => $path[0], 'product_id' => $product->id]);
         }
+
+        if (count($exitingIds) > 0) {
+
+            ProductImage::destroy($exitingIds);
+        }
+
+        return $this;
+
+
     }
 
-    private function _saveProductVarcharValue($product, $identifier, $productAttribute, $value)
+    /**
+     *
+     * @param \Mage2\Catalog\Models\Product $product
+     * @param array $data
+     * @return $this
+     */
+    public function saveProductPrice($product, $data)
     {
-        $createNewRecord = false;
-        if ($this->isDefaultWebsite == false) {
-            $attributeValue = $productAttribute
-                            ->productVarcharValues()
-                            ->where('product_id', '=', $product->id)
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
 
-            if (null === $attributeValue) {
-                $createNewRecord = true;
-            }
-        }
-
-        if (null === $product->$identifier || $createNewRecord == true) {
-            $productAttribute->productVarcharValues()->create([
-                'product_id' => $product->id,
-                'website_id' => $this->websiteId,
-                'value'      => $value,
-            ]);
+        if ($product->prices()->get()->count() > 0) {
+            $product->prices()->get()->first()->update(['price' => $data['price']]);
         } else {
-            $productAttribute->productVarcharValues()
-                    ->where('product_id', '=', $product->id)->get()->first()
-                    ->update([
-                        'value'      => $value,
-                        'website_id' => $this->websiteId,
-            ]);
+            $product->prices()->create(['price' => $data['price']]);
         }
+        return $this;
     }
 
-    private function _saveProductIntegerValue($product, $identifier, $productAttribute, $value)
-    {
-        $createNewRecord = false;
 
-        if ($this->isDefaultWebsite == false) {
-            $attributeValue = $productAttribute
-                            ->productIntegerValues()
-                            ->where('product_id', '=', $product->id)
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
-
-            if (null === $attributeValue) {
-                $createNewRecord = true;
-            }
-        }
-
-        if (null === $product->$identifier || $createNewRecord == true) {
-            $productAttribute->productIntegerValues()->create([
-                'product_id' => $product->id,
-                'website_id' => $this->websiteId,
-                'value'      => $value,
-            ]);
-        } else {
-            $productAttribute->productIntegerValues()
-                    ->where('product_id', '=', $product->id)->get()->first()
-                    ->update([
-                        'value'      => $value,
-                        'website_id' => $this->websiteId,
-            ]);
-        }
-    }
-
-    private function _saveProductTextValue($product, $identifier, $productAttribute, $value)
-    {
-        $createNewRecord = false;
-        if ($this->isDefaultWebsite == false) {
-            $attributeValue = $productAttribute
-                            ->productTextValues()
-                            ->where('product_id', '=', $product->id)
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
-            if (null === $attributeValue) {
-                $createNewRecord = true;
-            }
-        }
-
-        if (null === $product->$identifier || $createNewRecord == true) {
-            $productAttribute->productTextValues()->create([
-                'product_id' => $product->id,
-                'website_id' => $this->websiteId,
-                'value'      => $value,
-            ]);
-        } else {
-            $productAttribute->productTextValues()
-                    ->where('product_id', '=', $product->id)->get()->first()
-                    ->update([
-                        'value'      => $value,
-                        'website_id' => $this->websiteId,
-            ]);
-        }
-    }
-
-    private function _saveProductFloatValue($product, $identifier, $productAttribute, $value)
-    {
-        $createNewRecord = false;
-        if ($this->isDefaultWebsite == false) {
-            $attributeValue = $productAttribute
-                            ->productFloatValues()
-                            ->where('product_id', '=', $product->id)
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
-            if (null === $attributeValue) {
-                $createNewRecord = true;
-            }
-        }
-
-        if (null === $product->$identifier || $createNewRecord == true) {
-            $productAttribute->productFloatValues()->create([
-                'product_id' => $product->id,
-                'website_id' => $this->websiteId,
-                'value'      => $value,
-            ]);
-        } else {
-            $productAttribute->productFloatValues()
-                    ->where('product_id', '=', $product->id)->get()->first()
-                    ->update([
-                        'value'      => $value,
-                        'website_id' => $this->websiteId,
-            ]);
-        }
-    }
-
-    private function _saveProductDatetimeValue($product, $identifier, $productAttribute, $value)
-    {
-        $createNewRecord = false;
-        if ($this->isDefaultWebsite == false) {
-            $attributeValue = $productAttribute
-                            ->productDatetimeValues()
-                            ->where('product_id', '=', $product->id)
-                            ->where('website_id', '=', $this->websiteId)
-                            ->get()->first();
-            if (null === $attributeValue) {
-                $createNewRecord = true;
-            }
-        }
-
-        if (null === $product->$identifier || $createNewRecord == true) {
-            $productAttribute->productDatetimeValues()->create([
-                'product_id' => $product->id,
-                'website_id' => $this->websiteId,
-                'value'      => $value,
-            ]);
-        } else {
-            $productAttribute->productDatetimeValues()
-                    ->where('product_id', '=', $product->id)->get()->first()
-                    ->update([
-                        'value'      => $value,
-                        'website_id' => $this->websiteId,
-            ]);
-        }
-    }
 }

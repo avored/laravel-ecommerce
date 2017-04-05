@@ -2,11 +2,12 @@
 
 namespace Mage2\Order\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Mage2\Address\Models\Address;
+use Mage2\User\Models\Address;
 use Mage2\Catalog\Models\Product;
+use Mage2\Framework\System\Models\BaseModel;
+use Mage2\User\Models\User;
 
-class Order extends Model
+class Order extends BaseModel
 {
     protected $fillable = [
                     'shipping_address_id',
@@ -19,7 +20,11 @@ class Order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_order')->withPivot('price', 'qty');
+        return $this->belongsToMany(Product::class)->withPivot('price', 'qty','tax_amount');
+    }
+    
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
     public function orderStatus()
@@ -32,6 +37,10 @@ class Order extends Model
         $shippingAddress = Address::findorfail($this->attributes['shipping_address_id']);
 
         return $shippingAddress;
+    }
+
+    public function getOrderStatusTitleAttribute() {
+        return $this->orderStatus->title;
     }
 
     public function getBillingAddressAttribute()

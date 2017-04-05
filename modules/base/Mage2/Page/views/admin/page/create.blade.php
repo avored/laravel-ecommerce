@@ -2,17 +2,16 @@
 
 @section('content')
         <div class="row">
-            <div class="col s12">
-                <div class="main-title-wrapper">
-                    <h1>
+            <div class="col-md-12">
+                <div class="main-title-wrap">
+                    <span class="title">
                         Create Page
-                        <!--<small>Sub title</small> -->
-                    </h1>
+                    </span>
                 </div>
-                {!! Form::open(['route' => 'admin.page.store']) !!}
-                    @include('admin.page._fields')
-                    @include('template.submit',['label' => 'Create Page'])
-                    
+                {!! Form::open(['method' => 'post','action' => route('admin.page.store')]) !!}
+                        @include('mage2page::admin.page._fields')
+                {!! Form::submit('Create Page') !!}
+                {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.page.index').'"']) !!}
                 {!! Form::close() !!}
             </div>
         </div>

@@ -2,7 +2,7 @@
 
 namespace Mage2\Order\Requests;
 
-use Mage2\Framework\Http\Request;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
 class OrderStatusRequest extends Request
 {
@@ -26,6 +26,7 @@ class OrderStatusRequest extends Request
         $rules = [];
         $rules['title'] = 'required|max:255';
         $rules['is_default'] = 'required|max:1';
+        $rules['is_last_stage'] = 'required|max:1';
 
 
         return $rules;

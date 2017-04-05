@@ -3,11 +3,12 @@
 
 @section('content')
 <div class="row">
-    <div class="col s12">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-title">Create Category</div>
-                {!! Form::open(['route' => 'admin.category.store']) !!}
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">Create Category</div>
+            <div class="panel-body">
+
+                {!! Form::open(['action' =>  route('admin.category.store'),'method' => 'POST']) !!}
                 @include('admin.catalog.category._fields')
 
                 <div class="input-field">

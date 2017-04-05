@@ -2,7 +2,7 @@
 
 namespace Mage2\Page\Requests;
 
-use Mage2\Framework\Http\Request;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
 class PageRequest extends Request
 {

@@ -2,10 +2,10 @@
 
 namespace Mage2\Paypal\Payment;
 
-use Mage2\Configuration\Models\Configuration;
+use Mage2\System\Models\Configuration;
 use Mage2\Framework\Payment\Payment as PaymentFramework;
 use Mage2\Framework\Payment\PaymentInterface;
-use Mage2\Framework\Shipping\Facade\Shipping;
+use Mage2\Framework\Shipping\Facades\Shipping;
 use PayPal\Api\Amount;
 use PayPal\Api\Details;
 use PayPal\Api\Item;
@@ -29,6 +29,18 @@ class Paypal extends PaymentFramework implements PaymentInterface
     {
         $this->identifier = 'paypal';
         $this->title = 'Paypal';
+    }
+
+
+    public function isEnabled()
+    {
+        $isEnabled = Configuration::getConfiguration('is_paypal_enabled');
+
+        if(null === $isEnabled || false == $isEnabled) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getIdentifier()

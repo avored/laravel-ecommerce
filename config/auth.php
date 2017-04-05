@@ -76,7 +76,7 @@ return [
         ],
         'adminusers' => [
             'driver'    => 'eloquent',
-            'model'     => Mage2\Auth\Models\AdminUser::class,
+            'model'     => Mage2\User\Models\AdminUser::class,
         ],
 
         // 'users' => [
@@ -110,6 +110,12 @@ return [
             'table'     => 'password_resets',
             'expire'    => 60,
         ],
+        'adminusers' => [
+            'provider'  => 'adminusers',
+            'table'     => 'admin_password_resets',
+            'expire'    => 60,
+        ],
+
     ],
 
 ];

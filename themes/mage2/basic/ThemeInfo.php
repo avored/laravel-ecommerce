@@ -2,12 +2,12 @@
 
 namespace Mage2\Themes\Mage2\Basic;
 
-//use Mage2\Framework\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\ServiceProvider;
-use Mage2\Framework\Theme\Facade\Theme;
 
-class ThemeInfo extends ServiceProvider
+use Illuminate\Support\Facades\View;
+use Mage2\Framework\Support\BaseModule;
+use Mage2\Framework\Theme\Facades\Theme;
+
+class ThemeInfo extends BaseModule
 {
     public function boot()
     {

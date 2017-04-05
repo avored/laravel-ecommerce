@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use Mage2\Address\Models\Address;
-use Mage2\Address\Requests\AddressRequest;
+use Mage2\User\Models\Address;
+use Mage2\User\Requests\AddressRequest;
 use Mage2\Checkout\Requests\CheckoutUserRequest;
-use Mage2\Framework\Http\Controllers\Controller;
-use Mage2\Framework\Payment\Facade\Payment;
-use Mage2\Framework\Shipping\Facade\Shipping;
+use Mage2\Framework\System\Controllers\Controller;
+use Mage2\Framework\Payment\Facades\Payment;
+use Mage2\Framework\Shipping\Facades\Shipping;
 use Mage2\TaxClass\Models\Country;
 use Mage2\User\Models\User;
+use Mage2\Checkout\Requests\ShippingOptionRequest;
+use Mage2\Checkout\Requests\PaymentOptionRequest;
 
 class CheckoutController extends Controller
 {
@@ -24,6 +26,7 @@ class CheckoutController extends Controller
 
     public function index()
     {
+
         $orderData = Session::get('order_data');
         if (Auth::check()) {
             $orderData['user_id'] = Auth::user()->id;
@@ -130,7 +133,7 @@ class CheckoutController extends Controller
                 ->with('shillingOptions', $shillingOptions);
     }
 
-    public function postShippingOption(Request $request)
+    public function postShippingOption(ShippingOptionRequest $request)
     {
         $orderData = Session::get('order_data');
         $orderData['shipping_method'] = $request->get('shipping_option');
@@ -147,13 +150,14 @@ class CheckoutController extends Controller
                 ->with('paymentOptions', $paymentOptions);
     }
 
-    public function postPaymentOption(Request $request)
+    public function postPaymentOption(PaymentOptionRequest $request)
     {
         $orderData = Session::get('order_data');
         $cartProducts = Session::get('cart');
 
         $paymentMethod = Payment::get($request->get('payment_option'));
 
+        
         $redirectUrl = $paymentMethod->process($orderData, $cartProducts);
         $orderData['payment_method'] = $request->get('payment_option');
 
@@ -169,8 +173,11 @@ class CheckoutController extends Controller
     public function review()
     {
         $cartProducts = Session::get('cart');
+        $orderData = Session::get('order_data');
+        $shippingPrice = Shipping::get($orderData['shipping_method'])->getAmount();
 
         return view('checkout.review')
-                        ->with('cartProducts', $cartProducts);
+                        ->with('cartProducts', $cartProducts)
+                        ->with('shippingPrice',$shippingPrice);
     }
 }

@@ -2,15 +2,12 @@
 
 namespace Mage2\TaxClass\Controllers\Admin;
 
-use Mage2\Configuration\Models\Configuration;
-use Mage2\Framework\Http\Controllers\Controller;
+use Mage2\System\Models\Configuration;
+use Mage2\Framework\System\Controllers\AdminController;
 
-class ConfigurationController extends Controller
+class ConfigurationController extends AdminController
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
+   
 
     /**
      * Display a listing of the Catalog Configuration.
@@ -21,7 +18,7 @@ class ConfigurationController extends Controller
     {
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
-        return view('admin.configuration.index')
+        return view('mage2taxclass::admin.tax-class.configuration.index')
                 ->with('configurations', $configurations);
     }
 }

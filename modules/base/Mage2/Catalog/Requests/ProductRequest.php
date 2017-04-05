@@ -2,8 +2,8 @@
 
 namespace Mage2\Catalog\Requests;
 
-use Mage2\Attribute\Models\ProductAttribute;
-use Mage2\Framework\Http\Request;
+use Mage2\Catalog\Models\ProductAttribute;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
 class ProductRequest extends Request
 {
@@ -26,20 +26,21 @@ class ProductRequest extends Request
     {
 
         //@todo validation is not working yet??
+        $rule['title']              = "required|max:255";
+        $rule ['price']             = "required|max:14|regex:/^-?\\d*(\\.\\d+)?$/";
+        $rule['sku']                = "required|max:255";
+        $rule['slug']               = "required|max:255|alpha_dash";
+        $rule['page_title']         = "max:255";
+        $rule['page_description']   = "max:255";
+        $rule['description']        = "required";
+        $rule['status']             = "required";
+        $rule['is_taxable']         = "required";
+        $rule['in_stock']           = "required";
+        $rule['track_stock']        = "required";
 
-        if (count($this->request->get('website_id')) <= 0) {
-            $validateArray ['website_id[]'] = 'required';
-        }
+        //@todo category validation
 
-        $productAttributes = ProductAttribute::all();
-
-        foreach ($productAttributes as $productAttribute) {
-            if ($productAttribute->validation != '') {
-                $validateArray [$productAttribute->identifier] = $productAttribute->validation;
-            }
-        }
-
-        return $validateArray;
+        return $rule;
 
         //return [
         //      'title' => 'required|max:255',

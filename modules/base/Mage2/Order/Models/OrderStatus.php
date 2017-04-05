@@ -2,11 +2,11 @@
 
 namespace Mage2\Order\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Mage2\Framework\System\Models\BaseModel;
 
-class OrderStatus extends Model
+class OrderStatus extends BaseModel
 {
-    protected $fillable = ['title', 'is_default'];
+    protected $fillable = ['title', 'is_default','is_last_stage'];
 
     public function order()
     {
