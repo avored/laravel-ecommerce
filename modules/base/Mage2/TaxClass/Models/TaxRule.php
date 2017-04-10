@@ -8,7 +8,7 @@ class TaxRule extends BaseModel
 {
     protected $fillable = [
                     'title',
-                    'country_code',
+                    'country_id',
                     'state_code',
                     'post_code',
                     'city',

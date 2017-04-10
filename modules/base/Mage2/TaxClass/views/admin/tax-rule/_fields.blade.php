@@ -1,7 +1,7 @@
 
 {!! Form::text('title','Title') !!}
 
-{!! Form::text('country_code','Country Core') !!}
+{!! Form::select('country_id','Country Core', $countryOptions) !!}
 
 {!! Form::text('state_code','State Code') !!}
 
@@ -9,3 +9,4 @@
 
 {!! Form::text('percentage','Percentage') !!}
 
+{!! Form::text('priority','Priority') !!}

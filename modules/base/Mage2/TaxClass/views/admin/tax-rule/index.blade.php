@@ -39,7 +39,7 @@
                     <td>{{ $taxRule->id }}</td>
                     <td>{{ $taxRule->title }}</td>
                     <td>{{ $taxRule->percentage }}</td>
-                    <td>{{ $taxRule->country_code }}</td>
+                    <td>{{ $taxRule->country_id }}</td>
                     <td>{{ $taxRule->state_code }}</td>
                     <td>
                         <a href="{{ route('admin.tax-rule.edit',$taxRule->id )}}">Edit</a>

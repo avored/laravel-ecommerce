@@ -109,6 +109,11 @@ class Mage2UserSchema extends Migration {
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
 
+        //TAX MODULES
+        Schema::table('tax_rules', function (Blueprint $table) {
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+        });
+
         
         //orders table foreign key setup
         Schema::table('orders', function (Blueprint $table) {

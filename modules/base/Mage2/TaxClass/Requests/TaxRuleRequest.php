@@ -25,7 +25,7 @@ class TaxRuleRequest extends Request
     {
         return [
             'title'        => 'required|max:255',
-            'country_code' => 'required|max:255',
+            'country_id' => 'required|max:255',
             'state_code' => 'required|max:255',
             'post_code' => 'required|max:255',
             'percentage'   => 'required|max:255',

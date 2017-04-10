@@ -3,6 +3,7 @@
 namespace Mage2\TaxClass\Controllers\Admin;
 
 use Mage2\Framework\System\Controllers\AdminController;
+use Mage2\TaxClass\Models\Country;
 use Mage2\TaxClass\Models\TaxRule;
 use Mage2\TaxClass\Requests\TaxRuleRequest;
 
@@ -36,7 +37,8 @@ class TaxRuleController extends AdminController
      */
     public function create()
     {
-        return view('mage2taxclass::admin.tax-rule.create');
+        $countryOptions = [null => 'Please Select'] +  Country::all()->pluck('name','id')->toArray();
+        return view('mage2taxclass::admin.tax-rule.create')->with('countryOptions', $countryOptions);
     }
 
     /**
@@ -74,10 +76,12 @@ class TaxRuleController extends AdminController
      */
     public function edit($id)
     {
+        $countryOptions = [null => 'Please Select'] +  Country::all()->pluck('name','id')->toArray();
         $taxRule = TaxRule::findorfail($id);
 
         return view('mage2taxclass::admin.tax-rule.edit')
-                    ->with('taxRule', $taxRule);
+                    ->with('taxRule', $taxRule)
+                    ->with('countryOptions', $countryOptions);
     }
 
     /**

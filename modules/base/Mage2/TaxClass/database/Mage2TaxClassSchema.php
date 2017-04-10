@@ -16,13 +16,15 @@ class Mage2TaxClassSchema extends Migration {
         Schema::create('tax_rules', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->nullable()->default(null);
-            $table->string('country_code')->nullable()->default(null);
+            $table->string('country_id')->nullable()->unsigned();
             $table->string('state_code')->nullable()->default(null);
             $table->string('city')->nullable()->default(null);
             $table->string('post_code')->nullable()->default(null);
             $table->float('percentage',8,6)->nullable()->default(null);
             $table->integer('priority')->nullable()->default(null);
             $table->timestamps();
+
+
         });
     }
 

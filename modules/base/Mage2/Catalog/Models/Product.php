@@ -2,6 +2,8 @@
 
 namespace Mage2\Catalog\Models;
 
+
+use Mage2\TaxClass\Models\TaxRule;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\ProductAttribute;
@@ -80,10 +82,19 @@ class Product extends BaseModel {
     }
 
     public function getTaxAmount() {
+
+        $defaultCountryId = Configuration::getConfiguration('mage2_tax_class_default_country_for_tax_calculation');
+        $taxRules = TaxRule::where('country_id','=',$defaultCountryId)->orderBy('priority','DESC')->first();
+
+
+        //dd($defaultCountry);
+        //dd($taxRules);
+
         $taxPercentage = Configuration::getConfiguration('mage2_tax_class_percentage_of_tax');
         $price = $this->price;
 
-        $taxAmount = ($taxPercentage * $price / 100);
+        $taxAmount = ($taxRules->percentage * $price / 100);
+
 
         return $taxAmount;
     }
