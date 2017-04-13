@@ -60,7 +60,7 @@ class Mage2UserSchema extends Migration {
             $table->string('last_name');
             $table->string('address1');
             $table->string('address2');
-            $table->string('area');
+            $table->string('postcode');
             $table->string('city');
             $table->string('state');
             $table->integer('country_id')->unsigned();

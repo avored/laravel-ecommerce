@@ -2,7 +2,7 @@
 
 namespace Mage2\Checkout\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -27,13 +27,35 @@ class CheckoutController extends Controller
     public function index()
     {
 
-        $orderData = Session::get('order_data');
+        $user = NULL;
+        $shippingOptions = Shipping::all();
+        $paymentOptions = Payment::all();
+        $countries =  [null => 'Please Select'] +  Country::all()->pluck('name' , 'id')->toArray();
+        $orderData = Collection::make([]);
+
+        $cartItems = Session::get('cart');
+        //$cartItems = Session::get('order_data');
         if (Auth::check()) {
-            $orderData['user_id'] = Auth::user()->id;
+            //$orderData['user_id'] = Auth::user()->id;
             Session::put('order_data', $orderData);
 
-            return redirect()->route('checkout.step.shipping-address');
+            $user = Auth::user();
+
+            //$orderData->push($user->toArray());
+            //return redirect()->route('checkout.step.shipping-address');
         }
+
+
+
+
+        //dd($orderData);
+        return view('checkout.new-index')
+                    ->with('cartItems',$cartItems)
+                    ->with('countries',$countries)
+                    ->with('shippingOptions',$shippingOptions)
+                    ->with('paymentOptions',$paymentOptions)
+
+                    ;
 
         return view('checkout.index');
     }

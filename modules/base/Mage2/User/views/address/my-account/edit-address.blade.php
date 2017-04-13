@@ -57,15 +57,6 @@
                     @endif
                 </div>
 
-                <div class="form-group{{ $errors->has('area') ? ' has-error' : '' }}">
-                    <label for="area" class="control-label">Area</label>
-                    <input id="area" type="text" class="form-control" name="area" value="{{ $address->area }}">
-                    @if ($errors->has('area'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('area') }}</strong>
-                    </span>
-                    @endif
-                </div>
 
                 <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
                     <label for="city" class="control-label">City</label>

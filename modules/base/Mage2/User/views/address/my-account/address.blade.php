@@ -49,10 +49,7 @@
                                 <th>Address2</th>
                                 <td> {{ $address->address2}}</td>
                             </tr>
-                            <tr>
-                                <th>Area</th>
-                                <td> {{ $address->area}}</td>
-                            </tr>
+
                             <tr>
                                 <th>City</th>
                                 <td> {{ $address->city}}</td>

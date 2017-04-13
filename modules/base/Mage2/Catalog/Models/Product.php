@@ -86,10 +86,6 @@ class Product extends BaseModel {
         $defaultCountryId = Configuration::getConfiguration('mage2_tax_class_default_country_for_tax_calculation');
         $taxRules = TaxRule::where('country_id','=',$defaultCountryId)->orderBy('priority','DESC')->first();
 
-
-        //dd($defaultCountry);
-        //dd($taxRules);
-
         $taxPercentage = Configuration::getConfiguration('mage2_tax_class_percentage_of_tax');
         $price = $this->price;
 

@@ -14,7 +14,7 @@ class Address extends BaseModel
                     'last_name',
                     'address1',
                     'address2',
-                    'area',
+                    'postcode',
                     'city',
                     'state',
                     'country_id',
