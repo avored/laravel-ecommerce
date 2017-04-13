@@ -8,7 +8,7 @@
 
         <h1>Checkout</h1>
 
-        <form id="place-order-form" method="post" action="{{ route('order.index') }}">
+        <form id="place-order-form" method="post" action="{{ route('order.place') }}">
             {{ csrf_field() }}
             <div class="row box checkout_form">
                 <div class="col-md-6 register_block">
@@ -17,13 +17,13 @@
                             <h3>Your Personal Details</h3>
                         </div>
 
-                        <div class="form-group required col-md-6">
+                        <div class="form-group  col-md-6">
                             <label class="control-label" for="input-billing-firstname">First Name</label>
                             <input type="text" name="billing[first_name]"
                                    value="" placeholder="First Name"
                                    id="input-billing-firstname" class="form-control">
                         </div>
-                        <div class="form-group required col-md-6">
+                        <div class="form-group  col-md-6">
                             <label class="control-label" for="input-billing-lastname">Last Name</label>
                             <input type="text" name="billing[last_name]"
                                    value="" placeholder="Last Name"
@@ -32,9 +32,9 @@
 
                         @if(!Auth::check())
 
-                            <div class="form-group required col-md-12">
+                            <div class="form-group  col-md-12">
                                 <label class="control-label" for="input-billing-email">E-Mail</label>
-                                <input type="text" name="customer[email]" placeholder="E-Mail" id="input-billing-email"
+                                <input type="text" name="user[email]" placeholder="E-Mail" id="input-billing-email"
                                        class="form-control">
                             </div>
 
@@ -47,21 +47,21 @@
 
 
                             <div class="register-form" style="display: none;">
-                                <div class="form-group required col-md-6">
+                                <div class="form-group  col-md-6">
                                     <label class="control-label" for="input-billing-password">Password</label>
-                                    <input type="text" name="customer[password]" placeholder="Password"
+                                    <input type="text" name="user[password]" placeholder="Password"
                                            id="input-billing-password" class="form-control">
                                 </div>
-                                <div class="form-group required col-md-6">
+                                <div class="form-group  col-md-6">
                                     <label class="control-label" for="input-billing-confirm">Password Confirm</label>
-                                    <input type="text" name="customer[confirm_password]" placeholder="Password Confirm"
+                                    <input type="text" name="user[confirm_password]" placeholder="Password Confirm"
                                            id="input-billing-confirm" class="form-control">
                                 </div>
                             </div>
 
                         @endif
 
-                        <div class="form-group required  col-md-6">
+                        <div class="form-group   col-md-6">
                             <label class="control-label" for="input-billing-phone">Phone</label>
                             <input type="text" name="billing[phone]" value="" placeholder="Phone"
                                    id="input-billing-phone" class="form-control">
@@ -74,7 +74,7 @@
 
                         <div id="payment-address-new">
 
-                            <div class="form-group required col-md-12">
+                            <div class="form-group  col-md-12">
                                 <label class="control-label" for="input-billing-address-1">Address 1</label>
                                 <input type="text" name="billing[address1]" value="" placeholder="Address 1"
                                        id="input-billing-address-1" class="form-control">
@@ -86,7 +86,7 @@
                                        id="input-billing-address-2" class="form-control">
                             </div>
 
-                            <div class="form-group required col-md-6">
+                            <div class="form-group  col-md-6">
                                 <label for="country">Country</label>
                                 <select name="billing[country_id]" class="form-control">
                                     @foreach($countries as $countryId => $countryName)
@@ -123,7 +123,7 @@
 
                             <div class="form-group col-md-12">
                                 <label>
-                                    <input type="checkbox" name="shipping-form"
+                                    <input type="checkbox" name="use_different_shipping_address"
                                            onclick="if (this.checked == true){
                                                         jQuery('.different-shipping-form').slideDown('slow');
                                                         } else  { jQuery('.different-shipping-form').slideUp('slow'); }
@@ -131,27 +131,26 @@
                                     Account</label>
                             </div>
 
-
                         </div>
 
 
                         <div class="different-shipping-form" style="display:none">
 
 
-                            <div class="form-group required col-md-6">
+                            <div class="form-group  col-md-6">
                                 <label class="control-label" for="input-billing-firstname">First Name</label>
                                 <input type="text" name="shipping[first_name]"
                                        value="" placeholder="First Name"
                                        id="input-billing-firstname" class="form-control">
                             </div>
-                            <div class="form-group required col-md-6">
+                            <div class="form-group  col-md-6">
                                 <label class="control-label" for="input-billing-lastname">Last Name</label>
                                 <input type="text" name="shipping[last_name]"
                                        value="" placeholder="Last Name"
                                        id="input-billing-lastname" class="form-control">
                             </div>
 
-                            <div class="form-group required col-md-12">
+                            <div class="form-group  col-md-12">
                                 <label class="control-label" for="input-billing-address-1">Address 1</label>
                                 <input type="text" name="shipping[address1]" value="" placeholder="Address 1"
                                        id="input-billing-address-1" class="form-control">
@@ -163,7 +162,7 @@
                                        id="input-billing-address-2" class="form-control">
                             </div>
 
-                            <div class="form-group required col-md-6">
+                            <div class="form-group  col-md-6">
                                 <label for="country">Country</label>
                                 <select name="shipping[country_id]" class="form-control">
                                     @foreach($countries as $countryId => $countryName)
@@ -195,6 +194,12 @@
                                 <label class="control-label" for="input-billing-postcode">Post Code</label>
                                 <input type="text" name="shipping[postcode]" value="" placeholder="Post Code"
                                        id="input-billing-postcode" class="form-control">
+                            </div>
+
+                            <div class="form-group   col-md-6">
+                                <label class="control-label" for="input-billing-phone">Phone</label>
+                                <input type="text" name="shipping[phone]" value="" placeholder="Phone"
+                                       id="input-billing-phone" class="form-control">
                             </div>
 
                         </div>

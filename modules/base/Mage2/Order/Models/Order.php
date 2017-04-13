@@ -13,8 +13,8 @@ class Order extends BaseModel
                     'shipping_address_id',
                     'billing_address_id',
                     'user_id',
-                    'shipping_method',
-                    'payment_method',
+                    'shipping_option',
+                    'payment_option',
                     'order_status_id',
                 ];
 

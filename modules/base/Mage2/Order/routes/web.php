@@ -24,8 +24,12 @@ Route::group(['middleware' => ['web', 'adminauth','permission'],
 });
 
 
-Route::group(['middleware' => ['web', 'frontauth'],
-                            'namespace' => "Mage2\Order\Controllers"], function () {
+Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Order\Controllers"], function () {
+    Route::post('/order', ['as' => 'order.place', 'uses' => 'OrderController@place']);
+});
+
+
+Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\Order\Controllers"], function () {
     Route::get('/order', ['as' => 'order.index', 'uses' => 'OrderController@index']);
     Route::get('/order/success/{id}', ['as' => 'order.success', 'uses' => 'OrderController@success']);
 

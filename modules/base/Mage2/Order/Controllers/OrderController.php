@@ -3,6 +3,7 @@
 namespace Mage2\Order\Controllers;
 
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
@@ -14,7 +15,7 @@ use Mage2\Order\Models\Order;
 use Mage2\Order\Models\OrderStatus;
 use Mage2\User\Models\User;
 use Mage2\Order\Models\OrderProductVariation;;
-
+use Mage2\User\Models\Address;
 
 class OrderController extends Controller
 {
@@ -33,6 +34,104 @@ class OrderController extends Controller
         return view('order.index')
                 ->with('orders', $orders);
     }
+
+    public function place(Request $request) {
+
+        $orderProductData = Session::get('cart');
+
+
+        $user = $this->_getUser($request);
+
+        $billingAddress     = $this->_getBillingAddress($request);
+        $shippingAddress    = $this->_getShippingAddress($request);
+
+        $orderStatus = OrderStatus::where('is_default', '=', 1)->get()->first();
+
+
+
+        $data['shipping_address_id'] = $shippingAddress->id;
+        $data['billing_address_id'] = $billingAddress->id;
+        $data['user_id'] = $user->id;
+        $data['shipping_option']  = $request->get('shipping_option');
+        $data['payment_option']  = $request->get('payment_option');
+        $data['order_status_id'] = $orderStatus->id;
+
+        $order = Order::create($data);
+
+        $this->syncOrderProductData($order, $orderProductData);
+
+        Session::forget('cart');
+        Session::forget('order_data');
+
+        return redirect()->route('order.success', $order->id);
+
+    }
+
+    private function _getUser(Request $request) {
+        if(Auth::check()) {
+            return Auth::user();
+        }
+
+
+        $userData = $request->get('user');
+
+        $user = User::where('email','=', $userData['email'])->first();
+
+        if(null === $user) {
+
+            //register guest user as user with random password
+
+        }
+
+
+        Auth::login($user);
+
+        return $user;
+
+    }
+
+
+    private function _getBillingAddress(Request $request) {
+
+        $shippingData = $request->get('billing');
+
+        $shippingData['type'] = 'BILLING';
+        $shippingData['user_id'] = Auth::user()->id;
+
+        if (isset($shippingData['id']) && $shippingData['id'] > 0) {
+            $address = Address::findorfail($shippingData['id']);
+            //$address->update($shippingData);
+        } else {
+            $address = Address::create($shippingData);
+        }
+
+        return $address;
+    }
+
+
+    private function _getShippingAddress(Request $request) {
+
+        if(null == $request->get('use_different_shipping_address')) {
+            $shippingData = $request->get('billing');
+        } else {
+            $shippingData = $request->get('shipping');
+        }
+
+
+        $shippingData['type'] = 'SHIPPING';
+        $shippingData['user_id'] = Auth::user()->id;
+
+        if (isset($shippingData['id']) && $shippingData['id'] > 0) {
+            $address = Address::findorfail($shippingData['id']);
+            //$address->update($shippingData);
+        } else {
+            $address = Address::create($shippingData);
+        }
+
+        return $address;
+    }
+
+
 
     public function index()
     {
@@ -84,7 +183,9 @@ class OrderController extends Controller
                 $product->update(['qty' => ($product->qty-$orderProduct['qty'])]);
             }
 
-            unset($orderProduct['model']);
+            unset($orderProduct['title']);
+            unset($orderProduct['slug']);
+            unset($orderProduct['image']);
             unset($orderProduct['id']);
             unset($orderProduct['attributes']);
             $orderProducts[$i] = $orderProduct;
