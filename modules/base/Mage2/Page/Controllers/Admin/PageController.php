@@ -11,6 +11,13 @@ use Mage2\Framework\DataGrid\Facades\DataGrid;
 
 class PageController extends AdminController
 {
+
+    public function getDataGrid()
+    {
+        return $users = DataGrid::dataTableData(new Page());
+    }
+
+
     /**
      * Display a listing of the Page.
      *
@@ -18,6 +25,7 @@ class PageController extends AdminController
      */
     public function index()
     {
+        /**
         $model = new Page();
         $dataGrid = DataGrid::make($model);
 
@@ -42,10 +50,10 @@ class PageController extends AdminController
                 "</form>";
             }));
         }
+         */
 
 
-        return view('mage2page::admin.page.index')
-                        ->with('dataGrid', $dataGrid);
+        return view('mage2page::admin.page.index');
     }
 
     /**

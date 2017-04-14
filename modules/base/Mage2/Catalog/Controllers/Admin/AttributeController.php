@@ -2,6 +2,7 @@
 
 namespace Mage2\Catalog\Controllers\Admin;
 
+use Mage2\Catalog\Models\Product;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\User\Models\AdminUser;
@@ -10,15 +11,18 @@ use Mage2\Framework\DataGrid\Facades\DataGrid;
 use Mage2\Catalog\Requests\AttributeRequest;
 use Mage2\Catalog\Models\AttributeDropdownOption;
 
-
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-
 class AttributeController extends AdminController
 {
+    public function getDataGrid()
+    {
+        return $users = DataGrid::dataTableData(new ProductAttribute());
+    }
+
+
     public function index()
     {
 
+        /**
         $model = new ProductAttribute();
         $model = $model->where('is_system','=', 0);
 
@@ -45,7 +49,8 @@ class AttributeController extends AdminController
             }));
         }
 
-        return view('mage2catalog::admin.catalog.attribute.index')->with('dataGrid', $dataGrid);
+         */
+        return view('mage2catalog::admin.catalog.attribute.index');
 
     }
 

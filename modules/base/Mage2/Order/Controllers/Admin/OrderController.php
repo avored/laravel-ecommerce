@@ -18,8 +18,15 @@ use Mage2\Framework\DataGrid\Facades\DataGrid;
 class OrderController extends AdminController
 {
 
+
+    public function getDataGrid()
+    {
+        return $users = DataGrid::dataTableData(new Order());
+    }
+
     public function index()
     {
+        /**
         $model  = new Order();
         $dataGrid = DataGrid::make($model);
 
@@ -34,8 +41,9 @@ class OrderController extends AdminController
             }));
         }
 
+         */
         return view('mage2order::admin.order.index')
-                ->with('dataGrid', $dataGrid);
+                ;
     }
 
     public function view($id)

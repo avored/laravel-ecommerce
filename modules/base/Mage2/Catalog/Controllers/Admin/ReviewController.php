@@ -11,8 +11,16 @@ use Mage2\User\Models\AdminUser;
 
 class ReviewController extends AdminController
 {
+
+    public function getDataGrid()
+    {
+        return $users = DataGrid::dataTableData(new Review());
+    }
+
+
     public function index()
     {
+        /**
         $model = new Review();
         $dataGrid = DataGrid::make($model);
 
@@ -38,8 +46,9 @@ class ReviewController extends AdminController
                 "</form>";
             }));
         }
+         */
 
-        return view('mage2catalog::admin.review.index')->with('dataGrid', $dataGrid);
+        return view('mage2catalog::admin.review.index');
     }
 
     public function edit($id)

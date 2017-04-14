@@ -14,7 +14,12 @@ Route::group(['middleware' => ['web', 'adminauth','permission'],
                                 'namespace' => "Mage2\Order\Controllers\Admin"], function () {
     
     Route::resource('/admin/order-status', 'OrderStatusController', ['as' => 'admin' ]);
-   
+
+    Route::get('/admin/order/get-datatable-data', ['as' => 'admin.order.data-grid-table.get-data',
+        'uses' => 'OrderController@getDataGrid'
+    ]);
+
+
     Route::get('/admin/order', ['as' => 'admin.order.index', 'uses' => 'OrderController@index']);
     Route::get('/admin/order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
     Route::get('/admin/order/{id}/send-email-invoice', ['as' => 'admin.order.send-email-invoice', 'uses' => 'OrderController@sendEmailInvoice']);

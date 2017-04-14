@@ -12,6 +12,13 @@ use Mage2\User\Models\AdminUser;
 
 class CategoryController extends AdminController {
 
+    public function getDataGrid()
+    {
+        return $users = DataGrid::dataTableData(new Category());
+    }
+
+
+
     /**
      * Display a listing of the Category.
      *
@@ -19,6 +26,7 @@ class CategoryController extends AdminController {
      */
     public function index() {
 
+        /**
         $category = new Category();
         $dataGrid = DataGrid::make($category);
 
@@ -40,10 +48,10 @@ class CategoryController extends AdminController {
                         '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
                         "</form>";
             }));
-        } 
+        }
 
-        return view('mage2catalog::admin.catalog.category.index')
-                        ->with('dataGrid', $dataGrid);
+         */
+        return view('mage2catalog::admin.catalog.category.index');
     }
 
     /**
