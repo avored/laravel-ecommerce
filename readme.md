@@ -6,6 +6,8 @@ Mage2 is a Ecommerce application based on Laravel5 framework.
 
 <a href='https://pledgie.com/campaigns/32940'><img alt='Click here to lend your support to: Mage2 Laravel Ecommerce and make a donation at pledgie.com !' src='https://pledgie.com/campaigns/32940.png?skin_name=chrome' border='0' ></a>
 
+[Mage2 Laravel Ecommerce Official](http://mage2.website/)
+
 [Demo Mage2 Laravel Ecommerce](http://demo.mage2.website/)
 
 #Comming Soon
