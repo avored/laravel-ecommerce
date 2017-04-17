@@ -88,7 +88,7 @@
 
                             <div class="form-group  col-md-6">
                                 <label for="country">Country</label>
-                                <select name="billing[country_id]" class="form-control">
+                                <select name="billing[country_id]" data-name="country_id" class="billing-country form-control billing taxcalculation">
                                     @foreach($countries as $countryId => $countryName)
                                         <option
                                                 value="{{ $countryId }}">{{ $countryName }}</option>
@@ -104,20 +104,20 @@
 
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="input-billing-zone">Region / State</label>
-                                <input type="text" name="billing[state]" id="input-billing-zone" class="form-control"/>
+                                <input type="text" name="billing[state]" data-name="state" id="input-billing-zone" class="billing taxcalculation form-control"/>
                             </div>
 
 
                             <div class="form-group  col-md-6">
                                 <label class="control-label" for="input-billing-city">City</label>
-                                <input type="text" name="billing[city]" placeholder="City" id="input-billing-city"
-                                       class="form-control">
+                                <input type="text" data-name="city" name="billing[city]" placeholder="City" id="input-billing-city"
+                                       class="billing taxcalculation form-control">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="input-billing-postcode">Post Code</label>
-                                <input type="text" name="billing[postcode]" value="" placeholder="Post Code"
-                                       id="input-billing-postcode" class="form-control">
+                                <input type="text" data-name="postcode" name="billing[postcode]" value="" placeholder="Post Code"
+                                       id="input-billing-postcode" class="billing taxcalculation form-control">
                             </div>
 
 
@@ -164,7 +164,7 @@
 
                             <div class="form-group  col-md-6">
                                 <label for="country">Country</label>
-                                <select name="shipping[country_id]" class="form-control">
+                                <select name="shipping[country_id]" data-name="country_id" class="shipping taxcalculation form-control">
                                     @foreach($countries as $countryId => $countryName)
                                         <option
                                                 value="{{ $countryId }}">{{ $countryName }}</option>
@@ -180,20 +180,20 @@
 
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="input-billing-zone">Region / State</label>
-                                <input type="text" name="shipping[state]" id="input-billing-zone" class="form-control"/>
+                                <input type="text" data-name="state" name="shipping[state]" id="input-billing-zone" class="shipping axcalculation form-control"/>
                             </div>
 
 
                             <div class="form-group  col-md-6">
                                 <label class="control-label" for="input-billing-city">City</label>
-                                <input type="text" name="shipping[city]" placeholder="City" id="input-billing-city"
-                                       class="form-control">
+                                <input type="text" data-name="city" name="shipping[city]" placeholder="City" id="input-billing-city"
+                                       class="shipping taxcalculation  form-control">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="input-billing-postcode">Post Code</label>
-                                <input type="text" name="shipping[postcode]" value="" placeholder="Post Code"
-                                       id="input-billing-postcode" class="form-control">
+                                <input type="text" data-name="postcode" name="shipping[postcode]" value="" placeholder="Post Code"
+                                       id="input-billing-postcode" class="shipping taxcalculation  form-control">
                             </div>
 
                             <div class="form-group   col-md-6">
@@ -201,35 +201,30 @@
                                 <input type="text" name="shipping[phone]" value="" placeholder="Phone"
                                        id="input-billing-phone" class="form-control">
                             </div>
-
                         </div>
-
                     </div>
-
 
                 </div>
                 <div class="col-md-6">
                     <h3> Shipping Option</h3>
-
-                    <div class="shipping-method"><p>Please select the preferred shipping method to use on this
-                            order.</p>
+                    <div class="shipping-method">
+                        <p>Please select the preferred shipping method to use on this order.</p>
 
                         @foreach($shippingOptions as $shippingOption)
-
                             <div class="input-group {{ $errors->has('shipping_option') ? ' has-error' : '' }}">
-
-                                {!! Form::radio('shipping_option',$shippingOption->getTitle() . " " . $shippingOption->getAmount(),$shippingOption->getIdentifier(),['class' =>'form-control','id' => $shippingOption->getIdentifier()]) !!}
-
+                                {!! Form::radio('shipping_option',$shippingOption->getTitle() . " " . $shippingOption->getAmount(),
+                                                $shippingOption->getIdentifier(),
+                                                ['class' =>'form-control','id' => $shippingOption->getIdentifier()]
+                                                )
+                                !!}
 
                                 @if ($errors->has('shipping_option'))
                                     <span class="help-block">
-                                            <strong>{{ $errors->first('shipping_option') }}</strong>
-                                        </span>
+                                        <strong>{{ $errors->first('shipping_option') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                         @endforeach
-
-
                     </div>
 
                     <div class="your_order">
@@ -238,14 +233,13 @@
                             <thead>
                             <tr>
                                 <th class="text-left">Product Name</th>
-
                                 <th class="text-right hidden-xs">Quantity</th>
                                 <th class="text-right hidden-xs">Unit Price</th>
                                 <th class="text-right">Total</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <?php $subTotal = 0; ?>
+                            <?php $subTotal = 0;$totalTax = 0; ?>
                             @foreach($cartItems as $cartItem)
                                 <tr>
                                     <td class="text-left">
@@ -257,9 +251,11 @@
                                     </td>
 
                                     <td class="text-right hidden-xs">{{ $cartItem['qty'] }}</td>
-                                    <td class="text-right hidden-xs">${{ $cartItem['price'] }}</td>
+                                    <td class="text-right hidden-xs">${{ number_format($cartItem['price'],2) }}</td>
                                     <td class="text-right">${{ $cartItem['qty'] * $cartItem['price'] }}</td>
                                 </tr>
+
+                                <?php $totalTax += $cartItem['qty'] * $cartItem['tax_amount']  ?>
                                 <?php $subTotal += $cartItem['qty'] * $cartItem['price']  ?>
                                 <input type="hidden" name="products[]" value="{{ $cartItem['id'] }}"/>
                             @endforeach
@@ -273,6 +269,11 @@
                             <tr>
                                 <td colspan="3" class="text-right  hidden-xs"><strong>Flat Shipping Rate:</strong></td>
                                 <td colspan="1" class="text-right  visible-xs"><strong>Flat Shipping Rate:</strong></td>
+                                <td class="text-right">$5.00</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" class="text-right  hidden-xs"><strong>Tax Amount:</strong></td>
+                                <td colspan="1" class="text-right  visible-xs"><strong>Tax Amount:</strong></td>
                                 <td class="text-right">$5.00</td>
                             </tr>
                             <tr>
@@ -322,10 +323,10 @@
                         </p>
 
                         <div class="buttons clearfix">
-                            <div class="pull-right">I have read and agree to the <a
-                                        href="http://min.nicolette.ro/index.php?route=information/information/agree&amp;information_id=5"
-                                        class="agree"><b>Terms &amp; Conditions</b></a> <input type="checkbox"
-                                                                                               name="agree" value="1">
+                            <div class="pull-right">
+                                I have read and agree to the
+                                <a href="#" class="agree"><b>Terms &amp; Conditions</b></a>
+                                <input type="checkbox" name="agree" value="1" />
                                 &nbsp;
                             </div>
                         </div>
@@ -338,6 +339,28 @@
                             <script>
 
                                 jQuery(document).ready(function () {
+
+                                    jQuery('.taxcalculation').change(function(e){
+                                        e.preventDefault();
+
+                                        var data = { 'name' :  jQuery(this).attr('data-name'),
+                                                    'value' : jQuery(this).val(),
+                                                    '_token' : '{{ csrf_token()  }}'
+                                                    };
+
+                                        jQuery.ajax({
+                                            data: data,
+                                            url: '{{ route("tax.calculation") }}',
+                                            method:"POST",
+                                            success:function(res) {
+                                                //console.info(res);
+                                            }
+                                        })
+
+
+
+                                    });
+
                                     jQuery('#place-order-button').click(function (e) {
                                         jQuery('#place-order-form').submit();
                                     })

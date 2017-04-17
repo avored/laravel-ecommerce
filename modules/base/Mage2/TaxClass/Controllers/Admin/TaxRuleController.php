@@ -2,6 +2,7 @@
 
 namespace Mage2\TaxClass\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\TaxClass\Models\Country;
 use Mage2\TaxClass\Models\TaxRule;

@@ -19,11 +19,6 @@ use Mage2\Checkout\Requests\PaymentOptionRequest;
 
 class CheckoutController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function index()
     {
 
