@@ -31,15 +31,14 @@
                     name: 'edit',
                     sortable: false,
                     render: function ( data, type, object, meta ) {
-
-                        return '<a href="'+object.id+'">Edit</a>';
+                        return '<a href="/admin/admin-user/'+ object.id +'/edit">Edit</a>';
                     }
                 },
                 { data: 'destroy',
                     name: 'destroy',
                     sortable: false,
                     render: function ( data, type, object, meta ) {
-                        return '<a href="'+object.id+'">Destroy</a>';
+                        return '<form id="admin-admin-user-destroy-'+object.id+'" method="post"  action="/admin/admin-user/'+object.id+'" ><input type="hidden" name="_method" value="DELETE"/><input type="hidden" name="_token" value="{{ csrf_token() }}"/> </form> <a onclick="event.preventDefault();jQuery(\'#admin-admin-user-destroy-'+object.id+'\').submit()"  href="/admin/admin-user/'+object.id+'">Destroy</a>';
                     }
                 }
             ]

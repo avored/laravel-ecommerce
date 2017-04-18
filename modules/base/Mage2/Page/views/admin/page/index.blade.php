@@ -41,7 +41,7 @@
                     sortable: false,
                     render: function (data, type, object, meta) {
 
-                        return '<a href="' + object.id + '">Edit</a>';
+                        return '<a href="/admin/page/'+ object.id +'/edit">Edit</a>';
                     }
                 },
                 {
@@ -49,7 +49,7 @@
                     name: 'destroy',
                     sortable: false,
                     render: function (data, type, object, meta) {
-                        return '<a href="' + object.id + '">Destroy</a>';
+                        return '<form id="admin-page-destroy-'+object.id+'" method="post"  action="/admin/page/'+object.id+'" ><input type="hidden" name="_method" value="DELETE"/><input type="hidden" name="_token" value="{{ csrf_token() }}"/> </form> <a onclick="event.preventDefault();jQuery(\'#admin-page-destroy-'+object.id+'\').submit()"  href="/admin/page/'+object.id+'">Destroy</a>';
                     }
                 }
             ]
