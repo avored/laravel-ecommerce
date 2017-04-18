@@ -2,6 +2,12 @@
 
 @section('content')
     <div class="container">
+        <h1>
+            <span class="main-title-wrap">Category List</span>
+            <a style="" href="{{ route('admin.category.create') }}" class="btn btn-primary pull-right">Create
+                Category</a>
+        </h1>
+
         <table class="table table-bordered" id="category-table">
             <thead>
             <tr>
@@ -18,29 +24,31 @@
 
 @push('scripts')
 <script>
-    $(function() {
+    $(function () {
         $('#category-table').DataTable({
             processing: true,
             searching: false,
             serverSide: true,
             ajax: '{!! route('admin.category.data-grid-table.get-data') !!}',
             columns: [
-                { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'slug', name: 'slug' },
-                { data: 'edit',
+                {data: 'id', name: 'id'},
+                {data: 'name', name: 'name'},
+                {data: 'slug', name: 'slug'},
+                {
+                    data: 'edit',
                     name: 'edit',
                     sortable: false,
-                    render: function ( data, type, object, meta ) {
+                    render: function (data, type, object, meta) {
 
-                        return '<a href="'+object.id+'">Edit</a>';
+                        return '<a href="' + object.id + '">Edit</a>';
                     }
                 },
-                { data: 'destroy',
+                {
+                    data: 'destroy',
                     name: 'destroy',
                     sortable: false,
-                    render: function ( data, type, object, meta ) {
-                        return '<a href="'+object.id+'">Destroy</a>';
+                    render: function (data, type, object, meta) {
+                        return '<a href="' + object.id + '">Destroy</a>';
                     }
                 }
             ]

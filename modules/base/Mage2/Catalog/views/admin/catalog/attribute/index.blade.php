@@ -2,6 +2,13 @@
 
 @section('content')
     <div class="container">
+        <h1>
+            <span class="main-title-wrap">Product Attribute List</span>
+            <a style="" href="{{ route('admin.attribute.create') }}" class="btn btn-primary pull-right">Create
+                Attribute</a>
+        </h1>
+
+
         <table class="table table-bordered" id="attribute-table">
             <thead>
             <tr>
