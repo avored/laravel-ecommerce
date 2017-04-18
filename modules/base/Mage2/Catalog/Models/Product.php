@@ -91,7 +91,6 @@ class Product extends BaseModel {
 
         $taxAmount = ($taxRules->percentage * $price / 100);
 
-
         return $taxAmount;
     }
 

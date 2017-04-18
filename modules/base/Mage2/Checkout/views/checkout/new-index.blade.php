@@ -88,7 +88,8 @@
 
                             <div class="form-group  col-md-6">
                                 <label for="country">Country</label>
-                                <select name="billing[country_id]" data-name="country_id" class="billing-country form-control billing taxcalculation">
+                                <select name="billing[country_id]" data-name="country_id"
+                                        class="billing-country form-control billing tax-calculation">
                                     @foreach($countries as $countryId => $countryName)
                                         <option
                                                 value="{{ $countryId }}">{{ $countryName }}</option>
@@ -104,20 +105,21 @@
 
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="input-billing-zone">Region / State</label>
-                                <input type="text" name="billing[state]" data-name="state" id="input-billing-zone" class="billing taxcalculation form-control"/>
+                                <input type="text" name="billing[state]" data-name="state_code"
+                                       id="input-billing-zone" class="billing tax-calculation form-control"/>
                             </div>
 
 
                             <div class="form-group  col-md-6">
                                 <label class="control-label" for="input-billing-city">City</label>
                                 <input type="text" data-name="city" name="billing[city]" placeholder="City" id="input-billing-city"
-                                       class="billing taxcalculation form-control">
+                                       class="billing tax-calculation form-control">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="input-billing-postcode">Post Code</label>
                                 <input type="text" data-name="postcode" name="billing[postcode]" value="" placeholder="Post Code"
-                                       id="input-billing-postcode" class="billing taxcalculation form-control">
+                                       id="input-billing-postcode" class="billing tax-calculation form-control">
                             </div>
 
 
@@ -164,7 +166,7 @@
 
                             <div class="form-group  col-md-6">
                                 <label for="country">Country</label>
-                                <select name="shipping[country_id]" data-name="country_id" class="shipping taxcalculation form-control">
+                                <select name="shipping[country_id]" data-name="country_id" class="shipping tax-calculation form-control">
                                     @foreach($countries as $countryId => $countryName)
                                         <option
                                                 value="{{ $countryId }}">{{ $countryName }}</option>
@@ -180,20 +182,21 @@
 
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="input-billing-zone">Region / State</label>
-                                <input type="text" data-name="state" name="shipping[state]" id="input-billing-zone" class="shipping axcalculation form-control"/>
+                                <input type="text" data-name="state_code" name="shipping[state]" id="input-billing-zone"
+                                       class="shipping tax-calculation form-control"/>
                             </div>
 
 
                             <div class="form-group  col-md-6">
                                 <label class="control-label" for="input-billing-city">City</label>
                                 <input type="text" data-name="city" name="shipping[city]" placeholder="City" id="input-billing-city"
-                                       class="shipping taxcalculation  form-control">
+                                       class="shipping tax-calculation  form-control">
                             </div>
 
                             <div class="form-group col-md-6">
                                 <label class="control-label" for="input-billing-postcode">Post Code</label>
                                 <input type="text" data-name="postcode" name="shipping[postcode]" value="" placeholder="Post Code"
-                                       id="input-billing-postcode" class="shipping taxcalculation  form-control">
+                                       id="input-billing-postcode" class="shipping tax-calculation  form-control">
                             </div>
 
                             <div class="form-group   col-md-6">
@@ -269,12 +272,12 @@
                             <tr>
                                 <td colspan="3" class="text-right  hidden-xs"><strong>Flat Shipping Rate:</strong></td>
                                 <td colspan="1" class="text-right  visible-xs"><strong>Flat Shipping Rate:</strong></td>
-                                <td class="text-right">$5.00</td>
+                                <td class="text-right shipping_cost ">$5.00</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right  hidden-xs"><strong>Tax Amount:</strong></td>
                                 <td colspan="1" class="text-right  visible-xs"><strong>Tax Amount:</strong></td>
-                                <td class="text-right">$5.00</td>
+                                <td class="text-right tax_amount_display ">${{ number_format($totalTax,2) }}</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right  hidden-xs"><strong>Total:</strong></td>
@@ -340,7 +343,7 @@
 
                                 jQuery(document).ready(function () {
 
-                                    jQuery('.taxcalculation').change(function(e){
+                                    jQuery('.tax-calculation').change(function(e){
                                         e.preventDefault();
 
                                         var data = { 'name' :  jQuery(this).attr('data-name'),
@@ -350,10 +353,14 @@
 
                                         jQuery.ajax({
                                             data: data,
+                                            type:'json',
                                             url: '{{ route("tax.calculation") }}',
                                             method:"POST",
                                             success:function(res) {
-                                                //console.info(res);
+                                                if((res.success == true)) {
+                                                    jQuery('.tax_amount_display').html(res.tax_amount);
+                                                }
+
                                             }
                                         })
 

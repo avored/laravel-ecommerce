@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\TaxClass\Models\TaxRule;
+use Illuminate\Support\Facades\Response;
+
 
 class TaxRuleController extends Controller
 {
@@ -15,13 +17,18 @@ class TaxRuleController extends Controller
         $fieldName = $request->get('name');
         $fieldValue = $request->get('value');
 
-
+        $findRule = null;
         foreach ($taxRules as  $taxRule) {
-            if($taxRule->$fieldName == $fieldValue || $taxRule->$fieldName == "*") {
+            if(strtolower($taxRule->$fieldName) == strtolower($fieldValue) ||
+                    strtolower($taxRule->$fieldName) == "*") {
+                $findRule = $taxRule;
                 break;
             }
         }
 
+        if(null === $findRule) {
+            return Response::json(['success' => false]);
+        }
         $cartItems = Session::get('cart');
 
         $taxAmount = 0;
@@ -31,6 +38,6 @@ class TaxRuleController extends Controller
             $taxAmount += ($item['price'] * $taxRule->percentage ) / 100;
         }
 
-        return $request->all();
+        return Response::json(['success' => true, 'tax_amount' => "$" . number_format($taxAmount,2)]);
     }
 }
