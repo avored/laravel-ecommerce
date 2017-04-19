@@ -215,17 +215,27 @@
 
                         @foreach($shippingOptions as $shippingOption)
                             <div class="input-group {{ $errors->has('shipping_option') ? ' has-error' : '' }}">
-                                {!! Form::radio('shipping_option',$shippingOption->getTitle() . " " . $shippingOption->getAmount(),
-                                                $shippingOption->getIdentifier(),
-                                                ['class' =>'form-control','id' => $shippingOption->getIdentifier()]
-                                                )
-                                !!}
 
-                                @if ($errors->has('shipping_option'))
-                                    <span class="help-block">
+                                <div class="radio">
+                                    <label>
+                                        <input type="radio" name="shipping_option"
+                                               class="shipping_option_radio"
+                                               data-title="{{ $shippingOption->getTitle() }}"
+                                               data-cost="{{ $shippingOption->getAmount() }}"
+                                               id="{{ $shippingOption->getIdentifier() }}"
+                                               value="{{ $shippingOption->getIdentifier() }}" >
+                                        {{ $shippingOption->getTitle() . " " . $shippingOption->getAmount() }}
+
+                                    </label>
+
+                                    @if ($errors->has('shipping_option'))
+                                        <span class="help-block">
                                         <strong>{{ $errors->first('shipping_option') }}</strong>
                                     </span>
-                                @endif
+                                    @endif
+                                </div>
+
+
                             </div>
                         @endforeach
                     </div>
@@ -269,10 +279,10 @@
                                 <td colspan="1" class="text-right  visible-xs"><strong>Sub-Total:</strong></td>
                                 <td class="text-right">${{ $subTotal }}</td>
                             </tr>
-                            <tr>
-                                <td colspan="3" class="text-right  hidden-xs"><strong>Flat Shipping Rate:</strong></td>
-                                <td colspan="1" class="text-right  visible-xs"><strong>Flat Shipping Rate:</strong></td>
-                                <td class="text-right shipping_cost ">$5.00</td>
+                            <tr class="hidden shipping-row">
+                                <td colspan="3" class="text-right shipping-title  hidden-xs" style="font-weight: bold;">Flat Shipping Rate:</td>
+                                <td colspan="1" class="text-right shipping-title  visible-xs" style="font-weight: bold;">Flat Shipping Rate:</td>
+                                <td class="text-right shipping-cost" >$</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right  hidden-xs"><strong>Tax Amount:</strong></td>
@@ -282,7 +292,7 @@
                             <tr>
                                 <td colspan="3" class="text-right  hidden-xs"><strong>Total:</strong></td>
                                 <td colspan="1" class="text-right  visible-xs"><strong>Total:</strong></td>
-                                <td class="text-right">${{ $subTotal+5 }}</td>
+                                <td class="text-right">${{ number_format($subTotal + $totalTax,2) }}</td>
                             </tr>
                             </tfoot>
 
@@ -343,6 +353,9 @@
 
                                 jQuery(document).ready(function () {
 
+                                    function calcualateTotal() {
+                                        return true;
+                                    }
                                     jQuery('.tax-calculation').change(function(e){
                                         e.preventDefault();
 
@@ -359,13 +372,26 @@
                                             success:function(res) {
                                                 if((res.success == true)) {
                                                     jQuery('.tax_amount_display').html(res.tax_amount);
+                                                    calcualateTotal();
                                                 }
-
                                             }
-                                        })
+                                        });
+                                    });
 
+                                    jQuery('.shipping_option_radio').change(function(e){
 
+                                        if(jQuery(this).is(':checked')) {
+                                            var shippingTitle = jQuery(this).attr('data-title');
+                                            var shippingCost = jQuery(this).attr('data-cost');
 
+                                            jQuery('.shipping-row').removeClass('hidden');
+
+                                            jQuery('.shipping-row .shipping-title').html(shippingTitle+ ":");
+                                            jQuery('.shipping-row .shipping-cost').html("$" +  shippingCost);
+                                        } else {
+                                            jQuery('.shipping-row').addClass('hidden');
+                                        }
+                                        calcualateTotal();
                                     });
 
                                     jQuery('#place-order-button').click(function (e) {
