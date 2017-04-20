@@ -11,14 +11,15 @@
             <tr>
                 <th class="col-md-8">Product</th>
                 <th class="col-md-1" style="text-align: center">Quantity</th>
-                <th class="col-md-1 ">Price</th>
-                <th class="col-md-1">Total</th>
+                <th class="col-md-1 text-center">Price</th>
+                <th class="col-md-1 text-center">Total</th>
                 <th class="col-md-1"> </th>
             </tr>
             <?php $total = 0; $taxTotal = 0; ?>
             @foreach($cartProducts as $product)
+                {!! Form::open(['method' => 'put', 'action' => route('cart.update') , 'id' => 'cart-form-update']) !!}
                 <tr>
-                    {!! Form::open(['method' => 'put', 'action' => route('cart.update')]) !!}
+
                     <td class="col-md-8">
                         <div class="media">
 
@@ -62,13 +63,13 @@
                     </td>
                     <?php $total += ($product['price'] * $product['qty'] ) ?>
                     <?php $taxTotal += ($product['tax_amount'] * $product['qty'] ) ?>
-                    <td class="col-sm-1 col-md-1 text-center"><strong>${{ $product['price']}}</strong></td>
+                    <td class="col-sm-1 col-md-1 text-center"><strong>${{ number_format($product['price'],2) }}</strong></td>
                     <td class="col-sm-1 col-md-1 text-center"><strong>${{ ($product['price'] * $product['qty'] )}}</strong></td>
                     <td class="col-sm-1 col-md-1">
                         <div class="btn-group">
                             <a  class="btn btn-warning" href="#" 
                                 
-                                onclick="x = jQuery(this);jQuery(this).parents('form:first').submit()" >
+                                onclick="jQuery('#cart-form-update').submit()" >
                                 Update
                             </a>
                             <button type="button"
@@ -85,8 +86,9 @@
                         </div>
 
                     </td>
-                    {!! Form::close() !!}
+
                 </tr>
+                {!! Form::close() !!}
                 @endforeach
 
                 <tr >
