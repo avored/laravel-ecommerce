@@ -38,6 +38,6 @@ class TaxRuleController extends Controller
             $taxAmount += ($item['price'] * $taxRule->percentage ) / 100;
         }
 
-        return Response::json(['success' => true, 'tax_amount' => "$" . number_format($taxAmount,2)]);
+        return Response::json(['success' => true,'tax_amount' => $taxAmount, 'tax_amount_text' => "$" . number_format($taxAmount,2)]);
     }
 }

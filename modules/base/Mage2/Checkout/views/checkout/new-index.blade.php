@@ -277,22 +277,22 @@
                             <tr>
                                 <td colspan="3" class="text-right  hidden-xs"><strong>Sub-Total:</strong></td>
                                 <td colspan="1" class="text-right  visible-xs"><strong>Sub-Total:</strong></td>
-                                <td class="text-right">${{ $subTotal }}</td>
+                                <td class="text-right sub-total" data-sub-total="{{ $subTotal }}">${{ $subTotal }}</td>
                             </tr>
                             <tr class="hidden shipping-row">
-                                <td colspan="3" class="text-right shipping-title  hidden-xs" style="font-weight: bold;">Flat Shipping Rate:</td>
-                                <td colspan="1" class="text-right shipping-title  visible-xs" style="font-weight: bold;">Flat Shipping Rate:</td>
-                                <td class="text-right shipping-cost" >$</td>
+                                <td colspan="3" class="text-right shipping-title  hidden-xs" style="font-weight: bold;">Shipping Option</td>
+                                <td colspan="1" class="text-right shipping-title  visible-xs" style="font-weight: bold;">Shipping Option:</td>
+                                <td class="text-right shipping-cost" data-shipping-cost="0.00" >$</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right  hidden-xs"><strong>Tax Amount:</strong></td>
                                 <td colspan="1" class="text-right  visible-xs"><strong>Tax Amount:</strong></td>
-                                <td class="text-right tax_amount_display ">${{ number_format($totalTax,2) }}</td>
+                                <td class="text-right tax-amount" data-tax-amount="{{ $totalTax }}">${{ number_format($totalTax,2) }}</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="text-right  hidden-xs"><strong>Total:</strong></td>
                                 <td colspan="1" class="text-right  visible-xs"><strong>Total:</strong></td>
-                                <td class="text-right">${{ number_format($subTotal + $totalTax,2) }}</td>
+                                <td class="text-right total" data-total="{{ $subTotal + $totalTax }}">${{ number_format($subTotal + $totalTax,2) }}</td>
                             </tr>
                             </tfoot>
 
@@ -354,7 +354,15 @@
                                 jQuery(document).ready(function () {
 
                                     function calcualateTotal() {
-                                        return true;
+                                        subTotal        = parseFloat( jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
+                                        shippingCost    = parseFloat( jQuery('.shipping-cost').attr('data-shipping-cost')).toFixed(2);
+                                        taxAmount       = parseFloat( jQuery('.tax-amount').attr('data-tax-amount')).toFixed(2);
+
+                                        total =  parseFloat(subTotal) + parseFloat(taxAmount) + parseFloat(shippingCost);
+                                        jQuery('.total').attr('data-total',total.toFixed(2));
+                                        jQuery('.total').html( "$" + total.toFixed(2));
+
+
                                     }
                                     jQuery('.tax-calculation').change(function(e){
                                         e.preventDefault();
@@ -371,7 +379,8 @@
                                             method:"POST",
                                             success:function(res) {
                                                 if((res.success == true)) {
-                                                    jQuery('.tax_amount_display').html(res.tax_amount);
+                                                    jQuery('.tax-amount').html(res.tax_amount_text);
+                                                    jQuery('.tax-amount').attr('data-tax-amount',res.tax_amount);
                                                     calcualateTotal();
                                                 }
                                             }
@@ -388,6 +397,9 @@
 
                                             jQuery('.shipping-row .shipping-title').html(shippingTitle+ ":");
                                             jQuery('.shipping-row .shipping-cost').html("$" +  shippingCost);
+                                            jQuery('.shipping-row .shipping-cost').attr('data-shipping-cost',shippingCost);
+
+
                                         } else {
                                             jQuery('.shipping-row').addClass('hidden');
                                         }

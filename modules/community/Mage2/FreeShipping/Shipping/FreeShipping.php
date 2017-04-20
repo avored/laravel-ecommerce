@@ -40,7 +40,7 @@ class FreeShipping extends Shipping implements ShippingInterface
     public function process($orderData, $cartProducts)
     {
         //execute the shipping api here
-        $this->amount = '0.00';
+        $this->amount = '2.00';
 
         return $this;
     }
