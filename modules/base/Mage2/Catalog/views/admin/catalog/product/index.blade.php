@@ -32,7 +32,7 @@
                 <tr>
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->title }}</td>
-                    <td>{{ $product->price }}</td>
+                    <td>{{ number_format($product->price,2) }}</td>
 
                     <td>
                         <a href="{{ route('admin.product.edit',$product->id )}}">Edit</a>

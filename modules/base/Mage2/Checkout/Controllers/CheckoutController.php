@@ -48,23 +48,10 @@ class CheckoutController extends Controller
         $shippingOptions = Shipping::all();
         $paymentOptions = Payment::all();
         $countries =  [null => 'Please Select'] +  Country::all()->pluck('name' , 'id')->toArray();
-        $orderData = Collection::make([]);
+        //$orderData = Collection::make([]);
 
         $cartItems = Session::get('cart');
-        //$cartItems = Session::get('order_data');
-        if (Auth::check()) {
-            //$orderData['user_id'] = Auth::user()->id;
-            Session::put('order_data', $orderData);
-            //$user = Auth::user();
 
-            //$orderData->push($user->toArray());
-            //return redirect()->route('checkout.step.shipping-address');
-        }
-
-
-
-
-        //dd($orderData);
         return view('checkout.new-index')
                     ->with('cartItems',$cartItems)
                     ->with('countries',$countries)
