@@ -146,7 +146,7 @@ return [
 
 
         Barryvdh\DomPDF\ServiceProvider::class,
-        Intervention\Image\ImageServiceProvider::class,
+        //Intervention\Image\ImageServiceProvider::class,
         //Barryvdh\Debugbar\ServiceProvider::class,
     /*
      * Package Service Providers...
@@ -219,7 +219,7 @@ return [
         'View'          => Illuminate\Support\Facades\View::class,
 
         'PDF'           => Barryvdh\DomPDF\Facade::class,
-        'Image'         => Intervention\Image\Facades\Image::class,
+
 
         // MAGE2 FRAMEWORK FACADES
         'Theme'         => Mage2\Framework\Theme\Facades\Theme::class,
@@ -230,5 +230,6 @@ return [
         'Payment'       => Mage2\Framework\Payment\Facades\Payment::class,
         'Permission'    => Mage2\Framework\Auth\Facades\Permission::class,
         'Module'        => Mage2\Framework\Module\Facades\Module::class,
+        'Image'         => \Mage2\Framework\Image\Facades\Image::class,
     ],
 ];

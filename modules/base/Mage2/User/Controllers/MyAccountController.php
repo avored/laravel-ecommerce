@@ -32,7 +32,7 @@ use Mage2\User\Requests\UploadUserImageRequest;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\User\Requests\UserProfileRequest;
 use Illuminate\Support\Facades\Hash;
-use Intervention\Image\Facades\Image;
+use Mage2\Framework\Image\Facades\Image;
 
 class MyAccountController extends Controller {
 
@@ -64,12 +64,17 @@ class MyAccountController extends Controller {
     public function uploadImagePost(UploadUserImageRequest $request) {
 
         $user = Auth::user();
-        $relativePath = '/uploads/' . $request->file('profile_image')->getClientOriginalName();
-        $path = public_path($relativePath);
+        $image = $request->file('profile_image');
+        $relativePath = '/uploads/users/'. $user->id;
+        $path = $relativePath;
 
-        Image::make($request->file('profile_image'))->resize(200,null,function($constrain){$constrain->aspectRatio();})->save($path);
+        $dbPath = $relativePath . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
+        //$image = Image::make($request->file('profile_image'))->resize(200,null,function($constrain){$constrain->aspectRatio();});
+        //$image->save($path);
 
-        $user->update(['image_path' => $relativePath]);
+        $image = Image::upload($image, $path,$size = 'small');
+
+        $user->update(['image_path' => $dbPath]);
 
         return redirect()->route('my-account.home')
                         ->with('notificationText', 'User Profile Image Uploaded successfully!!');

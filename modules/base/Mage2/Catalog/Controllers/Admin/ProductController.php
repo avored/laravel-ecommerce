@@ -25,7 +25,6 @@
 namespace Mage2\Catalog\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Helpers\CategoryHelper;
 use Mage2\Catalog\Helpers\ProductHelper;
@@ -33,13 +32,8 @@ use Mage2\Catalog\Models\Product;
 use Mage2\Catalog\Models\ProductOption;
 use Mage2\Catalog\Requests\ProductRequest;
 use Mage2\Framework\System\Controllers\AdminController;
-
-
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
-
-use Mage2\Framework\Image\Facades\Image;
-
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends AdminController
 {
@@ -98,7 +92,6 @@ class ProductController extends AdminController
      */
     public function store(ProductRequest $request)
     {
-
         try {
             $product = Product::create($request->all());
             $this->productHelper->saveProduct($product, $request);
@@ -197,17 +190,32 @@ class ProductController extends AdminController
 
     public function uploadImage(Request $request)
     {
-        $imageAttribute = ProductAttribute::where('identifier', '=', 'image')->get()->first();
+
+
+        $sizes = config('image.catalog.sizes');
+
         $image = $request->file('image');
-        $destinationPath = 'uploads/catalog/images/';
-        $relativePath = implode('/', str_split(strtolower(str_random(3)))).'/';
-        $image->move($destinationPath.$relativePath, $image->getClientOriginalName());
+        $tmpPath = str_split(strtolower(str_random(3)));
+        $checkDirectory = '/uploads/catalog/images/' .  implode('/', $tmpPath);
+        //$relativePath =  '/uploads/catalog/images/' .  implode('/', $tmpPath).'/' . $image->getClientOriginalName();
+        //$path = public_path($relativePath);
+
+        if(!File::exists(public_path($checkDirectory))) {
+            File::makeDirectory(public_path($checkDirectory),'0777',true);
+        }
+
+        foreach($sizes as $nameSize => $size ) {
+            $path = $checkDirectory . DIRECTORY_SEPARATOR . $nameSize . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
+            Image::make($image)->resize($size,null,function($constrain){$constrain->aspectRatio();})->save($path);
+        }
+
 
         $tmp = $this->_getTmpString();
+
         return view('mage2catalog::admin.catalog.product.upload-image')
-                        ->with('path', '/'.$destinationPath.$relativePath.$image->getClientOriginalName())
+                        ->with('path', $checkDirectory)
                         ->with('tmp', $tmp)
-                        ->with('dbPath', $relativePath.$image->getClientOriginalName());
+                        ->with('dbPath', $checkDirectory);
     }
 
     public function deleteImage(Request $request)

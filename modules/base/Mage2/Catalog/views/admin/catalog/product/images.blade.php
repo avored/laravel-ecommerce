@@ -14,13 +14,11 @@
 
             <div class="col-md-3 image-thumbnail" >
                 <button type="button" class="close"><span>X</span></button>
-                <img class="img-thumbnail img-responsive" src="{{ asset("/uploads/catalog/images/". $image->path) }}"/>
+                <img class="img-thumbnail img-responsive" src="{{ asset($image->path) }}"/>
                 <input type="hidden" name="image[{{ $image->id }}][]" value="{{ $image->path }}" />
             </div>
             @endforeach
             @endif
-
-
         </div>
 
     </div>

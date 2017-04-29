@@ -28,6 +28,7 @@ namespace Mage2\User\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Session;
+use Mage2\Framework\Image\LocalImageFile;
 use Mage2\User\Models\Wishlist;
 
 class User extends Authenticatable
@@ -58,6 +59,10 @@ class User extends Authenticatable
     public function getFullNameAttribute()
     {
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+    }
+
+    public function getImagePathAttribute() {
+        return $localFile = new LocalImageFile($this->attributes['image_path']);
     }
 
     public function isInWishlist($productId)
