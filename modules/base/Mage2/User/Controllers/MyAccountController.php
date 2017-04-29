@@ -69,10 +69,8 @@ class MyAccountController extends Controller {
         $path = $relativePath;
 
         $dbPath = $relativePath . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
-        //$image = Image::make($request->file('profile_image'))->resize(200,null,function($constrain){$constrain->aspectRatio();});
-        //$image->save($path);
 
-        $image = Image::upload($image, $path,$size = 'small');
+        $image = Image::upload($image, $path);
 
         $user->update(['image_path' => $dbPath]);
 

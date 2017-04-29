@@ -32,7 +32,7 @@ use Mage2\Catalog\Models\Product;
 use Mage2\Catalog\Models\ProductOption;
 use Mage2\Catalog\Requests\ProductRequest;
 use Mage2\Framework\System\Controllers\AdminController;
-use Intervention\Image\Facades\Image;
+use Mage2\Framework\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 
 class ProductController extends AdminController
@@ -190,32 +190,19 @@ class ProductController extends AdminController
 
     public function uploadImage(Request $request)
     {
-
-
-        $sizes = config('image.catalog.sizes');
-
         $image = $request->file('image');
         $tmpPath = str_split(strtolower(str_random(3)));
         $checkDirectory = '/uploads/catalog/images/' .  implode('/', $tmpPath);
-        //$relativePath =  '/uploads/catalog/images/' .  implode('/', $tmpPath).'/' . $image->getClientOriginalName();
-        //$path = public_path($relativePath);
 
-        if(!File::exists(public_path($checkDirectory))) {
-            File::makeDirectory(public_path($checkDirectory),'0777',true);
-        }
+        $dbPath = $checkDirectory . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
 
-        foreach($sizes as $nameSize => $size ) {
-            $path = $checkDirectory . DIRECTORY_SEPARATOR . $nameSize . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
-            Image::make($image)->resize($size,null,function($constrain){$constrain->aspectRatio();})->save($path);
-        }
-
+        $image = Image::upload($image, $checkDirectory);
 
         $tmp = $this->_getTmpString();
 
         return view('mage2catalog::admin.catalog.product.upload-image')
-                        ->with('path', $checkDirectory)
-                        ->with('tmp', $tmp)
-                        ->with('dbPath', $checkDirectory);
+                        ->with('image', $image)
+                        ->with('tmp', $tmp);
     }
 
     public function deleteImage(Request $request)

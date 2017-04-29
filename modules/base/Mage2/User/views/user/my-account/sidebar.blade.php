@@ -4,7 +4,7 @@
         @if($user->image_path == "")
             <img src="http://placehold.it/500x500" class="img-responsive" alt="">
         @else
-            <img src="{{ $user->image_path->url }}" class="img-responsive" alt="">
+            <img src="{{ $user->image_path->smallUrl }}" class="img-responsive" alt="">
         @endif
     </div>
     <div class="text-center">

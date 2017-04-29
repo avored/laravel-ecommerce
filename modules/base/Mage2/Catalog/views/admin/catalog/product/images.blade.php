@@ -14,8 +14,8 @@
 
             <div class="col-md-3 image-thumbnail" >
                 <button type="button" class="close"><span>X</span></button>
-                <img class="img-thumbnail img-responsive" src="{{ asset($image->path) }}"/>
-                <input type="hidden" name="image[{{ $image->id }}][]" value="{{ $image->path }}" />
+                <img class="img-thumbnail img-responsive" src="{{ ($image->path->smallUrl) }}"/>
+                <input type="hidden" name="image[{{ $image->id }}][]" value="{{ $image->path->smallUrl }}" />
             </div>
             @endforeach
             @endif
