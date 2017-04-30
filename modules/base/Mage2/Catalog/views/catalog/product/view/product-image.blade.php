@@ -7,7 +7,7 @@ $image = $product->images()->get()->first();
     <img alt="{{ $product->title }}"
          style="height: 250px"
          class="img-responsive img-thumbnail"
-         src="{{ asset('/uploads/catalog/images/'. $image->path)  }}"/>
+         src="{{ $image->path->smallUrl }}"/>
 @else
     <img alt="{{ $product->title }}"
          class="img-responsive img-thumbnail"

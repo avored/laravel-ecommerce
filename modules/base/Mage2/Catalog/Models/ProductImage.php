@@ -38,6 +38,11 @@ class ProductImage extends BaseModel
     }
 
     public function getPathAttribute() {
+
+
+        if(null === $this->attributes['path'] || empty($this->attributes['path'])) {
+            return NULL;
+        }
         $localImage = new LocalImageFile($this->attributes['path']);
         return $localImage;
     }
