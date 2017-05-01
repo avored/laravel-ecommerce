@@ -13,6 +13,7 @@
             
             {!! Form::text('general_site_title','Default Site Title') !!}
             {!! Form::textarea('general_site_description','Default Site Description') !!}
+            {!! Form::select('general_term_condition_page', "Term & Condition Page" ,$pageOptions) !!}
 
             {!! Form::submit('Save Configuration') !!}
 

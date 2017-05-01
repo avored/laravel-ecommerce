@@ -82,7 +82,7 @@ class Module extends BaseModule {
     protected function registerViewComposer() {
 
         View::composer(
-                ['checkout.index', 'checkout.shipping-address'], 'Mage2\Checkout\ViewComposers\CheckoutComposer'
+                ['checkout.new-index'], 'Mage2\Checkout\ViewComposers\CheckoutComposer'
         );
     }
 

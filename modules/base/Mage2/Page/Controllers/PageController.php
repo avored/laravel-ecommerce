@@ -22,30 +22,25 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
+namespace Mage2\Page\Controllers;
 
-namespace Mage2\TaxClass\Controllers\Admin;
+use Mage2\Framework\System\Controllers\Controller;
+use Mage2\Page\Models\Page;
 
-use Illuminate\Support\Collection;
-use Mage2\System\Models\Configuration;
-use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\TaxClass\Models\Country;
-
-class ConfigurationController extends AdminController
+class PageController extends Controller
 {
-   
 
     /**
-     * Display a listing of the Catalog Configuration.
+     * Display the specified page.
+     *
+     * @param string $slug
      *
      * @return \Illuminate\Http\Response
      */
-    public function getConfiguration()
+    public function show($slug)
     {
-        $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
-        $countryOptions =  Collection::make(['' =>  'Please Select'] + Country::all()->pluck('name','id')->toArray());
+        $page = Page::where('slug','=', $slug)->first();
 
-        return view('mage2taxclass::admin.tax-class.configuration.index')
-                ->with('configurations', $configurations)
-                ->with('countryOptions', $countryOptions);
+        return view('page.show')->with('page', $page);
     }
 }

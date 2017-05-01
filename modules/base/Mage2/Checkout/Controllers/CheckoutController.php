@@ -48,7 +48,6 @@ class CheckoutController extends Controller
         $shippingOptions = Shipping::all();
         $paymentOptions = Payment::all();
         $countries =  [null => 'Please Select'] +  Country::all()->pluck('name' , 'id')->toArray();
-        //$orderData = Collection::make([]);
 
         $cartItems = Session::get('cart');
 

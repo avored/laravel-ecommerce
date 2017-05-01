@@ -30,6 +30,8 @@ use Illuminate\Http\Request;
 use Mage2\System\Models\Configuration;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Framework\Configuration\Facades\AdminConfiguration;
+use Mage2\Page\Models\Page;
+use Illuminate\Support\Collection;
 
 class ConfigurationController extends AdminController
 {
@@ -43,7 +45,10 @@ class ConfigurationController extends AdminController
     {
         $configurations = AdminConfiguration::all();
 
-        return view('mage2system::admin.configuration.index')->with('configurations', $configurations);
+        return view('mage2system::admin.configuration.index')
+                ->with('configurations', $configurations)
+
+            ;
     }
 
     /**
@@ -74,15 +79,18 @@ class ConfigurationController extends AdminController
     }
 
     /**
-     * Display a Paypal Configuration.
+     * Display a System General Configuration.
      *
      * @return \Illuminate\Http\Response
      */
     public function getGeneralConfiguration()
     {
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
+        $pageOptions =  Collection::make(['' =>  'Please Select'] + Page::all()->pluck('title','id')->toArray());
+
 
         return view('mage2system::admin.configuration.general-configuration')
-            ->with('configurations', $configurations);
+            ->with('configurations', $configurations)
+            ->with('pageOptions', $pageOptions);
     }
 }

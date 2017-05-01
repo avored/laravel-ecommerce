@@ -338,7 +338,7 @@
                         <div class="buttons clearfix">
                             <div class="pull-right">
                                 I have read and agree to the
-                                <a href="#" class="agree"><b>Terms &amp; Conditions</b></a>
+                                <a href="{{ $termConditionPageUrl }}" target="_blank" class="agree"><b>Terms &amp; Conditions</b></a>
                                 <input type="checkbox" name="agree" value="1" />
                                 &nbsp;
                             </div>

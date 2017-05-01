@@ -22,9 +22,6 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-
-
-
 namespace Mage2\Page;
 
 use Illuminate\Support\Facades\View;
@@ -84,8 +81,8 @@ class Module extends BaseModule {
     }
 
     protected function registerViewPath() {
-        $this->loadViewsFrom(__DIR__. '/views', 'mage2page');
-        //View::addLocation(__DIR__ . '/views');
+        //$this->loadViewsFrom(__DIR__. '/views', 'mage2page');
+        View::addLocation(__DIR__ . DIRECTORY_SEPARATOR .'views');
     }
 
     public function registerAdminMenu() {

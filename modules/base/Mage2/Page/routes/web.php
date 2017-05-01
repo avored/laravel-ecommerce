@@ -44,5 +44,8 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' =>
 });
 
 
-Route::group(['middleware' => ['frontauth', 'web'], 'namespace' => "Mage2\Page\Controllers"], function () {
+Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Page\Controllers"], function () {
+    Route::get('/page/{slug}', ['as' => 'page.show',
+        'uses' => 'PageController@show'
+    ]);
 });
