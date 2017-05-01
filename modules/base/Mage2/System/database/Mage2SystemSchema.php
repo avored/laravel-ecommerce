@@ -28,7 +28,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Mage2\System\Models\Module as ModuleModel;
-
+use Mage2\System\Models\Configuration;
 
 class Mage2SystemSchema extends Migration {
 
@@ -54,7 +54,9 @@ class Mage2SystemSchema extends Migration {
             $table->enum('status',['ACTIVE','INACTIVE']);
             $table->timestamps();
         });
-        
+
+        Configuration::create(['configuration_key' => 'general_site_title','configuration_value' => 'Mage2 Laravel Ecommerce']);
+        Configuration::create(['configuration_key' => 'general_site_description','configuration_value' => 'Mage2 Laravel Ecommerce']);
 
         ModuleModel::create(['identifier' => 'mage2-cart',
             'name'=> 'Mage2 Cart',
