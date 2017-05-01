@@ -24,7 +24,7 @@
  */
 namespace Mage2\Catalog\Models;
 
-
+use Mage2\Framework\Image\LocalImageFile;
 use Mage2\TaxClass\Models\TaxRule;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
@@ -58,8 +58,6 @@ class Product extends BaseModel {
         return $this->hasMany(ProductImage::class);
     }
 
-
-
     public function relatedProducts() {
         return $this->hasMany(RelatedProduct::class);
     }
@@ -84,31 +82,39 @@ class Product extends BaseModel {
 
     }
 
+    /**
+     * return default Image or LocalImageFile Object
+     *
+     * @return string|\Mage2\Framework\Image\LocalImageFile
+     */
     public function getImageAttribute() {
         $defaultPath = "/img/default-product.jpg";
 
         $image = $this->images()->first();
 
-        if(isset($image->path)) {
-            return  "/uploads/catalog/images/" . $image->path;
+        if( $image->path instanceof LocalImageFile) {
+            return  $image;
         }
 
         return $defaultPath;
     }
 
     public function getAssignedVariationBytAttributeId($attributeId){
-
-        return $this->productVariations()->where('product_attribute_id','=', $attributeId)->get();
-
-
+        return $this->productVariations()
+                        ->where('product_attribute_id','=', $attributeId)
+                         ->get();
     }
+
+    /*
+     * Calculate Tax amount based on default country and return tax amount
+     *
+     * @return float $taxAmount
+     */
 
     public function getTaxAmount() {
 
         $defaultCountryId = Configuration::getConfiguration('mage2_tax_class_default_country_for_tax_calculation');
         $taxRules = TaxRule::where('country_id','=',$defaultCountryId)->orderBy('priority','DESC')->first();
-
-        $taxPercentage = Configuration::getConfiguration('mage2_tax_class_percentage_of_tax');
         $price = $this->price;
 
         $taxAmount = ($taxRules->percentage * $price / 100);
@@ -117,6 +123,7 @@ class Product extends BaseModel {
     }
 
     /*
+     * Get the Price for the Product
      *
      * @return float $value
      */

@@ -79,11 +79,12 @@ class CartController extends Controller
 
         } else {
 
+
             $cart->put($product->id, ['id' => $product->id,
                 'qty' => $qty,
                 'price' => $product->price,
                 'tax_amount' => $product->getTaxAmount(),
-                'image' => $product->image,
+                'image' => $product->image->path->smallUrl,
                 'title' => $product->title,
                 'slug' => $product->slug,
                 'attributes' => $productAttributes,
