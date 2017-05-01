@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('meta_title')
+    {{ $product->title }}
+@endsection
+
 @section('content')
 
     <div class="row">

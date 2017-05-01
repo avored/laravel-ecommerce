@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('meta_title')
+    {{ $category->name }}
+@endsection
+
 @section('content')
 <div class="row">
     <div class="col-md-12">

@@ -8,8 +8,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $metaTitle }}</title>
-    <meta name="description" content="{{ $metaDescription }}"/>
+    <title>@yield('meta_title', $metaTitle)</title>
+    <meta name="description" content="@yield('meta_description', $metaDescription )"/>
 
     <link href="{{ asset('vendor/mage2-basic/css/appscss.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/mage2-basic/css/appless.css') }}" rel="stylesheet">
