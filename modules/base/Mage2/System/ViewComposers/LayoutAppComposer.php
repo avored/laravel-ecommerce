@@ -29,6 +29,7 @@ namespace Mage2\System\ViewComposers;
 use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\Category;
 use Illuminate\View\View;
+use Mage2\System\Models\Configuration;
 
 class LayoutAppComposer {
 
@@ -43,8 +44,8 @@ class LayoutAppComposer {
         $categoryModel = new Category();
         $baseCategories = $categoryModel->getAllCategories();
 
-        $metaTitle = config('app.name', 'Mage2 Ecommerce');
-        $metaDescription = "Mage2 Laravel Ecommerce";
+        $metaTitle = Configuration::getConfiguration('general_site_title');
+        $metaDescription = Configuration::getConfiguration('general_site_description');
 
 
         $view->with('categories', $baseCategories)
