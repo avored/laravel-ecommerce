@@ -42,6 +42,7 @@ class InstallController extends Controller
         'pdo',
         'mbstring',
         'tokenizer',
+        'xml',
         'curl',];
 
     public function index()

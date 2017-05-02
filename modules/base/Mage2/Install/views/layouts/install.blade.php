@@ -58,5 +58,8 @@
 <div class="container-fluid" style="height: 100%">
         @yield('content')
 </div>
+
+@stack('scripts')
+@stack('styles')
 </body>
 </html>

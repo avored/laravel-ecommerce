@@ -11,7 +11,7 @@
 
                     <h4 class="text-center">Create Admin Account</h4>
 
-                    {!! Form::open(['method'=> 'post','action' => route('mage2.install.admin.post')]) !!}
+                    {!! Form::open(['method'=> 'post','id' => 'create-admin-user-form','action' => route('mage2.install.admin.post')]) !!}
                     {!! Form::text('first_name','First Name') !!}
                     {!! Form::text('last_name','Last Name') !!}
                     {!! Form::text('email','Email') !!}
@@ -21,7 +21,7 @@
 
                     {!! Form::select('language','Language',['en' => 'English']) !!}
                     
-                    {!! Form::submit('Continue') !!}
+                    {!! Form::button('Continue',['class' => 'btn btn-primary create-user-button']) !!}
 
                     {!! Form::close() !!}
 
@@ -29,4 +29,16 @@
             </div>
         </div>
 
+        @push('styles')
+        <script>
+            jQuery(document).ready(function() {
+                jQuery('.create-user-button').click(function(e){
+                    e.preventDefault();
+                    jQuery(e.target).button('loading');
+                    jQuery('#create-admin-user-form').submit();
+                });
+
+            });
+        </script>
+        @endpush
 @endsection

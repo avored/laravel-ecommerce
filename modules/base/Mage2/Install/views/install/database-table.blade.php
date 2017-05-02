@@ -20,7 +20,6 @@
                         </thead>
                         <tbody>
                         @foreach($modules as $module)
-
                             <?php //$actualTheme = Theme::getByPath($theme) ?>
                             <tr>
 
@@ -57,32 +56,28 @@
 
                     <div class="col s12">
                         <input type="hidden" name="identifier" value="{{ $identifier }}">
-                        <button type="submit" class="btn btn-primary">Install Next</button>
+                        <button type="button" class="btn btn-primary install-new-button">Install Next</button>
                     </div>
                     {!! Form::close() !!}
 
                 </div>
             </div>
         </div>
+@push('scripts')
 <script>
 
     jQuery(document).ready(function() {
 
-        //var auto = setTimeout(function(){ autoRefresh(); }, 100);
+        jQuery('.install-new-button').click(function (e) {
 
-        function submitform(){
-            //alert('1000')
-            //jQuery('#install-module-form').submit();
-        }
-
-        function autoRefresh(){
-            //clearTimeout(auto);
-            //auto = setTimeout(function(){ submitform(); autoRefresh(); }, 1000);
-        }
+            //#install-module-form
+            jQuery(this).button('loading');
+            jQuery('#install-module-form').submit();
+        }) ;
 
     });
 </script>
-
+@endpush
 
 
 @endsection

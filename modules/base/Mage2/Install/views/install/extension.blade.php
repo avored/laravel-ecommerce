@@ -9,12 +9,6 @@
                         <h1>Welcome to Mage2 Ecommerce Installation</h1>
                     </div>
                     <div class="panel-body">
-                            <!--
-                             add more extension check list
-                             php file info
-                            -->
-                            
-                            
 
                         <h4 style="text-align: center">Extension Requirement</h4>
                         <div class="extension-list">
@@ -32,6 +26,16 @@
                                 <span>Curl PHP Extension</span>
                             <span class="pull-right">
                                 @if($result['curl'] == true)
+                                    <i class="glyphicon glyphicon-ok glyphicon "></i>
+                                @else
+                                    <i class="glyphicon glyphicon-remove glyphicon "></i>
+                                @endif
+                            </span>
+                            </div>
+                            <div>
+                                <span>XML PHP Extension</span>
+                            <span class="pull-right">
+                                @if($result['xml'] == true)
                                     <i class="glyphicon glyphicon-ok glyphicon "></i>
                                 @else
                                     <i class="glyphicon glyphicon-remove glyphicon "></i>
@@ -67,7 +71,10 @@
                             </div>
                         </div>
                         <div class="">
-                            <a href="{{ route('mage2.install.database.table.get') }}" type="submit" class="btn btn-primary">Continue</a>
+                            <button data-url="{{ route('mage2.install.database.table.get') }}"
+
+                               class="btn btn-primary continue-button">Continue
+                            </button>
                         </div>
                         </div>
 
@@ -75,8 +82,19 @@
             </div>
 
 
+    @push('styles')
+        <script>
+        jQuery(document).ready(function() {
+            jQuery('.continue-button').click(function(e){
+                e.preventDefault();
+                jQuery(e.target).button('loading');
+                location = jQuery(this).attr('data-url');
+            });
 
-
+        });
+        </script>
+    @endpush
+    @push('styles')
     <style>
         .extension-list  div{
             border: 1px solid #ccc;
@@ -85,4 +103,5 @@
             margin-bottom: 10px;
         }
     </style>
+    @endpush
 @endsection
