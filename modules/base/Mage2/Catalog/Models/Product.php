@@ -90,13 +90,20 @@ class Product extends BaseModel {
     public function getImageAttribute() {
         $defaultPath = "/img/default-product.jpg";
 
+
         $image = $this->images()->first();
 
-        if( $image->path instanceof LocalImageFile) {
+
+        if(null === $image) {
+
+            return new LocalImageFile($defaultPath);
+        }
+
+        if(  $image->path instanceof LocalImageFile) {
             return  $image;
         }
 
-        return $defaultPath;
+
     }
 
     public function getAssignedVariationBytAttributeId($attributeId){

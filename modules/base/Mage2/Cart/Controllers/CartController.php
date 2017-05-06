@@ -70,7 +70,6 @@ class CartController extends Controller
 
         $qty = (null === $request->get('qty')) ? 1 : $request->get('qty');
 
-
         if($cart->has($product->id)) {
 
             $item = $cart->pull($product->id);
@@ -78,13 +77,11 @@ class CartController extends Controller
             $cart->put($product->id, $item);
 
         } else {
-
-
             $cart->put($product->id, ['id' => $product->id,
                 'qty' => $qty,
                 'price' => $product->price,
                 'tax_amount' => $product->getTaxAmount(),
-                'image' => $product->image->path->smallUrl,
+                'image' => $product->image->smallUrl,
                 'title' => $product->title,
                 'slug' => $product->slug,
                 'attributes' => $productAttributes,

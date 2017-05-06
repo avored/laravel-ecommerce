@@ -181,7 +181,7 @@ class Mage2CatalogSchema extends Migration {
             ->references('id')->on('products')->onDelete('cascade');
 
         });
-        
+
         //category_product table foreign key setup
         Schema::table('category_product', function (Blueprint $table) {
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

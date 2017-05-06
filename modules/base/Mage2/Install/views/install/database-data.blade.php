@@ -1,6 +1,6 @@
 @extends('mage2install::layouts.install')
-@section('content')
 
+@section('content')
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-heading">Welcome to Mage2 Installation</div>
@@ -17,9 +17,7 @@
                         <button type="submit" class="btn btn-primary">Continue</button>
                     </div>
                     {!! Form::close() !!}
-
                 </div>
             </div>
         </div>
-
 @endsection
