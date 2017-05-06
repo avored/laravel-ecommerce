@@ -166,7 +166,7 @@ class Mage2CatalogSchema extends Migration {
         });
 
 
-        /*
+
         Schema::create('product_varchar_values', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
@@ -181,9 +181,7 @@ class Mage2CatalogSchema extends Migration {
             ->references('id')->on('products')->onDelete('cascade');
 
         });
-        */
-
-
+        
         //category_product table foreign key setup
         Schema::table('category_product', function (Blueprint $table) {
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
