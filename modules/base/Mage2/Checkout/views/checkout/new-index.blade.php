@@ -8,6 +8,10 @@
 
         <h1>Checkout</h1>
 
+        @if(count($cartItems) <=  0)
+            <p>Sorry No Product Found <a href="{{ route('home') }}">Start Shopping</a></p>
+        @else
+
         <form id="place-order-form" method="post" action="{{ route('order.place') }}">
             {{ csrf_field() }}
             <div class="row box checkout_form">
@@ -416,5 +420,7 @@
                 </div>
             </div>
         </form>
+
+        @endif
     </div>
 @endsection
