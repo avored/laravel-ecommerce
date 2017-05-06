@@ -13,9 +13,9 @@ return [
     |
     */
 
-    'email-address'         => 'Email Address',
-    'password'              => 'Password',
-    'remember-me'           => 'Remember Me',
-    'login'                 => "Login",
-    'forgot-your-password'  => 'Forgot your Password?'
+    'email-address'         => 'Correo electrónico',
+    'password'              => 'Contraseña',
+    'remember-me'           => 'Recuérdame',
+    'login'                 => "Ingreso",
+    'forgot-your-password'  => '¿Olvido su contraseña?'
 ];
