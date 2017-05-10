@@ -1,5 +1,6 @@
 
 <?php
+        //dd($product);
 $image = $product->images()->get()->first();
 
 ?>

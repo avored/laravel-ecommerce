@@ -24,15 +24,13 @@
  */
 namespace Mage2\Catalog\Models;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;
 use Mage2\Framework\System\Models\BaseModel;
 
 class Category extends BaseModel
 {
     protected $fillable = [ 'parent_id', 'name', 'slug'];
-
-
-
 
     public function products()
     {
@@ -84,5 +82,24 @@ class Category extends BaseModel
     public function getChilds($id)
     {
         return $this->where('parent_id', '=', $id)->get();
+    }
+
+
+    public function getFilters() {
+        $attrs = Collection::make([]);
+        $productIds = $this->products->pluck('id');
+
+        $productVarcharCollection = ProductVarcharValue::whereIn('product_id', $productIds)->get()->unique('product_attribute_id');
+
+        foreach($productVarcharCollection as $varcharValue) {
+            $attrs->push(ProductAttribute::find($varcharValue->product_attribute_id));
+        }
+        return $attrs;
+
+    }
+
+    public function canShowFilters() {
+        //dd($this);
+        return true;
     }
 }

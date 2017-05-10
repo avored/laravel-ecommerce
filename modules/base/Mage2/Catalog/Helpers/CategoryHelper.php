@@ -33,7 +33,8 @@ class CategoryHelper
     public function getCategoryOptions()
     {
         $options = Category::pluck('name', 'id');
-
         return $options;
     }
+
+
 }

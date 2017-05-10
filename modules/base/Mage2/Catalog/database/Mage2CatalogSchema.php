@@ -45,7 +45,7 @@ class Mage2CatalogSchema extends Migration {
             $table->string('identifier')->unique();
             $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME']);
             $table->tinyInteger('use_as_variation');
-            $table->tinyInteger('is_system')->default(0);
+            $table->tinyInteger('is_system')->default(1);
             $table->integer('sort_order')->nullable()->default(0);
 
             $table->timestamps();

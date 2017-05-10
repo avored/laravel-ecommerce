@@ -15,7 +15,7 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>Identifier</th>
-                <th>Type</th>
+
                 <th>Edit</th>
                 <th>Destroy</th>
             </tr>
@@ -36,7 +36,6 @@
                 {data: 'id', name: 'id'},
                 {data: 'title', name: 'title'},
                 {data: 'identifier', name: 'identifier'},
-                {data: 'type', name: 'type'},
                 {
                     data: 'edit',
                     name: 'edit',

@@ -31,16 +31,20 @@
                     @if(isset($product) && $product->has_variation == 1)
                         <div class="col-md-12">
                             <label>Please Select Option</label>
-                    <span class="input-group">
+                            <span class="input-group">
 
-                        <select class="attribute-select-field form-control" data-token="{{ csrf_token() }}">
-                            @foreach($productAttributes as $value => $label)
-                                <option <?php echo ($value == $attribute->product_attribute_id) ? "selected" : "" ?>  value="{{ $value }}">{{ $label }}</option>
-                            @endforeach
-                        </select>
+                                <select class="attribute-select-field form-control"
+                                        data-token="{{ csrf_token() }}">
+                                    @foreach($productAttributes as $value => $label)
+                                        <option <?php echo ($value == $attribute->product_attribute_id) ? "selected" : "" ?>
+                                                value="{{ $value }}">
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
+                                </select>
 
-                     <a href="#" class="add-product-attribute input-group-addon">Use This</a>
-                    </span>
+                                <a href="#" class="add-product-attribute input-group-addon">Use This</a>
+                            </span>
                         </div>
 
                         <div class="clearfix"></div>
@@ -116,7 +120,10 @@
                                                     <div class="cold-md-12">
 
                                                         <div class="col-md-3">
-                                                            <img src="{{ $subProduct->image }}"
+                                                            <?php
+                                                            //dd($subProduct->image);
+                                                            ?>
+                                                            <img src="{{ $subProduct->image->smallUrl }}"
                                                                  class="img-responsive img-thumbnail"
                                                                  style="max-height: 75px;"/>
                                                         </div>
@@ -224,7 +231,15 @@
             }
         });
 
-    })
+        jQuery(document).ready(function() {
+
+            jQuery(document).on('click','.close-variation',function(e){
+                e.preventDefault();
+                jQuery(this).parents('.single-option-box:first').remove();
+            });
+        });
+
+    });
 </script>
 <style>
     .remove-attribute, .remove-variation-attribute {

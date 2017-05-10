@@ -24,24 +24,66 @@
  */
 namespace Mage2\Catalog\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Mage2\Catalog\Models\Category;
+use Mage2\Catalog\Models\Product;
+use Mage2\Catalog\Models\ProductAttribute;
+use Mage2\Catalog\Models\ProductVarcharValue;
 use Mage2\System\Models\Configuration;
 use Mage2\Framework\System\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class CategoryViewController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
-    public function view($slug)
+    public function view(Request $request, $slug)
     {
+
         $productsOnCategoryPage = Configuration::getConfiguration('mage2_catalog_no_of_product_category_page');
         $category = Category::where('slug', '=', $slug)->get()->first();
-        $products = $category->products()->paginate($productsOnCategoryPage);
+
+        $queryParam = NULL;
+
+        $facadeDB = DB::table('products')->select('products.id');
+
+        $i = 0;
+        $facadeDB->join('category_product', 'category_product.product_id', 'products.id');
+
+        foreach ($request->all() as $attrSlug => $value) {
+
+            if ($i == 0) {
+
+                $facadeDB->join('product_varchar_values', 'products.id', 'product_varchar_values.product_id');
+
+            }
+            $attribute = ProductAttribute::where('identifier', '=', $attrSlug)->first();
+
+            $facadeDB->orWhere(function ($query) use ($attribute, $value) {
+                $query->where('product_varchar_values.product_attribute_id', '=', $attribute->id)
+                    ->where('product_varchar_values.value', '=', $value);
+            });
+
+
+            $i++;
+        }
+
+
+        $facadeDB->where('category_product.category_id', '=', $category->id);
+
+
+        $dbProducts = $facadeDB->paginate($productsOnCategoryPage);
+
+        $products = Collection::make([]);
+        foreach ($dbProducts as $product) {
+            $products->push(Product::find($product->id));
+        }
+
+        $collections = new Paginator($products, $productsOnCategoryPage, $dbProducts->currentPage());
+
         return view('catalog.category.view')
-                    ->with('category', $category)
-                    ->with('products', $products);
+            ->with('category', $category)
+            ->with('products', $collections);
     }
 }

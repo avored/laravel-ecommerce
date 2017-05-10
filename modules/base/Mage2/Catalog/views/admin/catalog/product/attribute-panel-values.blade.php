@@ -14,6 +14,7 @@
 
                     <div class="col-md-12 single-option-box"
                          style="border: 1px solid #ccc; padding: 10px;margin-bottom: 10px">
+                        <button type="button" class="close close-variation">&times;</button>
                         <label>{{ $dropdownValue->display_text }}</label>
                         <div class="clearfix"></div>
                         <div class="col-md-12">
