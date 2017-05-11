@@ -44,8 +44,6 @@ class CategoryViewController extends Controller
         $productsOnCategoryPage = Configuration::getConfiguration('mage2_catalog_no_of_product_category_page');
         $category = Category::where('slug', '=', $slug)->get()->first();
 
-        $queryParam = NULL;
-
         $facadeDB = DB::table('products')->select('products.id');
 
         $i = 0;
@@ -54,9 +52,7 @@ class CategoryViewController extends Controller
         foreach ($request->all() as $attrSlug => $value) {
 
             if ($i == 0) {
-
                 $facadeDB->join('product_varchar_values', 'products.id', 'product_varchar_values.product_id');
-
             }
             $attribute = ProductAttribute::where('identifier', '=', $attrSlug)->first();
 
@@ -65,14 +61,10 @@ class CategoryViewController extends Controller
                     ->where('product_varchar_values.value', '=', $value);
             });
 
-
             $i++;
         }
 
-
         $facadeDB->where('category_product.category_id', '=', $category->id);
-
-
         $dbProducts = $facadeDB->paginate($productsOnCategoryPage);
 
         $products = Collection::make([]);
@@ -84,6 +76,7 @@ class CategoryViewController extends Controller
 
         return view('catalog.category.view')
             ->with('category', $category)
+            ->with('params' , $request->all())
             ->with('products', $collections);
     }
 }
