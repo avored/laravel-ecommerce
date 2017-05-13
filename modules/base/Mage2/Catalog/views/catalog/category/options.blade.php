@@ -16,13 +16,9 @@
         @endif
         <?php
         $attributes = $category->getFilters();
-            //dd($params);
         ?>
         @foreach($attributes as $attribute)
 
-            <?php
-            //dd(in_array($attribute->identifier, array_keys($params)));
-            ?>
             <h4>{{ $attribute->title }}</h4>
             <ul class="list-group">
                 @foreach($attribute->attributeDropdownOptions as $option)
@@ -37,13 +33,17 @@
                                                $queryParams = $params;
                                        unset($queryParams[$attribute->identifier])
                                        ?>
-                                   data-checked-url="{{ route('category.view',['slug' => $category->slug,$attribute->identifier => $option->id] + $queryParams) }}"
-                                   data-unchecked-url="{{ route('category.view',['slug' => $category->slug] + $queryParams) }}"
+                                   data-checked-url="{{ route('category.view',
+                                                                ['slug' => $category->slug,$attribute->identifier => $option->id] + $queryParams) }}"
+                                   data-unchecked-url="{{ route('category.view',
+                                                                ['slug' => $category->slug] + $queryParams) }}"
 
                                @else
 
-                                   data-checked-url="{{ route('category.view',['slug' => $category->slug,$attribute->identifier => $option->id] + $params) }}"
-                                   data-unchecked-url="{{ route('category.view',['slug' => $category->slug] + $params) }}"
+                                   data-checked-url="{{ route('category.view',
+                                                                    ['slug' => $category->slug,$attribute->identifier => $option->id] + $params) }}"
+                                   data-unchecked-url="{{ route('category.view',
+                                                                    ['slug' => $category->slug] + $params) }}"
 
                                @endif
                                name="{{ $attribute->identifier }}" value="{{ $option->id }}">

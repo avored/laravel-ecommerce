@@ -38,6 +38,13 @@ class Product extends BaseModel {
 
     protected $fillable = ['title','slug','sku','description','status','in_stock','track_stock','qty','is_taxable','page_title','page_description','has_variation'];
 
+    public static function getCollection() {
+        $products = Product::all();
+        $productCollection = new ProductCollection();
+        $productCollection->setCollection($products);
+        return $productCollection;
+    }
+
     public function categories() {
         return $this->belongsToMany(Category::class);
     }
@@ -45,6 +52,11 @@ class Product extends BaseModel {
     public function productVariations() {
         return $this->hasMany(ProductVariation::class);
     }
+
+    public function productVarcharValues() {
+        return $this->hasMany(ProductVarcharValue::class);
+    }
+
 
     public function reviews() {
         return $this->hasMany(Review::class);
