@@ -20,6 +20,7 @@
             </thead>
         </table>
     </div>
+
 @stop
 
 @push('scripts')

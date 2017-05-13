@@ -63,7 +63,7 @@ class Module extends BaseModule {
     }
 
     protected function registerTranslationPath() {
-        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2user");
+        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2page");
     }
 
 
@@ -81,7 +81,7 @@ class Module extends BaseModule {
     }
 
     protected function registerViewPath() {
-        //$this->loadViewsFrom(__DIR__. '/views', 'mage2page');
+        $this->loadViewsFrom(__DIR__. '/views', 'mage2page');
         View::addLocation(__DIR__ . DIRECTORY_SEPARATOR .'views');
     }
 
