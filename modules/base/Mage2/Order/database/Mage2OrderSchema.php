@@ -70,8 +70,7 @@ class Mage2OrderSchema extends Migration {
         Schema::create('order_statuses', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->boolean('is_default')->default(0);
-            $table->boolean('is_last_stage')->default(0);
+            $table->integer('sort_order');
             $table->timestamps();
         });
 
@@ -88,9 +87,9 @@ class Mage2OrderSchema extends Migration {
         });
 
         OrderStatus::insert(
-            ['title' => 'pending', 'is_default' => 1, 'is_last_stage' => 0],
-            ['title' => 'processing', 'is_default' => 0, 'is_last_stage' => 0],
-            ['title' => 'complete', 'is_default' => 0, 'is_last_stage' => 1]
+            ['title' => 'pending', 'sort_order' => 0],
+            ['title' => 'processing', 'sort_order' => 1],
+            ['title' => 'complete', 'sort_order' => 2]
         );
 
     }

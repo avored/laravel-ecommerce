@@ -89,19 +89,6 @@ class OrderStatusController extends AdminController
      */
     public function store(OrderStatusRequest $request)
     {
-        if ($request->get('is_default') == 1) {
-            foreach (OrderStatus::where('is_default', '=', 1)->get() as $orderStatus) {
-                $orderStatus->is_default = 0;
-                $orderStatus->update();
-            }
-        }
-        if ($request->get('is_last_stage') == 1) {
-            foreach (OrderStatus::where('is_last_stage', '=', 1)->get() as $orderStatus) {
-                $orderStatus->is_last_stage = 0;
-                $orderStatus->update();
-            }
-        }
-
         OrderStatus::create($request->all());
 
         return redirect()->route('admin.order-status.index');

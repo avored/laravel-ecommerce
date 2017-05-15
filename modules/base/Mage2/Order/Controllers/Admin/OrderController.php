@@ -36,6 +36,8 @@ use Mage2\User\Models\AdminUser;
 use Illuminate\Support\Facades\Gate;
 use Mage2\Order\Mail\UpdateOrderStatusMail;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
+use Illuminate\Support\Facades\File;
+
 
 class OrderController extends AdminController
 {
@@ -89,10 +91,17 @@ class OrderController extends AdminController
         $user = User::find($order->user_id);
 
         $view = view('mage2order::admin.order.pdf')->with('order', $order);
-        $path = public_path('/uploads/order/invoice/'.$order->id.'.pdf');
+
+        $folderPath = public_path('uploads/order/invoice');
+        if(!File::exists($folderPath)) {
+            File::makeDirectory($folderPath, '0775', true);
+        }
+        $path = $folderPath. DIRECTORY_SEPARATOR .$order->id.'.pdf';
         PDF::loadHTML($view->render())->save($path);
 
         Mail::to($user->email)->send(new OrderInvoicedMail($order, $path));
+
+        return redirect()->back()->with('notificationText', "Email Sent Successfully!!");
     }
 
     public function changeStatus($id)

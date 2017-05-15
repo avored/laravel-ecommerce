@@ -29,7 +29,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class OrderStatus extends BaseModel
 {
-    protected $fillable = ['title', 'is_default','is_last_stage'];
+    protected $fillable = ['title', 'sort_order'];
 
     public function order()
     {
