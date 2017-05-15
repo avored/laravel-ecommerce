@@ -62,7 +62,9 @@ class User extends Authenticatable
     }
 
     public function getImagePathAttribute() {
-        return $localFile = new LocalImageFile($this->attributes['image_path']);
+
+        return (empty($this->attributes['image_path'])) ? null  : new LocalImageFile($this->attributes['image_path']);
+
     }
 
     public function isInWishlist($productId)

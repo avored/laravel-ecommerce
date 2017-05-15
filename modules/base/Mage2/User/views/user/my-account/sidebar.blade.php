@@ -1,8 +1,9 @@
 <div class="profile-sidebar">
 
     <div class="profile-userpic">
+
         @if($user->image_path == "")
-            <img src="http://placehold.it/500x500" class="img-responsive" alt="">
+            <img src="http://placehold.it/250x250" class="img-responsive" alt="">
         @else
             <img src="{{ $user->image_path->smallUrl }}" class="img-responsive" alt="">
         @endif

@@ -43,6 +43,7 @@ class CheckoutComposer
     {
         $termConditionPageUrl = "#";
 
+
         $pageId = Configuration::getConfiguration('general_term_condition_page');
 
         if(null !== $pageId) {

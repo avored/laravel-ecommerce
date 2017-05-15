@@ -22,8 +22,8 @@
                 <table class="table table-bordered table-responsive">
                     <thead>
                     <th>ID</th>
-                    <th>Shipping Method</th>
-                    <th>Payment Method</th>
+                    <th>Shipping Option</th>
+                    <th>Payment Option</th>
                     <th>Status</th>
                     <th>View</th>
                     </thead>
@@ -31,8 +31,8 @@
                     @foreach($orders as $order)
                         <tr>
                             <td>{{ $order->id }}</td>
-                            <td>{{ $order->shipping_method }}</td>
-                            <td>{{ $order->payment_method }}</td>
+                            <td>{{ $order->shipping_option}}</td>
+                            <td>{{ $order->payment_option }}</td>
                             <td>{{ $order->orderStatus->title }}</td>
                             <td>
                                 <a href="{{ route('my-account.order.view',$order->id )}}">View</a>

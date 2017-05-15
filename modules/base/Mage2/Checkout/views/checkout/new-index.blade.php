@@ -21,16 +21,25 @@
                             <h3>Your Personal Details</h3>
                         </div>
 
+                        <?php
+                            $firstName = $lastName = "";
+                        if(Auth::check()) {
+                            $firstName = Auth::user()->first_name;
+                            $lastName  = Auth::user()->last_name;
+                        }
+
+                        ?>
+
                         <div class="form-group  col-md-6">
                             <label class="control-label" for="input-billing-firstname">First Name</label>
                             <input type="text" name="billing[first_name]"
-                                   value="" placeholder="First Name"
+                                   value="{{ $firstName }}" placeholder="First Name"
                                    id="input-billing-firstname" class="form-control">
                         </div>
                         <div class="form-group  col-md-6">
                             <label class="control-label" for="input-billing-lastname">Last Name</label>
                             <input type="text" name="billing[last_name]"
-                                   value="" placeholder="Last Name"
+                                   value="{{ $lastName }}" placeholder="Last Name"
                                    id="input-billing-lastname" class="form-control">
                         </div>
 
@@ -45,8 +54,10 @@
                             <div class="form-group col-md-12">
                                 <label>
                                     <input type="checkbox" name="register"
-                                           onclick="if (this.checked == true) jQuery('.register-form').slideDown('slow'); else jQuery('.register-form').slideUp('slow');">&nbsp;Register
-                                    Account</label>
+                                           onclick="if (this.checked == true) jQuery('.register-form').slideDown('slow');
+                                                      else jQuery('.register-form').slideUp('slow');">
+                                    &nbsp;Register Account
+                                </label>
                             </div>
 
 

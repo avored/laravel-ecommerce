@@ -12,7 +12,8 @@
                 </h1>
                 <div class="pull-right">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" class="btn btn-default dropdown-toggle"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Option <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
@@ -36,12 +37,12 @@
                         <td>{{ $order->id }}</td>
                     </tr>
                     <tr>
-                        <th>Shipping Method</th>
-                        <td>{{ $order->shipping_method }}</td>
+                        <th>Shipping Option</th>
+                        <td>{{ $order->shipping_option }}</td>
                     </tr>
                     <tr>
-                        <th>Payment Method</th>
-                        <td>{{ $order->payment_method }}</td>
+                        <th>Payment Option</th>
+                        <td>{{ $order->payment_option }}</td>
                     </tr>
                     <tr>
                         <th>Status</th>
