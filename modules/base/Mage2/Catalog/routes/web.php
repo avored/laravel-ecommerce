@@ -71,6 +71,8 @@ Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Catalog\Controllers
     Route::get('/category/{slug}', ['as' => 'category.view', 'uses' => 'CategoryViewController@view']);
     Route::get('/product/{slug}', ['as' => 'product.view', 'uses' => 'ProductViewController@view']);
 
+    Route::get('/product-search', ['as' => 'search.result', 'uses' => 'SearchController@result']);
+
     Route::resource('/review', 'ReviewController');
 
 
