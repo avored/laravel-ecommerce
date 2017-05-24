@@ -115,6 +115,19 @@ class Mage2SystemSchema extends Migration {
             'name'=> 'Mage2 User',
             'status' => 'ACTIVE'
         ]);
+        
+         ModuleModel::create(['identifier' => 'mage2-contactus',
+            'type' => 'COMMUNITY',
+            'name'=> 'Mage2 Contact Us',
+            'status' => 'ACTIVE'
+        ]);
+
+        
+        ModuleModel::create(['identifier' => 'mage2-feature',
+            'type' => 'COMMUNITY',
+            'name'=> 'Mage2 Feature',
+            'status' => 'ACTIVE'
+        ]);
 
     }
 
