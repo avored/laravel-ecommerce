@@ -5,8 +5,34 @@ namespace Mage2\Feature;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
+use Illuminate\Support\Facades\File;
+use Symfony\Component\Yaml\Yaml;
 
 class Module extends BaseModule {
+
+    /**
+     *
+     * Module Name Variable
+     * @var name
+     *
+     */
+    protected $name = NULL;
+
+    /**
+     *
+     * Module Odentifier  Variable
+     * @var identifier
+     *
+     */
+    protected $identifier = NULL;
+    /**
+     *
+     * Module Description Variable
+     * @var description
+     *
+     */
+    protected $description = NULL;
+
 
     /**
      * Bootstrap any application services.
@@ -25,10 +51,25 @@ class Module extends BaseModule {
      * @return void
      */
     public function register() {
-
-
+        $this->registerModuleYamlFile();
         $this->mapWebRoutes();
         $this->registerViewPath();
+    }
+
+
+    /*
+     *
+     * Registered basic details of modules
+     *
+     *
+     */
+    public function registerModuleYamlFile() {
+
+        $yamlFileContent = File::get(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
+        $moduleConfig = Yaml::parse($yamlFileContent);
+        $this->setName($moduleConfig['name']);
+        $this->setIdentifier($moduleConfig['identifier']);
+        $this->setDescription($moduleConfig['description']);
     }
 
     /**
@@ -60,16 +101,8 @@ class Module extends BaseModule {
         ModuleFacade::put($this->getIdentifier(), $this, $type ="community");
     }
 
-    public function getName() {
-        return 'Mage2 Feature Product';
-    }
-    
     public function getNameSpace() {
         return __NAMESPACE__;
-    }
-
-    public function getIdentifier() {
-        return 'mage2-feature';
     }
     
     public function getPath() {

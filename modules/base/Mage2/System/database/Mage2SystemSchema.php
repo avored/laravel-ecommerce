@@ -99,6 +99,13 @@ class Mage2SystemSchema extends Migration {
             'name'=> 'Mage2 Pickup',
             'status' => 'ACTIVE'
         ]);
+
+        ModuleModel::create(['identifier' => 'mage2-sale',
+            'name'=> 'Mage2 Sale',
+            'type' => 'SYSTEM',
+            'status' => 'ACTIVE'
+        ]);
+
         ModuleModel::create(['identifier' => 'mage2-system',
             'type' => 'SYSTEM',
             'name'=> 'Mage2 System',

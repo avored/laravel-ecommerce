@@ -170,9 +170,11 @@ return [
         Mage2\Order\Module::class,
         Mage2\Page\Module::class,
         Mage2\Paypal\Module::class,
+        Mage2\Sale\Module::class,
+        Mage2\System\Module::class,
         Mage2\TaxClass\Module::class,
         Mage2\User\Module::class,
-        Mage2\System\Module::class,
+
 
     ],
     /*
@@ -219,6 +221,7 @@ return [
         'View'          => Illuminate\Support\Facades\View::class,
 
         'PDF'           => Barryvdh\DomPDF\Facade::class,
+        'Yaml'          => Symfony\Component\Yaml\Yaml::class,
 
 
         // MAGE2 FRAMEWORK FACADES

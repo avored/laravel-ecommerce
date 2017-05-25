@@ -27,8 +27,35 @@ namespace Mage2\Cart;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
+use Illuminate\Support\Facades\File;
+use Symfony\Component\Yaml\Yaml;
 
 class Module extends BaseModule {
+
+    /**
+     *
+     * Module Name Variable
+     * @var name
+     *
+     */
+    protected $name = NULL;
+
+    /**
+     *
+     * Module Odentifier  Variable
+     * @var identifier
+     *
+     */
+    protected $identifier = NULL;
+    /**
+     *
+     * Module Description Variable
+     * @var description
+     *
+     */
+    protected $description = NULL;
+
+
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -52,9 +79,25 @@ class Module extends BaseModule {
      * @return void
      */
     public function register() {
+        $this->registerModuleYamlFile();
         $this->mapWebRoutes();
         $this->registerViewPath();
 
+    }
+
+    /*
+  *
+  * Registered basic details of modules
+  *
+  *
+  */
+    public function registerModuleYamlFile() {
+
+        $yamlFileContent = File::get(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
+        $moduleConfig = Yaml::parse($yamlFileContent);
+        $this->setName($moduleConfig['name']);
+        $this->setIdentifier($moduleConfig['identifier']);
+        $this->setDescription($moduleConfig['description']);
     }
 
     protected function registerTranslationPath() {
@@ -83,17 +126,12 @@ class Module extends BaseModule {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
-    public function getName() {
-        return 'Mage2 Cart';
-    }
+
 
     public function getNameSpace() {
         return __NAMESPACE__;
     }
 
-    public function getIdentifier() {
-        return 'mage2-cart';
-    }
 
     public function getPath() {
         return __DIR__;
