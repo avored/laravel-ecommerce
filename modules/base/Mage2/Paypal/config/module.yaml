@@ -5,3 +5,4 @@
 name        : Mage2 Paypal
 identifier  : mage2-paypal
 description : Mage2 Paypal Modules
+enable      : true

@@ -5,3 +5,4 @@
 name        : Mage2 Sale
 identifier  : mage2-sale
 description : Mage2 Sale Modules
+enable      : true

@@ -5,3 +5,4 @@
 name        : Mage2 FreeShipping
 identifier  : mage2-freeshipping
 description : Mage2 FreeShipping Modules
+enable      : true

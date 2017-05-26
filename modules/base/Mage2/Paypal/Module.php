@@ -60,6 +60,14 @@ class Module extends BaseModule {
      */
     protected $description = NULL;
 
+    /**
+     *
+     * Module Enable Variable
+     * @var enable
+     *
+     */
+    protected $enable = NULL;
+
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -80,7 +88,7 @@ class Module extends BaseModule {
      * @return void
      */
     public function register() {
-        $this->registerModuleYamlFile();
+        $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
         $this->mapWebRoutes();
         $this->registerAdminConfiguration();
         $this->registerPaymentMethod();
@@ -88,20 +96,6 @@ class Module extends BaseModule {
 
     }
 
-    /*
-     *
-     * Registered basic details of modules
-     *
-     *
-     */
-    public function registerModuleYamlFile() {
-
-        $yamlFileContent = File::get(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        $moduleConfig = Yaml::parse($yamlFileContent);
-        $this->setName($moduleConfig['name']);
-        $this->setIdentifier($moduleConfig['identifier']);
-        $this->setDescription($moduleConfig['description']);
-    }
 
     protected function registerTranslationPath() {
         $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2paypal");

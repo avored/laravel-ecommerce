@@ -5,3 +5,4 @@
 name        : Mage2 Page
 identifier  : mage2-page
 description : Mage2 Page Modules
+enable      : true

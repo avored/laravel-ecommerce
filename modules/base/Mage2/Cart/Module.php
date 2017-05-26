@@ -27,10 +27,9 @@ namespace Mage2\Cart;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
-use Illuminate\Support\Facades\File;
-use Symfony\Component\Yaml\Yaml;
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
      *
@@ -55,6 +54,13 @@ class Module extends BaseModule {
      */
     protected $description = NULL;
 
+    /**
+     *
+     * Module Enable Variable
+     * @var enable
+     *
+     */
+    protected $enable = NULL;
 
 
     /**
@@ -68,7 +74,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
         $this->registerModule();
         $this->registerTranslationPath();
     }
@@ -78,30 +85,18 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
-        $this->registerModuleYamlFile();
+    public function register()
+    {
+        $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
         $this->mapWebRoutes();
         $this->registerViewPath();
 
     }
 
-    /*
-  *
-  * Registered basic details of modules
-  *
-  *
-  */
-    public function registerModuleYamlFile() {
 
-        $yamlFileContent = File::get(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        $moduleConfig = Yaml::parse($yamlFileContent);
-        $this->setName($moduleConfig['name']);
-        $this->setIdentifier($moduleConfig['identifier']);
-        $this->setDescription($moduleConfig['description']);
-    }
-
-    protected function registerTranslationPath() {
-        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2cart");
+    protected function registerTranslationPath()
+    {
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2cart");
     }
 
 
@@ -114,26 +109,30 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function mapWebRoutes() {
+    protected function mapWebRoutes()
+    {
         require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath() {
+    protected function registerViewPath()
+    {
         View::addLocation(__DIR__ . '/views');
     }
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
 
-
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
 
 
-    public function getPath() {
+    public function getPath()
+    {
         return __DIR__;
     }
 }

@@ -5,3 +5,4 @@
 name        : Mage2 Pickup
 identifier  : mage2-pickup
 description : Mage2 Pickup Modules
+enable      : true

@@ -56,6 +56,14 @@ class Module extends BaseModule
      */
     protected $description = NULL;
 
+    /**
+     *
+     * Module Enable Variable
+     * @var enable
+     *
+     */
+    protected $enable = NULL;
+
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -80,27 +88,12 @@ class Module extends BaseModule
      */
     public function register()
     {
-        $this->registerModuleYamlFile();
+        $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
         $this->mapWebRoutes();
         $this->registerViewPath();
     }
 
 
-    /*
-     *
-     * Registered basic details of modules
-     *
-     *
-     */
-    public function registerModuleYamlFile()
-    {
-
-        $yamlFileContent = File::get(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        $moduleConfig = Yaml::parse($yamlFileContent);
-        $this->setName($moduleConfig['name']);
-        $this->setIdentifier($moduleConfig['identifier']);
-        $this->setDescription($moduleConfig['description']);
-    }
 
     /**
      * Define the "web" routes for the application.
