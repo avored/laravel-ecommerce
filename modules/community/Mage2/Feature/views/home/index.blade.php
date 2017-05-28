@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="row">
     @if(count($featuredProducts) <= 0)
     <p>Sorry No Feature Product</p>

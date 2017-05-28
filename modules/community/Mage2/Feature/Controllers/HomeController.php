@@ -39,6 +39,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $helper = new FeatureProductHelper();
         $featureProducts = $helper->getFeaturedProducts();
 
