@@ -84,20 +84,22 @@ class ProductHelper
     {
         $extraAttributes = $request->get('modules');
 
-        foreach($extraAttributes['attributes'] as $identifier => $value) {
-            $attribute  = ProductAttribute::where('identifier' , '=', $identifier)->first();
+        if(isset($extraAttributes['attributes'])) {
+            foreach ($extraAttributes['attributes'] as $identifier => $value) {
+                $attribute = ProductAttribute::where('identifier', '=', $identifier)->first();
 
 
-            $productVarcharValue = ProductVarcharValue::where('product_id','=', $product->id)->where('product_attribute_id','=', $attribute->id)->first();
+                $productVarcharValue = ProductVarcharValue::where('product_id', '=', $product->id)->where('product_attribute_id', '=', $attribute->id)->first();
 
-            if(null ===  $productVarcharValue) {
-                ProductVarcharValue::create([
-                    'product_id' => $product->id,
-                    'product_attribute_id' => $attribute->id,
-                    'value' => $value
-                ]);
-            } else {
-                $productVarcharValue->update(['value' => $value]);
+                if (null === $productVarcharValue) {
+                    ProductVarcharValue::create([
+                        'product_id' => $product->id,
+                        'product_attribute_id' => $attribute->id,
+                        'value' => $value
+                    ]);
+                } else {
+                    $productVarcharValue->update(['value' => $value]);
+                }
             }
         }
 
