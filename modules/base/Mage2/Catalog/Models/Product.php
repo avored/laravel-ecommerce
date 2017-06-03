@@ -130,11 +130,14 @@ class Product extends BaseModel {
      * @return float $taxAmount
      */
 
-    public function getTaxAmount() {
+    public function getTaxAmount($price = NULL) {
 
         $defaultCountryId = Configuration::getConfiguration('mage2_tax_class_default_country_for_tax_calculation');
         $taxRules = TaxRule::where('country_id','=',$defaultCountryId)->orderBy('priority','DESC')->first();
-        $price = $this->price;
+
+        if(null === $price) {
+            $price = $this->price;
+        }
 
         $taxAmount = ($taxRules->percentage * $price / 100);
 

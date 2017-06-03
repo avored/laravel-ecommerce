@@ -13,9 +13,4 @@ return [
     |
     */
 
-    'email-address'         => 'Email Address',
-    'password'              => 'Password',
-    'remember-me'           => 'Remember Me',
-    'login'                 => "Login",
-    'forgot-your-password'  => 'Forgot your password?'
 ];

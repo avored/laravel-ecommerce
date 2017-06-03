@@ -29,7 +29,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class GiftCoupon extends BaseModel
 {
-    protected $fillable = [ 'title', 'code', 'start_date','end_date','status'];
+    protected $fillable = [ 'title', 'code', 'discount' ,'start_date','end_date','status'];
 
     protected $dates = ['start_date','end_date','created_at','updated_at'];
 

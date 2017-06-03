@@ -42,6 +42,7 @@ class Mage2SaleSchema extends Migration {
             $table->increments('id');
             $table->string('title');
             $table->string('code');
+            $table->float('discount',6,2);
             $table->timestamp('start_date');
             $table->timestamp('end_date');
             $table->enum('status',['ENABLED','DISABLED']);

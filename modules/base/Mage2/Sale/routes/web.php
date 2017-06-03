@@ -46,6 +46,6 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' =>
 
 
 Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Sale\Controllers"], function () {
-
+    Route::post('/sale/get-code-discount', ['as' => 'get.code-discount','uses' => 'GiftCouponController@getCodeDiscount']);
 
 });
