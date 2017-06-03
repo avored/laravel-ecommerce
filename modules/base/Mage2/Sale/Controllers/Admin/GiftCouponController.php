@@ -24,21 +24,98 @@
  */
 namespace Mage2\Sale\Controllers\Admin;
 
+use Illuminate\Support\Collection;
+use Mage2\Sale\Models\GiftCoupon;
+use Mage2\Sale\Requests\GiftCouponRequest;
 use Mage2\Framework\System\Controllers\AdminController;
+use Mage2\Framework\DataGrid\Facades\DataGrid;
 
-class GiftCouponController extends AdminController
-{
+
+class GiftCouponController extends AdminController {
+
+    public function getDataGrid()
+    {
+        return $users = DataGrid::dataTableData(new GiftCoupon());
+    }
+
+
 
     /**
-     * Display the specified page.
-     *
-     * @param NULL
+     * Display a listing of the Category.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
 
-        dd('Gift Coupon Controller Index Action');
+        return view('mage2sale::admin.gift-coupon.index');
+    }
+
+    /**
+     * Show the form for creating a new Category.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create() {
+
+
+        return view('mage2sale::admin.gift-coupon.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Mage2\Catalog\Requests\CategoryRequest $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(GiftCouponRequest $request) {
+
+        GiftCoupon::create($request->all());
+
+        return redirect()->route('admin.gift-coupon.index');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id) {
+
+        $giftCoupon = GiftCoupon::findorfail($id);
+
+        return view('mage2sale::admin.gift-coupon.edit')
+                        ->with('giftCoupon', $giftCoupon);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param \Mage2\Sale\Requests\GiftCouponRequest $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(GiftCouponRequest $request, $id) {
+        $giftCoupon = GiftCoupon::findorfail($id);
+
+        $giftCoupon->update($request->all());
+
+        return redirect()->route('admin.gift-coupon.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id) {
+
+        GiftCoupon::destroy($id);
+        return redirect()->route('admin.gift-coupon.index');
     }
 }

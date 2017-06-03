@@ -37,6 +37,17 @@ class Mage2SaleSchema extends Migration {
      */
     public function install() {
 
+
+        Schema::create('gift_coupons', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->string('code');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
+            $table->enum('status',['ENABLED','DISABLED']);
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -45,6 +56,9 @@ class Mage2SaleSchema extends Migration {
      * @return void
      */
     public function uninstall() {
+        Schema::dropIfExits('gift_coupons');
     }
+
+
 
 }
