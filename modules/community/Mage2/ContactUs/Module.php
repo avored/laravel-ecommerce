@@ -75,7 +75,9 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
-        $this->registerModule();
+        if(true === $this->getEnable()) {
+            $this->registerModule();
+        }
     }
 
     /**
@@ -85,8 +87,10 @@ class Module extends BaseModule {
      */
     public function register() {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        $this->mapWebRoutes();
-        $this->registerViewPath();
+        if(true === $this->getEnable()) {
+            $this->mapWebRoutes();
+            $this->registerViewPath();
+        }
     }
 
 

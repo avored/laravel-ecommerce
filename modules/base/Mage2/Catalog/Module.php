@@ -79,11 +79,13 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
-        $this->registerModule();
-        $this->registerAdminMenu();
-        $this->registerAdminConfiguration();
-        $this->registerViewPath();
-        $this->registerTranslationPath();
+        if(true === $this->getEnable()) {
+            $this->registerModule();
+            $this->registerAdminMenu();
+            $this->registerAdminConfiguration();
+            $this->registerViewPath();
+            $this->registerTranslationPath();
+        }
     }
 
     /**
@@ -93,9 +95,11 @@ class Module extends BaseModule {
      */
     public function register() {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        $this->mapWebRoutes();
-        $this->registerViewComposerData();
-        $this->registerPermissions();
+        if(true === $this->getEnable()) {
+            $this->mapWebRoutes();
+            $this->registerViewComposerData();
+            $this->registerPermissions();
+        }
 
     }
 

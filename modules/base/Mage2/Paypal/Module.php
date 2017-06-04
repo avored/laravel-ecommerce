@@ -78,8 +78,10 @@ class Module extends BaseModule {
 
 
     public function boot() {
-        $this->registerModule();
-        $this->registerTranslationPath();
+        if(true === $this->getEnable()) {
+            $this->registerModule();
+            $this->registerTranslationPath();
+        }
     }
 
     /**
@@ -89,10 +91,12 @@ class Module extends BaseModule {
      */
     public function register() {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        $this->mapWebRoutes();
-        $this->registerAdminConfiguration();
-        $this->registerPaymentMethod();
-        $this->registerViewPath();
+        if(true === $this->getEnable()) {
+            $this->mapWebRoutes();
+            $this->registerAdminConfiguration();
+            $this->registerPaymentMethod();
+            $this->registerViewPath();
+        }
 
     }
 

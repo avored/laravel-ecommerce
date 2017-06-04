@@ -89,8 +89,10 @@ class Module extends BaseModule
     public function register()
     {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        $this->mapWebRoutes();
-        $this->registerViewPath();
+        if(true === $this->getEnable()) {
+            $this->mapWebRoutes();
+            $this->registerViewPath();
+        }
     }
 
 

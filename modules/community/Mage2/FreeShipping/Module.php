@@ -78,9 +78,12 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
-        $this->registerModule();
-        $this->registerShippingOption();
-        $this->registerAdminMenu();
+
+        if(true === $this->getEnable()) {
+            $this->registerModule();
+            $this->registerShippingOption();
+            $this->registerAdminMenu();
+        }
     }
 
     /**
@@ -91,7 +94,9 @@ class Module extends BaseModule {
     public function register() {
 
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        $this->registerViewPath();
+        if(true === $this->getEnable()) {
+            $this->registerViewPath();
+        }
     }
 
 

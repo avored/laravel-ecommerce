@@ -96,12 +96,14 @@ class Module extends BaseModule {
      * @return void
      */
     public function boot() {
-        $this->registerModule();
-        $this->registerMiddleware();
-        $this->registerAdminMenu();
-        $this->registerPolicies();
-        $this->registerViewComposerData();
-        $this->registerTranslationPath();
+        if(true === $this->getEnable()) {
+            $this->registerModule();
+            $this->registerMiddleware();
+            $this->registerAdminMenu();
+            $this->registerPolicies();
+            $this->registerViewComposerData();
+            $this->registerTranslationPath();
+        }
     }
 
     /**
@@ -112,10 +114,12 @@ class Module extends BaseModule {
     public function register() {
 
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        $this->mapWebRoutes();
-        $this->registerViewPath();
-        $this->registerAdminConfiguration();
-        $this->registerPermissions();
+        if(true === $this->getEnable()) {
+            $this->mapWebRoutes();
+            $this->registerViewPath();
+            $this->registerAdminConfiguration();
+            $this->registerPermissions();
+        }
     }
 
     /**
