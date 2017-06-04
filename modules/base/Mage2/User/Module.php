@@ -26,6 +26,7 @@
 
 namespace Mage2\User;
 
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
@@ -43,6 +44,8 @@ use Mage2\Framework\Configuration\Facades\AdminConfiguration;
 use Mage2\Framework\Auth\Access\Permission as PermissionTest;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Yaml\Yaml;
+use Mage2\User\Events\UserRegisteredEvent;
+use Mage2\User\Listeners\RegisteredUserListener;
 
 class Module extends BaseModule {
 
@@ -103,6 +106,7 @@ class Module extends BaseModule {
             $this->registerPolicies();
             $this->registerViewComposerData();
             $this->registerTranslationPath();
+            Event::listen( UserRegisteredEvent::class ,RegisteredUserListener::class);
         }
     }
 

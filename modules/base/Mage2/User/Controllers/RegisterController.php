@@ -27,7 +27,9 @@ namespace Mage2\User\Controllers;
 
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
+use Mage2\User\Events\UserRegisteredEvent;
 use Mage2\User\Mail\NewUserMail;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\User\Models\User;
@@ -91,10 +93,12 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
+
         $this->validator($request->all())->validate();
-
-
         $user = $this->create($request->all());
+
+        Event::fire(new UserRegisteredEvent($user));
+
         $this->guard()->login($user);
 
         Mail::to($user->email)->send(new NewUserMail($user));
