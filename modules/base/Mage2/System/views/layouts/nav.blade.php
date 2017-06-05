@@ -11,7 +11,7 @@
             <a class="navbar-brand" href="{{ route('home') }}">Mage2</a>
 
         </div>
-        <div class="col-sm-3 col-md-3 col-sm-offset-2 col-md-offset-2">
+        <div class="col-sm-3 col-md-3 col-sm-offset-2 col-md-offset-1">
             <form class="navbar-form" action="{{ route('search.result') }}" method="get" role="search">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search" name="q">

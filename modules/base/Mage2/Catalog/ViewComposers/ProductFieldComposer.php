@@ -41,7 +41,7 @@ class ProductFieldComposer
     {
         $productAttributes = Collection::make(['' => 'Please Select'])->union(ProductAttribute::all()->pluck('title', 'id'));
 
-        $extraAttributes = ProductAttribute::where('is_system','=', 0)->where('use_as_variation','=',0)->get();
+        $extraAttributes = ProductAttribute::where('is_system','=', 1)->where('use_as_variation','=',0)->get();
 
         $view->with('productAttributes', $productAttributes)
             ->with('extraAttributes', $extraAttributes)

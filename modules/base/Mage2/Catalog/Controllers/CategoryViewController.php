@@ -42,7 +42,7 @@ class CategoryViewController extends Controller
     public function view(Request $request, $slug)
     {
         $productsOnCategoryPage = Configuration::getConfiguration('mage2_catalog_no_of_product_category_page');
-        $productsOnCategoryPage = 1;
+        //$productsOnCategoryPage = 1;
 
         $category = Category::where('slug', '=', $slug)->get()->first();
 

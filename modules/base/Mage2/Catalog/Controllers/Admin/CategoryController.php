@@ -48,31 +48,6 @@ class CategoryController extends AdminController {
      */
     public function index() {
 
-        /**
-        $category = new Category();
-        $dataGrid = DataGrid::make($category);
-
-        $dataGrid->addColumn(DataGrid::textColumn('name', 'Category Name'));
-        $dataGrid->addColumn(DataGrid::textColumn('slug', 'Category Slug'));
-        $dataGrid->addColumn(DataGrid::textColumn('parent_name', 'Parent Category Name'));
-        if (Gate::allows('hasPermission', [AdminUser::class, "admin.category.edit"])) {
-            $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
-                return "<a href='" . route('admin.category.edit', $row->id) . "'>Edit</a>";
-            }));
-        }
-
-
-        if (Gate::allows('hasPermission', [AdminUser::class, "admin.category.destroy"])) {
-            $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
-                return "<form method='post' action='" . route('admin.category.destroy', $row->id) . "'>" .
-                        "<input type='hidden' name='_method' value='delete'/>" .
-                        csrf_field() .
-                        '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
-                        "</form>";
-            }));
-        }
-
-         */
         return view('mage2catalog::admin.catalog.category.index');
     }
 
@@ -121,7 +96,7 @@ class CategoryController extends AdminController {
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Http\Requests\CategoryRequest $request
+     * @param \Mage2\Catalog\Requests\CategoryRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

@@ -11,7 +11,7 @@
             $varcharValue = null;
             if(isset($product) && $product->id > 0) {
                 $productVarcharValue = $attribute->productVarcharValues()->where('product_id','=', $product->id)->first();
-                $varcharValue = $productVarcharValue->value;
+                $varcharValue = (isset($productVarcharValue->value)) ? $productVarcharValue->value :NULL;
             }
             ?>
 
