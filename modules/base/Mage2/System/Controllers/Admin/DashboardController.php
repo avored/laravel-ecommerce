@@ -26,6 +26,9 @@
 namespace Mage2\System\Controllers\Admin;
 
 use Mage2\Framework\System\Controllers\AdminController;
+use Mage2\Order\Models\OrderStatus;
+use Mage2\System\Models\Configuration;
+use Mage2\Order\Models\Order;
 
 class DashboardController extends AdminController
 {
@@ -37,6 +40,16 @@ class DashboardController extends AdminController
      */
     public function index()
     {
-        return view('mage2system::admin.home');
+        $totalRegisteredUser = Configuration::getConfiguration('mage2_user_total');
+
+        $pendingStatus = OrderStatus::whereTitle('Pending')->first();
+        $totalPendingOrders = Order::whereOrderStatusId($pendingStatus->id)->count();
+
+        $processingStatus = OrderStatus::whereTitle('Processing')->first();
+        $totalProcessingOrders = Order::whereOrderStatusId($processingStatus->id)->count();
+        return view('mage2system::admin.home')
+                        ->with('totalRegisteredUser',$totalRegisteredUser)
+                        ->with('totalPendingOrders',$totalPendingOrders)
+                        ->with('totalProcessingOrders',$totalProcessingOrders);
     }
 }

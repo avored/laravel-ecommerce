@@ -1289,43 +1289,6 @@ a.text-danger:hover,
 a.text-danger:focus {
   color: #843534; }
 
-.bg-primary {
-  color: #fff; }
-
-.bg-primary {
-  background-color: #3097D1; }
-
-a.bg-primary:hover,
-a.bg-primary:focus {
-  background-color: #2579a9; }
-
-.bg-success {
-  background-color: #dff0d8; }
-
-a.bg-success:hover,
-a.bg-success:focus {
-  background-color: #c1e2b3; }
-
-.bg-info {
-  background-color: #d9edf7; }
-
-a.bg-info:hover,
-a.bg-info:focus {
-  background-color: #afd9ee; }
-
-.bg-warning {
-  background-color: #fcf8e3; }
-
-a.bg-warning:hover,
-a.bg-warning:focus {
-  background-color: #f7ecb5; }
-
-.bg-danger {
-  background-color: #f2dede; }
-
-a.bg-danger:hover,
-a.bg-danger:focus {
-  background-color: #e4b9b9; }
 
 .page-header {
   padding-bottom: 10px;
@@ -3912,16 +3875,16 @@ tbody.collapse.in {
   background-color: #fff;
   border-color: #d3e0e9; }
   .navbar-default .navbar-brand {
-    color: #777; }
+    color: #fff; }
     .navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
-      color: #5e5e5e;
+      color: #f0f0f0;
       background-color: transparent; }
   .navbar-default .navbar-text {
     color: #777; }
   .navbar-default .navbar-nav > li > a {
-    color: #777; }
+    color: #fff; }
     .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-      color: #333;
+      color: #f0f0f0;
       background-color: transparent; }
   .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
     color: #555;
@@ -5780,4 +5743,5 @@ button.close {
 .table-grid th {
     background-color: #c0c0c0 !important;
 }
+
 /*# sourceMappingURL=appscss.css.map */

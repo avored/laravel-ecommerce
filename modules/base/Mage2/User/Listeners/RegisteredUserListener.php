@@ -5,6 +5,9 @@ use Mage2\Framework\Events;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Mage2\System\Models\Configuration;
+use Illuminate\Support\Facades\Mail;
+use Mage2\User\Mail\NewUserMail;
+use Mage2\User\Models\User;
 
 class RegisteredUserListener
 {
@@ -28,13 +31,22 @@ class RegisteredUserListener
      */
     public function handle($event)
     {
-        $totalUserConfiguration  = 0;
-        $userConfiguration = $this->configuration->getConfiguration('mage2_user_total_user');
+        $user = $event->user;
+        $totalUserConfiguration  = User::all()->count();
 
-        if(null === $userConfiguration) {
-            $userConfiguration = Configuration::create(['configuration_key' => 'mage2_user_total_user', 'configuration_value' => 1]);
+        $configuration = Configuration::where('configuration_key', '=', 'mage2_user_total')->get()->first();
+
+        if (null === $configuration) {
+            $data['configuration_key'] = 'mage2_user_total';
+            $data['configuration_value'] = $totalUserConfiguration;
+            Configuration::create($data);
+
         } else {
-            $userConfiguration->update(['configuration_value' => $userConfiguration->configuration_value + 1]);
+            $configuration->update(['configuration_value' => $totalUserConfiguration]);
         }
+
+
+
+        Mail::to($user->email)->send(new NewUserMail($user));
     }
 }
