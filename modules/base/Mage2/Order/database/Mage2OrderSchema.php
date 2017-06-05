@@ -54,8 +54,6 @@ class Mage2OrderSchema extends Migration {
             $table->decimal('price', 11, 6);
             $table->decimal('tax_amount', 11, 6);
             $table->timestamps();
-
-
         });
 
         Schema::create('order_product_variations', function (Blueprint $table) {
@@ -87,9 +85,9 @@ class Mage2OrderSchema extends Migration {
         });
 
         OrderStatus::insert(
-            ['title' => 'pending', 'sort_order' => 0],
+            ['title' => 'Pending', 'sort_order' => 0],
             ['title' => 'processing', 'sort_order' => 1],
-            ['title' => 'complete', 'sort_order' => 2]
+            ['title' => 'Complete', 'sort_order' => 2]
         );
 
     }
