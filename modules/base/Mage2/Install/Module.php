@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Yaml\Yaml;
+use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
 class Module extends BaseModule
 {
@@ -78,7 +79,9 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        //$this->registerMiddleware();
+        if(true === $this->getEnable()) {
+            $this->registerModule();
+        }
     }
 
     /**
@@ -93,6 +96,12 @@ class Module extends BaseModule
             $this->mapWebRoutes();
             $this->registerViewPath();
         }
+    }
+
+
+
+    public function registerModule() {
+        ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
 
@@ -116,9 +125,16 @@ class Module extends BaseModule
         $this->loadViewsFrom(__DIR__ . '/views', 'mage2install');
     }
 
+    public function getNameSpace() {
+        return __NAMESPACE__;
+    }
+
+
     public function getPath()
     {
         return __DIR__;
     }
 
 }
+
+

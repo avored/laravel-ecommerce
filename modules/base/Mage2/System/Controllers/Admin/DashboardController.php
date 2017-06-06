@@ -40,12 +40,15 @@ class DashboardController extends AdminController
      */
     public function index()
     {
-        $totalRegisteredUser = Configuration::getConfiguration('mage2_user_total');
+
+        $value = Configuration::getConfiguration('mage2_user_total');
+        $totalRegisteredUser = (null === $value) ? 0 :  $value;
 
         $pendingStatus = OrderStatus::whereTitle('Pending')->first();
         $totalPendingOrders = Order::whereOrderStatusId($pendingStatus->id)->count();
 
         $processingStatus = OrderStatus::whereTitle('Processing')->first();
+
         $totalProcessingOrders = Order::whereOrderStatusId($processingStatus->id)->count();
         return view('mage2system::admin.home')
                         ->with('totalRegisteredUser',$totalRegisteredUser)

@@ -11,6 +11,8 @@
 
                     {!! Form::open(['method' => 'post','action' => route('mage2.install.database.data.post')]) !!}
 
+                    {!! Form::hidden('identifier','mage2-install') !!}
+                    {!! Form::select('install_data','Install Dummy Data',['no' => "No",'yes' => 'Yes']) !!}
                     <p>Click Continue to install Database</p>
 
                     <div class="col s12">

@@ -84,11 +84,11 @@ class Mage2OrderSchema extends Migration {
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
 
-        OrderStatus::insert(
+        OrderStatus::insert([
             ['title' => 'Pending', 'sort_order' => 0],
-            ['title' => 'processing', 'sort_order' => 1],
+            ['title' => 'Processing', 'sort_order' => 1],
             ['title' => 'Complete', 'sort_order' => 2]
-        );
+        ]);
 
     }
 

@@ -34,23 +34,30 @@
                                 @endif
 
                                 </td>
-                                            <!--td>{ $actualTheme['description'] }}</td>
-                    <td>
-                        if($activeTheme != $actualTheme['name'])
-                        !! Form::open(['method' => 'POST', 'action' =>
-                                    route('admin.theme.activate',$actualTheme['name'])]) !!}
-                        !! Form::hidden('active_theme_path',$actualTheme['path']) !!}
-                        !! Form::hidden('active_theme_name',$actualTheme['name']) !!}
-                        <button type="submit" class="btn btn-primary">Activate</button>
-                        !! Form::close() !!}
-                        else
-
-                        <button class="btn disabled">Active</button>
-                        endif
-                    </td-->
 
                             </tr>
                         @endforeach
+
+                        @foreach($communityModules as $module)
+                            <?php //$actualTheme = Theme::getByPath($theme) ?>
+                            <tr>
+
+                                <td>{{ $module->getName() }}</td>
+
+                                <td>
+
+                                    @if($sessionData[$module->getIdentifier()] == "uninstall")
+                                        <button type="button" class="btn disabled btn-primary">UnInstall</button>
+                                    @else
+                                        <button type="button" class="btn disabled btn-primary">Install</button>
+                                    @endif
+
+                                </td>
+
+                            </tr>
+                        @endforeach
+
+
                         </tbody>
                     </table>
 

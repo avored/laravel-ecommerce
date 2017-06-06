@@ -68,6 +68,9 @@ class InstallController extends Controller
         $sessionData = session()->get('install-module');
 
         $modules = Module::systemAll();
+        $communityModules = Module::communityAll();
+
+        unset($modules['mage2-install']);
 
         if (!Session::has('install-module')) {
 
@@ -75,8 +78,11 @@ class InstallController extends Controller
                 $sessionData [$module->getIdentifier()] = 'uninstall';
             }
 
+            foreach ($communityModules as $module) {
+                $sessionData [$module->getIdentifier()] = 'uninstall';
+            }
+
             session()->put('install-module', $sessionData);
-            //dd(session()->get('install-module'));
         }
 
         foreach($sessionData as $identifier => $status) {
@@ -85,10 +91,9 @@ class InstallController extends Controller
             }
         }
 
-
-
         return view('mage2install::install.database-table')
                                 ->with('modules', $modules)
+                                ->with('communityModules', $communityModules)
                                 ->with('sessionData',$sessionData)
                                 ->with('identifier',$identifier);
     }
@@ -147,7 +152,7 @@ class InstallController extends Controller
             return redirect()->route('mage2.install.database.table.get');
         }
 
-        return redirect()->route('mage2.install.admin');
+        return redirect()->route('mage2.install.database.data.get');
         //return redirect()->route('mage2.install.database.data.get');
     }
 
@@ -156,13 +161,19 @@ class InstallController extends Controller
         return view('mage2install::install.database-data');
     }
 
-    public function databaseDataPost()
+    public function databaseDataPost(Request $request)
     {
-        try {
-            //Artisan::call('mage2:migrate');
-            Artisan::call('mage2:dbseed');
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
+        if($request->get('install_data') == "yes") {
+
+            try {
+                //Artisan::call('mage2:migrate');
+                $identifier = $request->get('identifier');
+                Artisan::call('mage2:module:install', ['moduleidentifier' => $identifier]);
+
+
+            } catch (Exception $e) {
+                throw new Exception($e->getMessage());
+            }
         }
 
         return redirect()->route('mage2.install.admin');
