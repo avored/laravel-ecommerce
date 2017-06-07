@@ -63,8 +63,15 @@ class MyAccountController extends Controller {
 
     public function uploadImagePost(UploadUserImageRequest $request) {
 
+
         $user = Auth::user();
+
         $image = $request->file('profile_image');
+
+        if(false === empty($user->image_path)) {
+            $user->image_path->destroy();
+        }
+
         $relativePath = '/uploads/users/'. $user->id;
         $path = $relativePath;
 
