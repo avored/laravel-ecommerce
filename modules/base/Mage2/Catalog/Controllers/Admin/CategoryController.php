@@ -117,7 +117,14 @@ class CategoryController extends AdminController {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        Category::destroy($id);
+        $category = Category::find($id);
+
+        foreach($category->children as $child) {
+            $child->parent_id = 0;
+            $child->update();
+        }
+
+        $category->delete();
 
         return redirect()->route('admin.category.index');
     }
