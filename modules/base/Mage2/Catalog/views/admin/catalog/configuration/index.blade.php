@@ -6,7 +6,6 @@
     <div class="col-md-12">
         <div class="main-title-wrap">
             <span class="title">Catalog Configuration List</span>
-
         </div>
 
         <div class="paypal-form-wrapper">
