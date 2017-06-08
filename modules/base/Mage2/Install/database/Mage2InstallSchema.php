@@ -24,9 +24,6 @@
  */
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-use Mage2\Order\Models\OrderStatus;
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Models\Product;
 use Faker\Factory;

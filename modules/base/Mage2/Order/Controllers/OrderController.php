@@ -34,7 +34,7 @@ use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Order\Mail\OrderInvoicedMail;
 use Mage2\Order\Models\Order;
-use Mage2\Order\Models\OrderStatus;
+use Mage2\Sale\Models\OrderStatus;
 use Mage2\User\Models\User;
 use Mage2\Order\Models\OrderProductVariation;;
 use Mage2\User\Models\Address;
@@ -67,9 +67,7 @@ class OrderController extends Controller
         $billingAddress     = $this->_getBillingAddress($request);
         $shippingAddress    = $this->_getShippingAddress($request);
 
-        $orderStatus = OrderStatus::where('is_default', '=', 1)->get()->first();
-
-
+        $orderStatus = OrderStatus::whereTitle('Pending')->get()->first();
 
         $data['shipping_address_id'] = $shippingAddress->id;
         $data['billing_address_id'] = $billingAddress->id;
@@ -161,7 +159,7 @@ class OrderController extends Controller
         $orderProductData = Session::get('cart');
 
 
-        $orderStatus = OrderStatus::where('is_default', '=', 1)->get()->first();
+        $orderStatus = OrderStatus::whereTitle('Pending')->get()->first();
         $orderData['order_status_id'] = $orderStatus->id;
 
 

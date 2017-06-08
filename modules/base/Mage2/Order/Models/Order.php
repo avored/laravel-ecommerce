@@ -29,6 +29,7 @@ use Mage2\User\Models\Address;
 use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Models\BaseModel;
 use Mage2\User\Models\User;
+use Mage2\Sale\Models\OrderStatus;
 
 class Order extends BaseModel
 {

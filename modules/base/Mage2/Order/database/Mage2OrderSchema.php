@@ -26,7 +26,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Mage2\Order\Models\OrderStatus;
 
 class Mage2OrderSchema extends Migration {
 
