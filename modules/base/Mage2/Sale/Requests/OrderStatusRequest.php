@@ -23,7 +23,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\Order\Requests;
+namespace Mage2\Sale\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
 
@@ -47,10 +47,8 @@ class OrderStatusRequest extends Request
     public function rules()
     {
         $rules = [];
-        $rules['title'] = 'required|max:255';
-        $rules['is_default'] = 'required|max:1';
-        $rules['is_last_stage'] = 'required|max:1';
-
+        $rules['title']         = 'required|max:255';
+        $rules['sort_order']    = 'required|max:255';
 
         return $rules;
     }

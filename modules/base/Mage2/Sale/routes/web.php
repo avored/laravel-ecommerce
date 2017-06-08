@@ -37,10 +37,16 @@
 
 Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' => "Mage2\Sale\Controllers\Admin"], function () {
 
-    Route::get('/admin/sale/gift-coupon/get-gift-coupon-data', ['as' => 'admin.sale.gift-coupon.data-grid-table.get-data',
+    Route::get('/admin/sale/gift-coupon/get-data', ['as' => 'admin.sale.gift-coupon.data-grid-table.get-data',
         'uses' => 'GiftCouponController@getDataGrid'
     ]);
     Route::resource('/admin/sale/gift-coupon', 'GiftCouponController', ['as' => 'admin']);
+
+
+    Route::get('/admin/sale/order-status/get-data', ['as' => 'admin.sale.order-status.data-grid-table.get-data',
+        'uses' => 'OrderStatusController@getDataGrid'
+    ]);
+    Route::resource('/admin/order-status', 'OrderStatusController', ['as' => 'admin' ]);
 
 });
 

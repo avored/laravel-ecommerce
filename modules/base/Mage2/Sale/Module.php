@@ -29,8 +29,6 @@ use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Auth\Facades\Permission;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
-use Symfony\Component\Yaml\Yaml;
-use Illuminate\Support\Facades\File;
 
 class Module extends BaseModule {
 
@@ -125,11 +123,23 @@ class Module extends BaseModule {
     }
 
     public function registerAdminMenu() {
-        $adminMenu = ['sale' => [ 'submenu' => [ 'gift-coupon' => [
-            'label' => 'Gift Coupon',
-            'route' => 'admin.gift-coupon.index',
-        ]]]];
+        $adminMenu = ['sale' =>
+                        [ 'submenu' =>
+                            [ 'gift-coupon' =>
+                                [ 'label' => 'Gift Coupon',
+                                  'route' => 'admin.gift-coupon.index',
+                                ]
+                            ]
+                        ]
+                    ];
         AdminMenu::registerMenu('mage2-order', $adminMenu);
+
+
+        $orderStatusMenu = [ 'sale' => ['submenu' => [ 'order-status' => [
+            'label' => 'Order Status',
+            'route' => 'admin.order-status.index',
+        ]]]];
+        AdminMenu::registerMenu('mage2-order', $orderStatusMenu);
     }
 
     /**
@@ -139,19 +149,18 @@ class Module extends BaseModule {
      */
     protected function registerPermissions() {
 
-        /*
         $permissions = [
-            ['title' => 'Gift Coupon List', 'routes' => 'admin.order.index'],
-            ['title' => 'Order View, Send Email Invoice to Customer', 'routes' => "admin.order.view,admin.order.send-email-invoice"],
-            ['title' => 'Order Update Status', 'routes' => "admin.order.change-status,admin.order.update-status"],
+            ['title' => 'Order Status List', 'routes' => 'admin.order-status.index'],
+            ['title' => 'Order Status Create', 'routes' => "admin.order-status.create,admin.order-status.store"],
+            ['title' => 'Order Status Update', 'routes' => "admin.order-status.edit,admin.order-status.update"],
+            ['title' => 'Order Status Destroy', 'routes' => "admin.order-status.destroy"],
         ];
-
 
         foreach ($permissions as $permission) {
             Permission::add($permission);
         }
-        */
     }
+
 
     public function registerModule() {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');

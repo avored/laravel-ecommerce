@@ -65,14 +65,7 @@ class Mage2OrderSchema extends Migration {
         });
 
 
-        Schema::create('order_statuses', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title');
-            $table->integer('sort_order');
-            $table->timestamps();
-        });
 
-        //orders table foreign key setup
         Schema::table('order_product', function (Blueprint $table) {
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
@@ -83,12 +76,6 @@ class Mage2OrderSchema extends Migration {
             $table->foreign('product_variation_id')->references('id')->on('product_variations')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
-
-        OrderStatus::insert([
-            ['title' => 'Pending', 'sort_order' => 0],
-            ['title' => 'Processing', 'sort_order' => 1],
-            ['title' => 'Complete', 'sort_order' => 2]
-        ]);
 
     }
 

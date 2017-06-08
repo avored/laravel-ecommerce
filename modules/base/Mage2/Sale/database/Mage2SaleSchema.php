@@ -49,6 +49,26 @@ class Mage2SaleSchema extends Migration {
             $table->timestamps();
         });
 
+
+        Schema::create('order_statuses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title');
+            $table->integer('sort_order');
+            $table->timestamps();
+        });
+
+        OrderStatus::insert([
+            ['title' => 'Pending', 'sort_order' => 0],
+            ['title' => 'Processing', 'sort_order' => 1],
+            ['title' => 'Complete', 'sort_order' => 2]
+        ]);
+
+
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('order_status_id')->references('id')->on('order_statuses');
+        });
+
+
     }
 
     /**
