@@ -37,8 +37,8 @@
                     <em class="glyphicon glyphicon-road" style="font-size: 50px"></em>
                 </div>
                 <div class="col-xs-8 pv-lg">
-                    <div class="h2 mt0">{{ $totalProcessingOrders }}</div>
-                    <div class="text-uppercase">No of Processing Orders</div>
+                    <div class="h2 mt0">{{ $totalReceivedOrders }}</div>
+                    <div class="text-uppercase">No of Received Orders</div>
                 </div>
             </div>
         </div>

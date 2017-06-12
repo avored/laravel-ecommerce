@@ -168,6 +168,7 @@ return [
         Mage2\Checkout\Module::class,
         Mage2\Install\Module::class,
         Mage2\Order\Module::class,
+        Mage2\OrderReturn\Module::class,
         Mage2\Page\Module::class,
         Mage2\Paypal\Module::class,
         Mage2\Sale\Module::class,

@@ -47,12 +47,12 @@ class DashboardController extends AdminController
         $pendingStatus = OrderStatus::whereTitle('Pending')->first();
         $totalPendingOrders = Order::whereOrderStatusId($pendingStatus->id)->count();
 
-        $processingStatus = OrderStatus::whereTitle('Processing')->first();
+        $receivedStatus = OrderStatus::whereTitle('Received')->first();
 
-        $totalProcessingOrders = Order::whereOrderStatusId($processingStatus->id)->count();
+        $totalReceivedOrders = Order::whereOrderStatusId($receivedStatus->id)->count();
         return view('mage2system::admin.home')
                         ->with('totalRegisteredUser',$totalRegisteredUser)
                         ->with('totalPendingOrders',$totalPendingOrders)
-                        ->with('totalProcessingOrders',$totalProcessingOrders);
+                        ->with('totalReceivedOrders',$totalReceivedOrders);
     }
 }
