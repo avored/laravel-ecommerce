@@ -10,7 +10,7 @@
 
         <div class="profile-content row">
 
-            {!! Form::open(['route' => 'my-account.address.store']) !!}
+            {!! Form::open(['action' => route('my-account.address.store'),'method' => 'post']) !!}
 
             <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
                 <label for="first_name" class="control-label">First Name</label>
@@ -72,6 +72,17 @@
                 @if ($errors->has('state'))
                 <span class="help-block">
                     <strong>{{ $errors->first('state') }}</strong>
+                </span>
+                @endif
+            </div>
+
+            <div class="form-group{{ $errors->has('postcode') ? ' has-error' : '' }}">
+                <label for="postcode" class="control-label">Post Code</label>
+                <input id="postcode" type="text" class="form-control" name="postcode"
+                       value="{{ old('postcode') }}">
+                @if ($errors->has('postcode'))
+                    <span class="help-block">
+                    <strong>{{ $errors->first('postcode') }}</strong>
                 </span>
                 @endif
             </div>

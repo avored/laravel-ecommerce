@@ -253,7 +253,6 @@ class OrderController extends Controller
         $user = User::find($order->user_id);
 
 
-
         $view = view('order.pdf')->with('order', $order);
 
         $path = public_path('/uploads/order/invoice/'.$order->id.'.pdf');

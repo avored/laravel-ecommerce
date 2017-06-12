@@ -68,6 +68,17 @@
                     @endif
                 </div>
 
+                <div class="form-group{{ $errors->has('postcode') ? ' has-error' : '' }}">
+                    <label for="postcode" class="control-label">Post Code</label>
+                    <input id="postcode" type="text" class="form-control" name="postcode"
+                           value="{{ $address->postcode }}">
+                    @if ($errors->has('postcode'))
+                        <span class="help-block">
+                    <strong>{{ $errors->first('postcode') }}</strong>
+                </span>
+                    @endif
+                </div>
+
                 <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
                     <label for="state" class="control-label">State</label>
                     <input id="state" type="text" class="form-control" name="state"

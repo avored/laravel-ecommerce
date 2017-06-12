@@ -63,7 +63,7 @@
                                 <input type="hidden" name="id" value="{{$product['id']}}"/>
                             </td>
                             <?php $total += ($product['price'] * $product['qty']) ?>
-                            <?php $giftCouponAmount += ($product['gift_coupon_amount']) ?>
+                            <?php $giftCouponAmount += (isset($product['gift_coupon_amount'])) ? $product['gift_coupon_amount'] : 0.00 ?>
                             <?php $taxTotal += ($product['tax_amount'] * $product['qty']) ?>
                             <td class="col-sm-1 col-md-1 text-center">
                                 <strong>${{ number_format($product['price'],2) }}</strong></td>

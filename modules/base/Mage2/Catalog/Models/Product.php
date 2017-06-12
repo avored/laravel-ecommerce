@@ -101,10 +101,7 @@ class Product extends BaseModel {
      */
     public function getImageAttribute() {
         $defaultPath = "/img/default-product.jpg";
-
-
         $image = $this->images()->first();
-
 
         if(null === $image) {
 
@@ -112,7 +109,7 @@ class Product extends BaseModel {
         }
 
         if(  $image->path instanceof LocalImageFile) {
-            return  $image;
+            return  $image->path;
         }
 
 
@@ -133,13 +130,17 @@ class Product extends BaseModel {
     public function getTaxAmount($price = NULL) {
 
         $defaultCountryId = Configuration::getConfiguration('mage2_tax_class_default_country_for_tax_calculation');
-        $taxRules = TaxRule::where('country_id','=',$defaultCountryId)->orderBy('priority','DESC')->first();
+        $taxRule = TaxRule::where('country_id','=',$defaultCountryId)->orderBy('priority','DESC')->first();
+
 
         if(null === $price) {
             $price = $this->price;
         }
 
-        $taxAmount = ($taxRules->percentage * $price / 100);
+        if(null === $taxRule) {
+            return 0.00;
+        }
+        $taxAmount = ($taxRule->percentage * $price / 100);
 
         return $taxAmount;
     }
