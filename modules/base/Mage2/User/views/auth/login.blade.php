@@ -7,65 +7,65 @@
                 <div class="panel-heading"><span>Mage2 Login</span></div>
                 <div class="panel-body">
                     <div class="col-md-12">
-                    <form class="form-horizontal" role="form" method="POST"
-                          action="{{ route('login.post') }}">
-                        {{ csrf_field() }}
+                        <form class="form-horizontal" role="form" method="POST"
+                              action="{{ route('login.post') }}">
+                            {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" >E-Mail Address</label>
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email">E-Mail Address</label>
 
 
-                            <input id="email" type="email" name="email" class="form-control"
-                                   value="{{ old('email') }}" required autofocus>
+                                <input id="email" type="email" name="email" class="form-control"
+                                       value="{{ old('email') }}" required autofocus>
 
-                            @if ($errors->has('email'))
-                                <span class="help-block">
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
                                     </span>
-                            @endif
+                                @endif
 
-                        </div>
+                            </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" >Password</label>
+                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                <label for="password">Password</label>
 
 
-                            <input id="password" class="form-control" type="password" name="password" required>
+                                <input id="password" class="form-control" type="password" name="password" required>
 
-                            @if ($errors->has('password'))
-                                <span class="help-block">
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
-                            @endif
+                                @endif
 
-                        </div>
+                            </div>
 
-                        <div class="checkbox">
-                            <label>
-                                <input id="rememberme" type="checkbox" name="remember"/>
-                               Remember Me
-                            </label>
-                        </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input id="rememberme" type="checkbox" name="remember"/>
+                                    Remember Me
+                                </label>
+                            </div>
 
-                        <div class="clearfix">
-                        </div>
-                        <div class="form-group">
+                            <div class="clearfix">
+                            </div>
+                            <div class="form-group">
 
-                            <button type="submit" class="btn btn-primary">
-                                Login
-                            </button>
+                                <button type="submit" class="btn btn-primary">
+                                    Login
+                                </button>
 
-                            <a class="" href="{{ url('/password/reset') }}">
+                                <a class="" href="{{ url('/password/reset') }}">
                                     Forgot Your Password?
-                            </a>
-                        </div>
-                
-                    
-                </form>
+                                </a>
+                            </div>
+
+
+                        </form>
                     </div>
-                    
+
+                </div>
             </div>
         </div>
-    </div>
     </div>
 @endsection

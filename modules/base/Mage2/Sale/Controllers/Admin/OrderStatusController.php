@@ -32,7 +32,8 @@ use Mage2\Framework\DataGrid\Facades\DataGrid;
 use PayPal\Api\Order;
 
 
-class OrderStatusController extends AdminController {
+class OrderStatusController extends AdminController
+{
 
     public function getDataGrid()
     {
@@ -44,7 +45,8 @@ class OrderStatusController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
 
         return view('mage2sale::admin.order-status.index');
     }
@@ -54,7 +56,8 @@ class OrderStatusController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
 
 
         return view('mage2sale::admin.order-status.create');
@@ -67,7 +70,8 @@ class OrderStatusController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(OrderStatusRequest $request) {
+    public function store(OrderStatusRequest $request)
+    {
 
         OrderStatus::create($request->all());
 
@@ -81,12 +85,13 @@ class OrderStatusController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $orderStatus = OrderStatus::findorfail($id);
 
         return view('mage2sale::admin.order-status.edit')
-                        ->with('orderStatus', $orderStatus );
+            ->with('orderStatus', $orderStatus);
     }
 
     /**
@@ -97,10 +102,11 @@ class OrderStatusController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(OrderStatusRequest $request, $id) {
+    public function update(OrderStatusRequest $request, $id)
+    {
         $orderStatus = OrderStatus::findorfail($id);
 
-        $orderStatus ->update($request->all());
+        $orderStatus->update($request->all());
 
         return redirect()->route('admin.order-status.index');
     }
@@ -112,7 +118,8 @@ class OrderStatusController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
 
         OrderStatus::destroy($id);
         return redirect()->route('admin.order-status.index');

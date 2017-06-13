@@ -47,8 +47,8 @@ class GiftCouponRequest extends Request
     {
         $validationRule = [];
 
-        $validationRule['title']    = 'required|max:255';
-        $validationRule['code']     = 'required|max:255';
+        $validationRule['title'] = 'required|max:255';
+        $validationRule['code'] = 'required|max:255';
         $validationRule['discount'] = 'required|between:0,99.99';
 
         return $validationRule;

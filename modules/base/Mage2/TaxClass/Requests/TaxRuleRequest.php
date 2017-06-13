@@ -48,11 +48,11 @@ class TaxRuleRequest extends Request
     public function rules()
     {
         return [
-            'title'        => 'required|max:255',
+            'title' => 'required|max:255',
             'country_id' => 'required|max:255',
             'state_code' => 'required|max:255',
             'post_code' => 'required|max:255',
-            'percentage'   => 'required|max:255',
+            'percentage' => 'required|max:255',
         ];
     }
 }

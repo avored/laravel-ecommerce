@@ -34,7 +34,7 @@ use Mage2\Framework\Theme\Facades\Theme;
 
 class ThemeController extends AdminController
 {
-   
+
 
     /**
      * Display a listing of the theme.
@@ -47,8 +47,8 @@ class ThemeController extends AdminController
         $activeTheme = Configuration::getConfiguration('active_theme_identifier');
 
         return view('mage2system::admin.theme.index')
-                        ->with('themes', $themes)
-                        ->with('activeTheme', $activeTheme);
+            ->with('themes', $themes)
+            ->with('activeTheme', $activeTheme);
     }
 
     /**
@@ -96,11 +96,11 @@ class ThemeController extends AdminController
         try {
             Configuration::create([
 
-                    'configuration_key'   => 'active_theme_identifier',
-                    'configuration_value' => $name,
+                'configuration_key' => 'active_theme_identifier',
+                'configuration_value' => $name,
             ]);
             Configuration::create([
-                'configuration_key'   => 'active_theme_path',
+                'configuration_key' => 'active_theme_path',
                 'configuration_value' => $theme['path'],
             ]);
             Artisan::call('vendor:publish', ['--tag' => $name]);
@@ -122,6 +122,6 @@ class ThemeController extends AdminController
         $fileName = $file->getClientOriginalName();
         $file->move($destinationPath, $fileName);
 
-        return $destinationPath.DIRECTORY_SEPARATOR.$fileName;
+        return $destinationPath . DIRECTORY_SEPARATOR . $fileName;
     }
 }

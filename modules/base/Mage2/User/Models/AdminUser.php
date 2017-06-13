@@ -53,7 +53,7 @@ class AdminUser extends Authenticatable
     /**
      * Send the password reset notification.
      *
-     * @param  string  $token
+     * @param  string $token
      * @return void
      */
     public function sendPasswordResetNotification($token)
@@ -64,7 +64,7 @@ class AdminUser extends Authenticatable
 
     public function getFullNameAttribute()
     {
-        return $this->attributes['first_name'].' '.$this->attributes['last_name'];
+        return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
 
     public function role()

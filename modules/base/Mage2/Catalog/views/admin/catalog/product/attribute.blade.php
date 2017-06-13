@@ -36,8 +36,9 @@
                                 <select class="attribute-select-field form-control"
                                         data-token="{{ csrf_token() }}">
                                     @foreach($productAttributes as $value => $label)
-                                        <option <?php echo ($value == $attribute->product_attribute_id) ? "selected" : "" ?>
-                                                value="{{ $value }}">
+                                        <option
+                                            <?php echo ($value == $attribute->product_attribute_id) ? "selected" : "" ?>
+                                            value="{{ $value }}">
                                             {{ $label }}
                                         </option>
                                     @endforeach
@@ -231,9 +232,9 @@
             }
         });
 
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
 
-            jQuery(document).on('click','.close-variation',function(e){
+            jQuery(document).on('click', '.close-variation', function (e) {
                 e.preventDefault();
                 jQuery(this).parents('.single-option-box:first').remove();
             });

@@ -36,15 +36,13 @@ class User extends Authenticatable
     use Notifiable;
 
 
-
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password','phone','company_name','image_path', 'status','language'
+        'first_name', 'last_name', 'email', 'password', 'phone', 'company_name', 'image_path', 'status', 'language'
     ];
 
     /**
@@ -61,16 +59,17 @@ class User extends Authenticatable
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
 
-    public function getImagePathAttribute() {
+    public function getImagePathAttribute()
+    {
 
-        return (empty($this->attributes['image_path'])) ? null  : new LocalImageFile($this->attributes['image_path']);
+        return (empty($this->attributes['image_path'])) ? null : new LocalImageFile($this->attributes['image_path']);
 
     }
 
     public function isInWishlist($productId)
     {
         $wishList = Wishlist::where('user_id', '=', $this->attributes['id'])
-                            ->where('product_id', '=', $productId)->get();
+            ->where('product_id', '=', $productId)->get();
 
 
         if (count($wishList) <= 0) {

@@ -45,7 +45,7 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
 
-        $cart =  (null === Session::get('cart')) ? Collection::make([]) : Session::get('cart');
+        $cart = (null === Session::get('cart')) ? Collection::make([]) : Session::get('cart');
 
         $product = Product::where('slug', '=', $request->get('slug'))->first();
         $productAttributes = [];
@@ -70,7 +70,7 @@ class CartController extends Controller
 
         $qty = (null === $request->get('qty')) ? 1 : $request->get('qty');
 
-        if($cart->has($product->id)) {
+        if ($cart->has($product->id)) {
 
             $item = $cart->pull($product->id);
             $item['qty'] += $qty;

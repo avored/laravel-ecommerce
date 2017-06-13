@@ -33,7 +33,8 @@ use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Yaml\Yaml;
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
      *
@@ -78,8 +79,9 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function boot() {
-        if(true === $this->getEnable()) {
+    public function boot()
+    {
+        if (true === $this->getEnable()) {
             $this->registerModule();
             $this->registerAdminMenu();
             $this->registerAdminConfiguration();
@@ -93,9 +95,10 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->mapWebRoutes();
             $this->registerViewComposerData();
             $this->registerPermissions();
@@ -103,8 +106,9 @@ class Module extends BaseModule {
 
     }
 
-    protected function registerTranslationPath() {
-        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2catalog");
+    protected function registerTranslationPath()
+    {
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2catalog");
     }
 
 
@@ -117,48 +121,52 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function mapWebRoutes() {
+    protected function mapWebRoutes()
+    {
         require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath() {
+    protected function registerViewPath()
+    {
         $this->loadViewsFrom(__DIR__ . '/views', 'mage2catalog');
         View::addLocation(__DIR__ . '/views');
     }
 
-    public function registerAdminMenu() {
+    public function registerAdminMenu()
+    {
 
         $adminUserMenu = ['catalog' => [
-                'label' => 'Catalog',
-                'route' => '#',
-                'submenu' => [
-                                'category' => [
-                                    'label' => 'Category',
-                                    'route' => 'admin.category.index',
-                                ]
-                                , 'product' => [
-                                    'label' => 'Product',
-                                    'route' => 'admin.product.index',
-                                ]
-                                , 'attribute' => [
-                                    'label' => 'Attribute',
-                                    'route' => 'admin.attribute.index',
-                                ]
+            'label' => 'Catalog',
+            'route' => '#',
+            'submenu' => [
+                'category' => [
+                    'label' => 'Category',
+                    'route' => 'admin.category.index',
+                ]
+                , 'product' => [
+                    'label' => 'Product',
+                    'route' => 'admin.product.index',
+                ]
+                , 'attribute' => [
+                    'label' => 'Attribute',
+                    'route' => 'admin.attribute.index',
+                ]
 
-                                /**, 'option' => [
-                                    'label' => 'Option',
-                                    'route' => 'admin.option.index',
-                                ]*/
-                                , 'review' => [
-                                    'label' => 'Review',
-                                    'route' => 'admin.review.index',
-                                ]
-                            ]
+                /**, 'option' => [
+                 * 'label' => 'Option',
+                 * 'route' => 'admin.option.index',
+                 * ]*/
+                , 'review' => [
+                    'label' => 'Review',
+                    'route' => 'admin.review.index',
+                ]
+            ]
         ]];
         AdminMenu::registerMenu('mage2-catalog', $adminUserMenu);
     }
 
-    public function registerAdminConfiguration() {
+    public function registerAdminConfiguration()
+    {
         $adminConfigurations[] = [
             'title' => 'Catalog Configuration',
             'description' => 'Some Description for Catalog Modules',
@@ -171,7 +179,8 @@ class Module extends BaseModule {
         }
     }
 
-    public function registerViewComposerData() {
+    public function registerViewComposerData()
+    {
         //View::composer(['admin.catalog.product.boxes.inventory'], 'Mage2\Catalog\ViewComposers\ProductBoxInventoryComposer');
         View::composer(['mage2catalog::admin.catalog.product.edit'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
         View::composer(['mage2catalog::admin.catalog.product.create'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
@@ -182,7 +191,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function registerPermissions() {
+    protected function registerPermissions()
+    {
 
         $permissions = [
             ['title' => 'Category List', 'routes' => 'admin.category.index'],
@@ -200,17 +210,20 @@ class Module extends BaseModule {
         }
     }
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
 
-    
-    public function getPath() {
+
+    public function getPath()
+    {
         return __DIR__;
     }
 

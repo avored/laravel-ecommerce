@@ -29,36 +29,40 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class GiftCoupon extends BaseModel
 {
-    protected $fillable = [ 'title', 'code', 'discount' ,'start_date','end_date','status'];
+    protected $fillable = ['title', 'code', 'discount', 'start_date', 'end_date', 'status'];
 
-    protected $dates = ['start_date','end_date','created_at','updated_at'];
+    protected $dates = ['start_date', 'end_date', 'created_at', 'updated_at'];
 
-    public function getStartDateAttribute($val , $format = true) {
+    public function getStartDateAttribute($val, $format = true)
+    {
         $value = Carbon::createFromTimestamp(strtotime($val));
 
-        if(true === $format) {
+        if (true === $format) {
             return $value->format('d-M-Y');
         }
 
         return $value;
     }
 
-    public function setStartDateAttribute($val) {
+    public function setStartDateAttribute($val)
+    {
         $value = Carbon::createFromTimestamp(strtotime($val));
         $this->attributes['start_date'] = $value->toDateString();
     }
 
-    public function getEndDateAttribute($val , $format = true) {
+    public function getEndDateAttribute($val, $format = true)
+    {
         $value = Carbon::createFromTimestamp(strtotime($val));
 
-        if(true === $format) {
+        if (true === $format) {
             return $value->format('d-M-Y');
         }
 
         return $value;
     }
 
-    public function setEndDateAttribute($val) {
+    public function setEndDateAttribute($val)
+    {
         $value = Carbon::createFromTimestamp(strtotime($val));
         $this->attributes['end_date'] = $value->toDateString();
     }

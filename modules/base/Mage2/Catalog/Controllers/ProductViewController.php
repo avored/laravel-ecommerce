@@ -37,8 +37,8 @@ class ProductViewController extends Controller
 
 
         $view = view('catalog.product.view')
-                ->with('metaTitle', 'test')
-                ->with('product', $product);
+            ->with('metaTitle', 'test')
+            ->with('product', $product);
 
         $title = $product->page_title;
         $description = $product->page_description;

@@ -10,12 +10,13 @@
 
                     @if(isset($role) && $role->hasPermission($permission['routes']));
 
-                        <p><input type="checkbox" checked
-                                  class="bootstrap-switch" name="permissions[{{ $permission['routes'] }}]" value='1' /></p>
+                    <p><input type="checkbox" checked
+                              class="bootstrap-switch" name="permissions[{{ $permission['routes'] }}]" value='1'/></p>
 
                     @else
                         <p><input type="checkbox"
-                                  class="bootstrap-switch" name="permissions[{{ $permission['routes'] }}]" value='1' /></p>
+                                  class="bootstrap-switch" name="permissions[{{ $permission['routes'] }}]" value='1'/>
+                        </p>
                     @endif
 
 

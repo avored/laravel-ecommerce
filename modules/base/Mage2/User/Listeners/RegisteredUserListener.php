@@ -13,6 +13,7 @@ class RegisteredUserListener
 {
 
     protected $configuration;
+
     /**
      * Create the event listener.
      *
@@ -26,13 +27,13 @@ class RegisteredUserListener
     /**
      * Handle the event.
      *
-     * @param  mag2.user.registered  $event
+     * @param  mag2 .user.registered  $event
      * @return void
      */
     public function handle($event)
     {
         $user = $event->user;
-        $totalUserConfiguration  = User::all()->count();
+        $totalUserConfiguration = User::all()->count();
 
         $configuration = Configuration::where('configuration_key', '=', 'mage2_user_total')->get()->first();
 
@@ -44,7 +45,6 @@ class RegisteredUserListener
         } else {
             $configuration->update(['configuration_value' => $totalUserConfiguration]);
         }
-
 
 
         Mail::to($user->email)->send(new NewUserMail($user));

@@ -35,7 +35,7 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth','permission'], 'namespace' => "Mage2\Paypal\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' => "Mage2\Paypal\Controllers\Admin"], function () {
     Route::get('/admin/configuration/paypal', ['as' => 'admin.configuration.paypal', 'uses' => 'ConfigurationController@getConfiguration']);
 });
 

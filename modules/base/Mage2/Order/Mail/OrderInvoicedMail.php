@@ -55,6 +55,6 @@ class OrderInvoicedMail extends Mailable
     public function build()
     {
         return $this->view('mail.order-invoiced')->attach($this->path, ['as' => 'invoiced.pdf', 'mime' => 'application/pdf']);
-            //->with('order', $this->order);
+        //->with('order', $this->order);
     }
 }

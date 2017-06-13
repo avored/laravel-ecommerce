@@ -47,8 +47,8 @@ class OrderStatusRequest extends Request
     public function rules()
     {
         $rules = [];
-        $rules['title']         = 'required|max:255';
-        $rules['sort_order']    = 'required|max:255';
+        $rules['title'] = 'required|max:255';
+        $rules['sort_order'] = 'required|max:255';
 
         return $rules;
     }

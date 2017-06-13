@@ -37,7 +37,9 @@ use Mage2\Order\Models\Order;
 use Mage2\Order\Requests\PlaceOrderRequest;
 use Mage2\Sale\Models\OrderStatus;
 use Mage2\User\Models\User;
-use Mage2\Order\Models\OrderProductVariation;;
+use Mage2\Order\Models\OrderProductVariation;
+
+;
 use Mage2\User\Models\Address;
 
 class OrderController extends Controller
@@ -55,26 +57,27 @@ class OrderController extends Controller
         $orders = Order::paginate(10);
 
         return view('order.index')
-                ->with('orders', $orders);
+            ->with('orders', $orders);
     }
 
-    public function place(PlaceOrderRequest $request) {
+    public function place(PlaceOrderRequest $request)
+    {
 
         $orderProductData = Session::get('cart');
 
 
         $user = $this->_getUser($request);
 
-        $billingAddress     = $this->_getBillingAddress($request);
-        $shippingAddress    = $this->_getShippingAddress($request);
+        $billingAddress = $this->_getBillingAddress($request);
+        $shippingAddress = $this->_getShippingAddress($request);
 
         $orderStatus = OrderStatus::whereTitle('Pending')->get()->first();
 
         $data['shipping_address_id'] = $shippingAddress->id;
         $data['billing_address_id'] = $billingAddress->id;
         $data['user_id'] = $user->id;
-        $data['shipping_option']  = $request->get('shipping_option');
-        $data['payment_option']  = $request->get('payment_option');
+        $data['shipping_option'] = $request->get('shipping_option');
+        $data['payment_option'] = $request->get('payment_option');
         $data['order_status_id'] = $orderStatus->id;
 
         $order = Order::create($data);
@@ -88,17 +91,18 @@ class OrderController extends Controller
 
     }
 
-    private function _getUser(Request $request) {
-        if(Auth::check()) {
+    private function _getUser(Request $request)
+    {
+        if (Auth::check()) {
             return Auth::user();
         }
 
 
         $userData = $request->get('user');
 
-        $user = User::where('email','=', $userData['email'])->first();
+        $user = User::where('email', '=', $userData['email'])->first();
 
-        if(null === $user) {
+        if (null === $user) {
 
             //register guest user as user with random password
 
@@ -112,7 +116,8 @@ class OrderController extends Controller
     }
 
 
-    private function _getBillingAddress(Request $request) {
+    private function _getBillingAddress(Request $request)
+    {
 
         $shippingData = $request->get('billing');
 
@@ -130,9 +135,10 @@ class OrderController extends Controller
     }
 
 
-    private function _getShippingAddress(Request $request) {
+    private function _getShippingAddress(Request $request)
+    {
 
-        if(null == $request->get('use_different_shipping_address')) {
+        if (null == $request->get('use_different_shipping_address')) {
             $shippingData = $request->get('billing');
         } else {
             $shippingData = $request->get('shipping');
@@ -153,7 +159,6 @@ class OrderController extends Controller
     }
 
 
-
     public function index()
     {
         $orderData = Session::get('order_data');
@@ -162,7 +167,6 @@ class OrderController extends Controller
 
         $orderStatus = OrderStatus::whereTitle('Pending')->get()->first();
         $orderData['order_status_id'] = $orderStatus->id;
-
 
 
         //$order = Order::create($orderData);
@@ -189,19 +193,19 @@ class OrderController extends Controller
         //Only use pivot fields only @latner on use Collection and then use pluck method rather then foreach
         foreach ($orderProducts as $i => $orderProduct) {
 
-            if(isset($orderProduct['attributes'])) {
-                foreach($orderProduct['attributes'] as $attribute) {
-                    $data = ['order_id' => $order->id,'product_id' => $i,'product_variation_id' => $attribute['variation_id']];
+            if (isset($orderProduct['attributes'])) {
+                foreach ($orderProduct['attributes'] as $attribute) {
+                    $data = ['order_id' => $order->id, 'product_id' => $i, 'product_variation_id' => $attribute['variation_id']];
 
                     $productVariation = ProductVariation::findorfail($attribute['variation_id']);
 
-                    $productVariation->update(['qty' => ($productVariation->qty-$orderProduct['qty'])]);
+                    $productVariation->update(['qty' => ($productVariation->qty - $orderProduct['qty'])]);
                     OrderProductVariation::create($data);
                 }
             } else {
 
                 $product = Product::findorfail($i);
-                $product->update(['qty' => ($product->qty-$orderProduct['qty'])]);
+                $product->update(['qty' => ($product->qty - $orderProduct['qty'])]);
             }
 
             unset($orderProduct['title']);
@@ -256,7 +260,7 @@ class OrderController extends Controller
 
         $view = view('order.pdf')->with('order', $order);
 
-        $path = public_path('/uploads/order/invoice/'.$order->id.'.pdf');
+        $path = public_path('/uploads/order/invoice/' . $order->id . '.pdf');
         PDF::loadHTML($view->render())->save($path);
 
         Mail::to($user->email)->send(new OrderInvoicedMail($order, $path));

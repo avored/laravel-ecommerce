@@ -31,7 +31,7 @@ use Mage2\Framework\System\Controllers\AdminController;
 
 class ConfigurationController extends AdminController
 {
-  
+
 
     /**
      * Display a Paypal Configuration.
@@ -43,6 +43,6 @@ class ConfigurationController extends AdminController
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
         return view('admin.paypal.configuration.index')
-                ->with('configurations', $configurations);
+            ->with('configurations', $configurations);
     }
 }

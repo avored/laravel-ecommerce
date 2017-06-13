@@ -52,7 +52,7 @@ class OptionRequest extends Request
         $validationRule['sort_order'] = 'required';
 
 
-        if(null !== $this->request->get('dropdown-options') ) {
+        if (null !== $this->request->get('dropdown-options')) {
 
             foreach ($this->request->get('dropdown-options') as $key => $val) {
                 if ($key == "__RANDOM_STRING__") {

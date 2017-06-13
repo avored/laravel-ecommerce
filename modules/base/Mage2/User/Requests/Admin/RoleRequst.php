@@ -47,7 +47,7 @@ class RoleRequst extends FormRequest
      */
     public function rules()
     {
-        $validation ['name'] ="required|max:255";
+        $validation ['name'] = "required|max:255";
 
         return $validation;
     }

@@ -28,7 +28,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class ProductVariation extends BaseModel
 {
-    protected $fillable = ['product_id','sub_product_id','product_attribute_id','attribute_dropdown_option_id'];
+    protected $fillable = ['product_id', 'sub_product_id', 'product_attribute_id', 'attribute_dropdown_option_id'];
 
     /**
      * Variation belongs to Product
@@ -47,7 +47,7 @@ class ProductVariation extends BaseModel
      */
     public function subProduct()
     {
-        return $this->belongsTo(Product::class,'sub_product_id');
+        return $this->belongsTo(Product::class, 'sub_product_id');
     }
 
     /**

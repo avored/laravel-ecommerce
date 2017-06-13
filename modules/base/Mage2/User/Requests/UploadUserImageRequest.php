@@ -46,9 +46,9 @@ class UploadUserImageRequest extends FormRequest
      */
     public function rules()
     {
-        
+
         $validation['profile_image'] = 'required|image';
-     
+
         return $validation;
     }
 }

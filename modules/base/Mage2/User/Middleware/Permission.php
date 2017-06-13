@@ -37,8 +37,8 @@ class Permission
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     * @param string|null              $guard
+     * @param \Closure $next
+     * @param string|null $guard
      *
      * @return mixed
      */
@@ -48,16 +48,16 @@ class Permission
         config(['auth.defaults.guard' => 'admin']);
 
 
-        if(Auth::guard($guard)->user()->is_super_admin == 1) {
+        if (Auth::guard($guard)->user()->is_super_admin == 1) {
             return $next($request);
         }
 
         $permissionName = $request->route()->getName();
-        $permission  = PermissionModel::where('name','=', $permissionName)->first();
+        $permission = PermissionModel::where('name', '=', $permissionName)->first();
 
 
-        if ($permission != NULL && Auth::guard($guard)->user()->cannot('hasPermission' , [AdminUser::class,$permissionName])) {
-            throw new \Exception('User Don\'t have permissions',401);
+        if ($permission != NULL && Auth::guard($guard)->user()->cannot('hasPermission', [AdminUser::class, $permissionName])) {
+            throw new \Exception('User Don\'t have permissions', 401);
         }
 
         return $next($request);

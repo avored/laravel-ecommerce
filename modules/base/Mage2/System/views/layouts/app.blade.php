@@ -20,7 +20,7 @@
     <script>
         window.Laravel = <?php
         echo json_encode([
-                'csrfToken' => csrf_token(),
+            'csrfToken' => csrf_token(),
         ]);
         ?>
     </script>
@@ -45,7 +45,8 @@
         <div class="col-md-12">
             @if(session()->has('notificationText'))
                 <div class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
 
                     <strong>Success!</strong> {{ session()->get('notificationText') }}
 

@@ -34,20 +34,21 @@ use Mage2\Sale\Models\OrderStatus;
 class Order extends BaseModel
 {
     protected $fillable = [
-                    'shipping_address_id',
-                    'billing_address_id',
-                    'user_id',
-                    'shipping_option',
-                    'payment_option',
-                    'order_status_id',
-                ];
+        'shipping_address_id',
+        'billing_address_id',
+        'user_id',
+        'shipping_option',
+        'payment_option',
+        'order_status_id',
+    ];
 
     public function products()
     {
-        return $this->belongsToMany(Product::class)->withPivot('price', 'qty','tax_amount');
+        return $this->belongsToMany(Product::class)->withPivot('price', 'qty', 'tax_amount');
     }
-    
-    public function user() {
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -63,7 +64,8 @@ class Order extends BaseModel
         return $shippingAddress;
     }
 
-    public function getOrderStatusTitleAttribute() {
+    public function getOrderStatusTitleAttribute()
+    {
         return $this->orderStatus->title;
     }
 

@@ -42,8 +42,6 @@ Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\TaxCla
 });
 
 
-
-
 Route::group(['middleware' => ['web'], 'namespace' => "Mage2\TaxClass\Controllers"], function () {
 
     Route::post('/tax-calculation', ['as' => 'tax.calculation', 'uses' => 'TaxRuleController@getTaxAmount']);

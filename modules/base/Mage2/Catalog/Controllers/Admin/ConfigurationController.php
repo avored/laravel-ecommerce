@@ -29,7 +29,7 @@ use Mage2\Framework\System\Controllers\AdminController;
 
 class ConfigurationController extends AdminController
 {
- 
+
 
     /**
      * Display a listing of the Catalog Configuration.
@@ -41,6 +41,6 @@ class ConfigurationController extends AdminController
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
         return view('mage2catalog::admin.catalog.configuration.index')
-                ->with('configurations', $configurations);
+            ->with('configurations', $configurations);
     }
 }

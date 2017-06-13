@@ -35,7 +35,8 @@ use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Yaml\Yaml;
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
      *
@@ -77,8 +78,9 @@ class Module extends BaseModule {
     //protected $defer = true;
 
 
-    public function boot() {
-        if(true === $this->getEnable()) {
+    public function boot()
+    {
+        if (true === $this->getEnable()) {
             $this->registerModule();
             $this->registerTranslationPath();
         }
@@ -89,9 +91,10 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->mapWebRoutes();
             $this->registerAdminConfiguration();
             $this->registerPaymentMethod();
@@ -101,8 +104,9 @@ class Module extends BaseModule {
     }
 
 
-    protected function registerTranslationPath() {
-        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2paypal");
+    protected function registerTranslationPath()
+    {
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2paypal");
     }
 
     /**
@@ -114,11 +118,13 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function mapWebRoutes() {
+    protected function mapWebRoutes()
+    {
         require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerPaymentMethod() {
+    protected function registerPaymentMethod()
+    {
         $paypal = new Paypal();
         Payment::put($paypal->getIdentifier(), $paypal);
     }
@@ -128,7 +134,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function registerViewPath() {
+    protected function registerViewPath()
+    {
         View::addLocation(__DIR__ . '/views');
     }
 
@@ -137,7 +144,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function registerAdminConfiguration() {
+    public function registerAdminConfiguration()
+    {
         $adminConfigurations[] = [
             'title' => 'Paypal Configuration',
             'description' => 'Paypal configuration value',
@@ -150,16 +158,19 @@ class Module extends BaseModule {
         }
     }
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
 
 
-    public function getPath() {
+    public function getPath()
+    {
         return __DIR__;
     }
 }

@@ -39,7 +39,7 @@ Route::group(['middleware' => 'web', 'namespace' => "Mage2\Install\Controllers"]
 
     Route::get('/install/database/table', ['as' => 'mage2.install.database.table.get', 'uses' => 'InstallController@databaseTableGet']);
     Route::post('/install/database/table', ['as' => 'mage2.install.database.table.post', 'uses' => 'InstallController@databaseTablePost']);
-    
+
     Route::get('/install/database/data', ['as' => 'mage2.install.database.data.get', 'uses' => 'InstallController@databaseDataGet']);
     Route::post('/install/database/data', ['as' => 'mage2.install.database.data.post', 'uses' => 'InstallController@databaseDataPost']);
 

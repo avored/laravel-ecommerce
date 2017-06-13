@@ -46,12 +46,12 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' =>
     Route::get('/admin/sale/order-status/get-data', ['as' => 'admin.sale.order-status.data-grid-table.get-data',
         'uses' => 'OrderStatusController@getDataGrid'
     ]);
-    Route::resource('/admin/order-status', 'OrderStatusController', ['as' => 'admin' ]);
+    Route::resource('/admin/order-status', 'OrderStatusController', ['as' => 'admin']);
 
 });
 
 
 Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Sale\Controllers"], function () {
-    Route::post('/sale/get-code-discount', ['as' => 'get.code-discount','uses' => 'GiftCouponController@getCodeDiscount']);
+    Route::post('/sale/get-code-discount', ['as' => 'get.code-discount', 'uses' => 'GiftCouponController@getCodeDiscount']);
 
 });

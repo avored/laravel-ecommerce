@@ -36,8 +36,8 @@ class AdminAuthenticate
      * Handle an incoming request.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \Closure                 $next
-     * @param string|null              $guard
+     * @param \Closure $next
+     * @param string|null $guard
      *
      * @return mixed
      */
@@ -52,7 +52,7 @@ class AdminAuthenticate
         }
 
         $user = Auth::user();
-        if(isset($user->language) && !empty($user->language)) {
+        if (isset($user->language) && !empty($user->language)) {
             App::setLocale($user->language);
         }
 

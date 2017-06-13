@@ -55,7 +55,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' =>
 
     Route::get('/admin/module/create', ['as' => 'admin.module.create', 'uses' => 'ModuleController@create']);
     Route::post('/admin/module', ['as' => 'admin.module.store', 'uses' => 'ModuleController@store']);
-    
+
     Route::post('/admin/module/install/{identifier}', ['as' => 'admin.module.install', 'uses' => 'ModuleController@install']);
     Route::post('/admin/module/uninstall/{identifier}', ['as' => 'admin.module.uninstall', 'uses' => 'ModuleController@uninstall']);
 

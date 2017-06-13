@@ -27,14 +27,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Mage2OrderSchema extends Migration {
+class Mage2OrderSchema extends Migration
+{
 
     /**
      * Install the Mage2 Catalog Module Schema.
      *
      * @return void
      */
-    public function install() {
+    public function install()
+    {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('shipping_address_id')->unsigned();
@@ -64,7 +66,6 @@ class Mage2OrderSchema extends Migration {
         });
 
 
-
         Schema::table('order_product', function (Blueprint $table) {
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
@@ -83,7 +84,8 @@ class Mage2OrderSchema extends Migration {
      *
      * @return void
      */
-    public function uninstall() {
+    public function uninstall()
+    {
         Schema::drop('orders');
         Schema::drop('product_order');
         Schema::drop('order_statuses');

@@ -42,12 +42,14 @@ class Review extends BaseModel
         return $this->belongsTo(Product::class);
     }
 
-    public function getProductTitleAttribute() {
+    public function getProductTitleAttribute()
+    {
         return $this->product->title;
     }
 
 
-    public function getUserNameAttribute() {
+    public function getUserNameAttribute()
+    {
         return $this->user->full_name;
     }
 }

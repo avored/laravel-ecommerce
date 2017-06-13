@@ -1,4 +1,3 @@
-
 {!! Form::text('title','Title') !!}
 
 {!! Form::select('country_id','Country Core', $countryOptions) !!}

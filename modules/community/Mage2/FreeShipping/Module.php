@@ -33,7 +33,8 @@ use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Yaml\Yaml;
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
      *
@@ -77,9 +78,10 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function boot() {
+    public function boot()
+    {
 
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->registerModule();
             $this->registerShippingOption();
             $this->registerAdminMenu();
@@ -91,10 +93,11 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
 
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->registerViewPath();
         }
     }
@@ -109,28 +112,34 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function registerShippingOption() {
+    protected function registerShippingOption()
+    {
         $freeShipping = new FreeShipping();
         Shipping::put($freeShipping->getIdentifier(), $freeShipping);
     }
 
-    protected function registerViewPath() {
+    protected function registerViewPath()
+    {
         View::addLocation(__DIR__ . '/views');
     }
 
-    public function registerAdminMenu() {
+    public function registerAdminMenu()
+    {
         //AdminMenu::registerMenu($adminMenu);
     }
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this);
     }
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
-    
-    public function getPath() {
+
+    public function getPath()
+    {
         return __DIR__;
     }
 

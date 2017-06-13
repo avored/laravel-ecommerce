@@ -1,4 +1,3 @@
-
 {!! Form::text('title','Title',['autofocus'=>true,'class' => 'form-control']) !!}
 {!! Form::text('code','Code') !!}
 {!! Form::text('discount','Discount') !!}

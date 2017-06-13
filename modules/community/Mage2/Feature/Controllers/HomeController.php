@@ -43,7 +43,7 @@ class HomeController extends Controller
         $helper = new FeatureProductHelper();
         $featureProducts = $helper->getFeaturedProducts();
 
-       
+
         return view('home.index')
             ->with('featuredProducts', $featureProducts);
     }

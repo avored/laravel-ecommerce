@@ -15,9 +15,9 @@
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
-                'csrfToken' => csrf_token(),
+            'csrfToken' => csrf_token(),
         ]); ?>
-            
+
     </script>
 
 
@@ -27,19 +27,20 @@
             width: 100%;
             height: 100%;
         }
+
         .container-fluid {
 
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
 
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            -webkit-box-align: center;
             justify-content: center;;
             align-items: center;
         }
+
         .installation-panel {
             width: 60%;
 
@@ -48,7 +49,7 @@
 
     </style>
     <script>
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             jQuery('.container-fluid').height(jQuery(document).height())
         })
     </script>
@@ -56,7 +57,7 @@
 <body>
 
 <div class="container-fluid" style="height: 100%">
-        @yield('content')
+    @yield('content')
 </div>
 
 @stack('scripts')

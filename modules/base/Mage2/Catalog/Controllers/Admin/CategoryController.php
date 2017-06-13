@@ -32,7 +32,8 @@ use Mage2\Framework\DataGrid\Facades\DataGrid;
 use Illuminate\Support\Facades\Gate;
 use Mage2\User\Models\AdminUser;
 
-class CategoryController extends AdminController {
+class CategoryController extends AdminController
+{
 
     public function getDataGrid()
     {
@@ -40,13 +41,13 @@ class CategoryController extends AdminController {
     }
 
 
-
     /**
      * Display a listing of the Category.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
 
         return view('mage2catalog::admin.catalog.category.index');
     }
@@ -56,11 +57,12 @@ class CategoryController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
         $categoryOptions = $this->_getCategoryOptions();
 
         return view('mage2catalog::admin.catalog.category.create')
-                        ->with('categoryOptions', $categoryOptions);
+            ->with('categoryOptions', $categoryOptions);
     }
 
     /**
@@ -70,7 +72,8 @@ class CategoryController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(CategoryRequest $request) {
+    public function store(CategoryRequest $request)
+    {
 
         Category::create($request->all());
 
@@ -84,13 +87,14 @@ class CategoryController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
         $categoryOptions = $this->_getCategoryOptions();
         $category = Category::findorfail($id);
 
         return view('mage2catalog::admin.catalog.category.edit')
-                        ->with('category', $category)
-                        ->with('categoryOptions', $categoryOptions);
+            ->with('category', $category)
+            ->with('categoryOptions', $categoryOptions);
     }
 
     /**
@@ -101,7 +105,8 @@ class CategoryController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id) {
+    public function update(CategoryRequest $request, $id)
+    {
         $category = Category::findorfail($id);
 
         $category->update($request->all());
@@ -116,10 +121,11 @@ class CategoryController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $category = Category::find($id);
 
-        foreach($category->children as $child) {
+        foreach ($category->children as $child) {
             $child->parent_id = 0;
             $child->update();
         }
@@ -129,7 +135,8 @@ class CategoryController extends AdminController {
         return redirect()->route('admin.category.index');
     }
 
-    private function _getCategoryOptions() {
+    private function _getCategoryOptions()
+    {
         $options = Collection::make([0 => 'please select'] + Category::pluck('name', 'id')->toArray())->toArray();
 
         return $options;

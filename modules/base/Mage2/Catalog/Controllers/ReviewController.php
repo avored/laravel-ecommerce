@@ -40,12 +40,12 @@ class ReviewController extends Controller
 
             if (null === $user) {
 
-                $requestData = $request->all();                
-                
+                $requestData = $request->all();
+
                 $password = bcrypt(str_random($length = 6));
-                
+
                 $requestData['password'] = $password;
-                $requestData['status']  =  'REVIEW';
+                $requestData['status'] = 'REVIEW';
 
                 //dd($requestData->all());
                 $user = User::create($requestData);

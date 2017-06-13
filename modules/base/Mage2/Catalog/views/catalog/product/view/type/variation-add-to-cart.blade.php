@@ -1,6 +1,6 @@
 {!! Form::open(['method' => 'post','action' => route('cart.add-to-cart')]) !!}
 
-<input type="hidden" name="slug" value="{{ $product->slug }}" />
+<input type="hidden" name="slug" value="{{ $product->slug }}"/>
 <input id="product-price-hidden" type="hidden" name="price" value="{{ $product->price }}"/>
 <div class="product-stock">In Stock</div>
 <hr>
@@ -22,7 +22,7 @@ $attributes = $product->getAssignedAttributes();
         <label>{{$attribute->title}}</label>
         <select name="attribute[{{ $attribute->id }}]" class="form-control product-variation-dropdown">
 
-            <option data-qty="0" data-price="{{ number_format('0.00',2) }}" value="" >Please Select</option>
+            <option data-qty="0" data-price="{{ number_format('0.00',2) }}" value="">Please Select</option>
 
             @foreach ($attribute->productVariations  as $option)
 
@@ -57,7 +57,7 @@ $attributes = $product->getAssignedAttributes();
             var attributePrice = 0;
 
             jQuery('.product-attribute .product-variation-dropdown').each(function (index, el) {
-                if ( typeof(jQuery(el).val())  != "undefined" &&  jQuery(el).val() != "") {
+                if (typeof(jQuery(el).val()) != "undefined" && jQuery(el).val() != "") {
                     i++;
                     var attributeValue = jQuery(el).val();
 
@@ -73,10 +73,10 @@ $attributes = $product->getAssignedAttributes();
             var totalPrice = attributePrice + basePrice;
             jQuery('.price').text(totalPrice.toFixed(2));
 
-            if(jQuery('.product-variation-dropdown').length == i) {
-                jQuery('.add-to-cart').attr('disabled',false);
+            if (jQuery('.product-variation-dropdown').length == i) {
+                jQuery('.add-to-cart').attr('disabled', false);
             } else {
-                jQuery('.add-to-cart').attr('disabled',true);
+                jQuery('.add-to-cart').attr('disabled', true);
             }
         });
     });

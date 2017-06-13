@@ -27,15 +27,17 @@ namespace Mage2\Catalog\ViewComposers;
 use Mage2\Catalog\Models\ProductAttribute;
 use Illuminate\View\View;
 
-class ProductBoxInventoryComposer {
+class ProductBoxInventoryComposer
+{
 
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
+     * @param  View $view
      * @return void
      */
-    public function compose(View $view) {
+    public function compose(View $view)
+    {
         $productAttrobuteModel = new ProductAttribute();
         $trackStockOptions = $productAttrobuteModel->getTrackStockOptions();
         $inStockOptions = $productAttrobuteModel->getInStockOptions();
@@ -45,9 +47,9 @@ class ProductBoxInventoryComposer {
 
 
         $view
-                ->with('isTaxableOptions', $isTaxableOptions)
-                ->with('trackStockOptions', $trackStockOptions)
-                ->with('inStockOptions', $inStockOptions);
+            ->with('isTaxableOptions', $isTaxableOptions)
+            ->with('trackStockOptions', $trackStockOptions)
+            ->with('inStockOptions', $inStockOptions);
     }
 
 }

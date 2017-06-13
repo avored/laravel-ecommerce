@@ -30,14 +30,15 @@ use Mage2\User\Models\Permission;
 
 class Role extends Model
 {
-    protected $fillable = ['name','description'];
-    
+    protected $fillable = ['name', 'description'];
+
     /**
      * Role can be assigne to many users
-     * 
+     *
      * @return \Mage2\User\Models\User
      */
-    public function user() {
+    public function user()
+    {
         return $this->hasMany(AdminUser::class);
     }
 
@@ -48,16 +49,18 @@ class Role extends Model
      * @return \Mage2\User\Models\Role
      */
 
-    public function permissions() {
+    public function permissions()
+    {
         return $this->belongsToMany(Permission::class);
     }
 
-    public function hasPermission($permissionName) {
+    public function hasPermission($permissionName)
+    {
         $permissions = explode(',', $permissionName);
 
         $returnData = true;
-        foreach($permissions as $permission) {
-            if($this->permissions->pluck('name')->contains($permission) == false) {
+        foreach ($permissions as $permission) {
+            if ($this->permissions->pluck('name')->contains($permission) == false) {
                 $returnData = false;
             }
         }

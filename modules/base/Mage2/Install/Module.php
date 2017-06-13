@@ -79,7 +79,7 @@ class Module extends BaseModule
      */
     public function boot()
     {
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->registerModule();
         }
     }
@@ -92,18 +92,17 @@ class Module extends BaseModule
     public function register()
     {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->mapWebRoutes();
             $this->registerViewPath();
         }
     }
 
 
-
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
-
 
 
     /**
@@ -125,7 +124,8 @@ class Module extends BaseModule
         $this->loadViewsFrom(__DIR__ . '/views', 'mage2install');
     }
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
 

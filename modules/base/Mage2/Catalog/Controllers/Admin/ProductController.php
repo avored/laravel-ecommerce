@@ -63,10 +63,10 @@ class ProductController extends AdminController
     public function index()
     {
 
-        $products = Product::where('status','=', 1)->paginate(10);
+        $products = Product::where('status', '=', 1)->paginate(10);
 
         return view('mage2catalog::admin.catalog.product.index')
-                        ->with('products', $products);
+            ->with('products', $products);
     }
 
     /**
@@ -80,7 +80,7 @@ class ProductController extends AdminController
         $categories = $this->categoryHelper->getCategoryOptions();
 
         return view('mage2catalog::admin.catalog.product.create')
-                        ->with('categories', $categories);
+            ->with('categories', $categories);
     }
 
     /**
@@ -137,8 +137,8 @@ class ProductController extends AdminController
         $categories = $this->categoryHelper->getCategoryOptions();
 
         return view('mage2catalog::admin.catalog.product.edit')
-                        ->with('product', $product)
-                        ->with('categories', $categories);
+            ->with('product', $product)
+            ->with('categories', $categories);
 
     }
 
@@ -146,14 +146,14 @@ class ProductController extends AdminController
      * Update the specified resource in storage.
      *
      * @param \\App\Http\Requests\ProductRequest $request
-     * @param int                                $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
     public function update(ProductRequest $request, $id)
     {
         try {
-            
+
             $product = Product::findorfail($id);
             $this->productHelper->saveProduct($product, $request);
             $this->productHelper->saveRelatedProducts($product, $request);
@@ -166,9 +166,8 @@ class ProductController extends AdminController
 
         } catch (\Exception $e) {
 
-            throw new \Exception('Error in Saving Product: '.$e->getMessage());
+            throw new \Exception('Error in Saving Product: ' . $e->getMessage());
         }
-
 
 
         return redirect()->route('admin.product.index');
@@ -192,7 +191,7 @@ class ProductController extends AdminController
     {
         $image = $request->file('image');
         $tmpPath = str_split(strtolower(str_random(3)));
-        $checkDirectory = '/uploads/catalog/images/' .  implode('/', $tmpPath);
+        $checkDirectory = '/uploads/catalog/images/' . implode('/', $tmpPath);
 
         $dbPath = $checkDirectory . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
 
@@ -201,8 +200,8 @@ class ProductController extends AdminController
         $tmp = $this->_getTmpString();
 
         return view('mage2catalog::admin.catalog.product.upload-image')
-                        ->with('image', $image)
-                        ->with('tmp', $tmp);
+            ->with('image', $image)
+            ->with('tmp', $tmp);
     }
 
     public function deleteImage(Request $request)
@@ -210,7 +209,7 @@ class ProductController extends AdminController
         $path = $request->get('path');
 
         if (File::exists($path)) {
-            File::delete(public_path().$path);
+            File::delete(public_path() . $path);
         }
 
         return 'success';
@@ -221,7 +220,7 @@ class ProductController extends AdminController
         $query = $request->get('q');
 
         $titleAttribute = ProductAttribute::where('identifier', '=', 'title')->get()->first();
-        $titleCollection = $titleAttribute->productVarcharValues()->where('value', 'like', '%'.$query.'%')->get();
+        $titleCollection = $titleAttribute->productVarcharValues()->where('value', 'like', '%' . $query . '%')->get();
 
         foreach ($titleCollection as $row) {
             $results[] = ['id' => $row->product_id, 'text' => $row->value];
@@ -231,16 +230,18 @@ class ProductController extends AdminController
     }
 
 
-    public function getAttribute(Request $request) {
+    public function getAttribute(Request $request)
+    {
 
         $attribute = ProductAttribute::findorfail($request->get('id'));
 
         return view('mage2catalog::admin.catalog.product.attribute-panel-values')
-                    ->with('attribute', $attribute);
+            ->with('attribute', $attribute);
 
     }
 
-    public function _getTmpString($length = 6) {
+    public function _getTmpString($length = 6)
+    {
 
         $pool = 'abcdefghijklmnopqrstuvwxyz';
 

@@ -11,7 +11,7 @@
             @if(count($products) <= 0)
                 <p>Sorry No Product Found</p>
             @else
-                <?php $i =0; ?>
+                <?php $i = 0; ?>
                 @foreach($products as $product)
                     <div class="col-md-4">
                         @include('catalog.product.view.product-panel',['product' => $product])

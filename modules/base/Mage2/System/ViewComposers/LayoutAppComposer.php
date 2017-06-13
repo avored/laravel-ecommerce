@@ -31,15 +31,17 @@ use Mage2\Catalog\Models\Category;
 use Illuminate\View\View;
 use Mage2\System\Models\Configuration;
 
-class LayoutAppComposer {
+class LayoutAppComposer
+{
 
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
+     * @param  View $view
      * @return void
      */
-    public function compose(View $view) {
+    public function compose(View $view)
+    {
         $cart = count(Session::get('cart'));
         $categoryModel = new Category();
         $baseCategories = $categoryModel->getAllCategories();
@@ -49,9 +51,9 @@ class LayoutAppComposer {
 
 
         $view->with('categories', $baseCategories)
-                ->with('cart', $cart)
-                ->with('metaTitle', $metaTitle)
-                ->with('metaDescription', $metaDescription);
+            ->with('cart', $cart)
+            ->with('metaTitle', $metaTitle)
+            ->with('metaDescription', $metaDescription);
     }
 
 }

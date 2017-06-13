@@ -30,17 +30,18 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class ProductImage extends BaseModel
 {
-    protected $fillable = [ 'product_id', 'path'];
+    protected $fillable = ['product_id', 'path'];
 
     public function products()
     {
         return $this->belongsTo(Product::class);
     }
 
-    public function getPathAttribute() {
+    public function getPathAttribute()
+    {
 
 
-        if(null === $this->attributes['path'] || empty($this->attributes['path'])) {
+        if (null === $this->attributes['path'] || empty($this->attributes['path'])) {
             return NULL;
         }
         $localImage = new LocalImageFile($this->attributes['path']);

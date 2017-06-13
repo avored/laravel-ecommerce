@@ -1,4 +1,3 @@
- 
 <div class="panel-default">
     <div class="panel-heading">Images</div>
     <div class="panel-body">
@@ -10,14 +9,14 @@
 
             @if(isset($product) && count($product->images()->get()->count()) > 0)
 
-            @foreach($product->images()->get() as $image)
+                @foreach($product->images()->get() as $image)
 
-            <div class="col-md-3 image-thumbnail" >
-                <button type="button" class="close"><span>X</span></button>
-                <img class="img-thumbnail img-responsive" src="{{ ($image->path->smallUrl) }}"/>
-                <input type="hidden" name="image[{{ $image->id }}][]" value="{{ $image->path->smallUrl }}" />
-            </div>
-            @endforeach
+                    <div class="col-md-3 image-thumbnail">
+                        <button type="button" class="close"><span>X</span></button>
+                        <img class="img-thumbnail img-responsive" src="{{ ($image->path->smallUrl) }}"/>
+                        <input type="hidden" name="image[{{ $image->id }}][]" value="{{ $image->path->smallUrl }}"/>
+                    </div>
+                @endforeach
             @endif
         </div>
 
@@ -49,7 +48,7 @@
         });
         jQuery('.product-image-element').change(function (e) {
             var files = e.target.files;
-            
+
             if (files.length <= 0) {
                 return;
             }

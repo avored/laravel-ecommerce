@@ -56,6 +56,6 @@ class NewUserMail extends Mailable
     public function build()
     {
         return $this->view('mail.new-user')
-                ->with('user', $this->user);
+            ->with('user', $this->user);
     }
 }

@@ -33,9 +33,9 @@ use Mage2\User\Models\User;
 class OrderProductVariation extends BaseModel
 {
     protected $fillable = [
-                    'product_id',
-                    'order_id',
-                    'product_variation_id',
-                ];
+        'product_id',
+        'order_id',
+        'product_variation_id',
+    ];
 
 }
