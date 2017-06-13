@@ -4,3 +4,6 @@
 Homestead.yaml
 Homestead.json
 .env
+.idea
+composer.lock
+storage/framework/bootstrap/cache/services.php

@@ -34,6 +34,7 @@ use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Order\Mail\OrderInvoicedMail;
 use Mage2\Order\Models\Order;
+use Mage2\Order\Requests\PlaceOrderRequest;
 use Mage2\Sale\Models\OrderStatus;
 use Mage2\User\Models\User;
 use Mage2\Order\Models\OrderProductVariation;;
@@ -57,7 +58,7 @@ class OrderController extends Controller
                 ->with('orders', $orders);
     }
 
-    public function place(Request $request) {
+    public function place(PlaceOrderRequest $request) {
 
         $orderProductData = Session::get('cart');
 

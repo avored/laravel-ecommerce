@@ -142,7 +142,6 @@ class Mage2UserSchema extends Migration {
             $table->foreign('shipping_address_id')->references('id')->on('addresses');
             $table->foreign('billing_address_id')->references('id')->on('addresses');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('order_status_id')->references('id')->on('order_statuses');
         });
         
         
