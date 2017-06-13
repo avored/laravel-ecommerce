@@ -41,6 +41,7 @@
       "Mage2\\Checkout\\": "modules/base/Mage2/Checkout/",
       "Mage2\\Install\\": "modules/base/Mage2/Install/",
       "Mage2\\Order\\": "modules/base/Mage2/Order/",
+      "Mage2\\OrderReturn\\": "modules/base/Mage2/OrderReturn/",
       "Mage2\\Page\\": "modules/base/Mage2/Page/",
       "Mage2\\Paypal\\": "modules/base/Mage2/Paypal/",
       "Mage2\\Sale\\": "modules/base/Mage2/Sale/",

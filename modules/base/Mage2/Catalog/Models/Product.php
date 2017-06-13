@@ -25,6 +25,7 @@
 namespace Mage2\Catalog\Models;
 
 use Mage2\Framework\Image\LocalImageFile;
+use Mage2\Order\Models\Order;
 use Mage2\TaxClass\Models\TaxRule;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Session;

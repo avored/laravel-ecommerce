@@ -26,6 +26,7 @@
 namespace Mage2\User\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\User\Models\Wishlist;
 use Mage2\Catalog\Models\ProductAttribute;
@@ -74,14 +75,19 @@ class WishlistController extends Controller {
         ;
     }
 
-     private function _getProductIdBySlug($slug)
-    {
-        $slugAttribute = ProductAttribute::where('identifier', '=', 'slug')->get()->first();
-        $productVarcharValue = ProductVarcharValue::where('product_attribute_id', '=', $slugAttribute->id)
-                                                ->where('value', '=', $slug)->get()->first();
+     private function _getProductIdBySlug($slug) {
+        $slugAttribute = ProductAttribute::where('identifier', '=', 'slug')->first();
+        $productVarcharValue = ProductVarcharValue::where('value', '=', $slug);
+        if (!empty($slugAttribute)) {
+            $productVarcharValue = $productVarcharValue->where('product_attribute_id', '=', $slugAttribute->id);
+        }
+        $productVarcharValue = $productVarcharValue->first();
 
+        if (!empty($productVarcharValue)) {
+            return $productVarcharValue->product_id;
+        }
 
-        return $productVarcharValue->product_id;
-
+        $product = Product::where('slug', $slug)->first();
+        return $product->id;
     }
 }

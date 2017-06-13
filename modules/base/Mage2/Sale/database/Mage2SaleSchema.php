@@ -27,6 +27,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mage2\Sale\Models\OrderStatus;
 
 class Mage2SaleSchema extends Migration {
 
@@ -43,8 +44,8 @@ class Mage2SaleSchema extends Migration {
             $table->string('title');
             $table->string('code');
             $table->float('discount',6,2);
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->enum('status',['ENABLED','DISABLED']);
             $table->timestamps();
         });
