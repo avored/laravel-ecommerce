@@ -73,39 +73,43 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Order Products</div>
                     <div class="panel-body">
-                        @foreach($order->products as $product)
+                        <form method="post" action="{{ route('my-account.order-return.store', $order->id) }}">
+                            {{ csrf_field() }}
+                            @foreach($order->products as $product)
 
-                            <div class="col-xs-2"><img class="img-responsive" src="{{ $product->image->smallUrl }}">
-                            </div>
-                            <div class="col-xs-4">
-                                <h4 class="product-name"><strong>{{ $product->title }}</strong></h4>
-                            </div>
-                            <div class="col-xs-6">
-                                <div class="col-xs-6 text-right">
-                                    <h6><strong>${{number_format($product->price,2) }} <span class="text-muted">x</span></strong>
-                                    </h6>
+                                <div class="col-xs-1">
+                                    <input type="checkbox" name="products[{{ $product->id }}]">
                                 </div>
-                                <div class="col-xs-4">
-                                    <input type="text" class="form-control input-sm" value="1">
+
+                                <div class="col-xs-2"><img class="img-responsive" src="{{ $product->image->smallUrl }}">
                                 </div>
-                                <div class="col-xs-2">
-                                    <button type="button" class="btn btn-link btn-xs">
-                                    </button>
+                                <div class="col-xs-3">
+                                    <h4 class="product-name"><strong>{{ $product->title }}</strong></h4>
                                 </div>
-                            </div>
+                                <div class="col-xs-6">
+                                    <div class="col-xs-6 text-right">
+                                        <h6><strong>${{number_format($product->price,2) }} <span
+                                                        class="text-muted">x</span></strong>
+                                        </h6>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <input type="text" class="form-control input-sm" value="1">
+                                    </div>
+
+                                </div>
 
 
 
-                        @endforeach
+                            @endforeach
 
                             <div class="clearfix"></div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="">What would you like?</label>
-                                    <select class="form-control">
-                                        <option>Please Select</option>
-                                        <option>Refund</option>
-                                        <option>Replace</option>
+                                    <label class="">User Option?</label>
+                                    <select name="user_option" class="form-control">
+                                        <option value="">Please Select</option>
+                                        <option value="REFUND">Refund</option>
+                                        <option value="RETURN">Return</option>
                                     </select>
                                 </div>
                             </div>
@@ -117,11 +121,12 @@
                                 </div>
                             </div>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-primary" value="Submit">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary" value="Submit">
+                                </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
 

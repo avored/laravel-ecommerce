@@ -183,7 +183,7 @@ class Mage2UserSchema extends Migration
         Schema::drop('admin_users');
         Schema::drop('password_resets');
         Schema::drop('users');
-        Schema::create('addresses');
+        Schema::drop('addresses');
         Schema::drop('wishlists');
         Schema::drop('countries');
         Schema::drop('roles');

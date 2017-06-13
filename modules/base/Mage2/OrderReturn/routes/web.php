@@ -46,6 +46,13 @@ Route::group(['middleware' => ['web'], 'namespace' => "Mage2\OrderReturn\Control
 
 
 Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\OrderReturn\Controllers"], function () {
+
+
+    //Route::get('/my-account/order-return', ['as' => 'my-account.order-return.index', 'uses' => 'OrderReturnController@index']);
+
+
+
     Route::get('/my-account/order-return/{id}/create', ['as' => 'my-account.order-return.create', 'uses' => 'OrderReturnController@create']);
+    Route::post('/my-account/order-return/{id}', ['as' => 'my-account.order-return.store', 'uses' => 'OrderReturnController@store']);
 
 });

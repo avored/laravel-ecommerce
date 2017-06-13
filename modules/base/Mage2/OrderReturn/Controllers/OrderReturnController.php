@@ -26,6 +26,13 @@ namespace Mage2\OrderReturn\Controllers;
 
 use Mage2\Order\Models\Order;
 use Mage2\Framework\System\Controllers\Controller;
+use Mage2\OrderReturn\Requests\OrderReturnRequest;
+use Mage2\OrderReturn\Models\OrderReturnRequest as OrderReturnRequestModel;
+use Mage2\OrderReturn\Models\OrderReturnRequestProduct;
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+
 
 class OrderReturnController extends Controller
 {
@@ -36,10 +43,24 @@ class OrderReturnController extends Controller
      * @param int $id
      */
     public function create($id) {
+
         $order = Order::find($id);
 
         return view('mage2orderreturn::my-account.order-return.create')
                         ->with('order', $order);
+    }
+
+    public function store(OrderReturnRequest $request, $id) {
+
+        $request->merge(['order_id' => $id]);
+        $orderReturnRequest = OrderReturnRequestModel::create($request->all());
+        $products = $request->get('products');
+
+        foreach($products as $productId => $selectedOption) {
+            OrderReturnRequestProduct::create(['order_return_request_id' => $orderReturnRequest->id,'product_id' => $productId]);
+        }
+
+        return redirect()->route('my-account.home');
     }
 
 }
