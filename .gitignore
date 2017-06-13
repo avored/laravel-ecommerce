@@ -4,8 +4,6 @@
 Homestead.yaml
 Homestead.json
 .env
-.idea/laravel-ecommerce.iml
-.idea/modules.xml
-.idea/workspace.xml
+.idea
 composer.lock
 storage/framework/bootstrap/cache/services.php
