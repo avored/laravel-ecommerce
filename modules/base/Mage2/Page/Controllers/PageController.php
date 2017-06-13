@@ -39,7 +39,7 @@ class PageController extends Controller
      */
     public function show($slug)
     {
-        $page = Page::where('slug','=', $slug)->first();
+        $page = Page::where('slug', '=', $slug)->first();
 
         return view('page.show')->with('page', $page);
     }

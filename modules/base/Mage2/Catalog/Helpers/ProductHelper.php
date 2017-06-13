@@ -84,7 +84,7 @@ class ProductHelper
     {
         $extraAttributes = $request->get('modules');
 
-        if(isset($extraAttributes['attributes'])) {
+        if (isset($extraAttributes['attributes'])) {
             foreach ($extraAttributes['attributes'] as $identifier => $value) {
                 $attribute = ProductAttribute::where('identifier', '=', $identifier)->first();
 
@@ -134,7 +134,7 @@ class ProductHelper
             $product->update(['has_variation' => 1]);
 
 
-            $existingIds = array_flip( $product->productVariations->pluck('id')->toArray());
+            $existingIds = array_flip($product->productVariations->pluck('id')->toArray());
 
             foreach ($attributes as $attributeId => $attribute) {
 
@@ -197,7 +197,7 @@ class ProductHelper
                 }
             }
 
-            if(count($existingIds)>0) {
+            if (count($existingIds) > 0) {
                 foreach (array_flip($existingIds) as $id) {
                     ProductVariation::destroy($id);
                 }

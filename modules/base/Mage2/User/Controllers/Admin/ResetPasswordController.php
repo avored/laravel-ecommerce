@@ -57,6 +57,7 @@ class ResetPasswordController extends AdminController
         $this->middleware('adminguest');
         parent::__construct();
     }
+
     /**
      * Get the broker to be used during password reset.
      *
@@ -66,6 +67,7 @@ class ResetPasswordController extends AdminController
     {
         return Password::broker('adminusers');
     }
+
     protected function guard()
     {
         return Auth::guard('admin');
@@ -77,14 +79,14 @@ class ResetPasswordController extends AdminController
      *
      * If no token is present, display the link request form.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string|null  $token
+     * @param  \Illuminate\Http\Request $request
+     * @param  string|null $token
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showResetForm(Request $request, $token = null)
     {
         return view('mage2user::admin.user.auth.passwords.reset')
-                ->with(['token' => $token, 'email' => $request->email]
-        );
+            ->with(['token' => $token, 'email' => $request->email]
+            );
     }
 }

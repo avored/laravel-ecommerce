@@ -62,6 +62,6 @@ class Pickup extends Payment implements PaymentInterface
      */
     public function process($orderData, $cartProducts)
     {
-        
+
     }
 }

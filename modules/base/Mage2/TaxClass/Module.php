@@ -34,7 +34,8 @@ use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Yaml\Yaml;
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
      *
@@ -68,8 +69,6 @@ class Module extends BaseModule {
     protected $enable = NULL;
 
 
-
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -81,8 +80,9 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function boot() {
-        if(true === $this->getEnable()) {
+    public function boot()
+    {
+        if (true === $this->getEnable()) {
             $this->registerModule();
             $this->registerAdminConfiguration();
             $this->registerAdminMenu();
@@ -95,30 +95,35 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->registerWebRoute();
             $this->registerViewPath();
         }
     }
 
 
-    protected function registerTranslationPath() {
-        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2tax-class");
+    protected function registerTranslationPath()
+    {
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2tax-class");
     }
 
 
-    protected function registerViewPath() {
+    protected function registerViewPath()
+    {
         $this->loadViewsFrom(__DIR__ . '/views', 'mage2taxclass');
         //View::addLocation(__DIR__ . '/views');
     }
 
-    protected function registerWebRoute() {
-        require (__DIR__ . "/routes/web.php");
+    protected function registerWebRoute()
+    {
+        require(__DIR__ . "/routes/web.php");
     }
 
-    public function registerAdminConfiguration() {
+    public function registerAdminConfiguration()
+    {
         $adminConfigurations[] = [
             'title' => 'Tax Configuration',
             'description' => 'Defined the amount of tax applied to product.',
@@ -137,15 +142,16 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function registerPermissions() {
+    protected function registerPermissions()
+    {
 
         $permissions = [
 
             /**
-            ['title' => 'Role List', 'routes' => 'admin.role.index'],
-            ['title' => 'Role Create', 'routes' => "admin.role.create,admin.role.store"],
-            ['title' => 'Role Edit', 'routes' => "admin.role.edit,admin.role.update"],
-            ['title' => 'Role Destroy', 'routes' => "admin.role.destroy"],
+             * ['title' => 'Role List', 'routes' => 'admin.role.index'],
+             * ['title' => 'Role Create', 'routes' => "admin.role.create,admin.role.store"],
+             * ['title' => 'Role Edit', 'routes' => "admin.role.edit,admin.role.update"],
+             * ['title' => 'Role Destroy', 'routes' => "admin.role.destroy"],
              */
             ['title' => 'Admin User List', 'routes' => 'admin.admin-user.index'],
             ['title' => 'Admin User Create', 'routes' => "admin.admin-user.create,admin.admin-user.store"],
@@ -158,9 +164,10 @@ class Module extends BaseModule {
         }
     }
 
-    public function registerAdminMenu() {
+    public function registerAdminMenu()
+    {
 
-        $orderStatusMenu = [ 'sale' => ['submenu' => [ 'tax-rule' => [
+        $orderStatusMenu = ['sale' => ['submenu' => ['tax-rule' => [
             'label' => 'TaxRule',
             'route' => 'admin.tax-rule.index',
         ]]]];
@@ -168,15 +175,18 @@ class Module extends BaseModule {
     }
 
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
 
-    public function getPath() {
+    public function getPath()
+    {
         return __DIR__;
     }
 

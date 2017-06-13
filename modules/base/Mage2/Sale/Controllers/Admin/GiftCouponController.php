@@ -31,7 +31,8 @@ use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
 
 
-class GiftCouponController extends AdminController {
+class GiftCouponController extends AdminController
+{
 
     public function getDataGrid()
     {
@@ -39,13 +40,13 @@ class GiftCouponController extends AdminController {
     }
 
 
-
     /**
      * Display a listing of the Category.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
 
         return view('mage2sale::admin.gift-coupon.index');
     }
@@ -55,7 +56,8 @@ class GiftCouponController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create()
+    {
 
 
         return view('mage2sale::admin.gift-coupon.create');
@@ -68,7 +70,8 @@ class GiftCouponController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(GiftCouponRequest $request) {
+    public function store(GiftCouponRequest $request)
+    {
 
         GiftCoupon::create($request->all());
 
@@ -82,12 +85,13 @@ class GiftCouponController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $giftCoupon = GiftCoupon::findorfail($id);
 
         return view('mage2sale::admin.gift-coupon.edit')
-                        ->with('giftCoupon', $giftCoupon);
+            ->with('giftCoupon', $giftCoupon);
     }
 
     /**
@@ -98,7 +102,8 @@ class GiftCouponController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(GiftCouponRequest $request, $id) {
+    public function update(GiftCouponRequest $request, $id)
+    {
         $giftCoupon = GiftCoupon::findorfail($id);
 
         $giftCoupon->update($request->all());
@@ -113,7 +118,8 @@ class GiftCouponController extends AdminController {
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id) {
+    public function destroy($id)
+    {
 
         GiftCoupon::destroy($id);
         return redirect()->route('admin.gift-coupon.index');

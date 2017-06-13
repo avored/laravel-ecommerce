@@ -46,7 +46,7 @@ class Mage2InstallSchema extends Migration
         $faker = Factory::create();
 
 
-        $attribute = ProductAttribute::where('identifier','=','is_featured')->first();
+        $attribute = ProductAttribute::where('identifier', '=', 'is_featured')->first();
 
         $kitchenCategory = Category::create([
             'parent_id' => 0,
@@ -66,52 +66,51 @@ class Mage2InstallSchema extends Migration
 
 
         $product = Product::create([
-            'title'             => 'Flower Pot',
-            'slug'              => 'flower-pot',
-            'sku'               => 'flower-pot',
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => 'Flower Pot',
+            'slug' => 'flower-pot',
+            'sku' => 'flower-pot',
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/f/h/2\flower-pot.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
             'product_id' => $product->id,
             'product_attribute_id' => $attribute->id,
             'value' => $attribute->attributeDropdownOptions->pluck('id')->random()
         ]);
-
 
 
         //$flowerPotProduct->cate
 
         $product = Product::create([
-            'title'             => 'Classic TV Stand',
-            'slug'              => 'classic-tv-stand',
-            'sku'               => 'classic-tv-stand',
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => 'Classic TV Stand',
+            'slug' => 'classic-tv-stand',
+            'sku' => 'classic-tv-stand',
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/d/0/c\classic-tv-stand.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -121,23 +120,23 @@ class Mage2InstallSchema extends Migration
 
 
         $product = Product::create([
-            'title'             => 'Classic Vintage Curtain',
-            'slug'              => 'classic-vintage-curtain',
-            'sku'               => 'classic-vintage-curtain',
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => 'Classic Vintage Curtain',
+            'slug' => 'classic-vintage-curtain',
+            'sku' => 'classic-vintage-curtain',
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/y/f/r\textiles-2.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
         ProductVarcharValue::create([
             'product_id' => $product->id,
             'product_attribute_id' => $attribute->id,
@@ -146,23 +145,23 @@ class Mage2InstallSchema extends Migration
 
 
         $product = Product::create([
-            'title'             => 'Comfirtable Couch',
-            'slug'              => 'comfirtable-couch',
-            'sku'               => 'comfirtable-couch',
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => 'Comfirtable Couch',
+            'slug' => 'comfirtable-couch',
+            'sku' => 'comfirtable-couch',
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/1/k/0\-Single-Panel-New-Pastoral-Linen-Blending-Embroidered-Living-Room-font-b-Curtain-b-font-font.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -171,23 +170,23 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product = Product::create([
-            'title'             => 'Delicate Brown Curtain',
-            'slug'              => 'delicate-brown-curtain',
-            'sku'               => 'delicate-brown-curtain',
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => 'Delicate Brown Curtain',
+            'slug' => 'delicate-brown-curtain',
+            'sku' => 'delicate-brown-curtain',
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/q/o/m\comfortable-leather-chair-published-under-the-most-comfortable-couch-group.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
         ProductVarcharValue::create([
             'product_id' => $product->id,
             'product_attribute_id' => $attribute->id,
@@ -196,23 +195,23 @@ class Mage2InstallSchema extends Migration
 
         $title = "Medium White Couch";
         $product = Product::create([
-            'title'             => $title,
-            'slug'              =>  str_slug($title),
-            'sku'               =>  str_slug($title),
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => $title,
+            'slug' => str_slug($title),
+            'sku' => str_slug($title),
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/s/e/j\ff815ea7756de71d6c5edb5566330df6.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -222,23 +221,23 @@ class Mage2InstallSchema extends Migration
 
         $title = "Comfirtable Gray Bed";
         $comfirtableGrayBedProduct = Product::create([
-            'title'             => $title,
-            'slug'              => str_slug($title),
-            'sku'               => str_slug($title),
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => $title,
+            'slug' => str_slug($title),
+            'sku' => str_slug($title),
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($bedroomCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/v/t/x\bed-bedding-comfortable-platform-with-smooth-gray-also-are-beds-and-headboard-plus-small-.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -249,23 +248,23 @@ class Mage2InstallSchema extends Migration
 
         $title = "Cute Teddy Bear";
         $product = Product::create([
-            'title'             => $title,
-            'slug'              => str_slug($title),
-            'sku'               => str_slug($title),
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => $title,
+            'slug' => str_slug($title),
+            'sku' => str_slug($title),
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($bedroomCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/z/c/u\d5d710257f2cf7cf2576f4a43dc40430.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -276,23 +275,23 @@ class Mage2InstallSchema extends Migration
 
         $title = "Minimalist Ceramic Lamp";
         $product = Product::create([
-            'title'             => $title,
-            'slug'              => str_slug($title),
-            'sku'               => str_slug($title),
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => $title,
+            'slug' => str_slug($title),
+            'sku' => str_slug($title),
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($bedroomCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/m/2/z\b594a5c88e527b467508aa9fa3b01228.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -302,23 +301,23 @@ class Mage2InstallSchema extends Migration
 
         $title = "Wooden Bunk Bed";
         $product = Product::create([
-            'title'             => $title,
-            'slug'              => str_slug($title),
-            'sku'               => str_slug($title),
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => $title,
+            'slug' => str_slug($title),
+            'sku' => str_slug($title),
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($bedroomCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/4/5/n\il_570xN.262261571.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -329,23 +328,23 @@ class Mage2InstallSchema extends Migration
 
         $title = "Cooktail Mixed";
         $product = Product::create([
-            'title'             => $title,
-            'slug'              => str_slug($title),
-            'sku'               => str_slug($title),
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => $title,
+            'slug' => str_slug($title),
+            'sku' => str_slug($title),
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($kitchenCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/n/y/n\CC2600.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
         ProductVarcharValue::create([
             'product_id' => $product->id,
             'product_attribute_id' => $attribute->id,
@@ -353,26 +352,25 @@ class Mage2InstallSchema extends Migration
         ]);
 
 
-
         $title = "Coffee Making Machine";
         $product = Product::create([
-            'title'             => $title,
-            'slug'              => str_slug($title),
-            'sku'               => str_slug($title),
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => $title,
+            'slug' => str_slug($title),
+            'sku' => str_slug($title),
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($kitchenCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/t/b/n\20121018143846738.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -383,23 +381,23 @@ class Mage2InstallSchema extends Migration
 
         $title = "Luxury Cooking Utensil";
         $product = Product::create([
-            'title'             => $title,
-            'slug'              => str_slug($title),
-            'sku'               => str_slug($title),
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => $title,
+            'slug' => str_slug($title),
+            'sku' => str_slug($title),
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($kitchenCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/l/i/k\coffee-maker-20.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
         ProductVarcharValue::create([
             'product_id' => $product->id,
             'product_attribute_id' => $attribute->id,
@@ -409,23 +407,23 @@ class Mage2InstallSchema extends Migration
 
         $title = "Vintage Toaste";
         $product = Product::create([
-            'title'             => $title,
-            'slug'              => str_slug($title),
-            'sku'               => str_slug($title),
-            'description'       => $faker->realText(rand(3000,6000)),
-            'status'            => 1,
-            'in_stock'          => 1,
-            'track_stock'       => 1,
-            'qty'               => rand(10,1000),
-            'is_taxable'        => 1,
-            'page_title'        => '',
-            'page_description'  => '',
-            'has_variation'     => 0,
+            'title' => $title,
+            'slug' => str_slug($title),
+            'sku' => str_slug($title),
+            'description' => $faker->realText(rand(3000, 6000)),
+            'status' => 1,
+            'in_stock' => 1,
+            'track_stock' => 1,
+            'qty' => rand(10, 1000),
+            'is_taxable' => 1,
+            'page_title' => '',
+            'page_description' => '',
+            'has_variation' => 0,
         ]);
 
         $product->categories()->sync($kitchenCategory->id);
         ProductImage::create(['path' => '/uploads/catalog/images/0/y/4\tsf02crsa.jpg', 'product_id' => $product->id]);
-        $product->prices()->create(['price' => rand(2,10) . "0.". rand(1,9)."0"]);
+        $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
         ProductVarcharValue::create([
             'product_id' => $product->id,
             'product_attribute_id' => $attribute->id,

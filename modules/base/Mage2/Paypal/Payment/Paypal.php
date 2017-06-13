@@ -59,7 +59,7 @@ class Paypal extends PaymentFramework implements PaymentInterface
     {
         $isEnabled = Configuration::getConfiguration('is_paypal_enabled');
 
-        if(null === $isEnabled || false == $isEnabled) {
+        if (null === $isEnabled || false == $isEnabled) {
             return false;
         }
 
@@ -86,12 +86,12 @@ class Paypal extends PaymentFramework implements PaymentInterface
         $this->setApiContext();
 
         $this->_apiContext->setConfig([
-            'mode'                   => Configuration::getConfiguration('paypal_payment_mode'),
-            'service.EndPoint'       => Configuration::getConfiguration('paypal_payment_url'), //paypal_payment_log
+            'mode' => Configuration::getConfiguration('paypal_payment_mode'),
+            'service.EndPoint' => Configuration::getConfiguration('paypal_payment_url'), //paypal_payment_log
             'http.ConnectionTimeOut' => 30,
-            'log.LogEnabled'         => Configuration::getConfiguration('paypal_payment_log'),
-            'log.FileName'           => storage_path('logs/paypal.log'),
-            'log.LogLevel'           => 'FINE',
+            'log.LogEnabled' => Configuration::getConfiguration('paypal_payment_log'),
+            'log.FileName' => storage_path('logs/paypal.log'),
+            'log.LogLevel' => 'FINE',
         ]);
 
 
@@ -106,10 +106,10 @@ class Paypal extends PaymentFramework implements PaymentInterface
             $model = $product['model'];
 
             $item->setName($model->title)
-                    ->setCurrency('USD')
-                    ->setQuantity($product['qty'])
-                    ->setSku($model->sku) // Similar to `item_number` in Classic API
-                    ->setPrice($product['price']);
+                ->setCurrency('USD')
+                ->setQuantity($product['qty'])
+                ->setSku($model->sku)// Similar to `item_number` in Classic API
+                ->setPrice($product['price']);
             $itemList->addItem($item);
             $subTotal += $product['price'] * $product['qty'];
             $taxTotal += $product['tax_amount'] * $product['qty'];
@@ -123,22 +123,21 @@ class Paypal extends PaymentFramework implements PaymentInterface
 
         $details = new Details();
         $details->setShipping($shipping->getAmount())
-                ->setTax($taxTotal)
-                ->setSubtotal($subTotal);
+            ->setTax($taxTotal)
+            ->setSubtotal($subTotal);
 
 
         $amount = new Amount();
         $amount->setCurrency('USD')
-                ->setTotal($total)
-                ->setDetails($details);
-
+            ->setTotal($total)
+            ->setDetails($details);
 
 
         $transaction = new Transaction();
         $transaction->setAmount($amount)
-                ->setItemList($itemList)
-                ->setDescription('Payment description')
-                ->setInvoiceNumber(uniqid());
+            ->setItemList($itemList)
+            ->setDescription('Payment description')
+            ->setInvoiceNumber(uniqid());
 
 
         $redirectUrls = new RedirectUrls();

@@ -47,7 +47,7 @@ class ContactUsController extends Controller
 
         $request->merge([
             'full_name' => $user->full_name,
-            'email'     => $user->email,
+            'email' => $user->email,
         ]);
         Mail::to($user->email)->send(new ContactUsMail($request->all()));
 

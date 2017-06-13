@@ -54,13 +54,13 @@ Route::group(['middleware' => ['web'], 'namespace' => "Mage2\User\Controllers\Ad
 Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
 
     Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address',
-                                                'uses' => 'ConfigurationController@getConfiguration'
-                                                ]);
+        'uses' => 'ConfigurationController@getConfiguration'
+    ]);
 
 
     Route::get('/admin/admin-user/get-datatable-data', ['as' => 'admin.user.data-grid-table.get-data',
-                                                        'uses' => 'AdminUserController@getDataGrid'
-                                                        ]);
+        'uses' => 'AdminUserController@getDataGrid'
+    ]);
 
 
     Route::resource('/admin/admin-user', 'AdminUserController', ['as' => 'admin']);
@@ -74,16 +74,16 @@ Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\User\C
     Route::get('/my-account', ['as' => 'my-account.home', 'uses' => 'MyAccountController@home']);
     Route::get('/my-account/edit', ['as' => 'my-account.edit', 'uses' => 'MyAccountController@edit']);
     Route::post('/my-account/edit', ['as' => 'my-account.store', 'uses' => 'MyAccountController@store']);
-    
-    
+
+
     Route::get('/wishlist/add/{slug}', ['as' => 'wishlist.add', 'uses' => 'WishlistController@add']);
     Route::get('/my-account/wishlist', ['as' => 'wishlist.list', 'uses' => 'WishlistController@mylist']);
     Route::get('/wishlist/remove/{slug}', ['as' => 'wishlist.remove', 'uses' => 'WishlistController@remove']);
-    
-    
+
+
     Route::get('/my-account/upload-image', ['as' => 'my-account.upload-image', 'uses' => 'MyAccountController@uploadImage']);
     Route::post('/my-account/upload-image', ['as' => 'my-account.upload-image.post', 'uses' => 'MyAccountController@uploadImagePost']);
-    
+
     Route::get('/my-account/change-password', ['as' => 'my-account.change-password', 'uses' => 'MyAccountController@changePassword']);
     Route::post('/my-account/change-password', ['as' => 'my-account.change-password.post', 'uses' => 'MyAccountController@changePasswordPost']);
 
@@ -91,7 +91,6 @@ Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\User\C
 
 
 });
-
 
 
 Route::group(['middleware' => ['web'], 'namespace' => "Mage2\User\Controllers"], function () {

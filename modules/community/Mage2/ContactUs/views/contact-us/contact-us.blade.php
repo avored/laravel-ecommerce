@@ -11,35 +11,35 @@
 
 
                     @if(!Auth::check())
-                    <div class="form-group col s6">
-                        <label>First Name</label>
-                        <input type="text" class="form-control" name="first_name" value=""/>
-                        @if ($errors->has('first_name'))
-                            <span class="help-block">
+                        <div class="form-group col s6">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" name="first_name" value=""/>
+                            @if ($errors->has('first_name'))
+                                <span class="help-block">
                             <strong>{{ $errors->first('first_name') }}</strong>
                             </span>
-                        @endif
-                    </div>
-                    <div class="form-group col s6">
-                        <label>Last Name</label>
-                        <input type="text" class="form-control" name="last_name" value=""/>
-                        @if ($errors->has('last_name'))
-                            <span class="help-block">
+                            @endif
+                        </div>
+                        <div class="form-group col s6">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" name="last_name" value=""/>
+                            @if ($errors->has('last_name'))
+                                <span class="help-block">
                             <strong>{{ $errors->first('last_name') }}</strong>
                             </span>
-                        @endif
-                    </div>
-                    <div class="clearfix"></div>
+                            @endif
+                        </div>
+                        <div class="clearfix"></div>
 
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="text" class="form-control" name="email"/>
-                        @if ($errors->has('email'))
-                            <span class="help-block">
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control" name="email"/>
+                            @if ($errors->has('email'))
+                                <span class="help-block">
                             <strong>{{ $errors->first('email') }}</strong>
                             </span>
-                        @endif
-                    </div>
+                            @endif
+                        </div>
 
                     @else
                         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

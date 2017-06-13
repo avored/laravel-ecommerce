@@ -43,7 +43,7 @@ class ForgotPasswordController extends AdminController
       |
      */
 
-use SendsPasswordResetEmails;
+    use SendsPasswordResetEmails;
 
     /**
      * Create a new controller instance.

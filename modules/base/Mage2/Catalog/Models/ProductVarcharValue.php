@@ -31,7 +31,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class ProductVarcharValue extends BaseModel
 {
-    protected $fillable = ['product_attribute_id', 'product_id','value'];
+    protected $fillable = ['product_attribute_id', 'product_id', 'value'];
 
     /**
      * Attribute Dropdown Options belongs to many Product Attribute.

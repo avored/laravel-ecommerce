@@ -30,7 +30,8 @@ use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Yaml\Yaml;
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
      *
@@ -74,8 +75,9 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function boot() {
-        if(true === $this->getEnable()) {
+    public function boot()
+    {
+        if (true === $this->getEnable()) {
             $this->registerModule();
         }
     }
@@ -85,9 +87,10 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->mapWebRoutes();
             $this->registerViewPath();
         }
@@ -103,23 +106,28 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function mapWebRoutes() {
+    protected function mapWebRoutes()
+    {
         require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath() {
+    protected function registerViewPath()
+    {
         View::addLocation(__DIR__ . '/views');
     }
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this);
     }
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
-    
-    public function getPath() {
+
+    public function getPath()
+    {
         return __DIR__;
     }
 

@@ -29,14 +29,16 @@ use Mage2\Catalog\Models\ProductAttributeGroup;
 use Mage2\Catalog\Models\AttributeDropdownOption;
 use Mage2\Catalog\Models\ProductAttribute;
 
-class Mage2CatalogSchema extends Migration {
+class Mage2CatalogSchema extends Migration
+{
 
     /**
      * Install the Mage2 Catalog Module Schema.
      *
      * @return void
      */
-    public function install() {
+    public function install()
+    {
 
 
         Schema::create('product_attributes', function (Blueprint $table) {
@@ -64,7 +66,7 @@ class Mage2CatalogSchema extends Migration {
             $table->tinyInteger('status')->nullable()->default(null);
             $table->tinyInteger('in_stock')->nullable()->default(null);
             $table->tinyInteger('track_stock')->nullable()->default(null);
-            $table->decimal('qty',10,6)->nullable();
+            $table->decimal('qty', 10, 6)->nullable();
             $table->tinyInteger('is_taxable')->nullable()->default(null);
 
             $table->string('page_title')->nullable()->default(null);
@@ -75,11 +77,10 @@ class Mage2CatalogSchema extends Migration {
         });
 
 
-
         Schema::create('product_prices', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
-            $table->decimal('price',10,6);
+            $table->decimal('price', 10, 6);
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
@@ -158,13 +159,11 @@ class Mage2CatalogSchema extends Migration {
         });
 
 
-
         //product_datetime_values table foreign key setup
         Schema::table('attribute_dropdown_options', function (Blueprint $table) {
             $table->foreign('product_attribute_id')
                 ->references('id')->on('product_attributes')->onDelete('cascade');
         });
-
 
 
         Schema::create('product_varchar_values', function (Blueprint $table) {
@@ -174,11 +173,11 @@ class Mage2CatalogSchema extends Migration {
             $table->string('value');
             $table->timestamps();
 
-        $table->foreign('product_attribute_id')
-            ->references('id')->on('product_attributes')->onDelete('cascade');
+            $table->foreign('product_attribute_id')
+                ->references('id')->on('product_attributes')->onDelete('cascade');
 
-        $table->foreign('product_id')
-            ->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
 
         });
 
@@ -203,7 +202,8 @@ class Mage2CatalogSchema extends Migration {
      *
      * @return void
      */
-    public function uninstall() {
+    public function uninstall()
+    {
 
         Schema::drop('product_attributes');
         Schema::drop('products');

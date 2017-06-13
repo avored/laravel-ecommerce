@@ -23,7 +23,8 @@
                                    value="{{$dropdownValue->display_text}}">
                             <div class="col-md-3 form-group">
                                 <label>Image</label>
-                                <input type="file" name="attribute[{{ $attribute->id }}][{{ $dropdownValue->id }}][image]"
+                                <input type="file"
+                                       name="attribute[{{ $attribute->id }}][{{ $dropdownValue->id }}][image]"
                                        class="form-control"/>
                             </div>
                             <div class="col-md-3 form-group">
@@ -38,7 +39,8 @@
                             </div>
                             <div class="col-md-3">
                                 <label>Price</label>
-                                <input type="text" name="attribute[{{ $attribute->id }}][{{ $dropdownValue->id }}][price]"
+                                <input type="text"
+                                       name="attribute[{{ $attribute->id }}][{{ $dropdownValue->id }}][price]"
                                        class="form-control"/>
                             </div>
                         </div>

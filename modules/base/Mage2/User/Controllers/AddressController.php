@@ -47,8 +47,8 @@ class AddressController extends Controller
         $addresses = Address::where('user_id', '=', $user->id)->get();
 
         return view('address.my-account.address')
-                        ->with('user', $user)
-                        ->with('addresses', $addresses);
+            ->with('user', $user)
+            ->with('addresses', $addresses);
     }
 
     /**
@@ -63,9 +63,9 @@ class AddressController extends Controller
         $defaultCountry = Configuration::getConfiguration('mage2_address_default_country');
 
         return view('address.my-account.create-address')
-                        ->with('user', $user)
-                        ->with('countries', $countries)
-                        ->with('defaultCountry', $defaultCountry);
+            ->with('user', $user)
+            ->with('countries', $countries)
+            ->with('defaultCountry', $defaultCountry);
     }
 
     /**
@@ -111,16 +111,16 @@ class AddressController extends Controller
         $countries = Country::all();
 
         return view('address.my-account.edit-address')
-                        ->with('user', $user)
-                        ->with('address', $address)
-                        ->with('countries', $countries);
+            ->with('user', $user)
+            ->with('address', $address)
+            ->with('countries', $countries);
     }
 
     /**
      * Update the specified user addresses in database.
      *
      * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */

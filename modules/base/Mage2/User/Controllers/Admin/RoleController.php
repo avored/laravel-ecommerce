@@ -58,10 +58,10 @@ class RoleController extends AdminController
         if (Gate::allows('hasPermission', [AdminUser::class, "admin.role.edit"])) {
             $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
                 return "<form method='post' action='" . route('admin.role.destroy', $row->id) . "'>" .
-                "<input type='hidden' name='_method' value='delete'/>" .
-                csrf_field() .
-                '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
-                "</form>";
+                    "<input type='hidden' name='_method' value='delete'/>" .
+                    csrf_field() .
+                    '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
+                    "</form>";
             }));
         }
 

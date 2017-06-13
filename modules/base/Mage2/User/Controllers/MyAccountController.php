@@ -34,45 +34,51 @@ use Mage2\User\Requests\UserProfileRequest;
 use Illuminate\Support\Facades\Hash;
 use Mage2\Framework\Image\Facades\Image;
 
-class MyAccountController extends Controller {
+class MyAccountController extends Controller
+{
 
-    public function home() {
+    public function home()
+    {
         $user = Auth::user();
 
         return view('user.my-account.home')
-                        ->with('user', $user);
+            ->with('user', $user);
     }
 
-    public function edit() {
+    public function edit()
+    {
         $user = Auth::user();
 
         return view('user.my-account.edit')
-                        ->with('user', $user);
+            ->with('user', $user);
     }
 
-    public function store(UserProfileRequest $request) {
+    public function store(UserProfileRequest $request)
+    {
         $user = Auth::user();
         $user->update($request->all());
 
         return redirect()->route('my-account.home');
     }
 
-    public function uploadImage() {
+    public function uploadImage()
+    {
         return view('user.my-account.upload-image');
     }
 
-    public function uploadImagePost(UploadUserImageRequest $request) {
+    public function uploadImagePost(UploadUserImageRequest $request)
+    {
 
 
         $user = Auth::user();
 
         $image = $request->file('profile_image');
 
-        if(false === empty($user->image_path)) {
+        if (false === empty($user->image_path)) {
             $user->image_path->destroy();
         }
 
-        $relativePath = '/uploads/users/'. $user->id;
+        $relativePath = '/uploads/users/' . $user->id;
         $path = $relativePath;
 
         $dbPath = $relativePath . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
@@ -82,20 +88,22 @@ class MyAccountController extends Controller {
         $user->update(['image_path' => $dbPath]);
 
         return redirect()->route('my-account.home')
-                        ->with('notificationText', 'User Profile Image Uploaded successfully!!');
+            ->with('notificationText', 'User Profile Image Uploaded successfully!!');
     }
 
-    public function changePassword() {
+    public function changePassword()
+    {
         return view('user.my-account.change-password');
     }
 
-    public function changePasswordPost(ChangePasswordRequest $request) {
+    public function changePasswordPost(ChangePasswordRequest $request)
+    {
 
         $user = Auth::user();
-        if (Hash::check($request->get('current_password') , $user->password ) ) {
+        if (Hash::check($request->get('current_password'), $user->password)) {
             $user->update(['password' => bcrypt($request->get('password'))]);
             return redirect()->route('my-account.home')
-                            ->with('notificationText', 'User Password Changed Successfully!');
+                ->with('notificationText', 'User Password Changed Successfully!');
         } else {
             return redirect()->back()->withErrors(['current_password' => 'Your Current Password Wrong!']);
         }

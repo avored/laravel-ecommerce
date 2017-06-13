@@ -36,7 +36,7 @@ class CheckoutComposer
     /**
      * Bind data to the view.
      *
-     * @param  View  $view
+     * @param  View $view
      * @return void
      */
     public function compose(View $view)
@@ -46,14 +46,14 @@ class CheckoutComposer
 
         $pageId = Configuration::getConfiguration('general_term_condition_page');
 
-        if(null !== $pageId) {
+        if (null !== $pageId) {
             $page = Page::find($pageId);
             $termConditionPageUrl = "/page/" . $page->slug;
         }
 
 
         $cartProducts = Session::get('cart');
-        $view->with('cartProducts',$cartProducts)
-            ->with('termConditionPageUrl',$termConditionPageUrl);
+        $view->with('cartProducts', $cartProducts)
+            ->with('termConditionPageUrl', $termConditionPageUrl);
     }
 }

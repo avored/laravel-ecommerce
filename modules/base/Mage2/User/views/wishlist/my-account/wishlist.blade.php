@@ -13,43 +13,45 @@
                 <p>Sorry No Wishlists Found</p>
             @else
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    My Wishlist
-                </div>
-                <div class="panel-body">
-                    <table class="table table-responsive">
-                        <thead>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        My Wishlist
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-responsive">
+                            <thead>
                             <th>Product Title</th>
                             <th>Product Image</th>
                             <th>Action</th>
-                        </thead>
-                        <tbody>
+                            </thead>
+                            <tbody>
                             @foreach($wishlists as $wishlist)
-                            <tr>
-                                <td> {{ $wishlist->product->title }}</td>
-                                <td>
-                                    @if(isset($wishlist->product->image) && is_string($wishlist->product->image))
-                                <img alt="{{ $wishlist->product->title }}"
-                                     class="img-responsive"
-                                     style="max-height: 75px"
-                                     src="{{ asset('/uploads/catalog/images/'. $wishlist->product->image) }}" />
-                            @else 
-                                <img alt="{{ $wishlist->product->title }}"
-                                     class="img-responsive"
-                                     style="max-height: 75px"
-                                     src="/img/default-product.jpg) }}" />
-                            @endif
-                                </td>
-                                <td>
-                                    <a class="btn btn-danger" href="{{ route('wishlist.remove', $wishlist->product_id) }}">Remove from Wishlist</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td> {{ $wishlist->product->title }}</td>
+                                    <td>
+                                        @if(isset($wishlist->product->image) && is_string($wishlist->product->image))
+                                            <img alt="{{ $wishlist->product->title }}"
+                                                 class="img-responsive"
+                                                 style="max-height: 75px"
+                                                 src="{{ asset('/uploads/catalog/images/'. $wishlist->product->image) }}"/>
+                                        @else
+                                            <img alt="{{ $wishlist->product->title }}"
+                                                 class="img-responsive"
+                                                 style="max-height: 75px"
+                                                 src="/img/default-product.jpg) }}"/>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-danger"
+                                           href="{{ route('wishlist.remove', $wishlist->product_id) }}">Remove from
+                                            Wishlist</a>
+                                    </td>
+                                </tr>
                             @endforeach
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
 
             @endif
         </div>

@@ -34,8 +34,8 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth','permission'],
-                                'namespace' => "Mage2\OrderReturn\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'permission'],
+    'namespace' => "Mage2\OrderReturn\Controllers\Admin"], function () {
 
 });
 

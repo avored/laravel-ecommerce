@@ -48,11 +48,11 @@ class AddressRequest extends Request
     {
         return [
             'first_name' => 'required|max:255',
-            'last_name'  => 'required|max:255',
-            'address1'   => 'required|max:255',
-            'city'       => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'address1' => 'required|max:255',
+            'city' => 'required|max:255',
             'country_id' => 'required',
-            'phone'      => 'required|max:255',
+            'phone' => 'required|max:255',
         ];
     }
 }

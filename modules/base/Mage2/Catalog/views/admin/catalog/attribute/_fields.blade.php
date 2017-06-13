@@ -1,4 +1,3 @@
-
 {!! Form::text('title','Title') !!}
 {!! Form::text('identifier','Identifier') !!}
 
@@ -33,7 +32,8 @@ if (isset($attribute) && $attribute->attributeDropdownOptions->count() > 0) {
                 <div class="form-group col-md-12">
                     <label>Display Text</label>
                     <span class="input-group">
-                        <input class="form-control" name="dropdown-options[{{ $dropdownOptionModel->id }}][display_text]"
+                        <input class="form-control"
+                               name="dropdown-options[{{ $dropdownOptionModel->id }}][display_text]"
                                value="{{ $dropdownOptionModel->display_text }}"/>
 
                         @if ($loop->last)
@@ -55,7 +55,7 @@ if (isset($attribute) && $attribute->attributeDropdownOptions->count() > 0) {
             <div class="form-group col-md-12">
                 <label>Display Text</label>
 
-        <span class="input-group">
+                <span class="input-group">
             <input disabled class="form-control" name="dropdown-options[{{ $randomString }}][display_text]"/>
             <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
         </span>
@@ -69,8 +69,8 @@ if (isset($attribute) && $attribute->attributeDropdownOptions->count() > 0) {
             <div class="form-group col-md-12">
                 <label>Value</label>
 
-        <span class="input-group">
-            <input  class="form-control" name="dropdown-options[__RANDOM_STRING__][display_text]"/>
+                <span class="input-group">
+            <input class="form-control" name="dropdown-options[__RANDOM_STRING__][display_text]"/>
             <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
         </span>
             </div>

@@ -39,12 +39,14 @@ class Permission extends Model
      * @return \Mage2\User\Models\Role
      */
 
-    public function roles() {
+    public function roles()
+    {
         return $this->hasMany(Role::class);
     }
 
-    public static function getPermissionByName($name) {
+    public static function getPermissionByName($name)
+    {
         $instance = new static;
-        return $instance->where('name','=', $name)->first();
+        return $instance->where('name', '=', $name)->first();
     }
 }

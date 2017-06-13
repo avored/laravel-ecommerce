@@ -39,7 +39,7 @@ use Illuminate\Database\Schema\Blueprint;
 
 class TaxRuleController extends AdminController
 {
-  
+
 
     /**
      * Display a listing of the resource.
@@ -53,7 +53,7 @@ class TaxRuleController extends AdminController
         $taxRules = TaxRule::paginate(10);
 
         return view('mage2taxclass::admin.tax-rule.index')
-                ->with('taxRules', $taxRules);
+            ->with('taxRules', $taxRules);
     }
 
     /**
@@ -63,7 +63,7 @@ class TaxRuleController extends AdminController
      */
     public function create()
     {
-        $countryOptions = [null => 'Please Select'] +  Country::all()->pluck('name','id')->toArray();
+        $countryOptions = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
         return view('mage2taxclass::admin.tax-rule.create')->with('countryOptions', $countryOptions);
     }
 
@@ -102,19 +102,19 @@ class TaxRuleController extends AdminController
      */
     public function edit($id)
     {
-        $countryOptions = [null => 'Please Select'] +  Country::all()->pluck('name','id')->toArray();
+        $countryOptions = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
         $taxRule = TaxRule::findorfail($id);
 
         return view('mage2taxclass::admin.tax-rule.edit')
-                    ->with('taxRule', $taxRule)
-                    ->with('countryOptions', $countryOptions);
+            ->with('taxRule', $taxRule)
+            ->with('countryOptions', $countryOptions);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Mage2\TaxClass\Requests\TaxRuleRequest $request
-     * @param int                                $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */

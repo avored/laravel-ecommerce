@@ -30,7 +30,8 @@ use Mage2\Framework\Auth\Facades\Permission;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
      *
@@ -75,8 +76,9 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function boot() {
-        if(true === $this->getEnable()) {
+    public function boot()
+    {
+        if (true === $this->getEnable()) {
             $this->registerModule();
             $this->registerAdminMenu();
             $this->registerTranslationPath();
@@ -88,9 +90,10 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->mapWebRoutes();
             $this->registerViewPath();
             $this->registerPermissions();
@@ -99,8 +102,9 @@ class Module extends BaseModule {
     }
 
 
-    protected function registerTranslationPath() {
-        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2sale");
+    protected function registerTranslationPath()
+    {
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2sale");
     }
 
 
@@ -113,29 +117,32 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function mapWebRoutes() {
+    protected function mapWebRoutes()
+    {
         require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath() {
-        $this->loadViewsFrom(__DIR__. '/views', 'mage2sale');
-        View::addLocation(__DIR__ . DIRECTORY_SEPARATOR .'views');
+    protected function registerViewPath()
+    {
+        $this->loadViewsFrom(__DIR__ . '/views', 'mage2sale');
+        View::addLocation(__DIR__ . DIRECTORY_SEPARATOR . 'views');
     }
 
-    public function registerAdminMenu() {
+    public function registerAdminMenu()
+    {
         $adminMenu = ['sale' =>
-                        [ 'submenu' =>
-                            [ 'gift-coupon' =>
-                                [ 'label' => 'Gift Coupon',
-                                  'route' => 'admin.gift-coupon.index',
-                                ]
-                            ]
-                        ]
-                    ];
+            ['submenu' =>
+                ['gift-coupon' =>
+                    ['label' => 'Gift Coupon',
+                        'route' => 'admin.gift-coupon.index',
+                    ]
+                ]
+            ]
+        ];
         AdminMenu::registerMenu('mage2-order', $adminMenu);
 
 
-        $orderStatusMenu = [ 'sale' => ['submenu' => [ 'order-status' => [
+        $orderStatusMenu = ['sale' => ['submenu' => ['order-status' => [
             'label' => 'Order Status',
             'route' => 'admin.order-status.index',
         ]]]];
@@ -147,7 +154,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function registerPermissions() {
+    protected function registerPermissions()
+    {
 
         $permissions = [
             ['title' => 'Order Status List', 'routes' => 'admin.order-status.index'],
@@ -162,15 +170,18 @@ class Module extends BaseModule {
     }
 
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
 
-    public function getPath() {
+    public function getPath()
+    {
         return __DIR__;
     }
 }

@@ -1,8 +1,7 @@
-
 {!! Form::text('first_name','First Name') !!}
 {!! Form::text('last_name','Last Name') !!}
 
-@if($editMethod == true) 
+@if($editMethod == true)
     <?php $attributes = ['disabled' => true];?>
 @else
     <?php $attributes = []; ?>

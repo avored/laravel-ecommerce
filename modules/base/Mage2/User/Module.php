@@ -47,7 +47,8 @@ use Symfony\Component\Yaml\Yaml;
 use Mage2\User\Events\UserRegisteredEvent;
 use Mage2\User\Listeners\RegisteredUserListener;
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
      *
@@ -81,8 +82,6 @@ class Module extends BaseModule {
     protected $enable = NULL;
 
 
-
-
     protected $policies = [
         AdminUser::class => AdminUserPolicy::class,
     ];
@@ -98,15 +97,16 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function boot() {
-        if(true === $this->getEnable()) {
+    public function boot()
+    {
+        if (true === $this->getEnable()) {
             $this->registerModule();
             $this->registerMiddleware();
             $this->registerAdminMenu();
             $this->registerPolicies();
             $this->registerViewComposerData();
             $this->registerTranslationPath();
-            Event::listen( UserRegisteredEvent::class ,RegisteredUserListener::class);
+            Event::listen(UserRegisteredEvent::class, RegisteredUserListener::class);
         }
     }
 
@@ -115,10 +115,11 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
 
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->mapWebRoutes();
             $this->registerViewPath();
             $this->registerAdminConfiguration();
@@ -131,13 +132,15 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function registerPolicies() {
+    public function registerPolicies()
+    {
         foreach ($this->policies as $key => $value) {
             Gate::policy($key, $value);
         }
     }
 
-    public function registerViewComposerData() {
+    public function registerViewComposerData()
+    {
         View::composer(['user.my-account.sidebar'], 'Mage2\User\ViewComposers\MyAccountSidebarComposer');
     }
 
@@ -146,7 +149,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function registerMiddleware() {
+    public function registerMiddleware()
+    {
         $router = $this->app['router'];
 
         $router->aliasMiddleware('permission', Permission::class);
@@ -164,7 +168,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function registerAdminConfiguration() {
+    public function registerAdminConfiguration()
+    {
         $adminConfigurations[] = [
             'title' => 'Address Configuration',
             'description' => 'Set Default Country for Store',
@@ -185,36 +190,40 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function mapWebRoutes() {
+    protected function mapWebRoutes()
+    {
         require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath() {
-        $this->loadViewsFrom(__DIR__. '/views', 'mage2user');
+    protected function registerViewPath()
+    {
+        $this->loadViewsFrom(__DIR__ . '/views', 'mage2user');
         View::addLocation(__DIR__ . '/views');
     }
 
-    protected function registerTranslationPath() {
-        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2user");
+    protected function registerTranslationPath()
+    {
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2user");
     }
 
 
-    public function registerAdminMenu() {
-        $adminUserMenu = [ 'user' => [
-                'label' => 'Users',
-                'route' => '#',
-                'submenu' => ['admin-users' => [
-                        'label' => 'Admin Users',
-                        'route' => 'admin.admin-user.index',
-                    ],
-                    /*
-                    'roles' =>
-                    [
-                        'label' => 'Roles',
-                        'route' => 'admin.role.index',
-                    ]
-                    */
-                    ]
+    public function registerAdminMenu()
+    {
+        $adminUserMenu = ['user' => [
+            'label' => 'Users',
+            'route' => '#',
+            'submenu' => ['admin-users' => [
+                'label' => 'Admin Users',
+                'route' => 'admin.admin-user.index',
+            ],
+                /*
+                'roles' =>
+                [
+                    'label' => 'Roles',
+                    'route' => 'admin.role.index',
+                ]
+                */
+            ]
         ]];
         AdminMenu::registerMenu('mage2-user', $adminUserMenu);
     }
@@ -224,15 +233,16 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function registerPermissions() {
+    protected function registerPermissions()
+    {
 
         $permissions = [
 
             /**
-            ['title' => 'Role List', 'routes' => 'admin.role.index'],
-            ['title' => 'Role Create', 'routes' => "admin.role.create,admin.role.store"],
-            ['title' => 'Role Edit', 'routes' => "admin.role.edit,admin.role.update"],
-            ['title' => 'Role Destroy', 'routes' => "admin.role.destroy"],
+             * ['title' => 'Role List', 'routes' => 'admin.role.index'],
+             * ['title' => 'Role Create', 'routes' => "admin.role.create,admin.role.store"],
+             * ['title' => 'Role Edit', 'routes' => "admin.role.edit,admin.role.update"],
+             * ['title' => 'Role Destroy', 'routes' => "admin.role.destroy"],
              */
             ['title' => 'Admin User List', 'routes' => 'admin.admin-user.index'],
             ['title' => 'Admin User Create', 'routes' => "admin.admin-user.create,admin.admin-user.store"],
@@ -245,15 +255,18 @@ class Module extends BaseModule {
         }
     }
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
-    
-    public function getPath() {
+
+    public function getPath()
+    {
         return __DIR__;
     }
 

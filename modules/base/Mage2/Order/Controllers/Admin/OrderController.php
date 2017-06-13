@@ -51,23 +51,21 @@ class OrderController extends AdminController
     public function index()
     {
         /**
-        $model  = new Order();
-        $dataGrid = DataGrid::make($model);
-
-        $dataGrid->addColumn(DataGrid::textColumn('id', 'Order ID'));
-        $dataGrid->addColumn(DataGrid::textColumn('shipping_method', 'Shipping Method'));
-        $dataGrid->addColumn(DataGrid::textColumn('payment_method', 'Payment Method'));
-        $dataGrid->addColumn(DataGrid::textColumn('order_status_title', 'Order Status'));
-        if (Gate::allows('hasPermission', [AdminUser::class, "admin.order.view"])) {
-
-            $dataGrid->addColumn(DataGrid::linkColumn('view', 'View', function ($row) {
-                return "<a href='" . route('admin.order.view', $row->id) . "'>View</a>";
-            }));
-        }
-
+         * $model  = new Order();
+         * $dataGrid = DataGrid::make($model);
+         *
+         * $dataGrid->addColumn(DataGrid::textColumn('id', 'Order ID'));
+         * $dataGrid->addColumn(DataGrid::textColumn('shipping_method', 'Shipping Method'));
+         * $dataGrid->addColumn(DataGrid::textColumn('payment_method', 'Payment Method'));
+         * $dataGrid->addColumn(DataGrid::textColumn('order_status_title', 'Order Status'));
+         * if (Gate::allows('hasPermission', [AdminUser::class, "admin.order.view"])) {
+         *
+         * $dataGrid->addColumn(DataGrid::linkColumn('view', 'View', function ($row) {
+         * return "<a href='" . route('admin.order.view', $row->id) . "'>View</a>";
+         * }));
+         * }
          */
-        return view('mage2order::admin.order.index')
-                ;
+        return view('mage2order::admin.order.index');
     }
 
     public function view($id)
@@ -93,10 +91,10 @@ class OrderController extends AdminController
         $view = view('mage2order::admin.order.pdf')->with('order', $order);
 
         $folderPath = public_path('uploads/order/invoice');
-        if(!File::exists($folderPath)) {
+        if (!File::exists($folderPath)) {
             File::makeDirectory($folderPath, '0775', true);
         }
-        $path = $folderPath. DIRECTORY_SEPARATOR .$order->id.'.pdf';
+        $path = $folderPath . DIRECTORY_SEPARATOR . $order->id . '.pdf';
         PDF::loadHTML($view->render())->save($path);
 
         Mail::to($user->email)->send(new OrderInvoicedMail($order, $path));
@@ -111,9 +109,9 @@ class OrderController extends AdminController
         $orderStatus = OrderStatus::all()->pluck('title', 'id');
 
         $view = view('mage2order::admin.order.view')
-                ->with('order', $order)
-                ->with('orderStatus', $orderStatus)
-                ->with('changeStatus', true);
+            ->with('order', $order)
+            ->with('orderStatus', $orderStatus)
+            ->with('changeStatus', true);
 
         return $view;
     }
@@ -122,12 +120,12 @@ class OrderController extends AdminController
     {
         $order = Order::findorfail($id);
         $order->update($request->all());
-        
+
         $userEmail = $order->user->email;
         $orderStatusTitle = $order->order_status_title;
-        
+
         Mail::to($userEmail)->send(new UpdateOrderStatusMail($orderStatusTitle));
-        
+
         return redirect()->route('admin.order.index');
     }
 }

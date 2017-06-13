@@ -32,7 +32,8 @@ use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\Yaml\Yaml;
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
      *
@@ -77,8 +78,9 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function boot() {
-        if(true === $this->getEnable()) {
+    public function boot()
+    {
+        if (true === $this->getEnable()) {
             $this->registerModule();
             $this->registerAdminMenu();
             $this->registerTranslationPath();
@@ -90,9 +92,10 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->mapWebRoutes();
             $this->registerViewPath();
             $this->registerPermissions();
@@ -100,8 +103,9 @@ class Module extends BaseModule {
     }
 
 
-    protected function registerTranslationPath() {
-        $this->loadTranslationsFrom(__DIR__. "/views/lang", "mage2page");
+    protected function registerTranslationPath()
+    {
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2page");
     }
 
 
@@ -114,19 +118,22 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function mapWebRoutes() {
+    protected function mapWebRoutes()
+    {
         require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath() {
-        $this->loadViewsFrom(__DIR__. '/views', 'mage2page');
-        View::addLocation(__DIR__ . DIRECTORY_SEPARATOR .'views');
+    protected function registerViewPath()
+    {
+        $this->loadViewsFrom(__DIR__ . '/views', 'mage2page');
+        View::addLocation(__DIR__ . DIRECTORY_SEPARATOR . 'views');
     }
 
-    public function registerAdminMenu() {
-        $adminMenu = [ 'page' => [
-                'label' => 'Pages',
-                'route' => 'admin.page.index',
+    public function registerAdminMenu()
+    {
+        $adminMenu = ['page' => [
+            'label' => 'Pages',
+            'route' => 'admin.page.index',
         ]];
         AdminMenu::registerMenu('mage2-page', $adminMenu);
     }
@@ -136,7 +143,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function registerPermissions() {
+    protected function registerPermissions()
+    {
 
         $permissions = [
             ['title' => 'Order List', 'routes' => 'admin.order.index'],
@@ -149,16 +157,19 @@ class Module extends BaseModule {
         }
     }
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
 
-    public function getPath() {
+    public function getPath()
+    {
         return __DIR__;
     }
 }

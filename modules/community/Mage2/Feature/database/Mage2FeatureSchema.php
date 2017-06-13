@@ -61,7 +61,7 @@ class Mage2FeatureSchema extends Migration
             'display_text' => 'Yes'
         ]);
 
-       
+
     }
 
     /**
@@ -71,10 +71,10 @@ class Mage2FeatureSchema extends Migration
      */
     public function uninstall()
     {
-       
-        $attribute  = ProductAttribute::where('identifier','=','is_featured')->get()->first();
-        
+
+        $attribute = ProductAttribute::where('identifier', '=', 'is_featured')->get()->first();
+
         $attribute->delete();
-            
+
     }
 }

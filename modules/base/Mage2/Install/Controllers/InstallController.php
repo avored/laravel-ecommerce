@@ -85,17 +85,17 @@ class InstallController extends Controller
             session()->put('install-module', $sessionData);
         }
 
-        foreach($sessionData as $identifier => $status) {
-            if($status == "uninstall") {
+        foreach ($sessionData as $identifier => $status) {
+            if ($status == "uninstall") {
                 break;
             }
         }
 
         return view('mage2install::install.database-table')
-                                ->with('modules', $modules)
-                                ->with('communityModules', $communityModules)
-                                ->with('sessionData',$sessionData)
-                                ->with('identifier',$identifier);
+            ->with('modules', $modules)
+            ->with('communityModules', $communityModules)
+            ->with('sessionData', $sessionData)
+            ->with('identifier', $identifier);
     }
 
     public function databaseTablePost(Request $request)
@@ -119,20 +119,19 @@ class InstallController extends Controller
         }
 
 
-
-        foreach($sessionData as $setIdentifier => $status) {
-            if($setIdentifier == $identifier) {
+        foreach ($sessionData as $setIdentifier => $status) {
+            if ($setIdentifier == $identifier) {
                 $sessionData[$setIdentifier] = "install";
             }
         }
         //dd($sessionData);
 
-        Session::put('install-module',$sessionData);
+        Session::put('install-module', $sessionData);
 
         //dd(Session::get('install-module'));
 
-        foreach($sessionData as $identifier => $status) {
-            if($status == "uninstall") {
+        foreach ($sessionData as $identifier => $status) {
+            if ($status == "uninstall") {
                 $hasUninstallModule = true;
                 break;
             }
@@ -148,7 +147,7 @@ class InstallController extends Controller
             throw new Exception($e->getMessage());
         }
         */
-        if(true === $hasUninstallModule) {
+        if (true === $hasUninstallModule) {
             return redirect()->route('mage2.install.database.table.get');
         }
 
@@ -163,7 +162,7 @@ class InstallController extends Controller
 
     public function databaseDataPost(Request $request)
     {
-        if($request->get('install_data') == "yes") {
+        if ($request->get('install_data') == "yes") {
 
             try {
                 //Artisan::call('mage2:migrate');

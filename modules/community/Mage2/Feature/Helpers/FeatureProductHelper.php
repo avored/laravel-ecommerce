@@ -40,11 +40,11 @@ class FeatureProductHelper
         $products = Collection::make([]);
         $attribute = ProductAttribute::where('identifier', '=', 'is_featured')->first();
 
-        $attributeDropdownOption = $attribute->attributeDropdownOptions()->where('product_attribute_id','=', $attribute->id)->where('display_text','=','Yes')->first();
+        $attributeDropdownOption = $attribute->attributeDropdownOptions()->where('product_attribute_id', '=', $attribute->id)->where('display_text', '=', 'Yes')->first();
 
-        $productIds = ProductVarcharValue::where('value','=', $attributeDropdownOption->id)->get()->pluck('product_id');
+        $productIds = ProductVarcharValue::where('value', '=', $attributeDropdownOption->id)->get()->pluck('product_id');
 
-        foreach($productIds as $productId) {
+        foreach ($productIds as $productId) {
 
             $product = Product::findorfail($productId);
 

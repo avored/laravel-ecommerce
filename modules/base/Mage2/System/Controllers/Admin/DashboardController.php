@@ -42,7 +42,7 @@ class DashboardController extends AdminController
     {
 
         $value = Configuration::getConfiguration('mage2_user_total');
-        $totalRegisteredUser = (null === $value) ? 0 :  $value;
+        $totalRegisteredUser = (null === $value) ? 0 : $value;
 
         $pendingStatus = OrderStatus::whereTitle('Pending')->first();
         $totalPendingOrders = Order::whereOrderStatusId($pendingStatus->id)->count();
@@ -51,8 +51,8 @@ class DashboardController extends AdminController
 
         $totalReceivedOrders = Order::whereOrderStatusId($receivedStatus->id)->count();
         return view('mage2system::admin.home')
-                        ->with('totalRegisteredUser',$totalRegisteredUser)
-                        ->with('totalPendingOrders',$totalPendingOrders)
-                        ->with('totalReceivedOrders',$totalReceivedOrders);
+            ->with('totalRegisteredUser', $totalRegisteredUser)
+            ->with('totalPendingOrders', $totalPendingOrders)
+            ->with('totalReceivedOrders', $totalReceivedOrders);
     }
 }

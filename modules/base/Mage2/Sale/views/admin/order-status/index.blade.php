@@ -37,7 +37,7 @@
                     name: 'edit',
                     sortable: false,
                     render: function (data, type, object, meta) {
-                        return '<a href="/admin/order-status/'+ object.id +'/edit">Edit</a>';
+                        return '<a href="/admin/order-status/' + object.id + '/edit">Edit</a>';
                     }
                 },
                 {
@@ -45,13 +45,13 @@
                     name: 'destroy',
                     sortable: false,
                     render: function (data, type, object, meta) {
-                        return '<form id="admin-order-status-destroy-'+object.id+'" method="post"  action="/admin/order-status/'+object.id+'" >' +
-                                '<input type="hidden" name="_method" value="DELETE"/>' +
-                                '<input type="hidden" name="_token" value="{{ csrf_token() }}"/>' +
-                                '</form>' +
-                                '<a onclick="event.preventDefault();jQuery(\'#admin-order-status-destroy-'+object.id+'\').submit()"' +
-                                    'href="/admin/order-status/'+object.id+'">Destroy' +
-                                '</a>';
+                        return '<form id="admin-order-status-destroy-' + object.id + '" method="post"  action="/admin/order-status/' + object.id + '" >' +
+                            '<input type="hidden" name="_method" value="DELETE"/>' +
+                            '<input type="hidden" name="_token" value="{{ csrf_token() }}"/>' +
+                            '</form>' +
+                            '<a onclick="event.preventDefault();jQuery(\'#admin-order-status-destroy-' + object.id + '\').submit()"' +
+                            'href="/admin/order-status/' + object.id + '">Destroy' +
+                            '</a>';
                     }
                 }
             ]

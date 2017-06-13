@@ -46,11 +46,13 @@ class AttributeController extends AdminController
         return view('mage2catalog::admin.catalog.attribute.index');
     }
 
-    public function create() {
+    public function create()
+    {
         return view('mage2catalog::admin.catalog.attribute.create');
     }
 
-    public function store(AttributeRequest $request) {
+    public function store(AttributeRequest $request)
+    {
 
         $productAttribute = ProductAttribute::create($request->all());
 
@@ -62,14 +64,16 @@ class AttributeController extends AdminController
 
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
 
         $attribute = ProductAttribute::find($id);
         return view('mage2catalog::admin.catalog.attribute.edit')->with('attribute', $attribute);
 
     }
 
-    public function update(AttributeRequest $request,$id) {
+    public function update(AttributeRequest $request, $id)
+    {
 
         $attribute = ProductAttribute::find($id);
         $attribute->update($request->all());
@@ -81,7 +85,8 @@ class AttributeController extends AdminController
 
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
 
         ProductAttribute::destroy($id);
 
@@ -89,9 +94,10 @@ class AttributeController extends AdminController
     }
 
 
-    private function _saveDropdownOptions($productAttribute, $request) {
+    private function _saveDropdownOptions($productAttribute, $request)
+    {
 
-        if(null !== $request->get('dropdown-options') ) {
+        if (null !== $request->get('dropdown-options')) {
 
             foreach ($request->get('dropdown-options') as $key => $val) {
                 if ($key == "__RANDOM_STRING__") {

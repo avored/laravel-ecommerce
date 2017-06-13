@@ -99,7 +99,8 @@
                         <td class="col-md-6">
 
                             <div class="input-group">
-                                <input type="text" name="code" class="form-control gift-coupon-code-textbox" placeholder="Code"/>
+                                <input type="text" name="code" class="form-control gift-coupon-code-textbox"
+                                       placeholder="Code"/>
                                 <a href="#" class="input-group-addon code-apply-button">Apply</a>
                             </div>
                              
@@ -159,35 +160,35 @@
 @endsection
 
 @push('scripts')
-    <script>
-        jQuery(document).ready(function() {
-            jQuery(document).on('click','.code-apply-button',function(e){
-                e.preventDefault();
+<script>
+    jQuery(document).ready(function () {
+        jQuery(document).on('click', '.code-apply-button', function (e) {
+            e.preventDefault();
 
-                if(jQuery('.gift-coupon-code-textbox').val() == "") {
-                    alert('please enter valid coupon code');
-                    return;
-                }
-                var data = {
-                    _token: '{{ csrf_token() }}',
-                    code : jQuery('.gift-coupon-code-textbox').val()
-                }
+            if (jQuery('.gift-coupon-code-textbox').val() == "") {
+                alert('please enter valid coupon code');
+                return;
+            }
+            var data = {
+                _token: '{{ csrf_token() }}',
+                code: jQuery('.gift-coupon-code-textbox').val()
+            }
 
-                jQuery.ajax({
-                    url: '{{ route('get.code-discount') }}',
-                    dataType: 'json',
-                    type: 'post',
-                    data: data,
-                    success:function(res) {
-                        x = res;
-                        if(true == res.success) {
-                            location.reload();
-                        } else {
-                            alert(res.message);
-                        }
+            jQuery.ajax({
+                url: '{{ route('get.code-discount') }}',
+                dataType: 'json',
+                type: 'post',
+                data: data,
+                success: function (res) {
+                    x = res;
+                    if (true == res.success) {
+                        location.reload();
+                    } else {
+                        alert(res.message);
                     }
-                });
+                }
             });
         });
-    </script>
+    });
+</script>
 @endpush

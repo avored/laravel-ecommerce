@@ -32,15 +32,18 @@ use Mage2\User\Models\Wishlist;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\ProductVarcharValue;
 
-class WishlistController extends Controller {
+class WishlistController extends Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->middleware(['frontauth']);
     }
 
-    public function add($slug) {
-        
+    public function add($slug)
+    {
+
         $id = $this->_getProductIdBySlug($slug);
         Wishlist::create([
             'user_id' => Auth::user()->id,
@@ -50,32 +53,32 @@ class WishlistController extends Controller {
         return redirect()->back()->with('notificationText', "Product Added into your Wishlist Successfully!!");
     }
 
-    public function mylist() {
+    public function mylist()
+    {
         $wishlists = Wishlist::where([
-                    'user_id' => Auth::user()->id
-                ])->get();
-
-
+            'user_id' => Auth::user()->id
+        ])->get();
 
 
         return view('wishlist.my-account.wishlist')
-                        ->with('wishlists', $wishlists);
+            ->with('wishlists', $wishlists);
     }
 
-    public function remove($slug) {
-        
+    public function remove($slug)
+    {
+
         $id = $this->_getProductIdBySlug($slug);
-        
+
         Wishlist::where([
             'user_id' => Auth::user()->id,
             'product_id' => $id,
         ])->delete();
 
-        return redirect()->back()->with('notificationText', "Product Removed from your Wishlist Successfully!!");
-        ;
+        return redirect()->back()->with('notificationText', "Product Removed from your Wishlist Successfully!!");;
     }
 
-     private function _getProductIdBySlug($slug) {
+    private function _getProductIdBySlug($slug)
+    {
         $slugAttribute = ProductAttribute::where('identifier', '=', 'slug')->first();
         $productVarcharValue = ProductVarcharValue::where('value', '=', $slug);
         if (!empty($slugAttribute)) {

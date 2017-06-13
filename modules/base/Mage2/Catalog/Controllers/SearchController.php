@@ -35,12 +35,12 @@ class SearchController extends Controller
 
         $queryParam = $request->get('q');
 
-        $products = Product::where('title','like', "%" .$queryParam . "%")
-                        ->where('status','=',1)->paginate(9);
+        $products = Product::where('title', 'like', "%" . $queryParam . "%")
+            ->where('status', '=', 1)->paginate(9);
 
         return view('search.results')
-                ->with('queryParam', $queryParam)
-                ->with('products', $products);
+            ->with('queryParam', $queryParam)
+            ->with('products', $products);
 
 
     }

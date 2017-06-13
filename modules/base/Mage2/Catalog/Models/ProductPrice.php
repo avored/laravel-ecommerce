@@ -29,7 +29,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class ProductPrice extends BaseModel
 {
-    protected $fillable = [ 'product_id', 'price'];
+    protected $fillable = ['product_id', 'price'];
 
 
     public function products()

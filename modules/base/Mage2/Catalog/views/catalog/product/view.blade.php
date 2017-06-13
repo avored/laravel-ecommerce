@@ -18,7 +18,8 @@
                     <h1 class="product-title">{{ $product->title }}</h1>
 
 
-                    <div class="product-price"><span>$</span> <span class="price">{{ number_format($product->price,2) }}</span></div>
+                    <div class="product-price"><span>$</span> <span
+                                class="price">{{ number_format($product->price,2) }}</span></div>
 
                     @if($product->has_variation == 0 )
                         @include('catalog.product.view.type.basic-add-to-cart')

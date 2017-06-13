@@ -9,9 +9,9 @@
 
             <?php
             $varcharValue = null;
-            if(isset($product) && $product->id > 0) {
-                $productVarcharValue = $attribute->productVarcharValues()->where('product_id','=', $product->id)->first();
-                $varcharValue = (isset($productVarcharValue->value)) ? $productVarcharValue->value :NULL;
+            if (isset($product) && $product->id > 0) {
+                $productVarcharValue = $attribute->productVarcharValues()->where('product_id', '=', $product->id)->first();
+                $varcharValue = (isset($productVarcharValue->value)) ? $productVarcharValue->value : NULL;
             }
             ?>
 

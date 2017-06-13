@@ -35,7 +35,7 @@ use Illuminate\Support\Collection;
 
 class ConfigurationController extends AdminController
 {
-   
+
     /**
      * Show the application dashboard.
      *
@@ -46,9 +46,7 @@ class ConfigurationController extends AdminController
         $configurations = AdminConfiguration::all();
 
         return view('mage2system::admin.configuration.index')
-                ->with('configurations', $configurations)
-
-            ;
+            ->with('configurations', $configurations);
     }
 
     /**
@@ -86,7 +84,7 @@ class ConfigurationController extends AdminController
     public function getGeneralConfiguration()
     {
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
-        $pageOptions =  Collection::make(['' =>  'Please Select'] + Page::all()->pluck('title','id')->toArray());
+        $pageOptions = Collection::make(['' => 'Please Select'] + Page::all()->pluck('title', 'id')->toArray());
 
 
         return view('mage2system::admin.configuration.general-configuration')

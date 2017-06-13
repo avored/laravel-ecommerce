@@ -28,13 +28,13 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class ProductAttribute extends BaseModel
 {
-    protected $fillable = [  'title',
-                            'identifier', 
-                            'field_type',
-                            'is_system' ,
-                            'use_as_variation',
-                            'sort_order'
-                            ];
+    protected $fillable = ['title',
+        'identifier',
+        'field_type',
+        'is_system',
+        'use_as_variation',
+        'sort_order'
+    ];
 
     /**
      * Product Attribute has many Attribute Dropdown Options.

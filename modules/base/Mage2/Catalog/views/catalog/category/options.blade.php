@@ -28,21 +28,21 @@
 
                                class="category-variation-checkbox"
                                @if(in_array($attribute->identifier, array_keys($params)) && in_array($option->id, array_values($params)))
-                                   {{ "checked" }}
-                                       <?php
-                                               $queryParams = $params;
-                                       unset($queryParams[$attribute->identifier])
-                                       ?>
-                                   data-checked-url="{{ route('category.view',
+                               {{ "checked" }}
+                               <?php
+                               $queryParams = $params;
+                               unset($queryParams[$attribute->identifier])
+                               ?>
+                               data-checked-url="{{ route('category.view',
                                                                 ['slug' => $category->slug,$attribute->identifier => $option->id] + $queryParams) }}"
-                                   data-unchecked-url="{{ route('category.view',
+                               data-unchecked-url="{{ route('category.view',
                                                                 ['slug' => $category->slug] + $queryParams) }}"
 
                                @else
 
-                                   data-checked-url="{{ route('category.view',
+                               data-checked-url="{{ route('category.view',
                                                                     ['slug' => $category->slug,$attribute->identifier => $option->id] + $params) }}"
-                                   data-unchecked-url="{{ route('category.view',
+                               data-unchecked-url="{{ route('category.view',
                                                                     ['slug' => $category->slug] + $params) }}"
 
                                @endif
@@ -61,10 +61,10 @@
 
 @push('scripts')
 <script>
-    jQuery(document).ready(function() {
-        jQuery(document).on('change', '.category-variation-checkbox',function(e) {
+    jQuery(document).ready(function () {
+        jQuery(document).on('change', '.category-variation-checkbox', function (e) {
             e.preventDefault();
-            if(jQuery(this).is(":checked")) {
+            if (jQuery(this).is(":checked")) {
                 location = jQuery(this).attr('data-checked-url');
             } else {
                 location = jQuery(this).attr('data-unchecked-url');

@@ -35,59 +35,71 @@ use Mage2\Framework\System\Models\BaseModel;
 use Mage2\Catalog\Models\Review;
 use Illuminate\Support\Facades\Cache;
 
-class Product extends BaseModel {
+class Product extends BaseModel
+{
 
-    protected $fillable = ['title','slug','sku','description','status','in_stock','track_stock','qty','is_taxable','page_title','page_description','has_variation'];
+    protected $fillable = ['title', 'slug', 'sku', 'description', 'status', 'in_stock', 'track_stock', 'qty', 'is_taxable', 'page_title', 'page_description', 'has_variation'];
 
-    public static function getCollection() {
+    public static function getCollection()
+    {
         $products = Product::all();
         $productCollection = new ProductCollection();
         $productCollection->setCollection($products);
         return $productCollection;
     }
 
-    public function categories() {
+    public function categories()
+    {
         return $this->belongsToMany(Category::class);
     }
 
-    public function productVariations() {
+    public function productVariations()
+    {
         return $this->hasMany(ProductVariation::class);
     }
 
-    public function productVarcharValues() {
+    public function productVarcharValues()
+    {
         return $this->hasMany(ProductVarcharValue::class);
     }
 
 
-    public function reviews() {
+    public function reviews()
+    {
         return $this->hasMany(Review::class);
     }
 
-    public function prices() {
+    public function prices()
+    {
         return $this->hasMany(ProductPrice::class);
     }
 
-    public function images() {
+    public function images()
+    {
         return $this->hasMany(ProductImage::class);
     }
 
-    public function relatedProducts() {
+    public function relatedProducts()
+    {
         return $this->hasMany(RelatedProduct::class);
     }
 
-    public function orders() {
+    public function orders()
+    {
         return $this->hasMany(Order::class);
     }
 
-    public function getReviews() {
+    public function getReviews()
+    {
         return $this->reviews()->where('status', '=', 'ENABLED')->get();
     }
 
-    public function getAssignedAttributes() {
+    public function getAssignedAttributes()
+    {
 
         $productVariationsList = $this->productVariations()->get();
 
-        if($productVariationsList->count() >0 ){
+        if ($productVariationsList->count() > 0) {
             return $productVariationsList->unique('product_attribute_id');
         }
 
@@ -100,26 +112,28 @@ class Product extends BaseModel {
      *
      * @return string|\Mage2\Framework\Image\LocalImageFile
      */
-    public function getImageAttribute() {
+    public function getImageAttribute()
+    {
         $defaultPath = "/img/default-product.jpg";
         $image = $this->images()->first();
 
-        if(null === $image) {
+        if (null === $image) {
 
             return new LocalImageFile($defaultPath);
         }
 
-        if(  $image->path instanceof LocalImageFile) {
-            return  $image->path;
+        if ($image->path instanceof LocalImageFile) {
+            return $image->path;
         }
 
 
     }
 
-    public function getAssignedVariationBytAttributeId($attributeId){
+    public function getAssignedVariationBytAttributeId($attributeId)
+    {
         return $this->productVariations()
-                        ->where('product_attribute_id','=', $attributeId)
-                         ->get();
+            ->where('product_attribute_id', '=', $attributeId)
+            ->get();
     }
 
     /*
@@ -128,17 +142,18 @@ class Product extends BaseModel {
      * @return float $taxAmount
      */
 
-    public function getTaxAmount($price = NULL) {
+    public function getTaxAmount($price = NULL)
+    {
 
         $defaultCountryId = Configuration::getConfiguration('mage2_tax_class_default_country_for_tax_calculation');
-        $taxRule = TaxRule::where('country_id','=',$defaultCountryId)->orderBy('priority','DESC')->first();
+        $taxRule = TaxRule::where('country_id', '=', $defaultCountryId)->orderBy('priority', 'DESC')->first();
 
 
-        if(null === $price) {
+        if (null === $price) {
             $price = $this->price;
         }
 
-        if(null === $taxRule) {
+        if (null === $taxRule) {
             return 0.00;
         }
         $taxAmount = ($taxRule->percentage * $price / 100);
@@ -152,16 +167,18 @@ class Product extends BaseModel {
      * @return float $value
      */
 
-    public function getPriceAttribute() {
+    public function getPriceAttribute()
+    {
         $row = $this->prices()->first();
 
-        return (isset($row->price)) ? $row->price : null ;
+        return (isset($row->price)) ? $row->price : null;
     }
 
-    public function getFeaturedProducts($paginate = 4) {
+    public function getFeaturedProducts($paginate = 4)
+    {
         $attribute = ProductAttribute::where('identifier', '=', 'is_featured')->get()->first();
 
-        if($attribute == NULL) {
+        if ($attribute == NULL) {
             return null;
         }
         $products = Collection::make([]);

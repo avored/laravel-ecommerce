@@ -52,6 +52,7 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('frontguest');
     }
+
     protected function guard()
     {
         return Auth::guard('web');

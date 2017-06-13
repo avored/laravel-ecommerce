@@ -2,7 +2,8 @@
     <div class="container">
 
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -16,7 +17,8 @@
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search" name="q">
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -34,7 +36,7 @@
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
                     <li class="dropdown">
-                        <a href="#" title="My Account" class="dropdown-toggle"  data-toggle="dropdown" >
+                        <a href="#" title="My Account" class="dropdown-toggle" data-toggle="dropdown">
                             {{ Auth::user()->full_name }}
                         </a>
 

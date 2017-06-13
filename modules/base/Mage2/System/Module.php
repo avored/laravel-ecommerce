@@ -35,7 +35,8 @@ use Illuminate\Support\Facades\File;
 use Symfony\Component\Yaml\Yaml;
 
 
-class Module extends BaseModule {
+class Module extends BaseModule
+{
 
     /**
      *
@@ -80,8 +81,9 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function boot() {
-        if(true === $this->getEnable()) {
+    public function boot()
+    {
+        if (true === $this->getEnable()) {
             $this->registerModule();
             $this->registerAdminMenu();
         }
@@ -92,9 +94,10 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function register() {
+    public function register()
+    {
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
-        if(true === $this->getEnable()) {
+        if (true === $this->getEnable()) {
             $this->mapWebRoutes();
             $this->registerViewPath();
             $this->registerViewComposer();
@@ -112,11 +115,13 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function mapWebRoutes() {
+    protected function mapWebRoutes()
+    {
         require __DIR__ . '/routes/web.php';
     }
 
-    protected function registerViewPath() {
+    protected function registerViewPath()
+    {
         $this->loadViewsFrom(__DIR__ . "/views", 'mage2system');
         View::addLocation(__DIR__ . '/views');
     }
@@ -126,7 +131,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    public function registerAdminConfiguration() {
+    public function registerAdminConfiguration()
+    {
         $adminConfigurations[] = [
             'title' => 'General Configuration',
             'description' => 'General System Settings',
@@ -139,25 +145,26 @@ class Module extends BaseModule {
         }
     }
 
-    public function registerAdminMenu() {
-        $adminMenu = [ 'system' => [ 'submenu' => [ 'theme' => [
-                        'label' => 'Themes',
-                        'route' => 'admin.theme.index',
+    public function registerAdminMenu()
+    {
+        $adminMenu = ['system' => ['submenu' => ['theme' => [
+            'label' => 'Themes',
+            'route' => 'admin.theme.index',
         ]]]];
         AdminMenu::registerMenu('mage2-system', $adminMenu);
-        $adminMenu = [ 'system' => [
-                'label' => 'System',
-                'route' => '#',
-                'submenu' => [
-                    'module' => [
-                        'label' => 'Module',
-                        'route' => 'admin.module.index',
-                    ],
-                    'configuration' => [
-                        'label' => 'Configuration',
-                        'route' => 'admin.configuration',
-                    ]
+        $adminMenu = ['system' => [
+            'label' => 'System',
+            'route' => '#',
+            'submenu' => [
+                'module' => [
+                    'label' => 'Module',
+                    'route' => 'admin.module.index',
+                ],
+                'configuration' => [
+                    'label' => 'Configuration',
+                    'route' => 'admin.configuration',
                 ]
+            ]
         ]];
         AdminMenu::registerMenu('mage2-system', $adminMenu);
     }
@@ -167,7 +174,8 @@ class Module extends BaseModule {
      *
      * @return void
      */
-    protected function registerPermissions() {
+    protected function registerPermissions()
+    {
 
         $permissions = [
             ['title' => 'Theme List', 'routes' => 'admin.theme.index'],
@@ -181,22 +189,26 @@ class Module extends BaseModule {
         }
     }
 
-    protected function registerViewComposer() {
+    protected function registerViewComposer()
+    {
         View::composer(['layouts.admin-nav', 'layouts.admin-nav'], 'Mage2\System\ViewComposers\AdminNavComposer');
 
         View::composer(['layouts.app'], 'Mage2\System\ViewComposers\LayoutAppComposer');
     }
 
-    public function registerModule() {
+    public function registerModule()
+    {
         ModuleFacade::put($this->getIdentifier(), $this, $type = 'system');
     }
 
 
-    public function getNameSpace() {
+    public function getNameSpace()
+    {
         return __NAMESPACE__;
     }
 
-    public function getPath() {
+    public function getPath()
+    {
         return __DIR__;
     }
 

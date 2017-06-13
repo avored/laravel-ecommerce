@@ -24,7 +24,6 @@
  */
 
 
-
 /*
   |--------------------------------------------------------------------------
   | Mage2 Cart Module Routes
@@ -36,7 +35,7 @@
   |
  */
 Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Cart\Controllers"], function () {
-    
+
     Route::post('/add-to-cart', ['as' => 'cart.add-to-cart', 'uses' => 'CartController@addToCart']);
 
     Route::get('/cart/view', ['as' => 'cart.view', 'uses' => 'CartController@view']);

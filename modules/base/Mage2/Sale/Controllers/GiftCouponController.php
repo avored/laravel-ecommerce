@@ -33,35 +33,36 @@ use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Sale\Models\GiftCoupon;
 
-class GiftCouponController extends Controller {
+class GiftCouponController extends Controller
+{
 
-    public function getCodeDiscount(Request $request) {
+    public function getCodeDiscount(Request $request)
+    {
 
         $code = $request->get('code');
 
-        if(true == empty($code)) {
-            return Response::json(['success' => false,'message' => "Code Can't be Empty"]);
+        if (true == empty($code)) {
+            return Response::json(['success' => false, 'message' => "Code Can't be Empty"]);
         }
 
 
         $todayCarbonDate = Carbon::now();
-        $giftCoupon = GiftCoupon::whereCode($code)->whereStatus('ENABLED')->where('end_date','>',$todayCarbonDate )->first();
-        if(null === $giftCoupon ) {
-            return Response::json(['success' => false,'message' => "Invalid Coupon"]);
+        $giftCoupon = GiftCoupon::whereCode($code)->whereStatus('ENABLED')->where('end_date', '>', $todayCarbonDate)->first();
+        if (null === $giftCoupon) {
+            return Response::json(['success' => false, 'message' => "Invalid Coupon"]);
         }
 
         $cartItems = Session::get('cart');
 
-        foreach($cartItems as $id => $item) {
+        foreach ($cartItems as $id => $item) {
 
             $product = Product::findorfail($id);
 
-            if(isset($item['gift_coupon_amount'])) {
+            if (isset($item['gift_coupon_amount'])) {
                 $price = $product->price;
             } else {
                 $price = $item['price'];
             }
-
 
 
             $couponDiscount = ($price * $giftCoupon->discount / 100);

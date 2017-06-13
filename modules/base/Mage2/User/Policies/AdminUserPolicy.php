@@ -29,7 +29,8 @@ namespace Mage2\User\Policies;
 use Mage2\User\Models\AdminUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class AdminUserPolicy {
+class AdminUserPolicy
+{
 
     use HandlesAuthorization;
 
@@ -39,10 +40,11 @@ class AdminUserPolicy {
      * @param  \Mage2\User\Models\AdminUser $adminUser
      * @return mixed
      */
-    public function hasPermission(AdminUser $adminUser, $permissionName) {
+    public function hasPermission(AdminUser $adminUser, $permissionName)
+    {
 
 
-        if($adminUser->is_super_admin == 1) {
+        if ($adminUser->is_super_admin == 1) {
             return true;
         }
 
@@ -50,7 +52,6 @@ class AdminUserPolicy {
         return $role->hasPermission($permissionName);
 
     }
-
 
 
 }

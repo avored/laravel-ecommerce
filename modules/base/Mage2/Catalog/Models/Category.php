@@ -30,13 +30,13 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class Category extends BaseModel
 {
-    protected $fillable = [ 'parent_id', 'name', 'slug'];
+    protected $fillable = ['parent_id', 'name', 'slug'];
 
     public function products()
     {
         return $this->belongsToMany(Product::class);
     }
-   
+
 
     public function getParentNameAttribute()
     {
@@ -71,7 +71,7 @@ class Category extends BaseModel
 
         foreach ($categories as $category) {
             $data[] = [
-                'object'   => $category,
+                'object' => $category,
                 'children' => $this->list_categories($category->children),
             ];
         }
@@ -85,20 +85,22 @@ class Category extends BaseModel
     }
 
 
-    public function getFilters() {
+    public function getFilters()
+    {
         $attrs = Collection::make([]);
         $productIds = $this->products->pluck('id');
 
         $productVarcharCollection = ProductVarcharValue::whereIn('product_id', $productIds)->get()->unique('product_attribute_id');
 
-        foreach($productVarcharCollection as $varcharValue) {
+        foreach ($productVarcharCollection as $varcharValue) {
             $attrs->push(ProductAttribute::find($varcharValue->product_attribute_id));
         }
         return $attrs;
 
     }
 
-    public function canShowFilters() {
+    public function canShowFilters()
+    {
         //dd($this);
         return true;
     }
