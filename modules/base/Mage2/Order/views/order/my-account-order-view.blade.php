@@ -104,7 +104,7 @@
                             <h6>Billing Info</h6>
 
                             <p>
-                                {{ $order->billing_address->first_name }} {{ $order->shipping_address->last_name }}
+                                {{ $order->billing_address->first_name }} {{ $order->billing_address->last_name }}
                                 <br/>
                                 {{ $order->billing_address->address1 }}<br/>
                                 {{ $order->billing_address->address2 }}<br/>

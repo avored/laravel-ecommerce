@@ -46,5 +46,6 @@ Route::group(['middleware' => ['web'], 'namespace' => "Mage2\OrderReturn\Control
 
 
 Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\OrderReturn\Controllers"], function () {
+    Route::get('/my-account/order-return/{id}/create', ['as' => 'my-account.order-return.create', 'uses' => 'OrderReturnController@create']);
 
 });

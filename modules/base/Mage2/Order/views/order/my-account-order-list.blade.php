@@ -15,9 +15,7 @@
             <div class="clearfix"></div>
             <br/>
             @if(count($orders) <= 0)
-
                 <p>Sorry No Order Found</p>
-
             @else
                 <table class="table table-bordered table-responsive">
                     <thead>
@@ -26,6 +24,7 @@
                     <th>Payment Option</th>
                     <th>Status</th>
                     <th>View</th>
+                    <th>Return Request</th>
                     </thead>
                     <tbody>
                     @foreach($orders as $order)
@@ -36,6 +35,9 @@
                             <td>{{ $order->orderStatus->title }}</td>
                             <td>
                                 <a href="{{ route('my-account.order.view',$order->id )}}">View</a>
+                            </td>
+                            <td>
+                                <a href="{{ route('my-account.order-return.create',$order->id )}}">Return Request</a>
                             </td>
 
 
