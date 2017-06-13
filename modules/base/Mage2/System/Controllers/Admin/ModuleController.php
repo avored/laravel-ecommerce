@@ -25,11 +25,10 @@
 
 namespace Mage2\System\Controllers\Admin;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
-use Mage2\System\Models\Configuration;
 use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Framework\Theme\Facades\Theme;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 use Mage2\System\Models\Module as ModuleModel;
 

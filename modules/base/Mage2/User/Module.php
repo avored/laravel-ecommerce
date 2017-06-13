@@ -41,9 +41,6 @@ use Mage2\User\Middleware\Permission;
 use Mage2\Framework\Auth\Facades\Permission as PermissionFacade;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
 use Mage2\Framework\Configuration\Facades\AdminConfiguration;
-use Mage2\Framework\Auth\Access\Permission as PermissionTest;
-use Illuminate\Support\Facades\File;
-use Symfony\Component\Yaml\Yaml;
 use Mage2\User\Events\UserRegisteredEvent;
 use Mage2\User\Listeners\RegisteredUserListener;
 

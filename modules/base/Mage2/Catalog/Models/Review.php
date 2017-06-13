@@ -24,7 +24,6 @@
  */
 namespace Mage2\Catalog\Models;
 
-use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Models\BaseModel;
 use Mage2\User\Models\User;
 

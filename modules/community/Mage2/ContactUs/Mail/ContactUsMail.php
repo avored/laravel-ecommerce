@@ -39,7 +39,7 @@ class ContactUsMail extends Mailable
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param $data
      */
     public function __construct($data)
     {

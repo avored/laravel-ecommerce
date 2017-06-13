@@ -24,9 +24,6 @@
  */
 namespace Mage2\Catalog\Models;
 
-use Mage2\Catalog\Models\ProductAttribute;
-use Mage2\Catalog\Models\Product;
-
 use Mage2\Framework\System\Models\BaseModel;
 
 class ProductVarcharValue extends BaseModel

@@ -24,8 +24,6 @@
  */
 namespace Mage2\Catalog\Controllers;
 
-use Mage2\Catalog\Models\ProductAttribute;
-use Mage2\Catalog\Models\ProductVarcharValue;
 use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Controllers\Controller;
 

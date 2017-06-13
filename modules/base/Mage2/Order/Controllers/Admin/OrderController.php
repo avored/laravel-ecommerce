@@ -32,8 +32,6 @@ use Mage2\Order\Models\Order;
 use Mage2\Sale\Models\OrderStatus;
 use Mage2\Order\Requests\UpdateOrderStatusRequest;
 use Mage2\User\Models\User;
-use Mage2\User\Models\AdminUser;
-use Illuminate\Support\Facades\Gate;
 use Mage2\Order\Mail\UpdateOrderStatusMail;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
 use Illuminate\Support\Facades\File;

@@ -27,9 +27,7 @@ namespace Mage2\User\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Session;
 use Mage2\Framework\Image\LocalImageFile;
-use Mage2\User\Models\Wishlist;
 
 class User extends Authenticatable
 {

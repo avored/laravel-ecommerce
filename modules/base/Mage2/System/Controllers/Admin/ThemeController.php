@@ -26,6 +26,7 @@
 
 namespace Mage2\System\Controllers\Admin;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Mage2\System\Models\Configuration;

@@ -24,27 +24,18 @@
  */
 namespace Mage2\Checkout\Controllers;
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
-use Mage2\User\Models\Address;
-use Mage2\User\Requests\AddressRequest;
-use Mage2\Checkout\Requests\CheckoutUserRequest;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Framework\Payment\Facades\Payment;
 use Mage2\Framework\Shipping\Facades\Shipping;
 use Mage2\TaxClass\Models\Country;
-use Mage2\User\Models\User;
-use Mage2\Checkout\Requests\ShippingOptionRequest;
-use Mage2\Checkout\Requests\PaymentOptionRequest;
 
 class CheckoutController extends Controller
 {
     public function index()
     {
 
-        $user = NULL;
+        $user = null;
         $shippingOptions = Shipping::all();
         $paymentOptions = Payment::all();
         $countries = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();

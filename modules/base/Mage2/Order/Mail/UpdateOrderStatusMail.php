@@ -28,20 +28,21 @@ namespace Mage2\Order\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Mage2\User\Models\User;
 
 class UpdateOrderStatusMail extends Mailable
 {
 
-    use Queueable,
-        SerializesModels;
+    use Queueable, SerializesModels;
 
+    /**
+     * @var string
+     */
     public $orderStatusTitle;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param $orderStatus
      */
     public function __construct($orderStatus)
     {
@@ -57,5 +58,4 @@ class UpdateOrderStatusMail extends Mailable
     {
         return $this->view('mail.update-order-status');
     }
-
 }
