@@ -47,7 +47,8 @@
       "Mage2\\Sale\\": "modules/base/Mage2/Sale/",
       "Mage2\\System\\": "modules/base/Mage2/System/",
       "Mage2\\TaxClass\\": "modules/base/Mage2/TaxClass/",
-      "Mage2\\User\\": "modules/base/Mage2/User/"
+      "Mage2\\User\\": "modules/base/Mage2/User/",
+      "Mage2\\UserAddress\\": "modules/base/Mage2/UserAddress/"
     }
   },
   "autoload-dev": {
@@ -66,7 +67,9 @@
     ],
     "post-install-cmd": [
       "Illuminate\\Foundation\\ComposerScripts::postInstall",
-      "php artisan optimize"
+      "php artisan optimize",
+      "php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "php artisan key:generate"
     ],
     "post-update-cmd": [
       "Illuminate\\Foundation\\ComposerScripts::postUpdate",
