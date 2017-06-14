@@ -44,81 +44,20 @@ class OrderReturnController extends AdminController
      */
     public function index()
     {
-
         return view('mage2orderreturn::admin.order-return.index');
     }
 
     /**
-     * Show the form for creating a new Category.
+     * Admin Show Order Return Request so Admin Can take decision on it.
      *
-     * @return \Illuminate\Http\Response
+     * @param $id
+     *
      */
-    public function create()
-    {
+    public function show($id) {
 
+        $orderReturnRequet = OrderReturnRequest::find($id);
 
-        return view('mage2sale::admin.order-status.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Mage2\Catalog\Requests\CategoryRequest $request
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function store(OrderStatusRequest $request)
-    {
-
-        OrderStatus::create($request->all());
-
-        return redirect()->route('admin.order-status.index');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-
-        $orderStatus = OrderStatus::findorfail($id);
-
-        return view('mage2sale::admin.order-status.edit')
-            ->with('orderStatus', $orderStatus);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Mage2\Sale\Requests\OrderStatusRequest $request
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function update(OrderStatusRequest $request, $id)
-    {
-        $orderStatus = OrderStatus::findorfail($id);
-
-        $orderStatus->update($request->all());
-
-        return redirect()->route('admin.order-status.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-
-        OrderStatus::destroy($id);
-        return redirect()->route('admin.order-status.index');
+        return view('mage2orderreturn::admin.order-return.show')
+                        ->with('orderReturnRequest', $orderReturnRequet);
     }
 }

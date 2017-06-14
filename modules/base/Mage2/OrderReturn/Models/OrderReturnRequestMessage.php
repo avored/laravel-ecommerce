@@ -27,12 +27,28 @@ namespace Mage2\OrderReturn\Models;
 use Mage2\Framework\System\Models\BaseModel;
 use Mage2\TaxClass\Models\Country;
 use Mage2\System\Models\Configuration;
+use Mage2\User\Models\AdminUser;
+use Mage2\User\Models\User;
 
-class OrderReturnRequestProduct extends BaseModel
+class OrderReturnRequestMessage extends BaseModel
 {
-    protected $fillable = ['order_return_request_id','product_id','qty'];
+    protected $fillable = ['order_return_request_id','message_text','user_id','user_type'];
 
     public function orderReturnRequest() {
         return $this->belongsTo(OrderReturnRequest::class);
     }
+
+
+    public function getUserAttribute() {
+
+        if($this->attributes['user_type'] == "USER") {
+            return User::find($this->attributes['user_id']);
+        }
+
+        if($this->attributes['user_type'] == "ADMIN_USER") {
+            return AdminUser::find($this->attributes['user_id']);
+        }
+    }
+
+
 }

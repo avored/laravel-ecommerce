@@ -12,7 +12,7 @@
                 <th>Id</th>
                 <th>OrderID</th>
                 <th>User Option</th>
-                <th>Edit</th>
+                <th>View</th>
             </tr>
             </thead>
         </table>
@@ -36,7 +36,7 @@
                     name: 'edit',
                     sortable: false,
                     render: function (data, type, object, meta) {
-                        return '<a href="/admin/order-return/' + object.id + '/edit">Edit</a>';
+                        return '<a href="/admin/order-return/' + object.id + '">View</a>';
                     }
                 }
             ]

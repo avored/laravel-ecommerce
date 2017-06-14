@@ -24,6 +24,7 @@
  */
 namespace Mage2\OrderReturn\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Mage2\Order\Models\Order;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\OrderReturn\Requests\OrderReturnRequest;
@@ -32,7 +33,7 @@ use Mage2\OrderReturn\Models\OrderReturnRequestProduct;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-
+use Mage2\OrderReturn\Models\OrderReturnRequestMessage;
 
 class OrderReturnController extends Controller
 {
@@ -52,12 +53,20 @@ class OrderReturnController extends Controller
 
     public function store(OrderReturnRequest $request, $id) {
 
+        $user = Auth::user();
         $request->merge(['order_id' => $id]);
         $orderReturnRequest = OrderReturnRequestModel::create($request->all());
+
+        OrderReturnRequestMessage::create(['order_return_request_id' => $orderReturnRequest->id,
+                                            'message_text' => $request->get('message'),
+                                            'user_id' => $user->id,
+                                            'user_type' => 'USER'
+                                            ]);
+
         $products = $request->get('products');
 
-        foreach($products as $productId => $selectedOption) {
-            OrderReturnRequestProduct::create(['order_return_request_id' => $orderReturnRequest->id,'product_id' => $productId]);
+        foreach($products as $productId => $qty) {
+            OrderReturnRequestProduct::create(['order_return_request_id' => $orderReturnRequest->id,'product_id' => $productId,'qty' => $qty]);
         }
 
         return redirect()->route('my-account.home');

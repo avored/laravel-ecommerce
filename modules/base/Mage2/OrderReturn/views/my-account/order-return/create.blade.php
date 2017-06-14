@@ -78,7 +78,7 @@
                             @foreach($order->products as $product)
 
                                 <div class="col-xs-1">
-                                    <input type="checkbox" name="products[{{ $product->id }}]">
+                                    <input type="checkbox" name="products[{{ $product->id }}]id">
                                 </div>
 
                                 <div class="col-xs-2"><img class="img-responsive" src="{{ $product->image->smallUrl }}">
@@ -93,7 +93,7 @@
                                         </h6>
                                     </div>
                                     <div class="col-xs-4">
-                                        <input type="text" class="form-control input-sm" value="1">
+                                        <input type="text" class="form-control input-sm" name="products[{{ $product->id }}]qty" value="1">
                                     </div>
 
                                 </div>

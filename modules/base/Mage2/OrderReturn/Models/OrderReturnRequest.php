@@ -25,19 +25,26 @@
 namespace Mage2\OrderReturn\Models;
 
 use Mage2\Framework\System\Models\BaseModel;
-use Mage2\TaxClass\Models\Country;
-use Mage2\System\Models\Configuration;
+use Mage2\Order\Models\Order;
 
 class OrderReturnRequest extends BaseModel
 {
     protected $fillable = [
         'order_id',
-        'user_option',
-        'message',
+        'user_option'
     ];
 
     public function orderReturnRequestProducts() {
         return $this->hasMany(OrderReturnRequestProduct::class);
+    }
+
+    public function orderReturnRequestMessages() {
+        return $this->hasMany(OrderReturnRequestMessage::class);
+    }
+
+
+    public function order() {
+        return $this->belongsTo(Order::class);
     }
 
 }

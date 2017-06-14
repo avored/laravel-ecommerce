@@ -42,14 +42,23 @@ class Mage2OrderReturnSchema extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned();
             $table->enum('user_option',['REFUND','RETURN']);
-            $table->text('message');
             $table->timestamps();
         });
 
-        Schema::create('order_return_request_product', function (Blueprint $table) {
+        Schema::create('order_return_request_products', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('order_return_request_id')->unsigned();
             $table->integer('product_id')->unsigned();
+            $table->integer('qty');
+            $table->timestamps();
+        });
+
+        Schema::create('order_return_request_messages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('order_return_request_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->enum('user_type',['USER','ADMIN_USER']);
+            $table->text('message_text');
             $table->timestamps();
         });
 
@@ -64,6 +73,8 @@ class Mage2OrderReturnSchema extends Migration
     public function uninstall()
     {
         Schema::drop('order_return_requests');
+        Schema::drop('order_return_request_products');
+        Schema::drop('order_return_request_messages');
     }
 
 }
