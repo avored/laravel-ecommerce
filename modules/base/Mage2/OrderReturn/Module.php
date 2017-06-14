@@ -138,11 +138,11 @@ class Module extends BaseModule
             'route' => '#'
         ]];
         //AdminMenu::registerMenu('mage2-order', $adminMenu);
-        $adminMenu = ['sale' => ['submenu' => ['order' => [
-            'label' => 'Orders',
-            'route' => 'admin.order.index',
+        $adminMenu = ['sale' => ['submenu' => ['order-return' => [
+            'label' => 'Order Returns',
+            'route' => 'admin.order-return.index',
         ]]]];
-        //AdminMenu::registerMenu('mage2-order', $adminMenu);
+        AdminMenu::registerMenu('mage2-order', $adminMenu);
     }
 
     /**

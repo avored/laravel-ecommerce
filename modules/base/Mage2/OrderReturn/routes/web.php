@@ -37,6 +37,10 @@
 Route::group(['middleware' => ['web', 'adminauth', 'permission'],
     'namespace' => "Mage2\OrderReturn\Controllers\Admin"], function () {
 
+    Route::get('/admin/order-return/get-data', ['as' => 'admin.order-return.data-grid-table.get-data',
+        'uses' => 'OrderReturnController@getDataGrid'
+    ]);
+    Route::resource('/admin/order-return', 'OrderReturnController', ['as' => 'admin']);
 });
 
 

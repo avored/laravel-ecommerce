@@ -37,7 +37,6 @@
 Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\TaxClass\Controllers\Admin"], function () {
 
     Route::resource('/admin/tax-rule', 'TaxRuleController', ['as' => 'admin']);
-
     Route::get('/admin/configuration/tax-class', ['as' => 'admin.configuration.tax-class', 'uses' => 'ConfigurationController@getConfiguration']);
 });
 
