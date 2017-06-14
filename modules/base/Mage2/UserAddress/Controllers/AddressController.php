@@ -23,15 +23,13 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-
-namespace Mage2\User\Controllers;
+namespace Mage2\UserAddress\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\User\Models\Address;
-use Mage2\User\Requests\AddressRequest;
+use Mage2\TaxClass\Models\Country;
+use Mage2\UserAddress\Models\Address;
 use Mage2\System\Models\Configuration;
 use Mage2\Framework\System\Controllers\Controller;
-use Mage2\TaxClass\Models\Country;
 
 class AddressController extends Controller
 {
@@ -71,7 +69,7 @@ class AddressController extends Controller
     /**
      * Store a newly created user addresses in database.
      *
-     * @param \Mage2\User\Requests\AddressRequest $request
+     * @param \Mage2\UserAddress\Requests\AddressRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -119,7 +117,7 @@ class AddressController extends Controller
     /**
      * Update the specified user addresses in database.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \Mage2\UserAddress\Requests\Address $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

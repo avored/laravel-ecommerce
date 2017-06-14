@@ -23,36 +23,46 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\User\Requests;
+namespace Mage2\UserAddress\Models;
 
-use Illuminate\Foundation\Http\FormRequest as Request;
+use Mage2\Framework\System\Models\BaseModel;
+use Mage2\TaxClass\Models\Country;
+use Mage2\System\Models\Configuration;
 
-class AddressRequest extends Request
+class Address extends BaseModel
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    protected $fillable = [
+        'user_id',
+        'type',
+        'first_name',
+        'last_name',
+        'address1',
+        'address2',
+        'postcode',
+        'city',
+        'state',
+        'country_id',
+        'phone',
+    ];
+
+    public function country()
     {
-        return true;
+        return $this->belongsTo(Country::class);
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function getCountryIdAttribute()
     {
-        return [
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'address1' => 'required|max:255',
-            'city' => 'required|max:255',
-            'country_id' => 'required',
-            'phone' => 'required|max:255',
-        ];
+
+        if (isset($this->attributes['country_id']) && $this->attributes['country_id'] > 0) {
+            return $this->attributes['country_id'];
+        }
+
+        $defaultCountry = Configuration::getConfiguration('mage2_address_default_country');
+
+        if (isset($defaultCountry)) {
+            return $defaultCountry;
+        }
+
+        return "";
     }
 }

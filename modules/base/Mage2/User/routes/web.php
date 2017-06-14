@@ -53,15 +53,9 @@ Route::group(['middleware' => ['web'], 'namespace' => "Mage2\User\Controllers\Ad
 
 Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
 
-    Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address',
-        'uses' => 'ConfigurationController@getConfiguration'
-    ]);
-
-
     Route::get('/admin/admin-user/get-datatable-data', ['as' => 'admin.user.data-grid-table.get-data',
         'uses' => 'AdminUserController@getDataGrid'
     ]);
-
 
     Route::resource('/admin/admin-user', 'AdminUserController', ['as' => 'admin']);
 
@@ -86,9 +80,6 @@ Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\User\C
 
     Route::get('/my-account/change-password', ['as' => 'my-account.change-password', 'uses' => 'MyAccountController@changePassword']);
     Route::post('/my-account/change-password', ['as' => 'my-account.change-password.post', 'uses' => 'MyAccountController@changePasswordPost']);
-
-    Route::resource('/my-account/address', 'AddressController', ['as' => 'my-account']);
-
 
 });
 

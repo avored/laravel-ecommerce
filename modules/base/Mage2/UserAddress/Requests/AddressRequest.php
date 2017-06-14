@@ -23,40 +23,36 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\User\Controllers\Admin;
+namespace Mage2\UserAddress\Requests;
 
-use Mage2\User\Helpers\AddressHelper;
-use Mage2\System\Models\Configuration;
-use Mage2\Framework\System\Controllers\AdminController;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
-class ConfigurationController extends AdminController
+class AddressRequest extends Request
 {
     /**
-     * Address Helper Instance.
+     * Determine if the user is authorized to make this request.
      *
-     * @var \Mage2\User\Helpers\AddressHelper
+     * @return bool
      */
-    public $addressHelper;
-
-    public function __construct(AddressHelper $addressHelper)
+    public function authorize()
     {
-        parent::__construct();
-        $this->addressHelper = $addressHelper;
+        return true;
     }
 
     /**
-     * Display a listing of the Catalog Configuration.
+     * Get the validation rules that apply to the request.
      *
-     * @return \Illuminate\Http\Response
+     * @return array
      */
-    public function getConfiguration()
+    public function rules()
     {
-        $countries = $this->addressHelper->getCountriesOptions();
-        $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
-
-
-        return view('mage2user::admin.address.configuration.index')
-            ->with('configurations', $configurations)
-            ->with('countries', $countries);
+        return [
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'address1' => 'required|max:255',
+            'city' => 'required|max:255',
+            'country_id' => 'required',
+            'phone' => 'required|max:255',
+        ];
     }
 }

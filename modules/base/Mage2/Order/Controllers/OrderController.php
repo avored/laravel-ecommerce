@@ -40,18 +40,10 @@ use Mage2\User\Models\User;
 use Mage2\Order\Models\OrderProductVariation;
 
 ;
-use Mage2\User\Models\Address;
+use Mage2\UserAddress\Models\Address;
 
 class OrderController extends Controller
 {
-    /**
-     * @var CategoryRepository
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
     public function adminindex()
     {
         $orders = Order::paginate(10);

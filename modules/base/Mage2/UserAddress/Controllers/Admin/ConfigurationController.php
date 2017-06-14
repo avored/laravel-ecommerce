@@ -23,46 +23,40 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\User\Models;
+namespace Mage2\UserAddress\Controllers\Admin;
 
-use Mage2\Framework\System\Models\BaseModel;
-use Mage2\TaxClass\Models\Country;
+use Mage2\User\Helpers\AddressHelper;
 use Mage2\System\Models\Configuration;
+use Mage2\Framework\System\Controllers\AdminController;
 
-class Address extends BaseModel
+class ConfigurationController extends AdminController
 {
-    protected $fillable = [
-        'user_id',
-        'type',
-        'first_name',
-        'last_name',
-        'address1',
-        'address2',
-        'postcode',
-        'city',
-        'state',
-        'country_id',
-        'phone',
-    ];
+    /**
+     * Address Helper Instance.
+     *
+     * @var \Mage2\User\Helpers\AddressHelper
+     */
+    public $addressHelper;
 
-    public function country()
+    public function __construct(AddressHelper $addressHelper)
     {
-        return $this->belongsTo(Country::class);
+        parent::__construct();
+        $this->addressHelper = $addressHelper;
     }
 
-    public function getCountryIdAttribute()
+    /**
+     * Display a listing of the Catalog Configuration.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getConfiguration()
     {
+        $countries = $this->addressHelper->getCountriesOptions();
+        $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
-        if (isset($this->attributes['country_id']) && $this->attributes['country_id'] > 0) {
-            return $this->attributes['country_id'];
-        }
 
-        $defaultCountry = Configuration::getConfiguration('mage2_address_default_country');
-
-        if (isset($defaultCountry)) {
-            return $defaultCountry;
-        }
-
-        return "";
+        return view('mage2useraddress::admin.address.configuration.index')
+            ->with('configurations', $configurations)
+            ->with('countries', $countries);
     }
 }

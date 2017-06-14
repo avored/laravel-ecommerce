@@ -175,6 +175,7 @@ return [
         Mage2\System\Module::class,
         Mage2\TaxClass\Module::class,
         Mage2\User\Module::class,
+        Mage2\UserAddress\Module::class,
 
 
     ],
