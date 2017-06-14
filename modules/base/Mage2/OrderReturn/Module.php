@@ -43,7 +43,7 @@ class Module extends BaseModule
      * @var name
      *
      */
-    protected $name = NULL;
+    protected $name = null;
 
     /**
      *
@@ -51,14 +51,14 @@ class Module extends BaseModule
      * @var identifier
      *
      */
-    protected $identifier = NULL;
+    protected $identifier = null;
     /**
      *
      * Module Description Variable
      * @var description
      *
      */
-    protected $description = NULL;
+    protected $description = null;
 
     /**
      *
@@ -66,7 +66,7 @@ class Module extends BaseModule
      * @var enable
      *
      */
-    protected $enable = NULL;
+    protected $enable = null;
 
 
     /**

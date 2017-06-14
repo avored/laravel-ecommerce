@@ -29,7 +29,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Mage2\Catalog\Models\Product;
 use Illuminate\Support\Collection;
-use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Framework\System\Controllers\Controller;
 
@@ -107,7 +106,7 @@ class CartController extends Controller
 
         if ($request->get('qty') == 0) {
             //unset($cartData[$request->get('id')]);
-            $item = $cartData->pull($request->get('id'));
+            $cartData->pull($request->get('id'));
 
         } else {
 

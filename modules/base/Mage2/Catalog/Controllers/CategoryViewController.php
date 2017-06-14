@@ -25,16 +25,11 @@
 namespace Mage2\Catalog\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Pagination\Paginator;
-use Illuminate\Support\Collection;
 use Mage2\Catalog\Models\Category;
 use Mage2\Catalog\Models\Product;
 use Mage2\Catalog\Models\ProductAttribute;
-use Mage2\Catalog\Models\ProductCollection;
-use Mage2\Catalog\Models\ProductVarcharValue;
 use Mage2\System\Models\Configuration;
 use Mage2\Framework\System\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 
 class CategoryViewController extends Controller
 {

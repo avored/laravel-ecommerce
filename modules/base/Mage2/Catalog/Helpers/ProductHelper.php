@@ -26,7 +26,6 @@ namespace Mage2\Catalog\Helpers;
 
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\ProductImage;
-use Mage2\Catalog\Models\ProductPrice;
 use Mage2\Catalog\Models\ProductVarcharValue;
 use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Catalog\Models\RelatedProduct;
@@ -64,7 +63,6 @@ class ProductHelper
     public function saveRelatedProducts($product, ProductRequest $request)
     {
         if (count($request->get('related_products')) > 0) {
-            $relatedProducts = [];
             RelatedProduct::where('product_id', '=', $product->id)->delete();
             foreach ($request->get('related_products') as $relatedId) {
                 $relatedProducts = ['product_id' => $product->id, 'related_product_id' => $relatedId];
@@ -234,8 +232,7 @@ class ProductHelper
     public function saveProductImages($product, ProductRequest $request)
     {
 
-        $exitingIds = [];
-        if (NULL === $request->get('image')) {
+        if (null === $request->get('image')) {
             return $this;
         }
 
@@ -279,6 +276,4 @@ class ProductHelper
         }
         return $this;
     }
-
-
 }

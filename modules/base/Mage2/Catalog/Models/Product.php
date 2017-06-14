@@ -28,12 +28,8 @@ use Mage2\Framework\Image\LocalImageFile;
 use Mage2\Order\Models\Order;
 use Mage2\TaxClass\Models\TaxRule;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Session;
-use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\System\Models\Configuration;
 use Mage2\Framework\System\Models\BaseModel;
-use Mage2\Catalog\Models\Review;
-use Illuminate\Support\Facades\Cache;
 
 class Product extends BaseModel
 {

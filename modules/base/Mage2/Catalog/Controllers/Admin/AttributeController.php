@@ -24,14 +24,10 @@
  */
 namespace Mage2\Catalog\Controllers\Admin;
 
-use Mage2\Catalog\Models\Product;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\User\Models\AdminUser;
-use Illuminate\Support\Facades\Gate;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
 use Mage2\Catalog\Requests\AttributeRequest;
-use Mage2\Catalog\Models\AttributeDropdownOption;
 
 class AttributeController extends AdminController
 {
@@ -100,7 +96,7 @@ class AttributeController extends AdminController
         if (null !== $request->get('dropdown-options')) {
 
             foreach ($request->get('dropdown-options') as $key => $val) {
-                if ($key == "__RANDOM_STRING__") {
+                if ($key == '__RANDOM_STRING__') {
                     continue;
                 }
                 if (!is_int($key)) {

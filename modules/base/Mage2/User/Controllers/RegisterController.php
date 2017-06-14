@@ -28,10 +28,10 @@ namespace Mage2\User\Controllers;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Validator;
 use Mage2\User\Events\UserRegisteredEvent;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\User\Models\User;
-use Validator;
 
 class RegisterController extends Controller
 {
@@ -62,6 +62,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('frontguest');
     }
 

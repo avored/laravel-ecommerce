@@ -41,7 +41,7 @@ class NewUserMail extends Mailable
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param User $user
      */
     public function __construct(User $user)
     {

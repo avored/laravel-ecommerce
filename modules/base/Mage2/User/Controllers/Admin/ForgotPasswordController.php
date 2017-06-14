@@ -27,6 +27,7 @@
 namespace Mage2\User\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Support\Facades\Auth;
 use Mage2\Framework\System\Controllers\AdminController;
 use Illuminate\Support\Facades\Password;
 
