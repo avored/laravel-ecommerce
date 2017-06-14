@@ -145,6 +145,10 @@ class Mage2UserSchema extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
 
+        Schema::table('order_return_request_messages', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+
 
         $path = public_path() . '/countries.json';
 

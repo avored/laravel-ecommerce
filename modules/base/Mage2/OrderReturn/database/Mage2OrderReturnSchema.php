@@ -44,6 +44,8 @@ class Mage2OrderReturnSchema extends Migration
             $table->enum('user_option',['REFUND','RETURN']);
             $table->enum('status',['INIT_REQUEST','APPROVE','DISAPPROVE','CUSTOMER_SENT_PRODUCT'])->default('INIT_REQUEST');
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
 
         Schema::create('order_return_request_products', function (Blueprint $table) {
@@ -52,6 +54,9 @@ class Mage2OrderReturnSchema extends Migration
             $table->integer('product_id')->unsigned();
             $table->integer('qty');
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('order_return_request_id')->references('id')->on('order_return_request_products')->onDelete('cascade');
         });
 
         Schema::create('order_return_request_messages', function (Blueprint $table) {
@@ -61,6 +66,8 @@ class Mage2OrderReturnSchema extends Migration
             $table->enum('user_type',['USER','ADMIN_USER']);
             $table->text('message_text');
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
 
 
