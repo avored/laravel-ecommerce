@@ -46,7 +46,6 @@ class OrderReturnRequest extends Request
     public function rules()
     {
         return [
-            'user_option' => 'required'
         ];
     }
 }

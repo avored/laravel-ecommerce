@@ -42,6 +42,7 @@ class Mage2OrderReturnSchema extends Migration
             $table->increments('id');
             $table->integer('order_id')->unsigned();
             $table->enum('user_option',['REFUND','RETURN']);
+            $table->enum('status',['INIT_REQUEST','APPROVE','DISAPPROVE','CUSTOMER_SENT_PRODUCT'])->default('INIT_REQUEST');
             $table->timestamps();
         });
 

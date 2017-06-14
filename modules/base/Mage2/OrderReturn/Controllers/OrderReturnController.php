@@ -55,8 +55,16 @@ class OrderReturnController extends Controller
 
         $user = Auth::user();
         $request->merge(['order_id' => $id]);
-        $orderReturnRequest = OrderReturnRequestModel::create($request->all());
 
+
+        if($request->get('order_return_request_id') > 0) {
+            $orderReturnRequest = OrderReturnRequestModel::find($request->get('order_return_request_id'));
+            $orderReturnRequest->update($request->all());
+
+        } else {
+
+            $orderReturnRequest = OrderReturnRequestModel::create($request->all());
+        }
         OrderReturnRequestMessage::create(['order_return_request_id' => $orderReturnRequest->id,
                                             'message_text' => $request->get('message'),
                                             'user_id' => $user->id,

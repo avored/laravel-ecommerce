@@ -31,7 +31,8 @@ class OrderReturnRequest extends BaseModel
 {
     protected $fillable = [
         'order_id',
-        'user_option'
+        'user_option',
+        'status'
     ];
 
     public function orderReturnRequestProducts() {

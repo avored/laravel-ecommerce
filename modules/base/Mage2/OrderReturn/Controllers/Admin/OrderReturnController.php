@@ -25,9 +25,12 @@
 
 namespace Mage2\OrderReturn\Controllers\Admin;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Mage2\OrderReturn\Models\OrderReturnRequest;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
+use Mage2\OrderReturn\Models\OrderReturnRequestMessage;
 
 class OrderReturnController extends AdminController
 {
@@ -59,5 +62,23 @@ class OrderReturnController extends AdminController
 
         return view('mage2orderreturn::admin.order-return.show')
                         ->with('orderReturnRequest', $orderReturnRequet);
+    }
+
+    public function update(Request $request, $id) {
+
+        $user = Auth::user();
+
+
+        $orderReturnRequest = OrderReturnRequest::find($id);
+
+        $orderReturnRequest->update(['status' => $request->get('status')]);
+
+        OrderReturnRequestMessage::create(['order_return_request_id' => $orderReturnRequest->id,
+                                            'message_text' => $request->get('message_text'),
+                                            'user_id' => $user->id,
+                                            'user_type' => 'ADMIN_USER'
+                                        ]);
+
+        return redirect()->route('admin.order-return.index');
     }
 }

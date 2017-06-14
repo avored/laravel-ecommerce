@@ -80,8 +80,9 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Order Products</div>
                     <div class="panel-body">
-                        <form method="post" action="{{ route('my-account.order-return.store', $orderReturnRequest->order->id) }}">
+                        <form method="post" action="{{ route('admin.order-return.update', $orderReturnRequest->id) }}">
                             {{ csrf_field() }}
+                            {!! Form::hidden('_method','put')!!}
                             @foreach($orderReturnRequest->order->products as $product)
 
                                 <div class="col-xs-3"><img class="img-responsive" src="{{ $product->image->smallUrl }}">
@@ -119,10 +120,10 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="">Status</label>
-                                    <select class="form-control">
+                                    <select class="form-control" name="status">
                                         <option value="">Please Select</option>
-                                        <option value="APPROVE_RETURN_REQUEST">Approve Return Request</option>
-                                        <option value="DISAPPROVE_RETURN_REQUEST">Disapprove Return Request</option>
+                                        <option value="APPROVE">Approve Return Request</option>
+                                        <option value="DISAPPROVE">Disapprove Return Request</option>
                                     </select>
                                 </div>
                             </div>
@@ -133,12 +134,9 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label class="">Message</label>
-                                    <textarea class="form-control" name="admin_message"></textarea>
+                                    <textarea class="form-control" name="message_text"></textarea>
                                 </div>
                             </div>
-
-
-
 
 
                             <div class="col-md-12">

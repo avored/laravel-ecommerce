@@ -25,6 +25,7 @@
 
 namespace Mage2\Order\Models;
 
+use Mage2\OrderReturn\Models\OrderReturnRequest;
 use Mage2\User\Models\Address;
 use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Models\BaseModel;
@@ -55,6 +56,10 @@ class Order extends BaseModel
     public function orderStatus()
     {
         return $this->belongsTo(OrderStatus::class);
+    }
+
+    public function orderReturnRequest() {
+        return $this->hasOne(OrderReturnRequest::class);
     }
 
     public function getShippingAddressAttribute()

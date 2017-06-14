@@ -98,28 +98,67 @@
 
                                 </div>
 
-
-
                             @endforeach
 
-                            <div class="clearfix"></div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="">User Option?</label>
-                                    <select name="user_option" class="form-control">
-                                        <option value="">Please Select</option>
-                                        <option value="REFUND">Refund</option>
-                                        <option value="RETURN">Return</option>
-                                    </select>
-                                </div>
-                            </div>
+                            @if( isset($order->orderReturnRequest) &&
+                                $order->orderReturnRequest->status == "INIT_REQUEST"
+                                )
 
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label class="">Reason for Return</label>
-                                    <textarea name="message" class="form-control"></textarea>
+
+                                <div class="clearfix"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="">Message</label>
+                                        <textarea name="message" class="form-control"></textarea>
+                                    </div>
                                 </div>
-                            </div>
+                                {!! Form::hidden('order_return_request_id', $order->orderReturnRequest->id) !!}
+                            @endif
+
+                            @if(isset($order->orderReturnRequest) && $order->orderReturnRequest->status == "APPROVE")
+
+                                <div class="clearfix"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="">Status</label>
+                                        <select name="status" class="form-control">
+                                            <option value="">Please Select</option>
+                                            <option value="CUSTOMER_SENT_PRODUCT">I have Sent Product</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="">Message</label>
+                                        <textarea name="message" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                {!! Form::hidden('order_return_request_id', $order->orderReturnRequest->id) !!}
+                            @endif
+
+                            @if(!isset($order->orderReturnRequest))
+                                <div class="clearfix"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="">User Option?</label>
+                                        <select name="user_option" class="form-control">
+                                            <option value="">Please Select</option>
+                                            <option value="REFUND">Refund</option>
+                                            <option value="RETURN">Return</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="">Reason for Return</label>
+                                        <textarea name="message" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            @endif
+
 
                             <div class="col-md-12">
                                 <div class="form-group">
