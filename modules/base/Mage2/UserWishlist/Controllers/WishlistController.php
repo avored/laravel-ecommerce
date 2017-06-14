@@ -23,12 +23,12 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\User\Controllers;
+namespace Mage2\UserWishlist\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Controllers\Controller;
-use Mage2\User\Models\Wishlist;
+use Mage2\UserWishlist\Models\Wishlist;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\ProductVarcharValue;
 
@@ -78,7 +78,7 @@ class WishlistController extends Controller
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function remove($id)
+    public function destroy($id)
     {
         Wishlist::where([
             'user_id' => Auth::user()->id,
@@ -89,23 +89,13 @@ class WishlistController extends Controller
     }
 
     /**
+     * Return Product By Slug
      * @param $slug
      * @return null
      */
     protected function getProductIdBySlug($slug)
     {
-        $slugAttribute = ProductAttribute::where('identifier', '=', 'slug')->first();
-        $productVarcharValue = ProductVarcharValue::where('value', '=', $slug);
-        if (!empty($slugAttribute)) {
-            $productVarcharValue = $productVarcharValue->where('product_attribute_id', '=', $slugAttribute->id);
-        }
-        $productVarcharValue = $productVarcharValue->first();
-
-        if (!empty($productVarcharValue)) {
-            return $productVarcharValue->product_id;
-        }
-
-        $product = Product::where('slug', $slug)->first();
+        $product = Product::whereSlug($slug)->first();
 
         if (!empty($product)) {
             return $product->id;

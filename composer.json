@@ -48,7 +48,8 @@
       "Mage2\\System\\": "modules/base/Mage2/System/",
       "Mage2\\TaxClass\\": "modules/base/Mage2/TaxClass/",
       "Mage2\\User\\": "modules/base/Mage2/User/",
-      "Mage2\\UserAddress\\": "modules/base/Mage2/UserAddress/"
+      "Mage2\\UserAddress\\": "modules/base/Mage2/UserAddress/",
+      "Mage2\\UserWishlist\\": "modules/base/Mage2/UserWishlist/"
     }
   },
   "autoload-dev": {

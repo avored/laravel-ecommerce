@@ -24,7 +24,7 @@
  */
 
 
-namespace Mage2\User\Models;
+namespace Mage2\UserWishlist\Models;
 
 use Mage2\Catalog\Models\Product;
 use Mage2\Framework\System\Models\BaseModel;

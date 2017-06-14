@@ -92,13 +92,6 @@ class Mage2UserSchema extends Migration
             $table->timestamps();
         });
 
-        Schema::create('wishlists', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->timestamps();
-        });
-
         Schema::create('countries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
@@ -146,13 +139,6 @@ class Mage2UserSchema extends Migration
             $table->foreign('user_id')->references('id')->on('users');
         });
 
-
-        //wishlists table foreign key setup
-        Schema::table('wishlists', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
-
         //reviews table foreign key setup
         Schema::table('reviews', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -184,7 +170,6 @@ class Mage2UserSchema extends Migration
         Schema::drop('password_resets');
         Schema::drop('users');
         Schema::drop('addresses');
-        Schema::drop('wishlists');
         Schema::drop('countries');
         Schema::drop('roles');
         Schema::drop('permissions');

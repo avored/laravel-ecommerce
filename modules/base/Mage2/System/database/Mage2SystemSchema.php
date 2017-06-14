@@ -131,6 +131,13 @@ class Mage2SystemSchema extends Migration
             'status' => 'ACTIVE'
         ]);
 
+
+        ModuleModel::create(['identifier' => 'mage2-userwishlist',
+            'type' => 'SYSTEM',
+            'name' => 'Mage2 User Wishlist',
+            'status' => 'ACTIVE'
+        ]);
+
         ModuleModel::create(['identifier' => 'mage2-contactus',
             'type' => 'COMMUNITY',
             'name' => 'Mage2 Contact Us',
