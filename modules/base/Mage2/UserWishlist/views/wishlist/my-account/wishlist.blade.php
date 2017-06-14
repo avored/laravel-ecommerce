@@ -29,17 +29,11 @@
                                 <tr>
                                     <td> {{ $wishlist->product->title }}</td>
                                     <td>
-                                        @if(isset($wishlist->product->image) && is_string($wishlist->product->image))
                                             <img alt="{{ $wishlist->product->title }}"
                                                  class="img-responsive"
                                                  style="max-height: 75px"
-                                                 src="{{ asset('/uploads/catalog/images/'. $wishlist->product->image) }}"/>
-                                        @else
-                                            <img alt="{{ $wishlist->product->title }}"
-                                                 class="img-responsive"
-                                                 style="max-height: 75px"
-                                                 src="/img/default-product.jpg) }}"/>
-                                        @endif
+                                                 src="{{ $wishlist->product->image->smallUrl }}"/>
+
                                     </td>
                                     <td>
                                         <a class="btn btn-danger"
