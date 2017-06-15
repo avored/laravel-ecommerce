@@ -29,7 +29,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
-use Mage2\Catalog\Models\Product;
+use Mage2\Product\Models\Product;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Sale\Models\GiftCoupon;
 

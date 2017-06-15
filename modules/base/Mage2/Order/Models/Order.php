@@ -27,7 +27,7 @@ namespace Mage2\Order\Models;
 
 use Mage2\OrderReturn\Models\OrderReturnRequest;
 use Mage2\UserAddress\Models\Address;
-use Mage2\Catalog\Models\Product;
+use Mage2\Product\Models\Product;
 use Mage2\Framework\System\Models\BaseModel;
 use Mage2\User\Models\User;
 use Mage2\Sale\Models\OrderStatus;

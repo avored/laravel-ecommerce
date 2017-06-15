@@ -44,6 +44,7 @@
       "Mage2\\OrderReturn\\": "modules/base/Mage2/OrderReturn/",
       "Mage2\\Page\\": "modules/base/Mage2/Page/",
       "Mage2\\Paypal\\": "modules/base/Mage2/Paypal/",
+      "Mage2\\Product\\": "modules/base/Mage2/Product/",
       "Mage2\\Sale\\": "modules/base/Mage2/Sale/",
       "Mage2\\System\\": "modules/base/Mage2/System/",
       "Mage2\\TaxClass\\": "modules/base/Mage2/TaxClass/",

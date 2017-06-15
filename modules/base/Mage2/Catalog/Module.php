@@ -101,7 +101,7 @@ class Module extends BaseModule
         if (true === $this->getEnable()) {
             $this->mapWebRoutes();
             $this->registerViewComposerData();
-            $this->registerPermissions();
+            //$this->registerPermissions();
         }
 
     }
@@ -132,6 +132,10 @@ class Module extends BaseModule
         View::addLocation(__DIR__ . '/views');
     }
 
+    /**
+     * Register Admin Menu for Mage2 Catalog Modules
+     *
+     */
     public function registerAdminMenu()
     {
 
@@ -143,19 +147,10 @@ class Module extends BaseModule
                     'label' => 'Category',
                     'route' => 'admin.category.index',
                 ]
-                , 'product' => [
-                    'label' => 'Product',
-                    'route' => 'admin.product.index',
-                ]
                 , 'attribute' => [
                     'label' => 'Attribute',
                     'route' => 'admin.attribute.index',
                 ]
-
-                /**, 'option' => [
-                 * 'label' => 'Option',
-                 * 'route' => 'admin.option.index',
-                 * ]*/
                 , 'review' => [
                     'label' => 'Review',
                     'route' => 'admin.review.index',
@@ -182,8 +177,8 @@ class Module extends BaseModule
     public function registerViewComposerData()
     {
         //View::composer(['admin.catalog.product.boxes.inventory'], 'Mage2\Catalog\ViewComposers\ProductBoxInventoryComposer');
-        View::composer(['mage2catalog::admin.catalog.product.edit'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
-        View::composer(['mage2catalog::admin.catalog.product.create'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
+        View::composer(['mage2product::admin.product.edit'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
+        View::composer(['mage2product::admin.product.create'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
     }
 
     /**

@@ -25,7 +25,7 @@
 namespace Mage2\Catalog\Controllers;
 
 use Illuminate\Http\Request;
-use Mage2\Catalog\Models\Product;
+use Mage2\Product\Models\Product;
 use Mage2\Framework\System\Controllers\Controller;
 
 class SearchController extends Controller

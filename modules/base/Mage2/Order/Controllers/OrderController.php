@@ -29,7 +29,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
-use Mage2\Catalog\Models\Product;
+use Mage2\Product\Models\Product;
 use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Order\Mail\OrderInvoicedMail;

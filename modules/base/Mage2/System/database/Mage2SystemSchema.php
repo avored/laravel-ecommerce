@@ -96,6 +96,14 @@ class Mage2SystemSchema extends Migration
             'name' => 'Mage2 Paypal',
             'status' => 'ACTIVE'
         ]);
+
+        ModuleModel::create(['identifier' => 'mage2-product',
+            'type' => 'SYSTEM',
+            'name' => 'Mage2 Product',
+            'status' => 'ACTIVE'
+        ]);
+
+
         ModuleModel::create(['identifier' => 'mage2-pickup',
             'type' => 'SYSTEM',
             'name' => 'Mage2 Pickup',

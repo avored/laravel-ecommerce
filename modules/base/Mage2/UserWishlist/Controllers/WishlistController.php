@@ -26,11 +26,9 @@
 namespace Mage2\UserWishlist\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Catalog\Models\Product;
+use Mage2\Product\Models\Product;
 use Mage2\Framework\System\Controllers\Controller;
 use Mage2\UserWishlist\Models\Wishlist;
-use Mage2\Catalog\Models\ProductAttribute;
-use Mage2\Catalog\Models\ProductVarcharValue;
 
 class WishlistController extends Controller
 {

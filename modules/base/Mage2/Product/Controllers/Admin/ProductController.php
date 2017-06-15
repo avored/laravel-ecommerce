@@ -22,18 +22,18 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog\Controllers\Admin;
+namespace Mage2\Product\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Helpers\CategoryHelper;
 use Mage2\Catalog\Helpers\ProductHelper;
-use Mage2\Catalog\Models\Product;
-use Mage2\Catalog\Models\ProductOption;
-use Mage2\Catalog\Requests\ProductRequest;
+use Mage2\Product\Models\Product;
+use Mage2\Product\Requests\ProductRequest;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Framework\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Mage2\Framework\DataGrid\Facades\DataGrid;
 
 class ProductController extends AdminController
 {
@@ -51,8 +51,14 @@ class ProductController extends AdminController
     {
         $this->categoryHelper = $categoryHelper;
         $this->productHelper = $productHelper;
-        parent::__construct();
     }
+
+
+    public function getDataGrid()
+    {
+        return DataGrid::dataTableData(new Product());
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -62,11 +68,7 @@ class ProductController extends AdminController
      */
     public function index()
     {
-
-        $products = Product::where('status', '=', 1)->paginate(10);
-
-        return view('mage2catalog::admin.catalog.product.index')
-            ->with('products', $products);
+        return view('mage2product::admin.product.index');
     }
 
     /**
@@ -79,14 +81,14 @@ class ProductController extends AdminController
 
         $categories = $this->categoryHelper->getCategoryOptions();
 
-        return view('mage2catalog::admin.catalog.product.create')
+        return view('mage2product::admin.product.create')
             ->with('categories', $categories);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @param \Mage2\Product\Requests\ProductRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -136,7 +138,7 @@ class ProductController extends AdminController
 
         $categories = $this->categoryHelper->getCategoryOptions();
 
-        return view('mage2catalog::admin.catalog.product.edit')
+        return view('mage2product::admin.product.edit')
             ->with('product', $product)
             ->with('categories', $categories);
 
@@ -199,7 +201,7 @@ class ProductController extends AdminController
 
         $tmp = $this->_getTmpString();
 
-        return view('mage2catalog::admin.catalog.product.upload-image')
+        return view('mage2product::admin.product.upload-image')
             ->with('image', $image)
             ->with('tmp', $tmp);
     }
@@ -215,27 +217,12 @@ class ProductController extends AdminController
         return 'success';
     }
 
-    public function searchProduct(Request $request)
-    {
-        $query = $request->get('q');
-
-        $titleAttribute = ProductAttribute::where('identifier', '=', 'title')->get()->first();
-        $titleCollection = $titleAttribute->productVarcharValues()->where('value', 'like', '%' . $query . '%')->get();
-
-        foreach ($titleCollection as $row) {
-            $results[] = ['id' => $row->product_id, 'text' => $row->value];
-        }
-
-        return response()->json(['results' => $results]);
-    }
-
-
     public function getAttribute(Request $request)
     {
 
         $attribute = ProductAttribute::findorfail($request->get('id'));
 
-        return view('mage2catalog::admin.catalog.product.attribute-panel-values')
+        return view('mage2product::admin.product.attribute-panel-values')
             ->with('attribute', $attribute);
 
     }

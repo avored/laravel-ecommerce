@@ -22,14 +22,12 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-
-
 namespace Mage2\Feature\Helpers;
 
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\ProductVarcharValue;
 use Illuminate\Support\Collection;
-use Mage2\Catalog\Models\Product;
+use Mage2\Product\Models\Product;
 
 
 class FeatureProductHelper

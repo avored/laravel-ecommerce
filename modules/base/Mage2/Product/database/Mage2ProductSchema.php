@@ -22,39 +22,31 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog\Controllers;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Mage2\TaxClass\Models\Country;
 
-use Mage2\Product\Models\Product;
-use Mage2\Framework\System\Controllers\Controller;
-
-class ProductViewController extends Controller
+class Mage2ProductSchema extends Migration
 {
-    public function view($slug)
+
+    /**
+     * Install the Mage2 Catalog Module Schema.
+     *
+     * @return void
+     */
+    public function install()
     {
-        $product = $this->_getProductBySlug($slug);
 
-
-        $view = view('catalog.product.view')
-            ->with('metaTitle', 'test')
-            ->with('product', $product);
-
-        $title = $product->page_title;
-        $description = $product->page_description;
-
-        if ($title != '') {
-            $view->with('title', $title);
-        }
-        if ($description != '') {
-            $view->with('description', $description);
-        }
-
-        return $view;
     }
 
-    private function _getProductBySlug($slug)
+    /**
+     * Uninstall the Mage2 Catalog Module Schema.
+     *
+     * @return void
+     */
+    public function uninstall()
     {
-        $product = Product::where('slug', '=', $slug)->get()->first();
-
-        return $product;
     }
+
 }

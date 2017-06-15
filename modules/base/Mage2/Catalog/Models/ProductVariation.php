@@ -33,7 +33,7 @@ class ProductVariation extends BaseModel
     /**
      * Variation belongs to Product
      *
-     * @return \Mage2\Catalog\Models\Product
+     * @return \Mage2\Product\Models\Product
      */
     public function product()
     {
@@ -43,7 +43,7 @@ class ProductVariation extends BaseModel
     /**
      * Variation belongs to Product
      *
-     * @return \Mage2\Catalog\Models\Product
+     * @return \Mage2\Product\Models\Product
      */
     public function subProduct()
     {
@@ -53,7 +53,7 @@ class ProductVariation extends BaseModel
     /**
      * Variation belongs to Product
      *
-     * @return \Mage2\Catalog\Models\Product
+     * @return \Mage2\Product\Models\Product
      */
     public function productAttribute()
     {

@@ -32,7 +32,8 @@
                         continue;
                     }
                     ?>
-                    @can('hasPermission',[Mage2\User\Models\AdminUser::class,$menu['route']])
+
+                    <!-- can('hasPermission',[Mage2\User\Models\AdminUser::class,$menu['route']]) -->
 
                         @if(isset($menu['submenu']))
                             <li class="dropdown">
@@ -58,9 +59,11 @@
                             <li><a href="{{ route($menu['route']) }}">{{ $menu['label'] }}</a></li>
                         @endif
 
-                    @else
+                    <!--
+                    else
                         <li><a href="#" title="no permission">{{ $menu['label'] }}</a></li>
-                    @endcan
+                    endcan
+                    -->
                 @endforeach
                 <li><a href="{{ route('admin.logout') }}">Logout</a></li>
             </ul>

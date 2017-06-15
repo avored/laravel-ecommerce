@@ -27,7 +27,7 @@ namespace Mage2\Cart\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Mage2\Catalog\Models\Product;
+use Mage2\Product\Models\Product;
 use Illuminate\Support\Collection;
 use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Framework\System\Controllers\Controller;

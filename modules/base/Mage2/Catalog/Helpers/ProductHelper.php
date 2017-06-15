@@ -29,9 +29,9 @@ use Mage2\Catalog\Models\ProductImage;
 use Mage2\Catalog\Models\ProductVarcharValue;
 use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Catalog\Models\RelatedProduct;
-use Mage2\Catalog\Requests\ProductRequest;
+use Mage2\Product\Requests\ProductRequest;
 use Illuminate\Http\UploadedFile;
-use Mage2\Catalog\Models\Product;
+use Mage2\Product\Models\Product;
 
 
 class ProductHelper
@@ -56,8 +56,8 @@ class ProductHelper
      *
      * Save Related Product into related table
      *
-     * @param \Mage2\Catalog\Models\Product $product
-     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @param \Mage2\Product\Models\Product $product
+     * @param \Mage2\Product\Requests\ProductRequest $request
      * @return $this
      */
     public function saveRelatedProducts($product, ProductRequest $request)
@@ -74,8 +74,8 @@ class ProductHelper
     /**
      *
      *  Save Product Category
-     * @param \Mage2\Catalog\Models\Product $product
-     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @param \Mage2\Product\Models\Product $product
+     * @param \Mage2\Product\Requests\ProductRequest $request
      * @return $this
      */
     public function saveProductExtraAttribute($product, ProductRequest $request)
@@ -106,8 +106,8 @@ class ProductHelper
     /**
      *
      *  Save Product Category
-     * @param \Mage2\Catalog\Models\Product $product
-     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @param \Mage2\Product\Models\Product $product
+     * @param \Mage2\Product\Requests\ProductRequest $request
      * @return $this
      */
     public function saveCategory($product, ProductRequest $request)
@@ -119,8 +119,8 @@ class ProductHelper
 
     /**
      * Save Product Attribute with variations
-     * @param \Mage2\Catalog\Models\Product $product
-     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @param \Mage2\Product\Models\Product $product
+     * @param \Mage2\Product\Requests\ProductRequest $request
      * @return $this
      */
     public function saveProductAttribute($product, ProductRequest $request)
@@ -225,8 +225,8 @@ class ProductHelper
 
     /**
      *
-     * @param \Mage2\Catalog\Models\Product $product
-     * @param \Mage2\Catalog\Requests\ProductRequest $request
+     * @param \Mage2\Product\Models\Product $product
+     * @param \Mage2\Product\Requests\ProductRequest $request
      * @return $this
      */
     public function saveProductImages($product, ProductRequest $request)
@@ -262,7 +262,7 @@ class ProductHelper
 
     /**
      *
-     * @param \Mage2\Catalog\Models\Product $product
+     * @param \Mage2\Product\Models\Product $product
      * @param array $data
      * @return $this
      */
