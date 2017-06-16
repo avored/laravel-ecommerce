@@ -23,7 +23,9 @@
     "ext-curl": "*",
     "ext-json": "*",
     "paypal/rest-api-sdk-php": "1.3.0",
-    "intervention/image": "^2.3"
+    "intervention/image": "^2.3",
+    "teamtnt/tntsearch": "^1.0",
+    "fabpot/goutte": "^3.2"
     
   },
   "require-dev": {
