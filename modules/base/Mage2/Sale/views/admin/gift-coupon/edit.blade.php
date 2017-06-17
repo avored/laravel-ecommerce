@@ -14,7 +14,7 @@
                 <div class="panel-body">
 
                     {!! Form::bind($giftCoupon, ['method' => 'PUT', 'action' => route('admin.gift-coupon.update', $giftCoupon->id)]) !!}
-                    @include('mage2sale::admin.gift-coupon._fields')
+                    @include('mage2saleadmin::gift-coupon._fields')
 
                     {!! Form::submit("Update Gift Coupon",['class' => 'btn btn-primary']) !!}
                     {!! Form::button("cancel",['class' => 'btn disabled','onclick' => 'location="' . route('admin.gift-coupon.index'). '"']) !!}

@@ -44,7 +44,7 @@ class ConfigurationController extends AdminController
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
         $countryOptions = Collection::make(['' => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray());
 
-        return view('mage2taxclass::admin.tax-class.configuration.index')
+        return view('mage2taxclassadmin::tax-class.configuration.index')
             ->with('configurations', $configurations)
             ->with('countryOptions', $countryOptions);
     }

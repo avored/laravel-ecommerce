@@ -80,6 +80,6 @@ class ForgotPasswordController extends AdminController
     public function showLinkRequestForm()
     {
 
-        return view('mage2user::admin.user.auth.passwords.email');
+        return view('mage2useradmin::user.auth.passwords.email');
     }
 }

@@ -45,7 +45,7 @@ class ConfigurationController extends AdminController
     {
         $configurations = AdminConfiguration::all();
 
-        return view('mage2system::admin.configuration.index')
+        return view('mage2systemadmin::configuration.index')
             ->with('configurations', $configurations);
     }
 
@@ -87,7 +87,7 @@ class ConfigurationController extends AdminController
         $pageOptions = Collection::make(['' => 'Please Select'] + Page::all()->pluck('title', 'id')->toArray());
 
 
-        return view('mage2system::admin.configuration.general-configuration')
+        return view('mage2systemadmin::configuration.general-configuration')
             ->with('configurations', $configurations)
             ->with('pageOptions', $pageOptions);
     }

@@ -48,7 +48,7 @@ class OrderStatusController extends AdminController
     public function index()
     {
 
-        return view('mage2sale::admin.order-status.index');
+        return view('mage2saleadmin::order-status.index');
     }
 
     /**
@@ -60,7 +60,7 @@ class OrderStatusController extends AdminController
     {
 
 
-        return view('mage2sale::admin.order-status.create');
+        return view('mage2saleadmin::order-status.create');
     }
 
     /**
@@ -90,7 +90,7 @@ class OrderStatusController extends AdminController
 
         $orderStatus = OrderStatus::findorfail($id);
 
-        return view('mage2sale::admin.order-status.edit')
+        return view('mage2saleadmin::order-status.edit')
             ->with('orderStatus', $orderStatus);
     }
 

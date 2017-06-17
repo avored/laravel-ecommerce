@@ -13,7 +13,6 @@
             <tr>
                 <th>Id</th>
                 <th>Title</th>
-
                 <th>Edit</th>
                 <th>Destroy</th>
             </tr>

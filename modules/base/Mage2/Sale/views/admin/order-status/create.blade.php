@@ -9,7 +9,7 @@
                 <div class="panel-body">
 
                     {!! Form::open(['action' =>  route('admin.order-status.store'),'method' => 'POST']) !!}
-                    @include('mage2sale::admin.order-status._fields')
+                    @include('mage2saleadmin::order-status._fields')
 
                     <div class="input-field">
                         {!! Form::submit("Create OrderStatus",['class' => 'btn btn-primary']) !!}

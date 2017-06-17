@@ -107,14 +107,14 @@ class Module extends BaseModule
 
     protected function registerTranslationPath()
     {
-        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2tax-class");
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2taxclass");
     }
 
 
     protected function registerViewPath()
     {
-        $this->loadViewsFrom(__DIR__ . '/views', 'mage2taxclass');
-        //View::addLocation(__DIR__ . '/views');
+        $this->loadViewsFrom(__DIR__ . '/views/admin', 'mage2taxclassadmin');
+        View::addLocation(__DIR__ . '/views');
     }
 
     protected function registerWebRoute()

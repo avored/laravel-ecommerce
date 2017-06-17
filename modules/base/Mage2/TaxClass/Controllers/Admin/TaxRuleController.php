@@ -52,7 +52,7 @@ class TaxRuleController extends AdminController
 
         $taxRules = TaxRule::paginate(10);
 
-        return view('mage2taxclass::admin.tax-rule.index')
+        return view('mage2taxclassadmin::tax-rule.index')
             ->with('taxRules', $taxRules);
     }
 
@@ -64,7 +64,7 @@ class TaxRuleController extends AdminController
     public function create()
     {
         $countryOptions = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
-        return view('mage2taxclass::admin.tax-rule.create')->with('countryOptions', $countryOptions);
+        return view('mage2taxclassadmin::tax-rule.create')->with('countryOptions', $countryOptions);
     }
 
     /**
@@ -105,7 +105,7 @@ class TaxRuleController extends AdminController
         $countryOptions = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
         $taxRule = TaxRule::findorfail($id);
 
-        return view('mage2taxclass::admin.tax-rule.edit')
+        return view('mage2taxclassadmin::tax-rule.edit')
             ->with('taxRule', $taxRule)
             ->with('countryOptions', $countryOptions);
     }
@@ -136,7 +136,6 @@ class TaxRuleController extends AdminController
     public function destroy($id)
     {
         TaxRule::destroy($id);
-
-        return redirect()->route('mage2taxclass::admin.tax-rule.index');
+        return redirect()->route('admin.tax-rule.index');
     }
 }

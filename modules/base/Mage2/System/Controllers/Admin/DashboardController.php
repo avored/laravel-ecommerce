@@ -50,7 +50,7 @@ class DashboardController extends AdminController
         $receivedStatus = OrderStatus::whereTitle('Received')->first();
 
         $totalReceivedOrders = Order::whereOrderStatusId($receivedStatus->id)->count();
-        return view('mage2system::admin.home')
+        return view('mage2systemadmin::home')
             ->with('totalRegisteredUser', $totalRegisteredUser)
             ->with('totalPendingOrders', $totalPendingOrders)
             ->with('totalReceivedOrders', $totalReceivedOrders);

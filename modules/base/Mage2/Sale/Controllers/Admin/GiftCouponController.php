@@ -48,7 +48,7 @@ class GiftCouponController extends AdminController
     public function index()
     {
 
-        return view('mage2sale::admin.gift-coupon.index');
+        return view('mage2saleadmin::gift-coupon.index');
     }
 
     /**
@@ -60,7 +60,7 @@ class GiftCouponController extends AdminController
     {
 
 
-        return view('mage2sale::admin.gift-coupon.create');
+        return view('mage2saleadmin::gift-coupon.create');
     }
 
     /**
@@ -90,7 +90,7 @@ class GiftCouponController extends AdminController
 
         $giftCoupon = GiftCoupon::findorfail($id);
 
-        return view('mage2sale::admin.gift-coupon.edit')
+        return view('mage2saleadmin::gift-coupon.edit')
             ->with('giftCoupon', $giftCoupon);
     }
 

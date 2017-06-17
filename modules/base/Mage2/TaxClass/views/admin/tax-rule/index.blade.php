@@ -17,11 +17,8 @@
             <div class="clearfix"></div>
             <br/>
             @if(count($taxRules) <= 0)
-
                 <p>Sorry No Tax Rule Found</p>
-
             @else
-
 
                 <table class="table table-bordered table-responsive">
                     <thead>

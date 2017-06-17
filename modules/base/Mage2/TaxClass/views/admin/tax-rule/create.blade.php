@@ -10,7 +10,7 @@
                 </h1>
             </div>
             {!! Form::open(['method' => 'post','action' => route ('admin.tax-rule.store')]) !!}
-            @include('mage2taxclass::admin.tax-rule._fields')
+            @include('mage2taxclassadmin::tax-rule._fields')
 
             {!! Form::submit('Create Tax class') !!}
             {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.tax-rule.index').'"']) !!}

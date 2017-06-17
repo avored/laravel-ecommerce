@@ -12,7 +12,7 @@
 
             {!! Form::bind($user, ['method' => 'PUT', 'action' => route('admin.admin-user.update', $user->id)]) !!}
 
-            @include('admin.user.admin-user._fields',['editMethod' => true,'roles' => $roles])
+            @include('mage2useradmin::user.admin-user._fields',['editMethod' => true,'roles' => $roles])
 
             {!! Form::submit("Update User",['class' => 'btn btn-primary']) !!}
             {!! Form::button("cancel",['class' => 'btn ','onclick' => 'location="' . route('admin.admin-user.index'). '"']) !!}

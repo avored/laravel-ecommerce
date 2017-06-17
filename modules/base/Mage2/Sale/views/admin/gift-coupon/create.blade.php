@@ -9,7 +9,7 @@
                 <div class="panel-body">
 
                     {!! Form::open(['action' =>  route('admin.gift-coupon.store'),'method' => 'POST']) !!}
-                    @include('mage2sale::admin.gift-coupon._fields')
+                    @include('mage2saleadmin::gift-coupon._fields')
 
                     <div class="input-field">
                         {!! Form::submit("Create Gift Coupon",['class' => 'btn btn-primary']) !!}

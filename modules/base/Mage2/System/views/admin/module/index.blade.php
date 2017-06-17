@@ -17,9 +17,7 @@
             <div class="clearfix"></div>
             <br/>
             @if(count($modules) <= 0)
-
                 <p>Sorry No Module Found</p>
-
             @else
 
                 <table class="table bordered tablegrid">
@@ -31,7 +29,6 @@
                     <tbody>
                     @foreach($modules as $module)
 
-                        <?php //$actualTheme = Theme::getByPath($theme) ?>
                         <tr>
                             <td>{{ $module->getIdentifier() }}</td>
                             <td>{{ $module->getName() }}</td>
@@ -71,28 +68,11 @@
                                 </td>
 
                         @endif
-
-                        <!--td>{ $actualTheme['description'] }}</td>
-                    <td>
-                        if($activeTheme != $actualTheme['name'])
-                        !! Form::open(['method' => 'POST', 'action' => 
-                                    route('admin.theme.activate',$actualTheme['name'])]) !!}
-                        !! Form::hidden('active_theme_path',$actualTheme['path']) !!}
-                        !! Form::hidden('active_theme_name',$actualTheme['name']) !!}
-                        <button type="submit" class="btn btn-primary">Activate</button>
-                        !! Form::close() !!}
-                        else
-                        
-                        <button class="btn disabled">Active</button>
-                        endif
-                    </td-->
-
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
             @endif
-
         </div>
     </div>
 @endsection

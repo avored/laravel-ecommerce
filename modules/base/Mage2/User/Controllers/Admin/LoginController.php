@@ -65,7 +65,7 @@ class LoginController extends AdminController
 
     public function showLoginForm()
     {
-        return view('mage2user::admin.user.auth.login');
+        return view('mage2useradmin::user.auth.login');
     }
 
     protected function guard()

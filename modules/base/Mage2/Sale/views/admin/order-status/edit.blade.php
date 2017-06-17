@@ -14,7 +14,7 @@
                 <div class="panel-body">
 
                     {!! Form::bind($orderStatus, ['method' => 'PUT', 'action' => route('admin.order-status.update', $orderStatus->id)]) !!}
-                    @include('mage2sale::admin.order-status._fields')
+                    @include('mage2saleadmin::order-status._fields')
 
                     {!! Form::submit("Update Order Status",['class' => 'btn btn-primary']) !!}
                     {!! Form::button("cancel",['class' => 'btn disabled','onclick' => 'location="' . route('admin.order-status.index'). '"']) !!}

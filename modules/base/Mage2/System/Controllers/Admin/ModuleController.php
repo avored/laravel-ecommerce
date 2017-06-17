@@ -46,7 +46,7 @@ class ModuleController extends AdminController
         $modelModule = new ModuleModel();
         $modules = ModuleFacade::all();
 
-        return view('mage2system::admin.module.index')
+        return view('mage2systemadmin::module.index')
             ->with('modules', $modules)
             ->with('modelModule', $modelModule)//->with('activeTheme', $activeTheme)
             ;
@@ -59,7 +59,7 @@ class ModuleController extends AdminController
      */
     public function create()
     {
-        return view('mage2system::admin.module.create');
+        return view('mage2systemadmin::module.create');
     }
 
     /**
@@ -134,41 +134,7 @@ class ModuleController extends AdminController
             throw new Exception($e->getMessage());
         }
 
-
         return redirect()->route('admin.module.index');
-
-        /**
-         * $module = ModuleFacade::get($identifier);
-         *
-         * dd($module);
-         *
-         * $moduleName = $module->getName();
-         * $moduleDatabasePath =  "modules" . DIRECTORY_SEPARATOR . "community" . DIRECTORY_SEPARATOR .
-         * $module->getNameSpace() . DIRECTORY_SEPARATOR . 'database';
-         *
-         * $moduleMigrationPath = $moduleDatabasePath . DIRECTORY_SEPARATOR . 'migrations';
-         *
-         * $moduleSeedClass=  $moduleDatabasePath . DIRECTORY_SEPARATOR . 'seeds';
-         *
-         *
-         *
-         * try {
-         *
-         * ModuleModel::create([
-         * 'type' => 'COMMUNITY',
-         * 'identifier' => $identifier,
-         * 'name' => $moduleName,
-         * ]);
-         *
-         * Artisan::call('mage2:migrate',['--path' => $moduleMigrationPath]);
-         * Artisan::call('mage2:dbseed', ['--path' => $moduleSeedClass]);
-         * } catch (Exception $e) {
-         * throw new Exception($e->getMessage());
-         * }
-         *
-         * return redirect()->route('admin.module.index');
-         */
-
     }
 
 

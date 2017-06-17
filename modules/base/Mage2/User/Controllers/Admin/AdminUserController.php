@@ -52,7 +52,7 @@ class AdminUserController extends AdminController
      */
     public function index()
     {
-        return view('mage2user::admin.user.admin-user.index');
+        return view('mage2useradmin::user.admin-user.index');
     }
 
     /**
@@ -63,7 +63,7 @@ class AdminUserController extends AdminController
     public function create()
     {
         $roles = $this->_getRoleOptions();
-        return view('mage2user::admin.user.admin-user.create')
+        return view('mage2useradmin::user.admin-user.create')
             ->with('roles', $roles)
             ->with('editMethod', true);
     }
@@ -113,7 +113,7 @@ class AdminUserController extends AdminController
     {
         $user = AdminUser::findorfail($id);
         $roles = $this->_getRoleOptions();
-        return view('mage2user::admin.user.admin-user.edit')
+        return view('mage2useradmin::user.admin-user.edit')
             ->with('user', $user)
             ->with('roles', $roles)
             ->with('editMethod', true);
@@ -151,7 +151,6 @@ class AdminUserController extends AdminController
 
     private function _getRoleOptions()
     {
-
         return [0 => 'Please Select'] + Role::all()->pluck('name', 'id')->toArray();
     }
 }

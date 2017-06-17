@@ -11,7 +11,7 @@
 
             </div>
             {!! Form::bind($taxRule, ['method' => 'PUT', 'action' => route('admin.tax-rule.update', $taxRule->id)]) !!}
-            @include('mage2taxclass::admin.tax-rule._fields')
+            @include('mage2taxclassadmin::tax-rule._fields')
             {!! Form::submit('Edit') !!}
             {!! Form::close() !!}
         </div>
