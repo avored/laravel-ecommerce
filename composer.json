@@ -37,6 +37,7 @@
   },
   "autoload": {
     "psr-4": {
+      "Mage2\\Address\\": "modules/base/Mage2/Address/",
       "Mage2\\Framework\\": "packages/mage2/framework/src/",
       "Mage2\\Cart\\": "modules/base/Mage2/Cart/",
       "Mage2\\Catalog\\": "modules/base/Mage2/Catalog/",
@@ -51,8 +52,7 @@
       "Mage2\\System\\": "modules/base/Mage2/System/",
       "Mage2\\TaxClass\\": "modules/base/Mage2/TaxClass/",
       "Mage2\\User\\": "modules/base/Mage2/User/",
-      "Mage2\\UserAddress\\": "modules/base/Mage2/UserAddress/",
-      "Mage2\\UserWishlist\\": "modules/base/Mage2/UserWishlist/"
+      "Mage2\\Wishlist\\": "modules/base/Mage2/Wishlist/"
     }
   },
   "autoload-dev": {

@@ -177,7 +177,7 @@ return [
         Mage2\System\Module::class,
         Mage2\TaxClass\Module::class,
         Mage2\User\Module::class,
-        Mage2\UserWishlist\Module::class,
+        Mage2\Wishlist\Module::class,
 
 
     ],

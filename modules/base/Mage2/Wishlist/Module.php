@@ -24,7 +24,7 @@
  */
 
 
-namespace Mage2\UserWishlist;
+namespace Mage2\Wishlist;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
@@ -113,7 +113,7 @@ class Module extends BaseModule
 
     protected function registerViewPath()
     {
-        $this->loadViewsFrom(__DIR__ . '/views', 'mage2userwishlist');
+        $this->loadViewsFrom(__DIR__ . '/views', 'mage2wishlist');
         View::addLocation(__DIR__ . '/views');
     }
 
@@ -121,7 +121,7 @@ class Module extends BaseModule
 
     protected function registerTranslationPath()
     {
-        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2userwishlist");
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2wishlist");
     }
 
 

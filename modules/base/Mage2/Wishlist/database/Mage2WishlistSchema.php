@@ -27,7 +27,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Mage2\TaxClass\Models\Country;
 
-class Mage2UserWishlistSchema extends Migration
+class Mage2WishlistSchema extends Migration
 {
 
     /**

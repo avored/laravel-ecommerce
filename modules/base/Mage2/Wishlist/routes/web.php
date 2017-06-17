@@ -35,12 +35,12 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\UserWishlist\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\Wishlist\Controllers\Admin"], function () {
 
 });
 
 
-Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\UserWishlist\Controllers"], function () {
+Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\Wishlist\Controllers"], function () {
 
     Route::get('/wishlist/add/{slug}', ['as' => 'wishlist.add', 'uses' => 'WishlistController@add']);
     Route::get('/my-account/wishlist', ['as' => 'wishlist.list', 'uses' => 'WishlistController@mylist']);

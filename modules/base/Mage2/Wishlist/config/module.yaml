@@ -3,6 +3,6 @@
 
 
 name        : Mage2 User Wishlist
-identifier  : mage2-userwishlist
+identifier  : mage2-wishlist
 description : Mage2 User Wishlist Modules
 enable      : true
