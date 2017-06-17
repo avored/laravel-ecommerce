@@ -60,6 +60,12 @@ class Mage2SystemSchema extends Migration
         Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
 
+        ModuleModel::create(['identifier' => 'mage2-address',
+            'type' => 'SYSTEM',
+            'name' => 'Mage2 User Address',
+            'status' => 'ACTIVE'
+        ]);
+
         ModuleModel::create(['identifier' => 'mage2-cart',
             'name' => 'Mage2 Cart',
             'type' => 'SYSTEM',
@@ -133,14 +139,7 @@ class Mage2SystemSchema extends Migration
             'status' => 'ACTIVE'
         ]);
 
-        ModuleModel::create(['identifier' => 'mage2-useraddress',
-            'type' => 'SYSTEM',
-            'name' => 'Mage2 User Address',
-            'status' => 'ACTIVE'
-        ]);
-
-
-        ModuleModel::create(['identifier' => 'mage2-userwishlist',
+        ModuleModel::create(['identifier' => 'mage2-wishlist',
             'type' => 'SYSTEM',
             'name' => 'Mage2 User Wishlist',
             'status' => 'ACTIVE'
