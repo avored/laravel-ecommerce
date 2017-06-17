@@ -48,14 +48,14 @@ class Module extends BaseModule
     /**
      *
      * Module Odentifier  Variable
-     * @var identifier
+     * @var $identifier
      *
      */
     protected $identifier = null;
     /**
      *
      * Module Description Variable
-     * @var description
+     * @var $description
      *
      */
     protected $description = null;
@@ -63,7 +63,7 @@ class Module extends BaseModule
     /**
      *
      * Module Enable Variable
-     * @var enable
+     * @var $enable
      *
      */
     protected $enable = null;
@@ -128,16 +128,12 @@ class Module extends BaseModule
 
     protected function registerViewPath()
     {
+        $this->registerViewPath(__DIR__ . "/views/admin", "mage2orderreturnadmin");
         $this->loadViewsFrom(__DIR__ . "/views", "mage2orderreturn");
     }
 
     public function registerAdminMenu()
     {
-        $adminMenu = ['sale' => [
-            'label' => 'Sales',
-            'route' => '#'
-        ]];
-        //AdminMenu::registerMenu('mage2-order', $adminMenu);
         $adminMenu = ['sale' => ['submenu' => ['order-return' => [
             'label' => 'Order Returns',
             'route' => 'admin.order-return.index',

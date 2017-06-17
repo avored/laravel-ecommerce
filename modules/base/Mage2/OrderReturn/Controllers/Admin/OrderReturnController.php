@@ -47,7 +47,7 @@ class OrderReturnController extends AdminController
      */
     public function index()
     {
-        return view('mage2orderreturn::admin.order-return.index');
+        return view('mage2orderreturnadmin::order-return.index');
     }
 
     /**
@@ -60,7 +60,7 @@ class OrderReturnController extends AdminController
 
         $orderReturnRequet = OrderReturnRequest::find($id);
 
-        return view('mage2orderreturn::admin.order-return.show')
+        return view('mage2orderreturnadmin::order-return.show')
                         ->with('orderReturnRequest', $orderReturnRequet);
     }
 

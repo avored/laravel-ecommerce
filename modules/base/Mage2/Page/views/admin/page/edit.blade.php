@@ -10,7 +10,7 @@
             </div>
 
             {!! Form::bind($page, ['method' => 'PUT', 'action' => route('admin.page.update', $page->id)]) !!}
-            @include('mage2page::admin.page._fields')
+            @include('mage2pageadmin::page._fields')
             {!! Form::submit('Update Page') !!}
             {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.page.index').'"']) !!}
             {!! Form::close() !!}

@@ -42,7 +42,7 @@ class ConfigurationController extends AdminController
     {
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
-        return view('admin.paypal.configuration.index')
+        return view('mage2paypaladmin::paypal.configuration.index')
             ->with('configurations', $configurations);
     }
 }

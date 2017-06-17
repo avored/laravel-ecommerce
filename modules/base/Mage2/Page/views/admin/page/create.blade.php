@@ -9,7 +9,7 @@
                     </span>
             </div>
             {!! Form::open(['method' => 'post','action' => route('admin.page.store')]) !!}
-            @include('mage2page::admin.page._fields')
+            @include('mage2pageadmin::page._fields')
             {!! Form::submit('Create Page') !!}
             {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.page.index').'"']) !!}
             {!! Form::close() !!}

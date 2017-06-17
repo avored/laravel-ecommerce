@@ -46,14 +46,14 @@ class Module extends BaseModule
     /**
      *
      * Module Odentifier  Variable
-     * @var identifier
+     * @var $identifier
      *
      */
     protected $identifier = NULL;
     /**
      *
      * Module Description Variable
-     * @var description
+     * @var $description
      *
      */
     protected $description = NULL;
@@ -61,7 +61,7 @@ class Module extends BaseModule
     /**
      *
      * Module Enable Variable
-     * @var enable
+     * @var $enable
      *
      */
     protected $enable = NULL;
@@ -125,7 +125,7 @@ class Module extends BaseModule
 
     protected function registerViewPath()
     {
-        $this->loadViewsFrom(__DIR__ . '/views', 'mage2page');
+        $this->loadViewsFrom(__DIR__ . '/views/admin', 'mage2pageadmin');
         View::addLocation(__DIR__ . DIRECTORY_SEPARATOR . 'views');
     }
 

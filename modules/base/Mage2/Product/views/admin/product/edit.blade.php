@@ -19,12 +19,12 @@
             {!! Form::bind($product, ['files' => true,'method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}
 
 
-            @include('mage2product::admin.product.basic-panel')
-            @include('mage2product::admin.product.images')
-            @include('mage2product::admin.product.inventory-panel')
-            @include('mage2product::admin.product.seo-panel')
-            @include('mage2product::admin.product.extra-panel')
-            @include('mage2product::admin.product.attribute');
+                @include('mage2productadmin::product.basic-panel')
+                @include('mage2productadmin::product.images')
+                @include('mage2productadmin::product.inventory-panel')
+                @include('mage2productadmin::product.seo-panel')
+                @include('mage2productadmin::product.extra-panel')
+                @include('mage2productadmin::product.attribute');
 
             <div class="input-field">
                 {!! Form::submit("Update Product",['class' => 'btn btn-primary']) !!}

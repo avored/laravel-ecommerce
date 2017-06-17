@@ -68,7 +68,7 @@ class ProductController extends AdminController
      */
     public function index()
     {
-        return view('mage2product::admin.product.index');
+        return view('mage2productadmin::product.index');
     }
 
     /**
@@ -81,7 +81,7 @@ class ProductController extends AdminController
 
         $categories = $this->categoryHelper->getCategoryOptions();
 
-        return view('mage2product::admin.product.create')
+        return view('mage2productadmin::product.create')
             ->with('categories', $categories);
     }
 
@@ -138,7 +138,7 @@ class ProductController extends AdminController
 
         $categories = $this->categoryHelper->getCategoryOptions();
 
-        return view('mage2product::admin.product.edit')
+        return view('mage2productadmin::product.edit')
             ->with('product', $product)
             ->with('categories', $categories);
 
@@ -201,7 +201,7 @@ class ProductController extends AdminController
 
         $tmp = $this->_getTmpString();
 
-        return view('mage2product::admin.product.upload-image')
+        return view('mage2productadmin::product.upload-image')
             ->with('image', $image)
             ->with('tmp', $tmp);
     }
@@ -222,16 +222,14 @@ class ProductController extends AdminController
 
         $attribute = ProductAttribute::findorfail($request->get('id'));
 
-        return view('mage2product::admin.product.attribute-panel-values')
+        return view('mage2productadmin::product.attribute-panel-values')
             ->with('attribute', $attribute);
 
     }
 
     public function _getTmpString($length = 6)
     {
-
         $pool = 'abcdefghijklmnopqrstuvwxyz';
-
         return substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
     }
 }

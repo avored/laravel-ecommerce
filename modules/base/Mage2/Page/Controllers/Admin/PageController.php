@@ -47,35 +47,7 @@ class PageController extends AdminController
      */
     public function index()
     {
-        /**
-         * $model = new Page();
-         * $dataGrid = DataGrid::make($model);
-         *
-         * $dataGrid->addColumn(DataGrid::textColumn('id', 'Page Id'));
-         * $dataGrid->addColumn(DataGrid::textColumn('title', 'Page Title'));
-         * $dataGrid->addColumn(DataGrid::textColumn('slug', 'Page Slug'));
-         * $dataGrid->addColumn(DataGrid::textColumn('meta_title', 'Page Meta Title'));
-         *
-         * if (Gate::allows('hasPermission', [AdminUser::class, "admin.page.edit"])) {
-         * $dataGrid->addColumn(DataGrid::linkColumn('edit', 'Edit', function ($row) {
-         * return "<a href='" . route('admin.page.edit', $row->id) . "'>Edit</a>";
-         * }));
-         * }
-         *
-         *
-         * if (Gate::allows('hasPermission', [AdminUser::class, "admin.page.destroy"])) {
-         * $dataGrid->addColumn(DataGrid::linkColumn('destroy', 'Destroy', function ($row) {
-         * return "<form method='post' action='" . route('admin.page.destroy', $row->id) . "'>" .
-         * "<input type='hidden' name='_method' value='delete'/>" .
-         * csrf_field() .
-         * '<a href="#" onclick="jQuery(this).parents(\'form:first\').submit()">Destroy</a>' .
-         * "</form>";
-         * }));
-         * }
-         */
-
-
-        return view('mage2page::admin.page.index');
+        return view('mage2pageadmin::page.index');
     }
 
     /**
@@ -85,7 +57,7 @@ class PageController extends AdminController
      */
     public function create()
     {
-        return view('mage2page::admin.page.create');
+        return view('mage2pageadmin::page.create');
     }
 
     /**
@@ -125,7 +97,7 @@ class PageController extends AdminController
     {
         $page = Page::findorfail($id);
 
-        return view('mage2page::admin.page.edit')
+        return view('mage2pageadmin::page.edit')
             ->with('page', $page);
     }
 

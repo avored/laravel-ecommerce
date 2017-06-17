@@ -135,7 +135,7 @@ class Module extends BaseModule
 
     protected function registerViewPath()
     {
-        $this->loadViewsFrom(__DIR__ . '/views', 'mage2product');
+        $this->loadViewsFrom(__DIR__ . '/views/admin', 'mage2productadmin');
         View::addLocation(__DIR__ . '/views');
     }
 

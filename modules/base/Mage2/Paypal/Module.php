@@ -136,6 +136,7 @@ class Module extends BaseModule
      */
     protected function registerViewPath()
     {
+        $this->registerViewPath(__DIR__ . "/views/admin", 'mage2paypaladmin');
         View::addLocation(__DIR__ . '/views');
     }
 
