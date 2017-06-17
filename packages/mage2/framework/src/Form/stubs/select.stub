@@ -1,0 +1,12 @@
+<div class="form-group DUMMYERRORCLASS">
+    <label for="DUMMYFIELDNAME">DUMMYLABEL</label>
+    <select id="DUMMYFIELDNAME" 
+            name="DUMMYFIELDNAME" 
+            DUMMYATTRIBUTES 
+            placeholder="DUMMYLABEL" 
+             />
+        DUMMYOPTIONS
+    </select>
+
+        DUMMYERRORTEXT
+</div>

@@ -1,0 +1,9 @@
+<div class="form-group DUMMYERRORCLASS">
+    <label for="DUMMYFIELDNAME">DUMMYLABEL</label>
+    <textarea
+            DUMMYATTRIBUTES 
+            placeholder="DUMMYLABEL" 
+            >DUMMYVALUE</textarea>
+
+        DUMMYERRORTEXT
+</div>

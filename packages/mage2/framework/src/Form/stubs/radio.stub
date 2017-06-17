@@ -1,0 +1,6 @@
+<div class="radio">
+  <label>
+    <input type="radio" name="DUMMYFIELDNAME" id="DUMMYFIELDNAME" value="DUMMYVALUE" >
+    DUMMYLABEL
+  </label>
+</div>
