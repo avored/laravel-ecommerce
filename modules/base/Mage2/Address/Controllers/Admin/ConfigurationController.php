@@ -55,7 +55,7 @@ class ConfigurationController extends AdminController
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
 
-        return view('mage2useraddress::admin.address.configuration.index')
+        return view('mage2addressadmin::address.configuration.index')
             ->with('configurations', $configurations)
             ->with('countries', $countries);
     }

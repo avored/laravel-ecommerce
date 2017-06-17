@@ -48,35 +48,13 @@ class OrderController extends AdminController
 
     public function index()
     {
-        /**
-         * $model  = new Order();
-         * $dataGrid = DataGrid::make($model);
-         *
-         * $dataGrid->addColumn(DataGrid::textColumn('id', 'Order ID'));
-         * $dataGrid->addColumn(DataGrid::textColumn('shipping_method', 'Shipping Method'));
-         * $dataGrid->addColumn(DataGrid::textColumn('payment_method', 'Payment Method'));
-         * $dataGrid->addColumn(DataGrid::textColumn('order_status_title', 'Order Status'));
-         * if (Gate::allows('hasPermission', [AdminUser::class, "admin.order.view"])) {
-         *
-         * $dataGrid->addColumn(DataGrid::linkColumn('view', 'View', function ($row) {
-         * return "<a href='" . route('admin.order.view', $row->id) . "'>View</a>";
-         * }));
-         * }
-         */
-        return view('mage2order::admin.order.index');
+        return view('mage2orderadmin::aorder.index');
     }
 
     public function view($id)
     {
         $order = Order::findorfail($id);
-        //$view = view('order.view')->with('order', $order);
-
-
-        $view = view('mage2order::admin.order.view')->with('order', $order);
-
-        //PDF::loadHTML($view->render())->save('my_stored_file.pdf')->stream('download.pdf');
-        //dd($view->render());die;
-        //PDF::loadHTML($view->render())->save('my_stored_file.pdf')->stream('download.pdf');
+        $view = view('mage2orderadmin::order.view')->with('order', $order);
 
         return $view;
     }
@@ -86,7 +64,7 @@ class OrderController extends AdminController
         $order = Order::findorfail($id);
         $user = User::find($order->user_id);
 
-        $view = view('mage2order::admin.order.pdf')->with('order', $order);
+        $view = view('mail.order.pdf')->with('order', $order);
 
         $folderPath = public_path('uploads/order/invoice');
         if (!File::exists($folderPath)) {
@@ -106,7 +84,7 @@ class OrderController extends AdminController
 
         $orderStatus = OrderStatus::all()->pluck('title', 'id');
 
-        $view = view('mage2order::admin.order.view')
+        $view = view('mage2orderadmin::order.view')
             ->with('order', $order)
             ->with('orderStatus', $orderStatus)
             ->with('changeStatus', true);

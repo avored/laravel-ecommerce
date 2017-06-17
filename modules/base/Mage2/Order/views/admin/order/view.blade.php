@@ -6,9 +6,8 @@
         <div class="col s12">
 
             <div class="main-title-wrap">
-            <span class='title'>
+                <div class='title'>
                 Order View
-
                 </h1>
                 <div class="pull-right">
                     <div class="btn-group">
