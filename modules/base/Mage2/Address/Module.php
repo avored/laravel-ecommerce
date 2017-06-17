@@ -24,7 +24,7 @@
  */
 
 
-namespace Mage2\UserAddress;
+namespace Mage2\Address;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Support\BaseModule;
@@ -114,7 +114,7 @@ class Module extends BaseModule
 
     protected function registerViewPath()
     {
-        $this->loadViewsFrom(__DIR__ . '/views', 'mage2useraddress');
+        $this->loadViewsFrom(__DIR__ . '/views', 'mage2address');
         View::addLocation(__DIR__ . '/views');
     }
 
@@ -143,7 +143,7 @@ class Module extends BaseModule
 
     protected function registerTranslationPath()
     {
-        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2useraddress");
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2address");
     }
 
 

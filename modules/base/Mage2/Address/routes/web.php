@@ -35,7 +35,7 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\UserAddress\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\Address\Controllers\Admin"], function () {
 
   Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address',
       'uses' => 'ConfigurationController@getConfiguration'
@@ -44,6 +44,6 @@ Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\UserAd
 });
 
 
-Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\UserAddress\Controllers"], function () {
+Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\Address\Controllers"], function () {
     Route::resource('/my-account/address', 'AddressController', ['as' => 'my-account']);
 });

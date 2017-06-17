@@ -23,7 +23,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\UserAddress\Requests;
+namespace Mage2\Address\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
 

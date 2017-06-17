@@ -40,7 +40,7 @@ use Mage2\User\Models\User;
 use Mage2\Order\Models\OrderProductVariation;
 
 ;
-use Mage2\UserAddress\Models\Address;
+use Mage2\Address\Models\Address;
 
 class OrderController extends Controller
 {

@@ -163,6 +163,7 @@ return [
          * Application Service Providers...
          */
 
+        Mage2\Address\Module::class,
         Mage2\Cart\Module::class,
         Mage2\Catalog\Module::class,
         Mage2\Checkout\Module::class,
@@ -176,7 +177,6 @@ return [
         Mage2\System\Module::class,
         Mage2\TaxClass\Module::class,
         Mage2\User\Module::class,
-        Mage2\UserAddress\Module::class,
         Mage2\UserWishlist\Module::class,
 
 

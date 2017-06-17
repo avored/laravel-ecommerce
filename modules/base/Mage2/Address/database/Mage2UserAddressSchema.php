@@ -25,9 +25,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Mage2\TaxClass\Models\Country;
 
-class Mage2UserAddressSchema extends Migration
+class Mage2AddressSchema extends Migration
 {
 
     /**
@@ -53,24 +52,6 @@ class Mage2UserAddressSchema extends Migration
             $table->string('phone');
             $table->timestamps();
         });
-
-        //addresses table foreign key setup
-        Schema::table('addresses', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
-        });
-
-
-        $path = public_path() . '/countries.json';
-
-        $json = json_decode(file_get_contents($path), true);
-        foreach ($json as $code => $name) {
-            $countires[] = ['code' => $code, 'name' => $name];
-        }
-
-        Country::insert($countires);
-
-
     }
 
     /**

@@ -58,7 +58,7 @@ class Mage2TaxClassSchema extends Migration
      */
     public function uninstall()
     {
-        Schema::create('pages');
+        Schema::drop('tax_rules');
     }
 
 }
