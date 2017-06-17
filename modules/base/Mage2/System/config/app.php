@@ -238,5 +238,6 @@ return [
         'Permission' => Mage2\Framework\Auth\Facades\Permission::class,
         'Module' => Mage2\Framework\Module\Facades\Module::class,
         'Image' => \Mage2\Framework\Image\Facades\Image::class,
+        'Search' => Mage2\Framework\Search\Facades\Search::class,
     ],
 ];
