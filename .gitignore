@@ -3,6 +3,7 @@
 /public/storage
 Homestead.yaml
 Homestead.json
+/packages
 .env
 .idea
 composer.lock
