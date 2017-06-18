@@ -22,7 +22,7 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog\Controllers;
+namespace Mage2\Product\Controllers;
 
 use Mage2\Product\Models\Product;
 use Mage2\Framework\System\Controllers\Controller;

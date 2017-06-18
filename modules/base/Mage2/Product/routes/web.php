@@ -51,6 +51,10 @@ Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\Produc
 });
 
 
-Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\Product\Controllers"], function () {
+Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Product\Controllers"], function () {
+
+    Route::get('/product/{slug}', ['as' => 'product.view', 'uses' => 'ProductViewController@view']);
+
+    Route::get('/product-search', ['as' => 'search.result', 'uses' => 'SearchController@result']);
 
 });
