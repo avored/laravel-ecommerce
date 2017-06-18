@@ -40,6 +40,7 @@
       "Mage2\\Address\\": "modules/base/Mage2/Address/",
       "Mage2\\Cart\\": "modules/base/Mage2/Cart/",
       "Mage2\\Catalog\\": "modules/base/Mage2/Catalog/",
+      "Mage2\\Category\\": "modules/base/Mage2/Category/",
       "Mage2\\Checkout\\": "modules/base/Mage2/Checkout/",
       "Mage2\\Install\\": "modules/base/Mage2/Install/",
       "Mage2\\Order\\": "modules/base/Mage2/Order/",

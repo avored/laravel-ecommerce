@@ -39,6 +39,26 @@ class Mage2CategorySchema extends Migration
      */
     public function install()
     {
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('parent_id')->nullable()->default(NULL);
+            $table->string('name');
+            $table->string('slug');
+            $table->timestamps();
+        });
+
+        Schema::create('category_product', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('category_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamps();
+        });
+
+        //category_product table foreign key setup
+        Schema::table('category_product', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
 
     }
 
@@ -49,6 +69,9 @@ class Mage2CategorySchema extends Migration
      */
     public function uninstall()
     {
+        Schema::drop('categories');
+        Schema::drop('category_product');
+
     }
 
 }

@@ -104,20 +104,7 @@ class Mage2CatalogSchema extends Migration
             $table->timestamps();
         });
 
-        Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('parent_id')->nullable()->default(NULL);
-            $table->string('name');
-            $table->string('slug');
-            $table->timestamps();
-        });
 
-        Schema::create('category_product', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('category_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->timestamps();
-        });
         Schema::create('related_products', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
@@ -181,11 +168,6 @@ class Mage2CatalogSchema extends Migration
 
         });
 
-        //category_product table foreign key setup
-        Schema::table('category_product', function (Blueprint $table) {
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
 
         //related_products table foreign key setup
         Schema::table('related_products', function (Blueprint $table) {
@@ -208,8 +190,6 @@ class Mage2CatalogSchema extends Migration
         Schema::drop('product_attributes');
         Schema::drop('products');
         Schema::drop('attribute_dropdown_options');
-        Schema::drop('categories');
-        Schema::drop('category_product');
         Schema::drop('related_products');
         Schema::drop('reviews');
     }
