@@ -66,7 +66,7 @@ class OrderStatusController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Catalog\Requests\CategoryRequest $request
+     * @param \Mage2\Sale\Requests\OrderStatusRequest $request
      *
      * @return \Illuminate\Http\Response
      */

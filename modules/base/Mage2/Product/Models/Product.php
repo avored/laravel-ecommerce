@@ -29,7 +29,7 @@ use Mage2\Order\Models\Order;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\TaxClass\Models\TaxRule;
 use Illuminate\Support\Collection;
-use Mage2\Catalog\Models\Category;
+use Mage2\Category\Models\Category;
 use Mage2\Catalog\Models\ProductCollection;
 use Mage2\System\Models\Configuration;
 use Mage2\Catalog\Models\ProductVariation;

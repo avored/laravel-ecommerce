@@ -22,16 +22,33 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog\Helpers;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Mage2\Catalog\Models\ProductAttributeGroup;
+use Mage2\Catalog\Models\AttributeDropdownOption;
+use Mage2\Catalog\Models\ProductAttribute;
 
-use Mage2\Catalog\Models\Category;
-
-class CategoryHelper
+class Mage2CategorySchema extends Migration
 {
 
-    public function getCategoryOptions()
+    /**
+     * Install the Mage2 Catalog Module Schema.
+     *
+     * @return void
+     */
+    public function install()
     {
-        $options = Category::pluck('name', 'id');
-        return $options;
+
     }
+
+    /**
+     * Uninstall the Mage2 Catalog Module Schema.
+     *
+     * @return void
+     */
+    public function uninstall()
+    {
+    }
+
 }

@@ -22,7 +22,7 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog;
+namespace Mage2\Category;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Configuration\Facades\AdminConfiguration;
@@ -100,7 +100,6 @@ class Module extends BaseModule
         $this->registerModuleYamlFile(__DIR__ . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'module.yaml');
         if (true === $this->getEnable()) {
             $this->mapWebRoutes();
-            $this->registerViewComposerData();
             //$this->registerPermissions();
         }
 
@@ -108,7 +107,7 @@ class Module extends BaseModule
 
     protected function registerTranslationPath()
     {
-        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2catalog");
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2category");
     }
 
 
@@ -128,7 +127,7 @@ class Module extends BaseModule
 
     protected function registerViewPath()
     {
-        $this->loadViewsFrom(__DIR__ . '/views', 'mage2catalog');
+        $this->loadViewsFrom(__DIR__ . '/views/admin', 'mage2categoryadmin');
         View::addLocation(__DIR__ . '/views');
     }
 
@@ -143,13 +142,9 @@ class Module extends BaseModule
             'label' => 'Catalog',
             'route' => '#',
             'submenu' => [
-                'attribute' => [
-                    'label' => 'Attribute',
-                    'route' => 'admin.attribute.index',
-                ]
-                , 'review' => [
-                    'label' => 'Review',
-                    'route' => 'admin.review.index',
+                'category' => [
+                    'label' => 'Category',
+                    'route' => 'admin.category.index',
                 ]
             ]
         ]];
@@ -168,13 +163,6 @@ class Module extends BaseModule
         foreach ($adminConfigurations as $adminConfiguration) {
             AdminConfiguration::registerConfiguration($adminConfiguration);
         }
-    }
-
-    public function registerViewComposerData()
-    {
-        //View::composer(['admin.catalog.product.boxes.inventory'], 'Mage2\Catalog\ViewComposers\ProductBoxInventoryComposer');
-        View::composer(['mage2productadmin::product.edit'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
-        View::composer(['mage2productadmin::product.create'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
     }
 
     /**

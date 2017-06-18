@@ -26,7 +26,7 @@ namespace Mage2\Product\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Mage2\Catalog\Models\ProductAttribute;
-use Mage2\Catalog\Helpers\CategoryHelper;
+use Mage2\Category\Helpers\CategoryHelper;
 use Mage2\Catalog\Helpers\ProductHelper;
 use Mage2\Product\Models\Product;
 use Mage2\Product\Requests\ProductRequest;
@@ -38,7 +38,7 @@ use Mage2\Framework\DataGrid\Facades\DataGrid;
 class ProductController extends AdminController
 {
     /**
-     * @var \Mage2\Catalog\Helpers\CategoryHelper
+     * @var \Mage2\Category\Helpers\CategoryHelper
      */
     protected $categoryHelper;
 

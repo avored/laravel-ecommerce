@@ -22,38 +22,16 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog\Requests;
+namespace Mage2\Category\Helpers;
 
-use Illuminate\Foundation\Http\FormRequest as Request;
+use Mage2\Category\Models\Category;
 
-class CategoryRequest extends Request
+class CategoryHelper
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function getCategoryOptions()
     {
-        $validationRule = [];
-        $validationRule['name'] = 'required|max:255';
-        if ($this->getMethod() == 'POST') {
-            $validationRule['slug'] = 'required|max:255|alpha_dash|unique:categories';
-        }
-        if ($this->getMethod() == 'PUT') {
-            $validationRule['slug'] = 'required|max:255|alpha_dash';
-        }
-
-        return $validationRule;
+        $options = Category::pluck('name', 'id');
+        return $options;
     }
 }

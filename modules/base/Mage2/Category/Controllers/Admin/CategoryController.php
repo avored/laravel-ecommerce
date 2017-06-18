@@ -22,11 +22,11 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog\Controllers\Admin;
+namespace Mage2\Category\Controllers\Admin;
 
 use Illuminate\Support\Collection;
-use Mage2\Catalog\Models\Category;
-use Mage2\Catalog\Requests\CategoryRequest;
+use Mage2\Category\Models\Category;
+use Mage2\Category\Requests\CategoryRequest;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
 use Illuminate\Support\Facades\Gate;
@@ -49,7 +49,7 @@ class CategoryController extends AdminController
     public function index()
     {
 
-        return view('mage2catalog::admin.catalog.category.index');
+        return view('mage2categoryadmin::catalog.category.index');
     }
 
     /**
@@ -61,14 +61,14 @@ class CategoryController extends AdminController
     {
         $categoryOptions = $this->_getCategoryOptions();
 
-        return view('mage2catalog::admin.catalog.category.create')
+        return view('mage2categoryadmin::catalog.category.create')
             ->with('categoryOptions', $categoryOptions);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Catalog\Requests\CategoryRequest $request
+     * @param \Mage2\Category\Requests\CategoryRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -92,7 +92,7 @@ class CategoryController extends AdminController
         $categoryOptions = $this->_getCategoryOptions();
         $category = Category::findorfail($id);
 
-        return view('mage2catalog::admin.catalog.category.edit')
+        return view('mage2categoryadmin::catalog.category.edit')
             ->with('category', $category)
             ->with('categoryOptions', $categoryOptions);
     }
@@ -100,7 +100,7 @@ class CategoryController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Catalog\Requests\CategoryRequest $request
+     * @param \Mage2\Category\Requests\CategoryRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

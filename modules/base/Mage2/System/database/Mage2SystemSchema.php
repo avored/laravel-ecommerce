@@ -74,6 +74,11 @@ class Mage2SystemSchema extends Migration
             'type' => 'SYSTEM',
             'status' => 'ACTIVE'
         ]);
+        ModuleModel::create(['identifier' => 'mage2-category',
+            'name' => 'Mage2 Category',
+            'type' => 'SYSTEM',
+            'status' => 'ACTIVE'
+        ]);
         ModuleModel::create(['identifier' => 'mage2-checkout',
             'type' => 'SYSTEM',
             'name' => 'Mage2 Checkout',

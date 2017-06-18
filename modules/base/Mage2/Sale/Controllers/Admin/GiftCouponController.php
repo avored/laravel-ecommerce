@@ -66,7 +66,7 @@ class GiftCouponController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Catalog\Requests\CategoryRequest $request
+     * @param \Mage2\Sale\Requests\GiftCouponRequest $request
      *
      * @return \Illuminate\Http\Response
      */

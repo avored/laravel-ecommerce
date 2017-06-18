@@ -27,7 +27,7 @@
 namespace Mage2\System\ViewComposers;
 
 use Illuminate\Support\Facades\Session;
-use Mage2\Catalog\Models\Category;
+use Mage2\Category\Models\Category;
 use Illuminate\View\View;
 use Mage2\System\Models\Configuration;
 
