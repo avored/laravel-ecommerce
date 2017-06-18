@@ -47,14 +47,14 @@ class Module extends BaseModule
     /**
      *
      * Module Odentifier  Variable
-     * @var identifier
+     * @var $identifier
      *
      */
     protected $identifier = NULL;
     /**
      *
      * Module Description Variable
-     * @var description
+     * @var $description
      *
      */
     protected $description = NULL;
@@ -62,7 +62,7 @@ class Module extends BaseModule
     /**
      *
      * Module Enable Variable
-     * @var enable
+     * @var $enable
      *
      */
     protected $enable = NULL;
@@ -177,8 +177,8 @@ class Module extends BaseModule
     public function registerViewComposerData()
     {
         //View::composer(['admin.catalog.product.boxes.inventory'], 'Mage2\Catalog\ViewComposers\ProductBoxInventoryComposer');
-        View::composer(['mage2product::admin.product.edit'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
-        View::composer(['mage2product::admin.product.create'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
+        View::composer(['mage2productadmin::product.edit'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
+        View::composer(['mage2productadmin::product.create'], 'Mage2\Catalog\ViewComposers\ProductFieldComposer');
     }
 
     /**

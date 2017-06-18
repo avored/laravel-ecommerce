@@ -23,7 +23,6 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-
 namespace Mage2\Address;
 
 use Illuminate\Support\Facades\View;
@@ -118,8 +117,6 @@ class Module extends BaseModule
         View::addLocation(__DIR__ . '/views');
     }
 
-
-
     /**
      * Register Admin Configuration for the Address Modules
      *
@@ -161,5 +158,4 @@ class Module extends BaseModule
     {
         return __DIR__;
     }
-
 }

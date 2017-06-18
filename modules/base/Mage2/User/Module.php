@@ -212,13 +212,6 @@ class Module extends BaseModule
     {
 
         $permissions = [
-
-            /**
-             * ['title' => 'Role List', 'routes' => 'admin.role.index'],
-             * ['title' => 'Role Create', 'routes' => "admin.role.create,admin.role.store"],
-             * ['title' => 'Role Edit', 'routes' => "admin.role.edit,admin.role.update"],
-             * ['title' => 'Role Destroy', 'routes' => "admin.role.destroy"],
-             */
             ['title' => 'Admin User List', 'routes' => 'admin.admin-user.index'],
             ['title' => 'Admin User Create', 'routes' => "admin.admin-user.create,admin.admin-user.store"],
             ['title' => 'Admin User  Edit', 'routes' => "admin.admin-user.edit,admin.admin-user.update"],

@@ -42,14 +42,14 @@ class Module extends BaseModule
     /**
      *
      * Module Odentifier  Variable
-     * @var identifier
+     * @var $identifier
      *
      */
     protected $identifier = NULL;
     /**
      *
      * Module Description Variable
-     * @var description
+     * @var $description
      *
      */
     protected $description = NULL;
@@ -57,7 +57,7 @@ class Module extends BaseModule
     /**
      *
      * Module Enable Variable
-     * @var enable
+     * @var $enable
      *
      */
     protected $enable = NULL;

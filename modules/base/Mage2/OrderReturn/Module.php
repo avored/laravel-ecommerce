@@ -40,7 +40,7 @@ class Module extends BaseModule
     /**
      *
      * Module Name Variable
-     * @var name
+     * @var $name
      *
      */
     protected $name = null;
@@ -128,8 +128,8 @@ class Module extends BaseModule
 
     protected function registerViewPath()
     {
-        $this->registerViewPath(__DIR__ . "/views/admin", "mage2orderreturnadmin");
-        $this->loadViewsFrom(__DIR__ . "/views", "mage2orderreturn");
+        $this->loadViewsFrom(__DIR__ . "/views/admin", "mage2orderreturnadmin");
+        View::addLocation(__DIR__ . '/views');
     }
 
     public function registerAdminMenu()

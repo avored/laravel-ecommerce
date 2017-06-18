@@ -32,16 +32,6 @@ use Mage2\Wishlist\Models\Wishlist;
 
 class WishlistController extends Controller
 {
-
-    /**
-     * WishlistController constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        $this->middleware(['frontauth']);
-    }
-
     /**
      * @param $slug
      * @return \Illuminate\Http\RedirectResponse
