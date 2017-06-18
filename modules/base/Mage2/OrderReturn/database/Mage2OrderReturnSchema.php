@@ -55,8 +55,8 @@ class Mage2OrderReturnSchema extends Migration
             $table->integer('qty');
             $table->timestamps();
 
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('order_return_request_id')->references('id')->on('order_return_request_products')->onDelete('cascade');
+            //$table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('order_return_request_id')->references('id')->on('order_return_requests')->onDelete('cascade');
         });
 
         Schema::create('order_return_request_messages', function (Blueprint $table) {
@@ -67,7 +67,7 @@ class Mage2OrderReturnSchema extends Migration
             $table->text('message_text');
             $table->timestamps();
 
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('order_return_request_id')->references('id')->on('order_return_requests')->onDelete('cascade');
         });
 
 

@@ -76,21 +76,7 @@ class Mage2UserSchema extends Migration
             $table->timestamps();
         });
 
-        Schema::create('addresses', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->enum('type', ['SHIPPING', 'BILLING']);
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('address1');
-            $table->string('address2');
-            $table->string('postcode');
-            $table->string('city');
-            $table->string('state');
-            $table->integer('country_id')->unsigned();
-            $table->string('phone');
-            $table->timestamps();
-        });
+       
 
         Schema::create('countries', function (Blueprint $table) {
             $table->increments('id');
