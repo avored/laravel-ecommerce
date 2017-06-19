@@ -172,6 +172,7 @@ return [
         Mage2\Page\Module::class,
         Mage2\Paypal\Module::class,
         Mage2\Product\Module::class,
+        Mage2\Review\Module::class,
         Mage2\Sale\Module::class,
         Mage2\System\Module::class,
         Mage2\TaxClass\Module::class,
