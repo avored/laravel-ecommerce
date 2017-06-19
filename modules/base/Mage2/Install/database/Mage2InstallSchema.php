@@ -434,9 +434,9 @@ class Mage2InstallSchema extends Migration
 
         $json = json_decode(file_get_contents($path), true);
         foreach ($json as $code => $name) {
-            $countires[] = ['code' => $code, 'name' => $name];
+            Country::create(['code' => $code, 'name' => $name]);
         }
-        Country::insert($countires);
+        //Country::insert($countires);
 
     }
 
