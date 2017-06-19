@@ -22,7 +22,7 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog;
+namespace Mage2\Review;
 
 use Illuminate\Support\Facades\View;
 use Mage2\Framework\Configuration\Facades\AdminConfiguration;
@@ -108,7 +108,7 @@ class Module extends BaseModule
 
     protected function registerTranslationPath()
     {
-        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2catalog");
+        $this->loadTranslationsFrom(__DIR__ . "/views/lang", "mage2review");
     }
 
 
@@ -128,7 +128,7 @@ class Module extends BaseModule
 
     protected function registerViewPath()
     {
-        $this->loadViewsFrom(__DIR__ . '/views', 'mage2catalog');
+        $this->loadViewsFrom(__DIR__ . '/views/admin', 'mage2reviewadmin');
         View::addLocation(__DIR__ . '/views');
     }
 
@@ -143,9 +143,9 @@ class Module extends BaseModule
             'label' => 'Catalog',
             'route' => '#',
             'submenu' => [
-                'attribute' => [
-                    'label' => 'Attribute',
-                    'route' => 'admin.attribute.index',
+                'review' => [
+                    'label' => 'Review',
+                    'route' => 'admin.review.index',
                 ]
             ]
         ]];

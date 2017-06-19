@@ -22,39 +22,43 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog\Requests;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+use Mage2\Catalog\Models\ProductAttributeGroup;
+use Mage2\Catalog\Models\AttributeDropdownOption;
+use Mage2\Catalog\Models\ProductAttribute;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Foundation\Http\FormRequest as Request;
-
-class ReviewRequest extends Request
+class Mage2ReviewSchema extends Migration
 {
+
     /**
-     * Determine if the user is authorized to make this request.
+     * Install the Mage2 Catalog Module Schema.
      *
-     * @return bool
+     * @return void
      */
-    public function authorize()
+    public function install()
     {
-        return true;
+        Schema::create('reviews', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->float('star');
+            $table->string('comment');
+            $table->enum('status', ['ENABLED', 'DISABLED'])->default('DISABLED');
+            $table->timestamps();
+        });
+
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Uninstall the Mage2 Catalog Module Schema.
      *
-     * @return array
+     * @return void
      */
-    public function rules()
+    public function uninstall()
     {
-        if (!Auth::check()) {
-            $validateArray['first_name'] = 'required|max:255';
-            $validateArray['last_name'] = 'required|max:255';
-            $validateArray['email'] = 'required|max:255|email';
-        }
-
-        $validateArray['star'] = 'required|max:255';
-        $validateArray['comment'] = 'required';
-
-        return $validateArray;
+        Schema::drop('reviews');
     }
+
 }

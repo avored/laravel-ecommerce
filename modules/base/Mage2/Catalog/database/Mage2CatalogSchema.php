@@ -111,16 +111,6 @@ class Mage2CatalogSchema extends Migration
             $table->integer('related_products_id')->unsigned();
             $table->timestamps();
         });
-        Schema::create('reviews', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->float('star');
-            $table->string('comment');
-            $table->enum('status', ['ENABLED', 'DISABLED'])->default('DISABLED');
-            $table->timestamps();
-        });
-
 
         Schema::create('product_variations', function (Blueprint $table) {
             $table->increments('id');
@@ -191,7 +181,6 @@ class Mage2CatalogSchema extends Migration
         Schema::drop('products');
         Schema::drop('attribute_dropdown_options');
         Schema::drop('related_products');
-        Schema::drop('reviews');
     }
 
 }

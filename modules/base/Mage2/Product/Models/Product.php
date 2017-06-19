@@ -35,7 +35,7 @@ use Mage2\System\Models\Configuration;
 use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Catalog\Models\ProductVarcharValue;
 use Mage2\Framework\System\Models\BaseModel;
-use Mage2\Catalog\Models\Review;
+use Mage2\Review\Models\Review;
 use Mage2\Catalog\Models\ProductImage;
 use Mage2\Catalog\Models\ProductPrice;
 use Mage2\Catalog\Models\RelatedProduct;

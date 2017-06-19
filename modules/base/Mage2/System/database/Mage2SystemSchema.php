@@ -111,8 +111,11 @@ class Mage2SystemSchema extends Migration
             'name' => 'Mage2 Product',
             'status' => 'ACTIVE'
         ]);
-
-
+        ModuleModel::create(['identifier' => 'mage2-review',
+            'type' => 'SYSTEM',
+            'name' => 'Mage2 Review',
+            'status' => 'ACTIVE'
+        ]);
         ModuleModel::create(['identifier' => 'mage2-pickup',
             'type' => 'SYSTEM',
             'name' => 'Mage2 Pickup',

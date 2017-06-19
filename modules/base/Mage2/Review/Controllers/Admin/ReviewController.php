@@ -22,33 +22,40 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog\Models;
+namespace Mage2\Review\Controllers\Admin;
 
-use Mage2\Framework\System\Models\BaseModel;
-use Mage2\User\Models\User;
+use Illuminate\Http\Request;
+use Mage2\Framework\System\Controllers\AdminController;
+use Mage2\Review\Models\Review;
+use Mage2\Framework\DataGrid\Facades\DataGrid;
 
-class Review extends BaseModel
+class ReviewController extends AdminController
 {
-    protected $fillable = ['product_id', 'user_id', 'star', 'comment', 'status'];
 
-    public function user()
+    public function getDataGrid()
     {
-        return $this->belongsTo(User::class);
-    }
-
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
-
-    public function getProductTitleAttribute()
-    {
-        return $this->product->title;
+        return $users = DataGrid::dataTableData(new Review());
     }
 
 
-    public function getUserNameAttribute()
+    public function index()
     {
-        return $this->user->full_name;
+
+        return view('mage2reviewadmin::review.index');
+    }
+
+    public function edit($id)
+    {
+        $review = Review::find($id);
+
+        return view('mage2reviewadmin::review.edit')->with('review', $review);
+    }
+
+    public function update($id, Request $request)
+    {
+        $review = Review::find($id);
+        $review->update($request->all());
+
+        return redirect()->route('admin.review.index');
     }
 }

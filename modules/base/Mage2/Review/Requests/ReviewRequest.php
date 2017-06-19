@@ -22,40 +22,39 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog\Controllers;
+namespace Mage2\Review\Requests;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Framework\System\Controllers\Controller;
-use Mage2\Catalog\Models\Review;
-use Mage2\Catalog\Requests\ReviewRequest;
-use Mage2\User\Models\User;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
-class ReviewController extends Controller
+class ReviewRequest extends Request
 {
-    public function store(ReviewRequest $request)
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
     {
+        return true;
+    }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
         if (!Auth::check()) {
-            $user = User::where('email', '=', $request->get('email'))->get()->first();
-
-            if (null === $user) {
-
-                $requestData = $request->all();
-
-                $password = bcrypt(str_random($length = 6));
-
-                $requestData['password'] = $password;
-                $requestData['status'] = 'REVIEW';
-
-                //dd($requestData->all());
-                $user = User::create($requestData);
-            }
-        } else {
-            $user = Auth::user();
+            $validateArray['first_name'] = 'required|max:255';
+            $validateArray['last_name'] = 'required|max:255';
+            $validateArray['email'] = 'required|max:255|email';
         }
-        $request->merge(['user_id' => $user->id]);
-        Review::create($request->all());
 
-        return redirect()->back();
+        $validateArray['star'] = 'required|max:255';
+        $validateArray['comment'] = 'required';
+
+        return $validateArray;
     }
 }
