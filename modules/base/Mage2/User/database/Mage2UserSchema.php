@@ -22,6 +22,7 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -37,6 +38,7 @@ class Mage2UserSchema extends Migration
      */
     public function install()
     {
+
         Schema::create('admin_password_resets', function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token')->index();
@@ -76,75 +78,6 @@ class Mage2UserSchema extends Migration
             $table->timestamps();
         });
 
-       
-
-        Schema::create('countries', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('code');
-            $table->string('name');
-            $table->timestamps();
-        });
-
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->text('description');
-            $table->timestamps();
-        });
-
-        Schema::create('permissions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->unique();
-            $table->timestamps();
-        });
-
-
-        Schema::create('permission_role', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('permission_id');
-            $table->integer('role_id');
-            $table->timestamps();
-        });
-
-        //addresses table foreign key setup
-        Schema::table('addresses', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
-        });
-
-        //TAX MODULES
-        Schema::table('tax_rules', function (Blueprint $table) {
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
-        });
-
-
-        //orders table foreign key setup
-        Schema::table('orders', function (Blueprint $table) {
-            $table->foreign('shipping_address_id')->references('id')->on('addresses');
-            $table->foreign('billing_address_id')->references('id')->on('addresses');
-            $table->foreign('user_id')->references('id')->on('users');
-        });
-
-        //reviews table foreign key setup
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
-
-        Schema::table('order_return_request_messages', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
-
-
-        $path = public_path() . '/countries.json';
-
-        $json = json_decode(file_get_contents($path), true);
-        foreach ($json as $code => $name) {
-            $countires[] = ['code' => $code, 'name' => $name];
-        }
-
-        Country::insert($countires);
-
 
     }
 
@@ -155,15 +88,13 @@ class Mage2UserSchema extends Migration
      */
     public function uninstall()
     {
+
         Schema::drop('admin_password_resets');
         Schema::drop('admin_users');
         Schema::drop('password_resets');
         Schema::drop('users');
-        Schema::drop('addresses');
-        Schema::drop('countries');
-        Schema::drop('roles');
-        Schema::drop('permissions');
-        Schema::drop('permission_role');
+
+
     }
 
 }

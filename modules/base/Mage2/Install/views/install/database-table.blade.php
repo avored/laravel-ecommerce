@@ -23,7 +23,7 @@
                         <?php //$actualTheme = Theme::getByPath($theme) ?>
                         <tr>
 
-                            <td>{{ $module->getName() }}</td>
+                            <td>{{ $module->getName() }} {{ "====" . $module->getIdentifier() }}</td>
 
                             <td>
 

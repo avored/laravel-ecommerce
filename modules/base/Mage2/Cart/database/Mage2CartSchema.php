@@ -22,29 +22,29 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\TaxClass\Models;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Mage2\Address\Models\Address;
-use Mage2\Framework\System\Models\BaseModel;
-
-class Country extends BaseModel
+class Mage2CartSchema extends Migration
 {
-    protected $fillable = [
-        'name',
-        'code',
-    ];
 
-    public function address()
+    /**
+     * Install the Mage2 Catalog Module Schema.
+     *
+     * @return void
+     */
+    public function install()
     {
-        return $this->hasOne(Address::class);
     }
 
-    public static function getCountriesOptions($name = 'name', $id = 'id')
+    /**
+     * Uninstall the Mage2 Catalog Module Schema.
+     *
+     * @return void
+     */
+    public function uninstall()
     {
-        $model = new static();
-
-        $options = $model->all()->pluck($name, $id);
-
-        return $options;
     }
+
 }

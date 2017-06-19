@@ -57,7 +57,7 @@ class Module extends BaseModule
 
     /**
      *
-     * Module Odentifier  Variable
+     * Module identifier  Variable
      * @var $identifier
      *
      */
@@ -119,7 +119,7 @@ class Module extends BaseModule
         if (true === $this->getEnable()) {
             $this->mapWebRoutes();
             $this->registerViewPath();
-            $this->registerPermissions();
+            //$this->registerPermissions();
         }
     }
 

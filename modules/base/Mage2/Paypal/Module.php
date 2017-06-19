@@ -48,7 +48,7 @@ class Module extends BaseModule
 
     /**
      *
-     * Module Odentifier  Variable
+     * Module identifier  Variable
      * @var $identifier
      *
      */

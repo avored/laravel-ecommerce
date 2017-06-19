@@ -48,7 +48,7 @@ class OrderController extends AdminController
 
     public function index()
     {
-        return view('mage2orderadmin::aorder.index');
+        return view('mage2orderadmin::order.index');
     }
 
     public function view($id)

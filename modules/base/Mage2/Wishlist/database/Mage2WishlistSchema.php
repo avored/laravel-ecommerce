@@ -37,6 +37,59 @@ class Mage2WishlistSchema extends Migration
      */
     public function install()
     {
+
+
+        Schema::create('roles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->text('description');
+            $table->timestamps();
+        });
+
+        Schema::create('permissions', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->unique();
+            $table->timestamps();
+        });
+
+
+        Schema::create('permission_role', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('permission_id');
+            $table->integer('role_id');
+            $table->timestamps();
+        });
+
+        //addresses table foreign key setup
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+        });
+
+        //TAX MODULES
+        Schema::table('tax_rules', function (Blueprint $table) {
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+        });
+
+
+        //orders table foreign key setup
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('shipping_address_id')->references('id')->on('addresses');
+            $table->foreign('billing_address_id')->references('id')->on('addresses');
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+
+        //reviews table foreign key setup
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::table('order_return_request_messages', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+
+
         Schema::create('wishlists', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
@@ -58,6 +111,11 @@ class Mage2WishlistSchema extends Migration
      */
     public function uninstall()
     {
+
+        Schema::drop('addresses');
+        Schema::drop('roles');
+        Schema::drop('permissions');
+        Schema::drop('permission_role');
         Schema::drop('wishlists');
     }
 

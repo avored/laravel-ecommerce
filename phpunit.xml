@@ -18,46 +18,59 @@
             <directory suffix=".php">./modules/base</directory>
             <exclude>
                 <file>./modules/base/Mage2/Address/routes/web.php</file>
-
-                <file>./modules/base/Mage2/Auth/routes/web.php</file>
                 <file>./modules/base/Mage2/Cart/routes/web.php</file>
                 <file>./modules/base/Mage2/Catalog/routes/web.php</file>
-                <file>./modules/base/Mage2/ContactUs/routes/web.php</file>
-
+                <file>./modules/base/Mage2/Category/routes/web.php</file>
                 <file>./modules/base/Mage2/Checkout/routes/web.php</file>
-                <file>./modules/base/Mage2/System/routes/web.php</file>
                 <file>./modules/base/Mage2/Install/routes/web.php</file>
+                <file>./modules/base/Mage2/Order/routes/web.php</file>
+                <file>./modules/base/Mage2/OrderReturn/routes/web.php</file>
                 <file>./modules/base/Mage2/Page/routes/web.php</file>
                 <file>./modules/base/Mage2/Paypal/routes/web.php</file>
-                <file>./modules/base/Mage2/Order/routes/web.php</file>
+                <file>./modules/base/Mage2/Product/routes/web.php</file>
+                <file>./modules/base/Mage2/Review/routes/web.php</file>
+                <file>./modules/base/Mage2/Sale/routes/web.php</file>
+                <file>./modules/base/Mage2/System/routes/web.php</file>
                 <file>./modules/base/Mage2/TaxClass/routes/web.php</file>
                 <file>./modules/base/Mage2/User/routes/web.php</file>
-                <file>./modules/base/Mage2/Review/routes/web.php</file>
                 <file>./modules/base/Mage2/Wishlist/routes/web.php</file>
-                <file>./modules/base/Mage2/Theme/routes/web.php</file>
 
 
-                
                 <directory>./modules/base/Mage2/Address/views</directory>
-
-                <directory>./modules/base/Mage2/Auth/views</directory>
                 <directory>./modules/base/Mage2/Cart/views</directory>
                 <directory>./modules/base/Mage2/Catalog/views</directory>
-                <directory>./modules/base/Mage2/ContactUs/views</directory>
-               
+                <directory>./modules/base/Mage2/Category/views</directory>
                 <directory>./modules/base/Mage2/Checkout/views</directory>
-                <directory>./modules/base/Mage2/System/views</directory>
                 <directory>./modules/base/Mage2/Install/views</directory>
                 <directory>./modules/base/Mage2/Order/views</directory>
+                <directory>./modules/base/Mage2/OrderReturn/views</directory>
                 <directory>./modules/base/Mage2/Page/views</directory>
                 <directory>./modules/base/Mage2/Paypal/views</directory>
+                <directory>./modules/base/Mage2/Product/views</directory>
                 <directory>./modules/base/Mage2/Review/views</directory>
+                <directory>./modules/base/Mage2/Sale/views</directory>
                 <directory>./modules/base/Mage2/TaxClass/views</directory>
                 <directory>./modules/base/Mage2/User/views</directory>
                 <directory>./modules/base/Mage2/Wishlist/views</directory>
-                <directory>./modules/base/Mage2/Theme/views</directory>
+
 
                 <directory>./modules/base/Mage2/Address/database</directory>
+                <directory>./modules/base/Mage2/Cart/database</directory>
+                <directory>./modules/base/Mage2/Catalog/database</directory>
+                <directory>./modules/base/Mage2/Category/database</directory>
+                <directory>./modules/base/Mage2/Checkout/database</directory>
+                <directory>./modules/base/Mage2/Install/database</directory>
+                <directory>./modules/base/Mage2/Order/database</directory>
+                <directory>./modules/base/Mage2/OrderReturn/database</directory>
+                <directory>./modules/base/Mage2/Page/database</directory>
+                <directory>./modules/base/Mage2/Paypal/database</directory>
+                <directory>./modules/base/Mage2/Product/database</directory>
+                <directory>./modules/base/Mage2/Review/database</directory>
+                <directory>./modules/base/Mage2/Sale/database</directory>
+                <directory>./modules/base/Mage2/TaxClass/database</directory>
+                <directory>./modules/base/Mage2/User/database</directory>
+                <directory>./modules/base/Mage2/Wishlist/database</directory>
+
 
             </exclude>
         </whitelist>

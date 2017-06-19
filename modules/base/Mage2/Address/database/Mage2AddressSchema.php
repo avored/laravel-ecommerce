@@ -30,7 +30,7 @@ class Mage2AddressSchema extends Migration
 {
 
     /**
-     * Install the Mage2 Catalog Module Schema.
+     * Install the Mage2 Address Module Schema.
      *
      * @return void
      */

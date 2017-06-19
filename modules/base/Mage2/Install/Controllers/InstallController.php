@@ -49,6 +49,7 @@ class InstallController extends Controller
     public function index()
     {
 
+        Session::forget('install-module');
 
         $result = [];
         foreach ($this->extensions as $ext) {
@@ -119,7 +120,6 @@ class InstallController extends Controller
             throw new Exception($e->getMessage());
         }
 
-
         foreach ($sessionData as $setIdentifier => $status) {
             if ($setIdentifier == $identifier) {
                 $sessionData[$setIdentifier] = "install";
@@ -138,16 +138,7 @@ class InstallController extends Controller
             }
         }
 
-        /*
-         *
 
-        try {
-            Artisan::call('mage2:migrate');
-            //Artisan::call('db:seed');
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-        */
         if (true === $hasUninstallModule) {
             return redirect()->route('mage2.install.database.table.get');
         }

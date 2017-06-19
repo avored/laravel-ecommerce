@@ -30,7 +30,7 @@ use Faker\Factory;
 use Mage2\Product\Models\ProductImage;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\ProductVarcharValue;
-
+use Mage2\TaxClass\Models\Country;
 
 class Mage2InstallSchema extends Migration
 {
@@ -429,6 +429,14 @@ class Mage2InstallSchema extends Migration
             'product_attribute_id' => $attribute->id,
             'value' => $attribute->attributeDropdownOptions->pluck('id')->random()
         ]);
+
+        $path = public_path() . '/countries.json';
+
+        $json = json_decode(file_get_contents($path), true);
+        foreach ($json as $code => $name) {
+            $countires[] = ['code' => $code, 'name' => $name];
+        }
+        Country::insert($countires);
 
     }
 
