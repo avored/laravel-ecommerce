@@ -27,7 +27,7 @@ use Illuminate\Database\Migrations\Migration;
 use Mage2\Category\Models\Category;
 use Mage2\Product\Models\Product;
 use Faker\Factory;
-use Mage2\Catalog\Models\ProductImage;
+use Mage2\Product\Models\ProductImage;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Catalog\Models\ProductVarcharValue;
 

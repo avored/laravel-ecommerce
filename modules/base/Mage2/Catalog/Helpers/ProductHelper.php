@@ -25,7 +25,7 @@
 namespace Mage2\Catalog\Helpers;
 
 use Mage2\Catalog\Models\ProductAttribute;
-use Mage2\Catalog\Models\ProductImage;
+use Mage2\Product\Models\ProductImage;
 use Mage2\Catalog\Models\ProductVarcharValue;
 use Mage2\Catalog\Models\ProductVariation;
 use Mage2\Catalog\Models\RelatedProduct;

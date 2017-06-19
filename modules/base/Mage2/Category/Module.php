@@ -139,8 +139,6 @@ class Module extends BaseModule
     {
 
         $adminUserMenu = ['catalog' => [
-            'label' => 'Catalog',
-            'route' => '#',
             'submenu' => [
                 'category' => [
                     'label' => 'Category',

@@ -49,7 +49,6 @@ class Mage2CatalogSchema extends Migration
             $table->tinyInteger('use_as_variation');
             $table->tinyInteger('is_system')->default(1);
             $table->integer('sort_order')->nullable()->default(0);
-
             $table->timestamps();
         });
 
@@ -59,10 +58,7 @@ class Mage2CatalogSchema extends Migration
             $table->string('title')->nullable()->default(null);
             $table->string('slug')->nullable()->default(null);
             $table->string('sku')->nullable()->default(null);
-
             $table->text('description')->nullable()->default(null);
-            //'status','','','qty','','page_title','page_description'
-
             $table->tinyInteger('status')->nullable()->default(null);
             $table->tinyInteger('in_stock')->nullable()->default(null);
             $table->tinyInteger('track_stock')->nullable()->default(null);
