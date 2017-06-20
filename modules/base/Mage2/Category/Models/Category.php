@@ -31,6 +31,7 @@ use Mage2\Framework\System\Models\BaseModel;
 use Mage2\Catalog\Models\ProductVarcharValue;
 use Mage2\Catalog\Models\ProductAttribute;
 
+
 class Category extends BaseModel
 {
     protected $fillable = ['parent_id', 'name', 'slug'];
