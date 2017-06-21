@@ -34,7 +34,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Checkout\Controllers"], function () {
+Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\Checkout\Controllers"], function () {
     Route::get('/checkout', ['as' => 'checkout.index', 'uses' => 'CheckoutController@index']);
     Route::post('/checkout/step/user', ['as' => 'checkout.user.post', 'uses' => 'CheckoutController@postUser']);
 

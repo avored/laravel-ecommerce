@@ -35,7 +35,7 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' => "Mage2\Sale\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'], 'namespace' => "Mage2\Sale\Controllers\Admin"], function () {
 
     Route::get('/admin/sale/gift-coupon/get-data', ['as' => 'admin.sale.gift-coupon.data-grid-table.get-data',
         'uses' => 'GiftCouponController@getDataGrid'
@@ -51,7 +51,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' =>
 });
 
 
-Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Sale\Controllers"], function () {
+Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\Sale\Controllers"], function () {
     Route::post('/sale/get-code-discount', ['as' => 'get.code-discount', 'uses' => 'GiftCouponController@getCodeDiscount']);
 
 });

@@ -34,7 +34,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth', 'permission'],
+Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'],
     'namespace' => "Mage2\OrderReturn\Controllers\Admin"], function () {
 
     Route::get('/admin/order-return/get-data', ['as' => 'admin.order-return.data-grid-table.get-data',
@@ -44,12 +44,12 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission'],
 });
 
 
-Route::group(['middleware' => ['web'], 'namespace' => "Mage2\OrderReturn\Controllers"], function () {
+Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\OrderReturn\Controllers"], function () {
 
 });
 
 
-Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\OrderReturn\Controllers"], function () {
+Route::group(['middleware' => ['web', 'frontauth', 'install'], 'namespace' => "Mage2\OrderReturn\Controllers"], function () {
 
 
     //Route::get('/my-account/order-return', ['as' => 'my-account.order-return.index', 'uses' => 'OrderReturnController@index']);

@@ -35,7 +35,7 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' => "Mage2\Page\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'], 'namespace' => "Mage2\Page\Controllers\Admin"], function () {
 
     Route::get('/admin/page/get-datatable-data', ['as' => 'admin.page.data-grid-table.get-data',
         'uses' => 'PageController@getDataGrid'
@@ -44,7 +44,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' =>
 });
 
 
-Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Page\Controllers"], function () {
+Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\Page\Controllers"], function () {
     Route::get('/page/{slug}', ['as' => 'page.show',
         'uses' => 'PageController@show'
     ]);

@@ -34,7 +34,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth', 'permission'],
+Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'],
     'namespace' => "Mage2\Order\Controllers\Admin"], function () {
 
     Route::get('/admin/order/get-datatable-data', ['as' => 'admin.order.data-grid-table.get-data',
@@ -51,12 +51,12 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission'],
 });
 
 
-Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Order\Controllers"], function () {
+Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\Order\Controllers"], function () {
     Route::post('/order', ['as' => 'order.place', 'uses' => 'OrderController@place']);
 });
 
 
-Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\Order\Controllers"], function () {
+Route::group(['middleware' => ['web', 'frontauth', 'install'], 'namespace' => "Mage2\Order\Controllers"], function () {
     Route::get('/order', ['as' => 'order.index', 'uses' => 'OrderController@index']);
     Route::get('/order/success/{id}', ['as' => 'order.success', 'uses' => 'OrderController@success']);
 

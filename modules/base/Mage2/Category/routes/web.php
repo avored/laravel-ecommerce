@@ -34,7 +34,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' => "Mage2\Category\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'], 'namespace' => "Mage2\Category\Controllers\Admin"], function () {
 
     Route::get('/admin/category/get-datatable-data', ['as' => 'admin.category.data-grid-table.get-data',
         'uses' => 'CategoryController@getDataGrid'
@@ -43,7 +43,7 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' =>
 });
 
 
-Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Category\Controllers"], function () {
+Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\Category\Controllers"], function () {
 
     Route::get('/category/{slug}', ['as' => 'category.view', 'uses' => 'CategoryViewController@view']);
 });

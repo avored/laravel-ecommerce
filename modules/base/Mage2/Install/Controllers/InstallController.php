@@ -34,6 +34,7 @@ use Mage2\User\Models\Role;
 use Mage2\System\Models\Configuration;
 use Mage2\Framework\Module\Facades\Module;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class InstallController extends Controller
 {
@@ -48,7 +49,6 @@ class InstallController extends Controller
 
     public function index()
     {
-
         Session::forget('install-module');
 
         $result = [];
@@ -209,6 +209,7 @@ class InstallController extends Controller
 
     public function success()
     {
+        Storage::disk('local')->put('installed.txt', '.installed');
         return view('mage2install::install.success');
     }
 

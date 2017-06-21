@@ -34,14 +34,14 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\TaxClass\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'install'], 'namespace' => "Mage2\TaxClass\Controllers\Admin"], function () {
 
     Route::resource('/admin/tax-rule', 'TaxRuleController', ['as' => 'admin']);
     Route::get('/admin/configuration/tax-class', ['as' => 'admin.configuration.tax-class', 'uses' => 'ConfigurationController@getConfiguration']);
 });
 
 
-Route::group(['middleware' => ['web'], 'namespace' => "Mage2\TaxClass\Controllers"], function () {
+Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\TaxClass\Controllers"], function () {
 
     Route::post('/tax-calculation', ['as' => 'tax.calculation', 'uses' => 'TaxRuleController@getTaxAmount']);
 });

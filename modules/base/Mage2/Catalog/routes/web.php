@@ -34,7 +34,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' => "Mage2\Catalog\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'], 'namespace' => "Mage2\Catalog\Controllers\Admin"], function () {
 
 
 
@@ -51,6 +51,6 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission'], 'namespace' =>
 });
 
 
-Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Catalog\Controllers"], function () {
+Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\Catalog\Controllers"], function () {
 
 });

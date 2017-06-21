@@ -35,7 +35,7 @@
   |
  */
 
-Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\Product\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'install'], 'namespace' => "Mage2\Product\Controllers\Admin"], function () {
 
     Route::resource('/admin/product', 'ProductController', ['as' => 'admin']);
 
@@ -51,7 +51,7 @@ Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\Produc
 });
 
 
-Route::group(['middleware' => ['web'], 'namespace' => "Mage2\Product\Controllers"], function () {
+Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\Product\Controllers"], function () {
 
     Route::get('/product/{slug}', ['as' => 'product.view', 'uses' => 'ProductViewController@view']);
 

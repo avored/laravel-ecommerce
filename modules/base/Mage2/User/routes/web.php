@@ -34,7 +34,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
-Route::group(['middleware' => ['web'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'install'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
 
     Route::get('/admin/login', ['as' => 'admin.login', 'uses' => 'LoginController@showLoginForm']);
     Route::post('/admin/login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
@@ -51,7 +51,7 @@ Route::group(['middleware' => ['web'], 'namespace' => "Mage2\User\Controllers\Ad
 });
 
 
-Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
+Route::group(['middleware' => ['web', 'adminauth', 'install'], 'namespace' => "Mage2\User\Controllers\Admin"], function () {
 
     Route::get('/admin/admin-user/get-datatable-data', ['as' => 'admin.user.data-grid-table.get-data',
         'uses' => 'AdminUserController@getDataGrid'
@@ -63,7 +63,7 @@ Route::group(['middleware' => ['web', 'adminauth'], 'namespace' => "Mage2\User\C
 
 
 });
-Route::group(['middleware' => ['web', 'frontauth'], 'namespace' => "Mage2\User\Controllers"], function () {
+Route::group(['middleware' => ['web', 'frontauth', 'install'], 'namespace' => "Mage2\User\Controllers"], function () {
 
     Route::get('/my-account', ['as' => 'my-account.home', 'uses' => 'MyAccountController@home']);
     Route::get('/my-account/edit', ['as' => 'my-account.edit', 'uses' => 'MyAccountController@edit']);
