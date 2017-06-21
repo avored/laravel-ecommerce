@@ -80,6 +80,7 @@ class Module extends BaseModule
         if (true === $this->getEnable()) {
             $this->registerModule();
             $this->registerTranslationPath();
+            $this->registerDatabasePath();
         }
     }
 
@@ -98,6 +99,13 @@ class Module extends BaseModule
             $this->registerAdminConfiguration();
         }
     }
+
+    public function registerDatabasePath()
+    {
+        $dbPath = $this->getPath() . DIRECTORY_SEPARATOR . "database";
+        $this->loadMigrationsFrom($dbPath);
+    }
+
     /**
      * Define the "web" routes for the application.
      *
@@ -108,6 +116,7 @@ class Module extends BaseModule
      */
     protected function mapWebRoutes()
     {
+
         require __DIR__ . '/routes/web.php';
     }
 

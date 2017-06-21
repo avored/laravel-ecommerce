@@ -39,22 +39,22 @@ class Module extends BaseModule
     /**
      *
      * Module Name Variable
-     * @var name
+     * @var string $name
      *
      */
     protected $name = NULL;
 
     /**
      *
-     * Module Odentifier  Variable
-     * @var $identifier
+     * Module identifier  Variable
+     * @var string $identifier
      *
      */
     protected $identifier = NULL;
     /**
      *
      * Module Description Variable
-     * @var $description
+     * @var string $description
      *
      */
     protected $description = NULL;
@@ -62,7 +62,7 @@ class Module extends BaseModule
     /**
      *
      * Module Enable Variable
-     * @var $enable
+     * @var bool $enable
      *
      */
     protected $enable = NULL;
@@ -87,6 +87,7 @@ class Module extends BaseModule
             $this->registerAdminConfiguration();
             $this->registerViewPath();
             $this->registerTranslationPath();
+            $this->registerDatabasePath();
         }
     }
 
@@ -104,6 +105,12 @@ class Module extends BaseModule
             //$this->registerPermissions();
         }
 
+    }
+
+    public function registerDatabasePath()
+    {
+        $dbPath = $this->getPath() . DIRECTORY_SEPARATOR . "database";
+        $this->loadMigrationsFrom($dbPath);
     }
 
     protected function registerTranslationPath()
