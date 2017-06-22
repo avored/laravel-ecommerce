@@ -22,11 +22,13 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
+
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Mage2CartSchema extends Migration
+class Mage2PaypalSchema extends Migration
 {
 
     /**
@@ -34,8 +36,15 @@ class Mage2CartSchema extends Migration
      *
      * @return void
      */
-    public function install()
+    public function up()
     {
+        Schema::create('paypal_records', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('paymentId');
+            $table->string('token');
+            $table->string('PayerId');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -43,8 +52,9 @@ class Mage2CartSchema extends Migration
      *
      * @return void
      */
-    public function uninstall()
+    public function down()
     {
+        Schema::drop('paypal_records');
     }
 
 }

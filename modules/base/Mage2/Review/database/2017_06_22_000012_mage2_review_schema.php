@@ -25,43 +25,40 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mage2\Catalog\Models\ProductAttributeGroup;
+use Mage2\Catalog\Models\AttributeDropdownOption;
+use Mage2\Catalog\Models\ProductAttribute;
 
-class Mage2AddressSchema extends Migration
+class Mage2ReviewSchema extends Migration
 {
 
     /**
-     * Install the Mage2 Address Module Schema.
+     * Install the Mage2 Review Module Schema.
      *
      * @return void
      */
-    public function install()
+    public function up()
     {
-
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->enum('type', ['SHIPPING', 'BILLING']);
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('address1');
-            $table->string('address2');
-            $table->string('postcode');
-            $table->string('city');
-            $table->string('state');
-            $table->integer('country_id')->unsigned();
-            $table->string('phone');
+            $table->integer('product_id')->unsigned();
+            $table->float('star');
+            $table->string('comment');
+            $table->enum('status', ['ENABLED', 'DISABLED'])->default('DISABLED');
             $table->timestamps();
         });
+
     }
 
     /**
-     * Uninstall the Mage2 Catalog Module Schema.
+     * Uninstall the Mage2 Review Module Schema.
      *
      * @return void
      */
-    public function uninstall()
+    public function down()
     {
-        Schema::drop('addresses');
+        Schema::drop('reviews');
     }
 
 }

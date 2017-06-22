@@ -35,7 +35,7 @@ class Mage2ProductSchema extends Migration
      *
      * @return void
      */
-    public function install()
+    public function up()
     {
 
     }
@@ -45,7 +45,7 @@ class Mage2ProductSchema extends Migration
      *
      * @return void
      */
-    public function uninstall()
+    public function down()
     {
     }
 

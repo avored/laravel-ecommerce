@@ -29,7 +29,7 @@ use Mage2\Catalog\Models\ProductAttributeGroup;
 use Mage2\Catalog\Models\AttributeDropdownOption;
 use Mage2\Catalog\Models\ProductAttribute;
 
-class Mage2ReviewSchema extends Migration
+class Mage2CategorySchema extends Migration
 {
 
     /**
@@ -37,16 +37,27 @@ class Mage2ReviewSchema extends Migration
      *
      * @return void
      */
-    public function install()
+    public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->float('star');
-            $table->string('comment');
-            $table->enum('status', ['ENABLED', 'DISABLED'])->default('DISABLED');
+            $table->integer('parent_id')->nullable()->default(NULL);
+            $table->string('name');
+            $table->string('slug');
             $table->timestamps();
+        });
+
+        Schema::create('category_product', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('category_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamps();
+        });
+
+        //category_product table foreign key setup
+        Schema::table('category_product', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
 
     }
@@ -56,9 +67,11 @@ class Mage2ReviewSchema extends Migration
      *
      * @return void
      */
-    public function uninstall()
+    public function down()
     {
-        Schema::drop('reviews');
+        Schema::drop('categories');
+        Schema::drop('category_product');
+
     }
 
 }

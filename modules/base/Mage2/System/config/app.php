@@ -154,7 +154,7 @@ return [
 
         Mage2\Framework\System\Module::class,
         Mage2\Framework\Foundation\Providers\Mage2ServiceProvider::class,
-        Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
+        //Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
         //
 
         /*
