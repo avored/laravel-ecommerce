@@ -10,7 +10,7 @@
         <div class="item-container">
             <div class="col-md-12">
                 <div class="product col-md-4 service-image-left">
-                    @include('Catalog.views.catalog.product.view.product-image',['product' => $product])
+                    @include('catalog.product.view.product-image',['product' => $product])
                 </div>
 
 
@@ -22,9 +22,9 @@
                                 class="price">{{ number_format($product->price,2) }}</span></div>
 
                     @if($product->has_variation == 0 )
-                        @include('Catalog.views.catalog.product.view.type.basic-add-to-cart')
+                        @include('catalog.product.view.type.basic-add-to-cart')
                     @elseif($product->has_variation == 1 )
-                        @include('Catalog.views.catalog.product.view.type.variation-add-to-cart')
+                        @include('catalog.product.view.type.variation-add-to-cart')
                     @endif
 
                     <div class="pull-left">
@@ -57,10 +57,10 @@
                     <div id="review" class="tab-pane">
 
                         <div class="review-wrapper col-md-12">
-                            @include('Catalog.views.review.list',['product' => $product])
+                            @include('review.list',['product' => $product])
                             <div class="review-form-wrapper">
                                 <h1>Add Review</h1>
-                                @include('Catalog.views.review.add-review-form',['product' => $product])
+                                @include('review.add-review-form',['product' => $product])
                             </div>
                         </div>
                     </div>
