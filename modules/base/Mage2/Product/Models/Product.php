@@ -52,6 +52,19 @@ class Product extends BaseModel
         return $productCollection;
     }
 
+    /**
+     * Return Product model by Product Slug
+     *
+     * @param $slug
+     * return \Mage2\Product\Models\Product $product
+     */
+    public static function getProductBySlug($slug)
+    {
+
+        $model = new static;
+        return $model->where('slug', '=', $slug)->first();
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class);

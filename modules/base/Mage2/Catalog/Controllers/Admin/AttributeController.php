@@ -81,6 +81,12 @@ class AttributeController extends AdminController
 
     }
 
+    /**
+     *
+     *
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
 

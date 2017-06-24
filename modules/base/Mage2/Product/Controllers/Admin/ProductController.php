@@ -22,12 +22,13 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
+
 namespace Mage2\Product\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Category\Helpers\CategoryHelper;
-use Mage2\Catalog\Helpers\ProductHelper;
+use Mage2\Product\Helpers\ProductHelper;
 use Mage2\Product\Models\Product;
 use Mage2\Product\Requests\ProductRequest;
 use Mage2\Framework\System\Controllers\AdminController;
@@ -43,7 +44,7 @@ class ProductController extends AdminController
     protected $categoryHelper;
 
     /**
-     * @var \Mage2\Catalog\Helpers\ProductHelper
+     * @var \Mage2\Product\Helpers\ProductHelper
      */
     protected $productHelper;
 

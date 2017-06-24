@@ -22,7 +22,7 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Catalog\Helpers;
+namespace Mage2\Product\Helpers;
 
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Product\Models\ProductImage;
@@ -41,8 +41,8 @@ class ProductHelper
     /**
      * Insert or update product into Product table.
      *
-     * @param type $product
-     * @param \Mage2\Catalog\Helpers\ProductRequest $request
+     * @param \Mage2\Product\Models\Product $product
+     * @param \Mage2\Product\Requests\ProductRequest $request
      */
     public function saveProduct($product, ProductRequest $request)
     {

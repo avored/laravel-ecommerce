@@ -33,23 +33,24 @@ use Mage2\Wishlist\Models\Wishlist;
 class WishlistController extends Controller
 {
     /**
-     * @param $slug
+     * @param string $slug
      * @return \Illuminate\Http\RedirectResponse
      */
     public function add($slug)
     {
 
-        $id = $this->getProductIdBySlug($slug);
+        $product = Product::getProductBySlug($slug);
         Wishlist::create([
             'user_id' => Auth::user()->id,
-            'product_id' => $id,
+            'product_id' => $product->id,
         ]);
 
         return redirect()->back()->with('notificationText', "Product Added into your Wishlist Successfully!!");
     }
 
     /**
-     * @return mixed
+     * Display Wishlist List inside my account page.
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function mylist()
     {
@@ -63,32 +64,21 @@ class WishlistController extends Controller
     }
 
     /**
-     * @param $id
+     *  Destroy Product from user Wish list.
+     *
+     * @param string $slug
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
+        $product = Product::getProductBySlug($slug);
+
         Wishlist::where([
             'user_id' => Auth::user()->id,
-            'product_id' => $id,
+            'product_id' => $product->id,
         ])->delete();
 
-        return redirect()->back()->with('notificationText', 'Product Removed from your Wishlist Successfully!!');;
+        return redirect()->back()->with('notificationText', 'Product Removed from your Wishlist Successfully!!');
     }
 
-    /**
-     * Return Product By Slug
-     * @param $slug
-     * @return null
-     */
-    protected function getProductIdBySlug($slug)
-    {
-        $product = Product::whereSlug($slug)->first();
-
-        if (!empty($product)) {
-            return $product->id;
-        }
-
-        return null;
-    }
 }
