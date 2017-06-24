@@ -6,6 +6,6 @@
         {!! Form::select('in_stock', 'In Stock',['1' => 'Enabled','0' => 'Disabled']) !!}
         {!! Form::select('track_stock', 'Track Stock',['1' => 'Enabled','0' => 'Disabled']) !!}
         {!! Form::text('qty', 'Qty') !!}
-        {!! Form::select('is_taxable', 'In Taxable',['1' => 'Enabled','0' => 'Disabled']) !!}
+        {!! Form::select('is_taxable', 'Is Taxable',['1' => 'Enabled','0' => 'Disabled']) !!}
     </div>
 </div>
