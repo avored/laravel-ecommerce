@@ -101,9 +101,10 @@ class Mage2CatalogSchema extends Migration
     {
 
         Schema::drop('product_attributes');
-
         Schema::drop('attribute_dropdown_options');
         Schema::drop('related_products');
+        Schema::drop('product_variations');
+        Schema::drop('product_varchar_values');
     }
 
 }

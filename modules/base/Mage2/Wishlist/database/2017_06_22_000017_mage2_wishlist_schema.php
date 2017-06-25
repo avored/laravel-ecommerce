@@ -60,6 +60,12 @@ class Mage2WishlistSchema extends Migration
             $table->timestamps();
         });
 
+        Schema::create('wishlists', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamps();
+        });
 
 
         //TAX MODULES
@@ -75,22 +81,9 @@ class Mage2WishlistSchema extends Migration
             $table->foreign('user_id')->references('id')->on('users');
         });
 
-        //reviews table foreign key setup
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
 
         Schema::table('order_return_request_messages', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
-
-
-        Schema::create('wishlists', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->timestamps();
         });
 
         //wishlists table foreign key setup
