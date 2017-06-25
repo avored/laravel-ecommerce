@@ -17,7 +17,8 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response = $this->get($this->baseUrl .  '/hello-world');
+
+        $response = $this->get($this->baseUrl);
         $response->assertStatus(200);
     }
 }
