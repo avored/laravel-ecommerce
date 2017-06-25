@@ -31,8 +31,9 @@ use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Auth\Facades\Permission;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
-use Illuminate\Support\Facades\File;
-use Symfony\Component\Yaml\Yaml;
+use Mage2\Order\Events\OrderPlacedEvent;
+use Mage2\Order\Listeners\OrderPlacedListner;
+use Illuminate\Support\Facades\Event;
 
 class Module extends BaseModule
 {
@@ -87,8 +88,10 @@ class Module extends BaseModule
             $this->registerAdminMenu();
             $this->registerTranslationPath();
             $this->registerDatabasePath();
+            $this->registerEventListner();
         }
     }
+
 
     /**
      * Register any application services.
@@ -117,6 +120,14 @@ class Module extends BaseModule
     }
 
 
+    /**
+     *
+     * Register All Event Listner for this module.
+     */
+    public function registerEventListner()
+    {
+        Event::listen(OrderPlacedEvent::class, OrderPlacedListner::class);
+    }
     /**
      * Define the "web" routes for the application.
      *

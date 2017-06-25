@@ -60,11 +60,7 @@ class Mage2WishlistSchema extends Migration
             $table->timestamps();
         });
 
-        //addresses table foreign key setup
-        Schema::table('addresses', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
-        });
+
 
         //TAX MODULES
         Schema::table('tax_rules', function (Blueprint $table) {
@@ -112,7 +108,7 @@ class Mage2WishlistSchema extends Migration
     public function down()
     {
 
-        Schema::drop('addresses');
+        //Schema::drop('addresses');
         Schema::drop('roles');
         Schema::drop('permissions');
         Schema::drop('permission_role');

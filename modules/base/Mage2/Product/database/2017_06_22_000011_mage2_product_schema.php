@@ -37,7 +37,96 @@ class Mage2ProductSchema extends Migration
      */
     public function up()
     {
+        Schema::create('products', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title')->nullable()->default(null);
+            $table->string('slug')->nullable()->default(null);
+            $table->string('sku')->nullable()->default(null);
+            $table->text('description')->nullable()->default(null);
+            $table->tinyInteger('status')->nullable()->default(null);
+            $table->tinyInteger('in_stock')->nullable()->default(null);
+            $table->tinyInteger('track_stock')->nullable()->default(null);
+            $table->decimal('qty', 10, 6)->nullable();
+            $table->tinyInteger('is_taxable')->nullable()->default(null);
 
+            $table->string('page_title')->nullable()->default(null);
+            $table->string('page_description')->nullable()->default(null);
+
+            $table->tinyInteger('has_variation')->nullable()->default(0);
+            $table->timestamps();
+        });
+
+
+        Schema::create('product_prices', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->decimal('price', 10, 6);
+            $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
+
+
+        Schema::create('product_images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->text('path');
+            $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+
+        });
+
+
+        //related_products table foreign key setup
+        Schema::table('related_products', function (Blueprint $table) {
+            $table->foreign('related_products_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
+
+
+        Schema::table('product_varchar_values', function (Blueprint $table) {
+
+            $table->foreign('product_attribute_id')
+                ->references('id')->on('product_attributes')->onDelete('cascade');
+
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+
+        });
+
+        Schema::table('product_variations', function (Blueprint $table) {
+
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+
+            $table->foreign('sub_product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+
+            $table->foreign('product_attribute_id')
+                ->references('id')->on('product_attributes')->onDelete('cascade');
+
+            $table->foreign('attribute_dropdown_option_id')
+                ->references('id')->on('attribute_dropdown_options')->onDelete('cascade');
+        });
+
+        //category_product table foreign key setup
+        Schema::table('category_product', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
+
+
+        Schema::table('order_product', function (Blueprint $table) {
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::table('order_product_variations', function (Blueprint $table) {
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('product_variation_id')->references('id')->on('product_variations')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
     }
 
     /**
@@ -47,6 +136,9 @@ class Mage2ProductSchema extends Migration
      */
     public function down()
     {
+        Schema::drop('products');
+        Schema::drop('product_prices');
+        Schema::drop('product_images');
     }
 
 }

@@ -66,16 +66,6 @@ class Mage2OrderSchema extends Migration
         });
 
 
-        Schema::table('order_product', function (Blueprint $table) {
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
-
-        Schema::table('order_product_variations', function (Blueprint $table) {
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('product_variation_id')->references('id')->on('product_variations')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
 
     }
 

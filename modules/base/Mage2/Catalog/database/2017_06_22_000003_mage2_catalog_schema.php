@@ -52,54 +52,14 @@ class Mage2CatalogSchema extends Migration
             $table->timestamps();
         });
 
-
-        Schema::create('products', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('title')->nullable()->default(null);
-            $table->string('slug')->nullable()->default(null);
-            $table->string('sku')->nullable()->default(null);
-            $table->text('description')->nullable()->default(null);
-            $table->tinyInteger('status')->nullable()->default(null);
-            $table->tinyInteger('in_stock')->nullable()->default(null);
-            $table->tinyInteger('track_stock')->nullable()->default(null);
-            $table->decimal('qty', 10, 6)->nullable();
-            $table->tinyInteger('is_taxable')->nullable()->default(null);
-
-            $table->string('page_title')->nullable()->default(null);
-            $table->string('page_description')->nullable()->default(null);
-
-            $table->tinyInteger('has_variation')->nullable()->default(0);
-            $table->timestamps();
-        });
-
-
-        Schema::create('product_prices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->decimal('price', 10, 6);
-            $table->timestamps();
-
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-
-        });
-
-        Schema::create('product_images', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->text('path');
-            $table->timestamps();
-
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-
-        });
-
         Schema::create('attribute_dropdown_options', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('product_attribute_id')->unsigned();
             $table->string('display_text');
             $table->timestamps();
+            $table->foreign('product_attribute_id')
+                ->references('id')->on('product_attributes')->onDelete('cascade');
         });
-
 
         Schema::create('related_products', function (Blueprint $table) {
             $table->increments('id');
@@ -110,32 +70,11 @@ class Mage2CatalogSchema extends Migration
 
         Schema::create('product_variations', function (Blueprint $table) {
             $table->increments('id');
-
             $table->integer('product_id')->unsigned();
             $table->integer('product_attribute_id')->unsigned();
             $table->integer('attribute_dropdown_option_id')->unsigned();
             $table->integer('sub_product_id')->unsigned()->nullable();
-
             $table->timestamps();
-
-            $table->foreign('product_id')
-                ->references('id')->on('products')->onDelete('cascade');
-
-            $table->foreign('sub_product_id')
-                ->references('id')->on('products')->onDelete('cascade');
-
-            $table->foreign('product_attribute_id')
-                ->references('id')->on('product_attributes')->onDelete('cascade');
-
-            $table->foreign('attribute_dropdown_option_id')
-                ->references('id')->on('attribute_dropdown_options')->onDelete('cascade');
-        });
-
-
-        //product_datetime_values table foreign key setup
-        Schema::table('attribute_dropdown_options', function (Blueprint $table) {
-            $table->foreign('product_attribute_id')
-                ->references('id')->on('product_attributes')->onDelete('cascade');
         });
 
 
@@ -145,21 +84,9 @@ class Mage2CatalogSchema extends Migration
             $table->integer('product_attribute_id')->unsigned();
             $table->string('value');
             $table->timestamps();
-
-            $table->foreign('product_attribute_id')
-                ->references('id')->on('product_attributes')->onDelete('cascade');
-
-            $table->foreign('product_id')
-                ->references('id')->on('products')->onDelete('cascade');
-
         });
 
 
-        //related_products table foreign key setup
-        Schema::table('related_products', function (Blueprint $table) {
-            $table->foreign('related_products_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
 
         //configurations table foreign key setup
 
@@ -174,7 +101,7 @@ class Mage2CatalogSchema extends Migration
     {
 
         Schema::drop('product_attributes');
-        Schema::drop('products');
+
         Schema::drop('attribute_dropdown_options');
         Schema::drop('related_products');
     }
