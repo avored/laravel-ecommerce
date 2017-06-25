@@ -35,6 +35,9 @@
                 <file>./modules/base/Mage2/User/routes/web.php</file>
                 <file>./modules/base/Mage2/Wishlist/routes/web.php</file>
 
+                <file>./modules/community/Mage2/ContactUs/routes/web.php</file>
+                <file>./modules/community/Mage2/Feature/routes/web.php</file>
+
 
                 <directory>./modules/base/Mage2/Address/views</directory>
                 <directory>./modules/base/Mage2/Cart/views</directory>
@@ -49,9 +52,15 @@
                 <directory>./modules/base/Mage2/Product/views</directory>
                 <directory>./modules/base/Mage2/Review/views</directory>
                 <directory>./modules/base/Mage2/Sale/views</directory>
+                <directory>./modules/base/Mage2/System/views</directory>
                 <directory>./modules/base/Mage2/TaxClass/views</directory>
                 <directory>./modules/base/Mage2/User/views</directory>
                 <directory>./modules/base/Mage2/Wishlist/views</directory>
+
+                <directory>./modules/community/Mage2/ContactUs/views</directory>
+                <directory>./modules/community/Mage2/Feature/views</directory>
+                <directory>./modules/community/Mage2/FreeShipping/views</directory>
+                <directory>./modules/community/Mage2/Pickup/views</directory>
 
 
                 <directory>./modules/base/Mage2/Address/database</directory>
@@ -67,9 +76,12 @@
                 <directory>./modules/base/Mage2/Product/database</directory>
                 <directory>./modules/base/Mage2/Review/database</directory>
                 <directory>./modules/base/Mage2/Sale/database</directory>
+                <directory>./modules/base/Mage2/System/database</directory>
                 <directory>./modules/base/Mage2/TaxClass/database</directory>
                 <directory>./modules/base/Mage2/User/database</directory>
                 <directory>./modules/base/Mage2/Wishlist/database</directory>
+
+                <directory>./modules/community/Mage2/Feature/database</directory>
 
 
             </exclude>

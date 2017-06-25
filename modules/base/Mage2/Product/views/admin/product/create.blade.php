@@ -40,7 +40,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active">
                     <a href="#basic" aria-controls="home" role="tab" data-toggle="tab">
-                        Home
+                        Basic
                     </a>
                 </li>
 
@@ -49,10 +49,15 @@
                 <li role="presentation"><a href="#inventory" aria-controls="inventory" role="tab" data-toggle="tab">Inventory</a>
                 </li>
                 <li role="presentation"><a href="#seo" aria-controls="seo" role="tab" data-toggle="tab">SEO</a></li>
-                <li role="presentation"><a href="#extra" aria-controls="extra" role="tab" data-toggle="tab">Extra</a>
-                </li>
-                <li role="presentation"><a href="#attribute" aria-controls="attributr" role="tab" data-toggle="tab">Attribute</a>
-                </li>
+
+
+                @if(false)
+                    <li role="presentation"><a href="#extra" aria-controls="extra" role="tab"
+                                               data-toggle="tab">Extra</a>
+                    </li>
+                    <li role="presentation"><a href="#attribute" aria-controls="attributr" role="tab" data-toggle="tab">Attribute</a>
+                    </li>
+                @endif
             </ul>
 
             <!-- Tab panes -->
@@ -69,12 +74,16 @@
                 <div role="tabpanel" class="tab-pane" id="seo">
                     @include('mage2productadmin::product.seo-panel' )
                 </div>
-                <div role="tabpanel" class="tab-pane" id="extra">
-                    @include('mage2productadmin::product.extra-panel' )
-                </div>
-                <div role="tabpanel" class="tab-pane" id="attribute">
-                    @include('mage2productadmin::product.attribute' )
-                </div>
+
+                <!-- Comment out product attribute feature for now -->
+                @if(false)
+                    <div role="tabpanel" class="tab-pane" id="extra">
+                        @include('mage2productadmin::product.extra-panel' )
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="attribute">
+                        @include('mage2productadmin::product.attribute' )
+                    </div>
+                @endif
             </div>
 
 
