@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 use Mage2\System\Models\Configuration;
 use Mage2\Page\Models\Page;
+use Illuminate\Support\Facades\Auth;
+
 
 class CheckoutComposer
 {
@@ -43,6 +45,7 @@ class CheckoutComposer
     {
         $termConditionPageUrl = "#";
 
+        $user = Auth::user();
 
         $pageId = Configuration::getConfiguration('general_term_condition_page');
 
@@ -54,6 +57,7 @@ class CheckoutComposer
 
         $cartProducts = Session::get('cart');
         $view->with('cartProducts', $cartProducts)
+            ->with('user', $user)
             ->with('termConditionPageUrl', $termConditionPageUrl);
     }
 }

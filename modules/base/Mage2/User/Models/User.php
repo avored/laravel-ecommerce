@@ -30,6 +30,7 @@ use Illuminate\Notifications\Notifiable;
 use Mage2\Framework\Image\LocalImageFile;
 use Mage2\Wishlist\Models\Wishlist;
 
+use Mage2\Address\Models\Address;
 
 class User extends Authenticatable
 {
@@ -61,9 +62,22 @@ class User extends Authenticatable
 
     public function getImagePathAttribute()
     {
-
         return (empty($this->attributes['image_path'])) ? null : new LocalImageFile($this->attributes['image_path']);
+    }
 
+    public function addresses() {
+        return $this->hasMany(Address::class);
+    }
+    public function getShippingAddress()
+    {
+        $address = $this->addresses()->where('type','=','SHIPPING')->first();
+        return $address;
+    }
+
+    public function getBillingAddress()
+    {
+        $address = $this->addresses()->where('type','=','Billing')->first();
+        return $address;
     }
 
     public function isInWishlist($productId)

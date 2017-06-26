@@ -135,7 +135,7 @@ class Module extends BaseModule
     {
 
         View::composer(
-            ['checkout.new-index'], 'Mage2\Checkout\ViewComposers\CheckoutComposer'
+            ['checkout.index'], 'Mage2\Checkout\ViewComposers\CheckoutComposer'
         );
     }
 

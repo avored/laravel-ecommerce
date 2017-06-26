@@ -46,6 +46,7 @@ class CartController extends Controller
 
         $cart = (null === Session::get('cart')) ? Collection::make([]) : Session::get('cart');
 
+
         $product = Product::where('slug', '=', $request->get('slug'))->first();
         $productAttributes = [];
 
@@ -69,6 +70,7 @@ class CartController extends Controller
 
         $qty = (null === $request->get('qty')) ? 1 : $request->get('qty');
 
+
         if ($cart->has($product->id)) {
 
             $item = $cart->pull($product->id);
@@ -76,7 +78,8 @@ class CartController extends Controller
             $cart->put($product->id, $item);
 
         } else {
-            $cart->put($product->id, ['id' => $product->id,
+            $cart->put($product->id, [
+                'id' => $product->id,
                 'qty' => $qty,
                 'price' => $product->price,
                 'tax_amount' => $product->getTaxAmount(),

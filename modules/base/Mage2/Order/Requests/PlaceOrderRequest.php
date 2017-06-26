@@ -46,9 +46,7 @@ class PlaceOrderRequest extends Request
      */
     public function rules()
     {
-
         return [
-            'billing.country_id' => 'required',
             'shipping_option' => 'required',
             'payment_option' => 'required',
             'agree' => 'required',

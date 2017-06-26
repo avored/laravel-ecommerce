@@ -35,20 +35,17 @@ class CheckoutController extends Controller
     public function index()
     {
 
-        $user = null;
         $shippingOptions = Shipping::all();
         $paymentOptions = Payment::all();
         $countries = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
 
         $cartItems = Session::get('cart');
 
-        return view('checkout.new-index')
+        return view('checkout.index')
             ->with('cartItems', $cartItems)
             ->with('countries', $countries)
             ->with('shippingOptions', $shippingOptions)
             ->with('paymentOptions', $paymentOptions);
-
-        return view('checkout.index');
     }
 
 }

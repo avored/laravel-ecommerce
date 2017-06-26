@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Auth;
 use Mage2\TaxClass\Models\Country;
 use Mage2\Address\Models\Address;
 use Mage2\System\Models\Configuration;
+use Mage2\Address\Requests\AddressRequest;
 use Mage2\Framework\System\Controllers\Controller;
 
 class AddressController extends Controller

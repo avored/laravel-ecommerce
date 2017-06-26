@@ -55,6 +55,7 @@ class OrderController extends Controller
     public function place(PlaceOrderRequest $request)
     {
         $orderProductData = Session::get('cart');
+
         $user = $this->_getUser($request);
 
         $billingAddress = $this->_getBillingAddress($request);
@@ -70,6 +71,7 @@ class OrderController extends Controller
         $data['order_status_id'] = $orderStatus->id;
 
         $order = Order::create($data);
+
 
         $this->syncOrderProductData($order, $orderProductData);
 
@@ -108,16 +110,16 @@ class OrderController extends Controller
     private function _getBillingAddress(Request $request)
     {
 
-        $shippingData = $request->get('billing');
+        $billingData = $request->get('billing');
 
-        $shippingData['type'] = 'BILLING';
-        $shippingData['user_id'] = Auth::user()->id;
+        $billingData['type'] = 'BILLING';
+        $billingData['user_id'] = Auth::user()->id;
 
-        if (isset($shippingData['id']) && $shippingData['id'] > 0) {
-            $address = Address::findorfail($shippingData['id']);
+        if (isset($billingData['id']) && $billingData['id'] > 0) {
+            $address = Address::findorfail($billingData['id']);
             //$address->update($shippingData);
         } else {
-            $address = Address::create($shippingData);
+            $address = Address::create($billingData);
         }
 
         return $address;
@@ -158,13 +160,15 @@ class OrderController extends Controller
         $orderData['order_status_id'] = $orderStatus->id;
 
 
-        //$order = Order::create($orderData);
-        $order = Order::find(1);
+
+        $order = Order::create($orderData);
+        //$order = Order::find(1);
 
         $this->syncOrderProductData($order, $orderProductData);
 
         Session::forget('cart');
         Session::forget('order_data');
+
 
         return redirect()->route('order.success', $order->id);
     }
@@ -179,12 +183,13 @@ class OrderController extends Controller
 
     public function syncOrderProductData($order, $orderProducts)
     {
+
         //Only use pivot fields only @latner on use Collection and then use pluck method rather then foreach
-        foreach ($orderProducts as $i => $orderProduct) {
+        foreach ($orderProducts as $id => $orderProduct) {
 
             if (isset($orderProduct['attributes'])) {
                 foreach ($orderProduct['attributes'] as $attribute) {
-                    $data = ['order_id' => $order->id, 'product_id' => $i, 'product_variation_id' => $attribute['variation_id']];
+                    $data = ['order_id' => $order->id, 'product_id' => $id, 'product_variation_id' => $attribute['variation_id']];
 
                     $productVariation = ProductVariation::findorfail($attribute['variation_id']);
 
@@ -193,7 +198,8 @@ class OrderController extends Controller
                 }
             } else {
 
-                $product = Product::findorfail($i);
+                $product = Product::findorfail($id);
+                dd($product);
                 $product->update(['qty' => ($product->qty - $orderProduct['qty'])]);
             }
 
@@ -202,8 +208,11 @@ class OrderController extends Controller
             unset($orderProduct['image']);
             unset($orderProduct['id']);
             unset($orderProduct['attributes']);
-            $orderProducts[$i] = $orderProduct;
+            //unset($orderProduct['tax_amount']);
+            $orderProducts[$id] = $orderProduct;
         }
+
+
 
         $order->products()->sync($orderProducts);
     }
