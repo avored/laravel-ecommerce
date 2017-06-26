@@ -9,7 +9,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ExampleTest extends TestCase
 {
-    public $baseUrl = "http://mage2-ecommerce";
     /**
      * A basic test example.
      *
@@ -18,7 +17,7 @@ class ExampleTest extends TestCase
     public function testBasicTest()
     {
 
-        $response = $this->get($this->baseUrl);
+        $response = $this->get('/');
         $response->assertStatus(200);
     }
 }
