@@ -9,10 +9,16 @@
 
             @if(isset($product) && count($product->images()->get()->count()) > 0)
                 @foreach($product->images()->get() as $image)
+                    <?php $class = ($image->is_main_image == 1) ? "active" : ""; ?>
                     <div class="image-preview">
                         <div class="actual-image-thumbnail">
                             <img class="img-thumbnail img-tag img-responsive" src="{{ ($image->path->smallUrl) }}"/>
-                            <input type="hidden" name="image[{{ $image->id }}][]" value="{{ $image->path->smallUrl }}"/>
+                            <input type="hidden" name="image[{{ $image->id }}][path]" value="{{ $image->path->getRelativePath() }}"/>
+                            @if($image->is_main_image)
+                                <input type="hidden" class="is_main_image_hidden_field" name="image[{{ $image->id }}][is_main_image]" value="1"/>
+                            @else
+                                <input type="hidden" class="is_main_image_hidden_field" name="image[{{ $image->id }}][is_main_image]" value="0"/>
+                            @endif
                         </div>
                         <div class="image-info">
                             <div class="image-title">
@@ -20,7 +26,10 @@
                             </div>
                             <div class="actions">
                                 <div class="action-buttons pull-right">
-                                    <button type="button" class="btn selected-icon btn-xs btn-default" title="Select as Main Image">
+
+                                    <button type="button"
+                                            class="btn is_main_image_button {{ $class }} selected-icon btn-xs btn-default"
+                                            title="Select as Main Image">
                                         <i class="glyphicon glyphicon-ok"></i>
                                     </button>
                                     <button type="button" class="destroy-image btn btn-xs btn-default" title="Remove file" >
@@ -68,6 +77,26 @@
 <script>
     jQuery(document).ready(function () {
 
+
+        jQuery(document).on('click','.product-image-list .is_main_image_button',function(e){
+            e.preventDefault();
+            //jQuery(this).toggleClass('active');
+
+
+            jQuery('.product-image-list .is_main_image_button').removeClass('active');
+            jQuery('.product-image-list .is_main_image_hidden_field').val(0);
+
+
+            if(jQuery(this).hasClass('active')) {
+
+                jQuery(this).removeClass('active');
+                jQuery(this).parents('.image-preview:first').find('.is_main_image_hidden_field').val(0);
+            } else {
+                jQuery(this).addClass('active');
+                jQuery(this).parents('.image-preview:first').find('.is_main_image_hidden_field').val(1);
+            }
+
+        });
         jQuery(document).on('click', '.product-image-list .image-preview .destroy-image', function (e) {
 
 

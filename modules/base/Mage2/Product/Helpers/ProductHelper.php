@@ -232,22 +232,25 @@ class ProductHelper
     public function saveProductImages($product, ProductRequest $request)
     {
 
+
         if (null === $request->get('image')) {
             return $this;
         }
 
         $exitingIds = $product->images()->get()->pluck('id')->toArray();
 
-        foreach ($request->get('image') as $key => $path) {
+        foreach ($request->get('image') as $key => $data) {
 
             if (is_int($key)) {
                 if (($findKey = array_search($key, $exitingIds)) !== false) {
+                    $productImage = ProductImage::findorfail($key);
+                    $productImage->update($data);
                     unset($exitingIds[$findKey]);
                 }
                 continue;
             }
 
-            ProductImage::create(['path' => $path[0], 'product_id' => $product->id]);
+            ProductImage::create($data + ['product_id' => $product->id]);
         }
 
         if (count($exitingIds) > 0) {
