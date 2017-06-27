@@ -29,7 +29,7 @@ use Mage2\Framework\System\Models\BaseModel;
 
 class ProductImage extends BaseModel
 {
-    protected $fillable = ['product_id', 'path'];
+    protected $fillable = ['product_id', 'path', 'is_main_image'];
 
     public function products()
     {

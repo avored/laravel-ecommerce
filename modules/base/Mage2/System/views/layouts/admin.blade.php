@@ -29,6 +29,7 @@
             margin: 20px 0px;
         }
     </style>
+    @stack('styles')
 </head>
 <body>
 <!-- Scripts -->

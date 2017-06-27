@@ -8,30 +8,71 @@
         <div class="product-image-list">
 
             @if(isset($product) && count($product->images()->get()->count()) > 0)
-
                 @foreach($product->images()->get() as $image)
+                    <div class="image-preview">
+                        <div class="actual-image-thumbnail">
+                            <img class="img-thumbnail img-tag img-responsive" src="{{ ($image->path->smallUrl) }}"/>
+                            <input type="hidden" name="image[{{ $image->id }}][]" value="{{ $image->path->smallUrl }}"/>
+                        </div>
+                        <div class="image-info">
+                            <div class="image-title">
+                                XYZ.jpg
+                            </div>
+                            <div class="actions">
+                                <div class="action-buttons pull-right">
+                                    <button type="button" class="btn selected-icon btn-xs btn-default" title="Select as Main Image">
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                    </button>
+                                    <button type="button" class="destroy-image btn btn-xs btn-default" title="Remove file" >
+                                        <i class="glyphicon glyphicon-trash text-danger"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="col-md-3 image-thumbnail">
-                        <button type="button" class="close"><span>X</span></button>
-                        <img class="img-thumbnail img-responsive" src="{{ ($image->path->smallUrl) }}"/>
-                        <input type="hidden" name="image[{{ $image->id }}][]" value="{{ $image->path->smallUrl }}"/>
                     </div>
                 @endforeach
             @endif
         </div>
-
     </div>
 </div>
+@push('styles')
+    <style>
 
-
+        .image-preview {
+            position: relative;
+            display: table;
+            margin: 8px;
+            border: 1px solid #ddd;
+            box-shadow: 1px 1px 5px 0 #a2958a;
+            padding: 6px;
+            float: left;
+            text-align: center;
+        }
+        .image-preview .actual-image-thumbnail {
+            height: 170px;
+        }
+        .image-preview .image-info .active.selected-icon {
+            color: #00dd00;
+        }
+        .image-preview .image-info .image-title {
+            margin-bottom: 15px;
+        }
+        .image-preview .image-info {
+            position: relative;
+            height: 70px;
+        }
+    </style>
+@endpush
+@push('scripts')
 <script>
     jQuery(document).ready(function () {
 
-        jQuery(document).on('click', '.product-image-list .image-thumbnail .close', function (e) {
+        jQuery(document).on('click', '.product-image-list .image-preview .destroy-image', function (e) {
 
 
             var token = jQuery('.product-image-element').attr('data-token');
-            var path = jQuery(e.target).parents('.image-thumbnail:first').find('img').attr('src');
+            var path = jQuery(e.target).parents('.image-preview:first').find('.img-tag').attr('src');
             var data = {_token: token, path: path};
             jQuery.ajax({
                 url: '{{ URL::to("/admin/product-image/delete")}}',
@@ -39,8 +80,7 @@
                 type: 'post',
                 success: function (response) {
                     if (response == 'success') {
-
-                        jQuery(e.target).parents('.image-thumbnail:first').remove();
+                        jQuery(e.target).parents('.image-preview:first').remove();
                     }
 
                 }
@@ -75,4 +115,5 @@
 
     });
 </script>
+@endpush
 

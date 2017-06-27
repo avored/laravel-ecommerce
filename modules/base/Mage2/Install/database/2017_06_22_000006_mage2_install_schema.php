@@ -81,7 +81,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/f/h/2\flower-pot.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/f/h/2\flower-pot.jpg', 'product_id' => $product->id,'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
@@ -109,7 +109,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/d/0/c\classic-tv-stand.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/d/0/c\classic-tv-stand.jpg', 'product_id' => $product->id,'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
@@ -135,7 +135,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/y/f/r\textiles-2.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/y/f/r\textiles-2.jpg', 'product_id' => $product->id,'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -160,7 +160,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/1/k/0\-Single-Panel-New-Pastoral-Linen-Blending-Embroidered-Living-Room-font-b-Curtain-b-font-font.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/1/k/0\-Single-Panel-New-Pastoral-Linen-Blending-Embroidered-Living-Room-font-b-Curtain-b-font-font.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
@@ -185,7 +185,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/q/o/m\comfortable-leather-chair-published-under-the-most-comfortable-couch-group.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/q/o/m\comfortable-leather-chair-published-under-the-most-comfortable-couch-group.jpg', 'product_id' => $product->id,'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -210,7 +210,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/s/e/j\ff815ea7756de71d6c5edb5566330df6.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/s/e/j\ff815ea7756de71d6c5edb5566330df6.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
@@ -236,7 +236,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($bedroomCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/v/t/x\bed-bedding-comfortable-platform-with-smooth-gray-also-are-beds-and-headboard-plus-small-.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/v/t/x\bed-bedding-comfortable-platform-with-smooth-gray-also-are-beds-and-headboard-plus-small-.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
@@ -263,7 +263,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($bedroomCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/z/c/u\d5d710257f2cf7cf2576f4a43dc40430.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/z/c/u\d5d710257f2cf7cf2576f4a43dc40430.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
@@ -290,7 +290,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($bedroomCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/m/2/z\b594a5c88e527b467508aa9fa3b01228.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/m/2/z\b594a5c88e527b467508aa9fa3b01228.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
@@ -316,7 +316,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($bedroomCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/4/5/n\il_570xN.262261571.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/4/5/n\il_570xN.262261571.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
@@ -343,7 +343,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($kitchenCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/n/y/n\CC2600.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/n/y/n\CC2600.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -369,7 +369,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($kitchenCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/t/b/n\20121018143846738.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/t/b/n\20121018143846738.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
 
         ProductVarcharValue::create([
@@ -396,7 +396,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($kitchenCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/l/i/k\coffee-maker-20.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/l/i/k\coffee-maker-20.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -422,7 +422,7 @@ class Mage2InstallSchema extends Migration
         ]);
 
         $product->categories()->sync($kitchenCategory->id);
-        ProductImage::create(['path' => '/uploads/catalog/images/0/y/4\tsf02crsa.jpg', 'product_id' => $product->id]);
+        ProductImage::create(['path' => '/uploads/catalog/images/0/y/4\tsf02crsa.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $product->prices()->create(['price' => rand(2, 10) . "0." . rand(1, 9) . "0"]);
         ProductVarcharValue::create([
             'product_id' => $product->id,
@@ -436,7 +436,6 @@ class Mage2InstallSchema extends Migration
         foreach ($json as $code => $name) {
             Country::create(['code' => $code, 'name' => $name]);
         }
-        //Country::insert($countires);
 
     }
 

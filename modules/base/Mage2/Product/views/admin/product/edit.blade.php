@@ -44,7 +44,7 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active">
                     <a href="#basic" aria-controls="home" role="tab" data-toggle="tab">
-                        Home
+                        Basic
                     </a>
                 </li>
 
