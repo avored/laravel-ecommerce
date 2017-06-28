@@ -10,13 +10,12 @@
         <div class="item-container">
             <div class="col-md-12">
                 <div class="product col-md-4 service-image-left">
-                    @include('catalog.product.view.product-image',['product' => $product])
+                    @include('catalog.product.view.product-image')
                 </div>
 
 
                 <div class="col-md-8">
                     <h1 class="product-title">{{ $product->title }}</h1>
-
 
                     <div class="product-price"><span>$</span> <span
                                 class="price">{{ number_format($product->price,2) }}</span></div>

@@ -1,18 +1,13 @@
 <?php
-//dd($product);
-$image = $product->images()->get()->first();
+
+$image = $product->image;
 
 ?>
 @if(NULL !== $image)
     <img alt="{{ $product->title }}"
          style="height: 250px"
          class="img-responsive img-thumbnail"
-         src="{{ $image->path->smallUrl }}"/>
-@else
-    <img alt="{{ $product->title }}"
-         class="img-responsive img-thumbnail"
-         style="height: 250px"
-         src="{{ asset('/img/default-product.jpg') }}"/>
+         src="{{ $image->smallUrl }}"/>
 @endif
 
 

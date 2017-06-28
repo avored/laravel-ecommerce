@@ -132,10 +132,10 @@ class Product extends BaseModel
     public function getImageAttribute()
     {
         $defaultPath = "/img/default-product.jpg";
-        $image = $this->images()->first();
+        $image = $this->images()->where('is_main_image','=',1)->first();
+
 
         if (null === $image) {
-
             return new LocalImageFile($defaultPath);
         }
 

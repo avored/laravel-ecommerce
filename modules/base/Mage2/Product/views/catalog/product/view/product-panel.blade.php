@@ -4,7 +4,6 @@
         <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->title }}">
             @include('catalog.product.view.product-image',['product' => $product])
         </a>
-
         <div class="caption">
             <h3>
                 <a href="{{ route('product.view', $product->slug)}}" class="product-title"
@@ -17,11 +16,9 @@
                 $ {{ number_format($product->price,2) }}
 
             </p>
-
             <div>
                 {!! Form::open(['method' => 'post','action' => route('cart.add-to-cart')]) !!}
                 <input type="hidden" name="slug" value="{{ $product->slug }}"/>
-
                 <div class="product-stock">In Stock</div>
                 <hr>
 
