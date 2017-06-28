@@ -35,7 +35,7 @@ use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Order\Mail\OrderInvoicedMail;
 use Mage2\Order\Models\Order;
 use Mage2\Order\Requests\PlaceOrderRequest;
-use Mage2\Sale\Models\OrderStatus;
+use Mage2\Order\Models\OrderStatus;
 use Mage2\User\Models\User;
 use Mage2\Order\Models\OrderProductVariation;
 

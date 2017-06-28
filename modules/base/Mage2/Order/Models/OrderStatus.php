@@ -23,7 +23,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\Sale\Models;
+namespace Mage2\Order\Models;
 
 use Mage2\Order\Models\Order;
 use Mage2\Framework\System\Models\BaseModel;

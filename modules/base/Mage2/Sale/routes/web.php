@@ -42,12 +42,6 @@ Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'], 'na
     ]);
     Route::resource('/admin/sale/gift-coupon', 'GiftCouponController', ['as' => 'admin']);
 
-
-    Route::get('/admin/sale/order-status/get-data', ['as' => 'admin.sale.order-status.data-grid-table.get-data',
-        'uses' => 'OrderStatusController@getDataGrid'
-    ]);
-    Route::resource('/admin/order-status', 'OrderStatusController', ['as' => 'admin']);
-
 });
 
 

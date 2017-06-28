@@ -22,11 +22,11 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Sale\Controllers\Admin;
+namespace Mage2\Order\Controllers\Admin;
 
 
-use Mage2\Sale\Models\OrderStatus;
-use Mage2\Sale\Requests\OrderStatusRequest;
+use Mage2\Order\Models\OrderStatus;
+use Mage2\Order\Requests\OrderStatusRequest;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
 use PayPal\Api\Order;
@@ -66,7 +66,7 @@ class OrderStatusController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Sale\Requests\OrderStatusRequest $request
+     * @param \Mage2\Order\Requests\OrderStatusRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -97,7 +97,7 @@ class OrderStatusController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Sale\Requests\OrderStatusRequest $request
+     * @param \Mage2\Order\Requests\OrderStatusRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

@@ -37,6 +37,14 @@
 Route::group(['middleware' => ['web', 'adminauth', 'permission', 'install'],
     'namespace' => "Mage2\Order\Controllers\Admin"], function () {
 
+
+
+    Route::get('/admin/sale/order-status/get-data', ['as' => 'admin.sale.order-status.data-grid-table.get-data',
+        'uses' => 'OrderStatusController@getDataGrid'
+    ]);
+    Route::resource('/admin/order-status', 'OrderStatusController', ['as' => 'admin']);
+
+
     Route::get('/admin/order/get-datatable-data', ['as' => 'admin.order.data-grid-table.get-data',
         'uses' => 'OrderController@getDataGrid'
     ]);

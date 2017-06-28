@@ -147,12 +147,6 @@ class Module extends BaseModule
         ];
         AdminMenu::registerMenu('mage2-order', $adminMenu);
 
-
-        $orderStatusMenu = ['sale' => ['submenu' => ['order-status' => [
-            'label' => 'Order Status',
-            'route' => 'admin.order-status.index',
-        ]]]];
-        AdminMenu::registerMenu('mage2-order', $orderStatusMenu);
     }
 
     /**
@@ -163,16 +157,6 @@ class Module extends BaseModule
     protected function registerPermissions()
     {
 
-        $permissions = [
-            ['title' => 'Order Status List', 'routes' => 'admin.order-status.index'],
-            ['title' => 'Order Status Create', 'routes' => "admin.order-status.create,admin.order-status.store"],
-            ['title' => 'Order Status Update', 'routes' => "admin.order-status.edit,admin.order-status.update"],
-            ['title' => 'Order Status Destroy', 'routes' => "admin.order-status.destroy"],
-        ];
-
-        foreach ($permissions as $permission) {
-            Permission::add($permission);
-        }
     }
 
 

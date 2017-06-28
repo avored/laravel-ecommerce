@@ -160,6 +160,13 @@ class Module extends BaseModule
             'route' => 'admin.order.index',
         ]]]];
         AdminMenu::registerMenu('mage2-order', $adminMenu);
+
+
+        $orderStatusMenu = ['sale' => ['submenu' => ['order-status' => [
+            'label' => 'Order Status',
+            'route' => 'admin.order-status.index',
+        ]]]];
+        AdminMenu::registerMenu('mage2-order', $orderStatusMenu);
     }
 
     /**
