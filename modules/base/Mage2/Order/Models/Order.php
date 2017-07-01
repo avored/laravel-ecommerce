@@ -30,7 +30,6 @@ use Mage2\Address\Models\Address;
 use Mage2\Product\Models\Product;
 use Mage2\Framework\System\Models\BaseModel;
 use Mage2\User\Models\User;
-use Mage2\Sale\Models\OrderStatus;
 
 class Order extends BaseModel
 {
