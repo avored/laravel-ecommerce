@@ -26,7 +26,7 @@
 namespace Mage2\System\Controllers\Admin;
 
 use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Sale\Models\OrderStatus;
+use Mage2\Order\Models\OrderStatus;
 use Mage2\System\Models\Configuration;
 use Mage2\Order\Models\Order;
 

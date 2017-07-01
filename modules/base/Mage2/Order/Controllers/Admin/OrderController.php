@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Mail;
 use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Order\Mail\OrderInvoicedMail;
 use Mage2\Order\Models\Order;
-use Mage2\Sale\Models\OrderStatus;
+use Mage2\Order\Models\OrderStatus;
 use Mage2\Order\Requests\UpdateOrderStatusRequest;
 use Mage2\User\Models\User;
 use Mage2\Order\Mail\UpdateOrderStatusMail;
