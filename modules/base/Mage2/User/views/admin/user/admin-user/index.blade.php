@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="container">
+        <h1>Admin Users</h1>
         <table class="table table-bordered" id="admin-user-table">
             <thead>
             <tr>
