@@ -26,6 +26,7 @@
 namespace Mage2\Product\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 use Mage2\Catalog\Models\ProductAttribute;
 use Mage2\Category\Helpers\CategoryHelper;
 use Mage2\Product\Helpers\ProductHelper;
@@ -35,6 +36,8 @@ use Mage2\Framework\System\Controllers\AdminController;
 use Mage2\Framework\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
 use Mage2\Framework\DataGrid\Facades\DataGrid;
+
+use Mage2\Product\Events\ProductSavedEvent;
 
 class ProductController extends AdminController
 {
@@ -82,8 +85,10 @@ class ProductController extends AdminController
 
         $categories = $this->categoryHelper->getCategoryOptions();
 
-        return view('mage2productadmin::product.create')
-            ->with('categories', $categories);
+        $view = view('mage2productadmin::product.create');
+        $view->with('categories', $categories);
+
+        return $view;
     }
 
     /**
@@ -97,9 +102,10 @@ class ProductController extends AdminController
     {
         try {
             $product = Product::create($request->all());
-            $this->productHelper->saveProduct($product, $request);
-            $this->productHelper->saveRelatedProducts($product, $request);
-            $this->productHelper->saveCategory($product, $request);
+
+            Event::fire(new ProductSavedEvent($product, $request));
+
+            //$this->productHelper->saveRelatedProducts($product, $request);
             $this->productHelper->saveProductImages($product, $request);
             $this->productHelper->saveProductPrice($product, $request->all());
             $this->productHelper->saveProductAttribute($product, $request);
@@ -158,9 +164,12 @@ class ProductController extends AdminController
         try {
 
             $product = Product::findorfail($id);
-            $this->productHelper->saveProduct($product, $request);
-            $this->productHelper->saveRelatedProducts($product, $request);
-            $this->productHelper->saveCategory($product, $request);
+            $product->update($request->all());
+            //$this->productHelper->saveProduct($product, $request);
+            //$this->productHelper->saveRelatedProducts($product, $request);
+
+            Event::fire(new ProductSavedEvent($product, $request));
+            //$this->productHelper->saveCategory($product, $request);
 
             $this->productHelper->saveProductImages($product, $request);
             $this->productHelper->saveProductPrice($product, $request->all());

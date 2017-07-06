@@ -30,8 +30,10 @@ use Mage2\Framework\AdminMenu\Facades\AdminMenu;
 use Mage2\Framework\Support\BaseModule;
 use Mage2\Framework\Auth\Facades\Permission;
 use Mage2\Framework\Module\Facades\Module as ModuleFacade;
-use Illuminate\Support\Facades\File;
-use Symfony\Component\Yaml\Yaml;
+use Illuminate\Support\Facades\Event;
+use Mage2\Category\Listeners\ProductCategorySavingListener;
+use Mage2\Product\Events\ProductSavedEvent;
+
 
 class Module extends BaseModule
 {
@@ -88,6 +90,7 @@ class Module extends BaseModule
             $this->registerViewPath();
             $this->registerTranslationPath();
             $this->registerDatabasePath();
+            $this->registerModuleListener();
         }
     }
 
@@ -136,6 +139,12 @@ class Module extends BaseModule
     {
         $this->loadViewsFrom(__DIR__ . '/views/admin', 'mage2categoryadmin');
         View::addLocation(__DIR__ . '/views');
+    }
+
+    public function registerModuleListener()
+    {
+
+        Event::listen(ProductSavedEvent::class, ProductCategorySavingListener::class);
     }
 
     /**

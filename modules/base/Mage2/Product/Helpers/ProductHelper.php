@@ -37,21 +37,6 @@ use Mage2\Product\Models\Product;
 class ProductHelper
 {
 
-
-    /**
-     * Insert or update product into Product table.
-     *
-     * @param \Mage2\Product\Models\Product $product
-     * @param \Mage2\Product\Requests\ProductRequest $request
-     */
-    public function saveProduct($product, ProductRequest $request)
-    {
-        $product->update($request->all());
-
-        return $this;
-        //Sync Website i was using it .....????
-    }
-
     /**
      *
      * Save Related Product into related table
@@ -101,20 +86,6 @@ class ProductHelper
             }
         }
 
-    }
-
-    /**
-     *
-     *  Save Product Category
-     * @param \Mage2\Product\Models\Product $product
-     * @param \Mage2\Product\Requests\ProductRequest $request
-     * @return $this
-     */
-    public function saveCategory($product, ProductRequest $request)
-    {
-        if (count($request->get('category_id')) > 0) {
-            $product->categories()->sync($request->get('category_id'));
-        }
     }
 
     /**

@@ -14,7 +14,7 @@
                 {!! Form::text('mage2_catalog_no_of_product_category_page', 'No of Product in Category Page') !!}
 
                 {!! Form::select('mage2_catalog_cart_page_display_taxamount', 'Display Tax Amouny on Cart Page',['yes' => 'Yes', 'no' => 'No']) !!}
-                {!!  Form::submit('Save Configuration') !!}
+                {!! Form::submit('Save Configuration') !!}
 
                 {!! Form::close() !!}
             </div>

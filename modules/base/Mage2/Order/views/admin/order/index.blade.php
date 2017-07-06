@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="container">
+        <h1>Orders</h1>
         <table class="table table-bordered" id="order-table">
             <thead>
             <tr>
