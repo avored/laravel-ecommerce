@@ -139,7 +139,11 @@
             xhr.open('POST', '{{ URL::to("/admin/product-image/upload") }}', true);
             xhr.onload = function (e) {
                 if (this.status == 200) {
+
                     jQuery('.product-image-list').append(this.response);
+                    if(jQuery('.product-image-list .image-preview').length == 1) {
+                        jQuery('.product-image-list .image-preview .is_main_image_button').trigger('click');
+                    }
                 }
             };
 
