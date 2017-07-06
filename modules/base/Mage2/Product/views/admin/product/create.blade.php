@@ -20,8 +20,12 @@
                     <div class="pull-right">
                         <!-- BUTTON GROUP -->
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary">Save Product</button>
-                            <button type="button" class="btn btn-default">Cancel</button>
+                            <button type="button" onclick="jQuery('#product-save-form').submit()"
+                                    class="btn btn-primary">Save Product
+                            </button>
+                            <button type="button" onclick="location='{{ route('admin.product.index') }}'"
+                                    class="btn btn-default">Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -33,7 +37,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            {!! Form::open(['files' => true,'action' => route('admin.product.store'),'method' => 'post']) !!}
+            {!! Form::open(['files' => true,'action' => route('admin.product.store'),'method' => 'post','id' => 'product-save-form']) !!}
 
                     <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">

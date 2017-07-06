@@ -21,8 +21,12 @@
                     <div class="pull-right">
                         <!-- BUTTON GROUP -->
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary">Save Product</button>
-                            <button type="button" class="btn btn-default">Cancel</button>
+                            <button type="button" onclick="jQuery('#product-save-form').submit()"
+                                    class="btn btn-primary">Save Product
+                            </button>
+                            <button type="button" onclick="location='{{ route('admin.product.index') }}'"
+                                    class="btn btn-default">Cancel
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -38,7 +42,7 @@
             $productCategories = $product->categories()->get()->pluck('id')->toArray();
 
             ?>
-            {!! Form::bind($product, ['files' => true,'method' => 'PUT', 'action' => route('admin.product.update', $product->id)]) !!}
+            {!! Form::bind($product, ['files' => true,'method' => 'PUT', 'action' => route('admin.product.update', $product->id),'id' => 'product-save-form' ]) !!}
 
                     <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
