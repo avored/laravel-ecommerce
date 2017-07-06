@@ -11,17 +11,17 @@
     <div class="row">
         <div class="col-md-12">
             <div class="top-header">
-                <div class="col-md-3">
-                    <img src="http://placehold.it/250x250" class="img-responsive img img-thumbnail"/>
+                <div class="col-md-2">
+                    <img src="{{ (isset($product) && isset($product->image->url)) ? $product->image->url  : "http://placehold.it/150x150"}}"
+                         class="img-responsive img img-thumbnail"/>
                 </div>
-                <div class="col-md-9">
-                    <span class="product-name">PRODUCT NAME HERE</span>
+                <div class="col-md-10">
+                    <span class="product-name">{{ (isset($product) && isset($product->name)) ? $product->name  : ""}}</span>
 
                     <div class="pull-right">
                         <!-- BUTTON GROUP -->
                         <div class="btn-group">
                             <button type="button" class="btn btn-primary">Save Product</button>
-                            <button type="button" class="btn btn-warning">Save & Continue</button>
                             <button type="button" class="btn btn-default">Cancel</button>
                         </div>
                     </div>

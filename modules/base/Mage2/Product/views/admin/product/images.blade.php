@@ -82,6 +82,12 @@
             e.preventDefault();
             //jQuery(this).toggleClass('active');
 
+            //x = this;
+
+            var mainImageSrc = jQuery(this).parents('.image-preview:first').find('img').attr('src');
+            jQuery('.top-header img').attr('src', mainImageSrc);
+
+            //console.info(mainImageSrc);
 
             jQuery('.product-image-list .is_main_image_button').removeClass('active');
             jQuery('.product-image-list .is_main_image_hidden_field').val(0);

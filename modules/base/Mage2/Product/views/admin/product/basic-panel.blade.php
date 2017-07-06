@@ -3,9 +3,7 @@
         <span>Basic</span>
     </div>
 
-
     <div class="panel-body">
-
 
         {!! Form::text('title', 'Title') !!}
         {!! Form::text('slug', 'Slug') !!}
@@ -31,4 +29,18 @@
     </div>
 
 </div>
+@push('scripts')
+<script>
+    jQuery(document).ready(function() {
+
+        jQuery(document).on('keydown','#title',function(e){
+                var productName = jQuery(this).val();
+                jQuery('.top-header .product-name').html(productName)
+        });
+
+
+    });
+</script>
+
+@endpush
 
