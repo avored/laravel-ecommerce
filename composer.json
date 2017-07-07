@@ -21,6 +21,7 @@
     "mage2/address": "dev-master",
     "mage2/cart": "dev-master",
     "mage2/category": "dev-master",
+    "mage2/checkout": "dev-master",
     "barryvdh/laravel-dompdf": "^0.7.0",
     "guzzlehttp/guzzle": "^6.2",
     "ext-curl": "*",
@@ -42,7 +43,6 @@
     "psr-4": {
       "Mage2\\Framework\\": "packages/mage2/framework/src/",
       "Mage2\\Catalog\\": "modules/base/Mage2/Catalog/",
-      "Mage2\\Checkout\\": "modules/base/Mage2/Checkout/",
       "Mage2\\Install\\": "modules/base/Mage2/Install/",
       "Mage2\\Order\\": "modules/base/Mage2/Order/",
       "Mage2\\OrderReturn\\": "modules/base/Mage2/OrderReturn/",
