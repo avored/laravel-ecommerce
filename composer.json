@@ -18,6 +18,7 @@
     "php": ">=5.6.4",
     "laravel/framework": "5.4.*",
     "mage2/framework": "dev-master",
+    "mage2/address": "dev-master",
     "barryvdh/laravel-dompdf": "^0.7.0",
     "guzzlehttp/guzzle": "^6.2",
     "ext-curl": "*",
