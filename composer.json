@@ -51,7 +51,6 @@
   },
   "autoload": {
     "psr-4": {
-      "Mage2\\Framework\\": "packages/mage2/framework/src/",
       "Mage2\\Catalog\\": "modules/base/Mage2/Catalog/",
       "Mage2\\System\\": "modules/base/Mage2/System/",
       "Mage2\\Sale\\": "modules/base/Mage2/Sale/"
