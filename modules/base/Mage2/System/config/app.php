@@ -163,7 +163,7 @@ return [
 
         Mage2\Address\Module::class,
         Mage2\Cart\Module::class,
-        Mage2\Catalog\Module::class,
+        Mage2\Attribute\Module::class,
         Mage2\Category\Module::class,
         Mage2\Checkout\Module::class,
         Mage2\Install\Module::class,

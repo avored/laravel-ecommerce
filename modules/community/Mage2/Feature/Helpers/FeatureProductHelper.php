@@ -24,8 +24,8 @@
  */
 namespace Mage2\Feature\Helpers;
 
-use Mage2\Catalog\Models\ProductAttribute;
-use Mage2\Catalog\Models\ProductVarcharValue;
+use Mage2\Attribute\Models\ProductAttribute;
+use Mage2\Attribute\Models\ProductVarcharValue;
 use Illuminate\Support\Collection;
 use Mage2\Product\Models\Product;
 

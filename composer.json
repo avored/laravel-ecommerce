@@ -19,6 +19,7 @@
     "laravel/framework": "5.4.*",
     "mage2/framework": "dev-master",
     "mage2/address": "dev-master",
+    "mage2/attribute": "dev-master",
     "mage2/cart": "dev-master",
     "mage2/category": "dev-master",
     "mage2/checkout": "dev-master",
@@ -51,7 +52,6 @@
   },
   "autoload": {
     "psr-4": {
-      "Mage2\\Catalog\\": "modules/base/Mage2/Catalog/",
       "Mage2\\System\\": "modules/base/Mage2/System/",
       "Mage2\\Sale\\": "modules/base/Mage2/Sale/"
     }
