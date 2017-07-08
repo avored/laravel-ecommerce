@@ -44,7 +44,11 @@
     "intervention/image": "^2.3",
     "teamtnt/tntsearch": "^1.0",
     "fabpot/goutte": "^3.2",
-    "mage2/contact-us": "dev-master"
+    "mage2/contact-us": "dev-master",
+    "mage2/free-shipping": "dev-master",
+    "mage2/pickup": "dev-master",
+    "mage2/feature": "dev-master"
+
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

@@ -179,7 +179,10 @@ return [
         Mage2\User\Module::class,
         Mage2\Wishlist\Module::class,
 
-        Mage2\ContactUs\Module::class
+        Mage2\ContactUs\Module::class,
+        Mage2\FreeShipping\Module::class,
+        Mage2\Pickup\Module::class,
+        Mage2\Feature\Module::class
 
 
     ],
