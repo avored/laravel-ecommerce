@@ -45,7 +45,6 @@
     "teamtnt/tntsearch": "^1.0",
     "fabpot/goutte": "^3.2",
     "mage2/contact-us": "dev-master"
-    
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

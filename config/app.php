@@ -179,6 +179,8 @@ return [
         Mage2\User\Module::class,
         Mage2\Wishlist\Module::class,
 
+        Mage2\ContactUs\Module::class
+
 
     ],
     /*
