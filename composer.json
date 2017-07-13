@@ -35,6 +35,7 @@
     "mage2/review": "dev-master",
     "mage2/tax-class": "dev-master",
     "mage2/user": "dev-master",
+    "mage2/user-auth": "dev-master",
     "mage2/wishlist": "dev-master",
     "barryvdh/laravel-dompdf": "^0.7.0",
     "guzzlehttp/guzzle": "^6.2",
