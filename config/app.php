@@ -154,7 +154,7 @@ return [
 
         Mage2\Framework\System\Module::class,
         Mage2\Framework\Foundation\Providers\Mage2ServiceProvider::class,
-        //Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
+        Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
         //
 
         /*
@@ -244,5 +244,6 @@ return [
         'Module' => Mage2\Framework\Module\Facades\Module::class,
         'Image' => \Mage2\Framework\Image\Facades\Image::class,
         'Search' => Mage2\Framework\Search\Facades\Search::class,
+        'Tabs' => Mage2\Framework\Tabs\Facades\Tabs::class,
     ],
 ];
