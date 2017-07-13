@@ -9,4 +9,5 @@ Homestead.json
 composer.lock
 storage/framework/bootstrap/cache/services.php
 public/uploads
+/themes/mage2/default
 /modules/mage2/
