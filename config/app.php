@@ -12,7 +12,7 @@ return [
       | any other location as required by the application or its packages.
      */
 
-    'name' => 'Mage2 Ecommerce',
+    'name' => 'Mage2 E commerce',
     /*
       |--------------------------------------------------------------------------
       | Application Environment
@@ -172,6 +172,7 @@ return [
         Mage2\Page\Module::class,
         Mage2\Paypal\Module::class,
         Mage2\Product\Module::class,
+        Mage2\RelatedProduct\Module::class,
         Mage2\Review\Module::class,
         Mage2\GiftCoupon\Module::class,
         Mage2\Dashboard\Module::class,
@@ -183,7 +184,8 @@ return [
         Mage2\ContactUs\Module::class,
         Mage2\FreeShipping\Module::class,
         Mage2\Pickup\Module::class,
-        Mage2\Feature\Module::class
+        Mage2\Feature\Module::class,
+
 
 
     ],

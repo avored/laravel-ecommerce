@@ -43,7 +43,6 @@
     "ext-json": "*",
     "paypal/rest-api-sdk-php": "1.3.0",
     "intervention/image": "^2.3",
-    "teamtnt/tntsearch": "^1.0",
     "fabpot/goutte": "^3.2",
     "mage2/contact-us": "dev-master",
     "mage2/free-shipping": "dev-master",
@@ -60,7 +59,32 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "app/"
+      "App\\": "app/",
+      "Mage2\\Address\\": "packages/mage2/address/src/",
+      "Mage2\\Attribute\\": "packages/mage2/attribute/src/",
+      "Mage2\\Cart\\": "packages/mage2/cart/src/",
+      "Mage2\\Category\\": "packages/mage2/category/src/",
+      "Mage2\\Checkout\\": "packages/mage2/checkout/src/",
+      "Mage2\\ContacUs\\": "packages/mage2/contact-us/src/",
+      "Mage2\\Dashboard\\": "packages/mage2/dashboard/src/",
+      "Mage2\\Feature\\": "packages/mage2/feature/src/",
+      "Mage2\\Framework\\": "packages/mage2/framework/src/",
+      "Mage2\\FreeShipping\\": "packages/mage2/free-shipping/src/",
+      "Mage2\\GiftCoupon\\": "packages/mage2/gift-coupon/src/",
+      "Mage2\\Install\\": "packages/mage2/install/src/",
+      "Mage2\\Order\\": "packages/mage2/order/src/",
+      "Mage2\\OrderReturn\\": "packages/mage2/order-return/src/",
+      "Mage2\\Page\\": "packages/mage2/page/src/",
+      "Mage2\\Paypal\\": "packages/mage2/paypal/src/",
+      "Mage2\\Pickup\\": "packages/mage2/pickup/src/",
+      "Mage2\\Product\\": "packages/mage2/product/src/",
+      "Mage2\\RelatedProduct\\": "packages/mage2/related-product/src/",
+      "Mage2\\Review\\": "packages/mage2/review/src/",
+      "Mage2\\TaxClass\\": "packages/mage2/tax-class/src/",
+      "Mage2\\User\\": "packages/mage2/user/src/",
+      "Mage2\\UserAuth\\": "packages/mage2/user-auth/src/",
+      "Mage2\\Wishlist\\": "packages/mage2/wishlist/src/"
+
     }
   },
   "autoload-dev": {
