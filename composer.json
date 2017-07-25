@@ -32,6 +32,7 @@
     "mage2/page": "dev-master",
     "mage2/paypal": "dev-master",
     "mage2/product": "dev-master",
+    "mage2/related-product": "dev-master",
     "mage2/review": "dev-master",
     "mage2/tax-class": "dev-master",
     "mage2/user": "dev-master",
