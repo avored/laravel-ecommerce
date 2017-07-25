@@ -45,6 +45,13 @@
                 <ul class="nav nav-tabs">
                     <li class="tab active"><a data-toggle="tab" href="#description">DESCRIPTION</a></li>
                     <li class="tab"><a data-toggle="tab" href="#review">REVIEW</a></li>
+                    @foreach(Tabs::all('product-view') as $key => $tab)
+                        <li>
+                            <a data-toggle="tab" href="#{{ $key }}">
+                                {{ $tab->label }}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
 
                 <div class="tab-content">
@@ -63,6 +70,10 @@
                             </div>
                         </div>
                     </div>
+
+                    @foreach(Tabs::all('product-view') as $key => $tab)
+                        @include($tab->view)
+                    @endforeach
                 </div>
 
             </div>
