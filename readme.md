@@ -28,7 +28,7 @@ composer update/install
 
 # Step 1: Install Mage2 Commerce using [Composer](https://getcomposer.org/download/).
 
-Run composer to create the lavender application:
+Run composer to create the Mage2 Laravel application:
 
     composer create-project mage2/laravel-ecommerce --stability=dev
     
