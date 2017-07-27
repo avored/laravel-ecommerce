@@ -85,6 +85,7 @@
       "Mage2\\TaxClass\\": "packages/mage2/tax-class/src/",
       "Mage2\\User\\": "packages/mage2/user/src/",
       "Mage2\\UserAuth\\": "packages/mage2/user-auth/src/",
+      "Mage2\\UserVisitor\\": "packages/mage2/user-visitor/src/",
       "Mage2\\Wishlist\\": "packages/mage2/wishlist/src/"
 
     }
