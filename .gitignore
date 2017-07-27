@@ -10,3 +10,4 @@ composer.lock
 storage/framework/bootstrap/cache/services.php
 public/uploads
 /modules/mage2/
+/themes
