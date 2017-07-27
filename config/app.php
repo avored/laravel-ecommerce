@@ -179,6 +179,7 @@ return [
         Mage2\TaxClass\Module::class,
         Mage2\User\Module::class,
         Mage2\UserAuth\Module::class,
+        Mage2\UserRole\Module::class,
         Mage2\UserVisitor\Module::class,
         Mage2\Wishlist\Module::class,
 
