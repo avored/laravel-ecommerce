@@ -316,16 +316,32 @@
 
                                             <br>
                                             &nbsp;
-                                            <small> - Select: Option here</small>
+                                            <?php $attributeText = ""; ?>
+                                            @if(isset($cartItem['attributes']) && count($cartItem['attributes']) > 0)
+                                                @foreach($cartItem['attributes'] as $attribute)
+                                                    @if($loop->last)
+                                                        <?php $attributeText .= $attribute['variation_display_text']; ?>
+                                                    @else
+                                                        <?php $attributeText .= $attribute['variation_display_text'] . ": "; ?>
+                                                    @endif
+                                                @endforeach
+
+
+                                                <p>Attributes: <span
+                                                            class="text-success"><strong>{{ $attributeText}}</strong></span>
+                                                </p>
+                                            @endif
+
                                         </td>
 
                                         <td class="text-right hidden-xs">{{ $cartItem['qty'] }}</td>
-                                        <td class="text-right hidden-xs">${{ number_format($cartItem['price'],2) }}</td>
-                                        <td class="text-right">${{ $cartItem['qty'] * $cartItem['price'] }}</td>
+                                        <td class="text-right hidden-xs">
+                                            ${{ number_format($cartItem['final_price'],2) }}</td>
+                                        <td class="text-right">${{ $cartItem['qty'] * $cartItem['final_price'] }}</td>
                                     </tr>
 
                                     <?php $totalTax += $cartItem['qty'] * $cartItem['tax_amount']  ?>
-                                    <?php $subTotal += $cartItem['qty'] * $cartItem['price']  ?>
+                                    <?php $subTotal += $cartItem['qty'] * $cartItem['final_price']  ?>
                                     <input type="hidden" name="products[]" value="{{ $cartItem['id'] }}"/>
                                 @endforeach
                                 </tbody>
