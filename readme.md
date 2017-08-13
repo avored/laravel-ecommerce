@@ -1,4 +1,4 @@
-# Mage2 Commerce using Laravel5 E commerce Application
+# Mage2 Laravel E commerce App
 
 [![Join the chat at https://gitter.im/Mage2-Ecommerce-Laravel/Lobby](https://badges.gitter.im/Mage2-Ecommerce-Laravel/Lobby.svg)](https://gitter.im/Mage2-Ecommerce-Laravel/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![PHPPackages Rank](http://phppackages.org/p/mage2/laravel-ecommerce/badge/rank.svg)](http://phppackages.org/p/mage2/laravel-ecommerce) [![Total Downloads](https://poser.pugx.org/mage2/laravel-ecommerce/downloads)](https://packagist.org/packages/mage2/laravel-ecommerce)
 
