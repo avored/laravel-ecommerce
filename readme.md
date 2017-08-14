@@ -10,7 +10,9 @@ Mage2 is a Ecommerce application based on Laravel5 framework.
 
 [Demo Mage2 Laravel Ecommerce](http://demo.mage2.website/)
 
-Currently working on All Big Modules into more smaller modules. Once this finished start working on Unit Test.
+### Todo List
+* Upgrading to Bootstrap 4
+* Stripe Payment gateway
 
 # Step 1: Install Mage2 Commerce using [Git](https://git-scm.com/).
 
