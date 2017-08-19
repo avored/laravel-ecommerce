@@ -12,7 +12,7 @@ Mage2 is a Ecommerce application based on Laravel5 framework.
 
 ### Todo List
 * Upgrading to Bootstrap 4
-* Stripe Payment gateway
+* Upgrading Attribute Modules
 
 # Step 1: Install Mage2 Commerce using [Git](https://git-scm.com/).
 
