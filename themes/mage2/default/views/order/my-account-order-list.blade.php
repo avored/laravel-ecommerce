@@ -4,7 +4,7 @@
         <div class="col-md-2">
             @include('user.my-account.sidebar')
         </div>
-        <div class="col-md-10">
+        <div class="col-10">
 
             <div class="main-title-wrap">
                 <span class="title">

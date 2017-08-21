@@ -25,9 +25,12 @@
 <input type="hidden" name="product_id" value="{{ $product->id }}"/>
 
 {!! Form::submit('Create Review') !!}
+{!! Form::close() !!}
+
+@push('scripts')
 <script>
-    jQuery(document).ready(function () {
-        jQuery("#rating").rating({});
-    });
+    $(function () {
+        jQuery("#rating").rating();
+    })
 </script>
-</form>
+@endpush

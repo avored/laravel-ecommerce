@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default">
-                <div class="panel-heading"><span>Mage2 Login</span></div>
-                <div class="panel-body">
-                    <div class="col-md-12">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header"><span>Mage2 Login</span></div>
+                <div class="card-body">
+                    <div class="col-12">
                         <form class="form-horizontal" role="form" method="POST"
                               action="{{ route('login.post') }}">
                             {{ csrf_field() }}

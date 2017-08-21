@@ -11,10 +11,12 @@
     <title>@yield('meta_title', $metaTitle)</title>
     <meta name="description" content="@yield('meta_description', $metaDescription )"/>
 
-    <link href="{{ asset('vendor/mage2-basic/css/appscss.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/mage2-basic/css/appless.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('vendor/mage2-admin/bootstrap4/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/mage2-admin/bootstrap4/css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/mage2-basic/css/star-rating.min.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('vendor/mage2-admin/bootstrap4/css/styles.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -31,18 +33,17 @@
     </style>
 </head>
 <body>
-<!-- Scripts -->
-<!-- JQuery -->
-<script src="{{ asset('/vendor/mage2-basic/js/all.js') }}"></script>
+<script src="{{ asset('/vendor/mage2-admin/js/jquery-3.2.1.slim.min.js') }}"></script>
+<script src="{{ asset('/vendor/mage2-admin/js/popper.min.js') }}"></script>
+<script src="{{ asset('/vendor/mage2-admin/js/bootstrap.min.js') }}"></script>
+
+
 <script src="{{ asset('/vendor/mage2-basic/js/star-rating.min.js') }}"></script>
-
-<script src="//cdn.ckeditor.com/4.5.11/basic/ckeditor.js"></script>
-
 
 @include("layouts.nav")
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
             @if(session()->has('notificationText'))
                 <div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
@@ -54,11 +55,10 @@
             @endif
         </div>
     </div>
-
-    @yield('content')
-
-
 </div>
+
+@yield('content')
+
 @include('layouts.footer')
 @stack('scripts')
 </body>

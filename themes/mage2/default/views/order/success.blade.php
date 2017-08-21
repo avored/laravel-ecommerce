@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
 
             <h1>Order Place Successfully!</h1>
 

@@ -152,9 +152,9 @@ return [
          * Package Service Providers...
          */
 
-        Mage2\Framework\System\Module::class,
+        //Mage2\Framework\System\Module::class,
         Mage2\Framework\Foundation\Providers\Mage2ServiceProvider::class,
-        Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
+        //Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
         //
 
         /*
@@ -172,7 +172,7 @@ return [
         Mage2\Page\Module::class,
         Mage2\Paypal\Module::class,
         Mage2\Product\Module::class,
-        Mage2\ProductInventory\Module::class,
+        //Mage2\ProductInventory\Module::class,
         Mage2\RelatedProduct\Module::class,
         Mage2\Review\Module::class,
         Mage2\GiftCoupon\Module::class,
@@ -184,12 +184,15 @@ return [
         Mage2\UserVisitor\Module::class,
         Mage2\Wishlist\Module::class,
 
-        Mage2\ContactUs\Module::class,
+        //Mage2\ContactUs\Module::class,
         Mage2\FreeShipping\Module::class,
         Mage2\Pickup\Module::class,
-        Mage2\Feature\Module::class,
+        //Mage2\Feature\Module::class,
 
-
+        //Mage2\HelloWorld\Module::class,
+        Laravel\Passport\PassportServiceProvider::class,
+        Mage2\Framework\Mage2ServiceProvider::class,
+        Mage2\Framework\Attribute\AttributeServiceProvider::class,
 
     ],
     /*
@@ -247,9 +250,10 @@ return [
         'Form' => Mage2\Framework\Form\Facades\FormFacade::class,
         'Payment' => Mage2\Framework\Payment\Facades\Payment::class,
         'Permission' => Mage2\Framework\Auth\Facades\Permission::class,
-        'Module' => Mage2\Framework\Module\Facades\Module::class,
+        //'Module' => Mage2\Framework\Module\Facades\Module::class,
         'Image' => \Mage2\Framework\Image\Facades\Image::class,
         'Search' => Mage2\Framework\Search\Facades\Search::class,
         'Tabs' => Mage2\Framework\Tabs\Facades\Tabs::class,
+        'Attributes' => Mage2\Framework\Attribute\Facades\Attributes::class,
     ],
 ];

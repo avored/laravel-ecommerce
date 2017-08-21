@@ -15,11 +15,13 @@
             <form id="place-order-form" method="post" action="{{ route('order.place') }}">
                 {{ csrf_field() }}
                 <div class="row box checkout_form">
-                    <div class="col-md-6 register_block">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>Your Personal Details</h3>
+                    <div class="col-6 register_block">
+
+                        <div class="card">
+                            <div class="card-header">
+                                Your Personal Details
                             </div>
+
 
                             <?php
                             $firstName = $lastName = $phone = "";
@@ -31,13 +33,13 @@
 
                             ?>
 
-                            <div class="form-group  col-md-6">
+                            <div class="form-group  col-6">
                                 <label class="control-label" for="input-billing-firstname">First Name</label>
                                 <input type="text" name="billing[first_name]"
                                        value="{{ $firstName }}" placeholder="First Name"
                                        id="input-billing-firstname" class="form-control">
                             </div>
-                            <div class="form-group  col-md-6">
+                            <div class="form-group  col-6">
                                 <label class="control-label" for="input-billing-lastname">Last Name</label>
                                 <input type="text" name="billing[last_name]"
                                        value="{{ $lastName }}" placeholder="Last Name"
@@ -46,13 +48,13 @@
 
                             @if(!Auth::check())
 
-                                <div class="form-group  col-md-12">
+                                <div class="form-group  col-12">
                                     <label class="control-label" for="input-billing-email">E-Mail</label>
                                     <input type="text" name="user[email]" placeholder="E-Mail" id="input-billing-email"
                                            class="form-control">
                                 </div>
 
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-12">
                                     <label>
                                         <input type="checkbox" name="register"
                                                onclick="if (this.checked == true) jQuery('.register-form').slideDown('slow');
@@ -63,12 +65,12 @@
 
 
                                 <div class="register-form" style="display: none;">
-                                    <div class="form-group  col-md-6">
+                                    <div class="form-group  col-6">
                                         <label class="control-label" for="input-billing-password">Password</label>
                                         <input type="text" name="user[password]" placeholder="Password"
                                                id="input-billing-password" class="form-control">
                                     </div>
-                                    <div class="form-group  col-md-6">
+                                    <div class="form-group  col-6">
                                         <label class="control-label" for="input-billing-confirm">Password
                                             Confirm</label>
                                         <input type="text" name="user[confirm_password]" placeholder="Password Confirm"
@@ -78,13 +80,13 @@
 
                             @endif
 
-                            <div class="form-group   col-md-6">
+                            <div class="form-group   col-6">
                                 <label class="control-label" for="input-billing-phone">Phone</label>
                                 <input type="text" name="billing[phone]" value="{{ $phone }}" placeholder="Phone"
                                        id="input-billing-phone" class="form-control">
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-12">
                                 <h3 class="clearfix">Your Address</h3>
                             </div>
 
@@ -99,19 +101,19 @@
                                 ?>
 
                                 @if(NULL === $address)
-                                    <div class="form-group  col-md-12">
+                                        <div class="form-group  col-12">
                                         <label class="control-label" for="input-billing-address-1">Address 1</label>
                                         <input type="text" name="billing[address1]" value="" placeholder="Address 1"
                                                id="input-billing-address-1" class="form-control">
                                     </div>
 
-                                    <div class="form-group col-md-12">
+                                        <div class="form-group col-12">
                                         <label class="control-label" for="input-billing-address-2">Address 2</label>
                                         <input type="text" name="billing[address2]" value="" placeholder="Address 2"
                                                id="input-billing-address-2" class="form-control">
                                     </div>
 
-                                    <div class="form-group  col-md-6">
+                                        <div class="form-group  col-6">
                                         <label for="country">Country</label>
                                         <select name="billing[country_id]" data-name="country_id"
                                                 class="billing-country form-control billing tax-calculation">
@@ -128,21 +130,21 @@
                                         @endif
                                     </div>
 
-                                    <div class="form-group col-md-6">
+                                        <div class="form-group col-6">
                                         <label class="control-label" for="input-billing-zone">Region / State</label>
                                         <input type="text" name="billing[state]" data-name="state_code"
                                                id="input-billing-zone" class="billing tax-calculation form-control"/>
                                     </div>
 
 
-                                    <div class="form-group  col-md-6">
+                                        <div class="form-group  col-6">
                                         <label class="control-label" for="input-billing-city">City</label>
                                         <input type="text" data-name="city" name="billing[city]" placeholder="City"
                                                id="input-billing-city"
                                                class="billing tax-calculation form-control">
                                     </div>
 
-                                    <div class="form-group col-md-6">
+                                        <div class="form-group col-6">
                                         <label class="control-label" for="input-billing-postcode">Post Code</label>
                                         <input type="text" data-name="postcode" name="billing[postcode]" value=""
                                                placeholder="Post Code"
@@ -151,10 +153,10 @@
 
                                 @else
 
-                                    <div class="form-group  col-md-12">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">Billing Address</div>
-                                            <div class="panel-body">
+                                        <div class="form-group  col-12">
+                                            <div class="card card-default">
+                                                <div class="card-header">Billing Address</div>
+                                                <div class="card-body">
 
                                                 <p>
                                                     {{ $address->first_name }} {{ $address->last_name }}
@@ -174,7 +176,7 @@
                                 @endif
 
 
-                                <div class="form-group col-md-12">
+                                    <div class="form-group col-12">
                                     <label>
                                         <input type="checkbox" name="use_different_shipping_address"
                                                onclick="if (this.checked == true){
@@ -190,32 +192,32 @@
                             <div class="different-shipping-form" style="display:none">
 
 
-                                <div class="form-group  col-md-6">
+                                <div class="form-group  col-6">
                                     <label class="control-label" for="input-billing-firstname">First Name</label>
                                     <input type="text" name="shipping[first_name]"
                                            value="" placeholder="First Name"
                                            id="input-billing-firstname" class="form-control">
                                 </div>
-                                <div class="form-group  col-md-6">
+                                <div class="form-group  col-6">
                                     <label class="control-label" for="input-billing-lastname">Last Name</label>
                                     <input type="text" name="shipping[last_name]"
                                            value="" placeholder="Last Name"
                                            id="input-billing-lastname" class="form-control">
                                 </div>
 
-                                <div class="form-group  col-md-12">
+                                <div class="form-group  col-12">
                                     <label class="control-label" for="input-billing-address-1">Address 1</label>
                                     <input type="text" name="shipping[address1]" value="" placeholder="Address 1"
                                            id="input-billing-address-1" class="form-control">
                                 </div>
 
-                                <div class="form-group col-md-12">
+                                <div class="form-group col-12">
                                     <label class="control-label" for="input-billing-address-2">Address 2</label>
                                     <input type="text" name="shipping[address2]" value="" placeholder="Address 2"
                                            id="input-billing-address-2" class="form-control">
                                 </div>
 
-                                <div class="form-group  col-md-6">
+                                <div class="form-group  col-6">
                                     <label for="country">Country</label>
                                     <select name="shipping[country_id]" data-name="country_id"
                                             class="shipping tax-calculation form-control">
@@ -232,7 +234,7 @@
                                     @endif
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-6">
                                     <label class="control-label" for="input-billing-zone">Region / State</label>
                                     <input type="text" data-name="state_code" name="shipping[state]"
                                            id="input-billing-zone"
@@ -240,21 +242,21 @@
                                 </div>
 
 
-                                <div class="form-group  col-md-6">
+                                <div class="form-group  col-6">
                                     <label class="control-label" for="input-billing-city">City</label>
                                     <input type="text" data-name="city" name="shipping[city]" placeholder="City"
                                            id="input-billing-city"
                                            class="shipping tax-calculation  form-control">
                                 </div>
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-6">
                                     <label class="control-label" for="input-billing-postcode">Post Code</label>
                                     <input type="text" data-name="postcode" name="shipping[postcode]" value=""
                                            placeholder="Post Code"
                                            id="input-billing-postcode" class="shipping tax-calculation  form-control">
                                 </div>
 
-                                <div class="form-group   col-md-6">
+                                <div class="form-group   col-6">
                                     <label class="control-label" for="input-billing-phone">Phone</label>
                                     <input type="text" name="shipping[phone]" value="" placeholder="Phone"
                                            id="input-billing-phone" class="form-control">
@@ -263,7 +265,7 @@
                         </div>
 
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <h3> Shipping Option</h3>
 
                         <div class="shipping-method">
@@ -312,7 +314,7 @@
                                 @foreach($cartItems as $cartItem)
                                     <tr>
                                         <td class="text-left">
-                                            {{ $cartItem['title'] }}
+                                            {{ $cartItem['name'] }}
 
                                             <br>
                                             &nbsp;
@@ -414,7 +416,7 @@
                             </p>
 
                             <div class="buttons clearfix">
-                                <div class="pull-right">
+                                <div class="float-right">
                                     I have read and agree to the
                                     <a href="{{ $termConditionPageUrl }}" target="_blank" class="agree"><b>Terms &amp;
                                             Conditions</b></a>
@@ -423,7 +425,7 @@
                                 </div>
                             </div>
 
-                            <div class="payment pull-right clearfix">
+                            <div class="payment float-right clearfix">
                                 <input type="button" class="btn btn-primary"
                                        data-loading-text="Loading..." id="place-order-button"
                                        onclick="javascript=''"

@@ -15,10 +15,9 @@
             </ul>
         @endif
         <?php
-        $attributes = $category->getFilters();
+        $attributes = [];//$category->getFilters();
         ?>
         @foreach($attributes as $attribute)
-
             <h4>{{ $attribute->title }}</h4>
             <ul class="list-group">
                 @foreach($attribute->attributeDropdownOptions as $option)

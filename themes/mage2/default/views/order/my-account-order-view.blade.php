@@ -5,7 +5,7 @@
         <div class="col-md-2">
             @include('user.my-account.sidebar')
         </div>
-        <div class="col-md-10">
+        <div class="col-10">
 
             <div class="main-title-wrapper">
                 <h1>
@@ -86,7 +86,7 @@
                         </button>
                     </div-->
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <h6>Shipping Info</h6>
 
                             <p>
@@ -100,7 +100,7 @@
                                 {{ $order->shipping_address->phone }}<br/>
                             </p>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <h6>Billing Info</h6>
 
                             <p>

@@ -3,9 +3,9 @@
     <div class="profile-userpic">
 
         @if($user->image_path == "")
-            <img src="http://placehold.it/250x250" class="img-responsive" alt="">
+            <img src="http://placehold.it/250x250" class="img-responsive img-thumbnail" alt="">
         @else
-            <img src="{{ $user->image_path->smallUrl }}" class="img-responsive" alt="">
+            <img src="{{ $user->image_path->smallUrl }}" class="img-responsive img-thumbnail" alt="">
         @endif
     </div>
     <div class="text-center">
@@ -16,44 +16,44 @@
     </div>
 
     <div class="profile-usermenu">
-        <ul class="collection nav nav-stacked">
-            <li>
-                <a href="{{ route('my-account.home') }}" class="collection-item">
+        <ul class="collection nav nav-stacked nav-pills">
+            <li class="nav-item">
+                <a href="{{ route('my-account.home') }}" class="nav-link nav-link">
 
                     Overview </a>
             </li>
-            <li>
-                <a href="{{ route('my-account.edit') }}" class="collection-item">
+            <li class="nav-item">
+                <a href="{{ route('my-account.edit') }}" class="nav-link">
 
                     Edit Account</a>
             </li>
-            <li>
-                <a href="{{ route('my-account.upload-image') }}" class="collection-item">
+            <li class="nav-item">
+                <a href="{{ route('my-account.upload-image') }}" class="nav-link">
 
                     Upload Image</a>
             </li>
-            <li>
-                <a href="{{ route('my-account.order.list') }}" class="collection-item">
+            <li class="nav-item">
+                <a href="{{ route('my-account.order.list') }}" class="nav-link">
 
                     My Order</a>
             </li>
-            <li>
-                <a href="{{ route('my-account.address.index') }}" class="collection-item">
+            <li class="nav-item">
+                <a href="{{ route('my-account.address.index') }}" class="nav-link">
 
                     Address </a>
             </li>
-            <li>
-                <a href="{{ route('wishlist.list') }}" class="collection-item">
+            <li class="nav-item">
+                <a href="{{ route('wishlist.list') }}" class="nav-link">
 
                     My Wishlist</a>
             </li>
-            <li>
-                <a href="{{ route('my-account.change-password') }}" class="collection-item">
+            <li class="nav-item">
+                <a href="{{ route('my-account.change-password') }}" class="nav-link">
 
                     Change Password</a>
             </li>
-            <li>
-                <a href="{{ route('logout') }}" class="collection-item">
+            <li class="nav-item">
+                <a href="{{ route('logout') }}" class="nav-link">
 
                     Logout </a>
 

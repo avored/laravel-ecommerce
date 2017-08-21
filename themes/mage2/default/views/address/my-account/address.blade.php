@@ -2,15 +2,15 @@
 
 @section('content')
     <div class="row profile">
-        <div class="col-md-2">
+        <div class="col-2">
             @include('user.my-account.sidebar')
         </div>
-        
-        <div class="col-md-10">
+
+        <div class="col-10">
             <div class="main-title-wrap">
                 <span class="title">Addresses</span>
 
-                <div class="pull-right">
+                <div class="float-right">
                     <a class="btn btn-primary" href="{{ route('my-account.address.create')}}">Create Address</a>
                 </div>
                 <span class="clearfix"></span><br/><br/>
@@ -19,7 +19,7 @@
                 <p>Sorry No Address Found</p>
             @else
                 @foreach($addresses as $address)
-                    <div class="col-md-6">
+                    <div class="col-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 @if($address->type == "SHIPPING")
@@ -27,7 +27,7 @@
                                 @else
                                     <span>Billing Address</span>
                                 @endif
-                                <span class="pull-right">
+                                    <span class="float-right">
                             <a href="{{ route('my-account.address.edit', $address->id)}}">Edit</a>
                         </span>
 

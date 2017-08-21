@@ -1,21 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container">
     <div class="row profile">
-        <div class="col-md-2">
+        <div class="col-2">
             @include('user.my-account.sidebar')
         </div>
-        <div class="col-md-10">
+        <div class="col-10">
 
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="card">
+                <div class="card-header">
                     Change Password
                 </div>
-                <div class="panel-body">
-                    <?php
-                    //dd($errors);
-                    ?>
-                    {!! Form::open(['action' => route('my-account.change-password.post'), 'method' => 'post']) !!}
+                <div class="card-body">
+
+                {!! Form::open(['action' => route('my-account.change-password.post'), 'method' => 'post']) !!}
                     {!! Form::password('current_password','Cuurent Password') !!}
                     {!! Form::password('password','New Password') !!}
                     {!! Form::password('password_confirmation','Password Confirmation') !!}
@@ -25,5 +24,6 @@
             </div>
 
         </div>
+    </div>
     </div>
 @endsection

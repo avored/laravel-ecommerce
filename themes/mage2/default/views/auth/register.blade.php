@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Register</div>
-                    <div class="panel-body">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">Register</div>
+                    <div class="card-body">
 
-                        <div class="col-md-12">
+                        <div class="col-12">
                             <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
                                 {{ csrf_field() }}
 

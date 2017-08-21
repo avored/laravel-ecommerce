@@ -38,7 +38,7 @@ $attributes = $product->getAssignedAttributes();
 @endforeach
 
 <div class="clearfix"></div>
-<div class="pull-left" style="margin-right: 5px;">
+<div class="float-left" style="margin-right: 5px;">
     <button disabled type="submit" class="btn add-to-cart btn-primary"
             href="{{ route('cart.add-to-cart', $product->id) }}">
         Add to Cart

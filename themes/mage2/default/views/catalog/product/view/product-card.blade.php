@@ -1,15 +1,15 @@
-<div class="panel">
-    <div class="panel-body">
+<div class="card">
+    <div class="card-body">
 
-        <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->title }}">
+        <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->name }}">
             @include('catalog.product.view.product-image',['product' => $product])
         </a>
 
         <div class="caption">
             <h3>
-                <a href="{{ route('product.view', $product->slug)}}" class="product-title"
-                   title="{{ $product->title }}">
-                    {{ $product->title }}
+                <a href="{{ route('product.view', $product->slug)}}" class="product-name"
+                   title="{{ $product->name }}">
+                    {{ $product->name }}
                 </a>
             </h3>
 
@@ -26,7 +26,7 @@
                 <hr>
 
                 <div class="clearfix"></div>
-                <div class="pull-left" style="margin-right: 5px;">
+                <div class="float-left" style="margin-right: 5px;">
                     <button type="submit" class="btn btn-primary"
                             href="{{ route('cart.add-to-cart', $product->id) }}">
                         Add to Cart
@@ -35,20 +35,21 @@
                 {!! Form::close() !!}
 
                 @if(Auth::check() && Auth::user()->isInWishlist($product->id))
-                    <a class="btn btn-danger" href="{{ route('wishlist.remove', $product->slug) }}">Remove from
-                        Wishlist</a>
+                    <a class="btn btn-danger" title="Remove from Wish List"
+                       data-toggle="tooltip" href="{{ route('wishlist.remove', $product->slug) }}"><i
+                                class="oi oi-heart"></i></a>
                 @else
-                    <a class="btn btn-warning" href="{{ route('wishlist.add', $product->slug) }}">Add to Wishlist</a>
+                    <a class="btn btn-success" title="Add to Wish List" data-toggle="tooltip"
+                       href="{{ route('wishlist.add', $product->slug) }}"><i class="oi oi-heart"></i></a>
                 @endif
             </div>
         </div>
     </div>
 </div>
-<style>
-    .product-title {
-        font-size: 16px;
-        height: 35px;
-        overflow: hidden;
-        display: block;
-    }
-</style>
+@push('scripts')
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>
+@endpush

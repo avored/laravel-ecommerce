@@ -4,7 +4,7 @@
         <div class="col-md-2">
             @include('user.my-account.sidebar')
         </div>
-        <div class="col-md-10">
+        <div class="col-10">
 
             <div class="main-title-wrap">
                 <span class="title">
@@ -13,7 +13,7 @@
                 </span>
             </div>
             <div class="clearfix"></div>
-            <div class="col-md-12">
+            <div class="col-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">Order Details</div>
                     <div class="panel-body">
@@ -108,7 +108,7 @@
 
                                 <div class="clearfix"></div>
 
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label class="">Message</label>
                                         <textarea name="message" class="form-control"></textarea>
@@ -120,7 +120,7 @@
                             @if(isset($order->orderReturnRequest) && $order->orderReturnRequest->status == "APPROVE")
 
                                 <div class="clearfix"></div>
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label class="">Status</label>
                                         <select name="status" class="form-control">
@@ -130,7 +130,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label class="">Message</label>
                                         <textarea name="message" class="form-control"></textarea>
@@ -141,7 +141,7 @@
 
                             @if(!isset($order->orderReturnRequest))
                                 <div class="clearfix"></div>
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label class="">User Option?</label>
                                         <select name="user_option" class="form-control">
@@ -152,7 +152,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-12">
+                                <div class="col-12">
                                     <div class="form-group">
                                         <label class="">Reason for Return</label>
                                         <textarea name="message" class="form-control"></textarea>
@@ -161,7 +161,7 @@
                             @endif
 
 
-                            <div class="col-md-12">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-primary" value="Submit">
                                 </div>

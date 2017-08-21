@@ -9,7 +9,7 @@
     </div>
 </div>
 <div class="clearfix"></div>
-<div class="pull-left" style="margin-right: 5px;">
+<div class="float-left" style="margin-right: 5px;">
     <button type="submit" class="btn btn-primary"
             href="{{ route('cart.add-to-cart', $product->id) }}">
         Add to Cart

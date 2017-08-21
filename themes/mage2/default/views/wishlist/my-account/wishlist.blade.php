@@ -1,11 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container">
     <div class="row profile">
         <div class="col-md-2">
             @include('user.my-account.sidebar')
         </div>
-        <div class="col-md-10">
+        <div class="col-10">
             <div class="title">
                 <h4>My Wishlist</h4>
             </div>
@@ -13,11 +14,11 @@
                 <p>Sorry No Wishlists Found</p>
             @else
 
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="card">
+                    <div class="card-header">
                         My Wishlist
                     </div>
-                    <div class="panel-body">
+                    <div class="card-body">
                         <table class="table table-responsive">
                             <thead>
                             <th>Product Title</th>
@@ -27,18 +28,21 @@
                             <tbody>
                             @foreach($wishlists as $wishlist)
                                 <tr>
-                                    <td> {{ $wishlist->product->title }}</td>
+                                    <td> {{ $wishlist->product->name }}</td>
                                     <td>
-                                        @if(isset($wishlist->product->image) && is_string($wishlist->product->image))
-                                            <img alt="{{ $wishlist->product->title }}"
+                                        <?php
+                                        //dd();
+                                        ?>
+                                        @if(isset($wishlist->product->image) && is_string($wishlist->product->image->url))
+                                            <img alt="{{ $wishlist->product->name }}"
                                                  class="img-responsive"
                                                  style="max-height: 75px"
-                                                 src="{{ asset('/uploads/catalog/images/'. $wishlist->product->image) }}"/>
+                                                 src="{{ $wishlist->product->image->url }}"/>
                                         @else
-                                            <img alt="{{ $wishlist->product->title }}"
+                                            <img alt="{{ $wishlist->product->name }}"
                                                  class="img-responsive"
                                                  style="max-height: 75px"
-                                                 src="/img/default-product.jpg) }}"/>
+                                                 src="{{ asset('/img/default-product.jpg') }}"/>
                                         @endif
                                     </td>
                                     <td>
@@ -55,5 +59,6 @@
 
             @endif
         </div>
+    </div>
     </div>
 @endsection

@@ -2,10 +2,10 @@
 
 @section('content')
     <div class="row profile">
-        <div class="col-md-2">
+        <div class="col-2">
             @include('user.my-account.sidebar')
         </div>
-        <div class="col-md-10">
+        <div class="col-10">
             <h3>Edit Address</h3>
 
             <div class="profile-content">
