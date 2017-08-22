@@ -187,7 +187,7 @@ return [
         //Mage2\ContactUs\Module::class,
         Mage2\FreeShipping\Module::class,
         Mage2\Pickup\Module::class,
-        //Mage2\Feature\Module::class,
+        Mage2\Feature\Module::class,
 
         //Mage2\HelloWorld\Module::class,
         Laravel\Passport\PassportServiceProvider::class,
