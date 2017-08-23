@@ -190,7 +190,7 @@ return [
         Mage2\Feature\Module::class,
 
         //Mage2\HelloWorld\Module::class,
-        Laravel\Passport\PassportServiceProvider::class,
+        //Laravel\Passport\PassportServiceProvider::class,
         Mage2\Framework\Mage2ServiceProvider::class,
         Mage2\Framework\Attribute\AttributeServiceProvider::class,
 
