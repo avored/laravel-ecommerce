@@ -162,10 +162,12 @@ return [
          */
 
         Mage2\Address\Module::class,
+        Mage2\Attribute\Module::class,
         Mage2\Cart\Module::class,
         Mage2\Attribute\Module::class,
         Mage2\Category\Module::class,
         Mage2\Checkout\Module::class,
+        Mage2\Feature\Module::class,
         Mage2\Install\Module::class,
         Mage2\Order\Module::class,
         Mage2\OrderReturn\Module::class,
@@ -187,7 +189,7 @@ return [
         //Mage2\ContactUs\Module::class,
         Mage2\FreeShipping\Module::class,
         Mage2\Pickup\Module::class,
-        Mage2\Feature\Module::class,
+
 
         //Mage2\HelloWorld\Module::class,
         //Laravel\Passport\PassportServiceProvider::class,
