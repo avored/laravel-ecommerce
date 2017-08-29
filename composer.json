@@ -51,7 +51,10 @@
     "mage2/contact-us": "dev-master",
     "mage2/free-shipping": "dev-master",
     "mage2/pickup": "dev-master",
-    "mage2/feature": "dev-master"
+    //"mage2/feature": "dev-master",
+    "composer/composer": "^1.5",
+    "laravel/passport": "^3.0",
+    "orchestra/testbench": "^3.4"
 
   },
   "require-dev": {
@@ -67,9 +70,9 @@
     }
   },
   "autoload-dev": {
-      "psr-4": {
-        "Tests\\": "tests/"
-      }
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
   },
   "scripts": {
     "post-root-package-install": [
