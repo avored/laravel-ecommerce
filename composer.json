@@ -1,6 +1,6 @@
 {
   "name": "mage2/laravel-ecommerce",
-  "description": "Mage2 Laravel5 Ecommerce.",
+  "description": "Mage2 Laravel E commerce.",
   "keywords": [
     "framework",
     "laravel",
@@ -15,7 +15,7 @@
   "license": "GPL-3.0",
   "type": "project",
   "require": {
-    "php": ">=5.6.4",
+    "php": ">=7.0.0",
     "laravel/framework": "5.4.*",
     "mage2/module-installer": "dev-master",
     "mage2/address": "dev-master",
