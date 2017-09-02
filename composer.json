@@ -16,7 +16,7 @@
   "type": "project",
   "require": {
     "php": ">=7.0.0",
-    "laravel/framework": "5.5.*",
+    "laravel/framework": "5.4.*",
     "mage2/framework": "dev-master",
     "mage2/module-installer": "dev-master",
     "guzzlehttp/guzzle": "^6.2",
