@@ -17,7 +17,7 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=7.0.0",
-    "laravel/framework": "5.4.*",
+    "laravel/framework": "5.5.*",
     "mage2/framework": "dev-master",
     "mage2/module-installer": "dev-master",
     "guzzlehttp/guzzle": "^6.2",
