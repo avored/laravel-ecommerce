@@ -144,58 +144,15 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-
-        Barryvdh\DomPDF\ServiceProvider::class,
-        //Intervention\Image\ImageServiceProvider::class,
-        //Barryvdh\Debugbar\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
 
-        //Mage2\Framework\System\Module::class,
-        Mage2\Framework\Foundation\Providers\Mage2ServiceProvider::class,
-        //Mage2\Framework\Foundation\Providers\ConsoleServiceProvider::class,
-        //
+
 
         /*
          * Application Service Providers...
          */
-
-        Mage2\Address\Module::class,
-        Mage2\Attribute\Module::class,
-        Mage2\Cart\Module::class,
-        Mage2\Attribute\Module::class,
-        Mage2\Category\Module::class,
-        Mage2\Checkout\Module::class,
-        //Mage2\Feature\Module::class,
-        Mage2\Install\Module::class,
-        Mage2\Order\Module::class,
-        Mage2\OrderReturn\Module::class,
-        Mage2\Page\Module::class,
-        Mage2\Paypal\Module::class,
-        Mage2\Product\Module::class,
-        //Mage2\ProductInventory\Module::class,
-        Mage2\RelatedProduct\Module::class,
-        Mage2\Review\Module::class,
-        Mage2\GiftCoupon\Module::class,
-        Mage2\Dashboard\Module::class,
-        Mage2\TaxClass\Module::class,
-        Mage2\User\Module::class,
-        Mage2\UserAuth\Module::class,
-        Mage2\UserRole\Module::class,
-        Mage2\UserVisitor\Module::class,
-        Mage2\Wishlist\Module::class,
-
-        //Mage2\ContactUs\Module::class,
-        Mage2\FreeShipping\Module::class,
-        Mage2\Pickup\Module::class,
-
-
-        //Mage2\HelloWorld\Module::class,
-        //Laravel\Passport\PassportServiceProvider::class,
-        Mage2\Framework\Mage2ServiceProvider::class,
-        Mage2\Framework\Attribute\AttributeServiceProvider::class,
-
     ],
     /*
       |--------------------------------------------------------------------------
@@ -240,22 +197,5 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Yaml' => Symfony\Component\Yaml\Yaml::class,
-
-
-        // MAGE2 FRAMEWORK FACADES
-        'Theme' => Mage2\Framework\Theme\Facades\Theme::class,
-        'DataGrid' => Mage2\Framework\DataGrid\Facades\DataGrid::class,
-        'AdminConfiguration' => Mage2\Framework\Configuration\Facades\AdminConfiguration::class,
-        'AdminMenu' => Mage2\Framework\AdminMenu\Facades\AdminMenu::class,
-        'Form' => Mage2\Framework\Form\Facades\FormFacade::class,
-        'Payment' => Mage2\Framework\Payment\Facades\Payment::class,
-        'Permission' => Mage2\Framework\Auth\Facades\Permission::class,
-        //'Module' => Mage2\Framework\Module\Facades\Module::class,
-        'Image' => Mage2\Framework\Image\Facades\Image::class,
-        'Search' => Mage2\Framework\Search\Facades\Search::class,
-        'Tabs' => Mage2\Framework\Tabs\Facades\Tabs::class,
-        'Attributes' => Mage2\Framework\Attribute\Facades\Attributes::class,
     ],
 ];

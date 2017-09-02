@@ -18,13 +18,8 @@
   "require": {
     "php": ">=7.0.0",
     "laravel/framework": "5.5.*",
-    "symfony/yaml": "^3.3",
     "mage2/framework": "dev-master",
-    "mage2/module-installer": "dev-master",
-    "guzzlehttp/guzzle": "^6.2",
-    "paypal/rest-api-sdk-php": "1.3.0",
     "fabpot/goutte": "^3.2"
-
   },
   "require-dev": {
     "filp/whoops": "~2.0",
