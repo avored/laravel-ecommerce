@@ -3,7 +3,9 @@
 <div class="form-group {{ $errors->has('star') ? ' has-error' : '' }}">
     <p>Please Select Rating</p>
 
+    <div class="col-12">
     <div id="rating123"></div>
+    </div>
     <input type="hidden" name="star" id="rating" value=""/>
     @if ($errors->has('star'))
         <p>
@@ -30,7 +32,7 @@
 @push('scripts')
 <script>
     $(function () {
-        jQuery("#rating").rating();
+        jQuery("#rating").rating({filledStar : '<i class="oi oi-star"></i>' , emptyStar : '<i class="oi oi-star"></i>'});
     })
 </script>
 @endpush
