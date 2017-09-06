@@ -1,4 +1,4 @@
 +* text=auto
 +*.css linguist-vendored
 +*.scss linguist-vendored
-+*.blade.php linguist-language=PHP
++themes/* linguist-vendored
