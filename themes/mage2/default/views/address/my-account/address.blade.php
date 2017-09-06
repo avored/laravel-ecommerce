@@ -1,27 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="container">
     <div class="row profile">
         <div class="col-2">
             @include('user.my-account.sidebar')
         </div>
 
         <div class="col-10">
-            <div class="main-title-wrap">
-                <span class="title">Addresses</span>
+            <div class="main-title-wrap mb-3">
+                <span class="h1">Addresses</span>
 
-                <div class="float-right">
+                <div class="float-right mr-3">
                     <a class="btn btn-primary" href="{{ route('my-account.address.create')}}">Create Address</a>
                 </div>
-                <span class="clearfix"></span><br/><br/>
+
             </div>
             @if(count($addresses) <= 0)
                 <p>Sorry No Address Found</p>
             @else
+                <div class="row">
                 @foreach($addresses as $address)
-                    <div class="col-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
+
+                    <div class="col-6 mb-3">
+                        <div class="card">
+                            <div class="card-header">
                                 @if($address->type == "SHIPPING")
                                     <span>Shipping Address</span>
                                 @else
@@ -32,7 +35,7 @@
                         </span>
 
                             </div>
-                            <div class="panel-body ">
+                            <div class="card-body ">
                                 <table class="table table-responsive">
                                     <tbody>
                                     <tr>
@@ -76,9 +79,11 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
 
+                @endforeach
+                </div>
             @endif
         </div>
+    </div>
     </div>
 @endsection

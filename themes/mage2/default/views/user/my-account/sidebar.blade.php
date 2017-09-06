@@ -1,63 +1,47 @@
 <div class="profile-sidebar">
 
-    <div class="profile-userpic">
 
-        @if($user->image_path == "")
-            <img src="http://placehold.it/250x250" class="img-responsive img-thumbnail" alt="">
-        @else
-            <img src="{{ $user->image_path->smallUrl }}" class="img-responsive img-thumbnail" alt="">
-        @endif
-    </div>
-    <div class="text-center">
-        <div class="profile-usertitle-name">
-            <strong>{{ $user->fullName }}</strong>
-        </div>
-
-    </div>
 
     <div class="profile-usermenu">
-        <ul class="collection nav nav-stacked nav-pills">
-            <li class="nav-item">
-                <a href="{{ route('my-account.home') }}" class="nav-link nav-link">
-
-                    Overview </a>
+        <ul class="collection list-group">
+            <li class="list-group-item">
+            @if($user->image_path == "")
+                <img src="http://placehold.it/250x250" class="img-responsive img-thumbnail" alt="">
+                    <strong class="text-center">{{ $user->fullName }}</strong>
+            @else
+                <img src="{{ $user->image_path->smallUrl }}" class="img-responsive img-thumbnail" alt="">
+                    <strong class="text-center">{{ $user->fullName }}</strong>
+            @endif
             </li>
-            <li class="nav-item">
-                <a href="{{ route('my-account.edit') }}" class="nav-link">
 
-                    Edit Account</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('my-account.upload-image') }}" class="nav-link">
+            <a href="{{ route('my-account.home') }}" class="list-group-item list-group-item-action">
 
-                    Upload Image</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('my-account.order.list') }}" class="nav-link">
+                Overview </a>
 
-                    My Order</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('my-account.address.index') }}" class="nav-link">
+            <a href="{{ route('my-account.edit') }}" class="list-group-item list-group-item-action">
 
-                    Address </a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('wishlist.list') }}" class="nav-link">
+                Edit Account</a>
 
-                    My Wishlist</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('my-account.change-password') }}" class="nav-link">
 
-                    Change Password</a>
-            </li>
-            <li class="nav-item">
-                <a href="{{ route('logout') }}" class="nav-link">
+            <a href="{{ route('my-account.upload-image') }}" class="list-group-item list-group-item-action">
 
-                    Logout </a>
+                Upload Image</a>
+            <a href="{{ route('my-account.order.list') }}" class="list-group-item list-group-item-action">
 
-            </li>
+                My Order</a>
+            <a href="{{ route('my-account.address.index') }}" class="list-group-item list-group-item-action">
+
+                Address </a>
+            <a href="{{ route('wishlist.list') }}" class="list-group-item list-group-item-action">
+
+                My Wishlist</a>
+            <a href="{{ route('my-account.change-password') }}" class="list-group-item list-group-item-action">
+
+                Change Password</a>
+            <a href="{{ route('logout') }}" class="list-group-item list-group-item-action">
+
+                Logout </a>
+
 
         </ul>
     </div>
