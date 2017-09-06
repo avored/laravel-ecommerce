@@ -1,4 +1,4 @@
 +* text=auto
 +*.css linguist-vendored
 +*.scss linguist-vendored
-+themes/* linguist-vendored
+themes/* linguist-vendored
