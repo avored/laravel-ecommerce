@@ -104,19 +104,19 @@
                                     ?>
 
                                     @if(NULL === $address)
-                                        <div class="form-group  col-12">
+                                        <div class="form-group">
                                             <label class="control-label" for="input-billing-address-1">Address 1</label>
                                             <input type="text" name="billing[address1]" value="" placeholder="Address 1"
                                                    id="input-billing-address-1" class="form-control">
                                         </div>
 
-                                        <div class="form-group col-12">
+                                        <div class="form-group">
                                             <label class="control-label" for="input-billing-address-2">Address 2</label>
                                             <input type="text" name="billing[address2]" value="" placeholder="Address 2"
                                                    id="input-billing-address-2" class="form-control">
                                         </div>
 
-                                        <div class="form-group  col-6">
+                                        <div class="form-group">
                                             <label for="country">Country</label>
                                             <select name="billing[country_id]" data-name="country_id"
                                                     class="billing-country form-control billing tax-calculation">
@@ -133,22 +133,25 @@
                                             @endif
                                         </div>
 
-                                        <div class="form-group col-6">
-                                            <label class="control-label" for="input-billing-zone">Region / State</label>
-                                            <input type="text" name="billing[state]" data-name="state_code"
-                                                   id="input-billing-zone"
-                                                   class="billing tax-calculation form-control"/>
+                                        <div class="row">
+                                            <div class="form-group col-6">
+                                                <label class="control-label" for="input-billing-zone">Region /
+                                                    State</label>
+                                                <input type="text" name="billing[state]" data-name="state_code"
+                                                       id="input-billing-zone"
+                                                       class="billing tax-calculation form-control"/>
+                                            </div>
+
+
+                                            <div class="form-group  col-6">
+                                                <label class="control-label" for="input-billing-city">City</label>
+                                                <input type="text" data-name="city" name="billing[city]"
+                                                       placeholder="City"
+                                                       id="input-billing-city"
+                                                       class="billing tax-calculation form-control">
+                                            </div>
                                         </div>
-
-
-                                        <div class="form-group  col-6">
-                                            <label class="control-label" for="input-billing-city">City</label>
-                                            <input type="text" data-name="city" name="billing[city]" placeholder="City"
-                                                   id="input-billing-city"
-                                                   class="billing tax-calculation form-control">
-                                        </div>
-
-                                        <div class="form-group col-6">
+                                        <div class="form-group">
                                             <label class="control-label" for="input-billing-postcode">Post Code</label>
                                             <input type="text" data-name="postcode" name="billing[postcode]" value=""
                                                    placeholder="Post Code"
@@ -185,8 +188,8 @@
                                         <label>
                                             <input type="checkbox" name="use_different_shipping_address"
                                                    onclick="if (this.checked == true){
-                                                            jQuery('.different-shipping-form').slideDown('slow');
-                                                            } else  { jQuery('.different-shipping-form').slideUp('slow'); }
+                                                            jQuery('.different-shipping-form').css('display','block');
+                                                            } else  { jQuery('.different-shipping-form').css('display','none'); }
                                                         ">&nbsp;Use Different Address for Shipping
                                             Account</label>
                                     </div>
@@ -197,32 +200,36 @@
                                 <div class="different-shipping-form" style="display:none">
 
 
-                                    <div class="form-group  col-6">
-                                        <label class="control-label" for="input-billing-firstname">First Name</label>
-                                        <input type="text" name="shipping[first_name]"
-                                               value="" placeholder="First Name"
-                                               id="input-billing-firstname" class="form-control">
-                                    </div>
-                                    <div class="form-group  col-6">
-                                        <label class="control-label" for="input-billing-lastname">Last Name</label>
-                                        <input type="text" name="shipping[last_name]"
-                                               value="" placeholder="Last Name"
-                                               id="input-billing-lastname" class="form-control">
+                                    <div class="row">
+                                        <div class="form-group  col-6">
+                                            <label class="control-label" for="input-billing-firstname">First
+                                                Name</label>
+                                            <input type="text" name="shipping[first_name]"
+                                                   value="" placeholder="First Name"
+                                                   id="input-billing-firstname" class="form-control">
+                                        </div>
+                                        <div class="form-group  col-6">
+                                            <label class="control-label" for="input-billing-lastname">Last Name</label>
+                                            <input type="text" name="shipping[last_name]"
+                                                   value="" placeholder="Last Name"
+                                                   id="input-billing-lastname" class="form-control">
+                                        </div>
                                     </div>
 
-                                    <div class="form-group  col-12">
+
+                                    <div class="form-group">
                                         <label class="control-label" for="input-billing-address-1">Address 1</label>
                                         <input type="text" name="shipping[address1]" value="" placeholder="Address 1"
                                                id="input-billing-address-1" class="form-control">
                                     </div>
 
-                                    <div class="form-group col-12">
+                                    <div class="form-group">
                                         <label class="control-label" for="input-billing-address-2">Address 2</label>
                                         <input type="text" name="shipping[address2]" value="" placeholder="Address 2"
                                                id="input-billing-address-2" class="form-control">
                                     </div>
 
-                                    <div class="form-group  col-6">
+                                    <div class="form-group">
                                         <label for="country">Country</label>
                                         <select name="shipping[country_id]" data-name="country_id"
                                                 class="shipping tax-calculation form-control">
@@ -234,38 +241,42 @@
 
                                         @if ($errors->has('country'))
                                             <span class="help-block">
-                                <strong>{{ $errors->first('country') }}</strong>
-                            </span>
+                                                <strong>{{ $errors->first('country') }}</strong>
+                                            </span>
                                         @endif
                                     </div>
 
-                                    <div class="form-group col-6">
-                                        <label class="control-label" for="input-billing-zone">Region / State</label>
-                                        <input type="text" data-name="state_code" name="shipping[state]"
-                                               id="input-billing-zone"
-                                               class="shipping tax-calculation form-control"/>
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label class="control-label" for="input-billing-zone">Region / State</label>
+                                            <input type="text" data-name="state_code" name="shipping[state]"
+                                                   id="input-billing-zone"
+                                                   class="shipping tax-calculation form-control"/>
+                                        </div>
+
+
+                                        <div class="form-group  col-6">
+                                            <label class="control-label" for="input-billing-city">City</label>
+                                            <input type="text" data-name="city" name="shipping[city]" placeholder="City"
+                                                   id="input-billing-city"
+                                                   class="shipping tax-calculation  form-control">
+                                        </div>
                                     </div>
 
+                                    <div class="row">
+                                        <div class="form-group col-6">
+                                            <label class="control-label" for="input-billing-postcode">Post Code</label>
+                                            <input type="text" data-name="postcode" name="shipping[postcode]" value=""
+                                                   placeholder="Post Code"
+                                                   id="input-billing-postcode"
+                                                   class="shipping tax-calculation  form-control">
+                                        </div>
 
-                                    <div class="form-group  col-6">
-                                        <label class="control-label" for="input-billing-city">City</label>
-                                        <input type="text" data-name="city" name="shipping[city]" placeholder="City"
-                                               id="input-billing-city"
-                                               class="shipping tax-calculation  form-control">
-                                    </div>
-
-                                    <div class="form-group col-6">
-                                        <label class="control-label" for="input-billing-postcode">Post Code</label>
-                                        <input type="text" data-name="postcode" name="shipping[postcode]" value=""
-                                               placeholder="Post Code"
-                                               id="input-billing-postcode"
-                                               class="shipping tax-calculation  form-control">
-                                    </div>
-
-                                    <div class="form-group   col-6">
-                                        <label class="control-label" for="input-billing-phone">Phone</label>
-                                        <input type="text" name="shipping[phone]" value="" placeholder="Phone"
-                                               id="input-billing-phone" class="form-control">
+                                        <div class="form-group   col-6">
+                                            <label class="control-label" for="input-billing-phone">Phone</label>
+                                            <input type="text" name="shipping[phone]" value="" placeholder="Phone"
+                                                   id="input-billing-phone" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
