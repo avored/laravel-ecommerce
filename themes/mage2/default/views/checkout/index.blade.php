@@ -30,24 +30,24 @@
 
                                 <div class="row">
                                     <div class="form-group  col-6">
-                                        <label class="control-label" for="input-billing-firstname">First Name</label>
+                                        <label class="control-label" for="input-user-first-name">First Name</label>
                                         <input type="text" name="billing[first_name]"
                                                value="{{ $firstName }}" placeholder="First Name"
-                                               id="input-billing-firstname" class="form-control">
+                                               id="input-user-first-name" class="form-control">
                                     </div>
                                     <div class="form-group  col-6">
-                                        <label class="control-label" for="input-billing-lastname">Last Name</label>
+                                        <label class="control-label" for="input-user-last-name">Last Name</label>
                                         <input type="text" name="billing[last_name]"
                                                value="{{ $lastName }}" placeholder="Last Name"
-                                               id="input-billing-lastname" class="form-control">
+                                               id="input-user-last-name" class="form-control">
                                     </div>
                                 </div>
                                 @if(!Auth::check())
 
                                     <div class="form-group">
-                                        <label class="control-label" for="input-billing-email">E-Mail</label>
+                                        <label class="control-label" for="input-user-email">E-Mail</label>
                                         <input type="text" name="user[email]" placeholder="E-Mail"
-                                               id="input-billing-email"
+                                               id="input-user-email"
                                                class="form-control">
                                     </div>
 
@@ -320,7 +320,38 @@
                                 @endforeach
                             </div>
                         </div>
-                        <div class="card">
+
+                        <div class="card mb-3">
+                            <div class="card-header">Payment Options</div>
+                            <div class="card-body payment-method">
+
+                                <p>Please select the preferred payment method to use on this
+                                    order.</p>
+
+                                @foreach($paymentOptions as $paymentOption)
+
+
+                                    @if(true === $paymentOption->isEnabled())
+
+                                        <div class="form-group {{ $errors->has('payment_option') ? ' has-error' : '' }}">
+
+                                            {!! Form::radio('payment_option',$paymentOption->getTitle(),$paymentOption->getIdentifier(),['id' => $paymentOption->getIdentifier()]) !!}
+
+
+                                            @if ($errors->has('payment_option'))
+                                                <span class="help-block">
+                                            <strong>{{ $errors->first('payment_option') }}</strong>
+                                        </span>
+                                            @endif
+                                        </div>
+
+                                    @endif
+
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <div class="card mb-3">
                             <div class="card-header">Shopping Cart</div>
                             <div class="card-body">
                                 <table id="cart_table" class="table table-bordered table-hover table-responsive">
@@ -399,37 +430,9 @@
                             </div>
                         </div>
 
-                        <div class="card mt-3">
-                            <div class="card-header">Payment Options</div>
-                            <div class="card-body payment-method">
-
-                                <p>Please select the preferred payment method to use on this
-                                    order.</p>
-
-                                @foreach($paymentOptions as $paymentOption)
 
 
-                                    @if(true === $paymentOption->isEnabled())
-
-                                        <div class="form-group {{ $errors->has('payment_option') ? ' has-error' : '' }}">
-
-                                            {!! Form::radio('payment_option',$paymentOption->getTitle(),$paymentOption->getIdentifier(),['id' => $paymentOption->getIdentifier()]) !!}
-
-
-                                            @if ($errors->has('payment_option'))
-                                                <span class="help-block">
-                                            <strong>{{ $errors->first('payment_option') }}</strong>
-                                        </span>
-                                            @endif
-                                        </div>
-
-                                    @endif
-
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="card mt-3">
+                        <div class="card mb-3">
                             <div class="card-header">
                                 Your Comment
                             </div>
@@ -472,7 +475,7 @@
 @push('scripts')
 <script>
 
-    jQuery(document).ready(function () {
+    $(function () {
 
         function calcualateTotal() {
             subTotal = parseFloat(jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
@@ -486,20 +489,40 @@
 
         }
 
-        jQuery('.tax-calculation').change(function (e) {
-            e.preventDefault();
 
+        function checkIfUserExist(data) {
+            $.post({
+                url : "/check-user-exists",
+                data : data,
+                type: 'json',
+                success:function(res) {
+                    console.info(res);
+                }
+            });
+        }
+
+        jQuery(document).on('change','#input-user-email',function(e) {
+            var data = {
+                'email': jQuery(this).val(),
+                '_token': '{{ csrf_token()  }}'
+            };
+
+            checkIfUserExist(data);
+
+        });
+
+        /**
+        jQu`ry('.tax-calculation').change(function () {
             var data = {
                 'name': jQuery(this).attr('data-name'),
                 'value': jQuery(this).val(),
                 '_token': '{{ csrf_token()  }}'
             };
 
-            jQuery.ajax({
+            $.post({
                 data: data,
                 type: 'json',
                 url: '{{ route("tax.calculation") }}',
-                method: "POST",
                 success: function (res) {
                     if ((res.success == true)) {
                         jQuery('.tax-amount').html(res.tax_amount_text);
@@ -509,7 +532,7 @@
                 }
             });
         });
-
+         */
         jQuery('.shipping_option_radio').change(function (e) {
 
             if (jQuery(this).is(':checked')) {
@@ -531,7 +554,7 @@
 
         jQuery('#place-order-button').click(function (e) {
             jQuery('#place-order-form').submit();
-        })
+        });
     });
 </script>
 @endpush
