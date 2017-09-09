@@ -19,7 +19,7 @@
                     </div>
 
                 @endforeach
-                {!!  $products->links() !!}
+                {!!  $products->links('pagination.bootstrap-4') !!}
                 </div>
             @endif
         </div>

@@ -23,7 +23,7 @@
 
                 @endforeach
                 <div class="clearfix"></div>
-                {!!  $products->links() !!}
+                {!!  $products->links('pagination.bootstrap-4') !!}
             @endif
             </div>
         </div>
