@@ -20,7 +20,8 @@
     "laravel/framework": "5.5.*",
     "mage2/framework": "dev-master",
     "fabpot/goutte": "^3.2",
-    "mage2/install": "dev-master"
+    "mage2/module-installer": "dev-master"
+
 
   },
   "require-dev": {
