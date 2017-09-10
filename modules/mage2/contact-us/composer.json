@@ -1,6 +1,6 @@
 {
     "name": "mage2/contact-us",
-    "description": "Mage2 Laravel 5 E commerce Contact US Module",
+    "description": "Mage2 Laravel E commerce - Contact Us Module",
     "keywords": ["framework", "contact us" ,"cart","laravel","e commerce","laravel5","shop","shopping-cart","e-commerce","shopping cart","e commerce"],
     "license": "GPL-3.0",
     "authors": [
@@ -10,13 +10,17 @@
         }
     ],
     "minimum-stability": "dev",
-     "type": "mage2-module",
-    "require": {
-        "php": ">=5.6.4"
-    },
+    "type": "mage2-module",
     "autoload": {
         "psr-4": {
             "Mage2\\ContactUs\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel" : {
+            "providers": [
+                "Mage2\\ContactUs\\Module"
+            ]
         }
     }
 }
