@@ -22,43 +22,31 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Ecommerce;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-class Provider extends ServiceProvider
+class Mage2EcommerceSchema extends Migration
 {
 
-
     /**
-     * Bootstrap any application services.
+     * Install the Mage2 Address Module Schema.
      *
      * @return void
      */
-    public function boot()
-    {
-
-        $this->registerResources();
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    public function up()
     {
 
     }
 
-
-
-    protected function registerResources() {
-
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'mage2-ecommerce');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'mage2-ecommerce');
+    /**
+     * Uninstall the Mage2 Address Module Schema.
+     *
+     * @return void
+     */
+    public function down()
+    {
     }
 
 }

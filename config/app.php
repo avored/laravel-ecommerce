@@ -149,6 +149,7 @@ return [
          */
 
         Mage2\Install\Module::class,
+        Mage2\Ecommerce\Provider::class,
 
 
         /*

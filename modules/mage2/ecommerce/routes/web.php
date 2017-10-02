@@ -22,43 +22,25 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Ecommerce;
-
-use Illuminate\Support\ServiceProvider;
-
-class Provider extends ServiceProvider
-{
 
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-
-        $this->registerResources();
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-
-    }
+/*
+  |--------------------------------------------------------------------------
+  | Mage2 E commerce Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register all of the routes for an mage2 user modules.
+  | It's a breeze. Simply tell mage2 user module the URI it should respond to
+  | and give it the controller to call when that URI is requested.
+  |
+ */
 
 
 
-    protected function registerResources() {
+Route::prefix('admin')
+    ->middleware(['web'])
+    ->namespace('Mage2\\Ecommerce\\Http\\Controllers\\Admin')
+    ->group(function() {
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'mage2-ecommerce');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'mage2-ecommerce');
-    }
-
-}
+        Route::get('/login','LoginController@loginForm')->name('admin.login');
+    });

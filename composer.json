@@ -17,12 +17,10 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=7.0.0",
+    "fabpot/goutte": "^3.2",
     "laravel/framework": "5.5.*",
     "mage2/framework": "dev-master",
-    "fabpot/goutte": "^3.2",
     "mage2/module-installer": "dev-master"
-
-
   },
   "require-dev": {
     "filp/whoops": "~2.0",
@@ -34,10 +32,13 @@
   "autoload": {
     "classmap": [
       "database/seeds",
-      "database/factories"
+      "database/factories",
+      "packages/mage2/install/database/seeds"
     ],
     "psr-4": {
-      "App\\": "app/"
+      "App\\": "app/",
+      "Mage2\\Ecommerce\\": "modules/mage2/ecommerce/src"
+
     }
   },
   "autoload-dev": {
