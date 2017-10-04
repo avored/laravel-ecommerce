@@ -24,16 +24,9 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-use Mage2\Framework\Image\LocalImageFile;
-use Mage2\Order\Models\Order;
 use Mage2\Attribute\Models\ProductAttribute;
-use Mage2\TaxClass\Models\TaxRule;
-use Mage2\Dashboard\Models\Configuration;
 use Mage2\Attribute\Models\ProductVariation;
 use Mage2\Attribute\Models\ProductVarcharValue;
-use Mage2\Framework\System\Models\BaseModel;
-use Mage2\Review\Models\Review;
-use Mage2\RelatedProduct\Models\RelatedProduct;
 use Mage2\User\Models\User;
 
 class UserViewedProduct extends BaseModel

@@ -25,12 +25,10 @@
 namespace Mage2\Ecommerce\Models\Database;
 
 use Mage2\ProductInventory\Models\Storage;
-use Mage2\Framework\Image\LocalImageFile;
-use Mage2\Order\Models\Order;
+use Mage2\Ecommerce\Image\LocalImageFile;
 use Mage2\Attribute\Models\ProductAttribute;
 use Mage2\TaxClass\Models\TaxRule;
 use Illuminate\Support\Collection;
-use Mage2\Ecommerce\Models\Database\Category;
 use Mage2\Dashboard\Models\Configuration;
 use Mage2\Attribute\Models\ProductVariation;
 use Mage2\Attribute\Models\ProductVarcharValue;
@@ -76,7 +74,7 @@ class Product extends BaseModel
      * Return Product model by Product Slug
      *
      * @param $slug
-     * return \Mage2\Framework\Database\Models\Product $product
+     * return \Mage2\Ecommerce\Models\Database\Product $product
      */
     public static function getProductBySlug($slug)
     {
@@ -152,7 +150,7 @@ class Product extends BaseModel
     /**
      * return default Image or LocalImageFile Object
      *
-     * @return string|\Mage2\Framework\Image\LocalImageFile
+     * @return \Mage2\Ecommerce\Image\LocalFile
      */
     public function getImageAttribute()
     {

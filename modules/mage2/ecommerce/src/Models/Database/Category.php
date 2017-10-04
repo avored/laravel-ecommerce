@@ -25,10 +25,8 @@
 namespace Mage2\Ecommerce\Models\Database;
 
 use Illuminate\Support\Collection;
-use Mage2\Framework\System\Models\BaseModel;
 use Mage2\Attribute\Models\ProductVarcharValue;
 use Mage2\Attribute\Models\Attribute;
-
 
 class Category extends BaseModel
 {

@@ -24,8 +24,7 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-use Mage2\Framework\Image\LocalImageFile;
-use Mage2\Framework\System\Models\BaseModel;
+use Mage2\Ecommerce\Image\LocalFile;
 
 class ProductImage extends BaseModel
 {
@@ -43,7 +42,7 @@ class ProductImage extends BaseModel
         if (null === $this->attributes['path'] || empty($this->attributes['path'])) {
             return NULL;
         }
-        $localImage = new LocalImageFile($this->attributes['path']);
+        $localImage = new LocalFile($this->attributes['path']);
 
         return $localImage;
     }

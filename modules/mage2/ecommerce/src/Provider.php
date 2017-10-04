@@ -32,7 +32,8 @@ use Mage2\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
 use Illuminate\Support\Facades\View;
 use Mage2\Ecommerce\Http\ViewComposers\AdminNavComposer;
 use Illuminate\Support\Facades\App;
-
+use Mage2\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
+use Mage2\Attribute\ViewComposers\ProductFieldComposer;
 
 class Provider extends ServiceProvider
 {
@@ -40,7 +41,8 @@ class Provider extends ServiceProvider
 
     protected $providers = [
         'Mage2\Ecommerce\AdminMenu\Provider',
-        'Mage2\Ecommerce\DataGrid\Provider'
+        'Mage2\Ecommerce\DataGrid\Provider',
+        'Mage2\Ecommerce\Image\Provider'
     ];
 
 
@@ -110,6 +112,11 @@ class Provider extends ServiceProvider
     public function registerViewComposerData()
     {
         View::composer('mage2-ecommerce::admin.layouts.left-nav',AdminNavComposer::class);
+        View::composer(['mage2-ecommerce::admin.category._fields'], CategoryFieldsComposer::class);
+        View::composer(['mage2-ecommerce::admin.product.create',
+                        'mage2-ecommerce::admin.product.edit'], ProductFieldsComposer::class);
+
+        View::composer('checkout.index',CheckoutComposer::class);
     }
 
     /**
