@@ -39,7 +39,8 @@ class Provider extends ServiceProvider
 
 
     protected $providers = [
-        'Mage2\Ecommerce\AdminMenu\Provider'
+        'Mage2\Ecommerce\AdminMenu\Provider',
+        'Mage2\Ecommerce\DataGrid\Provider'
     ];
 
 

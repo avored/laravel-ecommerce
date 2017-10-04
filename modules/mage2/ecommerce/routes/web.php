@@ -39,7 +39,7 @@
 Route::middleware(['web'])
     ->prefix('admin')
     ->namespace('Mage2\Ecommerce\Http\Controllers\Admin')
-    ->group(function() {
+    ->group(function () {
 
         Route::get('login', ['as' => 'admin.login', 'uses' => 'LoginController@loginForm']);
         Route::post('login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
@@ -54,15 +54,24 @@ Route::middleware(['web'])
         Route::get('/password/reset', ['as' => 'admin.password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
 
 
-
-
     });
 
 
 Route::middleware(['web', 'admin.auth'])
     ->prefix('admin')
     ->namespace('Mage2\Ecommerce\Http\Controllers\Admin')
-    ->group(function() {
+    ->group(function () {
 
         Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
+
+
+        Route::resource('/product', 'ProductController', ['as' => 'admin']);
+        Route::resource('/category', 'CategoryController', ['as' => 'admin']);
+
+        Route::post('/product-image/upload', ['as' => 'admin.product.upload-image',
+            'uses' => 'ProductController@uploadImage']);
+        Route::post('/product-image/delete', ['as' => 'admin.product.delete-image',
+            'uses' => 'ProductController@deleteImage']);
+
+        Route::get('/checkout', ['as' => 'checkout.index', 'uses' => 'CheckoutController@index']);
     });

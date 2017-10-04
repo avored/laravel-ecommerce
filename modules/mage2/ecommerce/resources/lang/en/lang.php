@@ -21,5 +21,14 @@ return [
 
 
     'admin-dashboard-total-user-title' => 'Total User',
-    'admin-dashboard-total-order-title' => 'Total Orders'
+    'admin-dashboard-total-order-title' => 'Total Orders',
+
+
+
+    'category.index.title' => 'Category List',
+    'category.index.create' => 'Create Category',
+
+    "product.index.title" => "Product List",
+    "product.create.text" => "Create Product",
+    
 ];
