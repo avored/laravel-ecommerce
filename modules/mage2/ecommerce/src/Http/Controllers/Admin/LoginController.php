@@ -27,7 +27,7 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Mage2\Framework\System\Controllers\AdminController;
+use App\Http\Controllers\AdminController;
 
 class LoginController extends AdminController
 {
@@ -58,8 +58,7 @@ class LoginController extends AdminController
      */
     public function __construct()
     {
-        //$this->middleware('adminguest', ['except' => 'logout']);
-        //parent::__construct();
+        $this->middleware('admin.guest', ['except' => 'logout']);
     }
 
     public function loginForm()

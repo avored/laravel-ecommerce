@@ -25,9 +25,22 @@
 namespace Mage2\Ecommerce;
 
 use Illuminate\Support\ServiceProvider;
+use Mage2\Ecommerce\Http\Middleware\AdminAuth;
+use Mage2\Ecommerce\Http\Middleware\AdminApiAuth;
+use Mage2\Ecommerce\Http\Middleware\Visitor;
+use Mage2\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
+use Illuminate\Support\Facades\View;
+use Mage2\Ecommerce\Http\ViewComposers\AdminNavComposer;
+use Illuminate\Support\Facades\App;
+
 
 class Provider extends ServiceProvider
 {
+
+
+    protected $providers = [
+        'Mage2\Ecommerce\AdminMenu\Provider'
+    ];
 
 
     /**
@@ -37,8 +50,10 @@ class Provider extends ServiceProvider
      */
     public function boot()
     {
-
+        $this->registerMiddleware();
         $this->registerResources();
+        $this->registerViewComposerData();
+
     }
 
     /**
@@ -48,17 +63,64 @@ class Provider extends ServiceProvider
      */
     public function register()
     {
+        $this->registerProviders();
 
     }
 
 
-
+    /**
+     * Registering Mage2 E commerce Resource
+     * e.g. Route, View, Database path & Translation
+     *
+     * @return void
+     */
     protected function registerResources() {
 
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        //Route::middleware(['web'])->group();
+
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'mage2-ecommerce');
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'mage2-ecommerce');
     }
 
+    /**
+     * Registering Mage2 E commerce Middleware
+     *
+     * @return void
+     */
+    protected function registerMiddleware() {
+        $router = $this->app['router'];
+
+
+        $router->aliasMiddleware('admin.api.auth', AdminApiAuth::class);
+        $router->aliasMiddleware('admin.auth', AdminAuth::class);
+        $router->aliasMiddleware('admin.guest', RedirectIfAdminAuth::class);
+        $router->aliasMiddleware('front.auth', FrontAuth::class);
+        $router->aliasMiddleware('front.guest', RedirectIfFrontAuth::class);
+        $router->aliasMiddleware('visitor', Visitor::class);
+    }
+
+    /**
+     * Registering Class Based View Composer
+     *
+     * @return void
+     */
+    public function registerViewComposerData()
+    {
+        View::composer('mage2-ecommerce::admin.layouts.left-nav',AdminNavComposer::class);
+    }
+
+    /**
+     * Registering Mage2 E commerce Services
+     * e.g Admin Menu
+     *
+     * @return void
+     */
+    protected function registerProviders() {
+
+        foreach($this->providers as $provider) {
+            App::register($provider);
+        }
+    }
 }

@@ -149,7 +149,7 @@ return [
          */
 
         Mage2\Install\Module::class,
-        Mage2\Ecommerce\Provider::class,
+        //Mage2\Ecommerce\Provider::class,
 
 
         /*
@@ -198,6 +198,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+        //'AdminMenu' => Mage2\Ecommerce\AdminMenu\Facade::class,
 
     ],
 ];

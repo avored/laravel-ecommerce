@@ -13,4 +13,13 @@ return [
     |
     */
 
+    'admin-login-card-title' => 'Mage2 Admin Login',
+    'admin-login-forget-password-link' => 'Forgot your Password?',
+    'admin-login-button-title' => 'Login',
+    'admin-password-label' => 'Password',
+    'admin-email-label' => 'Email Address',
+
+
+    'admin-dashboard-total-user-title' => 'Total User',
+    'admin-dashboard-total-order-title' => 'Total Orders'
 ];

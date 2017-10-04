@@ -37,6 +37,112 @@ class Mage2EcommerceSchema extends Migration
      */
     public function up()
     {
+        Schema::create('admin_password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token')->index();
+            $table->timestamp('created_at');
+        });
+
+        Schema::create('admin_users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->tinyInteger('is_super_admin')->nullable();
+            $table->integer('role_id');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('language')->nullable()->default('en');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token')->index();
+            $table->timestamp('created_at');
+        });
+
+        Schema::create('users', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->string('image_path')->nullable();
+            $table->string('company_name')->nullable();
+            $table->string('phone')->nullable();
+            $table->enum('status', ['GUEST', 'LIVE'])->default('LIVE');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+
+        Schema::create('oauth_auth_codes', function (Blueprint $table) {
+            $table->string('id', 100)->primary();
+            $table->integer('user_id');
+            $table->integer('client_id');
+            $table->text('scopes')->nullable();
+            $table->boolean('revoked');
+            $table->dateTime('expires_at')->nullable();
+        });
+
+        Schema::create('oauth_access_tokens', function (Blueprint $table) {
+            $table->string('id', 100)->primary();
+            $table->integer('user_id')->index()->nullable();
+            $table->integer('client_id');
+            $table->string('name')->nullable();
+            $table->text('scopes')->nullable();
+            $table->boolean('revoked');
+            $table->timestamps();
+            $table->dateTime('expires_at')->nullable();
+        });
+
+        Schema::create('oauth_refresh_tokens', function (Blueprint $table) {
+            $table->string('id', 100)->primary();
+            $table->string('access_token_id', 100)->index();
+            $table->boolean('revoked');
+            $table->dateTime('expires_at')->nullable();
+        });
+
+        Schema::create('oauth_clients', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->index()->nullable();
+            $table->string('name');
+            $table->string('secret', 100);
+            $table->text('redirect');
+            $table->boolean('personal_access_client');
+            $table->boolean('password_client');
+            $table->boolean('revoked');
+            $table->timestamps();
+
+            //$table->foreign('user_id')->references('id')->on('admin_users')->onDelete('cascade');
+        });
+
+        Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('client_id')->index();
+            $table->timestamps();
+        });
+
+        Schema::table('user_viewed_products', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+
+        //addresses table foreign key setup
+        Schema::table('addresses', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
+        });
+
+        //reviews table foreign key setup
+        Schema::table('reviews', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+
+
+        //orders table foreign key setup
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('user_id')->references('id')->on('users');
+        });
 
     }
 
@@ -47,6 +153,18 @@ class Mage2EcommerceSchema extends Migration
      */
     public function down()
     {
+
+        Schema::drop('oauth_personal_access_clients');
+        Schema::drop('oauth_clients');
+        Schema::drop('oauth_refresh_tokens');
+        Schema::drop('oauth_access_tokens');
+        Schema::drop('oauth_auth_codes');
+
+        Schema::drop('admin_password_resets');
+        Schema::drop('admin_users');
+        Schema::drop('password_resets');
+        Schema::drop('users');
+
     }
 
 }

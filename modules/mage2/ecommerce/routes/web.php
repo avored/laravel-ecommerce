@@ -36,11 +36,33 @@
  */
 
 
-
-Route::prefix('admin')
-    ->middleware(['web'])
-    ->namespace('Mage2\\Ecommerce\\Http\\Controllers\\Admin')
+Route::middleware(['web'])
+    ->prefix('admin')
+    ->namespace('Mage2\Ecommerce\Http\Controllers\Admin')
     ->group(function() {
 
-        Route::get('/login','LoginController@loginForm')->name('admin.login');
+        Route::get('login', ['as' => 'admin.login', 'uses' => 'LoginController@loginForm']);
+        Route::post('login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
+
+        Route::get('/logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
+
+        Route::get('/password/reset/{token}', ['as' => 'admin.password.reset.token', 'uses' => 'ResetPasswordController@showResetForm']);
+        Route::post('/password/email', ['as' => 'admin.password.email.post', 'uses' => 'ForgotPasswordController@sendResetLinkEmail']);
+
+        Route::post('/password/reset', ['as' => 'admin.password.reset.token', 'uses' => 'ResetPasswordController@reset']);
+
+        Route::get('/password/reset', ['as' => 'admin.password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
+
+
+
+
+    });
+
+
+Route::middleware(['web', 'admin.auth'])
+    ->prefix('admin')
+    ->namespace('Mage2\Ecommerce\Http\Controllers\Admin')
+    ->group(function() {
+
+        Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
     });

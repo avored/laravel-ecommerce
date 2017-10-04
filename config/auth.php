@@ -43,12 +43,12 @@ return [
 
         'admin' => [
             'driver' => 'session',
-            'provider' => 'adminusers',
+            'provider' => 'admin-users',
         ],
 
         'api' => [
             'driver' => 'passport',
-            'provider' => 'adminusers',
+            'provider' => 'admin-users',
         ],
     ],
 
@@ -74,15 +74,10 @@ return [
             'driver' => 'eloquent',
             'model' => Mage2\User\Models\User::class,
         ],
-        'adminusers' => [
+        'admin-users' => [
             'driver' => 'eloquent',
-            'model' => Mage2\User\Models\AdminUser::class,
+            'model' => Mage2\Ecommerce\Models\Database\AdminUser::class,
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*
@@ -111,7 +106,7 @@ return [
             'expire' => 60,
         ],
         'adminusers' => [
-            'provider' => 'adminusers',
+            'provider' => 'admin.users',
             'table' => 'admin_password_resets',
             'expire' => 60,
         ],

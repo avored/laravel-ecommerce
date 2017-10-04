@@ -27,19 +27,26 @@
     <div class="row justify-content-center align-items-center" style="height: 100vh;" >
         <div class="col-8" style="max-width: 650px">
         <div class="card card-default">
-            <div class="card-header"><span>Mage2 Admin Login</span></div>
+            <div class="card-header">
+                {{ __('mage2-ecommerce::lang.admin-login-card-title') }}
+            </div>
             <div class="card-body" >
 
                 <form method="post" action="{{ route('admin.login') }}" >
                     {{ csrf_field() }}
 
-                    @include('mage2-ecommerce::forms.text',['name' => 'email','label' => 'Email Address'])
-                    @include('mage2-ecommerce::forms.password',['name' => 'password','label' => 'Password'])
+                    @include('mage2-ecommerce::forms.text',['name' => 'email','label' => __('mage2-ecommerce::lang.admin-email-label')])
+                    @include('mage2-ecommerce::forms.password',['name' => 'password','label' => __('mage2-ecommerce::lang.admin-password-label')])
 
                     <div class="form-group">
 
-                        <button type="submit" class="btn btn-primary">Login</button>
-                        <a href="{{ route('admin.password.reset') }}">Forgot your password?</a>
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('mage2-ecommerce::lang.admin-login-button-title') }}
+                        </button>
+
+                        <a href="{{ route('admin.password.reset') }}">
+                            {{ __('mage2-ecommerce::lang.admin-login-forget-password-link') }}
+                        </a>
                     </div>
 
                 </form>
