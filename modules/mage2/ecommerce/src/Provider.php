@@ -33,7 +33,7 @@ use Illuminate\Support\Facades\View;
 use Mage2\Ecommerce\Http\ViewComposers\AdminNavComposer;
 use Illuminate\Support\Facades\App;
 use Mage2\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
-use Mage2\Attribute\ViewComposers\ProductFieldComposer;
+use Mage2\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
 
 class Provider extends ServiceProvider
 {
@@ -42,7 +42,9 @@ class Provider extends ServiceProvider
     protected $providers = [
         'Mage2\Ecommerce\AdminMenu\Provider',
         'Mage2\Ecommerce\DataGrid\Provider',
-        'Mage2\Ecommerce\Image\Provider'
+        'Mage2\Ecommerce\Image\Provider',
+        'Mage2\Ecommerce\Attribute\Provider',
+        'Mage2\Ecommerce\Tabs\Provider'
     ];
 
 

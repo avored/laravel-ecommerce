@@ -10,10 +10,10 @@
         </div>
 
         <?php
-        $productCategories = $product->categories()->get()->pluck('id')->toArray();
+        $productCategories = $model->categories()->get()->pluck('id')->toArray();
         ?>
         <form id="product-save-form"
-              action="{{route('admin.product.update', $product->id)}}"
+              action="{{route('admin.product.update', $model->id)}}"
               enctype="multipart/form-data" method="post">
             {{ csrf_field() }}
             <input type="hidden" name="_method" value="put">

@@ -33,83 +33,49 @@
     </div>
 </div>
 
-{!! Form::textarea('description', 'Description',['class' => 'ckeditor']) !!}
+@include('mage2-ecommerce::forms.textarea',['name' => 'description','label' => 'Description',
+                                            'attributes' => ['class' => 'ckeditor','id' => 'description']])
 
 <div class="row">
-    @if($product->type == "VARIATION")
+    @if($model->type == "VARIATION")
     <div class="col-6">
-        {!! Form::text('price', 'Base Price') !!}
+        @include('mage2-ecommerce::forms.text',['name' => 'price','label' => 'Base Price'])
     </div>
     @else
         <div class="col-6">
-            {!! Form::text('price', 'Price') !!}
+            @include('mage2-ecommerce::forms.text',['name' => 'price','label' => 'Price'])
         </div>
     @endif
     <div class="col-6">
-        {!! Form::select('status', 'Status',['1' => 'Enabled','0' => 'Disabled']) !!}
+        @include('mage2-ecommerce::forms.select',['name' => 'status','label' => 'Status', 'options' => ['1' => 'Enabled','0' => 'Disabled']])
     </div>
 </div>
 
 
 <div class="row">
     <div class="col-6">
-        {!! Form::text('qty', 'Qty') !!}
+        @include('mage2-ecommerce::forms.text',['name' => 'qty','label' => 'Qty'])
     </div>
     <div class="col-6">
-        {!! Form::select('in_stock', 'In Stock',['1' => 'Enabled','0' => 'Disabled']) !!}
+        @include('mage2-ecommerce::forms.select',['name' => 'in_stock','label' => 'In Stock', 'options' => ['1' => 'Enabled','0' => 'Disabled']])
     </div>
 </div>
 
 <div class="row">
     <div class="col-6">
-        {!! Form::select('track_stock', 'Track Stock',['1' => 'Enabled','0' => 'Disabled']) !!}
+        @include('mage2-ecommerce::forms.select',['name' => 'track_stock','label' => 'Track Stock', 'options' => ['1' => 'Enabled','0' => 'Disabled']])
+
     </div>
     <div class="col-6">
-        {!! Form::select('is_taxable', 'Is Taxable',['1' => 'Enabled','0' => 'Disabled']) !!}
+        @include('mage2-ecommerce::forms.select',['name' => 'is_taxable','label' => 'Is taxable', 'options' => ['1' => 'Enabled','0' => 'Disabled']])
     </div>
 </div>
-
-
-
-
-
-
 
 @foreach(Attributes::all('basic-product') as $attribute)
     <?php
 
     ?>
     {!! $attribute->render() !!}
-    <?php
-
-    /**
-    dd();
-    $field = $attribute->get('field');
-    $fieldAttrString = "";
-    foreach ($field['attributes'] as $attrKey => $attrVal) {
-    $fieldAttrString .= $attrKey . "=" . "$attrVal ";
-    }
-
-    ($field['type'] == "select")
-
-
-    $fieldOptionString = "";
-    foreach ($field['options'] as $optionKey => $optionVal) {
-    $fieldOptionString .=  "<option value=" . $optionKey . ">" . "$optionVal " . "</option> ";
-    }
-
-
-    <div class="form-group">
-    <label for=""> $field['label'] }}</label>
-    <select  $fieldAttrString }}>
-    !$fieldOptionString  !!}
-    </select>
-    </div>
-     */
-
-    ?>
-
-
 @endforeach
 
 

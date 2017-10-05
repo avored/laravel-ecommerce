@@ -13,15 +13,12 @@ if(isset($attributes)) {
     if(!isset($attributes['id'])) {
         $attributes['id'] = $name;
     }
-    $attributes['value'] = $value;
 
 } else {
     $attributes['type'] = "text";
     $attributes['class'] = 'form-control';
     $attributes['id'] = $name;
     $attributes['name'] = $name;
-    $attributes['value'] = $value;
-
 }
 $attrString = "";
 
@@ -35,5 +32,6 @@ foreach($attributes as $attrKey => $attrValue) {
     @if(isset($label))
         <label for="{{ $name }}">{{ $label }}</label>
     @endif
-    <input {!! $attrString !!} />
+    <textarea {!! $attrString !!}>{{ $value }}</textarea>
+
 </div>

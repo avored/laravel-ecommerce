@@ -94,7 +94,7 @@ class CategoryController extends AdminController
     {
         $category = Category::findorfail($id);
 
-        return view('mage2-ecommerce::admin.category.edit')->with('category', $category);
+        return view('mage2-ecommerce::admin.category.edit')->with('model', $category);
     }
 
     /**

@@ -124,7 +124,7 @@ class ProductController extends AdminController
     {
         $product = Product::findorfail($id);
         return view('mage2-ecommerce::admin.product.edit')
-            ->with('product', $product);
+            ->with('model', $product);
     }
 
     /**

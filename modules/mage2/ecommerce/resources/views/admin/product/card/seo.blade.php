@@ -1,3 +1,8 @@
-{!! Form::text('page_title', 'Page Title') !!}
-{!! Form::textarea('page_description', 'Page Description') !!}
+
+
+
+@include('mage2-ecommerce::forms.text',['name' => 'page_title','label' => 'Page Title'])
+
+@include('mage2-ecommerce::forms.textarea',['name' => 'page_description','label' => 'Page Description'])
+
 

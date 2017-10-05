@@ -1,5 +1,6 @@
-{!! Form::file('file','Images',['class' => 'product-image-element form-control','data-token' => csrf_token()]) !!}
 
+<input type="file" class="product-image-element form-control" data-token="{{ csrf_token() }}"
+        >
 
 <div class="product-image-list">
 
