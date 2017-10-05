@@ -34,7 +34,7 @@ use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
-use Mage2\Framework\Database\Events\ProductSavedEvent;
+use Mage2\Ecommerce\Events\ProductSavedEvent;
 
 class ProductController extends AdminController
 {

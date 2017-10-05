@@ -25,11 +25,9 @@
 namespace Mage2\Ecommerce\Models\Database;
 
 use Mage2\ProductInventory\Models\Storage;
-use Mage2\Ecommerce\Image\LocalImageFile;
+use Mage2\Ecommerce\Image\LocalFile;
 use Mage2\Attribute\Models\ProductAttribute;
-use Mage2\TaxClass\Models\TaxRule;
 use Illuminate\Support\Collection;
-use Mage2\Dashboard\Models\Configuration;
 use Mage2\Attribute\Models\ProductVariation;
 use Mage2\Attribute\Models\ProductVarcharValue;
 use Mage2\Review\Models\Review;
@@ -148,7 +146,7 @@ class Product extends BaseModel
     }
 
     /**
-     * return default Image or LocalImageFile Object
+     * return default Image or LocalFile Object
      *
      * @return \Mage2\Ecommerce\Image\LocalFile
      */
@@ -159,10 +157,10 @@ class Product extends BaseModel
 
 
         if (null === $image) {
-            return new LocalImageFile($defaultPath);
+            return new LocalFile($defaultPath);
         }
 
-        if ($image->path instanceof LocalImageFile) {
+        if ($image->path instanceof LocalFile) {
             return $image->path;
         }
 

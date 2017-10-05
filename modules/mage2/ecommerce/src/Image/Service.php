@@ -70,7 +70,7 @@ class Service extends ImageManager
             $image->save( $sizePath);
         }
 
-        $localImage = new LocalImageFile($path . "/" . $name);
+        $localImage = new LocalFile($path . "/" . $name);
 
         return $localImage;
     }

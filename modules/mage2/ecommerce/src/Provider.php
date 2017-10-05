@@ -30,10 +30,15 @@ use Mage2\Ecommerce\Http\Middleware\AdminApiAuth;
 use Mage2\Ecommerce\Http\Middleware\Visitor;
 use Mage2\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
 use Illuminate\Support\Facades\View;
+use Mage2\Ecommerce\Http\Middleware\FrontAuth;
+use Mage2\Ecommerce\Http\Middleware\RedirectIfFrontAuth;
 use Mage2\Ecommerce\Http\ViewComposers\AdminNavComposer;
 use Illuminate\Support\Facades\App;
 use Mage2\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
+use Mage2\Ecommerce\Http\ViewComposers\LayoutAppComposer;
 use Mage2\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
+use Mage2\Ecommerce\Http\ViewComposers\CheckoutComposer;
+use Mage2\Ecommerce\Http\ViewComposers\MyAccountSidebarComposer;
 
 class Provider extends ServiceProvider
 {
@@ -44,7 +49,8 @@ class Provider extends ServiceProvider
         'Mage2\Ecommerce\DataGrid\Provider',
         'Mage2\Ecommerce\Image\Provider',
         'Mage2\Ecommerce\Attribute\Provider',
-        'Mage2\Ecommerce\Tabs\Provider'
+        'Mage2\Ecommerce\Tabs\Provider',
+        'Mage2\Ecommerce\Payment\Provider'
     ];
 
 
@@ -118,7 +124,9 @@ class Provider extends ServiceProvider
         View::composer(['mage2-ecommerce::admin.product.create',
                         'mage2-ecommerce::admin.product.edit'], ProductFieldsComposer::class);
 
+        View::composer('*',LayoutAppComposer::class);
         View::composer('checkout.index',CheckoutComposer::class);
+        View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
     }
 
     /**

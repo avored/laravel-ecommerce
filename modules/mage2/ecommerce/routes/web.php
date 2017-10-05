@@ -35,6 +35,91 @@
   |
  */
 
+Route::middleware(['web'])
+    ->namespace('Mage2\Ecommerce\Http\Controllers')
+    ->group(function () {
+
+        Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+
+        //* ***** START MAGE2 CATALOG FRONT ROUTES  *****  */
+        Route::get('/category/{slug}',  ['as' => 'category.view',
+            'uses' => 'CategoryViewController@view']);
+        Route::get('/product/{slug}',   ['as' => 'product.view',
+            'uses' => 'ProductViewController@view']);
+        Route::get('/product-search',   ['as' => 'search.result',
+            'uses' => 'SearchController@result']);
+
+        //* ***** END MAGE2 CATEGORY FRONT ROUTES  *****  */
+
+
+        //* ***** START MAGE2 CART FRONT ROUTES  *****  */
+        Route::post('/add-to-cart', ['as' => 'cart.add-to-cart', 'uses' => 'CartController@addToCart']);
+
+        Route::get('/cart/view', ['as' => 'cart.view', 'uses' => 'CartController@view']);
+        Route::put('/cart/update', ['as' => 'cart.update', 'uses' => 'CartController@update']);
+        Route::get('/cart/destroy/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
+
+
+
+        Route::get('/wishlist/add/{slug}', ['as' => 'wishlist.add', 'uses' => 'WishlistController@add']);
+        Route::get('/my-account/wishlist', ['as' => 'wishlist.list', 'uses' => 'WishlistController@mylist']);
+        Route::get('/wishlist/remove/{slug}', ['as' => 'wishlist.remove', 'uses' => 'WishlistController@destroy']);
+
+
+        Route::get('/checkout', ['as' => 'checkout.index', 'uses' => 'CheckoutController@index']);
+
+        Route::post('/get-code-discount', ['as' => 'get.code-discount', 'uses' => 'GiftCouponController@getCodeDiscount']);
+
+
+        Route::get('/order', ['as' => 'order.index', 'uses' => 'OrderController@index']);
+        Route::get('/order/success/{id}', ['as' => 'order.success', 'uses' => 'OrderController@success']);
+
+        Route::get('/my-account/order/list', ['as' => 'my-account.order.list', 'uses' => 'OrderController@myAccountOrderList']);
+        Route::get('/my-account/order/{id}/view', ['as' => 'my-account.order.view', 'uses' => 'OrderController@myAccountOrderView']);
+
+
+        Route::post('/order', ['as' => 'order.place', 'uses' => 'OrderController@place']);
+
+        Route::post('/tax-calculation', ['as' => 'tax.calculation', 'uses' => 'TaxRuleController@getTaxAmount']);
+
+        Route::get('/login', ['as' => 'login', 'uses' => 'LoginController@showLoginForm']);
+        Route::post('/login', ['as' => 'login.post', 'uses' => 'LoginController@login']);
+        Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
+
+        Route::get('/password/reset/{token}', ['as' => 'password.reset.token', 'uses' => 'ResetPasswordController@showResetForm']);
+        Route::post('/password/reset', ['as' => 'password.reset.token', 'uses' => 'ResetPasswordController@reset']);
+
+        Route::get('/password/reset', ['as' => 'password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
+        Route::post('/password/email', ['as' => 'password.email.post', 'uses' => 'ForgotPasswordController@sendResetLinkEmail']);
+
+        Route::get('/register', ['as' => 'register', 'uses' => 'RegisterController@showRegistrationForm']);
+        Route::post('/register', ['as' => 'register.post', 'uses' => 'RegisterController@register']);
+
+
+
+    });
+
+
+Route::middleware(['web','front.auth'])
+    ->namespace('Mage2\Ecommerce\Http\Controllers')
+    ->group(function () {
+
+        Route::get('/my-account', ['as' => 'my-account.home', 'uses' => 'MyAccountController@home']);
+        Route::get('/my-account/edit', ['as' => 'my-account.edit', 'uses' => 'MyAccountController@edit']);
+        Route::post('/my-account/edit', ['as' => 'my-account.store', 'uses' => 'MyAccountController@store']);
+
+        Route::get('/my-account/upload-image', ['as' => 'my-account.upload-image', 'uses' => 'MyAccountController@uploadImage']);
+        Route::post('/my-account/upload-image', ['as' => 'my-account.upload-image.post', 'uses' => 'MyAccountController@uploadImagePost']);
+
+        Route::get('/my-account/change-password', ['as' => 'my-account.change-password', 'uses' => 'MyAccountController@changePassword']);
+        Route::post('/my-account/change-password', ['as' => 'my-account.change-password.post', 'uses' => 'MyAccountController@changePasswordPost']);
+
+
+        Route::resource('/my-account/address', 'AddressController', ['as' => 'my-account']);
+
+    });
+
+
 
 Route::middleware(['web'])
     ->prefix('admin')
@@ -73,5 +158,5 @@ Route::middleware(['web', 'admin.auth'])
         Route::post('/product-image/delete', ['as' => 'admin.product.delete-image',
             'uses' => 'ProductController@deleteImage']);
 
-        Route::get('/checkout', ['as' => 'checkout.index', 'uses' => 'CheckoutController@index']);
+
     });
