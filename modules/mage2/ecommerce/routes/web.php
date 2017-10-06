@@ -158,5 +158,30 @@ Route::middleware(['web', 'admin.auth'])
         Route::post('/product-image/delete', ['as' => 'admin.product.delete-image',
             'uses' => 'ProductController@deleteImage']);
 
+        Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address',
+            'uses' => 'AddressConfigController@getConfiguration'
+        ]);
+
+        Route::resource('/admin/gift-coupon', 'GiftCouponController', ['as' => 'admin']);
+
+
+        Route::get('/admin/update-check', ['as' => 'admin.update.check', 'uses' => 'UpdateController@check']);
+
+        Route::get('/configuration/general', ['as' => 'admin.configuration.general', 'uses' => 'ConfigurationController@getGeneralConfiguration']);
+
+        Route::get('/configuration', ['as' => 'admin.configuration', 'uses' => 'ConfigurationController@index']);
+        Route::post('/configuration', ['as' => 'admin.configuration.store', 'uses' => 'ConfigurationController@store']);
+
+
+        Route::get('/themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
+
+        Route::get('/themes/create', ['as' => 'admin.theme.create', 'uses' => 'ThemeController@create']);
+        Route::post('/themes', ['as' => 'admin.theme.store', 'uses' => 'ThemeController@store']);
+
+        Route::post('/active-themes/{name}', ['as' => 'admin.theme.activated', 'uses' => 'ThemeController@activated']);
+
+        Route::post('/deactive-themes/{name}', ['as' => 'admin.theme.deactivated', 'uses' => 'ThemeController@deactivated']);
+
+        Route::delete('/themes/{name}', ['as' => 'admin.theme.destroy', 'uses' => 'ThemeController@destroy']);
 
     });

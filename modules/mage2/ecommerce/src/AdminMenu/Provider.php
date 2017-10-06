@@ -90,6 +90,34 @@ class Provider extends ServiceProvider {
         $catalogMenu->subMenu('product', $productMenu);
         $catalogMenu->subMenu('category', $categoryMenu);
 
+
+        AdminMenuFacade::add('system')
+            ->label('System')
+            ->route('#');
+
+        $menu = new AdminMenu();
+        $menu ->key('configuration')
+            ->label('Configuration')
+            ->route('admin.configuration');
+
+        $systemMenu = AdminMenuFacade::get('system');
+        $systemMenu->subMenu('configuration', $menu );
+
+
+        AdminMenuFacade::add('order')
+            ->label('Order')
+            ->route('#');
+
+        $menu = new AdminMenu();
+        $menu ->key('gift-coupon')
+            ->label('Gift Coupon')
+            ->route('admin.gift-coupon.index');
+
+        $systemMenu = AdminMenuFacade::get('order');
+        $systemMenu->subMenu('gift-coupon', $menu );
+
+
+
     }
 
     /**

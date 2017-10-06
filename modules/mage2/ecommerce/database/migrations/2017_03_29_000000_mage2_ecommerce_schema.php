@@ -26,6 +26,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Mage2\Ecommerce\Models\Database\Configuration;
 
 class Mage2EcommerceSchema extends Migration
 {
@@ -117,6 +118,42 @@ class Mage2EcommerceSchema extends Migration
             //$table->foreign('user_id')->references('id')->on('admin_users')->onDelete('cascade');
         });
 
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->enum('type', ['SHIPPING', 'BILLING']);
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('address1');
+            $table->string('address2');
+            $table->string('postcode');
+            $table->string('city');
+            $table->string('state');
+            $table->integer('country_id')->unsigned();
+            $table->string('phone');
+            $table->timestamps();
+        });
+
+        Schema::create('gift_coupons', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('code');
+            $table->float('discount', 6, 2);
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->enum('status', ['ENABLED', 'DISABLED']);
+            $table->timestamps();
+        });
+
+        Schema::create('configurations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('configuration_key')->nullable()->default(null);
+            $table->string('configuration_value')->nullable()->default(null);
+            $table->timestamps();
+        });
+
+
+
         Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('client_id')->index();
@@ -144,6 +181,9 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('user_id')->references('id')->on('users');
         });
 
+        Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
+        Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
+
     }
 
     /**
@@ -164,6 +204,9 @@ class Mage2EcommerceSchema extends Migration
         Schema::drop('admin_users');
         Schema::drop('password_resets');
         Schema::drop('users');
+        Schema::drop('addresses');
+        Schema::drop('configurations');
+        Schema::dropIfExits('gift_coupons');
 
     }
 

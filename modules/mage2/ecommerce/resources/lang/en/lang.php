@@ -30,5 +30,8 @@ return [
 
     "product.index.title" => "Product List",
     "product.create.text" => "Create Product",
+
+
+    'address.configuration.title' => "Address Configuration List",
     
 ];

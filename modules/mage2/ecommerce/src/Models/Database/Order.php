@@ -24,10 +24,6 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-use Mage2\OrderReturn\Models\OrderReturnRequest;
-use Mage2\Address\Models\Address;
-use Mage2\User\Models\User;
-
 class Order extends BaseModel
 {
     protected $fillable = [

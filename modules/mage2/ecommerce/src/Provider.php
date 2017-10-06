@@ -39,6 +39,7 @@ use Mage2\Ecommerce\Http\ViewComposers\LayoutAppComposer;
 use Mage2\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
 use Mage2\Ecommerce\Http\ViewComposers\CheckoutComposer;
 use Mage2\Ecommerce\Http\ViewComposers\MyAccountSidebarComposer;
+use Mage2\Ecommerce\Configuration\Facade as AdminConfiguration;
 
 class Provider extends ServiceProvider
 {
@@ -50,7 +51,9 @@ class Provider extends ServiceProvider
         'Mage2\Ecommerce\Image\Provider',
         'Mage2\Ecommerce\Attribute\Provider',
         'Mage2\Ecommerce\Tabs\Provider',
-        'Mage2\Ecommerce\Payment\Provider'
+        'Mage2\Ecommerce\Payment\Provider',
+        'Mage2\Ecommerce\Configuration\Provider',
+        \Mage2\Ecommerce\Permission\Provider::class
     ];
 
 
@@ -64,6 +67,7 @@ class Provider extends ServiceProvider
         $this->registerMiddleware();
         $this->registerResources();
         $this->registerViewComposerData();
+        $this->registerAdminConfiguration();
 
     }
 
@@ -124,9 +128,11 @@ class Provider extends ServiceProvider
         View::composer(['mage2-ecommerce::admin.product.create',
                         'mage2-ecommerce::admin.product.edit'], ProductFieldsComposer::class);
 
-        View::composer('*',LayoutAppComposer::class);
+        //View::composer('*',LayoutAppComposer::class);
         View::composer('checkout.index',CheckoutComposer::class);
         View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
+
+        View::composer('layouts.app', LayoutAppComposer::class);
     }
 
     /**
@@ -141,4 +147,25 @@ class Provider extends ServiceProvider
             App::register($provider);
         }
     }
+
+    /**
+     * Register Admin Configuration for the Address Modules
+     *
+     * @param \Illuminate\Routing\Router $router
+     *
+     * @return void
+     */
+    public function registerAdminConfiguration()
+    {
+        $adminConfigurations[] = [
+            'title' => 'Address Configuration',
+            'description' => 'Set Default Country for Store',
+            'edit_action' => 'admin.configuration.address',
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
+    }
+
 }
