@@ -32,8 +32,7 @@
   "autoload": {
     "classmap": [
       "database/seeds",
-      "database/factories",
-      "packages/mage2/install/database/seeds"
+      "database/factories"
     ],
     "psr-4": {
       "App\\": "app/",
