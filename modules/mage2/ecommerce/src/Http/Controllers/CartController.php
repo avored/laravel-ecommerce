@@ -22,15 +22,12 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-
 namespace Mage2\Ecommerce\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Mage2\Ecommerce\Models\Database\Product;
 use Illuminate\Support\Collection;
-use Mage2\Attribute\Models\ProductVariation;
-
 
 class CartController extends Controller
 {

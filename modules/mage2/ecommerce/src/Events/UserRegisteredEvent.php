@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\User\Events;
+namespace Mage2\Ecommerce\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;

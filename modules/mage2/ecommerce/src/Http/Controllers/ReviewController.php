@@ -22,13 +22,13 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Review\Controllers;
+namespace Mage2\Ecommerce\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Mage2\Framework\System\Controllers\Controller;
-use Mage2\Review\Models\Review;
-use Mage2\Review\Requests\ReviewRequest;
-use Mage2\User\Models\User;
+use Mage2\Ecommerce\Models\Database\Review;
+use Mage2\Ecommerce\Http\Requests\ReviewRequest;
+use Mage2\Ecommerce\Models\Database\User;
 
 class ReviewController extends Controller
 {

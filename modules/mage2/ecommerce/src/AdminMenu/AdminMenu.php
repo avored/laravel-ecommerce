@@ -102,8 +102,22 @@ class AdminMenu implements AdminMenuContracts
     public function menuClass()
     {
         $currentRouteName = Route::currentRouteName();
+        $found = false;
 
-        return 'd-none';
+        if(count($this->subMenu()) > 0) {
+            foreach($this->subMenu() as $menu) {
+                if($menu->route() == $currentRouteName) {
+                    $found = true;
+                }
+            }
+        }
+
+        if(false === $found) {
+            return 'd-none';
+        } else {
+            return '';
+        }
+
     }
 
 

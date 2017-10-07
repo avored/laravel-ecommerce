@@ -147,7 +147,7 @@ class Provider extends ServiceProvider
         View::composer(['catalog.product.view'],
             RelatedProductViewComposer::class);
 
-        View::composer(['user.my-account.sidebar'], 'Mage2\User\ViewComposers\MyAccountSidebarComposer');
+        View::composer(['user.my-account.sidebar'], MyAccountSidebarComposer::class);
 
         View::composer('mage2-framework::product.edit', ProductFieldComposer::class);
         View::composer(['catalog.product.view'],ProductSpecificationComposer::class);

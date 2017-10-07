@@ -30,6 +30,7 @@ use Mage2\Ecommerce\Http\Requests\UploadUserImageRequest;
 use Mage2\Ecommerce\Http\Requests\UserProfileRequest;
 use Illuminate\Support\Facades\Hash;
 use Mage2\Ecommerce\Image\Facade as Image;
+use Illuminate\Support\Facades\File;
 
 class MyAccountController extends Controller
 {
@@ -74,10 +75,14 @@ class MyAccountController extends Controller
             $user->image_path->destroy();
         }
 
+
         $relativePath = 'uploads/users/' . $user->id;
         $path = $relativePath;
 
+
         $dbPath = $relativePath . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
+
+        $this->directory(public_path($relativePath));
 
         Image::upload($image, $path);
 
@@ -90,6 +95,20 @@ class MyAccountController extends Controller
     public function changePassword()
     {
         return view('user.my-account.change-password');
+    }
+
+    /**
+     * Create Directories if not exists
+     *
+     * @var string $path
+     * @return \Mage2\Ecommerce\Image\Service
+     */
+    public function directory($path)
+    {
+        if (!File::exists($path)) {
+            File::makeDirectory($path, '0777', true);
+        }
+        return $this;
     }
 
     public function changePasswordPost(ChangePasswordRequest $request)

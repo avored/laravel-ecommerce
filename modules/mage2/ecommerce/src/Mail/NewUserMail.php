@@ -23,7 +23,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\User\Mail;
+namespace Mage2\Ecommerce\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -34,7 +34,7 @@ class NewUserMail extends Mailable
 {
     use Queueable, SerializesModels;
     /**
-     * @var \Mage2\User\Models\User
+     * @var \Mage2\Ecommerce\Models\Database\User
      */
     public $user;
 

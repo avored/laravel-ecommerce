@@ -28,7 +28,7 @@ namespace Mage2\Ecommerce\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Mage2\Ecommerce\Models\Database\Country;
 use Mage2\Ecommerce\Models\Database\Address;
-use Mage2\Dashboard\Models\Configuration;
+use Mage2\Ecommerce\Models\Database\Configuration;
 use Mage2\Ecommerce\Http\Requests\AddressRequest;
 
 class AddressController extends Controller

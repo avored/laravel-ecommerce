@@ -22,10 +22,9 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Page\Controllers;
+namespace Mage2\Ecommerce\Http\Controllers;
 
-use Mage2\Framework\System\Controllers\Controller;
-use Mage2\Page\Models\Page;
+use Mage2\Ecommerce\Models\Database\Page;
 
 class PageController extends Controller
 {

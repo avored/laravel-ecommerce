@@ -24,7 +24,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\User\Policies;
+namespace Mage2\Ecommerce\Policies;
 
 use Mage2\User\Models\AdminUser;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -37,13 +37,12 @@ class AdminUserPolicy
     /**
      * Determine whether the user can has permissions to access route.
      *
-     * @param  \Mage2\User\Models\AdminUser $adminUser
+     * @param  \Mage2\Ecommerce\Models\Database\AdminUser $adminUser
      * @param string $routeName
      * @return mixed
      */
     public function hasPermission(AdminUser $adminUser, $routeName)
     {
-
         if ($adminUser->is_super_admin == 1) {
             return true;
         }

@@ -22,24 +22,19 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Order\Controllers;
-
+namespace Mage2\Ecommerce\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
-use Mage2\Order\Events\OrderPlaceAfterEvent;
+use Mage2\Ecommerce\Events\OrderPlaceAfterEvent;
 use Illuminate\Support\Facades\Session;
-use Mage2\Framework\Database\Models\Product;
-use Mage2\Attribute\Models\ProductVariation;
-use Mage2\Framework\System\Controllers\Controller;
-use Mage2\Order\Mail\OrderInvoicedMail;
-use Mage2\Order\Models\Order;
-use Mage2\Order\Requests\PlaceOrderRequest;
-use Mage2\Order\Models\OrderStatus;
-use Mage2\User\Models\User;
-use Mage2\Order\Models\OrderProductVariation;
-use Mage2\Address\Models\Address;
+use Mage2\Ecommerce\Models\Database\Product;
+use Mage2\Ecommerce\Models\Database\Order;
+use Mage2\Ecommerce\Http\Requests\PlaceOrderRequest;
+use Mage2\Ecommerce\Models\Database\OrderStatus;
+use Mage2\Ecommerce\Models\Database\User;
+use Mage2\Ecommerce\Models\Database\Address;
 
 class OrderController extends Controller
 {

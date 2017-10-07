@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Order\Events;
+namespace Mage2\Ecommerce\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
@@ -14,7 +14,7 @@ class OrderPlaceAfterEvent
     /***
      * Mage2 Order Model
      *
-     * @var \Mage2\Order\Models\Order
+     * @var \Mage2\Ecommerce\Models\Database\Order
      *
      */
     public $order = NULL;

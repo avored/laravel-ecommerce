@@ -29,7 +29,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Validator;
-use Mage2\User\Events\UserRegisteredEvent;
+use Mage2\Ecommerce\Events\UserRegisteredEvent;
 use Mage2\Ecommerce\Models\Database\User;
 use Illuminate\Support\Facades\Auth;
 
@@ -63,7 +63,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('frontguest');
+        $this->middleware('front.guest');
     }
 
     /**

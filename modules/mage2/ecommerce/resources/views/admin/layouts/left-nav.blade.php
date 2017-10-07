@@ -4,6 +4,9 @@
         @if(count($menu->subMenu()) > 0)
             <?php $subMenu = $menu->subMenu(); ?>
             <div class="side-nav-accordion">
+                <?php
+                $menu->menuClass();
+                ?>
 
                 <a class="list-group-item list-group-item-action side-nav-dropdown"  href="#">{{ $menu->label() }}
                     <span class="caret"></span>

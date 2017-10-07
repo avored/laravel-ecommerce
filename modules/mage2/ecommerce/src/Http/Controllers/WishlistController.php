@@ -22,13 +22,11 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-
-namespace Mage2\Wishlist\Controllers;
+namespace Mage2\Ecommerce\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Framework\Database\Models\Product;
-use Mage2\Framework\System\Controllers\Controller;
-use Mage2\Wishlist\Models\Wishlist;
+use Mage2\Ecommerce\Models\Database\Product;
+use Mage2\Ecommerce\Models\Database\Wishlist;
 
 class WishlistController extends Controller
 {
