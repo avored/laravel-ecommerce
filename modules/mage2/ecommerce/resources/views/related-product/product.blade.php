@@ -1,0 +1,2 @@
+
+{!! $relatedDataGrid->render() !!}

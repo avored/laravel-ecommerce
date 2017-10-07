@@ -24,11 +24,6 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-use Mage2\Attribute\Models\ProductAttribute;
-use Mage2\Attribute\Models\ProductVariation;
-use Mage2\Attribute\Models\ProductVarcharValue;
-use Mage2\User\Models\User;
-
 class UserViewedProduct extends BaseModel
 {
 

@@ -95,8 +95,19 @@ Route::middleware(['web'])
         Route::get('/register', ['as' => 'register', 'uses' => 'RegisterController@showRegistrationForm']);
         Route::post('/register', ['as' => 'register.post', 'uses' => 'RegisterController@register']);
 
+        Route::post('/order', ['as' => 'order.place', 'uses' => 'OrderController@place']);
 
 
+        Route::get('/page/{slug}', ['as' => 'page.show',
+            'uses' => 'PageController@show'
+        ]);
+
+
+
+        Route::post('/tax-calculation', ['as' => 'tax.calculation', 'uses' => 'TaxRuleController@getTaxAmount']);
+
+
+        Route::post('/review', ['as' => 'review.store','uses' => 'ReviewController@store']);
     });
 
 
@@ -116,6 +127,20 @@ Route::middleware(['web','front.auth'])
 
 
         Route::resource('/my-account/address', 'AddressController', ['as' => 'my-account']);
+
+
+        Route::get('/order', ['as' => 'order.index', 'uses' => 'OrderController@index']);
+        Route::get('/order/success/{id}', ['as' => 'order.success', 'uses' => 'OrderController@success']);
+
+        Route::get('/my-account/order/list', ['as' => 'my-account.order.list', 'uses' => 'OrderController@myAccountOrderList']);
+        Route::get('/my-account/order/{id}/view', ['as' => 'my-account.order.view', 'uses' => 'OrderController@myAccountOrderView']);
+
+
+
+        Route::get('/wishlist/add/{slug}', ['as' => 'wishlist.add', 'uses' => 'WishlistController@add']);
+        Route::get('/my-account/wishlist', ['as' => 'wishlist.list', 'uses' => 'WishlistController@mylist']);
+        Route::get('/wishlist/remove/{slug}', ['as' => 'wishlist.remove', 'uses' => 'WishlistController@destroy']);
+
 
     });
 
@@ -149,39 +174,79 @@ Route::middleware(['web', 'admin.auth'])
 
         Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
 
+        Route::resource('/admin/role', 'RoleController', ['as' => 'admin']);
+        Route::resource('product', 'ProductController', ['as' => 'admin']);
+        Route::resource('category', 'CategoryController', ['as' => 'admin']);
 
-        Route::resource('/product', 'ProductController', ['as' => 'admin']);
-        Route::resource('/category', 'CategoryController', ['as' => 'admin']);
+        Route::resource('/admin/page', 'PageController', ['as' => 'admin']);
+        Route::resource('/admin/tax-group', 'TaxGroupController', ['as' => 'admin']);
+        Route::resource('/admin/tax-rule', 'TaxRuleController', ['as' => 'admin']);
+        Route::resource('/admin/country', 'CountryController', ['as' => 'admin']);
+        Route::resource('/admin/state', 'StateController', ['as' => 'admin']);
 
-        Route::post('/product-image/upload', ['as' => 'admin.product.upload-image',
+        Route::resource('/admin/admin-user', 'AdminUserController', ['as' => 'admin']);
+
+
+        Route::post('/admin/product-attribute-panel', ['as' => 'admin.product-attribute.get-attribute', 'uses' => 'AttributeController@getAttribute']);
+
+        Route::resource('/admin/attribute', 'AttributeController', ['as' => 'admin']);
+
+
+        Route::get('/admin/configuration/catalog', ['as' => 'admin.configuration.catalog', 'uses' => 'ConfigurationController@getConfiguration']);
+
+        Route::get('/admin/admin-user-api-show', ['as' => 'admin.admin-user.show.api','uses' => 'AdminUserController@apiShow']);
+
+
+        Route::get('/admin/configuration/tax-class', ['as' => 'admin.configuration.tax-class', 'uses' => 'ConfigurationController@getConfiguration']);
+
+        Route::post('product-image/upload', ['as' => 'admin.product.upload-image',
             'uses' => 'ProductController@uploadImage']);
-        Route::post('/product-image/delete', ['as' => 'admin.product.delete-image',
+        Route::post('product-image/delete', ['as' => 'admin.product.delete-image',
             'uses' => 'ProductController@deleteImage']);
 
-        Route::get('/admin/configuration/address', ['as' => 'admin.configuration.address',
+        Route::get('configuration/address', ['as' => 'admin.configuration.address',
             'uses' => 'AddressConfigController@getConfiguration'
         ]);
 
-        Route::resource('/admin/gift-coupon', 'GiftCouponController', ['as' => 'admin']);
+        Route::resource('gift-coupon', 'GiftCouponController', ['as' => 'admin']);
 
 
-        Route::get('/admin/update-check', ['as' => 'admin.update.check', 'uses' => 'UpdateController@check']);
+        Route::get('update-check', ['as' => 'admin.update.check', 'uses' => 'UpdateController@check']);
 
-        Route::get('/configuration/general', ['as' => 'admin.configuration.general', 'uses' => 'ConfigurationController@getGeneralConfiguration']);
+        Route::get('configuration/general', ['as' => 'admin.configuration.general', 'uses' => 'ConfigurationController@getGeneralConfiguration']);
 
-        Route::get('/configuration', ['as' => 'admin.configuration', 'uses' => 'ConfigurationController@index']);
-        Route::post('/configuration', ['as' => 'admin.configuration.store', 'uses' => 'ConfigurationController@store']);
+        Route::get('configuration', ['as' => 'admin.configuration', 'uses' => 'ConfigurationController@index']);
+        Route::post('configuration', ['as' => 'admin.configuration.store', 'uses' => 'ConfigurationController@store']);
 
 
-        Route::get('/themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
+        Route::get('themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
 
-        Route::get('/themes/create', ['as' => 'admin.theme.create', 'uses' => 'ThemeController@create']);
-        Route::post('/themes', ['as' => 'admin.theme.store', 'uses' => 'ThemeController@store']);
+        Route::get('themes/create', ['as' => 'admin.theme.create', 'uses' => 'ThemeController@create']);
+        Route::post('themes', ['as' => 'admin.theme.store', 'uses' => 'ThemeController@store']);
 
-        Route::post('/active-themes/{name}', ['as' => 'admin.theme.activated', 'uses' => 'ThemeController@activated']);
+        Route::post('active-themes/{name}', ['as' => 'admin.theme.activated', 'uses' => 'ThemeController@activated']);
 
-        Route::post('/deactive-themes/{name}', ['as' => 'admin.theme.deactivated', 'uses' => 'ThemeController@deactivated']);
+        Route::post('deactive-themes/{name}', ['as' => 'admin.theme.deactivated', 'uses' => 'ThemeController@deactivated']);
 
-        Route::delete('/themes/{name}', ['as' => 'admin.theme.destroy', 'uses' => 'ThemeController@destroy']);
+        Route::delete('themes/{name}', ['as' => 'admin.theme.destroy', 'uses' => 'ThemeController@destroy']);
+
+
+        Route::get('configuration/order', ['as' => 'admin.configuration.order', 'uses' => 'OrderConfigController@getConfiguration']);
+
+        Route::resource('order-status', 'OrderStatusController', ['as' => 'admin']);
+
+        Route::get('/order', ['as' => 'admin.order.index', 'uses' => 'OrderController@index']);
+        Route::get('/order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
+        Route::get('order/{id}/send-email-invoice', ['as' => 'admin.order.send-email-invoice', 'uses' => 'OrderController@sendEmailInvoice']);
+
+        Route::get('order/{id}/change-status', ['as' => 'admin.order.change-status', 'uses' => 'OrderController@changeStatus']);
+        Route::put('order/{id}/update-status', ['as' => 'admin.order.update-status', 'uses' => 'OrderController@updateStatus']);
+
+
+        Route::get('/related-product-get-datatable-data/{id?}', ['as' => 'admin.related-product.data-grid-table.get-data',
+            'uses' => 'RelatedProductController@getDataGrid'
+        ]);
+
+        Route::resource('/review', 'ReviewController', ['as' => 'admin']);
 
     });

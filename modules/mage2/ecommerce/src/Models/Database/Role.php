@@ -24,14 +24,14 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-class Role extends Model
+class Role extends BaseModel
 {
     protected $fillable = ['name', 'description'];
 
     /**
      * Role can be assigne to many users
      *
-     * @return \Mage2\User\Models\User
+     * @return \Mage2\Ecommerce\Models\Database\User
      */
     public function user()
     {
@@ -42,7 +42,7 @@ class Role extends Model
     /**
      * Role has many Permissions
      *
-     * @return \Mage2\User\Models\Role
+     * @return \Mage2\Ecommerce\Models\Database\Role
      */
 
     public function permissions()

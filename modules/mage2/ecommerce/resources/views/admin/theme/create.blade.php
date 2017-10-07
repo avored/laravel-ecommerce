@@ -1,4 +1,4 @@
-@extends('mage2-framework::layouts.admin')
+@extends('mage2-ecommerce::admin.layouts.app')
 
 @section('content')
     <div class="container">

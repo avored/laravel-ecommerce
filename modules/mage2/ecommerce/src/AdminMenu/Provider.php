@@ -74,47 +74,120 @@ class Provider extends ServiceProvider {
         AdminMenuFacade::add('catalog')
                         ->label('Catalog')
                         ->route('#');
+        $catalogMenu = AdminMenuFacade::get('catalog');
 
         $productMenu = new AdminMenu();
         $productMenu->key('product')
                 ->label('Product')
                 ->route('admin.product.index');
+        $catalogMenu->subMenu('product', $productMenu);
+
 
         $categoryMenu = new AdminMenu();
         $categoryMenu->key('category')
             ->label('Category')
             ->route('admin.category.index');
-
-        $catalogMenu = AdminMenuFacade::get('catalog');
-
-        $catalogMenu->subMenu('product', $productMenu);
         $catalogMenu->subMenu('category', $categoryMenu);
 
+        $menu = new AdminMenu();
+        $menu ->key('attribute')
+            ->label('Attributes')
+            ->route('admin.attribute.index');
+        $catalogMenu->subMenu('attribute',$menu);
+
+
+        $pageMenu = new AdminMenu();
+        $pageMenu->key('page')
+            ->label('Page')
+            ->route('admin.page.index');
+        $catalogMenu->subMenu('page', $pageMenu);
+
+        $reviewMenu = new AdminMenu();
+        $reviewMenu->key('review')
+            ->label('Review')
+            ->route('admin.review.index');
+        $catalogMenu->subMenu('review', $reviewMenu);
+
+        AdminMenuFacade::add('sale')
+            ->label('Sales')
+            ->route('#');
+        $saleMenu = AdminMenuFacade::get('sale');
 
         AdminMenuFacade::add('system')
             ->label('System')
             ->route('#');
 
+        $systemMenu = AdminMenuFacade::get('system');
+
+
         $menu = new AdminMenu();
         $menu ->key('configuration')
             ->label('Configuration')
             ->route('admin.configuration');
-
-        $systemMenu = AdminMenuFacade::get('system');
         $systemMenu->subMenu('configuration', $menu );
 
+        $menu = new AdminMenu();
+        $menu ->key('order')
+            ->label('Orders')
+            ->route('admin.order.index');
+        $saleMenu->subMenu('order', $menu );
 
-        AdminMenuFacade::add('order')
-            ->label('Order')
-            ->route('#');
 
         $menu = new AdminMenu();
         $menu ->key('gift-coupon')
             ->label('Gift Coupon')
             ->route('admin.gift-coupon.index');
 
-        $systemMenu = AdminMenuFacade::get('order');
-        $systemMenu->subMenu('gift-coupon', $menu );
+        $saleMenu->subMenu('gift-coupon', $menu );
+
+
+        $menu = new AdminMenu();
+        $menu ->key('order-status')
+            ->label('Order Status')
+            ->route('admin.order-status.index');
+
+        $saleMenu->subMenu('order-status', $menu );
+
+        $menu = new AdminMenu();
+        $menu ->key('admin-user')
+            ->label('Admin User')
+            ->route('admin.admin-user.index');
+
+        $systemMenu->subMenu('admin-user',$menu);
+
+
+        $menu = new AdminMenu();
+        $menu ->key('roles')
+            ->label('Admin User Roles')
+            ->route('admin.role.index');
+
+        $systemMenu->subMenu('roles',$menu);
+
+        $menu = new AdminMenu();
+        $menu ->key('tax-group')
+            ->label('Tax Group')
+            ->route('admin.tax-group.index');
+
+        $saleMenu->subMenu('tax-group',$menu);
+
+        $menu = new AdminMenu();
+        $menu ->key('tax-rule')
+            ->label('Tax Rule')
+            ->route('admin.tax-rule.index');
+
+        $saleMenu->subMenu('tax-rule',$menu);
+
+        $menu = new AdminMenu();
+        $menu ->key('countries')
+            ->label('Countries')
+            ->route('admin.country.index');
+        $saleMenu->subMenu('countries',$menu);
+
+        $menu = new AdminMenu();
+        $menu ->key('state')
+            ->label('States')
+            ->route('admin.state.index');
+        $saleMenu->subMenu('state',$menu);
 
 
 

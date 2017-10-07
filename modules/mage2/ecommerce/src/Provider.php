@@ -57,6 +57,12 @@ class Provider extends ServiceProvider
     ];
 
 
+
+    protected $policies = [
+        AdminUser::class => AdminUserPolicy::class,
+    ];
+
+
     /**
      * Bootstrap any application services.
      *
@@ -114,6 +120,7 @@ class Provider extends ServiceProvider
         $router->aliasMiddleware('front.auth', FrontAuth::class);
         $router->aliasMiddleware('front.guest', RedirectIfFrontAuth::class);
         $router->aliasMiddleware('visitor', Visitor::class);
+        $router->aliasMiddleware('permission', PermissionMiddleware::class);
     }
 
     /**
@@ -133,6 +140,17 @@ class Provider extends ServiceProvider
         View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
 
         View::composer('layouts.app', LayoutAppComposer::class);
+
+        View::composer(['mage2-framework::product.create', 'mage2-framework::product.edit'],
+            RelatedProductComposer::class);
+
+        View::composer(['catalog.product.view'],
+            RelatedProductViewComposer::class);
+
+        View::composer(['user.my-account.sidebar'], 'Mage2\User\ViewComposers\MyAccountSidebarComposer');
+
+        View::composer('mage2-framework::product.edit', ProductFieldComposer::class);
+        View::composer(['catalog.product.view'],ProductSpecificationComposer::class);
     }
 
     /**
@@ -165,6 +183,71 @@ class Provider extends ServiceProvider
 
         foreach ($adminConfigurations as $adminConfiguration) {
             AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
+
+        $adminConfigurations[] = [
+            'title' => 'Order Configuration',
+            'description' => 'Some Description for Order Modules',
+            'edit_action' => 'admin.configuration.order',
+            'sort_order' => 1
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
+
+        $adminConfigurations[] = [
+            'title' => 'Tax Configuration',
+            'description' => 'Defined the amount of tax applied to product.',
+            'edit_action' => 'admin.configuration.tax-class',
+            'sort_order' => 3
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
+
+        $adminConfigurations[] = [
+            'title' => 'Catalog Configuration',
+            'description' => 'Some Description for Catalog Modules',
+            'edit_action' => 'admin.configuration.catalog',
+            'sort_order' => 1
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
+    }
+
+    /*
+   *  Registering Passport Oauth2.0 client
+   *      *
+   * @return void
+   */
+    public function registerPassportRoutes()
+    {
+        Passport::ignoreMigrations();
+        Passport::routes();
+        Passport::tokensExpireIn(Carbon::now()->addDays(15));
+        $this->commands([
+            InstallCommand::class,
+            ClientCommand::class,
+            KeysCommand::class,
+        ]);
+    }
+
+
+
+
+    /**
+     * Register the policy for the admin user
+     *
+     * @return void
+     */
+    public function registerPolicies()
+    {
+        foreach ($this->policies as $key => $value) {
+            Gate::policy($key, $value);
         }
     }
 

@@ -24,14 +24,8 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-use Mage2\ProductInventory\Models\Storage;
 use Mage2\Ecommerce\Image\LocalFile;
-use Mage2\Attribute\Models\ProductAttribute;
 use Illuminate\Support\Collection;
-use Mage2\Attribute\Models\ProductVariation;
-use Mage2\Attribute\Models\ProductVarcharValue;
-use Mage2\Review\Models\Review;
-use Mage2\RelatedProduct\Models\RelatedProduct;
 use Illuminate\Support\Str;
 
 class Product extends BaseModel
@@ -42,7 +36,8 @@ class Product extends BaseModel
 
     public static function getCollection()
     {
-        $products = Product::all();
+        $model = new static;
+        $products = $model->all();
         $productCollection = new ProductCollection();
         $productCollection->setCollection($products);
         return $productCollection;
