@@ -1,11 +1,11 @@
 {
   "name": "mage2/laravel-ecommerce",
-  "description": "Mage2 Laravel E commerce",
+  "description": "Mage2 Laravel E commerce App",
   "keywords": [
     "framework",
     "laravel",
     "ecommerce",
-    "laravel5",
+    "laravel 5",
     "shop",
     "shopping-cart",
     "e-commerce",
@@ -17,10 +17,13 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=7.0.0",
+    "mage2/module-installer": "dev-master",
+    "barryvdh/laravel-dompdf": "^0.8.0@dev",
     "fabpot/goutte": "^3.2",
+    "intervention/image": "^2.3@dev",
     "laravel/framework": "5.5.*",
     "laravel/passport": "^4.0@dev",
-    "mage2/module-installer": "dev-master"
+    "mage2/default": "dev-master"
   },
   "require-dev": {
     "filp/whoops": "~2.0",

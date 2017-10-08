@@ -148,8 +148,9 @@ return [
          * Package Service Providers...
          */
 
-        Mage2\Install\Module::class,
-        //Mage2\Ecommerce\Provider::class,
+        //Mage2\Install\Module::class,
+        Mage2\Ecommerce\Provider::class,
+
 
 
         /*
@@ -199,7 +200,16 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        //'AdminMenu' => Mage2\Ecommerce\AdminMenu\Facade::class,
+        'AdminMenu' => Mage2\Ecommerce\AdminMenu\Facade::class,
+        'DataGrid' => Mage2\Ecommerce\DataGrid\Facade::class,
+        'Image' => Mage2\Ecommerce\Image\Facade::class,
+        'Attributes' => Mage2\Ecommerce\Attribute\Facade::class,
+        'Tabs' => Mage2\Ecommerce\Tabs\Facade::class,
+        'Payment' => Mage2\Ecommerce\Payment\Facade::class,
+        'Shipping' => Mage2\Ecommerce\Shipping\Facade::class,
+        'AdminConfiguration' => Mage2\Ecommerce\Configuration\Facade::class,
+        'Permission' => Mage2\Ecommerce\Permission\Facade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
     ],
 ];
