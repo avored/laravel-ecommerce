@@ -1,0 +1,14 @@
+{
+  "name": "mage2/default",
+  "description": "Mage2 Default Theme",
+  "keywords": ["framework", "theme", "default-theme" ,"cart","laravel","e commerce","laravel5","shop",
+                "shopping-cart","e-commerce","shopping cart","e commerce"],
+  "license": "GPL-3.0",
+  "authors": [
+    {
+      "name": "Purvesh  ",
+      "email": "ind.purvesh@gmail.com"
+    }
+  ],
+  "type": "mage2-theme"
+}
