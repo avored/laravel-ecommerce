@@ -22,24 +22,22 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Order\Controllers\Admin;
+namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Mail;
-use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Order\Mail\OrderInvoicedMail;
-use Mage2\Order\Models\Order;
-use Mage2\Order\Models\OrderStatus;
-use Mage2\Order\Requests\UpdateOrderStatusRequest;
-use Mage2\User\Models\User;
-use Mage2\Order\Mail\UpdateOrderStatusMail;
-use Mage2\Framework\DataGrid\Facades\DataGrid;
+use Mage2\Ecommerce\Mail\OrderInvoicedMail;
+use Mage2\Ecommerce\Models\Database\Order;
+use Mage2\Ecommerce\Models\Database\OrderStatus;
+use Mage2\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
+use Mage2\Ecommerce\Models\Database\User;
+use Mage2\Ecommerce\Mail\UpdateOrderStatusMail;
+use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Illuminate\Support\Facades\File;
-
+use App\Http\Controllers\AdminController;
 
 class OrderController extends AdminController
 {
-
     public function index()
     {
         $dataGrid = DataGrid::model(Order::query()->orderBy('id','desc'))
@@ -53,13 +51,13 @@ class OrderController extends AdminController
                 return "<a href='". route('admin.order.view', $model->id)."' >View</a>";
             });
 
-        return view('mage2-order::order.index')->with('dataGrid', $dataGrid);
+        return view('mage2-ecommerce::admin.order.index')->with('dataGrid', $dataGrid);
     }
 
     public function view($id)
     {
         $order = Order::findorfail($id);
-        $view = view('mage2-order::order.view')->with('order', $order);
+        $view = view('mage2-ecommerce::admin.order.view')->with('order', $order);
 
         return $view;
     }
@@ -87,9 +85,9 @@ class OrderController extends AdminController
     {
         $order = Order::findorfail($id);
 
-        $orderStatus = OrderStatus::all()->pluck('title', 'id');
+        $orderStatus = OrderStatus::all()->pluck('name', 'id');
 
-        $view = view('mage2-order::order.view')
+        $view = view('mage2-ecommerce::admin.order.view')
             ->with('order', $order)
             ->with('orderStatus', $orderStatus)
             ->with('changeStatus', true);
@@ -103,7 +101,7 @@ class OrderController extends AdminController
         $order->update($request->all());
 
         $userEmail = $order->user->email;
-        $orderStatusTitle = $order->order_status_title;
+        $orderStatusTitle = $order->order_status->name;
 
         Mail::to($userEmail)->send(new UpdateOrderStatusMail($orderStatusTitle));
 

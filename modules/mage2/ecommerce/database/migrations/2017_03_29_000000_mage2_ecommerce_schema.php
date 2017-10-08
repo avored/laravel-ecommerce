@@ -40,91 +40,6 @@ class Mage2EcommerceSchema extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('parent_id')->nullable()->default(NULL);
-            $table->string('name');
-            $table->string('slug');
-            $table->timestamps();
-        });
-
-        Schema::create('category_product', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('category_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-        });
-
-        Schema::create('products', function (Blueprint $table) {
-            $table->increments('id');
-            $table->enum('type',['BASIC','VARIATION','DOWNLOADABLE'])->default('BASIC');
-            $table->string('name')->nullable()->default(null);
-            $table->string('slug')->nullable()->default(null);
-            $table->string('sku')->nullable()->default(null);
-            $table->text('description')->nullable()->default(null);
-            $table->tinyInteger('status')->nullable()->default(null);
-            $table->tinyInteger('in_stock')->nullable()->default(null);
-            $table->tinyInteger('track_stock')->nullable()->default(null);
-            $table->decimal('qty', 10, 6)->nullable();
-            $table->tinyInteger('is_taxable')->nullable()->default(null);
-
-            $table->string('page_title')->nullable()->default(null);
-            $table->string('page_description')->nullable()->default(null);
-            $table->timestamps();
-        });
-
-
-        Schema::create('product_prices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->decimal('price', 10, 6);
-            $table->timestamps();
-
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
-
-        Schema::create('user_viewed_products', function (Blueprint $table) {
-
-            $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->timestamps();
-
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
-
-
-
-        Schema::create('product_images', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->text('path');
-            $table->boolean('is_main_image')->nullable()->default(null);
-            $table->timestamps();
-
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-
-        });
-
-
-
-        //category_product table foreign key setup
-        Schema::table('category_product', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
-
-
-        Schema::table('order_product', function (Blueprint $table) {
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
-
-        Schema::table('product_attribute_values', function (Blueprint $table) {
-            $table->foreign('product_id')
-                ->references('id')->on('products')->onDelete('cascade');
-        });
-
 
         Schema::create('admin_password_resets', function (Blueprint $table) {
             $table->string('email')->index();
@@ -163,6 +78,32 @@ class Mage2EcommerceSchema extends Migration
             $table->enum('status', ['GUEST', 'LIVE'])->default('LIVE');
             $table->rememberToken();
             $table->timestamps();
+        });
+
+        Schema::create('countries', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('code');
+            $table->string('name');
+            $table->timestamps();
+        });
+
+        Schema::create('addresses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->enum('type', ['SHIPPING', 'BILLING']);
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('address1');
+            $table->string('address2');
+            $table->string('postcode');
+            $table->string('city');
+            $table->string('state');
+            $table->integer('country_id')->unsigned();
+            $table->string('phone');
+            $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
 
         Schema::create('oauth_auth_codes', function (Blueprint $table) {
@@ -206,21 +147,121 @@ class Mage2EcommerceSchema extends Migration
             //$table->foreign('user_id')->references('id')->on('admin_users')->onDelete('cascade');
         });
 
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
-            $table->enum('type', ['SHIPPING', 'BILLING']);
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('address1');
-            $table->string('address2');
-            $table->string('postcode');
-            $table->string('city');
-            $table->string('state');
-            $table->integer('country_id')->unsigned();
-            $table->string('phone');
+            $table->integer('client_id')->index();
             $table->timestamps();
         });
+
+        Schema::create('categories', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('parent_id')->nullable()->default(NULL);
+            $table->string('name');
+            $table->string('slug');
+            $table->timestamps();
+        });
+
+        Schema::create('products', function (Blueprint $table) {
+            $table->increments('id');
+            $table->enum('type',['BASIC','VARIATION','DOWNLOADABLE'])->default('BASIC');
+            $table->string('name')->nullable()->default(null);
+            $table->string('slug')->nullable()->default(null);
+            $table->string('sku')->nullable()->default(null);
+            $table->text('description')->nullable()->default(null);
+            $table->tinyInteger('status')->nullable()->default(null);
+            $table->tinyInteger('in_stock')->nullable()->default(null);
+            $table->tinyInteger('track_stock')->nullable()->default(null);
+            $table->decimal('qty', 10, 6)->nullable();
+            $table->tinyInteger('is_taxable')->nullable()->default(null);
+
+            $table->string('page_title')->nullable()->default(null);
+            $table->string('page_description')->nullable()->default(null);
+            $table->timestamps();
+        });
+
+        Schema::create('product_prices', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->decimal('price', 10, 6);
+            $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('category_product', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('category_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+        });
+
+        Schema::create('user_viewed_products', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
+
+        Schema::create('product_images', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->text('path');
+            $table->boolean('is_main_image')->nullable()->default(null);
+            $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+
+        });
+
+        Schema::create('orders', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('shipping_address_id')->unsigned();
+            $table->integer('billing_address_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->string('shipping_option');
+            $table->string('payment_option');
+            $table->integer('order_status_id')->unsigned();
+            $table->timestamps();
+
+            $table->foreign('order_status_id')->references('id')->on('order_statuses');
+            $table->foreign('shipping_address_id')->references('id')->on('addresses');
+            $table->foreign('billing_address_id')->references('id')->on('addresses');
+            $table->foreign('user_id')->references('id')->on('users');
+        });
+
+        Schema::create('order_product', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('product_id')->unsigned();
+            $table->integer('order_id')->unsigned();
+            $table->integer('qty');
+            $table->decimal('price', 11, 6);
+            $table->decimal('tax_amount', 11, 6);
+            $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('order_statuses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->tinyInteger('is_default')->default(false);
+            $table->timestamps();
+        });
+
+        OrderStatus::insert([
+            ['name' => 'Pending', 'is_default' => 1],
+            ['name' => 'Delivered', 'is_default' => 0],
+            ['name' => 'Received', 'is_default' => 0],
+            ['name' => 'Canceled', 'is_default' => 0],
+        ]);
 
         Schema::create('gift_coupons', function (Blueprint $table) {
             $table->increments('id');
@@ -238,58 +279,6 @@ class Mage2EcommerceSchema extends Migration
             $table->string('configuration_key')->nullable()->default(null);
             $table->string('configuration_value')->nullable()->default(null);
             $table->timestamps();
-        });
-
-
-
-        Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('client_id')->index();
-            $table->timestamps();
-        });
-
-
-        Schema::create('order_statuses', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->tinyInteger('is_default')->default(false);
-            $table->timestamps();
-        });
-
-        OrderStatus::insert([
-            ['name' => 'Pending', 'is_default' => 1],
-            ['name' => 'Delivered', 'is_default' => 0],
-            ['name' => 'Received', 'is_default' => 0],
-            ['name' => 'Canceled', 'is_default' => 0],
-        ]);
-
-
-        Schema::create('orders', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('shipping_address_id')->unsigned();
-            $table->integer('billing_address_id')->unsigned();
-            $table->integer('user_id')->unsigned();
-            $table->string('shipping_option');
-            $table->string('payment_option');
-            $table->integer('order_status_id')->unsigned();
-            $table->timestamps();
-
-            $table->foreign('order_status_id')->references('id')->on('order_statuses');
-            $table->foreign('shipping_address_id')->references('id')->on('addresses');
-            $table->foreign('billing_address_id')->references('id')->on('addresses');
-
-
-        });
-        Schema::create('order_product', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('product_id')->unsigned();
-            $table->integer('order_id')->unsigned();
-            $table->integer('qty');
-            $table->decimal('price', 11, 6);
-            $table->decimal('tax_amount', 11, 6);
-            $table->timestamps();
-
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
 
         Schema::create('pages', function (Blueprint $table) {
@@ -312,7 +301,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
 
-
         Schema::create('reviews', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
@@ -323,8 +311,8 @@ class Mage2EcommerceSchema extends Migration
             $table->timestamps();
 
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
-
 
         Schema::create('wishlists', function (Blueprint $table) {
             $table->increments('id');
@@ -336,7 +324,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
 
-
         Schema::create('visitors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ip_address', 15);
@@ -347,7 +334,6 @@ class Mage2EcommerceSchema extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
-
 
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
@@ -362,7 +348,6 @@ class Mage2EcommerceSchema extends Migration
             $table->timestamps();
         });
 
-
         Schema::create('permission_role', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('permission_id')->unsigned();
@@ -372,15 +357,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('permission_id')->references('id')->on('permissions')->onDelete('cascade');
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
-
-
-        Schema::create('countries', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('code');
-            $table->string('name');
-            $table->timestamps();
-        });
-
 
         Schema::create('tax_rules', function (Blueprint $table) {
             $table->increments('id');
@@ -395,9 +371,6 @@ class Mage2EcommerceSchema extends Migration
 
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
-
-
-
 
         Schema::create('states', function (Blueprint $table) {
             $table->increments('id');
@@ -457,45 +430,13 @@ class Mage2EcommerceSchema extends Migration
             $table->increments('id');
             $table->integer('attribute_id')->unsigned();
             $table->integer('product_id')->unsigned();
-
             $table->string('value');
             $table->timestamps();
 
             $table->foreign('attribute_id')
                 ->references('id')->on('attributes')->onDelete('cascade');
-        });
-
-
-
-
-
-
-
-
-        Schema::table('user_viewed_products', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
-
-        //addresses table foreign key setup
-        Schema::table('addresses', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
-        });
-
-        //reviews table foreign key setup
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
-
-
-        Schema::table('order_return_requests', function (Blueprint $table) {
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-        });
-
-
-        //orders table foreign key setup
-        Schema::table('orders', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
         });
 
         Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'Mage2 Laravel Ecommerce']);

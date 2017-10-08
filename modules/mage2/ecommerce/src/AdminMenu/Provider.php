@@ -93,7 +93,7 @@ class Provider extends ServiceProvider {
         $menu ->key('attribute')
             ->label('Attributes')
             ->route('admin.attribute.index');
-        $catalogMenu->subMenu('attribute',$menu);
+        //$catalogMenu->subMenu('attribute',$menu);
 
 
         $pageMenu = new AdminMenu();
