@@ -18,6 +18,7 @@
   "require": {
     "php": ">=7.0.0",
     "mage2/module-installer": "dev-master",
+    "mage2/install": "dev-master",
     "barryvdh/laravel-dompdf": "^0.8.0@dev",
     "fabpot/goutte": "^3.2",
     "intervention/image": "^2.3@dev",
