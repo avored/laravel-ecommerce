@@ -7,15 +7,13 @@
             <?php $productCategories = []; ?>
         @endif
 
-            @include('mage2-ecommerce::forms.text',['name' => 'category_id[]',
+            @include('mage2-ecommerce::forms.select',['name' => 'category_id[]',
                                                     'label' => 'Category',
                                                     'attributes' => ['class' => 'form-control select2',
                                                                     'id' => 'category_id',
                                                                     'multiple' => true,
-
                                                                     ],
                                                     'options' => $categoryOptions])
-
 
 
     </div>

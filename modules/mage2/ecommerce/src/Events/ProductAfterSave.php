@@ -8,7 +8,7 @@ use Mage2\Ecommerce\Models\Database\Product;
 use Mage2\Ecommerce\Http\Requests\ProductRequest;
 
 
-class ProductSavedEvent
+class ProductAfterSave
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

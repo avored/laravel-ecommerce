@@ -25,20 +25,28 @@
 namespace Mage2\Ecommerce;
 
 use Illuminate\Support\ServiceProvider;
+
 use Mage2\Ecommerce\Http\Middleware\AdminAuth;
 use Mage2\Ecommerce\Http\Middleware\AdminApiAuth;
 use Mage2\Ecommerce\Http\Middleware\Visitor;
 use Mage2\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
-use Illuminate\Support\Facades\View;
 use Mage2\Ecommerce\Http\Middleware\FrontAuth;
 use Mage2\Ecommerce\Http\Middleware\RedirectIfFrontAuth;
+
 use Mage2\Ecommerce\Http\ViewComposers\AdminNavComposer;
-use Illuminate\Support\Facades\App;
 use Mage2\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
 use Mage2\Ecommerce\Http\ViewComposers\LayoutAppComposer;
 use Mage2\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
 use Mage2\Ecommerce\Http\ViewComposers\CheckoutComposer;
 use Mage2\Ecommerce\Http\ViewComposers\MyAccountSidebarComposer;
+
+use Laravel\Passport\Passport;
+use Laravel\Passport\Console\InstallCommand;
+use Laravel\Passport\Console\ClientCommand;
+use Laravel\Passport\Console\KeysCommand;
+
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\View;
 use Mage2\Ecommerce\Configuration\Facade as AdminConfiguration;
 
 class Provider extends ServiceProvider
@@ -46,22 +54,15 @@ class Provider extends ServiceProvider
 
 
     protected $providers = [
-        'Mage2\Ecommerce\AdminMenu\Provider',
-        'Mage2\Ecommerce\DataGrid\Provider',
-        'Mage2\Ecommerce\Image\Provider',
-        'Mage2\Ecommerce\Attribute\Provider',
-        'Mage2\Ecommerce\Tabs\Provider',
-        'Mage2\Ecommerce\Payment\Provider',
-        'Mage2\Ecommerce\Configuration\Provider',
+        \Mage2\Ecommerce\AdminMenu\Provider::class,
+        \Mage2\Ecommerce\DataGrid\Provider::class,
+        \Mage2\Ecommerce\Image\Provider::class,
+        \Mage2\Ecommerce\Attribute\Provider::class,
+        \Mage2\Ecommerce\Tabs\Provider::class,
+        \Mage2\Ecommerce\Payment\Provider::class,
+        \Mage2\Ecommerce\Configuration\Provider::class,
         \Mage2\Ecommerce\Permission\Provider::class
     ];
-
-
-
-    protected $policies = [
-        AdminUser::class => AdminUserPolicy::class,
-    ];
-
 
     /**
      * Bootstrap any application services.
@@ -95,14 +96,15 @@ class Provider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerResources() {
+    protected function registerResources()
+    {
 
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         //Route::middleware(['web'])->group();
 
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'mage2-ecommerce');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'mage2-ecommerce');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'mage2-ecommerce');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'mage2-ecommerce');
     }
 
     /**
@@ -110,7 +112,8 @@ class Provider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerMiddleware() {
+    protected function registerMiddleware()
+    {
         $router = $this->app['router'];
 
 
@@ -130,27 +133,21 @@ class Provider extends ServiceProvider
      */
     public function registerViewComposerData()
     {
-        View::composer('mage2-ecommerce::admin.layouts.left-nav',AdminNavComposer::class);
+        View::composer('mage2-ecommerce::admin.layouts.left-nav', AdminNavComposer::class);
         View::composer(['mage2-ecommerce::admin.category._fields'], CategoryFieldsComposer::class);
-        View::composer(['mage2-ecommerce::admin.product.create',
-                        'mage2-ecommerce::admin.product.edit'], ProductFieldsComposer::class);
-
-        //View::composer('*',LayoutAppComposer::class);
-        View::composer('checkout.index',CheckoutComposer::class);
+        View::composer('checkout.index', CheckoutComposer::class);
         View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
-
         View::composer('layouts.app', LayoutAppComposer::class);
-
-        View::composer(['mage2-framework::product.create', 'mage2-framework::product.edit'],
-            RelatedProductComposer::class);
-
-        View::composer(['catalog.product.view'],
-            RelatedProductViewComposer::class);
-
-        View::composer(['user.my-account.sidebar'], MyAccountSidebarComposer::class);
-
+        View::composer('catalog.product.view', RelatedProductViewComposer::class);
+        View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
         View::composer('mage2-framework::product.edit', ProductFieldComposer::class);
-        View::composer(['catalog.product.view'],ProductSpecificationComposer::class);
+        View::composer('catalog.product.view', ProductSpecificationComposer::class);
+        View::composer(['mage2-ecommerce::admin.product.create',
+                        'mage2-ecommerce::admin.product.edit'],
+                                    ProductFieldsComposer::class);
+        View::composer(['mage2-framework::product.create',
+                        'mage2-framework::product.edit'],
+                                    RelatedProductComposer::class);
     }
 
     /**
@@ -159,9 +156,10 @@ class Provider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerProviders() {
+    protected function registerProviders()
+    {
 
-        foreach($this->providers as $provider) {
+        foreach ($this->providers as $provider) {
             App::register($provider);
         }
     }
@@ -235,20 +233,4 @@ class Provider extends ServiceProvider
             KeysCommand::class,
         ]);
     }
-
-
-
-
-    /**
-     * Register the policy for the admin user
-     *
-     * @return void
-     */
-    public function registerPolicies()
-    {
-        foreach ($this->policies as $key => $value) {
-            Gate::policy($key, $value);
-        }
-    }
-
 }

@@ -27,6 +27,7 @@ namespace Mage2\Ecommerce\Models\Database;
 use Mage2\Ecommerce\Image\LocalFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Mage2\Ecommerce\Http\Requests\ProductRequest;
 
 class Product extends BaseModel
 {
@@ -62,6 +63,50 @@ class Product extends BaseModel
         });
 
     }
+
+    /**
+     * Update the Product and Product Related Data
+     *
+     * @var \Mage2\Ecommerce\Http\Requests\ProductRequest $request
+     * @return void
+     */
+    public function saveProduct(ProductRequest $request) {
+
+
+        // SAVING/UPDATE Product PRICES
+        if ($this->prices()->get()->count() > 0) {
+            $this->prices()->get()->first()->update(['price' => $request->get('price')]);
+        } else {
+            $this->prices()->create(['price' => $request->get('price')]);
+        }
+
+        // SAVING/UPDATE Product IMAGES
+        if (null !== $request->get('image')) {
+            $exitingIds = $this->images()->get()->pluck('id')->toArray();
+            foreach ($request->get('image') as $key => $data) {
+                if (is_int($key)) {
+                    if (($findKey = array_search($key, $exitingIds)) !== false) {
+                        $productImage = ProductImage::findorfail($key);
+                        $productImage->update($data);
+                        unset($exitingIds[$findKey]);
+                    }
+                    continue;
+                }
+                ProductImage::create($data + ['product_id' => $this->id]);
+            }
+            if (count($exitingIds) > 0) {
+                ProductImage::destroy($exitingIds);
+            }
+        }
+
+
+        // SAVING/UPDATE Product Category
+        if (count($request->get('category_id')) > 0) {
+            $this->categories()->sync($request->get('category_id'));
+        }
+
+    }
+
 
     /**
      * Return Product model by Product Slug

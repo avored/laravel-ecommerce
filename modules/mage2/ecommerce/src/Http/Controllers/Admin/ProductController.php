@@ -34,7 +34,8 @@ use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
-use Mage2\Ecommerce\Events\ProductSavedEvent;
+use Mage2\Ecommerce\Events\ProductAfterSave;
+use Mage2\Ecommerce\Events\ProductBeforeSave;
 
 class ProductController extends AdminController
 {
@@ -102,18 +103,6 @@ class ProductController extends AdminController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
@@ -138,16 +127,14 @@ class ProductController extends AdminController
     {
         try {
 
+            Event::fire(new ProductBeforeSave($request));
             $product = Product::findorfail($id);
-            $product->update($request->all());
-
-            Event::fire(new ProductSavedEvent($product, $request));
+            $product->saveProduct($request);
+            Event::fire(new ProductAfterSave($product, $request));
 
         } catch (\Exception $e) {
-
             throw new \Exception('Error in Saving Product: ' . $e->getMessage());
         }
-
 
         return redirect()->route('admin.product.index');
     }
@@ -162,7 +149,6 @@ class ProductController extends AdminController
     public function destroy($id)
     {
         Product::destroy($id);
-
         return redirect()->route('admin.product.index');
     }
 
