@@ -106,7 +106,7 @@ class MyAccountController extends Controller
     public function directory($path)
     {
         if (!File::exists($path)) {
-            File::makeDirectory($path, '0777', true);
+            File::makeDirectory($path, '0777', true, true);
         }
         return $this;
     }
