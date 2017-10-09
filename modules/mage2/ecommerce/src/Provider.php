@@ -28,6 +28,7 @@ use Illuminate\Support\ServiceProvider;
 
 use Mage2\Ecommerce\Http\Middleware\AdminAuth;
 use Mage2\Ecommerce\Http\Middleware\AdminApiAuth;
+use Mage2\Ecommerce\Http\Middleware\ProductViewed;
 use Mage2\Ecommerce\Http\Middleware\Visitor;
 use Mage2\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
 use Mage2\Ecommerce\Http\Middleware\FrontAuth;
@@ -48,6 +49,8 @@ use Laravel\Passport\Console\KeysCommand;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
 use Mage2\Ecommerce\Configuration\Facade as AdminConfiguration;
+use Mage2\Ecommerce\Http\ViewComposers\ProductSpecificationComposer;
+use Mage2\Ecommerce\Http\ViewComposers\RelatedProductViewComposer;
 
 class Provider extends ServiceProvider
 {
@@ -124,6 +127,7 @@ class Provider extends ServiceProvider
         $router->aliasMiddleware('front.guest', RedirectIfFrontAuth::class);
         $router->aliasMiddleware('visitor', Visitor::class);
         $router->aliasMiddleware('permission', PermissionMiddleware::class);
+        $router->aliasMiddleware('product.viewed', ProductViewed::class);
     }
 
     /**

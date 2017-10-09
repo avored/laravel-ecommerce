@@ -22,12 +22,11 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\RelatedProduct\ViewComposers;
+namespace Mage2\Ecommerce\Http\ViewComposers;
 
 use Illuminate\Support\Collection;
-use Mage2\Framework\Database\Models\Product;
-use Mage2\RelatedProduct\Models\RelatedProduct;
-use Mage2\Framework\Tabs\Facades\Tabs;
+use Mage2\Ecommerce\Models\Database\Product;
+use Mage2\Ecommerce\Tabs\Facade as Tabs;
 use Illuminate\View\View;
 
 class RelatedProductViewComposer
@@ -50,7 +49,7 @@ class RelatedProductViewComposer
         Tabs::add('related-product')
             ->setType('product-view')
             ->setLabel('Related Product')
-            ->setViewpath('mage2-related-product::related-product.related-product-view');
+            ->setViewpath('mage2-ecommerce::related-product.related-product-view');
 
         $product = $view->product;
 

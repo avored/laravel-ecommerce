@@ -22,11 +22,11 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Attribute\ViewComposers;
+namespace Mage2\Ecommerce\Http\ViewComposers;
 
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use Mage2\Framework\Tabs\Facades\Tabs;
+use Mage2\Ecommerce\Tabs\Facade as Tabs;
 
 class ProductSpecificationComposer
 {
