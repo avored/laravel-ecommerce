@@ -335,7 +335,17 @@
 
                                         <div class="form-group {{ $errors->has('payment_option') ? ' has-error' : '' }}">
 
-                                            {!! Form::radio('payment_option',$paymentOption->getTitle(),$paymentOption->getIdentifier(),['id' => $paymentOption->getIdentifier()]) !!}
+
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input"
+                                                           type="radio" name="payment_option"
+                                                           id="payment_option" value="{{ $paymentOption->getIdentifier() }}">
+                                                    {!! $paymentOption->getTitle() !!}
+                                                </label>
+                                            </div>
+
+
 
 
                                             @if ($errors->has('payment_option'))

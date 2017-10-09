@@ -18,7 +18,11 @@
                         </tr>
                         <?php $total = 0; $taxTotal = 0;$giftCouponAmount = 0; ?>
                         @foreach($cartProducts as $product)
-                            {!! Form::open(['method' => 'put', 'action' => route('cart.update') , 'id' => 'cart-form-update']) !!}
+                            <form method="post" action="{{ route('cart.update') }}">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="_method" value="put" />
+
+
                             <tr>
 
                                 <td class="col-8">
@@ -92,7 +96,7 @@
                                 </td>
 
                             </tr>
-                            {!! Form::close() !!}
+                            </form>
                         @endforeach
 
                         <tr>

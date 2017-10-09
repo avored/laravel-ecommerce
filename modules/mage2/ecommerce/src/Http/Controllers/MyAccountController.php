@@ -75,7 +75,6 @@ class MyAccountController extends Controller
             $user->image_path->destroy();
         }
 
-
         $relativePath = 'uploads/users/' . $user->id;
         $path = $relativePath;
 
@@ -113,7 +112,6 @@ class MyAccountController extends Controller
 
     public function changePasswordPost(ChangePasswordRequest $request)
     {
-
         $user = Auth::user();
         if (Hash::check($request->get('current_password'), $user->password)) {
             $user->update(['password' => bcrypt($request->get('password'))]);
@@ -123,5 +121,4 @@ class MyAccountController extends Controller
             return redirect()->back()->withErrors(['current_password' => 'Your Current Password Wrong!']);
         }
     }
-
 }

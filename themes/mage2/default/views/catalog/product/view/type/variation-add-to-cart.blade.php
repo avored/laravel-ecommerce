@@ -1,4 +1,5 @@
-{!! Form::open(['method' => 'post','action' => route('cart.add-to-cart')]) !!}
+<form method="post" action="{{ route('cart.add-tocart') }}">
+    {{ csrf_field() }}
 
 <input type="hidden" name="slug" value="{{ $product->slug }}"/>
 <input id="product-price-hidden" type="hidden" name="price" value="{{ $product->price }}"/>
@@ -44,7 +45,7 @@ $attributes = $product->getAssignedAttributes();
         Add to Cart
     </button>
 </div>
-{!! Form::close() !!}
+</form>
 
 <script>
 

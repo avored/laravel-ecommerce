@@ -13,10 +13,17 @@
                     Profile Image Upload
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['action' => route('my-account.upload-image.post'), 'method' => 'post','files' => true]) !!}
-                    {!! Form::file('profile_image','Profile Image') !!}
-                    {!! Form::submit('Upload Image') !!}
-                    {!! Form::close() !!}
+                    <form action="{{ route('my-account.upload-image.post') }}" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="profile_image">Profile Image</label>
+                            <input type="file" class="form-control" name="profile_image" id="profile_image" />
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Upload Image</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
 

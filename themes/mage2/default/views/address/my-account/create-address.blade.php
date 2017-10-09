@@ -12,7 +12,9 @@
                     Create Address
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['action' => route('my-account.address.store'),'method' => 'post']) !!}
+                    <form method="post" action="{{ route('my-account.address.store') }}">
+                        {{ csrf_field() }}
+
 
                     <div class="row">
                     <div class="col-6">
@@ -163,7 +165,7 @@
                         <input class="btn btn-primary" type="submit" name="create_address" value="Create Address">
                     </div>
 
-                    {!! Form::close() !!}
+                    </form>
                 </div>
             </div>
         </div>

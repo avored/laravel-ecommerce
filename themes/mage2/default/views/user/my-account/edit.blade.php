@@ -15,17 +15,19 @@
                     <div class="card-body">
                         <div class="profile-content">
 
-                            {!! Form::bind($user, ['action' => route('my-account.store') , 'method' => 'post']) !!}
+                            <form method="post" action="{{ route('my-account.store') }}">
 
 
-                            <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+
+
+                            <div class="form-group">
                                 <label for="first_name">First Name</label>
                                 <input id="first_name" class="form-control" type="text" value="{{ $user->first_name }}"
                                        name="first_name">
                                 @if ($errors->has('first_name'))
                                     <span class="help-block">
-                    <strong>{{ $errors->first('first_name') }}</strong>
-                </span>
+                                        <strong>{{ $errors->first('first_name') }}</strong>
+                                    </span>
                                 @endif
                             </div>
                             <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
@@ -34,8 +36,8 @@
                                        name="last_name">
                                 @if ($errors->has('last_name'))
                                     <span class="help-block">
-                    <strong>{{ $errors->first('last_name') }}</strong>
-                </span>
+                                        <strong>{{ $errors->first('last_name') }}</strong>
+                                    </span>
                                 @endif
                             </div>
 
@@ -46,21 +48,44 @@
                                        name="email">
                                 @if ($errors->has('email'))
                                     <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                </span>
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
                                 @endif
                             </div>
 
-                            {!! Form::text('phone','Phone') !!}
-                            {!! Form::text('company_name','Company Name') !!}
+                                <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                                    <label for="phone">Phone</label>
+                                    <input id="phone" type="text" class="form-control"
+                                           value="{{ $user->phone }}"
+                                           name="phone">
+                                    @if ($errors->has('phone'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('phone') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
+                                <div class="form-group{{ $errors->has('company_name') ? ' has-error' : '' }}">
+                                    <label for="company_name">Company Name</label>
+                                    <input id="company_name" type="text" class="form-control"
+                                           value="{{ $user->company_name }}"
+                                           name="company_name">
+                                    @if ($errors->has('company_name'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('company_name') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
 
 
                             <div class="form-group">
-                                {!! Form::submit("Update Profile") !!}
+                                <button type="submit" class="btn btn-primary"> Update Profile</button>
+
                             </div>
 
 
-                            {!! Form::close() !!}
+                            </form>
                         </div>
                     </div>
                 </div>

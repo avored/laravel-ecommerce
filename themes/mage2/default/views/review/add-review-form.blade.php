@@ -1,4 +1,8 @@
-{!! Form::open(['action' => route('review.store'), 'method' => 'post']) !!}
+
+<form action="{{ route('review.store') }}" method="post">
+    {{ csrf_field() }}
+
+
 
 <div class="form-group {{ $errors->has('star') ? ' has-error' : '' }}">
     <p>Please Select Rating</p>
@@ -18,16 +22,33 @@
 
 @if(!Auth::check())
 
-    {!! Form::text('first_name','First Name') !!}
-    {!! Form::text('last_name','Last Name') !!}
-    {!! Form::text('email','Email') !!}
+
+    <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input type="text" name="first_name" class="form-control" id="first_name" />
+    </div>
+        <div class="form-group">
+            <label for="last_name">Last Name</label>
+            <input type="text" name="last_name" class="form-control" id="last_name" />
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" class="form-control" id="email" />
+        </div>
+
 @endif
 
-{!! Form::textarea('comment',"Comment") !!}
-<input type="hidden" name="product_id" value="{{ $product->id }}"/>
+    <div class="form-group">
+        <textarea name="comment" class="form-control"></textarea>
+    </div>
 
-{!! Form::submit('Create Review') !!}
-{!! Form::close() !!}
+    <input type="hidden" name="product_id" value="{{ $product->id }}"/>
+
+    <div class="form-group">
+        <button type="submit">Create Review</button>
+    </div>
+
+</form>
 
 @push('scripts')
 <script>

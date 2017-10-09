@@ -19,7 +19,11 @@
             </p>
 
             <div>
-                {!! Form::open(['method' => 'post','action' => route('cart.add-to-cart')]) !!}
+
+                <form method="post" action="{{ route('cart.add-tocart') }}">
+                    {{ csrf_field() }}
+
+
                 <input type="hidden" name="slug" value="{{ $product->slug }}"/>
 
                 <div class="product-stock">In Stock</div>
@@ -32,7 +36,7 @@
                         Add to Cart
                     </button>
                 </div>
-                {!! Form::close() !!}
+                </form>
 
                 @if(Auth::check() && Auth::user()->isInWishlist($product->id))
                     <a class="btn btn-danger" title="Remove from Wish List"

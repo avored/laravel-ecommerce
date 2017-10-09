@@ -1,4 +1,5 @@
-{!! Form::open(['method' => 'post','action' => route('cart.add-to-cart')]) !!}
+<form method="post" action="{{ route('cart.add-tocart') }}">
+    {{ csrf_field() }}
 <input type="hidden" name="slug" value="{{ $product->slug }}"/>
 <div class="product-stock">In Stock</div>
 <hr>
@@ -15,4 +16,4 @@
         Add to Cart
     </button>
 </div>
-{!! Form::close() !!}
+</form>

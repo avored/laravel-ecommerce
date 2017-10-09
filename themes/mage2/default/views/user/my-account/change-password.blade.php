@@ -14,12 +14,30 @@
                 </div>
                 <div class="card-body">
 
-                {!! Form::open(['action' => route('my-account.change-password.post'), 'method' => 'post']) !!}
-                    {!! Form::password('current_password','Cuurent Password') !!}
-                    {!! Form::password('password','New Password') !!}
-                    {!! Form::password('password_confirmation','Password Confirmation') !!}
-                    {!! Form::submit('Change My Password') !!}
-                    {!! Form::close() !!}
+                    <form action="{{ route('my-account.change-password.post') }}" method="post">
+                        {{ csrf_field() }}
+
+                        <div class="form-group">
+                            <label>Current Password</label>
+                            <input type="password" name="current_password" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>New Password</label>
+                            <input type="password" name="password" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Password Confirmation</label>
+                            <input type="password" name="password_confirmation" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-primary" type="submit">Change My Password</button>
+                        </div>
+
+                    </form>
+
                 </div>
             </div>
 
