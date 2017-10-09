@@ -1,4 +1,4 @@
-<form method="post" action="{{ route('cart.add-tocart') }}">
+<form method="post" action="{{ route('cart.add-to-cart') }}">
     {{ csrf_field() }}
 <input type="hidden" name="slug" value="{{ $product->slug }}"/>
 <div class="product-stock">In Stock</div>

@@ -20,7 +20,7 @@
 
             <div>
 
-                <form method="post" action="{{ route('cart.add-tocart') }}">
+                <form method="post" action="{{ route('cart.add-to-cart') }}">
                     {{ csrf_field() }}
 
 
