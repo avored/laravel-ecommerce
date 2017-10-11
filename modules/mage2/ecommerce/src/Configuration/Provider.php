@@ -25,6 +25,7 @@
 namespace Mage2\Ecommerce\Configuration;
 
 use Illuminate\Support\ServiceProvider;
+use Mage2\Ecommerce\Configuration\Facade as AdminConfiguration;
 
 class Provider extends ServiceProvider {
 
@@ -34,6 +35,13 @@ class Provider extends ServiceProvider {
      * @var bool
      */
     protected $defer = true;
+
+
+    public function boot() {
+
+        $this->addConfig();
+
+    }
     /**
      * Register the service provider.
      *
@@ -42,7 +50,7 @@ class Provider extends ServiceProvider {
     public function register()
     {
         $this->registerAdminConfiguration();
-        $this->app->alias('adminconfiguration', 'Mage2\Ecommerce\Configuration\Manager');
+        $this->app->alias('configuration', 'Mage2\Ecommerce\Configuration\Manager');
     }
     /**
      * Register the AdmainConfiguration instance.
@@ -51,7 +59,7 @@ class Provider extends ServiceProvider {
      */
     protected function registerAdminConfiguration()
     {
-        $this->app->singleton('adminconfiguration', function ($app) {
+        $this->app->singleton('configuration', function ($app) {
             return new Manager();
         });
     }
@@ -63,6 +71,40 @@ class Provider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['adminconfiguration', 'Mage2\Ecommerce\Configuration\Manager'];
+        return ['configuration', 'Mage2\Ecommerce\Configuration\Manager'];
+    }
+
+    public function addConfig() {
+
+        $adminConfigurations[] = [
+            'title' => 'Address Configuration',
+            'description' => 'Set Default Country for Store',
+            'edit_action' => 'admin.configuration.address',
+        ];
+
+        $adminConfigurations[] = [
+            'title' => 'Order Configuration',
+            'description' => 'Some Description for Order Modules',
+            'edit_action' => 'admin.configuration.order',
+            'sort_order' => 1
+        ];
+
+        $adminConfigurations[] = [
+            'title' => 'Tax Configuration',
+            'description' => 'Defined the amount of tax applied to product.',
+            'edit_action' => 'admin.configuration.tax-class',
+            'sort_order' => 3
+        ];
+
+        $adminConfigurations[] = [
+            'title' => 'Catalog Configuration',
+            'description' => 'Some Description for Catalog Modules',
+            'edit_action' => 'admin.configuration.catalog',
+            'sort_order' => 1
+        ];
+
+        foreach ($adminConfigurations as $adminConfiguration) {
+            AdminConfiguration::registerConfiguration($adminConfiguration);
+        }
     }
 }

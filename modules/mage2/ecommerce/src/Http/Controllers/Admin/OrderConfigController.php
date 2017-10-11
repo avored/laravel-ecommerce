@@ -26,7 +26,7 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Mage2\Ecommerce\Models\Database\Configuration;
 use App\Http\Controllers\AdminController;
-use OrderStat;
+use Mage2\Ecommerce\Models\Database\OrderStatus;
 
 class OrderConfigController extends AdminController
 {
@@ -39,10 +39,10 @@ class OrderConfigController extends AdminController
      */
     public function getConfiguration()
     {
-        $orderStatusOption = OrderStatus::all()->pluck('title','id');
+        $orderStatusOption = OrderStatus::all()->pluck('name','id');
         $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
 
-        return view('mage2-order::order.configuration.index')
+        return view('mage2-ecommerce::admin.order.configuration.index')
             ->with('orderStatusOption',$orderStatusOption)
             ->with('configurations', $configurations);
     }

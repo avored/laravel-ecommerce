@@ -16,11 +16,7 @@
                                 <p class="description">{{$configuration['description']}}</p>
                             </div>
                             <div class="card-footer">
-                                @can('hasPermission',[Mage2\User\Models\AdminUser::class, $configuration['edit_action']])
                                 <a href="{{ route($configuration['edit_action']) }}">Edit</a>
-                                @else
-                                    <span>Edit</span>
-                                    @endcan
                             </div>
                         </div>
                     </div>

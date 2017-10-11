@@ -30,6 +30,6 @@ class Facade extends LaravelFacade
 {
     protected static function getFacadeAccessor()
     {
-        return 'Mage2\Ecommerce\Configuration\Manager';
+        return 'configuration';
     }
 }

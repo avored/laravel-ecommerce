@@ -77,8 +77,6 @@ class Provider extends ServiceProvider
         $this->registerMiddleware();
         $this->registerResources();
         $this->registerViewComposerData();
-        $this->registerAdminConfiguration();
-
     }
 
     /**
@@ -89,6 +87,7 @@ class Provider extends ServiceProvider
     public function register()
     {
         $this->registerProviders();
+        Passport::ignoreMigrations();
 
     }
 
@@ -168,58 +167,6 @@ class Provider extends ServiceProvider
         }
     }
 
-    /**
-     * Register Admin Configuration for the Address Modules
-     *
-     * @param \Illuminate\Routing\Router $router
-     *
-     * @return void
-     */
-    public function registerAdminConfiguration()
-    {
-        $adminConfigurations[] = [
-            'title' => 'Address Configuration',
-            'description' => 'Set Default Country for Store',
-            'edit_action' => 'admin.configuration.address',
-        ];
-
-        foreach ($adminConfigurations as $adminConfiguration) {
-            AdminConfiguration::registerConfiguration($adminConfiguration);
-        }
-
-        $adminConfigurations[] = [
-            'title' => 'Order Configuration',
-            'description' => 'Some Description for Order Modules',
-            'edit_action' => 'admin.configuration.order',
-            'sort_order' => 1
-        ];
-
-        foreach ($adminConfigurations as $adminConfiguration) {
-            AdminConfiguration::registerConfiguration($adminConfiguration);
-        }
-
-        $adminConfigurations[] = [
-            'title' => 'Tax Configuration',
-            'description' => 'Defined the amount of tax applied to product.',
-            'edit_action' => 'admin.configuration.tax-class',
-            'sort_order' => 3
-        ];
-
-        foreach ($adminConfigurations as $adminConfiguration) {
-            AdminConfiguration::registerConfiguration($adminConfiguration);
-        }
-
-        $adminConfigurations[] = [
-            'title' => 'Catalog Configuration',
-            'description' => 'Some Description for Catalog Modules',
-            'edit_action' => 'admin.configuration.catalog',
-            'sort_order' => 1
-        ];
-
-        foreach ($adminConfigurations as $adminConfiguration) {
-            AdminConfiguration::registerConfiguration($adminConfiguration);
-        }
-    }
 
     /*
    *  Registering Passport Oauth2.0 client

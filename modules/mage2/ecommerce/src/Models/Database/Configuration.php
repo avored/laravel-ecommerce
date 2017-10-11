@@ -30,11 +30,29 @@ class Configuration extends BaseModel
 
     public static function getConfiguration($key)
     {
-        $model = new static();
-
+        $model = new static;
         $row = $model->where('configuration_key', '=', $key)->first();
         if ($row != null) {
             return $row->configuration_value;
         }
+
+        return null;
+    }
+
+    /**
+     * Determine if an attribute or relation exists on the model.
+     *
+     * @param  string  $key
+     * @return bool
+     */
+    public function __get($key)
+    {
+
+        $val = static::getConfiguration($key);
+        if (null !== $val) {
+            return $val;
+        }
+
+        return $this->offsetExists($key);
     }
 }

@@ -11,19 +11,21 @@
                     Order Configuration List
                 </div>
                 <div class="card-body">
-                    {!! Form::bind($configurations, ['method' => 'post', 'action' => route('admin.configuration.store')]) !!}
+                    <form method="post" action="{{ route('admin.configuration.store') }}">
 
-                    {!! Form::select('mage2_order_default_first_status',
-                                    'Default First Order Status(e.g: Pending)',
-                                    $orderStatusOption) !!}
+                        {{ csrf_field() }}
 
-                    {!! Form::select('mage2_order_default_last_status',
-                                    'Default Last Order Stauts(e.g: Received)',
-                                    $orderStatusOption) !!}
+                        @include('mage2-ecommerce::forms.select',['name' => 'mage2_order_default_first_status',
+                                                                'label' => 'Default First Order Status(e.g: Pending)',
+                                                                'options' => $orderStatusOption])
 
-                    {!! Form::submit('Save Configuration') !!}
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" >Save Configuration</button>
+                        </div>
 
-                    {!! Form::close() !!}
+
+                    </form>
+
                 </div>
             </div>
 

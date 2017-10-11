@@ -25,10 +25,10 @@
 namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Mage2\Dashboard\Models\Configuration;
-use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Framework\Configuration\Facades\AdminConfiguration;
-use Mage2\Page\Models\Page;
+use Mage2\Ecommerce\Configuration;
+use App\Http\Controllers\AdminController;
+use Mage2\Ecommerce\Configuration\Facade as AdminConfiguration;
+use Mage2\Ecommerce\Models\Database\Page;
 use Illuminate\Support\Collection;
 
 class ConfigurationController extends AdminController
@@ -43,7 +43,7 @@ class ConfigurationController extends AdminController
     {
         $configurations = AdminConfiguration::all();
 
-        return view('mage2-dashboard::configuration.index')
+        return view('mage2-ecommerce::admin.configuration.index')
             ->with('configurations', $configurations);
     }
 
