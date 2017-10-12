@@ -22,16 +22,11 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-
-
 namespace Mage2\Dashboard\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
-use Mage2\Dashboard\Models\Configuration;
-use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Framework\Theme\Facades\Theme;
+use Mage2\Ecommerce\Configuration;
 
 class ThemeController extends AdminController
 {

@@ -34,7 +34,6 @@ use Mage2\Ecommerce\Models\Database\User;
 use Mage2\Ecommerce\Mail\UpdateOrderStatusMail;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Illuminate\Support\Facades\File;
-use App\Http\Controllers\AdminController;
 
 class OrderController extends AdminController
 {

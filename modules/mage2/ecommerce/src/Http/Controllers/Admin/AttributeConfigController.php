@@ -24,8 +24,7 @@
  */
 namespace Mage2\Attribute\Controllers\Admin;
 
-use Mage2\Dashboard\Models\Configuration;
-use Mage2\Framework\System\Controllers\AdminController;
+use Mage2\Ecommerce\Models\Database\Configuration;
 
 class ConfigurationController extends AdminController
 {

@@ -22,19 +22,18 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\RelatedProduct\Controllers\Admin;
+namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Framework\DataGrid\Facades\DataGrid;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-class RelatedProductController extends AdminController
+class AdminController extends BaseController
 {
-
-    public function getDataGrid($id= null)
-    {
-
-    }
-
+    use AuthorizesRequests,
+        DispatchesJobs,
+        ValidatesRequests;
 
 
 }

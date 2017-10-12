@@ -24,8 +24,7 @@
  */
 namespace Mage2\Attribute\Controllers\Admin;
 
-use Mage2\Attribute\Models\Attribute;
-use App\Http\Controllers\AdminController;
+use Mage2\Ecommerce\Models\Database\Attribute;
 use Mage2\Framework\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Http\Requests\AttributeRequest;
 use Illuminate\Http\Request;

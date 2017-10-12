@@ -30,7 +30,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Mage2\Ecommerce\Models\Database\Product;
 use Mage2\Ecommerce\Http\Requests\ProductRequest;
-use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;

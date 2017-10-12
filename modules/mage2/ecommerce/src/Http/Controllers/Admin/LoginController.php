@@ -27,7 +27,6 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\AdminController;
 
 class LoginController extends AdminController
 {

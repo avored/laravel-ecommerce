@@ -25,7 +25,6 @@
 namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Mage2\Ecommerce\Models\Database\Configuration;
-use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\Models\Database\OrderStatus;
 
 class OrderConfigController extends AdminController

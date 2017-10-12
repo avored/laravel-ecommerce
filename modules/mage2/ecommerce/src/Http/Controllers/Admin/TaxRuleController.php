@@ -24,7 +24,6 @@
  */
 namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
-use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\Models\Database\Country;
 use Mage2\Ecommerce\Models\Database\TaxRule;
 use Mage2\Ecommerce\Http\Requests\TaxRuleRequest;

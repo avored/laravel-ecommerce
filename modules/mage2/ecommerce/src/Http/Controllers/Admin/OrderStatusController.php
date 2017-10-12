@@ -26,7 +26,6 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Mage2\Ecommerce\Models\Database\OrderStatus;
 use Mage2\Ecommerce\Http\Requests\OrderStatusRequest;
-use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 
 class OrderStatusController extends AdminController

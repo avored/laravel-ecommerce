@@ -25,8 +25,7 @@
 namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Mage2\Ecommerce\Configuration;
-use App\Http\Controllers\AdminController;
+use Mage2\Ecommerce\Models\Database\Configuration;
 use Mage2\Ecommerce\Configuration\Facade as AdminConfiguration;
 use Mage2\Ecommerce\Models\Database\Page;
 use Illuminate\Support\Collection;

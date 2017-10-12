@@ -26,7 +26,6 @@
 namespace Mage2\Address\Controllers\Admin;
 
 use Mage2\Ecommerce\Models\Database\Configuration;
-use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\Models\Database\Country;
 
 class AddressConfigController extends AdminController

@@ -26,7 +26,6 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Mage2\Ecommerce\Models\Database\GiftCoupon;
 use Mage2\Ecommerce\Http\Requests\GiftCouponRequest;
-use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 
 class GiftCouponController extends AdminController

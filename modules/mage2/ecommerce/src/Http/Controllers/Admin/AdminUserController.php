@@ -26,7 +26,6 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Client;
-use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\Models\Database\AdminUser;
 use Mage2\Ecommerce\Models\Database\Role;
 use Mage2\Ecommerce\Http\Requests\AdminUserRequest;

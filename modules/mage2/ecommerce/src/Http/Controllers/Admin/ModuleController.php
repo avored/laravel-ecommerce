@@ -28,9 +28,6 @@ namespace Mage2\Dashboard\Controllers\Admin;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
-use Mage2\Framework\System\Controllers\AdminController;
-use Mage2\Framework\Module\Facades\Module as ModuleFacade;
-use Mage2\Dashboard\Models\Module as ModuleModel;
 
 class ModuleController extends AdminController
 {

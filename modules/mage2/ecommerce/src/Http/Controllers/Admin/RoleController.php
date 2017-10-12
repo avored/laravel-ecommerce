@@ -24,7 +24,6 @@
  */
 namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
-use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\Models\Database\Role;
 use Mage2\Ecommerce\Http\Requests\RoleRequst;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;

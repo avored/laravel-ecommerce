@@ -25,7 +25,6 @@
 namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\AdminController;
 use Mage2\Ecommerce\Models\Database\Review;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 
