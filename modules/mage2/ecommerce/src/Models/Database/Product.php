@@ -55,7 +55,7 @@ class Product extends BaseModel
             $slug = Str::slug($model->name);
 
             // check to see if any other slugs exist that are the same & count them
-            $count = static::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->count();
+            $count = static::where("slug", "=",$slug)->count();
 
             // if other slugs exist that are the same, append the count to the slug
             $model->slug = $count ? "{$slug}-{$count}" : $slug;

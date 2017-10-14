@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LoginTest extends TestCase
 {
+    use DatabaseTransactions;
     /**
      * A basic login example.
      *
@@ -28,12 +29,9 @@ class LoginTest extends TestCase
      */
     public function testLoginPost()
     {
-        $password = 'admin123';
-        $email = $this->faker->email;
-        $user = AdminUser::create(['first_name' => 'Test Name','last_name' => 'Last Name','email' => $email,'password' => bcrypt($password),'role_id' => 1]);
+        $response = $this->post('/admin/login', ['email' => $this->adminUser->email, 'password' => $this->adminUserPassword]);
 
-        $response = $this->post('/admin/login', ['email' => $user->email, 'password' => $password]);
-
+        //$this->assertDatabaseHas('admin_users',['email' => $this->adminUser->email]);
         $response->assertRedirect('/admin');
     }
 }

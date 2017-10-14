@@ -98,6 +98,10 @@ class ProductController extends AdminController
         }
 
 
+        //rather then redirect we just execute Edit Method here.
+        // Not sure if this is a good idea???
+
+        //return $this->edit($product->id);
         return redirect()->route('admin.product.edit', ['id' => $product->id]);
     }
 
@@ -128,6 +132,7 @@ class ProductController extends AdminController
 
             Event::fire(new ProductBeforeSave($request));
             $product = Product::findorfail($id);
+            $product->update($request->all());
             $product->saveProduct($request);
             Event::fire(new ProductAfterSave($product, $request));
 

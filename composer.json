@@ -17,14 +17,15 @@
   "minimum-stability": "dev",
   "require": {
     "php": ">=7.0.0",
-    "mage2/module-installer": "dev-master",
-    "mage2/install": "dev-master",
     "barryvdh/laravel-dompdf": "^0.8.0@dev",
     "fabpot/goutte": "^3.2",
     "intervention/image": "^2.3@dev",
     "laravel/framework": "5.5.*",
     "laravel/passport": "^4.0@dev",
-    "mage2/default": "dev-master"
+    "mage2/default": "dev-master",
+    "mage2/install": "dev-master",
+    "mage2/module-installer": "dev-master",
+    "symfony/yaml": "^3.3"
   },
   "require-dev": {
     "filp/whoops": "~2.0",

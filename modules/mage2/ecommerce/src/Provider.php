@@ -45,12 +45,14 @@ use Laravel\Passport\Passport;
 use Laravel\Passport\Console\InstallCommand;
 use Laravel\Passport\Console\ClientCommand;
 use Laravel\Passport\Console\KeysCommand;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
-use Mage2\Ecommerce\Configuration\Facade as AdminConfiguration;
 use Mage2\Ecommerce\Http\ViewComposers\ProductSpecificationComposer;
 use Mage2\Ecommerce\Http\ViewComposers\RelatedProductViewComposer;
+use Illuminate\Support\Facades\Storage;
+
 
 class Provider extends ServiceProvider
 {
@@ -64,7 +66,8 @@ class Provider extends ServiceProvider
         \Mage2\Ecommerce\Tabs\Provider::class,
         \Mage2\Ecommerce\Payment\Provider::class,
         \Mage2\Ecommerce\Configuration\Provider::class,
-        \Mage2\Ecommerce\Permission\Provider::class
+        \Mage2\Ecommerce\Permission\Provider::class,
+        \Mage2\Ecommerce\Theme\Provider::class
     ];
 
     /**
@@ -77,6 +80,7 @@ class Provider extends ServiceProvider
         $this->registerMiddleware();
         $this->registerResources();
         $this->registerViewComposerData();
+        $this->registerPassportResources();
     }
 
     /**
@@ -161,6 +165,9 @@ class Provider extends ServiceProvider
      */
     protected function registerProviders()
     {
+        if(!Storage::disk('local')->has('installed.txt')) {
+            App::register(\Mage2\Install\Module::class);
+        }
 
         foreach ($this->providers as $provider) {
             App::register($provider);
@@ -173,7 +180,7 @@ class Provider extends ServiceProvider
    *      *
    * @return void
    */
-    public function registerPassportRoutes()
+    public function registerPassportResources()
     {
         Passport::ignoreMigrations();
         Passport::routes();

@@ -154,14 +154,14 @@ Route::middleware(['web'])
         Route::get('login', ['as' => 'admin.login', 'uses' => 'LoginController@loginForm']);
         Route::post('login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
 
-        Route::get('/logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
+        Route::get('logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
 
-        Route::get('/password/reset/{token}', ['as' => 'admin.password.reset.token', 'uses' => 'ResetPasswordController@showResetForm']);
-        Route::post('/password/email', ['as' => 'admin.password.email.post', 'uses' => 'ForgotPasswordController@sendResetLinkEmail']);
+        Route::get('password/reset/{token}', ['as' => 'admin.password.reset.token', 'uses' => 'ResetPasswordController@showResetForm']);
+        Route::post('password/email', ['as' => 'admin.password.email.post', 'uses' => 'ForgotPasswordController@sendResetLinkEmail']);
 
-        Route::post('/password/reset', ['as' => 'admin.password.reset.token', 'uses' => 'ResetPasswordController@reset']);
+        Route::post('password/reset', ['as' => 'admin.password.reset.token', 'uses' => 'ResetPasswordController@reset']);
 
-        Route::get('/password/reset', ['as' => 'admin.password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
+        Route::get('password/reset', ['as' => 'admin.password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
 
 
     });
@@ -174,30 +174,33 @@ Route::middleware(['web', 'admin.auth'])
 
         Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
 
-        Route::resource('/admin/role', 'RoleController', ['as' => 'admin']);
+        Route::resource('/role', 'RoleController', ['as' => 'admin']);
         Route::resource('product', 'ProductController', ['as' => 'admin']);
         Route::resource('category', 'CategoryController', ['as' => 'admin']);
+        Route::resource('review', 'ReviewController', ['as' => 'admin']);
 
-        Route::resource('/admin/page', 'PageController', ['as' => 'admin']);
-        Route::resource('/admin/tax-group', 'TaxGroupController', ['as' => 'admin']);
-        Route::resource('/admin/tax-rule', 'TaxRuleController', ['as' => 'admin']);
-        Route::resource('/admin/country', 'CountryController', ['as' => 'admin']);
-        Route::resource('/admin/state', 'StateController', ['as' => 'admin']);
+        Route::resource('/page', 'PageController', ['as' => 'admin']);
+        Route::resource('/tax-group', 'TaxGroupController', ['as' => 'admin']);
+        Route::resource('/tax-rule', 'TaxRuleController', ['as' => 'admin']);
+        Route::resource('/country', 'CountryController', ['as' => 'admin']);
+        Route::resource('/state', 'StateController', ['as' => 'admin']);
 
-        Route::resource('/admin/admin-user', 'AdminUserController', ['as' => 'admin']);
-
-
-        Route::post('/admin/product-attribute-panel', ['as' => 'admin.product-attribute.get-attribute', 'uses' => 'AttributeController@getAttribute']);
-
-        Route::resource('/admin/attribute', 'AttributeController', ['as' => 'admin']);
+        Route::resource('/admin-user', 'AdminUserController', ['as' => 'admin']);
+        Route::resource('review', 'ReviewController', ['as' => 'admin']);
 
 
-        Route::get('/admin/configuration/catalog', ['as' => 'admin.configuration.catalog', 'uses' => 'ConfigurationController@getConfiguration']);
 
-        Route::get('/admin/admin-user-api-show', ['as' => 'admin.admin-user.show.api','uses' => 'AdminUserController@apiShow']);
+        Route::post('/product-attribute-panel', ['as' => 'admin.product-attribute.get-attribute', 'uses' => 'AttributeController@getAttribute']);
+
+        Route::resource('/attribute', 'AttributeController', ['as' => 'admin']);
 
 
-        Route::get('/admin/configuration/tax-class', ['as' => 'admin.configuration.tax-class', 'uses' => 'ConfigurationController@getConfiguration']);
+        Route::get('/configuration/catalog', ['as' => 'admin.configuration.catalog', 'uses' => 'ConfigurationController@getConfiguration']);
+
+        Route::get('/admin-user-api-show', ['as' => 'admin.admin-user.show.api','uses' => 'AdminUserController@apiShow']);
+
+
+        Route::get('/configuration/tax-class', ['as' => 'admin.configuration.tax-class', 'uses' => 'ConfigurationController@getConfiguration']);
 
         Route::post('product-image/upload', ['as' => 'admin.product.upload-image',
             'uses' => 'ProductController@uploadImage']);
@@ -235,18 +238,18 @@ Route::middleware(['web', 'admin.auth'])
 
         Route::resource('order-status', 'OrderStatusController', ['as' => 'admin']);
 
-        Route::get('/order', ['as' => 'admin.order.index', 'uses' => 'OrderController@index']);
-        Route::get('/order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
+        Route::get('order', ['as' => 'admin.order.index', 'uses' => 'OrderController@index']);
+        Route::get('order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
         Route::get('order/{id}/send-email-invoice', ['as' => 'admin.order.send-email-invoice', 'uses' => 'OrderController@sendEmailInvoice']);
 
         Route::get('order/{id}/change-status', ['as' => 'admin.order.change-status', 'uses' => 'OrderController@changeStatus']);
         Route::put('order/{id}/update-status', ['as' => 'admin.order.update-status', 'uses' => 'OrderController@updateStatus']);
 
 
-        Route::get('/related-product-get-datatable-data/{id?}', ['as' => 'admin.related-product.data-grid-table.get-data',
+        Route::get('related-product-get-datatable-data/{id?}', ['as' => 'admin.related-product.data-grid-table.get-data',
             'uses' => 'RelatedProductController@getDataGrid'
         ]);
 
-        Route::resource('/review', 'ReviewController', ['as' => 'admin']);
+
 
     });

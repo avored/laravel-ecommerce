@@ -210,6 +210,7 @@ return [
         'AdminConfiguration' => Mage2\Ecommerce\Configuration\Facade::class,
         'Permission' => Mage2\Ecommerce\Permission\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Theme' => Mage2\Ecommerce\Theme\Facade::class,
 
     ],
 ];

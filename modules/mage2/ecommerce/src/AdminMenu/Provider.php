@@ -89,24 +89,24 @@ class Provider extends ServiceProvider {
             ->route('admin.category.index');
         $catalogMenu->subMenu('category', $categoryMenu);
 
-        $menu = new AdminMenu();
-        $menu ->key('attribute')
+        $attributeMenu = new AdminMenu();
+        $attributeMenu->key('attribute')
             ->label('Attributes')
             ->route('admin.attribute.index');
-        //$catalogMenu->subMenu('attribute',$menu);
+        //$catalogMenu->subMenu('attribute',$attributeMenu);
 
 
         $pageMenu = new AdminMenu();
         $pageMenu->key('page')
             ->label('Page')
             ->route('admin.page.index');
-        $catalogMenu->subMenu('page', $pageMenu);
+        //$catalogMenu->subMenu('page', $pageMenu);
 
         $reviewMenu = new AdminMenu();
         $reviewMenu->key('review')
             ->label('Review')
             ->route('admin.review.index');
-        $catalogMenu->subMenu('review', $reviewMenu);
+        //$catalogMenu->subMenu('review', $reviewMenu);
 
         AdminMenuFacade::add('sale')
             ->label('Sales')
@@ -120,74 +120,68 @@ class Provider extends ServiceProvider {
         $systemMenu = AdminMenuFacade::get('system');
 
 
-        $menu = new AdminMenu();
-        $menu ->key('configuration')
+        $configurationMenu = new AdminMenu();
+        $configurationMenu->key('configuration')
             ->label('Configuration')
             ->route('admin.configuration');
-        $systemMenu->subMenu('configuration', $menu );
+        //$systemMenu->subMenu('configuration', $configurationMenu );
 
-        $menu = new AdminMenu();
-        $menu ->key('order')
+        $orderMenu = new AdminMenu();
+        $orderMenu->key('order')
             ->label('Orders')
             ->route('admin.order.index');
-        $saleMenu->subMenu('order', $menu );
+        $saleMenu->subMenu('order', $orderMenu);
 
 
-        $menu = new AdminMenu();
-        $menu ->key('gift-coupon')
+        $giftCouponMenu = new AdminMenu();
+        $giftCouponMenu->key('gift-coupon')
             ->label('Gift Coupon')
             ->route('admin.gift-coupon.index');
+        //$saleMenu->subMenu('gift-coupon', $giftCouponMenu );
 
-        $saleMenu->subMenu('gift-coupon', $menu );
 
-
-        $menu = new AdminMenu();
-        $menu ->key('order-status')
+        $orderStatusMenu = new AdminMenu();
+        $orderStatusMenu->key('order-status')
             ->label('Order Status')
             ->route('admin.order-status.index');
+        //$saleMenu->subMenu('order-status', $orderStatusMenu );
 
-        $saleMenu->subMenu('order-status', $menu );
-
-        $menu = new AdminMenu();
-        $menu ->key('admin-user')
+        $adminUserMenu = new AdminMenu();
+        $adminUserMenu->key('admin-user')
             ->label('Admin User')
             ->route('admin.admin-user.index');
+        $systemMenu->subMenu('admin-user',$adminUserMenu);
 
-        $systemMenu->subMenu('admin-user',$menu);
 
-
-        $menu = new AdminMenu();
-        $menu ->key('roles')
+        $roleMenu = new AdminMenu();
+        $roleMenu->key('roles')
             ->label('Admin User Roles')
             ->route('admin.role.index');
+        //$systemMenu->subMenu('roles',$roleMenu);
 
-        $systemMenu->subMenu('roles',$menu);
-
-        $menu = new AdminMenu();
-        $menu ->key('tax-group')
+        $taxGroupMenu = new AdminMenu();
+        $taxGroupMenu->key('tax-group')
             ->label('Tax Group')
             ->route('admin.tax-group.index');
+        //$saleMenu->subMenu('tax-group',$taxGroupMenu);
 
-        $saleMenu->subMenu('tax-group',$menu);
-
-        $menu = new AdminMenu();
-        $menu ->key('tax-rule')
+        $taxRuleMenu = new AdminMenu();
+        $taxRuleMenu->key('tax-rule')
             ->label('Tax Rule')
             ->route('admin.tax-rule.index');
+        //$saleMenu->subMenu('tax-rule',$taxRuleMenu);
 
-        $saleMenu->subMenu('tax-rule',$menu);
-
-        $menu = new AdminMenu();
-        $menu ->key('countries')
+        $contryMenu = new AdminMenu();
+        $contryMenu->key('countries')
             ->label('Countries')
             ->route('admin.country.index');
-        $saleMenu->subMenu('countries',$menu);
+        //$saleMenu->subMenu('countries',$contryMenu);
 
-        $menu = new AdminMenu();
-        $menu ->key('state')
+        $stateMenu = new AdminMenu();
+        $stateMenu->key('state')
             ->label('States')
             ->route('admin.state.index');
-        $saleMenu->subMenu('state',$menu);
+        //$saleMenu->subMenu('state',$stateMenu);
 
 
 
