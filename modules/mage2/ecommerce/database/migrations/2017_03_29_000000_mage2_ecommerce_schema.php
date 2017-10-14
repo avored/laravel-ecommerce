@@ -220,6 +220,20 @@ class Mage2EcommerceSchema extends Migration
 
         });
 
+        Schema::create('order_statuses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->tinyInteger('is_default')->default(false);
+            $table->timestamps();
+        });
+
+        OrderStatus::insert([
+            ['name' => 'Pending', 'is_default' => 1],
+            ['name' => 'Delivered', 'is_default' => 0],
+            ['name' => 'Received', 'is_default' => 0],
+            ['name' => 'Canceled', 'is_default' => 0],
+        ]);
+
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('shipping_address_id')->unsigned();
@@ -248,20 +262,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
-
-        Schema::create('order_statuses', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->tinyInteger('is_default')->default(false);
-            $table->timestamps();
-        });
-
-        OrderStatus::insert([
-            ['name' => 'Pending', 'is_default' => 1],
-            ['name' => 'Delivered', 'is_default' => 0],
-            ['name' => 'Received', 'is_default' => 0],
-            ['name' => 'Canceled', 'is_default' => 0],
-        ]);
 
         Schema::create('gift_coupons', function (Blueprint $table) {
             $table->increments('id');
