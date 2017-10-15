@@ -25,6 +25,7 @@
 namespace Mage2\Ecommerce\Payment;
 
 use Illuminate\Support\ServiceProvider;
+use Mage2\Ecommerce\Payment\Facade as PaymentFacade;
 
 class Provider extends ServiceProvider {
 
@@ -34,6 +35,21 @@ class Provider extends ServiceProvider {
      * @var bool
      */
     protected $defer = true;
+
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerPaymentOptions();
+    }
+
+
+
+
     /**
      * Register the service provider.
      *
@@ -65,5 +81,17 @@ class Provider extends ServiceProvider {
     public function provides()
     {
         return ['payment', 'Mage2\Ecommerce\Payment\Manager'];
+    }
+
+    /**
+     * Registering PAyment Option for the App.
+     *
+     *
+     * @return void
+     */
+    protected function registerPaymentOptions()
+    {
+        $pickup = new Pickup();
+        PaymentFacade::put($pickup->getIdentifier(), $pickup);
     }
 }

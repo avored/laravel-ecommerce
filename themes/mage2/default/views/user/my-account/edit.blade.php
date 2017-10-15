@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('meta_title','Edit My Account E commerce')
+@section('meta_description','Edit My Account E commerce')
+
+
 @section('content')
     <div class="container">
         <div class="row profile">
@@ -16,9 +20,7 @@
                         <div class="profile-content">
 
                             <form method="post" action="{{ route('my-account.store') }}">
-
-
-
+                                {{ csrf_field() }}
 
                             <div class="form-group">
                                 <label for="first_name">First Name</label>

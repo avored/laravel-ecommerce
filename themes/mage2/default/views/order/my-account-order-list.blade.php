@@ -1,4 +1,8 @@
 @extends('layouts.app')
+
+@section('meta_title','My Order List Account E commerce')
+@section('meta_description','My Order List Account E commerce')
+
 @section('content')
     <div class="row">
         <div class="col-md-2">

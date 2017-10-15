@@ -1,9 +1,13 @@
 @extends('layouts.app')
 
+@section('meta_title','My Wishlist List Account E commerce')
+@section('meta_description','My Wishlist List Account E commerce')
+
+
 @section('content')
     <div class="container">
     <div class="row profile">
-        <div class="col-md-2">
+        <div class="col-2">
             @include('user.my-account.sidebar')
         </div>
         <div class="col-10">

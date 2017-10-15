@@ -27,7 +27,7 @@ namespace Mage2\Ecommerce\Events;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Mage2\User\Models\User;
+use Mage2\Ecommerce\Models\Database\User;
 
 class UserRegisteredEvent
 {

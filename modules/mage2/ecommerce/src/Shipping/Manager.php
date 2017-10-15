@@ -28,7 +28,11 @@ use Illuminate\Support\Collection;
 
 class Manager
 {
-    public $shippingOption;
+    /**
+     *
+     * @var \Illuminate\Support\Collection
+     */
+    public $shippingOptions;
 
     public function __construct()
     {

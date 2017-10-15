@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('meta_title','Edit Address List Account E commerce')
+@section('meta_description','Edit Address List Account E commerce')
+
+
+
 @section('content')
     <div class="container">
         <div class="row mt-3">

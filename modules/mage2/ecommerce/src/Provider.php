@@ -65,6 +65,7 @@ class Provider extends ServiceProvider
         \Mage2\Ecommerce\Attribute\Provider::class,
         \Mage2\Ecommerce\Tabs\Provider::class,
         \Mage2\Ecommerce\Payment\Provider::class,
+        \Mage2\Ecommerce\Shipping\Provider::class,
         \Mage2\Ecommerce\Configuration\Provider::class,
         \Mage2\Ecommerce\Permission\Provider::class,
         \Mage2\Ecommerce\Theme\Provider::class

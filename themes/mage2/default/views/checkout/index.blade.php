@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('meta_title','Checkout Page Mage2 E commerce')
+@section('meta_description','Checkout Page Mage2 E commerce')
+
+
 @section('content')
     <div class="container">
         <div class="h1">Checkout</div>

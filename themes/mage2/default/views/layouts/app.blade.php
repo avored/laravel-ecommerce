@@ -55,11 +55,12 @@
             @endif
         </div>
     </div>
-</div>
+
 
 @yield('content')
 
 @include('layouts.footer')
+</div>
 @stack('scripts')
 </body>
 </html>

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('meta_title','Change Your Password')
+@section('meta_description','Change Your Password')
+
+
 @section('content')
     <div class="container">
     <div class="row profile">

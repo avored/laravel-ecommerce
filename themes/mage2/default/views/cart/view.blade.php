@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('meta_title','Cart Page Mage2 E commerce')
+@section('meta_description','Cart Page Mage2 E commerce')
+
+
 @section('content')
     <div class="container">
         <div class="row">

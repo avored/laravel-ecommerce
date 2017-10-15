@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('meta_title','Upload My Account E commerce')
+@section('meta_description','Upload My Account E commerce')
+
 @section('content')
     <div class="container">
     <div class="row profile">

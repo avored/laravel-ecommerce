@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
+@section('meta_title', 'Login: Mage2 E commerce')
+@section('meta_description', 'My Account Management System for Mage2 E Commerce')
+
+
 @section('content')
-    <div class="row justify-content-center">
+    <div class="row mt-4 mb-4 justify-content-center">
         <div class="col-6">
             <div class="card">
                 <div class="card-header"><span>Mage2 Login</span></div>
@@ -28,8 +32,6 @@
 
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label for="password">Password</label>
-
-
                                 <input id="password" class="form-control" type="password" name="password" required>
 
                                 @if ($errors->has('password'))
@@ -47,8 +49,6 @@
                                 </label>
                             </div>
 
-                            <div class="clearfix">
-                            </div>
                             <div class="form-group">
 
                                 <button type="submit" class="btn btn-primary">
@@ -57,6 +57,9 @@
 
                                 <a class="" href="{{ url('/password/reset') }}">
                                     Forgot Your Password?
+                                </a>
+                                <a class="" href="{{ url('register') }}">
+                                    Create an Account
                                 </a>
                             </div>
 

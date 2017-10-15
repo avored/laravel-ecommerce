@@ -8,7 +8,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-        <div class="col-sm-3 col-md-3 col-sm-offset-2 col-md-offset-0">
+        <div class="col-sm-3 col-md-3 col-sm-offset-2 col-md-offset-0 mr-0">
             <form class="navbar-form" action="{{ route('search.result') }}" method="get" role="search">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search" name="q">

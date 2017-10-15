@@ -25,6 +25,7 @@
 namespace Mage2\Ecommerce\Shipping;
 
 use Illuminate\Support\ServiceProvider;
+use Mage2\Ecommerce\Shipping\Facade as ShippingFacade;
 
 class Provider extends ServiceProvider {
 
@@ -34,6 +35,18 @@ class Provider extends ServiceProvider {
      * @var bool
      */
     protected $defer = true;
+
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+       $this->registerShippingOption();
+    }
+
+
     /**
      * Register the service provider.
      *
@@ -66,4 +79,17 @@ class Provider extends ServiceProvider {
     {
         return ['shipping', 'Mage2\Ecommerce\Shipping\Manager'];
     }
+
+
+    /**
+     * Register Shippiong Option for App.
+     *
+     * @return void
+     */
+    protected function registerShippingOption()
+    {
+        $freeShipping = new FreeShipping();
+        ShippingFacade::put($freeShipping->getIdentifier(), $freeShipping);
+    }
+
 }
