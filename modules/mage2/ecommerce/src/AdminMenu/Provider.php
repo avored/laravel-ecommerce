@@ -169,7 +169,7 @@ class Provider extends ServiceProvider {
         $taxRuleMenu->key('tax-rule')
             ->label('Tax Rule')
             ->route('admin.tax-rule.index');
-        //$saleMenu->subMenu('tax-rule',$taxRuleMenu);
+        $saleMenu->subMenu('tax-rule',$taxRuleMenu);
 
         $contryMenu = new AdminMenu();
         $contryMenu->key('countries')

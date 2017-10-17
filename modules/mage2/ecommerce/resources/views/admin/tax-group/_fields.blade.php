@@ -9,4 +9,15 @@
 @endif
 
 
-@include('mage2-ecommerce::forms.select',['name' => 'tax_rules[]' , 'label' => 'Tax Rule', 'options' => $taxRulesOptions])
+@include('mage2-ecommerce::forms.select',['name' => 'tax_rules[]' ,
+                                            'attributes' => ['class' => 'select2 form-control','multiple' => true],
+                                            'label' => 'Tax Rule',
+                                            'options' => $taxRulesOptions])
+
+@push('scripts')
+    <script>
+        $(function() {
+            jQuery('.select2').select2();
+        })
+    </script>
+@endpush

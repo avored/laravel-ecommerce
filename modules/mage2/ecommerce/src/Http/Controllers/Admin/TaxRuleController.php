@@ -66,7 +66,7 @@ class TaxRuleController extends AdminController
      */
     public function create()
     {
-        $countryOptions = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
+        $countryOptions = Country::getCountriesOptions(true);
         return view('mage2-ecommerce::admin.tax-rule.create')->with('countryOptions', $countryOptions);
     }
 
@@ -96,7 +96,7 @@ class TaxRuleController extends AdminController
         $countryOptions = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
         $taxRule = TaxRule::findorfail($id);
 
-        return view('mage2-ecommerce::tax-rule.edit')
+        return view('mage2-ecommerce::admin.tax-rule.edit')
             ->with('model', $taxRule)
             ->with('countryOptions', $countryOptions);
     }

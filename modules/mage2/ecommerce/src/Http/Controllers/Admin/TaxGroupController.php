@@ -74,21 +74,19 @@ class TaxGroupController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\CountryRequest $request
+     * @param \Mage2\Ecommerce\Http\Requests\TaxGroupRequest $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(TaxGroupRequest $request)
     {
         try {
-            //DB::beginTransaction();
             $taxGroup = TaxGroup::create($request->all());
             $taxGroup->taxRules()->sync($request->get('tax_rules'));
         } catch(\Exception $e) {
-            //DB::rollback();
             throw new \Exception('Error While creating Tax Groups');
         }
-        //DB::commit();
+
 
         return redirect()->route('admin.tax-group.index');
     }
@@ -115,20 +113,18 @@ class TaxGroupController extends AdminController
      * @param \Mage2\Ecommerce\Http\Requests\CountryRequest $request
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(TaxGroupRequest $request, $id)
     {
         try {
-            //DB::beginTransaction();
+
             $taxGroup = TaxGroup::findorfail($id);
             $taxGroup->update($request->all());
             $taxGroup->taxRules()->sync($request->get('tax_rules'));
         } catch(\Exception $e) {
-            //DB::rollback();
             throw new \Exception('Error While updating Tax Groups');
         }
-        //DB::commit();
 
         return redirect()->route('admin.tax-group.index');
     }
@@ -142,7 +138,12 @@ class TaxGroupController extends AdminController
      */
     public function destroy($id)
     {
-        TaxGroup::destroy($id);
+
+        try {
+            TaxGroup::destroy($id);
+        } catch(\Exception $e) {
+            throw new \Exception('Error While destroing Tax Groups');
+        }
         return redirect()->route('admin.tax-group.index');
     }
 }

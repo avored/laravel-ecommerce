@@ -43,7 +43,7 @@ class Country extends BaseModel
         $model = new static();
 
         if(true === $empty) {
-            $return = Collection::make(['' => 'Please Select'] + $model->all()->pluck('name', 'id')->toArray());
+            $return = Collection::make(['' => 'Please Select'] + $model->orderBy('name','asc')->pluck('name', 'id')->toArray());
         } else {
             $return = $model->all()->pluck('name', 'id');
         }
