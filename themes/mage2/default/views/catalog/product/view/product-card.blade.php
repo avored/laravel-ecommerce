@@ -15,7 +15,6 @@
 
             <p class="product-price">
                 $ {{ number_format($product->price,2) }}
-
             </p>
 
             <div>
