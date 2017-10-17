@@ -40,10 +40,14 @@ class ConfigurationController extends AdminController
      */
     public function index()
     {
-        $configurations = AdminConfiguration::all();
+
+        $model = new Configuration();
+        $pageOptions = Collection::make(['' => 'Please Select'] + Page::all()->pluck('name', 'id')->toArray());
 
         return view('mage2-ecommerce::admin.configuration.index')
-            ->with('configurations', $configurations);
+            ->with('model', $model)
+            ->with('pageOptions', $pageOptions)
+            ;
     }
 
     /**
@@ -60,7 +64,6 @@ class ConfigurationController extends AdminController
                 $data['configuration_key'] = $key;
                 $data['configuration_value'] = $value;
 
-
                 Configuration::create($data);
 
 
@@ -73,19 +76,4 @@ class ConfigurationController extends AdminController
         return redirect()->back()->with('notificationText', 'All Configuration saved.');
     }
 
-    /**
-     * Display a System General Configuration.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function getGeneralConfiguration()
-    {
-        $configurations = Configuration::all()->pluck('configuration_value', 'configuration_key');
-        $pageOptions = Collection::make(['' => 'Please Select'] + Page::all()->pluck('name', 'id')->toArray());
-
-
-        return view('mage2-dashboard::configuration.general-configuration')
-            ->with('configurations', $configurations)
-            ->with('pageOptions', $pageOptions);
-    }
 }

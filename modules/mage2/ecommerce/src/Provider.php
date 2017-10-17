@@ -57,7 +57,6 @@ use Illuminate\Support\Facades\Storage;
 class Provider extends ServiceProvider
 {
 
-
     protected $providers = [
         \Mage2\Ecommerce\AdminMenu\Provider::class,
         \Mage2\Ecommerce\DataGrid\Provider::class,

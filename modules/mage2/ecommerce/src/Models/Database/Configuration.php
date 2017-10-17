@@ -28,15 +28,21 @@ class Configuration extends BaseModel
 {
     protected $fillable = ['configuration_key', 'configuration_value'];
 
-    public static function getConfiguration($key)
+    public function getValue($key)
     {
-        $model = new static;
-        $row = $model->where('configuration_key', '=', $key)->first();
+
+        $row = $this->where('configuration_key', '=', $key)->first();
         if ($row != null) {
             return $row->configuration_value;
         }
 
         return null;
+    }
+
+    public static function getConfiguration($key)
+    {
+        $model = new static;
+        return $model->getValue($key);
     }
 
     /**
@@ -47,12 +53,17 @@ class Configuration extends BaseModel
      */
     public function __get($key)
     {
-
-        $val = static::getConfiguration($key);
+        $val = parent::__get($key);
         if (null !== $val) {
             return $val;
         }
 
-        return $this->offsetExists($key);
+        $val = $this->getValue($key);
+
+        if (null !== $val) {
+            return $val;
+        }
+
+        return null;
     }
 }

@@ -124,7 +124,7 @@ class Provider extends ServiceProvider {
         $configurationMenu->key('configuration')
             ->label('Configuration')
             ->route('admin.configuration');
-        //$systemMenu->subMenu('configuration', $configurationMenu );
+        $systemMenu->subMenu('configuration', $configurationMenu );
 
         $orderMenu = new AdminMenu();
         $orderMenu->key('order')
