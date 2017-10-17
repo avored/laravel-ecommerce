@@ -195,28 +195,18 @@ Route::middleware(['web', 'admin.auth'])
         Route::resource('/attribute', 'AttributeController', ['as' => 'admin']);
 
 
-        Route::get('/configuration/catalog', ['as' => 'admin.configuration.catalog', 'uses' => 'ConfigurationController@getConfiguration']);
-
         Route::get('/admin-user-api-show', ['as' => 'admin.admin-user.show.api','uses' => 'AdminUserController@apiShow']);
 
-
-        Route::get('/configuration/tax-class', ['as' => 'admin.configuration.tax-class', 'uses' => 'ConfigurationController@getConfiguration']);
 
         Route::post('product-image/upload', ['as' => 'admin.product.upload-image',
             'uses' => 'ProductController@uploadImage']);
         Route::post('product-image/delete', ['as' => 'admin.product.delete-image',
             'uses' => 'ProductController@deleteImage']);
 
-        Route::get('configuration/address', ['as' => 'admin.configuration.address',
-            'uses' => 'AddressConfigController@getConfiguration'
-        ]);
-
         Route::resource('gift-coupon', 'GiftCouponController', ['as' => 'admin']);
 
 
         Route::get('update-check', ['as' => 'admin.update.check', 'uses' => 'UpdateController@check']);
-
-        Route::get('configuration/general', ['as' => 'admin.configuration.general', 'uses' => 'ConfigurationController@getGeneralConfiguration']);
 
         Route::get('configuration', ['as' => 'admin.configuration', 'uses' => 'ConfigurationController@index']);
         Route::post('configuration', ['as' => 'admin.configuration.store', 'uses' => 'ConfigurationController@store']);
@@ -232,9 +222,6 @@ Route::middleware(['web', 'admin.auth'])
         Route::post('deactive-themes/{name}', ['as' => 'admin.theme.deactivated', 'uses' => 'ThemeController@deactivated']);
 
         Route::delete('themes/{name}', ['as' => 'admin.theme.destroy', 'uses' => 'ThemeController@destroy']);
-
-
-        Route::get('configuration/order', ['as' => 'admin.configuration.order', 'uses' => 'OrderConfigController@getConfiguration']);
 
         Route::resource('order-status', 'OrderStatusController', ['as' => 'admin']);
 

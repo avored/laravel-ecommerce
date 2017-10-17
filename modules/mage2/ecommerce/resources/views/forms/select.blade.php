@@ -3,7 +3,6 @@ $value = old($name);
 if (isset($model) && $model->$name) {
     $value = $model->$name;
 }
-
 if(isset($attributes)) {
     $attributes['name'] = $name;
     $attributes['type'] = "text";
@@ -23,6 +22,8 @@ $attrString = "";
 foreach($attributes as $attrKey => $attrValue) {
     $attrString .= "{$attrKey}=\"{$attrValue}\"";
 }
+
+//dd($options);
 ?>
 
 
@@ -31,7 +32,7 @@ foreach($attributes as $attrKey => $attrValue) {
     <select {!! $attrString !!}>
         @foreach($options as $val => $lab)
         <option
-                @if($value === $val)
+                @if($value == $val)
                         selected
                 @endif
                 value="{{ $val }}">{{ $lab }}</option>

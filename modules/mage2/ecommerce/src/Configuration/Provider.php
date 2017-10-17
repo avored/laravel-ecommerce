@@ -36,12 +36,6 @@ class Provider extends ServiceProvider {
      */
     protected $defer = true;
 
-
-    public function boot() {
-
-        $this->addConfig();
-
-    }
     /**
      * Register the service provider.
      *
@@ -74,37 +68,4 @@ class Provider extends ServiceProvider {
         return ['configuration', 'Mage2\Ecommerce\Configuration\Manager'];
     }
 
-    public function addConfig() {
-
-        $adminConfigurations[] = [
-            'title' => 'Address Configuration',
-            'description' => 'Set Default Country for Store',
-            'edit_action' => 'admin.configuration.address',
-        ];
-
-        $adminConfigurations[] = [
-            'title' => 'Order Configuration',
-            'description' => 'Some Description for Order Modules',
-            'edit_action' => 'admin.configuration.order',
-            'sort_order' => 1
-        ];
-
-        $adminConfigurations[] = [
-            'title' => 'Tax Configuration',
-            'description' => 'Defined the amount of tax applied to product.',
-            'edit_action' => 'admin.configuration.tax-class',
-            'sort_order' => 3
-        ];
-
-        $adminConfigurations[] = [
-            'title' => 'Catalog Configuration',
-            'description' => 'Some Description for Catalog Modules',
-            'edit_action' => 'admin.configuration.catalog',
-            'sort_order' => 1
-        ];
-
-        foreach ($adminConfigurations as $adminConfiguration) {
-            AdminConfiguration::registerConfiguration($adminConfiguration);
-        }
-    }
 }
