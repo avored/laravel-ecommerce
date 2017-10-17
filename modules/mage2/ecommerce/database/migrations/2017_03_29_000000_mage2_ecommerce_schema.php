@@ -28,6 +28,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Mage2\Ecommerce\Models\Database\Configuration;
+use Mage2\Ecommerce\Models\Database\Country;
+use Mage2\Ecommerce\Models\Database\TaxRule;
 
 class Mage2EcommerceSchema extends Migration
 {
@@ -441,6 +443,30 @@ class Mage2EcommerceSchema extends Migration
 
         Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
+
+        $path = public_path() . '/countries.json';
+
+        $json = json_decode(file_get_contents($path), true);
+        foreach ($json as $code => $name) {
+            Country::create(['code' => $code, 'name' => $name]);
+        }
+
+
+        $countryModel = Country::whereCode('nz')->first();
+
+        Configuration::create(['configuration_key' => 'mage2_tax_class_default_country_for_tax_calculation',
+                                'configuration_value' => $countryModel>id]);
+
+        TaxRule::create([
+            'name' => 'NZ Tax Rule',
+            'country_id' => $countryModel->id,
+            'state_cdoe' => '*',
+            'city' => '*',
+            'post_code' => '*',
+            'percentage' => 15,
+            'priority' => 1
+        ]);
+
 
     }
 

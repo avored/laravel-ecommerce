@@ -223,9 +223,9 @@ class Product extends BaseModel
     public function getTaxAmount($price = NULL)
     {
 
+
         $defaultCountryId = Configuration::getConfiguration('mage2_tax_class_default_country_for_tax_calculation');
         $taxRule = TaxRule::where('country_id', '=', $defaultCountryId)->orderBy('priority', 'DESC')->first();
-
 
         if (null === $price) {
             $price = $this->price;
