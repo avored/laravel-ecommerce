@@ -2,17 +2,25 @@
 
 @section('content')
     <div class="row justify-content-center" >
-        <div class="col-8">
+        <div class="col-12">
             <div class="card ">
-                <div class="card-header text-white bg-primary">
+                <div class="card-header">
                     Create Product Attribute
                 </div>
                 <div class="card-body">
-                    {!! Form::open(['method' => 'post','action' => route('admin.attribute.store')]) !!}
-                    @include('mage2-attribute::attribute._fields')
-                    {!! Form::submit('Create Attribute') !!}
-                    {!! Form::button('Cancel',['class' => 'btn', 'onclick' => 'location="'.route('admin.attribute.index').'"']) !!}
-                    {!! Form::close() !!}
+
+
+                    <form method="post" action="{{ route('admin.attribute.store') }}">
+                        {{ csrf_field() }}
+
+                    @include('mage2-ecommerce::admin.attribute._fields')
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Create Attribute</button>
+                            <a href="{{ route('admin.attribute.index') }}" class="btn">Cancel</a>
+                        </div>
+
+                    </form>
                 </div>
             </div>
 

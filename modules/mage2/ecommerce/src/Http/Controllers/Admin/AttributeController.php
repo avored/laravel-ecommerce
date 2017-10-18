@@ -22,10 +22,10 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Attribute\Controllers\Admin;
+namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Mage2\Ecommerce\Models\Database\Attribute;
-use Mage2\Framework\DataGrid\Facade as DataGrid;
+use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Http\Requests\AttributeRequest;
 use Illuminate\Http\Request;
 
@@ -59,12 +59,12 @@ class AttributeController extends AdminController
 //        return view('mage2-framework::category.index')->with('dataGrid', $dataGrid);
 
 
-        return view('mage2-attribute::attribute.index')->with('dataGrid', $dataGrid);
+        return view('mage2-ecommerce::admin.attribute.index')->with('dataGrid', $dataGrid);
     }
 
     public function create()
     {
-        return view('mage2-attribute::attribute.create');
+        return view('mage2-ecommerce::admin.attribute.create');
     }
 
     public function store(AttributeRequest $request)
@@ -81,9 +81,8 @@ class AttributeController extends AdminController
 
     public function edit($id)
     {
-
         $attribute = Attribute::find($id);
-        return view('mage2-attribute::attribute.edit')->with('attribute', $attribute);
+        return view('mage2-ecommerce::admin.attribute.edit')->with('model', $attribute);
 
     }
 
@@ -119,7 +118,7 @@ class AttributeController extends AdminController
     {
         $attribute = Attribute::findorfail($request->get('id'));
 
-        return view('mage2-attribute::attribute.attribute-card-values')
+        return view('mage2-ecommerce::admin.attribute.attribute-card-values')
             ->with('attribute', $attribute);
 
     }

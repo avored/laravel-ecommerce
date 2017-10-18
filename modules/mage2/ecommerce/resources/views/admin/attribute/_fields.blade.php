@@ -1,13 +1,28 @@
 
-{!! Form::select('type','Type',['PRODUCT' => 'Product','CATEGORY' => "Category",'ORDER' => "Order",'CUSTOMER' => 'Customer']) !!}
-{!! Form::text('name','Name') !!}
-{!! Form::text('identifier','Identifier') !!}
 
-{!! Form::select('field_type','Field Type',['' => 'Please Select','TEXT' => 'Text','TEXTAREA' => 'Text Area','SELECT' => 'Dropdown'] ) !!}
+@include('mage2-ecommerce::forms.select',['name' => 'type',
+                                        'label' => 'Type',
+                                        'options' => ['PRODUCT' => 'Product','CATEGORY' => "Category",'ORDER' => "Order",'CUSTOMER' => 'Customer']
+                                        ])
 
-{!! Form::select('use_as','Use as',[NULL => 'Please Select','VARIATION' => "Product Variation",'SPECIFICATION' => "Product Specification"]) !!}
+@include('mage2-ecommerce::forms.text',['name' => 'name','label' => 'Name'])
 
-{!! Form::text('sort_order','Sort Order') !!}
+@include('mage2-ecommerce::forms.text',['name' => 'identifier','label' => 'Identifier'])
+
+@include('mage2-ecommerce::forms.select',['name' => 'field_type',
+                                        'label' => 'Field Type',
+                                        'options' => ['' => 'Please Select','TEXT' => 'Text','TEXTAREA' => 'Text Area','SELECT' => 'Dropdown']
+                                        ])
+
+
+
+@include('mage2-ecommerce::forms.select',['name' => 'use_as',
+                                        'label' => 'Use As',
+                                        'options' => [NULL => 'Please Select','VARIATION' => "Product Variation",'SPECIFICATION' => "Product Specification"]
+                                        ])
+
+@include('mage2-ecommerce::forms.text',['name' => 'sort_order','label' => 'Sort Order'])
+
 
 <?php
 
