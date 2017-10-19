@@ -172,6 +172,21 @@ Route::middleware(['web', 'admin.auth'])
     ->namespace('Mage2\Ecommerce\Http\Controllers\Admin')
     ->group(function () {
 
+
+
+        /**************** ATTRIBUTES ROUTES STARTS ****************/
+
+
+
+        Route::resource('/attribute-group', 'AttributeGroupController',['as' => 'admin'])
+                            ->except(['show']);
+
+
+
+        /**************** ATTRIBUTES ROUTES ENDS ****************/
+
+
+
         Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
 
         Route::resource('/role', 'RoleController', ['as' => 'admin']);
@@ -225,7 +240,12 @@ Route::middleware(['web', 'admin.auth'])
 
         Route::resource('order-status', 'OrderStatusController', ['as' => 'admin']);
 
-        Route::get('order', ['as' => 'admin.order.index', 'uses' => 'OrderController@index']);
+        Route::get('order', [
+                'as' => 'admin.order.index',
+                'uses' => 'OrderController@index'
+        ]);
+
+
         Route::get('order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
         Route::get('order/{id}/send-email-invoice', ['as' => 'admin.order.send-email-invoice', 'uses' => 'OrderController@sendEmailInvoice']);
 

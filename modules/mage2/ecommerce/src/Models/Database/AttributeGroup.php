@@ -24,21 +24,13 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-class Attribute extends BaseModel
+class AttributeGroup extends BaseModel
 {
+    protected $fillable = ['name'];
 
-    protected $fillable = ['type', 'name', 'identifier', 'field_type', 'use_as', 'sort_order'];
-
-
-    public function attributeDropdownOptions() {
-        return $this->hasMany(AttributeDropdownOption::class);
-    }
-
-    public function attributeGroup()
+    public function attributes()
     {
-        return $this->hasMany(AttributeGroup::class,'attribute_group_attribute_pivot');
+        return $this->belongsToMany(Attribute::class,'attribute_group_attribute_pivot');
     }
 
 }
-
-

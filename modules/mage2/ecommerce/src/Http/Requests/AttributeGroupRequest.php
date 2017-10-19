@@ -22,23 +22,31 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
-namespace Mage2\Ecommerce\Models\Database;
+namespace Mage2\Ecommerce\Http\Requests;
 
-class Attribute extends BaseModel
+use Illuminate\Foundation\Http\FormRequest as Request;
+
+class AttributeGroupRequest extends Request
 {
-
-    protected $fillable = ['type', 'name', 'identifier', 'field_type', 'use_as', 'sort_order'];
-
-
-    public function attributeDropdownOptions() {
-        return $this->hasMany(AttributeDropdownOption::class);
-    }
-
-    public function attributeGroup()
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
     {
-        return $this->hasMany(AttributeGroup::class,'attribute_group_attribute_pivot');
+        return true;
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'name' => 'required|max:255',
+        ];
+    }
 }
-
-

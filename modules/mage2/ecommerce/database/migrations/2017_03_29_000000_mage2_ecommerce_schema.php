@@ -49,6 +49,12 @@ class Mage2EcommerceSchema extends Migration
             $table->timestamp('created_at');
         });
 
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token')->index();
+            $table->timestamp('created_at');
+        });
+
         Schema::create('admin_users', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('is_super_admin')->nullable();
@@ -60,12 +66,6 @@ class Mage2EcommerceSchema extends Migration
             $table->string('language')->nullable()->default('en');
             $table->rememberToken();
             $table->timestamps();
-        });
-
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token')->index();
-            $table->timestamp('created_at');
         });
 
         Schema::create('users', function (Blueprint $table) {
@@ -146,7 +146,6 @@ class Mage2EcommerceSchema extends Migration
             $table->boolean('revoked');
             $table->timestamps();
 
-            //$table->foreign('user_id')->references('id')->on('admin_users')->onDelete('cascade');
         });
 
         Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
@@ -419,6 +418,29 @@ class Mage2EcommerceSchema extends Migration
             $table->timestamps();
         });
 
+        Schema::create('attribute_groups', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->nullable()->default(null);
+            $table->timestamps();
+        });
+
+        Schema::create('attribute_group_attribute_pivot', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('attribute_group_id')->unsigned();
+            $table->integer('attribute_id')->unsigned();
+            $table->timestamps();
+
+            $table->foreign('attribute_group_id')
+                ->references('id')->on('attribute_groups')
+                ->onDelete('cascade');
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')
+                ->onDelete('cascade');
+
+        });
+
+
         Schema::create('attribute_dropdown_options', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('attribute_id')->unsigned();
@@ -515,6 +537,12 @@ class Mage2EcommerceSchema extends Migration
         Schema::dropIfExists('product_images');
         Schema::dropIfExists('product_prices');
         Schema::dropIfExists('products');
+
+        Schema::dropIfExists('product_attribute_values');
+        Schema::dropIfExists('attribute_dropdown_options');
+        Schema::dropIfExists('attribute_group_attribute_pivot');
+        Schema::dropIfExists('attribute_groups');
+        Schema::dropIfExists('attributes');
     }
 
 }
