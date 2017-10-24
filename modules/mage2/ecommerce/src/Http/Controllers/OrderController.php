@@ -58,7 +58,7 @@ class OrderController extends Controller
 
 
         $order = Order::create($data);
-        //$this->_syncOrderProductData($order, $orderProductData);
+        $this->_syncOrderProductData($order, $orderProductData);
 
         Event::fire(new OrderPlaceAfterEvent($order, $orderProductData, $request));
 
@@ -198,7 +198,7 @@ class OrderController extends Controller
             unset($orderProduct['image']);
             unset($orderProduct['id']);
             unset($orderProduct['attributes']);
-            //unset($orderProduct['tax_amount']);
+            unset($orderProduct['final_price']);
             $orderProducts[$id] = $orderProduct;
         }
 
