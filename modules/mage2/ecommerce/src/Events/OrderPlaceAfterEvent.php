@@ -27,7 +27,7 @@ namespace Mage2\Ecommerce\Events;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Mage2\Order\Models\Order;
+use Mage2\Ecommerce\Models\Database\Order;
 
 class OrderPlaceAfterEvent
 {
@@ -40,11 +40,11 @@ class OrderPlaceAfterEvent
      * @var \Mage2\Ecommerce\Models\Database\Order
      *
      */
-    public $order = NULL;
+    public $order;
 
-    public $orderProducts = NULL;
+    public $orderProducts;
 
-    public $request = NULL;
+    public $request;
     /**
      * Create a new event instance.
      *

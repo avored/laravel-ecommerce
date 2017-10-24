@@ -1,6 +1,6 @@
 # Mage2 Laravel E commerce App
 
-[![Join the chat at https://gitter.im/Mage2-Ecommerce-Laravel/Lobby](https://badges.gitter.im/Mage2-Ecommerce-Laravel/Lobby.svg)](https://gitter.im/Mage2-Ecommerce-Laravel/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) [![PHPPackages Rank](http://phppackages.org/p/mage2/laravel-ecommerce/badge/rank.svg)](http://phppackages.org/p/mage2/laravel-ecommerce) [![Total Downloads](https://poser.pugx.org/mage2/laravel-ecommerce/downloads)](https://packagist.org/packages/mage2/laravel-ecommerce)
+[![Total Downloads](https://poser.pugx.org/mage2/laravel-ecommerce/downloads)](https://packagist.org/packages/mage2/laravel-ecommerce)
 
 Mage2 is a Ecommerce application based on Laravel5 framework.
 
@@ -10,9 +10,6 @@ Mage2 is a Ecommerce application based on Laravel5 framework.
 
 [Demo Mage2 Laravel Ecommerce](http://demo.mage2.website/)
 
-### Todo List
-* Upgrading Attribute Modules
-* Updating Folder Structure
 
 # Step 1: Install Mage2 Commerce using [Git](https://git-scm.com/).
 

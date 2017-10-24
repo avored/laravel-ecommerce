@@ -30,7 +30,6 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Mage2\Ecommerce\Models\Database\Product;
 use Mage2\Ecommerce\Http\Requests\ProductRequest;
 
-
 class ProductAfterSave
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
