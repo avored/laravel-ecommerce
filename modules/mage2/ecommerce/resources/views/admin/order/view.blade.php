@@ -48,10 +48,15 @@
                                 <th>Status</th>
                                 <td>
                                     @if(isset($changeStatus) && $changeStatus ===true)
-                                        <form method="{{ route('admin.order.update-status',$order->id) }}" action="post">
+                                        <form action="{{ route('admin.order.update-status',$order->id) }}"
+                                              method="post">
                                             {{ csrf_field() }}
+                                            <input type="hidden" name="_method" value="put">
 
-                                            @include('mage2-ecommerce::forms.select',['name' => 'order_status_id','label' => 'Order Status', 'options' => $orderStatus])
+                                            @include('mage2-ecommerce::forms.select',
+                                                        ['name' => 'order_status_id',
+                                                        'label' => 'Order Status',
+                                                        'options' => $orderStatus])
 
 
                                             <div class="form-group">

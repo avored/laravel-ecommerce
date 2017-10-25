@@ -100,7 +100,7 @@ class OrderController extends AdminController
         $order->update($request->all());
 
         $userEmail = $order->user->email;
-        $orderStatusTitle = $order->order_status->name;
+        $orderStatusTitle = $order->orderStatus->name;
 
         Mail::to($userEmail)->send(new UpdateOrderStatusMail($orderStatusTitle));
 
