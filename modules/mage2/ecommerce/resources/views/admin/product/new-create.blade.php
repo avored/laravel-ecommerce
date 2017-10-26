@@ -19,6 +19,18 @@
         @include("mage2-ecommerce::forms.select",['name'=> 'type','label' => 'Type',
                                                     'options' => ['BASIC' => 'Basic Product','VARIATION' => 'Variable Product']
                                                     ])
+
+        @include("mage2-ecommerce::forms.select2",['name'=> 'attribute_group_id[]',
+                                                    'label' => 'Attribute Group',
+                                                    'options' => $attributeGroupOptions,
+                                                    'values' => [],
+                                                    'attributes' => [
+                                                                    'class' => 'select2 form-control',
+                                                                    'multiple' => true
+                                                                    ],
+
+                                                    ])
+
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Create & Continue</button>
             <button type="button"
@@ -27,7 +39,14 @@
                     class="btn">Cancel
             </button>
         </div>
-
-
     </form>
 @endsection
+
+
+@push('scripts')
+<script>
+    $(function () {
+        $('.select2').select2();
+    });
+</script>
+@endpush

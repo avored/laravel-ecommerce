@@ -24,13 +24,39 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
+use Illuminate\Support\Collection;
+
 class AttributeGroup extends BaseModel
 {
     protected $fillable = ['name'];
 
+
+
+    public static function getOptions($empty = false) {
+
+        if(true === $empty) {
+            $options = ['' => 'Please Select'];
+        } else {
+            $options = [];
+        }
+
+        $model = new static;
+        $allAttributeGroup = $model->all()->pluck('name','id');
+
+        $options += $allAttributeGroup->toArray();
+
+        return $options;
+
+    }
+
     public function attributes()
     {
         return $this->belongsToMany(Attribute::class,'attribute_group_attribute_pivot');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class,'attribute_group_product_pivot');
     }
 
 }

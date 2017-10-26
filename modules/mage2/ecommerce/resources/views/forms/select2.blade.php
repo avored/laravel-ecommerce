@@ -1,6 +1,5 @@
 <?php
 
-
 if(!isset($values)) {
     $values = $values;
 }
@@ -25,7 +24,6 @@ foreach($attributes as $attrKey => $attrValue) {
     $attrString .= "{$attrKey}=\"{$attrValue}\"";
 }
 
-//dd($options);
 ?>
 
 

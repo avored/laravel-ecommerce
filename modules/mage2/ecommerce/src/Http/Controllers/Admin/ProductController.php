@@ -28,6 +28,7 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Mage2\Ecommerce\Models\Database\AttributeGroup;
 use Mage2\Ecommerce\Models\Database\Product;
 use Mage2\Ecommerce\Http\Requests\ProductRequest;
 use Mage2\Ecommerce\Image\Facade as Image;
@@ -77,7 +78,11 @@ class ProductController extends AdminController
      */
     public function create()
     {
-        return view('mage2-ecommerce::admin.product.new-create');
+
+        $attributeGroupOptions = AttributeGroup::getOptions();
+
+        return view('mage2-ecommerce::admin.product.new-create')
+                                ->with('attributeGroupOptions', $attributeGroupOptions);
     }
 
     /**
@@ -90,8 +95,10 @@ class ProductController extends AdminController
      */
     public function store(Request $request)
     {
+
         try {
             $product = Product::create($request->all());
+            $product->attributeGroups()->sync($request->get('attribute_group_id'));
 
         } catch (\Exception $e) {
             echo 'Error in Saving Product: ', $e->getMessage(), "\n";

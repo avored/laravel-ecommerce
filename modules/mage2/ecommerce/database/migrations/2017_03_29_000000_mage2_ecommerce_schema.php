@@ -440,6 +440,22 @@ class Mage2EcommerceSchema extends Migration
 
         });
 
+        Schema::create('attribute_group_product_pivot', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('attribute_group_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamps();
+
+            $table->foreign('attribute_group_id')
+                ->references('id')->on('attribute_groups')
+                ->onDelete('cascade');
+
+            $table->foreign('product_id')
+                ->references('id')->on('products')
+                ->onDelete('cascade');
+
+        });
+
 
         Schema::create('attribute_dropdown_options', function (Blueprint $table) {
             $table->increments('id');

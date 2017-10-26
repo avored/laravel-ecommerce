@@ -120,52 +120,6 @@ class Product extends BaseModel
         return $model->where('slug', '=', $slug)->first();
     }
 
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class);
-    }
-
-
-    public function storages()
-    {
-        return $this->belongsToMany(Storage::class);
-    }
-
-    public function productVariations()
-    {
-        return $this->hasMany(ProductVariation::class);
-    }
-
-    public function productVarcharValues()
-    {
-        return $this->hasMany(ProductVarcharValue::class);
-    }
-
-
-    public function reviews()
-    {
-        return $this->hasMany(Review::class);
-    }
-
-    public function prices()
-    {
-        return $this->hasMany(ProductPrice::class);
-    }
-
-    public function images()
-    {
-        return $this->hasMany(ProductImage::class);
-    }
-
-    public function relatedProducts()
-    {
-        return $this->hasMany(RelatedProduct::class);
-    }
-
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
-    }
 
     public function getReviews()
     {
@@ -269,4 +223,56 @@ class Product extends BaseModel
         return $products;
     }
 
+
+    public function attributeGroups()
+    {
+        return $this->belongsToMany(AttributeGroup::class,'attribute_group_product_pivot');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class);
+    }
+
+
+    public function storages()
+    {
+        return $this->belongsToMany(Storage::class);
+    }
+
+    public function productVariations()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
+
+    public function productVarcharValues()
+    {
+        return $this->hasMany(ProductVarcharValue::class);
+    }
+
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function prices()
+    {
+        return $this->hasMany(ProductPrice::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    public function relatedProducts()
+    {
+        return $this->hasMany(RelatedProduct::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
