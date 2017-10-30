@@ -196,9 +196,27 @@ class Product extends BaseModel
     /*
      * Get the Price for the Product
      *
+     * @return \Mage2\Ecommerce\Models\Database\Attribute
+     */
+    public function getAttributes($type = "SPECIFICATION") {
+
+        $attributes = Collection::make([]);
+        $attributeGroups = $this->attributeGroups;
+
+        if(count($attributeGroups) > 0 ) {
+            foreach($attributeGroups as $attributeGroup) {
+                $attributes = $attributes->merge($attributeGroup->attributes()->whereUseAs($type)->get());
+            }
+        }
+
+        return $attributes;
+    }
+
+    /*
+     * Get the Price for the Product
+     *
      * @return float $value
      */
-
     public function getPriceAttribute()
     {
         $row = $this->prices()->first();

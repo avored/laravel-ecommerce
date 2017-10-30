@@ -24,13 +24,9 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-use Illuminate\Support\Collection;
-
 class AttributeGroup extends BaseModel
 {
     protected $fillable = ['name'];
-
-
 
     public static function getOptions($empty = false) {
 
