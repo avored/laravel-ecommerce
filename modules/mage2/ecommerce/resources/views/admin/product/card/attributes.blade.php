@@ -3,22 +3,24 @@
     <div class="col-12">
 
 
-        @if(count($specificationAttributes = $model->getAttributes($type="SPECIFICATION")) > 0 )
+        @if(count($specificationAttributes = $model->getSpecificationList()) > 0 )
 
 
-            <?php
-            //dd($specificationAttributes);
-            ?>
             @foreach($specificationAttributes as $attribute)
 
                 @if($attribute->field_type == 'TEXT')
+<?php
+
+                    $model->getSpecificationValue($attribute) ;
+
+    ?>
 
                     <div class="form-group">
                         <label for="attribute-specification-{{ $attribute->id }}">{{ $attribute->name }}</label>
                         <input type="text"
                                name="attributes_specification[{{ $attribute->id  }}]"
                                class="form-control"
-                               value=""
+                               value="{{ $model->getSpecificationValue($attribute) }}"
                                id=attribute-specification-{{ $attribute->id }}" />
                     </div>
 

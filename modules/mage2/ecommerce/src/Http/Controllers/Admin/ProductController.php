@@ -49,18 +49,18 @@ class ProductController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model(Product::query()->orderBy('id','desc'))
-            ->column('id',['sortable' => true])
+        $dataGrid = DataGrid::model(Product::query()->orderBy('id', 'desc'))
+            ->column('id', ['sortable' => true])
             ->column('name')
-            ->linkColumn('edit',[], function($model) {
-                return "<a href='". route('admin.product.edit', $model->id)."' >Edit</a>";
+            ->linkColumn('edit', [], function ($model) {
+                return "<a href='" . route('admin.product.edit', $model->id) . "' >Edit</a>";
 
-            })->linkColumn('destroy',[], function($model) {
-                return "<form id='admin-product-destroy-".$model->id."'
+            })->linkColumn('destroy', [], function ($model) {
+                return "<form id='admin-product-destroy-" . $model->id . "'
                                             method='POST'
-                                            action='".route('admin.product.destroy', $model->id) ."'>
+                                            action='" . route('admin.product.destroy', $model->id) . "'>
                                         <input name='_method' type='hidden' value='DELETE' />
-                                        ". csrf_field()."
+                                        " . csrf_field() . "
                                         <a href='#'
                                             onclick=\"jQuery('#admin-product-destroy-$model->id').submit()\"
                                             >Destroy</a>
@@ -82,7 +82,7 @@ class ProductController extends AdminController
         $attributeGroupOptions = AttributeGroup::getOptions();
 
         return view('mage2-ecommerce::admin.product.new-create')
-                                ->with('attributeGroupOptions', $attributeGroupOptions);
+            ->with('attributeGroupOptions', $attributeGroupOptions);
     }
 
     /**
@@ -135,11 +135,10 @@ class ProductController extends AdminController
      */
     public function update(ProductRequest $request, $id)
     {
-        try {
 
+        try {
             Event::fire(new ProductBeforeSave($request));
             $product = Product::findorfail($id);
-            $product->update($request->all());
             $product->saveProduct($request);
             Event::fire(new ProductAfterSave($product, $request));
 
@@ -164,7 +163,7 @@ class ProductController extends AdminController
     }
 
     /**
-     * upload image file and resized it.
+     * upload image file and re sized it.
      *
      * @param \Illuminate\Http\Request $request
      *

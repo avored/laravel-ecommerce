@@ -29,6 +29,11 @@ class ProductAttributeValue extends BaseModel
 
     protected $fillable = ['attribute_id', 'product_id' ,'value'];
 
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
+
 }
 
 

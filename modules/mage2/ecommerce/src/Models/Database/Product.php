@@ -72,15 +72,18 @@ class Product extends BaseModel
      */
     public function saveProduct(ProductRequest $request) {
 
+        //*****  SAVING PRODUCT BASIC FIELDS  *****//
+        $this->update($request->all());
 
-        // SAVING/UPDATE Product PRICES
+
+        //*****  SAVING PRODUCT PRICES  *****//
         if ($this->prices()->get()->count() > 0) {
             $this->prices()->get()->first()->update(['price' => $request->get('price')]);
         } else {
             $this->prices()->create(['price' => $request->get('price')]);
         }
 
-        // SAVING/UPDATE Product IMAGES
+        //*****  SAVING PRODUCT IMAGES  *****//
         if (null !== $request->get('image')) {
             $exitingIds = $this->images()->get()->pluck('id')->toArray();
             foreach ($request->get('image') as $key => $data) {
@@ -99,10 +102,36 @@ class Product extends BaseModel
             }
         }
 
-
-        // SAVING/UPDATE Product Category
+        //*****  SAVING PRODUCT CATEGORIES  *****//
         if (count($request->get('category_id')) > 0) {
             $this->categories()->sync($request->get('category_id'));
+        }
+
+
+
+        //*****  SAVING PRODUCT ATTRIBUTES  *****//
+        $attributes = $request->get('attributes_specification');
+
+        if(count($attributes) >0) {
+            foreach($attributes as $attributeId => $attributeValue) {
+
+                $productId = $this->attributes['id'];
+                $productAttributeValue = ProductAttributeValue::whereProductId($productId)->whereAttributeId($attributeId)->first();
+
+                if(null === $productAttributeValue && null != $attributeValue) {
+
+                        ProductAttributeValue::create(['attribute_id' => $attributeId,
+                            'product_id' => $this->attributes['id'],
+                            'value' => $attributeValue
+                        ]);
+
+
+                } elseif(null !== $productAttributeValue && $attributeValue == null) {
+                    $productAttributeValue->delete();
+                } else {
+                    $productAttributeValue->update(['value' => $attributeValue]);
+                }
+            }
         }
 
     }
@@ -194,12 +223,29 @@ class Product extends BaseModel
     }
 
     /*
+    * Get the Price for the Product
+    *
+    * @return \Mage2\Ecommerce\Models\Database\Attribute
+    */
+    public function getSpecificationValue($attribute) {
+
+        $productAttributeValue = $this->productAttributeValue()->whereAttributeId($attribute->id)->first();
+
+        if(null !== $productAttributeValue) {
+            return $productAttributeValue->value;
+        }
+
+        return "";
+    }
+
+
+    /*
      * Get the Price for the Product
      *
      * @return \Mage2\Ecommerce\Models\Database\Attribute
      */
-    public function getAttributes($type = "SPECIFICATION") {
-
+    public function getSpecificationList() {
+        $type = "SPECIFICATION";
         $attributes = Collection::make([]);
         $attributeGroups = $this->attributeGroups;
 
@@ -224,23 +270,6 @@ class Product extends BaseModel
         return (isset($row->price)) ? $row->price : null;
     }
 
-    public function getFeaturedProducts($paginate = 4)
-    {
-        $attribute = ProductAttribute::where('identifier', '=', 'is_featured')->get()->first();
-
-        if ($attribute == NULL) {
-            return null;
-        }
-        $products = Collection::make([]);
-        $varcharValues = $attribute->productVarcharValues()->where('value', '=', 1)->get();
-
-        foreach ($varcharValues as $varcharValue) {
-            $products->push(self::findorfail($varcharValue->product_id));
-        }
-
-        return $products;
-    }
-
 
     public function attributeGroups()
     {
@@ -251,23 +280,6 @@ class Product extends BaseModel
     {
         return $this->belongsToMany(Category::class);
     }
-
-
-    public function storages()
-    {
-        return $this->belongsToMany(Storage::class);
-    }
-
-    public function productVariations()
-    {
-        return $this->hasMany(ProductVariation::class);
-    }
-
-    public function productVarcharValues()
-    {
-        return $this->hasMany(ProductVarcharValue::class);
-    }
-
 
     public function reviews()
     {
@@ -287,6 +299,11 @@ class Product extends BaseModel
     public function relatedProducts()
     {
         return $this->hasMany(RelatedProduct::class);
+    }
+
+    public function productAttributeValue()
+    {
+        return $this->hasMany(ProductAttributeValue::class);
     }
 
     public function orders()
