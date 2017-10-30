@@ -150,11 +150,11 @@ class Provider extends ServiceProvider
         View::composer('mage2-framework::product.edit', ProductFieldComposer::class);
         View::composer('catalog.product.view', ProductSpecificationComposer::class);
         View::composer(['mage2-ecommerce::admin.product.create',
-                        'mage2-ecommerce::admin.product.edit'],
-                                    ProductFieldsComposer::class);
+            'mage2-ecommerce::admin.product.edit'],
+            ProductFieldsComposer::class);
         View::composer(['mage2-framework::product.create',
-                        'mage2-framework::product.edit'],
-                                    RelatedProductComposer::class);
+            'mage2-framework::product.edit'],
+            RelatedProductComposer::class);
     }
 
     /**
@@ -165,7 +165,7 @@ class Provider extends ServiceProvider
      */
     protected function registerProviders()
     {
-        if(!Storage::disk('local')->has('installed.txt')) {
+        if (!Storage::disk('local')->has('installed.txt')) {
             App::register(\Mage2\Install\Module::class);
         }
 
@@ -191,4 +191,5 @@ class Provider extends ServiceProvider
             KeysCommand::class,
         ]);
     }
+
 }

@@ -148,7 +148,7 @@ return [
          * Package Service Providers...
          */
 
-        Mage2\Install\Module::class,
+        //Mage2\Install\Module::class,
         Mage2\Ecommerce\Provider::class,
 
 
