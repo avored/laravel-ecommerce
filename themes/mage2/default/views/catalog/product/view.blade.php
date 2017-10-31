@@ -71,6 +71,26 @@
 
                 <div class="tab-content">
                     <div id="description" class="tab-pane active">
+
+
+                        @if(count($specificationList = $product->getSpecificationList()) >= 0)
+
+                            <h6 class="p-3 mb-3">Product Specifications</h6>
+                            <table class="table  mt-2 mb-2 table-bordered">
+                                @foreach($specificationList as $attribute)
+
+
+                                <tr>
+                                    <th>
+                                        {{ $attribute->name }}
+                                    </th>
+                                    <td>{{ $product->getSpecificationValue($attribute) }}</td>
+                                </tr>
+                                @endforeach
+                            </table>
+                        @endif
+
+
                         <p>{!! $product->description !!}</p>
                     </div>
 

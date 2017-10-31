@@ -62,7 +62,6 @@ class AttributeRequest extends Request
             }
         }
 
-
         if ($this->getMethod() == 'POST') {
             $validationRule['identifier'] = 'required|max:255|alpha_dash|unique:attributes';
         }
@@ -70,7 +69,6 @@ class AttributeRequest extends Request
             $validationRule['identifier'] = 'required|max:255|alpha_dash';
         }
 
-        //dd($validationRule);
         return $validationRule;
     }
 }

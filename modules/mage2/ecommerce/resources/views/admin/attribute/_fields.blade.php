@@ -15,12 +15,6 @@
                                         ])
 
 
-
-@include('mage2-ecommerce::forms.select',['name' => 'use_as',
-                                        'label' => 'Use As',
-                                        'options' => [NULL => 'Please Select','VARIATION' => "Product Variation",'SPECIFICATION' => "Product Specification"]
-                                        ])
-
 @include('mage2-ecommerce::forms.text',['name' => 'sort_order','label' => 'Sort Order'])
 
 

@@ -27,7 +27,7 @@ namespace Mage2\Ecommerce\Models\Database;
 class Attribute extends BaseModel
 {
 
-    protected $fillable = ['type', 'name', 'identifier', 'field_type', 'use_as', 'sort_order'];
+    protected $fillable = ['type', 'name', 'identifier', 'field_type', 'sort_order'];
 
 
     public function attributeDropdownOptions() {

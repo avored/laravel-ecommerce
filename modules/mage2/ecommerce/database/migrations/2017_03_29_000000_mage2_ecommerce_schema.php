@@ -413,7 +413,6 @@ class Mage2EcommerceSchema extends Migration
             $table->string('name');
             $table->string('identifier')->unique();
             $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME','CHECKBOX','RADIO']);
-            $table->enum('use_as',['SPECIFICATION','VARIATION'])->nullable()->default(null);
             $table->integer('sort_order')->nullable()->default(0);
             $table->timestamps();
         });

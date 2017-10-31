@@ -245,13 +245,12 @@ class Product extends BaseModel
      * @return \Mage2\Ecommerce\Models\Database\Attribute
      */
     public function getSpecificationList() {
-        $type = "SPECIFICATION";
         $attributes = Collection::make([]);
         $attributeGroups = $this->attributeGroups;
 
         if(count($attributeGroups) > 0 ) {
             foreach($attributeGroups as $attributeGroup) {
-                $attributes = $attributes->merge($attributeGroup->attributes()->whereUseAs($type)->get());
+                $attributes = $attributes->merge($attributeGroup->attributes()->get());
             }
         }
 
