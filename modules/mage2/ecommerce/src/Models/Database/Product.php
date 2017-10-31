@@ -229,10 +229,20 @@ class Product extends BaseModel
     */
     public function getSpecificationValue($attribute) {
 
+
         $productAttributeValue = $this->productAttributeValue()->whereAttributeId($attribute->id)->first();
 
         if(null !== $productAttributeValue) {
-            return $productAttributeValue->value;
+            if($attribute->field_type == 'SELECT') {
+
+
+                $selectedDropdownOption = $attribute->attributeDropdownOptions()->whereId($productAttributeValue->value)->first();
+                return $selectedDropdownOption->display_text;
+
+            } else {
+                return $productAttributeValue->value;
+            }
+
         }
 
         return "";

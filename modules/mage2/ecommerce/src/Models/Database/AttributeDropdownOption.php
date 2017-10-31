@@ -31,7 +31,7 @@ class AttributeDropdownOption extends BaseModel
     /**
      * Attribute Dropdown Options belongs to many Product Attribute.
      *
-     * @return \Mage2\Attribute\Models\ProductAttribute
+     * @return \Mage2\Ecommerce\Models\Database\Attribute
      */
     public function attribute()
     {

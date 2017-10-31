@@ -9,11 +9,6 @@
             @foreach($specificationAttributes as $attribute)
 
                 @if($attribute->field_type == 'TEXT')
-<?php
-
-                    $model->getSpecificationValue($attribute) ;
-
-    ?>
 
                     <div class="form-group">
                         <label for="attribute-specification-{{ $attribute->id }}">{{ $attribute->name }}</label>
@@ -27,8 +22,46 @@
 
                 @endif
 
+
+                @if($attribute->field_type == 'TEXTAREA')
+
+                        <div class="form-group">
+                            <label for="attribute-specification-{{ $attribute->id }}">{{ $attribute->name }}</label>
+                            <textarea
+                                    name="attributes_specification[{{ $attribute->id  }}]"
+                                    class="form-control"
+                                    id=attribute-specification-{{ $attribute->id }}"
+                                    >{{ $model->getSpecificationValue($attribute) }}</textarea>
+                            
+                        </div>
+
+
+                    @endif
+
                 @if($attribute->field_type == 'SELECT')
-                    <p>SELECT ATTRIBUTE HERE</p>
+
+                        <div class="form-group">
+                            <label for="attribute-specification-{{ $attribute->id }}">{{ $attribute->name }}</label>
+
+                            <select name="attributes_specification[{{ $attribute->id  }}]"
+                                    class="form-control"
+                                    id=attribute-specification-{{ $attribute->id }}">
+
+
+                                <option value="">Please Select</option>
+                                @foreach($attribute->attributeDropdownOptions as $dropdown)
+
+                                <option
+                                        @if($model->getSpecificationValue($attribute) == $dropdown->id)
+                                                selected
+                                        @endif
+                                        value="{{ $dropdown->id }}">{{ $dropdown->display_text }}</option>
+                                @endforeach
+                            </select>
+
+                        </div>
+
+
                 @endif
 
 

@@ -84,7 +84,10 @@
                                     <th>
                                         {{ $attribute->name }}
                                     </th>
-                                    <td>{{ $product->getSpecificationValue($attribute) }}</td>
+                                    <td>
+
+                                        {{ $product->getSpecificationValue($attribute) }}
+                                    </td>
                                 </tr>
                                 @endforeach
                             </table>
