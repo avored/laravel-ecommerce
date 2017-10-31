@@ -42,7 +42,7 @@ Set up your environment config file:
 That's it!
 
 
-##Contributing
+## Contributing
 
 
 Mage2 laravel5 E commerce is in active development and If you want to contribute in this project then simply do the [Pull Request](https://github.com/mage2/laravel-ecommerce/pulls)!
