@@ -136,6 +136,12 @@ class AttributeController extends AdminController
                 if (!is_int($key)) {
                     $attribute->attributeDropdownOptions()->create($val);
                 }
+
+                // Update existing value
+                if(is_int($key)) {
+                    $dropdownOption = OptionDropdownOption::find($key);
+                    $dropdownOption->update($val);
+                }
             }
         }
     }

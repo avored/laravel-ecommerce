@@ -176,14 +176,22 @@ Route::middleware(['web', 'admin.auth'])
 
         /**************** ATTRIBUTES ROUTES STARTS ****************/
 
-
-
-        Route::resource('/attribute-group', 'AttributeGroupController',['as' => 'admin'])
+        Route::resource('attribute-group', 'AttributeGroupController',['as' => 'admin'])
                             ->except(['show']);
 
-
-
         /**************** ATTRIBUTES ROUTES ENDS ****************/
+
+
+
+
+        /**************** OPTIONS ROUTES STARTS ****************/
+
+        Route::resource('option', 'OptionController',['as' => 'admin'])
+            ->except(['show']);
+
+        /**************** OPTION ROUTES ENDS ****************/
+
+
 
 
 

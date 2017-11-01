@@ -412,7 +412,7 @@ class Mage2EcommerceSchema extends Migration
             $table->enum('type',['PRODUCT','CATEGORY','ORDER','CUSTOMER'])->default('PRODUCT');
             $table->string('name');
             $table->string('identifier')->unique();
-            $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME','CHECKBOX','RADIO']);
+            $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME','CHECKBOX','RADIO','SWITCH']);
             $table->integer('sort_order')->nullable()->default(0);
             $table->timestamps();
         });
@@ -436,7 +436,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('attribute_id')
                 ->references('id')->on('attributes')
                 ->onDelete('cascade');
-
         });
 
         Schema::create('attribute_group_product_pivot', function (Blueprint $table) {
@@ -476,6 +475,23 @@ class Mage2EcommerceSchema extends Migration
                 ->references('id')->on('attributes')->onDelete('cascade');
             $table->foreign('product_id')
                 ->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('options', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->string('identifier')->unique();
+            $table->enum('field_type', ['TEXT', 'TEXTAREA' , 'SELECT', 'FILE', 'DATETIME']);
+            $table->timestamps();
+        });
+
+        Schema::create('option_dropdown_options', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('option_id')->unsigned();
+            $table->string('display_text');
+            $table->timestamps();
+            $table->foreign('option_id')
+                ->references('id')->on('options')->onDelete('cascade');
         });
 
         Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'Mage2 Laravel Ecommerce']);

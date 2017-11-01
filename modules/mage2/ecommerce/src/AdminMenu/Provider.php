@@ -101,6 +101,12 @@ class Provider extends ServiceProvider {
             ->route('admin.attribute-group.index');
         $catalogMenu->subMenu('attribute-group',$attributeGroupMenu);
 
+        $optionsMenu = new AdminMenu();
+        $optionsMenu->key('option')
+            ->label('Option')
+            ->route('admin.option.index');
+        $catalogMenu->subMenu('option',$optionsMenu);
+
         $pageMenu = new AdminMenu();
         $pageMenu->key('page')
             ->label('Page')
