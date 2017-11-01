@@ -504,7 +504,6 @@ class Mage2EcommerceSchema extends Migration
             Country::create(['code' => $code, 'name' => $name]);
         }
 
-
         $countryModel = Country::whereCode('nz')->first();
 
         Configuration::create(['configuration_key' => 'mage2_tax_class_default_country_for_tax_calculation',

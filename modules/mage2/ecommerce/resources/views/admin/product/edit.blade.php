@@ -79,6 +79,22 @@
 
                 @endif
 
+                @if($model->type == "VARIATION")
+                    <div class="card product-card mb-2 mt-2">
+                        <div class="card-header">
+                            Option
+                            <a data-toggle="collapse" data-parent="#product-save-accordion"
+                               class="float-right" href="#option">
+                                <i class="oi oi-caret-top"></i>
+                            </a>
+                        </div>
+                        <div class="card-body collapse" id="option">
+                            @include('mage2-ecommerce::admin.product.card.option')
+                        </div>
+                    </div>
+
+                @endif
+
 
 
                 @foreach(Tabs::all() as $key => $tab)
