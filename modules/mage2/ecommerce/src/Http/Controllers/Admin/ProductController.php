@@ -27,6 +27,7 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 use Mage2\Ecommerce\Models\Database\AttributeGroup;
 use Mage2\Ecommerce\Models\Database\Product;
@@ -36,6 +37,8 @@ use Illuminate\Support\Facades\File;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Events\ProductAfterSave;
 use Mage2\Ecommerce\Events\ProductBeforeSave;
+use Mage2\Ecommerce\Models\Database\Option;
+
 
 class ProductController extends AdminController
 {
@@ -122,8 +125,13 @@ class ProductController extends AdminController
     public function edit($id)
     {
         $product = Product::findorfail($id);
+        $productOptions = Collection::make([]);
+        if($product->type == "VARIATION") {
+            $productOptions =   Option::all()->pluck('name','id');
+        }
         return view('mage2-ecommerce::admin.product.edit')
-            ->with('model', $product);
+            ->with('model', $product)
+            ->with('productOptions', $productOptions);
     }
 
     /**

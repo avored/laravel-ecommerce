@@ -10,15 +10,8 @@
 
 
 @include('mage2-ecommerce::forms.select2',['name' => 'attributes[]' ,
-                                            'attributes' => ['class' => 'select2 form-control','multiple' => true],
+                                            'attributes' => ['class' => 'select2 form-control',
+                                            'multiple' => true],
                                             'label' => 'Attributes',
                                             'options' => $attributesOptions,
                                             'values' => $values])
-
-@push('scripts')
-    <script>
-        $(function() {
-            jQuery('.select2').select2();
-        })
-    </script>
-@endpush

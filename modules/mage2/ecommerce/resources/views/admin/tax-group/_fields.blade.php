@@ -12,7 +12,8 @@
 @include('mage2-ecommerce::forms.select',['name' => 'tax_rules[]' ,
                                             'attributes' => ['class' => 'select2 form-control','multiple' => true],
                                             'label' => 'Tax Rule',
-                                            'options' => $taxRulesOptions])
+                                            'options' => $taxRulesOptions,
+                                            'values' => $values])
 
 @push('scripts')
     <script>

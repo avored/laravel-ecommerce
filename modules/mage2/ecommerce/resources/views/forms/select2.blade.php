@@ -40,3 +40,12 @@ foreach($attributes as $attrKey => $attrValue) {
     </select>
 
 </div>
+
+
+@push('scripts')
+<script>
+    $(function () {
+        $('.select2').select2();
+    });
+</script>
+@endpush
