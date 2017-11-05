@@ -10,7 +10,7 @@
                     PRODUCT OPTIONS</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link disabled"
+                <a class="nav-link"
                    id="product-option-combination-tab"
                    data-toggle="tab"
                    href="#product-option-combination"
@@ -34,22 +34,20 @@
                     @if(!isset($optionValues))
                         <?php $optionValues = []; ?>
                     @endif
-
                     <div class="form-group">
-                        <label for="option_id">Option</label>
-
-                        <select id="option_id" multiple class="product-options form-control" name="option_id[]">
-                            @foreach($productOptions as $val => $lab)
-                                <option
-                                        @if(in_array($val, $optionValues))
-                                        selected
-                                        @endif
-                                        value="{{ $val }}">{{ $lab }}</option>
-                            @endforeach
-                        </select>
-
+                        <div class="input-group">
+                            <select id="option_id" multiple class="product-options form-control" name="option_id[]">
+                                @foreach($productOptions as $val => $lab)
+                                    <option
+                                            @if(in_array($val, $optionValues))
+                                            selected
+                                            @endif
+                                            value="{{ $val }}">{{ $lab }}</option>
+                                @endforeach
+                            </select>
+                            <button type="button" style="cursor: pointer" class="input-group-addon use-this-option" >Use This</button>
+                        </div>
                     </div>
-
                 </div>
             </div>
 
@@ -62,9 +60,14 @@
                             <div class="card-header">
                                 <span class="h5" style="line-height: 1.5">Option Combinations Grid</span>
 
-                <span class="float-right">
-                    <a href="#" class="btn btn-sm btn-warning">Create Option Combination</a>
-                </span>
+                                <span class="float-right">
+                                    <a href="#"
+                                       data-csrf="{{ csrf_token() }}"
+                                       data-product-id="{{ $model->id }}"
+                                       class="btn btn-sm create-option-combination-btn btn-warning">
+                                        Create Option Combination
+                                    </a>
+                                </span>
                             </div>
 
                             <div class="card-body">
@@ -100,8 +103,39 @@
 
 @push('scripts')
     <script>
-        $(function() {
+        $(function () {
             $('.product-options').select2({width: '100%'});
+            $('.use-this-option').click(function (e) {
+                $('#product-option-tabs a[href="#product-option-combination"]').tab('show');
+
+            });
+
+            $('.create-option-combination-btn').click(function (e) {
+                if (jQuery('#option-combination-modal').length <= 0) {
+                    var data = {_token: $(this).attr('data-csrf'),
+                                options: jQuery('#option_id').val(),
+                                'product_id' : jQuery(this).attr('data-product-id')
+                                };
+                    $.ajax({
+                        method: 'post',
+                        url : '{{ route('admin.option.combination') }}',
+                        data: data,
+                        success: function (result) {
+                            jQuery('body').append(result);
+                            jQuery('#option-combination-modal').modal('show');
+                            //console.info(result);
+                        }
+
+                    });
+                } else {
+
+                    jQuery('#option-combination-modal').modal('show');
+
+                }
+
+
+
+            });
         })
     </script>
 @endpush

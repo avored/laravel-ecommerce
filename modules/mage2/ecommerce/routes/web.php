@@ -186,11 +186,22 @@ Route::middleware(['web', 'admin.auth'])
 
         /**************** OPTIONS ROUTES STARTS ****************/
 
-        Route::resource('option', 'OptionController',['as' => 'admin'])
-            ->except(['show']);
+        Route::resource('option',
+                        'OptionController',[
+                        'as' => 'admin'])->except(['show']);
 
         /**************** OPTION ROUTES ENDS ****************/
 
+
+        Route::post('/option-combination-modal', [
+            'uses' => 'OptionController@optionCombinationModal',
+            'as' => 'admin.option.combination',
+        ]);
+
+        Route::post('/option-combination-update', [
+            'uses' => 'OptionController@optionCombinationUpdate',
+            'as' => 'admin.product.option-combination.update',
+        ]);
 
 
 

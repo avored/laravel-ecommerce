@@ -24,6 +24,8 @@
  */
 namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Mage2\Ecommerce\Models\Database\Option;
 use Mage2\Ecommerce\Http\Requests\OptionRequest;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
@@ -144,6 +146,26 @@ class OptionController extends AdminController
             throw new \Exception('Error While destroing Option');
         }
         return redirect()->route('admin.option.index');
+    }
+
+    public function optionCombinationModal(Request $request) {
+
+        $options = Collection::make([]);
+
+        $productId = $request->get('product_id');
+        $optionIds = $request->get('options');
+
+        foreach ($optionIds as $optionId) {
+            $options->push(Option::findorfail($optionId));
+        }
+
+        return view('mage2-ecommerce::admin.product.option-combination')
+                ->with('options', $options)
+                ->with('product_id', $productId);
+    }
+
+    public function optionCombinationUpdate(Request $request){
+        return $request->all();
     }
 
 
