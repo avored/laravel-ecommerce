@@ -12,31 +12,67 @@
 
                     {{ csrf_field() }}
 
+                @foreach($options as $option)
 
-                    @foreach($options as $option)
+                    @if($option->field_type == 'SELECT')
 
-                        @if($option->field_type == 'SELECT')
+                        <div class="form-group">
+                            <label for="option-{{ $option->id }}">{{ $option->name }}</label>
 
-                            <div class="form-group">
-                                <label for="option-{{ $option->id }}">{{ $option->name }}</label>
+                            <select name="attributes_specification[{{ $option->id  }}]"
+                                    class="form-control"
+                                    id=option-{{ $option->id }}">
 
-                                <select name="option[{{ $option->id  }}]"
-                                        class="form-control"
-                                        id=option-{{ $option->id }}">
+                                <option value="">Please Select</option>
+                                @foreach($option->attributeDropdownOptions as $dropdown)
 
-                                    <option value="">Please Select</option>
-                                    @foreach($option->optionDropdownOptions as $dropdown)
+                                    <option
+                                            value="{{ $dropdown->id }}">{{ $dropdown->display_text }}</option>
+                                @endforeach
+                            </select>
 
-                                        <option
+                        </div>
+                    @endif
 
-                                                value="{{ $dropdown->id }}">{{ $dropdown->display_text }}</option>
-                                    @endforeach
-                                </select>
+                @endforeach
 
-                            </div>
-                        @endif
 
-                    @endforeach
+                <div class="row">
+                    <div class="col-6">
+                        @include('mage2-ecommerce::forms.text',['name' => 'sku','label' => 'Sku'])
+                    </div>
+                    <div class="col-6">
+                        @include('mage2-ecommerce::forms.text',['name' => 'qty','label' => 'Qty'])
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">
+                        @include('mage2-ecommerce::forms.text',['name' => 'price','label' => 'Price Variation'])
+
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label>Image</label>
+                            <input type="file" name="image" class="form-control">
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+                <!--
+                NAME, SKU, IDENTIFIER, PRICE VARIATION, IMAGE, QTY,
+
+                -->
+
 
                 <input type="hidden" value="{{ $productId }}" name="product_id">
             </div>

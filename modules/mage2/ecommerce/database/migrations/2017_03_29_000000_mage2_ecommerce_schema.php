@@ -164,7 +164,7 @@ class Mage2EcommerceSchema extends Migration
 
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('type',['BASIC','VARIATION','DOWNLOADABLE'])->default('BASIC');
+            $table->enum('type',['BASIC','VARIATION','DOWNLOADABLE','VARIATION-COMBINATION'])->default('BASIC');
             $table->string('name')->nullable()->default(null);
             $table->string('slug')->nullable()->default(null);
             $table->string('sku')->nullable()->default(null);
@@ -412,48 +412,11 @@ class Mage2EcommerceSchema extends Migration
             $table->enum('type',['PRODUCT','CATEGORY','ORDER','CUSTOMER'])->default('PRODUCT');
             $table->string('name');
             $table->string('identifier')->unique();
+            $table->enum('use_as',['SPECIFICATION','VARIATION'])->nullable()->default(null);
             $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME','CHECKBOX','RADIO','SWITCH']);
             $table->integer('sort_order')->nullable()->default(0);
             $table->timestamps();
         });
-
-        Schema::create('attribute_groups', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable()->default(null);
-            $table->timestamps();
-        });
-
-        Schema::create('attribute_group_attribute_pivot', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('attribute_group_id')->unsigned();
-            $table->integer('attribute_id')->unsigned();
-            $table->timestamps();
-
-            $table->foreign('attribute_group_id')
-                ->references('id')->on('attribute_groups')
-                ->onDelete('cascade');
-
-            $table->foreign('attribute_id')
-                ->references('id')->on('attributes')
-                ->onDelete('cascade');
-        });
-
-        Schema::create('attribute_group_product_pivot', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('attribute_group_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->timestamps();
-
-            $table->foreign('attribute_group_id')
-                ->references('id')->on('attribute_groups')
-                ->onDelete('cascade');
-
-            $table->foreign('product_id')
-                ->references('id')->on('products')
-                ->onDelete('cascade');
-
-        });
-
 
         Schema::create('attribute_dropdown_options', function (Blueprint $table) {
             $table->increments('id');
@@ -477,22 +440,31 @@ class Mage2EcommerceSchema extends Migration
                 ->references('id')->on('products')->onDelete('cascade');
         });
 
-        Schema::create('options', function (Blueprint $table) {
+        Schema::create('attribute_product', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('identifier')->unique();
-            $table->enum('field_type', ['TEXT', 'TEXTAREA' , 'SELECT', 'FILE', 'DATETIME']);
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
         });
 
-        Schema::create('option_dropdown_options', function (Blueprint $table) {
+        Schema::create('product_combinations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('option_id')->unsigned();
-            $table->string('display_text');
+
+            $table->integer('product_id')->unsigned();
+            $table->integer('combination_id')->unsigned();
             $table->timestamps();
-            $table->foreign('option_id')
-                ->references('id')->on('options')->onDelete('cascade');
+
+            $table->foreign('combination_id')
+                ->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
         });
+
 
         Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'Mage2 Laravel Ecommerce']);

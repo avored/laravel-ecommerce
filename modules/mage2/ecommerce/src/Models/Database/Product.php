@@ -70,7 +70,7 @@ class Product extends BaseModel
      * @var \Mage2\Ecommerce\Http\Requests\ProductRequest $request
      * @return void
      */
-    public function saveProduct(ProductRequest $request) {
+    public function saveProduct($request) {
 
         //*****  SAVING PRODUCT BASIC FIELDS  *****//
         $this->update($request->all());
@@ -255,16 +255,7 @@ class Product extends BaseModel
      * @return \Mage2\Ecommerce\Models\Database\Attribute
      */
     public function getSpecificationList() {
-        $attributes = Collection::make([]);
-        $attributeGroups = $this->attributeGroups;
-
-        if(count($attributeGroups) > 0 ) {
-            foreach($attributeGroups as $attributeGroup) {
-                $attributes = $attributes->merge($attributeGroup->attributes()->get());
-            }
-        }
-
-        return $attributes;
+        return Attribute::specificationOptions();
     }
 
     /*
@@ -280,10 +271,24 @@ class Product extends BaseModel
     }
 
 
-    public function attributeGroups()
+    public function attributes()
     {
-        return $this->belongsToMany(AttributeGroup::class,'attribute_group_product_pivot');
+        return $this->belongsToMany(Attribute::class);
     }
+
+
+    public function combinations()
+    {
+        $combinations = Collection::make([]);
+        $model = new static;
+        $productIds = ProductCombination::whereProductId($this->attributes['id'])->pluck('combination_id');
+        foreach ($productIds as $id) {
+            $combinations->push($model->findorfail($id));
+        }
+
+        return $combinations;
+    }
+
 
     public function categories()
     {

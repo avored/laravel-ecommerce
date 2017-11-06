@@ -29,7 +29,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
-use Mage2\Ecommerce\Models\Database\AttributeGroup;
+use Mage2\Ecommerce\Models\Database\Attribute;
 use Mage2\Ecommerce\Models\Database\Product;
 use Mage2\Ecommerce\Http\Requests\ProductRequest;
 use Mage2\Ecommerce\Image\Facade as Image;
@@ -37,12 +37,9 @@ use Illuminate\Support\Facades\File;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Events\ProductAfterSave;
 use Mage2\Ecommerce\Events\ProductBeforeSave;
-use Mage2\Ecommerce\Models\Database\Option;
-
 
 class ProductController extends AdminController
 {
-
 
     /**
      * Display a listing of the resource.
@@ -52,6 +49,7 @@ class ProductController extends AdminController
      */
     public function index()
     {
+
         $dataGrid = DataGrid::model(Product::query()->orderBy('id', 'desc'))
             ->column('id', ['sortable' => true])
             ->column('name')
@@ -81,11 +79,7 @@ class ProductController extends AdminController
      */
     public function create()
     {
-
-        $attributeGroupOptions = AttributeGroup::getOptions();
-
-        return view('mage2-ecommerce::admin.product.new-create')
-            ->with('attributeGroupOptions', $attributeGroupOptions);
+        return view('mage2-ecommerce::admin.product.new-create');
     }
 
     /**
@@ -101,8 +95,6 @@ class ProductController extends AdminController
 
         try {
             $product = Product::create($request->all());
-            $product->attributeGroups()->sync($request->get('attribute_group_id'));
-
         } catch (\Exception $e) {
             echo 'Error in Saving Product: ', $e->getMessage(), "\n";
         }
@@ -127,7 +119,7 @@ class ProductController extends AdminController
         $product = Product::findorfail($id);
         $productOptions = Collection::make([]);
         if($product->type == "VARIATION") {
-            $productOptions =   Option::all()->pluck('name','id');
+            $productOptions =   Attribute::variationOptions();
         }
         return view('mage2-ecommerce::admin.product.edit')
             ->with('model', $product)

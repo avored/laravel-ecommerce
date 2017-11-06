@@ -26,170 +26,63 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Mage2\Ecommerce\Models\Database\Attribute;
 use Mage2\Ecommerce\Models\Database\Option;
 use Mage2\Ecommerce\Http\Requests\OptionRequest;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Models\Database\OptionDropdownOption;
+use Mage2\Ecommerce\Models\Database\Product;
+use Mage2\Ecommerce\Models\Database\AttributeDropdownOption;
+use Mage2\Ecommerce\Models\Database\ProductCombination;
+
 
 class OptionController extends AdminController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
 
-        $dataGrid = DataGrid::model(Option::query()->orderBy('id','desc'))
-            ->column('id',['sortable' => true])
-            ->column('name')
-            ->linkColumn('edit',[], function($model) {
-                return "<a href='". route('admin.option.edit', $model->id)."' >Edit</a>";
-
-            })->linkColumn('destroy',[], function($model) {
-                return "<form id='admin-option-destroy-".$model->id."'
-                                            method='POST'
-                                            action='".route('admin.option.destroy', $model->id) ."'>
-                                        <input name='_method' type='hidden' value='DELETE' />
-                                        ". csrf_field()."
-                                        <a href='#'
-                                            onclick=\"jQuery('#admin-option-destroy-$model->id').submit()\"
-                                            >Destroy</a>
-                                    </form>";
-            });
-        return view('mage2-ecommerce::admin.option.index')
-                    ->with('dataGrid', $dataGrid);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('mage2-ecommerce::admin.option.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Mage2\Ecommerce\Http\Requests\OptionRequest $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(OptionRequest $request)
-    {
-        try {
-            $option = Option::create($request->all());
-            $this->_saveDropdownOptions($option , $request);
-
-        } catch(\Exception $e) {
-            throw new \Exception('Error While creating Option');
-        }
-
-
-        return redirect()->route('admin.option.index');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $option = Option::findorfail($id);
-        return view('mage2-ecommerce::admin.option.edit')
-                    ->with('model', $option);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Mage2\Ecommerce\Http\Requests\CountryRequest $request
-     * @param int $id
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(OptionRequest $request, $id)
-    {
-        try {
-
-            $option = Option::findorfail($id);
-            $option->update($request->all());
-
-            $this->_saveDropdownOptions($option , $request);
-        } catch(\Exception $e) {
-            throw new \Exception('Error While updating Option');
-        }
-
-        return redirect()->route('admin.option.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-
-        try {
-            Option::destroy($id);
-        } catch(\Exception $e) {
-            throw new \Exception('Error While destroing Option');
-        }
-        return redirect()->route('admin.option.index');
-    }
 
     public function optionCombinationModal(Request $request) {
 
         $options = Collection::make([]);
 
         $productId = $request->get('product_id');
-        $optionIds = $request->get('options');
+        $optionIds = $request->get('attributes');
 
         foreach ($optionIds as $optionId) {
-            $options->push(Option::findorfail($optionId));
+            $options->push(Attribute::findorfail($optionId));
         }
 
         return view('mage2-ecommerce::admin.product.option-combination')
                 ->with('options', $options)
-                ->with('product_id', $productId);
+                ->with('productId', $productId);
     }
 
     public function optionCombinationUpdate(Request $request){
-        return $request->all();
-    }
 
+        $attributeIds = Collection::make([]);
+        $productId = $request->get('product_id');
+        $parentProduct = Product::findorfail($productId);
 
-    private function _saveDropdownOptions($option, $request)
-    {
+        $name = $parentProduct->name;
 
-        if (null !== $request->get('dropdown-options')) {
+        foreach ($request->get('attributes_specification') as  $attributeId => $value) {
+            $attribute = Attribute::findorfail($attributeId);
 
-            //dd($request->get('dropdown-options'));
-            foreach ($request->get('dropdown-options') as $key => $val) {
-
-                if ($key == '__RANDOM_STRING__') {
-                    continue;
-                }
-
-
-                if (!is_int($key)) {
-                    $option->optionDropdownOptions()->create($val);
-                }
-                if(is_int($key)) {
-                    $dropdownOption = OptionDropdownOption::find($key);
-                    $dropdownOption->update($val);
-                }
+            if($attribute->field_type == 'SELECT') {
+                $attributeOptionModel  = AttributeDropdownOption::findorfail($value);
+                $name .= " " . $attributeOptionModel->display_text;
             }
+
+            $attributeIds->push($attributeId);
         }
+
+        $combinationProduct = Product::create(['name' => $name,'type' => 'VARIATION-COMBINATION']);
+
+        $parentProduct->attributes()->sync($attributeIds);
+        ProductCombination::create(['product_id' => $productId,'combination_id' => $combinationProduct->id]);
+        $combinationProduct->saveProduct($request);
+
+        return redirect()->route('admin.product.edit', $productId);
+
     }
+
 }

@@ -60,10 +60,6 @@
                     </div>
                 </div>
 
-                <?php
-                //dd($model->attributeGroups->count());
-                ?>
-                @if($model->attributeGroups->count() > 0)
                     <div class="card product-card mb-2 mt-2">
                         <div class="card-header">
                             Attributes
@@ -77,7 +73,6 @@
                         </div>
                     </div>
 
-                @endif
 
                 @if($model->type == "VARIATION")
                     <div class="card product-card mb-2 mt-2">

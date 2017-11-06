@@ -23,7 +23,6 @@
                                 ) !!}
             @endif
 
-
         @endforeach
 
     </div>

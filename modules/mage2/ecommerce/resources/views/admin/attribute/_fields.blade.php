@@ -9,6 +9,17 @@
 
 @include('mage2-ecommerce::forms.text',['name' => 'identifier','label' => 'Identifier'])
 
+
+@include('mage2-ecommerce::forms.select',['name' => 'use_as',
+                                        'label' => 'Use As',
+                                        'options' => ['' => 'Please Select',
+                                                        'SPECIFICATION' => 'Specification',
+                                                        'VARIATION' => 'Variation'
+                                                    ]
+                                        ])
+
+
+
 @include('mage2-ecommerce::forms.select',['name' => 'field_type',
                                         'label' => 'Field Type',
                                         'options' => ['' => 'Please Select','TEXT' => 'Text','TEXTAREA' => 'Text Area','SELECT' => 'Dropdown']

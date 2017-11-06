@@ -27,16 +27,27 @@ namespace Mage2\Ecommerce\Models\Database;
 class Attribute extends BaseModel
 {
 
-    protected $fillable = ['type', 'name', 'identifier', 'field_type', 'sort_order'];
+    protected $fillable = ['type', 'name', 'identifier', 'field_type','use_as' ,'sort_order'];
 
+
+    public static function variationOptions() {
+        $model = new static;
+        return $model->whereUseAs('VARIATION')->get()->pluck('name','id');
+    }
+
+    public static function specificationOptions() {
+        $model = new static;
+        return $model->whereUseAs('SPECIFICATION')->get()->pluck('name','id');
+    }
+
+
+
+    public function products() {
+        return $this->hasMany(Product::class);
+    }
 
     public function attributeDropdownOptions() {
         return $this->hasMany(AttributeDropdownOption::class);
-    }
-
-    public function attributeGroup()
-    {
-        return $this->hasMany(AttributeGroup::class,'attribute_group_attribute_pivot');
     }
 
 }

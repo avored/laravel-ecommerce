@@ -32,11 +32,13 @@
 
 
                     @if(!isset($optionValues))
-                        <?php $optionValues = []; ?>
+                        <?php $optionValues = $model->attributes->pluck('id')->toArray(); ?>
                     @endif
                     <div class="form-group">
                         <div class="input-group">
-                            <select id="option_id" multiple class="product-options form-control" name="option_id[]">
+                            <select id="variation_attribute_field" multiple
+                                    class="product-options form-control" name="attribute_id[]">
+
                                 @foreach($productOptions as $val => $lab)
                                     <option
                                             @if(in_array($val, $optionValues))
@@ -79,13 +81,22 @@
                                         <th>NAME</th>
                                         <th>SKU</th>
                                         <th>Price Variations</th>
+                                        <th>EDIT</th>
+                                        <th>DESTROY</th>
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Color-BLUE-SIZE-10</td>
-                                        <td>php-shirt-blue-10</td>
-                                        <td>+10</td>
-                                    </tr>
+
+                                    @foreach($model->combinations() as $combinationProduct)
+                                        <td>{{ $combinationProduct->id }}</td>
+                                        <td>{{ $combinationProduct->name }}</td>
+                                        <td>{{ $combinationProduct->sku }}</td>
+                                        <td>{{ $combinationProduct->price }}</td>
+                                        <td>
+                                            <a href="#">EDIT</a>
+                                        </td>
+                                        <td>
+                                            <a href="#">Destroy</a>
+                                        </td>
+                                    @endforeach
 
                                 </table>
 
@@ -99,8 +110,6 @@
 
 </div>
 
-
-
 @push('scripts')
     <script>
         $(function () {
@@ -113,7 +122,7 @@
             $('.create-option-combination-btn').click(function (e) {
                 if (jQuery('#option-combination-modal').length <= 0) {
                     var data = {_token: $(this).attr('data-csrf'),
-                                options: jQuery('#option_id').val(),
+                                attributes: jQuery('#variation_attribute_field').val(),
                                 'product_id' : jQuery(this).attr('data-product-id')
                                 };
                     $.ajax({
