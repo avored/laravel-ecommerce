@@ -98,7 +98,6 @@ class Manager
             $this->model->orderBy($this->request->get('desc'), 'desc');
         }
 
-
         $this->data = $this->model->paginate($this->pageItem);
 
         return view('mage2-ecommerce::datagrid.grid')->with('dataGrid', $this);
@@ -119,12 +118,6 @@ class Manager
 
         return $this;
     }
-
-
-
-
-
-
 
 
     public function dataTableData($model) {
@@ -172,6 +165,8 @@ class Manager
         $count = $this->model->get()->count();
 
         $columns = $this->request->get('columns');
+
+
         $orders = $this->request->get('order');
 
 

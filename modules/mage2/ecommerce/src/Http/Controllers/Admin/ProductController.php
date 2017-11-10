@@ -50,7 +50,7 @@ class ProductController extends AdminController
     public function index()
     {
 
-        $dataGrid = DataGrid::model(Product::query()->orderBy('id', 'desc'))
+        $dataGrid = DataGrid::model(Product::query())
             ->column('id', ['sortable' => true])
             ->column('name')
             ->linkColumn('edit', [], function ($model) {
