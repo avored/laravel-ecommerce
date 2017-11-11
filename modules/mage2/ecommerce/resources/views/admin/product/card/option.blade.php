@@ -91,7 +91,11 @@
                                         <td>{{ $combinationProduct->sku }}</td>
                                         <td>{{ $combinationProduct->price }}</td>
                                         <td>
-                                            <a href="#">EDIT</a>
+                                            <a href="#"
+                                               data-id="{{ $combinationProduct->id }}"
+                                               data-product-id="{{ $model->id }}"
+                                               data-csrf="{{ csrf_token() }}"
+                                               class="edit-option-combination-btn">EDIT</a>
                                         </td>
                                         <td>
                                             <a href="#">Destroy</a>
@@ -137,14 +141,45 @@
 
                     });
                 } else {
-
                     jQuery('#option-combination-modal').modal('show');
-
                 }
-
-
-
             });
+
+
+            $('.edit-option-combination-btn').click(function (e) {
+
+                e.preventDefault();
+                var id = jQuery(this).attr('data-id');
+
+
+                if (jQuery('#edit-option-combination-modal-' + this.id).length <= 0) {
+                    var data = {
+                        _token: $(this).attr('data-csrf'),
+                        id: id,
+                        attributes: jQuery('#variation_attribute_field').val(),
+                        product_id : jQuery(this).attr('data-product-id')
+                    };
+
+                    $.ajax({
+                        method: 'post',
+                        url : '{{ route('admin.option.combination.edit') }}',
+                        data: data,
+                        extraId: id,
+                        success: function (result) {
+                            jQuery('body').append(result);
+                            jQuery('#edit-option-combination-modal-' + this.extraId).modal('show');
+
+                        }
+
+                    });
+                } else {
+                    jQuery('#edit-option-combination-modal-' +id).modal('show');
+                }
+            });
+
+
+
+
         })
     </script>
 @endpush

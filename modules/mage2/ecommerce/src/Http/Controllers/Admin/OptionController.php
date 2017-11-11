@@ -56,6 +56,24 @@ class OptionController extends AdminController
                 ->with('productId', $productId);
     }
 
+    public function editOptionCombinationModal(Request $request) {
+        //
+        $subProduct = Product::findorfail($request->get('id'));
+        $options = Collection::make([]);
+
+        $productId = $request->get('product_id');
+        $optionIds = $request->get('attributes');
+
+        foreach ($optionIds as $optionId) {
+            $options->push(Attribute::findorfail($optionId));
+        }
+
+        return view('mage2-ecommerce::admin.product.option-combination-edit')
+            ->with('options', $options)
+            ->with('model', $subProduct)
+            ->with('productId', $productId);
+    }
+
     public function optionCombinationUpdate(Request $request){
 
         $attributeIds = Collection::make([]);
@@ -67,6 +85,7 @@ class OptionController extends AdminController
         foreach ($request->get('attributes_specification') as  $attributeId => $value) {
             $attribute = Attribute::findorfail($attributeId);
 
+
             if($attribute->field_type == 'SELECT') {
                 $attributeOptionModel  = AttributeDropdownOption::findorfail($value);
                 $name .= " " . $attributeOptionModel->display_text;
@@ -75,11 +94,20 @@ class OptionController extends AdminController
             $attributeIds->push($attributeId);
         }
 
-        $combinationProduct = Product::create(['name' => $name,'type' => 'VARIATION-COMBINATION']);
-
         $parentProduct->attributes()->sync($attributeIds);
-        ProductCombination::create(['product_id' => $productId,'combination_id' => $combinationProduct->id]);
-        $combinationProduct->saveProduct($request);
+
+        if(null === $request->get('sub_product_id')) {
+            $combinationProduct = Product::create(['name' => $name,'type' => 'VARIATION-COMBINATION']);
+
+            ProductCombination::create(['product_id' => $productId,'combination_id' => $combinationProduct->id]);
+            $combinationProduct->saveProduct($request);
+        } else {
+
+            $subProduct = Product::findorfail($request->get('sub_product_id'));
+            $subProduct->saveProduct($request);
+
+        }
+
 
         return redirect()->route('admin.product.edit', $productId);
 

@@ -187,6 +187,11 @@ Route::middleware(['web', 'admin.auth'])
             'as' => 'admin.option.combination',
         ]);
 
+        Route::post('/edit-option-combination-modal', [
+            'uses' => 'OptionController@editOptionCombinationModal',
+            'as' => 'admin.option.combination.edit',
+        ]);
+
         Route::post('/option-combination-update', [
             'uses' => 'OptionController@optionCombinationUpdate',
             'as' => 'admin.product.option-combination.update',
