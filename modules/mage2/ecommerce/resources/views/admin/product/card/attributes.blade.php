@@ -5,7 +5,6 @@
 
         @if(count($specificationAttributes = $model->getSpecificationList()) > 0 )
 
-
             @foreach($specificationAttributes as $attribute)
 
                 @if($attribute->field_type == 'TEXT')
@@ -40,6 +39,7 @@
 
                 @if($attribute->field_type == 'SELECT')
 
+
                         <div class="form-group">
                             <label for="attribute-specification-{{ $attribute->id }}">{{ $attribute->name }}</label>
 
@@ -49,7 +49,7 @@
 
 
                                 <option value="">Please Select</option>
-                                @foreach($attribute->attributeDropdownOptions as $dropdown)
+                                @foreach($attribute->attributeDropdownOptions()->get() as $dropdown)
 
                                 <option
                                         @if($model->getSpecificationValue($attribute) == $dropdown->id)

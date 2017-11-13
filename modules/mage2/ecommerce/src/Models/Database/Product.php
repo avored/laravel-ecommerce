@@ -234,10 +234,8 @@ class Product extends BaseModel
 
         if(null !== $productAttributeValue) {
             if($attribute->field_type == 'SELECT') {
-
-
                 $selectedDropdownOption = $attribute->attributeDropdownOptions()->whereId($productAttributeValue->value)->first();
-                return $selectedDropdownOption->display_text;
+                return $selectedDropdownOption->id;
 
             } else {
                 return $productAttributeValue->value;
@@ -255,7 +253,7 @@ class Product extends BaseModel
      * @return \Mage2\Ecommerce\Models\Database\Attribute
      */
     public function getSpecificationList() {
-        return Attribute::specificationOptions();
+        return Attribute::whereUseAs('SPECIFICATION')->get();
     }
 
     /*
