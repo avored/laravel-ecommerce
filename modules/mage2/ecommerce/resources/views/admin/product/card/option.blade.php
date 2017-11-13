@@ -168,7 +168,6 @@
                         success: function (result) {
                             jQuery('body').append(result);
                             jQuery('#edit-option-combination-modal-' + this.extraId).modal('show');
-
                         }
 
                     });

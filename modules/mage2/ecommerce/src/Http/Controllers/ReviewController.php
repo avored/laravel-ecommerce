@@ -25,7 +25,6 @@
 namespace Mage2\Ecommerce\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Framework\System\Controllers\Controller;
 use Mage2\Ecommerce\Models\Database\Review;
 use Mage2\Ecommerce\Http\Requests\ReviewRequest;
 use Mage2\Ecommerce\Models\Database\User;
