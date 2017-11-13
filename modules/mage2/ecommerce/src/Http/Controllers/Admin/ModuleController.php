@@ -23,7 +23,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\Dashboard\Controllers\Admin;
+namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\Request;

@@ -33,10 +33,6 @@ use Mage2\Ecommerce\Models\Database\Visitor;
 class DashboardController extends AdminController
 {
 
-    public function __construct() {
-        //$this->middleware('adminauth');
-    }
-
     /**
      * Show the application dashboard.
      *

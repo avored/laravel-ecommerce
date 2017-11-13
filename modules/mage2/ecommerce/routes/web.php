@@ -234,22 +234,22 @@ Route::middleware(['web', 'admin.auth'])
         Route::resource('gift-coupon', 'GiftCouponController', ['as' => 'admin']);
 
 
-        Route::get('update-check', ['as' => 'admin.update.check', 'uses' => 'UpdateController@check']);
+        //Route::get('update-check', ['as' => 'admin.update.check', 'uses' => 'UpdateController@check']);
 
         Route::get('configuration', ['as' => 'admin.configuration', 'uses' => 'ConfigurationController@index']);
         Route::post('configuration', ['as' => 'admin.configuration.store', 'uses' => 'ConfigurationController@store']);
 
 
-        Route::get('themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
+        //Route::get('themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
 
-        Route::get('themes/create', ['as' => 'admin.theme.create', 'uses' => 'ThemeController@create']);
-        Route::post('themes', ['as' => 'admin.theme.store', 'uses' => 'ThemeController@store']);
+        //Route::get('themes/create', ['as' => 'admin.theme.create', 'uses' => 'ThemeController@create']);
+        //Route::post('themes', ['as' => 'admin.theme.store', 'uses' => 'ThemeController@store']);
 
-        Route::post('active-themes/{name}', ['as' => 'admin.theme.activated', 'uses' => 'ThemeController@activated']);
+        //Route::post('active-themes/{name}', ['as' => 'admin.theme.activated', 'uses' => 'ThemeController@activated']);
 
-        Route::post('deactive-themes/{name}', ['as' => 'admin.theme.deactivated', 'uses' => 'ThemeController@deactivated']);
+        //Route::post('deactive-themes/{name}', ['as' => 'admin.theme.deactivated', 'uses' => 'ThemeController@deactivated']);
 
-        Route::delete('themes/{name}', ['as' => 'admin.theme.destroy', 'uses' => 'ThemeController@destroy']);
+        //Route::delete('themes/{name}', ['as' => 'admin.theme.destroy', 'uses' => 'ThemeController@destroy']);
 
         Route::resource('order-status', 'OrderStatusController', ['as' => 'admin']);
 
@@ -266,10 +266,12 @@ Route::middleware(['web', 'admin.auth'])
         Route::put('order/{id}/update-status', ['as' => 'admin.order.update-status', 'uses' => 'OrderController@updateStatus']);
 
 
-        Route::get('related-product-get-datatable-data/{id?}', ['as' => 'admin.related-product.data-grid-table.get-data',
+        /*
+        Route::get('related-product-get-datatable-data/{id?}',
+            ['as' => 'admin.related-product.data-grid-table.get-data',
             'uses' => 'RelatedProductController@getDataGrid'
         ]);
-
+        */
 
 
     });

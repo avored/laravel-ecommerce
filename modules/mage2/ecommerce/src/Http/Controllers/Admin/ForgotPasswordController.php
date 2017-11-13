@@ -23,7 +23,7 @@
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
 
-namespace Mage2\UserAuth\Controllers\Admin;
+namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Auth;
@@ -51,8 +51,7 @@ class ForgotPasswordController extends AdminController
      */
     public function __construct()
     {
-        $this->middleware('adminguest');
-        parent::__construct();
+        $this->middleware('admin.guest');
     }
 
     protected function guard()
