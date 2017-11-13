@@ -13,25 +13,40 @@
 </div>
 
 <?php
-$attributes = $product->getAssignedAttributes();
+    $attributes = $product->getCombinationAttributeList();
+    $attributeValueList = $product->getCombinationAttributeValueList();
 ?>
-@foreach($product->getAssignedAttributes() as $productVariation)
-    <?php
-    $attribute = $productVariation->productAttribute;
-    ?>
-    <div class="product-attribute form-group">
-        <label>{{$attribute->title}}</label>
+@foreach($attributes as $attribute)
+
+        <?php
+        //$option = $attribute->getOptionsList($attributeValueList);
+
+
+        //dd($product->id);
+        ?>
+
+
+
+        <div class="product-attribute form-group">
+        <label>{{$attribute->name}}</label>
         <select name="attribute[{{ $attribute->id }}]" class="form-control product-variation-dropdown">
 
             <option data-qty="0" data-price="{{ number_format('0.00',2) }}" value="">Please Select</option>
 
-            @foreach ($attribute->productVariations  as $option)
+            @foreach($attribute->attributeDropdownOptions as $option)
 
-                <?php $subProduct = $option->subProduct; ?>
+                <?php
+                $combinationProduct = $attribute->getDropdownSubProduct($option)
+                ?>
 
-                <option data-qty="{{ $subProduct->qty }}" data-price="{{ number_format(($subProduct->price),2) }}"
-                        value="{{ $subProduct->id }}">{{ $subProduct->title }}</option>
+                        @if(null != $combinationProduct)
 
+
+                <!-- -->
+                <option
+                        data-qty="{{ $combinationProduct->qty }}" data-price="{{  $combinationProduct->price }}"
+                        value="{{ $combinationProduct->id }}">{{ $option->display_text }}</option>
+                @endif
             @endforeach
         </select>
 

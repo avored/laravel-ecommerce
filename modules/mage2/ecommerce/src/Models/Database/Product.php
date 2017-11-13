@@ -22,6 +22,7 @@
  * @copyright 2016-2017 Mage2
  * @license   https://www.gnu.org/licenses/gpl-3.0.en.html GNU General Public License v3.0
  */
+
 namespace Mage2\Ecommerce\Models\Database;
 
 use Mage2\Ecommerce\Image\LocalFile;
@@ -32,7 +33,7 @@ use Mage2\Ecommerce\Http\Requests\ProductRequest;
 class Product extends BaseModel
 {
 
-    protected $fillable = ['type','name', 'slug', 'sku', 'description',
+    protected $fillable = ['type', 'name', 'slug', 'sku', 'description',
         'status', 'in_stock', 'track_stock', 'qty', 'is_taxable', 'page_title', 'page_description'];
 
     public static function getCollection()
@@ -49,13 +50,13 @@ class Product extends BaseModel
         parent::boot();
 
         // registering a callback to be executed upon the creation of an activity AR
-        static::creating(function($model) {
+        static::creating(function ($model) {
 
             // produce a slug based on the activity title
             $slug = Str::slug($model->name);
 
             // check to see if any other slugs exist that are the same & count them
-            $count = static::where("slug", "=",$slug)->count();
+            $count = static::where("slug", "=", $slug)->count();
 
             // if other slugs exist that are the same, append the count to the slug
             $model->slug = $count ? "{$slug}-{$count}" : $slug;
@@ -70,7 +71,8 @@ class Product extends BaseModel
      * @var \Mage2\Ecommerce\Http\Requests\ProductRequest $request
      * @return void
      */
-    public function saveProduct($request) {
+    public function saveProduct($request)
+    {
 
         //*****  SAVING PRODUCT BASIC FIELDS  *****//
         $this->update($request->all());
@@ -108,25 +110,24 @@ class Product extends BaseModel
         }
 
 
-
         //*****  SAVING PRODUCT ATTRIBUTES  *****//
         $attributes = $request->get('attributes_specification');
 
-        if(count($attributes) >0) {
-            foreach($attributes as $attributeId => $attributeValue) {
+        if (count($attributes) > 0) {
+            foreach ($attributes as $attributeId => $attributeValue) {
 
                 $productId = $this->attributes['id'];
                 $productAttributeValue = ProductAttributeValue::whereProductId($productId)->whereAttributeId($attributeId)->first();
 
-                if(null === $productAttributeValue && null != $attributeValue) {
+                if (null === $productAttributeValue && null != $attributeValue) {
 
-                        ProductAttributeValue::create(['attribute_id' => $attributeId,
-                            'product_id' => $this->attributes['id'],
-                            'value' => $attributeValue
-                        ]);
+                    ProductAttributeValue::create(['attribute_id' => $attributeId,
+                        'product_id' => $this->attributes['id'],
+                        'value' => $attributeValue
+                    ]);
 
 
-                } elseif(null !== $productAttributeValue && $attributeValue == null) {
+                } elseif (null !== $productAttributeValue && $attributeValue == null) {
                     $productAttributeValue->delete();
                 } else {
                     $productAttributeValue->update(['value' => $attributeValue]);
@@ -155,17 +156,21 @@ class Product extends BaseModel
         return $this->reviews()->where('status', '=', 'ENABLED')->get();
     }
 
-    public function getAssignedAttributes()
+    public function getAssignedVariableAttributes()
     {
+        return $this->productAttributes;
+        $attributes = Collection::make([]);
 
-        $productVariationsList = $this->productVariations()->get();
+        $attributeValues = ProductAttributeValue::whereProductId($this->attributes['id'])->get();
 
-        if ($productVariationsList->count() > 0) {
-            return $productVariationsList->unique('product_attribute_id');
+        if($attributeValues->count() > 0) {
+
+            foreach ($attributeValues as $attributeValue) {
+                $attributes->push($attributeValue->attribute);
+            }
         }
 
-        return [];
-
+        return $attributes;
     }
 
     /**
@@ -176,7 +181,7 @@ class Product extends BaseModel
     public function getImageAttribute()
     {
         $defaultPath = "/img/default-product.jpg";
-        $image = $this->images()->where('is_main_image','=',1)->first();
+        $image = $this->images()->where('is_main_image', '=', 1)->first();
 
 
         if (null === $image) {
@@ -227,13 +232,14 @@ class Product extends BaseModel
     *
     * @return \Mage2\Ecommerce\Models\Database\Attribute
     */
-    public function getSpecificationValue($attribute) {
+    public function getSpecificationValue($attribute)
+    {
 
 
         $productAttributeValue = $this->productAttributeValue()->whereAttributeId($attribute->id)->first();
 
-        if(null !== $productAttributeValue) {
-            if($attribute->field_type == 'SELECT') {
+        if (null !== $productAttributeValue) {
+            if ($attribute->field_type == 'SELECT') {
                 $selectedDropdownOption = $attribute->attributeDropdownOptions()->whereId($productAttributeValue->value)->first();
                 return $selectedDropdownOption->id;
 
@@ -252,7 +258,8 @@ class Product extends BaseModel
      *
      * @return \Mage2\Ecommerce\Models\Database\Attribute
      */
-    public function getSpecificationList() {
+    public function getSpecificationList()
+    {
         return Attribute::whereUseAs('SPECIFICATION')->get();
     }
 
@@ -269,7 +276,7 @@ class Product extends BaseModel
     }
 
 
-    public function attributes()
+    public function productAttributes()
     {
         return $this->belongsToMany(Attribute::class);
     }
@@ -286,6 +293,29 @@ class Product extends BaseModel
 
         return $combinations;
     }
+
+    public function getCombinationAttributeList() {
+        $attributes = Collection::make([]);
+        $subProductIds = $this->combinations()->pluck('id');
+
+        $productAttributeValues = ProductAttributeValue::whereIn('product_id',$subProductIds->toArray())->get();
+        foreach ($productAttributeValues as $productAttributeValue) {
+            $attributes->push($productAttributeValue->attribute);
+        }
+        return $attributes;
+    }
+
+
+    public function getCombinationAttributeValueList() {
+
+        $subProductIds = $this->combinations()->pluck('id');
+        $productAttributeValues = ProductAttributeValue::whereIn('product_id',$subProductIds->toArray())->get()->pluck('value');
+
+        return $productAttributeValues;
+
+    }
+
+
 
 
     public function categories()

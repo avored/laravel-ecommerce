@@ -40,6 +40,16 @@ class Attribute extends BaseModel
         return $model->whereUseAs('SPECIFICATION')->get()->pluck('name','id');
     }
 
+    public function getDropdownSubProduct($option) {
+        $attributeValue  = ProductAttributeValue::whereAttributeId($this->attributes['id'])->whereValue($option->id)->first();
+
+        if(null != $attributeValue) {
+            return Product::findorfail($attributeValue->product_id);
+        }
+        
+        return null;
+
+    }
 
 
     public function products() {
@@ -48,6 +58,10 @@ class Attribute extends BaseModel
 
     public function attributeDropdownOptions() {
         return $this->hasMany(AttributeDropdownOption::class);
+    }
+
+    public function getOptionsList($productAttributevalues) {
+        dd($productAttributevalues);
     }
 
 }

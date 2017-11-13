@@ -26,8 +26,10 @@ namespace Mage2\Ecommerce\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Mage2\Ecommerce\Models\Database\Attribute;
 use Mage2\Ecommerce\Models\Database\Product;
 use Illuminate\Support\Collection;
+use Mage2\Ecommerce\Models\Database\ProductAttributeValue;
 
 class CartController extends Controller
 {
@@ -55,17 +57,20 @@ class CartController extends Controller
         if ($attributes = $request->get('attribute')) {
             foreach ($attributes as $attributeId => $subProductId) {
 
+
                 $subProduct = Product::find($subProductId);
 
-                $productVariation = ProductVariation::where('product_attribute_id', '=', $attributeId)
-                    ->where('sub_product_id', '=', $subProductId)->first();
+                $productAttributeValue = ProductAttributeValue::whereProductId($subProductId)->whereAttributeId($attributeId)->first();
+
+                $attribute = Attribute::findorfail($attributeId);
+                $option = $attribute->attributeDropdownOptions()->where('id','=',$productAttributeValue->value)->get()->first();
 
                 $productAttributes[] = [
                                 'attribute_id' => $attributeId,
-                                'variation_id' => $productVariation->id,
+                                'variation_id' => $productAttributeValue->value,
                                 'attribute_price' => $subProduct->price,
                                 'attribute_tax_amount' => $subProduct->getTaxAmount(),
-                                'variation_display_text' => $subProduct->name
+                                'variation_display_text' => $option->display_text
                             ];
             }
         }

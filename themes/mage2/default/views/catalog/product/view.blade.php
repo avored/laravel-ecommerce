@@ -21,9 +21,9 @@
                     <span class="price">{{ number_format($product->price,2) }}</span>
                 </div>
 
-                    @if($product->has_variation == 0 )
+                    @if($product->type == 'BASIC')
                         @include('catalog.product.view.type.basic-add-to-cart')
-                    @elseif($product->has_variation == 1 )
+                    @elseif($product->type == 'VARIATION' )
                         @include('catalog.product.view.type.variation-add-to-cart')
                     @endif
 
