@@ -40,6 +40,13 @@ class Order extends BaseModel
         return $this->belongsToMany(Product::class)->withPivot('price', 'qty', 'tax_amount');
     }
 
+    public function orderProductVariation()
+    {
+        return $this->hasMany(OrderProductVariation::class,'');
+    }
+
+
+
     public function user()
     {
         return $this->belongsTo(User::class);

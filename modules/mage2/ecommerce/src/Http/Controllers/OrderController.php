@@ -36,6 +36,8 @@ use Mage2\Ecommerce\Models\Database\OrderStatus;
 use Mage2\Ecommerce\Models\Database\User;
 use Mage2\Ecommerce\Models\Database\Address;
 
+use Mage2\Ecommerce\Models\Database\OrderProductVariation;
+
 class OrderController extends Controller
 {
 
@@ -175,16 +177,21 @@ class OrderController extends Controller
      */
     private function _syncOrderProductData($order, $orderProducts)
     {
+
         //Only use pivot fields only @later on use Collection and then use pluck method rather then foreach
         foreach ($orderProducts as $id => $orderProduct) {
 
             if (isset($orderProduct['attributes'])) {
                 foreach ($orderProduct['attributes'] as $attribute) {
-                    $data = ['order_id' => $order->id, 'product_id' => $id, 'product_variation_id' => $attribute['variation_id']];
+                    $data = ['order_id' => $order->id,
+                        'product_id' => $id,
+                        'attribute_dropdown_option_id' => $attribute['attribute_dropdown_option_id'],
+                        'attribute_id' => $attribute['attribute_id'],
+                    ];
 
-                    $productVariation = ProductVariation::findorfail($attribute['variation_id']);
-
-                    $productVariation->update(['qty' => ($productVariation->qty - $orderProduct['qty'])]);
+                    //@todo change the Product QTY
+                    //$productVariation = ProductVariation::findorfail($attribute['variation_id']);
+                    //$productVariation->update(['qty' => ($productVariation->qty - $orderProduct['qty'])]);
                     OrderProductVariation::create($data);
                 }
             } else {

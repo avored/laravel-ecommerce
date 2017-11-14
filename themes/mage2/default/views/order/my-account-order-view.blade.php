@@ -57,7 +57,7 @@
                         <tbody>
                         <tr>
                             <th>ID</th>
-                            <th>Title</th>
+                            <th>Name</th>
                             <th>Qty</th>
                             <th>Price</th>
                             <th>total</th>
@@ -66,7 +66,21 @@
                             <tr>
 
                                 <td> {{ $product->id }}</td>
-                                <td> {{ $product->title }}</td>
+                                <td>
+                                    {{ $product->name }}
+
+                                    @foreach($order->orderProductVariation as $orderProductVariation)
+                                        <p>
+                                            {{ $orderProductVariation->attribute->name }}
+                                            :
+                                            {{   $orderProductVariation->attributeDropdownOption->display_text }}
+
+                                        </p>
+
+                                    @endforeach
+
+
+                                </td>
                                 <td> {{ $product->getRelationValue('pivot')->qty }} </td>
                                 <td> {{ $product->getRelationValue('pivot')->price }} </td>
                                 <td> {{ $total = $product->getRelationValue('pivot')->price * $product->getRelationValue('pivot')->qty }} </td>

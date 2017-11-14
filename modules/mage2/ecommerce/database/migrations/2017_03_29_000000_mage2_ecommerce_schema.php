@@ -260,9 +260,25 @@ class Mage2EcommerceSchema extends Migration
             $table->decimal('tax_amount', 11, 6);
             $table->timestamps();
 
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('product_id')->references('id')->on('products');
         });
+
+        Schema::create('order_product_variations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('order_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('attribute_dropdown_option_id')->unsigned()->nullable()->default(null);
+            $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->foreign('attribute_id')->references('id')->on('attributes');
+            $table->foreign('attribute_dropdown_option_id')->references('id')->on('attribute_dropdown_options');
+        });
+
+        //order_product_variations
 
         Schema::create('gift_coupons', function (Blueprint $table) {
             $table->increments('id');

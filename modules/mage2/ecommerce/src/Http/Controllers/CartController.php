@@ -67,7 +67,7 @@ class CartController extends Controller
 
                 $productAttributes[] = [
                                 'attribute_id' => $attributeId,
-                                'variation_id' => $productAttributeValue->value,
+                                'attribute_dropdown_option_id' => $productAttributeValue->value,
                                 'attribute_price' => $subProduct->price,
                                 'attribute_tax_amount' => $subProduct->getTaxAmount(),
                                 'variation_display_text' => $option->display_text
