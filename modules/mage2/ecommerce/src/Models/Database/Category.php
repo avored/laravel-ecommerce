@@ -26,6 +26,7 @@ namespace Mage2\Ecommerce\Models\Database;
 
 use Illuminate\Support\Collection;
 
+
 class Category extends BaseModel
 {
     protected $fillable = ['parent_id', 'name', 'slug'];
@@ -95,11 +96,12 @@ class Category extends BaseModel
         $attrs = Collection::make([]);
         $productIds = $this->products->pluck('id');
 
-        $productVarcharCollection = ProductVarcharValue::whereIn('product_id', $productIds)->get()->unique('product_attribute_id');
+        $productVarcharCollection = ProductAttributeValue::whereIn('product_id', $productIds)->get()->unique('product_attribute_id');
 
         foreach ($productVarcharCollection as $varcharValue) {
-            $attrs->push(Attribute::find($varcharValue->product_attribute_id));
+            $attrs->push(Attribute::find($varcharValue->attribute_id));
         }
+
         return $attrs;
 
     }

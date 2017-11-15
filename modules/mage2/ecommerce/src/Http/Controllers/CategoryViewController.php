@@ -27,8 +27,7 @@ namespace Mage2\Ecommerce\Http\Controllers;
 use Illuminate\Http\Request;
 use Mage2\Ecommerce\Models\Database\Category;
 use Mage2\Ecommerce\Models\Database\Product;
-use Mage2\Ecommerce\Attribute\Attribute;
-
+use Mage2\Ecommerce\Models\Database\Attribute;
 
 class CategoryViewController extends Controller
 {
@@ -43,6 +42,7 @@ class CategoryViewController extends Controller
 
         $collections = Product::getCollection()
             ->addCategoryFilter($category->id);
+
 
         foreach ($request->except(['page']) as $attributeIdentifier => $value) {
             $attribute = Attribute::where('identifier', '=', $attributeIdentifier)->first();

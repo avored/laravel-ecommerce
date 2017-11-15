@@ -51,9 +51,12 @@ class ProductCollection extends Collection
 
     public function addAttributeFilter($attributeId, $value)
     {
+
+
         $this->_collection = $this->_collection->filter(function ($product) use ($attributeId, $value) {
-            foreach ($product->productVarcharValues as $productVarcharValue) {
-                if ($productVarcharValue->product_attribute_id == $attributeId && $productVarcharValue->value == $value) {
+
+            foreach ($product->productAttributeValue as $productVarcharValue) {
+                if ($productVarcharValue->attribute_id == $attributeId && $productVarcharValue->value == $value) {
                     return $product;
                 }
             }
