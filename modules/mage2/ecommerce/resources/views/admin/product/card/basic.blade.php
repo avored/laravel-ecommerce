@@ -77,12 +77,8 @@
     {!! $attribute->render() !!}
 @endforeach
 
-
-
-
 @push('scripts')
     <script src="https://cdn.ckeditor.com/ckeditor5/1.0.0-alpha.2/classic/ckeditor.js"></script>
-
     <script>
 
         ClassicEditor
