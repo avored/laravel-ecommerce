@@ -119,6 +119,7 @@ class Product extends BaseModel
                 $productId = $this->attributes['id'];
                 $productAttributeValue = ProductAttributeValue::whereProductId($productId)->whereAttributeId($attributeId)->first();
 
+
                 if (null === $productAttributeValue && null != $attributeValue) {
 
                     ProductAttributeValue::create(['attribute_id' => $attributeId,
@@ -129,7 +130,7 @@ class Product extends BaseModel
 
                 } elseif (null !== $productAttributeValue && $attributeValue == null) {
                     $productAttributeValue->delete();
-                } else {
+                } elseif((null !== $productAttributeValue && $attributeValue != null) ) {
                     $productAttributeValue->update(['value' => $attributeValue]);
                 }
             }
