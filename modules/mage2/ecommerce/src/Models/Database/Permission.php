@@ -24,7 +24,7 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-class Permission extends Model
+class Permission extends BaseModel
 {
     protected $fillable = ['name'];
 

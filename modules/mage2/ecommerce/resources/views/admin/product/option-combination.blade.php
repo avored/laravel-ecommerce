@@ -1,6 +1,6 @@
 <div class="modal" id="option-combination-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <form method="post" action="{{ route('admin.product.option-combination.update') }}">
+        <form method="post" enctype="multipart/form-data" action="{{ route('admin.product.option-combination.update') }}">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Product Option Combination</h5>

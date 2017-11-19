@@ -19,9 +19,14 @@
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./modules/mage2/ecommerce/src</directory>
         </whitelist>
     </filter>
+    <!--logging>
+        <log type="coverage-html" target="./public/report" charset="UTF-8"
+             yui="true" highlight="true"
+             lowUpperBound="50" highLowerBound="80" />
+    </logging-->
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="DB_CONNECTION" value="sqlite_testing"/>

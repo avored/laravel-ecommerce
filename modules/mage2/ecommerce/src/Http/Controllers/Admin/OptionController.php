@@ -34,7 +34,8 @@ use Mage2\Ecommerce\Models\Database\OptionDropdownOption;
 use Mage2\Ecommerce\Models\Database\Product;
 use Mage2\Ecommerce\Models\Database\AttributeDropdownOption;
 use Mage2\Ecommerce\Models\Database\ProductCombination;
-
+use Mage2\Ecommerce\Image\Facade as Image;
+use Illuminate\Support\Facades\File;
 
 class OptionController extends AdminController
 {
@@ -94,7 +95,18 @@ class OptionController extends AdminController
             $attributeIds->push($attributeId);
         }
 
-        $parentProduct->attributes()->sync($attributeIds);
+        $parentProduct->attribute()->sync($attributeIds);
+
+        if(null !== $request->file('image')) {
+
+
+            $image = $this->_uploadImage($request);
+            $tmp = $this->_getTmpString();
+            $request->merge(['image' => [$tmp => ['path' => $image->relativePath ]]]);
+        }
+        /*
+        <input type="hidden" name="image[{{ $tmp }}][path]" value="{{ $image->relativePath }}"/>
+        */
 
         if(null === $request->get('sub_product_id')) {
             $combinationProduct = Product::create(['name' => $name,'type' => 'VARIATION-COMBINATION']);
@@ -104,6 +116,18 @@ class OptionController extends AdminController
         } else {
 
             $subProduct = Product::findorfail($request->get('sub_product_id'));
+
+            if(null !== $request->file('image')) {
+
+                $path = $subProduct->images()->first()->path;
+
+                if (File::exists($path->relativePath)) {
+                    File::delete(public_path() . $path->relativePath);
+                }
+
+                $subProduct->images()->delete();
+            }
+
             $subProduct->saveProduct($request);
 
         }
@@ -113,4 +137,35 @@ class OptionController extends AdminController
 
     }
 
+    /**
+     * upload image file and re sized it.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    private function _uploadImage(Request $request)
+    {
+        $image = $request->file('image');
+        $tmpPath = str_split(strtolower(str_random(3)));
+        $checkDirectory = '/uploads/catalog/images/' . implode('/', $tmpPath);
+
+        $dbPath = $checkDirectory . "/" . $image->getClientOriginalName();
+
+        $image = Image::upload($image, $checkDirectory);
+
+
+        return $image;
+    }
+    /**
+     * return random string only lower and without digits.
+     *
+     * @param int $length
+     * @return string $randomString
+     */
+    private function _getTmpString($length = 6)
+    {
+        $pool = 'abcdefghijklmnopqrstuvwxyz';
+        return substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
+    }
 }

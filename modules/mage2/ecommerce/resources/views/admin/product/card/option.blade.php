@@ -32,7 +32,7 @@
 
 
                     @if(!isset($optionValues))
-                        <?php $optionValues = $model->attributes->pluck('id')->toArray(); ?>
+                        <?php $optionValues = $model->attribute->pluck('id')->toArray(); ?>
                     @endif
                     <div class="form-group">
                         <div class="input-group">

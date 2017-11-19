@@ -317,8 +317,6 @@ class Product extends BaseModel
     }
 
 
-
-
     public function categories()
     {
         return $this->belongsToMany(Category::class);
@@ -347,6 +345,11 @@ class Product extends BaseModel
     public function productAttributeValue()
     {
         return $this->hasMany(ProductAttributeValue::class);
+    }
+
+    public function attribute()
+    {
+        return $this->belongsToMany(Attribute::class);
     }
 
     public function orders()

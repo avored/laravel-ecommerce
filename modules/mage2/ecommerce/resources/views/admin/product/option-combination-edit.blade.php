@@ -1,6 +1,6 @@
 <div class="modal" id="edit-option-combination-modal-{{ $model->id }}" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
-        <form method="post" action="{{ route('admin.product.option-combination.update') }}">
+        <form method="post" enctype="multipart/form-data" action="{{ route('admin.product.option-combination.update') }}">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Product Option Combination</h5>
@@ -19,6 +19,7 @@
                         <div class="form-group">
                             <label for="option-{{ $option->id }}">{{ $option->name }}</label>
 
+
                             <select name="attributes_specification[{{ $option->id  }}]"
                                     class="form-control"
                                     id=option-{{ $option->id }}">
@@ -27,6 +28,9 @@
                                 @foreach($option->attributeDropdownOptions as $dropdown)
 
                                     <option
+                                            @if($dropdown->id == $model->getSpecificationValue($option))
+                                                    selected
+                                            @endif
                                             value="{{ $dropdown->id }}">{{ $dropdown->display_text }}</option>
                                 @endforeach
                             </select>
@@ -56,6 +60,10 @@
                         <div class="form-group">
                             <label>Image</label>
                             <input type="file" name="image" class="form-control">
+
+                            <?php $image = $model->images()->first(); ?>
+                            <img class="img-fluid img-thumbnail" src="{{ $image->path->smallUrl }}" width="75px"  height="75px"/>
+
                         </div>
 
                     </div>
