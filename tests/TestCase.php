@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Faker\Factory;
+use Mage2\Ecommerce\Models\Database\User;
 use Mage2\Ecommerce\Models\Database\AdminUser;
 
 abstract class TestCase extends BaseTestCase
@@ -15,6 +16,14 @@ abstract class TestCase extends BaseTestCase
      * @var string
      */
     public $adminUserPassword;
+
+
+
+    /**
+     * FRONT  PASSWORD
+     * @var string
+     */
+    public $userPassword;
 
     /*
      *
@@ -45,6 +54,18 @@ abstract class TestCase extends BaseTestCase
                                     'password' => bcrypt($this->adminUserPassword),
                                     'role_id' => 1
                                 ]);
+
+        return $user;
+    }
+    public function getFrontUser() {
+
+        $this->userPassword = 'admin123';
+
+        $user = User::create(['first_name' => 'Test Name',
+            'last_name' => 'Last Name',
+            'email' => $this->faker->email,
+            'password' => bcrypt($this->userPassword)
+        ]);
 
         return $user;
     }

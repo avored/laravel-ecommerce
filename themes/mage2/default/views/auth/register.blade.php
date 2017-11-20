@@ -30,7 +30,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="email" class="col s4 control-label">E-Mail Address</label>
+                                    <label for="email">E-Mail Address</label>
 
 
                                     <input id="email" type="email" class="form-control" name="email"
@@ -40,13 +40,13 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password" class="col s4 control-label">Password</label>
+                                    <label for="password">Password</label>
                                     <input id="password" type="password" class="form-control" name="password" required>
 
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password-confirm" class="col s4 control-label">Confirm Password</label>
+                                    <label for="password-confirm">Confirm Password</label>
                                     <input id="password-confirm" type="password" class="form-control"
                                            name="password_confirmation" required>
 
