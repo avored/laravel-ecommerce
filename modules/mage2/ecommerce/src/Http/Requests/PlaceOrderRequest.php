@@ -25,6 +25,7 @@
 namespace Mage2\Ecommerce\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
+use Illuminate\Support\Facades\Auth;
 
 class PlaceOrderRequest extends Request
 {
@@ -45,10 +46,24 @@ class PlaceOrderRequest extends Request
      */
     public function rules()
     {
-        return [
-            'shipping_option' => 'required',
-            'payment_option' => 'required',
-            'agree' => 'required',
-        ];
+        $validation['billing.first_name'] = 'required|max:255';
+        $validation['billing.last_name'] = 'required|max:255';
+        $validation['billing.phone'] = 'required|max:255';
+
+
+
+        if (!Auth::check()) {
+            $validation['user.email'] = 'required|email|max:255|unique:users';
+
+            //$validation['user.password'] = 'required|min:6|confirmed';
+        }
+
+        $validation['shipping_option'] = 'required';
+        $validation['payment_option'] = 'required';
+        $validation['agree'] = 'required';
+
+
+        return $validation;
+
     }
 }

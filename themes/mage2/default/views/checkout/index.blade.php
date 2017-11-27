@@ -37,22 +37,59 @@
                                         <label class="control-label" for="input-user-first-name">First Name</label>
                                         <input type="text" name="billing[first_name]"
                                                value="{{ $firstName }}" placeholder="First Name"
-                                               id="input-user-first-name" class="form-control">
+                                               id="input-user-first-name"
+                                               @if($errors->has('billing.first_name'))
+                                                    class="is-invalid form-control"
+                                               @else
+                                                    class="form-control"
+                                               @endif
+                                        >
+                                        @if ($errors->has('billing.first_name'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('billing.first_name') }}
+                                            </div>
+                                        @endif
+
                                     </div>
+
                                     <div class="form-group  col-6">
                                         <label class="control-label" for="input-user-last-name">Last Name</label>
                                         <input type="text" name="billing[last_name]"
                                                value="{{ $lastName }}" placeholder="Last Name"
-                                               id="input-user-last-name" class="form-control">
+                                               id="input-user-last-name"
+                                               @if($errors->has('billing.last_name'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               >
+                                        @if ($errors->has('billing.last_name'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('billing.last_name') }}
+                                            </div>
+                                        @endif
                                     </div>
+
                                 </div>
                                 @if(!Auth::check())
 
                                     <div class="form-group">
                                         <label class="control-label" for="input-user-email">E-Mail</label>
-                                        <input type="text" name="user[email]" placeholder="E-Mail"
-                                               id="input-user-email"
-                                               class="form-control">
+                                        <input type="text"
+                                                name="user[email]" placeholder="E-Mail"
+                                                id="input-user-email"
+
+                                                @if($errors->has('user.email'))
+                                                    class="is-invalid form-control"
+                                                @else
+                                                    class="form-control"
+                                                @endif
+                                        >
+                                        @if ($errors->has('user.email'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('user.email') }}
+                                            </div>
+                                        @endif
                                     </div>
 
                                     <div class="form-group">
@@ -314,8 +351,8 @@
 
                                             @if ($errors->has('shipping_option'))
                                                 <span class="help-block">
-                                        <strong>{{ $errors->first('shipping_option') }}</strong>
-                                    </span>
+                                                    <strong>{{ $errors->first('shipping_option') }}</strong>
+                                                </span>
                                             @endif
                                         </div>
 
@@ -344,12 +381,11 @@
                                                 <label class="form-check-label">
                                                     <input class="form-check-input"
                                                            type="radio" name="payment_option"
-                                                           id="payment_option" value="{{ $paymentOption->getIdentifier() }}">
+                                                           id="payment_option"
+                                                           value="{{ $paymentOption->getIdentifier() }}">
                                                     {!! $paymentOption->getTitle() !!}
                                                 </label>
                                             </div>
-
-
 
 
                                             @if ($errors->has('payment_option'))
@@ -445,7 +481,6 @@
                         </div>
 
 
-
                         <div class="card mb-3">
                             <div class="card-header">
                                 Your Comment
@@ -487,46 +522,46 @@
 @endsection
 
 @push('scripts')
-<script>
+    <script>
 
-    $(function () {
+        $(function () {
 
-        function calcualateTotal() {
-            subTotal = parseFloat(jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
-            shippingCost = parseFloat(jQuery('.shipping-cost').attr('data-shipping-cost')).toFixed(2);
-            taxAmount = parseFloat(jQuery('.tax-amount').attr('data-tax-amount')).toFixed(2);
+            function calcualateTotal() {
+                subTotal = parseFloat(jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
+                shippingCost = parseFloat(jQuery('.shipping-cost').attr('data-shipping-cost')).toFixed(2);
+                taxAmount = parseFloat(jQuery('.tax-amount').attr('data-tax-amount')).toFixed(2);
 
-            total = parseFloat(subTotal) + parseFloat(taxAmount) + parseFloat(shippingCost);
-            jQuery('.total').attr('data-total', total.toFixed(2));
-            jQuery('.total').html("$" + total.toFixed(2));
-
-
-        }
+                total = parseFloat(subTotal) + parseFloat(taxAmount) + parseFloat(shippingCost);
+                jQuery('.total').attr('data-total', total.toFixed(2));
+                jQuery('.total').html("$" + total.toFixed(2));
 
 
-        function checkIfUserExist(data) {
-            $.post({
-                url : "/check-user-exists",
-                data : data,
-                type: 'json',
-                success:function(res) {
-                    console.info(res);
-                }
+            }
+
+
+            function checkIfUserExist(data) {
+                $.post({
+                    url: "/check-user-exists",
+                    data: data,
+                    type: 'json',
+                    success: function (res) {
+                        console.info(res);
+                    }
+                });
+            }
+
+            jQuery(document).on('change', '#input-user-email', function (e) {
+                var data = {
+                    'email': jQuery(this).val(),
+                    '_token': '{{ csrf_token()  }}'
+                };
+
+                checkIfUserExist(data);
+
             });
-        }
 
-        jQuery(document).on('change','#input-user-email',function(e) {
-            var data = {
-                'email': jQuery(this).val(),
-                '_token': '{{ csrf_token()  }}'
-            };
-
-            checkIfUserExist(data);
-
-        });
-
-        /**
-        jQu`ry('.tax-calculation').change(function () {
+            /**
+             jQu`ry('.tax-calculation').change(function () {
             var data = {
                 'name': jQuery(this).attr('data-name'),
                 'value': jQuery(this).val(),
@@ -546,29 +581,29 @@
                 }
             });
         });
-         */
-        jQuery('.shipping_option_radio').change(function (e) {
+             */
+            jQuery('.shipping_option_radio').change(function (e) {
 
-            if (jQuery(this).is(':checked')) {
-                var shippingTitle = jQuery(this).attr('data-title');
-                var shippingCost = jQuery(this).attr('data-cost');
+                if (jQuery(this).is(':checked')) {
+                    var shippingTitle = jQuery(this).attr('data-title');
+                    var shippingCost = jQuery(this).attr('data-cost');
 
-                jQuery('.shipping-row').removeClass('hidden');
+                    jQuery('.shipping-row').removeClass('hidden');
 
-                jQuery('.shipping-row .shipping-title').html(shippingTitle + ":");
-                jQuery('.shipping-row .shipping-cost').html("$" + shippingCost);
-                jQuery('.shipping-row .shipping-cost').attr('data-shipping-cost', shippingCost);
+                    jQuery('.shipping-row .shipping-title').html(shippingTitle + ":");
+                    jQuery('.shipping-row .shipping-cost').html("$" + shippingCost);
+                    jQuery('.shipping-row .shipping-cost').attr('data-shipping-cost', shippingCost);
 
 
-            } else {
-                jQuery('.shipping-row').addClass('hidden');
-            }
-            calcualateTotal();
+                } else {
+                    jQuery('.shipping-row').addClass('hidden');
+                }
+                calcualateTotal();
+            });
+
+            jQuery('#place-order-button').click(function (e) {
+                jQuery('#place-order-form').submit();
+            });
         });
-
-        jQuery('#place-order-button').click(function (e) {
-            jQuery('#place-order-form').submit();
-        });
-    });
-</script>
+    </script>
 @endpush
