@@ -63,14 +63,15 @@ class OrderController extends AdminController
 
     public function sendEmailInvoice($id)
     {
+
         $order = Order::findorfail($id);
         $user = User::find($order->user_id);
 
-        $view = view('mail.order.pdf')->with('order', $order);
+        $view = view('mage2-ecommerce::admin.mail.order-pdf')->with('order', $order);
 
         $folderPath = public_path('uploads/order/invoice');
         if (!File::exists($folderPath)) {
-            File::makeDirectory($folderPath, '0775', true);
+            File::makeDirectory($folderPath, '0775', true, true);
         }
         $path = $folderPath . DIRECTORY_SEPARATOR . $order->id . '.pdf';
         PDF::loadHTML($view->render())->save($path);

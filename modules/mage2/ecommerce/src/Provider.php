@@ -122,7 +122,6 @@ class Provider extends ServiceProvider
     {
         $router = $this->app['router'];
 
-
         $router->aliasMiddleware('admin.api.auth', AdminApiAuth::class);
         $router->aliasMiddleware('admin.auth', AdminAuth::class);
         $router->aliasMiddleware('admin.guest', RedirectIfAdminAuth::class);
