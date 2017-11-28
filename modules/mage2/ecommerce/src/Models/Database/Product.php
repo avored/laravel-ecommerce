@@ -25,6 +25,7 @@
 
 namespace Mage2\Ecommerce\Models\Database;
 
+use Illuminate\Support\Facades\Session;
 use Mage2\Ecommerce\Image\LocalFile;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
@@ -62,6 +63,24 @@ class Product extends BaseModel
             $model->slug = $count ? "{$slug}-{$count}" : $slug;
 
         });
+
+    }
+
+    public function canAddtoCart($qty = 1) {
+        $products = Session::get('cart');
+        $productId = $this->attributes['id'];
+
+        $cartProduct = $products->get($productId);
+
+        $availableQty = $this->attributes['qty'];
+
+        $currentCartQty = (isset($cartProduct['qty'])) ? $cartProduct['qty'] : 0;
+
+        if($availableQty-$currentCartQty - $qty <=0) {
+            return false;
+        } else {
+            return true;
+        }
 
     }
 

@@ -19,6 +19,7 @@
 
             <div>
 
+                @if($product->canAddtoCart())
                 <form method="post" action="{{ route('cart.add-to-cart') }}">
                     {{ csrf_field() }}
 
@@ -36,6 +37,18 @@
                     </button>
                 </div>
                 </form>
+
+                @else
+                    <div class="product-stock text-danger ">Out of Stock</div>
+                    <hr>
+
+                    <div class="clearfix"></div>
+                    <div class="float-left" style="margin-right: 5px;">
+                        <button type="button" disabled class="btn btn-default">
+                            Add to Cart
+                        </button>
+                    </div>
+                @endif
 
                 @if(Auth::check() && Auth::user()->isInWishlist($product->id))
                     <a class="btn btn-danger" title="Remove from Wish List"

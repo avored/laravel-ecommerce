@@ -43,6 +43,7 @@ class OrderController extends Controller
 
     public function place(PlaceOrderRequest $request)
     {
+        dd('here');
         $orderProductData = Session::get('cart');
         $user = $this->_getUser($request);
 

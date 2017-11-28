@@ -48,9 +48,17 @@ class CartController extends Controller
 
 
         $product = Product::where('slug', '=', $request->get('slug'))->first();
+
+        $requestQty = $request->get('qty',1);
+
+        if(!$product->canAddtoCart($requestQty)) {
+
+            return redirect()->back()->with('errorNotificationText', 'Not Enough Qty Available please try with less Qty!');
+        }
+
         $productAttributes = [];
 
-        if ($product->has_variation == 1 && null === $request->get('attribute')) {
+        if ($product->type == 'VARIATION' && null === $request->get('attribute')) {
             return redirect()->route('product.view', $product->slug);
         }
 
