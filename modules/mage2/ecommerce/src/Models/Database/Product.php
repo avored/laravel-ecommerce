@@ -66,7 +66,7 @@ class Product extends BaseModel
 
     }
 
-    public function canAddtoCart($qty = 1) {
+    public function canAddtoCart($qty = 0) {
         $products = Session::get('cart');
 
         if(null == $products) {
@@ -81,7 +81,7 @@ class Product extends BaseModel
 
         $currentCartQty = (isset($cartProduct['qty'])) ? $cartProduct['qty'] : 0;
 
-        if($availableQty-$currentCartQty - $qty <=0) {
+        if($availableQty-$currentCartQty - $qty < 0) {
             return false;
         } else {
             return true;

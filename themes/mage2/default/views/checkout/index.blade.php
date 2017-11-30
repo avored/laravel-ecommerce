@@ -108,14 +108,41 @@
                                                 <label class="control-label"
                                                        for="input-billing-password">Password</label>
                                                 <input type="text" name="user[password]" placeholder="Password"
-                                                       id="input-billing-password" class="form-control">
+                                                       id="input-billing-password"
+
+                                                        @if($errors->has('user.password'))
+                                                            class="is-invalid form-control"
+                                                        @else
+                                                            class="form-control"
+                                                        @endif
+
+
+                                                >
+                                                @if ($errors->has('user.password'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('user.password') }}
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="form-group  col-6">
                                                 <label class="control-label" for="input-billing-confirm">Password
                                                     Confirm</label>
                                                 <input type="text" name="user[confirm_password]"
                                                        placeholder="Password Confirm"
-                                                       id="input-billing-confirm" class="form-control">
+                                                       id="input-billing-confirm"
+                                                        @if($errors->has('user.confirm_password'))
+                                                            class="is-invalid form-control"
+                                                        @else
+                                                            class="form-control"
+                                                        @endif
+
+
+                                                >
+                                                @if ($errors->has('user.confirm_password'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('user.confirm_password') }}
+                                                    </div>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -125,7 +152,20 @@
                                 <div class="form-group">
                                     <label class="control-label" for="input-billing-phone">Phone</label>
                                     <input type="text" name="billing[phone]" value="{{ $phone }}" placeholder="Phone"
-                                           id="input-billing-phone" class="form-control">
+                                           id="input-billing-phone"
+                                            @if($errors->has('billing.phone'))
+                                                class="is-invalid form-control"
+                                            @else
+                                                class="form-control"
+                                            @endif
+
+
+                                    >
+                                    @if ($errors->has('billing.phone'))
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('billing.phone') }}
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -154,13 +194,32 @@
                                         <div class="form-group">
                                             <label class="control-label" for="input-billing-address-2">Address 2</label>
                                             <input type="text" name="billing[address2]" value="" placeholder="Address 2"
-                                                   id="input-billing-address-2" class="form-control">
+                                                   id="input-billing-address-2"
+
+                                                    @if($errors->has('billing.phone'))
+                                                        class="is-invalid form-control"
+                                                   @else
+                                                        class="form-control"
+                                                    @endif
+
+
+                                            >
+                                            @if ($errors->has('billing.phone'))
+                                                <div class="invalid-feedback">
+                                                    {{ $errors->first('billing.phone') }}
+                                                </div>
+                                            @endif
                                         </div>
 
                                         <div class="form-group">
                                             <label for="country">Country</label>
                                             <select name="billing[country_id]" data-name="country_id"
-                                                    class="billing-country form-control billing tax-calculation">
+                                                    @if($errors->has('billing.phone'))
+                                                        class="is-invalid billing-country form-control billing tax-calculation"
+                                                    @else
+                                                        class="billing-country form-control billing tax-calculation"
+                                                    @endif
+                                            >
                                                 @foreach($countries as $countryId => $countryName)
                                                     <option
                                                             value="{{ $countryId }}">{{ $countryName }}</option>

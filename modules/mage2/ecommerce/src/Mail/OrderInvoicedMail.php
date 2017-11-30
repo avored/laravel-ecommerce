@@ -55,7 +55,9 @@ class OrderInvoicedMail extends Mailable
     public function build()
     {
         return $this->view('mage2-ecommerce::admin.mail.order-invoiced')
-                    ->attach($this->path, ['as' => 'invoiced.pdf', 'mime' => 'application/pdf']);
+                    ->attach($this->path, ['as' =>
+
+                        'invoiced.pdf', 'mime' => 'application/pdf']);
         //->with('order', $this->order);
     }
 }
