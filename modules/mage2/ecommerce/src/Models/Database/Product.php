@@ -68,6 +68,11 @@ class Product extends BaseModel
 
     public function canAddtoCart($qty = 1) {
         $products = Session::get('cart');
+
+        if(null == $products) {
+            return true;
+        }
+
         $productId = $this->attributes['id'];
 
         $cartProduct = $products->get($productId);
