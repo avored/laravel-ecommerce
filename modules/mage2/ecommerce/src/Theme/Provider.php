@@ -1,11 +1,8 @@
 <?php
 namespace Mage2\Ecommerce\Theme;
 
-use Composer\Autoload\ClassLoader;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\App;
-use Mage2\Framework\Theme\Facades\Theme;
-use Mage2\Framework\Theme\ThemeService;
+use Mage2\Ecommerce\Theme\Facade as Theme;
 
 class Provider extends ServiceProvider {
 
@@ -24,6 +21,8 @@ class Provider extends ServiceProvider {
     {
         $this->registerTheme();
         $this->app->alias('theme', 'Mage2\Ecommerce\Theme\Manager');
+
+        $themes = Theme::all();
     }
     /**
      * Register the AdmainConfiguration instance.
@@ -33,6 +32,9 @@ class Provider extends ServiceProvider {
     protected function registerTheme()
     {
         $this->app->singleton('theme', function ($app) {
+            $loadDefaultLangPath = base_path('themes/mage2/default/lang');
+            $app['path.lang'] = $loadDefaultLangPath;
+
             return new Manager($app['files']);
         });
     }

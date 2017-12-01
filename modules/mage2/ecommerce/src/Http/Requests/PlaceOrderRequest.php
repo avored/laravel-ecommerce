@@ -58,10 +58,27 @@ class PlaceOrderRequest extends Request
             //$validation['user.password'] = 'required|min:6|confirmed';
         }
 
+        if (null === $this->request->get('billing.id')) {
+            $validation['billing.address1'] = 'required|max:255';
+            $validation['billing.address2'] = 'required|max:255';
+            $validation['billing.country_id'] = 'required|max:255';
+            $validation['billing.state'] = 'required|max:255';
+            $validation['billing.city'] = 'required|max:255';
+            $validation['billing.postcode'] = 'required|max:255';
+        }
+
+        if (null === $this->request->get('use_different_shipping_address')) {
+            $validation['shipping.address1'] = 'required|max:255';
+            $validation['shipping.address2'] = 'required|max:255';
+            $validation['shipping.country_id'] = 'required|max:255';
+            $validation['shipping.state'] = 'required|max:255';
+            $validation['shipping.city'] = 'required|max:255';
+            $validation['shipping.postcode'] = 'required|max:255';
+        }
+
         $validation['shipping_option'] = 'required';
         $validation['payment_option'] = 'required';
         $validation['agree'] = 'required';
-
 
         return $validation;
 
