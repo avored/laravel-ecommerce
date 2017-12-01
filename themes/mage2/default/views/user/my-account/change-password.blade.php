@@ -23,17 +23,51 @@
 
                         <div class="form-group">
                             <label>Current Password</label>
-                            <input type="password" name="current_password" class="form-control">
+                            <input type="password" name="current_password"
+
+                                   @if($errors->has('current_password'))
+                                   class="is-invalid form-control"
+                                   @else
+                                   class="form-control"
+                            @endif
+                            />
+                            @if ($errors->has('current_password'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('current_password') }}
+                                </div>
+                            @endif
                         </div>
 
                         <div class="form-group">
                             <label>New Password</label>
-                            <input type="password" name="password" class="form-control">
+                            <input type="password" name="password"
+                                    @if($errors->has('password'))
+                                        class="is-invalid form-control"
+                                    @else
+                                    class="form-control"
+                                    @endif
+                            />
+                            @if ($errors->has('password'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('password') }}
+                                </div>
+                            @endif
                         </div>
 
                         <div class="form-group">
                             <label>Password Confirmation</label>
-                            <input type="password" name="password_confirmation" class="form-control">
+                            <input type="password" name="password_confirmation"
+                                   @if($errors->has('password_confirmation'))
+                            class="is-invalid form-control"
+                                   @else
+                                   class="form-control"
+                                    @endif
+                            />
+                            @if ($errors->has('password_confirmation'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('password_confirmation') }}
+                                </div>
+                            @endif
                         </div>
 
                         <div class="form-group">

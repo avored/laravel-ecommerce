@@ -20,26 +20,38 @@
                             {!! csrf_field() !!}
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="form-group{{ $errors->has('first_name') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="first_name" class="control-label">First Name</label>
-                                        <input id="first_name" type="text" class="form-control" name="first_name"
+                                        <input id="first_name" type="text"
+                                               @if($errors->has('first_name'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               name="first_name"
                                                value="{{ $address->first_name }}">
                                         @if ($errors->has('first_name'))
-                                            <span class="help-block">
-                        <strong>{{ $errors->first('first_name') }}</strong>
-                    </span>
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('first_name') }}
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="form-group{{ $errors->has('last_name') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="last_name" class="control-label">Last Name</label>
-                                        <input id="last_name" type="text" class="form-control" name="last_name"
+                                        <input id="last_name" type="text"
+                                               @if($errors->has('last_name'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               name="last_name"
                                                value="{{ $address->last_name }}">
                                         @if ($errors->has('last_name'))
-                                            <span class="help-block">
-                        <strong>{{ $errors->first('last_name') }}</strong>
-                    </span>
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('last_name') }}
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -47,26 +59,38 @@
 
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="form-group{{ $errors->has('address1') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="address1" class="control-label">Address1</label>
-                                        <input id="address1" type="text" class="form-control" name="address1"
+                                        <input id="address1" type="text"
+                                               @if($errors->has('address1'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               name="address1"
                                                value="{{ $address->address1 }}">
                                         @if ($errors->has('address1'))
-                                            <span class="help-block">
-                        <strong>{{ $errors->first('address1') }}</strong>
-                    </span>
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('address1') }}
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="form-group{{ $errors->has('address2') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="address2" class="control-label">Address2</label>
-                                        <input id="address2" type="text" class="form-control" name="address2"
+                                        <input id="address2" type="text"
+                                               @if($errors->has('address2'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               name="address2"
                                                value="{{ $address->address2 }}">
                                         @if ($errors->has('address2'))
-                                            <span class="help-block">
-                        <strong>{{ $errors->first('address2') }}</strong>
-                    </span>
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('address2') }}
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -74,25 +98,38 @@
 
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="city" class="control-label">City</label>
-                                        <input id="city" type="text" class="form-control" name="city" value="{{ $address->city }}">
+                                        <input id="city" type="text"
+                                               @if($errors->has('city'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               name="city"
+                                               value="{{ $address->city }}">
                                         @if ($errors->has('city'))
-                                            <span class="help-block">
-                        <strong>{{ $errors->first('city') }}</strong>
-                    </span>
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('city') }}
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="form-group{{ $errors->has('state') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="state" class="control-label">State</label>
-                                        <input id="state" type="text" class="form-control" name="state"
+                                        <input id="state" type="text"
+                                               @if($errors->has('state'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               name="state"
                                                value="{{ $address->state }}">
                                         @if ($errors->has('state'))
-                                            <span class="help-block">
-                        <strong>{{ $errors->first('state') }}</strong>
-                    </span>
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('state') }}
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -100,9 +137,15 @@
 
                             <div class="row">
                                 <div class="col-6">
-                                    <div class="form-group{{ $errors->has('country') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="country" class="control-label">Country</label>
-                                        <select name="country_id" class="form-control">
+                                        <select name="country_id"
+                                                @if($errors->has('country_id'))
+                                                class="is-invalid form-control"
+                                                @else
+                                                class="form-control"
+                                                @endif
+                                        >
                                             @foreach($countries as $country)
                                                 <option @if($address->country_id == $country->id)
                                                         {{ "selected" }}
@@ -111,35 +154,47 @@
                                             @endforeach
                                         </select>
 
-                                        @if ($errors->has('country'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('country') }}</strong>
-                                            </span>
+                                        @if ($errors->has('country_id'))
+                                            <div class="invalid-feedback">
+                                                <strong>{{ $errors->first('country_id') }}</strong>
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="form-group{{ $errors->has('postcode') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <label for="postcode" class="control-label">Post Code</label>
-                                        <input id="postcode" type="text" class="form-control" name="postcode"
+                                        <input id="postcode" type="text"
+                                               @if($errors->has('postcode'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
+                                               @endif
+                                               name="postcode"
                                                value="{{ $address->postcode }}">
                                         @if ($errors->has('postcode'))
-                                            <span class="help-block">
-                    <strong>{{ $errors->first('postcode') }}</strong>
-                </span>
+                                            <div class="invalid-feedback">
+                                                <strong>{{ $errors->first('postcode') }}</strong>
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                            <div class="form-group">
                                 <label for="phone" class="control-label">Phone</label>
-                                <input id="phone" type="text" class="form-control" name="phone"
+                                <input id="phone" type="text"
+                                       @if($errors->has('phone'))
+                                       class="is-invalid form-control"
+                                       @else
+                                       class="form-control"
+                                       @endif
+                                       name="phone"
                                        value="{{ $address->phone }}">
                                 @if ($errors->has('phone'))
-                                    <span class="help-block">
-                        <strong>{{ $errors->first('phone') }}</strong>
-                    </span>
+                                    <div class="invalid-feedback">
+                                        {{ $errors->first('phone') }}
+                                    </div>
                                 @endif
                             </div>
 
