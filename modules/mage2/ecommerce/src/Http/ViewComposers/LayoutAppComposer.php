@@ -40,7 +40,7 @@ class LayoutAppComposer
      */
     public function compose(View $view)
     {
-        $cart = count(Session::get('cart'));
+        $cart = (null === Session::get('cart')) ? 0 : count(Session::get('cart'));
         $categoryModel = new Category();
         $baseCategories = $categoryModel->getAllCategories();
 
