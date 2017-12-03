@@ -4,7 +4,10 @@
 
 <div class="product-image-list">
 
-    @if(isset($model) && count($model->images()->get()->count()) > 0)
+<?php 
+//dd($model->images()->get()->count());
+?>
+    @if(isset($model) && $model->images()->get()->count() > 0)
         @foreach($model->images()->get() as $image)
             <?php $class = ($image->is_main_image == 1) ? "active" : ""; ?>
             <div class="image-preview">
