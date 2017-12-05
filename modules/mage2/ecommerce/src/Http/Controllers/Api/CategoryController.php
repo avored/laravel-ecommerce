@@ -14,7 +14,7 @@
  *
  * DISCLAIMER
  *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
+ * Do not edit or add to this file if you wish to upgrade Mage2 to newer
  * versions in the future. If you wish to customize PrestaShop for your
  * needs please refer to http://mage2.website for more information.
  *

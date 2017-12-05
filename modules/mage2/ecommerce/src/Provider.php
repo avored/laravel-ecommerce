@@ -14,8 +14,8 @@
  *
  * DISCLAIMER
  *
- * Do not edit or add to this file if you wish to upgrade PrestaShop to newer
- * versions in the future. If you wish to customize PrestaShop for your
+ * Do not edit or add to this file if you wish to upgrade Mage2 to newer
+ * versions in the future. If you wish to customize Mage2 for your
  * needs please refer to http://mage2.website for more information.
  *
  * @author    Purvesh <ind.purvesh@gmail.com>
@@ -106,7 +106,6 @@ class Provider extends ServiceProvider
     {
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        //Route::middleware(['web'])->group();
 
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'mage2-ecommerce');

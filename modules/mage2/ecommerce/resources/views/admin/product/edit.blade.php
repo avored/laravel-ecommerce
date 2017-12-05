@@ -21,26 +21,24 @@
         <div class="row" id="product-save-accordion" data-children=".product-card">
             <div class="col-12 mb-2 mt-2">
                 <div class="card product-card  mb-2 mt-2">
+                    <a data-toggle="collapse" data-parent="#product-save-accordion"
+                       class="float-right" href="#basic">
                     <div class="card-header">
                         Basic Details
-                        <a data-toggle="collapse" data-parent="#product-save-accordion"
-                           class="float-right" href="#basic">
-                            <i class="oi oi-caret-top"></i>
-                        </a>
                     </div>
+                    </a>
                     <div class="card-body collapse show" id="basic">
                         @include('mage2-ecommerce::admin.product.card.basic', ['editMethod' => true])
                     </div>
                 </div>
 
                 <div class="card product-card mb-2 mt-2">
+                    <a data-toggle="collapse" data-parent="#product-save-accordion"
+                       class="float-right" href="#images">
                     <div class="card-header">
                         Images
-                        <a data-toggle="collapse" data-parent="#product-save-accordion"
-                           class="float-right" href="#images">
-                            <i class="oi oi-caret-top"></i>
-                        </a>
                     </div>
+                    </a>
                     <div class="card-body collapse" id="images">
                         @include('mage2-ecommerce::admin.product.card.images')
                     </div>
@@ -48,26 +46,31 @@
 
 
                 <div class="card product-card mb-2 mt-2">
+                    <a data-toggle="collapse" data-parent="#product-save-accordion"
+                       class="float-right" href="#seo">
+
                     <div class="card-header">
+
                         SEO
-                        <a data-toggle="collapse" data-parent="#product-save-accordion"
-                           class="float-right" href="#seo">
-                            <i class="oi oi-caret-top"></i>
-                        </a>
+
+
                     </div>
+                    </a>
                     <div class="card-body collapse" id="seo">
                         @include('mage2-ecommerce::admin.product.card.seo')
                     </div>
                 </div>
 
                     <div class="card product-card mb-2 mt-2">
+                        <a data-toggle="collapse" data-parent="#product-save-accordion"
+                           class="float-right" href="#attributes">
                         <div class="card-header">
                             Attributes
-                            <a data-toggle="collapse" data-parent="#product-save-accordion"
-                               class="float-right" href="#attributes">
-                                <i class="oi oi-caret-top"></i>
-                            </a>
+
+
+
                         </div>
+                        </a>
                         <div class="card-body collapse" id="attributes">
                             @include('mage2-ecommerce::admin.product.card.attributes')
                         </div>
@@ -76,13 +79,12 @@
 
                 @if($model->type == "VARIATION")
                     <div class="card product-card mb-2 mt-2">
+                        <a data-toggle="collapse" data-parent="#product-save-accordion"
+                           class="float-right" href="#option">
                         <div class="card-header">
                             Option
-                            <a data-toggle="collapse" data-parent="#product-save-accordion"
-                               class="float-right" href="#option">
-                                <i class="oi oi-caret-top"></i>
-                            </a>
                         </div>
+                        </a>
                         <div class="card-body collapse" id="option">
                             @include('mage2-ecommerce::admin.product.card.option')
                         </div>
@@ -95,13 +97,12 @@
                 @foreach(Tabs::all() as $key => $tab)
 
                     <div class="card product-card mb-2 mt-2">
+                        <a data-toggle="collapse" data-parent="#product-save-accordion"
+                           class="float-right" href="#{{ $key }}">
                         <div class="card-header">
                             {{ $tab->label }}
-                            <a data-toggle="collapse" data-parent="#product-save-accordion"
-                               class="float-right" href="#{{ $key }}">
-                                <i class="oi oi-caret-top"></i>
-                            </a>
                         </div>
+                        </a>
                         <div class="card-body collapse" id="{{ $key }}">
                             @include($tab->view)
                         </div>
