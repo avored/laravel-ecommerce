@@ -1,11 +1,33 @@
-/vendor
+# Laravel 5 Specific
 /node_modules
+/public/hot
 /public/storage
-Homestead.yaml
+/storage/*.key
+/vendor
+/.idea
+/.vagrant
 Homestead.json
-/packages
+Homestead.yaml
+npm-debug.log
+yarn-error.log
 .env
-.idea
-composer.lock
+
+# Mage2 Specific
 storage/framework/bootstrap/cache/services.php
-public/uploads
+/packages
+/public/uploads
+/modules/*
+/themes/*
+
+# Include Ecommerce Module
+!/modules/mage2
+/modules/mage2/*
+!/modules/mage2/ecommerce
+
+# Include Default Theme
+!/themes/mage2
+/themes/mage2/*
+!/themes/mage2/default
+
+# Etc
+composer.lock
