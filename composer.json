@@ -24,7 +24,8 @@
     "mage2/install": "dev-master",
     "fabpot/goutte": "^3.2",
     "intervention/image": "^2.3@dev",
-    "symfony/yaml": "^3.3"
+    "symfony/yaml": "^3.3",
+    "wikimedia/composer-merge-plugin": "^1.3@dev"
   },
   "require-dev": {
     "filp/whoops": "~2.0",
@@ -53,6 +54,11 @@
     "laravel": {
       "dont-discover": [
       ]
+    },
+    "merge-plugin": {
+        "include": [
+            "modules/*/*/composer.json"
+        ]
     }
   },
   "scripts": {
