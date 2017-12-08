@@ -2,8 +2,10 @@
 
 @include('mage2-ecommerce::forms.select',['name' => 'type',
                                         'label' => 'Type',
-                                        'options' => ['PRODUCT' => 'Product','CATEGORY' => "Category",'ORDER' => "Order",'CUSTOMER' => 'Customer']
+                                        'options' => ['PRODUCT' => 'Product']
                                         ])
+
+<!-- 'options' => ['PRODUCT' => 'Product','CATEGORY' => "Category",'ORDER' => "Order",'CUSTOMER' => 'Customer'] -->
 
 @include('mage2-ecommerce::forms.text',['name' => 'name','label' => 'Name'])
 
