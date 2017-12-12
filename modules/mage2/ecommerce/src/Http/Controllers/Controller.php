@@ -41,11 +41,11 @@ class Controller extends BaseController
     public function __construct()
     {
         if (Schema::hasTable('configurations')) {
+
             $path = realpath(Configuration::getConfiguration('active_theme_path'));
 
             $fileViewFinder = View::getFinder();
             $fileViewFinder->prependLocation($path);
         }
-
     }
 }

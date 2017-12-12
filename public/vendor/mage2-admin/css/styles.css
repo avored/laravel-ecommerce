@@ -5,3 +5,39 @@
 .bg-site-second-color {
     background-color: #510094;
 }
+.admin-header {
+    z-index: 1020;
+    width: 100%;
+    position: relative;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    height: 55px;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #c2cfd6;
+}
+
+.admin-header .navbar-toggler {
+    min-width: 50px;
+    padding: 0.25rem 0;
+}
+.admin-header .navbar-brand {
+    display: inline-block;
+    width: 155px;
+    height: 55px;
+    padding: 0.5rem 1rem;
+    margin-right: 0;
+    background-color: #fff;
+    background-image: url(../images/mage2-ecommerce-logo.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 70px auto;
+    border-bottom: 1px solid #c2cfd6;
+}
+
+.admin-header.navbar .navbar-nav {
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-align: center;
+    align-items: center;
+}
