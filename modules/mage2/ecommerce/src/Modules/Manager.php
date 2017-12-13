@@ -3,6 +3,8 @@
 namespace Mage2\Ecommerce\Modules;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Composer;
+use Illuminate\Support\Facades\App;
 use RecursiveIteratorIterator;
 use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
 use Symfony\Component\Yaml\Yaml;
@@ -11,6 +13,8 @@ use League\Flysystem\MountManager;
 use Illuminate\Filesystem\Filesystem;
 use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\Adapter\Local as LocalAdapter;
+
+
 
 class Manager
 {
@@ -39,7 +43,6 @@ class Manager
     {
         $modulePath = base_path('modules');
 
-
         $iterator = new RecursiveIteratorIterator(
                 new RecursiveDirectoryIterator($modulePath, RecursiveDirectoryIterator::FOLLOW_SYMLINKS)
         );
@@ -55,6 +58,17 @@ class Manager
                 $filePath = $iterator->getPathname();
                 $moduleRegisterContent = File::get($filePath);
                 $data = Yaml::parse($moduleRegisterContent);
+
+                $namespace = $data['namespace'];
+
+                $composerLoader =  require base_path('vendor/autoload.php');
+
+                $path = $iterator->getPath() . DIRECTORY_SEPARATOR . $data['source'];
+
+                $composerLoader->addPsr4($namespace, $path);
+
+                App::register($data['module']);
+
                 $this->moduleList->put($data['name'],$data);
             }
             $iterator->next();
