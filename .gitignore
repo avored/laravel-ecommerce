@@ -17,6 +17,7 @@ storage/framework/bootstrap/cache/services.php
 /packages
 /public/uploads
 /modules/*
+/modules/ecommerce
 /themes/*
 
 # Include Ecommerce Module
