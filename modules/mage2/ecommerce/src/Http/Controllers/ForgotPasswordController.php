@@ -49,7 +49,7 @@ class ForgotPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('frontguest');
+        $this->middleware('front.guest');
     }
 
     protected function guard()
