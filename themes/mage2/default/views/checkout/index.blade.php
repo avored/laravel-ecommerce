@@ -108,7 +108,7 @@
                                             <div class="form-group  col-6">
                                                 <label class="control-label"
                                                        for="input-billing-password">Password</label>
-                                                <input type="text" name="user[password]" placeholder="Password"
+                                                <input type="password" name="user[password]" placeholder="Password"
                                                        id="input-billing-password"
 
                                                         @if($errors->has('user.password'))
@@ -126,7 +126,7 @@
                                             <div class="form-group  col-6">
                                                 <label class="control-label" for="input-billing-confirm">Password
                                                     Confirm</label>
-                                                <input type="text" name="user[confirm_password]"
+                                                <input type="password" name="user[confirm_password]"
                                                        placeholder="Password Confirm"
                                                        id="input-billing-confirm"
                                                         @if($errors->has('user.confirm_password'))
