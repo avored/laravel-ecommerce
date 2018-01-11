@@ -154,6 +154,15 @@ class Provider extends ServiceProvider {
         $systemMenu->subMenu('admin-user',$adminUserMenu);
 
 
+        $themeMenu = new AdminMenu();
+        $themeMenu->key('themes')
+            ->label('Themes ')
+            ->route('admin.theme.index');
+        $systemMenu->subMenu('themes',$themeMenu);
+
+
+
+
         $roleMenu = new AdminMenu();
         $roleMenu->key('roles')
             ->label('Admin User Roles')

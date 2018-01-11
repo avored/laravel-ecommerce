@@ -45,6 +45,13 @@ class Configuration extends BaseModel
         return $model->getValue($key);
     }
 
+    public static function setConfiguration($key,$value)
+    {
+        $model = new static;
+        $row = $model->where('configuration_key', '=', $key)->first();
+        return $row->update(['configuration_value' => $value]);
+    }
+
     /**
      * Determine if an attribute or relation exists on the model.
      *

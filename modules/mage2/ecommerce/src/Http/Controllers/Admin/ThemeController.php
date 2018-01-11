@@ -42,7 +42,7 @@ class ThemeController extends AdminController
         $themes = Theme::all();
         $activeTheme = Configuration::getConfiguration('active_theme_identifier');
 
-        return view('mage2-dashboard::theme.index')
+        return view('mage2-ecommerce::admin.theme.index')
             ->with('themes', $themes)
             ->with('activeTheme', $activeTheme);
     }
@@ -91,10 +91,10 @@ class ThemeController extends AdminController
         $theme = Theme::get($name);
 
         try {
-            $activeThemeConfiguration = Configuration::whereConfigurationKey('active_theme_identifier')->first();
+            $activeThemeConfiguration = Configuration::getConfiguration('active_theme_identifier');
 
             if(null !== $activeThemeConfiguration) {
-                $activeThemeConfiguration->update(['configuration_value' => $theme['name']]);
+                Configuration::setConfiguration('active_theme_identifier',$theme['name']);
             } else {
                 Configuration::create([
                     'configuration_key' => 'active_theme_identifier',
@@ -102,13 +102,15 @@ class ThemeController extends AdminController
                 ]);
             }
 
-            $activeThemePathConfiguration = Configuration::whereConfigurationKey('active_theme_path')->first();
-            if(null !== $activeThemePathConfiguration) {
-                $activeThemePathConfiguration->update(['configuration_value' => $theme['view_path']]);
+            $activeThemePath = Configuration::getConfiguration('active_theme_path');
+            if(null !== $activeThemePath) {
+
+                Configuration::setConfiguration('active_theme_path',$theme['view_path']);
+
             } else {
                 Configuration::create([
                     'configuration_key' => 'active_theme_path',
-                    'configuration_value' => $theme['name'],
+                    'configuration_value' => $theme['view_path'],
                 ]);
             }
 
@@ -117,7 +119,6 @@ class ThemeController extends AdminController
 
             Theme::publishItem($fromPath, $toPath);
 
-            //Artisan::call('vendor:publish', ['--tag' => $name]);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
