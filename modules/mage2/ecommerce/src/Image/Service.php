@@ -84,7 +84,7 @@ class Service extends ImageManager
     public function directory($path)
     {
         if (!File::exists($path)) {
-            File::makeDirectory($path, '0777', true, true);
+            File::makeDirectory($path, 0775, true, true);
         }
         return $this;
     }

@@ -45,7 +45,7 @@
 </div>
 <!-- Scripts -->
 <!-- JQuery -->
-<script type="text/javascript" src="{{ asset('vendor/mage2-admin/js/jquery-3.2.1.slim.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/mage2-admin/js/jquery-3.2.1.min.js') }}"></script>
 
 <script>
     $(function() {
@@ -55,6 +55,8 @@
             clearTimeout(timeoutFlag);
             var emailFieldValue = jQuery('#email').val();
             var passwordFieldValue = jQuery('#password').val();
+
+
 
 
             var emailValidationRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

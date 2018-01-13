@@ -39,7 +39,9 @@ $randomString = substr(str_shuffle(str_repeat($pool, 6)), 0, 6);
 
 $hiddenClass = "d-none";
 $editMode = false;
-if (isset($attribute) && $attribute->attributeDropdownOptions->count() > 0) {
+
+
+if (isset($model) && $model->attributeDropdownOptions->count() > 0) {
     $editMode = true;
     $hiddenClass = "";
 }
@@ -49,7 +51,7 @@ if (isset($attribute) && $attribute->attributeDropdownOptions->count() > 0) {
 
     @if($editMode === true)
 
-        @foreach($attribute->attributeDropdownOptions as $key => $dropdownOptionModel)
+        @foreach($model->attributeDropdownOptions as $key => $dropdownOptionModel)
 
             <div class="dynamic-field-row">
                 <div class="form-group col-md-12">
