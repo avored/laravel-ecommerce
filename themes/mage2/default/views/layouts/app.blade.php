@@ -70,9 +70,8 @@
 
 
 @yield('content')
-
-@include('layouts.footer')
 </div>
+@include('layouts.footer')
 @stack('scripts')
 </body>
 </html>

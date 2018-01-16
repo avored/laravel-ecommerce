@@ -86,3 +86,33 @@
     background-color: #fff;
     border-color: #ddd;
 }
+
+.content-wrapper {
+    margin: 20px 0px;
+}
+
+.navbar-brand {
+    color: #40baec;
+}
+
+.logo {
+    width: 20%;
+}
+
+.copyright {
+    color: #ffffff;
+    display: block;
+    padding: 10px;
+    text-align: center
+}
+
+.page-footer {
+    background: #f4f4f4;
+    margin-top: auto;
+    padding: 15px 0;
+    font-size: 14px;
+}
+
+ul.footer {
+    padding-left: 15px;
+}
