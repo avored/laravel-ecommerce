@@ -36,19 +36,43 @@
                     <strong>Newsletter</strong>
                 </div>
                 <div class="content">
-                    <form class="navbar-form" action="http://demo.mage2.website/product-search" method="get" role="search">
+                    <form class="navbar-form" action="{{ route('subscribe.store') }}" method="post" >
+
+                        {{ csrf_field() }}
                         <div class="field newsletter">
                             <label class="label" for="newsletter">
                                 <span>Sign Up for Our Newsletter:</span>
                             </label>
                         </div>
+
+
+
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Enter your email address" name="q">
+
+                            <input type="text"
+
+                                   @if($errors->has('email'))
+                                        class="form-control is-invalid"
+                                   @else
+                                        class="form-control"
+                                   @endif
+
+                                   placeholder="Enter your email address" name="email" />
+
+
                             <div class="input-group-btn">
+
                                 <button class="btn btn-primary" type="submit">
                                     <span>Subscribe</span>
                                 </button>
                             </div>
+
+
+                            @if($errors->has('email'))
+                                <div class="invalid-feedback">
+                                    {{ $errors->first('email') }}
+                                </div>
+                            @endif
                         </div>
                     </form>
                 </div>

@@ -104,6 +104,12 @@ Route::middleware(['web'])
 
 
 
+        Route::post('/subscribe', ['as' => 'subscribe.store',
+                                    'uses' => 'SubscribeController@store'
+                                ]);
+
+
+
         Route::post('/tax-calculation', ['as' => 'tax.calculation', 'uses' => 'TaxRuleController@getTaxAmount']);
 
 
@@ -182,27 +188,29 @@ Route::middleware(['web', 'admin.auth'])
 
 
 
-        Route::post('/option-combination-modal', [
+        Route::post('option-combination-modal', [
             'uses' => 'OptionController@optionCombinationModal',
             'as' => 'admin.option.combination',
         ]);
 
-        Route::post('/edit-option-combination-modal', [
+        Route::post('edit-option-combination-modal', [
             'uses' => 'OptionController@editOptionCombinationModal',
             'as' => 'admin.option.combination.edit',
         ]);
 
-        Route::post('/option-combination-update', [
+        Route::post('option-combination-update', [
             'uses' => 'OptionController@optionCombinationUpdate',
             'as' => 'admin.product.option-combination.update',
         ]);
 
 
-
+        Route::resource('property', 'PropertyController', ['as' => 'admin']);
 
         Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
 
         Route::resource('/role', 'RoleController', ['as' => 'admin']);
+
+
         Route::resource('product', 'ProductController', ['as' => 'admin']);
         Route::resource('category', 'CategoryController', ['as' => 'admin']);
         Route::resource('review', 'ReviewController', ['as' => 'admin']);
@@ -252,6 +260,8 @@ Route::middleware(['web', 'admin.auth'])
         Route::delete('themes/{name}', ['as' => 'admin.theme.destroy', 'uses' => 'ThemeController@destroy']);
 
         Route::resource('order-status', 'OrderStatusController', ['as' => 'admin']);
+
+        Route::resource('subscriber', 'SubscriberController', ['as' => 'admin']);
 
         Route::get('order', [
                 'as' => 'admin.order.index',

@@ -95,6 +95,24 @@ class Provider extends ServiceProvider {
             ->route('admin.attribute.index');
         $catalogMenu->subMenu('attribute',$attributeMenu);
 
+        $propertyMenu = new AdminMenu();
+        $propertyMenu->key('property')
+            ->label('Property')
+            ->route('admin.property.index');
+        $catalogMenu->subMenu('property',$propertyMenu);
+
+
+
+        AdminMenuFacade::add('promotion')
+            ->label('Promotion')
+            ->route('#');
+        $promotionMenu = AdminMenuFacade::get('promotion');
+
+        $subscriberMenu = new AdminMenu();
+        $subscriberMenu->key('subscriber')
+            ->label('Subscriber')
+            ->route('admin.subscriber.index');
+        $promotionMenu->subMenu('subscriber',$subscriberMenu);
 
 
         $pageMenu = new AdminMenu();

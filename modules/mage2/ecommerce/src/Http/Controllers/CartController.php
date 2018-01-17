@@ -46,7 +46,6 @@ class CartController extends Controller
 
         $cart = (null === Session::get('cart')) ? Collection::make([]) : Session::get('cart');
 
-
         $product = Product::where('slug', '=', $request->get('slug'))->first();
 
         $requestQty = $request->get('qty',1);

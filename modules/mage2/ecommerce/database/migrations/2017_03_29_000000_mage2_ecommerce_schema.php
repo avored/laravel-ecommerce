@@ -284,6 +284,16 @@ class Mage2EcommerceSchema extends Migration
             $table->timestamps();
         });
 
+
+        Schema::create('subscribers', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->nullable()->default(null);
+            $table->string('email')->unique()->nullable();
+
+            $table->timestamps();
+        });
+
+
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -409,6 +419,25 @@ class Mage2EcommerceSchema extends Migration
 
         });
 
+
+
+        Schema::create('properties', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->string('name');
+            $table->string('identifier')->unique();
+            $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME','CHECKBOX','RADIO','SWITCH']);
+            $table->integer('sort_order')->nullable()->default(0);
+            $table->timestamps();
+        });
+
+
+
+
+
+
+
+
         Schema::create('attributes', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('type',['PRODUCT','CATEGORY','ORDER','CUSTOMER'])->default('PRODUCT');
@@ -429,7 +458,10 @@ class Mage2EcommerceSchema extends Migration
                 ->references('id')->on('attributes')->onDelete('cascade');
         });
 
-        Schema::create('product_attribute_values', function (Blueprint $table) {
+
+
+
+        Schema::create('product_attribute_varchar_values', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('attribute_id')->unsigned();
             $table->integer('product_id')->unsigned();
@@ -441,6 +473,54 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('product_id')
                 ->references('id')->on('products')->onDelete('cascade');
         });
+
+        Schema::create('product_attribute_integer_values', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->integer('value');
+            $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('product_attribute_decimal_values', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->decimal('value');
+            $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('product_attribute_timestamp_values', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamp('value');
+            $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+
+
+
+
+
+
+
+
 
         Schema::create('attribute_product', function (Blueprint $table) {
             $table->increments('id');
@@ -455,6 +535,7 @@ class Mage2EcommerceSchema extends Migration
         });
 
         Schema::create('order_product_variations', function (Blueprint $table) {
+
             $table->increments('id');
             $table->integer('order_id')->unsigned();
             $table->integer('product_id')->unsigned();
@@ -482,6 +563,12 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('product_id')
                 ->references('id')->on('products')->onDelete('cascade');
         });
+
+
+
+
+
+
 
 
         Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
