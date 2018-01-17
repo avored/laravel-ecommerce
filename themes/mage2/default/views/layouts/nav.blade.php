@@ -1,16 +1,14 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="padding:0;">
     <div class="container">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="https://github.com/mage2/laravel-ecommerce">GitHub</a>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/mage2/laravel-ecommerce"><i class="fab fa-github"></i> GitHub</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://www.facebook.com/mage2ecommerce/">Facebook
-                    <span class="sr-only">(current)</span>
-                </a>
+                <a class="nav-link" href="https://www.facebook.com/mage2ecommerce/"><i class="fab fa-facebook"></i> Facebook</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://twitter.com/mage2ecommerce/">Twitter</a>
+                <a class="nav-link" href="https://twitter.com/mage2ecommerce/"><i class="fab fa-twitter"></i> Twitter</a>
             </li>
         </ul>
         <ul class="navbar-nav">

@@ -36,12 +36,11 @@
 <script src="{{ asset('/vendor/mage2-default/js/jquery-3.2.1.slim.min.js') }}"></script>
 <script src="{{ asset('/vendor/mage2-default/js/popper.min.js') }}"></script>
 <script src="{{ asset('/vendor/mage2-default/js/bootstrap.min.js') }}"></script>
-
-
 <script src="{{ asset('/vendor/mage2-default/js/star-rating.min.js') }}"></script>
+<script src="{{ asset('/vendor/mage2-default/js/fontawesome-all.min.js') }}"></script>
 
 @include("layouts.nav")
-<div class="container">
+<div class="container top-buffer  bottom-buffer">
 
     <div class="row">
         <div class="col-12">
@@ -68,9 +67,9 @@
         </div>
     </div>
 
-
-@yield('content')
+    @yield('content')
 </div>
+
 @include('layouts.footer')
 @stack('scripts')
 </body>
