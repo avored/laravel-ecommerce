@@ -61,23 +61,20 @@
                     </div>
                 </div>
 
-                    <div class="card product-card mb-2 mt-2">
-                        <a data-toggle="collapse" data-parent="#product-save-accordion"
-                           class="float-right" href="#attributes">
-                        <div class="card-header">
-                            Attributes
-
-
-
-                        </div>
-                        </a>
-                        <div class="card-body collapse" id="attributes">
-                            @include('mage2-ecommerce::admin.product.card.attributes')
-                        </div>
+                <!--div class="card product-card mb-2 mt-2">
+                    <a data-toggle="collapse" data-parent="#product-save-accordion"
+                       class="float-right" href="#attributes">
+                    <div class="card-header">
+                        Attributes
                     </div>
+                    </a>
+                    <div class="card-body collapse" id="attributes">
+                        include('mage2-ecommerce::admin.product.card.attributes')
+                    </div>
+                </div>
 
 
-                @if($model->type == "VARIATION")
+                if($model->type == "VARIATION")
                     <div class="card product-card mb-2 mt-2">
                         <a data-toggle="collapse" data-parent="#product-save-accordion"
                            class="float-right" href="#option">
@@ -86,11 +83,12 @@
                         </div>
                         </a>
                         <div class="card-body collapse" id="option">
-                            @include('mage2-ecommerce::admin.product.card.option')
+                            include('mage2-ecommerce::admin.product.card.option')
                         </div>
                     </div>
 
-                @endif
+                endif
+                -->
 
 
 

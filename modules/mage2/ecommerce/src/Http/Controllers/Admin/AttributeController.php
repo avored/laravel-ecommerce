@@ -29,12 +29,16 @@ use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Http\Requests\AttributeRequest;
 use Illuminate\Http\Request;
 
+
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
 class AttributeController extends AdminController
 {
-    public function getDataGrid()
-    {
-        return $users = DataGrid::dataTableData(Attribute::query())->get();
-    }
+
+
+
 
     public function index()
     {
@@ -64,6 +68,7 @@ class AttributeController extends AdminController
 
     public function create()
     {
+
         return view('mage2-ecommerce::admin.attribute.create');
     }
 
@@ -71,8 +76,7 @@ class AttributeController extends AdminController
     {
 
         $attribute = Attribute::create($request->all());
-
-        $this->_saveDropdownOptions($attribute , $request);
+        //$this->_saveDropdownOptions($attribute , $request);
 
         return redirect()->route('admin.attribute.index');
 
@@ -91,9 +95,7 @@ class AttributeController extends AdminController
 
         $attribute = Attribute::find($id);
         $attribute->update($request->all());
-
-
-        $this->_saveDropdownOptions($attribute, $request);
+        //$this->_saveDropdownOptions($attribute, $request);
 
         return redirect()->route('admin.attribute.index');
 

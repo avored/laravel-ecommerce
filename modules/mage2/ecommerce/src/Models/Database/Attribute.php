@@ -26,44 +26,7 @@ namespace Mage2\Ecommerce\Models\Database;
 
 class Attribute extends BaseModel
 {
-
-    protected $fillable = ['type', 'name', 'identifier', 'field_type','use_as' ,'sort_order'];
-
-
-    public static function variationOptions() {
-        $model = new static;
-        return $model->whereUseAs('VARIATION')->get()->pluck('name','id');
-    }
-
-    public static function specificationOptions() {
-        $model = new static;
-        return $model->whereUseAs('SPECIFICATION')->get()->pluck('name','id');
-    }
-
-    public function getDropdownSubProduct($option) {
-        $attributeValue  = ProductAttributeValue::whereAttributeId($this->attributes['id'])->whereValue($option->id)->first();
-
-        if(null != $attributeValue) {
-            return Product::findorfail($attributeValue->product_id);
-        }
-        
-        return null;
-
-    }
-
-
-    public function products() {
-        return $this->hasMany(Product::class);
-    }
-
-    public function attributeDropdownOptions() {
-        return $this->hasMany(AttributeDropdownOption::class);
-    }
-
-    public function getOptionsList($productAttributevalues) {
-        dd($productAttributevalues);
-    }
-
+    protected $fillable = ['name', 'identifier', 'field_type' ,'sort_order'];
 }
 
 
