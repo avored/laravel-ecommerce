@@ -51,7 +51,7 @@ class CategoryViewController extends Controller
         }
 
         $categoryProducts = $collections->paginateCollection($productsOnCategoryPage);
-
+        
         //$categoryProducts->withPath(route('category.view', [$slug]))->appends($request->except(['page']));
 
         return view('catalog.category.view')

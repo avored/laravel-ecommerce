@@ -8,7 +8,7 @@
     <div class="container">
     <div class="row">
         <div class="col-2">
-            @include('catalog.category.options')
+            <!-- include('catalog.category.options') -->
         </div>
         <div class="col-10">
             <div class="row">

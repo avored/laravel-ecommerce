@@ -73,26 +73,28 @@
                     <div id="description" class="tab-pane active">
 
 
-                        @if(count($specificationList = $product->getSpecificationList()) >= 0)
+                        <!--
+                        if(count($specificationList = $product->getSpecificationList()) >= 0)
 
                             <h6 class="p-3 mb-3">Product Specifications</h6>
                             <table class="table  mt-2 mb-2 table-bordered">
-                                @foreach($specificationList as $attribute)
+                                foreach($specificationList as $attribute)
 
 
                                 <tr>
                                     <th>
-                                        {{ $attribute->name }}
+                                        { $attribute->name }}
                                     </th>
                                     <td>
 
-                                        {{ $product->getSpecificationValue($attribute) }}
+                                        { $product->getSpecificationValue($attribute) }}
                                     </td>
                                 </tr>
-                                @endforeach
+                                endforeach
                             </table>
-                        @endif
+                        endif
 
+                        -->
 
                         <p>{!! $product->description !!}</p>
                     </div>
