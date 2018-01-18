@@ -124,3 +124,8 @@ ul.footer {
 .bottom-buffer { 
     margin-bottom:20px; 
 }
+
+.carousel-caption {
+    background-color: aliceblue;
+    color: black;
+}
