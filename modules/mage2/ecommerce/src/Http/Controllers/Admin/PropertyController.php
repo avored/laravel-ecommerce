@@ -24,10 +24,11 @@
  */
 namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Models\Database\Property;
 use Mage2\Ecommerce\Http\Requests\PropertyRequest;
-
 
 class PropertyController extends AdminController
 {
@@ -39,8 +40,6 @@ class PropertyController extends AdminController
      */
     public function index()
     {
-
-
         $dataGrid = DataGrid::model(Property::query()->orderBy('id','desc'))
             ->column('id',['sortable' => true])
             ->column('name')
@@ -129,5 +128,27 @@ class PropertyController extends AdminController
         Property::destroy($id);
 
         return redirect()->route('admin.property.index');
+    }
+
+
+
+    /**
+     * Get the Element Html in Json Response.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getElementHtml(Request $request)
+    {
+        $properties = Property::whereIn('id',$request->get('property_id'))->get();
+
+        $tmpString = str_random();
+        $view = view('mage2-ecommerce::admin.property.get-element')
+                        ->with('properties', $properties)
+                        ->with('tmpString', $tmpString);
+
+
+        return new JsonResponse(['success' => true,'content' => $view->render()]);
     }
 }

@@ -268,6 +268,11 @@ Route::middleware(['web', 'admin.auth'])
                 'uses' => 'OrderController@index'
         ]);
 
+        Route::post('get-property-element', [
+            'as' => 'admin.property.element',
+            'uses' => 'PropertyController@getElementHtml'
+        ]);
+
 
         Route::get('order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
         Route::get('order/{id}/send-email-invoice', ['as' => 'admin.order.send-email-invoice', 'uses' => 'OrderController@sendEmailInvoice']);

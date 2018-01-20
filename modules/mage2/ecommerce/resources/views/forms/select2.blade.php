@@ -13,7 +13,7 @@ if(isset($attributes)) {
 
 } else {
     $attributes['type'] = "text";
-    $attributes['class'] = 'form-control';
+    $attributes['class'] = 'form-control select2';
     $attributes['id'] = $name;
     $attributes['name'] = $name;
 

@@ -433,6 +433,26 @@ class Mage2EcommerceSchema extends Migration
 
 
 
+        Schema::create('product_property_varchar_values', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('property_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->string('value');
+            $table->timestamps();
+
+            $table->foreign('property_id')
+                ->references('id')->on('properties')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+
+
+
+
+
+
         Schema::create('attributes', function (Blueprint $table) {
 
             $table->increments('id');

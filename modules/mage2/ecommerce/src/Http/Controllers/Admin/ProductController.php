@@ -37,6 +37,7 @@ use Illuminate\Support\Facades\File;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Events\ProductAfterSave;
 use Mage2\Ecommerce\Events\ProductBeforeSave;
+use Mage2\Ecommerce\Models\Database\Property;
 
 class ProductController extends AdminController
 {
@@ -117,13 +118,15 @@ class ProductController extends AdminController
     public function edit($id)
     {
         $product = Product::findorfail($id);
-        $productOptions = Collection::make([]);
+        //$properties = Collection::make([]);
+        $properties =   Property::all()->pluck('name','id');
+
         if($product->type == "VARIATION") {
-            $productOptions =   Attribute::variationOptions();
+            //$properties =   Property::all()->pluck('id','name');
         }
         return view('mage2-ecommerce::admin.product.edit')
             ->with('model', $product)
-            ->with('productOptions', $productOptions);
+            ->with('properties', $properties);
     }
 
     /**

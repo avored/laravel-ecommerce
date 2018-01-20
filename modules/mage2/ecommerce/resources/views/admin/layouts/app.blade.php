@@ -58,15 +58,9 @@
 
 
 <script src="{{ asset('vendor/mage2-admin/js/jquery-3.2.1.min.js') }}"></script>
-
-<script src="https://cdn.datatables.net/v/bs/jq-2.2.4/dt-1.10.15/datatables.min.js"></script>
-
 <script src="{{ asset('vendor/mage2-admin/js/popper.min.js') }}"></script>
 <script src="{{ asset('vendor/mage2-admin/js/bootstrap.min.js') }}"></script>
-
-
-
-
+<script src="{{ asset('/vendor/mage2-default/js/fontawesome-all.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 <script src="{{ asset('vendor/mage2-admin/js/select2.full.min.js') }}"></script>
 @stack('scripts')

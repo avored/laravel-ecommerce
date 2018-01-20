@@ -279,13 +279,13 @@ class Product extends BaseModel
 
 
     /*
-     * Get the Price for the Product
+     * Get the Product Assigned Property List
      *
-     * @return \Mage2\Ecommerce\Models\Database\Attribute
+     * @return \Mage2\Ecommerce\Models\Database\Property
      */
-    public function getSpecificationList()
+    public function getPropertyLists()
     {
-        return Attribute::whereUseAs('SPECIFICATION')->get();
+        return [];
     }
 
     /*

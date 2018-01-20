@@ -61,6 +61,18 @@
                     </div>
                 </div>
 
+                <div class="card product-card mb-2 mt-2">
+                    <a data-toggle="collapse" data-parent="#product-save-accordion"
+                       class="float-right" href="#property">
+                    <div class="card-header">
+                        Property
+                    </div>
+                    </a>
+                    <div class="card-body collapse" id="property">
+                        @include('mage2-ecommerce::admin.product.card.property')
+                    </div>
+                </div>
+
                 <!--div class="card product-card mb-2 mt-2">
                     <a data-toggle="collapse" data-parent="#product-save-accordion"
                        class="float-right" href="#attributes">
