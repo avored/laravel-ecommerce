@@ -2,10 +2,6 @@
 
     <div class="col-12">
 
-
-
-
-
         <a href="#"
            class="float-right btn btn-warning"
            data-toggle="modal" data-target="#add-property">
