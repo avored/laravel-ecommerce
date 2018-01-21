@@ -15,18 +15,24 @@
 
         <div class="property-content-wrapper">
 
-        @if(count($productProperties = $model->getPropertyLists()) > 0 )
+        @if(count($productProperties = $model->productProperties) > 0 )
 
-            @foreach($productProperties as $property)
 
-                @if($property->field_type == 'TEXT')
+            @foreach($productProperties as $productVarcharPropertyValue)
+
+
+                <?php $property = $productVarcharPropertyValue; ?>
+                @if($productVarcharPropertyValue->property->field_type == 'TEXT')
                     <div class="form-group">
-                        <label for="property-{{ $property->id }}">{{ $property->name }}</label>
+                        <label for="property-{{ $productVarcharPropertyValue->property_id }}">
+                            {{ $productVarcharPropertyValue->property->name }}
+                        </label>
+
                         <input type="text"
-                               name="property[{{ $property->id  }}]"
+                               name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
                                class="form-control"
-                               value="{{ $model->getPropertyValue($property) }}"
-                               id="property-{{ $property->id }}" />
+                               value="{{ $productVarcharPropertyValue->value }}"
+                               id="property-{{ $productVarcharPropertyValue->property_id }}" />
                     </div>
                 @endif
 
@@ -40,7 +46,7 @@
                                     class="form-control"
                                     id=property-{{ $property->id }}"
                                     >{{ $model->getSpecificationValue($property) }}</textarea>
-                            
+
                         </div>
 
 
