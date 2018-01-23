@@ -21,8 +21,14 @@ if(isset($attributes)) {
     $attributes['id'] = $name;
     $attributes['name'] = $name;
     $attributes['value'] = $value;
-
 }
+
+if($errors->has($name) && isset($attributes['class'])) {
+    $attributes['class'] .= " is-invalid";
+} elseif ($errors->has($name) && !isset($attributes['class'])){
+    $attributes['class'] = "is-invalid";
+}
+
 $attrString = "";
 
 foreach($attributes as $attrKey => $attrValue) {
@@ -36,4 +42,12 @@ foreach($attributes as $attrKey => $attrValue) {
         <label for="{{ $name }}">{{ $label }}</label>
     @endif
     <input {!! $attrString !!} />
+
+    @if($errors->has($name))
+        <div class="invalid-feedback">
+        {{ $errors->first($name) }}
+        </div>
+    @endif
+
+
 </div>

@@ -24,9 +24,19 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-class Property extends BaseModel
+class ProductPropertyBooleanValue extends BaseModel
 {
-    protected $fillable = ['name', 'identifier', 'data_type','field_type' ,'sort_order'];
+
+    protected $fillable = ['property_id', 'product_id' ,'value'];
+
+
+    public function product() {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function property() {
+        return $this->belongsTo(Property::class);
+    }
 
 }
 

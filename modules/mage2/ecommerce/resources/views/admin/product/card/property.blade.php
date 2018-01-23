@@ -1,27 +1,60 @@
+<?php
+
+$productProperties = $model->getProductAllProperties();
+?>
+
 <div class="row">
 
     <div class="col-12">
 
-        <a href="#"
-           class="float-right btn btn-warning"
-           data-toggle="modal" data-target="#add-property">
-            <i class="fa fa-plus" aria-hidden="true"></i> Add Property
-        </a>
+        <div id="add-property" class="input-group">
 
-        <div class="clearfix"></div>
+            <select name="product-property[]"
+                    multiple="true"
+                    class="select2 form-control modal-product-property-select"
+                    style="width: 100%;height: 40px">
+                @foreach($propertyOptions as $propertyId => $propertyName)
+                    <option
+                            @if($productProperties->contains('id',$propertyId))
+                                    selected
+                            @endif
+
+                            value="{{ $propertyId }}">
+                        {{ $propertyName }}
+                    </option>
+                @endforeach
+            </select>
+
+
+            <div class="input-group-append">
+
+
+            <button type="button"
+                    data-token="{{ csrf_token() }}"
+                    class="btn btn-primary modal-use-selected">
+                Use Selected
+            </button>
+            </div>
+
+        </div>
+
+
+
         <hr/>
 
 
 
         <div class="property-content-wrapper">
 
-        @if(count($productProperties = $model->productProperties) > 0 )
+        @if(count($productProperties) > 0 )
 
 
             @foreach($productProperties as $productVarcharPropertyValue)
 
 
                 <?php $property = $productVarcharPropertyValue; ?>
+
+
                 @if($productVarcharPropertyValue->property->field_type == 'TEXT')
                     <div class="form-group">
                         <label for="property-{{ $productVarcharPropertyValue->property_id }}">
@@ -34,6 +67,35 @@
                                value="{{ $productVarcharPropertyValue->value }}"
                                id="property-{{ $productVarcharPropertyValue->property_id }}" />
                     </div>
+                @endif
+
+                @if($productVarcharPropertyValue->property->field_type == 'CHECKBOX')
+
+                    <div class="form-check">
+
+                        <input type="hidden"
+                               name="property[{{ str_random() }}][{{ $property->id  }}]"
+                               value="0"
+                        />
+
+                        <input type="checkbox"
+                               name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                               class="form-check-input"
+                               value="1"
+                               value="{{ $productVarcharPropertyValue->value }}"
+                               id="property-{{ $productVarcharPropertyValue->property_id }}"
+                        />
+
+
+                        <label class="form-check-label"
+                               for="property-{{ $productVarcharPropertyValue->property_id }}">
+                            {{ $productVarcharPropertyValue->property->name }}
+                        </label>
+
+
+                    </div>
+
+
                 @endif
 
 
@@ -78,60 +140,13 @@
                 @endif
 
             @endforeach
-
         @else
-
             <p>Sorry No Property Found assign Yet</p>
-
         @endif
 
-
-
-
-
-
         </div>
     </div>
 
-</div>
-
-
-
-<div class="modal" tabindex="-1" id="add-property" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Please Select Property to Use</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-
-                    @include('mage2-ecommerce::forms.select2',['name' => 'product-property[]',
-                                                                'label' => 'Property' ,
-                                                                'options' => $properties,
-                                                                'values' => [],
-                                                                'attributes' => ['multiple' => true,
-                                                                                'class' => 'select2 form-control modal-product-property-select',
-                                                                                'style' => 'width:100%']
-                                                                ])
-
-
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button"
-                        data-token="{{ csrf_token() }}"
-                        class="btn btn-primary modal-use-selected">
-                    Use Selected
-                </button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -160,7 +175,7 @@
 
                     if(response.success == true) {
 
-                        jQuery('#add-property').modal('hide');
+                        //jQuery('#add-property').modal('hide');
                         jQuery('.property-content-wrapper').html(response.content);
 
                     }

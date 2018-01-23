@@ -40,6 +40,7 @@ class PropertyController extends AdminController
      */
     public function index()
     {
+
         $dataGrid = DataGrid::model(Property::query()->orderBy('id','desc'))
             ->column('id',['sortable' => true])
             ->column('name')
@@ -142,6 +143,8 @@ class PropertyController extends AdminController
     public function getElementHtml(Request $request)
     {
         $properties = Property::whereIn('id',$request->get('property_id'))->get();
+
+
 
         $tmpString = str_random();
         $view = view('mage2-ecommerce::admin.property.get-element')

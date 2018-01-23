@@ -27,9 +27,8 @@ namespace Mage2\Ecommerce\Models\Database;
 
 use Illuminate\Support\Facades\Session;
 use Mage2\Ecommerce\Image\LocalFile;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
-use Mage2\Ecommerce\Http\Requests\ProductRequest;
 
 class Product extends BaseModel
 {
@@ -134,31 +133,48 @@ class Product extends BaseModel
         }
 
 
-        //*****  SAVING PRODUCT ATTRIBUTES  *****//
-        $attributes = $request->get('attributes_specification');
-
-        if (count($attributes) > 0) {
-            foreach ($attributes as $attributeId => $attributeValue) {
-
-                $productId = $this->attributes['id'];
-                $productAttributeValue = ProductAttributeValue::whereProductId($productId)->whereAttributeId($attributeId)->first();
+        $properties = $request->get('property');
 
 
-                if (null === $productAttributeValue && null != $attributeValue) {
+        foreach ($properties as $key => $property) {
 
-                    ProductAttributeValue::create(['attribute_id' => $attributeId,
-                        'product_id' => $this->attributes['id'],
-                        'value' => $attributeValue
-                    ]);
+            foreach ($property as $propertyId => $propertyValue) {
 
+                $propertyModal = Property::findorfail($propertyId);
 
-                } elseif (null !== $productAttributeValue && $attributeValue == null) {
-                    $productAttributeValue->delete();
-                } elseif((null !== $productAttributeValue && $attributeValue != null) ) {
-                    $productAttributeValue->update(['value' => $attributeValue]);
+                if ($propertyModal->data_type == 'VARCHAR') {
+
+                    $propertyVarcharValue = ProductPropertyVarcharValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+
+                    if (null === $propertyVarcharValue) {
+                        ProductPropertyVarcharValue::create([
+                            'product_id' => $this->id,
+                            'property_id' => $propertyId,
+                            'value' => $propertyValue
+                        ]);
+                    } else {
+                        $propertyVarcharValue->update(['value' => $propertyValue]);
+                    }
+                }
+
+                if ($propertyModal->data_type == 'BOOLEAN') {
+
+                    $propertyBooleanValue = ProductPropertyBooleanValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+
+                    if (null === $propertyBooleanValue) {
+                        ProductPropertyBooleanValue::create([
+                            'product_id' => $this->id,
+                            'property_id' => $propertyId,
+                            'value' => $propertyValue
+                        ]);
+                    } else {
+                        $propertyBooleanValue->update(['value' => $propertyValue]);
+                    }
                 }
             }
+
         }
+
 
     }
 
@@ -301,6 +317,20 @@ class Product extends BaseModel
     }
 
 
+    /*
+     * Get the Product Property Value
+     *
+     * @return varchar $value
+     */
+    public function getPropertyValue(ProductPropertyVarcharValue $property)
+    {
+        dd($property);
+        $row = $this->prices()->first();
+
+        return (isset($row->price)) ? $row->price : null;
+    }
+
+
     public function productAttributes()
     {
         return $this->belongsToMany(Attribute::class);
@@ -370,6 +400,33 @@ class Product extends BaseModel
     {
         return $this->hasMany(ProductAttributeValue::class);
     }
+
+
+    public function getProductAllProperties()
+    {
+        $collection = Collection::make([]);
+
+
+        foreach ($this->productVarcharProperties as $item) {
+            $collection->push($item);
+        }
+        foreach ($this->productBooleanProperties as $item) {
+            $collection->push($item);
+        }
+
+        return $collection;
+    }
+
+    public function productVarcharProperties()
+    {
+        return $this->hasMany(ProductPropertyVarcharValue::class);
+    }
+
+    public function productBooleanProperties()
+    {
+        return $this->hasMany(ProductPropertyBooleanValue::class);
+    }
+
 
     public function attribute()
     {

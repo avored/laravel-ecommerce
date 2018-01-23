@@ -126,7 +126,7 @@ class ProductController extends AdminController
         }
         return view('mage2-ecommerce::admin.product.edit')
             ->with('model', $product)
-            ->with('properties', $properties);
+            ->with('propertyOptions', $properties);
     }
 
     /**
