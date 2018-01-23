@@ -84,6 +84,33 @@ $productProperties = $model->getProductAllProperties();
                     </div>
                 @endif
 
+                @if($productVarcharPropertyValue->property->field_type == 'SELECT')
+                    <div class="form-group">
+                        <label for="property-{{ $productVarcharPropertyValue->property_id }}">
+                            {{ $productVarcharPropertyValue->property->name }}
+                        </label>
+
+                        <select name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                                class="form-control"
+                                id="property-{{ $productVarcharPropertyValue->property_id }}">
+
+                            @foreach($productVarcharPropertyValue->property->propertyDropdownOptions as $option)
+                            <option
+                                    value="{{ $option->id }}"
+
+                                    @if($productVarcharPropertyValue->value == $option->id)
+                                            selected
+                                    @endif
+                                    >
+                                {{ $option->display_text }}
+                            </option>
+                            @endforeach
+
+                        </select>
+
+                    </div>
+                @endif
+
 
 
                 @if($productVarcharPropertyValue->property->field_type == 'CHECKBOX')

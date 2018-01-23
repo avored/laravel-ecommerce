@@ -45,6 +45,22 @@
         </div>
     @endif
 
+    @if($property->field_type == 'SELECT')
+        <div class="form-group">
+            <label for="property-{{ $tmpString }}-{{ $property->id }}">{{ $property->name }}</label>
+
+            <select name="property[{{ $tmpString }}][{{ $property->id  }}]" class="form-control"
+                    id=property-{{ $tmpString }}-{{ $property->id }}">
+
+                @foreach($property->propertyDropdownOptions as $option)
+                    <option value="{{ $option->id }}">{{ $option->display_text }}</option>
+                @endforeach
+            </select>
+
+        </div>
+    @endif
+
+
 
 
 @endforeach

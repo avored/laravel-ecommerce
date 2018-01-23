@@ -29,6 +29,7 @@ use Illuminate\Http\Request;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Models\Database\Property;
 use Mage2\Ecommerce\Http\Requests\PropertyRequest;
+use Mage2\Ecommerce\Models\Database\PropertyDropdownOption;
 
 class PropertyController extends AdminController
 {
@@ -81,8 +82,9 @@ class PropertyController extends AdminController
      */
     public function store(PropertyRequest $request)
     {
-        Property::create($request->all());
+        $property = Property::create($request->all());
 
+        $this->_saveDropdownOptions($property,$request);
         return redirect()->route('admin.property.index');
     }
 
@@ -112,6 +114,8 @@ class PropertyController extends AdminController
     {
         $property = Property::findorfail($id);
         $property->update($request->all());
+
+        $this->_saveDropdownOptions($property,$request);
 
         return redirect()->route('admin.property.index');
     }
@@ -153,4 +157,24 @@ class PropertyController extends AdminController
 
         return new JsonResponse(['success' => true,'content' => $view->render()]);
     }
+
+    private function _saveDropdownOptions($property, $request)
+    {
+
+        if (null !== $request->get('dropdown-options')) {
+
+            $property->propertyDropdownOptions()->delete();
+
+            foreach ($request->get('dropdown-options') as $key => $val) {
+                if ($key == '__RANDOM_STRING__') {
+                    continue;
+                }
+
+                $property->propertyDropdownOptions()->create($val);
+
+            }
+        }
+    }
+
+
 }

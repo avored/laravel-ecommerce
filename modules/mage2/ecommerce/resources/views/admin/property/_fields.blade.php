@@ -44,7 +44,7 @@ $hiddenClass = "d-none";
 $editMode = false;
 
 
-if (isset($model) && $model->attributeDropdownOptions->count() > 0) {
+if (isset($model) && $model->propertyDropdownOptions->count() > 0) {
     $editMode = true;
     $hiddenClass = "";
 }
@@ -52,9 +52,9 @@ if (isset($model) && $model->attributeDropdownOptions->count() > 0) {
 
 <div class="dynamic-field {{ $hiddenClass }}">
 
-    @if($editMode === true && false)
+    @if($editMode === true)
 
-        @foreach($model->attributeDropdownOptions as $key => $dropdownOptionModel)
+        @foreach($model->propertyDropdownOptions as $key => $dropdownOptionModel)
 
             <div class="dynamic-field-row">
                 <div class="form-group col-md-12">

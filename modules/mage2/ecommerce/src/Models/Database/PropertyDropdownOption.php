@@ -24,15 +24,17 @@
  */
 namespace Mage2\Ecommerce\Models\Database;
 
-class Property extends BaseModel
+class PropertyDropdownOption extends BaseModel
 {
-    protected $fillable = ['name', 'identifier', 'data_type','field_type' ,'sort_order'];
+    protected $fillable = ['property_id', 'display_text'];
 
-
-    public function propertyDropdownOptions() {
-        return $this->hasMany(PropertyDropdownOption::class);
+    /**
+     * Proerty Dropdown Options belongs to one Product Property.
+     *
+     * @return \Mage2\Ecommerce\Models\Database\Property
+     */
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
     }
-
 }
-
-
