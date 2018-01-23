@@ -201,6 +201,20 @@ class Product extends BaseModel
                         $propertyDecimalValue->update(['value' => $propertyValue]);
                     }
                 }
+                if ($propertyModal->data_type == 'INTEGER') {
+
+                    $propertyIntegerValue = ProductPropertyIntegerValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+
+                    if (null === $propertyIntegerValue) {
+                        ProductPropertyIntegerValue::create([
+                            'product_id' => $this->id,
+                            'property_id' => $propertyId,
+                            'value' => $propertyValue
+                        ]);
+                    } else {
+                        $propertyIntegerValue->update(['value' => $propertyValue]);
+                    }
+                }
 
 
             }
@@ -452,6 +466,12 @@ class Product extends BaseModel
         foreach ($this->productDecimalProperties as $item) {
             $collection->push($item);
         }
+        foreach ($this->productDecimalProperties as $item) {
+            $collection->push($item);
+        }
+        foreach ($this->productIntegerProperties as $item) {
+            $collection->push($item);
+        }
 
 
         return $collection;
@@ -465,6 +485,11 @@ class Product extends BaseModel
     public function productBooleanProperties()
     {
         return $this->hasMany(ProductPropertyBooleanValue::class);
+    }
+
+    public function productIntegerProperties()
+    {
+        return $this->hasMany(ProductPropertyIntegerValue::class);
     }
 
     public function productTextProperties()

@@ -40,7 +40,6 @@ class PropertyController extends AdminController
      */
     public function index()
     {
-
         $dataGrid = DataGrid::model(Property::query()->orderBy('id','desc'))
             ->column('id',['sortable' => true])
             ->column('name')
