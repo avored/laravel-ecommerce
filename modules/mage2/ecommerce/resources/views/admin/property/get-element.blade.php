@@ -33,7 +33,16 @@
                 {{ $property->name }}
             </label>
         </div>
+    @endif
 
+    @if($property->field_type == 'TEXTAREA')
+        <div class="form-group">
+            <label for="property-{{ $tmpString }}-{{ $property->id }}">{{ $property->name }}</label>
+
+            <textarea name="property[{{ $tmpString }}][{{ $property->id  }}]" class="form-control"
+                      id=property-{{ $tmpString }}-{{ $property->id }}"></textarea>
+
+        </div>
     @endif
 
 

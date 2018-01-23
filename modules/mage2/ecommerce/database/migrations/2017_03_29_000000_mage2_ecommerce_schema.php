@@ -433,13 +433,42 @@ class Mage2EcommerceSchema extends Migration
         });
 
 
-
         Schema::create('product_property_varchar_values', function (Blueprint $table) {
 
             $table->increments('id');
             $table->integer('property_id')->unsigned();
             $table->integer('product_id')->unsigned();
-            $table->string('value');
+            $table->string('value')->nullable()->default(null);
+            $table->timestamps();
+
+            $table->foreign('property_id')
+                ->references('id')->on('properties')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('product_property_decimal_values', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('property_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->decimal('value')->nullable()->default(null);
+            $table->timestamps();
+
+            $table->foreign('property_id')
+                ->references('id')->on('properties')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+
+
+        Schema::create('product_property_text_values', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('property_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->text('value')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('property_id')
@@ -453,7 +482,7 @@ class Mage2EcommerceSchema extends Migration
             $table->increments('id');
             $table->integer('property_id')->unsigned();
             $table->integer('product_id')->unsigned();
-            $table->tinyInteger('value');
+            $table->tinyInteger('value')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('property_id')
@@ -461,7 +490,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('product_id')
                 ->references('id')->on('products')->onDelete('cascade');
         });
-
 
 
 

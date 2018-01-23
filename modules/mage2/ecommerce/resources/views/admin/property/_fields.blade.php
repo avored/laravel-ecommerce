@@ -22,7 +22,8 @@
                                             'label' => 'Field Type',
                                             'options' => [
                                                         'TEXT' => 'Text Field',
-                                                        'CHECKBOX' => 'Check box'
+                                                        'CHECKBOX' => 'Check box',
+                                                        'TEXTAREA' => 'TextArea'
                                                         ]
                                         ])
 

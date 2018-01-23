@@ -171,6 +171,38 @@ class Product extends BaseModel
                         $propertyBooleanValue->update(['value' => $propertyValue]);
                     }
                 }
+
+                if ($propertyModal->data_type == 'TEXT') {
+
+                    $propertyTextValue = ProductPropertyTextValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+
+                    if (null === $propertyTextValue) {
+                        ProductPropertyTextValue::create([
+                            'product_id' => $this->id,
+                            'property_id' => $propertyId,
+                            'value' => $propertyValue
+                        ]);
+                    } else {
+                        $propertyTextValue->update(['value' => $propertyValue]);
+                    }
+                }
+
+                if ($propertyModal->data_type == 'DECIMAL') {
+
+                    $propertyDecimalValue = ProductPropertyDecimalValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+
+                    if (null === $propertyDecimalValue) {
+                        ProductPropertyDecimalValue::create([
+                            'product_id' => $this->id,
+                            'property_id' => $propertyId,
+                            'value' => $propertyValue
+                        ]);
+                    } else {
+                        $propertyDecimalValue->update(['value' => $propertyValue]);
+                    }
+                }
+
+
             }
 
         }
@@ -414,6 +446,14 @@ class Product extends BaseModel
             $collection->push($item);
         }
 
+        foreach ($this->productTextProperties as $item) {
+            $collection->push($item);
+        }
+        foreach ($this->productDecimalProperties as $item) {
+            $collection->push($item);
+        }
+
+
         return $collection;
     }
 
@@ -425,6 +465,16 @@ class Product extends BaseModel
     public function productBooleanProperties()
     {
         return $this->hasMany(ProductPropertyBooleanValue::class);
+    }
+
+    public function productTextProperties()
+    {
+        return $this->hasMany(ProductPropertyTextValue::class);
+    }
+
+    public function productDecimalProperties()
+    {
+        return $this->hasMany(ProductPropertyDecimalValue::class);
     }
 
 

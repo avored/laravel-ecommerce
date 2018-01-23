@@ -1,6 +1,7 @@
 <?php
 
 $productProperties = $model->getProductAllProperties();
+
 ?>
 
 <div class="row">
@@ -15,7 +16,7 @@ $productProperties = $model->getProductAllProperties();
                     style="width: 100%;height: 40px">
                 @foreach($propertyOptions as $propertyId => $propertyName)
                     <option
-                            @if($productProperties->contains('id',$propertyId))
+                            @if($productProperties->contains('property_id',$propertyId))
                                     selected
                             @endif
 
@@ -69,6 +70,22 @@ $productProperties = $model->getProductAllProperties();
                     </div>
                 @endif
 
+                @if($productVarcharPropertyValue->property->field_type == 'TEXTAREA')
+                    <div class="form-group">
+                        <label for="property-{{ $productVarcharPropertyValue->property_id }}">
+                            {{ $productVarcharPropertyValue->property->name }}
+                        </label>
+
+                        <textarea name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                                  class="form-control"
+                                  id="property-{{ $productVarcharPropertyValue->property_id }}"
+                        >{{ $productVarcharPropertyValue->value }}</textarea>
+
+                    </div>
+                @endif
+
+
+
                 @if($productVarcharPropertyValue->property->field_type == 'CHECKBOX')
 
                     <div class="form-check">
@@ -82,7 +99,9 @@ $productProperties = $model->getProductAllProperties();
                                name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
                                class="form-check-input"
                                value="1"
-                               value="{{ $productVarcharPropertyValue->value }}"
+                               @if($productVarcharPropertyValue->value == 1)
+                                       checked
+                               @endif
                                id="property-{{ $productVarcharPropertyValue->property_id }}"
                         />
 
