@@ -12,7 +12,7 @@
     "shopping cart",
     "e commerce"
   ],
-  "license": "GPL-3.0",
+  "license": "MIT",
   "type": "project",
   "minimum-stability": "dev",
   "require": {
