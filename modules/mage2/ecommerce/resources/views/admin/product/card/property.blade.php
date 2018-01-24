@@ -17,7 +17,7 @@ $productProperties = $model->getProductAllProperties();
                 @foreach($propertyOptions as $propertyId => $propertyName)
                     <option
                             @if($productProperties->contains('property_id',$propertyId))
-                                    selected
+                            selected
                             @endif
 
                             value="{{ $propertyId }}">
@@ -38,155 +38,129 @@ $productProperties = $model->getProductAllProperties();
         </div>
 
 
-
         <hr/>
-
 
 
         <div class="property-content-wrapper">
 
-        @if(count($productProperties) > 0 )
+            @if(count($productProperties) > 0 )
 
 
-            @foreach($productProperties as $productVarcharPropertyValue)
+                @foreach($productProperties as $productVarcharPropertyValue)
 
 
-                <?php $property = $productVarcharPropertyValue; ?>
+                    <?php $property = $productVarcharPropertyValue; ?>
 
 
-                @if($productVarcharPropertyValue->property->field_type == 'TEXT')
-                    <div class="form-group">
-                        <label for="property-{{ $productVarcharPropertyValue->property_id }}">
-                            {{ $productVarcharPropertyValue->property->name }}
-                        </label>
-
-                        <input type="text"
-                               name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
-                               class="form-control"
-                               value="{{ $productVarcharPropertyValue->value }}"
-                               id="property-{{ $productVarcharPropertyValue->property_id }}" />
-                    </div>
-                @endif
-
-                @if($productVarcharPropertyValue->property->field_type == 'TEXTAREA')
-                    <div class="form-group">
-                        <label for="property-{{ $productVarcharPropertyValue->property_id }}">
-                            {{ $productVarcharPropertyValue->property->name }}
-                        </label>
-
-                        <textarea name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
-                                  class="form-control"
-                                  id="property-{{ $productVarcharPropertyValue->property_id }}"
-                        >{{ $productVarcharPropertyValue->value }}</textarea>
-
-                    </div>
-                @endif
-
-                @if($productVarcharPropertyValue->property->field_type == 'SELECT')
-                    <div class="form-group">
-                        <label for="property-{{ $productVarcharPropertyValue->property_id }}">
-                            {{ $productVarcharPropertyValue->property->name }}
-                        </label>
-
-                        <select name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
-                                class="form-control"
-                                id="property-{{ $productVarcharPropertyValue->property_id }}">
-
-                            @foreach($productVarcharPropertyValue->property->propertyDropdownOptions as $option)
-                            <option
-                                    value="{{ $option->id }}"
-
-                                    @if($productVarcharPropertyValue->value == $option->id)
-                                            selected
-                                    @endif
-                                    >
-                                {{ $option->display_text }}
-                            </option>
-                            @endforeach
-
-                        </select>
-
-                    </div>
-                @endif
-
-
-
-                @if($productVarcharPropertyValue->property->field_type == 'CHECKBOX')
-
-                    <div class="form-check">
-
-                        <input type="hidden"
-                               name="property[{{ str_random() }}][{{ $property->id  }}]"
-                               value="0"
-                        />
-
-                        <input type="checkbox"
-                               name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
-                               class="form-check-input"
-                               value="1"
-                               @if($productVarcharPropertyValue->value == 1)
-                                       checked
-                               @endif
-                               id="property-{{ $productVarcharPropertyValue->property_id }}"
-                        />
-
-
-                        <label class="form-check-label"
-                               for="property-{{ $productVarcharPropertyValue->property_id }}">
-                            {{ $productVarcharPropertyValue->property->name }}
-                        </label>
-
-
-                    </div>
-
-
-                @endif
-
-
-                @if($property->field_type == 'TEXTAREA')
-
+                    @if($productVarcharPropertyValue->property->field_type == 'TEXT')
                         <div class="form-group">
-                            <label for="property-{{ $property->id }}">{{ $property->name }}</label>
+                            <label for="property-{{ $productVarcharPropertyValue->property_id }}">
+                                {{ $productVarcharPropertyValue->property->name }}
+                            </label>
+
+                            <input type="text"
+                                   name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                                   class="form-control"
+                                   value="{{ $productVarcharPropertyValue->value }}"
+                                   id="property-{{ $productVarcharPropertyValue->property_id }}"/>
+                        </div>
+                    @endif
+
+                    @if($productVarcharPropertyValue->property->field_type == 'DATETIME')
+                        <div class="form-group">
+                            <label for="property-{{ $productVarcharPropertyValue->property_id }}">
+                                {{ $productVarcharPropertyValue->property->name }}
+                            </label>
+
+                            <input type="text"
+                                   name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                                   class="form-control datetime"
+                                   value="{{ $productVarcharPropertyValue->value }}"
+                                   id="property-{{ $productVarcharPropertyValue->property_id }}"/>
+                        </div>
+                    @endif
+
+                    @if($productVarcharPropertyValue->property->field_type == 'TEXTAREA')
+                        <div class="form-group">
+                            <label for="property-{{ $productVarcharPropertyValue->property_id }}">
+                                {{ $productVarcharPropertyValue->property->name }}
+                            </label>
+
                             <textarea
-                                    name="property[{{ $property->id  }}]"
+                                    name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
                                     class="form-control"
-                                    id=property-{{ $property->id }}"
-                                    >{{ $model->getSpecificationValue($property) }}</textarea>
+                                    id="property-{{ $productVarcharPropertyValue->property_id }}"
+                            >{{ $productVarcharPropertyValue->value }}</textarea>
+
+                        </div>
+                    @endif
+
+                    @if($productVarcharPropertyValue->property->field_type == 'SELECT')
+                        <div class="form-group">
+                            <label for="property-{{ $productVarcharPropertyValue->property_id }}">
+                                {{ $productVarcharPropertyValue->property->name }}
+                            </label>
+
+                            <select name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                                    class="form-control"
+                                    id="property-{{ $productVarcharPropertyValue->property_id }}">
+
+                                @foreach($productVarcharPropertyValue->property->propertyDropdownOptions as $option)
+                                    <option
+                                            value="{{ $option->id }}"
+
+                                            @if($productVarcharPropertyValue->value == $option->id)
+                                            selected
+                                            @endif
+                                    >
+                                        {{ $option->display_text }}
+                                    </option>
+                                @endforeach
+
+                            </select>
+
+                        </div>
+                    @endif
+
+
+
+                    @if($productVarcharPropertyValue->property->field_type == 'CHECKBOX')
+
+                        <div class="form-check">
+
+                            <input type="hidden"
+                                   name="property[{{ str_random() }}][{{ $property->id  }}]"
+                                   value="0"
+                            />
+
+                            <input type="checkbox"
+                                   name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                                   class="form-check-input"
+                                   value="1"
+                                   @if($productVarcharPropertyValue->value == 1)
+                                   checked
+                                   @endif
+                                   id="property-{{ $productVarcharPropertyValue->property_id }}"
+                            />
+
+
+                            <label class="form-check-label"
+                                   for="property-{{ $productVarcharPropertyValue->property_id }}">
+                                {{ $productVarcharPropertyValue->property->name }}
+                            </label>
+
 
                         </div>
 
 
                     @endif
 
-                @if($property->field_type == 'SELECT')
 
 
-                        <div class="form-group">
-                            <label for="property-{{ $property->id }}">{{ $property->name }}</label>
-
-                            <select name="property[{{ $property->id  }}]"
-                                    class="form-control"
-                                    id=property-{{ $property->id }}">
-
-
-                                <option value="">Please Select</option>
-                                @foreach($property->attributeDropdownOptions()->get() as $dropdown)
-
-                                <option
-                                        @if($model->getSpecificationValue($property) == $dropdown->id)
-                                                selected
-                                        @endif
-                                        value="{{ $dropdown->id }}">{{ $dropdown->display_text }}</option>
-                                @endforeach
-                            </select>
-
-                        </div>
-                @endif
-
-            @endforeach
-        @else
-            <p>Sorry No Property Found assign Yet</p>
-        @endif
+                @endforeach
+            @else
+                <p>Sorry No Property Found assign Yet</p>
+            @endif
 
         </div>
     </div>
@@ -199,44 +173,51 @@ $productProperties = $model->getProductAllProperties();
 
     <script>
 
-    jQuery(document).ready(function(){
 
-        jQuery('.modal-use-selected').on('click',function (e) {
-
-            var token = jQuery(this).attr('data-token');
-            var element = jQuery(this).parents('#add-property:first').find('.modal-product-property-select');
-
-            var data = {_token: token, property_id: element.val()};
-
-
-            jQuery.ajax({
-                url: '{{ route('admin.property.element') }}',
-                data: data,
-                dataType: 'json',
-                method: 'post',
-                success:function (response) {
-                    console.info(response);
-
-                    if(response.success == true) {
-
-                        //jQuery('#add-property').modal('hide');
-                        jQuery('.property-content-wrapper').html(response.content);
-
-
-                        jQuery('.datetime').flatpickr({
-                            altInput: true,
-                            altFormat: "d-m-Y",
-                            dateFormat: "Y-m-d",
-                        });
-
-
-                    }
-                }
+        $(function () {
+            jQuery('.datetime').flatpickr({
+                altInput: true,
+                altFormat: "d-m-Y",
+                dateFormat: "Y-m-d",
             });
+
+
+            jQuery('.modal-use-selected').on('click', function (e) {
+
+                var token = jQuery(this).attr('data-token');
+                var element = jQuery(this).parents('#add-property:first').find('.modal-product-property-select');
+
+                var data = {_token: token, property_id: element.val()};
+
+
+                jQuery.ajax({
+                    url: '{{ route('admin.property.element') }}',
+                    data: data,
+                    dataType: 'json',
+                    method: 'post',
+                    success: function (response) {
+                        console.info(response);
+
+                        if (response.success == true) {
+
+                            //jQuery('#add-property').modal('hide');
+                            jQuery('.property-content-wrapper').html(response.content);
+
+
+                            jQuery('.datetime').flatpickr({
+                                altInput: true,
+                                altFormat: "d-m-Y",
+                                dateFormat: "Y-m-d",
+                            });
+
+
+                        }
+                    }
+                });
+            });
+
+
         });
-
-
-    });
 
 
     </script>

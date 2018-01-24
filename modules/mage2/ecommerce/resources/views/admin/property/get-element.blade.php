@@ -71,31 +71,9 @@
             />
         </div>
 
-
-
-
-
-
-
-
-
     @endif
 
 
 
 
 @endforeach
-
-
-
-@push('scripts')
-
-    <script>
-
-        $(function () {
-            jQuery('.datetime').flatpickr();
-        })
-
-    </script>
-
-@endpush

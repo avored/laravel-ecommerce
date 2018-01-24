@@ -487,6 +487,10 @@ class Product extends BaseModel
             $collection->push($item);
         }
 
+        foreach ($this->productDatetimeProperties as $item) {
+            $collection->push($item);
+        }
+
 
         return $collection;
     }
@@ -494,6 +498,11 @@ class Product extends BaseModel
     public function productVarcharProperties()
     {
         return $this->hasMany(ProductPropertyVarcharValue::class);
+    }
+
+    public function productDatetimeProperties()
+    {
+        return $this->hasMany(ProductPropertyDatetimeValue::class);
     }
 
     public function productBooleanProperties()
