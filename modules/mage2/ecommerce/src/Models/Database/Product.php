@@ -215,6 +215,20 @@ class Product extends BaseModel
                         $propertyIntegerValue->update(['value' => $propertyValue]);
                     }
                 }
+                if ($propertyModal->data_type == 'DATETIME') {
+
+                    $propertyDatetimeValue = ProductPropertyDatetimeValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+
+                    if (null === $propertyDatetimeValue) {
+                        ProductPropertyDatetimeValue::create([
+                            'product_id' => $this->id,
+                            'property_id' => $propertyId,
+                            'value' => $propertyValue
+                        ]);
+                    } else {
+                        $propertyDatetimeValue->update(['value' => $propertyValue]);
+                    }
+                }
 
 
             }

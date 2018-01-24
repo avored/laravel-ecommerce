@@ -41,3 +41,7 @@
     -ms-flex-align: center;
     align-items: center;
 }
+.datetime.form-control:disabled,
+.datetime.form-control[readonly]{
+    background: #fff;
+}

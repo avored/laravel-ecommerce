@@ -28,13 +28,11 @@ $productProperties = $model->getProductAllProperties();
 
 
             <div class="input-group-append">
-
-
-            <button type="button"
-                    data-token="{{ csrf_token() }}"
-                    class="btn btn-primary modal-use-selected">
-                Use Selected
-            </button>
+                <button type="button"
+                        data-token="{{ csrf_token() }}"
+                        class="btn btn-primary modal-use-selected">
+                    Use Selected
+                </button>
             </div>
 
         </div>
@@ -223,6 +221,14 @@ $productProperties = $model->getProductAllProperties();
 
                         //jQuery('#add-property').modal('hide');
                         jQuery('.property-content-wrapper').html(response.content);
+
+
+                        jQuery('.datetime').flatpickr({
+                            altInput: true,
+                            altFormat: "d-m-Y",
+                            dateFormat: "Y-m-d",
+                        });
+
 
                     }
                 }

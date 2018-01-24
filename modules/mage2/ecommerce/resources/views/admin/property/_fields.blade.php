@@ -24,7 +24,8 @@
                                                         'TEXT' => 'Text Field',
                                                         'CHECKBOX' => 'Check box',
                                                         'TEXTAREA' => 'TextArea',
-                                                        'SELECT' => 'Select'
+                                                        'SELECT' => 'Select',
+                                                        'DATETIME' => 'DATE Time'
                                                         ]
                                         ])
 

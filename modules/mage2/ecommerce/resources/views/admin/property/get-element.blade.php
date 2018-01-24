@@ -61,6 +61,41 @@
     @endif
 
 
+    @if($property->field_type == 'DATETIME')
+        <div class="form-group">
+            <label for="property-{{ $tmpString }}-{{ $property->id }}">{{ $property->name }}</label>
+            <input type="text"
+                   name="property[{{ $tmpString }}][{{ $property->id  }}]"
+                   class="form-control datetime"
+                   id=property-{{ $tmpString }}-{{ $property->id }}"
+            />
+        </div>
+
+
+
+
+
+
+
+
+
+    @endif
+
+
 
 
 @endforeach
+
+
+
+@push('scripts')
+
+    <script>
+
+        $(function () {
+            jQuery('.datetime').flatpickr();
+        })
+
+    </script>
+
+@endpush

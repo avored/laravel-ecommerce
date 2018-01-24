@@ -16,12 +16,12 @@
   "type": "project",
   "minimum-stability": "dev",
   "require": {
-    "php": ">=7.0",
+    "php": ">=7.0.0",
     "laravel/framework": "5.5.*",
+    "laravel/passport": "^4.0@dev",
     "barryvdh/laravel-dompdf": "^0.8.0@dev",
     "mage2/module-installer": "dev-master",
     "mage2/install": "dev-master",
-    "mage2/ecommerce": "dev-master",
     "fabpot/goutte": "^3.2",
     "intervention/image": "^2.3@dev",
     "symfony/yaml": "^3.3"
