@@ -419,8 +419,6 @@ class Mage2EcommerceSchema extends Migration
 
         });
 
-
-
         Schema::create('properties', function (Blueprint $table) {
 
             $table->increments('id');
@@ -432,7 +430,6 @@ class Mage2EcommerceSchema extends Migration
             $table->timestamps();
         });
 
-
         Schema::create('property_dropdown_options', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('property_id')->unsigned();
@@ -441,7 +438,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('property_id')
                 ->references('id')->on('properties')->onDelete('cascade');
         });
-
 
         Schema::create('product_property_varchar_values', function (Blueprint $table) {
 
@@ -539,11 +535,21 @@ class Mage2EcommerceSchema extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('identifier')->unique();
+            $table->enum('data_type',['INTEGER','DECIMAL','DATETIME','VARCHAR','BOOLEAN','TEXT'])->nullable()->default(null);
             $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME','CHECKBOX','RADIO','SWITCH']);
+
             $table->integer('sort_order')->nullable()->default(0);
             $table->timestamps();
         });
 
+        Schema::create('attribute_dropdown_options', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->string('display_text');
+            $table->timestamps();
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+        });
 
 
 

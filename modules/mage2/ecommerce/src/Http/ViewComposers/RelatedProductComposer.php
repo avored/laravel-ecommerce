@@ -51,7 +51,6 @@ class RelatedProductComposer
 
         $relatedProductIds = Collection::make([]);
 
-
         if (isset($view->product)) {
 
             $product = $view->product;

@@ -29,11 +29,6 @@ use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Http\Requests\AttributeRequest;
 use Illuminate\Http\Request;
 
-
-
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
-
 class AttributeController extends AdminController
 {
 
