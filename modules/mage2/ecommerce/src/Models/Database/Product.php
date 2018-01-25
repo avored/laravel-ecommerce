@@ -1,4 +1,5 @@
 <?php
+
 namespace Mage2\Ecommerce\Models\Database;
 
 use Illuminate\Support\Facades\Session;
@@ -9,9 +10,9 @@ use Illuminate\Support\Str;
 class Product extends BaseModel
 {
     protected $fillable = ['type', 'name', 'slug', 'sku', 'description',
-                            'status', 'in_stock', 'track_stock', 'qty',
-                            'is_taxable', 'page_title', 'page_description'
-                        ];
+        'status', 'in_stock', 'track_stock', 'qty',
+        'is_taxable', 'page_title', 'page_description'
+    ];
 
     public static function getCollection()
     {
@@ -42,10 +43,11 @@ class Product extends BaseModel
 
     }
 
-    public function canAddtoCart($qty = 0) {
+    public function canAddtoCart($qty = 0)
+    {
         $products = Session::get('cart');
 
-        if(null == $products) {
+        if (null == $products) {
             return true;
         }
 
@@ -57,7 +59,7 @@ class Product extends BaseModel
 
         $currentCartQty = (isset($cartProduct['qty'])) ? $cartProduct['qty'] : 0;
 
-        if($availableQty-$currentCartQty - $qty < 0) {
+        if ($availableQty - $currentCartQty - $qty < 0) {
             return false;
         } else {
             return true;
@@ -113,101 +115,106 @@ class Product extends BaseModel
         $properties = $request->get('property');
 
 
-        foreach ($properties as $key => $property) {
 
-            foreach ($property as $propertyId => $propertyValue) {
+        if (null !== $properties && $properties->count() > 0) {
 
-                $propertyModal = Property::findorfail($propertyId);
 
-                if ($propertyModal->data_type == 'VARCHAR') {
+            foreach ($properties as $key => $property) {
 
-                    $propertyVarcharValue = ProductPropertyVarcharValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+                foreach ($property as $propertyId => $propertyValue) {
 
-                    if (null === $propertyVarcharValue) {
-                        ProductPropertyVarcharValue::create([
-                            'product_id' => $this->id,
-                            'property_id' => $propertyId,
-                            'value' => $propertyValue
-                        ]);
-                    } else {
-                        $propertyVarcharValue->update(['value' => $propertyValue]);
+                    $propertyModal = Property::findorfail($propertyId);
+
+                    if ($propertyModal->data_type == 'VARCHAR') {
+
+                        $propertyVarcharValue = ProductPropertyVarcharValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+
+                        if (null === $propertyVarcharValue) {
+                            ProductPropertyVarcharValue::create([
+                                'product_id' => $this->id,
+                                'property_id' => $propertyId,
+                                'value' => $propertyValue
+                            ]);
+                        } else {
+                            $propertyVarcharValue->update(['value' => $propertyValue]);
+                        }
                     }
-                }
 
-                if ($propertyModal->data_type == 'BOOLEAN') {
+                    if ($propertyModal->data_type == 'BOOLEAN') {
 
-                    $propertyBooleanValue = ProductPropertyBooleanValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+                        $propertyBooleanValue = ProductPropertyBooleanValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
 
-                    if (null === $propertyBooleanValue) {
-                        ProductPropertyBooleanValue::create([
-                            'product_id' => $this->id,
-                            'property_id' => $propertyId,
-                            'value' => $propertyValue
-                        ]);
-                    } else {
-                        $propertyBooleanValue->update(['value' => $propertyValue]);
+                        if (null === $propertyBooleanValue) {
+                            ProductPropertyBooleanValue::create([
+                                'product_id' => $this->id,
+                                'property_id' => $propertyId,
+                                'value' => $propertyValue
+                            ]);
+                        } else {
+                            $propertyBooleanValue->update(['value' => $propertyValue]);
+                        }
                     }
-                }
 
-                if ($propertyModal->data_type == 'TEXT') {
+                    if ($propertyModal->data_type == 'TEXT') {
 
-                    $propertyTextValue = ProductPropertyTextValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+                        $propertyTextValue = ProductPropertyTextValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
 
-                    if (null === $propertyTextValue) {
-                        ProductPropertyTextValue::create([
-                            'product_id' => $this->id,
-                            'property_id' => $propertyId,
-                            'value' => $propertyValue
-                        ]);
-                    } else {
-                        $propertyTextValue->update(['value' => $propertyValue]);
+                        if (null === $propertyTextValue) {
+                            ProductPropertyTextValue::create([
+                                'product_id' => $this->id,
+                                'property_id' => $propertyId,
+                                'value' => $propertyValue
+                            ]);
+                        } else {
+                            $propertyTextValue->update(['value' => $propertyValue]);
+                        }
                     }
-                }
 
-                if ($propertyModal->data_type == 'DECIMAL') {
+                    if ($propertyModal->data_type == 'DECIMAL') {
 
-                    $propertyDecimalValue = ProductPropertyDecimalValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+                        $propertyDecimalValue = ProductPropertyDecimalValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
 
-                    if (null === $propertyDecimalValue) {
-                        ProductPropertyDecimalValue::create([
-                            'product_id' => $this->id,
-                            'property_id' => $propertyId,
-                            'value' => $propertyValue
-                        ]);
-                    } else {
-                        $propertyDecimalValue->update(['value' => $propertyValue]);
+                        if (null === $propertyDecimalValue) {
+                            ProductPropertyDecimalValue::create([
+                                'product_id' => $this->id,
+                                'property_id' => $propertyId,
+                                'value' => $propertyValue
+                            ]);
+                        } else {
+                            $propertyDecimalValue->update(['value' => $propertyValue]);
+                        }
                     }
-                }
-                if ($propertyModal->data_type == 'INTEGER') {
+                    if ($propertyModal->data_type == 'INTEGER') {
 
-                    $propertyIntegerValue = ProductPropertyIntegerValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+                        $propertyIntegerValue = ProductPropertyIntegerValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
 
-                    if (null === $propertyIntegerValue) {
-                        ProductPropertyIntegerValue::create([
-                            'product_id' => $this->id,
-                            'property_id' => $propertyId,
-                            'value' => $propertyValue
-                        ]);
-                    } else {
-                        $propertyIntegerValue->update(['value' => $propertyValue]);
+                        if (null === $propertyIntegerValue) {
+                            ProductPropertyIntegerValue::create([
+                                'product_id' => $this->id,
+                                'property_id' => $propertyId,
+                                'value' => $propertyValue
+                            ]);
+                        } else {
+                            $propertyIntegerValue->update(['value' => $propertyValue]);
+                        }
                     }
-                }
-                if ($propertyModal->data_type == 'DATETIME') {
+                    if ($propertyModal->data_type == 'DATETIME') {
 
-                    $propertyDatetimeValue = ProductPropertyDatetimeValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
+                        $propertyDatetimeValue = ProductPropertyDatetimeValue::whereProductId($this->id)->wherePropertyId($propertyId)->get()->first();
 
-                    if (null === $propertyDatetimeValue) {
-                        ProductPropertyDatetimeValue::create([
-                            'product_id' => $this->id,
-                            'property_id' => $propertyId,
-                            'value' => $propertyValue
-                        ]);
-                    } else {
-                        $propertyDatetimeValue->update(['value' => $propertyValue]);
+                        if (null === $propertyDatetimeValue) {
+                            ProductPropertyDatetimeValue::create([
+                                'product_id' => $this->id,
+                                'property_id' => $propertyId,
+                                'value' => $propertyValue
+                            ]);
+                        } else {
+                            $propertyDatetimeValue->update(['value' => $propertyValue]);
+                        }
                     }
+
+
                 }
-
-
             }
 
         }
@@ -387,68 +394,67 @@ class Product extends BaseModel
 
     /**
      *
-
-
-
-     public function combinations()
-    {
-        $combinations = Collection::make([]);
-        $model = new static;
-        $productIds = ProductCombination::whereProductId($this->attributes['id'])->pluck('combination_id');
-        foreach ($productIds as $id) {
-        $combinations->push($model->findorfail($id));
-        }
-
-        return $combinations;
-        }
-
-        public function getCombinationAttributeList() {
-        $attributes = Collection::make([]);
-        $subProductIds = $this->combinations()->pluck('id');
-
-        $productAttributeValues = ProductAttributeValue::whereIn('product_id',$subProductIds->toArray())->get();
-        foreach ($productAttributeValues as $productAttributeValue) {
-        $attributes->push($productAttributeValue->attribute);
-        }
-        return $attributes;
-    }
-
-
-    public function getCombinationAttributeValueList() {
-
-        $subProductIds = $this->combinations()->pluck('id');
-        $productAttributeValues = ProductAttributeValue::whereIn('product_id',$subProductIds->toArray())->get()->pluck('value');
-
-        return $productAttributeValues;
-
-    }
-
-    public function getAssignedVariationBytAttributeId($attributeId)
-    {
-        return $this->productVariations()
-        ->where('product_attribute_id', '=', $attributeId)
-        ->get();
-    }
-
-    public function getSpecificationValue($attribute)
-    {
-
-
-        $productAttributeValue = $this->productAttributeValue()->whereAttributeId($attribute->id)->first();
-
-        if (null !== $productAttributeValue) {
-            if ($attribute->field_type == 'SELECT') {
-                $selectedDropdownOption = $attribute->attributeDropdownOptions()->whereId($productAttributeValue->value)->first();
-                return $selectedDropdownOption->id;
-
-            } else {
-                return $productAttributeValue->value;
-            }
-
-        }
-
-        return "";
-    }
-
+     *
+     *
+     *
+     * public function combinations()
+     * {
+     * $combinations = Collection::make([]);
+     * $model = new static;
+     * $productIds = ProductCombination::whereProductId($this->attributes['id'])->pluck('combination_id');
+     * foreach ($productIds as $id) {
+     * $combinations->push($model->findorfail($id));
+     * }
+     *
+     * return $combinations;
+     * }
+     *
+     * public function getCombinationAttributeList() {
+     * $attributes = Collection::make([]);
+     * $subProductIds = $this->combinations()->pluck('id');
+     *
+     * $productAttributeValues = ProductAttributeValue::whereIn('product_id',$subProductIds->toArray())->get();
+     * foreach ($productAttributeValues as $productAttributeValue) {
+     * $attributes->push($productAttributeValue->attribute);
+     * }
+     * return $attributes;
+     * }
+     *
+     *
+     * public function getCombinationAttributeValueList() {
+     *
+     * $subProductIds = $this->combinations()->pluck('id');
+     * $productAttributeValues = ProductAttributeValue::whereIn('product_id',$subProductIds->toArray())->get()->pluck('value');
+     *
+     * return $productAttributeValues;
+     *
+     * }
+     *
+     * public function getAssignedVariationBytAttributeId($attributeId)
+     * {
+     * return $this->productVariations()
+     * ->where('product_attribute_id', '=', $attributeId)
+     * ->get();
+     * }
+     *
+     * public function getSpecificationValue($attribute)
+     * {
+     *
+     *
+     * $productAttributeValue = $this->productAttributeValue()->whereAttributeId($attribute->id)->first();
+     *
+     * if (null !== $productAttributeValue) {
+     * if ($attribute->field_type == 'SELECT') {
+     * $selectedDropdownOption = $attribute->attributeDropdownOptions()->whereId($productAttributeValue->value)->first();
+     * return $selectedDropdownOption->id;
+     *
+     * } else {
+     * return $productAttributeValue->value;
+     * }
+     *
+     * }
+     *
+     * return "";
+     * }
      */
 }

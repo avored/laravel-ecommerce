@@ -48,7 +48,7 @@ class AttributeController extends AdminController
     {
 
         $attribute = Attribute::create($request->all());
-        //$this->_saveDropdownOptions($attribute , $request);
+        $this->_saveDropdownOptions($attribute , $request);
 
         return redirect()->route('admin.attribute.index');
 
@@ -67,7 +67,7 @@ class AttributeController extends AdminController
 
         $attribute = Attribute::find($id);
         $attribute->update($request->all());
-        //$this->_saveDropdownOptions($attribute, $request);
+        $this->_saveDropdownOptions($attribute, $request);
 
         return redirect()->route('admin.attribute.index');
 
