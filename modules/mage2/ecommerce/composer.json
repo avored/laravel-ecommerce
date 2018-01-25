@@ -2,7 +2,7 @@
     "name": "mage2/ecommerce",
     "description": "Mage2 Laravel E commerce",
     "keywords": ["framework" ,"cart","laravel","e commerce","laravel5","shop","shopping-cart","e-commerce","shopping cart","e commerce"],
-    "license": "GPL-3.0",
+    "license": "MIT",
     "authors": [
         {
             "name": "Purvesh  ",
