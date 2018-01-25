@@ -97,12 +97,15 @@ class ProductController extends AdminController
         //$properties = Collection::make([]);
         $properties =   Property::all()->pluck('name','id');
 
+
         if($product->type == "VARIATION") {
-            //$properties =   Property::all()->pluck('id','name');
+            //$properties =   Property::all()-
+            $attributes =   Attribute::all()->pluck('name','id');
         }
         return view('mage2-ecommerce::admin.product.edit')
             ->with('model', $product)
-            ->with('propertyOptions', $properties);
+            ->with('propertyOptions', $properties)
+            ->with('attributeOptions', $attributes);
     }
 
     /**

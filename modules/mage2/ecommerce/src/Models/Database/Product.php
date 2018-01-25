@@ -347,6 +347,43 @@ class Product extends BaseModel
         return $collection;
     }
 
+
+    public function getProductAllAttributes()
+    {
+        $collection = Collection::make([]);
+
+
+        return $collection;
+        foreach ($this->productVarcharProperties as $item) {
+            $collection->push($item);
+        }
+        foreach ($this->productBooleanProperties as $item) {
+            $collection->push($item);
+        }
+
+        foreach ($this->productTextProperties as $item) {
+            $collection->push($item);
+        }
+        foreach ($this->productDecimalProperties as $item) {
+            $collection->push($item);
+        }
+        foreach ($this->productDecimalProperties as $item) {
+            $collection->push($item);
+        }
+        foreach ($this->productIntegerProperties as $item) {
+            $collection->push($item);
+        }
+
+        foreach ($this->productDatetimeProperties as $item) {
+            $collection->push($item);
+        }
+
+
+        return $collection;
+    }
+
+
+
     public function productVarcharProperties()
     {
         return $this->hasMany(ProductPropertyVarcharValue::class);

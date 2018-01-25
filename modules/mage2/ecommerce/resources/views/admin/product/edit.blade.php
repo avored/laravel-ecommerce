@@ -73,35 +73,17 @@
                     </div>
                 </div>
 
-                <!--div class="card product-card mb-2 mt-2">
+                <div class="card product-card mb-2 mt-2">
                     <a data-toggle="collapse" data-parent="#product-save-accordion"
-                       class="float-right" href="#attributes">
-                    <div class="card-header">
-                        Attributes
-                    </div>
+                       class="float-right" href="#attribute">
+                        <div class="card-header">
+                            Attribute
+                        </div>
                     </a>
-                    <div class="card-body collapse" id="attributes">
-                        include('mage2-ecommerce::admin.product.card.attributes')
+                    <div class="card-body collapse" id="attribute">
+                        @include('mage2-ecommerce::admin.product.card.attribute')
                     </div>
                 </div>
-
-
-                if($model->type == "VARIATION")
-                    <div class="card product-card mb-2 mt-2">
-                        <a data-toggle="collapse" data-parent="#product-save-accordion"
-                           class="float-right" href="#option">
-                        <div class="card-header">
-                            Option
-                        </div>
-                        </a>
-                        <div class="card-body collapse" id="option">
-                            include('mage2-ecommerce::admin.product.card.option')
-                        </div>
-                    </div>
-
-                endif
-                -->
-
 
 
                 @foreach(Tabs::all() as $key => $tab)
