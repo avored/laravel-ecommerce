@@ -1,5 +1,4 @@
 <?php
-
 namespace Mage2\Ecommerce\Theme;
 
 use Illuminate\Support\Collection;

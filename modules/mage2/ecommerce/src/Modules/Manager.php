@@ -1,5 +1,4 @@
 <?php
-
 namespace Mage2\Ecommerce\Modules;
 
 use Illuminate\Support\Collection;
@@ -13,8 +12,6 @@ use League\Flysystem\MountManager;
 use Illuminate\Filesystem\Filesystem;
 use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\Adapter\Local as LocalAdapter;
-
-
 
 class Manager
 {
