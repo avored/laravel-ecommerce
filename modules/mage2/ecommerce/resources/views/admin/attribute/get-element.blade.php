@@ -1,12 +1,12 @@
-<div class="col-md-6 mb-3 single-card">
+<div class="product_attribute_template_variation d-none">
+    <div class="col-md-6 mb-3 single-card">
 
-    <button type="button" class="remove-variation-card">
-        <span aria-hidden="true">&times;</span>
-    </button>
+        <button type="button" class="remove-variation-card">
+            <span aria-hidden="true">&times;</span>
+        </button>
 
-    <div class="card clearfix pt-2">
-        <div class="card-body">
-
+        <div class="card clearfix pt-2">
+            <div class="card-body">
 
 
                 @foreach($attributes as $attribute)
@@ -47,7 +47,8 @@
                         <div class="form-group">
                             <label for="attribute-{{ $tmpString }}-{{ $attribute->id }}">{{ $attribute->name }}</label>
 
-                            <textarea name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][value]" class="form-control"
+                            <textarea name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][value]"
+                                      class="form-control"
                                       id=attribute-{{ $tmpString }}-{{ $attribute->id }}"></textarea>
 
                         </div>
@@ -57,7 +58,8 @@
                         <div class="form-group">
                             <label for="attribute-{{ $tmpString }}-{{ $attribute->id }}">{{ $attribute->name }}</label>
 
-                            <select name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][value]" class="form-control"
+                            <select name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][value]"
+                                    class="form-control"
                                     id=attribute-{{ $tmpString }}-{{ $attribute->id }}">
 
                                 @foreach($attribute->attributeDropdownOptions as $option)
@@ -83,7 +85,6 @@
                 @endforeach
 
 
-
                 <div class="form-group">
                     <label for="attribute-{{ $tmpString }}-price">Price Variation</label>
                     <input type="text"
@@ -103,9 +104,7 @@
                 </div>
 
 
-
-
-
+            </div>
         </div>
     </div>
 </div>

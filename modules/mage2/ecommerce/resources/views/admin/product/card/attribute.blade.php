@@ -1,7 +1,8 @@
 <?php
+$productVariations = $model->productVariations;
 $productAttributes = $model->getProductAllAttributes();
-
 ?>
+
 
 
 <div class="row">
@@ -10,6 +11,7 @@ $productAttributes = $model->getProductAllAttributes();
 
 
         @if($attributeOptions !== null && $attributeOptions->count() >= 0)
+
             <div class="input-group mb-3">
 
                 <select class="form-control attribute-dropdown-element select2" multiple style="width: 88%">
@@ -32,7 +34,7 @@ $productAttributes = $model->getProductAllAttributes();
 
 
 
-            @if(null !== $productAttributes && $productAttributes->count() > 0 )
+            @if(null !== $productVariations && $productVariations->count() > 0 )
 
                 <div class="product-variation-wrapper">
 
@@ -46,6 +48,7 @@ $productAttributes = $model->getProductAllAttributes();
 
                     <div class="product-variation-card-wrapper   row">
 
+                        @foreach($productVariations as $productVariation)
                         <div class="col-md-6 mb-3 single-card">
 
                             <button type="button" class="remove-variation-card">
@@ -55,18 +58,32 @@ $productAttributes = $model->getProductAllAttributes();
                             <div class="card clearfix pt-2">
                                 <div class="card-body">
 
-                                    @foreach($productAttributes as $productAttributeValue)
 
-                                        <?php
-                                            //dd($productAttributeValue);
 
-                                            $variationModel = $productAttributeValue->product;
+                                    <?php
+                                    $variationModel = $productVariation->variation;
+                                    //dd($variationModel);
 
-                                            $tmpString = str_random(10);
+                                    $variationAttributes = $variationModel->getProductAllAttributes($productVariation);
+                                    $tmpString = str_random();
+
+                                    //dd($variationAttributes);
+
+                                    ?>
+
+                                    @foreach($variationAttributes as $productAttributeValue)
+
+                                    <?php
+
+                                                //var_dump($productAttributeValue);
+
+                                        //$variationModel = $productAttributeValue->product;
+
                                         $attribute =  $productAttributeValue->attribute;
 
-                                        ?>
+                                    ?>
 
+                                    <input type="hidden" name="" value="{{ $variationModel->id }}" />
                                         @if($attribute->field_type == 'TEXT')
                                             <div class="form-group">
                                                 <label for="attribute-{{ $tmpString }}-{{ $attribute->id }}">{{ $attribute->name }}</label>
@@ -170,10 +187,12 @@ $productAttributes = $model->getProductAllAttributes();
                                             />
                                         </div>
 
+
                                 </div>
                             </div>
                         </div>
 
+                        @endforeach
                     </div>
 
                 </div>
@@ -213,13 +232,15 @@ $productAttributes = $model->getProductAllAttributes();
                 e.preventDefault();
                 e.stopPropagation();
 
-                var singleCardHtml = "<div class='col-md-6 mb-3 single-card'>" +
-                    jQuery('.product-variation-card-wrapper .single-card:first').html();
-                +
-                    "</div>";
+                var htmlResponse = jQuery('.product-variation-card-wrapper').find('.product_attribute_template_variation').html();
+
+                var tmpString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+                htmlResponse = htmlResponse.replace(new RegExp('__RANDOM__STRING__', 'gi'),tmpString)
+                jQuery('.product-variation-card-wrapper').append(htmlResponse);
 
 
-                jQuery('.product-variation-card-wrapper .single-card:last').after(singleCardHtml);
+
 
 
             });
@@ -256,14 +277,17 @@ $productAttributes = $model->getProductAllAttributes();
                             //jQuery('#add-property').modal('hide');
 
                             jQuery('.product-variation-card-wrapper').html(response.content);
+
+                            var htmlResponse = jQuery('.product-variation-card-wrapper').find('.product_attribute_template_variation').html();
+
+                            var tmpString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+
+                            htmlResponse = htmlResponse.replace(new RegExp('__RANDOM__STRING__', 'gi'),tmpString)
+                            jQuery('.product-variation-card-wrapper').append(htmlResponse);
+
                             jQuery('.product-variation-wrapper').toggleClass('d-none');
 
-
-                            //jQuery('.datetime').flatpickr({
-                            //    altInput: true,
-                            //    altFormat: "d-m-Y",
-                            //    dateFormat: "Y-m-d",
-                            //});
 
 
                         }

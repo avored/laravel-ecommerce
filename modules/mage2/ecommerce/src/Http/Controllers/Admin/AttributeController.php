@@ -111,7 +111,7 @@ class AttributeController extends AdminController
     {
         $attributes = Attribute::whereIn('id',$request->get('attribute_id'))->get();
 
-        $tmpString = str_random();
+        $tmpString = "__RANDOM__STRING__";
         $view = view('mage2-ecommerce::admin.attribute.get-element')
             ->with('attributes', $attributes)
             ->with('tmpString', $tmpString);

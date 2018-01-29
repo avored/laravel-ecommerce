@@ -223,7 +223,13 @@ class Product extends BaseModel
 
         if (null !== $attributes && count($attributes) > 0) {
 
+
+
             foreach ($attributes as $key => $attribute) {
+
+                if($key == "__RANDOM__STRING__") {
+                    continue;
+                }
 
                 foreach ($attribute as $attributeId => $variableProductData) {
 
@@ -304,6 +310,7 @@ class Product extends BaseModel
                             $attributeDecimalValue->update(['value' => $variableProductData['value']]);
                         }
                     }
+
                     if ($attributeModel->data_type == 'INTEGER') {
 
                         $attributeIntegerValue = ProductAttributeIntegerValue::whereProductId($variableProductModel->id)
@@ -319,6 +326,7 @@ class Product extends BaseModel
                             $attributeIntegerValue->update(['value' => $variableProductData['value']]);
                         }
                     }
+
                     if ($attributeModel->data_type == 'DATETIME') {
 
                         $attributeDatetimeValue = ProductAttributeDatetimeValue::whereProductId($variableProductModel->id)
@@ -473,15 +481,23 @@ class Product extends BaseModel
     }
 
 
-    public function getProductAllAttributes()
+    public function getProductAllAttributes($variation = null)
     {
 
-        $variation = $this->productVariations()->get()->first();
-
-        $variationModel = self::findorfail($variation->variation_id);
+        if(null === $variation) {
+            $variation = $this->productVariations()->get()->first();
+        }
 
 
         $collection = Collection::make([]);
+
+        if(Null === $variation) {
+            return $collection;
+        }
+        $variationModel = self::findorfail($variation->variation_id);
+
+
+
 
         foreach ($variationModel->productVarcharAttributes as $item) {
             $collection->push($item);
