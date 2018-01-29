@@ -1,7 +1,5 @@
 <?php
-
 $productProperties = $model->getProductAllProperties();
-
 ?>
 
 <div class="row">
@@ -13,7 +11,7 @@ $productProperties = $model->getProductAllProperties();
             <select name="product-property[]"
                     multiple="true"
                     class="select2 form-control modal-product-property-select"
-                    style="width: 100%;height: 40px">
+                    style="width: 88%">
                 @foreach($propertyOptions as $propertyId => $propertyName)
                     <option
                             @if($productProperties->contains('property_id',$propertyId))
@@ -30,7 +28,7 @@ $productProperties = $model->getProductAllProperties();
             <div class="input-group-append">
                 <button type="button"
                         data-token="{{ csrf_token() }}"
-                        class="btn btn-primary modal-use-selected">
+                        class="btn btn-warning modal-use-selected">
                     Use Selected
                 </button>
             </div>
@@ -196,13 +194,11 @@ $productProperties = $model->getProductAllProperties();
                     dataType: 'json',
                     method: 'post',
                     success: function (response) {
-                        console.info(response);
 
                         if (response.success == true) {
 
                             //jQuery('#add-property').modal('hide');
                             jQuery('.property-content-wrapper').html(response.content);
-
 
                             jQuery('.datetime').flatpickr({
                                 altInput: true,

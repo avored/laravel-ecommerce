@@ -3,7 +3,6 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 use Mage2\Ecommerce\Models\Database\Attribute;
 use Mage2\Ecommerce\Models\Database\Product;
@@ -27,7 +26,7 @@ class ProductController extends AdminController
     public function index()
     {
 
-        $dataGrid = DataGrid::model(Product::where('type','!=', 'VARIATION-COMBINATION'))
+        $dataGrid = DataGrid::model(Product::where('type','!=', 'VARIABLE_PRODUCT'))
             ->column('id', ['sortable' => true])
             ->column('name')
             ->linkColumn('edit', [], function ($model) {
@@ -111,12 +110,15 @@ class ProductController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @var \Mage2\Ecommerce\Http\Requests\ProductRequest $request
-     * @var int $id
-     * @return \Illuminate\Http\RedirectResponse
+     * @param \Mage2\Ecommerce\Http\Requests\ProductRequest $request
+     * @param int $id
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Exception
      */
     public function update(ProductRequest $request, $id)
     {
+
+        //return $request->all();
 
         try {
             Event::fire(new ProductBeforeSave($request));

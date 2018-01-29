@@ -1,227 +1,130 @@
 <?php
+$productVariations = $model->productVariations;
 
-$productAttributes = $model->getProductAllAttributes();
-
+dd($productVariations);
 ?>
+
 
 <div class="row">
 
     <div class="col-12">
 
-        <div id="add-attribute" class="input-group">
 
-            <select name="product-attribute[]"
-                    multiple="true"
-                    class="select2 form-control modal-product-attribute-select"
-                    style="width: 100%;height: 40px">
-                @foreach($attributeOptions as $attributeId => $attributeName)
-                    <option
-                            @if($productAttributes->contains('attribute_id',$attributeId))
-                            selected
-                            @endif
+        @if($attributeOptions !== null && $attributeOptions->count() >= 0)
+            <div class="input-group mb-3">
 
-                            value="{{ $attributeId }}">
-                        {{ $attributeName }}
-                    </option>
-                @endforeach
-            </select>
-
-
-            <div class="input-group-append">
-                <button type="button"
-                        data-token="{{ csrf_token() }}"
-                        class="btn btn-primary modal-use-selected">
-                    Use Selected
-                </button>
+                <select class="form-control attribute-dropdown-element select2" multiple style="width: 88%">
+                    @foreach($attributeOptions as $value => $label)
+                        <option value="{{ $value }}">{{ $label }}</option>
+                    @endforeach
+                </select>
+                <div class="input-group-append">
+                    <button data-token="{{ csrf_token() }}"
+                            class="btn btn-warning use-selected-attribute"
+                            type="button">Use Selected
+                    </button>
+                </div>
             </div>
 
-        </div>
-
-
-        <hr/>
-
-
-        <div class="attribute-content-wrapper">
-
-            @if(count($productAttributes) > 0 )
-
-
-                @foreach($productAttributes as $productVarcharAttributeValue)
-
-
-                    <?php $attribute = $productVarcharAttributeValue; ?>
-
-
-                    @if($productVarcharAttributeValue->attribute->field_type == 'TEXT')
-                        <div class="form-group">
-                            <label for="attribute-{{ $productVarcharAttributeValue->attribute_id }}">
-                                {{ $productVarcharAttributeValue->attribute->name }}
-                            </label>
-
-                            <input type="text"
-                                   name="attribute[{{ str_random() }}][{{ $productVarcharAttributeValue->attribute_id  }}]"
-                                   class="form-control"
-                                   value="{{ $productVarcharAttributeValue->value }}"
-                                   id="attribute-{{ $productVarcharAttributeValue->attribute_id }}"/>
-                        </div>
-                    @endif
-
-                    @if($productVarcharAttributeValue->attribute->field_type == 'DATETIME')
-                        <div class="form-group">
-                            <label for="attribute-{{ $productVarcharAttributeValue->attribute_id }}">
-                                {{ $productVarcharAttributeValue->attribute->name }}
-                            </label>
-
-                            <input type="text"
-                                   name="attribute[{{ str_random() }}][{{ $productVarcharAttributeValue->attribute_id  }}]"
-                                   class="form-control datetime"
-                                   value="{{ $productVarcharAttributeValue->value }}"
-                                   id="attribute-{{ $productVarcharAttributeValue->attribute_id }}"/>
-                        </div>
-                    @endif
-
-                    @if($productVarcharAttributeValue->attribute->field_type == 'TEXTAREA')
-                        <div class="form-group">
-                            <label for="attribute-{{ $productVarcharAttributeValue->attribute_id }}">
-                                {{ $productVarcharAttributeValue->attribute->name }}
-                            </label>
-
-                            <textarea
-                                    name="attribute[{{ str_random() }}][{{ $productVarcharAttributeValue->attribute_id  }}]"
-                                    class="form-control"
-                                    id="attribute-{{ $productVarcharAttributeValue->attribute_id }}"
-                            >{{ $productVarcharAttributeValue->value }}</textarea>
-
-                        </div>
-                    @endif
-
-                    @if($productVarcharAttributeValue->attribute->field_type == 'SELECT')
-                        <div class="form-group">
-                            <label for="attribute-{{ $productVarcharAttributeValue->attribute_id }}">
-                                {{ $productVarcharAttributeValue->attribute->name }}
-                            </label>
-
-                            <select name="attribute[{{ str_random() }}][{{ $productVarcharAttributeValue->attribute_id  }}]"
-                                    class="form-control"
-                                    id="attribute-{{ $productVarcharAttributeValue->attribute_id }}">
-
-                                @foreach($productVarcharAttributeValue->attribute->attributeDropdownOptions as $option)
-                                    <option
-                                            value="{{ $option->id }}"
-
-                                            @if($productVarcharAttributeValue->value == $option->id)
-                                            selected
-                                            @endif
-                                    >
-                                        {{ $option->display_text }}
-                                    </option>
-                                @endforeach
-
-                            </select>
-
-                        </div>
-                    @endif
 
 
 
-                    @if($productVarcharAttributeValue->attribute->field_type == 'CHECKBOX')
+            <div class="product-variation-wrapper d-none">
 
-                        <div class="form-check">
-
-                            <input type="hidden"
-                                   name="attribute[{{ str_random() }}][{{ $attribute->id  }}]"
-                                   value="0"
-                            />
-
-                            <input type="checkbox"
-                                   name="attribute[{{ str_random() }}][{{ $productVarcharAttributeValue->attribute_id  }}]"
-                                   class="form-check-input"
-                                   value="1"
-                                   @if($productVarcharAttributeValue->value == 1)
-                                   checked
-                                   @endif
-                                   id="attribute-{{ $productVarcharAttributeValue->attribute_id }}"
-                            />
+                <div class="clearfix mb-3">
+                    <a href="#" class="btn add-variant-button float-right  btn-primary">
+                        <i class="fa fa-plus"></i> Add Variant
+                    </a>
+                </div>
 
 
-                            <label class="form-check-label"
-                                   for="attribute-{{ $productVarcharAttributeValue->attribute_id }}">
-                                {{ $productVarcharAttributeValue->attribute->name }}
-                            </label>
+                <div class="product-variation-card-wrapper   row">
 
 
-                        </div>
+                </div>
+
+            </div>
 
 
-                    @endif
-
-
-
-                @endforeach
-            @else
-                <p>Sorry No Attribute Found assign Yet</p>
-            @endif
-
-        </div>
+        @endif
     </div>
 
 </div>
 
 
-
 @push('scripts')
-
     <script>
-
-
         $(function () {
-            jQuery('.datetime').flatpickr({
-                altInput: true,
-                altFormat: "d-m-Y",
-                dateFormat: "Y-m-d",
+
+
+            jQuery('.add-variant-button').click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var singleCardHtml = "<div class='col-md-6 mb-3 single-card'>" +
+                    jQuery('.product-variation-card-wrapper .single-card:first').html();
+                +
+                    "</div>";
+
+
+                jQuery('.product-variation-card-wrapper .single-card:last').after(singleCardHtml);
+
+
+            });
+
+            jQuery(document).on('click', '.remove-variation-card', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (jQuery(".single-card").length > 1) {
+                    jQuery(this).parents(".single-card:first").remove();
+                }
             });
 
 
-            jQuery('.modal-use-selected').on('click', function (e) {
+            jQuery('.use-selected-attribute').click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
 
-                var token = jQuery(this).attr('data-token');
-                var element = jQuery(this).parents('#add-attribute:first').find('.modal-product-attribute-select');
+                var elementValue = jQuery('.attribute-dropdown-element').val();
 
-                var data = {_token: token, attribute_id: element.val()};
+                var data = {_token: jQuery(this).attr('data-token'), attribute_id: elementValue};
 
 
                 jQuery.ajax({
                     url: '{{ route('admin.attribute.element') }}',
                     data: data,
-                    dataType: 'json',
                     method: 'post',
+                    dataType: 'json',
                     success: function (response) {
-                        console.info(response);
+
 
                         if (response.success == true) {
 
-                            //jQuery('#add-attribute').modal('hide');
-                            jQuery('.attribute-content-wrapper').html(response.content);
+                            //jQuery('#add-property').modal('hide');
+
+                            jQuery('.product-variation-card-wrapper').html(response.content);
+                            jQuery('.product-variation-wrapper').toggleClass('d-none');
 
 
-                            jQuery('.datetime').flatpickr({
-                                altInput: true,
-                                altFormat: "d-m-Y",
-                                dateFormat: "Y-m-d",
-                            });
+                            //jQuery('.datetime').flatpickr({
+                            //    altInput: true,
+                            //    altFormat: "d-m-Y",
+                            //    dateFormat: "Y-m-d",
+                            //});
 
 
                         }
+
+
                     }
                 });
-            });
 
 
-        });
+            })
+        })
 
 
     </script>
-
-
 
 @endpush

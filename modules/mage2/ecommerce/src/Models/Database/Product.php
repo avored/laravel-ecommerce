@@ -114,8 +114,6 @@ class Product extends BaseModel
 
         $properties = $request->get('property');
 
-
-
         if (null !== $properties && $properties->count() > 0) {
 
 
@@ -215,6 +213,133 @@ class Product extends BaseModel
 
 
                 }
+            }
+
+        }
+
+
+        $attributes = $request->get('attribute');
+
+
+        if (null !== $attributes && count($attributes) > 0) {
+
+            foreach ($attributes as $key => $attribute) {
+
+                foreach ($attribute as $attributeId => $variableProductData) {
+
+
+                    $variableProductData['type'] = 'VARIABLE_PRODUCT';
+                    $variableProductModel = self::create($variableProductData);
+
+                    //*****  SAVING PRODUCT PRICES  *****//
+                    if ($variableProductModel->prices()->get()->count() > 0) {
+                        $variableProductModel->prices()->get()->first()->update(['price' => $variableProductData['price']]);
+                    } else {
+                        $variableProductModel->prices()->create(['price' => $variableProductData['price']]);
+                    }
+
+
+                    $attributeModel = Attribute::findorfail($attributeId);
+
+                    if ($attributeModel->data_type == 'VARCHAR') {
+
+                        $attributeVarcharValue = ProductAttributeVarcharValue::whereProductId($variableProductModel->id)
+                                                            ->whereAttributeId($attributeId)->get()->first();
+
+                            if (null === $attributeVarcharValue) {
+                            ProductAttributeVarcharValue::create([
+                                'product_id' => $variableProductModel->id,
+                                'attribute_id' => $attributeId,
+                                'value' => $variableProductData['value']
+                            ]);
+                        } else {
+                            $attributeVarcharValue->update(['value' => $variableProductData['value']]);
+                        }
+                    }
+
+                    if ($attributeModel->data_type == 'BOOLEAN') {
+
+                        $attributeBooleanValue = ProductAttributeBooleanValue::whereProductId($variableProductModel->id)
+                                                                ->whereAttributeId($attributeId)->get()->first();
+
+                        if (null === $attributeBooleanValue) {
+                            ProductAttributeBooleanValue::create([
+                                'product_id' => $variableProductModel->id,
+                                'attribute_id' => $attributeId,
+                                'value' => $variableProductData['value']
+                            ]);
+                        } else {
+                            $attributeBooleanValue->update(['value' => $variableProductData['value']]);
+                        }
+                    }
+
+                    if ($attributeModel->data_type == 'TEXT') {
+
+                        $attributeTextValue = ProductAttributeTextValue::whereProductId($variableProductModel->id)
+                                                                    ->whereAttributeId($attributeId)->get()->first();
+
+                        if (null === $attributeTextValue) {
+                            ProductAttributeTextValue::create([
+                                'product_id' => $variableProductModel->id,
+                                'attribute_id' => $attributeId,
+                                'value' => $variableProductData['value']
+                            ]);
+                        } else {
+                            $attributeTextValue->update(['value' => $variableProductData['value']]);
+                        }
+                    }
+
+                    if ($attributeModel->data_type == 'DECIMAL') {
+
+                        $attributeDecimalValue = ProductAttributeDecimalValue::whereProductId($variableProductModel->id)
+                                                                    ->whereAttributeId($propertyId)->get()->first();
+
+                        if (null === $attributeDecimalValue) {
+                            ProductAttributeDecimalValue::create([
+                                'product_id' => $variableProductModel->id,
+                                'attribute_id' => $attributeId,
+                                'value' => $variableProductData['value']
+                            ]);
+                        } else {
+                            $attributeDecimalValue->update(['value' => $variableProductData['value']]);
+                        }
+                    }
+                    if ($attributeModel->data_type == 'INTEGER') {
+
+                        $attributeIntegerValue = ProductAttributeIntegerValue::whereProductId($variableProductModel->id)
+                                                                        ->whereAttributeId($attributeId)->get()->first();
+
+                        if (null === $attributeIntegerValue) {
+                            ProductAttributeIntegerValue::create([
+                                'product_id' => $variableProductModel->id,
+                                'attribute_id' => $attributeId,
+                                'value' => $variableProductData['value']
+                            ]);
+                        } else {
+                            $attributeIntegerValue->update(['value' => $variableProductData['value']]);
+                        }
+                    }
+                    if ($attributeModel->data_type == 'DATETIME') {
+
+                        $attributeDatetimeValue = ProductAttributeDatetimeValue::whereProductId($variableProductModel->id)
+                                                                            ->whereAttributeId($attributeId)->get()->first();
+
+                        if (null === $attributeDatetimeValue) {
+                            ProductAttributeDatetimeValue::create([
+                                'product_id' => $variableProductModel->id,
+                                'attribute_id' => $attributeId,
+                                'value' => $variableProductData['value']
+                            ]);
+                        } else {
+                            $attributeDatetimeValue->update(['value' => $variableProductData['value']]);
+                        }
+                    }
+
+                    ProductVariation::create(['product_id' => $this->id,'variation_id' => $variableProductModel->id]);
+
+                }
+
+
             }
 
         }
@@ -352,35 +477,72 @@ class Product extends BaseModel
     {
         $collection = Collection::make([]);
 
-
-        return $collection;
-        foreach ($this->productVarcharProperties as $item) {
+        foreach ($this->productVarcharAttributes as $item) {
             $collection->push($item);
         }
-        foreach ($this->productBooleanProperties as $item) {
-            $collection->push($item);
-        }
-
-        foreach ($this->productTextProperties as $item) {
-            $collection->push($item);
-        }
-        foreach ($this->productDecimalProperties as $item) {
-            $collection->push($item);
-        }
-        foreach ($this->productDecimalProperties as $item) {
-            $collection->push($item);
-        }
-        foreach ($this->productIntegerProperties as $item) {
+        foreach ($this->productBooleanAttributes as $item) {
             $collection->push($item);
         }
 
-        foreach ($this->productDatetimeProperties as $item) {
+        foreach ($this->productTextAttributes as $item) {
+            $collection->push($item);
+        }
+        foreach ($this->productDecimalAttributes as $item) {
+            $collection->push($item);
+        }
+        foreach ($this->productDecimalAttributes as $item) {
+            $collection->push($item);
+        }
+        foreach ($this->productIntegerAttributes as $item) {
+            $collection->push($item);
+        }
+
+        foreach ($this->productDatetimeAttributes as $item) {
             $collection->push($item);
         }
 
 
         return $collection;
     }
+
+
+    public function productVariations()
+    {
+        return $this->hasMany(ProductVariation::class);
+    }
+
+
+    public function productVarcharAttributes()
+    {
+        return $this->hasMany(ProductAttributeVarcharValue::class);
+    }
+
+    public function productDatetimeAttributes()
+    {
+        return $this->hasMany(ProductAttributeDatetimeValue::class);
+    }
+
+    public function productBooleanAttributes()
+    {
+        return $this->hasMany(ProductAttributeBooleanValue::class);
+    }
+
+
+    public function productIntegerAttributes()
+    {
+        return $this->hasMany(ProductAttributeIntegerValue::class);
+    }
+
+    public function productTextAttributes()
+    {
+        return $this->hasMany(ProductAttributeTextValue::class);
+    }
+
+    public function productDecimalAttributes()
+    {
+        return $this->hasMany(ProductAttributeDecimalValue::class);
+    }
+
 
 
 

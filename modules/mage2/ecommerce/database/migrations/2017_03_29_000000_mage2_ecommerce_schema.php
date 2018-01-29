@@ -141,7 +141,9 @@ class Mage2EcommerceSchema extends Migration
 
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->enum('type',['BASIC','VARIATION','DOWNLOADABLE','VARIATION-COMBINATION'])->default('BASIC');
+            $table->enum('type',['BASIC','VARIATION','DOWNLOADABLE','VARIABLE_PRODUCT'])->default('BASIC');
+
+
             $table->string('name')->nullable()->default(null);
             $table->string('slug')->nullable()->default(null);
             $table->string('sku')->nullable()->default(null);
@@ -527,6 +529,123 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('attribute_id')
                 ->references('id')->on('attributes')->onDelete('cascade');
         });
+
+
+        Schema::create('product_attribute_varchar_values', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->string('value')->nullable()->default(null);
+            $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('product_attribute_datetime_values', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamp('value')->nullable()->default(null);
+            $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('product_attribute_integer_values', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->integer('value')->nullable()->default(null);
+            $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('product_attribute_decimal_values', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->decimal('value')->nullable()->default(null);
+            $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+
+
+        Schema::create('product_attribute_text_values', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->text('value')->nullable()->default(null);
+            $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('product_attribute_boolean_values', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->tinyInteger('value')->nullable()->default(null);
+            $table->timestamps();
+
+            $table->foreign('attribute_id')
+                ->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+        Schema::create('product_variations', function (Blueprint $table) {
+
+            $table->increments('id');
+            $table->integer('variation_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamps();
+
+
+            $table->foreign('variation_id')
+                ->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('product_id')
+                ->references('id')->on('products')->onDelete('cascade');
+        });
+
+
+        /**
+        Schema::create('attribute_products', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('attribute_id')->unsigned();
+            $table->integer('product_id')->unsigned();
+            $table->timestamps();
+
+            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+
+        });
+         *
+         */
+
 
 
 

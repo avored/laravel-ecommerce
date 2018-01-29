@@ -5,6 +5,8 @@ use Mage2\Ecommerce\Models\Database\Attribute;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
 use Mage2\Ecommerce\Http\Requests\AttributeRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+
 
 class AttributeController extends AdminController
 {
@@ -96,6 +98,28 @@ class AttributeController extends AdminController
             ->with('attribute', $attribute);
 
     }
+
+
+    /**
+     * Get the Element Html in Json Response.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getElementHtml(Request $request)
+    {
+        $attributes = Attribute::whereIn('id',$request->get('attribute_id'))->get();
+
+        $tmpString = str_random();
+        $view = view('mage2-ecommerce::admin.attribute.get-element')
+            ->with('attributes', $attributes)
+            ->with('tmpString', $tmpString);
+
+
+        return new JsonResponse(['success' => true,'content' => $view->render()]);
+    }
+
 
 
     private function _saveDropdownOptions($attribute, $request)
