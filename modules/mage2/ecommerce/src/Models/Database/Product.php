@@ -475,31 +475,38 @@ class Product extends BaseModel
 
     public function getProductAllAttributes()
     {
+
+        $variation = $this->productVariations()->get()->first();
+
+        $variationModel = self::findorfail($variation->variation_id);
+
+
         $collection = Collection::make([]);
 
-        foreach ($this->productVarcharAttributes as $item) {
+        foreach ($variationModel->productVarcharAttributes as $item) {
             $collection->push($item);
         }
-        foreach ($this->productBooleanAttributes as $item) {
-            $collection->push($item);
-        }
-
-        foreach ($this->productTextAttributes as $item) {
-            $collection->push($item);
-        }
-        foreach ($this->productDecimalAttributes as $item) {
-            $collection->push($item);
-        }
-        foreach ($this->productDecimalAttributes as $item) {
-            $collection->push($item);
-        }
-        foreach ($this->productIntegerAttributes as $item) {
+        foreach ($variationModel->productBooleanAttributes as $item) {
             $collection->push($item);
         }
 
-        foreach ($this->productDatetimeAttributes as $item) {
+        foreach ($variationModel->productTextAttributes as $item) {
             $collection->push($item);
         }
+        foreach ($variationModel->productDecimalAttributes as $item) {
+            $collection->push($item);
+        }
+        foreach ($variationModel->productDecimalAttributes as $item) {
+            $collection->push($item);
+        }
+        foreach ($variationModel->productIntegerAttributes as $item) {
+            $collection->push($item);
+        }
+
+        foreach ($variationModel->productDatetimeAttributes as $item) {
+            $collection->push($item);
+        }
+
 
 
         return $collection;

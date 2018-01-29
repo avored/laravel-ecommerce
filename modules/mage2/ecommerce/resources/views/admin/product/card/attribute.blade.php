@@ -1,7 +1,6 @@
 <?php
-$productVariations = $model->productVariations;
+$productAttributes = $model->getProductAllAttributes();
 
-dd($productVariations);
 ?>
 
 
@@ -15,7 +14,12 @@ dd($productVariations);
 
                 <select class="form-control attribute-dropdown-element select2" multiple style="width: 88%">
                     @foreach($attributeOptions as $value => $label)
-                        <option value="{{ $value }}">{{ $label }}</option>
+                        <option
+                                @if($productAttributes->contains('attribute_id',$value))
+                                selected
+                                @endif
+
+                                value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </select>
                 <div class="input-group-append">
@@ -28,24 +32,172 @@ dd($productVariations);
 
 
 
+            @if(null !== $productAttributes && $productAttributes->count() > 0 )
 
-            <div class="product-variation-wrapper d-none">
+                <div class="product-variation-wrapper">
 
-                <div class="clearfix mb-3">
-                    <a href="#" class="btn add-variant-button float-right  btn-primary">
-                        <i class="fa fa-plus"></i> Add Variant
-                    </a>
+
+                    <div class="clearfix mb-3">
+                        <a href="#" class="btn add-variant-button float-right  btn-primary">
+                            <i class="fa fa-plus"></i> Add Variant
+                        </a>
+                    </div>
+
+
+                    <div class="product-variation-card-wrapper   row">
+
+                        <div class="col-md-6 mb-3 single-card">
+
+                            <button type="button" class="remove-variation-card">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+
+                            <div class="card clearfix pt-2">
+                                <div class="card-body">
+
+                                    @foreach($productAttributes as $productAttributeValue)
+
+                                        <?php
+                                            //dd($productAttributeValue);
+
+                                            $variationModel = $productAttributeValue->product;
+
+                                            $tmpString = str_random(10);
+                                        $attribute =  $productAttributeValue->attribute;
+
+                                        ?>
+
+                                        @if($attribute->field_type == 'TEXT')
+                                            <div class="form-group">
+                                                <label for="attribute-{{ $tmpString }}-{{ $attribute->id }}">{{ $attribute->name }}</label>
+                                                <input type="text"
+                                                       name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][value]"
+                                                       class="form-control"
+                                                       id=attribute-{{ $tmpString }}-{{ $attribute->id }}"
+                                                />
+                                            </div>
+                                        @endif
+
+                                        @if($attribute->field_type == 'CHECKBOX')
+                                            <div class="form-check">
+
+                                                <input type="hidden"
+                                                       name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][value]"
+                                                       value="0"
+                                                />
+
+                                                <input type="checkbox"
+                                                       name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][value]"
+                                                       class="form-check-input"
+                                                       value="1"
+                                                       id=attribute-{{ $tmpString }}-{{ $attribute->id }}"
+                                                />
+                                                <label class="form-check-label"
+                                                       for="attribute-{{ $tmpString }}-{{ $attribute->id }}">
+                                                    {{ $attribute->name }}
+                                                </label>
+                                            </div>
+                                        @endif
+
+                                        @if($attribute->field_type == 'TEXTAREA')
+                                            <div class="form-group">
+                                                <label for="attribute-{{ $tmpString }}-{{ $attribute->id }}">{{ $attribute->name }}</label>
+
+                                                <textarea
+                                                        name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][value]"
+                                                        class="form-control"
+                                                        id=attribute-{{ $tmpString }}-{{ $attribute->id }}"></textarea>
+
+                                            </div>
+                                        @endif
+
+                                        @if($attribute->field_type == 'SELECT')
+                                            <div class="form-group">
+                                                <label for="attribute-{{ $tmpString }}-{{ $attribute->id }}">{{ $attribute->name }}</label>
+
+                                                <select name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][value]"
+                                                        class="form-control"
+                                                        id=attribute-{{ $tmpString }}-{{ $attribute->id }}">
+
+                                                    @foreach($attribute->attributeDropdownOptions as $option)
+
+
+                                                        <option value="{{ $option->id }}"
+
+                                                                @if($productAttributeValue->value == $option->id)
+                                                                selected
+                                                                @endif
+                                                        >
+                                                            {{ $option->display_text }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+
+                                            </div>
+                                        @endif
+
+                                        @if($attribute->field_type == 'DATETIME')
+                                            <div class="form-group">
+                                                <label for="attribute-{{ $tmpString }}-{{ $attribute->id }}">{{ $attribute->name }}</label>
+                                                <input type="text"
+                                                       name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][value]"
+                                                       class="form-control datetime"
+                                                       id=attribute-{{ $tmpString }}-{{ $attribute->id }}"
+                                                />
+                                            </div>
+
+                                        @endif
+
+                                    @endforeach
+
+                                        <div class="form-group">
+                                            <label for="attribute-{{ $tmpString }}-price">Price Variation</label>
+                                            <input type="text"
+                                                   name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][price]"
+                                                   class="form-control"
+                                                   value="{{ $variationModel->price }}"
+                                                   id=attribute-{{ $tmpString }}-price"
+                                            />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="attribute-{{ $tmpString }}-qty">Qty</label>
+                                            <input type="text"
+                                                   name="attribute[{{ $tmpString }}][{{ $attribute->id  }}][qty]"
+                                                   class="form-control"
+                                                   value="{{ $variationModel->qty }}"
+                                                   id=attribute-{{ $tmpString }}-qty"
+                                            />
+                                        </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
                 </div>
 
 
-                <div class="product-variation-card-wrapper   row">
+            @else
+                <div class="product-variation-wrapper d-none">
 
+
+                    <div class="clearfix mb-3">
+                        <a href="#" class="btn add-variant-button float-right  btn-primary">
+                            <i class="fa fa-plus"></i> Add Variant
+                        </a>
+                    </div>
+
+
+                    <div class="product-variation-card-wrapper   row">
+
+
+                    </div>
 
                 </div>
 
-            </div>
-
-
+            @endif
         @endif
     </div>
 

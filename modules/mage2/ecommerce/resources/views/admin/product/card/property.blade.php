@@ -43,7 +43,6 @@ $productProperties = $model->getProductAllProperties();
 
             @if(count($productProperties) > 0 )
 
-
                 @foreach($productProperties as $productVarcharPropertyValue)
 
 
@@ -156,6 +155,7 @@ $productProperties = $model->getProductAllProperties();
 
 
                 @endforeach
+
             @else
                 <p>Sorry No Property Found assign Yet</p>
             @endif

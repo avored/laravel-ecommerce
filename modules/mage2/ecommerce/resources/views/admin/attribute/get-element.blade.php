@@ -22,7 +22,6 @@
                         </div>
                     @endif
 
-
                     @if($attribute->field_type == 'CHECKBOX')
                         <div class="form-check">
 
@@ -68,7 +67,6 @@
 
                         </div>
                     @endif
-
 
                     @if($attribute->field_type == 'DATETIME')
                         <div class="form-group">
