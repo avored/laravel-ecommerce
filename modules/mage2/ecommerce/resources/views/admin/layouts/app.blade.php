@@ -10,15 +10,7 @@
 
     <title>{{ config('app.name', 'Mage2 Ecommerce') }}</title>
 
-
-    <link href="{{ asset('vendor/mage2-admin/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/mage2-admin/css/open-iconic-bootstrap.min.css') }}" rel="stylesheet">
-
-    <link href="{{ asset('vendor/mage2-admin/css/select2.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/mage2-admin/css/select2-bootstrap4.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('vendor/mage2-admin/css/flatpickr.min.css') }}" rel="stylesheet">
-
-    <link href="{{ asset('vendor/mage2-admin/css/styles.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/mage2-admin/css/app.css') }}" rel="stylesheet">
 
 
     <!-- Scripts -->
@@ -61,13 +53,8 @@
 </div>
 
 
-<script src="{{ asset('vendor/mage2-admin/js/jquery-3.2.1.min.js') }}"></script>
-<script src="{{ asset('vendor/mage2-admin/js/popper.min.js') }}"></script>
-<script src="{{ asset('vendor/mage2-admin/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/vendor/mage2-default/js/fontawesome-all.min.js') }}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-<script src="{{ asset('vendor/mage2-admin/js/select2.min.js') }}"></script>
-<script src="{{ asset('vendor/mage2-admin/js/flatpickr.js') }}"></script>
+
+<script src="{{ asset('vendor/mage2-admin/js/app.js') }}"></script>
 
 @stack('scripts')
 
