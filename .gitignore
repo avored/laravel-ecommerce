@@ -32,3 +32,6 @@ storage/framework/bootstrap/cache/services.php
 
 # Etc
 composer.lock
+public/mix-manifest.json
+package-lock.json
+themes/mage2/default/.DS_Store
