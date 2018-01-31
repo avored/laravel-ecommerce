@@ -28,10 +28,10 @@
 @include("mage2-ecommerce::admin.layouts.nav")
 
 
-<aside class="" style="position: absolute; left: 0px;width: 200px;">
+<aside class="sidebar">
     @include("mage2-ecommerce::admin.layouts.left-nav")
 </aside>
-<div class="main-content p-3" style="margin-left: 200px; ">
+<div class="main-content p-3">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">

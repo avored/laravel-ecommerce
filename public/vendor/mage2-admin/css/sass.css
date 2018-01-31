@@ -2,3 +2,42 @@
   background-color: inherit;
 }
 
+aside {
+  position: absolute;
+  width: 200px;
+  left: 0px;
+  border: 1px solid #cccccc;
+  border-left: 0px;
+  border-bottom: 0px;
+  border-top: 0px;
+  height: 100%;
+}
+
+aside .side-nav {
+  margin: 0px;
+  padding: 0px;
+}
+
+aside .side-nav .nav-item {
+  width: 100%;
+}
+
+aside .side-nav .nav-item .nav-link {
+  line-height: 1.6;
+  border-bottom: 1px solid #ccc;
+  padding: 10px 20px;
+}
+
+aside .side-nav .has-dropdown .nav-link {
+  line-height: 1.6;
+}
+
+aside .side-nav .has-dropdown ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+.main-content {
+  margin-left: 201px;
+}
+

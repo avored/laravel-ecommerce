@@ -1,27 +1,33 @@
-<ul class="list-group">
+<ul class="side-nav">
     @if(isset($adminMenus))
     @foreach($adminMenus as $key => $menu)
         @if(count($menu->subMenu()) > 0)
             <?php $subMenu = $menu->subMenu(); ?>
-            <div class="side-nav-accordion">
+
                 <?php
                 $menu->menuClass();
                 ?>
 
-                <a class="list-group-item list-group-item-action side-nav-dropdown"  href="#">{{ $menu->label() }}
+            <li class="nav-item has-dropdown">
+                <a class="has-submenu nav-link"  href="#">{{ $menu->label() }}
                     <span class="caret"></span>
                 </a>
 
-                <div class="list-group-sub-items-list {{ $menu->menuClass() }} ">
+                <ul class="sub-nav d-none">
 
                     @foreach($subMenu as $subKey => $subMenuObj)
-                        <a class="list-group-item pl-5 list-group-item-action"
+                        <li class="nav-item">
+                        <a class="nav-link pl-5 list-group-item-action"
                            href="{{ route($subMenuObj->route()) }}">{{ $subMenuObj->label() }}</a>
+                        </li>
                     @endforeach
-                </div>
-            </div>
+
+                </ul>
+            </li>
+
         @else
-            <a class="list-group-item list-group-item-action " href="
+            <li class="nav-item">
+            <a class="nav-link " href="
                 @if("#" == $menu->route())
                     #
                 @else
@@ -30,6 +36,7 @@
                 ">
                 {{ $menu->label() }}
             </a>
+            </li>
         @endif
     @endforeach
     @endif
@@ -38,10 +45,11 @@
 @push('scripts')
 <script>
     $(function() {
-        $(document).on('click','.side-nav-accordion .side-nav-dropdown',function(e) {
+        $(document).on('click','.has-submenu',function(e) {
             e.preventDefault();
-            jQuery(this).parents(".side-nav-accordion:first").find('.list-group-sub-items-list').toggleClass('d-none');
-        })
+            jQuery(this).parents("li:first").find('.sub-nav:first').toggleClass('d-none');
+
+        });
     });
 </script>
 @endpush

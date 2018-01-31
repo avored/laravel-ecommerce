@@ -11,7 +11,7 @@
     <title>Mage2 Admin Login</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ asset('vendor/mage2-admin/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/mage2-admin/css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>

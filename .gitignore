@@ -35,3 +35,6 @@ composer.lock
 public/mix-manifest.json
 package-lock.json
 themes/mage2/default/.DS_Store
+modules/mage2/ecommerce/.DS_Store
+.DS_Store
+.DS_Store
