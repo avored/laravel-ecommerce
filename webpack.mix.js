@@ -28,11 +28,12 @@ mix.scripts(['modules/mage2/ecommerce/resources/assets/js/jquery-3.2.1.min.js',
 
 
     mix.sass('modules/mage2/ecommerce/resources/assets/sass/app.scss', 'public/vendor/mage2-admin/css/sass.css')
-    .styles(['modules/mage2/ecommerce/resources/assets/css/bootstrap.min.css',
+    .styles([
+            'public/vendor/mage2-admin/css/sass.css',
             'modules/mage2/ecommerce/resources/assets/css/select2.min.css',
             'modules/mage2/ecommerce/resources/assets/css/flatpickr.min.css',
-            'modules/mage2/ecommerce/resources/assets/css/styles.css',
-            'public/vendor/mage2-admin/css/sass.css'
+            'modules/mage2/ecommerce/resources/assets/css/styles.css'
+
             ]
             ,'public/vendor/mage2-admin/css/app.css'
         );

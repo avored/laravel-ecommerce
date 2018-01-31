@@ -14,7 +14,7 @@
     height: 55px;
     padding: 0;
     margin: 0;
-    border-bottom: 1px solid #c2cfd6;
+    border-bottom: 1px solid #cccccc;
 }
 
 .admin-header .navbar-toggler {
@@ -27,7 +27,6 @@
     height: 55px;
     padding: 0.5rem 1rem;
     margin-right: 0;
-    background-color: #fff;
     background-image: url(../images/mage2-ecommerce-logo.png);
     background-repeat: no-repeat;
     background-position: center center;
