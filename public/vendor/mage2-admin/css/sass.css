@@ -10084,16 +10084,24 @@ a.text-dark:focus {
   }
 }
 
+.admin-header .nav-link {
+  color: #fff;
+}
+
+.admin-header .nav-link:hover {
+  color: #cccccc;
+}
+
 body {
   background-color: inherit;
 }
 
 .admin-header {
-  background: #DA22FF;
+  background: #9733EE;
   /* fallback for old browsers */
   /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-gradient(linear, left top, right top, from(#9733EE), to(#DA22FF));
-  background: linear-gradient(to right, #9733EE, #DA22FF);
+  background: -webkit-gradient(linear, left top, right top, from(#DA22FF), to(#9733EE));
+  background: linear-gradient(to right, #DA22FF, #9733EE);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 

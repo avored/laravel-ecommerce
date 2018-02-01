@@ -23,6 +23,8 @@ class Product extends BaseModel
         return $productCollection;
     }
 
+
+
     public static function boot()
     {
         parent::boot();
@@ -41,6 +43,14 @@ class Product extends BaseModel
 
         });
 
+    }
+
+    public function hasVariation() {
+        if($this->type == 'VARIATION') {
+            return true;
+        }
+
+        return false;
     }
 
     public function canAddtoCart($qty = 0)

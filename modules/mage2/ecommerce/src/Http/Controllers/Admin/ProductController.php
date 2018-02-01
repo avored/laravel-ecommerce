@@ -3,6 +3,7 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
 use Mage2\Ecommerce\Models\Database\Attribute;
 use Mage2\Ecommerce\Models\Database\Product;
@@ -93,12 +94,11 @@ class ProductController extends AdminController
     public function edit($id)
     {
         $product = Product::findorfail($id);
-        //$properties = Collection::make([]);
+
+        $attributes = Collection::make([]);
         $properties =   Property::all()->pluck('name','id');
 
-
-        if($product->type == "VARIATION") {
-            //$properties =   Property::all()-
+        if($product->hasVariation() == "VARIATION") {
             $attributes =   Attribute::all()->pluck('name','id');
         }
         return view('mage2-ecommerce::admin.product.edit')

@@ -11,15 +11,26 @@
 
 
 
+.admin-header {
+  .nav-link {
+    color: $white;
+
+    &:hover {
+      color : #cccccc;
+    }
+  }
+}
+
+
 // Bootstrap
 //@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 body {
   background-color: inherit;
 }
 .admin-header {
-  background: #DA22FF;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #9733EE, #DA22FF);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #9733EE, #DA22FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #9733EE;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #DA22FF, #9733EE);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #DA22FF,#9733EE ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
 

@@ -19,7 +19,7 @@
 
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">Update Page</button>
-                            <a href="{{ route('admin.page.index') }}" class="btn">Cancel</a>
+                            <a href="{{ route('admin.admin-user.index') }}" class="btn">Cancel</a>
                         </div>
 
                     </form>

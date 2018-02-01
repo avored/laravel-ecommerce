@@ -20,8 +20,8 @@ class AdminUserController extends AdminController
     {
         $dataGrid = DataGrid::model(AdminUser::query()->orderBy('id','desc'))
             ->column('id',['sortable' => true])
-            ->column('first_name')
-            ->column('last_name')
+            ->column('first_name',['label' => 'First Name'])
+            ->column('last_name',['label' => 'Last Name'])
             ->linkColumn('show_api',['label' => 'Show API'], function($model) {
                 return "<a href='". route('admin.admin-user.show.api')."' >Show API</a>";
             })
@@ -132,9 +132,9 @@ class AdminUserController extends AdminController
 
     public function apiShow() {
 
-        $user = Auth::user();
+        $user = Auth::guard('admin')->user();
         $client = Client::wherePasswordClient(1)->whereUserId($user->id)->first();
 
-        return view('mage2-user::user.admin-user.show-api')->with('client', $client);
+        return view('mage2-ecommerce::admin.admin-user.show-api')->with('client', $client);
     }
 }

@@ -48,13 +48,7 @@
                 <div class="card product-card mb-2 mt-2">
                     <a data-toggle="collapse" data-parent="#product-save-accordion"
                        class="float-right" href="#seo">
-
-                    <div class="card-header">
-
-                        SEO
-
-
-                    </div>
+                        <div class="card-header">SEO</div>
                     </a>
                     <div class="card-body collapse" id="seo">
                         @include('mage2-ecommerce::admin.product.card.seo')
@@ -73,17 +67,21 @@
                     </div>
                 </div>
 
-                <div class="card product-card mb-2 mt-2">
-                    <a data-toggle="collapse" data-parent="#product-save-accordion"
-                       class="float-right" href="#attribute">
-                        <div class="card-header">
-                            Attribute
+                @if($model->hasVariation())
+
+                    <div class="card product-card mb-2 mt-2">
+                        <a data-toggle="collapse" data-parent="#product-save-accordion"
+                           class="float-right" href="#attribute">
+                            <div class="card-header">
+                                Attribute
+                            </div>
+                        </a>
+                        <div class="card-body collapse" id="attribute">
+                            @include('mage2-ecommerce::admin.product.card.attribute')
                         </div>
-                    </a>
-                    <div class="card-body collapse" id="attribute">
-                        @include('mage2-ecommerce::admin.product.card.attribute')
                     </div>
-                </div>
+
+                @endif
 
 
                 @foreach(Tabs::all() as $key => $tab)

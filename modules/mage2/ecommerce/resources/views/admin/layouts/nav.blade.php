@@ -2,13 +2,13 @@
 
     <header class="admin-header bg-inverse navbar">
 
-        <a class="navbar-brand" href="#"></a>
+        <a class="navbar-brand" href="{{ route('admin.dashboard') }}"></a>
 
         <ul class="nav navbar-nav ml-auto">
 
             <li class="nav-item px-3">
                 <a class="nav-link" href="{{ route('admin.logout') }}">
-                    <span class="oi oi-account-logout"></span>
+                    Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
                 </a>
             </li>
 

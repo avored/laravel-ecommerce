@@ -26,8 +26,9 @@
 <div class="container-fluid">
     <div class="row justify-content-center align-items-center" style="height: 100vh;" >
         <div class="col-8" style="max-width: 650px">
-        <div class="card card-default">
-            <div class="card-header">
+        <div class="card">
+
+            <div class="card-header bg-primary text-white">
                 {{ __('mage2-ecommerce::lang.admin-login-card-title') }}
             </div>
             <div class="card-body" >
