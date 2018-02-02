@@ -22,4 +22,6 @@ class Permission extends BaseModel
         $instance = new static;
         return $instance->where('name', '=', $name)->first();
     }
+
+
 }

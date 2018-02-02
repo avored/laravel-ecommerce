@@ -27,9 +27,15 @@ class Manager {
      * @param array $item
      * @return \Mage2\Ecommerce\Permission\Manager
      */
-    public function add($item) {
-        //$this->permissions->push($item);
-        return $this;
+    public function add($key) {
+
+        $permission = new PermissionGroup();
+
+        $permission->key($key);
+        $this->permissions->put($key, $permission);
+
+        return $permission;
+
     }
 
     /**

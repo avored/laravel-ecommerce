@@ -31,6 +31,7 @@ class Role extends BaseModel
     {
         $permissions = explode(',', $permissionName);
 
+        //dd($permissions);
         $returnData = true;
         foreach ($permissions as $permission) {
             if ($this->permissions->pluck('name')->contains($permission) == false) {

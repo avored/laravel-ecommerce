@@ -16,7 +16,7 @@ class RoleController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model(Role::query()->orderBy('id','desc'))
+        $dataGrid = DataGrid::model(Role::query())
             ->column('id',['sortable' => true])
             ->column('name')
             ->linkColumn('edit',[], function($model) {

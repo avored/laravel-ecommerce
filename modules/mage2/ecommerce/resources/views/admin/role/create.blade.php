@@ -12,11 +12,11 @@
                         {{ csrf_field() }}
 
 
-                        @include('mage2-ecommerce::admin.role._fields')
+                            @include('mage2-ecommerce::admin.role._fields')
 
                             <div class="form-group">
-                                <button class="btn btn-primary" type="submit">Create Page</button>
-                                <a href="{{ route('admin.page.index') }}" class="btn">Cancel</a>
+                                <button class="btn btn-primary" type="submit">Create Role</button>
+                                <a href="{{ route('admin.role.index') }}" class="btn">Cancel</a>
                             </div>
 
                         </form>

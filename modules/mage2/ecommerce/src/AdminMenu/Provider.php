@@ -160,9 +160,9 @@ class Provider extends ServiceProvider {
 
         $roleMenu = new AdminMenu();
         $roleMenu->key('roles')
-            ->label('Admin User Roles')
+            ->label('Role')
             ->route('admin.role.index');
-        //$systemMenu->subMenu('roles',$roleMenu);
+        $systemMenu->subMenu('roles',$roleMenu);
 
         $taxGroupMenu = new AdminMenu();
         $taxGroupMenu->key('tax-group')
