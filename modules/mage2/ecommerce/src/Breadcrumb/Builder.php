@@ -18,7 +18,10 @@ class Builder
     }
 
     public function make($name, callable  $callable) {
+
         $breadcrumb = new Breadcrumb($callable);
+        $breadcrumb->route($name);
+
         $this->collection->put($name, $breadcrumb);
     }
 
@@ -31,5 +34,9 @@ class Builder
         }
         //dd($breadcrumb);
         return view('mage2-ecommerce::breadcrumb.index')->with('breadcrumb', $breadcrumb);
+    }
+
+    public function get($key) {
+        return $this->collection->get($key);
     }
 }

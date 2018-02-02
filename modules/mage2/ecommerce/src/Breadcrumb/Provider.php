@@ -52,12 +52,22 @@ class Provider extends ServiceProvider {
             $breadcrumb->label('Dashboard');
         });
 
+        BreadcrumbFacade::make('admin.category.index',function ($breadcrumb) {
+            $breadcrumb->label('Category')
+                    ->parent('admin.dashboard');
+        });
 
-        //Breadcrumb::make('admin-admin-user',function ($breadcrumb) {
-        //    $breadcrumb->label('Admin User')
-        //                ->parent('admin-dashboard');
-        //});
+        BreadcrumbFacade::make('admin.category.create',function ($breadcrumb) {
+            $breadcrumb->label('Create')
+                ->parent('admin.dashboard')
+                ->parent('admin.category.index');
+        });
 
+        BreadcrumbFacade::make('admin.category.edit',function ($breadcrumb) {
+            $breadcrumb->label('Edit')
+                ->parent('admin.dashboard')
+                ->parent('admin.category.index');
+        });
 
     }
 
