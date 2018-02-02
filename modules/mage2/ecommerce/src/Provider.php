@@ -36,6 +36,7 @@ class Provider extends ServiceProvider
 
     protected $providers = [
         \Mage2\Ecommerce\AdminMenu\Provider::class,
+        \Mage2\Ecommerce\Breadcrumb\Provider::class,
         \Mage2\Ecommerce\DataGrid\Provider::class,
         \Mage2\Ecommerce\Image\Provider::class,
         \Mage2\Ecommerce\Attribute\Provider::class,

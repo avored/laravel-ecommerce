@@ -46,6 +46,8 @@
                 @endif
             </div>
         </div>
+        {!! Breadcrumb::render(Route::getCurrentRoute()->getName()  ) !!}
+
         @yield('content')
     </div>
 
