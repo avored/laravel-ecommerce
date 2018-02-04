@@ -9,10 +9,14 @@
 
 
             @hasPermission('admin.category.create')
-            <a style="" href="{{ route('admin.category.create') }}"
-               class="btn btn-primary float-right">
-                {{ __('mage2-ecommerce::lang.category.index.create') }}
-            </a>
+                <a style="" href="{{ route('admin.category.create') }}"
+                   class="btn btn-primary float-right">
+                    {{ __('mage2-ecommerce::lang.category.index.create') }}
+                </a>
+            @else
+                <button type="button" class="btn float-right" disabled>
+                    {{ __('mage2-ecommerce::lang.category.index.create') }}
+                </button>
             @endHasPermission
         </div>
         {!! $dataGrid->render() !!}

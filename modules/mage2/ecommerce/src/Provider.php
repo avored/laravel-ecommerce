@@ -9,6 +9,7 @@ use Mage2\Ecommerce\Http\Middleware\ProductViewed;
 use Mage2\Ecommerce\Http\Middleware\Visitor;
 use Mage2\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
 use Mage2\Ecommerce\Http\Middleware\FrontAuth;
+use Mage2\Ecommerce\Http\Middleware\Permission;
 use Mage2\Ecommerce\Http\Middleware\RedirectIfFrontAuth;
 
 use Mage2\Ecommerce\Http\ViewComposers\AdminNavComposer;
@@ -106,7 +107,8 @@ class Provider extends ServiceProvider
         $router->aliasMiddleware('front.auth', FrontAuth::class);
         $router->aliasMiddleware('front.guest', RedirectIfFrontAuth::class);
         $router->aliasMiddleware('visitor', Visitor::class);
-        $router->aliasMiddleware('permission', PermissionMiddleware::class);
+        $router->aliasMiddleware('permission', Permission::class);
+        //$router->aliasMiddleware('permission', Permission::class);
         $router->aliasMiddleware('product.viewed', ProductViewed::class);
     }
 

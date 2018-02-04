@@ -149,7 +149,7 @@ Route::middleware(['web'])
     });
 
 
-Route::middleware(['web', 'admin.auth'])
+Route::middleware(['web', 'admin.auth', 'permission'])
     ->prefix('admin')
     ->namespace('Mage2\Ecommerce\Http\Controllers\Admin')
     ->group(function () {

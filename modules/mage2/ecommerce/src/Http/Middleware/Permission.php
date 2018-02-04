@@ -1,12 +1,12 @@
 <?php
-namespace Mage2\UserRole\Middleware;
+namespace Mage2\Ecommerce\Http\Middleware;
 
 use Closure;
-use Mage2\User\Models\AdminUser;
+use Mage2\Ecommerce\Models\Database\AdminUser;
 use Illuminate\Support\Facades\Auth;
-use Mage2\User\Models\Permission as PermissionModel;
+use Mage2\Ecommerce\Models\Database\Permission as PermissionModel;
 
-class PermissionMiddleware
+class Permission
 {
     /**
      * Handle an incoming request.
@@ -35,12 +35,10 @@ class PermissionMiddleware
             return $next($request);
         }
 
-        $permissionName = $request->route()->getName();
 
-        $permission = PermissionModel::where('name', '=', $permissionName)->first();
+        $user = Auth::guard('admin')->user();
 
-
-        if ($permission != NULL && Auth::guard($guard)->user()->cannot('hasPermission', [AdminUser::class, $permissionName])) {
+        if (!$user->hasPermission($permissionName)) {
             throw new \Exception('User Don\'t have permissions', 401);
         }
 
