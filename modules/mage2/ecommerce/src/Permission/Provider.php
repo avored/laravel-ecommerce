@@ -1,11 +1,15 @@
 <?php
+
 namespace Mage2\Ecommerce\Permission;
 
+use Illuminate\Support\Facades\Blade;
 use Mage2\Ecommerce\Permission\Facade as PermissionFacade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
-class Provider extends  ServiceProvider {
+class Provider extends ServiceProvider
+{
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -14,9 +18,30 @@ class Provider extends  ServiceProvider {
      */
     protected $defer = true;
 
-    public function boot() {
+    public function boot()
+    {
         $this->registerPermissions();
+
+        Blade::directive('hasPermission', function ($routeName) {
+
+            $condition = false;
+            $user = Auth::guard('admin')->user();
+
+            if (!$user) {
+                $condition = $user->hasPermission($routeName) ?: false;
+            }
+
+            $converted_res = ($condition) ? 'true' : 'false';
+
+            return "<?php if ($converted_res): ?>";
+
+        });
+
+        Blade::directive('endHasPermission', function () {
+            return "<?php endif; ?>";
+        });
     }
+
     /**
      * Register the service provider.
      *
@@ -48,25 +73,32 @@ class Provider extends  ServiceProvider {
     protected function registerPermissions()
     {
 
-        $permissionGroup = PermissionFacade::get('themes');
+        //$permissionGroup = PermissionFacade::get('category');
 
-        $permissionGroup->put('title', 'Theme Permissions');
+        //$permissionGroup->put('title', 'Category Permission');
 
-        $permissionGroup = PermissionFacade::add('themes')
+        $permissionGroup = PermissionFacade::add('category')
             ->label('Theme Permissions');
 
 
-        $permissionGroup->addPermission('theme-list')
-                    ->label('Theme List')
-                    ->routes('admin.theme.index');
+        $permissionGroup->addPermission('admin-category-list')
+            ->label('Category List')
+            ->routes('admin.category.index');
 
-        $permissionGroup->addPermission('theme-upload')
-                        ->label('Theme Upload')
-                        ->routes('admin.theme.create,admin.theme.store');
+        $permissionGroup->addPermission('admin-create-category')
+            ->label('Create Category')
+            ->routes('admin.category.create,admin.category.store');
+
+        $permissionGroup->addPermission('admin-update-category')
+            ->label('Update Category')
+            ->routes('admin.category.edit,admin.category.update');
+
+        $permissionGroup->addPermission('admin-destroy-category')
+            ->label('Destroy Category')
+            ->routes('admin.category.destroy');
 
         return $this;
         //$catalogMenu = AdminMenuFacade::get('catalog');
-
 
 
         $permissions = [
@@ -87,7 +119,6 @@ class Provider extends  ServiceProvider {
         $permissionGroup->put('title', 'Gift Coupon Permissions');
 
 
-
         $permissions = Collection::make([
             ['title' => 'Gift Coupon List', 'routes' => 'admin.gift-coupon.index'],
             ['title' => 'Gift Coupon Create', 'routes' => "admin.gift-coupon.create,admin.gift-coupon.store"],
@@ -97,8 +128,7 @@ class Provider extends  ServiceProvider {
 
         $permissionGroup->put('routes', $permissions);
 
-        PermissionFacade::set('gift-coupon',$permissionGroup);
-
+        PermissionFacade::set('gift-coupon', $permissionGroup);
 
 
         $permissionKey = 'order-status';
@@ -115,7 +145,7 @@ class Provider extends  ServiceProvider {
 
         $permissionGroup->put('routes', $permissions);
 
-        PermissionFacade::set($permissionKey,$permissionGroup);
+        PermissionFacade::set($permissionKey, $permissionGroup);
 
         $permissionKey = 'page';
         $permissionGroup = PermissionFacade::get($permissionKey);
@@ -131,7 +161,7 @@ class Provider extends  ServiceProvider {
 
         $permissionGroup->put('routes', $permissions);
 
-        PermissionFacade::set($permissionKey,$permissionGroup);
+        PermissionFacade::set($permissionKey, $permissionGroup);
 
         $permissionGroup = PermissionFacade::get('user-role');
 
@@ -146,7 +176,7 @@ class Provider extends  ServiceProvider {
 
         $permissionGroup->put('routes', $permissions);
 
-        PermissionFacade::set('user-role',$permissionGroup);
+        PermissionFacade::set('user-role', $permissionGroup);
 
 
         $permissionGroup = PermissionFacade::get('tax-rule');
@@ -161,7 +191,7 @@ class Provider extends  ServiceProvider {
         ]);
 
         $permissionGroup->put('routes', $permissions);
-        PermissionFacade::set('tax-rule',$permissionGroup);
+        PermissionFacade::set('tax-rule', $permissionGroup);
 
 
         /** Country Permission Start */
@@ -178,7 +208,7 @@ class Provider extends  ServiceProvider {
 
         $permissionGroup->put('routes', $permissions);
 
-        PermissionFacade::set('country',$permissionGroup);
+        PermissionFacade::set('country', $permissionGroup);
 
 
         /** State Permission Group */
@@ -194,7 +224,7 @@ class Provider extends  ServiceProvider {
 
         $permissionGroup->put('routes', $permissions);
 
-        PermissionFacade::set('state',$permissionGroup);
+        PermissionFacade::set('state', $permissionGroup);
 
 
         $permissionGroup = PermissionFacade::get('user');
@@ -225,7 +255,7 @@ class Provider extends  ServiceProvider {
 
         $permissionGroup->put('routes', $permissions);
 
-        PermissionFacade::set('attribute',$permissionGroup);
+        PermissionFacade::set('attribute', $permissionGroup);
 
     }
 
@@ -237,6 +267,6 @@ class Provider extends  ServiceProvider {
      */
     public function provides()
     {
-        return [ 'permission',  'Mage2\Ecommerce\Permission\Manager'];
+        return ['permission', 'Mage2\Ecommerce\Permission\Manager'];
     }
 }

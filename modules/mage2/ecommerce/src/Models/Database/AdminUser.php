@@ -1,4 +1,5 @@
 <?php
+
 namespace Mage2\Ecommerce\Models\Database;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -47,5 +48,20 @@ class AdminUser extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+
+    public function hasPermission($routeName)
+    {
+        if ($this->is_super_admin) {
+            return true;
+        }
+
+        $role = $this->role;
+
+        if ($role->permissions->pluck('name')->contains($routeName) == false) {
+            return false;
+        }
+        return true;
     }
 }
