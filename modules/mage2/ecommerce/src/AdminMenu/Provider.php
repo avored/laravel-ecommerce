@@ -50,45 +50,52 @@ class Provider extends ServiceProvider {
 
         AdminMenuFacade::add('catalog')
                         ->label('Catalog')
-                        ->route('#');
+                        ->route('#')
+                        ->icon('fa fa-book');
         $catalogMenu = AdminMenuFacade::get('catalog');
 
         $productMenu = new AdminMenu();
         $productMenu->key('product')
                 ->label('Product')
-                ->route('admin.product.index');
+                ->route('admin.product.index')
+                ->icon('fab fa-dropbox');
         $catalogMenu->subMenu('product', $productMenu);
 
 
         $categoryMenu = new AdminMenu();
         $categoryMenu->key('category')
             ->label('Category')
-            ->route('admin.category.index');
+            ->route('admin.category.index')
+            ->icon('far fa-building');
         $catalogMenu->subMenu('category', $categoryMenu);
 
         $attributeMenu = new AdminMenu();
         $attributeMenu->key('attribute')
             ->label('Attribute')
-            ->route('admin.attribute.index');
+            ->route('admin.attribute.index')
+            ->icon('fas fa-file-alt');
         $catalogMenu->subMenu('attribute',$attributeMenu);
 
         $propertyMenu = new AdminMenu();
         $propertyMenu->key('property')
             ->label('Property')
-            ->route('admin.property.index');
+            ->route('admin.property.index')
+            ->icon('fas fa-file-powerpoint');
         $catalogMenu->subMenu('property',$propertyMenu);
 
 
 
         AdminMenuFacade::add('promotion')
             ->label('Promotion')
-            ->route('#');
+            ->route('#')
+            ->icon('fas fa-bullhorn');
         $promotionMenu = AdminMenuFacade::get('promotion');
 
         $subscriberMenu = new AdminMenu();
         $subscriberMenu->key('subscriber')
             ->label('Subscriber')
-            ->route('admin.subscriber.index');
+            ->route('admin.subscriber.index')
+            ->icon('fas fa-users');
         $promotionMenu->subMenu('subscriber',$subscriberMenu);
 
 
@@ -106,12 +113,14 @@ class Provider extends ServiceProvider {
 
         AdminMenuFacade::add('sale')
             ->label('Sales')
-            ->route('#');
+            ->route('#')
+            ->icon('fas fa-chart-line');
         $saleMenu = AdminMenuFacade::get('sale');
 
         AdminMenuFacade::add('system')
             ->label('System')
-            ->route('#');
+            ->route('#')
+            ->icon('fas fa-cogs');
 
         $systemMenu = AdminMenuFacade::get('system');
 
@@ -119,13 +128,15 @@ class Provider extends ServiceProvider {
         $configurationMenu = new AdminMenu();
         $configurationMenu->key('configuration')
             ->label('Configuration')
-            ->route('admin.configuration');
+            ->route('admin.configuration')
+            ->icon('fas fa-cog');
         $systemMenu->subMenu('configuration', $configurationMenu );
 
         $orderMenu = new AdminMenu();
         $orderMenu->key('order')
             ->label('Order')
-            ->route('admin.order.index');
+            ->route('admin.order.index')
+            ->icon('fas fa-dollar-sign');
         $saleMenu->subMenu('order', $orderMenu);
 
 
@@ -145,14 +156,16 @@ class Provider extends ServiceProvider {
         $adminUserMenu = new AdminMenu();
         $adminUserMenu->key('admin-user')
             ->label('Admin User')
-            ->route('admin.admin-user.index');
+            ->route('admin.admin-user.index')
+            ->icon('fas fa-user');
         $systemMenu->subMenu('admin-user',$adminUserMenu);
 
 
         $themeMenu = new AdminMenu();
         $themeMenu->key('themes')
             ->label('Themes ')
-            ->route('admin.theme.index');
+            ->route('admin.theme.index')
+            ->icon('fas fa-adjust');
         $systemMenu->subMenu('themes',$themeMenu);
 
 
@@ -161,7 +174,8 @@ class Provider extends ServiceProvider {
         $roleMenu = new AdminMenu();
         $roleMenu->key('roles')
             ->label('Role')
-            ->route('admin.role.index');
+            ->route('admin.role.index')
+            ->icon('fab fa-periscope');
         $systemMenu->subMenu('roles',$roleMenu);
 
         $taxGroupMenu = new AdminMenu();
@@ -173,7 +187,8 @@ class Provider extends ServiceProvider {
         $taxRuleMenu = new AdminMenu();
         $taxRuleMenu->key('tax-rule')
             ->label('Tax Rule')
-            ->route('admin.tax-rule.index');
+            ->route('admin.tax-rule.index')
+            ->icon('far fa-folder');
         $saleMenu->subMenu('tax-rule',$taxRuleMenu);
 
         $contryMenu = new AdminMenu();

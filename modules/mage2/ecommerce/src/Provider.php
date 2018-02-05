@@ -86,7 +86,6 @@ class Provider extends ServiceProvider
     {
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'mage2-ecommerce');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'mage2-ecommerce');
@@ -108,7 +107,6 @@ class Provider extends ServiceProvider
         $router->aliasMiddleware('front.guest', RedirectIfFrontAuth::class);
         $router->aliasMiddleware('visitor', Visitor::class);
         $router->aliasMiddleware('permission', Permission::class);
-        //$router->aliasMiddleware('permission', Permission::class);
         $router->aliasMiddleware('product.viewed', ProductViewed::class);
     }
 
@@ -129,11 +127,12 @@ class Provider extends ServiceProvider
         View::composer('mage2-framework::product.edit', ProductFieldComposer::class);
         View::composer('catalog.product.view', ProductSpecificationComposer::class);
         View::composer(['mage2-ecommerce::admin.product.create',
-            'mage2-ecommerce::admin.product.edit'],
-            ProductFieldsComposer::class);
+                        'mage2-ecommerce::admin.product.edit'
+                        ],  ProductFieldsComposer::class);
+
         View::composer(['mage2-framework::product.create',
-            'mage2-framework::product.edit'],
-            RelatedProductComposer::class);
+                        'mage2-framework::product.edit'
+                        ], RelatedProductComposer::class);
     }
 
     /**

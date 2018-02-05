@@ -9,7 +9,8 @@
                 ?>
 
             <li class="nav-item has-dropdown">
-                <a class="has-submenu nav-link"  href="#">{{ $menu->label() }}
+                <a class="has-submenu nav-link"  href="#"><i class="{{ $menu->icon() }}"></i> {{ $menu->label() }}
+
                     <span class="caret"></span>
                 </a>
 
@@ -17,8 +18,9 @@
 
                     @foreach($subMenu as $subKey => $subMenuObj)
                         <li class="nav-item">
+
                         <a class="nav-link pl-5 list-group-item-action"
-                           href="{{ route($subMenuObj->route()) }}">{{ $subMenuObj->label() }}</a>
+                           href="{{ route($subMenuObj->route()) }}"><i class="{{ $subMenuObj->icon() }}"></i>  {{ $subMenuObj->label() }}</a>
                         </li>
                     @endforeach
 
@@ -27,6 +29,7 @@
 
         @else
             <li class="nav-item">
+
             <a class="nav-link " href="
                 @if("#" == $menu->route())
                     #
@@ -34,6 +37,7 @@
                     {{ route($menu->route()) }}
                 @endif
                 ">
+                <i class="{{ $menu->icon() }}"></i>
                 {{ $menu->label() }}
             </a>
             </li>

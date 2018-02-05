@@ -16,6 +16,13 @@ interface AdminMenu {
      */
     public function label();
 
+
+    /**
+     * Get/Set AdminMenu Icon
+     * @return string $icon
+     */
+    public function icon();
+
     /**
      * Get/Set AdminMenu Route Name
      * @return string $routeName

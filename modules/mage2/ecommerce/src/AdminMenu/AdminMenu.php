@@ -17,6 +17,13 @@ class AdminMenu implements AdminMenuContracts
     /**
      *
      *
+     * @var string $icon
+     */
+    protected $icon;
+
+    /**
+     *
+     *
      * @var array $menuItems
      */
     protected $subMenu;
@@ -64,6 +71,16 @@ class AdminMenu implements AdminMenuContracts
         }
 
         return $this->routeName;
+    }
+
+    public function icon($icon = null)
+    {
+        if (null !== $icon) {
+            $this->icon = $icon;
+            return $this;
+        }
+
+        return $this->icon;
     }
 
     public function subMenu($key = null, $menuItem = null)
