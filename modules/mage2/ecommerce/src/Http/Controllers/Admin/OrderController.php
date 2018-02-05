@@ -18,8 +18,8 @@ class OrderController extends AdminController
     {
         $dataGrid = DataGrid::model(Order::query()->orderBy('id','desc'))
             ->column('id',['sortable' => true])
-            ->column('shipping_option')
-            ->column('payment_option')
+            ->column('shipping_option',['label' => 'Shipping Option'])
+            ->column('payment_option',['label' => 'Payment Option'])
             ->linkColumn('order_status',['label' => 'Order Status'], function($model) {
                 return $model->orderStatus->name;
             })

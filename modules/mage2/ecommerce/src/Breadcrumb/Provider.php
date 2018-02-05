@@ -52,6 +52,162 @@ class Provider extends ServiceProvider {
             $breadcrumb->label('Dashboard');
         });
 
+        BreadcrumbFacade::make('admin.product.index',function ($breadcrumb) {
+            $breadcrumb->label('Product')
+                ->parent('admin.dashboard');
+        });
+
+        BreadcrumbFacade::make('admin.product.create',function ($breadcrumb) {
+            $breadcrumb->label('Create')
+                ->parent('admin.dashboard')
+                ->parent('admin.product.index');
+        });
+
+        BreadcrumbFacade::make('admin.product.edit',function ($breadcrumb) {
+            $breadcrumb->label('Edit')
+                ->parent('admin.dashboard')
+                ->parent('admin.product.index');
+        });
+
+        BreadcrumbFacade::make('admin.attribute.index',function ($breadcrumb) {
+            $breadcrumb->label('Attribute')
+                ->parent('admin.dashboard');
+        });
+
+        BreadcrumbFacade::make('admin.attribute.create',function ($breadcrumb) {
+            $breadcrumb->label('Create')
+                ->parent('admin.dashboard')
+                ->parent('admin.attribute.index');
+        });
+
+        BreadcrumbFacade::make('admin.attribute.edit',function ($breadcrumb) {
+            $breadcrumb->label('Edit')
+                ->parent('admin.dashboard')
+                ->parent('admin.attribute.index');
+        });
+
+
+        BreadcrumbFacade::make('admin.property.index',function ($breadcrumb) {
+            $breadcrumb->label('Property')
+                ->parent('admin.dashboard');
+        });
+
+        BreadcrumbFacade::make('admin.property.create',function ($breadcrumb) {
+            $breadcrumb->label('Create')
+                ->parent('admin.dashboard')
+                ->parent('admin.property.index');
+        });
+
+        BreadcrumbFacade::make('admin.attribute.edit',function ($breadcrumb) {
+            $breadcrumb->label('Edit')
+                ->parent('admin.dashboard')
+                ->parent('admin.attribute.index');
+        });
+
+
+
+        BreadcrumbFacade::make('admin.subscriber.index',function ($breadcrumb) {
+            $breadcrumb->label('Subscriber')
+                ->parent('admin.dashboard');
+        });
+
+        BreadcrumbFacade::make('admin.subscriber.create',function ($breadcrumb) {
+            $breadcrumb->label('Create')
+                ->parent('admin.dashboard')
+                ->parent('admin.subscriber.index');
+        });
+
+        BreadcrumbFacade::make('admin.subscriber.edit',function ($breadcrumb) {
+            $breadcrumb->label('Edit')
+                ->parent('admin.dashboard')
+                ->parent('admin.subscriber.index');
+        });
+
+
+
+        BreadcrumbFacade::make('admin.order.index',function ($breadcrumb) {
+            $breadcrumb->label('Order')
+                ->parent('admin.dashboard');
+        });
+
+        BreadcrumbFacade::make('admin.order.view',function ($breadcrumb) {
+            $breadcrumb->label('View')
+                ->parent('admin.dashboard')
+                ->parent('admin.order.index');;
+        });
+
+        BreadcrumbFacade::make('admin.theme.index',function ($breadcrumb) {
+            $breadcrumb->label('Theme')
+                ->parent('admin.dashboard');
+        });
+
+        BreadcrumbFacade::make('admin.theme.create',function ($breadcrumb) {
+            $breadcrumb->label('Upload')
+                ->parent('admin.dashboard')
+                ->parent('admin.theme.index');
+        });
+
+
+        BreadcrumbFacade::make('admin.role.index',function ($breadcrumb) {
+            $breadcrumb->label('Role')
+                ->parent('admin.dashboard');
+        });
+
+        BreadcrumbFacade::make('admin.role.create',function ($breadcrumb) {
+            $breadcrumb->label('Create')
+                ->parent('admin.dashboard')
+                ->parent('admin.role.index');
+        });
+
+        BreadcrumbFacade::make('admin.role.edit',function ($breadcrumb) {
+            $breadcrumb->label('Edit')
+                ->parent('admin.dashboard')
+                ->parent('admin.role.index');
+        });
+
+
+        BreadcrumbFacade::make('admin.admin-user.index',function ($breadcrumb) {
+            $breadcrumb->label('Admin User')
+                ->parent('admin.dashboard');
+        });
+
+        BreadcrumbFacade::make('admin.admin-user.create',function ($breadcrumb) {
+            $breadcrumb->label('Create')
+                ->parent('admin.dashboard')
+                ->parent('admin.admin-user.index');
+        });
+
+        BreadcrumbFacade::make('admin.admin-user.edit',function ($breadcrumb) {
+            $breadcrumb->label('Edit')
+                ->parent('admin.dashboard')
+                ->parent('admin.admin-user.index');
+        });
+
+
+
+        BreadcrumbFacade::make('admin.tax-rule.index',function ($breadcrumb) {
+            $breadcrumb->label('Tax Rule')
+                ->parent('admin.dashboard');
+        });
+
+        BreadcrumbFacade::make('admin.tax-rule.create',function ($breadcrumb) {
+            $breadcrumb->label('Create')
+                ->parent('admin.dashboard')
+                ->parent('admin.tax-rule.index');
+        });
+
+        BreadcrumbFacade::make('admin.tax-rule.edit',function ($breadcrumb) {
+            $breadcrumb->label('Edit')
+                ->parent('admin.dashboard')
+                ->parent('admin.tax-rule.index');
+        });
+
+        BreadcrumbFacade::make('admin.configuration',function ($breadcrumb) {
+            $breadcrumb->label('Configuration')
+                ->parent('admin.dashboard');
+        });
+
+
         BreadcrumbFacade::make('admin.category.index',function ($breadcrumb) {
             $breadcrumb->label('Category')
                     ->parent('admin.dashboard');
@@ -68,6 +224,7 @@ class Provider extends ServiceProvider {
                 ->parent('admin.dashboard')
                 ->parent('admin.category.index');
         });
+
 
     }
 

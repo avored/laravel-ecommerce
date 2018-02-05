@@ -31,7 +31,7 @@ class ThemeController extends AdminController
      */
     public function create()
     {
-        return view('mage2-dashboard::theme.create');
+        return view('mage2-ecommerce::admin.theme.create');
     }
 
     /**

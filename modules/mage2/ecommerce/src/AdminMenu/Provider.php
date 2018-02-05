@@ -124,7 +124,7 @@ class Provider extends ServiceProvider {
 
         $orderMenu = new AdminMenu();
         $orderMenu->key('order')
-            ->label('Orders')
+            ->label('Order')
             ->route('admin.order.index');
         $saleMenu->subMenu('order', $orderMenu);
 
