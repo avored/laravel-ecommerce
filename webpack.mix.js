@@ -21,7 +21,8 @@ mix.scripts(['modules/mage2/ecommerce/resources/assets/js/jquery-3.2.1.min.js',
         'modules/mage2/ecommerce/resources/assets/js/bootstrap.min.js',
         'modules/mage2/ecommerce/resources/assets/js/Chart.min.js',
         'modules/mage2/ecommerce/resources/assets/js/select2.min.js',
-        'modules/mage2/ecommerce/resources/assets/js/flatpickr.js'
+        'modules/mage2/ecommerce/resources/assets/js/flatpickr.js',
+        'modules/mage2/ecommerce/resources/assets/js/summernote.js'
         ]
             , 'public/vendor/mage2-admin/js/app.js');
 
@@ -32,6 +33,7 @@ mix.scripts(['modules/mage2/ecommerce/resources/assets/js/jquery-3.2.1.min.js',
             'modules/mage2/ecommerce/resources/assets/css/fontawesome.min.css',
             'modules/mage2/ecommerce/resources/assets/css/select2.min.css',
             'modules/mage2/ecommerce/resources/assets/css/flatpickr.min.css',
+            'modules/mage2/ecommerce/resources/assets/css/summernote.css',
             'modules/mage2/ecommerce/resources/assets/css/styles.css'
 
             ]

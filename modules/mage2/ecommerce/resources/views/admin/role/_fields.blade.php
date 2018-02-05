@@ -8,19 +8,15 @@
 
     @foreach(Permission::all() as $key => $permissionGroup)
 
-
-        <?php
-        //dd($permissionGroup);
-        ?>
         @if($permissionGroup->permissionList->count() > 0)
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
                 <div class="card permission-card card-default">
                     <div class="card-header">
 
                         <div class="form-check">
 
                             <input type="checkbox"
-                                   class="form-check-input"
+                                   class="form-check-input group-checkbox"
                                    name="permissions-all"
                                    value='1'/>
                             <label class="form-check-label">
@@ -75,10 +71,7 @@
         });
 
         jQuery('.group-checkbox').on('change',function(e){
-            //e.preventDefault();
-            //e.stopPropagation();
 
-            console.info(jQuery(this).is(':checked'));
             if(jQuery(this).is(':checked')) {
                 jQuery(this).parents('.permission-card:first').find('.permission-checkbox').each(function(i,el){
                         jQuery(el).prop('checked',true);
@@ -86,6 +79,16 @@
             }
             if(!jQuery(this).is(':checked')) {
                 jQuery(this).parents('.permission-card:first').find('.permission-checkbox').each(function(i,el){
+                    jQuery(el).prop('checked',false);
+                });
+            }
+
+        });
+
+        jQuery('.permission-checkbox').on('change',function(e){
+
+            if(!jQuery(this).is(':checked')) {
+                jQuery(this).parents('.permission-card:first').find('.group-checkbox').each(function(i,el){
                     jQuery(el).prop('checked',false);
                 });
             }
