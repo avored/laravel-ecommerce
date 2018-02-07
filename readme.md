@@ -22,6 +22,8 @@ Clone the repository using command:
 Set up your environment config file:
 
     mage2/laravel-ecommerce/.env 
+    
+    php artisan key:generate
 
 composer update/install 
 
