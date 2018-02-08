@@ -14,7 +14,7 @@ $productAttributes = $model->getProductAllAttributes();
 
             <div class="input-group mb-3">
 
-                <select class="form-control attribute-dropdown-element select2" multiple style="width: 88%">
+                <select class="form-control attribute-dropdown-element select2" multiple name="attribute_selected[]" style="width: 88%">
                     @foreach($attributeOptions as $value => $label)
                         <option
                                 @if($productAttributes->contains('attribute_id',$value))
@@ -25,7 +25,7 @@ $productAttributes = $model->getProductAllAttributes();
                     @endforeach
                 </select>
                 <div class="input-group-append">
-                    <button data-token="{{ csrf_token() }}"
+                    <button data-token="{{ csrf_token() }}" data-product-id="{{ $model->id }}"
                             class="btn btn-warning use-selected-attribute"
                             type="button">Use Selected
                     </button>
@@ -34,7 +34,7 @@ $productAttributes = $model->getProductAllAttributes();
 
 
 
-            @if(null !== $productVariations && $productVariations->count() > 0 )
+            @if(null !== $productVariations && $productVariations->count() > 0  && false)
 
                 <div class="product-variation-wrapper">
 
@@ -198,6 +198,17 @@ $productAttributes = $model->getProductAllAttributes();
                 </div>
 
 
+            <div class="card">
+                <div class="card-header">Attribute Options: </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label></label>
+                    </div>
+                </div>
+            </div>
+
+
+
             @else
                 <div class="product-variation-wrapper d-none">
 
@@ -228,30 +239,19 @@ $productAttributes = $model->getProductAllAttributes();
         $(function () {
 
 
-            jQuery('.add-variant-button').click(function (e) {
+
+
+            jQuery(document).on('click', '.remove-option', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                var htmlResponse = jQuery('.product-variation-card-wrapper').find('.product_attribute_template_variation').html();
-
-                var tmpString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-
-                htmlResponse = htmlResponse.replace(new RegExp('__RANDOM__STRING__', 'gi'),tmpString)
-                jQuery('.product-variation-card-wrapper').append(htmlResponse);
-
-
-
-
-
-            });
-
-            jQuery(document).on('click', '.remove-variation-card', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-
-                if (jQuery(".single-card").length > 1) {
-                    jQuery(this).parents(".single-card:first").remove();
+                if (jQuery(this).parents('.option-tag-list:first').find('.single-option').length > 1) {
+                    jQuery(this).parents(".single-option:first").remove();
+                } else {
+                    alert('You cannot remove all possible Options');
                 }
+
+
             });
 
 
@@ -260,8 +260,10 @@ $productAttributes = $model->getProductAllAttributes();
                 e.stopPropagation();
 
                 var elementValue = jQuery('.attribute-dropdown-element').val();
+                var productId = jQuery(this).attr('data-product-id');
 
-                var data = {_token: jQuery(this).attr('data-token'), attribute_id: elementValue};
+
+                var data = {_token: jQuery(this).attr('data-token'), attribute_id: elementValue, product_id: productId};
 
 
                 jQuery.ajax({
@@ -270,33 +272,16 @@ $productAttributes = $model->getProductAllAttributes();
                     method: 'post',
                     dataType: 'json',
                     success: function (response) {
-
-
                         if (response.success == true) {
-
-                            //jQuery('#add-property').modal('hide');
 
                             jQuery('.product-variation-card-wrapper').html(response.content);
 
-                            var htmlResponse = jQuery('.product-variation-card-wrapper').find('.product_attribute_template_variation').html();
-
-                            var tmpString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-
-
-                            htmlResponse = htmlResponse.replace(new RegExp('__RANDOM__STRING__', 'gi'),tmpString)
-                            jQuery('.product-variation-card-wrapper').append(htmlResponse);
 
                             jQuery('.product-variation-wrapper').toggleClass('d-none');
 
-
-
                         }
-
-
                     }
                 });
-
-
             })
         })
 

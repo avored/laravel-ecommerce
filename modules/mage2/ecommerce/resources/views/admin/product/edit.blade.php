@@ -105,8 +105,11 @@
         </div>
 
             <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="jQuery('#product-save-form').submit()">
-                    Edit Product
+                <button type="button" class="btn btn-primary" name="save" onclick="jQuery('#product-save-form').submit()">
+                    Save
+                </button>
+                <button type="button" class="btn btn-primary" name="save_continue" onclick="jQuery('#product-save-form').submit()">
+                    Save & Continue
                 </button>
                 <button type="button" class="btn" onclick="location='{{ route('admin.product.index') }}'">
                     Cancel

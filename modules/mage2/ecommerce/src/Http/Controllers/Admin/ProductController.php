@@ -118,8 +118,6 @@ class ProductController extends AdminController
     public function update(ProductRequest $request, $id)
     {
 
-        //return $request->all();
-
         try {
             Event::fire(new ProductBeforeSave($request));
             $product = Product::findorfail($id);

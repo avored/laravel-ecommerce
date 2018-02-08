@@ -1,38 +1,5 @@
-
-
-
 @include('mage2-ecommerce::forms.text',['name' => 'name','label' => 'Name'])
 @include('mage2-ecommerce::forms.text',['name' => 'identifier','label' => 'Identifier'])
-
-@include('mage2-ecommerce::forms.select',['name' => 'data_type',
-                                            'label' => 'Data Type',
-                                            'options' => [
-                                                        'VARCHAR' => 'Varchar (Max 255)',
-                                                        'DECIMAL' => 'Decimal',
-                                                        'TEXT' => 'Text (Big Text e.g Description)',
-                                                        'INTEGER' => 'Integer',
-                                                        'DATETIME' => 'Date Time',
-                                                        'BOOLEAN' => 'Boolean'
-                                                        ]
-                                        ])
-
-
-
-@include('mage2-ecommerce::forms.select',['name' => 'field_type',
-                                            'label' => 'Field Type',
-                                            'options' => [
-                                                        'TEXT' => 'Text Field',
-                                                        'CHECKBOX' => 'Check box',
-                                                        'TEXTAREA' => 'TextArea',
-                                                        'SELECT' => 'Select',
-                                                        'DATETIME' => 'DATE Time'
-                                                        ]
-                                        ])
-
-
-@include('mage2-ecommerce::forms.text',['name' => 'sort_order','label' => 'Sort Order'])
-
-
 
 
 <?php
@@ -41,7 +8,7 @@ $pool = 'abcdefghijklmnopqrstuvwxyz';
 
 $randomString = substr(str_shuffle(str_repeat($pool, 6)), 0, 6);
 
-$hiddenClass = "d-none";
+$hiddenClass = "";
 $editMode = false;
 
 
@@ -66,9 +33,14 @@ if (isset($model) && $model->attributeDropdownOptions->count() > 0) {
                                value="{{ $dropdownOptionModel->display_text }}"/>
 
                         @if ($loop->last)
-                            <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
+
+                            <div class="input-group-append">
+                                <button class="btn btn-primary add-field">Add</button>
+                            </div>
                         @else
-                            <span class="input-group-addon  remove-field" style='cursor: pointer'>Remove</span>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary remove-field">Remove</button>
+                            </div>
                         @endif
 
                     </span>
@@ -79,33 +51,43 @@ if (isset($model) && $model->attributeDropdownOptions->count() > 0) {
 
     @else
 
-        <div class="dynamic-field-row">
+        <div class="card mb-3">
+            <div class="card-body">
 
-            <div class="form-group col-md-12">
-                <label>Display Text</label>
+                <div class="dynamic-field-row">
+                    <div class="form-group">
 
-                <span class="input-group">
-                    <input disabled class="form-control"
-                           name="dropdown-options[{{ $randomString }}][display_text]"/>
-                    <span class="input-group-addon  add-field"
-                          style='cursor: pointer'>Add</span>
-                </span>
+                        <label class="form-control-label" for="display-text-input-group-{{ $randomString }}">Display Text</label>
+                        <div class="input-group">
+                            <input class="form-control" id="display-text-input-group-{{ $randomString }}"
+                                   name="dropdown-options[{{ $randomString }}][display_text]"/>
+                            <div class="input-group-append">
+                                <button class="btn btn-primary add-field">Add</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
+
         </div>
 
     @endif
 
     <div class="dynamic-field-row-template d-none">
         <div class="dynamic-field-row">
-            <div class="form-group col-md-12">
+            <div class="form-group">
                 <label>Display Text</label>
 
-                <span class="input-group">
+                <div class="input-group">
                     <input class="form-control"
                            name="dropdown-options[__RANDOM_STRING__][display_text]"/>
-                    <span class="input-group-addon  add-field"
-                          style='cursor: pointer'>Add</span>
-                </span>
+                    <div class="input-group-append">
+                        <button class="btn btn-primary add-field">Add</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -136,31 +118,13 @@ if (isset($model) && $model->attributeDropdownOptions->count() > 0) {
                 jQuery(e.target).addClass('remove-field');
                 jQuery(e.target).parents('.dynamic-field-row:first').after(rowTemplate);
             });
+
             jQuery(document).on('click', '.remove-field', function (e) {
 
                 e.preventDefault();
                 jQuery(e.target).parents('.dynamic-field-row:first').remove();
 
-            })
-            jQuery('#field_type').on('change', function (e) {
-
-                jQuery('.dynamic-field input').attr('disabled', true);
-                jQuery('.dynamic-field').addClass('d-none');
-                jQuery('.validate_field').val('');
-                jQuery('.validate_field').trigger('change.select2');
-
-
-                if (jQuery(e.target).val() == "TEXT") {
-                    jQuery('.validate_field').val('max:255');
-                    jQuery('.validate_field').trigger('change.select2');
-                }
-
-                if (jQuery(e.target).val() == "SELECT" && jQuery('.dynamic-field').hasClass('d-none')) {
-                    jQuery('.dynamic-field').removeClass('d-none');
-                    jQuery('.dynamic-field input').attr('disabled', false);
-
-                }
-            })
+            });
         });
 
     </script>

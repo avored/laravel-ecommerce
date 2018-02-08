@@ -228,12 +228,60 @@ class Product extends BaseModel
         }
 
 
+        $attributeWithOptions = $request->get('attribute');
+
+
+        //$combination = $this->combinations($request->get('attribute'));
+
+        $variationProductData   = [
+            'name' => $this->name,
+            'type' => 'VARIABLE_PRODUCT',
+            'status' => 0,
+            'price' => $this->price,
+            'qty' => $this->qty
+        ];
+
+
+        $optionsArray = [];
+
+        foreach ($attributeWithOptions as $attributeId => $attributeOptions) {
+            $optionsArray[] = array_values($attributeOptions);
+        }
+
+        $listOfOptions = $this->combinations($optionsArray);
+
+        foreach ($listOfOptions as $option) {
+
+            $variationProductData['name']   = $this->name;
+            $variationProductData['type']   = 'VARIABLE_PRODUCT';
+            $variationProductData['status'] = 0;
+            $variationProductData['price']  = $this->price;
+            $variationProductData['qty']    = $this->qty;
+
+            foreach ($option as $attributeOptionId) {
+                $attributeOptionModel = AttributeDropdownOption::findorfail($attributeOptionId);
+                $variationProductData['name'] .= " " . $attributeOptionModel->display_text;
+
+            }
+
+            $variationProductData['sku'] = str_slug($variationProductData['name']);
+            $variationProductData['slug'] = str_slug($variationProductData['name']);
+
+            $variableProduct = self::create($variationProductData);
+
+
+            ProductVariation::create(['product_id'=>$this->id,'variation_id' => $variableProduct->id]);
+
+            //@todo Save PRODUCT ATTRIBUTE(PROPERTIES) HERE
+
+        }
+
+        return $this;
+
+
+        /**
         $attributes = $request->get('attribute');
-
-
         if (null !== $attributes && count($attributes) > 0) {
-
-
 
             foreach ($attributes as $key => $attribute) {
 
@@ -247,7 +295,7 @@ class Product extends BaseModel
                     $variableProductData['type'] = 'VARIABLE_PRODUCT';
                     $variableProductModel = self::create($variableProductData);
 
-                    //*****  SAVING PRODUCT PRICES  *****//
+
                     if ($variableProductModel->prices()->get()->count() > 0) {
                         $variableProductModel->prices()->get()->first()->update(['price' => $variableProductData['price']]);
                     } else {
@@ -361,9 +409,39 @@ class Product extends BaseModel
             }
 
         }
-
+        **/
 
     }
+
+    public function combinations($arrays, $i = 0) {
+        if (!isset($arrays[$i])) {
+            return [];
+        }
+        if ($i == count($arrays) - 1) {
+            return $arrays[$i];
+        }
+
+        //var_dump($arrays);
+        // get combinations from subsequent arrays
+        $tmp = $this->combinations($arrays, $i + 1);
+
+
+
+        $result = [];
+
+        // concat each array from tmp with each element from $arrays[$i]
+        foreach ($arrays[$i] as $v) {
+            foreach ($tmp as $t) {
+                $result[] = is_array($t) ?
+                    array_merge(array($v), $t) :
+                    array($v, $t);
+
+            }
+        }
+
+        return $result;
+    }
+
 
     public static function getProductBySlug($slug)
     {

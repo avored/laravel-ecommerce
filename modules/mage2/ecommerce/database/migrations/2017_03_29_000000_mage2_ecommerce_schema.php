@@ -514,10 +514,10 @@ class Mage2EcommerceSchema extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('identifier')->unique();
-            $table->enum('data_type',['INTEGER','DECIMAL','DATETIME','VARCHAR','BOOLEAN','TEXT'])->nullable()->default(null);
-            $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME','CHECKBOX','RADIO','SWITCH']);
+            //$table->enum('data_type',['INTEGER','DECIMAL','DATETIME','VARCHAR','BOOLEAN','TEXT'])->nullable()->default(null);
+            //$table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME','CHECKBOX','RADIO','SWITCH']);
 
-            $table->integer('sort_order')->nullable()->default(0);
+            //$table->integer('sort_order')->nullable()->default(0);
             $table->timestamps();
         });
 

@@ -24,8 +24,6 @@ class AttributeRequest extends Request
     {
         $validationRule = [];
         $validationRule['name'] = 'required|max:255';
-        $validationRule['field_type'] = 'required';
-        $validationRule['sort_order'] = 'required|integer';
 
 
         if (null !== $this->request->get('dropdown-options')) {

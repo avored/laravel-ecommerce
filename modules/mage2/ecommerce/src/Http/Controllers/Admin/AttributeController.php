@@ -10,10 +10,6 @@ use Illuminate\Http\JsonResponse;
 
 class AttributeController extends AdminController
 {
-
-
-
-
     public function index()
     {
         $dataGrid = DataGrid::model(Attribute::query())
@@ -69,7 +65,7 @@ class AttributeController extends AdminController
 
         $attribute = Attribute::find($id);
         $attribute->update($request->all());
-        $this->_saveDropdownOptions($attribute, $request);
+        $this->_saveDropdownOptions($attribute , $request);
 
         return redirect()->route('admin.attribute.index');
 
@@ -111,6 +107,7 @@ class AttributeController extends AdminController
     {
         $attributes = Attribute::whereIn('id',$request->get('attribute_id'))->get();
 
+        //foreach ($attributes as $)
         $tmpString = "__RANDOM__STRING__";
         $view = view('mage2-ecommerce::admin.attribute.get-element')
             ->with('attributes', $attributes)
@@ -127,20 +124,19 @@ class AttributeController extends AdminController
 
         if (null !== $request->get('dropdown-options')) {
 
+            if(null != $attribute->attributeDropdownOptions()->get() && $attribute->attributeDropdownOptions()->get()->count() >= 0) {
+
+                $attribute->attributeDropdownOptions()->delete();
+            }
             foreach ($request->get('dropdown-options') as $key => $val) {
                 if ($key == '__RANDOM_STRING__') {
                     continue;
                 }
-                if (!is_int($key)) {
-                    $attribute->attributeDropdownOptions()->create($val);
-                }
 
-                // Update existing value
-                if(is_int($key)) {
-                    $dropdownOption = OptionDropdownOption::find($key);
-                    $dropdownOption->update($val);
-                }
+                $attribute->attributeDropdownOptions()->create($val);
+
             }
         }
     }
+
 }
