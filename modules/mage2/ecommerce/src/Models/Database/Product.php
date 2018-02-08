@@ -249,7 +249,7 @@ class Product extends BaseModel
                 $variationProductData['name'] = $this->name;
                 $variationProductData['type'] = 'VARIABLE_PRODUCT';
                 $variationProductData['status'] = 0;
-                $variationProductData['price'] = $this->price;
+                //$variationProductData['price'] = $this->price;
                 $variationProductData['qty'] = $this->qty;
 
 
@@ -270,11 +270,25 @@ class Product extends BaseModel
                 $variationProductData['slug'] = str_slug($variationProductData['name']);
 
                 $variableProduct = self::create($variationProductData);
+                $variableProduct->prices()->create(['price' => $this->price]);
+
+
+
+                ProductAttributeIntegerValue::create([
+                    'product_id' => $variableProduct->id,
+                    'attribute_id' => $attributeOptionModel->attribute->id,
+                    'value' => $attributeOptionModel->id
+                ]);
 
 
                 ProductVariation::create(['product_id' => $this->id, 'variation_id' => $variableProduct->id]);
 
-                //@todo Save PRODUCT ATTRIBUTE(PROPERTIES) HERE
+
+
+
+
+
+                //@todo Save ATTRIBUTE(PROPERTIES) HERE
 
             }
 
@@ -698,6 +712,11 @@ class Product extends BaseModel
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function variations()
+    {
+        return $this->hasMany(ProductVariation::class);
     }
 
     public function relatedProducts()
