@@ -231,51 +231,54 @@ class Product extends BaseModel
         $attributeWithOptions = $request->get('attribute');
 
 
-        //$combination = $this->combinations($request->get('attribute'));
-
-        $variationProductData   = [
-            'name' => $this->name,
-            'type' => 'VARIABLE_PRODUCT',
-            'status' => 0,
-            'price' => $this->price,
-            'qty' => $this->qty
-        ];
+        if(null !== $attributeWithOptions && count($attributeWithOptions) > 0) {
 
 
-        $optionsArray = [];
+            $optionsArray = [];
 
-        foreach ($attributeWithOptions as $attributeId => $attributeOptions) {
-            $optionsArray[] = array_values($attributeOptions);
-        }
+            foreach ($attributeWithOptions as $attributeId => $attributeOptions) {
+                $optionsArray[] = array_values($attributeOptions);
+            }
 
-        $listOfOptions = $this->combinations($optionsArray);
+            $listOfOptions = $this->combinations($optionsArray);
 
-        foreach ($listOfOptions as $option) {
 
-            $variationProductData['name']   = $this->name;
-            $variationProductData['type']   = 'VARIABLE_PRODUCT';
-            $variationProductData['status'] = 0;
-            $variationProductData['price']  = $this->price;
-            $variationProductData['qty']    = $this->qty;
+            foreach ($listOfOptions as $option) {
 
-            foreach ($option as $attributeOptionId) {
-                $attributeOptionModel = AttributeDropdownOption::findorfail($attributeOptionId);
-                $variationProductData['name'] .= " " . $attributeOptionModel->display_text;
+
+                $variationProductData['name'] = $this->name;
+                $variationProductData['type'] = 'VARIABLE_PRODUCT';
+                $variationProductData['status'] = 0;
+                $variationProductData['price'] = $this->price;
+                $variationProductData['qty'] = $this->qty;
+
+
+                if(is_array($option)) {
+                    foreach ($option as $attributeOptionId) {
+                        $attributeOptionModel = AttributeDropdownOption::findorfail($attributeOptionId);
+                        $variationProductData['name'] .= " " . $attributeOptionModel->display_text;
+
+                    }
+                } else {
+
+                    $attributeOptionModel = AttributeDropdownOption::findorfail($option);
+                    $variationProductData['name'] .= " " . $attributeOptionModel->display_text;
+
+                }
+
+                $variationProductData['sku'] = str_slug($variationProductData['name']);
+                $variationProductData['slug'] = str_slug($variationProductData['name']);
+
+                $variableProduct = self::create($variationProductData);
+
+
+                ProductVariation::create(['product_id' => $this->id, 'variation_id' => $variableProduct->id]);
+
+                //@todo Save PRODUCT ATTRIBUTE(PROPERTIES) HERE
 
             }
 
-            $variationProductData['sku'] = str_slug($variationProductData['name']);
-            $variationProductData['slug'] = str_slug($variationProductData['name']);
-
-            $variableProduct = self::create($variationProductData);
-
-
-            ProductVariation::create(['product_id'=>$this->id,'variation_id' => $variableProduct->id]);
-
-            //@todo Save PRODUCT ATTRIBUTE(PROPERTIES) HERE
-
         }
-
         return $this;
 
 
