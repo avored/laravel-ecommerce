@@ -11,6 +11,18 @@ Mage2 is a Ecommerce application based on Laravel framework for shopping cart so
 [Demo Mage2 E Commerce](http://demo.mage2.website/)
 
 
+
+# Step 1: Install Mage2 E Commerce using [Composer](https://getcomposer.org/download/).
+
+Run composer to create the Mage2 E commerce application:
+
+    composer create-project mage2/laravel-ecommerce --stability=dev
+    
+Set up your environment config file:
+
+    mage2/laravel-ecommerce/.env   
+    
+
 # Step 1: Install Mage2 E Commerce using [Git](https://git-scm.com/).
 
 Clone the repository using command:
@@ -24,19 +36,7 @@ Set up your environment config file:
     mage2/laravel-ecommerce/.env 
     
     php artisan key:generate
-
-composer update/install 
-
-# Step 1: Install Mage2 E Commerce using [Composer](https://getcomposer.org/download/).
-
-Run composer to create the Mage2 E commerce application:
-
-    composer create-project mage2/laravel-ecommerce --stability=dev
     
-Set up your environment config file:
-
-    mage2/laravel-ecommerce/.env    
-
 # Step 2: go to url
 
     Yoursite.com/install
