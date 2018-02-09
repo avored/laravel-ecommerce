@@ -22,20 +22,6 @@ Set up your environment config file:
 
     mage2/laravel-ecommerce/.env   
     
-
-# Step 1: Install Mage2 E Commerce using [Git](https://git-scm.com/).
-
-Clone the repository using command:
-
-    git clone https://github.com/mage2/laravel-ecommerce.git
-
-    composer update
-
-Set up your environment config file:
-
-    mage2/laravel-ecommerce/.env 
-    
-    php artisan key:generate
     
 # Step 2: go to url
 
