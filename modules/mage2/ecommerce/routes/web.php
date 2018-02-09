@@ -249,6 +249,11 @@ Route::middleware(['web', 'admin.auth', 'permission'])
             'uses' => 'PropertyController@getElementHtml'
         ]);
 
+        Route::post('edit-product-variation', [
+            'as' => 'admin.variation.edit',
+            'uses' => 'ProductController@editVariation'
+        ]);
+
         Route::post('get-attribute-element', [
             'as' => 'admin.attribute.element',
             'uses' => 'AttributeController@getElementHtml'

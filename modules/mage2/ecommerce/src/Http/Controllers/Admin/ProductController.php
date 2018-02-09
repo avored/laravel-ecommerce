@@ -186,6 +186,24 @@ class ProductController extends AdminController
         return JsonResponse::create(['success' => true]);
     }
 
+
+    /**
+     * upload image file and resized it.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function editVariation(Request $request)
+    {
+
+        $product = Product::findorfail($request->get('variation_id'));
+        $view = view('mage2-ecommerce::admin.product.variation-modal')
+                            ->with('model', $product);
+
+        return new JsonResponse(['success' => true,'content' => $view->render(),'modalId' => '#variation-modal-' . $product->id]);
+    }
+
     /**
      * return random string only lower and without digits.
      *

@@ -58,7 +58,14 @@ $productAttributes = $model->getProductAllAttributes();
                     <td>{{ $variation->variationProduct->name }}</td>
                     <td>{{ $variation->variationProduct->price }}</td>
                     <td>{{ $variation->variationProduct->qty }}</td>
-                    <td><a href="#">Edit</a></td>
+                    <td>
+                        <a href="#"
+                           data-token="{{ csrf_token() }}"
+                           class="edit-variation-link"
+                           data-variation-id="{{ $variation->variationProduct->id }}">
+                            Edit
+                        </a>
+                    </td>
                     <td><a href="#">Destroy</a></td>
                 </tr>
                 @endforeach
@@ -78,6 +85,39 @@ $productAttributes = $model->getProductAllAttributes();
         $(function () {
 
 
+            jQuery(document).on('click','.edit-variation-link',function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var variationId = jQuery(this).attr('data-variation-id');
+
+                if(jQuery('#variation-modal-' + variationId).length > 0) {
+
+                    jQuery('#variation-modal-' + variationId).modal();
+
+                } else {
+
+                    var data = {_token: jQuery(this).attr('data-token'), variation_id: variationId};
+                    jQuery.ajax({
+                        url: '{{ route('admin.variation.edit') }}',
+                        data: data,
+                        method: 'post',
+                        dataType: 'json',
+                        success: function (response) {
+
+                            if (response.success == true) {
+
+                                jQuery(document.body).append(response.content);
+                                jQuery(response.modalId).modal();
+                            }
+
+
+                        }
+                    });
+                }
+
+
+            })
             jQuery(document).on('click', '.remove-option', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
