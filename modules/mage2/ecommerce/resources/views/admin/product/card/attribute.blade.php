@@ -66,7 +66,17 @@ $productAttributes = $model->getProductAllAttributes();
                             Edit
                         </a>
                     </td>
-                    <td><a href="#">Destroy</a></td>
+                    <td>
+                        <a href="#" onclick="event.preventDefault();
+                                             document.getElementById('product-variation-{{ $variation->variationProduct->id }}').submit();">
+                            Destroy
+                        </a>
+                        <form id="product-variation-{{ $variation->variationProduct->id }}" action="{{ route('admin.product.destroy', $variation->variationProduct->id) }}"
+                              method="POST" style="display: none;">
+                            <input type="hidden" name="_method" value="delete">
+                            {{ csrf_field() }}
+                        </form>
+                    </td>
                 </tr>
                 @endforeach
 
