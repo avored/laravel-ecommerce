@@ -590,44 +590,44 @@ class Product extends BaseModel
     {
 
         if(null === $variation) {
-            $variation = $this->productVariations()->get()->first();
+            $variations = $this->productVariations()->get();
         }
-
 
         $collection = Collection::make([]);
 
-        if(Null === $variation) {
+        if(NULL === $variations || $variations->count() <= 0) {
             return $collection;
         }
-        $variationModel = self::findorfail($variation->variation_id);
 
+        foreach ($variations as $variation) {
 
+            $variationModel = self::findorfail($variation->variation_id);
 
+            foreach ($variationModel->productVarcharAttributes as $item) {
+                $collection->push($item);
+            }
+            foreach ($variationModel->productBooleanAttributes as $item) {
+                $collection->push($item);
+            }
 
-        foreach ($variationModel->productVarcharAttributes as $item) {
-            $collection->push($item);
-        }
-        foreach ($variationModel->productBooleanAttributes as $item) {
-            $collection->push($item);
-        }
+            foreach ($variationModel->productTextAttributes as $item) {
+                $collection->push($item);
+            }
+            foreach ($variationModel->productDecimalAttributes as $item) {
+                $collection->push($item);
+            }
+            foreach ($variationModel->productDecimalAttributes as $item) {
+                $collection->push($item);
+            }
+            foreach ($variationModel->productIntegerAttributes as $item) {
+                $collection->push($item);
+            }
 
-        foreach ($variationModel->productTextAttributes as $item) {
-            $collection->push($item);
-        }
-        foreach ($variationModel->productDecimalAttributes as $item) {
-            $collection->push($item);
-        }
-        foreach ($variationModel->productDecimalAttributes as $item) {
-            $collection->push($item);
-        }
-        foreach ($variationModel->productIntegerAttributes as $item) {
-            $collection->push($item);
-        }
+            foreach ($variationModel->productDatetimeAttributes as $item) {
+                $collection->push($item);
+            }
 
-        foreach ($variationModel->productDatetimeAttributes as $item) {
-            $collection->push($item);
         }
-
 
 
         return $collection;

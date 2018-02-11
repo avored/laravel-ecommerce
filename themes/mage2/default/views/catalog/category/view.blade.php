@@ -7,7 +7,7 @@
 @section('content')
     <div class="row">
         <div class="col-2">
-            <!-- include('catalog.category.options') -->
+            @include('catalog.category.options')
         </div>
         <div class="col-10">
             <div class="row">
@@ -19,7 +19,6 @@
                         <div class="col-4">
                             @include('catalog.product.view.product-card',['product' => $product])
                     </div>
-
                 @endforeach
                 <div class="clearfix"></div>
                 {!!  $products->links('pagination.bootstrap-4') !!}

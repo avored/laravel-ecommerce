@@ -18,7 +18,7 @@
         $attributes = $category->getFilters();
         ?>
         @foreach($attributes as $attribute)
-            <h4>{{ $attribute->title }}</h4>
+            <h4>{{ $attribute->name }}</h4>
             <ul class="list-group">
                 @foreach($attribute->attributeDropdownOptions as $option)
                     <li class="list-group-item">

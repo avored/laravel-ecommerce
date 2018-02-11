@@ -71,13 +71,60 @@ class Category extends BaseModel
     public function getFilters()
     {
         $attrs = Collection::make([]);
-        $productIds = $this->products->pluck('id');
 
-        $productVarcharCollection = ProductAttributeValue::whereIn('product_id', $productIds)->get()->unique('product_attribute_id');
+        $productIds = Collection::make([]);
+        $products = $this->products;
 
-        foreach ($productVarcharCollection as $varcharValue) {
-            $attrs->push(Attribute::find($varcharValue->attribute_id));
+
+
+        foreach ($products as $product) {
+            foreach ($product->productVariations as $variation) {
+                //dd($variation);
+                $productIds->push($variation->variation_id);
+            }
+            $productIds->push($product->id);
         }
+
+
+        $collections = ProductAttributeBooleanValue::whereIn('product_id', $productIds)->get()->unique('attribute_id');
+            foreach ($collections as $booleanValue) {
+                $attrs->push(Attribute::find($booleanValue->attribute_id));
+            }
+        //}
+
+        $collections = ProductAttributeDatetimeValue::whereIn('product_id', $productIds)->get()->unique('attribute_id');
+            foreach ($collections as $booleanValue) {
+                $attrs->push(Attribute::find($booleanValue->attribute_id));
+            }
+        //}
+
+        $collections = ProductAttributeDecimalValue::whereIn('product_id', $productIds)->get()->unique('attribute_id');
+            foreach ($collections as $booleanValue) {
+                $attrs->push(Attribute::find($booleanValue->attribute_id));
+            }
+        //}
+
+        $collections = ProductAttributeIntegerValue::whereIn('product_id', $productIds)->get()->unique('attribute_id');
+
+            foreach ($collections as $booleanValue) {
+                $attrs->push(Attribute::find($booleanValue->attribute_id));
+            }
+        //}
+
+        $collections = ProductAttributeTextValue::whereIn('product_id', $productIds)->get()->unique('attribute_id');
+            foreach ($collections as $booleanValue) {
+                $attrs->push(Attribute::find($booleanValue->attribute_id));
+            }
+        //}
+
+        $collections = ProductAttributeVarcharValue::whereIn('product_id', $productIds)->get()->unique('attribute_id');
+            foreach ($collections as $booleanValue) {
+                $attrs->push(Attribute::find($booleanValue->attribute_id));
+            }
+        //}
+
+
+
 
         return $attrs;
 
