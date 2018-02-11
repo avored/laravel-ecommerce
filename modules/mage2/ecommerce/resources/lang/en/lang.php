@@ -13,6 +13,18 @@ return [
     |
     */
 
+    'failed' => 'These credentials do not match our records.',
+    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+
+
+    'password' => 'Passwords must be at least six characters and match the confirmation.',
+    'reset' => 'Your password has been reset!',
+    'sent' => 'We have e-mailed your password reset link!',
+    'token' => 'This password reset token is invalid.',
+    'user' => "We can't find a user with that e-mail address.",
+
+
+
     'admin-login-card-title' => 'Mage2 Admin Login',
     'admin-login-forget-password-link' => 'Forgot your Password?',
     'admin-login-button-title' => 'Login',

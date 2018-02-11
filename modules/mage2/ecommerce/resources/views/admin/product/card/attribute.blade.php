@@ -14,7 +14,7 @@ $productAttributes = $model->getProductAllAttributes();
             <div class="input-group mb-3">
 
                 <select class="select2 attribute-dropdown-element  form-control" multiple name="attribute_selected[]"
-                        style="width: 100%">
+                        style="width: 80%">
                     @foreach($attributeOptions as $value => $label)
                         <option
                                 @if($productAttributes->contains('attribute_id',$value))
@@ -110,8 +110,6 @@ $productAttributes = $model->getProductAllAttributes();
                                 jQuery(document.body).append(response.content);
                                 jQuery(response.modalId).modal();
                             }
-
-
                         }
                     });
                 }

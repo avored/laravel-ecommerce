@@ -4,6 +4,7 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends AdminController
 {
@@ -45,6 +46,21 @@ class LoginController extends AdminController
     protected function guard()
     {
         return Auth::guard('admin');
+    }
+
+    /**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws ValidationException
+     */
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        throw ValidationException::withMessages([
+            $this->username() => [trans('mage2-ecommerce::lang.failed')],
+        ]);
     }
 
     public function logout(Request $request)
