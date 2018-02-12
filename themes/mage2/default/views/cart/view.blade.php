@@ -109,9 +109,13 @@
                             <td class="col-6">
 
                                 <div class="input-group">
-                                    <input type="text" name="code" class="form-control gift-coupon-code-textbox"
+                                    <input type="text" name="code"
+                                           class="form-control gift-coupon-code-textbox"
                                            placeholder="Code"/>
-                                    <a href="#" class="input-group-addon code-apply-button">Apply</a>
+                                    <div class="input-group-append">
+                                        <a href="#" class="btn btn-primary code-apply-button">Apply</a>
+                                    </div>
+
                                 </div>
                                  
                             </td>

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 use Mage2\Ecommerce\Models\Database\Attribute;
 use Mage2\Ecommerce\Models\Database\Product;
 use Illuminate\Support\Collection;
-use Mage2\Ecommerce\Models\Database\ProductAttributeValue;
+use Mage2\Ecommerce\Models\Database\ProductAttributeIntegerValue;
 
 class CartController extends Controller
 {
@@ -44,7 +44,7 @@ class CartController extends Controller
 
                 $subProduct = Product::find($subProductId);
 
-                $productAttributeValue = ProductAttributeValue::whereProductId($subProductId)->whereAttributeId($attributeId)->first();
+                $productAttributeValue = ProductAttributeIntegerValue::whereProductId($subProductId)->whereAttributeId($attributeId)->first();
 
                 $attribute = Attribute::findorfail($attributeId);
                 $option = $attribute->attributeDropdownOptions()->where('id','=',$productAttributeValue->value)->get()->first();
