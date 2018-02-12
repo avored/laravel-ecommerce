@@ -15,7 +15,7 @@
                 </ol>
                 <div class="carousel-inner" role="listbox">
                 <div class="carousel-item active">
-                    <img class="d-block img-fluid" src="/img/img1.jpg" alt="First slide">
+                    <img class="d-block img-fluid" src="{{ asset('/img/img1.JPG') }}" alt="First slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Boxing Day Special</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block img-fluid" src="/img/img2.jpg" alt="Second slide">
+                    <img class="d-block img-fluid" src="{{ asset('/img/img2.JPG') }}" alt="Second slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>New Arrivals</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <img class="d-block img-fluid" src="/img/img3.jpg" alt="Third slide">
+                    <img class="d-block img-fluid" src="{{ asset('/img/img3.JPG') }}" alt="Third slide">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Clearance Items</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
