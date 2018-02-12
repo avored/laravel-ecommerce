@@ -233,6 +233,13 @@ class Product extends BaseModel
 
         if(null !== $attributeWithOptions && count($attributeWithOptions) > 0) {
 
+            $selectedAttributes = $request->get('attribute_selected');
+
+            //$this->attribute()->delete();
+            foreach ($selectedAttributes as $selectedAttribute) {
+                $this->attribute()->sync($selectedAttribute);
+            }
+
 
             $optionsArray = [];
 
@@ -633,6 +640,21 @@ class Product extends BaseModel
         return $collection;
     }
 
+    public function getVariableProduct($option) {
+
+
+        $productAttributeIntegerValue = ProductAttributeIntegerValue::whereAttributeId($option->attribute_id)
+                                                                        ->whereValue($option->id)->first();
+
+
+        if(null === $productAttributeIntegerValue) {
+            return null;
+        }
+        return Product::findorfail($productAttributeIntegerValue->product_id);
+
+
+    }
+
 
     public function productVariations()
     {
@@ -671,9 +693,6 @@ class Product extends BaseModel
         return $this->hasMany(ProductAttributeDecimalValue::class);
     }
 
-
-
-
     public function productVarcharProperties()
     {
         return $this->hasMany(ProductPropertyVarcharValue::class);
@@ -708,6 +727,7 @@ class Product extends BaseModel
     {
         return $this->belongsToMany(Attribute::class);
     }
+
 
     public function orders()
     {

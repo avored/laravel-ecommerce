@@ -13,16 +13,23 @@
 </div>
 
 <?php
-    $attributes = $product->getCombinationAttributeList();
-    $attributeValueList = $product->getCombinationAttributeValueList();
+    $attributes = $product->attribute;
+    //$attributeValueList = $product->getCombinationAttributeValueList();
 ?>
 @foreach($attributes as $attribute)
+
+
 
         <?php
         //$option = $attribute->getOptionsList($attributeValueList);
 
+            //dd($attribute);
 
         //dd($product->id);
+
+
+            //$combinationProduct = $product->getVariableProduct($option);
+
         ?>
 
 
@@ -33,15 +40,14 @@
 
             <option data-qty="0" data-price="{{ number_format('0.00',2) }}" value="">Please Select</option>
 
-            @foreach($attribute->attributeDropdownOptions as $option)
 
-                <?php
-                $combinationProduct = $attribute->getDropdownSubProduct($option)
-                ?>
+        @foreach($attribute->attributeDropdownOptions as $option)
+
+                @php
+                    $combinationProduct = $product->getVariableProduct($option);
+                @endphp
 
                         @if(null != $combinationProduct)
-
-
                 <!-- -->
                 <option
                         data-qty="{{ $combinationProduct->qty }}" data-price="{{  $combinationProduct->price }}"
@@ -49,6 +55,8 @@
                 @endif
             @endforeach
         </select>
+
+
 
     </div>
 @endforeach
@@ -68,7 +76,7 @@
         jQuery('.product-variation-dropdown').change(function (e) {
             e.preventDefault();
 
-            var basePrice = parseFloat(jQuery('#product-price-hidden').val());
+            var basePrice = parseFloat(0);
             var i = 0;
             var attributePrice = 0;
 

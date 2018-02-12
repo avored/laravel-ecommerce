@@ -10,6 +10,9 @@ class Attribute extends BaseModel
         return $this->hasMany(AttributeDropdownOption::class);
     }
 
+    public function products() {
+        return $this->hasMany(Product::class);
+    }
 }
 
 
