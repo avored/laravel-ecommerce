@@ -1,11 +1,11 @@
 
 
 
-@include('mage2-ecommerce::forms.text',['name' => 'name','label' => 'Name'])
-@include('mage2-ecommerce::forms.text',['name' => 'identifier','label' => 'Identifier'])
+@include('mage2-ecommerce::forms.text',['name' => 'name','label' => __('mage2-ecommerce::property.name')])
+@include('mage2-ecommerce::forms.text',['name' => 'identifier','label' => __('mage2-ecommerce::property.identifier')])
 
 @include('mage2-ecommerce::forms.select',['name' => 'data_type',
-                                            'label' => 'Data Type',
+                                            'label' => __('mage2-ecommerce::property.data-type'),
                                             'options' => [
                                                         'VARCHAR' => 'Varchar (Max 255)',
                                                         'DECIMAL' => 'Decimal',
@@ -19,7 +19,7 @@
 
 
 @include('mage2-ecommerce::forms.select',['name' => 'field_type',
-                                            'label' => 'Field Type',
+                                            'label' => __('mage2-ecommerce::property.field-type'),
                                             'options' => [
                                                         'TEXT' => 'Text Field',
                                                         'CHECKBOX' => 'Check box',
@@ -30,9 +30,7 @@
                                         ])
 
 
-@include('mage2-ecommerce::forms.text',['name' => 'sort_order','label' => 'Sort Order'])
-
-
+@include('mage2-ecommerce::forms.text',['name' => 'sort_order','label' => __('mage2-ecommerce::property.sort-order')])
 
 
 <?php

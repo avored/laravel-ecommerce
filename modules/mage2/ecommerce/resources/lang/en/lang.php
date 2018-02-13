@@ -25,6 +25,7 @@ return [
 
 
 
+
     'admin-login-card-title' => 'Mage2 Admin Login',
     'admin-login-forget-password-link' => 'Forgot your Password?',
     'admin-login-button-title' => 'Login',
@@ -45,5 +46,10 @@ return [
 
 
     'address.configuration.title' => "Address Configuration List",
+
+
+    'cancel' => 'Cancel'
+
+
     
 ];

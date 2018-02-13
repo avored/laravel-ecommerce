@@ -1,7 +1,7 @@
 
-@include('mage2-ecommerce::forms.text',['name' => 'name' ,'label' => 'Role Name'])
+@include('mage2-ecommerce::forms.text',['name' => 'name' ,'label' => __('mage2-ecommerce::role.role-name')])
 
-@include('mage2-ecommerce::forms.textarea',['name' => 'description' ,'label' => 'Role Description'])
+@include('mage2-ecommerce::forms.textarea',['name' => 'description' ,'label' => __('mage2-ecommerce::role.role-description')])
 
 
 <div class="row">
@@ -26,7 +26,6 @@
                     </div>
                     <div class="card-body">
                         @foreach($permissionGroup->permissionList as $permission)
-
 
                             <div class="form-check">
 
@@ -94,8 +93,6 @@
             }
 
         })
-
-
 
     });
 

@@ -3,9 +3,9 @@
 @section('content')
     <div class="container">
         <h1>
-            <span class="main-title-wrap">Subscriber List</span>
+            <span class="main-title-wrap">{{ __('mage2-ecommerce::subscriber.list') }}</span>
             <a style="" href="{{ route('admin.subscriber.create') }}" class="btn btn-primary float-right">
-                Create Subscriber
+                {{ __('mage2-ecommerce::subscriber.create') }}
             </a>
         </h1>
         {!! $dataGrid->render() !!}

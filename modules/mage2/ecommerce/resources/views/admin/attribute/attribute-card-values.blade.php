@@ -4,6 +4,7 @@
             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
                aria-controls="collapseOne">
                 Available Variations
+
             </a>
         </h4>
     </div>

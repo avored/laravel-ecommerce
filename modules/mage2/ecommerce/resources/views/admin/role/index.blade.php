@@ -4,11 +4,13 @@
 
     <div class="container">
         <div class="h1">
-            Role List
+            {{ __('mage2-ecommerce::role.role-list') }}
 
                 <a href="{{ route('admin.role.create') }}"
-                   class="float-right btn btn-primary">
-                    Create Role
+                   class="float-right btn btn-primary"
+                    title="{{ __('mage2-ecommerce::role.role-create') }}"
+                >
+                    {{ __('mage2-ecommerce::role.role-create') }}
                 </a>
 
         </div>
