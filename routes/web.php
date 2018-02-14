@@ -11,3 +11,11 @@
 |
 */
 
+Route::get('/', 'HomeController@index')
+                ->name('home');
+
+Route::get('/category/{slug}', 'CategoryViewController@view')
+                ->name('category.view');
+
+Route::get('/product/{slug}','ProductViewController@view')
+                ->name('product.view');

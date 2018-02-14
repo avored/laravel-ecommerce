@@ -154,8 +154,8 @@ class Mage2EcommerceSchema extends Migration
             $table->decimal('qty', 10, 6)->nullable();
             $table->tinyInteger('is_taxable')->nullable()->default(null);
 
-            $table->string('page_title')->nullable()->default(null);
-            $table->string('page_description')->nullable()->default(null);
+            $table->string('meta_title')->nullable()->default(null);
+            $table->string('meta_description')->nullable()->default(null);
             $table->timestamps();
         });
 
