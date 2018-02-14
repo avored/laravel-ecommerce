@@ -1,4 +1,5 @@
 <?php
+
 namespace Mage2\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -20,6 +21,8 @@ class ResetPasswordController extends AdminController
     */
 
     use ResetsPasswords;
+
+    protected $redirectTo = 'admin';
 
     /**
      * Create a new controller instance.

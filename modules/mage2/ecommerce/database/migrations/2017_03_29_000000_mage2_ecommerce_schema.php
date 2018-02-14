@@ -319,7 +319,7 @@ class Mage2EcommerceSchema extends Migration
         Schema::create('visitors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('ip_address', 15);
-            $table->string('url', 50);
+            $table->string('url' );
             $table->string('agent', 150);
             $table->integer('user_id')->unsigned()->nullable()->default(null);
             $table->timestamps();

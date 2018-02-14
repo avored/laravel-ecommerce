@@ -29,7 +29,10 @@ class ProductController extends AdminController
 
         $dataGrid = DataGrid::model(Product::where('type','!=', 'VARIABLE_PRODUCT'))
             ->column('id', ['sortable' => true])
-            ->column('name')
+            ->linkColumn('image', [], function ($model) {
+                return "<img src='". $model->image->smallUrl . "' style='max-height: 50px;' />";
+
+            })->column('name')
             ->linkColumn('edit', [], function ($model) {
                 return "<a href='" . route('admin.product.edit', $model->id) . "' >Edit</a>";
 

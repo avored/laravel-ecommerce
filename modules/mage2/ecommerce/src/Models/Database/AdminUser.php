@@ -4,7 +4,7 @@ namespace Mage2\Ecommerce\Models\Database;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Mage2\User\Notifications\ResetPassword;
+use Mage2\Ecommerce\Notifications\ResetPassword;
 use Laravel\Passport\HasApiTokens;
 
 class AdminUser extends Authenticatable
@@ -38,6 +38,7 @@ class AdminUser extends Authenticatable
     {
         $this->notify(new ResetPassword($token));
     }
+
 
 
     public function getFullNameAttribute()

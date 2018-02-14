@@ -1,9 +1,31 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-@section('content')
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <div class="row">
-        <div class="col-8">
+    <title>Mage2 Admin Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('vendor/mage2-admin/css/app.css') }}" rel="stylesheet">
+
+    <!-- Scripts -->
+    <script>
+        window.Laravel = <?php
+        echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]);
+        ?>
+    </script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row justify-content-center align-items-center" style="height: 100vh;">
+        <div class="col-8" style="max-width: 650px">
             <div class="card">
                 <div class="card-header">Reset Password</div>
 
@@ -71,5 +93,8 @@
             </div>
         </div>
     </div>
+</div>
+<script type="text/javascript" src="{{ asset('vendor/mage2-admin/js/app.js') }}"></script>
+</body>
 
-@endsection
+</html>

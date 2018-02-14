@@ -11,7 +11,7 @@
     <title>Mage2 Admin Login</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ asset('vendor/mage2-admin/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/mage2-admin/css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -73,6 +73,6 @@
 </div>
 <!-- Scripts -->
 <!-- JQuery -->
-<script type="text/javascript" src="{{ asset('vendor/mage2-admin/js/jquery-3.2.1.slim.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/mage2-admin/js/app.js') }}"></script>
 </body>
 </html>
