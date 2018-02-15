@@ -20,12 +20,14 @@ class Provider extends ServiceProvider
 
     public function boot()
     {
+
         $this->registerPermissions();
 
-        Blade::directive('hasPermission', function ($routeName) {
+        Blade::if('hasPermission', function ($routeName) {
 
             $condition = false;
             $user = Auth::guard('admin')->user();
+
 
             if (!$user) {
                 $condition = $user->hasPermission($routeName) ?: false;
@@ -33,13 +35,11 @@ class Provider extends ServiceProvider
 
             $converted_res = ($condition) ? 'true' : 'false';
 
+
             return "<?php if ($converted_res): ?>";
 
         });
 
-        Blade::directive('endHasPermission', function () {
-            return "<?php endif; ?>";
-        });
     }
 
     /**

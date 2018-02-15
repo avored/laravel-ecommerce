@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers;
+namespace App\Http\Controllers;
 
 
 use Illuminate\Support\Facades\Auth;

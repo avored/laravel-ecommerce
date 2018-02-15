@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Mage2\Ecommerce\Models\Database\Page;
 

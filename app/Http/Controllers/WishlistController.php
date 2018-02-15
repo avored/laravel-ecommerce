@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Mage2\Ecommerce\Models\Database\Product;
@@ -7,6 +7,12 @@ use Mage2\Ecommerce\Models\Database\Wishlist;
 
 class WishlistController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('front.auth');
+    }
+
     /**
      * @param string $slug
      * @return \Illuminate\Http\RedirectResponse

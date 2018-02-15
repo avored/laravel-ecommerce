@@ -19,67 +19,8 @@ Route::middleware(['web'])
 
 
         Route::post('/review', ['as' => 'review.store','uses' => 'ReviewController@store']);
-
-        Route::get('/product-search',   ['as' => 'search.result',
-            'uses' => 'SearchController@result']);
-
-
-
-
-        Route::post('/add-to-cart', ['as' => 'cart.add-to-cart', 'uses' => 'CartController@addToCart']);
-
-        Route::get('/cart/view', ['as' => 'cart.view', 'uses' => 'CartController@view']);
-        Route::put('/cart/update', ['as' => 'cart.update', 'uses' => 'CartController@update']);
-        Route::get('/cart/destroy/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
-
         Route::post('/get-code-discount', ['as' => 'get.code-discount', 'uses' => 'GiftCouponController@getCodeDiscount']);
 
-
-
-        Route::get('/checkout', ['as' => 'checkout.index', 'uses' => 'CheckoutController@index']);
-
-        Route::get('/order', ['as' => 'order.index', 'uses' => 'OrderController@index']);
-        Route::post('/order', ['as' => 'order.place', 'uses' => 'OrderController@place']);
-
-        Route::get('/order/success/{id}', ['as' => 'order.success', 'uses' => 'OrderController@success']);
-
-
-
-        Route::post('/subscribe', ['as' => 'subscribe.store',
-            'uses' => 'SubscribeController@store'
-        ]);
-
-
-        Route::get('/login', ['as' => 'login', 'uses' => 'LoginController@showLoginForm']);
-        Route::post('/login', ['as' => 'login.post', 'uses' => 'LoginController@login']);
-        Route::get('/logout', ['as' => 'logout', 'uses' => 'LoginController@logout']);
-
-        Route::get('/password/reset/{token}', ['as' => 'password.reset.token', 'uses' => 'ResetPasswordController@showResetForm']);
-        Route::post('/password/reset', ['as' => 'password.reset.token', 'uses' => 'ResetPasswordController@reset']);
-
-        Route::get('/password/reset', ['as' => 'password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
-        Route::post('/password/email', ['as' => 'password.email.post', 'uses' => 'ForgotPasswordController@sendResetLinkEmail']);
-
-        Route::get('/register', ['as' => 'register', 'uses' => 'RegisterController@showRegistrationForm']);
-        Route::post('/register', ['as' => 'register.post', 'uses' => 'RegisterController@register']);
-
-
-
-        Route::get('/my-account/order/list', ['as' => 'my-account.order.list', 'uses' => 'OrderController@myAccountOrderList']);
-        Route::get('/my-account/order/{id}/view', ['as' => 'my-account.order.view', 'uses' => 'OrderController@myAccountOrderView']);
-
-
-        Route::post('/tax-calculation', ['as' => 'tax.calculation', 'uses' => 'TaxRuleController@getTaxAmount']);
-
-
-
-        Route::get('/page/{slug}', ['as' => 'page.show',
-            'uses' => 'PageController@show'
-        ]);
-
-        Route::get('/wishlist/add/{slug}', ['as' => 'wishlist.add', 'uses' => 'WishlistController@add']);
-        Route::get('/my-account/wishlist', ['as' => 'wishlist.list', 'uses' => 'WishlistController@mylist']);
-        Route::get('/wishlist/remove/{slug}', ['as' => 'wishlist.remove', 'uses' => 'WishlistController@destroy']);
 
     });
 

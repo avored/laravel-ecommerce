@@ -13,11 +13,11 @@
                    class="btn btn-primary float-right">
                     {{ __('mage2-ecommerce::lang.category.index.create') }}
                 </a>
-            @else
+            @elsehasPermission
                 <button type="button" class="btn float-right" disabled>
                     {{ __('mage2-ecommerce::lang.category.index.create') }}
                 </button>
-            @endHasPermission
+            @endhasPermission
         </div>
         {!! $dataGrid->render() !!}
 

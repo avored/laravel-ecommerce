@@ -8,7 +8,8 @@
     <div class="container">
         <div class="h1">Checkout</div>
 
-        @if(count($cartItems) <=  0)
+
+        @if(is_null($cartItems))
             <p>Sorry No Product Found <a href="{{ route('home') }}">Start Shopping</a></p>
         @else
 
