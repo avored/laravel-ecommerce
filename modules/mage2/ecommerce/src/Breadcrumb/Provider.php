@@ -183,6 +183,12 @@ class Provider extends ServiceProvider {
                 ->parent('admin.admin-user.index');
         });
 
+        BreadcrumbFacade::make('admin.admin-user.show',function ($breadcrumb) {
+            $breadcrumb->label('Show')
+                ->parent('admin.dashboard')
+                ->parent('admin.admin-user.index');
+        });
+
 
 
         BreadcrumbFacade::make('admin.tax-rule.index',function ($breadcrumb) {

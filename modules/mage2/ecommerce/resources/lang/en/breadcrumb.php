@@ -24,7 +24,7 @@ return [
     'Create' => 'Create',
     'Upload' => 'Upload',
     'Edit' => 'Edit',
-
+    'Show' => 'Show'
 
 
 ];

@@ -5,43 +5,21 @@
 .bg-site-second-color {
     background-color: #510094;
 }
-.admin-header {
-    z-index: 1020;
-    width: 100%;
-    position: relative;
-    -ms-flex-direction: row;
-    flex-direction: row;
-    height: 55px;
-    padding: 0;
-    margin: 0;
-    border-bottom: 1px solid #cccccc;
-}
 
-.admin-header .navbar-toggler {
-    min-width: 50px;
-    padding: 0.25rem 0;
-}
-.admin-header .navbar-brand {
+.navbar-brand {
     display: inline-block;
     width: 155px;
-    height: 55px;
-    padding: 0.5rem 1rem;
+    height: 40px;
+    padding: 0px;
     margin-right: 0;
     background-image: url(../images/mage2-ecommerce-logo.png);
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 70px auto;
-    border-bottom: 1px solid #c2cfd6;
+    background-size: 70%;
 }
 
-.admin-header.navbar .navbar-nav {
-    -ms-flex-direction: row;
-    flex-direction: row;
-    -ms-flex-align: center;
-    align-items: center;
-}
 .datetime.form-control:disabled,
-.datetime.form-control[readonly]{
+.datetime.form-control[readonly] {
     background: #fff;
 }
 
@@ -61,18 +39,22 @@
     padding: .3em .4em .4em;
     margin: 0 .1em;
 }
+
 .tag a {
     color: #bbb;
     cursor: pointer;
     opacity: 0.6;
 }
+
 .tag a:hover {
     opacity: 1.0
 }
+
 .tag .remove {
     vertical-align: bottom;
     top: 0;
 }
+
 .tag a {
     margin: 0 0 0 .3em;
 }

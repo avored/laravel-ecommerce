@@ -137,4 +137,19 @@ class AdminUserController extends AdminController
 
         return view('mage2-ecommerce::admin.admin-user.show-api')->with('client', $client);
     }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $user = Auth::guard('admin')->user();
+
+        return view('mage2-ecommerce::admin.admin-user.show')->with('user', $user);
+
+    }
 }
+
+

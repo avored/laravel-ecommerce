@@ -17,7 +17,7 @@ class Service extends ImageManager
     /**
      * Upload Image and resize it
      *
-     * @var object
+     * @var mixed $image
      * @var string $path
      * @var boolean $keepAspectRatio
      *

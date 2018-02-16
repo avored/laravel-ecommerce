@@ -1,16 +1,35 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-inverse  bg-light">
 
+        <a class="navbar-brand" href="{{ route('admin.dashboard') }}" style="text-decoration: none"></a>
 
-    <header class="admin-header bg-inverse navbar">
+        <ul class="nav navbar-nav mr-5 ml-auto">
 
-        <a class="navbar-brand" href="{{ route('admin.dashboard') }}"></a>
-
-        <ul class="nav navbar-nav ml-auto">
-
-            <li class="nav-item px-3">
-                <a class="nav-link" href="{{ route('admin.logout') }}">
-                    Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#"
+                   id="navbarDropdown"
+                   data-toggle="dropdown">
+                    {{ Auth::guard('admin')->user()->first_name . " " .  Auth::guard('admin')->user()->last_name }}
                 </a>
+                <div class="dropdown-menu">
+
+                    <a class="dropdown-item"
+                       href="{{ route('admin.admin-user.show', Auth::guard('admin')->user()->id) }}">
+                        My Account
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <a class="dropdown-item"
+                       href="{{ route('admin.logout') }}">
+
+                        Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </a>
+                </div>
             </li>
 
         </ul>
-    </header>
+    </nav>
+
+</header>
+

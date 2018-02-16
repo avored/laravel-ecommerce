@@ -64,7 +64,7 @@
 </div>
 <!-- Scripts -->
 <!-- JQuery -->
-<script type="text/javascript" src="{{ asset('vendor/mage2-admin/js/jquery-3.2.1.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/mage2-admin/js/app.js') }}"></script>
 
 <script>
     $(function() {
