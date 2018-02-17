@@ -9,7 +9,7 @@
                     {{ __('mage2-ecommerce::user.admin-user-update') }}
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.admin-user.update', $model->id) }}" method="post">
+                    <form action="{{ route('admin.admin-user.update', $model->id) }}" enctype="multipart/form-data" method="post">
                         {{ csrf_field() }}
                         <input type="hidden" name="_method" value="put">
 

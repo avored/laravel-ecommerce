@@ -68,6 +68,9 @@ class LocalFile {
         return $this;
     }
 
+    public function name() {
+        return basename($this->relativePath);
+    }
     /**
      * return Relative path for the image
      *

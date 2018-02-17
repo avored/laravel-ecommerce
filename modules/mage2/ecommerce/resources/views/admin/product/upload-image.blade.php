@@ -7,7 +7,7 @@
     </div>
     <div class="image-info">
         <div class="image-title">
-            XYZ.jpg
+            {{ $image->path->name() }}
         </div>
         <div class="actions">
             <div class="action-buttons pull-right">
@@ -15,10 +15,10 @@
                 <button type="button"
                         class="btn is_main_image_button  selected-icon"
                         title="Select as Main Image">
-                        <i class="oi oi-check"></i>
+                        <i class="fas fa-check-square"></i>
                 </button>
                 <button type="button" class="destroy-image btn btn-xs btn-default" title="Remove file" >
-                    <i class="oi oi-trash text-danger"></i>
+                    <i class="fas fa-trash-alt text-danger"></i>
                 </button>
             </div>
         </div>

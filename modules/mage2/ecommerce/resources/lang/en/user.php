@@ -14,7 +14,8 @@ return [
     'email' => 'Email',
     'password' => 'Password',
     'confirm-password' => 'Confirm Password',
-    'user-role' => 'User Role'
+    'user-role' => 'Role',
+    'file' => 'Profile Image'
 
 
 

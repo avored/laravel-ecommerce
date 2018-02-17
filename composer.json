@@ -24,7 +24,6 @@
     "mage2/install": "dev-master",
     "mage2/ecommerce": "dev-master",
     "fabpot/goutte": "^3.2",
-    "intervention/image": "2.4.1",
     "symfony/yaml": "^4.0.4"
   },
   "require-dev": {
@@ -43,7 +42,6 @@
     "psr-4": {
       "App\\": "app/",
       "Mage2\\Ecommerce\\": "modules/mage2/ecommerce/src"
-
     }
   },
   "autoload-dev": {
@@ -54,6 +52,7 @@
   "extra": {
     "laravel": {
       "dont-discover": [
+        "intervention/image"
       ]
     }
   },

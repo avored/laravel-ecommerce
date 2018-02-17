@@ -41,6 +41,7 @@ class Mage2EcommerceSchema extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('language')->nullable()->default('en');
+            $table->string('image_path')->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
         });

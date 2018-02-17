@@ -4,6 +4,9 @@
 @include('mage2-ecommerce::forms.text',['name' => 'last_name','label' => __('mage2-ecommerce::user.last-name')])
 
 
+@include('mage2-ecommerce::forms.file',['name' => 'image','label' => __('mage2-ecommerce::user.file')])
+
+
 @if($editMethod == true)
     <?php $attributes = ['disabled' => true,'class' => 'form-control','id' => 'email'];?>
 @else
