@@ -1,3 +1,14 @@
+# Mage2 E Commerce is an Laravel Open Source Shopping Cart
+
+[![Total Downloads](https://poser.pugx.org/mage2/laravel-ecommerce/downloads)](https://packagist.org/packages/mage2/laravel-ecommerce)
+
+Mage2 is a Ecommerce application based on Laravel framework for shopping cart solution.
+
+[Mage2 Laravel E Commerce Official](http://mage2.website/)
+
+[Demo Mage2 E Commerce](http://demo.mage2.website/)
+
+
 # Installation
 
 - [Installation](#installation)
