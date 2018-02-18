@@ -5,12 +5,12 @@
 
 
 @section('content')
-    <div class="container">
+
     <div class="row profile">
-        <div class="col-2">
+        <div class="col-3">
             @include('user.my-account.sidebar')
         </div>
-        <div class="col-10">
+        <div class="col-9">
 
             <div class="card">
                 <div class="card-header">
@@ -18,7 +18,8 @@
                 </div>
                 <div class="card-body">
 
-                    <table class="table table-responsive">
+                    <div class="table-responsive" >
+                    <table class=" table">
                         <tbody>
                         <tr>
                             <th>First Name</th>
@@ -45,10 +46,11 @@
 
 
                     </table>
+                    </div>
                 </div>
             </div>
 
         </div>
     </div>
-    </div>
+
 @endsection

@@ -4,12 +4,11 @@
 @section('meta_description','Upload My Account E commerce')
 
 @section('content')
-    <div class="container">
     <div class="row profile">
-        <div class="col-2">
+        <div class="col-3">
             @include('user.my-account.sidebar')
         </div>
-        <div class="col-10">
+        <div class="col-9">
 
             <div class="card">
                 <div class="card-header">
@@ -46,5 +45,5 @@
 
         </div>
     </div>
-    </div>
+
 @endsection

@@ -5,12 +5,12 @@
 
 
 @section('content')
-    <div class="container">
+
     <div class="row profile">
-        <div class="col-2">
+        <div class="col-md-3">
             @include('user.my-account.sidebar')
         </div>
-        <div class="col-10">
+        <div class="col-md-9">
             <div class="title">
                 <h4>My Wishlist</h4>
             </div>
@@ -63,6 +63,5 @@
 
             @endif
         </div>
-    </div>
     </div>
 @endsection

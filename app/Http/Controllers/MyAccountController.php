@@ -3,8 +3,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Mage2\Ecommerce\Http\Requests\ChangePasswordRequest;
-use Mage2\Ecommerce\Http\Requests\UploadUserImageRequest;
-use Mage2\Ecommerce\Http\Requests\UserProfileRequest;
+use App\Http\Requests\UploadUserImageRequest;
+use App\Http\Requests\UserProfileRequest;
 use Illuminate\Support\Facades\Hash;
 use Mage2\Ecommerce\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
@@ -28,6 +28,15 @@ class MyAccountController extends Controller
             ->with('user', $user);
     }
 
+    /**
+     *
+     * Update User Profile Fields and Return to My Account Page
+     *
+     * @param \App\Http\Requests\UserProfileRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     *
+     */
     public function store(UserProfileRequest $request)
     {
         $user = Auth::user();
@@ -41,6 +50,10 @@ class MyAccountController extends Controller
         return view('user.my-account.upload-image');
     }
 
+    /**
+     * @param \App\Http\Requests\UploadUserImageRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function uploadImagePost(UploadUserImageRequest $request)
     {
 

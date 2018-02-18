@@ -82,12 +82,13 @@ class AddressController extends Controller
     {
         $user = Auth::user();
         $address = Address::findorfail($id);
-
+        $defaultCountry = Configuration::getConfiguration('mage2_address_default_country');
         $countries = Country::all();
 
         return view('address.my-account.edit-address')
             ->with('user', $user)
-            ->with('address', $address)
+            ->with('model', $address)
+            ->with('defaultCountry', $defaultCountry)
             ->with('countries', $countries);
     }
 

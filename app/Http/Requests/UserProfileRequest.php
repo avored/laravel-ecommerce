@@ -1,9 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest as Request;
+namespace App\Http\Requests;
 
-class UserProfileRequest extends Request
+use Illuminate\Foundation\Http\FormRequest;
+
+class UserProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

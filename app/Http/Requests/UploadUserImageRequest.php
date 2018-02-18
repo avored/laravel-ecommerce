@@ -1,5 +1,6 @@
 <?php
-namespace Mage2\Ecommerce\Http\Requests;
+
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,8 +23,7 @@ class UploadUserImageRequest extends FormRequest
      */
     public function rules()
     {
-
-        $validation['profile_image'] = 'required|image';
+        $validation['profile_image'] = 'required|mimes:jpeg,gif,png';
 
         return $validation;
     }

@@ -5,11 +5,11 @@
 
 @section('content')
         <div class="row profile">
-            <div class="col-2">
+            <div class="col-md-3">
                 @include('user.my-account.sidebar')
             </div>
 
-            <div class="col-10">
+            <div class="col-9">
                 <div class="main-title-wrap mb-3">
                     <span class="h1">Addresses</span>
 
