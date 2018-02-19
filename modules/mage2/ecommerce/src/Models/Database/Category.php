@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class Category extends BaseModel
 {
-    protected $fillable = ['parent_id', 'name', 'slug'];
+    protected $fillable = ['parent_id', 'name', 'slug','meta_title','meta_description'];
 
     public function products()
     {

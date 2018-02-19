@@ -12,17 +12,38 @@
             </li>
         </ul>
         <ul class="navbar-nav">
+
+            @auth()
+
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Welcome {{ Auth::user()->full_name }} !
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('my-account.home') }}">My Account
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+
+
+            @endauth
+
+            @guest()
             <li class="nav-item active">
                 <a class="nav-link" href="#">Welcome msg!
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">Sign In </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('register') }}">Create an Account</a>
             </li>
+            @endguest()
+
         </ul>
     </div>
 </nav>

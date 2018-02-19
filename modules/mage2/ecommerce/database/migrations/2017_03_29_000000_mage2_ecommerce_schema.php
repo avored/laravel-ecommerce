@@ -137,6 +137,9 @@ class Mage2EcommerceSchema extends Migration
             $table->integer('parent_id')->nullable()->default(NULL);
             $table->string('name');
             $table->string('slug');
+            $table->string('meta_title')->nullable()->default(null);
+            $table->string('meta_description')->nullable()->default(null);
+
             $table->timestamps();
         });
 
