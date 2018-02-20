@@ -105,7 +105,7 @@
                             </form>
                         @endforeach
 
-                        <tr>
+                        <!--tr>
                             <td class="col-6">
 
                                 <div class="input-group">
@@ -125,7 +125,7 @@
                             <td class="col-3 text-right">
                                 <strong>${{ number_format($giftCouponAmount,2)}}</strong>
                             </td>
-                        </tr>
+                        </tr-->
 
 
                         <tr>

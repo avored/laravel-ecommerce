@@ -38,7 +38,7 @@
                 <div class="content">
                     <form class="navbar-form" action="{{ route('subscribe.store') }}" method="post" >
 
-                        {{ csrf_field() }}
+                        @csrf
                         <div class="field newsletter">
                             <label class="label" for="newsletter">
                                 <span>Sign Up for Our Newsletter:</span>
@@ -51,13 +51,13 @@
 
                             <input type="text"
 
-                                   @if($errors->has('email'))
+                                   @if($errors->has('subscriber_email'))
                                         class="form-control is-invalid"
                                    @else
                                         class="form-control"
                                    @endif
 
-                                   placeholder="Enter your email address" name="email" />
+                                   placeholder="Enter your email address" name="subscriber_email" />
 
 
                             <div class="input-group-btn">
@@ -68,9 +68,9 @@
                             </div>
 
 
-                            @if($errors->has('email'))
+                            @if($errors->has('subscriber_email'))
                                 <div class="invalid-feedback">
-                                    {{ $errors->first('email') }}
+                                    {{ $errors->first('subscriber_email') }}
                                 </div>
                             @endif
                         </div>

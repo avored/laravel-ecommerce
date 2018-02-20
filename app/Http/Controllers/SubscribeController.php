@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use Mage2\Ecommerce\Http\Requests\SubscribeRequest;
+use App\Http\Requests\SubscribeRequest;
 use Mage2\Ecommerce\Models\Database\Subscriber;
 
 class SubscribeController extends Controller
@@ -9,11 +9,13 @@ class SubscribeController extends Controller
 
     /**
      * Show the application dashboard.
-     * @param \Mage2\Ecommerce\Http\Requests\SubscribeRequest
+     * @param \App\Http\Requests\SubscribeRequest
      * @return \Illuminate\Http\Response
      */
     public function store(SubscribeRequest $request)
     {
+
+        $request->merge(['email' => $request->get('subscriber_email')]);
 
         Subscriber::create($request->all());
 

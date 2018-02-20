@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\Requests;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
 
@@ -23,7 +23,7 @@ class SubscribeRequest extends Request
     public function rules()
     {
         //$validationRule = [];
-        $validationRule['email'] = 'required|email|max:255|unique:subscribers';
+        $validationRule['subscriber_email'] = 'required|email|max:255|unique:subscribers,email';
 
 
         return $validationRule;
