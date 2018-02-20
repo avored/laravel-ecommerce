@@ -32,7 +32,7 @@ Route::get('/cart/view', 'CartController@view')
                 ->name('cart.view');
 
 Route::put('/cart/update', 'CartController@update')
-                ->name('cart.updade');
+                ->name('cart.update');
 
 Route::get('/cart/destroy/{id}', 'CartController@destroy')
                 ->name('cart.destroy');
