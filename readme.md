@@ -17,8 +17,6 @@ Mage2 is a Ecommerce application based on Laravel framework for shopping cart so
 <a name="installation"></a>
 ## Installation
 > 
-<a name="server-requirements"></a>
-### Server Requirements
 
 The Mage2 E commerce framework has a few system requirements.
 
