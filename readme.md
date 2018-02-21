@@ -12,30 +12,13 @@ Mage2 is a Ecommerce application based on Laravel framework for shopping cart so
 # Installation
 
 - [Installation](#installation)
-    - [Server Requirements](#server-requirements)
     - [Installing Mage2 E cimmerce](#installing-mage2-ecommerce)
 
 <a name="installation"></a>
 ## Installation
 > 
-<a name="server-requirements"></a>
-### Server Requirements
 
 The Mage2 E commerce framework has a few system requirements.
-
-Below is the list which you will need to make sure your server meets the following requirements:
-
-
-* PHP >= 7.1.3
-* OpenSSL PHP Extension
-* PDO PHP Extension
-* GD Library (Image Processing)
-* Mbstring PHP Extension
-* Tokenizer PHP Extension
-* XML PHP Extension
-* Ctype PHP Extension
-* JSON PHP Extension
-
 
 <a name="installing-mage2-ecommerce"></a>
 ### Installing Mage2 E commerce
