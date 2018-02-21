@@ -39,10 +39,10 @@
                                         <input type="text" name="billing[first_name]"
                                                value="{{ $firstName }}" placeholder="First Name"
                                                id="input-user-first-name"
-                                                @if($errors->has('billing.first_name'))
-                                                    class="is-invalid form-control"
-                                                @else
-                                                    class="form-control"
+                                               @if($errors->has('billing.first_name'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
                                                 @endif
                                         />
                                         @if ($errors->has('billing.first_name'))
@@ -58,10 +58,10 @@
                                         <input type="text" name="billing[last_name]"
                                                value="{{ $lastName }}" placeholder="Last Name"
                                                id="input-user-last-name"
-                                                @if($errors->has('billing.last_name'))
-                                                    class="is-invalid form-control"
-                                                @else
-                                                    class="form-control"
+                                               @if($errors->has('billing.last_name'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
                                                 @endif
                                         />
                                         @if ($errors->has('billing.last_name'))
@@ -77,15 +77,15 @@
                                     <div class="form-group">
                                         <label class="control-label" for="input-user-email">E-Mail</label>
                                         <input
-                                            type="text"
-                                            name="user[email]" placeholder="E-Mail"
-                                            id="input-user-email"
+                                                type="text"
+                                                name="user[email]" placeholder="E-Mail"
+                                                id="input-user-email"
 
-                                            @if($errors->has('user.email'))
+                                                @if($errors->has('user.email'))
                                                 class="is-invalid form-control"
-                                            @else
+                                                @else
                                                 class="form-control"
-                                            @endif
+                                                @endif
                                         >
                                         @if ($errors->has('user.email'))
                                             <div class="invalid-feedback">
@@ -112,10 +112,10 @@
                                                 <input type="password" name="user[password]" placeholder="Password"
                                                        id="input-billing-password"
 
-                                                        @if($errors->has('user.password'))
-                                                            class="is-invalid form-control"
-                                                        @else
-                                                            class="form-control"
+                                                       @if($errors->has('user.password'))
+                                                       class="is-invalid form-control"
+                                                       @else
+                                                       class="form-control"
                                                         @endif
                                                 />
                                                 @if ($errors->has('user.password'))
@@ -130,10 +130,10 @@
                                                 <input type="password" name="user[confirm_password]"
                                                        placeholder="Password Confirm"
                                                        id="input-billing-confirm"
-                                                        @if($errors->has('user.confirm_password'))
-                                                            class="is-invalid form-control"
-                                                        @else
-                                                            class="form-control"
+                                                       @if($errors->has('user.confirm_password'))
+                                                       class="is-invalid form-control"
+                                                       @else
+                                                       class="form-control"
                                                         @endif
                                                 />
 
@@ -152,10 +152,10 @@
                                     <label class="control-label" for="input-billing-phone">Phone</label>
                                     <input type="text" name="billing[phone]" value="{{ $phone }}" placeholder="Phone"
                                            id="input-billing-phone"
-                                            @if($errors->has('billing.phone'))
-                                                class="is-invalid form-control"
-                                            @else
-                                                class="form-control"
+                                           @if($errors->has('billing.phone'))
+                                           class="is-invalid form-control"
+                                           @else
+                                           class="form-control"
                                             @endif
                                     />
                                     @if ($errors->has('billing.phone'))
@@ -186,10 +186,10 @@
                                             <label class="control-label" for="input-billing-address-1">Address 1</label>
                                             <input type="text" name="billing[address1]" value="" placeholder="Address 1"
                                                    id="input-billing-address-1"
-                                                    @if($errors->has('billing.address1'))
-                                                        class="is-invalid form-control"
-                                                    @else
-                                                        class="form-control"
+                                                   @if($errors->has('billing.address1'))
+                                                   class="is-invalid form-control"
+                                                   @else
+                                                   class="form-control"
                                                     @endif
                                             />
                                             @if ($errors->has('billing.address1'))
@@ -204,10 +204,10 @@
                                             <input type="text" name="billing[address2]" value="" placeholder="Address 2"
                                                    id="input-billing-address-2"
 
-                                                    @if($errors->has('billing.address2'))
-                                                        class="is-invalid form-control"
-                                                    @else
-                                                        class="form-control"
+                                                   @if($errors->has('billing.address2'))
+                                                   class="is-invalid form-control"
+                                                   @else
+                                                   class="form-control"
                                                     @endif
                                             />
 
@@ -222,9 +222,9 @@
                                             <label for="country">Country</label>
                                             <select name="billing[country_id]" data-name="country_id"
                                                     @if($errors->has('billing.country_id'))
-                                                        class="is-invalid billing-country form-control billing tax-calculation"
+                                                    class="is-invalid billing-country form-control billing tax-calculation"
                                                     @else
-                                                        class="billing-country form-control billing tax-calculation"
+                                                    class="billing-country form-control billing tax-calculation"
                                                     @endif
                                             >
                                                 @foreach($countries as $countryId => $countryName)
@@ -248,10 +248,10 @@
                                                        id="input-billing-zone"
 
 
-                                                        @if($errors->has('billing.state'))
-                                                            class="is-invalid billing tax-calculation form-control"
-                                                        @else
-                                                            class="billing tax-calculation form-control"
+                                                       @if($errors->has('billing.state'))
+                                                       class="is-invalid billing tax-calculation form-control"
+                                                       @else
+                                                       class="billing tax-calculation form-control"
                                                         @endif
                                                 />
                                                 @if ($errors->has('billing.state'))
@@ -269,10 +269,10 @@
                                                        placeholder="City"
                                                        id="input-billing-city"
 
-                                                        @if($errors->has('billing.city'))
-                                                            class="is-invalid billing tax-calculation form-control"
-                                                        @else
-                                                            class="billing tax-calculation form-control"
+                                                       @if($errors->has('billing.city'))
+                                                       class="is-invalid billing tax-calculation form-control"
+                                                       @else
+                                                       class="billing tax-calculation form-control"
                                                         @endif
                                                 />
                                                 @if ($errors->has('billing.city'))
@@ -288,10 +288,10 @@
                                                    placeholder="Post Code"
                                                    id="input-billing-postcode"
 
-                                                    @if($errors->has('billing.postcode'))
-                                                        class="is-invalid billing tax-calculation form-control"
-                                                    @else
-                                                        class="billing tax-calculation form-control"
+                                                   @if($errors->has('billing.postcode'))
+                                                   class="is-invalid billing tax-calculation form-control"
+                                                   @else
+                                                   class="billing tax-calculation form-control"
                                                     @endif
                                             />
                                             @if ($errors->has('billing.postcode'))
@@ -349,10 +349,10 @@
                                                    value="" placeholder="First Name"
                                                    id="input-billing-firstname"
 
-                                                    @if($errors->has('shipping.first_name'))
-                                                        class="is-invalid form-control"
-                                                    @else
-                                                        class="form-control"
+                                                   @if($errors->has('shipping.first_name'))
+                                                   class="is-invalid form-control"
+                                                   @else
+                                                   class="form-control"
                                                     @endif
                                             />
                                             @if ($errors->has('shipping.first_name'))
@@ -366,10 +366,10 @@
                                             <input type="text" name="shipping[last_name]"
                                                    value="" placeholder="Last Name"
                                                    id="input-billing-lastname"
-                                                    @if($errors->has('shipping.last_name'))
-                                                        class="is-invalid form-control"
-                                                    @else
-                                                        class="form-control"
+                                                   @if($errors->has('shipping.last_name'))
+                                                   class="is-invalid form-control"
+                                                   @else
+                                                   class="form-control"
                                                     @endif
                                             />
                                             @if ($errors->has('shipping.last_name'))
@@ -382,13 +382,13 @@
 
 
                                     <div class="form-group">
-                                        <label class="control-label" for="input-billing-address-1">Address 1</label>
+                                        <label class="control-label" for="input-shipping-address-1">Address 1</label>
                                         <input type="text" name="shipping[address1]" value="" placeholder="Address 1"
-                                               id="input-billing-address-1"
-                                                @if($errors->has('shipping.address1'))
-                                                    class="is-invalid form-control"
-                                                @else
-                                                    class="form-control"
+                                               id="input-shipping-address-1"
+                                               @if($errors->has('shipping.address1'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
                                                 @endif
                                         />
                                         @if ($errors->has('shipping.address1'))
@@ -399,13 +399,13 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="control-label" for="input-billing-address-2">Address 2</label>
+                                        <label class="control-label" for="input-shipping-address-2">Address 2</label>
                                         <input type="text" name="shipping[address2]" value="" placeholder="Address 2"
-                                               id="input-billing-address-2"
-                                                @if($errors->has('shipping.address2'))
-                                                    class="is-invalid form-control"
-                                                @else
-                                                    class="form-control"
+                                               id="input-shipping-address-2"
+                                               @if($errors->has('shipping.address2'))
+                                               class="is-invalid form-control"
+                                               @else
+                                               class="form-control"
                                                 @endif
                                         />
                                         @if ($errors->has('shipping.address2'))
@@ -416,13 +416,14 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="country">Country</label>
+                                        <label for="input-shipping-country-id">Country</label>
                                         <select name="shipping[country_id]" data-name="country_id"
 
+                                                id="input-shipping-country-id"
                                                 @if($errors->has('shipping.country_id'))
-                                                    class="is-invalid shipping tax-calculation form-control"
+                                                class="is-invalid shipping tax-calculation form-control"
                                                 @else
-                                                    class="shipping tax-calculation form-control"
+                                                class="shipping tax-calculation form-control"
                                                 @endif
                                         />
 
@@ -434,23 +435,24 @@
                                             </select>
 
                                             @if ($errors->has('shipping.country_id'))
-                                            <div class="invalid-feedback">
-                                                {{ $errors->first('shipping.country_id') }}
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    {{ $errors->first('shipping.country_id') }}
+                                                </div>
                                             @endif
                                     </div>
 
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label class="control-label" for="input-billing-zone">Region / State</label>
+                                            <label class="control-label" for="input-shipping-zone">Region /
+                                                State</label>
                                             <input type="text" data-name="state_code" name="shipping[state]"
-                                                   id="input-billing-zone"
+                                                   id="input-shipping-zone"
 
-                                            @if($errors->has('shipping.state'))
-                                                class="is-invalid shipping tax-calculation form-control"
-                                            @else
-                                                class="shipping tax-calculation form-control"
-                                            @endif
+                                                   @if($errors->has('shipping.state'))
+                                                   class="is-invalid shipping tax-calculation form-control"
+                                                   @else
+                                                   class="shipping tax-calculation form-control"
+                                                    @endif
                                             />
                                             @if ($errors->has('shipping.state'))
                                                 <div class="invalid-feedback">
@@ -461,13 +463,13 @@
 
 
                                         <div class="form-group  col-6">
-                                            <label class="control-label" for="input-billing-city">City</label>
+                                            <label class="control-label" for="input-shipping-city">City</label>
                                             <input type="text" data-name="city" name="shipping[city]" placeholder="City"
-                                                   id="input-billing-city"
-                                                    @if($errors->has('shipping.city'))
-                                                        class="is-invalid shipping tax-calculation form-control"
-                                                    @else
-                                                        class="shipping tax-calculation form-control"
+                                                   id="input-shipping-city"
+                                                   @if($errors->has('shipping.city'))
+                                                   class="is-invalid shipping tax-calculation form-control"
+                                                   @else
+                                                   class="shipping tax-calculation form-control"
                                                     @endif
                                             />
                                             @if ($errors->has('shipping.country_id'))
@@ -481,14 +483,14 @@
 
                                     <div class="row">
                                         <div class="form-group col-6">
-                                            <label class="control-label" for="input-billing-postcode">Post Code</label>
+                                            <label class="control-label" for="input-shipping-postcode">Post Code</label>
                                             <input type="text" data-name="postcode" name="shipping[postcode]" value=""
                                                    placeholder="Post Code"
-                                                   id="input-billing-postcode"
-                                                    @if($errors->has('shipping.postcode'))
-                                                        class="is-invalid shipping tax-calculation form-control"
-                                                    @else
-                                                        class="shipping tax-calculation form-control"
+                                                   id="input-shipping-postcode"
+                                                   @if($errors->has('shipping.postcode'))
+                                                   class="is-invalid shipping tax-calculation form-control"
+                                                   @else
+                                                   class="shipping tax-calculation form-control"
                                                     @endif
                                             />
                                             @if ($errors->has('shipping.postcode'))
@@ -499,13 +501,13 @@
                                         </div>
 
                                         <div class="form-group   col-6">
-                                            <label class="control-label" for="input-billing-phone">Phone</label>
+                                            <label class="control-label" for="input-shipping-phone">Phone</label>
                                             <input type="text" name="shipping[phone]" value="" placeholder="Phone"
-                                                   id="input-billing-phone"
-                                                    @if($errors->has('shipping.phone'))
-                                                        class="is-invalid form-control"
-                                                    @else
-                                                        class="form-control"
+                                                   id="input-shipping-phone"
+                                                   @if($errors->has('shipping.phone'))
+                                                   class="is-invalid form-control"
+                                                   @else
+                                                   class="form-control"
                                                     @endif
                                             />
                                             @if ($errors->has('shipping.phone'))
@@ -531,35 +533,34 @@
                                 <p>Please select the preferred shipping method to use on this order.</p>
 
                                 @foreach($shippingOptions as $shippingOption)
-                                    <div class="input-group {{ $errors->has('shipping_option') ? ' has-error' : '' }}">
+                                    <div class="form-check {{ $errors->has('shipping_option') ? ' is-invalid' : '' }}">
 
-                                        <div class="radio is-invalid">
-                                            <label>
-                                                <input type="radio" name="shipping_option"
+                                        <input type="radio" name="shipping_option"
 
-                                                        @if($errors->has('shipping_option'))
-                                                            class="is-invalid shipping_option_radio"
-                                                        @else
-                                                            class="shipping_option_radio"
-                                                        @endif
+                                               @if($errors->has('shipping_option'))
+                                               class="is-invalid form-check-input shipping_option_radio"
+                                               @else
+                                               class="shipping_option_radio form-check-input"
+                                               @endif
 
-                                                       data-title="{{ $shippingOption->getTitle() }}"
-                                                       data-cost="{{ number_format($shippingOption->getAmount(),2) }}"
-                                                       id="{{ $shippingOption->getIdentifier() }}"
-                                                       value="{{ $shippingOption->getIdentifier() }}">
-                                                {{ $shippingOption->getTitle() . " " . number_format($shippingOption->getAmount(),2) }}
+                                               data-title="{{ $shippingOption->getTitle() }}"
+                                               data-cost="{{ number_format($shippingOption->getAmount(),2) }}"
+                                               id="{{ $shippingOption->getIdentifier() }}"
+                                               value="{{ $shippingOption->getIdentifier() }}">
 
-                                                @if ($errors->has('shipping_option'))
-                                                    <div class="invalid-feedback">
-                                                        {{ $errors->first('shipping_option') }}
-                                                    </div>
-                                                @endif
+                                        <label for="{{ $shippingOption->getIdentifier() }}" class="form-check-label">
 
-                                            </label>
+                                            {{ $shippingOption->getTitle() . " " . number_format($shippingOption->getAmount(),2) }}
 
 
-                                        </div>
 
+                                        </label>
+
+                                        @if ($errors->has('shipping_option'))
+                                            <div class="invalid-feedback">
+                                                {{ $errors->first('shipping_option') }}
+                                            </div>
+                                        @endif
 
                                     </div>
                                 @endforeach
@@ -575,22 +576,18 @@
 
                                 @foreach($paymentOptions as $paymentOption)
 
-
                                     @if(true === $paymentOption->isEnabled())
 
-                                        <div class="form-group {{ $errors->has('payment_option') ? ' has-error' : '' }}">
+                                        <div class="form-check">
 
+                                            <input class="form-check-input {{ $errors->has('payment_option') ? ' is-invalid' : '' }}"
+                                                   type="radio" name="payment_option"
+                                                   id="{{ $paymentOption->getIdentifier() }}"
+                                                   value="{{ $paymentOption->getIdentifier() }}">
 
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input"
-                                                           type="radio" name="payment_option"
-                                                           id="payment_option"
-                                                           value="{{ $paymentOption->getIdentifier() }}">
-                                                    {!! $paymentOption->getTitle() !!}
-                                                </label>
-                                            </div>
-
+                                            <label for="{{ $paymentOption->getIdentifier() }}" class="form-check-label">
+                                                {!! $paymentOption->getTitle() !!}
+                                            </label>
 
                                             @if ($errors->has('payment_option'))
                                                 <div class="invalid-feedback">
@@ -598,6 +595,7 @@
                                                 </div>
                                             @endif
                                         </div>
+
 
                                     @endif
 
@@ -693,35 +691,48 @@
                                 <div class="form-group">
                                     <textarea name="comment" rows="3" class="form-control"></textarea>
 
-                                    <div class="buttons clearfix">
-                                        <div class="float-right">
-                                            I have read and agree to the
-                                            <a href="{{ $termConditionPageUrl }}" target="_blank" class="agree"><b>Terms
-                                                    &amp;
-                                                    Conditions</b></a>
-                                            <input type="checkbox" name="agree" value="1"/>
-                                            &nbsp;
+                                </div>
+
+                                <div class="text-left form-check">
+
+                                    <input id="agree" type="checkbox"
+                                           class="form-check-input{{  $errors->has('agree') ? " is-invalid" : "" }}"
+                                           name="agree" value="1"/>
+                                    <label for="agree" class="form-check-label">
+                                        I have read and agree to the
+                                        <a href="{{ $termConditionPageUrl }}" target="_blank" class="{{  $errors->has('agree') ? " text-danger" : "" }}  agree"><b>Terms
+                                                &amp;
+                                                Conditions</b></a>
+                                    </label>
+
+
+                                    @if ($errors->has('agree'))
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('agree') }}
                                         </div>
-                                    </div>
+                                    @endif
 
-                                    <div class="payment float-right clearfix">
-                                        <input type="button" class="btn btn-primary"
-                                               data-loading-text="Loading..." id="place-order-button"
-                                               onclick="javascript=''"
-                                               value="PlaceOrder">
+                                </div>
 
 
-                                    </div>
+                                <div class="payment float-right clearfix">
+                                    <input type="button" class="btn btn-primary"
+                                           data-loading-text="Loading..." id="place-order-button"
+                                           onclick="javascript=''"
+                                           value="PlaceOrder">
+
+
                                 </div>
                             </div>
-
                         </div>
+
                     </div>
                 </div>
+    </div>
 
-            </form>
+    </form>
 
-        @endif
+    @endif
     </div>
 @endsection
 

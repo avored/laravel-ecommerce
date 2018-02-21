@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\Requests;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +38,7 @@ class PlaceOrderRequest extends Request
 
         if (null === $this->request->get('billing.id')) {
             $validation['billing.address1'] = 'required|max:255';
-            $validation['billing.address2'] = 'required|max:255';
+            $validation['billing.address2'] = 'max:255';
             $validation['billing.country_id'] = 'required|max:255';
             $validation['billing.state'] = 'required|max:255';
             $validation['billing.city'] = 'required|max:255';
@@ -47,7 +47,7 @@ class PlaceOrderRequest extends Request
 
         if (null !== $this->request->get('use_different_shipping_address')) {
             $validation['shipping.address1'] = 'required|max:255';
-            $validation['shipping.address2'] = 'required|max:255';
+            $validation['shipping.address2'] = 'max:255';
             $validation['shipping.country_id'] = 'required|max:255';
             $validation['shipping.state'] = 'required|max:255';
             $validation['shipping.city'] = 'required|max:255';

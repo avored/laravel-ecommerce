@@ -8,7 +8,7 @@ use Mage2\Ecommerce\Events\OrderPlaceAfterEvent;
 use Illuminate\Support\Facades\Session;
 use Mage2\Ecommerce\Models\Database\Product;
 use Mage2\Ecommerce\Models\Database\Order;
-use Mage2\Ecommerce\Http\Requests\PlaceOrderRequest;
+use App\Http\Requests\PlaceOrderRequest;
 use Mage2\Ecommerce\Models\Database\OrderStatus;
 use Mage2\Ecommerce\Models\Database\User;
 use Mage2\Ecommerce\Models\Database\Address;
