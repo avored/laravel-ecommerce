@@ -77,7 +77,9 @@ class LoginController extends Controller
         $user = User::whereEmail($request->get('email'))->first();
 
         if (!empty($user->activation_token)) {
-            return redirect()->back()->withErrors(['email' => 'Please Activate your email']);
+            return redirect()->route('login')
+                ->withErrors(['email' => 'Please Activate your email', 'enableResendLink' => 'true']);
+                        ;
         }
 
         if ($this->attemptLogin($request)) {

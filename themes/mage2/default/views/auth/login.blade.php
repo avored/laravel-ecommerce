@@ -11,7 +11,7 @@
                 <div class="card-header"><span>Mage2 Login</span></div>
                 <div class="card-body">
                     <div class="col-12">
-                        <form  method="POST"
+                        <form method="POST"
                               action="{{ route('login.post') }}">
                             {{ csrf_field() }}
 
@@ -19,9 +19,6 @@
                                 <label for="email">E-Mail Address</label>
 
 
-                                <?php
-                                //dd($errors);
-                                ?>
                                 <input id="email" type="email" name="email"
                                        class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"
                                        value="{{ old('email') }}" required autofocus>
@@ -55,6 +52,7 @@
                                 </label>
                             </div>
 
+
                             <div class="form-group">
 
                                 <button type="submit" class="btn btn-primary">
@@ -67,6 +65,17 @@
                                 <a class="" href="{{ url('register') }}">
                                     Create an Account
                                 </a>
+
+
+                                @if($errors->has('enableResendLink'))
+                                    <div class="form-group">
+
+                                        <a class="" href="{{ route('user.activation.resend') }}">
+                                            Resend Activation Email
+                                        </a>
+                                    </div>
+                                @endif
+
                             </div>
 
 

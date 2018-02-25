@@ -67,9 +67,14 @@ Route::post('/register', 'RegisterController@register')
                 ->name('register.post');
 
 
-Route::get('/user-activation/{token}/{email}', 'RegisterController@activateAccount')
+Route::get('user-activation/{token}/{email}', 'UserActivationController@activateAccount')
     ->name('user.activation');
 
+Route::get('user/resend', 'UserActivationController@resend')
+    ->name('user.activation.resend');
+
+Route::post('user/resend', 'UserActivationController@resendPost')
+    ->name('user.activation.resend.post');
 
 //
 

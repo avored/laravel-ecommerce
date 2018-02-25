@@ -92,7 +92,8 @@ class RegisterController extends Controller
             $this->guard()->login($user);
             return redirect($this->redirectPath());
         } else {
-            return redirect()->route('login')->with('notificationText','Please Active your account then you can login');
+            return redirect()->route('login')
+                            ->with('notificationText','Please Active your account then you can login!');
         }
     }
 
