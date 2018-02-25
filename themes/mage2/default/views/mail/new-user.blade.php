@@ -102,12 +102,24 @@ $style = [
                                             <td align="center">
 
 
+                                                @if(null == $user->activation_token || "" ==  $user->activation_token)
                                                 <a href="{{ route('my-account.home')}}"
                                                    style="{{ $fontFamily }} {{ $style['button'] }} {{ $style['button--blue'] }}"
                                                    class="button"
                                                    target="_blank">
                                                     My Account
                                                 </a>
+                                                @else
+                                                    <a href="{{ route('user.activation', ['token' => $user->activation_token,
+                                                                                            'email' => $user->email
+                                                                                            ])}}"
+                                                       style="{{ $fontFamily }} {{ $style['button'] }} {{ $style['button--blue'] }}"
+                                                       class="button"
+                                                       target="_blank">
+                                                        Activate Link
+                                                    </a>
+
+                                                @endif
                                             </td>
                                         </tr>
                                     </table>

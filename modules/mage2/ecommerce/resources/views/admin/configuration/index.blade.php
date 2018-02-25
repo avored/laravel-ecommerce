@@ -63,6 +63,10 @@
                                                                            'label' => 'User Address Default Country',
                                                                            'options' => $countryOptions])
 
+                                @include('mage2-ecommerce::forms.select',['name' => 'mage2_user_activation_required',
+                                                                           'label' => 'User Activation Required',
+                                                                           'options' => [0 => 'No',1 => 'Yes']])
+
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,7 @@ namespace Mage2\Ecommerce\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Mage2\User\Models\User;
+use Mage2\Ecommerce\Models\Database\User;
 
 class NewUserMail extends Mailable
 {

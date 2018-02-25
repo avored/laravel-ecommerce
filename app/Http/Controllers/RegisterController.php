@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Mage2\Ecommerce\Events\UserRegisteredEvent;
+use Mage2\Ecommerce\Mail\NewUserMail;
+use Mage2\Ecommerce\Models\Database\Configuration;
 use Mage2\Ecommerce\Models\Database\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -70,30 +74,42 @@ class RegisterController extends Controller
     {
 
         $this->validator($request->all())->validate();
-        $user = $this->create($request->all());
 
+        $userActivationRequired = Configuration::getConfiguration('mage2_user_activation_required');
+
+        if(1 == $userActivationRequired) {
+            $request->merge(['activation_token' => Str::random(60)]);
+        }
+
+        $request->merge(['password' => bcrypt($request->get('password'))]);
+
+        $user = User::create($request->all());
         Event::fire(new UserRegisteredEvent($user));
 
-        $this->guard()->login($user);
+        Mail::to($user)->send(new NewUserMail($user));
 
-        return redirect($this->redirectPath());
+        if(0 == $userActivationRequired) {
+            $this->guard()->login($user);
+            return redirect($this->redirectPath());
+        } else {
+            return redirect()->route('login')->with('notificationText','Please Active your account then you can login');
+        }
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param array $data
-     *
-     * @return User
-     */
-    protected function create(array $data)
+    public function activateAccount($token, $email)
     {
-        return User::create([
-            'first_name' => $data['first_name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+
+        $user = User::whereEmail($email)->first();
+
+        if($token == $user->activation_token) {
+
+            $user->update(['activation_token' => null]);
+            Auth::loginUsingId($user->id);
+            return redirect()->route('my-account.home');
+        }
+
+        return redirect()->route('login')->withErrors(['email' => 'User Activation token is invalid.']);
+
     }
 
 

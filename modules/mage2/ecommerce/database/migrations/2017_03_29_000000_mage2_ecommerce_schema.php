@@ -56,6 +56,7 @@ class Mage2EcommerceSchema extends Migration
             $table->string('company_name')->nullable();
             $table->string('phone')->nullable();
             $table->enum('status', ['GUEST', 'LIVE'])->default('LIVE');
+            $table->string('activation_token')->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
         });
@@ -820,6 +821,7 @@ class Mage2EcommerceSchema extends Migration
         Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
 
+        Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
         $path = public_path() . '/countries.json';
 
         $json = json_decode(file_get_contents($path), true);

@@ -19,6 +19,9 @@
                                 <label for="email">E-Mail Address</label>
 
 
+                                <?php
+                                //dd($errors);
+                                ?>
                                 <input id="email" type="email" name="email"
                                        class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}"
                                        value="{{ old('email') }}" required autofocus>

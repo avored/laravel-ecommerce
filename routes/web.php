@@ -67,7 +67,11 @@ Route::post('/register', 'RegisterController@register')
                 ->name('register.post');
 
 
+Route::get('/user-activation/{token}/{email}', 'RegisterController@activateAccount')
+    ->name('user.activation');
 
+
+//
 
 Route::get('/order', 'OrderController@index')
                     ->name('order.index');
