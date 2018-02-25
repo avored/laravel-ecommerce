@@ -11,7 +11,8 @@ class Product extends BaseModel
 {
     protected $fillable = ['type', 'name', 'slug', 'sku', 'description',
         'status', 'in_stock', 'track_stock', 'qty',
-        'is_taxable', 'meta_title', 'meta_description'
+        'is_taxable', 'meta_title', 'meta_description',
+        'weight', 'width', 'height', 'length'
     ];
 
     public static function getCollection()
