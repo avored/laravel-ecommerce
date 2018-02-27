@@ -125,7 +125,7 @@ class Product extends BaseModel
 
         $properties = $request->get('property');
 
-        if (null !== $properties && $properties->count() > 0) {
+        if (null !== $properties && count($properties) > 0) {
 
 
             foreach ($properties as $key => $property) {
