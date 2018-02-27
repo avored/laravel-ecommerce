@@ -7,7 +7,7 @@
     </div>
     <div class="image-info">
         <div class="image-title">
-            {{ $image->path->name() }}
+            {{ $image->name() }}
         </div>
         <div class="actions">
             <div class="action-buttons pull-right">

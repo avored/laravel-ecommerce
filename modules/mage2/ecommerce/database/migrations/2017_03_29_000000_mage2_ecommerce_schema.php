@@ -72,15 +72,15 @@ class Mage2EcommerceSchema extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->enum('type', ['SHIPPING', 'BILLING']);
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('address1');
-            $table->string('address2');
-            $table->string('postcode');
-            $table->string('city');
-            $table->string('state');
-            $table->integer('country_id')->unsigned();
-            $table->string('phone');
+            $table->string('first_name')->nullable()->default(null);
+            $table->string('last_name')->nullable()->default(null);
+            $table->string('address1')->nullable()->default(null);
+            $table->string('address2')->nullable()->default(null);
+            $table->string('postcode')->nullable()->default(null);
+            $table->string('city')->nullable()->default(null);
+            $table->string('state')->nullable()->default(null);
+            $table->integer('country_id')->unsigned()->nullable()->default(null);
+            $table->string('phone')->nullable()->default(null);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
@@ -673,6 +673,16 @@ class Mage2EcommerceSchema extends Migration
         });
 
 
+        Schema::create('paypal_records', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('paymentId');
+            $table->string('token');
+            $table->string('PayerId');
+            $table->timestamps();
+        });
+
+
+
         /**
         Schema::create('attribute_products', function (Blueprint $table) {
             $table->increments('id');
@@ -904,6 +914,9 @@ class Mage2EcommerceSchema extends Migration
         Schema::dropIfExists('attribute_group_attribute_pivot');
         Schema::dropIfExists('attribute_groups');
         Schema::dropIfExists('attributes');
+
+
+        Schema::dropIfExists('paypal_records');
     }
 
 }

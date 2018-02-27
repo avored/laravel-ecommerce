@@ -11,6 +11,10 @@
     ],
     "minimum-stability": "dev",
     "type": "mage2-module",
+  "require": {
+    "php": ">=7.1.3",
+    "paypal/rest-api-sdk-php": "*"
+  },
     "autoload": {
         "classmap": [
             "database/migrations"
