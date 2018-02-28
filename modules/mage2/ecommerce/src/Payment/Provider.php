@@ -3,6 +3,9 @@ namespace Mage2\Ecommerce\Payment;
 
 use Illuminate\Support\ServiceProvider;
 use Mage2\Ecommerce\Payment\Facade as PaymentFacade;
+use Mage2\Ecommerce\Payment\Pickup\Payment as PickupPayment;
+use Mage2\Ecommerce\Payment\Paypal\Payment as PaypalPayment;
+use Mage2\Ecommerce\Payment\Stripe\Payment as StripePayment;
 
 class Provider extends ServiceProvider {
 
@@ -68,7 +71,13 @@ class Provider extends ServiceProvider {
      */
     protected function registerPaymentOptions()
     {
-        $pickup = new Pickup();
+        $pickup = new PickupPayment();
         PaymentFacade::put($pickup->getIdentifier(), $pickup);
+
+        //$paypal = new PaypalPayment();
+        //PaymentFacade::put($paypal->getIdentifier(), $paypal);
+
+        $stripe = new StripePayment();
+        PaymentFacade::put($stripe->getIdentifier(), $stripe);
     }
 }

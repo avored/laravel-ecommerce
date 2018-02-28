@@ -5,7 +5,7 @@ interface PaymentInterface
 {
     public function getIdentifier();
 
-    public function getTitle();
+    public function getName();
 
     public function isEnabled();
 }

@@ -14,13 +14,15 @@ use Mage2\Ecommerce\Models\Database\User;
 use Mage2\Ecommerce\Models\Database\Address;
 
 use Mage2\Ecommerce\Models\Database\OrderProductVariation;
+use Mage2\Ecommerce\Payment\Facade as Payment;
 
 class OrderController extends Controller
 {
 
     public function place(PlaceOrderRequest $request)
     {
-        //dd('here');
+
+
         $orderProductData = Session::get('cart');
         $user = $this->_getUser($request);
 
@@ -29,13 +31,20 @@ class OrderController extends Controller
 
         $orderStatus = OrderStatus::whereIsDefault(1)->get()->first();
 
+        $paymentOption = $request->get('payment_option');
+
         $data['shipping_address_id'] = $shippingAddress->id;
         $data['billing_address_id'] = $billingAddress->id;
         $data['user_id'] = $user->id;
         $data['shipping_option'] = $request->get('shipping_option');
-        $data['payment_option'] = $request->get('payment_option');
+        $data['payment_option'] = $paymentOption;
         $data['order_status_id'] = $orderStatus->id;
 
+        $payment = Payment::get($paymentOption);
+
+        $paymentReturn = $payment->process($data, $orderProductData, $request);
+
+        //@todo check Response is success of fail.
 
         $order = Order::create($data);
         $this->_syncOrderProductData($order, $orderProductData);

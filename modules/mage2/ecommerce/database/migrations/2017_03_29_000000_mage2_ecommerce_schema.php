@@ -673,16 +673,6 @@ class Mage2EcommerceSchema extends Migration
         });
 
 
-        Schema::create('paypal_records', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('paymentId');
-            $table->string('token');
-            $table->string('PayerId');
-            $table->timestamps();
-        });
-
-
-
         /**
         Schema::create('attribute_products', function (Blueprint $table) {
             $table->increments('id');

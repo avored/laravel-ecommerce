@@ -5,6 +5,103 @@
 
 
 @section('content')
+
+
+    @push('scripts')
+        <script>
+
+            $(function () {
+
+                function calcualateTotal() {
+                    subTotal = parseFloat(jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
+                    shippingCost = parseFloat(jQuery('.shipping-cost').attr('data-shipping-cost')).toFixed(2);
+                    taxAmount = parseFloat(jQuery('.tax-amount').attr('data-tax-amount')).toFixed(2);
+
+                    total = parseFloat(subTotal) + parseFloat(taxAmount) + parseFloat(shippingCost);
+                    jQuery('.total').attr('data-total', total.toFixed(2));
+                    jQuery('.total').html("$" + total.toFixed(2));
+
+
+                }
+
+
+                function checkIfUserExist(data) {
+                    $.post({
+                        url: "/check-user-exists",
+                        data: data,
+                        type: 'json',
+                        success: function (res) {
+                            console.info(res);
+                        }
+                    });
+                }
+
+                jQuery(document).on('change', '#input-user-email', function (e) {
+                    var data = {
+                        'email': jQuery(this).val(),
+                        '_token': '{{ csrf_token()  }}'
+                    };
+
+                    checkIfUserExist(data);
+
+                });
+
+                /**
+                 jQu`ry('.tax-calculation').change(function () {
+            var data = {
+                'name': jQuery(this).attr('data-name'),
+                'value': jQuery(this).val(),
+                '_token': '{{ csrf_token()  }}'
+            };
+
+            $.post({
+                data: data,
+                type: 'json',
+                url: '{{ route("tax.calculation") }}',
+                success: function (res) {
+                    if ((res.success == true)) {
+                        jQuery('.tax-amount').html(res.tax_amount_text);
+                        jQuery('.tax-amount').attr('data-tax-amount', res.tax_amount);
+                        calcualateTotal();
+                    }
+                }
+            });
+        });
+                 */
+                jQuery('.shipping_option_radio').change(function (e) {
+
+                    if (jQuery(this).is(':checked')) {
+                        var shippingTitle = jQuery(this).attr('data-title');
+                        var shippingCost = jQuery(this).attr('data-cost');
+
+                        jQuery('.shipping-row').removeClass('hidden');
+
+                        jQuery('.shipping-row .shipping-title').html(shippingTitle + ":");
+                        jQuery('.shipping-row .shipping-cost').html("$" + shippingCost);
+                        jQuery('.shipping-row .shipping-cost').attr('data-shipping-cost', shippingCost);
+
+
+                    } else {
+                        jQuery('.shipping-row').addClass('hidden');
+                    }
+                    calcualateTotal();
+                });
+
+
+                jQuery('#place-order-button').click(function (e) {
+                    jQuery('#place-order-form').submit();
+                });
+
+
+                //$.each(foo, function (i, o) {
+                //    alert(i) // guid of the event
+                //    alert(o) // the function definition of the event handler
+                //});
+
+
+            });
+        </script>
+    @endpush
     <div class="container">
         <div class="h1">Checkout</div>
 
@@ -282,6 +379,7 @@
                                                 @endif
                                             </div>
                                         </div>
+
                                         <div class="form-group">
                                             <label class="control-label" for="input-billing-postcode">Post Code</label>
                                             <input type="text" data-name="postcode" name="billing[postcode]" value=""
@@ -553,7 +651,6 @@
                                             {{ $shippingOption->getTitle() . " " . number_format($shippingOption->getAmount(),2) }}
 
 
-
                                         </label>
 
                                         @if ($errors->has('shipping_option'))
@@ -586,7 +683,7 @@
                                                    value="{{ $paymentOption->getIdentifier() }}">
 
                                             <label for="{{ $paymentOption->getIdentifier() }}" class="form-check-label">
-                                                {!! $paymentOption->getTitle() !!}
+                                                {!! $paymentOption->getName() !!}
                                             </label>
 
                                             @if ($errors->has('payment_option'))
@@ -597,9 +694,14 @@
                                         </div>
 
 
+
+
                                     @endif
 
                                 @endforeach
+
+
+                                @include('mage2-ecommerce::stripe.index')
                             </div>
                         </div>
 
@@ -700,7 +802,8 @@
                                            name="agree" value="1"/>
                                     <label for="agree" class="form-check-label">
                                         I have read and agree to the
-                                        <a href="{{ $termConditionPageUrl }}" target="_blank" class="{{  $errors->has('agree') ? " text-danger" : "" }}  agree"><b>Terms
+                                        <a href="{{ $termConditionPageUrl }}" target="_blank"
+                                           class="{{  $errors->has('agree') ? " text-danger" : "" }}  agree"><b>Terms
                                                 &amp;
                                                 Conditions</b></a>
                                     </label>
@@ -717,8 +820,8 @@
 
                                 <div class="payment float-right clearfix">
                                     <input type="button" class="btn btn-primary"
-                                           data-loading-text="Loading..." id="place-order-button"
-                                           onclick="javascript=''"
+                                           data-loading-text="Loading..."
+                                           id="place-order-button"
                                            value="PlaceOrder">
 
 
@@ -728,97 +831,7 @@
 
                     </div>
                 </div>
-    </div>
-
-    </form>
-
-    @endif
+            </form>
+        @endif
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-
-        $(function () {
-
-            function calcualateTotal() {
-                subTotal = parseFloat(jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
-                shippingCost = parseFloat(jQuery('.shipping-cost').attr('data-shipping-cost')).toFixed(2);
-                taxAmount = parseFloat(jQuery('.tax-amount').attr('data-tax-amount')).toFixed(2);
-
-                total = parseFloat(subTotal) + parseFloat(taxAmount) + parseFloat(shippingCost);
-                jQuery('.total').attr('data-total', total.toFixed(2));
-                jQuery('.total').html("$" + total.toFixed(2));
-
-
-            }
-
-
-            function checkIfUserExist(data) {
-                $.post({
-                    url: "/check-user-exists",
-                    data: data,
-                    type: 'json',
-                    success: function (res) {
-                        console.info(res);
-                    }
-                });
-            }
-
-            jQuery(document).on('change', '#input-user-email', function (e) {
-                var data = {
-                    'email': jQuery(this).val(),
-                    '_token': '{{ csrf_token()  }}'
-                };
-
-                checkIfUserExist(data);
-
-            });
-
-            /**
-             jQu`ry('.tax-calculation').change(function () {
-            var data = {
-                'name': jQuery(this).attr('data-name'),
-                'value': jQuery(this).val(),
-                '_token': '{{ csrf_token()  }}'
-            };
-
-            $.post({
-                data: data,
-                type: 'json',
-                url: '{{ route("tax.calculation") }}',
-                success: function (res) {
-                    if ((res.success == true)) {
-                        jQuery('.tax-amount').html(res.tax_amount_text);
-                        jQuery('.tax-amount').attr('data-tax-amount', res.tax_amount);
-                        calcualateTotal();
-                    }
-                }
-            });
-        });
-             */
-            jQuery('.shipping_option_radio').change(function (e) {
-
-                if (jQuery(this).is(':checked')) {
-                    var shippingTitle = jQuery(this).attr('data-title');
-                    var shippingCost = jQuery(this).attr('data-cost');
-
-                    jQuery('.shipping-row').removeClass('hidden');
-
-                    jQuery('.shipping-row .shipping-title').html(shippingTitle + ":");
-                    jQuery('.shipping-row .shipping-cost').html("$" + shippingCost);
-                    jQuery('.shipping-row .shipping-cost').attr('data-shipping-cost', shippingCost);
-
-
-                } else {
-                    jQuery('.shipping-row').addClass('hidden');
-                }
-                calcualateTotal();
-            });
-
-            jQuery('#place-order-button').click(function (e) {
-                jQuery('#place-order-form').submit();
-            });
-        });
-    </script>
-@endpush

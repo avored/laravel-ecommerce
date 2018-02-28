@@ -17,6 +17,7 @@ class CheckoutController extends Controller
 
         $cartItems = Session::get('cart');
 
+
         return view('checkout.index')
             ->with('cartItems', $cartItems)
             ->with('countries', $countries)

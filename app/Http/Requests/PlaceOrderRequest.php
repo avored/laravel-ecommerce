@@ -23,6 +23,7 @@ class PlaceOrderRequest extends Request
      */
     public function rules()
     {
+
         $validation['billing.first_name'] = 'required|max:255';
         $validation['billing.last_name'] = 'required|max:255';
         $validation['billing.phone'] = 'required|max:255';
@@ -36,7 +37,9 @@ class PlaceOrderRequest extends Request
             //$validation['user.password'] = 'required|min:6|confirmed';
         }
 
-        if (null === $this->request->get('billing.id')) {
+
+        $billingData = $this->request->get('billing');
+        if (isset($billingData) && null === $billingData['id']) {
             $validation['billing.address1'] = 'required|max:255';
             $validation['billing.address2'] = 'max:255';
             $validation['billing.country_id'] = 'required|max:255';
@@ -58,7 +61,6 @@ class PlaceOrderRequest extends Request
         $validation['payment_option'] = 'required';
         $validation['agree'] = 'required';
 
-        //dd($validation);
         return $validation;
 
     }

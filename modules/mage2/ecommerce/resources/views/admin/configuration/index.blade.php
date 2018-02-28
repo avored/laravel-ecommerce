@@ -21,7 +21,8 @@
                             </div>
                         </a>
 
-                        <div id="general-config" class="collapse show" role="tabpanel" data-parent="#configuration-list">
+                        <div id="general-config" class="collapse show" role="tabpanel"
+                             data-parent="#configuration-list">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="general_site_title">Default Site Title</label>
@@ -30,9 +31,9 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="general_site_description">Default Site description</label>
-                                <textarea class="form-control"
-                                          id="general_site_description"
-                                          name="general_site_description">{{ $model->general_site_description }}</textarea>
+                                    <textarea class="form-control"
+                                              id="general_site_description"
+                                              name="general_site_description">{{ $model->general_site_description }}</textarea>
 
                                 </div>
 
@@ -66,6 +67,59 @@
                                 @include('mage2-ecommerce::forms.select',['name' => 'mage2_user_activation_required',
                                                                            'label' => 'User Activation Required',
                                                                            'options' => [0 => 'No',1 => 'Yes']])
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <a class="collapsed" data-toggle="collapse" href="#shipping-config">
+                            <div class="card-header" role="tab" id="headingTwo">
+                                <h5 class="mb-0">
+                                    Shipping
+                                </h5>
+                            </div>
+                        </a>
+
+                        <div id="shipping-config" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
+                             data-parent="#configuration-list">
+                            <div class="card-body">
+
+
+                                @include('mage2-ecommerce::forms.select',['name' => 'mage2_free_shipping_enabled',
+                                                                            'label' => 'Is Free Shipping Enabled',
+                                                                            'options' => [1 => 'Yes',0 => 'No']
+                                                                            ])
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-3">
+                        <a class="collapsed" data-toggle="collapse" href="#payment-config">
+                            <div class="card-header" role="tab" id="headingTwo">
+                                <h5 class="mb-0">
+                                    Payment
+                                </h5>
+                            </div>
+                        </a>
+
+                        <div id="payment-config" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
+                             data-parent="#configuration-list">
+                            <div class="card-body">
+
+
+                                @include('mage2-ecommerce::forms.select',['name' => 'mage2_pickup_enabled',
+                                                                            'label' => 'Is Pick Up  Enabled',
+                                                                            'options' => [1 => 'Yes',0 => 'No']
+                                                                            ])
+                                @include('mage2-ecommerce::forms.select',['name' => 'mage2_stripe_enabled',
+                                                                            'label' => 'Is Stripe Enabled',
+                                                                            'options' => [1 => 'Yes',0 => 'No']
+                                                                            ])
+
+                                @include('mage2-ecommerce::forms.text',['name' => 'mage2_stripe_api_key', 'label' => 'Your Stripe Secret Key'])
+
 
                             </div>
                         </div>
