@@ -7,101 +7,7 @@
 @section('content')
 
 
-    @push('scripts')
-        <script>
 
-            $(function () {
-
-                function calcualateTotal() {
-                    subTotal = parseFloat(jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
-                    shippingCost = parseFloat(jQuery('.shipping-cost').attr('data-shipping-cost')).toFixed(2);
-                    taxAmount = parseFloat(jQuery('.tax-amount').attr('data-tax-amount')).toFixed(2);
-
-                    total = parseFloat(subTotal) + parseFloat(taxAmount) + parseFloat(shippingCost);
-                    jQuery('.total').attr('data-total', total.toFixed(2));
-                    jQuery('.total').html("$" + total.toFixed(2));
-
-
-                }
-
-
-                function checkIfUserExist(data) {
-                    $.post({
-                        url: "/check-user-exists",
-                        data: data,
-                        type: 'json',
-                        success: function (res) {
-                            console.info(res);
-                        }
-                    });
-                }
-
-                jQuery(document).on('change', '#input-user-email', function (e) {
-                    var data = {
-                        'email': jQuery(this).val(),
-                        '_token': '{{ csrf_token()  }}'
-                    };
-
-                    checkIfUserExist(data);
-
-                });
-
-                /**
-                 jQu`ry('.tax-calculation').change(function () {
-            var data = {
-                'name': jQuery(this).attr('data-name'),
-                'value': jQuery(this).val(),
-                '_token': '{{ csrf_token()  }}'
-            };
-
-            $.post({
-                data: data,
-                type: 'json',
-                url: '{{ route("tax.calculation") }}',
-                success: function (res) {
-                    if ((res.success == true)) {
-                        jQuery('.tax-amount').html(res.tax_amount_text);
-                        jQuery('.tax-amount').attr('data-tax-amount', res.tax_amount);
-                        calcualateTotal();
-                    }
-                }
-            });
-        });
-                 */
-                jQuery('.shipping_option_radio').change(function (e) {
-
-                    if (jQuery(this).is(':checked')) {
-                        var shippingTitle = jQuery(this).attr('data-title');
-                        var shippingCost = jQuery(this).attr('data-cost');
-
-                        jQuery('.shipping-row').removeClass('hidden');
-
-                        jQuery('.shipping-row .shipping-title').html(shippingTitle + ":");
-                        jQuery('.shipping-row .shipping-cost').html("$" + shippingCost);
-                        jQuery('.shipping-row .shipping-cost').attr('data-shipping-cost', shippingCost);
-
-
-                    } else {
-                        jQuery('.shipping-row').addClass('hidden');
-                    }
-                    calcualateTotal();
-                });
-
-
-                jQuery('#place-order-button').click(function (e) {
-                    jQuery('#place-order-form').submit();
-                });
-
-
-                //$.each(foo, function (i, o) {
-                //    alert(i) // guid of the event
-                //    alert(o) // the function definition of the event handler
-                //});
-
-
-            });
-        </script>
-    @endpush
     <div class="container">
         <div class="h1">Checkout</div>
 
@@ -666,42 +572,46 @@
 
                         <div class="card mb-3">
                             <div class="card-header">Payment Options</div>
-                            <div class="card-body payment-method">
+                            <div class="card-body payment-options">
 
                                 <p>Please select the preferred payment method to use on this
                                     order.</p>
 
+                                <div class="payment-radio-options">
+                                    @foreach($paymentOptions as $paymentOption)
+
+                                        @if(true === $paymentOption->isEnabled())
+
+                                            <div class="form-check">
+
+                                                <input class="mage2-payment-option form-check-input {{ $errors->has('payment_option') ? ' is-invalid' : '' }}"
+                                                       type="radio" name="payment_option"
+                                                       id="{{ $paymentOption->getIdentifier() }}"
+                                                       value="{{ $paymentOption->getIdentifier() }}">
+
+                                                <label for="{{ $paymentOption->getIdentifier() }}"
+                                                       class="form-check-label">
+                                                    {!! $paymentOption->getName() !!}
+                                                </label>
+
+                                                @if ($errors->has('payment_option'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('payment_option') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+
+                                        @endif
+
+                                    @endforeach
+                                </div>
+
+
                                 @foreach($paymentOptions as $paymentOption)
 
-                                    @if(true === $paymentOption->isEnabled())
-
-                                        <div class="form-check">
-
-                                            <input class="form-check-input {{ $errors->has('payment_option') ? ' is-invalid' : '' }}"
-                                                   type="radio" name="payment_option"
-                                                   id="{{ $paymentOption->getIdentifier() }}"
-                                                   value="{{ $paymentOption->getIdentifier() }}">
-
-                                            <label for="{{ $paymentOption->getIdentifier() }}" class="form-check-label">
-                                                {!! $paymentOption->getName() !!}
-                                            </label>
-
-                                            @if ($errors->has('payment_option'))
-                                                <div class="invalid-feedback">
-                                                    {{ $errors->first('payment_option') }}
-                                                </div>
-                                            @endif
-                                        </div>
-
-
-
-
-                                    @endif
+                                    @include($paymentOption->view(), $paymentOption->with())
 
                                 @endforeach
-
-
-                                @include('mage2-ecommerce::stripe.index')
                             </div>
                         </div>
 
@@ -835,3 +745,90 @@
         @endif
     </div>
 @endsection
+
+
+@push('scripts')
+    <script>
+
+        $(function () {
+
+            function calcualateTotal() {
+                subTotal = parseFloat(jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
+                shippingCost = parseFloat(jQuery('.shipping-cost').attr('data-shipping-cost')).toFixed(2);
+                taxAmount = parseFloat(jQuery('.tax-amount').attr('data-tax-amount')).toFixed(2);
+
+                total = parseFloat(subTotal) + parseFloat(taxAmount) + parseFloat(shippingCost);
+                jQuery('.total').attr('data-total', total.toFixed(2));
+                jQuery('.total').html("$" + total.toFixed(2));
+
+
+            }
+
+
+            function checkIfUserExist(data) {
+                $.post({
+                    url: "/check-user-exists",
+                    data: data,
+                    type: 'json',
+                    success: function (res) {
+                        console.info(res);
+                    }
+                });
+            }
+
+            jQuery(document).on('change', '#input-user-email', function (e) {
+                var data = {
+                    'email': jQuery(this).val(),
+                    '_token': '{{ csrf_token()  }}'
+                };
+
+                checkIfUserExist(data);
+
+            });
+
+            jQuery('.shipping_option_radio').change(function (e) {
+
+                if (jQuery(this).is(':checked')) {
+                    var shippingTitle = jQuery(this).attr('data-title');
+                    var shippingCost = jQuery(this).attr('data-cost');
+
+                    jQuery('.shipping-row').removeClass('hidden');
+
+                    jQuery('.shipping-row .shipping-title').html(shippingTitle + ":");
+                    jQuery('.shipping-row .shipping-cost').html("$" + shippingCost);
+                    jQuery('.shipping-row .shipping-cost').attr('data-shipping-cost', shippingCost);
+
+
+                } else {
+                    jQuery('.shipping-row').addClass('hidden');
+                }
+                calcualateTotal();
+            });
+
+
+            jQuery('.mage2-payment-option').change(function (e) {
+                e.preventDefault();
+                jQuery(this).trigger('paymentOptionChange');
+            });
+
+            jQuery('#place-order-button').click(function (e) {
+
+                e.preventDefault();
+
+                jQuery(this).prop('disabled', true);
+
+                jQuery('.payment-radio-options input:radio').each(function (i, el) {
+                    if (jQuery(el).is(':checked')) {
+                        jQuery(el).trigger('paymentProcessStart');
+                    }
+                });
+            });
+
+            jQuery("#place-order-button").bind('paymentProcessEnd', function (e) {
+                e.preventDefault();
+                jQuery('#place-order-form').submit();
+            });
+
+        });
+    </script>
+@endpush

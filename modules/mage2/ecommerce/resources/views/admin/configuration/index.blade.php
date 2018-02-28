@@ -118,7 +118,11 @@
                                                                             'options' => [1 => 'Yes',0 => 'No']
                                                                             ])
 
-                                @include('mage2-ecommerce::forms.text',['name' => 'mage2_stripe_api_key', 'label' => 'Your Stripe Secret Key'])
+                                @include('mage2-ecommerce::forms.text',['name' => 'mage2_stripe_publishable_key',
+                                                                    'label' => 'Your Stripe Publishable Key'])
+
+                                @include('mage2-ecommerce::forms.text',['name' => 'mage2_stripe_secret_key',
+                                                                    'label' => 'Your Stripe Secret Key'])
 
 
                             </div>

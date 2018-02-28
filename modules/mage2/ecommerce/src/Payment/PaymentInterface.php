@@ -8,4 +8,8 @@ interface PaymentInterface
     public function getName();
 
     public function isEnabled();
+
+    public function view();
+
+    public function with();
 }

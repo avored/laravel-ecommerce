@@ -25,6 +25,14 @@ class Payment extends AbstractPayment implements PaymentInterface
     protected $name;
 
     /**
+     * Payment options View Path
+     *
+     * @var string
+     *
+     */
+    protected $view = "mage2-ecommerce::payment.pickup.index";
+
+    /**
      * Identifier for this Payment options
      *
      * return @void
@@ -68,6 +76,28 @@ class Payment extends AbstractPayment implements PaymentInterface
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Payment Option View Path
+     *
+     * return String
+     *
+     */
+    public function view()
+    {
+        return $this->view;
+    }
+
+    /**
+     * Payment Option View Data
+     *
+     * return Array
+     *
+     */
+    public function with()
+    {
+        return [];
     }
 
     /*

@@ -5,7 +5,8 @@ namespace Mage2\Ecommerce\Payment\Stripe;
 use Mage2\Ecommerce\Models\Database\Configuration;
 use Mage2\Ecommerce\Payment\Payment as PaymentEcommerce;
 use Mage2\Ecommerce\Payment\PaymentInterface;
-
+use Stripe\Stripe;
+use Stripe\Charge;
 
 class Payment extends PaymentEcommerce implements PaymentInterface
 {
@@ -24,6 +25,14 @@ class Payment extends PaymentEcommerce implements PaymentInterface
      *
      */
     protected $name = "Stripe";
+
+    /**
+     * Payment Option View
+     *
+     * @var string
+     *
+     */
+    protected $view = "mage2-ecommerce::payment.stripe.index";
 
 
     public function isEnabled()
@@ -46,6 +55,20 @@ class Payment extends PaymentEcommerce implements PaymentInterface
         return $this->name;
     }
 
+    public function view()
+    {
+        return $this->view;
+    }
+
+    public function with()
+    {
+        $token = Configuration::getConfiguration("mage2_stripe_publishable_key");
+        $data = ['token' => $token];
+        return $data;
+    }
+
+
+
     /*
      * Nothing to do
      *
@@ -61,15 +84,13 @@ class Payment extends PaymentEcommerce implements PaymentInterface
             $subTotal += $product['price'] * $product['qty'];
             $taxTotal += $product['tax_amount'] * $product['qty'];
         }
+
         $totalCents = (integer)($subTotal + $taxTotal) * 100;
+        $apiKey = Configuration::getConfiguration('mage2_stripe_secret_key');
 
-        $totalCents = 50;
+        Stripe::setApiKey($apiKey);
 
-
-        $apiKey = Configuration::getConfiguration('mage2_stripe_api_key');
-        \Stripe\Stripe::setApiKey($apiKey);
-
-        $response = \Stripe\Charge::create(array(
+        $response = Charge::create(array(
             "amount" => $totalCents,
             "currency" => "nzd",
             "source" => $request->get('stripeToken'), // obtained with Stripe.js

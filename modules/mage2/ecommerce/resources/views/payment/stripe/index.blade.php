@@ -1,4 +1,4 @@
-<div id="stripe-card-form-wrapper" class="mt-3">
+<div id="stripe-card-form-wrapper" class="mt-3 d-none">
 
 
     <div class="col-md-12">
@@ -49,13 +49,10 @@
     <script>
         $(document).ready(function () {
 
-            var stripe = Stripe('pk_test_zRQjOUMQUPMx3R51y8KFZWGG');
-
-            // Create an instance of Elements.
+            var stripe = Stripe('{{ $token }}');
             var elements = stripe.elements();
 
-            // Custom styling can be passed to options when creating an Element.
-            // (Note that this demo uses a wider set of styles than the guide below.)
+
             var style = {
                 base: {
                     color: '#32325d',
@@ -73,28 +70,44 @@
                 }
             };
 
-            // Create an instance of the card Element.
             var card = elements.create('card', {style: style});
-
-            // Add an instance of the card Element into the `card-element` <div>.
             card.mount('#card-element');
 
 
-            jQuery('#place-order-button').click(function (event) {
-                event.preventDefault();
+            jQuery('.mage2-payment-option').change(function (e) {
+
+                if (jQuery(this).prop('id') != "stripe") {
+
+                    jQuery('#stripe-card-form-wrapper').addClass('d-none');
+                    return;
+                }
+
+                if (jQuery(e.target).is(":checked")) {
+                    jQuery('#stripe-card-form-wrapper').removeClass('d-none');
+                }
+
+
+            });
+
+            jQuery('#stripe').bind('paymentProcessStart', function (e) {
 
                 stripe.createToken(card).then(function (result) {
                     if (result.error) {
                         // Inform the customer that there was an error.
                         var errorElement = document.getElementById('card-errors');
                         errorElement.textContent = result.error.message;
+                        jQuery("#place-order-button").prop('disabled', false);
+
+
                     } else {
                         // Send the token to your server.
                         stripeTokenHandler(result.token);
+                        jQuery("#place-order-button").trigger('paymentProcessEnd');
                     }
+
+
                 });
             });
-
         });
 
         function stripeTokenHandler(token) {
@@ -105,9 +118,6 @@
             hiddenInput.setAttribute('name', 'stripeToken');
             hiddenInput.setAttribute('value', token.id);
             formWrapper.appendChild(hiddenInput);
-
-
-            jQuery('#place-order-form').submit();
         }
 
     </script>
