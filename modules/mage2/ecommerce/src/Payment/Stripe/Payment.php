@@ -85,7 +85,9 @@ class Payment extends PaymentEcommerce implements PaymentInterface
             $taxTotal += $product['tax_amount'] * $product['qty'];
         }
 
-        $totalCents = (integer)($subTotal + $taxTotal) * 100;
+        $total = (round($subTotal, 2) + round($taxTotal, 2)) * 100;
+
+        $totalCents = (integer)$total;
         $apiKey = Configuration::getConfiguration('mage2_stripe_secret_key');
 
         Stripe::setApiKey($apiKey);
