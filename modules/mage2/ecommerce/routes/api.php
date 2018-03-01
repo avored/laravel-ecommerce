@@ -4,7 +4,6 @@
 
 
 Route::prefix('api')
-    //->middleware(['api', 'admin.api.auth:api'])
     ->middleware(['api'])
     ->namespace("Mage2\Framework\Http\Controllers\Api")
     ->group(function() {

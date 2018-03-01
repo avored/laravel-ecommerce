@@ -254,8 +254,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('product_id')->references('id')->on('products');
         });
 
-        //order_product_variations
-
         Schema::create('gift_coupons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -274,7 +272,6 @@ class Mage2EcommerceSchema extends Migration
             $table->timestamps();
         });
 
-
         Schema::create('subscribers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable()->default(null);
@@ -282,7 +279,6 @@ class Mage2EcommerceSchema extends Migration
 
             $table->timestamps();
         });
-
 
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
@@ -485,8 +481,6 @@ class Mage2EcommerceSchema extends Migration
                 ->references('id')->on('products')->onDelete('cascade');
         });
 
-
-
         Schema::create('product_property_text_values', function (Blueprint $table) {
 
             $table->increments('id');
@@ -514,11 +508,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('product_id')
                 ->references('id')->on('products')->onDelete('cascade');
         });
-
-
-
-
-
 
         Schema::create('attributes', function (Blueprint $table) {
 
@@ -554,7 +543,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('attribute_id')
                 ->references('id')->on('attributes')->onDelete('cascade');
         });
-
 
         Schema::create('product_attribute_varchar_values', function (Blueprint $table) {
 
@@ -612,8 +600,6 @@ class Mage2EcommerceSchema extends Migration
                 ->references('id')->on('products')->onDelete('cascade');
         });
 
-
-
         Schema::create('product_attribute_text_values', function (Blueprint $table) {
 
             $table->increments('id');
@@ -656,7 +642,6 @@ class Mage2EcommerceSchema extends Migration
                 ->references('id')->on('products')->onDelete('cascade');
         });
 
-
         Schema::create('order_product_variations', function (Blueprint $table) {
 
             $table->increments('id');
@@ -672,156 +657,6 @@ class Mage2EcommerceSchema extends Migration
             $table->foreign('attribute_dropdown_option_id')->references('id')->on('attribute_dropdown_options');
         });
 
-
-        /**
-        Schema::create('attribute_products', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('attribute_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->timestamps();
-
-            $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-
-        });
-         *
-         */
-
-
-
-
-        /*
-
-
-
-
-        Schema::create('attributes', function (Blueprint $table) {
-            $table->increments('id');
-            $table->enum('type',['PRODUCT','CATEGORY','ORDER','CUSTOMER'])->default('PRODUCT');
-            $table->string('name');
-            $table->string('identifier')->unique();
-            //$table->enum('use_as',['SPECIFICATION','VARIATION'])->nullable()->default(null);
-            $table->enum('field_type', ['TEXT', 'TEXTAREA', 'CKEDITOR', 'SELECT', 'FILE', 'DATETIME','CHECKBOX','RADIO','SWITCH']);
-            $table->integer('sort_order')->nullable()->default(0);
-            $table->timestamps();
-        });
-
-        Schema::create('attribute_dropdown_options', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('attribute_id')->unsigned();
-            $table->string('display_text');
-            $table->timestamps();
-            $table->foreign('attribute_id')
-                ->references('id')->on('attributes')->onDelete('cascade');
-        });
-
-
-
-
-        Schema::create('product_attribute_varchar_values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('attribute_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->string('value');
-            $table->timestamps();
-
-            $table->foreign('attribute_id')
-                ->references('id')->on('attributes')->onDelete('cascade');
-            $table->foreign('product_id')
-                ->references('id')->on('products')->onDelete('cascade');
-        });
-
-        Schema::create('product_attribute_integer_values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('attribute_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->integer('value');
-            $table->timestamps();
-
-            $table->foreign('attribute_id')
-                ->references('id')->on('attributes')->onDelete('cascade');
-            $table->foreign('product_id')
-                ->references('id')->on('products')->onDelete('cascade');
-        });
-
-        Schema::create('product_attribute_decimal_values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('attribute_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->decimal('value');
-            $table->timestamps();
-
-            $table->foreign('attribute_id')
-                ->references('id')->on('attributes')->onDelete('cascade');
-            $table->foreign('product_id')
-                ->references('id')->on('products')->onDelete('cascade');
-        });
-
-        Schema::create('product_attribute_timestamp_values', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('attribute_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->timestamp('value');
-            $table->timestamps();
-
-            $table->foreign('attribute_id')
-                ->references('id')->on('attributes')->onDelete('cascade');
-            $table->foreign('product_id')
-                ->references('id')->on('products')->onDelete('cascade');
-        });
-
-
-
-
-
-
-
-
-
-
-        Schema::create('attribute_product', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('attribute_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->timestamps();
-
-            $table->foreign('attribute_id')
-                ->references('id')->on('attributes')->onDelete('cascade');
-            $table->foreign('product_id')
-                ->references('id')->on('products')->onDelete('cascade');
-        });
-
-        Schema::create('order_product_variations', function (Blueprint $table) {
-
-            $table->increments('id');
-            $table->integer('order_id')->unsigned();
-            $table->integer('product_id')->unsigned();
-            $table->integer('attribute_id')->unsigned();
-            $table->integer('attribute_dropdown_option_id')->unsigned()->nullable()->default(null);
-            $table->timestamps();
-
-            $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->foreign('attribute_id')->references('id')->on('attributes');
-            $table->foreign('attribute_dropdown_option_id')->references('id')->on('attribute_dropdown_options');
-        });
-
-
-        
-        Schema::create('product_combinations', function (Blueprint $table) {
-            $table->increments('id');
-
-            $table->integer('product_id')->unsigned();
-            $table->integer('combination_id')->unsigned();
-            $table->timestamps();
-
-            $table->foreign('combination_id')
-                ->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('product_id')
-                ->references('id')->on('products')->onDelete('cascade');
-        });
-
-        */
 
 
         Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
@@ -904,9 +739,6 @@ class Mage2EcommerceSchema extends Migration
         Schema::dropIfExists('attribute_group_attribute_pivot');
         Schema::dropIfExists('attribute_groups');
         Schema::dropIfExists('attributes');
-
-
-        Schema::dropIfExists('paypal_records');
     }
 
 }

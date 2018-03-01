@@ -3,9 +3,9 @@
 namespace Mage2\Ecommerce\Payment\Pickup;
 
 use Mage2\Ecommerce\Payment\Payment as AbstractPayment;
-use Mage2\Ecommerce\Payment\PaymentInterface;
+use Mage2\Ecommerce\Payment\Contracts\Payment as PaymentContract;
 
-class Payment extends AbstractPayment implements PaymentInterface
+class Payment extends AbstractPayment implements PaymentContract
 {
 
     /**
@@ -107,6 +107,8 @@ class Payment extends AbstractPayment implements PaymentInterface
     public function process($orderData, $cartProducts, $request)
     {
         //EXECUTE API here if any??
+
+        return true;
 
     }
 }

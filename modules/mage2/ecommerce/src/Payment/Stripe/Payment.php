@@ -4,11 +4,11 @@ namespace Mage2\Ecommerce\Payment\Stripe;
 
 use Mage2\Ecommerce\Models\Database\Configuration;
 use Mage2\Ecommerce\Payment\Payment as PaymentEcommerce;
-use Mage2\Ecommerce\Payment\PaymentInterface;
+use Mage2\Ecommerce\Payment\Contracts\Payment as PaymentContracts;
 use Stripe\Stripe;
 use Stripe\Charge;
 
-class Payment extends PaymentEcommerce implements PaymentInterface
+class Payment extends PaymentEcommerce implements PaymentContracts
 {
     /**
      * Payment Option Identifier
