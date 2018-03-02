@@ -58,3 +58,7 @@
 .tag a {
     margin: 0 0 0 .3em;
 }
+
+.widget-column {
+    min-height: 100px;
+}
