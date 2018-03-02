@@ -47,7 +47,8 @@ class Provider extends ServiceProvider
         \Mage2\Ecommerce\Shipping\Provider::class,
         \Mage2\Ecommerce\Configuration\Provider::class,
         \Mage2\Ecommerce\Permission\Provider::class,
-        \Mage2\Ecommerce\Theme\Provider::class
+        \Mage2\Ecommerce\Theme\Provider::class,
+        \Mage2\Ecommerce\Widget\Provider::class
     ];
 
     /**

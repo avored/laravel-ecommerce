@@ -12,27 +12,10 @@
                      ondragover="allowDrop(event)">
 
                     <div class="widget-wrapper">
-                        <div class="widget mt-3 mb-3" id="widget-total-user-1"
-                             draggable="true" ondragstart="drag(event)"
-                        >
-                            <div class="widget">
-                        <span class="bg-dark   d-block" style="cursor: move">
-                            <i class="ml-2 text-white pt-2 fas fa-bars"></i>
-                        </span>
-                                <div class="card  ">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-4 text-center bg-primary-dark pv-lg">
-                                                <em class="oi oi-people" style="font-size: 50px"></em>
-                                            </div>
-                                            <div class="col-8 pv-lg">
-                                                <div class="h2 mt0">{{ $totalRegisteredUser }}</div>
-                                                <div class="text-uppercase">{{ __('mage2-ecommerce::lang.admin-dashboard-total-user-title') }}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="widget mt-3 mb-3" id="widget-{{ Widget::get('total-user')->identifier() }}"
+                             draggable="true" ondragstart="drag(event)">
+                            @include (Widget::get('total-user')->view(),Widget::get('total-user')->with())
+
                         </div>
                     </div>
 
@@ -40,25 +23,10 @@
                 <div class="col-4 widget-column" ondrop="drop(event)"
                      ondragover="allowDrop(event)">
                     <div class="widget-wrapper">
-                        <div class="widget mt-3 mb-3" id="widget-total-order"
-                             draggable="true" ondragstart="drag(event)"
-                        >
-                         <span class="bg-dark   d-block" style="cursor: move">
-                            <i class="ml-2 text-white pt-2 fas fa-bars"></i>
-                        </span>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-4 text-center">
-                                            <em class="oi oi-dollar" style="font-size: 50px"></em>
-                                        </div>
-                                        <div class="col-8 pv-lg">
-                                            <div class="h2 mt0">{{ $totalOrder }}</div>
-                                            <div class="text-uppercase">{{ __('mage2-ecommerce::lang.admin-dashboard-total-order-title') }}</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="widget mt-3 mb-3" id="widget-{{ Widget::get('total-order')->identifier() }}"
+                             draggable="true" ondragstart="drag(event)">
+                            @include (Widget::get('total-order')->view(),Widget::get('total-order')->with())
+
                         </div>
                     </div>
                 </div>

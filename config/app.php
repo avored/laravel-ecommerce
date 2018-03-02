@@ -219,6 +219,7 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade::class,
         'Theme' => Mage2\Ecommerce\Theme\Facade::class,
         'Breadcrumb' => Mage2\Ecommerce\Breadcrumb\Facade::class,
+        'Widget' => Mage2\Ecommerce\Widget\Facade::class,
 
     ],
 ];
