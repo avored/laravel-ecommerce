@@ -22,10 +22,10 @@
                         </tr>
                         <?php $total = 0; $taxTotal = 0;$giftCouponAmount = 0; ?>
                         @foreach($cartProducts as $product)
-                            <form method="post" action="{{ route('cart.update') }}">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="_method" value="put"/>
+                            <form method="post" id="cart-form-update" action="{{ route('cart.update') }}">
 
+                                @csrf
+                                @method('put')
 
                                 <tr>
 
