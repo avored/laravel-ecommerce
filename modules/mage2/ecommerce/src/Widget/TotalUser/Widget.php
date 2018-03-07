@@ -93,4 +93,16 @@ class Widget implements WidgetContract
         return ['totalRegisteredUser' => $totalUser];
     }
 
+
+    /**
+     * @return string
+     */
+    public function render(): string
+    {
+        $view = view($this->view())->with($this->with());
+
+        return $view->render();
+
+    }
+
 }

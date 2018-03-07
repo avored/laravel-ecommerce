@@ -34,4 +34,25 @@ class Manager
 
         return $this->collection->get($key);
     }
+
+    public function all()
+    {
+        return $this->collection;
+    }
+
+    public function allOptions()
+    {
+
+        $options = Collection::make([]);
+        foreach ($this->collection as $identifier => $widget) {
+            $options->put($identifier, $widget->label());
+        }
+
+        return $options;
+    }
+
+    public function render()
+    {
+        return "Return from Widget";
+    }
 }

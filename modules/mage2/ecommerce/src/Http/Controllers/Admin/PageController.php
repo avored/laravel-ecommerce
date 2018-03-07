@@ -4,6 +4,7 @@ namespace Mage2\Ecommerce\Http\Controllers\Admin;
 use Mage2\Ecommerce\Models\Database\Page;
 use Mage2\Ecommerce\Http\Requests\PageRequest;
 use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+use Mage2\Ecommerce\Widget\Facade as Widget;
 
 class PageController extends AdminController
 {
@@ -72,8 +73,12 @@ class PageController extends AdminController
     public function edit($id)
     {
         $page = Page::findorfail($id);
+        $widgetOptions = Widget::allOptions();
 
-        return view('mage2-ecommerce::admin.page.edit')->with('model', $page);
+
+        return view('mage2-ecommerce::admin.page.edit')
+            ->with('model', $page)
+            ->with('widgetOptions', $widgetOptions);
     }
 
     /**

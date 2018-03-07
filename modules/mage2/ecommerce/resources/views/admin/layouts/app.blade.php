@@ -57,7 +57,6 @@
 
 
 <script src="{{ asset('vendor/mage2-admin/js/app.js') }}"></script>
-
 @stack('scripts')
 
 </body>
