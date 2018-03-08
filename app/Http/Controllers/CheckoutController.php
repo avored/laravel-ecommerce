@@ -2,9 +2,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
-use Mage2\Ecommerce\Payment\Facade as Payment;
-use Mage2\Ecommerce\Shipping\Facade as Shipping;
-use Mage2\Ecommerce\Models\Database\Country;
+use AvoRed\Ecommerce\Payment\Facade as Payment;
+use AvoRed\Ecommerce\Shipping\Facade as Shipping;
+use AvoRed\Ecommerce\Models\Database\Country;
 
 class CheckoutController extends Controller
 {

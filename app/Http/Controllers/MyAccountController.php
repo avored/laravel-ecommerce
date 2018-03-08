@@ -2,11 +2,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Ecommerce\Http\Requests\ChangePasswordRequest;
+use AvoRed\Ecommerce\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UploadUserImageRequest;
 use App\Http\Requests\UserProfileRequest;
 use Illuminate\Support\Facades\Hash;
-use Mage2\Ecommerce\Image\Facade as Image;
+use AvoRed\Ecommerce\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
 
 class MyAccountController extends Controller
@@ -90,7 +90,7 @@ class MyAccountController extends Controller
      * Create Directories if not exists
      *
      * @var string $path
-     * @return \Mage2\Ecommerce\Image\Service
+     * @return \AvoRed\Ecommerce\Image\Service
      */
     public function directory($path)
     {

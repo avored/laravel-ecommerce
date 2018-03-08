@@ -1,6 +1,6 @@
 {
   "name": "avored/laravel-ecommerce",
-  "description": "Mage2 E Commerce is an Laravel Open Source Shopping Cart",
+  "description": "AvoRed E Commerce is an Laravel Open Source Shopping Cart",
   "keywords": [
     "framework",
     "laravel",
@@ -42,7 +42,7 @@
     ],
     "psr-4": {
       "App\\": "app/",
-      "Mage2\\Ecommerce\\": "modules/mage2/ecommerce/src"
+      "AvoRed\\Ecommerce\\": "modules/avored/ecommerce/src"
     }
   },
   "autoload-dev": {

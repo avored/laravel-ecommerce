@@ -12,7 +12,7 @@ npm-debug.log
 yarn-error.log
 .env
 
-# Mage2 Specific
+# AvoRed Specific
 storage/framework/bootstrap/cache/services.php
 /packages
 /public/uploads
@@ -21,20 +21,20 @@ storage/framework/bootstrap/cache/services.php
 /themes/*
 
 # Include Ecommerce Module
-!/modules/mage2
-/modules/mage2/*
-!/modules/mage2/ecommerce
+!/modules/avored
+/modules/avored/*
+!/modules/avored/ecommerce
 
 # Include Default Theme
-!/themes/mage2
-/themes/mage2/*
-!/themes/mage2/default
+!/themes/avored
+/themes/avored/*
+!/themes/avored/default
 
 # Etc
 composer.lock
 public/mix-manifest.json
 package-lock.json
-themes/mage2/default/.DS_Store
-modules/mage2/ecommerce/.DS_Store
+themes/avored/default/.DS_Store
+modules/avored/ecommerce/.DS_Store
 .DS_Store
 .DS_Store

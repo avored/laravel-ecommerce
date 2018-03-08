@@ -1,8 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
-use Mage2\Ecommerce\Models\Database\Configuration;
-use Mage2\Ecommerce\Models\Database\Page;
+use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Models\Database\Page;
 
 class HomeController extends Controller
 {

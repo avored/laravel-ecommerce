@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use Mage2\Ecommerce\Models\Database\AdminUser;
+use AvoRed\Ecommerce\Models\Database\AdminUser;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -19,7 +19,7 @@ class UserTest extends TestCase
     public function testFrontLoginGet()
     {
         $response = $this->get('/login');
-        $response->assertSee('Mage2 Login');
+        $response->assertSee('AvoRed Login');
     }
 
     /**

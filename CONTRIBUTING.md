@@ -1,12 +1,12 @@
-# Contributing to Mage2 E commerce App
+# Contributing to AvoRed E commerce App
 
 ## Bug Reports & Feature Requests
-The Mage2 team heavily uses (and loves!) GitHub for all of our software management. 
+The AvoRed team heavily uses (and loves!) GitHub for all of our software management. 
 We use GitHub issues exclusively to track all bugs and features.
 
-* [Open an issue](https://github.com/mage2/laravel-ecommerce/issues) here on GitHub. 
+* [Open an issue](https://github.com/avored/laravel-ecommerce/issues) here on GitHub. 
 If you can, **please provide a fix and create a pull request (PR) instead**; this will automatically create an issue for you.
-* Please be patient as not all items will be tested immediately - remember, mage2 is open source and free of charge. 
+* Please be patient as not all items will be tested immediately - remember, avored is open source and free of charge. 
 * Occasionally we'll close issues. 
 Please feel free to re-open issues we've closed if there's something we've missed and they still need to be addressed.
 
@@ -15,7 +15,7 @@ PR's are even better than issues.
 We gladly accept community pull requests. 
 There are a few necessary steps before we can accept a pull request:
 
-* [Open an issue](https://github.com/mage2/laravel-ecommerce/issues) describing the problem that you are looking to solve in 
+* [Open an issue](https://github.com/avored/laravel-ecommerce/issues) describing the problem that you are looking to solve in 
 your PR (if one is not already open), and your approach to solving it (no necessary for bug fixes - only feature contributions). 
 
 ### Contributor License Agreement
@@ -24,23 +24,23 @@ The following terms are used throughout this agreement:
 * **You** - the person or legal entity including its affiliates asked to accept this agreement. An affiliate is any 
 entity that controls or is controlled by the legal entity, or is under common control with it.
 
-* **Project** - is an umbrella term that refers to any and all Mage2 projects.
+* **Project** - is an umbrella term that refers to any and all AvoRed projects.
 
 * **Contribution** - any type of work that is submitted to a Project, including any modifications or additions to 
 existing work.
 
 * **Submitted** - conveyed to a Project via a pull request, commit, issue, or any form of electronic, written, or 
-verbal communication with Mage2, contributors or maintainers.
+verbal communication with AvoRed, contributors or maintainers.
 
 #### 1. Grant of Copyright License.
 Subject to the terms and conditions of this agreement, You grant to the Projects’ maintainers, contributors, users and 
-to Mage2 a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, 
+to AvoRed a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable copyright license to reproduce, 
 prepare derivative works of, publicly display, publicly perform, sublicense, and distribute Your contributions and such 
 derivative works. Except for this license, You reserve all rights, title, and interest in your contributions.
 
 #### 2. Grant of Patent License.
 Subject to the terms and conditions of this agreement, You grant to the Projects’ maintainers, contributors, users and 
-to Mage2 a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable (except as stated in this section) 
+to AvoRed a perpetual, worldwide, non-exclusive, no-charge, royalty-free, irrevocable (except as stated in this section) 
 patent license to make, have made, use, offer to sell, sell, import, and otherwise transfer your contributions, where 
 such license applies only to those patent claims licensable by you that are necessarily infringed by your contribution 
 or by combination of your contribution with the project to which this contribution was submitted. 

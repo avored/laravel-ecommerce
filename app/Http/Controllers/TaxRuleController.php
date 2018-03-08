@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Mage2\Ecommerce\Models\Database\TaxRule;
+use AvoRed\Ecommerce\Models\Database\TaxRule;
 use Illuminate\Support\Facades\Response;
 
 class TaxRuleController extends Controller

@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SubscribeRequest;
-use Mage2\Ecommerce\Models\Database\Subscriber;
+use AvoRed\Ecommerce\Models\Database\Subscriber;
 
 class SubscribeController extends Controller
 {

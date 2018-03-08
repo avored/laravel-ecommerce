@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Mage2\Ecommerce\Models\Database\User::class, function (Faker $faker) {
+$factory->define(AvoRed\Ecommerce\Models\Database\User::class, function (Faker $faker) {
     static $password;
 
     return [

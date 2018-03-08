@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
-use Mage2\Ecommerce\Models\Database\Category;
-use Mage2\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\Category;
+use AvoRed\Ecommerce\Models\Database\Product;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

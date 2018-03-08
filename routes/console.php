@@ -13,6 +13,6 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
-Artisan::command('mage2', function () {
+Artisan::command('avored', function () {
     $this->comment(Inspiring::quote());
-})->describe('Hello From Mage2 E commerce');
+})->describe('Hello From AvoRed E commerce');

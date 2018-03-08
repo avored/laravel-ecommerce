@@ -4,17 +4,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
-use Mage2\Ecommerce\Events\OrderPlaceAfterEvent;
+use AvoRed\Ecommerce\Events\OrderPlaceAfterEvent;
 use Illuminate\Support\Facades\Session;
-use Mage2\Ecommerce\Models\Database\Product;
-use Mage2\Ecommerce\Models\Database\Order;
+use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\Order;
 use App\Http\Requests\PlaceOrderRequest;
-use Mage2\Ecommerce\Models\Database\OrderStatus;
-use Mage2\Ecommerce\Models\Database\User;
-use Mage2\Ecommerce\Models\Database\Address;
+use AvoRed\Ecommerce\Models\Database\OrderStatus;
+use AvoRed\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Models\Database\Address;
 
-use Mage2\Ecommerce\Models\Database\OrderProductVariation;
-use Mage2\Ecommerce\Payment\Facade as Payment;
+use AvoRed\Ecommerce\Models\Database\OrderProductVariation;
+use AvoRed\Ecommerce\Payment\Facade as Payment;
 
 class OrderController extends Controller
 {

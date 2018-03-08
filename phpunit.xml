@@ -19,7 +19,7 @@
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./modules/mage2/ecommerce/src</directory>
+            <directory suffix=".php">./modules/avored/ecommerce/src</directory>
         </whitelist>
     </filter>
     <!--logging>

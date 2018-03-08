@@ -12,7 +12,7 @@ return [
       | any other location as required by the application or its packages.
      */
 
-    'name' => 'Mage2 E commerce',
+    'name' => 'AvoRed E commerce',
     /*
       |--------------------------------------------------------------------------
       | Application Environment
@@ -45,7 +45,7 @@ return [
       | your application so that it is used when running Artisan tasks.
       |
      */
-    'url' => env('APP_URL', 'http://localhost/mage2-ecommerce/public'),
+    'url' => env('APP_URL', 'http://localhost/avored-ecommerce/public'),
     /*
       |--------------------------------------------------------------------------
       | Application Timezone
@@ -148,8 +148,8 @@ return [
          * Package Service Providers...
          */
 
-        //Mage2\Install\Module::class,
-        Mage2\Ecommerce\Provider::class,
+        //AvoRed\Install\Module::class,
+        AvoRed\Ecommerce\Provider::class,
 
 
 
@@ -207,19 +207,19 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'AdminMenu' => Mage2\Ecommerce\AdminMenu\Facade::class,
-        'DataGrid' => Mage2\Ecommerce\DataGrid\Facade::class,
-        'Image' => Mage2\Ecommerce\Image\Facade::class,
-        'Attributes' => Mage2\Ecommerce\Attribute\Facade::class,
-        'Tabs' => Mage2\Ecommerce\Tabs\Facade::class,
-        'Payment' => Mage2\Ecommerce\Payment\Facade::class,
-        'Shipping' => Mage2\Ecommerce\Shipping\Facade::class,
-        'AdminConfiguration' => Mage2\Ecommerce\Configuration\Facade::class,
-        'Permission' => Mage2\Ecommerce\Permission\Facade::class,
+        'AdminMenu' => AvoRed\Ecommerce\AdminMenu\Facade::class,
+        'DataGrid' => AvoRed\Ecommerce\DataGrid\Facade::class,
+        'Image' => AvoRed\Ecommerce\Image\Facade::class,
+        'Attributes' => AvoRed\Ecommerce\Attribute\Facade::class,
+        'Tabs' => AvoRed\Ecommerce\Tabs\Facade::class,
+        'Payment' => AvoRed\Ecommerce\Payment\Facade::class,
+        'Shipping' => AvoRed\Ecommerce\Shipping\Facade::class,
+        'AdminConfiguration' => AvoRed\Ecommerce\Configuration\Facade::class,
+        'Permission' => AvoRed\Ecommerce\Permission\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Theme' => Mage2\Ecommerce\Theme\Facade::class,
-        'Breadcrumb' => Mage2\Ecommerce\Breadcrumb\Facade::class,
-        'Widget' => Mage2\Ecommerce\Widget\Facade::class,
+        'Theme' => AvoRed\Ecommerce\Theme\Facade::class,
+        'Breadcrumb' => AvoRed\Ecommerce\Breadcrumb\Facade::class,
+        'Widget' => AvoRed\Ecommerce\Widget\Facade::class,
 
     ],
 ];

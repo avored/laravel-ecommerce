@@ -4,8 +4,8 @@ namespace Tests;
 
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Faker\Factory;
-use Mage2\Ecommerce\Models\Database\User;
-use Mage2\Ecommerce\Models\Database\AdminUser;
+use AvoRed\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Models\Database\AdminUser;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -27,7 +27,7 @@ abstract class TestCase extends BaseTestCase
 
     /*
      *
-     * @var \Mage2\Ecommerce\Models\Database\AdminUser
+     * @var \AvoRed\Ecommerce\Models\Database\AdminUser
      */
     public $adminUser;
     /**

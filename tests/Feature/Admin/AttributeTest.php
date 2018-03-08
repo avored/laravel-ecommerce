@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
-use Mage2\Ecommerce\Models\Database\Attribute;
+use AvoRed\Ecommerce\Models\Database\Attribute;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

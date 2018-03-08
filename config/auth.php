@@ -72,11 +72,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => Mage2\Ecommerce\Models\Database\User::class,
+            'model' => AvoRed\Ecommerce\Models\Database\User::class,
         ],
         'admin-users' => [
             'driver' => 'eloquent',
-            'model' => Mage2\Ecommerce\Models\Database\AdminUser::class,
+            'model' => AvoRed\Ecommerce\Models\Database\AdminUser::class,
         ],
     ],
 

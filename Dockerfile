@@ -30,7 +30,7 @@ RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.ph
 
 Run rm -rf /var/www/laravel
 
-RUN composer create-project mage2/laravel-ecommerce /var/www/laravel
+RUN composer create-project avored/laravel-ecommerce /var/www/laravel
 
 RUN /bin/chown www-data:www-data -R /var/www/laravel/storage
 

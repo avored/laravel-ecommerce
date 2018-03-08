@@ -3,10 +3,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Mage2\Ecommerce\Models\Database\Attribute;
-use Mage2\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\Attribute;
+use AvoRed\Ecommerce\Models\Database\Product;
 use Illuminate\Support\Collection;
-use Mage2\Ecommerce\Models\Database\ProductAttributeIntegerValue;
+use AvoRed\Ecommerce\Models\Database\ProductAttributeIntegerValue;
 
 class CartController extends Controller
 {

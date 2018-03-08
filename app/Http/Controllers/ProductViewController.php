@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Mage2\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\Product;
 
 class ProductViewController extends Controller
 {

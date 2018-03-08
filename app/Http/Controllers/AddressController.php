@@ -3,10 +3,10 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Ecommerce\Models\Database\Country;
-use Mage2\Ecommerce\Models\Database\Address;
-use Mage2\Ecommerce\Models\Database\Configuration;
-use Mage2\Ecommerce\Http\Requests\AddressRequest;
+use AvoRed\Ecommerce\Models\Database\Country;
+use AvoRed\Ecommerce\Models\Database\Address;
+use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Http\Requests\AddressRequest;
 
 class AddressController extends Controller
 {
@@ -35,7 +35,7 @@ class AddressController extends Controller
     {
         $user = Auth::user();
         $countries = Country::all();
-        $defaultCountry = Configuration::getConfiguration('mage2_address_default_country');
+        $defaultCountry = Configuration::getConfiguration('avored_address_default_country');
 
         return view('address.my-account.create-address')
             ->with('user', $user)
@@ -46,7 +46,7 @@ class AddressController extends Controller
     /**
      * Store a newly created user addresses in database.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\AddressRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\AddressRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -82,7 +82,7 @@ class AddressController extends Controller
     {
         $user = Auth::user();
         $address = Address::findorfail($id);
-        $defaultCountry = Configuration::getConfiguration('mage2_address_default_country');
+        $defaultCountry = Configuration::getConfiguration('avored_address_default_country');
         $countries = Country::all();
 
         return view('address.my-account.edit-address')
@@ -95,7 +95,7 @@ class AddressController extends Controller
     /**
      * Update the specified user addresses in database.
      *
-     * @param \Mage2\Address\Requests\Address $request
+     * @param \AvoRed\Address\Requests\Address $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

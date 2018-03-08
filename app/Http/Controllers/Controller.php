@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
-use Mage2\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Models\Database\Configuration;
 
 class Controller extends BaseController
 {

@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Mage2\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\Product;
 
 class SearchController extends Controller
 {

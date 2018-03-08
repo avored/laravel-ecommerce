@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
-use Mage2\Ecommerce\Models\Database\AdminUser;
+use AvoRed\Ecommerce\Models\Database\AdminUser;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -19,7 +19,7 @@ class LoginTest extends TestCase
     public function testLoginGet()
     {
         $response = $this->get('/admin/login');
-        $response->assertSee('Mage2 Admin Login');
+        $response->assertSee('AvoRed Admin Login');
     }
 
     /**

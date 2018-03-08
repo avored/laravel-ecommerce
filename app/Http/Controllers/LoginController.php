@@ -6,7 +6,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
-use Mage2\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Models\Database\User;
 
 
 class LoginController extends Controller

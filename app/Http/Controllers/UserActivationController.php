@@ -2,10 +2,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Mage2\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Models\Database\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Mage2\Ecommerce\Mail\NewUserMail;
+use AvoRed\Ecommerce\Mail\NewUserMail;
 
 
 class UserActivationController extends Controller

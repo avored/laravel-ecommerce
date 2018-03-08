@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'Mage2\\Themes\\Mage2\\Basic\\' => base_path('themes/mage2/basic'),
+    'AvoRed\\Themes\\AvoRed\\Basic\\' => base_path('themes/avored/basic'),
 ];

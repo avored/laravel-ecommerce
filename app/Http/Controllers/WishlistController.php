@@ -2,8 +2,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Ecommerce\Models\Database\Product;
-use Mage2\Ecommerce\Models\Database\Wishlist;
+use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\Wishlist;
 
 class WishlistController extends Controller
 {

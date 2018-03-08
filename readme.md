@@ -1,12 +1,12 @@
 # AvoRed E Commerce is an Laravel Open Source Shopping Cart
 
-[![Total Downloads](https://poser.pugx.org/mage2/laravel-ecommerce/downloads)](https://packagist.org/packages/avored/laravel-ecommerce)
+[![Total Downloads](https://poser.pugx.org/avored/laravel-ecommerce/downloads)](https://packagist.org/packages/avored/laravel-ecommerce)
 
 AvoRed is a Ecommerce application based on Laravel framework for shopping cart solution.
 
-[AvoRed Laravel E Commerce Official](http://mage2.website/)
+[AvoRed Laravel E Commerce Official](http://avored.website/)
 
-[Demo AvoRed E Commerce](http://demo.mage2.website/)
+[Demo AvoRed E Commerce](http://demo.avored.website/)
 
 
 # Installation
@@ -55,8 +55,8 @@ Typically, this string should be 32 characters long. The key can be set in the `
 
 ## Contributing
 
-AvoRed E commerce is in active development and If you want to contribute in this project then simply do the [Pull Request](https://github.com/mage2/laravel-ecommerce/pulls)!
+AvoRed E commerce is in active development and If you want to contribute in this project then simply do the [Pull Request](https://github.com/avored/laravel-ecommerce/pulls)!
 
-If you find any bug or problem please submit here [AvoRed Ecommerce Forum](http://mage2.website/forum/) or [raise the issue here](https://github.com/avored/laravel-ecommerce/issues/new).
+If you find any bug or problem please submit here [AvoRed Ecommerce Forum](http://avored.website/forum/) or [raise the issue here](https://github.com/avored/laravel-ecommerce/issues/new).
 
-[![](https://ga-beacon.appspot.com/UA-79831356-1/laravel-ecommerce?pixel)](https://github.com/mage2/laravel-ecommerce)
+[![](https://ga-beacon.appspot.com/UA-79831356-1/laravel-ecommerce?pixel)](https://github.com/avored/laravel-ecommerce)
