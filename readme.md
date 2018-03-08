@@ -4,9 +4,9 @@
 
 AvoRed is a Ecommerce application based on Laravel framework for shopping cart solution.
 
-[AvoRed Laravel E Commerce Official](http://avored.website/)
+[AvoRed Laravel E Commerce Official](https://www.avored.com/)
 
-[Demo AvoRed E Commerce](http://demo.avored.website/)
+[Demo AvoRed E Commerce](http://demo.avored.com/)
 
 
 # Installation
