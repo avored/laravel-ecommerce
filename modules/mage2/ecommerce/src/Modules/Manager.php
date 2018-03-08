@@ -60,13 +60,15 @@ class Manager
 
                 $composerLoader =  require base_path('vendor/autoload.php');
 
-                $path = $iterator->getPath() . DIRECTORY_SEPARATOR . $data['source'];
+                $path = $iterator->getPath() . DIRECTORY_SEPARATOR . "src";
 
                 $composerLoader->addPsr4($namespace, $path);
 
-                App::register($data['module']);
+                $moduleProvider = $data['namespace'] . 'Module';
 
-                $this->moduleList->put($data['name'],$data);
+                App::register($moduleProvider);
+
+                $this->moduleList->put($data['identifier'], $data);
             }
             $iterator->next();
         }

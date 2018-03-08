@@ -51,14 +51,18 @@ class Manager
 
                 $filePath = $iterator->getPathname();
                 $themeRegisterContent = File::get($filePath);
+
+                $data = Yaml::parse($themeRegisterContent);
+
                 $assetFolderName = isset($data['asset_folder_name']) ? $data['asset_folder_name'] : "assets";
                 $langFolderName = isset($data['lang_folder_name']) ? $data['lang_folder_name'] : "lang";
 
-                $data = Yaml::parse($themeRegisterContent);
-                $data['view_path'] = $iterator->getPath() . DIRECTORY_SEPARATOR ."views";
-                $data['asset_path'] = $iterator->getPath() . DIRECTORY_SEPARATOR .$assetFolderName;
+
+                $data['view_path'] = $iterator->getPath() . DIRECTORY_SEPARATOR . "views";
+                $data['asset_path'] = $iterator->getPath() . DIRECTORY_SEPARATOR . $assetFolderName;
                 $data['lang_path'] = $iterator->getPath() . DIRECTORY_SEPARATOR . $langFolderName;
-                $this->themeList->put($data['name'],$data);
+
+                $this->themeList->put($data['identifier'], $data);
             }
             $iterator->next();
         }
