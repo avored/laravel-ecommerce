@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\ViewComposers;
+namespace AvoRed\Ecommerce\Http\ViewComposers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;

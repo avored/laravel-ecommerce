@@ -5,7 +5,7 @@
 
 Route::prefix('api')
     ->middleware(['api'])
-    ->namespace("Mage2\Framework\Http\Controllers\Api")
+    ->namespace("AvoRed\Framework\Http\Controllers\Api")
     ->group(function() {
 
         Route::get('v1/categories', 'CategoryController@index');

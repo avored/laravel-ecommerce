@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Mail;
+namespace AvoRed\Ecommerce\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Mage2\Ecommerce\Models\Database\Order;
+use AvoRed\Ecommerce\Models\Database\Order;
 
 class OrderInvoicedMail extends Mailable
 {
@@ -31,7 +31,7 @@ class OrderInvoicedMail extends Mailable
      */
     public function build()
     {
-        return $this->view('mage2-ecommerce::admin.mail.order-invoiced')
+        return $this->view('avored-ecommerce::admin.mail.order-invoiced')
                     ->attach($this->path, ['as' =>
 
                         'invoiced.pdf', 'mime' => 'application/pdf']);

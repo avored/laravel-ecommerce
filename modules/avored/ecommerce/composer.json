@@ -1,33 +1,43 @@
 {
-    "name": "mage2/ecommerce",
-    "description": "Mage2 Laravel E commerce",
-    "keywords": ["framework" ,"cart","laravel","e commerce","laravel5","shop","shopping-cart","e-commerce","shopping cart","e commerce"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Purvesh  ",
-            "email": "ind.purvesh@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "type": "mage2-module",
-  "require": {
-    "php": ">=7.1.3",
-    "paypal/rest-api-sdk-php": "*"
-  },
-    "autoload": {
-        "classmap": [
-            "database/migrations"
-        ],
-        "psr-4": {
-            "Mage2\\Ecommerce\\": "src/"
-        }
-    },
-    "extra": {
-        "laravel" : {
-            "providers": [
-                "Mage2\\Ecommerce\\Provider"
-            ]
-        }
+  "name": "avored/ecommerce",
+  "description": "AvoRed Laravel E commerce",
+  "keywords": [
+    "framework",
+    "cart",
+    "laravel",
+    "e commerce",
+    "laravel5",
+    "shop",
+    "shopping-cart",
+    "e-commerce",
+    "shopping cart",
+    "e commerce"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Purvesh  ",
+      "email": "ind.purvesh@gmail.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "type": "avored-module",
+  "require": {
+    "php": ">=7.1.3"
+  },
+  "autoload": {
+    "classmap": [
+      "database/migrations"
+    ],
+    "psr-4": {
+      "AvoRed\\Ecommerce\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AvoRed\\Ecommerce\\Provider"
+      ]
+    }
+  }
 }

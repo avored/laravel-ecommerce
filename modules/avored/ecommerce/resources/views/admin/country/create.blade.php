@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
     <div class="container">
@@ -13,7 +13,7 @@
                     <form action="{{ route('admin.country.store') }}" method="post">
                     {{ csrf_field() }}
 
-                    @include('mage2-ecommerce::admin.country._fields')
+                    @include('avored-ecommerce::admin.country._fields')
 
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">Create Country</button>

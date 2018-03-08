@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Events;
+namespace AvoRed\Ecommerce\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Mage2\Ecommerce\Http\Requests\ProductRequest;
+use AvoRed\Ecommerce\Http\Requests\ProductRequest;
 
 class ProductBeforeSave
 {
@@ -17,7 +17,7 @@ class ProductBeforeSave
     /**
      * Create a new event instance.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\ProductRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\ProductRequest $request
      */
     public function __construct(ProductRequest $request)
     {

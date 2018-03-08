@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Middleware;
+namespace AvoRed\Ecommerce\Http\Middleware;
 
 use Closure;
-use Mage2\Ecommerce\Models\Database\AdminUser;
+use AvoRed\Ecommerce\Models\Database\AdminUser;
 use Illuminate\Support\Facades\Auth;
-use Mage2\Ecommerce\Models\Database\Permission as PermissionModel;
+use AvoRed\Ecommerce\Models\Database\Permission as PermissionModel;
 
 class Permission
 {

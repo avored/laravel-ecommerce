@@ -1,7 +1,7 @@
 <?php
-namespace Mage2\Ecommerce\AdminMenu;
+namespace AvoRed\Ecommerce\AdminMenu;
 
-use Mage2\Ecommerce\AdminMenu\Facade as AdminMenuFacade;
+use AvoRed\Ecommerce\AdminMenu\Facade as AdminMenuFacade;
 use Illuminate\Support\ServiceProvider;
 
 class Provider extends ServiceProvider {
@@ -25,7 +25,7 @@ class Provider extends ServiceProvider {
     {
 
         $this->registerServices();
-        $this->app->alias('adminmenu', 'Mage2\Ecommerce\AdminMenu\Builder');
+        $this->app->alias('adminmenu', 'AvoRed\Ecommerce\AdminMenu\Builder');
 
 
     }
@@ -214,6 +214,6 @@ class Provider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['adminmenu', 'Mage2\Ecommerce\AdminMenu\Builder'];
+        return ['adminmenu', 'AvoRed\Ecommerce\AdminMenu\Builder'];
     }
 }

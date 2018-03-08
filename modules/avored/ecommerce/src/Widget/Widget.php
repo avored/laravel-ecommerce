@@ -1,10 +1,10 @@
 <?php
 
-namespace Mage2\Ecommerce\Widget;
+namespace AvoRed\Ecommerce\Widget;
 
 use Illuminate\Support\Collection;
-use Mage2\Ecommerce\Widget\Contracts\Widget as WidgetContracts;
-use Mage2\Ecommerce\Widget\Facade as WidgetFacade;
+use AvoRed\Ecommerce\Widget\Contracts\Widget as WidgetContracts;
+use AvoRed\Ecommerce\Widget\Facade as WidgetFacade;
 
 class Widget implements WidgetContracts
 {

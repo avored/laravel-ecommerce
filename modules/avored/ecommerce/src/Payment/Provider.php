@@ -1,11 +1,11 @@
 <?php
-namespace Mage2\Ecommerce\Payment;
+namespace AvoRed\Ecommerce\Payment;
 
 use Illuminate\Support\ServiceProvider;
-use Mage2\Ecommerce\Payment\Facade as PaymentFacade;
-use Mage2\Ecommerce\Payment\Pickup\Payment as PickupPayment;
-use Mage2\Ecommerce\Payment\Paypal\Payment as PaypalPayment;
-use Mage2\Ecommerce\Payment\Stripe\Payment as StripePayment;
+use AvoRed\Ecommerce\Payment\Facade as PaymentFacade;
+use AvoRed\Ecommerce\Payment\Pickup\Payment as PickupPayment;
+use AvoRed\Ecommerce\Payment\Paypal\Payment as PaypalPayment;
+use AvoRed\Ecommerce\Payment\Stripe\Payment as StripePayment;
 
 class Provider extends ServiceProvider {
 
@@ -39,7 +39,7 @@ class Provider extends ServiceProvider {
     {
         $this->registerPayment();
 
-        $this->app->alias('payment', 'Mage2\Ecommerce\Payment\Manager');
+        $this->app->alias('payment', 'AvoRed\Ecommerce\Payment\Manager');
     }
     /**
      * Register the AdmainConfiguration instance.
@@ -60,7 +60,7 @@ class Provider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['payment', 'Mage2\Ecommerce\Payment\Manager'];
+        return ['payment', 'AvoRed\Ecommerce\Payment\Manager'];
     }
 
     /**

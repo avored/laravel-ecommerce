@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
     <div class="container">
@@ -14,7 +14,7 @@
                     {{ csrf_field() }}
 
 
-                    @include('mage2-ecommerce::admin.state._fields')
+                    @include('avored-ecommerce::admin.state._fields')
 
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">Create State</button>

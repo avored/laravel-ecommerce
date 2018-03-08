@@ -8,9 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Mage2 Ecommerce') }}</title>
+    <title>{{ config('app.name', 'AvoRed Ecommerce') }}</title>
 
-    <link href="{{ asset('vendor/mage2-admin/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/avored-admin/css/app.css') }}" rel="stylesheet">
 
 
     <!-- Scripts -->
@@ -25,11 +25,11 @@
 </head>
 <body>
 
-@include("mage2-ecommerce::admin.layouts.nav")
+@include("avored-ecommerce::admin.layouts.nav")
 
 
 <aside class="sidebar">
-    @include("mage2-ecommerce::admin.layouts.left-nav")
+    @include("avored-ecommerce::admin.layouts.left-nav")
 </aside>
 <div class="main-content p-3">
     <div class="container-fluid">
@@ -51,12 +51,12 @@
         @yield('content')
     </div>
 
-    @include('mage2-ecommerce::admin.layouts.footer')
+    @include('avored-ecommerce::admin.layouts.footer')
 </div>
 
 
 
-<script src="{{ asset('vendor/mage2-admin/js/app.js') }}"></script>
+<script src="{{ asset('vendor/avored-admin/js/app.js') }}"></script>
 @stack('scripts')
 
 </body>

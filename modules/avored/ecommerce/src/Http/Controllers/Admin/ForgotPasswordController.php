@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +53,6 @@ class ForgotPasswordController extends AdminController
     public function showLinkRequestForm()
     {
 
-        return view('mage2-ecommerce::admin.auth.passwords.email');
+        return view('avored-ecommerce::admin.auth.passwords.email');
     }
 }

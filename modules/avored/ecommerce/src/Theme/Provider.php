@@ -1,8 +1,8 @@
 <?php
-namespace Mage2\Ecommerce\Theme;
+namespace AvoRed\Ecommerce\Theme;
 
 use Illuminate\Support\ServiceProvider;
-use Mage2\Ecommerce\Theme\Facade as Theme;
+use AvoRed\Ecommerce\Theme\Facade as Theme;
 
 class Provider extends ServiceProvider {
 
@@ -20,7 +20,7 @@ class Provider extends ServiceProvider {
     public function register()
     {
         $this->registerTheme();
-        $this->app->alias('theme', 'Mage2\Ecommerce\Theme\Manager');
+        $this->app->alias('theme', 'AvoRed\Ecommerce\Theme\Manager');
 
         $themes = Theme::all();
     }
@@ -32,7 +32,7 @@ class Provider extends ServiceProvider {
     protected function registerTheme()
     {
         $this->app->singleton('theme', function ($app) {
-            $loadDefaultLangPath = base_path('themes/mage2/default/lang');
+            $loadDefaultLangPath = base_path('themes/avored/default/lang');
             $app['path.lang'] = $loadDefaultLangPath;
 
             return new Manager($app['files']);
@@ -47,6 +47,6 @@ class Provider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['theme', 'Mage2\Ecommerce\Theme\Manager'];
+        return ['theme', 'AvoRed\Ecommerce\Theme\Manager'];
     }
 }

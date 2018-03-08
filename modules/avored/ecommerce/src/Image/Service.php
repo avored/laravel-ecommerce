@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Ecommerce\Image;
+namespace AvoRed\Ecommerce\Image;
 
 use Illuminate\Support\Facades\File;
 
@@ -30,7 +30,7 @@ class Service {
      * @var string $path
      * @var boolean $keepAspectRatio
      *
-     * @return \Mage2\Ecommerce\Image\LocalFile
+     * @return \AvoRed\Ecommerce\Image\LocalFile
      */
     public function upload($image, $path = null, $makeDiffSizes = true)
     {
@@ -70,7 +70,7 @@ class Service {
      * Create Directories if not exists
      *
      * @var string $path
-     * @return \Mage2\Ecommerce\Image\Service
+     * @return \AvoRed\Ecommerce\Image\Service
      */
     public function directory($path)
     {
@@ -84,7 +84,7 @@ class Service {
      * @todo destroy the image from path
      *
      *
-     * @return \Mage2\Ecommerce\Image\Service
+     * @return \AvoRed\Ecommerce\Image\Service
      */
     public function destroy()
     {

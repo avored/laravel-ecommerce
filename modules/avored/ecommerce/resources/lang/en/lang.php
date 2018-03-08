@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Mage2 E commerce Languages
+    | AvoRed E commerce Languages
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -26,7 +26,7 @@ return [
 
 
 
-    'admin-login-card-title' => 'Mage2 Admin Login',
+    'admin-login-card-title' => 'AvoRed Admin Login',
     'admin-login-forget-password-link' => 'Forgot your Password?',
     'admin-login-button-title' => 'Login',
     'admin-password-label' => 'Password',

@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Ecommerce\Payment\Contracts;
+namespace AvoRed\Ecommerce\Payment\Contracts;
 
 interface Payment
 {

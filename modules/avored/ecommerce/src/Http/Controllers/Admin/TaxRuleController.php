@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\Country;
-use Mage2\Ecommerce\Models\Database\TaxRule;
-use Mage2\Ecommerce\Http\Requests\TaxRuleRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\Country;
+use AvoRed\Ecommerce\Models\Database\TaxRule;
+use AvoRed\Ecommerce\Http\Requests\TaxRuleRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
 
 class TaxRuleController extends AdminController
 {
@@ -33,7 +33,7 @@ class TaxRuleController extends AdminController
                                     </form>";
             });
 
-        return view('mage2-ecommerce::admin.tax-rule.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.tax-rule.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -44,13 +44,13 @@ class TaxRuleController extends AdminController
     public function create()
     {
         $countryOptions = Country::getCountriesOptions(true);
-        return view('mage2-ecommerce::admin.tax-rule.create')->with('countryOptions', $countryOptions);
+        return view('avored-ecommerce::admin.tax-rule.create')->with('countryOptions', $countryOptions);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\TaxRuleRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\TaxRuleRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -73,7 +73,7 @@ class TaxRuleController extends AdminController
         $countryOptions = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
         $taxRule = TaxRule::findorfail($id);
 
-        return view('mage2-ecommerce::admin.tax-rule.edit')
+        return view('avored-ecommerce::admin.tax-rule.edit')
             ->with('model', $taxRule)
             ->with('countryOptions', $countryOptions);
     }
@@ -81,7 +81,7 @@ class TaxRuleController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\TaxRuleRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\TaxRuleRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

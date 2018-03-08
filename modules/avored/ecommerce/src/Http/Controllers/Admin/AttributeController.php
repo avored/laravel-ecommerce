@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\Attribute;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
-use Mage2\Ecommerce\Http\Requests\AttributeRequest;
+use AvoRed\Ecommerce\Models\Database\Attribute;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Http\Requests\AttributeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 
@@ -30,16 +30,16 @@ class AttributeController extends AdminController
                                     </form>";
             });
 
-//        return view('mage2-framework::category.index')->with('dataGrid', $dataGrid);
+//        return view('avored-framework::category.index')->with('dataGrid', $dataGrid);
 
 
-        return view('mage2-ecommerce::admin.attribute.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.attribute.index')->with('dataGrid', $dataGrid);
     }
 
     public function create()
     {
 
-        return view('mage2-ecommerce::admin.attribute.create');
+        return view('avored-ecommerce::admin.attribute.create');
     }
 
     public function store(AttributeRequest $request)
@@ -56,7 +56,7 @@ class AttributeController extends AdminController
     public function edit($id)
     {
         $attribute = Attribute::find($id);
-        return view('mage2-ecommerce::admin.attribute.edit')->with('model', $attribute);
+        return view('avored-ecommerce::admin.attribute.edit')->with('model', $attribute);
 
     }
 
@@ -90,7 +90,7 @@ class AttributeController extends AdminController
     {
         $attribute = Attribute::findorfail($request->get('id'));
 
-        return view('mage2-ecommerce::admin.attribute.attribute-card-values')
+        return view('avored-ecommerce::admin.attribute.attribute-card-values')
             ->with('attribute', $attribute);
 
     }
@@ -109,7 +109,7 @@ class AttributeController extends AdminController
 
         //foreach ($attributes as $)
         $tmpString = "__RANDOM__STRING__";
-        $view = view('mage2-ecommerce::admin.attribute.get-element')
+        $view = view('avored-ecommerce::admin.attribute.get-element')
             ->with('attributes', $attributes)
             ->with('tmpString', $tmpString);
 

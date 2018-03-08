@@ -1,12 +1,12 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
-use Mage2\Ecommerce\Models\Database\Property;
-use Mage2\Ecommerce\Http\Requests\PropertyRequest;
-use Mage2\Ecommerce\Models\Database\PropertyDropdownOption;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\Property;
+use AvoRed\Ecommerce\Http\Requests\PropertyRequest;
+use AvoRed\Ecommerce\Models\Database\PropertyDropdownOption;
 
 class PropertyController extends AdminController
 {
@@ -37,7 +37,7 @@ class PropertyController extends AdminController
                                     </form>";
             });
 
-        return view('mage2-ecommerce::admin.property.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.property.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -47,13 +47,13 @@ class PropertyController extends AdminController
      */
     public function create()
     {
-        return view('mage2-ecommerce::admin.property.create');
+        return view('avored-ecommerce::admin.property.create');
     }
 
     /**
      * Store a newly created property in database.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\PropertyRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\PropertyRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -76,13 +76,13 @@ class PropertyController extends AdminController
     {
         $property = Property::findorfail($id);
 
-        return view('mage2-ecommerce::admin.property.edit')->with('model', $property);
+        return view('avored-ecommerce::admin.property.edit')->with('model', $property);
     }
 
     /**
      * Update the specified property in database.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\Property $request
+     * @param \AvoRed\Ecommerce\Http\Requests\Property $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response
@@ -127,7 +127,7 @@ class PropertyController extends AdminController
 
 
         $tmpString = str_random();
-        $view = view('mage2-ecommerce::admin.property.get-element')
+        $view = view('avored-ecommerce::admin.property.get-element')
                         ->with('properties', $properties)
                         ->with('tmpString', $tmpString);
 

@@ -1,7 +1,7 @@
 <?php
-namespace Mage2\Ecommerce\Breadcrumb;
+namespace AvoRed\Ecommerce\Breadcrumb;
 
-use Mage2\Ecommerce\Breadcrumb\Facade as BreadcrumbFacade;
+use AvoRed\Ecommerce\Breadcrumb\Facade as BreadcrumbFacade;
 use Illuminate\Support\ServiceProvider;
 
 class Provider extends ServiceProvider {
@@ -25,7 +25,7 @@ class Provider extends ServiceProvider {
     {
 
         $this->registerServices();
-        $this->app->alias('breadcrumb', 'Mage2\Ecommerce\Breadcrumb\Builder');
+        $this->app->alias('breadcrumb', 'AvoRed\Ecommerce\Breadcrumb\Builder');
 
 
     }
@@ -241,6 +241,6 @@ class Provider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['breadcrumb', 'Mage2\Ecommerce\Breadcrumb\Builder'];
+        return ['breadcrumb', 'AvoRed\Ecommerce\Breadcrumb\Builder'];
     }
 }

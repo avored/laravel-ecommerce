@@ -1,9 +1,9 @@
 <?php
 
-namespace Mage2\Ecommerce\Widget\TotalOrder;
+namespace AvoRed\Ecommerce\Widget\TotalOrder;
 
-use Mage2\Ecommerce\Models\Database\Order;
-use Mage2\Ecommerce\Widget\Contracts\Widget as WidgetContract;
+use AvoRed\Ecommerce\Models\Database\Order;
+use AvoRed\Ecommerce\Widget\Contracts\Widget as WidgetContract;
 
 class Widget implements WidgetContract
 {
@@ -15,7 +15,7 @@ class Widget implements WidgetContract
      * @var string $view
      */
 
-    protected $view = "mage2-ecommerce::widget.total-order";
+    protected $view = "avored-ecommerce::widget.total-order";
 
 
     /**

@@ -1,5 +1,5 @@
 
 
 
-@include('mage2-ecommerce::forms.text',['name' => 'name','label' =>  __('mage2-ecommerce::subscriber.name')])
-@include('mage2-ecommerce::forms.text',['name' => 'email','label' => __('mage2-ecommerce::subscriber.email')])
+@include('avored-ecommerce::forms.text',['name' => 'name','label' =>  __('avored-ecommerce::subscriber.name')])
+@include('avored-ecommerce::forms.text',['name' => 'email','label' => __('avored-ecommerce::subscriber.email')])

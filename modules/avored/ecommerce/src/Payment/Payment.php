@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Payment;
+namespace AvoRed\Ecommerce\Payment;
 
 abstract class Payment
 {

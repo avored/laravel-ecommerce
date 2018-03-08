@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Models\Database;
+namespace AvoRed\Ecommerce\Models\Database;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;

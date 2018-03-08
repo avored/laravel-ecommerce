@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\GiftCoupon;
-use Mage2\Ecommerce\Http\Requests\GiftCouponRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\GiftCoupon;
+use AvoRed\Ecommerce\Http\Requests\GiftCouponRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
 
 class GiftCouponController extends AdminController
 {
@@ -32,7 +32,7 @@ class GiftCouponController extends AdminController
                                             >Destroy</a>
                                     </form>";
             });
-        return view('mage2-ecommerce::admin.gift-coupon.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.gift-coupon.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -44,13 +44,13 @@ class GiftCouponController extends AdminController
     {
 
 
-        return view('mage2-ecommerce::admin.gift-coupon.create');
+        return view('avored-ecommerce::admin.gift-coupon.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\GiftCouponRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\GiftCouponRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -72,13 +72,13 @@ class GiftCouponController extends AdminController
     public function edit($id)
     {
         $giftCoupon = GiftCoupon::find($id);
-        return view('mage2-ecommerce::admin.gift-coupon.edit')->with('model', $giftCoupon);
+        return view('avored-ecommerce::admin.gift-coupon.edit')->with('model', $giftCoupon);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\GiftCouponRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\GiftCouponRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

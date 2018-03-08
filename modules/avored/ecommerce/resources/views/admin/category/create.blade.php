@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 
 @section('content')
@@ -15,7 +15,7 @@
                     <div class="card-body">
 
                         @csrf()
-                        @include('mage2-ecommerce::admin.category._fields')
+                        @include('avored-ecommerce::admin.category._fields')
 
                     </div>
                 </div>
@@ -24,8 +24,8 @@
                     <div class="card-header">SEO</div>
                     <div class="card-body">
 
-                        @include('mage2-ecommerce::forms.text',['name' => 'meta_title','label' => 'Meta Title'])
-                        @include('mage2-ecommerce::forms.textarea',['name' => 'meta_description','label' => 'Meta Description'])
+                        @include('avored-ecommerce::forms.text',['name' => 'meta_title','label' => 'Meta Title'])
+                        @include('avored-ecommerce::forms.textarea',['name' => 'meta_description','label' => 'Meta Description'])
 
                     </div>
                 </div>

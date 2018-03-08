@@ -1,10 +1,10 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 
 @section('content')
     <div class="row">
         <div class="col-12">
-            <div class="h1">{{ __("mage2-ecommerce::lang.product.create.text") }}</div>
+            <div class="h1">{{ __("avored-ecommerce::lang.product.create.text") }}</div>
         </div>
     </div>
     <form
@@ -15,8 +15,8 @@
 
         {{ csrf_field() }}
 
-        @include("mage2-ecommerce::forms.text",['name'=> 'name','label' => 'Name'])
-        @include("mage2-ecommerce::forms.select",['name'=> 'type','label' => 'Type',
+        @include("avored-ecommerce::forms.text",['name'=> 'name','label' => 'Name'])
+        @include("avored-ecommerce::forms.select",['name'=> 'type','label' => 'Type',
                                                     'options' => ['BASIC' => 'Basic Product',
                                                                     'VARIATION' => 'Variable Product'
                                                                 ]

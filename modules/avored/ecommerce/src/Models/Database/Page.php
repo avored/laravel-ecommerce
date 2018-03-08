@@ -1,9 +1,9 @@
 <?php
 
-namespace Mage2\Ecommerce\Models\Database;
+namespace AvoRed\Ecommerce\Models\Database;
 
 use Illuminate\Support\Facades\Blade;
-use Mage2\Ecommerce\Widget\Facade as Widget;
+use AvoRed\Ecommerce\Widget\Facade as Widget;
 
 class Page extends BaseModel
 {

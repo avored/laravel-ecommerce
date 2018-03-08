@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
@@ -62,7 +62,7 @@ class ResetPasswordController extends AdminController
      */
     public function showResetForm(Request $request, $token = null)
     {
-        return view('mage2-ecommerce::admin.auth.passwords.reset')
+        return view('avored-ecommerce::admin.auth.passwords.reset')
             ->with(['token' => $token, 'email' => $request->email]
             );
     }

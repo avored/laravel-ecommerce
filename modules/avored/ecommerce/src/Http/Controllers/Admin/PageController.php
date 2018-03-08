@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\Page;
-use Mage2\Ecommerce\Http\Requests\PageRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
-use Mage2\Ecommerce\Widget\Facade as Widget;
+use AvoRed\Ecommerce\Models\Database\Page;
+use AvoRed\Ecommerce\Http\Requests\PageRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Widget\Facade as Widget;
 
 class PageController extends AdminController
 {
@@ -36,7 +36,7 @@ class PageController extends AdminController
                                     </form>";
             });
 
-        return view('mage2-ecommerce::admin.page.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.page.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -46,13 +46,13 @@ class PageController extends AdminController
      */
     public function create()
     {
-        return view('mage2-ecommerce::admin.page.create');
+        return view('avored-ecommerce::admin.page.create');
     }
 
     /**
      * Store a newly created page in database.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\PageRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\PageRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -76,7 +76,7 @@ class PageController extends AdminController
         $widgetOptions = Widget::allOptions();
 
 
-        return view('mage2-ecommerce::admin.page.edit')
+        return view('avored-ecommerce::admin.page.edit')
             ->with('model', $page)
             ->with('widgetOptions', $widgetOptions);
     }
@@ -84,7 +84,7 @@ class PageController extends AdminController
     /**
      * Update the specified page in database.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\Page $request
+     * @param \AvoRed\Ecommerce\Http\Requests\Page $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

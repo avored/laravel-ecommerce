@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -40,7 +40,7 @@ class LoginController extends AdminController
 
     public function loginForm()
     {
-        return view('mage2-ecommerce::admin.user.login');
+        return view('avored-ecommerce::admin.user.login');
     }
 
     protected function guard()
@@ -59,7 +59,7 @@ class LoginController extends AdminController
     protected function sendFailedLoginResponse(Request $request)
     {
         throw ValidationException::withMessages([
-            $this->username() => [trans('mage2-ecommerce::lang.failed')],
+            $this->username() => [trans('avored-ecommerce::lang.failed')],
         ]);
     }
 

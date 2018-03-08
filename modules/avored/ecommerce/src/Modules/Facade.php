@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Modules;
+namespace AvoRed\Ecommerce\Modules;
 
 use Illuminate\Support\Facades\Facade as LaraveFacade;
 

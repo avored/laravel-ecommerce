@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Models\Database;
+namespace AvoRed\Ecommerce\Models\Database;
 
 class AttributeDropdownOption extends BaseModel
 {
@@ -8,7 +8,7 @@ class AttributeDropdownOption extends BaseModel
     /**
      * Attribute Dropdown Options belongs to one Product Attribute.
      *
-     * @return \Mage2\Ecommerce\Models\Database\Attribute
+     * @return \AvoRed\Ecommerce\Models\Database\Attribute
      */
     public function attribute()
     {

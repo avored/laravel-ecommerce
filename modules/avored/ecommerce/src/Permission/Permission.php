@@ -1,8 +1,8 @@
 <?php
-namespace Mage2\Ecommerce\Permission;
+namespace AvoRed\Ecommerce\Permission;
 
 use Illuminate\Support\Facades\Route;
-use Mage2\Ecommerce\Permission\Contracts\Permission as PermissionContracts;
+use AvoRed\Ecommerce\Permission\Contracts\Permission as PermissionContracts;
 
 class Permission implements PermissionContracts
 {

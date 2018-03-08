@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Models\Database;
+namespace AvoRed\Ecommerce\Models\Database;
 
 class ProductPropertyDatetimeValue extends BaseModel
 {

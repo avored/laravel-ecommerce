@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\Request;
@@ -19,7 +19,7 @@ class ModuleController extends AdminController
         $modelModule = new ModuleModel();
         $modules = ModuleFacade::all();
 
-        return view('mage2-dashboard::module.index')
+        return view('avored-dashboard::module.index')
             ->with('modules', $modules)
             ->with('modelModule', $modelModule)//->with('activeTheme', $activeTheme)
             ;
@@ -32,7 +32,7 @@ class ModuleController extends AdminController
      */
     public function create()
     {
-        return view('mage2-dashboard::module.create');
+        return view('avored-dashboard::module.create');
     }
 
     /**
@@ -82,7 +82,7 @@ class ModuleController extends AdminController
                 'name' => $moduleName,
             ]);
 
-            Artisan::call('mage2:module:install', ['moduleidentifier' => $identifier]);
+            Artisan::call('avored:module:install', ['moduleidentifier' => $identifier]);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -102,7 +102,7 @@ class ModuleController extends AdminController
 
         try {
             //ModuleModel::where('identifier','=',$identifier)->get()->first()->delete();
-            Artisan::call('mage2:module:uninstall', ['moduleidentifier' => $identifier]);
+            Artisan::call('avored:module:uninstall', ['moduleidentifier' => $identifier]);
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -118,7 +118,7 @@ class ModuleController extends AdminController
     {
         // $file = $request->file('image'); or
         // $fileName = 'somename';
-        $destinationPath = public_path('uploads/mage2/themes');
+        $destinationPath = public_path('uploads/avored/themes');
         $fileName = $file->getClientOriginalName();
         $file->move($destinationPath, $fileName);
 

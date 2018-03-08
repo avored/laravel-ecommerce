@@ -43,17 +43,17 @@
 
                 <div class="row">
                     <div class="col-6">
-                        @include('mage2-ecommerce::forms.text',['name' => 'sku','label' => 'Sku'])
+                        @include('avored-ecommerce::forms.text',['name' => 'sku','label' => 'Sku'])
                     </div>
                     <div class="col-6">
-                        @include('mage2-ecommerce::forms.text',['name' => 'qty','label' => 'Qty'])
+                        @include('avored-ecommerce::forms.text',['name' => 'qty','label' => 'Qty'])
 
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-6">
-                        @include('mage2-ecommerce::forms.text',['name' => 'price','label' => 'Price Variation'])
+                        @include('avored-ecommerce::forms.text',['name' => 'price','label' => 'Price Variation'])
 
                     </div>
                     <div class="col-6">

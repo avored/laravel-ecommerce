@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Theme;
+namespace AvoRed\Ecommerce\Theme;
 
 use Illuminate\Support\Collection;
 use RecursiveIteratorIterator;

@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\AdminMenu;
+namespace AvoRed\Ecommerce\AdminMenu;
 
 use Illuminate\Support\Collection;
 
@@ -23,7 +23,7 @@ class Builder
      * Create new menu object and return
      *
      * @var string $key
-     * @return \Mage2\Ecommerce\AdminMenu\AdminMenu
+     * @return \AvoRed\Ecommerce\AdminMenu\AdminMenu
      */
     public function add($key) {
         $menu = new AdminMenu();
@@ -38,7 +38,7 @@ class Builder
      * Return Admin Menu Object
      *
      * @var string $key
-     * @return \Mage2\Ecommerce\AdminMenu\AdminMenu
+     * @return \AvoRed\Ecommerce\AdminMenu\AdminMenu
      */
     public function get($key) {
 
@@ -57,7 +57,7 @@ class Builder
     {
         if ($this->adminMenu->has($menuKey)) {
 
-            /** @var  \Mage2\Ecommerce\AdminMenu\AdminMenu $adminMenuObj */
+            /** @var  \AvoRed\Ecommerce\AdminMenu\AdminMenu $adminMenuObj */
             $adminMenuObj = $this->adminMenu->get($menuKey);
 
             foreach($adminMenu as $key => $menuArray) {

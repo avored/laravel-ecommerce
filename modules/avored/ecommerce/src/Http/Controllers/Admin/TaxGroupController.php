@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\TaxGroup;
-use Mage2\Ecommerce\Models\Database\TaxRule;
-use Mage2\Ecommerce\Http\Requests\TaxGroupRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\TaxGroup;
+use AvoRed\Ecommerce\Models\Database\TaxRule;
+use AvoRed\Ecommerce\Http\Requests\TaxGroupRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
 
 class TaxGroupController extends AdminController
 {
@@ -32,7 +32,7 @@ class TaxGroupController extends AdminController
                                             >Destroy</a>
                                     </form>";
             });
-        return view('mage2-ecommerce::admin.tax-group.index')
+        return view('avored-ecommerce::admin.tax-group.index')
                     ->with('dataGrid', $dataGrid);
     }
 
@@ -45,13 +45,13 @@ class TaxGroupController extends AdminController
     {
         $taxRulesOptions = TaxRule::all()->pluck('name', 'id');
 
-        return view('mage2-ecommerce::admin.tax-group.create')->with('taxRulesOptions', $taxRulesOptions);
+        return view('avored-ecommerce::admin.tax-group.create')->with('taxRulesOptions', $taxRulesOptions);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\TaxGroupRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\TaxGroupRequest $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -79,7 +79,7 @@ class TaxGroupController extends AdminController
     {
         $taxGroup = TaxGroup::findorfail($id);
         $taxRulesOptions = TaxRule::all()->pluck('name', 'id');
-        return view('mage2-ecommerce::admin.tax-group.edit')
+        return view('avored-ecommerce::admin.tax-group.edit')
                     ->with('model', $taxGroup)
                     ->with('taxRulesOptions', $taxRulesOptions);
     }
@@ -87,7 +87,7 @@ class TaxGroupController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\CountryRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\CountryRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\RedirectResponse

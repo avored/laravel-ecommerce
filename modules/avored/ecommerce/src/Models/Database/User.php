@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Models\Database;;
+namespace AvoRed\Ecommerce\Models\Database;;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Mage2\Ecommerce\Image\LocalFile;
+use AvoRed\Ecommerce\Image\LocalFile;
 
 
 class User extends Authenticatable

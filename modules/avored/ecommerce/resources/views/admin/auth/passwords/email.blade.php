@@ -8,10 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Mage2 Admin Login</title>
+    <title>AvoRed Admin Login</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ asset('vendor/mage2-admin/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/avored-admin/css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -73,6 +73,6 @@
 </div>
 <!-- Scripts -->
 <!-- JQuery -->
-<script type="text/javascript" src="{{ asset('vendor/mage2-admin/js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/avored-admin/js/app.js') }}"></script>
 </body>
 </html>

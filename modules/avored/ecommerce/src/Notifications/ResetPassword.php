@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Notifications;
+namespace AvoRed\Ecommerce\Notifications;
 
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\MailMessage;

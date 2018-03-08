@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Models\Database;
+namespace AvoRed\Ecommerce\Models\Database;
 
 class Permission extends BaseModel
 {
@@ -9,7 +9,7 @@ class Permission extends BaseModel
     /**
      * Permission belongs to many role
      *
-     * @return \Mage2\Ecommerce\Models\Database\\Role
+     * @return \AvoRed\Ecommerce\Models\Database\\Role
      */
 
     public function roles()

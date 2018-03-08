@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Shipping;
+namespace AvoRed\Ecommerce\Shipping;
 
 interface ShippingInterface
 {

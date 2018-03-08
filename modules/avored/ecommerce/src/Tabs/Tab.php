@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Tabs;
+namespace AvoRed\Ecommerce\Tabs;
 
 class Tab
 {

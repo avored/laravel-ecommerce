@@ -1,11 +1,11 @@
 <?php
-namespace Mage2\Ecommerce\DataGrid;
+namespace AvoRed\Ecommerce\DataGrid;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Mage2\Ecommerce\DataGrid\Columns\TextColumn;
-use Mage2\Ecommerce\DataGrid\Columns\LinkColumn;
+use AvoRed\Ecommerce\DataGrid\Columns\TextColumn;
+use AvoRed\Ecommerce\DataGrid\Columns\LinkColumn;
 
 class Manager
 {
@@ -77,7 +77,7 @@ class Manager
 
         $this->data = $this->model->paginate($this->pageItem);
 
-        return view('mage2-ecommerce::datagrid.grid')->with('dataGrid', $this);
+        return view('avored-ecommerce::datagrid.grid')->with('dataGrid', $this);
     }
 
     public function asc($identifier = "") {

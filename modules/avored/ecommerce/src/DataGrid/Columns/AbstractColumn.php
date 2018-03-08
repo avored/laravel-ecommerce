@@ -1,7 +1,7 @@
 <?php
-namespace Mage2\Ecommerce\DataGrid\Columns;
+namespace AvoRed\Ecommerce\DataGrid\Columns;
 
-use Mage2\Ecommerce\DataGrid\Contracts\Column as ColumnContract;
+use AvoRed\Ecommerce\DataGrid\Contracts\Column as ColumnContract;
 
 abstract class AbstractColumn  implements  ColumnContract {
 

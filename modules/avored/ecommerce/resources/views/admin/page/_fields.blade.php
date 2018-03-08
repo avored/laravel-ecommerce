@@ -1,5 +1,5 @@
-@include('mage2-ecommerce::forms.text',['name' => 'name','label' => 'Name'])
-@include('mage2-ecommerce::forms.text',['name' => 'slug','label' => 'Slug'])
+@include('avored-ecommerce::forms.text',['name' => 'name','label' => 'Name'])
+@include('avored-ecommerce::forms.text',['name' => 'slug','label' => 'Slug'])
 
 @php
     $content = $model->getContent();
@@ -12,8 +12,8 @@
 </div>
 
 
-@include('mage2-ecommerce::forms.text',['name' => 'meta_title','label' => 'Meta Title'])
-@include('mage2-ecommerce::forms.text',['name' => 'meta_description','label' => 'Meta Description'])
+@include('avored-ecommerce::forms.text',['name' => 'meta_title','label' => 'Meta Title'])
+@include('avored-ecommerce::forms.text',['name' => 'meta_description','label' => 'Meta Description'])
 
 
 <div class="modal" id="widget-list-modal" tabindex="-1" role="dialog">
@@ -27,7 +27,7 @@
             </div>
             <div class="modal-body">
 
-                @include('mage2-ecommerce::forms.select',['name' => 'widget_list','label' => 'Widget List','options' => $widgetOptions])
+                @include('avored-ecommerce::forms.select',['name' => 'widget_list','label' => 'Widget List','options' => $widgetOptions])
 
             </div>
             <div class="modal-footer">

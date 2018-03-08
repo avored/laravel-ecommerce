@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Ecommerce\Widget\Contracts;
+namespace AvoRed\Ecommerce\Widget\Contracts;
 
 interface Widget
 {

@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Http\Middleware;
+namespace AvoRed\Ecommerce\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Mage2\Ecommerce\Models\Database\Visitor as VisitorModel;
+use AvoRed\Ecommerce\Models\Database\Visitor as VisitorModel;
 use Illuminate\Support\Facades\Schema;
 
 class Visitor

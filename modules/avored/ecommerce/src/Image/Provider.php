@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Image;
+namespace AvoRed\Ecommerce\Image;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -20,7 +20,7 @@ class Provider extends ServiceProvider {
     {
         $this->registerImageService();
 
-        $this->app->alias('image', 'Mage2\Ecommerce\Image\Service');
+        $this->app->alias('image', 'AvoRed\Ecommerce\Image\Service');
     }
     /**
      * Register the Image Service instance.
@@ -41,6 +41,6 @@ class Provider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['image', 'Mage2\Ecommerce\Image\Service'];
+        return ['image', 'AvoRed\Ecommerce\Image\Service'];
     }
 }

@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Middleware;
+namespace AvoRed\Ecommerce\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Mage2\Ecommerce\Models\Database\Product;
-use Mage2\Ecommerce\Models\Database\UserViewedProduct;
+use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\UserViewedProduct;
 
 
 class ProductViewed

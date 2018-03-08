@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
 
@@ -16,10 +16,10 @@
                             {{ csrf_field() }}
                             <input type="hidden" name="_method" value="put">
 
-                            @include('mage2-ecommerce::forms.text',['name' => 'user_full_name','label' => 'User Full Name', 'attributes' => ['class' => 'form-control','id' =>'user_full_name','disabled' => true]])
-                            @include('mage2-ecommerce::forms.text',['name' => 'product_title','label' => 'Product Title', 'attributes' => ['class' => 'form-control','id' =>'user_full_name','disabled' => true]])
-                            @include('mage2-ecommerce::forms.text',['name' => 'star','label' => 'Star', 'attributes' => ['class' => 'form-control','id' =>'user_full_name','disabled' => true]])
-                            @include('mage2-ecommerce::forms.select',['name' => 'status','label' => 'Status', 'options' => ['ENABLED' => 'Enable','DISABLED' => 'Disabled']])
+                            @include('avored-ecommerce::forms.text',['name' => 'user_full_name','label' => 'User Full Name', 'attributes' => ['class' => 'form-control','id' =>'user_full_name','disabled' => true]])
+                            @include('avored-ecommerce::forms.text',['name' => 'product_title','label' => 'Product Title', 'attributes' => ['class' => 'form-control','id' =>'user_full_name','disabled' => true]])
+                            @include('avored-ecommerce::forms.text',['name' => 'star','label' => 'Star', 'attributes' => ['class' => 'form-control','id' =>'user_full_name','disabled' => true]])
+                            @include('avored-ecommerce::forms.select',['name' => 'status','label' => 'Status', 'options' => ['ENABLED' => 'Enable','DISABLED' => 'Disabled']])
 
 
                             <div class="form-group">

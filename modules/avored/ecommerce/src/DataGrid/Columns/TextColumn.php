@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\DataGrid\Columns;
+namespace AvoRed\Ecommerce\DataGrid\Columns;
 
 use Illuminate\Support\Facades\Route;
 

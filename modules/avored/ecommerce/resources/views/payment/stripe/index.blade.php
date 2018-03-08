@@ -74,7 +74,7 @@
             card.mount('#card-element');
 
 
-            jQuery('.mage2-payment-option').change(function (e) {
+            jQuery('.avored-payment-option').change(function (e) {
 
                 if (jQuery(this).prop('id') != "stripe") {
 

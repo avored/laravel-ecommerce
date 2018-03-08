@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\Subscriber;
-use Mage2\Ecommerce\Http\Requests\Admin\SubscriberRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\Subscriber;
+use AvoRed\Ecommerce\Http\Requests\Admin\SubscriberRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
 
 class SubscriberController extends AdminController
 {
@@ -34,7 +34,7 @@ class SubscriberController extends AdminController
                                     </form>";
             });
 
-        return view('mage2-ecommerce::admin.subscriber.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.subscriber.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -44,13 +44,13 @@ class SubscriberController extends AdminController
      */
     public function create()
     {
-        return view('mage2-ecommerce::admin.subscriber.create');
+        return view('avored-ecommerce::admin.subscriber.create');
     }
 
     /**
      * Store a newly created subscriber in database.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\Admin\SubscriberRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\Admin\SubscriberRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -72,13 +72,13 @@ class SubscriberController extends AdminController
     {
         $subscriber = Subscriber::findorfail($id);
 
-        return view('mage2-ecommerce::admin.subscriber.edit')->with('model', $subscriber);
+        return view('avored-ecommerce::admin.subscriber.edit')->with('model', $subscriber);
     }
 
     /**
      * Update the specified subscriber in database.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\Admin\Subscriber $request
+     * @param \AvoRed\Ecommerce\Http\Requests\Admin\Subscriber $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

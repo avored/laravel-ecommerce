@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Tabs;
+namespace AvoRed\Ecommerce\Tabs;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -19,7 +19,7 @@ class Provider extends ServiceProvider {
     public function register()
     {
         $this->registerTabs();
-        $this->app->alias('tabs', 'Mage2\Ecommerce\Tabs\TabsMaker');
+        $this->app->alias('tabs', 'AvoRed\Ecommerce\Tabs\TabsMaker');
     }
     /**
      * Register the AdmainConfiguration instance.
@@ -40,6 +40,6 @@ class Provider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['tabs', 'Mage2\Ecommerce\Tabs\TabsMaker'];
+        return ['tabs', 'AvoRed\Ecommerce\Tabs\TabsMaker'];
     }
 }

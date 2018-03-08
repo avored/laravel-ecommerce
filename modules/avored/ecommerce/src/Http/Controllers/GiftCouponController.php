@@ -1,12 +1,12 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers;
+namespace AvoRed\Ecommerce\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Session;
-use Mage2\Ecommerce\Models\Database\Product;
-use Mage2\Ecommerce\Models\Database\GiftCoupon;
+use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\GiftCoupon;
 
 class GiftCouponController extends Controller
 {

@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\Role;
-use Mage2\Ecommerce\Http\Requests\RoleRequst;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
-use Mage2\Ecommerce\Models\Database\Permission;
+use AvoRed\Ecommerce\Models\Database\Role;
+use AvoRed\Ecommerce\Http\Requests\RoleRequst;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\Permission;
 
 class RoleController extends AdminController
 {
@@ -33,7 +33,7 @@ class RoleController extends AdminController
                                             >Destroy</a>
                                     </form>";
             });
-        return view('mage2-ecommerce::admin.role.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.role.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -43,14 +43,14 @@ class RoleController extends AdminController
      */
     public function create()
     {
-        return view('mage2-ecommerce::admin.role.create');
+        return view('avored-ecommerce::admin.role.create');
 
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\RoleRequst $request
+     * @param \AvoRed\Ecommerce\Http\Requests\RoleRequst $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -78,14 +78,14 @@ class RoleController extends AdminController
     {
         $role = Role::findorfail($id);
 
-        return view('mage2-ecommerce::admin.role.edit')
+        return view('avored-ecommerce::admin.role.edit')
             ->with('model', $role);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\RoleRequst $request
+     * @param \AvoRed\Ecommerce\Http\Requests\RoleRequst $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

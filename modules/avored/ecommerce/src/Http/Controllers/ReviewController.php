@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers;
+namespace AvoRed\Ecommerce\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use Mage2\Ecommerce\Models\Database\Review;
-use Mage2\Ecommerce\Http\Requests\ReviewRequest;
-use Mage2\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Models\Database\Review;
+use AvoRed\Ecommerce\Http\Requests\ReviewRequest;
+use AvoRed\Ecommerce\Models\Database\User;
 
 class ReviewController extends Controller
 {

@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Breadcrumb;
+namespace AvoRed\Ecommerce\Breadcrumb;
 
 use Illuminate\Support\Collection;
-use Mage2\Ecommerce\Breadcrumb\Contracts\Breadcrumb as BreadcrumbContracts;
-use Mage2\Ecommerce\Breadcrumb\Facade as BreadcrumbFacade;
+use AvoRed\Ecommerce\Breadcrumb\Contracts\Breadcrumb as BreadcrumbContracts;
+use AvoRed\Ecommerce\Breadcrumb\Facade as BreadcrumbFacade;
 
 class Breadcrumb implements BreadcrumbContracts
 {

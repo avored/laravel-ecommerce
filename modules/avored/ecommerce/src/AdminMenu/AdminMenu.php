@@ -1,8 +1,8 @@
 <?php
-namespace Mage2\Ecommerce\AdminMenu;
+namespace AvoRed\Ecommerce\AdminMenu;
 
 use Illuminate\Support\Facades\Route;
-use Mage2\Ecommerce\AdminMenu\Contracts\AdminMenu as AdminMenuContracts;
+use AvoRed\Ecommerce\AdminMenu\Contracts\AdminMenu as AdminMenuContracts;
 
 class AdminMenu implements AdminMenuContracts
 {

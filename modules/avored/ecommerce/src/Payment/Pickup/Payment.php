@@ -1,9 +1,9 @@
 <?php
 
-namespace Mage2\Ecommerce\Payment\Pickup;
+namespace AvoRed\Ecommerce\Payment\Pickup;
 
-use Mage2\Ecommerce\Payment\Payment as AbstractPayment;
-use Mage2\Ecommerce\Payment\Contracts\Payment as PaymentContract;
+use AvoRed\Ecommerce\Payment\Payment as AbstractPayment;
+use AvoRed\Ecommerce\Payment\Contracts\Payment as PaymentContract;
 
 class Payment extends AbstractPayment implements PaymentContract
 {
@@ -30,7 +30,7 @@ class Payment extends AbstractPayment implements PaymentContract
      * @var string
      *
      */
-    protected $view = "mage2-ecommerce::payment.pickup.index";
+    protected $view = "avored-ecommerce::payment.pickup.index";
 
     /**
      * Identifier for this Payment options

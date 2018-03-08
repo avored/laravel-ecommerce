@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Mage2\Ecommerce\Models\Database\Review;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\Review;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
 
 class ReviewController extends AdminController
 {
@@ -28,14 +28,14 @@ class ReviewController extends AdminController
                                             >Destroy</a>
                                     </form>";
             });
-        return view('mage2-ecommerce::admin.review.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.review.index')->with('dataGrid', $dataGrid);
     }
 
     public function edit($id)
     {
         $review = Review::find($id);
 
-        return view('mage2-ecommerce::admin.review.edit')->with('model', $review);
+        return view('avored-ecommerce::admin.review.edit')->with('model', $review);
     }
 
     public function update($id, Request $request)

@@ -1,7 +1,7 @@
 
-@include('mage2-ecommerce::forms.text',['name' => 'name' ,'label' => __('mage2-ecommerce::role.role-name')])
+@include('avored-ecommerce::forms.text',['name' => 'name' ,'label' => __('avored-ecommerce::role.role-name')])
 
-@include('mage2-ecommerce::forms.textarea',['name' => 'description' ,'label' => __('mage2-ecommerce::role.role-description')])
+@include('avored-ecommerce::forms.textarea',['name' => 'description' ,'label' => __('avored-ecommerce::role.role-description')])
 
 
 <div class="row">

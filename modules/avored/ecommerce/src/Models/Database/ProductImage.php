@@ -1,7 +1,7 @@
 <?php
-namespace Mage2\Ecommerce\Models\Database;
+namespace AvoRed\Ecommerce\Models\Database;
 
-use Mage2\Ecommerce\Image\LocalFile;
+use AvoRed\Ecommerce\Image\LocalFile;
 
 class ProductImage extends BaseModel
 {

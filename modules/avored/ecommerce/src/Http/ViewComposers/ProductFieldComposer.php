@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Attribute\ViewComposers;
+namespace AvoRed\Attribute\ViewComposers;
 
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use Mage2\Attribute\Models\Attribute;
-use Mage2\Framework\Tabs\Facades\Tabs;
+use AvoRed\Attribute\Models\Attribute;
+use AvoRed\Framework\Tabs\Facades\Tabs;
 
 class ProductFieldComposer
 {
@@ -24,7 +24,7 @@ class ProductFieldComposer
             Tabs::add('product-variation')
                 ->setType('product')
                 ->setLabel('Variation')
-                ->setViewpath('mage2-attribute::product.variation');
+                ->setViewpath('avored-attribute::product.variation');
 
             $variations = Attribute::whereUseAs('VARIATION')->get();
 
@@ -37,7 +37,7 @@ class ProductFieldComposer
          * Tabs::add('product-attribute')
          * ->setType('product')
          * ->setLabel('Attribute')
-         * ->setViewpath('mage2-attribute::product.product-save');
+         * ->setViewpath('avored-attribute::product.product-save');
          *
          *
          *

@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Events;
+namespace AvoRed\Ecommerce\Events;
 
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use Mage2\Ecommerce\Models\Database\Order;
+use AvoRed\Ecommerce\Models\Database\Order;
 
 class OrderPlaceAfterEvent
 {
@@ -12,9 +12,9 @@ class OrderPlaceAfterEvent
 
 
     /***
-     * Mage2 Order Model
+     * AvoRed Order Model
      *
-     * @var \Mage2\Ecommerce\Models\Database\Order
+     * @var \AvoRed\Ecommerce\Models\Database\Order
      *
      */
     public $order;

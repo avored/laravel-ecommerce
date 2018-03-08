@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Http\ViewComposers;
+namespace AvoRed\Ecommerce\Http\ViewComposers;
 
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
-use Mage2\Ecommerce\Tabs\Facade as Tabs;
+use AvoRed\Ecommerce\Tabs\Facade as Tabs;
 
 class ProductSpecificationComposer
 {

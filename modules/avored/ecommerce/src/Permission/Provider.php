@@ -1,9 +1,9 @@
 <?php
 
-namespace Mage2\Ecommerce\Permission;
+namespace AvoRed\Ecommerce\Permission;
 
 use Illuminate\Support\Facades\Blade;
-use Mage2\Ecommerce\Permission\Facade as PermissionFacade;
+use AvoRed\Ecommerce\Permission\Facade as PermissionFacade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -50,7 +50,7 @@ class Provider extends ServiceProvider
     public function register()
     {
         $this->registerManager();
-        $this->app->singleton('permission', 'Mage2\Ecommerce\Permission\Manager');
+        $this->app->singleton('permission', 'AvoRed\Ecommerce\Permission\Manager');
     }
 
     /**
@@ -300,6 +300,6 @@ class Provider extends ServiceProvider
      */
     public function provides()
     {
-        return ['permission', 'Mage2\Ecommerce\Permission\Manager'];
+        return ['permission', 'AvoRed\Ecommerce\Permission\Manager'];
     }
 }

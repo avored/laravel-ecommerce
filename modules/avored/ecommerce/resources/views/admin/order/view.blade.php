@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
     <div class="row">
@@ -53,7 +53,7 @@
                                             {{ csrf_field() }}
                                             <input type="hidden" name="_method" value="put">
 
-                                            @include('mage2-ecommerce::forms.select',
+                                            @include('avored-ecommerce::forms.select',
                                                         ['name' => 'order_status_id',
                                                         'label' => 'Order Status',
                                                         'options' => $orderStatus])

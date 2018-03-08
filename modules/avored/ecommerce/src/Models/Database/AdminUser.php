@@ -1,10 +1,10 @@
 <?php
 
-namespace Mage2\Ecommerce\Models\Database;
+namespace AvoRed\Ecommerce\Models\Database;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Mage2\Ecommerce\Notifications\ResetPassword;
+use AvoRed\Ecommerce\Notifications\ResetPassword;
 use Laravel\Passport\HasApiTokens;
 
 class AdminUser extends Authenticatable

@@ -1,8 +1,8 @@
 <?php
-namespace Mage2\Ecommerce\Attribute;
+namespace AvoRed\Ecommerce\Attribute;
 
 use Illuminate\Support\Collection as LaravelCollection;
-use Mage2\Ecommerce\Attribute\Type\Select;
+use AvoRed\Ecommerce\Attribute\Type\Select;
 
 class Collection {
 

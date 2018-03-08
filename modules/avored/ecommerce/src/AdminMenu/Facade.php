@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\AdminMenu;
+namespace AvoRed\Ecommerce\AdminMenu;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
 

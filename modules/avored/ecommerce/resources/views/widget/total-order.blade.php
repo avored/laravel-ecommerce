@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-8 pv-lg">
                     <div class="h2 mt0">{{ $totalOrder }}</div>
-                    <div class="text-uppercase">{{ __('mage2-ecommerce::lang.admin-dashboard-total-order-title') }}</div>
+                    <div class="text-uppercase">{{ __('avored-ecommerce::lang.admin-dashboard-total-order-title') }}</div>
                 </div>
             </div>
         </div>

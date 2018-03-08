@@ -1,9 +1,9 @@
 <?php
 
-namespace Mage2\Ecommerce\Widget\TotalUser;
+namespace AvoRed\Ecommerce\Widget\TotalUser;
 
-use Mage2\Ecommerce\Models\Database\User;
-use Mage2\Ecommerce\Widget\Contracts\Widget as WidgetContract;
+use AvoRed\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Widget\Contracts\Widget as WidgetContract;
 
 class Widget implements WidgetContract
 {
@@ -15,7 +15,7 @@ class Widget implements WidgetContract
      * @var string $view
      */
 
-    protected $view = "mage2-ecommerce::widget.total-user";
+    protected $view = "avored-ecommerce::widget.total-user";
 
 
     /**

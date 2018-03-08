@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Ecommerce\Breadcrumb\Contracts;
+namespace AvoRed\Ecommerce\Breadcrumb\Contracts;
 
 interface Breadcrumb {
 

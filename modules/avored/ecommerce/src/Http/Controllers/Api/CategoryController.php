@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Api;
+namespace AvoRed\Ecommerce\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
-use Mage2\Ecommerce\Models\Database\Category;
-use Mage2\Ecommerce\Http\Requests\CategoryRequest;
-use Mage2\Framework\System\Controllers\ApiController;
+use AvoRed\Ecommerce\Models\Database\Category;
+use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
+use AvoRed\Framework\System\Controllers\ApiController;
 
 class CategoryController extends ApiController
 {

@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Breadcrumb;
+namespace AvoRed\Ecommerce\Breadcrumb;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
 

@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\DataGrid;
+namespace AvoRed\Ecommerce\DataGrid;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -20,7 +20,7 @@ class Provider extends ServiceProvider {
     public function register() {
 
         $this->registerDataGrid();
-        $this->app->alias('datagrid', 'Mage2\Ecommerce\DataGrid\Manager');
+        $this->app->alias('datagrid', 'AvoRed\Ecommerce\DataGrid\Manager');
     }
 
     /**
@@ -42,7 +42,7 @@ class Provider extends ServiceProvider {
      * @return array
      */
     public function provides() {
-        return [ 'datagrid', 'Mage2\Ecommerce\DataGrid\Manager'];
+        return [ 'datagrid', 'AvoRed\Ecommerce\DataGrid\Manager'];
     }
 
 }

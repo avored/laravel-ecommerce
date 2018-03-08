@@ -1,12 +1,12 @@
 <?php
-namespace Mage2\RelatedProduct\ViewComposers;
+namespace AvoRed\RelatedProduct\ViewComposers;
 
 use Illuminate\Support\Collection;
-use Mage2\RelatedProduct\Models\RelatedProduct;
-use Mage2\Framework\Tabs\Facades\Tabs;
+use AvoRed\RelatedProduct\Models\RelatedProduct;
+use AvoRed\Framework\Tabs\Facades\Tabs;
 use Illuminate\View\View;
-use Mage2\Framework\DataGrid\Facades\DataGrid;
-use Mage2\Framework\Database\Models\Product;
+use AvoRed\Framework\DataGrid\Facades\DataGrid;
+use AvoRed\Framework\Database\Models\Product;
 
 class RelatedProductComposer
 {
@@ -24,7 +24,7 @@ class RelatedProductComposer
         Tabs::add('related-product')
             ->setType('product')
             ->setLabel('Related Product')
-            ->setViewpath('mage2-related-product::related-product.product');
+            ->setViewpath('avored-related-product::related-product.product');
 
         $relatedProductIds = Collection::make([]);
 

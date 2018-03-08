@@ -1,17 +1,17 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Mage2\Ecommerce\Models\Database\Attribute;
-use Mage2\Ecommerce\Models\Database\Option;
-use Mage2\Ecommerce\Http\Requests\OptionRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
-use Mage2\Ecommerce\Models\Database\OptionDropdownOption;
-use Mage2\Ecommerce\Models\Database\Product;
-use Mage2\Ecommerce\Models\Database\AttributeDropdownOption;
-use Mage2\Ecommerce\Models\Database\ProductCombination;
-use Mage2\Ecommerce\Image\Facade as Image;
+use AvoRed\Ecommerce\Models\Database\Attribute;
+use AvoRed\Ecommerce\Models\Database\Option;
+use AvoRed\Ecommerce\Http\Requests\OptionRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\OptionDropdownOption;
+use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\AttributeDropdownOption;
+use AvoRed\Ecommerce\Models\Database\ProductCombination;
+use AvoRed\Ecommerce\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
 
 class OptionController extends AdminController
@@ -29,7 +29,7 @@ class OptionController extends AdminController
             $options->push(Attribute::findorfail($optionId));
         }
 
-        return view('mage2-ecommerce::admin.product.option-combination')
+        return view('avored-ecommerce::admin.product.option-combination')
                 ->with('options', $options)
                 ->with('productId', $productId);
     }
@@ -46,7 +46,7 @@ class OptionController extends AdminController
             $options->push(Attribute::findorfail($optionId));
         }
 
-        return view('mage2-ecommerce::admin.product.option-combination-edit')
+        return view('avored-ecommerce::admin.product.option-combination-edit')
             ->with('options', $options)
             ->with('model', $subProduct)
             ->with('productId', $productId);

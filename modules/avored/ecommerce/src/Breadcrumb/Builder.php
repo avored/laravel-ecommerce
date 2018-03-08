@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Breadcrumb;
+namespace AvoRed\Ecommerce\Breadcrumb;
 
 use Illuminate\Support\Collection;
 
@@ -33,7 +33,7 @@ class Builder
             return "";
         }
         //dd($breadcrumb);
-        return view('mage2-ecommerce::breadcrumb.index')->with('breadcrumb', $breadcrumb);
+        return view('avored-ecommerce::breadcrumb.index')->with('breadcrumb', $breadcrumb);
     }
 
     public function get($key) {

@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Permission;
+namespace AvoRed\Ecommerce\Permission;
 
 use Illuminate\Support\Collection;
 
@@ -25,7 +25,7 @@ class Manager {
      * Add Permission Array into Collection
      * 
      * @param array $item
-     * @return \Mage2\Ecommerce\Permission\Manager
+     * @return \AvoRed\Ecommerce\Permission\Manager
      */
     public function add($key) {
 

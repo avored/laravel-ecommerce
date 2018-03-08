@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
     <div class="container">
@@ -14,7 +14,7 @@
                             <input type="hidden" name="_method" value="put">
 
 
-                        @include('mage2-ecommerce::admin.country._fields')
+                        @include('avored-ecommerce::admin.country._fields')
 
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Update Country</button>

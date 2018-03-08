@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\Category;
-use Mage2\Ecommerce\Http\Requests\CategoryRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\Category;
+use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
 
 class CategoryController extends AdminController
 {
@@ -32,7 +32,7 @@ class CategoryController extends AdminController
                                     </form>";
                         });
 
-        return view('mage2-ecommerce::admin.category.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.category.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -42,13 +42,13 @@ class CategoryController extends AdminController
      */
     public function create()
     {
-        return view('mage2-ecommerce::admin.category.create');
+        return view('avored-ecommerce::admin.category.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\CategoryRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\CategoryRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -70,13 +70,13 @@ class CategoryController extends AdminController
     {
         $category = Category::findorfail($id);
 
-        return view('mage2-ecommerce::admin.category.edit')->with('model', $category);
+        return view('avored-ecommerce::admin.category.edit')->with('model', $category);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\CategoryRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\CategoryRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

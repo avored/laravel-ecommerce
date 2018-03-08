@@ -1,8 +1,8 @@
 <?php
-namespace Mage2\Ecommerce\Http\ViewComposers;
+namespace AvoRed\Ecommerce\Http\ViewComposers;
 
 use Illuminate\View\View;
-use Mage2\Ecommerce\AdminMenu\Facade as AdminMenu;
+use AvoRed\Ecommerce\AdminMenu\Facade as AdminMenu;
 
 class AdminNavComposer
 {

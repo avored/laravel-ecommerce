@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Tabs;
+namespace AvoRed\Ecommerce\Tabs;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
 
@@ -7,6 +7,6 @@ class Facade extends LaravelFacade
 {
     protected static function getFacadeAccessor()
     {
-        return 'Mage2\Ecommerce\Tabs\TabsMaker';
+        return 'AvoRed\Ecommerce\Tabs\TabsMaker';
     }
 }

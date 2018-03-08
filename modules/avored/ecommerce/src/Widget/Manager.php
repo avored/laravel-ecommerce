@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Ecommerce\Widget;
+namespace AvoRed\Ecommerce\Widget;
 
 use Illuminate\Support\Collection;
 

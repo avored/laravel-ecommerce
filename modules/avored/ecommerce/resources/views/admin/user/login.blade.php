@@ -8,10 +8,10 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Mage2 Admin Login</title>
+    <title>AvoRed Admin Login</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{ asset('vendor/mage2-admin/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/avored-admin/css/app.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -29,30 +29,30 @@
         <div class="card">
 
             <div class="card-header bg-primary text-white">
-                {{ __('mage2-ecommerce::lang.admin-login-card-title') }}
+                {{ __('avored-ecommerce::lang.admin-login-card-title') }}
             </div>
             <div class="card-body" >
 
                 <form method="post" action="{{ route('admin.login') }}" >
                     {{ csrf_field() }}
 
-                    @include('mage2-ecommerce::forms.text',
+                    @include('avored-ecommerce::forms.text',
                                 ['name' => 'email',
-                                'label' => __('mage2-ecommerce::lang.admin-email-label')
+                                'label' => __('avored-ecommerce::lang.admin-email-label')
                                 ])
-                    @include('mage2-ecommerce::forms.password',[
+                    @include('avored-ecommerce::forms.password',[
                                     'name' => 'password',
-                                    'label' => __('mage2-ecommerce::lang.admin-password-label')
+                                    'label' => __('avored-ecommerce::lang.admin-password-label')
                                     ])
 
                     <div class="form-group">
 
                         <button type="submit" class="btn btn-primary">
-                            {{ __('mage2-ecommerce::lang.admin-login-button-title') }}
+                            {{ __('avored-ecommerce::lang.admin-login-button-title') }}
                         </button>
 
                         <a href="{{ route('admin.password.reset') }}">
-                            {{ __('mage2-ecommerce::lang.admin-login-forget-password-link') }}
+                            {{ __('avored-ecommerce::lang.admin-login-forget-password-link') }}
                         </a>
                     </div>
 
@@ -64,7 +64,7 @@
 </div>
 <!-- Scripts -->
 <!-- JQuery -->
-<script type="text/javascript" src="{{ asset('vendor/mage2-admin/js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('vendor/avored-admin/js/app.js') }}"></script>
 
 <script>
     $(function() {

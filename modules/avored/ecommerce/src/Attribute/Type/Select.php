@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Attribute\Type;
+namespace AvoRed\Ecommerce\Attribute\Type;
 
 use Illuminate\Support\Collection;
 
@@ -49,7 +49,7 @@ class Select  extends Collection {
 
 
     public function render() {
-        return view('mage2-ecommerce::product-attribute.select')->with('field', $this);
+        return view('avored-ecommerce::product-attribute.select')->with('field', $this);
     }
 
     public function __toString() {

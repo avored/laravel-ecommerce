@@ -1,15 +1,15 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Mail;
-use Mage2\Ecommerce\Mail\OrderInvoicedMail;
-use Mage2\Ecommerce\Models\Database\Order;
-use Mage2\Ecommerce\Models\Database\OrderStatus;
-use Mage2\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
-use Mage2\Ecommerce\Models\Database\User;
-use Mage2\Ecommerce\Mail\UpdateOrderStatusMail;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Mail\OrderInvoicedMail;
+use AvoRed\Ecommerce\Models\Database\Order;
+use AvoRed\Ecommerce\Models\Database\OrderStatus;
+use AvoRed\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
+use AvoRed\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Mail\UpdateOrderStatusMail;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
 use Illuminate\Support\Facades\File;
 
 class OrderController extends AdminController
@@ -27,13 +27,13 @@ class OrderController extends AdminController
                 return "<a href='". route('admin.order.view', $model->id)."' >View</a>";
             });
 
-        return view('mage2-ecommerce::admin.order.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.order.index')->with('dataGrid', $dataGrid);
     }
 
     public function view($id)
     {
         $order = Order::findorfail($id);
-        $view = view('mage2-ecommerce::admin.order.view')->with('order', $order);
+        $view = view('avored-ecommerce::admin.order.view')->with('order', $order);
 
         return $view;
     }
@@ -44,7 +44,7 @@ class OrderController extends AdminController
         $order = Order::findorfail($id);
         $user = User::find($order->user_id);
 
-        $view = view('mage2-ecommerce::admin.mail.order-pdf')->with('order', $order);
+        $view = view('avored-ecommerce::admin.mail.order-pdf')->with('order', $order);
 
         $folderPath = public_path('uploads/order/invoice');
         if (!File::exists($folderPath)) {
@@ -64,7 +64,7 @@ class OrderController extends AdminController
 
         $orderStatus = OrderStatus::all()->pluck('name', 'id');
 
-        $view = view('mage2-ecommerce::admin.order.view')
+        $view = view('avored-ecommerce::admin.order.view')
             ->with('order', $order)
             ->with('orderStatus', $orderStatus)
             ->with('changeStatus', true);

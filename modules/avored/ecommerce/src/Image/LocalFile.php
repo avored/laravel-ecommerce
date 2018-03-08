@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Image;
+namespace AvoRed\Ecommerce\Image;
 
 use Illuminate\Support\Facades\File;
 
@@ -47,7 +47,7 @@ class LocalFile {
      * return Relative path for the image
      *
      * @var void
-     * @return \Mage2\Ecommerce\Image\LocalFile
+     * @return \AvoRed\Ecommerce\Image\LocalFile
      */
     public function destroy(){
 

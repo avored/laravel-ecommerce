@@ -1,10 +1,10 @@
 <?php
 
-namespace Mage2\Ecommerce\Payment\Stripe;
+namespace AvoRed\Ecommerce\Payment\Stripe;
 
-use Mage2\Ecommerce\Models\Database\Configuration;
-use Mage2\Ecommerce\Payment\Payment as PaymentEcommerce;
-use Mage2\Ecommerce\Payment\Contracts\Payment as PaymentContracts;
+use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Payment\Payment as PaymentEcommerce;
+use AvoRed\Ecommerce\Payment\Contracts\Payment as PaymentContracts;
 use Stripe\Stripe;
 use Stripe\Charge;
 
@@ -32,12 +32,12 @@ class Payment extends PaymentEcommerce implements PaymentContracts
      * @var string
      *
      */
-    protected $view = "mage2-ecommerce::payment.stripe.index";
+    protected $view = "avored-ecommerce::payment.stripe.index";
 
 
     public function isEnabled()
     {
-        $isEnabled = Configuration::getConfiguration('mage2_stripe_enabled');
+        $isEnabled = Configuration::getConfiguration('avored_stripe_enabled');
         if (null === $isEnabled || false == $isEnabled) {
             return false;
         }
@@ -62,7 +62,7 @@ class Payment extends PaymentEcommerce implements PaymentContracts
 
     public function with()
     {
-        $token = Configuration::getConfiguration("mage2_stripe_publishable_key");
+        $token = Configuration::getConfiguration("avored_stripe_publishable_key");
         $data = ['token' => $token];
         return $data;
     }
@@ -88,7 +88,7 @@ class Payment extends PaymentEcommerce implements PaymentContracts
         $total = (round($subTotal, 2) + round($taxTotal, 2)) * 100;
 
         $totalCents = (integer)$total;
-        $apiKey = Configuration::getConfiguration('mage2_stripe_secret_key');
+        $apiKey = Configuration::getConfiguration('avored_stripe_secret_key');
 
         Stripe::setApiKey($apiKey);
 
@@ -96,7 +96,7 @@ class Payment extends PaymentEcommerce implements PaymentContracts
             "amount" => $totalCents,
             "currency" => "nzd",
             "source" => $request->get('stripeToken'), // obtained with Stripe.js
-            "description" => "Mage2 E commerce"
+            "description" => "AvoRed E commerce"
         ));
 
         return $response;

@@ -1,13 +1,13 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Client;
-use Mage2\Ecommerce\Models\Database\AdminUser;
-use Mage2\Ecommerce\Models\Database\Role;
-use Mage2\Ecommerce\Http\Requests\AdminUserRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
-use Mage2\Ecommerce\Image\Facade as Image;
+use AvoRed\Ecommerce\Models\Database\AdminUser;
+use AvoRed\Ecommerce\Models\Database\Role;
+use AvoRed\Ecommerce\Http\Requests\AdminUserRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Image\Facade as Image;
 
 class AdminUserController extends AdminController
 {
@@ -40,7 +40,7 @@ class AdminUserController extends AdminController
                                             >Destroy</a>
                                     </form>";
             });
-        return view('mage2-ecommerce::admin.admin-user.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.admin-user.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -51,7 +51,7 @@ class AdminUserController extends AdminController
     public function create()
     {
         $roles = $this->_getRoleOptions();
-        return view('mage2-ecommerce::admin.admin-user.create')
+        return view('avored-ecommerce::admin.admin-user.create')
             ->with('roles', $roles)
             ->with('editMethod', true);
     }
@@ -59,7 +59,7 @@ class AdminUserController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\AdminUserRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\AdminUserRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -89,7 +89,7 @@ class AdminUserController extends AdminController
     {
         $user = AdminUser::findorfail($id);
         $roles = $this->_getRoleOptions();
-        return view('mage2-ecommerce::admin.admin-user.edit')
+        return view('avored-ecommerce::admin.admin-user.edit')
             ->with('model', $user)
             ->with('roles', $roles)
             ->with('editMethod', true);
@@ -98,7 +98,7 @@ class AdminUserController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\AdminUserRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\AdminUserRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response
@@ -146,7 +146,7 @@ class AdminUserController extends AdminController
         $user = Auth::guard('admin')->user();
         $client = Client::wherePasswordClient(1)->whereUserId($user->id)->first();
 
-        return view('mage2-ecommerce::admin.admin-user.show-api')->with('client', $client);
+        return view('avored-ecommerce::admin.admin-user.show-api')->with('client', $client);
     }
 
     /**
@@ -158,7 +158,7 @@ class AdminUserController extends AdminController
     {
         $user = Auth::guard('admin')->user();
 
-        return view('mage2-ecommerce::admin.admin-user.show')->with('user', $user);
+        return view('avored-ecommerce::admin.admin-user.show')->with('user', $user);
 
     }
 }

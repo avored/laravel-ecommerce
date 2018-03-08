@@ -1,7 +1,7 @@
 <?php
-namespace Mage2\Ecommerce\Http\ViewComposers;
+namespace AvoRed\Ecommerce\Http\ViewComposers;
 
-use Mage2\Ecommerce\Models\Database\Category;
+use AvoRed\Ecommerce\Models\Database\Category;
 use Illuminate\View\View;
 
 class CategoryFieldsComposer

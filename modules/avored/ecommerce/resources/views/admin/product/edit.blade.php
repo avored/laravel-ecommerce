@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
 
@@ -28,7 +28,7 @@
                     </div>
                     </a>
                     <div class="card-body collapse show" id="basic">
-                        @include('mage2-ecommerce::admin.product.card.basic', ['editMethod' => true])
+                        @include('avored-ecommerce::admin.product.card.basic', ['editMethod' => true])
                     </div>
                 </div>
 
@@ -40,7 +40,7 @@
                     </div>
                     </a>
                     <div class="card-body collapse" id="images">
-                        @include('mage2-ecommerce::admin.product.card.images')
+                        @include('avored-ecommerce::admin.product.card.images')
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                         <div class="card-header">SEO</div>
                     </a>
                     <div class="card-body collapse" id="seo">
-                        @include('mage2-ecommerce::admin.product.card.seo')
+                        @include('avored-ecommerce::admin.product.card.seo')
                     </div>
                 </div>
 
@@ -63,7 +63,7 @@
                     </div>
                     </a>
                     <div class="card-body collapse" id="property">
-                        @include('mage2-ecommerce::admin.product.card.property')
+                        @include('avored-ecommerce::admin.product.card.property')
                     </div>
                 </div>
 
@@ -77,7 +77,7 @@
                             </div>
                         </a>
                         <div class="card-body collapse" id="attribute">
-                            @include('mage2-ecommerce::admin.product.card.attribute')
+                            @include('avored-ecommerce::admin.product.card.attribute')
                         </div>
                     </div>
 

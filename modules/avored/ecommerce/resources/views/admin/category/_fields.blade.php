@@ -1,7 +1,7 @@
 
-@include('mage2-ecommerce::forms.text',['name' => 'name' ,'label' => 'Category Name'])
-@include('mage2-ecommerce::forms.text',['name' => 'slug' ,'label' => 'Category Slug'])
-@include('mage2-ecommerce::forms.select',['name' => 'parent_id' ,'label' => 'Parent Category', 'options' => $categoryOptions])
+@include('avored-ecommerce::forms.text',['name' => 'name' ,'label' => 'Category Name'])
+@include('avored-ecommerce::forms.text',['name' => 'slug' ,'label' => 'Category Slug'])
+@include('avored-ecommerce::forms.select',['name' => 'parent_id' ,'label' => 'Parent Category', 'options' => $categoryOptions])
 
 
 @push('scripts')

@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
     <div class="row">
@@ -12,7 +12,7 @@
                     <form action="{{ route('admin.gift-coupon.update', $model->id) }}" method="post">
                     {{ csrf_field() }}
                         <input type="hidden" name="_method" value="put">
-                        @include('mage2-ecommerce::admin.gift-coupon._fields')
+                        @include('avored-ecommerce::admin.gift-coupon._fields')
 
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">Update Gift Coupon</button>

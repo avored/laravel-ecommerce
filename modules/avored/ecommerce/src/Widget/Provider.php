@@ -1,11 +1,11 @@
 <?php
 
-namespace Mage2\Ecommerce\Widget;
+namespace AvoRed\Ecommerce\Widget;
 
-use Mage2\Ecommerce\Widget\Facade as WidgetFacade;
+use AvoRed\Ecommerce\Widget\Facade as WidgetFacade;
 use Illuminate\Support\ServiceProvider;
-use Mage2\Ecommerce\Widget\TotalUser\Widget as TotalUserWidget;
-use Mage2\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
+use AvoRed\Ecommerce\Widget\TotalUser\Widget as TotalUserWidget;
+use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
 
 class Provider extends ServiceProvider
 {
@@ -31,7 +31,7 @@ class Provider extends ServiceProvider
     {
 
         $this->registerServices();
-        $this->app->alias('widget', 'Mage2\Ecommerce\Widget\Manager');
+        $this->app->alias('widget', 'AvoRed\Ecommerce\Widget\Manager');
 
 
     }
@@ -71,6 +71,6 @@ class Provider extends ServiceProvider
      */
     public function provides()
     {
-        return ['widget', 'Mage2\Ecommerce\Widget\Manager'];
+        return ['widget', 'AvoRed\Ecommerce\Widget\Manager'];
     }
 }

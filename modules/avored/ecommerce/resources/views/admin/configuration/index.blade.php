@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
 
@@ -37,10 +37,10 @@
 
                                 </div>
 
-                                @include('mage2-ecommerce::forms.select',['name' => 'general_term_condition_page',
+                                @include('avored-ecommerce::forms.select',['name' => 'general_term_condition_page',
                                                                             'label' => 'Term & Condition Page',
                                                                             'options' => $pageOptions])
-                                @include('mage2-ecommerce::forms.select',['name' => 'general_home_page',
+                                @include('avored-ecommerce::forms.select',['name' => 'general_home_page',
                                                                            'label' => 'Home Page',
                                                                            'options' => $pageOptions])
 
@@ -60,11 +60,11 @@
                         <div id="user-config" class="collapse" role="tabpanel" aria-labelledby="headingTwo"
                              data-parent="#configuration-list">
                             <div class="card-body">
-                                @include('mage2-ecommerce::forms.select',['name' => 'mage2_address_default_country',
+                                @include('avored-ecommerce::forms.select',['name' => 'avored_address_default_country',
                                                                            'label' => 'User Address Default Country',
                                                                            'options' => $countryOptions])
 
-                                @include('mage2-ecommerce::forms.select',['name' => 'mage2_user_activation_required',
+                                @include('avored-ecommerce::forms.select',['name' => 'avored_user_activation_required',
                                                                            'label' => 'User Activation Required',
                                                                            'options' => [0 => 'No',1 => 'Yes']])
 
@@ -86,7 +86,7 @@
                             <div class="card-body">
 
 
-                                @include('mage2-ecommerce::forms.select',['name' => 'mage2_free_shipping_enabled',
+                                @include('avored-ecommerce::forms.select',['name' => 'avored_free_shipping_enabled',
                                                                             'label' => 'Is Free Shipping Enabled',
                                                                             'options' => [1 => 'Yes',0 => 'No']
                                                                             ])
@@ -109,19 +109,19 @@
                             <div class="card-body">
 
 
-                                @include('mage2-ecommerce::forms.select',['name' => 'mage2_pickup_enabled',
+                                @include('avored-ecommerce::forms.select',['name' => 'avored_pickup_enabled',
                                                                             'label' => 'Is Pick Up  Enabled',
                                                                             'options' => [1 => 'Yes',0 => 'No']
                                                                             ])
-                                @include('mage2-ecommerce::forms.select',['name' => 'mage2_stripe_enabled',
+                                @include('avored-ecommerce::forms.select',['name' => 'avored_stripe_enabled',
                                                                             'label' => 'Is Stripe Enabled',
                                                                             'options' => [1 => 'Yes',0 => 'No']
                                                                             ])
 
-                                @include('mage2-ecommerce::forms.text',['name' => 'mage2_stripe_publishable_key',
+                                @include('avored-ecommerce::forms.text',['name' => 'avored_stripe_publishable_key',
                                                                     'label' => 'Your Stripe Publishable Key'])
 
-                                @include('mage2-ecommerce::forms.text',['name' => 'mage2_stripe_secret_key',
+                                @include('avored-ecommerce::forms.text',['name' => 'avored_stripe_secret_key',
                                                                     'label' => 'Your Stripe Secret Key'])
 
 
@@ -145,7 +145,7 @@
                              data-parent="#configuration-list">
                             <div class="card-body">
 
-                                @include('mage2-ecommerce::forms.select',['name' => 'mage2_tax_class_default_country_for_tax_calculation',
+                                @include('avored-ecommerce::forms.select',['name' => 'avored_tax_class_default_country_for_tax_calculation',
                                                                            'label' => 'Default Country for Tax Calculation',
                                                                            'options' => $countryOptions])
 

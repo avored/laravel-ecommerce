@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\Country;
-use Mage2\Ecommerce\Http\Requests\CountryRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\Country;
+use AvoRed\Ecommerce\Http\Requests\CountryRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
 
 class CountryController extends AdminController
 {
@@ -35,7 +35,7 @@ class CountryController extends AdminController
             });
 
 
-        return view('mage2-ecommerce::admin.country.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.country.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -45,13 +45,13 @@ class CountryController extends AdminController
      */
     public function create()
     {
-        return view('mage2-ecommerce::admin.country.create');
+        return view('avored-ecommerce::admin.country.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\CountryRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\CountryRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -72,7 +72,7 @@ class CountryController extends AdminController
     public function edit($id)
     {
         $country = Country::findorfail($id);
-        return view('mage2-ecommerce::admin.country.edit')
+        return view('avored-ecommerce::admin.country.edit')
             ->with('model', $country)
             ;
     }
@@ -80,7 +80,7 @@ class CountryController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\CountryRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\CountryRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

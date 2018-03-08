@@ -1,9 +1,9 @@
 <?php
 
-namespace Mage2\Ecommerce\Models\Database;
+namespace AvoRed\Ecommerce\Models\Database;
 
 use Illuminate\Support\Facades\Session;
-use Mage2\Ecommerce\Image\LocalFile;
+use AvoRed\Ecommerce\Image\LocalFile;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
@@ -81,7 +81,7 @@ class Product extends BaseModel
     /**
      * Update the Product and Product Related Data
      *
-     * @var \Mage2\Ecommerce\Http\Requests\ProductRequest $request
+     * @var \AvoRed\Ecommerce\Http\Requests\ProductRequest $request
      * @return void
      */
     public function saveProduct($request)
@@ -483,7 +483,7 @@ class Product extends BaseModel
     /**
      * return default Image or LocalFile Object
      *
-     * @return \Mage2\Ecommerce\Image\LocalFile
+     * @return \AvoRed\Ecommerce\Image\LocalFile
      */
     public function getImageAttribute()
     {
@@ -511,7 +511,7 @@ class Product extends BaseModel
 
     public function getTaxAmount($price = NULL)
     {
-        $defaultCountryId = Configuration::getConfiguration('mage2_tax_class_default_country_for_tax_calculation');
+        $defaultCountryId = Configuration::getConfiguration('avored_tax_class_default_country_for_tax_calculation');
         $taxRule = TaxRule::where('country_id', '=', $defaultCountryId)->orderBy('priority', 'DESC')->first();
 
         if (null === $price) {

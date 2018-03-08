@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
     <div class="container">
@@ -16,7 +16,7 @@
                             <input type="hidden" name="_method" value="put">
 
 
-                            @include('mage2-ecommerce::admin.order-status._fields')
+                            @include('avored-ecommerce::admin.order-status._fields')
 
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Update Order Status</button>

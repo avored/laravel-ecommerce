@@ -1,10 +1,10 @@
-@include('mage2-ecommerce::forms.text',['name' => 'name' , 'label' => 'Name'])
+@include('avored-ecommerce::forms.text',['name' => 'name' , 'label' => 'Name'])
 
 
-@include('mage2-ecommerce::forms.text',['name' => 'identifier' , 'label' => 'Identifier'])
+@include('avored-ecommerce::forms.text',['name' => 'identifier' , 'label' => 'Identifier'])
 
 
-@include('mage2-ecommerce::forms.select',['name' => 'field_type' ,
+@include('avored-ecommerce::forms.select',['name' => 'field_type' ,
                                         'label' => 'Field Type',
                                         'options' => [  '' => 'Please Select',
                                                         'TEXT' => 'Text Box',

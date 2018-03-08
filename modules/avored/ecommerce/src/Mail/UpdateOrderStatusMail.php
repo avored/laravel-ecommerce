@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Mail;
+namespace AvoRed\Ecommerce\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;

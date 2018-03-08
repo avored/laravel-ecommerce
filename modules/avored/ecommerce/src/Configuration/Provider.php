@@ -1,8 +1,8 @@
 <?php
-namespace Mage2\Ecommerce\Configuration;
+namespace AvoRed\Ecommerce\Configuration;
 
 use Illuminate\Support\ServiceProvider;
-use Mage2\Ecommerce\Configuration\Facade as AdminConfiguration;
+use AvoRed\Ecommerce\Configuration\Facade as AdminConfiguration;
 
 class Provider extends ServiceProvider {
 
@@ -21,7 +21,7 @@ class Provider extends ServiceProvider {
     public function register()
     {
         $this->registerAdminConfiguration();
-        $this->app->alias('configuration', 'Mage2\Ecommerce\Configuration\Manager');
+        $this->app->alias('configuration', 'AvoRed\Ecommerce\Configuration\Manager');
     }
     /**
      * Register the AdmainConfiguration instance.
@@ -42,7 +42,7 @@ class Provider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['configuration', 'Mage2\Ecommerce\Configuration\Manager'];
+        return ['configuration', 'AvoRed\Ecommerce\Configuration\Manager'];
     }
 
 }

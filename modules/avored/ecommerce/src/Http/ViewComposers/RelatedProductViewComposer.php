@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Http\ViewComposers;
+namespace AvoRed\Ecommerce\Http\ViewComposers;
 
 use Illuminate\Support\Collection;
-use Mage2\Ecommerce\Models\Database\Product;
-use Mage2\Ecommerce\Tabs\Facade as Tabs;
+use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Tabs\Facade as Tabs;
 use Illuminate\View\View;
 
 class RelatedProductViewComposer
@@ -26,7 +26,7 @@ class RelatedProductViewComposer
         Tabs::add('related-product')
             ->setType('product-view')
             ->setLabel('Related Product')
-            ->setViewpath('mage2-ecommerce::related-product.related-product-view');
+            ->setViewpath('avored-ecommerce::related-product.related-product-view');
 
         $product = $view->product;
 

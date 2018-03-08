@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
 <div class="container">
@@ -15,7 +15,7 @@
 
                         {{ csrf_field() }}
 
-                        @include('mage2-ecommerce::forms.select',['name' => 'mage2_order_default_first_status',
+                        @include('avored-ecommerce::forms.select',['name' => 'avored_order_default_first_status',
                                                                 'label' => 'Default First Order Status(e.g: Pending)',
                                                                 'options' => $orderStatusOption])
 

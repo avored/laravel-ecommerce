@@ -7,7 +7,7 @@
 <body>
 <div style="width:100%">
     <div style="font-weight: bold; font-size: 22px;display:inline-block;width: 50%">
-        Mage2 Ecommerce
+        AvoRed Ecommerce
     </div>
 
     <div style="display:inline-block;width: 49%;text-align:right">

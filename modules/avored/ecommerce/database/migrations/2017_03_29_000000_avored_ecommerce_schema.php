@@ -1,19 +1,19 @@
 <?php
 
-use Mage2\Ecommerce\Models\Database\OrderStatus;
+use AvoRed\Ecommerce\Models\Database\OrderStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Mage2\Ecommerce\Models\Database\Configuration;
-use Mage2\Ecommerce\Models\Database\Country;
-use Mage2\Ecommerce\Models\Database\TaxRule;
+use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Models\Database\Country;
+use AvoRed\Ecommerce\Models\Database\TaxRule;
 
-class Mage2EcommerceSchema extends Migration
+class AvoredEcommerceSchema extends Migration
 {
 
     /**
      * @todo arrange Database Table Creation and foreign keys
-     * Install the Mage2 Address Module Schema.
+     * Install the AvoRed Address Module Schema.
      *
      * @return void
      */
@@ -659,10 +659,10 @@ class Mage2EcommerceSchema extends Migration
 
 
 
-        Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
-        Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
+        Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
+        Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
 
-        Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'Mage2 Laravel Ecommerce']);
+        Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
         $path = public_path() . '/countries.json';
 
         $json = json_decode(file_get_contents($path), true);
@@ -672,7 +672,7 @@ class Mage2EcommerceSchema extends Migration
 
         $countryModel = Country::whereCode('nz')->first();
 
-        Configuration::create(['configuration_key' => 'mage2_tax_class_default_country_for_tax_calculation',
+        Configuration::create(['configuration_key' => 'avored_tax_class_default_country_for_tax_calculation',
                                 'configuration_value' => $countryModel->id]);
 
         TaxRule::create([
@@ -689,7 +689,7 @@ class Mage2EcommerceSchema extends Migration
     }
 
     /**
-     * Uninstall the Mage2 Address Module Schema.
+     * Uninstall the AvoRed Address Module Schema.
      *
      * @return void
      */

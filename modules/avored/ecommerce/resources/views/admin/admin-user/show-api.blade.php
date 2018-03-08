@@ -1,7 +1,7 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 @section('content')
     <div class="container">
-        <div class="h1 mb-3">API ACCESS for Mage2 Admin</div>
+        <div class="h1 mb-3">API ACCESS for AvoRed Admin</div>
         <div class="card">
             <div class="card-header">Show API</div>
             <div class="card-body table-bordered">

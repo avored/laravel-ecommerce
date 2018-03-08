@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Attribute;
+namespace AvoRed\Ecommerce\Attribute;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -11,7 +11,7 @@ class Provider extends ServiceProvider
 
     public function register() {
         $this->registerAttributes();
-        $this->app->alias('attributes', 'Mage2\Ecommerce\Attribute\Collection');
+        $this->app->alias('attributes', 'AvoRed\Ecommerce\Attribute\Collection');
 
 
     }
@@ -34,6 +34,6 @@ class Provider extends ServiceProvider
      */
     public function provides()
     {
-        return [ 'attributes',  'Mage2\Ecommerce\Attribute\Collection'];
+        return [ 'attributes',  'AvoRed\Ecommerce\Attribute\Collection'];
     }
 }

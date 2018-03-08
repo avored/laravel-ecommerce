@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\Middleware;
+namespace AvoRed\Ecommerce\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\JsonResponse;

@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Image;
+namespace AvoRed\Ecommerce\Image;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
 

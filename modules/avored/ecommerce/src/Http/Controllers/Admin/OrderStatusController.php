@@ -1,9 +1,9 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\OrderStatus;
-use Mage2\Ecommerce\Http\Requests\OrderStatusRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\OrderStatus;
+use AvoRed\Ecommerce\Http\Requests\OrderStatusRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
 
 class OrderStatusController extends AdminController
 {
@@ -34,7 +34,7 @@ class OrderStatusController extends AdminController
                                     </form>";
             });
 
-        return view('mage2-ecommerce::admin.order-status.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.order-status.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -44,13 +44,13 @@ class OrderStatusController extends AdminController
      */
     public function create()
     {
-        return view('mage2-ecommerce::admin.order-status.create');
+        return view('avored-ecommerce::admin.order-status.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\OrderStatusRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\OrderStatusRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -77,14 +77,14 @@ class OrderStatusController extends AdminController
 
         $orderStatus = OrderStatus::findorfail($id);
 
-        return view('mage2-ecommerce::admin.order-status.edit')
+        return view('avored-ecommerce::admin.order-status.edit')
             ->with('model', $orderStatus);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\OrderStatusRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\OrderStatusRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

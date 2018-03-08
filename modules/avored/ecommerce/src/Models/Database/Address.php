@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Models\Database;
+namespace AvoRed\Ecommerce\Models\Database;
 
 class Address extends BaseModel
 {
@@ -29,7 +29,7 @@ class Address extends BaseModel
             return $this->attributes['country_id'];
         }
 
-        $defaultCountry = Configuration::getConfiguration('mage2_address_default_country');
+        $defaultCountry = Configuration::getConfiguration('avored_address_default_country');
 
         if (isset($defaultCountry)) {
             return $defaultCountry;

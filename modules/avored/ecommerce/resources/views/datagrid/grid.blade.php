@@ -1,5 +1,5 @@
 <div class="table-responsive">
-<table class="mage2-table-grid table table-striped">
+<table class="avored-table-grid table table-striped">
     <thead class="thead-">
     <tr >
         @foreach($dataGrid->columns as $column)

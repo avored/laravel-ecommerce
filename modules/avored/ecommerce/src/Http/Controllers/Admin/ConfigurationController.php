@@ -1,12 +1,12 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Mage2\Ecommerce\Models\Database\Configuration;
-use Mage2\Ecommerce\Configuration\Facade as AdminConfiguration;
-use Mage2\Ecommerce\Models\Database\Page;
+use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Configuration\Facade as AdminConfiguration;
+use AvoRed\Ecommerce\Models\Database\Page;
 use Illuminate\Support\Collection;
-use Mage2\Ecommerce\Models\Database\Country;
+use AvoRed\Ecommerce\Models\Database\Country;
 
 class ConfigurationController extends AdminController
 {
@@ -23,7 +23,7 @@ class ConfigurationController extends AdminController
         $pageOptions = Collection::make(['' => 'Please Select'] + Page::all()->pluck('name', 'id')->toArray());
         $countryOptions = Country::getCountriesOptions($empty = true);
 
-        return view('mage2-ecommerce::admin.configuration.index')
+        return view('avored-ecommerce::admin.configuration.index')
             ->with('model', $model)
             ->with('pageOptions', $pageOptions)
             ->with('countryOptions',$countryOptions)

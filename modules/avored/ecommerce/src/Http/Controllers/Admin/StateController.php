@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Mage2\Ecommerce\Models\Database\State;
-use Mage2\Ecommerce\Http\Requests\StateRequest;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
-use Mage2\Ecommerce\Models\Database\Country;
+use AvoRed\Ecommerce\Models\Database\State;
+use AvoRed\Ecommerce\Http\Requests\StateRequest;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Models\Database\Country;
 
 class StateController extends AdminController
 {
@@ -36,7 +36,7 @@ class StateController extends AdminController
             });
 
 
-        return view('mage2-ecommerce::admin.state.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.state.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -47,13 +47,13 @@ class StateController extends AdminController
     public function create()
     {
         $countryOptions = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
-        return view('mage2-ecommerce::admin.state.create')->with('countryOptions', $countryOptions);
+        return view('avored-ecommerce::admin.state.create')->with('countryOptions', $countryOptions);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\StateRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\StateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -76,7 +76,7 @@ class StateController extends AdminController
         $countryOptions = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
         $state = State::findorfail($id);
 
-        return view('mage2-ecommerce::admin.state.edit')
+        return view('avored-ecommerce::admin.state.edit')
             ->with('model', $state)
             ->with('countryOptions', $countryOptions);
     }
@@ -84,7 +84,7 @@ class StateController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\StateRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\StateRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

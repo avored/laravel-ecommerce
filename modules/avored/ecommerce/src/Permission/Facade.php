@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Permission;
+namespace AvoRed\Ecommerce\Permission;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
 
@@ -12,6 +12,6 @@ class Facade extends LaravelFacade
      */
     protected static function getFacadeAccessor()
     {
-        return 'Mage2\Ecommerce\Permission\Manager';
+        return 'AvoRed\Ecommerce\Permission\Manager';
     }
 }

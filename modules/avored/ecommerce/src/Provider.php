@@ -1,23 +1,23 @@
 <?php
-namespace Mage2\Ecommerce;
+namespace AvoRed\Ecommerce;
 
 use Illuminate\Support\ServiceProvider;
 
-use Mage2\Ecommerce\Http\Middleware\AdminAuth;
-use Mage2\Ecommerce\Http\Middleware\AdminApiAuth;
-use Mage2\Ecommerce\Http\Middleware\ProductViewed;
-use Mage2\Ecommerce\Http\Middleware\Visitor;
-use Mage2\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
-use Mage2\Ecommerce\Http\Middleware\FrontAuth;
-use Mage2\Ecommerce\Http\Middleware\Permission;
-use Mage2\Ecommerce\Http\Middleware\RedirectIfFrontAuth;
+use AvoRed\Ecommerce\Http\Middleware\AdminAuth;
+use AvoRed\Ecommerce\Http\Middleware\AdminApiAuth;
+use AvoRed\Ecommerce\Http\Middleware\ProductViewed;
+use AvoRed\Ecommerce\Http\Middleware\Visitor;
+use AvoRed\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
+use AvoRed\Ecommerce\Http\Middleware\FrontAuth;
+use AvoRed\Ecommerce\Http\Middleware\Permission;
+use AvoRed\Ecommerce\Http\Middleware\RedirectIfFrontAuth;
 
-use Mage2\Ecommerce\Http\ViewComposers\AdminNavComposer;
-use Mage2\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
-use Mage2\Ecommerce\Http\ViewComposers\LayoutAppComposer;
-use Mage2\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
-use Mage2\Ecommerce\Http\ViewComposers\CheckoutComposer;
-use Mage2\Ecommerce\Http\ViewComposers\MyAccountSidebarComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\LayoutAppComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\CheckoutComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\MyAccountSidebarComposer;
 
 use Laravel\Passport\Passport;
 use Laravel\Passport\Console\InstallCommand;
@@ -27,8 +27,8 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\View;
-use Mage2\Ecommerce\Http\ViewComposers\ProductSpecificationComposer;
-use Mage2\Ecommerce\Http\ViewComposers\RelatedProductViewComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\ProductSpecificationComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\RelatedProductViewComposer;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -36,19 +36,19 @@ class Provider extends ServiceProvider
 {
 
     protected $providers = [
-        \Mage2\Ecommerce\AdminMenu\Provider::class,
-        \Mage2\Ecommerce\Breadcrumb\Provider::class,
-        \Mage2\Ecommerce\DataGrid\Provider::class,
-        \Mage2\Ecommerce\Image\Provider::class,
-        \Mage2\Ecommerce\Attribute\Provider::class,
-        \Mage2\Ecommerce\Tabs\Provider::class,
-        \Mage2\Ecommerce\Modules\Provider::class,
-        \Mage2\Ecommerce\Payment\Provider::class,
-        \Mage2\Ecommerce\Shipping\Provider::class,
-        \Mage2\Ecommerce\Configuration\Provider::class,
-        \Mage2\Ecommerce\Permission\Provider::class,
-        \Mage2\Ecommerce\Theme\Provider::class,
-        \Mage2\Ecommerce\Widget\Provider::class
+        \AvoRed\Ecommerce\AdminMenu\Provider::class,
+        \AvoRed\Ecommerce\Breadcrumb\Provider::class,
+        \AvoRed\Ecommerce\DataGrid\Provider::class,
+        \AvoRed\Ecommerce\Image\Provider::class,
+        \AvoRed\Ecommerce\Attribute\Provider::class,
+        \AvoRed\Ecommerce\Tabs\Provider::class,
+        \AvoRed\Ecommerce\Modules\Provider::class,
+        \AvoRed\Ecommerce\Payment\Provider::class,
+        \AvoRed\Ecommerce\Shipping\Provider::class,
+        \AvoRed\Ecommerce\Configuration\Provider::class,
+        \AvoRed\Ecommerce\Permission\Provider::class,
+        \AvoRed\Ecommerce\Theme\Provider::class,
+        \AvoRed\Ecommerce\Widget\Provider::class
     ];
 
     /**
@@ -78,7 +78,7 @@ class Provider extends ServiceProvider
 
 
     /**
-     * Registering Mage2 E commerce Resource
+     * Registering AvoRed E commerce Resource
      * e.g. Route, View, Database path & Translation
      *
      * @return void
@@ -88,12 +88,12 @@ class Provider extends ServiceProvider
 
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'mage2-ecommerce');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'mage2-ecommerce');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-ecommerce');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-ecommerce');
     }
 
     /**
-     * Registering Mage2 E commerce Middleware
+     * Registering AvoRed E commerce Middleware
      *
      * @return void
      */
@@ -118,26 +118,26 @@ class Provider extends ServiceProvider
      */
     public function registerViewComposerData()
     {
-        View::composer('mage2-ecommerce::admin.layouts.left-nav', AdminNavComposer::class);
-        View::composer(['mage2-ecommerce::admin.category._fields'], CategoryFieldsComposer::class);
+        View::composer('avored-ecommerce::admin.layouts.left-nav', AdminNavComposer::class);
+        View::composer(['avored-ecommerce::admin.category._fields'], CategoryFieldsComposer::class);
         View::composer('checkout.index', CheckoutComposer::class);
         View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
         View::composer('layouts.app', LayoutAppComposer::class);
         View::composer('catalog.product.view', RelatedProductViewComposer::class);
         View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
-        View::composer('mage2-framework::product.edit', ProductFieldComposer::class);
+        View::composer('avored-framework::product.edit', ProductFieldComposer::class);
         View::composer('catalog.product.view', ProductSpecificationComposer::class);
-        View::composer(['mage2-ecommerce::admin.product.create',
-                        'mage2-ecommerce::admin.product.edit'
+        View::composer(['avored-ecommerce::admin.product.create',
+                        'avored-ecommerce::admin.product.edit'
                         ],  ProductFieldsComposer::class);
 
-        View::composer(['mage2-framework::product.create',
-                        'mage2-framework::product.edit'
+        View::composer(['avored-framework::product.create',
+                        'avored-framework::product.edit'
                         ], RelatedProductComposer::class);
     }
 
     /**
-     * Registering Mage2 E commerce Services
+     * Registering AvoRed E commerce Services
      * e.g Admin Menu
      *
      * @return void
@@ -145,7 +145,7 @@ class Provider extends ServiceProvider
     protected function registerProviders()
     {
         if (!Storage::disk('local')->has('installed.txt')) {
-            App::register(\Mage2\Install\Module::class);
+            App::register(\AvoRed\Install\Module::class);
         }
 
         foreach ($this->providers as $provider) {

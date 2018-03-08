@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\DataGrid;
+namespace AvoRed\Ecommerce\DataGrid;
 
 use Illuminate\Support\Facades\Facade as LaravelFacade;
 

@@ -1,8 +1,8 @@
 <?php
-namespace Mage2\Ecommerce\Shipping;
+namespace AvoRed\Ecommerce\Shipping;
 
 use Illuminate\Support\ServiceProvider;
-use Mage2\Ecommerce\Shipping\Facade as ShippingFacade;
+use AvoRed\Ecommerce\Shipping\Facade as ShippingFacade;
 
 class Provider extends ServiceProvider {
 
@@ -33,7 +33,7 @@ class Provider extends ServiceProvider {
     {
         $this->registerShipping();
 
-        $this->app->alias('shipping', 'Mage2\Ecommerce\Shipping\Manager');
+        $this->app->alias('shipping', 'AvoRed\Ecommerce\Shipping\Manager');
     }
     /**
      * Register the AdmainConfiguration instance.
@@ -54,7 +54,7 @@ class Provider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['shipping', 'Mage2\Ecommerce\Shipping\Manager'];
+        return ['shipping', 'AvoRed\Ecommerce\Shipping\Manager'];
     }
 
 

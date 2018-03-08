@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\DataGrid\Contracts;
+namespace AvoRed\Ecommerce\DataGrid\Contracts;
 
 interface Column {
     /**

@@ -1,10 +1,10 @@
 
 
-@include('mage2-ecommerce::forms.text',['name' => 'first_name','label' => __('mage2-ecommerce::user.first-name')])
-@include('mage2-ecommerce::forms.text',['name' => 'last_name','label' => __('mage2-ecommerce::user.last-name')])
+@include('avored-ecommerce::forms.text',['name' => 'first_name','label' => __('avored-ecommerce::user.first-name')])
+@include('avored-ecommerce::forms.text',['name' => 'last_name','label' => __('avored-ecommerce::user.last-name')])
 
 
-@include('mage2-ecommerce::forms.file',['name' => 'image','label' => __('mage2-ecommerce::user.file')])
+@include('avored-ecommerce::forms.file',['name' => 'image','label' => __('avored-ecommerce::user.file')])
 
 
 @if($editMethod == true)
@@ -13,16 +13,16 @@
     <?php $attributes = ['class' => 'form-control','id' => 'email']; ?>
 @endif
 
-@include('mage2-ecommerce::forms.text',['name' => 'email','label' => __('mage2-ecommerce::user.email'),'attributes' => $attributes])
+@include('avored-ecommerce::forms.text',['name' => 'email','label' => __('avored-ecommerce::user.email'),'attributes' => $attributes])
 
 
 
 @if($editMethod == false)
 
-    @include('mage2-ecommerce::forms.password',['name' => 'password','label' => __('mage2-ecommerce::user.password')])
-    @include('mage2-ecommerce::forms.password',['name' => 'password_confirmation','label' => __('mage2-ecommerce::user.confirm-password')])
+    @include('avored-ecommerce::forms.password',['name' => 'password','label' => __('avored-ecommerce::user.password')])
+    @include('avored-ecommerce::forms.password',['name' => 'password_confirmation','label' => __('avored-ecommerce::user.confirm-password')])
 
 @endif
 
 
-@include('mage2-ecommerce::forms.select',['name' => 'role_id','label' => __('mage2-ecommerce::user.user-role'),'options' => $roles])
+@include('avored-ecommerce::forms.select',['name' => 'role_id','label' => __('avored-ecommerce::user.user-role'),'options' => $roles])

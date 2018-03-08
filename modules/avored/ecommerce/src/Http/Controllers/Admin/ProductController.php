@@ -1,19 +1,19 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
-use Mage2\Ecommerce\Models\Database\Attribute;
-use Mage2\Ecommerce\Models\Database\Product;
-use Mage2\Ecommerce\Http\Requests\ProductRequest;
-use Mage2\Ecommerce\Image\Facade as Image;
+use AvoRed\Ecommerce\Models\Database\Attribute;
+use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Http\Requests\ProductRequest;
+use AvoRed\Ecommerce\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
-use Mage2\Ecommerce\DataGrid\Facade as DataGrid;
-use Mage2\Ecommerce\Events\ProductAfterSave;
-use Mage2\Ecommerce\Events\ProductBeforeSave;
-use Mage2\Ecommerce\Models\Database\Property;
+use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Events\ProductAfterSave;
+use AvoRed\Ecommerce\Events\ProductBeforeSave;
+use AvoRed\Ecommerce\Models\Database\Property;
 
 class ProductController extends AdminController
 {
@@ -49,7 +49,7 @@ class ProductController extends AdminController
             });
 
 
-        return view('mage2-ecommerce::admin.product.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.product.index')->with('dataGrid', $dataGrid);
     }
 
     /**
@@ -59,14 +59,14 @@ class ProductController extends AdminController
      */
     public function create()
     {
-        return view('mage2-ecommerce::admin.product.new-create');
+        return view('avored-ecommerce::admin.product.new-create');
     }
 
     /**
      * Store a newly created resource in storage.
      * @todo Change the ProductRequest Validation Rules for Store and Update
      *
-     * @param \Mage2\Ecommerce\Http\Requests\ProductRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\ProductRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -104,7 +104,7 @@ class ProductController extends AdminController
         if($product->hasVariation() == "VARIATION") {
             $attributes =   Attribute::all()->pluck('name','id');
         }
-        return view('mage2-ecommerce::admin.product.edit')
+        return view('avored-ecommerce::admin.product.edit')
             ->with('model', $product)
             ->with('propertyOptions', $properties)
             ->with('attributeOptions', $attributes);
@@ -113,7 +113,7 @@ class ProductController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param \Mage2\Ecommerce\Http\Requests\ProductRequest $request
+     * @param \AvoRed\Ecommerce\Http\Requests\ProductRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Exception
@@ -166,7 +166,7 @@ class ProductController extends AdminController
 
         $tmp = $this->_getTmpString();
 
-        return view('mage2-ecommerce::admin.product.upload-image')
+        return view('avored-ecommerce::admin.product.upload-image')
             ->with('image', $image)
             ->with('tmp', $tmp);
     }
@@ -201,7 +201,7 @@ class ProductController extends AdminController
     {
 
         $product = Product::findorfail($request->get('variation_id'));
-        $view = view('mage2-ecommerce::admin.product.variation-modal')
+        $view = view('avored-ecommerce::admin.product.variation-modal')
                             ->with('model', $product);
 
         return new JsonResponse(['success' => true,'content' => $view->render(),'modalId' => '#variation-modal-' . $product->id]);

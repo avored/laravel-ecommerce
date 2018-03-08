@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Http\Requests;
+namespace AvoRed\Ecommerce\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -1,10 +1,10 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 
 @section('content')
     <div class="row">
         <div class="col-12">
-            <div class="h1">{{ __("mage2-ecommerce::lang.product.create.text") }}</div>
+            <div class="h1">{{ __("avored-ecommerce::lang.product.create.text") }}</div>
         </div>
     </div>
     {!! Form::open(['files' => true,'action' => route('admin.product.store'),'method' => 'post','id' => 'product-save-form']) !!}
@@ -48,16 +48,16 @@
             <!-- Tab panes -->
             <div class="tab-content">
                 <div role="tab-pane" class="tab-pane active" id="basic">
-                    @include('mage2-ecommerce::admin.product.card.basic' )
+                    @include('avored-ecommerce::admin.product.card.basic' )
                 </div>
                 <div role="tab-pane" class="tab-pane" id="images">
-                    @include('mage2-ecommerce::admin.product.card.images' )
+                    @include('avored-ecommerce::admin.product.card.images' )
                 </div>
                 <div role="tab-pane" class="tab-pane" id="inventory">
-                    @include('mage2-ecommerce::admin.product.card.inventory' )
+                    @include('avored-ecommerce::admin.product.card.inventory' )
                 </div>
                 <div role="tab-pane" class="tab-pane" id="seo">
-                    @include('mage2-ecommerce::admin.product.card.seo' )
+                    @include('avored-ecommerce::admin.product.card.seo' )
                 </div>
 
                 @foreach(Tabs::all() as $key => $tab)

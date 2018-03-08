@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\Request;
-use Mage2\Ecommerce\Models\Database\Configuration;
-use Mage2\Ecommerce\Theme\Facade as Theme;
+use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Theme\Facade as Theme;
 
 class ThemeController extends AdminController
 {
@@ -19,7 +19,7 @@ class ThemeController extends AdminController
         $themes = Theme::all();
         $activeTheme = Configuration::getConfiguration('active_theme_identifier');
 
-        return view('mage2-ecommerce::admin.theme.index')
+        return view('avored-ecommerce::admin.theme.index')
             ->with('themes', $themes)
             ->with('activeTheme', $activeTheme);
     }
@@ -31,7 +31,7 @@ class ThemeController extends AdminController
      */
     public function create()
     {
-        return view('mage2-ecommerce::admin.theme.create');
+        return view('avored-ecommerce::admin.theme.create');
     }
 
     /**
@@ -108,11 +108,11 @@ class ThemeController extends AdminController
      */
     public function deactivated($name)
     {
-        if('mage2-default' === $name) {
-            throw new Exception('You are not allowed to Deactivate Mage2-Default Theme');
+        if('avored-default' === $name) {
+            throw new Exception('You are not allowed to Deactivate AvoRed-Default Theme');
         }
 
-        $theme = Theme::get('mage2-default');
+        $theme = Theme::get('avored-default');
 
         try {
             $activeThemeConfiguration = Configuration::whereConfigurationKey('active_theme_identifier')->first();
@@ -151,7 +151,7 @@ class ThemeController extends AdminController
     {
         // $file = $request->file('image'); or
         // $fileName = 'somename';
-        $destinationPath = public_path('uploads/mage2/themes');
+        $destinationPath = public_path('uploads/avored/themes');
         $fileName = $file->getClientOriginalName();
         $file->move($destinationPath, $fileName);
 

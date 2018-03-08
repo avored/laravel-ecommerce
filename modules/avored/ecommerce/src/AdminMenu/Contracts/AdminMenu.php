@@ -1,6 +1,6 @@
 <?php
 
-namespace Mage2\Ecommerce\AdminMenu\Contracts;
+namespace AvoRed\Ecommerce\AdminMenu\Contracts;
 
 interface AdminMenu {
     /**

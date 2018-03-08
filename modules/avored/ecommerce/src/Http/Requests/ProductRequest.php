@@ -1,8 +1,8 @@
 <?php
-namespace Mage2\Ecommerce\Http\Requests;
+namespace AvoRed\Ecommerce\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
-use Mage2\Ecommerce\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\Product;
 
 class ProductRequest extends Request
 {

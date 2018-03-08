@@ -1,5 +1,5 @@
-@include('mage2-ecommerce::forms.text',['name' => 'name','label' => __('mage2-ecommerce::attribute.name')])
-@include('mage2-ecommerce::forms.text',['name' => 'identifier','label' => __('mage2-ecommerce::attribute.identifier')])
+@include('avored-ecommerce::forms.text',['name' => 'name','label' => __('avored-ecommerce::attribute.name')])
+@include('avored-ecommerce::forms.text',['name' => 'identifier','label' => __('avored-ecommerce::attribute.identifier')])
 
 
 <?php
@@ -26,7 +26,7 @@ if (isset($model) && $model->attributeDropdownOptions->count() > 0) {
 
             <div class="dynamic-field-row">
                 <div class="form-group col-md-12">
-                    <label>{{ __('mage2-ecommerce::attribute.display-text') }}</label>
+                    <label>{{ __('avored-ecommerce::attribute.display-text') }}</label>
                     <span class="input-group">
                         <input class="form-control"
                                name="dropdown-options[{{ $dropdownOptionModel->id }}][display_text]"
@@ -58,7 +58,7 @@ if (isset($model) && $model->attributeDropdownOptions->count() > 0) {
                     <div class="form-group">
 
                         <label class="form-control-label" for="display-text-input-group-{{ $randomString }}">
-                            {{__('mage2-ecommerce::attribute.display-text') }}
+                            {{__('avored-ecommerce::attribute.display-text') }}
                         </label>
                         <div class="input-group">
                             <input class="form-control" id="display-text-input-group-{{ $randomString }}"
@@ -81,7 +81,7 @@ if (isset($model) && $model->attributeDropdownOptions->count() > 0) {
     <div class="dynamic-field-row-template d-none">
         <div class="dynamic-field-row">
             <div class="form-group">
-                <label>{{ __('mage2-ecommerce::attribute.display-text') }}</label>
+                <label>{{ __('avored-ecommerce::attribute.display-text') }}</label>
 
                 <div class="input-group">
                     <input class="form-control"

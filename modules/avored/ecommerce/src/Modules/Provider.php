@@ -1,8 +1,8 @@
 <?php
-namespace Mage2\Ecommerce\Modules;
+namespace AvoRed\Ecommerce\Modules;
 
 use Illuminate\Support\ServiceProvider;
-use Mage2\Ecommerce\Modules\Facade as Module;
+use AvoRed\Ecommerce\Modules\Facade as Module;
 
 class Provider extends ServiceProvider {
 
@@ -21,7 +21,7 @@ class Provider extends ServiceProvider {
     {
 
         $this->registerModule();
-        $this->app->alias('module', 'Mage2\Ecommerce\Modules\Manager');
+        $this->app->alias('module', 'AvoRed\Ecommerce\Modules\Manager');
 
         $modules = Module::all();
     }
@@ -45,6 +45,6 @@ class Provider extends ServiceProvider {
      */
     public function provides()
     {
-        return ['module', 'Mage2\Ecommerce\Modules\Manager'];
+        return ['module', 'AvoRed\Ecommerce\Modules\Manager'];
     }
 }

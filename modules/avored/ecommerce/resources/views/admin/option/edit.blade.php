@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 @section('content')
     <div class="row">
@@ -13,7 +13,7 @@
                         {{ csrf_field() }}
                         <input type="hidden" name="_method" value="put">
 
-                    @include('mage2-ecommerce::admin.option._fields')
+                    @include('avored-ecommerce::admin.option._fields')
 
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">Update Option</button>

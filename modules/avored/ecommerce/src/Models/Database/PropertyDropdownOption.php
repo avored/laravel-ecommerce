@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Models\Database;
+namespace AvoRed\Ecommerce\Models\Database;
 
 class PropertyDropdownOption extends BaseModel
 {
@@ -8,7 +8,7 @@ class PropertyDropdownOption extends BaseModel
     /**
      * Proerty Dropdown Options belongs to one Product Property.
      *
-     * @return \Mage2\Ecommerce\Models\Database\Property
+     * @return \AvoRed\Ecommerce\Models\Database\Property
      */
     public function property()
     {

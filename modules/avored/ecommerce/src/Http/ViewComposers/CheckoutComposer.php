@@ -1,10 +1,10 @@
 <?php
-namespace Mage2\Ecommerce\Http\ViewComposers;
+namespace AvoRed\Ecommerce\Http\ViewComposers;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
-use Mage2\Ecommerce\Models\Database\Configuration;
-use Mage2\Ecommerce\Models\Database\Page;
+use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Models\Database\Page;
 use Illuminate\Support\Facades\Auth;
 
 class CheckoutComposer

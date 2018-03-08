@@ -1,16 +1,16 @@
 <?php
-namespace Mage2\Ecommerce\Mail;
+namespace AvoRed\Ecommerce\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Mage2\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Models\Database\User;
 
 class NewUserMail extends Mailable
 {
     use Queueable, SerializesModels;
     /**
-     * @var \Mage2\Ecommerce\Models\Database\User
+     * @var \AvoRed\Ecommerce\Models\Database\User
      */
     public $user;
 

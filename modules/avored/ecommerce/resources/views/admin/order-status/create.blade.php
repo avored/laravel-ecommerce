@@ -1,4 +1,4 @@
-@extends('mage2-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::admin.layouts.app')
 
 
 @section('content')
@@ -12,7 +12,7 @@
                         <form action="{{ route('admin.order-status.store') }}" method="post">
                             {{ csrf_field() }}
 
-                            @include('mage2-ecommerce::admin.order-status._fields')
+                            @include('avored-ecommerce::admin.order-status._fields')
                             <div class="form-group">
                                 <button class="btn btn-primary" type="submit">Create Order Status</button>
                                 <a href="{{ route('admin.order-status.index') }}" class="btn">Cancel</a>

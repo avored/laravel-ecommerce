@@ -1,11 +1,11 @@
 <?php
-namespace Mage2\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use Mage2\Ecommerce\Models\Database\Configuration;
-use Mage2\Ecommerce\Models\Database\Order;
-use Mage2\Ecommerce\Models\Database\Visitor;
+use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Models\Database\Order;
+use AvoRed\Ecommerce\Models\Database\Visitor;
 
 class DashboardController extends AdminController
 {
@@ -32,11 +32,11 @@ class DashboardController extends AdminController
 
         }
 
-        $value = Configuration::getConfiguration('mage2_user_total');
+        $value = Configuration::getConfiguration('avored_user_total');
         $totalRegisteredUser = (null === $value) ? 0 : $value;
         $totalOrder = Order::all()->count();
 
-        return view('mage2-ecommerce::admin.home')
+        return view('avored-ecommerce::admin.home')
             ->with('totalRegisteredUser', $totalRegisteredUser)
             ->with('visitorLabelCollection', implode(",", $visitorLabelCollection->all()))
             ->with('visitorValueCollection', implode(",", $visitorValueCollection->all()))

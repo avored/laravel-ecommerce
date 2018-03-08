@@ -2,17 +2,17 @@
 
 /*
   |--------------------------------------------------------------------------
-  | Mage2 E commerce Routes
+  | AvoRed E commerce Routes
   |--------------------------------------------------------------------------
   |
-  | Here is where you can register all of the routes for an mage2 user modules.
-  | It's a breeze. Simply tell mage2 user module the URI it should respond to
+  | Here is where you can register all of the routes for an avored user modules.
+  | It's a breeze. Simply tell avored user module the URI it should respond to
   | and give it the controller to call when that URI is requested.
   |
  */
 
 Route::middleware(['web'])
-    ->namespace('Mage2\Ecommerce\Http\Controllers')
+    ->namespace('AvoRed\Ecommerce\Http\Controllers')
     ->group(function () {
 
 
@@ -27,7 +27,7 @@ Route::middleware(['web'])
 
 Route::middleware(['web'])
     ->prefix('admin')
-    ->namespace('Mage2\Ecommerce\Http\Controllers\Admin')
+    ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
     ->group(function () {
 
         Route::get('login', ['as' => 'admin.login', 'uses' => 'LoginController@loginForm']);
@@ -48,7 +48,7 @@ Route::middleware(['web'])
 
 Route::middleware(['web', 'admin.auth', 'permission'])
     ->prefix('admin')
-    ->namespace('Mage2\Ecommerce\Http\Controllers\Admin')
+    ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
     ->group(function () {
 
 

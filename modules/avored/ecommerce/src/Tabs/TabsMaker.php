@@ -1,5 +1,5 @@
 <?php
-namespace Mage2\Ecommerce\Tabs;
+namespace AvoRed\Ecommerce\Tabs;
 
 use Illuminate\Support\Collection;
 
@@ -24,7 +24,7 @@ class TabsMaker
      * Add Tab to Tabs Collection
      *
      * @var string $key
-     * @return \Mage2\Ecommerce\Tab
+     * @return \AvoRed\Ecommerce\Tab
      */
     public function add($key) {
         $tab = new Tab();

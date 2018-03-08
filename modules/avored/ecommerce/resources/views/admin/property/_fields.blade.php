@@ -1,11 +1,11 @@
 
 
 
-@include('mage2-ecommerce::forms.text',['name' => 'name','label' => __('mage2-ecommerce::property.name')])
-@include('mage2-ecommerce::forms.text',['name' => 'identifier','label' => __('mage2-ecommerce::property.identifier')])
+@include('avored-ecommerce::forms.text',['name' => 'name','label' => __('avored-ecommerce::property.name')])
+@include('avored-ecommerce::forms.text',['name' => 'identifier','label' => __('avored-ecommerce::property.identifier')])
 
-@include('mage2-ecommerce::forms.select',['name' => 'data_type',
-                                            'label' => __('mage2-ecommerce::property.data-type'),
+@include('avored-ecommerce::forms.select',['name' => 'data_type',
+                                            'label' => __('avored-ecommerce::property.data-type'),
                                             'options' => [
                                                         'VARCHAR' => 'Varchar (Max 255)',
                                                         'DECIMAL' => 'Decimal',
@@ -18,8 +18,8 @@
 
 
 
-@include('mage2-ecommerce::forms.select',['name' => 'field_type',
-                                            'label' => __('mage2-ecommerce::property.field-type'),
+@include('avored-ecommerce::forms.select',['name' => 'field_type',
+                                            'label' => __('avored-ecommerce::property.field-type'),
                                             'options' => [
                                                         'TEXT' => 'Text Field',
                                                         'CHECKBOX' => 'Check box',
@@ -30,7 +30,7 @@
                                         ])
 
 
-@include('mage2-ecommerce::forms.text',['name' => 'sort_order','label' => __('mage2-ecommerce::property.sort-order')])
+@include('avored-ecommerce::forms.text',['name' => 'sort_order','label' => __('avored-ecommerce::property.sort-order')])
 
 
 <?php
