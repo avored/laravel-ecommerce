@@ -10888,15 +10888,15 @@ aside .side-nav .has-dropdown ul {
 }
 
 .navbar-brand {
-    display: inline-block;
-    width: 155px;
-    height: 40px;
-    padding: 0px;
-    margin-right: 0;
-    background-image: url(../images/logo.png);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 70%;
+  display: inline-block;
+  width: 155px;
+  height: 40px;
+  padding: 0px;
+  margin-right: 0;
+  background-image: url(../images/logo.svg);
+  background-repeat: no-repeat;
+  background-position: left;
+  text-indent: 60px;
 }
 
 .datetime.form-control:disabled,

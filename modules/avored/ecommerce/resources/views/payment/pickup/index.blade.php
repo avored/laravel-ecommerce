@@ -3,7 +3,7 @@
     <script>
         $(document).ready(function () {
 
-            jQuery('#pickup').bind('paymentSelected', function (e) {
+            jQuery('#pickup').bind('paymentProcessStart', function (e) {
                 jQuery("#place-order-button").trigger('paymentProcessEnd');
             });
         });

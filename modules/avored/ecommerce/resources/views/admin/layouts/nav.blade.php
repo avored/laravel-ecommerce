@@ -1,7 +1,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-inverse  bg-light">
 
-        <a class="navbar-brand" href="{{ route('admin.dashboard') }}" style="text-decoration: none"></a>
+        <a class="navbar-brand" href="{{ route('admin.dashboard') }}">AvoRed</a>
 
         <ul class="nav navbar-nav mr-5 ml-auto">
 

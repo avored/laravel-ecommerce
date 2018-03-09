@@ -609,7 +609,9 @@
 
                                 @foreach($paymentOptions as $paymentOption)
 
-                                    @include($paymentOption->view(), $paymentOption->with())
+                                    @if($paymentOption->isEnabled())
+                                        @include($paymentOption->view(), $paymentOption->with())
+                                    @endif
 
                                 @endforeach
                             </div>
