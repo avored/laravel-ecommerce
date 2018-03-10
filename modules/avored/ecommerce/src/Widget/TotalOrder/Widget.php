@@ -3,7 +3,7 @@
 namespace AvoRed\Ecommerce\Widget\TotalOrder;
 
 use AvoRed\Ecommerce\Models\Database\Order;
-use AvoRed\Ecommerce\Widget\Contracts\Widget as WidgetContract;
+use AvoRed\Framework\Widget\Contracts\Widget as WidgetContract;
 
 class Widget implements WidgetContract
 {

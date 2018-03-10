@@ -30,6 +30,9 @@ use Illuminate\Support\Facades\View;
 use AvoRed\Ecommerce\Http\ViewComposers\ProductSpecificationComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\RelatedProductViewComposer;
 use Illuminate\Support\Facades\Storage;
+use AvoRed\Ecommerce\Widget\TotalUser\Widget as TotalUserWidget;
+use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
+use AvoRed\Framework\Widget\Facade as WidgetFacade;
 
 
 class Provider extends ServiceProvider
@@ -47,8 +50,8 @@ class Provider extends ServiceProvider
         \AvoRed\Ecommerce\Shipping\Provider::class,
         \AvoRed\Ecommerce\Configuration\Provider::class,
         \AvoRed\Ecommerce\Permission\Provider::class,
-        \AvoRed\Ecommerce\Theme\Provider::class,
-        \AvoRed\Ecommerce\Widget\Provider::class
+        //\AvoRed\Ecommerce\Theme\Provider::class,
+        //\AvoRed\Ecommerce\Widget\Provider::class
     ];
 
     /**
@@ -62,6 +65,7 @@ class Provider extends ServiceProvider
         $this->registerResources();
         $this->registerViewComposerData();
         $this->registerPassportResources();
+        $this->registerWidget();
     }
 
     /**
@@ -171,4 +175,20 @@ class Provider extends ServiceProvider
         ]);
     }
 
+
+    /**
+     * Register the Widget.
+     *
+     * @return void
+     */
+    protected function registerWidget()
+    {
+
+        $totalUserWidget = new TotalUserWidget();
+        WidgetFacade::make($totalUserWidget->identifier(), $totalUserWidget);
+
+        $totalOrderWidget = new TotalOrderWidget();
+        WidgetFacade::make($totalOrderWidget->identifier(), $totalOrderWidget);
+
+    }
 }

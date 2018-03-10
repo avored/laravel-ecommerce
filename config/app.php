@@ -149,7 +149,7 @@ return [
          */
 
         //AvoRed\Install\Module::class,
-        AvoRed\Ecommerce\Provider::class,
+        //AvoRed\Ecommerce\Provider::class,
 
 
 
@@ -217,9 +217,10 @@ return [
         'AdminConfiguration' => AvoRed\Ecommerce\Configuration\Facade::class,
         'Permission' => AvoRed\Ecommerce\Permission\Facade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Theme' => AvoRed\Ecommerce\Theme\Facade::class,
         'Breadcrumb' => AvoRed\Ecommerce\Breadcrumb\Facade::class,
-        'Widget' => AvoRed\Ecommerce\Widget\Facade::class,
+
+        'Theme' => AvoRed\Framework\Theme\Facade::class,
+        'Widget' => AvoRed\Framework\Widget\Facade::class,
 
     ],
 ];

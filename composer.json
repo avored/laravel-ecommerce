@@ -21,6 +21,7 @@
     "fideloper/proxy": "~4.0",
     "laravel/framework": "5.6.*",
     "laravel/passport": "5.0.*",
+    "avored/framework": "dev-master",
     "avored/module-installer": "dev-master",
     "avored/ecommerce": "dev-master",
     "avored/install": "dev-master",
