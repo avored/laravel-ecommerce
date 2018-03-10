@@ -14,7 +14,7 @@ use AvoRed\Ecommerce\Models\Database\User;
 use AvoRed\Ecommerce\Models\Database\Address;
 
 use AvoRed\Ecommerce\Models\Database\OrderProductVariation;
-use AvoRed\Ecommerce\Payment\Facade as Payment;
+use AvoRed\Framework\Payment\Facade as Payment;
 
 class OrderController extends Controller
 {

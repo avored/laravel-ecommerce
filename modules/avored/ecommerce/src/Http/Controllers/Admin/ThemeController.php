@@ -4,7 +4,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 use Exception;
 use Illuminate\Http\Request;
 use AvoRed\Ecommerce\Models\Database\Configuration;
-use AvoRed\Ecommerce\Theme\Facade as Theme;
+use AvoRed\Framework\Theme\Facade as Theme;
 
 class ThemeController extends AdminController
 {

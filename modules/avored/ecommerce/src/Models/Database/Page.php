@@ -3,7 +3,7 @@
 namespace AvoRed\Ecommerce\Models\Database;
 
 use Illuminate\Support\Facades\Blade;
-use AvoRed\Ecommerce\Widget\Facade as Widget;
+use AvoRed\Framework\Widget\Facade as Widget;
 
 class Page extends BaseModel
 {
