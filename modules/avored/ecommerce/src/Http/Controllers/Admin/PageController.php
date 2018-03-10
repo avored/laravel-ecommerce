@@ -3,7 +3,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\Models\Database\Page;
 use AvoRed\Ecommerce\Http\Requests\PageRequest;
-use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Widget\Facade as Widget;
 
 class PageController extends AdminController

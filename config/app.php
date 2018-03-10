@@ -144,6 +144,9 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        AvoRed\Framework\Provider::class,
+        AvoRed\Ecommerce\Provider::class,
+
         /*
          * Package Service Providers...
          */
@@ -207,20 +210,43 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'AdminMenu' => AvoRed\Ecommerce\AdminMenu\Facade::class,
-        'DataGrid' => AvoRed\Ecommerce\DataGrid\Facade::class,
-        'Image' => AvoRed\Ecommerce\Image\Facade::class,
-        'Attributes' => AvoRed\Ecommerce\Attribute\Facade::class,
-        'Tabs' => AvoRed\Ecommerce\Tabs\Facade::class,
-        'Payment' => AvoRed\Ecommerce\Payment\Facade::class,
-        'Shipping' => AvoRed\Ecommerce\Shipping\Facade::class,
-        'AdminConfiguration' => AvoRed\Ecommerce\Configuration\Facade::class,
-        'Permission' => AvoRed\Ecommerce\Permission\Facade::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Breadcrumb' => AvoRed\Ecommerce\Breadcrumb\Facade::class,
+        'PDF'   => Barryvdh\DomPDF\Facade::class,
 
-        'Theme' => AvoRed\Framework\Theme\Facade::class,
-        'Widget' => AvoRed\Framework\Widget\Facade::class,
+        /*
+         *
+         * @todo Remove All Facade and move it into an Framework
+         * E commerce Admin Facades
+         * //Never Used Below
+         * //'Configuration'    => AvoRed\Ecommerce\Configuration\Facade::class,
+         * //'Attributes'            => AvoRed\Ecommerce\Attribute\Facade::class,
+         *
+         */
+
+
+
+
+
+
+
+
+
+
+
+        /*
+         * AvoRed Framework Facade
+         *
+         */
+
+        'AdminMenu'             => AvoRed\Framework\AdminMenu\Facade::class,
+        'Breadcrumb'            => AvoRed\Framework\Breadcrumb\Facade::class,
+        'DataGrid'              => AvoRed\Framework\DataGrid\Facade::class,
+        'Image'                 => AvoRed\Framework\Image\Facade::class,
+        'Payment'               => AvoRed\Framework\Payment\Facade::class,
+        'Permission'            => AvoRed\Framework\Permission\Facade::class,
+        'Shipping'              => AvoRed\Framework\Shipping\Facade::class,
+        'Tabs'      => AvoRed\Framework\Tabs\Facade::class,
+        'Theme'     => AvoRed\Framework\Theme\Facade::class,
+        'Widget'    => AvoRed\Framework\Widget\Facade::class,
 
     ],
 ];

@@ -3,7 +3,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\Models\Database\Role;
 use AvoRed\Ecommerce\Http\Requests\RoleRequst;
-use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Models\Database\Permission;
 
 class RoleController extends AdminController

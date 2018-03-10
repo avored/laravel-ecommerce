@@ -6,12 +6,12 @@ use Illuminate\Support\Collection;
 use AvoRed\Ecommerce\Models\Database\Attribute;
 use AvoRed\Ecommerce\Models\Database\Option;
 use AvoRed\Ecommerce\Http\Requests\OptionRequest;
-use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Models\Database\OptionDropdownOption;
 use AvoRed\Ecommerce\Models\Database\Product;
 use AvoRed\Ecommerce\Models\Database\AttributeDropdownOption;
 use AvoRed\Ecommerce\Models\Database\ProductCombination;
-use AvoRed\Ecommerce\Image\Facade as Image;
+use AvoRed\Framework\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
 
 class OptionController extends AdminController

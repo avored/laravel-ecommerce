@@ -3,7 +3,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\Models\Database\State;
 use AvoRed\Ecommerce\Http\Requests\StateRequest;
-use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Models\Database\Country;
 
 class StateController extends AdminController

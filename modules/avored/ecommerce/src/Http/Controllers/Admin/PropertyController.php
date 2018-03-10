@@ -3,7 +3,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Models\Database\Property;
 use AvoRed\Ecommerce\Http\Requests\PropertyRequest;
 use AvoRed\Ecommerce\Models\Database\PropertyDropdownOption;

@@ -3,7 +3,7 @@
 namespace AvoRed\Ecommerce\Models\Database;
 
 use Illuminate\Support\Facades\Session;
-use AvoRed\Ecommerce\Image\LocalFile;
+use AvoRed\Framework\Image\LocalFile;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
 
@@ -483,7 +483,7 @@ class Product extends BaseModel
     /**
      * return default Image or LocalFile Object
      *
-     * @return \AvoRed\Ecommerce\Image\LocalFile
+     * @return \AvoRed\Framework\Image\LocalFile
      */
     public function getImageAttribute()
     {

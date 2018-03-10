@@ -35,6 +35,7 @@ require __DIR__ . '/../bootstrap/autoload.php';
 
 $app = require_once __DIR__ . '/../bootstrap/app.php';
 
+$app->resourcePath('../themes/avored/default');
 /*
 |--------------------------------------------------------------------------
 | Run The Application

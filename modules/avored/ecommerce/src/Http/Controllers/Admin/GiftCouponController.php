@@ -3,7 +3,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\Models\Database\GiftCoupon;
 use AvoRed\Ecommerce\Http\Requests\GiftCouponRequest;
-use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
 
 class GiftCouponController extends AdminController
 {

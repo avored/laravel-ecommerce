@@ -3,7 +3,7 @@ namespace AvoRed\Ecommerce\Models\Database;;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use AvoRed\Ecommerce\Image\LocalFile;
+use AvoRed\Framework\Image\LocalFile;
 
 
 class User extends Authenticatable

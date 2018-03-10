@@ -6,7 +6,7 @@ use AvoRed\Ecommerce\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UploadUserImageRequest;
 use App\Http\Requests\UserProfileRequest;
 use Illuminate\Support\Facades\Hash;
-use AvoRed\Ecommerce\Image\Facade as Image;
+use AvoRed\Framework\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
 
 class MyAccountController extends Controller
@@ -90,7 +90,7 @@ class MyAccountController extends Controller
      * Create Directories if not exists
      *
      * @var string $path
-     * @return \AvoRed\Ecommerce\Image\Service
+     * @return \AvoRed\Framework\Image\Service
      */
     public function directory($path)
     {

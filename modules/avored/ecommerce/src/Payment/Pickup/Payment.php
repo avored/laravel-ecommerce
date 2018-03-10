@@ -2,8 +2,8 @@
 
 namespace AvoRed\Ecommerce\Payment\Pickup;
 
-use AvoRed\Ecommerce\Payment\Payment as AbstractPayment;
-use AvoRed\Ecommerce\Payment\Contracts\Payment as PaymentContract;
+use AvoRed\Framework\Payment\Payment as AbstractPayment;
+use AvoRed\Framework\Payment\Contracts\Payment as PaymentContract;
 
 class Payment extends AbstractPayment implements PaymentContract
 {

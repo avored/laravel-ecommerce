@@ -1,7 +1,7 @@
 <?php
 namespace AvoRed\Ecommerce\Models\Database;
 
-use AvoRed\Ecommerce\Image\LocalFile;
+use AvoRed\Framework\Image\LocalFile;
 
 class ProductImage extends BaseModel
 {

@@ -2,8 +2,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
-use AvoRed\Ecommerce\Payment\Facade as Payment;
-use AvoRed\Ecommerce\Shipping\Facade as Shipping;
+use AvoRed\Framework\Payment\Facade as Payment;
+use AvoRed\Framework\Shipping\Facade as Shipping;
 use AvoRed\Ecommerce\Models\Database\Country;
 
 class CheckoutController extends Controller

@@ -3,7 +3,7 @@ namespace AvoRed\Ecommerce\Http\ViewComposers;
 
 use Illuminate\Support\Collection;
 use AvoRed\Ecommerce\Models\Database\Product;
-use AvoRed\Ecommerce\Tabs\Facade as Tabs;
+use AvoRed\Framework\Tabs\Facade as Tabs;
 use Illuminate\View\View;
 
 class RelatedProductViewComposer

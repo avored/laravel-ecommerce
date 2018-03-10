@@ -2,7 +2,7 @@
 namespace AvoRed\Ecommerce\Http\ViewComposers;
 
 use Illuminate\View\View;
-use AvoRed\Ecommerce\AdminMenu\Facade as AdminMenu;
+use AvoRed\Framework\AdminMenu\Facade as AdminMenu;
 
 class AdminNavComposer
 {

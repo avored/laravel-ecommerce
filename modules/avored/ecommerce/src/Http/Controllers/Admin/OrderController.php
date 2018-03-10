@@ -9,7 +9,7 @@ use AvoRed\Ecommerce\Models\Database\OrderStatus;
 use AvoRed\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
 use AvoRed\Ecommerce\Models\Database\User;
 use AvoRed\Ecommerce\Mail\UpdateOrderStatusMail;
-use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use Illuminate\Support\Facades\File;
 
 class OrderController extends AdminController

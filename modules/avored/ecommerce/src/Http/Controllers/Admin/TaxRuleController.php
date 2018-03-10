@@ -4,7 +4,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 use AvoRed\Ecommerce\Models\Database\Country;
 use AvoRed\Ecommerce\Models\Database\TaxRule;
 use AvoRed\Ecommerce\Http\Requests\TaxRuleRequest;
-use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
 
 class TaxRuleController extends AdminController
 {

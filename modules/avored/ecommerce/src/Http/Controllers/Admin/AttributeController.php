@@ -2,7 +2,7 @@
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\Models\Database\Attribute;
-use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Http\Requests\AttributeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;

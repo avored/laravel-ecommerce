@@ -6,8 +6,8 @@ use Laravel\Passport\Client;
 use AvoRed\Ecommerce\Models\Database\AdminUser;
 use AvoRed\Ecommerce\Models\Database\Role;
 use AvoRed\Ecommerce\Http\Requests\AdminUserRequest;
-use AvoRed\Ecommerce\DataGrid\Facade as DataGrid;
-use AvoRed\Ecommerce\Image\Facade as Image;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\Image\Facade as Image;
 
 class AdminUserController extends AdminController
 {

@@ -2,8 +2,10 @@
 namespace AvoRed\Ecommerce\Shipping;
 
 use Illuminate\Support\Facades\Session;
+use AvoRed\Framework\Shipping\Shipping as AbstractShipping;
+//use Avored\Framework\Shipping\ShippingInterface as ShippingContract;
 
-class FreeShipping extends Shipping implements ShippingInterface
+class FreeShipping extends AbstractShipping
 {
     /**
      * Identifier for the Shipping Options
