@@ -31,16 +31,16 @@
                         </div>
                         <div class="card-footer text-right">
 
-                            @if($theme['name'] != 'avored-default' && $activeTheme == $theme['name'])
-                                <form action="{{ route('admin.theme.deactivated', $theme['name']) }}" method="post">
+                            @if($theme['identifier'] != 'avored-default' && $activeTheme == $theme['identifier'])
+                                <form action="{{ route('admin.theme.deactivated', $theme['identifier']) }}" method="post">
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-primary">{{ __('avored-ecommerce::theme.deactivate') }}</button>
 
                                 </form>
-                            @elseif($theme['name'] == $activeTheme || $theme['name'] == 'avored-default')
+                            @elseif($theme['identifier'] == $activeTheme || $theme['identifier'] == 'avored-default')
                                 <button disabled class="btn ">{{ __('avored-ecommerce::theme.activate') }}</button>
                             @else
-                                <form action="{{ route('admin.theme.activated', $theme['name']) }}" method="post">
+                                <form action="{{ route('admin.theme.activated', $theme['identifier']) }}" method="post">
                                     {{ csrf_field() }}
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('avored-ecommerce::theme.activate') }}

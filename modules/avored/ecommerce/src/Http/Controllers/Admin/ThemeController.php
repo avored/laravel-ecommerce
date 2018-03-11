@@ -5,6 +5,7 @@ use Exception;
 use Illuminate\Http\Request;
 use AvoRed\Ecommerce\Models\Database\Configuration;
 use AvoRed\Framework\Theme\Facade as Theme;
+use Illuminate\Support\Facades\File;
 
 class ThemeController extends AdminController
 {
@@ -67,6 +68,7 @@ class ThemeController extends AdminController
     {
         $theme = Theme::get($name);
 
+
         try {
             $activeThemeConfiguration = Configuration::getConfiguration('active_theme_identifier');
 
@@ -94,7 +96,13 @@ class ThemeController extends AdminController
             $fromPath = $theme['asset_path'];
             $toPath = public_path('vendor/'. $theme['name']);
 
-            Theme::publishItem($fromPath, $toPath);
+            //If Path Doesn't Exist it means its under development So no need to publish anything...
+            if(File::isDirectory($fromPath)) {
+                Theme::publishItem($fromPath, $toPath);
+            }
+
+
+
 
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
