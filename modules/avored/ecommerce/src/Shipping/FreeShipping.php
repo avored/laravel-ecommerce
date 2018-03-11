@@ -3,22 +3,30 @@ namespace AvoRed\Ecommerce\Shipping;
 
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Shipping\Shipping as AbstractShipping;
-//use Avored\Framework\Shipping\ShippingInterface as ShippingContract;
+use AvoRed\Framework\Shipping\Contracts\Shipping as ShippingContract;
 
-class FreeShipping extends AbstractShipping
+class FreeShipping extends AbstractShipping implements  ShippingContract
 {
     /**
      * Identifier for the Shipping Options
      * @var string
      */
-    protected $identifier;
+    protected $identifier  = "freeshipping";
 
     /**
-     * Title for the Shipping Options
+     * Name for the Shipping Options
      * @var string
      */
 
-    protected $title;
+    protected $name = "Free Shipping";
+
+
+    /**
+     * To check if Shipping Option is Enable
+     * @var string
+     */
+
+    protected $enable = true;
 
     /**
      * Amount for the Shipping Options
@@ -26,35 +34,37 @@ class FreeShipping extends AbstractShipping
      */
     protected $amount;
 
-    /**
-     * Set up default title and identifier
-     *
-     * return @void
-     */
-    public function __construct()
-    {
-        $this->identifier = 'freeshipping';
-        $this->title = 'Free Shipping';
-    }
+
 
     /**
      * Get the identifier
      *
      * return string $identifier
      */
-    public function getIdentifier()
+    public function identifier()
     {
         return $this->identifier;
     }
 
     /**
-     * Get the Title
+     * Get the Name of the Shipping Option
      *
      * return string $title
      */
-    public function getTitle()
+    public function name()
     {
-        return $this->title;
+        return $this->name;
+    }
+
+    /**
+     * Get the Name of the Shipping Option
+     *
+     * return string $title
+     */
+    public function enable()
+    {
+        //@todo add Admin Configuration and return value based on it.
+        return $this->enable;
     }
 
     /**
@@ -62,7 +72,7 @@ class FreeShipping extends AbstractShipping
      *
      * return float $amount
      */
-    public function getAmount()
+    public function amount()
     {
         $orderData = Session::get('order_data');
         $cartProducts = Session::get('cart');

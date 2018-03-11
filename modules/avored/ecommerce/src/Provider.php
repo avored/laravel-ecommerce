@@ -519,13 +519,10 @@ class Provider extends ServiceProvider
     protected function registerPaymentOptions()
     {
         $pickup = new PickupPayment();
-        PaymentFacade::put($pickup->getIdentifier(), $pickup);
-
-        //$paypal = new PaypalPayment();
-        //PaymentFacade::put($paypal->getIdentifier(), $paypal);
+        PaymentFacade::put($pickup->identifier(), $pickup);
 
         $stripe = new StripePayment();
-        PaymentFacade::put($stripe->getIdentifier(), $stripe);
+        PaymentFacade::put($stripe->identifier(), $stripe);
     }
 
 
@@ -537,7 +534,7 @@ class Provider extends ServiceProvider
     protected function registerShippingOption()
     {
         $freeShipping = new FreeShipping();
-        ShippingFacade::put($freeShipping->getIdentifier(), $freeShipping);
+        ShippingFacade::put($freeShipping->identifier(), $freeShipping);
     }
 
 

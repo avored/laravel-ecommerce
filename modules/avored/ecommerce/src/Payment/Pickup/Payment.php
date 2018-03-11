@@ -14,7 +14,7 @@ class Payment extends AbstractPayment implements PaymentContract
      * @var string
      *
      */
-    protected $identifier;
+    protected $identifier = "pickup";
 
     /**
      * Title for this Payment options
@@ -22,7 +22,7 @@ class Payment extends AbstractPayment implements PaymentContract
      * @var string
      *
      */
-    protected $name;
+    protected $name = "Pickup From Store";
 
     /**
      * Payment options View Path
@@ -32,17 +32,7 @@ class Payment extends AbstractPayment implements PaymentContract
      */
     protected $view = "avored-ecommerce::payment.pickup.index";
 
-    /**
-     * Identifier for this Payment options
-     *
-     * return @void
-     *
-     */
-    public function __construct()
-    {
-        $this->identifier = 'pickup';
-        $this->name = 'Pickup From Store';
-    }
+
 
     /**
      * Get Identifier for this Payment options
@@ -50,7 +40,7 @@ class Payment extends AbstractPayment implements PaymentContract
      * return string
      *
      */
-    public function getIdentifier()
+    public function identifier()
     {
         return $this->identifier;
     }
@@ -61,7 +51,7 @@ class Payment extends AbstractPayment implements PaymentContract
      * return boolean
      *
      */
-    public function isEnabled()
+    public function enable()
     {
         return true;
     }
@@ -73,7 +63,7 @@ class Payment extends AbstractPayment implements PaymentContract
      * return boolean
      *
      */
-    public function getName()
+    public function name()
     {
         return $this->name;
     }

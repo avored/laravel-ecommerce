@@ -35,7 +35,7 @@ class Payment extends PaymentEcommerce implements PaymentContracts
     protected $view = "avored-ecommerce::payment.stripe.index";
 
 
-    public function isEnabled()
+    public function enable()
     {
         $isEnabled = Configuration::getConfiguration('avored_stripe_enabled');
         if (null === $isEnabled || false == $isEnabled) {
@@ -44,13 +44,13 @@ class Payment extends PaymentEcommerce implements PaymentContracts
         return true;
     }
 
-    public function getIdentifier()
+    public function identifier()
     {
         return $this->identifier;
     }
 
 
-    public function getName()
+    public function name()
     {
         return $this->name;
     }

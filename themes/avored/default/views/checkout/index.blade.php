@@ -547,14 +547,14 @@
                                                class="shipping_option_radio form-check-input"
                                                @endif
 
-                                               data-title="{{ $shippingOption->getTitle() }}"
-                                               data-cost="{{ number_format($shippingOption->getAmount(),2) }}"
-                                               id="{{ $shippingOption->getIdentifier() }}"
-                                               value="{{ $shippingOption->getIdentifier() }}">
+                                               data-title="{{ $shippingOption->name() }}"
+                                               data-cost="{{ number_format($shippingOption->amount(),2) }}"
+                                               id="{{ $shippingOption->identifier() }}"
+                                               value="{{ $shippingOption->identifier() }}">
 
-                                        <label for="{{ $shippingOption->getIdentifier() }}" class="form-check-label">
+                                        <label for="{{ $shippingOption->identifier() }}" class="form-check-label">
 
-                                            {{ $shippingOption->getTitle() . " " . number_format($shippingOption->getAmount(),2) }}
+                                            {{ $shippingOption->name() . " " . number_format($shippingOption->amount(),2) }}
 
 
                                         </label>
@@ -580,18 +580,18 @@
                                 <div class="payment-radio-options">
                                     @foreach($paymentOptions as $paymentOption)
 
-                                        @if(true === $paymentOption->isEnabled())
+                                        @if(true === $paymentOption->enable())
 
                                             <div class="form-check">
 
                                                 <input class="avored-payment-option form-check-input {{ $errors->has('payment_option') ? ' is-invalid' : '' }}"
                                                        type="radio" name="payment_option"
-                                                       id="{{ $paymentOption->getIdentifier() }}"
-                                                       value="{{ $paymentOption->getIdentifier() }}">
+                                                       id="{{ $paymentOption->identifier() }}"
+                                                       value="{{ $paymentOption->identifier() }}">
 
-                                                <label for="{{ $paymentOption->getIdentifier() }}"
+                                                <label for="{{ $paymentOption->identifier() }}"
                                                        class="form-check-label">
-                                                    {!! $paymentOption->getName() !!}
+                                                    {!! $paymentOption->name() !!}
                                                 </label>
 
                                                 @if ($errors->has('payment_option'))
@@ -609,7 +609,7 @@
 
                                 @foreach($paymentOptions as $paymentOption)
 
-                                    @if($paymentOption->isEnabled())
+                                    @if($paymentOption->enable())
                                         @include($paymentOption->view(), $paymentOption->with())
                                     @endif
 
