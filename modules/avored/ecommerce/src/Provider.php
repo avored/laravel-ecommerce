@@ -47,19 +47,6 @@ use Illuminate\Support\Facades\Blade;
 class Provider extends ServiceProvider
 {
 
-    protected $providers = [
-        //\AvoRed\Ecommerce\DataGrid\Provider::class,
-        //\AvoRed\Ecommerce\Attribute\Provider::class,
-        //\AvoRed\Ecommerce\Tabs\Provider::class,
-        //\AvoRed\Ecommerce\Modules\Provider::class,
-        //\AvoRed\Ecommerce\Payment\Provider::class,
-        //\AvoRed\Ecommerce\Shipping\Provider::class,
-        //\AvoRed\Ecommerce\Configuration\Provider::class,
-        //\AvoRed\Ecommerce\Permission\Provider::class,
-        //\AvoRed\Ecommerce\Theme\Provider::class,
-        //\AvoRed\Ecommerce\Widget\Provider::class
-    ];
-
     /**
      * Bootstrap any application services.
      *
@@ -86,7 +73,8 @@ class Provider extends ServiceProvider
      */
     public function register()
     {
-        $this->registerProviders();
+        $this->registerConfigData();
+
         Passport::ignoreMigrations();
 
     }
@@ -149,23 +137,6 @@ class Provider extends ServiceProvider
         View::composer(['avored-framework::product.create',
                         'avored-framework::product.edit'
                         ], RelatedProductComposer::class);
-    }
-
-    /**
-     * Registering AvoRed E commerce Services
-     * e.g Admin Menu
-     *
-     * @return void
-     */
-    protected function registerProviders()
-    {
-        if (!Storage::disk('local')->has('installed.txt')) {
-            App::register(\AvoRed\Install\Module::class);
-        }
-
-        foreach ($this->providers as $provider) {
-            App::register($provider);
-        }
     }
 
 
@@ -793,5 +764,27 @@ class Provider extends ServiceProvider
         $totalOrderWidget = new TotalOrderWidget();
         WidgetFacade::make($totalOrderWidget->identifier(), $totalOrderWidget);
 
+    }
+
+    public function registerConfigData() {
+
+        $authConfig = $this->app['config']->get('auth',[]);
+
+        $this->app['config']->set('auth', array_merge_recursive(require __DIR__.'/../config/mage2-auth.php', $authConfig));
+
+
+        $this->mergeConfigFrom(
+            __DIR__.'/../config/mage2-ecommerce.php', 'mage2-ecommerce'
+        );
+
+    }
+
+    public function publishFiles() {
+        $this->publishes([
+            __DIR__.'/../config/mage2-ecommerce.php' => config_path('mage2-ecommerce.php'),
+        ]);
+        $this->publishes([
+            __DIR__.'/../config/mage2-auth.php' => config_path('mage2-auth.php'),
+        ]);
     }
 }

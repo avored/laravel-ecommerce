@@ -25,8 +25,10 @@ Route::middleware(['web'])
     });
 
 
+$baseAdminUrl = config('mage2-ecommerce.admin_url');
+
 Route::middleware(['web'])
-    ->prefix('admin')
+    ->prefix($baseAdminUrl)
     ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
     ->group(function () {
 
@@ -47,7 +49,7 @@ Route::middleware(['web'])
 
 
 Route::middleware(['web', 'admin.auth', 'permission'])
-    ->prefix('admin')
+    ->prefix($baseAdminUrl)
     ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
     ->group(function () {
 
