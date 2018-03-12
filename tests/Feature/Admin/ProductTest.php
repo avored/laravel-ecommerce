@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
-use AvoRed\Ecommerce\Models\Database\Category;
+use AvoRed\Framework\Models\Database\Category;
 use AvoRed\Ecommerce\Models\Database\Product;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;

@@ -2,9 +2,9 @@
 namespace AvoRed\Ecommerce\Http\Controllers\Api;
 
 use Illuminate\Http\JsonResponse;
-use AvoRed\Ecommerce\Models\Database\Category;
+use AvoRed\Framework\Models\Database\Category;
 use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
-use AvoRed\Framework\System\Controllers\ApiController;
+use AvoRed\Ecommerce\Http\Controllers\ApiController;
 
 class CategoryController extends ApiController
 {

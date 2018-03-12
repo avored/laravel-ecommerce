@@ -43,6 +43,8 @@ use AvoRed\Framework\Shipping\Facade as ShippingFacade;
 use AvoRed\Ecommerce\Shipping\FreeShipping;
 use AvoRed\Framework\Permission\Facade as PermissionFacade;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Auth;
+
 
 class Provider extends ServiceProvider
 {

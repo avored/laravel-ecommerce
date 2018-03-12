@@ -1,12 +1,20 @@
 <?php
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use AvoRed\Ecommerce\Models\Database\Category;
 use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\Repository\Category as CategoryRepository;
 
 class CategoryController extends AdminController
 {
+
+    public $categoryRepository;
+
+    public function __construct(CategoryRepository $respository)
+    {
+        $this->categoryRepository = $respository;
+    }
+
     /**
      * Display a listing of the Category.
      *
@@ -14,7 +22,9 @@ class CategoryController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model(Category::query())
+        $categoryModel = $this->categoryRepository->model();
+
+        $dataGrid = DataGrid::model($categoryModel->query())
                         ->column('name',['label' => 'Name','sortable' => true])
                         ->column('slug',['sortable' => true])
                         ->linkColumn('edit',[], function($model) {
@@ -55,7 +65,7 @@ class CategoryController extends AdminController
     public function store(CategoryRequest $request)
     {
 
-        Category::create($request->all());
+        $this->categoryRepository->create($request->all());
 
         return redirect()->route('admin.category.index');
     }
@@ -68,7 +78,7 @@ class CategoryController extends AdminController
      */
     public function edit($id)
     {
-        $category = Category::findorfail($id);
+        $category = $this->categoryRepository->find($id);
 
         return view('avored-ecommerce::admin.category.edit')->with('model', $category);
     }
@@ -83,7 +93,7 @@ class CategoryController extends AdminController
      */
     public function update(CategoryRequest $request, $id)
     {
-        $category = Category::findorfail($id);
+        $category = $this->categoryRepository->find($id);
         $category->update($request->all());
 
         return redirect()->route('admin.category.index');
@@ -98,7 +108,7 @@ class CategoryController extends AdminController
      */
     public function destroy($id)
     {
-        $category = Category::find($id);
+        $category = $this->categoryRepository->find($id);
 
         foreach ($category->children as $child) {
             $child->parent_id = 0;
