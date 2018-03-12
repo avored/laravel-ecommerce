@@ -151,7 +151,7 @@ return [
          * Package Service Providers...
          */
 
-        //AvoRed\Install\Module::class,
+        AvoRed\Install\Module::class,
         //AvoRed\Ecommerce\Provider::class,
 
 

@@ -41,11 +41,6 @@ return [
             'provider' => 'users',
         ],
 
-        'admin' => [
-            'driver' => 'session',
-            'provider' => 'admin-users',
-        ],
-
         'api' => [
             'driver' => 'passport',
             'provider' => 'admin-users',
@@ -74,10 +69,6 @@ return [
             'driver' => 'eloquent',
             'model' => AvoRed\Ecommerce\Models\Database\User::class,
         ],
-        'admin-users' => [
-            'driver' => 'eloquent',
-            'model' => AvoRed\Ecommerce\Models\Database\AdminUser::class,
-        ],
     ],
 
     /*
@@ -103,11 +94,6 @@ return [
         'users' => [
             'provider' => 'users',
             'table' => 'password_resets',
-            'expire' => 60,
-        ],
-        'adminusers' => [
-            'provider' => 'admin-users',
-            'table' => 'admin_password_resets',
             'expire' => 60,
         ],
 
