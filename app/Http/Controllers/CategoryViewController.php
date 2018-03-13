@@ -4,20 +4,28 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use AvoRed\Framework\Repository\Category;
 use AvoRed\Ecommerce\Models\Database\Product;
-use AvoRed\Ecommerce\Models\Database\Attribute;
+use AvoRed\Framework\Repository\Attribute;
 
 class CategoryViewController extends Controller
 {
+    /**
+     * AvoRed Attribute Repository
+     *
+     * @var \AvoRed\Framework\Repository\Attribute
+     */
+    protected $attributeRepository;
+
     /*
-   * AvoRed Framework Category Repository
-   *
-   * @var \AvoRed\Framework\Repository\Category
-   */
+     * AvoRed Framework Category Repository
+     *
+     * @var \AvoRed\Framework\Repository\Category
+     */
     public $categoryRepository;
 
-    public function __construct(Category $repository)
+    public function __construct(Category $repository, Attribute $attributeRepository)
     {
-        $this->categoryRepository=  $repository;
+        $this->categoryRepository   = $repository;
+        $this->attributeRepository  = $attributeRepository;
 
     }
 
@@ -40,7 +48,7 @@ class CategoryViewController extends Controller
 
 
         foreach ($request->except(['page']) as $attributeIdentifier => $value) {
-            $attribute = Attribute::where('identifier', '=', $attributeIdentifier)->first();
+            $attribute = $this->attributeRepository->model()->where('identifier', '=', $attributeIdentifier)->first();
 
             $collections->addAttributeFilter($attribute->id, $value);
         }

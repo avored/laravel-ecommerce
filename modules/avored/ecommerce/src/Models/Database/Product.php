@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Image\LocalFile;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Str;
+use AvoRed\Framework\Models\Database\Category;
 
 class Product extends BaseModel
 {

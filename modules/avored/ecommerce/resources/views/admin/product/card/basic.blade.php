@@ -93,14 +93,6 @@
 
 </div>
 
-
-@foreach(Attributes::all('basic-product') as $attribute)
-    <?php
-
-    ?>
-    {!! $attribute->render() !!}
-@endforeach
-
 @push('scripts')
 
     <script>

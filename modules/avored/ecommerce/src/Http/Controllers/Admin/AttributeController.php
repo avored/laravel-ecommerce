@@ -1,7 +1,7 @@
 <?php
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use AvoRed\Ecommerce\Models\Database\Attribute;
+use AvoRed\Framework\Repository\Attribute;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Http\Requests\AttributeRequest;
 use Illuminate\Http\Request;
@@ -10,9 +10,29 @@ use Illuminate\Http\JsonResponse;
 
 class AttributeController extends AdminController
 {
+
+    /**
+     * AvoRed Attribute Repository
+     *
+     * @var \AvoRed\Framework\Repository\Attribute
+     */
+    protected $attributeRepository;
+
+    /**
+     * ProductController constructor to Set AvoRed Attribute Repository Property.
+     *
+     * @param \AvoRed\Framework\Repository\Attribute $repository
+     * @return void
+     */
+    public function __construct(Attribute $repository)
+    {
+        $this->attributeRepository = $repository;
+    }
+
+
     public function index()
     {
-        $dataGrid = DataGrid::model(Attribute::query())
+        $dataGrid = DataGrid::model($this->attributeRepository->model()->query())
             ->column('name',['label' => 'Name','sortable' => true])
             ->column('identifier',['sortable' => true])
             ->linkColumn('edit',[], function($model) {
@@ -45,7 +65,7 @@ class AttributeController extends AdminController
     public function store(AttributeRequest $request)
     {
 
-        $attribute = Attribute::create($request->all());
+        $attribute = $this->attributeRepository->model()->create($request->all());
         $this->_saveDropdownOptions($attribute , $request);
 
         return redirect()->route('admin.attribute.index');
@@ -55,7 +75,7 @@ class AttributeController extends AdminController
 
     public function edit($id)
     {
-        $attribute = Attribute::find($id);
+        $attribute = $this->attributeRepository->model()->find($id);
         return view('avored-ecommerce::admin.attribute.edit')->with('model', $attribute);
 
     }
@@ -63,7 +83,7 @@ class AttributeController extends AdminController
     public function update(AttributeRequest $request, $id)
     {
 
-        $attribute = Attribute::find($id);
+        $attribute = $this->attributeRepository->model()->find($id);
         $attribute->update($request->all());
         $this->_saveDropdownOptions($attribute , $request);
 
@@ -80,7 +100,7 @@ class AttributeController extends AdminController
     public function destroy($id)
     {
 
-        Attribute::destroy($id);
+        $this->attributeRepository->model()->destroy($id);
 
         return redirect()->route('admin.attribute.index');
     }
@@ -88,7 +108,7 @@ class AttributeController extends AdminController
 
     public function getAttribute(Request $request)
     {
-        $attribute = Attribute::findorfail($request->get('id'));
+        $attribute = $this->attributeRepository->model()->findorfail($request->get('id'));
 
         return view('avored-ecommerce::admin.attribute.attribute-card-values')
             ->with('attribute', $attribute);
@@ -105,7 +125,7 @@ class AttributeController extends AdminController
      */
     public function getElementHtml(Request $request)
     {
-        $attributes = Attribute::whereIn('id',$request->get('attribute_id'))->get();
+        $attributes = $this->attributeRepository->model()->whereIn('id',$request->get('attribute_id'))->get();
 
         //foreach ($attributes as $)
         $tmpString = "__RANDOM__STRING__";

@@ -5,7 +5,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
-use AvoRed\Ecommerce\Models\Database\Attribute;
+use Avored\Framework\Repository\Attribute;
+
 use AvoRed\Ecommerce\Models\Database\Product;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;
 use AvoRed\Framework\Image\Facade as Image;
@@ -17,6 +18,24 @@ use AvoRed\Ecommerce\Models\Database\Property;
 
 class ProductController extends AdminController
 {
+
+    /**
+     * AvoRed Attribute Repository
+     *
+     * @var \AvoRed\Framework\Repository\Attribute
+     */
+    protected $attributeRepository;
+
+    /**
+     * ProductController constructor to Set AvoRed Attribute Repository Property.
+     *
+     * @param \AvoRed\Framework\Repository\Attribute $repository
+     * @return void
+     */
+    public function __construct(Attribute $repository)
+    {
+        $this->attributeRepository = $repository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -59,7 +78,7 @@ class ProductController extends AdminController
      */
     public function create()
     {
-        return view('avored-ecommerce::admin.product.new-create');
+        return view('avored-ecommerce::admin.product.create');
     }
 
     /**
@@ -102,7 +121,7 @@ class ProductController extends AdminController
         $properties =   Property::all()->pluck('name','id');
 
         if($product->hasVariation() == "VARIATION") {
-            $attributes =   Attribute::all()->pluck('name','id');
+            $attributes =   $this->attributeRepository->model()->all()->pluck('name','id');
         }
         return view('avored-ecommerce::admin.product.edit')
             ->with('model', $product)

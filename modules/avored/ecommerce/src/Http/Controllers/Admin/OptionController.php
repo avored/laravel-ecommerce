@@ -3,19 +3,35 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use AvoRed\Ecommerce\Models\Database\Attribute;
+use AvoRed\Framework\Repository\Attribute;
 use AvoRed\Ecommerce\Models\Database\Option;
-use AvoRed\Ecommerce\Http\Requests\OptionRequest;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Models\Database\OptionDropdownOption;
 use AvoRed\Ecommerce\Models\Database\Product;
-use AvoRed\Ecommerce\Models\Database\AttributeDropdownOption;
 use AvoRed\Ecommerce\Models\Database\ProductCombination;
 use AvoRed\Framework\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
 
 class OptionController extends AdminController
 {
+
+
+    /**
+     * AvoRed Attribute Repository
+     *
+     * @var \AvoRed\Framework\Repository\Attribute
+     */
+    protected $attributeRepository;
+
+    /**
+     * ProductController constructor to Set AvoRed Attribute Repository Property.
+     *
+     * @param \AvoRed\Framework\Repository\Attribute $repository
+     * @return void
+     */
+    public function __construct(Attribute $attributeRepository)
+    {
+        $this->attributeRepository = $attributeRepository;
+    }
 
 
     public function optionCombinationModal(Request $request) {
@@ -26,7 +42,7 @@ class OptionController extends AdminController
         $optionIds = $request->get('attributes');
 
         foreach ($optionIds as $optionId) {
-            $options->push(Attribute::findorfail($optionId));
+            $options->push($this->attributeRepository->model()->findorfail($optionId));
         }
 
         return view('avored-ecommerce::admin.product.option-combination')
@@ -43,7 +59,7 @@ class OptionController extends AdminController
         $optionIds = $request->get('attributes');
 
         foreach ($optionIds as $optionId) {
-            $options->push(Attribute::findorfail($optionId));
+            $options->push($this->attributeRepository->model()->findorfail($optionId));
         }
 
         return view('avored-ecommerce::admin.product.option-combination-edit')
@@ -61,11 +77,11 @@ class OptionController extends AdminController
         $name = $parentProduct->name;
 
         foreach ($request->get('attributes_specification') as  $attributeId => $value) {
-            $attribute = Attribute::findorfail($attributeId);
+            $attribute = $this->attributeRepository->model()->findorfail($attributeId);
 
 
             if($attribute->field_type == 'SELECT') {
-                $attributeOptionModel  = AttributeDropdownOption::findorfail($value);
+                $attributeOptionModel  = $this->attributeRepository->dropDownOptionModel()->findorfail($value);
                 $name .= " " . $attributeOptionModel->display_text;
             }
 

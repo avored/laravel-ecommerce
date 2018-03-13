@@ -2,7 +2,5 @@
 
 
 return [
-
     'admin_url' => 'admin',
-
 ];

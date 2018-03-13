@@ -58,11 +58,6 @@
                             DESCRIPTION
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a data-toggle="tab" class="nav-link" href="#review">
-                            REVIEW
-                        </a>
-                    </li>
 
                     @foreach(Tabs::all('product-view') as $key => $tab)
                         <li class="nav-item">
@@ -76,44 +71,9 @@
                 <div class="tab-content">
                     <div id="description" class="tab-pane active">
 
-
-                        <!--
-                        if(count($specificationList = $product->getSpecificationList()) >= 0)
-
-                            <h6 class="p-3 mb-3">Product Specifications</h6>
-                            <table class="table  mt-2 mb-2 table-bordered">
-                                foreach($specificationList as $attribute)
-
-
-                                <tr>
-                                    <th>
-                                        { $attribute->name }}
-                                    </th>
-                                    <td>
-
-                                        { $product->getSpecificationValue($attribute) }}
-                                    </td>
-                                </tr>
-                                endforeach
-                            </table>
-                        endif
-
-                        -->
-
                         <p>{!! $product->description !!}</p>
                     </div>
 
-
-                    <div id="review" class="tab-pane">
-
-                        <div class="review-wrapper col-12">
-                            @include('review.list',['product' => $product])
-                            <div class="review-form-wrapper">
-                                <h1>Add Review</h1>
-                                @include('review.add-review-form',['product' => $product])
-                            </div>
-                        </div>
-                    </div>
 
                     @foreach(Tabs::all('product-view') as $key => $tab)
                         @include($tab->view)

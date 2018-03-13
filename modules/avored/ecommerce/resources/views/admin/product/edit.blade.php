@@ -2,7 +2,6 @@
 
 @section('content')
 
-    <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="h1">Edit Product</div>
@@ -117,5 +116,5 @@
             </div>
 
         </form>
-    </div>
+
 @endsection

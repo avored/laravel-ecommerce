@@ -8,25 +8,9 @@ use Illuminate\Validation\ValidationException;
 
 class LoginController extends AdminController
 {
-    /*
-      |--------------------------------------------------------------------------
-      | Login Controller
-      |--------------------------------------------------------------------------
-      |
-      | This controller handles authenticating users for the application and
-      | redirecting them to your home screen. The controller uses a trait
-      | to conveniently provide its functionality to your applications.
-      |
-     */
 
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login / registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
@@ -38,11 +22,23 @@ class LoginController extends AdminController
         $this->middleware('admin.guest', ['except' => 'logout']);
     }
 
+    /**
+     * Show the AvoRed Login Form to the User
+     *
+     * @return \Illuminate\Http\Response
+     *
+     */
     public function loginForm()
     {
         return view('avored-ecommerce::admin.user.login');
     }
 
+    /**
+     * Using an Admin Guard for the Admin Auth
+     *
+     * @return \Illuminate\Auth\SessionGuard
+     *
+     */
     protected function guard()
     {
         return Auth::guard('admin');
@@ -71,6 +67,16 @@ class LoginController extends AdminController
 
         $request->session()->regenerate();
 
-        return redirect('/admin');
+        return redirect()->route('admin.login');
     }
+
+    /**
+     * Redirect Path after login and logout
+     *
+     * @return string
+     */
+    public function redirectPath(){
+        return  config('avored-ecommerce.admin_url');
+    }
+
 }

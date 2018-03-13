@@ -64,7 +64,6 @@ class CategoryController extends AdminController
      */
     public function store(CategoryRequest $request)
     {
-
         $this->categoryRepository->create($request->all());
 
         return redirect()->route('admin.category.index');

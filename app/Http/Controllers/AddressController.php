@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-
 use Illuminate\Support\Facades\Auth;
 use AvoRed\Ecommerce\Models\Database\Country;
 use AvoRed\Ecommerce\Models\Database\Address;

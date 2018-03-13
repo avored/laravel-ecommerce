@@ -3,13 +3,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use AvoRed\Ecommerce\Models\Database\Attribute;
+use AvoRed\Framework\Repository\Attribute;
 use AvoRed\Ecommerce\Models\Database\Product;
 use Illuminate\Support\Collection;
 use AvoRed\Ecommerce\Models\Database\ProductAttributeIntegerValue;
 
 class CartController extends Controller
 {
+
+
+    /**
+     * AvoRed Attribute Repository
+     *
+     * @var \AvoRed\Framework\Repository\Attribute
+     */
+    protected $attributeRepository;
+
+    /**
+     * Cart Controller constructor to Set AvoRed Attribute Repository Property.
+     *
+     * @param \AvoRed\Framework\Repository\Attribute $repository
+     * @return void
+     */
+    public function __construct(Attribute $attributeRepository)
+    {
+        $this->attributeRepository = $attributeRepository;
+    }
+
+
     /**
      *
      * Add To Cart Product
@@ -46,7 +67,7 @@ class CartController extends Controller
 
                 $productAttributeValue = ProductAttributeIntegerValue::whereProductId($subProductId)->whereAttributeId($attributeId)->first();
 
-                $attribute = Attribute::findorfail($attributeId);
+                $attribute = $this->attributeRepository->model()->findorfail($attributeId);
                 $option = $attribute->attributeDropdownOptions()->where('id','=',$productAttributeValue->value)->get()->first();
 
                 $productAttributes[] = [

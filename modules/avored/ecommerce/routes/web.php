@@ -11,39 +11,25 @@
   |
  */
 
-Route::middleware(['web'])
-    ->namespace('AvoRed\Ecommerce\Http\Controllers')
-    ->group(function () {
-
-
-
-
-        Route::post('/review', ['as' => 'review.store','uses' => 'ReviewController@store']);
-        Route::post('/get-code-discount', ['as' => 'get.code-discount', 'uses' => 'GiftCouponController@getCodeDiscount']);
-
-
-    });
-
-
-$baseAdminUrl = config('mage2-ecommerce.admin_url');
+$baseAdminUrl = config('avored-ecommerce.admin_url');
 
 Route::middleware(['web'])
     ->prefix($baseAdminUrl)
+    ->name('admin.')
     ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
     ->group(function () {
 
-        Route::get('login', ['as' => 'admin.login', 'uses' => 'LoginController@loginForm']);
-        Route::post('login', ['as' => 'admin.login.post', 'uses' => 'LoginController@login']);
+        Route::get('login','LoginController@loginForm')->name('login');
+        Route::post('login','LoginController@login')->name('login.post');
 
-        Route::get('logout', ['as' => 'admin.logout', 'uses' => 'LoginController@logout']);
 
-        Route::get('password/reset/{token}', ['as' => 'admin.password.reset.token', 'uses' => 'ResetPasswordController@showResetForm']);
-        Route::post('password/email', ['as' => 'admin.password.email.post', 'uses' => 'ForgotPasswordController@sendResetLinkEmail']);
+        Route::get('logout','LoginController@logout')->name('logout');
 
-        Route::post('password/reset', ['as' => 'admin.password.reset.token', 'uses' => 'ResetPasswordController@reset']);
+        Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset.token');
+        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email.post');
 
-        Route::get('password/reset', ['as' => 'admin.password.reset', 'uses' => 'ForgotPasswordController@showLinkRequestForm']);
-
+        Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+        Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset.token');
 
     });
 

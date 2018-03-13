@@ -12,5 +12,4 @@ class AdminController extends BaseController
         DispatchesJobs,
         ValidatesRequests;
 
-
 }

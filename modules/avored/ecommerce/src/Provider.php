@@ -128,17 +128,15 @@ class Provider extends ServiceProvider
         View::composer('checkout.index', CheckoutComposer::class);
         View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
         View::composer('layouts.app', LayoutAppComposer::class);
-        View::composer('catalog.product.view', RelatedProductViewComposer::class);
+        //View::composer('catalog.product.view', RelatedProductViewComposer::class);
         View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
-        View::composer('avored-framework::product.edit', ProductFieldComposer::class);
-        View::composer('catalog.product.view', ProductSpecificationComposer::class);
+
+        //View::composer('catalog.product.view', ProductSpecificationComposer::class);
         View::composer(['avored-ecommerce::admin.product.create',
                         'avored-ecommerce::admin.product.edit'
                         ],  ProductFieldsComposer::class);
 
-        View::composer(['avored-framework::product.create',
-                        'avored-framework::product.edit'
-                        ], RelatedProductComposer::class);
+        //View::composer(['avored-framework::product.create','avored-framework::product.edit'], RelatedProductComposer::class);
     }
 
 
@@ -772,21 +770,17 @@ class Provider extends ServiceProvider
 
         $authConfig = $this->app['config']->get('auth',[]);
 
-        $this->app['config']->set('auth', array_merge_recursive(require __DIR__.'/../config/mage2-auth.php', $authConfig));
-
-
-        $this->mergeConfigFrom(
-            __DIR__.'/../config/mage2-ecommerce.php', 'mage2-ecommerce'
-        );
+        $this->app['config']->set('auth', array_merge_recursive(require __DIR__.'/../config/avored-auth.php', $authConfig));
+        $this->mergeConfigFrom(__DIR__.'/../config/avored-ecommerce.php', 'avored-ecommerce');
 
     }
 
     public function publishFiles() {
         $this->publishes([
-            __DIR__.'/../config/mage2-ecommerce.php' => config_path('mage2-ecommerce.php'),
+            __DIR__.'/../config/avored-ecommerce.php' => config_path('avored-ecommerce.php'),
         ]);
         $this->publishes([
-            __DIR__.'/../config/mage2-auth.php' => config_path('mage2-auth.php'),
+            __DIR__.'/../config/avored-auth.php' => config_path('avored-auth.php'),
         ]);
     }
 }
