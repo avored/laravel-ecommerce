@@ -1,7 +1,10 @@
 <?php
 namespace AvoRed\Ecommerce\Models\Database;
 
-class Order extends BaseModel
+use AvoRed\Framework\Models\Database\Product;
+use Illuminate\Database\Eloquent\Model;
+
+class Order extends Model
 {
     protected $fillable = [
         'shipping_address_id',

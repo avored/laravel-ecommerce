@@ -1,7 +1,10 @@
 <?php
 namespace AvoRed\Ecommerce\Models\Database;
 
-class Wishlist extends BaseModel
+use Illuminate\Database\Eloquent\Model;
+use AvoRed\Framework\Models\Database\Product;
+
+class Wishlist extends Model
 {
     protected $fillable = ['user_id', 'product_id'];
 

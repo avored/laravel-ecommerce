@@ -4,7 +4,7 @@ namespace AvoRed\Ecommerce\Events;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Framework\Models\Database\Product;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;
 
 class ProductAfterSave

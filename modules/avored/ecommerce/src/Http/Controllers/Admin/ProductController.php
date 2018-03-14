@@ -5,7 +5,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
-use Avored\Framework\Repository\Product;
+use AvoRed\Framework\Repository\Product;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;
 use AvoRed\Framework\Image\Facade as Image;
 use Illuminate\Support\Facades\File;

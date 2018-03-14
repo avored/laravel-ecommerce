@@ -179,37 +179,3 @@
     </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        jQuery(document).ready(function () {
-            jQuery(document).on('click', '.code-apply-button', function (e) {
-                e.preventDefault();
-
-                if (jQuery('.gift-coupon-code-textbox').val() == "") {
-                    alert('please enter valid coupon code');
-                    return;
-                }
-                var data = {
-                    _token: '{{ csrf_token() }}',
-                    code: jQuery('.gift-coupon-code-textbox').val()
-                }
-
-                jQuery.ajax({
-                    url: '{{ route('get.code-discount') }}',
-                    dataType: 'json',
-                    type: 'post',
-                    data: data,
-                    success: function (res) {
-                        x = res;
-                        if (true == res.success) {
-                            location.reload();
-                        } else {
-                            alert(res.message);
-                        }
-                    }
-                });
-            });
-        });
-    </script>
-@endpush

@@ -39,7 +39,7 @@ class PlaceOrderRequest extends Request
 
 
         $billingData = $this->request->get('billing');
-        if (isset($billingData) && null === $billingData['id']) {
+        if (isset($billingData['id']) && null === $billingData['id']) {
             $validation['billing.address1'] = 'required|max:255';
             $validation['billing.address2'] = 'max:255';
             $validation['billing.country_id'] = 'required|max:255';
