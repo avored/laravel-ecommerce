@@ -254,6 +254,7 @@ class AvoredEcommerceSchema extends Migration
             $table->foreign('product_id')->references('id')->on('products');
         });
 
+        /*
         Schema::create('gift_coupons', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
@@ -264,6 +265,7 @@ class AvoredEcommerceSchema extends Migration
             $table->enum('status', ['ENABLED', 'DISABLED']);
             $table->timestamps();
         });
+        */
 
         Schema::create('configurations', function (Blueprint $table) {
             $table->increments('id');

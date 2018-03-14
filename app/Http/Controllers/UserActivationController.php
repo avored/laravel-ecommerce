@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use AvoRed\Ecommerce\Mail\NewUserMail;
 
-
 class UserActivationController extends Controller
 {
 

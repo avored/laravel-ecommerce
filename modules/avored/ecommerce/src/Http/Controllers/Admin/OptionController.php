@@ -3,11 +3,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use AvoRed\Framework\Repository\Attribute;
-use AvoRed\Ecommerce\Models\Database\Option;
-use AvoRed\Ecommerce\Models\Database\OptionDropdownOption;
-use AvoRed\Ecommerce\Models\Database\Product;
-use AvoRed\Ecommerce\Models\Database\ProductCombination;
+use AvoRed\Framework\Repository\Product;
 use AvoRed\Framework\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
 
@@ -18,19 +14,19 @@ class OptionController extends AdminController
     /**
      * AvoRed Attribute Repository
      *
-     * @var \AvoRed\Framework\Repository\Attribute
+     * @var \AvoRed\Framework\Repository\Product
      */
-    protected $attributeRepository;
+    protected $productRepository;
 
     /**
      * ProductController constructor to Set AvoRed Attribute Repository Property.
      *
-     * @param \AvoRed\Framework\Repository\Attribute $repository
+     * @param \AvoRed\Framework\Repository\Product $repository
      * @return void
      */
-    public function __construct(Attribute $attributeRepository)
+    public function __construct(Product $repository)
     {
-        $this->attributeRepository = $attributeRepository;
+        $this->productRepository = $repository;
     }
 
 
@@ -42,7 +38,7 @@ class OptionController extends AdminController
         $optionIds = $request->get('attributes');
 
         foreach ($optionIds as $optionId) {
-            $options->push($this->attributeRepository->model()->findorfail($optionId));
+            $options->push($this->productRepository->attributeModel()->findorfail($optionId));
         }
 
         return view('avored-ecommerce::admin.product.option-combination')
@@ -52,14 +48,14 @@ class OptionController extends AdminController
 
     public function editOptionCombinationModal(Request $request) {
         //
-        $subProduct = Product::findorfail($request->get('id'));
+        $subProduct = $this->productRepository->model()->findorfail($request->get('id'));
         $options = Collection::make([]);
 
         $productId = $request->get('product_id');
         $optionIds = $request->get('attributes');
 
         foreach ($optionIds as $optionId) {
-            $options->push($this->attributeRepository->model()->findorfail($optionId));
+            $options->push($this->productRepository->attributeModel()->findorfail($optionId));
         }
 
         return view('avored-ecommerce::admin.product.option-combination-edit')
@@ -72,16 +68,16 @@ class OptionController extends AdminController
 
         $attributeIds = Collection::make([]);
         $productId = $request->get('product_id');
-        $parentProduct = Product::findorfail($productId);
+        $parentProduct = $this->productRepository->model()->findorfail($productId);
 
         $name = $parentProduct->name;
 
         foreach ($request->get('attributes_specification') as  $attributeId => $value) {
-            $attribute = $this->attributeRepository->model()->findorfail($attributeId);
+            $attribute = $this->productRepository->attributeModel()->findorfail($attributeId);
 
 
             if($attribute->field_type == 'SELECT') {
-                $attributeOptionModel  = $this->attributeRepository->dropDownOptionModel()->findorfail($value);
+                $attributeOptionModel  = $this->productRepository->attributeModel()->dropDownOptionModel()->findorfail($value);
                 $name .= " " . $attributeOptionModel->display_text;
             }
 
@@ -102,13 +98,13 @@ class OptionController extends AdminController
         */
 
         if(null === $request->get('sub_product_id')) {
-            $combinationProduct = Product::create(['name' => $name,'type' => 'VARIATION-COMBINATION']);
+            $combinationProduct = $this->productRepository->model()->create(['name' => $name,'type' => 'VARIATION-COMBINATION']);
 
             ProductCombination::create(['product_id' => $productId,'combination_id' => $combinationProduct->id]);
             $combinationProduct->saveProduct($request);
         } else {
 
-            $subProduct = Product::findorfail($request->get('sub_product_id'));
+            $subProduct = $this->productRepository->model()->findorfail($request->get('sub_product_id'));
 
             if(null !== $request->file('image')) {
 

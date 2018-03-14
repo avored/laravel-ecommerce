@@ -5,36 +5,33 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Event;
-use Avored\Framework\Repository\Attribute;
-
-use AvoRed\Ecommerce\Models\Database\Product;
+use Avored\Framework\Repository\Product;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;
 use AvoRed\Framework\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Events\ProductAfterSave;
 use AvoRed\Ecommerce\Events\ProductBeforeSave;
-use AvoRed\Ecommerce\Models\Database\Property;
 
 class ProductController extends AdminController
 {
 
     /**
-     * AvoRed Attribute Repository
+     * AvoRed Product Repository
      *
-     * @var \AvoRed\Framework\Repository\Attribute
+     * @var \AvoRed\Framework\Repository\Product
      */
-    protected $attributeRepository;
+    protected $productRepository;
 
     /**
-     * ProductController constructor to Set AvoRed Attribute Repository Property.
+     * ProductController constructor to Set AvoRed Product Repository Property.
      *
-     * @param \AvoRed\Framework\Repository\Attribute $repository
+     * @param \AvoRed\Framework\Repository\Product $repository
      * @return void
      */
-    public function __construct(Attribute $repository)
+    public function __construct(Product $repository)
     {
-        $this->attributeRepository = $repository;
+        $this->productRepository = $repository;
     }
 
     /**
@@ -46,7 +43,7 @@ class ProductController extends AdminController
     public function index()
     {
 
-        $dataGrid = DataGrid::model(Product::where('type','!=', 'VARIABLE_PRODUCT'))
+        $dataGrid = DataGrid::model($this->productRepository->model()->where('type','!=', 'VARIABLE_PRODUCT'))
             ->column('id', ['sortable' => true])
             ->linkColumn('image', [], function ($model) {
                 return "<img src='". $model->image->smallUrl . "' style='max-height: 50px;' />";
@@ -93,7 +90,7 @@ class ProductController extends AdminController
     {
 
         try {
-            $product = Product::create($request->all());
+            $product = $this->productRepository->model()->create($request->all());
         } catch (\Exception $e) {
             echo 'Error in Saving Product: ', $e->getMessage(), "\n";
         }
@@ -115,13 +112,13 @@ class ProductController extends AdminController
      */
     public function edit($id)
     {
-        $product = Product::findorfail($id);
+        $product = $this->productRepository->model()->findorfail($id);
 
         $attributes = Collection::make([]);
-        $properties =   Property::all()->pluck('name','id');
+        $properties =   $this->productRepository->propertyModel()->all()->pluck('name','id');
 
         if($product->hasVariation() == "VARIATION") {
-            $attributes =   $this->attributeRepository->model()->all()->pluck('name','id');
+            $attributes =   $this->productRepository->attributeModel()->all()->pluck('name','id');
         }
         return view('avored-ecommerce::admin.product.edit')
             ->with('model', $product)
@@ -142,7 +139,7 @@ class ProductController extends AdminController
 
         try {
             Event::fire(new ProductBeforeSave($request));
-            $product = Product::findorfail($id);
+            $product = $this->productRepository->model()->findorfail($id);
             $product->saveProduct($request);
             Event::fire(new ProductAfterSave($product, $request));
 
@@ -162,7 +159,7 @@ class ProductController extends AdminController
      */
     public function destroy($id)
     {
-        Product::destroy($id);
+        $this->productRepository->model()->destroy($id);
         return redirect()->route('admin.product.index');
     }
 
@@ -219,7 +216,7 @@ class ProductController extends AdminController
     public function editVariation(Request $request)
     {
 
-        $product = Product::findorfail($request->get('variation_id'));
+        $product = $this->productRepository->model()->findorfail($request->get('variation_id'));
         $view = view('avored-ecommerce::admin.product.variation-modal')
                             ->with('model', $product);
 

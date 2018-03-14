@@ -94,7 +94,7 @@ class AddressController extends Controller
     /**
      * Update the specified user addresses in database.
      *
-     * @param \AvoRed\Address\Requests\Address $request
+     * @param \AvoRed\Ecommerce\Http\Requests\AddressRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

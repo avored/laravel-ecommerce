@@ -2,31 +2,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use AvoRed\Framework\Repository\Category;
-use AvoRed\Ecommerce\Models\Database\Product;
-use AvoRed\Framework\Repository\Attribute;
+use AvoRed\Framework\Repository\Product;
 
 class CategoryViewController extends Controller
 {
     /**
      * AvoRed Attribute Repository
      *
-     * @var \AvoRed\Framework\Repository\Attribute
+     * @var \AvoRed\Framework\Repository\Product
      */
-    protected $attributeRepository;
+    protected $productRepository;
 
-    /*
-     * AvoRed Framework Category Repository
-     *
-     * @var \AvoRed\Framework\Repository\Category
-     */
-    public $categoryRepository;
-
-    public function __construct(Category $repository, Attribute $attributeRepository)
+    public function __construct(Product $repository)
     {
-        $this->categoryRepository   = $repository;
-        $this->attributeRepository  = $attributeRepository;
-
+        parent::__construct();
+        $this->productRepository   = $repository;
     }
 
     /**
@@ -41,14 +31,14 @@ class CategoryViewController extends Controller
     {
         $productsOnCategoryPage = 10; //Configuration::getConfiguration('avored_catalog_no_of_product_category_page');
 
-        $category = $this->categoryRepository->model()->where('slug', '=', $slug)->get()->first();
+        $category = $this->productRepository->categoryModel()->where('slug', '=', $slug)->get()->first();
 
-        $collections = Product::getCollection()
+        $collections = $this->productRepository->model()->getCollection()
             ->addCategoryFilter($category->id);
 
 
         foreach ($request->except(['page']) as $attributeIdentifier => $value) {
-            $attribute = $this->attributeRepository->model()->where('identifier', '=', $attributeIdentifier)->first();
+            $attribute = $this->productRepository->attributeModel()->where('identifier', '=', $attributeIdentifier)->first();
 
             $collections->addAttributeFilter($attribute->id, $value);
         }

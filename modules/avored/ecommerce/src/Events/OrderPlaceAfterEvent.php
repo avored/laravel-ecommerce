@@ -25,7 +25,9 @@ class OrderPlaceAfterEvent
     /**
      * Create a new event instance.
      *
-     * @param User $user
+     * @param \AvoRed\Ecommerce\Models\Database\Order $order
+     * @param array $orderProducts
+     * @param \Illuminate\Http\Request $request
      */
     public function __construct(Order $order, $orderProducts , $request)
     {

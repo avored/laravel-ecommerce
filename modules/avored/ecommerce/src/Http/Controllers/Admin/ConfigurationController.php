@@ -3,7 +3,6 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use AvoRed\Ecommerce\Models\Database\Configuration;
-use AvoRed\Ecommerce\Configuration\Facade as AdminConfiguration;
 use AvoRed\Ecommerce\Models\Database\Page;
 use Illuminate\Support\Collection;
 use AvoRed\Ecommerce\Models\Database\Country;

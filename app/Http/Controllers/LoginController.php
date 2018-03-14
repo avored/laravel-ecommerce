@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use AvoRed\Ecommerce\Models\Database\User;
 
-
 class LoginController extends Controller
 {
     /*
@@ -38,6 +37,8 @@ class LoginController extends Controller
      */
     public function __construct()
     {
+        parent::__construct();
+
         $this->middleware('front.guest', ['except' => 'logout']);
 
         $url = URL::previous();

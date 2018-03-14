@@ -39,16 +39,6 @@ Route::middleware(['web', 'admin.auth', 'permission'])
     ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
     ->group(function () {
 
-
-
-        /**************** ATTRIBUTES ROUTES STARTS ****************/
-
-
-        /**************** ATTRIBUTES ROUTES ENDS ****************/
-
-
-
-
         Route::post('option-combination-modal', [
             'uses' => 'OptionController@optionCombinationModal',
             'as' => 'admin.option.combination',
@@ -74,16 +64,12 @@ Route::middleware(['web', 'admin.auth', 'permission'])
 
         Route::resource('product', 'ProductController', ['as' => 'admin']);
         Route::resource('category', 'CategoryController', ['as' => 'admin']);
-        Route::resource('review', 'ReviewController', ['as' => 'admin']);
+
 
         Route::resource('/page', 'PageController', ['as' => 'admin']);
-        Route::resource('/tax-group', 'TaxGroupController', ['as' => 'admin']);
         Route::resource('/tax-rule', 'TaxRuleController', ['as' => 'admin']);
-        Route::resource('/country', 'CountryController', ['as' => 'admin']);
-        Route::resource('/state', 'StateController', ['as' => 'admin']);
 
         Route::resource('/admin-user', 'AdminUserController', ['as' => 'admin']);
-        Route::resource('review', 'ReviewController', ['as' => 'admin']);
 
 
 
@@ -99,8 +85,6 @@ Route::middleware(['web', 'admin.auth', 'permission'])
             'uses' => 'ProductController@uploadImage']);
         Route::post('product-image/delete', ['as' => 'admin.product.delete-image',
             'uses' => 'ProductController@deleteImage']);
-
-        Route::resource('gift-coupon', 'GiftCouponController', ['as' => 'admin']);
 
 
         //Route::get('update-check', ['as' => 'admin.update.check', 'uses' => 'UpdateController@check']);

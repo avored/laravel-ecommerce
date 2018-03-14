@@ -2,12 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Framework\Repository\Product;
 
 class ProductViewController extends Controller
 {
-    public function __construct()
+
+    /**
+     * AvoRed Attribute Repository
+     *
+     * @var \AvoRed\Framework\Repository\Product
+     */
+    protected $productRepository;
+
+    /**
+     * Cart Controller constructor to Set AvoRed Product Repository Property.
+     *
+     * @param \AvoRed\Framework\Repository\Product $repository
+     * @return void
+     */
+    public function __construct(Product $repository)
     {
+        parent::__construct();
+
+        $this->productRepository = $repository;
         $this->middleware(['product.viewed']);
     }
 
@@ -29,7 +46,7 @@ class ProductViewController extends Controller
 
     private function _getProductBySlug($slug)
     {
-        $product = Product::where('slug', '=', $slug)->get()->first();
+        $product = $this->productRepository->model()->where('slug', '=', $slug)->get()->first();
 
         return $product;
     }

@@ -4,12 +4,29 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
-use AvoRed\Ecommerce\Models\Database\Property;
+use AvoRed\Framework\Repository\Product;
 use AvoRed\Ecommerce\Http\Requests\PropertyRequest;
-use AvoRed\Ecommerce\Models\Database\PropertyDropdownOption;
+
 
 class PropertyController extends AdminController
 {
+    /**
+     * AvoRed Product Repository
+     *
+     * @var \AvoRed\Framework\Repository\Product
+     */
+    protected $productRepository;
+
+    /**
+     * ProductController constructor to Set AvoRed Product Repository Property.
+     *
+     * @param \AvoRed\Framework\Repository\Product $repository
+     * @return void
+     */
+    public function __construct(Product $repository)
+    {
+        $this->productRepository = $repository;
+    }
 
     /**
      * Display a listing of the Property.
@@ -18,7 +35,7 @@ class PropertyController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model(Property::query()->orderBy('id','desc'))
+        $dataGrid = DataGrid::model($this->productRepository->propertyModel()->query()->orderBy('id','desc'))
             ->column('id',['sortable' => true])
             ->column('name')
             ->column('identifier')
@@ -59,7 +76,7 @@ class PropertyController extends AdminController
      */
     public function store(PropertyRequest $request)
     {
-        $property = Property::create($request->all());
+        $property = $this->productRepository->propertyModel()->create($request->all());
 
         $this->_saveDropdownOptions($property,$request);
         return redirect()->route('admin.property.index');
@@ -74,7 +91,7 @@ class PropertyController extends AdminController
      */
     public function edit($id)
     {
-        $property = Property::findorfail($id);
+        $property = $this->productRepository->propertyModel()->findorfail($id);
 
         return view('avored-ecommerce::admin.property.edit')->with('model', $property);
     }
@@ -89,7 +106,7 @@ class PropertyController extends AdminController
      */
     public function update(PropertyRequest $request, $id)
     {
-        $property = Property::findorfail($id);
+        $property = $this->productRepository->propertyModel()->findorfail($id);
         $property->update($request->all());
 
         $this->_saveDropdownOptions($property,$request);
@@ -106,7 +123,7 @@ class PropertyController extends AdminController
      */
     public function destroy($id)
     {
-        Property::destroy($id);
+        $this->productRepository->propertyModel()->destroy($id);
 
         return redirect()->route('admin.property.index');
     }
@@ -117,14 +134,11 @@ class PropertyController extends AdminController
      * Get the Element Html in Json Response.
      *
      * @param \Illuminate\Http\Request $request
-     *
      * @return \Illuminate\Http\Response
      */
     public function getElementHtml(Request $request)
     {
-        $properties = Property::whereIn('id',$request->get('property_id'))->get();
-
-
+        $properties = $this->productRepository->propertyModel()->whereIn('id',$request->get('property_id'))->get();
 
         $tmpString = str_random();
         $view = view('avored-ecommerce::admin.property.get-element')
@@ -132,7 +146,8 @@ class PropertyController extends AdminController
                         ->with('tmpString', $tmpString);
 
 
-        return new JsonResponse(['success' => true,'content' => $view->render()]);
+        $json = new JsonResponse(['success' => true,'content' => $view->render()]);
+        return $json;
     }
 
     private function _saveDropdownOptions($property, $request)

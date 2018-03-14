@@ -3,10 +3,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use AvoRed\Framework\Repository\Attribute;
-use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Framework\Repository\Product;
 use Illuminate\Support\Collection;
-use AvoRed\Ecommerce\Models\Database\ProductAttributeIntegerValue;
 
 class CartController extends Controller
 {
@@ -15,19 +13,20 @@ class CartController extends Controller
     /**
      * AvoRed Attribute Repository
      *
-     * @var \AvoRed\Framework\Repository\Attribute
+     * @var \AvoRed\Framework\Repository\Product
      */
-    protected $attributeRepository;
+    protected $productRepository;
 
     /**
-     * Cart Controller constructor to Set AvoRed Attribute Repository Property.
+     * Cart Controller constructor to Set AvoRed Product Repository Property.
      *
-     * @param \AvoRed\Framework\Repository\Attribute $repository
+     * @param \AvoRed\Framework\Repository\Product $repository
      * @return void
      */
-    public function __construct(Attribute $attributeRepository)
+    public function __construct(Product $repository)
     {
-        $this->attributeRepository = $attributeRepository;
+        parent::__construct();
+        $this->productRepository = $repository;
     }
 
 
@@ -44,7 +43,7 @@ class CartController extends Controller
 
         $cart = (null === Session::get('cart')) ? Collection::make([]) : Session::get('cart');
 
-        $product = Product::where('slug', '=', $request->get('slug'))->first();
+        $product = $this->productRepository->model()->where('slug', '=', $request->get('slug'))->first();
 
         $requestQty = $request->get('qty',1);
 
@@ -63,11 +62,11 @@ class CartController extends Controller
             foreach ($attributes as $attributeId => $subProductId) {
 
 
-                $subProduct = Product::find($subProductId);
+                $subProduct = $this->productRepository->model()->find($subProductId);
 
-                $productAttributeValue = ProductAttributeIntegerValue::whereProductId($subProductId)->whereAttributeId($attributeId)->first();
+                $productAttributeValue = $this->productRepository->integerAttributeModel()->whereProductId($subProductId)->whereAttributeId($attributeId)->first();
 
-                $attribute = $this->attributeRepository->model()->findorfail($attributeId);
+                $attribute = $this->productRepository->attributeModel()->findorfail($attributeId);
                 $option = $attribute->attributeDropdownOptions()->where('id','=',$productAttributeValue->value)->get()->first();
 
                 $productAttributes[] = [

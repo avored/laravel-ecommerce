@@ -1,7 +1,7 @@
 <?php
 namespace AvoRed\Ecommerce\Http\ViewComposers;
 
-use AvoRed\Framework\Repository\Category;
+use AvoRed\Framework\Repository\Product;
 use Illuminate\View\View;
 
 class ProductFieldsComposer
@@ -10,13 +10,13 @@ class ProductFieldsComposer
     /*
     * AvoRed Framework Category Repository
     *
-    * @var \AvoRed\Framework\Repository\Category
+    * @var \AvoRed\Framework\Repository\Product
     */
-    public $categoryRepository;
+    public $productRepository;
 
-    public function __construct(Category $repository)
+    public function __construct(Product $repository)
     {
-        $this->categoryRepository=  $repository;
+        $this->productRepository=  $repository;
 
     }
 
@@ -29,7 +29,7 @@ class ProductFieldsComposer
     public function compose(View $view)
     {
 
-        $categoryOptions = $this->categoryRepository->model()->pluck('name', 'id');
+        $categoryOptions = $this->productRepository->categoryModel()->all()->pluck('name', 'id');
         $storageOptions = [];//Storage::pluck('name', 'id');
         $view->with('categoryOptions', $categoryOptions)
             ->with('storageOptions',$storageOptions);

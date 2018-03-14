@@ -6,18 +6,40 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use AvoRed\Ecommerce\Events\OrderPlaceAfterEvent;
 use Illuminate\Support\Facades\Session;
-use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Framework\Repository\Product;
 use AvoRed\Ecommerce\Models\Database\Order;
 use App\Http\Requests\PlaceOrderRequest;
 use AvoRed\Ecommerce\Models\Database\OrderStatus;
 use AvoRed\Ecommerce\Models\Database\User;
 use AvoRed\Ecommerce\Models\Database\Address;
-
 use AvoRed\Ecommerce\Models\Database\OrderProductVariation;
 use AvoRed\Framework\Payment\Facade as Payment;
 
 class OrderController extends Controller
 {
+
+
+    /**
+     * AvoRed Attribute Repository
+     *
+     * @var \AvoRed\Framework\Repository\Product
+     */
+    protected $productRepository;
+
+    /**
+     * Cart Controller constructor to Set AvoRed Product Repository Property.
+     *
+     * @param \AvoRed\Framework\Repository\Product $repository
+     * @return void
+     */
+    public function __construct(Product $repository)
+    {
+        parent::__construct();
+
+        $this->productRepository = $repository;
+    }
+
+
 
     public function place(PlaceOrderRequest $request)
     {
@@ -183,7 +205,7 @@ class OrderController extends Controller
                 }
             } else {
 
-                $product = Product::findorfail($id);
+                $product = $this->productRepository->model()->findorfail($id);
                 $product->update(['qty' => ($product->qty - $orderProduct['qty'])]);
             }
 

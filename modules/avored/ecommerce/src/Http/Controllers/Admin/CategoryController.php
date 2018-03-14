@@ -3,16 +3,26 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
-use AvoRed\Framework\Repository\Category as CategoryRepository;
+use AvoRed\Framework\Repository\Product;
 
 class CategoryController extends AdminController
 {
+    /**
+     * AvoRed Product Repository
+     *
+     * @var \AvoRed\Framework\Repository\Product
+     */
+    protected $productRepository;
 
-    public $categoryRepository;
-
-    public function __construct(CategoryRepository $respository)
+    /**
+     * ProductController constructor to Set AvoRed Attribute Repository Property.
+     *
+     * @param \AvoRed\Framework\Repository\Product $repository
+     * @return void
+     */
+    public function __construct(Product $repository)
     {
-        $this->categoryRepository = $respository;
+        $this->productRepository = $repository;
     }
 
     /**
@@ -22,9 +32,7 @@ class CategoryController extends AdminController
      */
     public function index()
     {
-        $categoryModel = $this->categoryRepository->model();
-
-        $dataGrid = DataGrid::model($categoryModel->query())
+        $dataGrid = DataGrid::model($this->productRepository->categoryModel()->query())
                         ->column('name',['label' => 'Name','sortable' => true])
                         ->column('slug',['sortable' => true])
                         ->linkColumn('edit',[], function($model) {
@@ -64,7 +72,7 @@ class CategoryController extends AdminController
      */
     public function store(CategoryRequest $request)
     {
-        $this->categoryRepository->create($request->all());
+        $this->productRepository->categoryModel()->create($request->all());
 
         return redirect()->route('admin.category.index');
     }
@@ -77,7 +85,7 @@ class CategoryController extends AdminController
      */
     public function edit($id)
     {
-        $category = $this->categoryRepository->find($id);
+        $category = $this->productRepository->categoryModel()->find($id);
 
         return view('avored-ecommerce::admin.category.edit')->with('model', $category);
     }
@@ -92,7 +100,7 @@ class CategoryController extends AdminController
      */
     public function update(CategoryRequest $request, $id)
     {
-        $category = $this->categoryRepository->find($id);
+        $category = $this->productRepository->categoryModel()->find($id);
         $category->update($request->all());
 
         return redirect()->route('admin.category.index');
@@ -107,7 +115,7 @@ class CategoryController extends AdminController
      */
     public function destroy($id)
     {
-        $category = $this->categoryRepository->find($id);
+        $category = $this->productRepository->categoryModel()->find($id);
 
         foreach ($category->children as $child) {
             $child->parent_id = 0;
