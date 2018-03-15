@@ -38,19 +38,12 @@
     ],
     "psr-4": {
       "App\\": "app/",
-      "AvoRed\\Ecommerce\\": "modules/avored/ecommerce/src"
+      "AvoRed\\Ecommerce\\": "modules/avored/ecommerce/src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
       "Tests\\": "tests/"
-    }
-  },
-  "extra": {
-    "laravel": {
-      "dont-discover": [
-        "intervention/image"
-      ]
     }
   },
   "scripts": {
