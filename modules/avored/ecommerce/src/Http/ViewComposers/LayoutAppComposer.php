@@ -4,7 +4,7 @@ namespace AvoRed\Ecommerce\Http\ViewComposers;
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Repository\Product;
 use Illuminate\View\View;
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Repository\Config;
 
 class LayoutAppComposer
 {
@@ -16,10 +16,17 @@ class LayoutAppComposer
     */
     public $productRepository;
 
-    public function __construct(Product $repository)
-    {
-        $this->productRepository=  $repository;
+    /*
+   * AvoRed Framework Category Repository
+   *
+   * @var \AvoRed\Ecommerce\Repository\Config
+   */
+    public $configRepository;
 
+    public function __construct(Product $repository, Config $configRepository)
+    {
+        $this->productRepository    =  $repository;
+        $this->configRepository     = $configRepository;
     }
 
 
@@ -36,8 +43,8 @@ class LayoutAppComposer
 
         $baseCategories = $this->productRepository->categoryModel()->getAllCategories();
 
-        $metaTitle = Configuration::getConfiguration('general_site_title');
-        $metaDescription = Configuration::getConfiguration('general_site_description');
+        $metaTitle = $this->configRepository->model()->getConfiguration('general_site_title');
+        $metaDescription = $this->configRepository->model()->getConfiguration('general_site_description');
 
 
         $view->with('categories', $baseCategories)

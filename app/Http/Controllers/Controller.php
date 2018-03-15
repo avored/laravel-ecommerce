@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use AvoRed\Ecommerce\Models\Database\Configuration;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
-use AvoRed\Ecommerce\Repository\Config;
-
 
 class Controller extends BaseController
 {
@@ -17,21 +16,15 @@ class Controller extends BaseController
 
 
 
-    /**
-     * AvoRed Config Repository
-     *
-     * @var \AvoRed\Ecommerce\Repository\Config
-     */
-    protected $configRepository;
 
 
-    public function __construct(Config $repository)
+    public function __construct()
     {
         if (Schema::hasTable('configurations')) {
 
-            $this->configRepository = $repository;
+            $config = new Configuration();
 
-            $themeViewPath = realpath($this->configRepository->model()->getConfiguration('active_theme_path'));
+            $themeViewPath = realpath($config->getConfiguration('active_theme_path'));
 
             $fileViewFinder = View::getFinder();
             $fileViewFinder->prependLocation($themeViewPath);

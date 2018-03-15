@@ -6,7 +6,6 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use AvoRed\Ecommerce\Models\Database\Configuration;
 use AvoRed\Ecommerce\Models\Database\Country;
-use AvoRed\Ecommerce\Models\Database\TaxRule;
 
 class AvoredEcommerceSchema extends Migration
 {
@@ -348,20 +347,6 @@ class AvoredEcommerceSchema extends Migration
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
 
-        Schema::create('tax_rules', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable()->default(null);
-            $table->integer('country_id')->nullable()->unsigned();
-            $table->string('state_code')->nullable()->default(null);
-            $table->string('city')->nullable()->default(null);
-            $table->string('post_code')->nullable()->default(null);
-            $table->float('percentage', 8, 6)->nullable()->default(null);
-            $table->integer('priority')->nullable()->default(null);
-            $table->timestamps();
-
-            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
-        });
-
         Schema::create('states', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('country_id')->unsigned();
@@ -372,28 +357,6 @@ class AvoredEcommerceSchema extends Migration
             $table->foreign('country_id')
                 ->references('id')->on('countries')
                 ->onDelete('cascade');
-        });
-
-        Schema::create('tax_groups', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable()->default(null);
-            $table->timestamps();
-        });
-
-        Schema::create('tax_group_tax_rule_pivot', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('tax_rule_id')->unsigned();
-            $table->integer('tax_group_id')->unsigned();
-            $table->timestamps();
-
-            $table->foreign('tax_rule_id')
-                ->references('id')->on('tax_rules')
-                ->onDelete('cascade');
-
-            $table->foreign('tax_group_id')
-                ->references('id')->on('tax_groups')
-                ->onDelete('cascade');
-
         });
 
         Schema::create('properties', function (Blueprint $table) {
@@ -666,15 +629,6 @@ class AvoredEcommerceSchema extends Migration
         Configuration::create(['configuration_key' => 'avored_tax_class_default_country_for_tax_calculation',
                                 'configuration_value' => $countryModel->id]);
 
-        TaxRule::create([
-            'name' => 'NZ Tax Rule',
-            'country_id' => $countryModel->id,
-            'state_cdoe' => '*',
-            'city' => '*',
-            'post_code' => '*',
-            'percentage' => 15,
-            'priority' => 1
-        ]);
 
 
     }

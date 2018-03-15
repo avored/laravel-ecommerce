@@ -265,27 +265,8 @@ class Provider extends ServiceProvider
             ->route('admin.role.index')
             ->icon('fab fa-periscope');
         $systemMenu->subMenu('roles',$roleMenu);
-        $taxGroupMenu = new AdminMenu();
-        $taxGroupMenu->key('tax-group')
-            ->label('Tax Group')
-            ->route('admin.tax-group.index');
-        //$saleMenu->subMenu('tax-group',$taxGroupMenu);
-        $taxRuleMenu = new AdminMenu();
-        $taxRuleMenu->key('tax-rule')
-            ->label('Tax Rule')
-            ->route('admin.tax-rule.index')
-            ->icon('far fa-folder');
-        $saleMenu->subMenu('tax-rule',$taxRuleMenu);
-        $contryMenu = new AdminMenu();
-        $contryMenu->key('countries')
-            ->label('Countries')
-            ->route('admin.country.index');
-        //$saleMenu->subMenu('countries',$contryMenu);
-        $stateMenu = new AdminMenu();
-        $stateMenu->key('state')
-            ->label('States')
-            ->route('admin.state.index');
-        //$saleMenu->subMenu('state',$stateMenu);
+
+
     }
 
     /**
@@ -436,24 +417,6 @@ class Provider extends ServiceProvider
                 ->parent('admin.admin-user.index');
         });
 
-
-
-        BreadcrumbFacade::make('admin.tax-rule.index',function ($breadcrumb) {
-            $breadcrumb->label('Tax Rule')
-                ->parent('admin.dashboard');
-        });
-
-        BreadcrumbFacade::make('admin.tax-rule.create',function ($breadcrumb) {
-            $breadcrumb->label('Create')
-                ->parent('admin.dashboard')
-                ->parent('admin.tax-rule.index');
-        });
-
-        BreadcrumbFacade::make('admin.tax-rule.edit',function ($breadcrumb) {
-            $breadcrumb->label('Edit')
-                ->parent('admin.dashboard')
-                ->parent('admin.tax-rule.index');
-        });
 
         BreadcrumbFacade::make('admin.configuration',function ($breadcrumb) {
             $breadcrumb->label('Configuration')
@@ -609,27 +572,6 @@ class Provider extends ServiceProvider
         $permissionGroup->addPermission('admin-subscriber-destroy')
             ->label('Subscriber Destroy')
             ->routes('admin.subscriber.destroy');
-
-
-        $permissionGroup = PermissionFacade::add('tax-rule')
-            ->label('Tax Rule Permissions');
-
-        $permissionGroup->addPermission('admin-tax-rule-list')
-            ->label('Tax Rule List')
-            ->routes('admin.tax-rule.index');
-
-        $permissionGroup->addPermission('admin-tax-rule-create')
-            ->label('Tax Rule Create')
-            ->routes('admin.tax-rule.create,admin.tax-rule.store');
-
-        $permissionGroup->addPermission('admin-tax-rule-update')
-            ->label('Tax Rule Update')
-            ->routes('admin.tax-rule.edit,admin.tax-rule.update');
-
-        $permissionGroup->addPermission('admin-tax-rule-destroy')
-            ->label('Tax Rule Destroy')
-            ->routes('admin.tax-rule.destroy');
-
 
 
         $permissionGroup = PermissionFacade::add('admin-user')

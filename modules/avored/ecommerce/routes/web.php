@@ -67,7 +67,6 @@ Route::middleware(['web', 'admin.auth', 'permission'])
 
 
         Route::resource('/page', 'PageController', ['as' => 'admin']);
-        Route::resource('/tax-rule', 'TaxRuleController', ['as' => 'admin']);
 
         Route::resource('/admin-user', 'AdminUserController', ['as' => 'admin']);
 

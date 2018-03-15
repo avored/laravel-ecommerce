@@ -7,9 +7,12 @@ use AvoRed\Framework\Payment\Payment as PaymentEcommerce;
 use AvoRed\Framework\Payment\Contracts\Payment as PaymentContracts;
 use Stripe\Stripe;
 use Stripe\Charge;
+use AvoRed\Ecommerce\Repository\Config;
+
 
 class Payment extends PaymentEcommerce implements PaymentContracts
 {
+
     /**
      * Payment Option Identifier
      *
@@ -37,7 +40,8 @@ class Payment extends PaymentEcommerce implements PaymentContracts
 
     public function enable()
     {
-        $isEnabled = Configuration::getConfiguration('avored_stripe_enabled');
+        $model = new Configuration();
+        $isEnabled = $model->getConfiguration('avored_stripe_enabled');
         if (null === $isEnabled || false == $isEnabled) {
             return false;
         }
