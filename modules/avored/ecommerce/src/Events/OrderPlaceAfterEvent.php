@@ -4,7 +4,7 @@ namespace AvoRed\Ecommerce\Events;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use AvoRed\Ecommerce\Models\Database\Order;
+use AvoRed\Framework\Models\Database\Order;
 
 class OrderPlaceAfterEvent
 {
@@ -14,7 +14,7 @@ class OrderPlaceAfterEvent
     /***
      * AvoRed Order Model
      *
-     * @var \AvoRed\Ecommerce\Models\Database\Order
+     * @var \AvoRed\Framework\Models\Database\Order
      *
      */
     public $order;
@@ -25,7 +25,7 @@ class OrderPlaceAfterEvent
     /**
      * Create a new event instance.
      *
-     * @param \AvoRed\Ecommerce\Models\Database\Order $order
+     * @param \AvoRed\Framework\Models\Database\Order $order
      * @param array $orderProducts
      * @param \Illuminate\Http\Request $request
      */

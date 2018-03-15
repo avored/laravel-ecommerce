@@ -4,7 +4,7 @@ namespace AvoRed\Ecommerce\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use AvoRed\Ecommerce\Models\Database\Order;
+use AvoRed\Framework\Models\Database\Order;
 
 class OrderInvoicedMail extends Mailable
 {

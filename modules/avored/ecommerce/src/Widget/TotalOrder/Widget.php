@@ -2,7 +2,7 @@
 
 namespace AvoRed\Ecommerce\Widget\TotalOrder;
 
-use AvoRed\Ecommerce\Models\Database\Order;
+use AvoRed\Framework\Models\Database\Order;
 use AvoRed\Framework\Widget\Contracts\Widget as WidgetContract;
 
 class Widget implements WidgetContract
