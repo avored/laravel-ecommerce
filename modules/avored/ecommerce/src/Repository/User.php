@@ -34,6 +34,6 @@ class User extends AbstractRepository {
     }
 
     public function wishlistModel() {
-        return Wishlist();
+        return new Wishlist();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use AvoRed\Ecommerce\Models\Database\Configuration;
 use AvoRed\Ecommerce\Http\Requests\AddressRequest;
+use AvoRed\Ecommerce\Repository\User;
 
 class AddressController extends Controller
 {
@@ -25,6 +26,7 @@ class AddressController extends Controller
     {
         $this->userRepository = $repository;
     }
+
 
 
     /**
