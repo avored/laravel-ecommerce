@@ -3,12 +3,31 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\Request;
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Repository\Config;
 use AvoRed\Framework\Theme\Facade as Theme;
 use Illuminate\Support\Facades\File;
 
 class ThemeController extends AdminController
 {
+
+    /**
+     * AvoRed Config Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\Config
+     */
+    protected $configRepository;
+
+
+    /**
+     * Theme Controller constructor to Set AvoRed Ecommerce Cofig Repository.
+     *
+     * @param \AvoRed\Ecommerce\Repository\Config $repository
+     * @return void
+     */
+    public function __construct(Config $repository)
+    {
+        $this->configRepository   = $repository;
+    }
 
     /**
      * Display a listing of the theme.
@@ -18,7 +37,7 @@ class ThemeController extends AdminController
     public function index()
     {
         $themes = Theme::all();
-        $activeTheme = Configuration::getConfiguration('active_theme_identifier');
+        $activeTheme = $this->configRepository->model()->getConfiguration('active_theme_identifier');
 
         return view('avored-ecommerce::admin.theme.index')
             ->with('themes', $themes)
@@ -70,7 +89,7 @@ class ThemeController extends AdminController
 
 
         try {
-            $activeThemeConfiguration = Configuration::getConfiguration('active_theme_identifier');
+            $activeThemeConfiguration = $this->configRepository->model()->getConfiguration('active_theme_identifier');
 
             if(null !== $activeThemeConfiguration) {
                 Configuration::setConfiguration('active_theme_identifier',$theme['name']);
@@ -81,13 +100,13 @@ class ThemeController extends AdminController
                 ]);
             }
 
-            $activeThemePath = Configuration::getConfiguration('active_theme_path');
+            $activeThemePath = $this->configRepository->model()->getConfiguration('active_theme_path');
             if(null !== $activeThemePath) {
 
-                Configuration::setConfiguration('active_theme_path',$theme['view_path']);
+                $this->configRepository->model()->setConfiguration('active_theme_path',$theme['view_path']);
 
             } else {
-                Configuration::create([
+                $this->configRepository->model()->create([
                     'configuration_key' => 'active_theme_path',
                     'configuration_value' => $theme['view_path'],
                 ]);
@@ -123,22 +142,22 @@ class ThemeController extends AdminController
         $theme = Theme::get('avored-default');
 
         try {
-            $activeThemeConfiguration = Configuration::whereConfigurationKey('active_theme_identifier')->first();
+            $activeThemeConfiguration = $this->configRepository->model()->whereConfigurationKey('active_theme_identifier')->first();
 
             if(null !== $activeThemeConfiguration) {
                 $activeThemeConfiguration->update(['configuration_value' => $theme['name']]);
             } else {
-                Configuration::create([
+                $this->configRepository->model()->create([
                     'configuration_key' => 'active_theme_identifier',
                     'configuration_value' => $theme['name'],
                 ]);
             }
 
-            $activeThemePathConfiguration = Configuration::whereConfigurationKey('active_theme_path')->first();
+            $activeThemePathConfiguration = $this->configRepository->model()->whereConfigurationKey('active_theme_path')->first();
             if(null !== $activeThemePathConfiguration) {
                 $activeThemePathConfiguration->update(['configuration_value' => $theme['view_path']]);
             } else {
-                Configuration::create([
+                $this->configRepository->model()->create([
                     'configuration_key' => 'active_theme_path',
                     'configuration_value' => $theme['name'],
                 ]);

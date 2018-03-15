@@ -3,8 +3,8 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
-use AvoRed\Ecommerce\Models\Database\Configuration;
 use AvoRed\Framework\Repository\Order;
+use AvoRed\Ecommerce\Repository\Config;
 use AvoRed\Ecommerce\Models\Database\Visitor;
 
 class DashboardController extends AdminController
@@ -17,14 +17,23 @@ class DashboardController extends AdminController
     protected $orderRepository;
 
     /**
+     * AvoRed Config Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\Config
+     */
+    protected $configRepository;
+
+    /**
      * Cart Controller constructor to Set AvoRed Product Repository Property.
      *
      * @param \AvoRed\Framework\Repository\Order $repository
+     * @param \AvoRed\Ecommerce\Repository\Config
      * @return void
      */
-    public function __construct(Order $repository)
+    public function __construct(Order $repository, Config $configRepository)
     {
-        $this->orderRepository      = $repository;
+        $this->orderRepository  = $repository;
+        $this->configRepository = $configRepository;
     }
 
 
@@ -51,7 +60,7 @@ class DashboardController extends AdminController
 
         }
 
-        $value = Configuration::getConfiguration('avored_user_total');
+        $value = $this->configRepository->model()->getConfiguration('avored_user_total');
         $totalRegisteredUser = (null === $value) ? 0 : $value;
         $totalOrder = $this->orderRepository->model()->all()->count();
 

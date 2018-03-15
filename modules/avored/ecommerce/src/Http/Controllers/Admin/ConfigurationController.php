@@ -2,8 +2,9 @@
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Repository\Config;
 use AvoRed\Ecommerce\Repository\User;
+use AvoRed\Ecommerce\Repository\Page;
 use Illuminate\Support\Collection;
 
 class ConfigurationController extends AdminController
@@ -18,14 +19,33 @@ class ConfigurationController extends AdminController
     protected $userRepository;
 
     /**
+     * AvoRed Config Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\Config
+     */
+    protected $configRepository;
+
+    /**
+     * AvoRed Config Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\Page
+     */
+    protected $pageRepository;
+
+
+    /**
      * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
      *
      * @param \AvoRed\Ecommerce\Repository\User $repository
+     * @param \AvoRed\Ecommerce\Repository\Config $configRepository
+     * @param \AvoRed\Ecommerce\Repository\Page $pageRepository
      * @return void
      */
-    public function __construct(User $repository)
+    public function __construct(User $repository, Config $configRepository, Page $pageRepository)
     {
-        $this->userRepository = $repository;
+        $this->userRepository   = $repository;
+        $this->configRepository = $configRepository;
+        $this->pageRepository   = $pageRepository;
     }
 
     /**
@@ -36,8 +56,8 @@ class ConfigurationController extends AdminController
     public function index()
     {
 
-        $model = new Configuration();
-        $pageOptions = Collection::make(['' => 'Please Select'] + Page::all()->pluck('name', 'id')->toArray());
+        $model = $this->configRepository->model();
+        $pageOptions = Collection::make(['' => 'Please Select'] + $this->pageRepository->model()->all()->pluck('name', 'id')->toArray());
         $countryOptions = $this->userRepository->countryModel()->getCountriesOptions($empty = true);
 
         return view('avored-ecommerce::admin.configuration.index')
@@ -55,13 +75,13 @@ class ConfigurationController extends AdminController
     public function store(Request $request)
     {
         foreach ($request->except(['_token', '_method']) as $key => $value) {
-            $configuration = Configuration::where('configuration_key', '=', $key)->get()->first();
+            $configuration = $this->configRepository->model()->where('configuration_key', '=', $key)->get()->first();
 
             if (null === $configuration) {
                 $data['configuration_key'] = $key;
                 $data['configuration_value'] = $value;
 
-                Configuration::create($data);
+                $this->configRepository->model()->create($data);
 
 
             } else {

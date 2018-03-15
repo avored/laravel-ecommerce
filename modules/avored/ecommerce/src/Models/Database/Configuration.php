@@ -16,13 +16,13 @@ class Configuration extends BaseModel
         return null;
     }
 
-    public static function getConfiguration($key)
+    public function getConfiguration($key)
     {
         $model = new static;
         return $model->getValue($key);
     }
 
-    public static function setConfiguration($key,$value)
+    public function setConfiguration($key,$value)
     {
         $model = new static;
         $row = $model->where('configuration_key', '=', $key)->first();

@@ -1,7 +1,7 @@
 <?php
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use AvoRed\Ecommerce\Models\Database\Page;
+use AvoRed\Ecommerce\Repository\Page;
 use AvoRed\Ecommerce\Http\Requests\PageRequest;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Framework\Widget\Facade as Widget;
@@ -10,13 +10,33 @@ class PageController extends AdminController
 {
 
     /**
+     * AvoRed Config Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\Page
+     */
+    protected $pageRepository;
+
+
+    /**
+     * Page Controller constructor to Set AvoRed Ecommerce Page Repository.
+     *
+     * @param \AvoRed\Ecommerce\Repository\Page $pageRepository
+     * @return void
+     */
+    public function __construct(Page $pageRepository)
+    {
+        $this->pageRepository   = $pageRepository;
+    }
+
+
+    /**
      * Display a listing of the Page.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $dataGrid = DataGrid::model(Page::query()->orderBy('id','desc'))
+        $dataGrid = DataGrid::model($this->pageRepository->model()->query()->orderBy('id','desc'))
             ->column('id',['sortable' => true])
             ->column('name')
             ->column('slug')
@@ -58,7 +78,7 @@ class PageController extends AdminController
      */
     public function store(PageRequest $request)
     {
-        Page::create($request->all());
+        $this->pageRepository->model()->create($request->all());
 
         return redirect()->route('admin.page.index');
     }
@@ -72,7 +92,7 @@ class PageController extends AdminController
      */
     public function edit($id)
     {
-        $page = Page::findorfail($id);
+        $page = $this->pageRepository->model()->findorfail($id);
         $widgetOptions = Widget::allOptions();
 
 
@@ -91,7 +111,7 @@ class PageController extends AdminController
      */
     public function update(PageRequest $request, $id)
     {
-        $page = Page::findorfail($id);
+        $page = $this->pageRepository->model()->findorfail($id);
         $page->update($request->all());
 
         return redirect()->route('admin.page.index');
@@ -106,7 +126,7 @@ class PageController extends AdminController
      */
     public function destroy($id)
     {
-        Page::destroy($id);
+        $this->pageRepository->model()->destroy($id);
 
         return redirect()->route('admin.page.index');
     }

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use AvoRed\Ecommerce\Events\UserRegisteredEvent;
 use AvoRed\Ecommerce\Mail\NewUserMail;
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Repository\Config;
 use AvoRed\Ecommerce\Repository\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -37,22 +37,34 @@ class RegisterController extends Controller
 
 
     /**
+     * AvoRed User Repository
      *
-     *
-     * @var string
+     * @var  \AvoRed\Ecommerce\Repository\User
      */
     protected $userRepository;
+
+
+    /**
+     * AvoRed Config Repository
+     *
+     * @var  \AvoRed\Ecommerce\Repository\Config
+     */
+    protected $configRepository;
 
     /**
      * Create a new controller instance.
      *
+     * @param \AvoRed\Ecommerce\Repository\User
+     * @param \AvoRed\Ecommerce\Repository\Config
      * @return void
      */
-    public function __construct(User $repository)
+    public function __construct(User $repository, Config $configRepository)
     {
         parent::__construct();
         $this->middleware('front.guest');
-        $this->userRepository = $repository;
+
+        $this->userRepository   = $repository;
+        $this->configRepository = $configRepository;
     }
 
     /**
@@ -84,7 +96,7 @@ class RegisterController extends Controller
 
         $this->validator($request->all())->validate();
 
-        $userActivationRequired = Configuration::getConfiguration('avored_user_activation_required');
+        $userActivationRequired = $this->configRepository->model()->getConfiguration('avored_user_activation_required');
 
         if(1 == $userActivationRequired) {
             $request->merge(['activation_token' => Str::random(60)]);

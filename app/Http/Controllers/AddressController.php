@@ -1,10 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use AvoRed\Ecommerce\Models\Database\Configuration;
-use AvoRed\Ecommerce\Http\Requests\AddressRequest;
+use AvoRed\Ecommerce\Repository\Config;
 use AvoRed\Ecommerce\Repository\User;
+
+use Illuminate\Support\Facades\Auth;
+
+use AvoRed\Ecommerce\Http\Requests\AddressRequest;
+
 
 class AddressController extends Controller
 {
@@ -17,14 +20,23 @@ class AddressController extends Controller
     protected $userRepository;
 
     /**
+     * AvoRed Config Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\Config
+     */
+    protected $configRepository;
+
+    /**
      * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
      *
      * @param \AvoRed\Ecommerce\Repository\User $repository
+     * @param \AvoRed\Ecommerce\Repository\Config $configRepository
      * @return void
      */
-    public function __construct(User $repository)
+    public function __construct(User $repository, Config $configRepository)
     {
-        $this->userRepository = $repository;
+        $this->userRepository   = $repository;
+        $this->configRepository = $configRepository;
     }
 
 
@@ -54,7 +66,7 @@ class AddressController extends Controller
     {
         $user = Auth::user();
         $countries = $this->userRepository->countryModel()->all();
-        $defaultCountry = Configuration::getConfiguration('avored_address_default_country');
+        $defaultCountry = $this->configRepository->model()->getConfiguration('avored_address_default_country');
 
         return view('address.my-account.create-address')
             ->with('user', $user)
@@ -79,18 +91,6 @@ class AddressController extends Controller
     }
 
     /**
-     * Display the specified user addresses.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified user addresses.
      *
      * @param int $id
@@ -101,7 +101,7 @@ class AddressController extends Controller
     {
         $user           = Auth::user();
         $address        = $this->userRepository->addressModel()->findorfail($id);
-        $defaultCountry = Configuration::getConfiguration('avored_address_default_country');
+        $defaultCountry = $this->configRepository->model()->getConfiguration('avored_address_default_country');
         $countries      = $this->userRepository->countryModel()->all();
 
         return view('address.my-account.edit-address')
