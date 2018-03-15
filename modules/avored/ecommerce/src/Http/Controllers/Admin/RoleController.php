@@ -1,7 +1,7 @@
 <?php
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use AvoRed\Ecommerce\Models\Database\Role;
+use AvoRed\Ecommerce\Repository\User;
 use AvoRed\Ecommerce\Http\Requests\RoleRequst;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Models\Database\Permission;
@@ -10,13 +10,31 @@ class RoleController extends AdminController
 {
 
     /**
+     * AvoRed Product Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\User
+     */
+    protected $userRepository;
+
+    /**
+     * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
+     *
+     * @param \AvoRed\Ecommerce\Repository\User $repository
+     * @return void
+     */
+    public function __construct(User $repository)
+    {
+        $this->userRepository = $repository;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $dataGrid = DataGrid::model(Role::query())
+        $dataGrid = DataGrid::model($this->userRepository->roleModel()->query())
             ->column('id',['sortable' => true])
             ->column('name')
             ->linkColumn('edit',[], function($model) {
@@ -58,7 +76,7 @@ class RoleController extends AdminController
     {
 
         try {
-            $role = Role::create($request->all());
+            $role = $this->userRepository->roleModel()->create($request->all());
             $this->_saveRolePermissions($request, $role);
 
         } catch (\Exception $e) {
@@ -76,7 +94,7 @@ class RoleController extends AdminController
      */
     public function edit($id)
     {
-        $role = Role::findorfail($id);
+        $role = $this->userRepository->roleModel()->findorfail($id);
 
         return view('avored-ecommerce::admin.role.edit')
             ->with('model', $role);
@@ -93,7 +111,7 @@ class RoleController extends AdminController
     public function update(RoleRequst $request, $id)
     {
         try {
-            $role = Role::findorfail($id);
+            $role = $this->userRepository->roleModel()->findorfail($id);
             $role->update($request->all());
             $this->_saveRolePermissions($request, $role);
         } catch (\Exception $e) {
@@ -111,7 +129,7 @@ class RoleController extends AdminController
      */
     public function destroy($id)
     {
-        Role::destroy($id);
+        $this->userRepository->roleModel()->destroy($id);
 
         return redirect()->route('admin.role.index')->with('notificationText', " Role Destroy Successfully!");
     }

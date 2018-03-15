@@ -1,13 +1,31 @@
 <?php
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use AvoRed\Ecommerce\Models\Database\Country;
 use AvoRed\Ecommerce\Models\Database\TaxRule;
 use AvoRed\Ecommerce\Http\Requests\TaxRuleRequest;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 
 class TaxRuleController extends AdminController
 {
+
+    /**
+     * AvoRed Product Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\User
+     */
+    protected $userRepository;
+
+    /**
+     * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
+     *
+     * @param \AvoRed\Ecommerce\Repository\User $repository
+     * @return void
+     */
+    public function __construct(User $repository)
+    {
+        $this->userRepository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +61,7 @@ class TaxRuleController extends AdminController
      */
     public function create()
     {
-        $countryOptions = Country::getCountriesOptions(true);
+        $countryOptions = $this->userRepository->countryModel()->getCountriesOptions(true);
         return view('avored-ecommerce::admin.tax-rule.create')->with('countryOptions', $countryOptions);
     }
 
@@ -70,7 +88,7 @@ class TaxRuleController extends AdminController
      */
     public function edit($id)
     {
-        $countryOptions = [null => 'Please Select'] + Country::all()->pluck('name', 'id')->toArray();
+        $countryOptions = [null => 'Please Select'] + $this->userRepository->countryModel()->all()->pluck('name', 'id')->toArray();
         $taxRule = TaxRule::findorfail($id);
 
         return view('avored-ecommerce::admin.tax-rule.edit')

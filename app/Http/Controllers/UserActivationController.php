@@ -2,7 +2,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use AvoRed\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Repository\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use AvoRed\Ecommerce\Mail\NewUserMail;
@@ -10,21 +10,26 @@ use AvoRed\Ecommerce\Mail\NewUserMail;
 class UserActivationController extends Controller
 {
 
+    protected $userRepository;
+
     /**
      * Create a new controller instance.
      *
+     * @param \AvoRed\Ecommerce\Repository\User
      * @return void
      */
-    public function __construct()
+    public function __construct(User $repository)
     {
         parent::__construct();
         $this->middleware('front.guest');
+
+        $this->userRepository = $repository;
     }
 
     public function activateAccount($token, $email)
     {
 
-        $user = User::whereEmail($email)->first();
+        $user = $this->userRepository->model()->whereEmail($email)->first();
 
         if($token == $user->activation_token) {
 
@@ -43,7 +48,7 @@ class UserActivationController extends Controller
 
     public function resendPost(Request $request) {
 
-        $user = User::whereEmail($request->get('email'))->first();
+        $user = $this->userRepository->model()->whereEmail($request->get('email'))->first();
 
 
         Mail::to($user)->send(new NewUserMail($user));

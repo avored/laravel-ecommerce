@@ -7,7 +7,6 @@ use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Framework\Repository\Product;
 use AvoRed\Ecommerce\Http\Requests\PropertyRequest;
 
-
 class PropertyController extends AdminController
 {
     /**

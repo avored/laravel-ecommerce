@@ -3,7 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use AvoRed\Framework\Repository\Product;
-use AvoRed\Ecommerce\Models\Database\Wishlist;
+use AvoRed\Ecommerce\Repository\User;
 
 class WishlistController extends Controller
 {
@@ -18,17 +18,26 @@ class WishlistController extends Controller
     public $productRepository;
 
     /**
+     * AvoRed E commerce User Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\User
+     *
+     */
+    public $userRepository;
+    /**
      * Wish list  Controller Setting Product Repository Property of Class.
      *
      * @var \AvoRed\Framework\Repository\Product
      * @return void
      */
-    public function __construct(Product $repository)
+    public function __construct(Product $repository, User $userRepository)
     {
         parent::__construct();
-
-        $this->productRepository  = $repository;
         $this->middleware('front.auth');
+
+        $this->productRepository    = $repository;
+        $this->userRepository       = $userRepository;
+
     }
 
     /**
@@ -39,7 +48,7 @@ class WishlistController extends Controller
     {
 
         $product = $this->productRepository->model()->getProductBySlug($slug);
-        Wishlist::create([
+        $this->userRepository->wishlistModel()->create([
             'user_id' => Auth::user()->id,
             'product_id' => $product->id,
         ]);
@@ -53,7 +62,7 @@ class WishlistController extends Controller
      */
     public function mylist()
     {
-        $wishlists = Wishlist::where([
+        $wishlists = $this->userRepository->wishlistModel()->where([
             'user_id' => Auth::user()->id
         ])->get();
 
@@ -72,7 +81,7 @@ class WishlistController extends Controller
     {
         $product = $this->productRepository->model()->getProductBySlug($slug);
 
-        Wishlist::where([
+        $this->userRepository->wishlistModel()->where([
             'user_id' => Auth::user()->id,
             'product_id' => $product->id,
         ])->delete();

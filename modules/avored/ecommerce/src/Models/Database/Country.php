@@ -15,7 +15,7 @@ class Country extends BaseModel
         return $this->hasMany(State::class);
     }
 
-    public static function getCountriesOptions($empty = false)
+    public function getCountriesOptions($empty = false)
     {
         $model = new static();
 

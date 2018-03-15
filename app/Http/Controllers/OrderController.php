@@ -10,8 +10,7 @@ use AvoRed\Framework\Repository\Product;
 use AvoRed\Ecommerce\Models\Database\Order;
 use App\Http\Requests\PlaceOrderRequest;
 use AvoRed\Ecommerce\Models\Database\OrderStatus;
-use AvoRed\Ecommerce\Models\Database\User;
-use AvoRed\Ecommerce\Models\Database\Address;
+use AvoRed\Ecommerce\Repository\User;
 use AvoRed\Ecommerce\Models\Database\OrderProductVariation;
 use AvoRed\Framework\Payment\Facade as Payment;
 
@@ -27,16 +26,25 @@ class OrderController extends Controller
     protected $productRepository;
 
     /**
+     * AvoRed Attribute Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\User
+     */
+    protected $userRepository;
+
+    /**
      * Cart Controller constructor to Set AvoRed Product Repository Property.
      *
      * @param \AvoRed\Framework\Repository\Product $repository
+     * @param \AvoRed\Ecommerce\Repository\User $userRepository
      * @return void
      */
-    public function __construct(Product $repository)
+    public function __construct(Product $repository, User $userRepository)
     {
         parent::__construct();
 
-        $this->productRepository = $repository;
+        $this->productRepository    = $repository;
+        $this->userRepository       = $userRepository;
     }
 
 
@@ -116,7 +124,7 @@ class OrderController extends Controller
         $userData = $request->get('user');
 
 
-        $user = User::where('email', '=', $userData['email'])->first();
+        $user = $this->userRepository->model()->where('email', '=', $userData['email'])->first();
 
 
         if (null === $user) {
@@ -128,7 +136,7 @@ class OrderController extends Controller
             $userData['first_name'] = $billingData['first_name'];
             $userData['last_name'] = $billingData['last_name'];
 
-            $user = User::create($userData);
+            $user = $this->userRepository->model()->create($userData);
         }
 
         Auth::guard('web')->loginUsingId($user->id);
@@ -146,10 +154,10 @@ class OrderController extends Controller
         $billingData['user_id'] = Auth::guard('web')->user()->id;
 
         if (isset($billingData['id']) && $billingData['id'] > 0) {
-            $address = Address::findorfail($billingData['id']);
+            $address = $this->userRepository->addressModel()->findorfail($billingData['id']);
             //$address->update($shippingData);
         } else {
-            $address = Address::create($billingData);
+            $address = $this->userRepository->addressModel()->create($billingData);
         }
 
         return $address;
@@ -169,10 +177,10 @@ class OrderController extends Controller
         $shippingData['user_id'] = Auth::guard('web')->user()->id;
 
         if (isset($shippingData['id']) && $shippingData['id'] > 0) {
-            $address = Address::findorfail($shippingData['id']);
+            $address = $this->userRepository->addressModel()->findorfail($shippingData['id']);
             //$address->update($shippingData);
         } else {
-            $address = Address::create($shippingData);
+            $address = $this->userRepository->addressModel()->create($shippingData);
         }
 
         return $address;

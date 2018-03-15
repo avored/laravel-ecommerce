@@ -7,13 +7,32 @@ use AvoRed\Ecommerce\Mail\OrderInvoicedMail;
 use AvoRed\Ecommerce\Models\Database\Order;
 use AvoRed\Ecommerce\Models\Database\OrderStatus;
 use AvoRed\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
-use AvoRed\Ecommerce\Models\Database\User;
 use AvoRed\Ecommerce\Mail\UpdateOrderStatusMail;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use Illuminate\Support\Facades\File;
 
 class OrderController extends AdminController
 {
+
+    /**
+     * AvoRed Product Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\User
+     */
+    protected $userRepository;
+
+    /**
+     * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
+     *
+     * @param \AvoRed\Ecommerce\Repository\User $repository
+     * @return void
+     */
+    public function __construct(User $repository)
+    {
+        $this->userRepository = $repository;
+    }
+
+
     public function index()
     {
         $dataGrid = DataGrid::model(Order::query()->orderBy('id','desc'))
@@ -42,7 +61,7 @@ class OrderController extends AdminController
     {
 
         $order = Order::findorfail($id);
-        $user = User::find($order->user_id);
+        $user = $this->userRepository->model()->find($order->user_id);
 
         $view = view('avored-ecommerce::admin.mail.order-pdf')->with('order', $order);
 

@@ -3,12 +3,31 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use AvoRed\Ecommerce\Models\Database\Configuration;
-use AvoRed\Ecommerce\Models\Database\Page;
+use AvoRed\Ecommerce\Repository\User;
 use Illuminate\Support\Collection;
 use AvoRed\Ecommerce\Models\Database\Country;
 
 class ConfigurationController extends AdminController
 {
+
+
+    /**
+     * AvoRed Product Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\User
+     */
+    protected $userRepository;
+
+    /**
+     * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
+     *
+     * @param \AvoRed\Ecommerce\Repository\User $repository
+     * @return void
+     */
+    public function __construct(User $repository)
+    {
+        $this->userRepository = $repository;
+    }
 
     /**
      * Show the application dashboard.
@@ -20,7 +39,7 @@ class ConfigurationController extends AdminController
 
         $model = new Configuration();
         $pageOptions = Collection::make(['' => 'Please Select'] + Page::all()->pluck('name', 'id')->toArray());
-        $countryOptions = Country::getCountriesOptions($empty = true);
+        $countryOptions = $this->userRepository->countryModel()->getCountriesOptions($empty = true);
 
         return view('avored-ecommerce::admin.configuration.index')
             ->with('model', $model)

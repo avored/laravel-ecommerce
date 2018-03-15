@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use AvoRed\Ecommerce\Events\UserRegisteredEvent;
 use AvoRed\Ecommerce\Mail\NewUserMail;
 use AvoRed\Ecommerce\Models\Database\Configuration;
-use AvoRed\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Repository\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -35,16 +35,24 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/my-account';
 
+
+    /**
+     *
+     *
+     * @var string
+     */
+    protected $userRepository;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(User $repository)
     {
         parent::__construct();
-
         $this->middleware('front.guest');
+        $this->userRepository = $repository;
     }
 
     /**
@@ -84,7 +92,7 @@ class RegisterController extends Controller
 
         $request->merge(['password' => bcrypt($request->get('password'))]);
 
-        $user = User::create($request->all());
+        $user = $this->userRepository->model()->create($request->all());
         Event::fire(new UserRegisteredEvent($user));
 
         Mail::to($user)->send(new NewUserMail($user));
@@ -101,7 +109,7 @@ class RegisterController extends Controller
     public function activateAccount($token, $email)
     {
 
-        $user = User::whereEmail($email)->first();
+        $user = $this->userRepository->model()->whereEmail($email)->first();
 
         if($token == $user->activation_token) {
 

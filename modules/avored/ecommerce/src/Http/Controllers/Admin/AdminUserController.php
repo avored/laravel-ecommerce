@@ -3,14 +3,31 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Client;
-use AvoRed\Ecommerce\Models\Database\AdminUser;
-use AvoRed\Ecommerce\Models\Database\Role;
 use AvoRed\Ecommerce\Http\Requests\AdminUserRequest;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Framework\Image\Facade as Image;
+use AvoRed\Ecommerce\Repository\User;
 
 class AdminUserController extends AdminController
 {
+    /**
+     * AvoRed Product Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\User
+     */
+    protected $userRepository;
+
+    /**
+     * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
+     *
+     * @param \AvoRed\Ecommerce\Repository\User $repository
+     * @return void
+     */
+    public function __construct(User $repository)
+    {
+        $this->userRepository = $repository;
+    }
+
 
     /**
      * Display a listing of the resource.
@@ -19,7 +36,7 @@ class AdminUserController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model(AdminUser::query()->orderBy('id','desc'))
+        $dataGrid = DataGrid::model($this->userRepository->adminUserModel()->query()->orderBy('id','desc'))
             ->column('id',['sortable' => true])
             ->column('first_name',['label' => 'First Name'])
             ->column('last_name',['label' => 'Last Name'])
@@ -70,10 +87,10 @@ class AdminUserController extends AdminController
 
         //TMP only once we add user role then remove it???
 
-        $role = Role::all()->first();
+        $role = $this->userRepository->roleModel()->all()->first();
         $request->merge(['role_id' => $role->id]);
 
-        AdminUser::create($request->all());
+        $this->userRepository->model()->create($request->all());
 
         return redirect()->route('admin.admin-user.index');
     }
@@ -87,7 +104,7 @@ class AdminUserController extends AdminController
      */
     public function edit($id)
     {
-        $user = AdminUser::findorfail($id);
+        $user = $this->userRepository->model()->findorfail($id);
         $roles = $this->_getRoleOptions();
         return view('avored-ecommerce::admin.admin-user.edit')
             ->with('model', $user)
@@ -115,7 +132,7 @@ class AdminUserController extends AdminController
         $request->merge(['image_path' => $image->relativePath]);
 
 
-        $user = AdminUser::findorfail($id);
+        $user = $this->userRepository->model()->findorfail($id);
 
         $user->update($request->all());
 
@@ -131,14 +148,14 @@ class AdminUserController extends AdminController
      */
     public function destroy($id)
     {
-        AdminUser::destroy($id);
+        $this->userRepository->model()->destroy($id);
 
         return redirect()->route('admin.admin-user.index');
     }
 
     private function _getRoleOptions()
     {
-        return [0 => 'Please Select'] + Role::all()->pluck('name', 'id')->toArray();
+        return [0 => 'Please Select'] + $this->userRepository->roleModel()->all()->pluck('name', 'id')->toArray();
     }
 
     public function apiShow() {
