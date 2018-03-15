@@ -325,17 +325,6 @@ class AvoredEcommerceSchema extends Migration
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
 
-        Schema::create('visitors', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('ip_address', 15);
-            $table->string('url' );
-            $table->string('agent', 150);
-            $table->integer('user_id')->unsigned()->nullable()->default(null);
-            $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
-
         Schema::create('roles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');

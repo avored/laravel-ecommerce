@@ -38,13 +38,6 @@
                 </div>
 
             </div>
-            <div class="row">
-                <div class="col-4">
-
-                    <canvas id="myChart" height="200px"></canvas>
-
-                </div>
-            </div>
 
         </div>
     </div>
@@ -55,18 +48,6 @@
 @push('scripts')
     <script>
         $(function () {
-            var ctx = document.getElementById("myChart");
-            var myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: [ {!! $visitorLabelCollection !!} ],
-                    datasets: [{
-                        label: '# of Visits',
-                        data: [{{ $visitorValueCollection }}],
-                        borderWidth: 1
-                    }]
-                },
-            });
 
 
         });

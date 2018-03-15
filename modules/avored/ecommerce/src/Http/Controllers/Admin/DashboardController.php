@@ -5,7 +5,6 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use AvoRed\Framework\Repository\Order;
 use AvoRed\Ecommerce\Repository\Config;
-use AvoRed\Ecommerce\Models\Database\Visitor;
 
 class DashboardController extends AdminController
 {
@@ -46,28 +45,12 @@ class DashboardController extends AdminController
     public function index()
     {
 
-        $visitorLabelCollection = Collection::make([]);
-        $visitorValueCollection = Collection::make([]);
-        $todaysDateCarbon = Carbon::today();
-
-        for($i = 0; $i<=6; $i++) {
-
-            $visitorCountForThatDay = Visitor::whereDay('created_at','=', $todaysDateCarbon->day)->get()->count();
-            $visitorLabelCollection->push('"' .$todaysDateCarbon->format('d-M-y'). '"' );
-            $visitorValueCollection->push($visitorCountForThatDay);
-
-            $todaysDateCarbon->subDay(1);
-
-        }
-
         $value = $this->configRepository->model()->getConfiguration('avored_user_total');
         $totalRegisteredUser = (null === $value) ? 0 : $value;
         $totalOrder = $this->orderRepository->model()->all()->count();
 
         return view('avored-ecommerce::admin.home')
             ->with('totalRegisteredUser', $totalRegisteredUser)
-            ->with('visitorLabelCollection', implode(",", $visitorLabelCollection->all()))
-            ->with('visitorValueCollection', implode(",", $visitorValueCollection->all()))
             ->with('totalOrder', $totalOrder)
             ;
     }
