@@ -113,7 +113,7 @@ class Provider extends ServiceProvider
         $router->aliasMiddleware('front.guest', RedirectIfFrontAuth::class);
         $router->aliasMiddleware('visitor', Visitor::class);
         $router->aliasMiddleware('permission', Permission::class);
-        $router->aliasMiddleware('product.viewed', ProductViewed::class);
+        //$router->aliasMiddleware('product.viewed', ProductViewed::class);
     }
 
     /**

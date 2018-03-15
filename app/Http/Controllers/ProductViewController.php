@@ -24,7 +24,7 @@ class ProductViewController extends Controller
         parent::__construct();
 
         $this->productRepository = $repository;
-        $this->middleware(['product.viewed']);
+        //$this->middleware(['product.viewed']);
     }
 
     public function view($slug)
