@@ -7,11 +7,9 @@ use Illuminate\Support\Facades\Event;
 use AvoRed\Ecommerce\Events\OrderPlaceAfterEvent;
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Repository\Product;
-use AvoRed\Ecommerce\Models\Database\Order;
+use AvoRed\Framework\Repository\Order;
 use App\Http\Requests\PlaceOrderRequest;
-use AvoRed\Ecommerce\Models\Database\OrderStatus;
 use AvoRed\Ecommerce\Repository\User;
-use AvoRed\Ecommerce\Models\Database\OrderProductVariation;
 use AvoRed\Framework\Payment\Facade as Payment;
 
 class OrderController extends Controller
@@ -28,6 +26,13 @@ class OrderController extends Controller
     /**
      * AvoRed Attribute Repository
      *
+     * @var \AvoRed\Framework\Repository\Order
+     */
+    protected $orderRepository;
+
+    /**
+     * AvoRed Attribute Repository
+     *
      * @var \AvoRed\Ecommerce\Repository\User
      */
     protected $userRepository;
@@ -39,12 +44,13 @@ class OrderController extends Controller
      * @param \AvoRed\Ecommerce\Repository\User $userRepository
      * @return void
      */
-    public function __construct(Product $repository, User $userRepository)
+    public function __construct(Product $repository, User $userRepository, Order $orderRepository)
     {
         parent::__construct();
 
         $this->productRepository    = $repository;
         $this->userRepository       = $userRepository;
+        $this->orderRepository      = $orderRepository;
     }
 
 
@@ -59,7 +65,7 @@ class OrderController extends Controller
         $billingAddress = $this->_getBillingAddress($request);
         $shippingAddress = $this->_getShippingAddress($request);
 
-        $orderStatus = OrderStatus::whereIsDefault(1)->get()->first();
+        $orderStatus = $this->orderRepository->statusModel()->whereIsDefault(1)->get()->first();
 
         $paymentOption = $request->get('payment_option');
 
@@ -76,7 +82,7 @@ class OrderController extends Controller
 
         //@todo check Response is success of fail.
 
-        $order = Order::create($data);
+        $order = $this->orderRepository->model()->create($data);
         $this->_syncOrderProductData($order, $orderProductData);
 
         Event::fire(new OrderPlaceAfterEvent($order, $orderProductData, $request));
@@ -91,7 +97,7 @@ class OrderController extends Controller
 
     public function success($id)
     {
-        $order = Order::findorfail($id);
+        $order = $this->orderRepository->model()->findorfail($id);
 
         return view('order.success')
             ->with('order', $order);
@@ -100,7 +106,7 @@ class OrderController extends Controller
     public function myAccountOrderList()
     {
         $user = Auth::guard('web')->user();
-        $orders = Order::where('user_id', '=', $user->id)->get();
+        $orders = $this->orderRepository->model()->where('user_id', '=', $user->id)->get();
         $view = view('order.my-account-order-list')->with('orders', $orders);
 
         return $view;
@@ -108,7 +114,7 @@ class OrderController extends Controller
 
     public function myAccountOrderView($id)
     {
-        $order = Order::find($id);
+        $order = $this->orderRepository->model()->find($id);
         $view = view('order.my-account-order-view')->with('order', $order);
 
         return $view;
@@ -209,7 +215,7 @@ class OrderController extends Controller
                     //@todo change the Product QTY
                     //$productVariation = ProductVariation::findorfail($attribute['variation_id']);
                     //$productVariation->update(['qty' => ($productVariation->qty - $orderProduct['qty'])]);
-                    OrderProductVariation::create($data);
+                    $this->orderRepository->productVariationModel()->create($data);
                 }
             } else {
 

@@ -4,11 +4,30 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use AvoRed\Ecommerce\Models\Database\Configuration;
-use AvoRed\Ecommerce\Models\Database\Order;
+use AvoRed\Framework\Repository\Order;
 use AvoRed\Ecommerce\Models\Database\Visitor;
 
 class DashboardController extends AdminController
 {
+    /**
+     * AvoRed Attribute Repository
+     *
+     * @var \AvoRed\Framework\Repository\Order
+     */
+    protected $orderRepository;
+
+    /**
+     * Cart Controller constructor to Set AvoRed Product Repository Property.
+     *
+     * @param \AvoRed\Framework\Repository\Order $repository
+     * @return void
+     */
+    public function __construct(Order $repository)
+    {
+        $this->orderRepository      = $repository;
+    }
+
+
 
     /**
      * Show the application dashboard.
@@ -34,7 +53,7 @@ class DashboardController extends AdminController
 
         $value = Configuration::getConfiguration('avored_user_total');
         $totalRegisteredUser = (null === $value) ? 0 : $value;
-        $totalOrder = Order::all()->count();
+        $totalOrder = $this->orderRepository->model()->all()->count();
 
         return view('avored-ecommerce::admin.home')
             ->with('totalRegisteredUser', $totalRegisteredUser)

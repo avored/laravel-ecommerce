@@ -2,14 +2,17 @@
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Event;
-use AvoRed\Framework\Repository\Product;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;
-use AvoRed\Framework\Image\Facade as Image;
+
+use AvoRed\Framework\Repository\Product;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
+use AvoRed\Framework\Image\Facade as Image;
+
 use AvoRed\Ecommerce\Events\ProductAfterSave;
 use AvoRed\Ecommerce\Events\ProductBeforeSave;
 

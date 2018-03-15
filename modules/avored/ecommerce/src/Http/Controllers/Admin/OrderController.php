@@ -4,8 +4,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Mail;
 use AvoRed\Ecommerce\Mail\OrderInvoicedMail;
-use AvoRed\Ecommerce\Models\Database\Order;
-use AvoRed\Ecommerce\Models\Database\OrderStatus;
+use AvoRed\Framework\Repository\Order;
 use AvoRed\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
 use AvoRed\Ecommerce\Mail\UpdateOrderStatusMail;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
@@ -21,21 +20,31 @@ class OrderController extends AdminController
      */
     protected $userRepository;
 
+
+    /**
+     * AvoRed Order Repository
+     *
+     * @var \AvoRed\Framework\Repository\Order
+     */
+    protected $orderRepository;
+
     /**
      * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
      *
      * @param \AvoRed\Ecommerce\Repository\User $repository
+     * @param \AvoRed\Framework\Repository\Order $orderRepository
      * @return void
      */
-    public function __construct(User $repository)
+    public function __construct(User $repository, Order $orderRepository)
     {
-        $this->userRepository = $repository;
-    }
+        $this->userRepository  = $repository;
+        $this->orderRepository = $orderRepository;
+     }
 
 
     public function index()
     {
-        $dataGrid = DataGrid::model(Order::query()->orderBy('id','desc'))
+        $dataGrid = DataGrid::model($this->orderRepository->model()->query()->orderBy('id','desc'))
             ->column('id',['sortable' => true])
             ->column('shipping_option',['label' => 'Shipping Option'])
             ->column('payment_option',['label' => 'Payment Option'])
@@ -51,7 +60,7 @@ class OrderController extends AdminController
 
     public function view($id)
     {
-        $order = Order::findorfail($id);
+        $order = $this->orderRepository->model()->findorfail($id);
         $view = view('avored-ecommerce::admin.order.view')->with('order', $order);
 
         return $view;
@@ -60,7 +69,7 @@ class OrderController extends AdminController
     public function sendEmailInvoice($id)
     {
 
-        $order = Order::findorfail($id);
+        $order = $this->orderRepository->model()->findorfail($id);
         $user = $this->userRepository->model()->find($order->user_id);
 
         $view = view('avored-ecommerce::admin.mail.order-pdf')->with('order', $order);
@@ -79,9 +88,9 @@ class OrderController extends AdminController
 
     public function changeStatus($id)
     {
-        $order = Order::findorfail($id);
+        $order = $this->orderRepository->model()->findorfail($id);
 
-        $orderStatus = OrderStatus::all()->pluck('name', 'id');
+        $orderStatus = $this->orderRepository->statusModel()->all()->pluck('name', 'id');
 
         $view = view('avored-ecommerce::admin.order.view')
             ->with('order', $order)
@@ -93,7 +102,7 @@ class OrderController extends AdminController
 
     public function updateStatus($id, UpdateOrderStatusRequest $request)
     {
-        $order = Order::findorfail($id);
+        $order = $this->orderRepository->model()->findorfail($id);
         $order->update($request->all());
 
         $userEmail = $order->user->email;

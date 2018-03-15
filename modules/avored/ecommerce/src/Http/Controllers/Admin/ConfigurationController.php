@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use AvoRed\Ecommerce\Models\Database\Configuration;
 use AvoRed\Ecommerce\Repository\User;
 use Illuminate\Support\Collection;
-use AvoRed\Ecommerce\Models\Database\Country;
 
 class ConfigurationController extends AdminController
 {

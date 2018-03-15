@@ -1,12 +1,31 @@
 <?php
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use AvoRed\Ecommerce\Models\Database\OrderStatus;
+use AvoRed\Framework\Repository\Order;
 use AvoRed\Ecommerce\Http\Requests\OrderStatusRequest;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 
 class OrderStatusController extends AdminController
 {
+
+
+    /**
+     * AvoRed Order Repository
+     *
+     * @var \AvoRed\Framework\Repository\Order
+     */
+    protected $orderRepository;
+
+    /**
+     * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
+     *
+     * @param \AvoRed\Framework\Repository\Order $orderRepository
+     * @return void
+     */
+    public function __construct(Order $orderRepository)
+    {
+        $this->orderRepository = $orderRepository;
+    }
 
     /**
      * Display a listing of the Category.
@@ -16,7 +35,7 @@ class OrderStatusController extends AdminController
     public function index()
     {
 
-        $dataGrid = DataGrid::model(OrderStatus::query())
+        $dataGrid = DataGrid::model($this->orderRepository->statusModel()->query())
             ->column('name',['label' => 'Name','sortable' => true])
             ->column('is_default',['sortable' => false])
             ->linkColumn('edit',[], function($model) {
@@ -58,9 +77,9 @@ class OrderStatusController extends AdminController
     {
 
         if($request->get('is_default') == 1) {
-            OrderStatus::whereIsDefault(1)->update(['is_default' => 0]);
+            $this->orderRepository->statusModel()->whereIsDefault(1)->update(['is_default' => 0]);
         }
-        OrderStatus::create($request->all());
+        $this->orderRepository->statusModel()->create($request->all());
 
         return redirect()->route('admin.order-status.index');
     }
@@ -75,7 +94,7 @@ class OrderStatusController extends AdminController
     public function edit($id)
     {
 
-        $orderStatus = OrderStatus::findorfail($id);
+        $orderStatus = $this->orderRepository->statusModel()->findorfail($id);
 
         return view('avored-ecommerce::admin.order-status.edit')
             ->with('model', $orderStatus);
@@ -92,10 +111,10 @@ class OrderStatusController extends AdminController
     public function update(OrderStatusRequest $request, $id)
     {
         if($request->get('is_default') == 1) {
-            OrderStatus::whereIsDefault(1)->update(['is_default' => 0]);
+            $this->orderRepository->statusModel()->whereIsDefault(1)->update(['is_default' => 0]);
         }
 
-        $orderStatus = OrderStatus::findorfail($id);
+        $orderStatus = $this->orderRepository->statusModel()->findorfail($id);
 
         $orderStatus->update($request->all());
 
@@ -112,7 +131,7 @@ class OrderStatusController extends AdminController
     public function destroy($id)
     {
 
-        OrderStatus::destroy($id);
+        $this->orderRepository->statusModel()->destroy($id);
         return redirect()->route('admin.order-status.index');
     }
 }
