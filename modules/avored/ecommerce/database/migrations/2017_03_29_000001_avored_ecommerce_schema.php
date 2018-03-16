@@ -205,7 +205,12 @@ class AvoredEcommerceSchema extends Migration
 
         Schema::table('orders', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
+            $table->integer('shipping_address_id')->unsigned();
+            $table->integer('billing_address_id')->unsigned();
+
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('shipping_address_id')->references('id')->on('addresses');
+            $table->foreign('billing_address_id')->references('id')->on('addresses');
         });
 
         Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
