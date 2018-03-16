@@ -634,12 +634,12 @@
                                     @foreach($cartItems as $cartItem)
                                         <tr>
                                             <td class="text-left">
-                                                {{ $cartItem['name'] }}
+                                                {{ $cartItem->name() }}
 
                                                 <br>
                                                 &nbsp;
                                                 <?php $attributeText = ""; ?>
-                                                @if(isset($cartItem['attributes']) && count($cartItem['attributes']) > 0)
+                                                @if($cartItem->hasAttributes()) > 0)
                                                     @foreach($cartItem['attributes'] as $attribute)
                                                         @if($loop->last)
                                                             <?php $attributeText .= $attribute['variation_display_text']; ?>
@@ -656,23 +656,28 @@
 
                                             </td>
 
-                                            <td class="text-right hidden-xs">{{ $cartItem['qty'] }}</td>
+                                            <td class="text-right hidden-xs">{{ $cartItem->qty() }}</td>
                                             <td class="text-right hidden-xs">
-                                                ${{ number_format($cartItem['final_price'],2) }}</td>
+                                                ${{ $cartItem->priceFormat()  }}</td>
                                             <td class="text-right">
-                                                ${{ number_format($cartItem['qty'] * $cartItem['final_price'], 2) }}</td>
+                                                ${{ $cartItem->finalPrice()  }}</td>
                                         </tr>
 
-                                        <?php $totalTax += $cartItem['qty'] * $cartItem['tax_amount']  ?>
-                                        <?php $subTotal += $cartItem['qty'] * $cartItem['final_price']  ?>
-                                        <input type="hidden" name="products[]" value="{{ $cartItem['id'] }}"/>
+                                        @php
+                                        $subTotal = $total = 0;
+                                        $subTotal += $cartItem->price();
+                                        @endphp
+
+
+
+                                        <input type="hidden" name="products[]" value="{{ $cartItem->slug() }}"/>
                                     @endforeach
                                     </tbody>
                                     <tfoot>
                                     <tr>
                                         <td colspan="3" class="text-right  hidden-xs"><strong>Sub-Total:</strong></td>
-                                        <td class="text-right sub-total" data-sub-total="{{ $subTotal }}">
-                                            ${{ number_format($subTotal ,2)}}</td>
+                                        <td class="text-right sub-total" data-sub-total="{{ number_format((float)$subTotal, 2, '.', '') }}">
+                                            ${{ number_format((float)$subTotal, 2, '.', '') }}</td>
                                     </tr>
                                     <tr class="hidden shipping-row">
                                         <td colspan="3" class="text-right shipping-title  hidden-xs"
@@ -680,15 +685,11 @@
                                         </td>
                                         <td class="text-right shipping-cost" data-shipping-cost="0.00">$</td>
                                     </tr>
-                                    <tr>
-                                        <td colspan="3" class="text-right  hidden-xs"><strong>Tax Amount:</strong></td>
-                                        <td class="text-right tax-amount" data-tax-amount="{{ $totalTax }}">
-                                            ${{ number_format($totalTax,2) }}</td>
-                                    </tr>
+
                                     <tr>
                                         <td colspan="3" class="text-right  hidden-xs"><strong>Total:</strong></td>
-                                        <td class="text-right total" data-total="{{ $subTotal + $totalTax }}">
-                                            ${{ number_format($subTotal + $totalTax,2) }}</td>
+                                        <td class="text-right total" data-total="{{ number_format((float)$subTotal, 2, '.', '') }}">
+                                            ${{ number_format((float)$subTotal, 2, '.', '') }}</td>
                                     </tr>
                                     </tfoot>
 
@@ -715,9 +716,9 @@
                                     <label for="agree" class="form-check-label">
                                         I have read and agree to the
                                         <a href="{{ $termConditionPageUrl }}" target="_blank"
-                                           class="{{  $errors->has('agree') ? " text-danger" : "" }}  agree"><b>Terms
-                                                &amp;
-                                                Conditions</b></a>
+                                           class="{{  $errors->has('agree') ? " text-danger" : "" }}  agree">
+                                            <b>Terms &amp; Conditions</b>
+                                        </a>
                                     </label>
 
 
