@@ -88,7 +88,7 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 @include('layouts.category-tree',['categories', $categories])
-                <li class="nav-item"><a class="nav-link" href="{{ route('cart.view') }}">Cart ({{$cart}})</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('cart.view') }}">Cart ({{ Cart::count() }})</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('checkout.index') }}">Checkout</a></li>
                 <li class="dropdown nav-item">
                     <a href="{{ route('my-account.home') }}" title="My Account" class="nav-link">

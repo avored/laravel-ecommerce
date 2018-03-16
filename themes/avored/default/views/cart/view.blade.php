@@ -22,134 +22,19 @@
                         </tr>
                         <?php $total = 0; $taxTotal = 0;$giftCouponAmount = 0; ?>
                         @foreach($cartProducts as $product)
-                            <form method="post" id="cart-form-update" action="{{ route('cart.update') }}">
 
-                                @csrf
-                                @method('put')
+                            @include('cart._single_product', ['product', $product])
 
-                                <tr>
-
-                                    <td class="col-8">
-                                        <div class="media">
-                                            <img alt="{{ $product['name'] }}"
-                                                 class="d-flex mr-3"
-                                                 style="height: 72px;"
-                                                 src="{{ asset( $product['image']) }}"/>
-
-
-                                            <div class="media-body">
-                                                <h4 class="media-heading">
-                                                    <a href="{{ route('product.view', $product['slug'])}}">
-                                                        {{ $product['name'] }}
-                                                    </a>
-                                                </h4>
-
-                                                <p>Status: <span class="text-success"><strong>In Stock</strong></span>
-                                                </p>
-
-                                                <?php $attributeText = ""; ?>
-                                                @if(isset($product['attributes']) && count($product['attributes']) > 0)
-                                                    @foreach($product['attributes'] as $attribute)
-                                                        @if($loop->last)
-                                                            <?php $attributeText .= $attribute['variation_display_text']; ?>
-                                                        @else
-                                                            <?php $attributeText .= $attribute['variation_display_text'] . ": "; ?>
-                                                        @endif
-                                                    @endforeach
-                                                @endif
-                                                <p>Attributes: <span
-                                                            class="text-success"><strong>{{ $attributeText}}</strong></span>
-                                                </p>
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="col-1">
-                                        <input type="text" class="form-control" name="qty"
-                                               value="{{ $product['qty']}}">
-
-                                        <input type="hidden" name="id" value="{{$product['id']}}"/>
-                                    </td>
-                                    <?php $total += ($product['final_price'] * $product['qty']) ?>
-                                    <?php $giftCouponAmount += (isset($product['gift_coupon_amount'])) ? $product['gift_coupon_amount'] : 0.00 ?>
-                                    <?php $taxTotal += ($product['tax_amount'] * $product['qty']) ?>
-                                    <td class="col-sm-1 col-1 text-center">
-                                        <strong>${{ number_format($product['final_price'],2) }}</strong></td>
-                                    <td class="col-sm-1 col-1 text-center">
-                                        <strong>${{ number_format($product['final_price'] * $product['qty'] ,2)}}</strong>
-                                    </td>
-                                    <td class="col-sm-1 col-1">
-                                        <div class="btn-group">
-                                            <a class="btn btn-warning" href="#"
-                                               onclick="jQuery('#cart-form-update').submit()">
-                                                Update
-                                            </a>
-                                            <button type="button"
-                                                    class="btn dropdown-toggle"
-                                                    data-toggle="dropdown">
-                                                <span class="caret"></span>
-                                                <span class="sr-only">Toggle Dropdown</span>
-                                            </button>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="btn" href="{{ route('cart.destroy', $product['id'])}}">
-                                                        Remove
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-
-                                    </td>
-
-                                </tr>
-                            </form>
                         @endforeach
 
-                        <!--tr>
-                            <td class="col-6">
 
-                                <div class="input-group">
-                                    <input type="text" name="code"
-                                           class="form-control gift-coupon-code-textbox"
-                                           placeholder="Code"/>
-                                    <div class="input-group-append">
-                                        <a href="#" class="btn btn-primary code-apply-button">Apply</a>
-                                    </div>
-
-                                </div>
-                                 
-                            </td>
-                            <td class="col-1">&nbsp;  </td>
-                            <td class="col-1"> &nbsp;  </td>
-                            <td class="col-1"><h6>Coupon Discount</h6></td>
-                            <td class="col-3 text-right">
-                                <strong>${{ number_format($giftCouponAmount,2)}}</strong>
-                            </td>
-                        </tr-->
-
-
-                        <tr>
-                            <td class="col-8"> &nbsp; </td>
-                            <td class="col-1">&nbsp;  </td>
-                            <td class="col-1"> &nbsp;  </td>
-                            <td class="col-1"><h6>Subtotal</h6></td>
-                            <td class="col-1 text-right"><h6><strong>${{ number_format($total,2) }}</strong></h6></td>
-                        </tr>
-                        <tr>
-                            <td class="col-8">  </td>
-                            <td class="col-1">  </td>
-                            <td class="col-1">  </td>
-                            <td class="col-1"><h6>Tax</h6></td>
-                            <td class="col-1 text-right"><h6><strong>${{ number_format($taxTotal,2) }}</strong></h6>
-                            </td>
-                        </tr>
                         <tr>
                             <td class="col-8"> &nbsp; </td>
                             <td class="col-1">&nbsp;  </td>
                             <td class="col-1"> &nbsp;  </td>
                             <td class="col-1"><h6>Total</h6></td>
                             <td class="col-1 text-right"><h6>
-                                    <strong>${{ number_format(($total + $taxTotal),2) }}</strong></h6></td>
+                                    <strong>${{ number_format(($total),2) }}</strong></h6></td>
                         </tr>
                         <tr>
                             <td class="col-8">  </td>

@@ -1,10 +1,12 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Repository\Product;
 use Illuminate\Support\Collection;
+use AvoRed\Framework\Cart\Facade as Cart;
 
 class CartController extends Controller
 {
@@ -40,14 +42,23 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
 
+        $slug = $request->get('slug');
+        $qty = $request->get('qty', 1);
+
+
+        Cart::add($slug, $qty);
+
+
+        return redirect()->back()->with('notificationText', 'Product Added to Cart Successfully!');
+
 
         $cart = (null === Session::get('cart')) ? Collection::make([]) : Session::get('cart');
 
         $product = $this->productRepository->model()->where('slug', '=', $request->get('slug'))->first();
 
-        $requestQty = $request->get('qty',1);
+        $requestQty = $request->get('qty', 1);
 
-        if(!$product->canAddtoCart($requestQty)) {
+        if (!$product->canAddtoCart($requestQty)) {
 
             return redirect()->back()->with('errorNotificationText', 'Not Enough Qty Available please try with less Qty!');
         }
@@ -67,15 +78,15 @@ class CartController extends Controller
                 $productAttributeValue = $this->productRepository->integerAttributeModel()->whereProductId($subProductId)->whereAttributeId($attributeId)->first();
 
                 $attribute = $this->productRepository->attributeModel()->findorfail($attributeId);
-                $option = $attribute->attributeDropdownOptions()->where('id','=',$productAttributeValue->value)->get()->first();
+                $option = $attribute->attributeDropdownOptions()->where('id', '=', $productAttributeValue->value)->get()->first();
 
                 $productAttributes[] = [
-                                'attribute_id' => $attributeId,
-                                'attribute_dropdown_option_id' => $productAttributeValue->value,
-                                'attribute_price' => $subProduct->price,
-                                'attribute_tax_amount' => $subProduct->getTaxAmount(),
-                                'variation_display_text' => $option->display_text
-                            ];
+                    'attribute_id' => $attributeId,
+                    'attribute_dropdown_option_id' => $productAttributeValue->value,
+                    'attribute_price' => $subProduct->price,
+                    'attribute_tax_amount' => $subProduct->getTaxAmount(),
+                    'variation_display_text' => $option->display_text
+                ];
             }
         }
 
@@ -90,7 +101,7 @@ class CartController extends Controller
 
         } else {
 
-            $tmp  = (isset($productAttributes [0])) ? $productAttributes[0] : null;
+            $tmp = (isset($productAttributes [0])) ? $productAttributes[0] : null;
 
             $subProductPrice = ($tmp['attribute_price'] !== NULL) ? $tmp['attribute_price'] : 0.00;
             $price = $product->price;
@@ -98,7 +109,7 @@ class CartController extends Controller
 
             $subProductTaxAmount = ($tmp['attribute_tax_amount'] !== NULL) ? $tmp['attribute_tax_amount'] : 0.00;
             $taxAmount = $product->getTaxAmount();
-            $finalTaxAmount = $taxAmount+ $subProductTaxAmount;
+            $finalTaxAmount = $taxAmount + $subProductTaxAmount;
 
 
             $cart->put($product->id, [
@@ -116,12 +127,12 @@ class CartController extends Controller
 
         Session::put('cart', $cart);
 
-        return redirect()->back()->with('notificationText', 'Product Added to Cart Successfully!');
+
     }
 
     public function view()
     {
-        $cartProducts = Session::get('cart');
+        $cartProducts = Cart::all();
 
         return view('cart.view')
             ->with('cartProducts', $cartProducts);
@@ -129,6 +140,11 @@ class CartController extends Controller
 
     public function update(Request $request)
     {
+
+        Cart::update($request->get('slug'), $request->get('qty',1));
+
+        return redirect()->back();
+
         $cartData = Session::get('cart');
 
         if ($request->get('qty') == 0) {
@@ -143,7 +159,7 @@ class CartController extends Controller
         }
         Session::put('cart', $cartData);
 
-        return redirect()->back();
+
     }
 
     public function destroy($id)
