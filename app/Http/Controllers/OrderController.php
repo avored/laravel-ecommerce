@@ -11,6 +11,7 @@ use AvoRed\Framework\Repository\Order;
 use App\Http\Requests\PlaceOrderRequest;
 use AvoRed\Ecommerce\Repository\User;
 use AvoRed\Framework\Payment\Facade as Payment;
+use AvoRed\Framework\Cart\Facade as Cart;
 
 class OrderController extends Controller
 {
@@ -59,7 +60,7 @@ class OrderController extends Controller
     {
 
 
-        $orderProductData = Session::get('cart');
+        $orderProductData = Cart::all();
         $user = $this->_getUser($request);
 
         $billingAddress = $this->_getBillingAddress($request);
@@ -201,40 +202,36 @@ class OrderController extends Controller
     private function _syncOrderProductData($order, $orderProducts)
     {
 
-        //Only use pivot fields only @later on use Collection and then use pluck method rather then foreach
-        foreach ($orderProducts as $id => $orderProduct) {
+        $orderProductTableData = [];
 
-            if (isset($orderProduct['attributes'])) {
+        foreach ($orderProducts as $orderProduct) {
+
+            if ($orderProduct->hasAttributes()) {
                 foreach ($orderProduct['attributes'] as $attribute) {
+                    $product = $this->productRepository->model()->whereSlug($orderProduct->slug())->first();
                     $data = ['order_id' => $order->id,
                         'product_id' => $id,
                         'attribute_dropdown_option_id' => $attribute['attribute_dropdown_option_id'],
                         'attribute_id' => $attribute['attribute_id'],
                     ];
 
-                    //@todo change the Product QTY
-                    //$productVariation = ProductVariation::findorfail($attribute['variation_id']);
-                    //$productVariation->update(['qty' => ($productVariation->qty - $orderProduct['qty'])]);
                     $this->orderRepository->productVariationModel()->create($data);
                 }
             } else {
 
-                $product = $this->productRepository->model()->findorfail($id);
-                $product->update(['qty' => ($product->qty - $orderProduct['qty'])]);
+                $product = $this->productRepository->model()->whereSlug($orderProduct->slug())->first();
+                $product->update(['qty' => ($product->qty - $orderProduct->qty())]);
             }
 
-            unset($orderProduct['name']);
-            unset($orderProduct['slug']);
-            unset($orderProduct['image']);
-            unset($orderProduct['id']);
-            unset($orderProduct['attributes']);
-            unset($orderProduct['final_price']);
-            $orderProducts[$id] = $orderProduct;
+            $orderProductTableData [] = [
+                                        'product_id' => $product->id,
+                                        'qty' => $orderProduct->qty(),
+                                        'price' => $orderProduct->price(),
+                                        'tax_amount' => 0.00//$orderProduct->tax();
+                                        ];
+
         }
-
-
-
-        $order->products()->sync($orderProducts);
+        $order->products()->sync($orderProductTableData);
     }
 
 
