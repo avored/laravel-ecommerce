@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Session;
 use AvoRed\Ecommerce\Repository\User;
 use AvoRed\Framework\Payment\Facade as Payment;
 use AvoRed\Framework\Shipping\Facade as Shipping;
+use AvoRed\Framework\Cart\Facade as Cart;
 
 class CheckoutController extends Controller
 {
@@ -34,7 +35,7 @@ class CheckoutController extends Controller
         $paymentOptions     = Payment::all();
         $countries          = $this->userRepository->countryModel()->getCountriesOptions();
 
-        $cartItems = Session::get('cart');
+        $cartItems = Cart::all();
 
 
         return view('checkout.index')
