@@ -4,6 +4,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Framework\Repository\Product;
+use AvoRed\Ecommerce\DataGrid\Category;
 
 class CategoryController extends AdminController
 {
@@ -32,25 +33,11 @@ class CategoryController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model($this->productRepository->categoryModel()->query())
-                        ->column('name',['label' => 'Name','sortable' => true])
-                        ->column('slug',['sortable' => true])
-                        ->linkColumn('edit',[], function($model) {
-                            return "<a href='". route('admin.category.edit', $model->id)."' >Edit</a>";
+      $categoryGrid = new Category(
+                        $this->productRepository->categoryModel()->query()
+                      );
 
-                        })->linkColumn('destroy',[], function($model) {
-                            return "<form id='admin-category-destroy-".$model->id."'
-                                            method='POST'
-                                            action='".route('admin.category.destroy', $model->id) ."'>
-                                        <input name='_method' type='hidden' value='DELETE' />
-                                        ". csrf_field()."
-                                        <a href='#'
-                                            onclick=\"jQuery('#admin-category-destroy-$model->id').submit()\"
-                                            >Destroy</a>
-                                    </form>";
-                        });
-
-        return view('avored-ecommerce::admin.category.index')->with('dataGrid', $dataGrid);
+      return view('avored-ecommerce::admin.category.index')->with('dataGrid', $categoryGrid->dataGrid);
     }
 
     /**

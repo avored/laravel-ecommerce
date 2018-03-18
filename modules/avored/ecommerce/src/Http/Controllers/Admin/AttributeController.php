@@ -2,7 +2,7 @@
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Framework\Repository\Product;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\DataGrid\Attribute;
 use AvoRed\Ecommerce\Http\Requests\AttributeRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -31,28 +31,12 @@ class AttributeController extends AdminController
 
     public function index()
     {
-        $dataGrid = DataGrid::model($this->productRepository->attributeModel()->query())
-            ->column('name',['label' => 'Name','sortable' => true])
-            ->column('identifier',['sortable' => true])
-            ->linkColumn('edit',[], function($model) {
-                return "<a href='". route('admin.attribute.edit', $model->id)."' >Edit</a>";
-
-            })->linkColumn('destroy',[], function($model) {
-                return "<form id='admin-attribute-destroy-".$model->id."'
-                                            method='POST'
-                                            action='".route('admin.attribute.destroy', $model->id) ."'>
-                                        <input name='_method' type='hidden' value='DELETE' />
-                                        ". csrf_field()."
-                                        <a href='#'
-                                            onclick=\"jQuery('#admin-attribute-destroy-$model->id').submit()\"
-                                            >Destroy</a>
-                                    </form>";
-            });
-
-//        return view('avored-framework::category.index')->with('dataGrid', $dataGrid);
+        $attributeGrid = new Attribute(
+                            $this->productRepository->attributeModel()->query()
+                          );
 
 
-        return view('avored-ecommerce::admin.attribute.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.attribute.index')->with('dataGrid', $attributeGrid->dataGrid);
     }
 
     public function create()

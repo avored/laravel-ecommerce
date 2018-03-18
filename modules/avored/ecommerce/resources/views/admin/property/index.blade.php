@@ -10,7 +10,7 @@
                 {{ __('avored-ecommerce::property.create') }}
             </a>
         </h1>
-        {!! $dataGrid->render() !!}
+        {!! DataGrid::render($dataGrid) !!}
     </div>
     </div>
 @stop

@@ -11,6 +11,6 @@
                 </a>
 
         </div>
-        {!! $dataGrid->render() !!}
+        {!! DataGrid::render($dataGrid) !!}
     </div>
 @stop

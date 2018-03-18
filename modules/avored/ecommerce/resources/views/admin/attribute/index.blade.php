@@ -9,7 +9,7 @@
                 {{ __('avored-ecommerce::attribute.create') }}
             </a>
         </h1>
-        {!! $dataGrid->render() !!}
+        {!! DataGrid::render($dataGrid) !!}
 
 
 @stop

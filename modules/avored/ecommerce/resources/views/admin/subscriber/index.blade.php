@@ -8,7 +8,7 @@
                 {{ __('avored-ecommerce::subscriber.create') }}
             </a>
         </h1>
-        {!! $dataGrid->render() !!}
+        {!! DataGrid::render($dataGrid) !!}
     </div>
 
 @stop

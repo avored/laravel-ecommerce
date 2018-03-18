@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\DataGrid\Product as ProductGrid;
 use AvoRed\Framework\Image\Facade as Image;
 
 use AvoRed\Ecommerce\Events\ProductAfterSave;
@@ -46,29 +46,10 @@ class ProductController extends AdminController
     public function index()
     {
 
-        $dataGrid = DataGrid::model($this->productRepository->model()->where('type','!=', 'VARIABLE_PRODUCT'))
-            ->column('id', ['sortable' => true])
-            ->linkColumn('image', [], function ($model) {
-                return "<img src='". $model->image->smallUrl . "' style='max-height: 50px;' />";
-
-            })->column('name')
-            ->linkColumn('edit', [], function ($model) {
-                return "<a href='" . route('admin.product.edit', $model->id) . "' >Edit</a>";
-
-            })->linkColumn('destroy', [], function ($model) {
-                return "<form id='admin-product-destroy-" . $model->id . "'
-                                            method='POST'
-                                            action='" . route('admin.product.destroy', $model->id) . "'>
-                                        <input name='_method' type='hidden' value='DELETE' />
-                                        " . csrf_field() . "
-                                        <a href='#'
-                                            onclick=\"jQuery('#admin-product-destroy-$model->id').submit()\"
-                                            >Destroy</a>
-                                    </form>";
-            });
+        $productGrid = new ProductGrid($this->productRepository->model()->where('type','!=', 'VARIABLE_PRODUCT'));
 
 
-        return view('avored-ecommerce::admin.product.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.product.index')->with('dataGrid', $productGrid->dataGrid);
     }
 
     /**

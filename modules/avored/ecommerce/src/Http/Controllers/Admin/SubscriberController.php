@@ -3,7 +3,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\Models\Database\Subscriber;
 use AvoRed\Ecommerce\Http\Requests\Admin\SubscriberRequest;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\DataGrid\Subscriber as SubscriberGrid;
 
 class SubscriberController extends AdminController
 {
@@ -15,26 +15,10 @@ class SubscriberController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model(Subscriber::query()->orderBy('id','desc'))
-            ->column('id',['sortable' => true])
-            ->column('name')
-            ->column('email')
-            ->linkColumn('edit',[], function($model) {
-                return "<a href='". route('admin.subscriber.edit', $model->id)."' >Edit</a>";
+        $grid = new SubscriberGrid(Subscriber::query());
 
-            })->linkColumn('destroy',[], function($model) {
-                return "<form id='admin-subscriber-destroy-".$model->id."'
-                                            method='POST'
-                                            action='".route('admin.subscriber.destroy', $model->id) ."'>
-                                        <input name='_method' type='hidden' value='DELETE' />
-                                        ". csrf_field()."
-                                        <a href='#'
-                                            onclick=\"jQuery('#admin-subscriber-destroy-$model->id').submit()\"
-                                            >Destroy</a>
-                                    </form>";
-            });
 
-        return view('avored-ecommerce::admin.subscriber.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.subscriber.index')->with('dataGrid', $grid->dataGrid);
     }
 
     /**

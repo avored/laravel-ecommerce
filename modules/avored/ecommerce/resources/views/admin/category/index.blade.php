@@ -18,7 +18,7 @@
                 </button>
             @endhasPermission
         </div>
-        {!! $dataGrid->render() !!}
+        {!! DataGrid::render($dataGrid) !!}
 
 
 @stop

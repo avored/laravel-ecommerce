@@ -116,4 +116,15 @@ class LoginController extends Controller
     {
         return view('auth.login');
     }
+
+    /**
+     * Return url for after user  Login or Register
+     *
+     * @return string
+     */
+    public function redirectPath() {
+
+        return route("my-account.home");
+
+    }
 }

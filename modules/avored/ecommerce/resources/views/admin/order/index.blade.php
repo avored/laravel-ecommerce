@@ -2,6 +2,6 @@
 @section('content')
     <div class="container">
         <div class="h1">Orders</div>
-        {!! $dataGrid->render() !!}
+        {!! DataGrid::render($dataGrid) !!}
     </div>
 @stop

@@ -13,24 +13,24 @@ class User extends AbstractRepository {
 
 
     public function model() {
-        return new UserModel();
+        return new UserModel;
     }
 
     public function adminUserModel() {
-        return AdminUser();
+        return new AdminUser;
     }
 
     public function roleModel() {
-        return new Role();
+        return new Role;
     }
 
     public function countryModel()
     {
-        return new Country();
+        return new Country;
     }
 
     public function addressModel(){
-        return new Address();
+        return new Address;
     }
 
     public function wishlistModel() {

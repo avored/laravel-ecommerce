@@ -4,9 +4,9 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\Client;
 use AvoRed\Ecommerce\Http\Requests\AdminUserRequest;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Framework\Image\Facade as Image;
 use AvoRed\Ecommerce\Repository\User;
+use AvoRed\Ecommerce\DataGrid\AdminUser;
 
 class AdminUserController extends AdminController
 {
@@ -36,28 +36,13 @@ class AdminUserController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model($this->userRepository->adminUserModel()->query()->orderBy('id','desc'))
-            ->column('id',['sortable' => true])
-            ->column('first_name',['label' => 'First Name'])
-            ->column('last_name',['label' => 'Last Name'])
-            ->linkColumn('show_api',['label' => 'Show API'], function($model) {
-                return "<a href='". route('admin.admin-user.show.api')."' >Show API</a>";
-            })
-            ->linkColumn('edit',[], function($model) {
-                return "<a href='". route('admin.admin-user.edit', $model->id)."' >Edit</a>";
+      
+        $adminUserGrid = new AdminUser(
+                              $this->userRepository->adminUserModel()->query()->orderBy('id','desc')
+                            );
 
-            })->linkColumn('destroy',[], function($model) {
-                return "<form id='admin-admin-user-destroy-".$model->id."'
-                                            method='POST'
-                                            action='".route('admin.admin-user.destroy', $model->id) ."'>
-                                        <input name='_method' type='hidden' value='DELETE' />
-                                        ". csrf_field()."
-                                        <a href='#'
-                                            onclick=\"jQuery('#admin-admin-user-destroy-$model->id').submit()\"
-                                            >Destroy</a>
-                                    </form>";
-            });
-        return view('avored-ecommerce::admin.admin-user.index')->with('dataGrid', $dataGrid);
+
+        return view('avored-ecommerce::admin.admin-user.index')->with('dataGrid', $adminUserGrid->dataGrid);
     }
 
     /**
@@ -179,5 +164,3 @@ class AdminUserController extends AdminController
 
     }
 }
-
-

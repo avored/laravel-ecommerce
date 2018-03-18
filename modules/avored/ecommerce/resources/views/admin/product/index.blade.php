@@ -9,6 +9,6 @@
             </a>
         </h1>
 
-        {!! $dataGrid->render() !!}
+        {!! DataGrid::render($dataGrid) !!}
 
 @stop

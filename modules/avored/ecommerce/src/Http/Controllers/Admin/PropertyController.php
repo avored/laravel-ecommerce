@@ -3,7 +3,7 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\DataGrid\Property;
 use AvoRed\Framework\Repository\Product;
 use AvoRed\Ecommerce\Http\Requests\PropertyRequest;
 
@@ -34,26 +34,10 @@ class PropertyController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model($this->productRepository->propertyModel()->query()->orderBy('id','desc'))
-            ->column('id',['sortable' => true])
-            ->column('name')
-            ->column('identifier')
-            ->linkColumn('edit',[], function($model) {
-                return "<a href='". route('admin.property.edit', $model->id)."' >Edit</a>";
+        $propertyGrid = new Property($this->productRepository->propertyModel()->query()->orderBy('id','desc'));
 
-            })->linkColumn('destroy',[], function($model) {
-                return "<form id='admin-property-destroy-".$model->id."'
-                                            method='POST'
-                                            action='".route('admin.property.destroy', $model->id) ."'>
-                                        <input name='_method' type='hidden' value='DELETE' />
-                                        ". csrf_field()."
-                                        <a href='#'
-                                            onclick=\"jQuery('#admin-property-destroy-$model->id').submit()\"
-                                            >Destroy</a>
-                                    </form>";
-            });
 
-        return view('avored-ecommerce::admin.property.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.property.index')->with('dataGrid', $propertyGrid->dataGrid);
     }
 
     /**

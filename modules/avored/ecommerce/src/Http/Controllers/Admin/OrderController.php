@@ -5,9 +5,10 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Mail;
 use AvoRed\Ecommerce\Mail\OrderInvoicedMail;
 use AvoRed\Framework\Repository\Order;
+use AvoRed\Ecommerce\Repository\User;
 use AvoRed\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
 use AvoRed\Ecommerce\Mail\UpdateOrderStatusMail;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\DataGrid\Order as OrderGrid;
 use Illuminate\Support\Facades\File;
 
 class OrderController extends AdminController
@@ -44,18 +45,10 @@ class OrderController extends AdminController
 
     public function index()
     {
-        $dataGrid = DataGrid::model($this->orderRepository->model()->query()->orderBy('id','desc'))
-            ->column('id',['sortable' => true])
-            ->column('shipping_option',['label' => 'Shipping Option'])
-            ->column('payment_option',['label' => 'Payment Option'])
-            ->linkColumn('order_status',['label' => 'Order Status'], function($model) {
-                return $model->orderStatus->name;
-            })
-            ->linkColumn('view',[], function($model) {
-                return "<a href='". route('admin.order.view', $model->id)."' >View</a>";
-            });
+        $orderGrid = new OrderGrid($this->orderRepository->model()->query()->orderBy('id','desc'));
 
-        return view('avored-ecommerce::admin.order.index')->with('dataGrid', $dataGrid);
+
+        return view('avored-ecommerce::admin.order.index')->with('dataGrid', $orderGrid->dataGrid);
     }
 
     public function view($id)
