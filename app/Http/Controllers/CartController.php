@@ -162,12 +162,10 @@ class CartController extends Controller
 
     }
 
-    public function destroy($id)
+    public function destroy($slug)
     {
-        $cartData = Session::get('cart');
-        $cartData->pull($id);
 
-        Session::put('cart', $cartData);
+        Cart::destroy($slug);
 
         return redirect()->back();
     }

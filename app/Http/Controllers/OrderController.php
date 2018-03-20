@@ -88,8 +88,7 @@ class OrderController extends Controller
 
         Event::fire(new OrderPlaceAfterEvent($order, $orderProductData, $request));
 
-        Session::forget('cart');
-        Session::forget('order_data');
+        Cart::clear();
 
         return redirect()->route('order.success', $order->id);
 
