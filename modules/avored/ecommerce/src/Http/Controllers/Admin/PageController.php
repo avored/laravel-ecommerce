@@ -5,6 +5,7 @@ use AvoRed\Ecommerce\Repository\Page;
 use AvoRed\Ecommerce\Http\Requests\PageRequest;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Framework\Widget\Facade as Widget;
+use AvoRed\Ecommerce\DataGrid\Page as PageGrid;
 
 class PageController extends AdminController
 {
@@ -36,27 +37,9 @@ class PageController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model($this->pageRepository->model()->query()->orderBy('id','desc'))
-            ->column('id',['sortable' => true])
-            ->column('name')
-            ->column('slug')
-            ->column('meta_title')
-            ->linkColumn('edit',[], function($model) {
-                return "<a href='". route('admin.page.edit', $model->id)."' >Edit</a>";
+        $pageGrid = new PageGrid($this->pageRepository->model()->query()->orderBy('id','desc'));
 
-            })->linkColumn('destroy',[], function($model) {
-                return "<form id='admin-page-destroy-".$model->id."'
-                                            method='POST'
-                                            action='".route('admin.page.destroy', $model->id) ."'>
-                                        <input name='_method' type='hidden' value='DELETE' />
-                                        ". csrf_field()."
-                                        <a href='#'
-                                            onclick=\"jQuery('#admin-page-destroy-$model->id').submit()\"
-                                            >Destroy</a>
-                                    </form>";
-            });
-
-        return view('avored-ecommerce::admin.page.index')->with('dataGrid', $dataGrid);
+        return view('avored-ecommerce::admin.page.index')->with('dataGrid', $pageGrid->dataGrid);
     }
 
     /**

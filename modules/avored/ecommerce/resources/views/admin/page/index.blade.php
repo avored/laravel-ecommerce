@@ -7,7 +7,7 @@
             <a style="" href="{{ route('admin.page.create') }}" class="btn btn-primary float-right">Create
                 Page</a>
         </h1>
-        {!! $dataGrid->render() !!}
+        {!! DataGrid::render($dataGrid) !!}
     </div>
 
 @stop

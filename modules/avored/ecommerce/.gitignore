@@ -5,3 +5,8 @@
 .idea/ecommerce.iml
 .idea/vcs.xml
 resources/.DS_Store
+resources/views/.DS_Store
+resources/views/admin/.DS_Store
+src/.DS_Store
+src/Models/.DS_Store
+src/Http/.DS_Store
