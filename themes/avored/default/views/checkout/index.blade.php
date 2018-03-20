@@ -756,13 +756,15 @@
         $(function () {
 
             function calcualateTotal() {
-                subTotal = parseFloat(jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
-                shippingCost = parseFloat(jQuery('.shipping-cost').attr('data-shipping-cost')).toFixed(2);
-                taxAmount = parseFloat(jQuery('.tax-amount').attr('data-tax-amount')).toFixed(2);
 
-                total = parseFloat(subTotal) + parseFloat(taxAmount) + parseFloat(shippingCost);
-                jQuery('.total').attr('data-total', total.toFixed(2));
-                jQuery('.total').html("$" + total.toFixed(2));
+                var subTotal        = parseFloat(jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
+                var shippingCost    = parseFloat(jQuery('.shipping-cost').attr('data-shipping-cost')).toFixed(2);
+                var taxAmount       = 0.00;//parseFloat(jQuery('.tax-amount').attr('data-tax-amount')).toFixed(2);
+
+                var total = parseFloat(subTotal + taxAmount + shippingCost).toFixed(2);
+
+                jQuery('.total').attr('data-total', total);
+                jQuery('.total').html("$" + total);
 
 
             }

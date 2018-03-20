@@ -23,6 +23,9 @@
                         <?php $total = 0; $taxTotal = 0;$giftCouponAmount = 0; ?>
                         @foreach($cartProducts as $product)
 
+                            @php
+                                $total += $product->price();
+                            @endphp
                             @include('cart._single_product', ['product', $product])
 
                         @endforeach
