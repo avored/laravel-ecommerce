@@ -4,7 +4,7 @@ namespace AvoRed\Ecommerce\DataGrid;
 
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
 
-class Subscriber {
+class Attribute {
 
       public $dataGrid;
 

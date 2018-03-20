@@ -20,7 +20,15 @@ class Page extends BaseModel
 
             $whitespace = empty($matches[3]) ? '' : $matches[3] . $matches[3];
             $widget = Widget::get($matches[2]);
-            $widgetContent = $widget->render();
+
+            if(method_exists($widget,'render')) {
+                $widgetContent = $widget->render();
+            } else {
+                //IF method Doesn't Exist it means they uninstall the Widget or module.
+                $widgetContent = "";
+            }
+
+
 
             return $matches[1] ? substr($matches[0], 1) : "{$widgetContent}{$whitespace}";
         };
