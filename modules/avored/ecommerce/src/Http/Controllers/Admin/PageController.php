@@ -3,7 +3,6 @@ namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\Repository\Page;
 use AvoRed\Ecommerce\Http\Requests\PageRequest;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Framework\Widget\Facade as Widget;
 use AvoRed\Ecommerce\DataGrid\Page as PageGrid;
 
@@ -38,6 +37,7 @@ class PageController extends AdminController
     public function index()
     {
         $pageGrid = new PageGrid($this->pageRepository->model()->query()->orderBy('id','desc'));
+
 
         return view('avored-ecommerce::admin.page.index')->with('dataGrid', $pageGrid->dataGrid);
     }

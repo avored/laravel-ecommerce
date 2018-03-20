@@ -6,7 +6,7 @@
 @endphp
 <div class="form-group">
     <label for="content">Content</label>
-    <textarea id="content"
+    <textarea id="content" name="content"
               class="summernote form-control"
     >{{ $content }}</textarea>
 </div>
@@ -141,6 +141,8 @@
             ]
 
         });
+
+
 
 
     </script>
