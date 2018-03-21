@@ -50,7 +50,7 @@ class AddressController extends Controller
     {
         $user = Auth::user();
 
-        $addresses = $this->userRepository->addressModel()->where('user_id', '=', $user->id)->get();
+        $addresses = $this->userRepository->allUserAddresses($user->id);
 
         return view('address.my-account.address')
             ->with('user', $user)
@@ -64,9 +64,9 @@ class AddressController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $countries = $this->userRepository->countryModel()->all();
-        $defaultCountry = $this->configRepository->model()->getConfiguration('avored_address_default_country');
+        $user           = Auth::user();
+        $countries      = $this->userRepository->countryOptions();
+        $defaultCountry = $this->configRepository->getConfiguration('avored_address_default_country');
 
         return view('address.my-account.create-address')
             ->with('user', $user)
@@ -85,7 +85,7 @@ class AddressController extends Controller
     {
         $user = Auth::user();
         $request->merge(['user_id' => $user->id]);
-        $this->userRepository->addressModel()->create($request->all());
+        $this->userRepository->createUserAddress($request->all());
 
         return redirect()->route('my-account.address.index');
     }
@@ -100,9 +100,9 @@ class AddressController extends Controller
     public function edit($id)
     {
         $user           = Auth::user();
-        $address        = $this->userRepository->addressModel()->findorfail($id);
-        $defaultCountry = $this->configRepository->model()->getConfiguration('avored_address_default_country');
-        $countries      = $this->userRepository->countryModel()->all();
+        $address        = $this->userRepository->findAddress($id);
+        $defaultCountry = $this->configRepository->getConfiguration('avored_address_default_country');
+        $countries      = $this->userRepository->countryOptions();
 
         return view('address.my-account.edit-address')
             ->with('user', $user)
@@ -121,7 +121,7 @@ class AddressController extends Controller
      */
     public function update(AddressRequest $request, $id)
     {
-        $address = $this->userRepository->addressModel()->findorfail($id);
+        $address = $this->userRepository->findAddress($id);
         $address->update($request->all());
 
         return redirect()->route('my-account.address.index');
@@ -136,7 +136,7 @@ class AddressController extends Controller
      */
     public function destroy($id)
     {
-        $this->userRepository->addressModel()->destroy($id);
+        $this->userRepository->destroyUserAddress($id);
 
         return redirect()->route('my-account.address.index');
     }

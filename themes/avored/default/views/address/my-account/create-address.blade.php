@@ -60,11 +60,11 @@
                                             class="form-control"
                                             @endif
                                     >
-                                        @foreach($countries as $country)
-                                            <option @if($defaultCountry == $country->id)
+                                        @foreach($countries as $countryId => $countryName)
+                                            <option @if($defaultCountry == $countryId)
                                                     {{ "selected" }}
                                                     @endif
-                                                    value="{{ $country->id }}">{{ $country->name }}</option>
+                                                    value="{{ $countryId }}">{{ $countryName }}</option>
                                         @endforeach
                                     </select>
                                     @if ($errors->has('country_id'))

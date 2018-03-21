@@ -70,12 +70,12 @@ class OrderController extends Controller
 
         $paymentOption = $request->get('payment_option');
 
-        $data['shipping_address_id'] = $shippingAddress->id;
-        $data['billing_address_id'] = $billingAddress->id;
-        $data['user_id'] = $user->id;
-        $data['shipping_option'] = $request->get('shipping_option');
-        $data['payment_option'] = $paymentOption;
-        $data['order_status_id'] = $orderStatus->id;
+        $data['shipping_address_id']    = $shippingAddress->id;
+        $data['billing_address_id']     = $billingAddress->id;
+        $data['user_id']                = $user->id;
+        $data['shipping_option']        = $request->get('shipping_option');
+        $data['payment_option']         = $paymentOption;
+        $data['order_status_id']        = $orderStatus->id;
 
         $payment = Payment::get($paymentOption);
 

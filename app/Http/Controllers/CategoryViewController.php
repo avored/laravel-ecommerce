@@ -31,7 +31,7 @@ class CategoryViewController extends Controller
     {
         $productsOnCategoryPage = 10; //Configuration::getConfiguration('avored_catalog_no_of_product_category_page');
 
-        $category = $this->productRepository->categoryModel()->where('slug', '=', $slug)->get()->first();
+        $category = $this->productRepository->findCategoryBySlug($slug);
 
         $collections = $this->productRepository->model()->getCollection()
             ->addCategoryFilter($category->id);

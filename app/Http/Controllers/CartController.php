@@ -144,22 +144,6 @@ class CartController extends Controller
         Cart::update($request->get('slug'), $request->get('qty',1));
 
         return redirect()->back();
-
-        $cartData = Session::get('cart');
-
-        if ($request->get('qty') == 0) {
-            //unset($cartData[$request->get('id')]);
-            $cartData->pull($request->get('id'));
-
-        } else {
-
-            $item = $cartData->pull($request->get('id'));
-            $item['qty'] = $request->get('qty');
-            $cartData->put($request->get('id'), $item);
-        }
-        Session::put('cart', $cartData);
-
-
     }
 
     public function destroy($slug)

@@ -36,4 +36,64 @@ class User extends AbstractRepository {
     public function wishlistModel() {
         return new Wishlist();
     }
+
+    /**
+     * Get All Addresses of a given User
+     *
+     * @param integer $userId
+     * @return null|\Illuminate\Database\Eloquent\Collection $addressCollection
+     */
+    public function allUserAddresses($userId) {
+        return $this->addressModel()->whereUserId($userId)->get();
+    }
+
+    /**
+     * Find Address By Address ID
+     *
+     * @param integer $addressId
+     * @return \AvoRed\Ecommerce\Models\Database\Address $address
+     */
+    public function findAddress($addressId):Address {
+        return $this->addressModel()->find($addressId);
+    }
+
+    /**
+     * Create User Address
+     *
+     * @param array $data
+     * @return \AvoRed\Ecommerce\Models\Database\Address $address
+     */
+    public function createUserAddress($data):Address {
+        return $this->addressModel()->create($data);
+    }
+
+
+
+    /**
+     * Destroy the  Address by Given Id
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function destroyUserAddress($id):bool {
+        return $this->addressModel()->destroy($id);
+    }
+
+
+
+
+    /**
+     * Get Country Options for drop down
+     *
+     * @return \Illuminate\Support\Collection $countryOptions
+     */
+    public function countryOptions() {
+        $countryOptions = $this->countryModel()->all()->pluck('name','id');
+        $countryOptions->prepend('Please Select', null);
+
+        return $countryOptions;
+    }
+
 }
+
+

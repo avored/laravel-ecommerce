@@ -46,11 +46,11 @@ class HomeController extends Controller
     {
 
         $pageModel = null;
-        $pageId = $this->configRepository->model()->getConfiguration('general_home_page');
+        $pageId = $this->configRepository->getConfiguration('general_home_page');
 
 
         if(null !== $pageId) {
-            $pageModel = $this->pageRepository->model()->find($pageId);
+            $pageModel = $this->pageRepository->findPageById($pageId);
         }
 
         return view('home.index')->with('pageModel', $pageModel);

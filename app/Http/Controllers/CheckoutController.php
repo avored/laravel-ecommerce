@@ -30,13 +30,10 @@ class CheckoutController extends Controller
 
     public function index()
     {
-
+        $cartItems          = Cart::all();
         $shippingOptions    = Shipping::all();
         $paymentOptions     = Payment::all();
-        $countries          = $this->userRepository->countryModel()->getCountriesOptions();
-
-        $cartItems = Cart::all();
-
+        $countries          = $this->userRepository->countryOptions();
 
         return view('checkout.index')
             ->with('cartItems', $cartItems)
