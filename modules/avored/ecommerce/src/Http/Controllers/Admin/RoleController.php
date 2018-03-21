@@ -1,6 +1,7 @@
 <?php
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
+use AvoRed\Ecommerce\DataGrid\Role;
 use AvoRed\Ecommerce\Repository\User;
 use AvoRed\Ecommerce\Http\Requests\RoleRequst;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
@@ -34,24 +35,8 @@ class RoleController extends AdminController
      */
     public function index()
     {
-        $dataGrid = DataGrid::model($this->userRepository->roleModel()->query())
-            ->column('id',['sortable' => true])
-            ->column('name')
-            ->linkColumn('edit',[], function($model) {
-                return "<a href='". route('admin.role.edit', $model->id)."' >Edit</a>";
-
-            })->linkColumn('destroy',[], function($model) {
-                return "<form id='admin-role-destroy-".$model->id."'
-                                            method='POST'
-                                            action='".route('admin.role.destroy', $model->id) ."'>
-                                        <input name='_method' type='hidden' value='DELETE' />
-                                        ". csrf_field()."
-                                        <a href='#'
-                                            onclick=\"jQuery('#admin-role-destroy-$model->id').submit()\"
-                                            >Destroy</a>
-                                    </form>";
-            });
-        return view('avored-ecommerce::admin.role.index')->with('dataGrid', $dataGrid);
+        $roleGrid = new Role($this->userRepository->roleModel()->query());
+        return view('avored-ecommerce::admin.role.index')->with('dataGrid', $roleGrid->dataGrid);
     }
 
     /**
