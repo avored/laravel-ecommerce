@@ -1,9 +1,4 @@
-
-.idea/workspace.xml
-.idea/php.xml
-.idea/modules.xml
-.idea/ecommerce.iml
-.idea/vcs.xml
+/.idea
 resources/.DS_Store
 resources/views/.DS_Store
 resources/views/admin/.DS_Store

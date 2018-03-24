@@ -45,8 +45,9 @@ class DashboardController extends AdminController
     public function index()
     {
 
-        $value = $this->configRepository->model()->getConfiguration('avored_user_total');
+        $value = $this->configRepository->getConfiguration('avored_user_total');
         $totalRegisteredUser = (null === $value) ? 0 : $value;
+
         $totalOrder = $this->orderRepository->model()->all()->count();
 
         return view('avored-ecommerce::admin.home')

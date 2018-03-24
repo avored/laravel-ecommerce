@@ -35,7 +35,7 @@ class PageController extends Controller
      */
     public function show($slug)
     {
-        $page = $this->pageRepository->model()->where('slug', '=', $slug)->first();
+        $page = $this->pageRepository->findPageBySlug($slug);
 
         return view('page.show')->with('page', $page);
     }

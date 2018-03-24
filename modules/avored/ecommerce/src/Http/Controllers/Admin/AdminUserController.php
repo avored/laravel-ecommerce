@@ -36,11 +36,7 @@ class AdminUserController extends AdminController
      */
     public function index()
     {
-      
-        $adminUserGrid = new AdminUser(
-                              $this->userRepository->adminUserModel()->query()->orderBy('id','desc')
-                            );
-
+        $adminUserGrid = new AdminUser($this->userRepository->adminUserModel()->query()->orderBy('id','desc'));
 
         return view('avored-ecommerce::admin.admin-user.index')->with('dataGrid', $adminUserGrid->dataGrid);
     }
@@ -52,7 +48,7 @@ class AdminUserController extends AdminController
      */
     public function create()
     {
-        $roles = $this->_getRoleOptions();
+        $roles = $this->userRepository->roleOptions();
         return view('avored-ecommerce::admin.admin-user.create')
             ->with('roles', $roles)
             ->with('editMethod', true);
@@ -69,13 +65,7 @@ class AdminUserController extends AdminController
     {
         $request->merge(['password' => bcrypt($request->get('password'))]);
 
-
-        //TMP only once we add user role then remove it???
-
-        $role = $this->userRepository->roleModel()->all()->first();
-        $request->merge(['role_id' => $role->id]);
-
-        $this->userRepository->model()->create($request->all());
+        $this->userRepository->createUser($request->all());
 
         return redirect()->route('admin.admin-user.index');
     }
@@ -89,12 +79,13 @@ class AdminUserController extends AdminController
      */
     public function edit($id)
     {
-        $user = $this->userRepository->model()->findorfail($id);
-        $roles = $this->_getRoleOptions();
+        $user = $this->userRepository->findUserById($id);
+        $roles = $this->userRepository->roleOptions();
+
         return view('avored-ecommerce::admin.admin-user.edit')
-            ->with('model', $user)
-            ->with('roles', $roles)
-            ->with('editMethod', true);
+                                ->with('model', $user)
+                                ->with('roles', $roles)
+                                ->with('editMethod', true);
     }
 
     /**
@@ -107,17 +98,11 @@ class AdminUserController extends AdminController
      */
     public function update(AdminUserRequest $request, $id)
     {
-        $image = $request->file('image');
-        $tmpPath = str_split(strtolower(str_random(3)));
-        $checkDirectory = '/uploads/users/images/' . implode('/', $tmpPath);
-
-        $image = Image::upload($image, $checkDirectory);
-
+        $user   = $this->userRepository->findUserById($id);
+        $path   = $this->_getUserImageRelativePath();
+        $image  = Image::upload($request->file('image'), $path);
 
         $request->merge(['image_path' => $image->relativePath]);
-
-
-        $user = $this->userRepository->model()->findorfail($id);
 
         $user->update($request->all());
 
@@ -133,14 +118,9 @@ class AdminUserController extends AdminController
      */
     public function destroy($id)
     {
-        $this->userRepository->model()->destroy($id);
+        $this->userRepository->destroyUserById($id);
 
         return redirect()->route('admin.admin-user.index');
-    }
-
-    private function _getRoleOptions()
-    {
-        return [0 => 'Please Select'] + $this->userRepository->roleModel()->all()->pluck('name', 'id')->toArray();
     }
 
     public function apiShow() {
@@ -162,5 +142,11 @@ class AdminUserController extends AdminController
 
         return view('avored-ecommerce::admin.admin-user.show')->with('user', $user);
 
+    }
+
+
+    private function _getUserImageRelativePath() {
+        $tmpPath = str_split(strtolower(str_random(3)));
+        return '/uploads/users/images/' . implode('/', $tmpPath);
     }
 }

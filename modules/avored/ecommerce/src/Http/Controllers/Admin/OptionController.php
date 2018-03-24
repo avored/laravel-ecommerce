@@ -34,11 +34,11 @@ class OptionController extends AdminController
 
         $options = Collection::make([]);
 
-        $productId = $request->get('product_id');
-        $optionIds = $request->get('attributes');
+        $productId      = $request->get('product_id');
+        $attributeIds   = $request->get('attributes');
 
-        foreach ($optionIds as $optionId) {
-            $options->push($this->productRepository->attributeModel()->findorfail($optionId));
+        foreach ($attributeIds as $attributeId) {
+            $options->push($this->productRepository->findAttributeById($attributeId));
         }
 
         return view('avored-ecommerce::admin.product.option-combination')
@@ -48,32 +48,32 @@ class OptionController extends AdminController
 
     public function editOptionCombinationModal(Request $request) {
         //
-        $subProduct = $this->productRepository->model()->findorfail($request->get('id'));
-        $options = Collection::make([]);
+        $subProduct = $this->productRepository->findProductById($request->get('id'));
+        $attributes = Collection::make([]);
 
-        $productId = $request->get('product_id');
-        $optionIds = $request->get('attributes');
+        $productId      = $request->get('product_id');
+        $attributeIds   = $request->get('attributes');
 
-        foreach ($optionIds as $optionId) {
-            $options->push($this->productRepository->attributeModel()->findorfail($optionId));
+        foreach ($attributeIds as $attributeId) {
+            $attributes->push($this->productRepository->findAttributeById($attributeId));
         }
 
         return view('avored-ecommerce::admin.product.option-combination-edit')
-            ->with('options', $options)
-            ->with('model', $subProduct)
-            ->with('productId', $productId);
+                                ->with('options', $attributes)
+                                ->with('model', $subProduct)
+                                ->with('productId', $productId);
     }
 
     public function optionCombinationUpdate(Request $request){
 
-        $attributeIds = Collection::make([]);
-        $productId = $request->get('product_id');
-        $parentProduct = $this->productRepository->model()->findorfail($productId);
+        $attributeIds   = Collection::make([]);
+        $productId      = $request->get('product_id');
+        $parentProduct  = $this->productRepository->findProductById($productId);
 
         $name = $parentProduct->name;
 
         foreach ($request->get('attributes_specification') as  $attributeId => $value) {
-            $attribute = $this->productRepository->attributeModel()->findorfail($attributeId);
+            $attribute = $this->productRepository->findAttributeById($attributeId);
 
 
             if($attribute->field_type == 'SELECT') {

@@ -59,7 +59,7 @@ class CategoryController extends AdminController
      */
     public function store(CategoryRequest $request)
     {
-        $this->productRepository->categoryModel()->create($request->all());
+        $this->productRepository->createCategory($request->all());
 
         return redirect()->route('admin.category.index');
     }
@@ -72,7 +72,7 @@ class CategoryController extends AdminController
      */
     public function edit($id)
     {
-        $category = $this->productRepository->categoryModel()->find($id);
+        $category = $this->productRepository->findCategoryById($id);
 
         return view('avored-ecommerce::admin.category.edit')->with('model', $category);
     }
@@ -87,7 +87,7 @@ class CategoryController extends AdminController
      */
     public function update(CategoryRequest $request, $id)
     {
-        $category = $this->productRepository->categoryModel()->find($id);
+        $category = $this->productRepository->findCategoryById($id);
         $category->update($request->all());
 
         return redirect()->route('admin.category.index');
@@ -102,7 +102,7 @@ class CategoryController extends AdminController
      */
     public function destroy($id)
     {
-        $category = $this->productRepository->categoryModel()->find($id);
+        $category = $this->productRepository->findCategoryById($id);
 
         foreach ($category->children as $child) {
             $child->parent_id = 0;

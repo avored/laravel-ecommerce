@@ -86,9 +86,6 @@ Route::post('/order', 'OrderController@place')
 Route::get('/order/success/{id}', 'OrderController@success')
                     ->name('order.success');
 
-Route::post('/tax-calculation', 'TaxRuleController@getTaxAmount')
-                    ->name('tax.calculation');
-
 Route::get('/page/{slug}', 'PageController@show')
                     ->name('page.show');
 

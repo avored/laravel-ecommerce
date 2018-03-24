@@ -26,4 +26,13 @@ class Config extends AbstractRepository {
         return $row->configuration_value;
     }
 
+    /**
+     * Get the Configuration by it's Key Value
+     * @param $configKey
+     * @return mixed
+     */
+    public function findConfigurationByKey($configKey) {
+        return $this->model()->whereConfigurationKey($configKey)->first();
+    }
+
 }

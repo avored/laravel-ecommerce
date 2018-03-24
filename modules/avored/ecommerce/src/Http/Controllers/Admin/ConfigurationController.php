@@ -56,15 +56,15 @@ class ConfigurationController extends AdminController
     public function index()
     {
 
-        $model = $this->configRepository->model();
-        $pageOptions = Collection::make(['' => 'Please Select'] + $this->pageRepository->model()->all()->pluck('name', 'id')->toArray());
-        $countryOptions = $this->userRepository->countryModel()->getCountriesOptions($empty = true);
+        $model          = $this->configRepository->model();
+        $pageOptions    = $this->pageRepository->pageOptions();
+        $countryOptions = $this->userRepository->countryOptions();
 
         return view('avored-ecommerce::admin.configuration.index')
-            ->with('model', $model)
-            ->with('pageOptions', $pageOptions)
-            ->with('countryOptions',$countryOptions)
-            ;
+                            ->with('model', $model)
+                            ->with('pageOptions', $pageOptions)
+                            ->with('countryOptions',$countryOptions)
+                            ;
     }
 
     /**
@@ -75,7 +75,7 @@ class ConfigurationController extends AdminController
     public function store(Request $request)
     {
         foreach ($request->except(['_token', '_method']) as $key => $value) {
-            $configuration = $this->configRepository->model()->where('configuration_key', '=', $key)->get()->first();
+            $configuration = $this->configRepository->findConfigurationByKey($key);
 
             if (null === $configuration) {
                 $data['configuration_key'] = $key;
@@ -83,14 +83,13 @@ class ConfigurationController extends AdminController
 
                 $this->configRepository->model()->create($data);
 
-
             } else {
                 $configuration->update(['configuration_value' => $value]);
             }
         }
 
 
-        return redirect()->back()->with('notificationText', 'All Configuration saved.');
+        return redirect()->back()->with('notificationText', 'All Configuration saved!');
     }
 
 }

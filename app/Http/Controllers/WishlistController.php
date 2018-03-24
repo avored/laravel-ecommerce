@@ -47,7 +47,7 @@ class WishlistController extends Controller
     public function add($slug)
     {
 
-        $product = $this->productRepository->model()->getProductBySlug($slug);
+        $product = $this->productRepository->findProductBySlug($slug);
         $this->userRepository->wishlistModel()->create([
             'user_id' => Auth::user()->id,
             'product_id' => $product->id,
@@ -79,7 +79,7 @@ class WishlistController extends Controller
      */
     public function destroy($slug)
     {
-        $product = $this->productRepository->model()->getProductBySlug($slug);
+        $product = $this->productRepository->findProductBySlug($slug);
 
         $this->userRepository->wishlistModel()->where([
             'user_id' => Auth::user()->id,

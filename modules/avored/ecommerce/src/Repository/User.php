@@ -38,6 +38,46 @@ class User extends AbstractRepository {
     }
 
     /**
+     * Create User
+     *
+     * @param array $data
+     * @return \AvoRed\Ecommerce\Models\Database\User $address
+     */
+    public function createUser($data):UserModel {
+        return $this->model()->create($data);
+    }
+
+    /**
+     * Destroy User
+     *
+     * @param integer $id
+     * @return bool
+     */
+    public function destroyUserById($id) {
+        return $this->model()->destroy($id);
+    }
+
+    /**
+     * Find User by Id
+     *
+     * @param integer $id
+     * @return \AvoRed\Ecommerce\Models\Database\User $address
+     */
+    public function findUserById($id):UserModel {
+        return $this->model()->find($id);
+    }
+
+    /**
+     * Get User by Email Address
+     *
+     * @param string $email
+     * @return null|\Illuminate\Database\Eloquent\Collection $addressCollection
+     */
+    public function findUserByEmail($email) {
+        return $this->model()->whereEmail($email)->get();
+    }
+
+    /**
      * Get All Addresses of a given User
      *
      * @param integer $userId
@@ -92,6 +132,18 @@ class User extends AbstractRepository {
         $countryOptions->prepend('Please Select', null);
 
         return $countryOptions;
+    }
+
+    /**
+     * Get Role Options for drop down
+     *
+     * @return \Illuminate\Support\Collection $countryOptions
+     */
+    public function roleOptions() {
+        $options = $this->roleModel()->all()->pluck('name','id');
+        $options->prepend('Please Select', null);
+
+        return $options;
     }
 
 }

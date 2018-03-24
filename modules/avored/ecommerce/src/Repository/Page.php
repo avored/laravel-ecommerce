@@ -13,6 +13,19 @@ class Page extends AbstractRepository {
 
 
     /**
+     * Get Page Options for drop down
+     *
+     * @return \Illuminate\Support\Collection $countryOptions
+     */
+    public function pageOptions() {
+        $pageOptions = $this->model()->all()->pluck('name','id');
+        $pageOptions->prepend('Please Select', null);
+
+        return $pageOptions;
+    }
+
+
+    /**
      * Find the Page by Id
      *
      * @param integer $id

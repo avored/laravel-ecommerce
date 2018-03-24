@@ -29,7 +29,8 @@ class UserActivationController extends Controller
     public function activateAccount($token, $email)
     {
 
-        $user = $this->userRepository->model()->whereEmail($email)->first();
+        $user = $this->userRepository->findUserByEmail($email);
+
 
         if($token == $user->activation_token) {
 
@@ -48,9 +49,7 @@ class UserActivationController extends Controller
 
     public function resendPost(Request $request) {
 
-        $user = $this->userRepository->model()->whereEmail($request->get('email'))->first();
-
-
+        $user = $this->userRepository->findUserByEmail($request->get('email'));
         Mail::to($user)->send(new NewUserMail($user));
 
 

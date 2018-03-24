@@ -48,8 +48,8 @@ class CheckoutComposer
         $pageId = $this->configRepository->model()->getConfiguration('general_term_condition_page');
 
         if (null !== $pageId) {
-            $page = $this->pageRepository->model()->find($pageId);
-            $termConditionPageUrl = "/page/" . $page->slug;
+            $page = $this->pageRepository->findPageById($pageId);
+            $termConditionPageUrl = route('page.show', $page->slug);
         }
 
 
