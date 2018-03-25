@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Mail;
 
 use Illuminate\Bus\Queueable;

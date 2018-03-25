@@ -1,12 +1,13 @@
 <?php
+
 namespace AvoRed\Ecommerce\Models\Database;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
-    public static function  findorfail($id, array $columns = array('*'))
+    public static function findorfail($id, array $columns = ['*'])
     {
         $model = new static();
 
@@ -17,7 +18,7 @@ class BaseModel extends Model
 
         try {
             $row = call_user_func_array([static::query(), 'findorfail'], [$id, $columns]);
-        //    Cache::put($cacheKey, $row, $minute = 100);
+            //    Cache::put($cacheKey, $row, $minute = 100);
             return $row;
         } catch (ModelNotFoundException $e) {
             throw with(new TenantModelNotFoundException())->setModel(get_called_class());
@@ -43,28 +44,24 @@ class BaseModel extends Model
     */
 
     /**
-    public static function  all($columns = ['*'])
-    {
-        $model = new static;
-
-        $cacheKey = get_class($model) . "_all" ;
-        if (Cache::has($cacheKey)) {
-            return Cache::get($cacheKey);
-        }
-        $rows = $model->all($columns);
-        //$rows = parent::all($columns);
-
-        Cache::put($cacheKey, $rows, $minute = 100);
-        return $rows;
-    }
-     * 
-    
+     * public static function  all($columns = ['*'])
+     * {
+     * $model = new static;.
+     *
+     * $cacheKey = get_class($model) . "_all" ;
+     * if (Cache::has($cacheKey)) {
+     * return Cache::get($cacheKey);
+     * }
+     * $rows = $model->all($columns);
+     * //$rows = parent::all($columns);
+     *
+     * Cache::put($cacheKey, $rows, $minute = 100);
+     * return $rows;
+     * }
      */
-
-    
-    public static function paginate($perPage = null, 
-                                    array $columns = array('*'), 
-                                    $pageName = 'page', 
+    public static function paginate($perPage = null,
+                                    array $columns = ['*'],
+                                    $pageName = 'page',
                                     $page = null)
     {
         $model = new static();
@@ -73,11 +70,10 @@ class BaseModel extends Model
         //if (Cache::has($cacheKey)) {
         //    return Cache::get($cacheKey);
         //}
-        $rows = call_user_func_array([static::query(), 'paginate'], [$perPage , $columns, $pageName , $page]);
+        $rows = call_user_func_array([static::query(), 'paginate'], [$perPage, $columns, $pageName, $page]);
 
         //Cache::put($cacheKey, $rows, $minute = 100);
         return $rows;
-
     }
 
     public static function create(array $attributes = [])
@@ -85,12 +81,10 @@ class BaseModel extends Model
         //$model = new static;
         //$model->forgetCommonQueryCache();
 
-
         $row = call_user_func_array([static::query(), 'create'], [$attributes]);
 
         return $row;
     }
-
 
     public function update(array $attributes = [], array $options = [])
     {
@@ -101,8 +95,8 @@ class BaseModel extends Model
         return parent::update($attributes, $options);
     }
 
-
-    public function delete() {
+    public function delete()
+    {
 
         //$cacheKey = get_class($this) . "_" . $this->attributes['id'];
         //Cache::forget($cacheKey);
@@ -111,15 +105,13 @@ class BaseModel extends Model
         return parent::delete();
     }
 
-    public function forgetCommonQueryCache() {
+    public function forgetCommonQueryCache()
+    {
 
         //$cacheKey = get_class($this) . "_all";
         //Cache::forget($cacheKey);
 
-
         //$cacheKey = get_class($this) . "_paginate";
         //Cache::forget($cacheKey);
-
     }
 }
-

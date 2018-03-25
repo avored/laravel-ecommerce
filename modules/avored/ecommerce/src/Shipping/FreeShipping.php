@@ -1,43 +1,39 @@
 <?php
+
 namespace AvoRed\Ecommerce\Shipping;
 
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Shipping\Shipping as AbstractShipping;
 use AvoRed\Framework\Shipping\Contracts\Shipping as ShippingContract;
 
-class FreeShipping extends AbstractShipping implements  ShippingContract
+class FreeShipping extends AbstractShipping implements ShippingContract
 {
     /**
-     * Identifier for the Shipping Options
+     * Identifier for the Shipping Options.
      * @var string
      */
-    protected $identifier  = "freeshipping";
+    protected $identifier = 'freeshipping';
 
     /**
-     * Name for the Shipping Options
+     * Name for the Shipping Options.
      * @var string
      */
-
-    protected $name = "Free Shipping";
-
+    protected $name = 'Free Shipping';
 
     /**
-     * To check if Shipping Option is Enable
+     * To check if Shipping Option is Enable.
      * @var string
      */
-
     protected $enable = true;
 
     /**
-     * Amount for the Shipping Options
+     * Amount for the Shipping Options.
      * @var string
      */
     protected $amount;
 
-
-
     /**
-     * Get the identifier
+     * Get the identifier.
      *
      * return string $identifier
      */
@@ -47,7 +43,7 @@ class FreeShipping extends AbstractShipping implements  ShippingContract
     }
 
     /**
-     * Get the Name of the Shipping Option
+     * Get the Name of the Shipping Option.
      *
      * return string $title
      */
@@ -57,7 +53,7 @@ class FreeShipping extends AbstractShipping implements  ShippingContract
     }
 
     /**
-     * Get the Name of the Shipping Option
+     * Get the Name of the Shipping Option.
      *
      * return string $title
      */
@@ -68,7 +64,7 @@ class FreeShipping extends AbstractShipping implements  ShippingContract
     }
 
     /**
-     * Calculate and Return the Amount
+     * Calculate and Return the Amount.
      *
      * return float $amount
      */
@@ -82,7 +78,7 @@ class FreeShipping extends AbstractShipping implements  ShippingContract
     }
 
     /**
-     * Processing Amount for this Shipping Option
+     * Processing Amount for this Shipping Option.
      *
      * return float $amount
      */
@@ -90,6 +86,7 @@ class FreeShipping extends AbstractShipping implements  ShippingContract
     {
         //execute the shipping api here
         $this->amount = 0.00;
+
         return $this;
     }
 }

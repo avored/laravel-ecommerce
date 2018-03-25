@@ -25,13 +25,17 @@
 </head>
 <body>
 
-@include("avored-ecommerce::admin.layouts.nav")
+
 
 
 <aside class="sidebar">
     @include("avored-ecommerce::admin.layouts.left-nav")
 </aside>
-<div class="main-content p-3">
+<div class="main-content">
+
+    @include("avored-ecommerce::admin.layouts.nav")
+
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">

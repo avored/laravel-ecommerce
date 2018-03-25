@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Models\Database;
 
 class State extends BaseModel

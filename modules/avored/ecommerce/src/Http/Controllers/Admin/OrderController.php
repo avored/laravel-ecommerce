@@ -1,29 +1,28 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
-use AvoRed\Ecommerce\Mail\OrderInvoicedMail;
-use AvoRed\Framework\Repository\Order;
 use AvoRed\Ecommerce\Repository\User;
-use AvoRed\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
+use AvoRed\Framework\Repository\Order;
+use AvoRed\Ecommerce\Mail\OrderInvoicedMail;
 use AvoRed\Ecommerce\Mail\UpdateOrderStatusMail;
 use AvoRed\Ecommerce\DataGrid\Order as OrderGrid;
-use Illuminate\Support\Facades\File;
+use AvoRed\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
 
 class OrderController extends AdminController
 {
-
     /**
-     * AvoRed Product Repository
+     * AvoRed Product Repository.
      *
      * @var \AvoRed\Ecommerce\Repository\User
      */
     protected $userRepository;
 
-
     /**
-     * AvoRed Order Repository
+     * AvoRed Order Repository.
      *
      * @var \AvoRed\Framework\Repository\Order
      */
@@ -38,15 +37,13 @@ class OrderController extends AdminController
      */
     public function __construct(User $repository, Order $orderRepository)
     {
-        $this->userRepository  = $repository;
+        $this->userRepository = $repository;
         $this->orderRepository = $orderRepository;
-     }
-
+    }
 
     public function index()
     {
-        $orderGrid = new OrderGrid($this->orderRepository->model()->query()->orderBy('id','desc'));
-
+        $orderGrid = new OrderGrid($this->orderRepository->model()->query()->orderBy('id', 'desc'));
 
         return view('avored-ecommerce::admin.order.index')->with('dataGrid', $orderGrid->dataGrid);
     }
@@ -61,22 +58,21 @@ class OrderController extends AdminController
 
     public function sendEmailInvoice($id)
     {
-
         $order = $this->orderRepository->model()->findorfail($id);
         $user = $this->userRepository->model()->find($order->user_id);
 
         $view = view('avored-ecommerce::admin.mail.order-pdf')->with('order', $order);
 
         $folderPath = public_path('uploads/order/invoice');
-        if (!File::exists($folderPath)) {
+        if (! File::exists($folderPath)) {
             File::makeDirectory($folderPath, '0775', true, true);
         }
-        $path = $folderPath . DIRECTORY_SEPARATOR . $order->id . '.pdf';
+        $path = $folderPath.DIRECTORY_SEPARATOR.$order->id.'.pdf';
         PDF::loadHTML($view->render())->save($path);
 
         Mail::to($user->email)->send(new OrderInvoicedMail($order, $path));
 
-        return redirect()->back()->with('notificationText', "Email Sent Successfully!!");
+        return redirect()->back()->with('notificationText', 'Email Sent Successfully!!');
     }
 
     public function changeStatus($id)

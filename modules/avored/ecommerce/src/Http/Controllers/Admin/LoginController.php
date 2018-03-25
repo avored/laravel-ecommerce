@@ -1,16 +1,15 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends AdminController
 {
-
     use AuthenticatesUsers;
-
 
     /**
      * Create a new controller instance.
@@ -23,10 +22,9 @@ class LoginController extends AdminController
     }
 
     /**
-     * Show the AvoRed Login Form to the User
+     * Show the AvoRed Login Form to the User.
      *
      * @return \Illuminate\Http\Response
-     *
      */
     public function loginForm()
     {
@@ -34,10 +32,9 @@ class LoginController extends AdminController
     }
 
     /**
-     * Using an Admin Guard for the Admin Auth
+     * Using an Admin Guard for the Admin Auth.
      *
      * @return \Illuminate\Auth\SessionGuard
-     *
      */
     protected function guard()
     {
@@ -71,12 +68,12 @@ class LoginController extends AdminController
     }
 
     /**
-     * Redirect Path after login and logout
+     * Redirect Path after login and logout.
      *
      * @return string
      */
-    public function redirectPath(){
+    public function redirectPath()
+    {
         return  config('avored-ecommerce.admin_url');
     }
-
 }

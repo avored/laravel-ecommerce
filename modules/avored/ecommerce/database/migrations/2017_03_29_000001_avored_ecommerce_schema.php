@@ -1,15 +1,13 @@
 <?php
 
-use AvoRed\Framework\Models\Database\OrderStatus;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use Illuminate\Database\Schema\Blueprint;
 use AvoRed\Ecommerce\Models\Database\Country;
+use Illuminate\Database\Migrations\Migration;
+use AvoRed\Ecommerce\Models\Database\Configuration;
 
 class AvoredEcommerceSchema extends Migration
 {
-
     /**
      * @todo arrange Database Table Creation and foreign keys
      * Install the AvoRed Address Module Schema.
@@ -18,7 +16,6 @@ class AvoredEcommerceSchema extends Migration
      */
     public function up()
     {
-
         Schema::create('admin_password_resets', function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token')->index();
@@ -123,7 +120,6 @@ class AvoredEcommerceSchema extends Migration
             $table->boolean('password_client');
             $table->boolean('revoked');
             $table->timestamps();
-
         });
 
         Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
@@ -202,7 +198,6 @@ class AvoredEcommerceSchema extends Migration
                 ->onDelete('cascade');
         });
 
-
         Schema::table('orders', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('shipping_address_id')->unsigned();
@@ -217,7 +212,7 @@ class AvoredEcommerceSchema extends Migration
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
 
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
-        $path = public_path() . '/countries.json';
+        $path = public_path().'/countries.json';
 
         $json = json_decode(file_get_contents($path), true);
         foreach ($json as $code => $name) {
@@ -227,9 +222,7 @@ class AvoredEcommerceSchema extends Migration
         $countryModel = Country::whereCode('nz')->first();
 
         Configuration::create(['configuration_key' => 'avored_tax_class_default_country_for_tax_calculation',
-            'configuration_value' => $countryModel->id]);
-
-
+            'configuration_value' => $countryModel->id, ]);
     }
 
     /**
@@ -239,7 +232,6 @@ class AvoredEcommerceSchema extends Migration
      */
     public function down()
     {
-
         Schema::dropIfExists('oauth_personal_access_clients');
         Schema::dropIfExists('oauth_clients');
         Schema::dropIfExists('oauth_refresh_tokens');
@@ -256,15 +248,10 @@ class AvoredEcommerceSchema extends Migration
         Schema::dropIfExists('pages');
         Schema::dropIfExists('wishlists');
 
-
         Schema::dropIfExists('permission_role');
         Schema::dropIfExists('permissions');
         Schema::dropIfExists('roles');
         Schema::dropIfExists('states');
         Schema::dropIfExists('countries');
-
-
-
     }
-
 }

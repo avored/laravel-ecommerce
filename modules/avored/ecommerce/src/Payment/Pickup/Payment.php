@@ -7,38 +7,31 @@ use AvoRed\Framework\Payment\Contracts\Payment as PaymentContract;
 
 class Payment extends AbstractPayment implements PaymentContract
 {
-
     /**
-     * Identifier for this Payment options
+     * Identifier for this Payment options.
      *
      * @var string
-     *
      */
-    protected $identifier = "pickup";
+    protected $identifier = 'pickup';
 
     /**
-     * Title for this Payment options
+     * Title for this Payment options.
      *
      * @var string
-     *
      */
-    protected $name = "Pickup From Store";
+    protected $name = 'Pickup From Store';
 
     /**
-     * Payment options View Path
+     * Payment options View Path.
      *
      * @var string
-     *
      */
-    protected $view = "avored-ecommerce::payment.pickup.index";
-
-
+    protected $view = 'avored-ecommerce::payment.pickup.index';
 
     /**
-     * Get Identifier for this Payment options
+     * Get Identifier for this Payment options.
      *
      * return string
-     *
      */
     public function identifier()
     {
@@ -49,19 +42,16 @@ class Payment extends AbstractPayment implements PaymentContract
      * Is this Payment Option Enabled?
      *
      * return boolean
-     *
      */
     public function enable()
     {
         return true;
     }
 
-
     /**
-     * Get Title for this Payment Option
+     * Get Title for this Payment Option.
      *
      * return boolean
-     *
      */
     public function name()
     {
@@ -69,10 +59,9 @@ class Payment extends AbstractPayment implements PaymentContract
     }
 
     /**
-     * Payment Option View Path
+     * Payment Option View Path.
      *
      * return String
-     *
      */
     public function view()
     {
@@ -80,10 +69,9 @@ class Payment extends AbstractPayment implements PaymentContract
     }
 
     /**
-     * Payment Option View Data
+     * Payment Option View Data.
      *
      * return Array
-     *
      */
     public function with()
     {
@@ -99,6 +87,5 @@ class Payment extends AbstractPayment implements PaymentContract
         //EXECUTE API here if any??
 
         return true;
-
     }
 }

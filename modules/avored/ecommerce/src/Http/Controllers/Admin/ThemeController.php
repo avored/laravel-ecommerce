@@ -1,22 +1,21 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use AvoRed\Ecommerce\Repository\Config;
 use AvoRed\Framework\Theme\Facade as Theme;
-use Illuminate\Support\Facades\File;
 
 class ThemeController extends AdminController
 {
-
     /**
-     * AvoRed Config Repository
+     * AvoRed Config Repository.
      *
      * @var \AvoRed\Ecommerce\Repository\Config
      */
     protected $configRepository;
-
 
     /**
      * Theme Controller constructor to Set AvoRed Ecommerce Cofig Repository.
@@ -26,7 +25,7 @@ class ThemeController extends AdminController
      */
     public function __construct(Config $repository)
     {
-        $this->configRepository   = $repository;
+        $this->configRepository = $repository;
     }
 
     /**
@@ -67,7 +66,6 @@ class ThemeController extends AdminController
 
         $zip = new \ZipArchive();
 
-
         if ($zip->open($filePath) === true) {
             $extractPath = base_path('themes');
             $zip->extractTo($extractPath);
@@ -75,7 +73,6 @@ class ThemeController extends AdminController
         } else {
             throwException('Error in Zip Extract error.');
         }
-
 
         return redirect()->route('admin.theme.index');
     }
@@ -87,12 +84,11 @@ class ThemeController extends AdminController
     {
         $theme = Theme::get($name);
 
-
         try {
             $activeThemeConfiguration = $this->configRepository->model()->getConfiguration('active_theme_identifier');
 
-            if(null !== $activeThemeConfiguration) {
-                Configuration::setConfiguration('active_theme_identifier',$theme['name']);
+            if (null !== $activeThemeConfiguration) {
+                Configuration::setConfiguration('active_theme_identifier', $theme['name']);
             } else {
                 Configuration::create([
                     'configuration_key' => 'active_theme_identifier',
@@ -101,10 +97,8 @@ class ThemeController extends AdminController
             }
 
             $activeThemePath = $this->configRepository->model()->getConfiguration('active_theme_path');
-            if(null !== $activeThemePath) {
-
-                $this->configRepository->model()->setConfiguration('active_theme_path',$theme['view_path']);
-
+            if (null !== $activeThemePath) {
+                $this->configRepository->model()->setConfiguration('active_theme_path', $theme['view_path']);
             } else {
                 $this->configRepository->model()->create([
                     'configuration_key' => 'active_theme_path',
@@ -113,16 +107,12 @@ class ThemeController extends AdminController
             }
 
             $fromPath = $theme['asset_path'];
-            $toPath = public_path('vendor/'. $theme['name']);
+            $toPath = public_path('vendor/'.$theme['name']);
 
             //If Path Doesn't Exist it means its under development So no need to publish anything...
-            if(File::isDirectory($fromPath)) {
+            if (File::isDirectory($fromPath)) {
                 Theme::publishItem($fromPath, $toPath);
             }
-
-
-
-
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
@@ -135,7 +125,7 @@ class ThemeController extends AdminController
      */
     public function deactivated($name)
     {
-        if('avored-default' === $name) {
+        if ('avored-default' === $name) {
             throw new Exception('You are not allowed to Deactivate AvoRed-Default Theme');
         }
 
@@ -144,7 +134,7 @@ class ThemeController extends AdminController
         try {
             $activeThemeConfiguration = $this->configRepository->model()->whereConfigurationKey('active_theme_identifier')->first();
 
-            if(null !== $activeThemeConfiguration) {
+            if (null !== $activeThemeConfiguration) {
                 $activeThemeConfiguration->update(['configuration_value' => $theme['name']]);
             } else {
                 $this->configRepository->model()->create([
@@ -154,7 +144,7 @@ class ThemeController extends AdminController
             }
 
             $activeThemePathConfiguration = $this->configRepository->model()->whereConfigurationKey('active_theme_path')->first();
-            if(null !== $activeThemePathConfiguration) {
+            if (null !== $activeThemePathConfiguration) {
                 $activeThemePathConfiguration->update(['configuration_value' => $theme['view_path']]);
             } else {
                 $this->configRepository->model()->create([
@@ -182,7 +172,7 @@ class ThemeController extends AdminController
         $fileName = $file->getClientOriginalName();
         $file->move($destinationPath, $fileName);
 
-        return $destinationPath . DIRECTORY_SEPARATOR . $fileName;
+        return $destinationPath.DIRECTORY_SEPARATOR.$fileName;
     }
 
     protected function publishItem($from, $to)
@@ -211,7 +201,6 @@ class ThemeController extends AdminController
         //$this->status($from, $to, 'Directory');
     }
 
-
     /**
      * Move all the files in the given MountManager.
      *
@@ -226,5 +215,4 @@ class ThemeController extends AdminController
             }
         }
     }
-
 }

@@ -1,37 +1,34 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use AvoRed\Ecommerce\Repository\Config;
-use AvoRed\Ecommerce\Repository\User;
 use AvoRed\Ecommerce\Repository\Page;
-use Illuminate\Support\Collection;
+use AvoRed\Ecommerce\Repository\User;
+use AvoRed\Ecommerce\Repository\Config;
 
 class ConfigurationController extends AdminController
 {
-
-
     /**
-     * AvoRed Product Repository
+     * AvoRed Product Repository.
      *
      * @var \AvoRed\Ecommerce\Repository\User
      */
     protected $userRepository;
 
     /**
-     * AvoRed Config Repository
+     * AvoRed Config Repository.
      *
      * @var \AvoRed\Ecommerce\Repository\Config
      */
     protected $configRepository;
 
     /**
-     * AvoRed Config Repository
+     * AvoRed Config Repository.
      *
      * @var \AvoRed\Ecommerce\Repository\Page
      */
     protected $pageRepository;
-
 
     /**
      * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
@@ -43,9 +40,9 @@ class ConfigurationController extends AdminController
      */
     public function __construct(User $repository, Config $configRepository, Page $pageRepository)
     {
-        $this->userRepository   = $repository;
+        $this->userRepository = $repository;
         $this->configRepository = $configRepository;
-        $this->pageRepository   = $pageRepository;
+        $this->pageRepository = $pageRepository;
     }
 
     /**
@@ -55,16 +52,14 @@ class ConfigurationController extends AdminController
      */
     public function index()
     {
-
-        $model          = $this->configRepository->model();
-        $pageOptions    = $this->pageRepository->pageOptions();
+        $model = $this->configRepository->model();
+        $pageOptions = $this->pageRepository->pageOptions();
         $countryOptions = $this->userRepository->countryOptions();
 
         return view('avored-ecommerce::admin.configuration.index')
                             ->with('model', $model)
                             ->with('pageOptions', $pageOptions)
-                            ->with('countryOptions',$countryOptions)
-                            ;
+                            ->with('countryOptions', $countryOptions);
     }
 
     /**
@@ -82,14 +77,11 @@ class ConfigurationController extends AdminController
                 $data['configuration_value'] = $value;
 
                 $this->configRepository->model()->create($data);
-
             } else {
                 $configuration->update(['configuration_value' => $value]);
             }
         }
 
-
         return redirect()->back()->with('notificationText', 'All Configuration saved!');
     }
-
 }

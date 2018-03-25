@@ -1,13 +1,12 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\ViewComposers;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class MyAccountSidebarComposer
 {
-
-
     /**
      * Bind data to the view.
      *
@@ -19,5 +18,4 @@ class MyAccountSidebarComposer
         $user = Auth::user();
         $view->with('user', $user);
     }
-
 }

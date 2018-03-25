@@ -1,16 +1,15 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Framework\Repository\Order;
-use AvoRed\Ecommerce\Http\Requests\OrderStatusRequest;
 use AvoRed\Framework\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Http\Requests\OrderStatusRequest;
 
 class OrderStatusController extends AdminController
 {
-
-
     /**
-     * AvoRed Order Repository
+     * AvoRed Order Repository.
      *
      * @var \AvoRed\Framework\Repository\Order
      */
@@ -34,19 +33,17 @@ class OrderStatusController extends AdminController
      */
     public function index()
     {
-
         $dataGrid = DataGrid::model($this->orderRepository->statusModel()->query())
-            ->column('name',['label' => 'Name','sortable' => true])
-            ->column('is_default',['sortable' => false])
-            ->linkColumn('edit',[], function($model) {
-                return "<a href='". route('admin.order-status.edit', $model->id)."' >Edit</a>";
-
-            })->linkColumn('destroy',[], function($model) {
+            ->column('name', ['label' => 'Name', 'sortable' => true])
+            ->column('is_default', ['sortable' => false])
+            ->linkColumn('edit', [], function ($model) {
+                return "<a href='".route('admin.order-status.edit', $model->id)."' >Edit</a>";
+            })->linkColumn('destroy', [], function ($model) {
                 return "<form id='admin-order-status-destroy-".$model->id."'
                                             method='POST'
-                                            action='".route('admin.order-status.destroy', $model->id) ."'>
+                                            action='".route('admin.order-status.destroy', $model->id)."'>
                                         <input name='_method' type='hidden' value='DELETE' />
-                                        ". csrf_field()."
+                                        ".csrf_field()."
                                         <a href='#'
                                             onclick=\"jQuery('#admin-order-status-destroy-$model->id').submit()\"
                                             >Destroy</a>
@@ -75,8 +72,7 @@ class OrderStatusController extends AdminController
      */
     public function store(OrderStatusRequest $request)
     {
-
-        if($request->get('is_default') == 1) {
+        if ($request->get('is_default') == 1) {
             $this->orderRepository->statusModel()->whereIsDefault(1)->update(['is_default' => 0]);
         }
         $this->orderRepository->statusModel()->create($request->all());
@@ -93,7 +89,6 @@ class OrderStatusController extends AdminController
      */
     public function edit($id)
     {
-
         $orderStatus = $this->orderRepository->statusModel()->findorfail($id);
 
         return view('avored-ecommerce::admin.order-status.edit')
@@ -110,7 +105,7 @@ class OrderStatusController extends AdminController
      */
     public function update(OrderStatusRequest $request, $id)
     {
-        if($request->get('is_default') == 1) {
+        if ($request->get('is_default') == 1) {
             $this->orderRepository->statusModel()->whereIsDefault(1)->update(['is_default' => 0]);
         }
 
@@ -130,8 +125,8 @@ class OrderStatusController extends AdminController
      */
     public function destroy($id)
     {
-
         $this->orderRepository->statusModel()->destroy($id);
+
         return redirect()->route('admin.order-status.index');
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Middleware;
 
 use Closure;

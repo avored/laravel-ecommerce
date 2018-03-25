@@ -2,10 +2,10 @@
 
 namespace AvoRed\Ecommerce\Models\Database;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use AvoRed\Ecommerce\Notifications\ResetPassword;
-use Laravel\Passport\HasApiTokens;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class AdminUser extends Authenticatable
 {
@@ -16,7 +16,7 @@ class AdminUser extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'role_id', 'is_super_admin', 'image_path'
+        'first_name', 'last_name', 'email', 'password', 'role_id', 'is_super_admin', 'image_path',
     ];
 
     /**
@@ -39,18 +39,15 @@ class AdminUser extends Authenticatable
         $this->notify(new ResetPassword($token));
     }
 
-
-
     public function getFullNameAttribute()
     {
-        return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+        return $this->attributes['first_name'].' '.$this->attributes['last_name'];
     }
 
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
-
 
     public function hasPermission($routeName)
     {
@@ -63,6 +60,7 @@ class AdminUser extends Authenticatable
         if ($role->permissions->pluck('name')->contains($routeName) == false) {
             return false;
         }
+
         return true;
     }
 }

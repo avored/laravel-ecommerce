@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -7,7 +8,6 @@ use Illuminate\Queue\SerializesModels;
 
 class UpdateOrderStatusMail extends Mailable
 {
-
     use Queueable, SerializesModels;
 
     /**

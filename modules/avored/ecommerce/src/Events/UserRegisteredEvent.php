@@ -1,10 +1,11 @@
 <?php
+
 namespace AvoRed\Ecommerce\Events;
 
 use Illuminate\Queue\SerializesModels;
+use AvoRed\Ecommerce\Models\Database\User;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use AvoRed\Ecommerce\Models\Database\User;
 
 class UserRegisteredEvent
 {

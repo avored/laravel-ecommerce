@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Middleware;
 
 use Closure;
@@ -18,7 +19,6 @@ class RedirectIfAdminAuth
     public function handle($request, Closure $next, $guard = 'admin')
     {
         if (Auth::guard($guard)->check()) {
-
             return redirect()->route('admin.dashboard');
         }
 

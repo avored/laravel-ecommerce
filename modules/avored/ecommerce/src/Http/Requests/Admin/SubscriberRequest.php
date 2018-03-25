@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
@@ -32,8 +33,6 @@ class SubscriberRequest extends Request
         if ($this->getMethod() == 'PUT') {
             $validationRule['email'] = 'required|email|max:255';
         }
-
-
 
         return $validationRule;
     }

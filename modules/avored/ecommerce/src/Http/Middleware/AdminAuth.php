@@ -1,10 +1,10 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\App;
-
+use Illuminate\Support\Facades\Auth;
 
 class AdminAuth
 {
@@ -28,7 +28,7 @@ class AdminAuth
         }
 
         $user = Auth::user();
-        if (isset($user->language) && !empty($user->language)) {
+        if (isset($user->language) && ! empty($user->language)) {
             App::setLocale($user->language);
         }
 

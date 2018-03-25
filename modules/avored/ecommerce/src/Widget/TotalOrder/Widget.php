@@ -7,44 +7,33 @@ use AvoRed\Framework\Widget\Contracts\Widget as WidgetContract;
 
 class Widget implements WidgetContract
 {
+    /**
+     * Widget View Path.
+     *
+     * @var string
+     */
+    protected $view = 'avored-ecommerce::widget.total-order';
 
     /**
+     * Widget Label.
      *
-     * Widget View Path
-     *
-     * @var string $view
+     * @var string
      */
-
-    protected $view = "avored-ecommerce::widget.total-order";
-
-
-    /**
-     *
-     * Widget Label
-     *
-     * @var string $view
-     */
-
     protected $label = 'Total Order';
 
+    /**
+     * Widget Type.
+     *
+     * @var string
+     */
+    protected $type = 'dashboard';
 
     /**
+     * Widget unique identifier.
      *
-     * Widget Type
-     *
-     * @var string $view
+     * @var string
      */
-
-    protected $type = "dashboard";
-
-    /**
-     *
-     * Widget unique identifier
-     *
-     * @var string $identifier
-     */
-    protected $identifier = "total-order";
-
+    protected $identifier = 'total-order';
 
     public function view()
     {
@@ -57,7 +46,6 @@ class Widget implements WidgetContract
      */
     public function identifier()
     {
-
         return $this->identifier;
     }
 
@@ -67,7 +55,6 @@ class Widget implements WidgetContract
     */
     public function label()
     {
-
         return $this->label;
     }
 
@@ -77,20 +64,18 @@ class Widget implements WidgetContract
     */
     public function type()
     {
-
         return $this->type;
     }
 
     /**
-     * View Required Parameters
+     * View Required Parameters.
      *
      * @return array
      */
     public function with()
     {
-
         $totalUser = Order::all()->count();
+
         return ['totalOrder' => $totalUser];
     }
-
 }

@@ -1,22 +1,21 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 use AvoRed\Framework\Repository\Order;
 use AvoRed\Ecommerce\Repository\Config;
 
 class DashboardController extends AdminController
 {
     /**
-     * AvoRed Attribute Repository
+     * AvoRed Attribute Repository.
      *
      * @var \AvoRed\Framework\Repository\Order
      */
     protected $orderRepository;
 
     /**
-     * AvoRed Config Repository
+     * AvoRed Config Repository.
      *
      * @var \AvoRed\Ecommerce\Repository\Config
      */
@@ -31,11 +30,9 @@ class DashboardController extends AdminController
      */
     public function __construct(Order $repository, Config $configRepository)
     {
-        $this->orderRepository  = $repository;
+        $this->orderRepository = $repository;
         $this->configRepository = $configRepository;
     }
-
-
 
     /**
      * Show the application dashboard.
@@ -44,7 +41,6 @@ class DashboardController extends AdminController
      */
     public function index()
     {
-
         $value = $this->configRepository->getConfiguration('avored_user_total');
         $totalRegisteredUser = (null === $value) ? 0 : $value;
 
@@ -52,7 +48,6 @@ class DashboardController extends AdminController
 
         return view('avored-ecommerce::admin.home')
             ->with('totalRegisteredUser', $totalRegisteredUser)
-            ->with('totalOrder', $totalOrder)
-            ;
+            ->with('totalOrder', $totalOrder);
     }
 }

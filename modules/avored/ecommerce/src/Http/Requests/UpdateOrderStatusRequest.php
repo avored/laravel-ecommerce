@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
@@ -24,7 +25,6 @@ class UpdateOrderStatusRequest extends Request
     {
         $rules = [];
         $rules['order_status_id'] = 'required';
-
 
         return $rules;
     }

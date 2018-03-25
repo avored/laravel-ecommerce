@@ -2,10 +2,10 @@
 
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends AdminController
 {
@@ -49,7 +49,6 @@ class ResetPasswordController extends AdminController
     {
         return Auth::guard('admin');
     }
-
 
     /**
      * Display the password reset view for the given token.

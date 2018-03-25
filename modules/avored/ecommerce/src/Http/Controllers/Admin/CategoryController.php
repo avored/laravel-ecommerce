@@ -1,15 +1,16 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
-use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
-use AvoRed\Framework\Repository\Product;
 use AvoRed\Ecommerce\DataGrid\Category;
+use AvoRed\Framework\Repository\Product;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
+use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
 
 class CategoryController extends AdminController
 {
     /**
-     * AvoRed Product Repository
+     * AvoRed Product Repository.
      *
      * @var \AvoRed\Framework\Repository\Product
      */
@@ -33,11 +34,11 @@ class CategoryController extends AdminController
      */
     public function index()
     {
-      $categoryGrid = new Category(
+        $categoryGrid = new Category(
                         $this->productRepository->categoryModel()->query()
                       );
 
-      return view('avored-ecommerce::admin.category.index')->with('dataGrid', $categoryGrid->dataGrid);
+        return view('avored-ecommerce::admin.category.index')->with('dataGrid', $categoryGrid->dataGrid);
     }
 
     /**

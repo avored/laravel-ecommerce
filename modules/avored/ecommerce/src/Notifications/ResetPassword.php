@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Notifications;
 
 use Illuminate\Notifications\Notification;

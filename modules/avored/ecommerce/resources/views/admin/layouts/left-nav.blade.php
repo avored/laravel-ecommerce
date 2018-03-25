@@ -1,3 +1,12 @@
+<div class="brand-nav">
+
+    <i class="fas fa-bars nav-icon"></i>
+
+    <span class="logo">AvoRed Admin</span>
+
+
+</div>
+
 <ul class="side-nav">
     @if(isset($adminMenus))
     @foreach($adminMenus as $key => $menu)

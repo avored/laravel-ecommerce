@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;

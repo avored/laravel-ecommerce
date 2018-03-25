@@ -1,17 +1,17 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\DataGrid\Role;
 use AvoRed\Ecommerce\Repository\User;
 use AvoRed\Ecommerce\Http\Requests\RoleRequst;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
 use AvoRed\Ecommerce\Models\Database\Permission;
+use AvoRed\Framework\DataGrid\Facade as DataGrid;
 
 class RoleController extends AdminController
 {
-
     /**
-     * AvoRed Product Repository
+     * AvoRed Product Repository.
      *
      * @var \AvoRed\Ecommerce\Repository\User
      */
@@ -36,6 +36,7 @@ class RoleController extends AdminController
     public function index()
     {
         $roleGrid = new Role($this->userRepository->roleModel()->query());
+
         return view('avored-ecommerce::admin.role.index')->with('dataGrid', $roleGrid->dataGrid);
     }
 
@@ -47,7 +48,6 @@ class RoleController extends AdminController
     public function create()
     {
         return view('avored-ecommerce::admin.role.create');
-
     }
 
     /**
@@ -59,15 +59,14 @@ class RoleController extends AdminController
      */
     public function store(RoleRequst $request)
     {
-
         try {
             $role = $this->userRepository->roleModel()->create($request->all());
             $this->_saveRolePermissions($request, $role);
-
         } catch (\Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n";
         }
-        return redirect()->route('admin.role.index')->with('notificationText', " New Role has been Created Successfully!");
+
+        return redirect()->route('admin.role.index')->with('notificationText', ' New Role has been Created Successfully!');
     }
 
     /**
@@ -102,7 +101,8 @@ class RoleController extends AdminController
         } catch (\Exception $e) {
             echo 'Caught exception: ', $e->getMessage(), "\n";
         }
-        return redirect()->route('admin.role.index')->with('notificationText', " Role Updates Successfully!");
+
+        return redirect()->route('admin.role.index')->with('notificationText', ' Role Updates Successfully!');
     }
 
     /**
@@ -116,7 +116,7 @@ class RoleController extends AdminController
     {
         $this->userRepository->roleModel()->destroy($id);
 
-        return redirect()->route('admin.role.index')->with('notificationText', " Role Destroy Successfully!");
+        return redirect()->route('admin.role.index')->with('notificationText', ' Role Destroy Successfully!');
     }
 
     private function _saveRolePermissions($request, $role)
@@ -141,6 +141,7 @@ class RoleController extends AdminController
         }
         $ids = array_unique($permissionIds);
         $role->permissions()->sync($ids);
+
         return $this;
     }
 }

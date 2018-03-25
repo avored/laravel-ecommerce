@@ -1,10 +1,11 @@
 <?php
+
 namespace AvoRed\Ecommerce\Events;
 
 use Illuminate\Queue\SerializesModels;
+use AvoRed\Framework\Models\Database\Product;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
-use AvoRed\Framework\Models\Database\Product;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;
 
 class ProductAfterSave

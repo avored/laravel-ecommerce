@@ -1,21 +1,20 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\Repository\Page;
-use AvoRed\Ecommerce\Http\Requests\PageRequest;
 use AvoRed\Framework\Widget\Facade as Widget;
 use AvoRed\Ecommerce\DataGrid\Page as PageGrid;
+use AvoRed\Ecommerce\Http\Requests\PageRequest;
 
 class PageController extends AdminController
 {
-
     /**
-     * AvoRed Config Repository
+     * AvoRed Config Repository.
      *
      * @var \AvoRed\Ecommerce\Repository\Page
      */
     protected $pageRepository;
-
 
     /**
      * Page Controller constructor to Set AvoRed Ecommerce Page Repository.
@@ -25,9 +24,8 @@ class PageController extends AdminController
      */
     public function __construct(Page $pageRepository)
     {
-        $this->pageRepository   = $pageRepository;
+        $this->pageRepository = $pageRepository;
     }
-
 
     /**
      * Display a listing of the Page.
@@ -36,8 +34,7 @@ class PageController extends AdminController
      */
     public function index()
     {
-        $pageGrid = new PageGrid($this->pageRepository->model()->query()->orderBy('id','desc'));
-
+        $pageGrid = new PageGrid($this->pageRepository->model()->query()->orderBy('id', 'desc'));
 
         return view('avored-ecommerce::admin.page.index')->with('dataGrid', $pageGrid->dataGrid);
     }
@@ -77,7 +74,6 @@ class PageController extends AdminController
     {
         $page = $this->pageRepository->model()->findorfail($id);
         $widgetOptions = Widget::allOptions();
-
 
         return view('avored-ecommerce::admin.page.edit')
             ->with('model', $page)

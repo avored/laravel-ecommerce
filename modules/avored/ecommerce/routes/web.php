@@ -13,32 +13,41 @@
 
 $baseAdminUrl = config('avored-ecommerce.admin_url');
 
+
+
+Route::middleware(['web'])->group(function (){
+
+    Route::get('test',function (){
+
+        return view('avored-ecommerce::test');
+
+    });
+
+
+});
+
+
 Route::middleware(['web'])
     ->prefix($baseAdminUrl)
     ->name('admin.')
     ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
     ->group(function () {
+        Route::get('login', 'LoginController@loginForm')->name('login');
+        Route::post('login', 'LoginController@login')->name('login.post');
 
-        Route::get('login','LoginController@loginForm')->name('login');
-        Route::post('login','LoginController@login')->name('login.post');
-
-
-        Route::get('logout','LoginController@logout')->name('logout');
+        Route::get('logout', 'LoginController@logout')->name('logout');
 
         Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset.token');
         Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email.post');
 
         Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.reset');
         Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset.token');
-
     });
-
 
 Route::middleware(['web', 'admin.auth', 'permission'])
     ->prefix($baseAdminUrl)
     ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
     ->group(function () {
-
         Route::post('option-combination-modal', [
             'uses' => 'OptionController@optionCombinationModal',
             'as' => 'admin.option.combination',
@@ -54,43 +63,34 @@ Route::middleware(['web', 'admin.auth', 'permission'])
             'as' => 'admin.product.option-combination.update',
         ]);
 
-
         Route::resource('property', 'PropertyController', ['as' => 'admin']);
 
         Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
 
         Route::resource('/role', 'RoleController', ['as' => 'admin']);
 
-
         Route::resource('product', 'ProductController', ['as' => 'admin']);
         Route::resource('category', 'CategoryController', ['as' => 'admin']);
-
 
         Route::resource('/page', 'PageController', ['as' => 'admin']);
 
         Route::resource('/admin-user', 'AdminUserController', ['as' => 'admin']);
 
-
-
         Route::post('/product-attribute-panel', ['as' => 'admin.product-attribute.get-attribute', 'uses' => 'AttributeController@getAttribute']);
 
         Route::resource('/attribute', 'AttributeController', ['as' => 'admin']);
 
-
-        Route::get('/admin-user-api-show', ['as' => 'admin.admin-user.show.api','uses' => 'AdminUserController@apiShow']);
-
+        Route::get('/admin-user-api-show', ['as' => 'admin.admin-user.show.api', 'uses' => 'AdminUserController@apiShow']);
 
         Route::post('product-image/upload', ['as' => 'admin.product.upload-image',
-            'uses' => 'ProductController@uploadImage']);
+            'uses' => 'ProductController@uploadImage', ]);
         Route::post('product-image/delete', ['as' => 'admin.product.delete-image',
-            'uses' => 'ProductController@deleteImage']);
-
+            'uses' => 'ProductController@deleteImage', ]);
 
         //Route::get('update-check', ['as' => 'admin.update.check', 'uses' => 'UpdateController@check']);
 
         Route::get('configuration', ['as' => 'admin.configuration', 'uses' => 'ConfigurationController@index']);
         Route::post('configuration', ['as' => 'admin.configuration.store', 'uses' => 'ConfigurationController@store']);
-
 
         Route::get('themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
 
@@ -109,30 +109,27 @@ Route::middleware(['web', 'admin.auth', 'permission'])
 
         Route::get('order', [
                 'as' => 'admin.order.index',
-                'uses' => 'OrderController@index'
+                'uses' => 'OrderController@index',
         ]);
 
         Route::post('get-property-element', [
             'as' => 'admin.property.element',
-            'uses' => 'PropertyController@getElementHtml'
+            'uses' => 'PropertyController@getElementHtml',
         ]);
 
         Route::post('edit-product-variation', [
             'as' => 'admin.variation.edit',
-            'uses' => 'ProductController@editVariation'
+            'uses' => 'ProductController@editVariation',
         ]);
 
         Route::post('get-attribute-element', [
             'as' => 'admin.attribute.element',
-            'uses' => 'AttributeController@getElementHtml'
+            'uses' => 'AttributeController@getElementHtml',
         ]);
-
 
         Route::get('order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
         Route::get('order/{id}/send-email-invoice', ['as' => 'admin.order.send-email-invoice', 'uses' => 'OrderController@sendEmailInvoice']);
 
         Route::get('order/{id}/change-status', ['as' => 'admin.order.change-status', 'uses' => 'OrderController@changeStatus']);
         Route::put('order/{id}/update-status', ['as' => 'admin.order.update-status', 'uses' => 'OrderController@updateStatus']);
-
-
     });

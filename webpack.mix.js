@@ -27,15 +27,9 @@ mix.scripts(['modules/avored/ecommerce/resources/assets/js/jquery-3.2.1.min.js',
             , 'public/vendor/avored-admin/js/app.js');
 
 
-    mix.sass('modules/avored/ecommerce/resources/assets/sass/app.scss', 'public/vendor/avored-admin/css/sass.css')
-    .styles([
-            'public/vendor/avored-admin/css/sass.css',
-            'modules/avored/ecommerce/resources/assets/css/fontawesome.min.css',
-            'modules/avored/ecommerce/resources/assets/css/select2.min.css',
-            'modules/avored/ecommerce/resources/assets/css/flatpickr.min.css',
-            'modules/avored/ecommerce/resources/assets/css/summernote.css',
-            'modules/avored/ecommerce/resources/assets/css/styles.css'
 
-            ]
-            ,'public/vendor/avored-admin/css/app.css'
-        );
+mix.sass('modules/avored/ecommerce/resources/assets/sass/app.scss',
+    'public/vendor/avored-admin/css');
+
+mix.copy('modules/avored/ecommerce/resources/assets/fonts', 'public/vendor/avored-admin/fonts');
+mix.copy('modules/avored/ecommerce/resources/assets/images', 'public/vendor/avored-admin/images');

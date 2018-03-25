@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Mail;
 
 use Illuminate\Bus\Queueable;
@@ -32,9 +33,7 @@ class OrderInvoicedMail extends Mailable
     public function build()
     {
         return $this->view('avored-ecommerce::admin.mail.order-invoiced')
-                    ->attach($this->path, ['as' =>
-
-                        'invoiced.pdf', 'mime' => 'application/pdf']);
+                    ->attach($this->path, ['as' => 'invoiced.pdf', 'mime' => 'application/pdf']);
         //->with('order', $this->order);
     }
 }

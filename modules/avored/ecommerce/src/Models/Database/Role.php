@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Models\Database;
 
 class Role extends BaseModel
@@ -6,7 +7,7 @@ class Role extends BaseModel
     protected $fillable = ['name', 'description'];
 
     /**
-     * Role can be assigne to many users
+     * Role can be assigne to many users.
      *
      * @return \AvoRed\Ecommerce\Models\Database\User
      */
@@ -15,13 +16,11 @@ class Role extends BaseModel
         return $this->hasMany(AdminUser::class);
     }
 
-
     /**
-     * Role has many Permissions
+     * Role has many Permissions.
      *
      * @return \AvoRed\Ecommerce\Models\Database\Role
      */
-
     public function permissions()
     {
         return $this->belongsToMany(Permission::class);
@@ -38,7 +37,7 @@ class Role extends BaseModel
                 $returnData = false;
             }
         }
+
         return $returnData;
     }
 }
-

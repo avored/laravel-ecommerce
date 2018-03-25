@@ -1,17 +1,15 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\ViewComposers;
 
-use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
-
+use Illuminate\Support\Facades\Auth;
 use AvoRed\Ecommerce\Repository\Page;
 use AvoRed\Ecommerce\Repository\Config;
-
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutComposer
 {
-
     /*
     * AvoRed Framework Category Repository
     *
@@ -28,10 +26,9 @@ class CheckoutComposer
 
     public function __construct(Page $repository, Config $configRepository)
     {
-        $this->pageRepository   =  $repository;
+        $this->pageRepository = $repository;
         $this->configRepository = $configRepository;
     }
-
 
     /**
      * Bind data to the view.
@@ -41,7 +38,7 @@ class CheckoutComposer
      */
     public function compose(View $view)
     {
-        $termConditionPageUrl = "#";
+        $termConditionPageUrl = '#';
 
         $user = Auth::user();
 
@@ -51,7 +48,6 @@ class CheckoutComposer
             $page = $this->pageRepository->findPageById($pageId);
             $termConditionPageUrl = route('page.show', $page->slug);
         }
-
 
         $cartProducts = Session::get('cart');
         $view->with('cartProducts', $cartProducts)

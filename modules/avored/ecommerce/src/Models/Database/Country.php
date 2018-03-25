@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Models\Database;
 
 use Illuminate\Support\Collection;
@@ -19,8 +20,8 @@ class Country extends BaseModel
     {
         $model = new static();
 
-        if(true === $empty) {
-            $return = Collection::make(['' => 'Please Select'] + $model->orderBy('name','asc')->pluck('name', 'id')->toArray());
+        if (true === $empty) {
+            $return = Collection::make(['' => 'Please Select'] + $model->orderBy('name', 'asc')->pluck('name', 'id')->toArray());
         } else {
             $return = $model->all()->pluck('name', 'id');
         }

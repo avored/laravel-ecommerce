@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Models\Database;
 
 class Address extends BaseModel
@@ -24,7 +25,6 @@ class Address extends BaseModel
 
     public function getCountryIdAttribute()
     {
-
         if (isset($this->attributes['country_id']) && $this->attributes['country_id'] > 0) {
             return $this->attributes['country_id'];
         }
@@ -35,6 +35,6 @@ class Address extends BaseModel
             return $defaultCountry;
         }
 
-        return "";
+        return '';
     }
 }

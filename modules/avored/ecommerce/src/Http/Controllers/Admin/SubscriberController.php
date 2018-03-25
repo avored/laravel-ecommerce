@@ -1,13 +1,13 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
 use AvoRed\Ecommerce\Models\Database\Subscriber;
-use AvoRed\Ecommerce\Http\Requests\Admin\SubscriberRequest;
 use AvoRed\Ecommerce\DataGrid\Subscriber as SubscriberGrid;
+use AvoRed\Ecommerce\Http\Requests\Admin\SubscriberRequest;
 
 class SubscriberController extends AdminController
 {
-
     /**
      * Display a listing of the Subscriber.
      *
@@ -16,7 +16,6 @@ class SubscriberController extends AdminController
     public function index()
     {
         $grid = new SubscriberGrid(Subscriber::query());
-
 
         return view('avored-ecommerce::admin.subscriber.index')->with('dataGrid', $grid->dataGrid);
     }

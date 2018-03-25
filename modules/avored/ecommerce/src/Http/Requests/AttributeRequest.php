@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
@@ -25,15 +26,12 @@ class AttributeRequest extends Request
         $validationRule = [];
         $validationRule['name'] = 'required|max:255';
 
-
         if (null !== $this->request->get('dropdown-options')) {
-
             foreach ($this->request->get('dropdown-options') as $key => $val) {
-                if ($key == "__RANDOM_STRING__") {
+                if ($key == '__RANDOM_STRING__') {
                     continue;
                 }
-                $validationRule['dropdown-options.' . $key . ".display_text"] = 'required';
-
+                $validationRule['dropdown-options.'.$key.'.display_text'] = 'required';
             }
         }
 

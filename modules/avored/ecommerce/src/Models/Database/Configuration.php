@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Models\Database;
 
 class Configuration extends BaseModel
@@ -7,25 +8,24 @@ class Configuration extends BaseModel
 
     public function getValue($key)
     {
-
         $row = $this->where('configuration_key', '=', $key)->first();
         if ($row != null) {
             return $row->configuration_value;
         }
-
-        return null;
     }
 
     public function getConfiguration($key)
     {
         $model = new static;
+
         return $model->getValue($key);
     }
 
-    public function setConfiguration($key,$value)
+    public function setConfiguration($key, $value)
     {
         $model = new static;
         $row = $model->where('configuration_key', '=', $key)->first();
+
         return $row->update(['configuration_value' => $value]);
     }
 
@@ -47,7 +47,5 @@ class Configuration extends BaseModel
         if (null !== $val) {
             return $val;
         }
-
-        return null;
     }
 }

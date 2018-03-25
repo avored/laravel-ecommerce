@@ -1,88 +1,10 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
-// Variables
-
-@import "bootstrap4/functions";
-
-
-@import "variables";
 
 @import "bootstrap4/bootstrap";
+@import "fontawesome/fontawesome";
+@import "select2/core";
+@import "flatpickr/flatpickr";
+@import "summernote/summernote";
 
-
-
-.admin-header {
-  .nav-link {
-    color: $white;
-
-    &:hover {
-      color : #cccccc;
-    }
-  }
-}
-
-
-// Bootstrap
-//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
-body {
-  background-color: inherit;
-}
-.admin-header {
-  background: #9733EE;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #DA22FF, #9733EE);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #DA22FF,#9733EE ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-}
-
-
-aside {
-  position: absolute;
-  width: 200px;
-  left: 0px;
-  border: 1px solid #cccccc;
-  border-left: 0px;
-  border-bottom: 0px;
-  border-top: 0px;
-  height: 100%;
-
-
-
-  .side-nav {
-    margin: 0px;
-    padding: 0px;
-
-    .nav-item {
-      width: 100%;
-
-
-      .nav-link {
-        line-height: 1.6;
-        border-bottom: 1px solid #ccc;
-        padding: 10px 20px;
-      }
-
-    }
-
-    .has-dropdown {
-
-      .nav-link {
-        line-height: 1.6;
-      }
-
-      ul {
-        margin: 0px;
-        padding: 0px;
-        //height: 0px;
-        //visibility: hidden;
-
-      }
-
-    }
-
-
-  }
-}
-
-.main-content {
-  margin-left: 201px;
-}
+@import "custom";

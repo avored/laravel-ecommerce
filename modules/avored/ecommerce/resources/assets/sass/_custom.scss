@@ -1,0 +1,154 @@
+
+.admin-header {
+  .nav-link {
+    color: $white;
+
+    &:hover {
+      color : #cccccc;
+    }
+  }
+}
+
+
+// Bootstrap
+//@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+body {
+  background-color: inherit;
+}
+.admin-header {
+  background: #9733EE;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, $primary, #9733EE);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, $primary,#9733EE ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+
+aside {
+  width: 225px;
+  position:fixed;
+  height: 100%;
+  background: $primary;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, $primary, lighten($primary, 5%) ,$primary);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, $primary,lighten($primary, 5%) ,$primary ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  overflow-y: scroll;
+  padding-bottom: 20px;
+
+  .brand-nav {
+
+    font-size: 20px;
+    color: $white;
+
+
+    .nav-icon {
+      padding-left: 20px;
+      padding-right:10px;
+      margin: 20px 0px;
+    }
+  }
+
+  .side-nav {
+    margin: 0px;
+    padding: 0px;
+
+    .nav-item {
+      width: 100%;
+
+      .nav-link {
+        line-height: 1.6;
+        border-bottom: 1px solid #ccc;
+        padding: 10px 20px;
+        color: #fff;
+      }
+
+    }
+
+    .has-dropdown {
+
+      .nav-link {
+        line-height: 1.6;
+
+        &:hover {
+          background-color: lighten($primary, 5%);
+        }
+      }
+
+      ul {
+        margin: 0px;
+        padding: 0px;
+        //height: 0px;
+        //visibility: hidden;
+
+      }
+
+    }
+  }
+}
+
+.main-content {
+  margin-left: 225px;
+}
+
+.bg-site-color {
+  background-color: #ff0041;
+}
+
+.bg-site-second-color {
+  background-color: #510094;
+}
+
+.navbar-brand {
+  display: inline-block;
+  width: 155px;
+  height: 40px;
+  padding: 0px;
+  margin-right: 0;
+  background-image: url(../images/logo.svg);
+  background-repeat: no-repeat;
+  background-position: left;
+  text-indent: 60px;
+}
+
+.datetime.form-control:disabled,
+.datetime.form-control[readonly] {
+  background: #fff;
+}
+
+.remove-variation-card {
+  position: absolute;
+  right: 25px;
+  z-index: 1;
+  padding: 0;
+  background-color: transparent;
+  border: 0;
+  -webkit-appearance: none;
+  top: 15px;
+}
+
+.tag {
+  font-size: 14px;
+  padding: .3em .4em .4em;
+  margin: 0 .1em;
+}
+
+.tag a {
+  color: #bbb;
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.tag a:hover {
+  opacity: 1.0
+}
+
+.tag .remove {
+  vertical-align: bottom;
+  top: 0;
+}
+
+.tag a {
+  margin: 0 0 0 .3em;
+}
+
+.widget-column {
+  min-height: 100px;
+}

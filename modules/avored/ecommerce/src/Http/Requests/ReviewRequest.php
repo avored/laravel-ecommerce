@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Http\Requests;
 
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,7 @@ class ReviewRequest extends Request
      */
     public function rules()
     {
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             $validateArray['first_name'] = 'required|max:255';
             $validateArray['last_name'] = 'required|max:255';
             $validateArray['email'] = 'required|max:255|email';

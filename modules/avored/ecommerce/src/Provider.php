@@ -1,54 +1,48 @@
 <?php
+
 namespace AvoRed\Ecommerce;
 
+use Carbon\Carbon;
+use Laravel\Passport\Passport;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-
-use AvoRed\Ecommerce\Http\Middleware\AdminAuth;
-use AvoRed\Ecommerce\Http\Middleware\AdminApiAuth;
-use AvoRed\Ecommerce\Http\Middleware\ProductViewed;
+use AvoRed\Framework\AdminMenu\AdminMenu;
+use Laravel\Passport\Console\KeysCommand;
+use AvoRed\Ecommerce\Shipping\FreeShipping;
+use Laravel\Passport\Console\ClientCommand;
+use Laravel\Passport\Console\InstallCommand;
 use AvoRed\Ecommerce\Http\Middleware\Visitor;
-use AvoRed\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
+use AvoRed\Ecommerce\Http\Middleware\AdminAuth;
 use AvoRed\Ecommerce\Http\Middleware\FrontAuth;
 use AvoRed\Ecommerce\Http\Middleware\Permission;
-use AvoRed\Ecommerce\Http\Middleware\RedirectIfFrontAuth;
-
-use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
-use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
-use AvoRed\Ecommerce\Http\ViewComposers\LayoutAppComposer;
-use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
-use AvoRed\Ecommerce\Http\ViewComposers\CheckoutComposer;
-use AvoRed\Ecommerce\Http\ViewComposers\MyAccountSidebarComposer;
-
-use Laravel\Passport\Passport;
-use Laravel\Passport\Console\InstallCommand;
-use Laravel\Passport\Console\ClientCommand;
-use Laravel\Passport\Console\KeysCommand;
-use Carbon\Carbon;
-
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\View;
-use AvoRed\Ecommerce\Http\ViewComposers\ProductSpecificationComposer;
-use AvoRed\Ecommerce\Http\ViewComposers\RelatedProductViewComposer;
-use Illuminate\Support\Facades\Storage;
-use AvoRed\Ecommerce\Widget\TotalUser\Widget as TotalUserWidget;
-use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
+use AvoRed\Ecommerce\Http\Middleware\AdminApiAuth;
+use AvoRed\Ecommerce\Http\Middleware\ProductViewed;
 use AvoRed\Framework\Widget\Facade as WidgetFacade;
-use AvoRed\Framework\Breadcrumb\Facade as BreadcrumbFacade;
-use AvoRed\Framework\AdminMenu\Facade as AdminMenuFacade;
-use AvoRed\Framework\AdminMenu\AdminMenu;
-use AvoRed\Ecommerce\Payment\Pickup\Payment as PickupPayment;
-use AvoRed\Ecommerce\Payment\Stripe\Payment as StripePayment;
 use AvoRed\Framework\Payment\Facade as PaymentFacade;
 use AvoRed\Framework\Shipping\Facade as ShippingFacade;
-use AvoRed\Ecommerce\Shipping\FreeShipping;
+use AvoRed\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
+use AvoRed\Ecommerce\Http\Middleware\RedirectIfFrontAuth;
+use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\CheckoutComposer;
+use AvoRed\Framework\AdminMenu\Facade as AdminMenuFacade;
+use AvoRed\Ecommerce\Http\ViewComposers\LayoutAppComposer;
+use AvoRed\Framework\Breadcrumb\Facade as BreadcrumbFacade;
 use AvoRed\Framework\Permission\Facade as PermissionFacade;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\Facades\Auth;
-
+use AvoRed\Ecommerce\Payment\Pickup\Payment as PickupPayment;
+use AvoRed\Ecommerce\Payment\Stripe\Payment as StripePayment;
+use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
+use AvoRed\Ecommerce\Widget\TotalUser\Widget as TotalUserWidget;
+use AvoRed\Ecommerce\Http\ViewComposers\MyAccountSidebarComposer;
+use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
+use AvoRed\Ecommerce\Http\ViewComposers\RelatedProductViewComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\ProductSpecificationComposer;
 
 class Provider extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -78,27 +72,24 @@ class Provider extends ServiceProvider
         $this->registerConfigData();
 
         Passport::ignoreMigrations();
-
     }
-
 
     /**
      * Registering AvoRed E commerce Resource
-     * e.g. Route, View, Database path & Translation
+     * e.g. Route, View, Database path & Translation.
      *
      * @return void
      */
     protected function registerResources()
     {
-
-        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-ecommerce');
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-ecommerce');
+        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'avored-ecommerce');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'avored-ecommerce');
     }
 
     /**
-     * Registering AvoRed E commerce Middleware
+     * Registering AvoRed E commerce Middleware.
      *
      * @return void
      */
@@ -117,7 +108,7 @@ class Provider extends ServiceProvider
     }
 
     /**
-     * Registering Class Based View Composer
+     * Registering Class Based View Composer.
      *
      * @return void
      */
@@ -133,12 +124,11 @@ class Provider extends ServiceProvider
 
         //View::composer('catalog.product.view', ProductSpecificationComposer::class);
         View::composer(['avored-ecommerce::admin.product.create',
-                        'avored-ecommerce::admin.product.edit'
-                        ],  ProductFieldsComposer::class);
+                        'avored-ecommerce::admin.product.edit',
+                        ], ProductFieldsComposer::class);
 
         //View::composer(['avored-framework::product.create','avored-framework::product.edit'], RelatedProductComposer::class);
     }
-
 
     /*
    *  Registering Passport Oauth2.0 client
@@ -157,14 +147,13 @@ class Provider extends ServiceProvider
         ]);
     }
 
-
-
     /**
      * Register the Menus.
      *
      * @return void
      */
-    protected function registerAdminMenu() {
+    protected function registerAdminMenu()
+    {
         AdminMenuFacade::add('catalog')
             ->label('Catalog')
             ->route('#')
@@ -187,13 +176,13 @@ class Provider extends ServiceProvider
             ->label('Attribute')
             ->route('admin.attribute.index')
             ->icon('fas fa-file-alt');
-        $catalogMenu->subMenu('attribute',$attributeMenu);
+        $catalogMenu->subMenu('attribute', $attributeMenu);
         $propertyMenu = new AdminMenu();
         $propertyMenu->key('property')
             ->label('Property')
             ->route('admin.property.index')
             ->icon('fas fa-file-powerpoint');
-        $catalogMenu->subMenu('property',$propertyMenu);
+        $catalogMenu->subMenu('property', $propertyMenu);
         AdminMenuFacade::add('promotion')
             ->label('Promotion')
             ->route('#')
@@ -204,7 +193,7 @@ class Provider extends ServiceProvider
             ->label('Subscriber')
             ->route('admin.subscriber.index')
             ->icon('fas fa-users');
-        $promotionMenu->subMenu('subscriber',$subscriberMenu);
+        $promotionMenu->subMenu('subscriber', $subscriberMenu);
         $pageMenu = new AdminMenu();
         $pageMenu->key('page')
             ->label('Page')
@@ -230,7 +219,7 @@ class Provider extends ServiceProvider
             ->label('Configuration')
             ->route('admin.configuration')
             ->icon('fas fa-cog');
-        $systemMenu->subMenu('configuration', $configurationMenu );
+        $systemMenu->subMenu('configuration', $configurationMenu);
         $orderMenu = new AdminMenu();
         $orderMenu->key('order')
             ->label('Order')
@@ -252,21 +241,19 @@ class Provider extends ServiceProvider
             ->label('Admin User')
             ->route('admin.admin-user.index')
             ->icon('fas fa-user');
-        $systemMenu->subMenu('admin-user',$adminUserMenu);
+        $systemMenu->subMenu('admin-user', $adminUserMenu);
         $themeMenu = new AdminMenu();
         $themeMenu->key('themes')
             ->label('Themes ')
             ->route('admin.theme.index')
             ->icon('fas fa-adjust');
-        $systemMenu->subMenu('themes',$themeMenu);
+        $systemMenu->subMenu('themes', $themeMenu);
         $roleMenu = new AdminMenu();
         $roleMenu->key('roles')
             ->label('Role')
             ->route('admin.role.index')
             ->icon('fab fa-periscope');
-        $systemMenu->subMenu('roles',$roleMenu);
-
-
+        $systemMenu->subMenu('roles', $roleMenu);
     }
 
     /**
@@ -274,174 +261,163 @@ class Provider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerBreadcrumb() {
-
-        BreadcrumbFacade::make('admin.dashboard',function ($breadcrumb) {
+    protected function registerBreadcrumb()
+    {
+        BreadcrumbFacade::make('admin.dashboard', function ($breadcrumb) {
             $breadcrumb->label('Dashboard');
         });
 
-        BreadcrumbFacade::make('admin.product.index',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.product.index', function ($breadcrumb) {
             $breadcrumb->label('Product')
                 ->parent('admin.dashboard');
         });
 
-        BreadcrumbFacade::make('admin.product.create',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.product.create', function ($breadcrumb) {
             $breadcrumb->label('Create')
                 ->parent('admin.dashboard')
                 ->parent('admin.product.index');
         });
 
-        BreadcrumbFacade::make('admin.product.edit',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.product.edit', function ($breadcrumb) {
             $breadcrumb->label('Edit')
                 ->parent('admin.dashboard')
                 ->parent('admin.product.index');
         });
 
-        BreadcrumbFacade::make('admin.attribute.index',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.attribute.index', function ($breadcrumb) {
             $breadcrumb->label('Attribute')
                 ->parent('admin.dashboard');
         });
 
-        BreadcrumbFacade::make('admin.attribute.create',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.attribute.create', function ($breadcrumb) {
             $breadcrumb->label('Create')
                 ->parent('admin.dashboard')
                 ->parent('admin.attribute.index');
         });
 
-        BreadcrumbFacade::make('admin.attribute.edit',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.attribute.edit', function ($breadcrumb) {
             $breadcrumb->label('Edit')
                 ->parent('admin.dashboard')
                 ->parent('admin.attribute.index');
         });
 
-
-        BreadcrumbFacade::make('admin.property.index',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.property.index', function ($breadcrumb) {
             $breadcrumb->label('Property')
                 ->parent('admin.dashboard');
         });
 
-        BreadcrumbFacade::make('admin.property.create',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.property.create', function ($breadcrumb) {
             $breadcrumb->label('Create')
                 ->parent('admin.dashboard')
                 ->parent('admin.property.index');
         });
 
-        BreadcrumbFacade::make('admin.attribute.edit',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.attribute.edit', function ($breadcrumb) {
             $breadcrumb->label('Edit')
                 ->parent('admin.dashboard')
                 ->parent('admin.attribute.index');
         });
 
-
-
-        BreadcrumbFacade::make('admin.subscriber.index',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.subscriber.index', function ($breadcrumb) {
             $breadcrumb->label('Subscriber')
                 ->parent('admin.dashboard');
         });
 
-        BreadcrumbFacade::make('admin.subscriber.create',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.subscriber.create', function ($breadcrumb) {
             $breadcrumb->label('Create')
                 ->parent('admin.dashboard')
                 ->parent('admin.subscriber.index');
         });
 
-        BreadcrumbFacade::make('admin.subscriber.edit',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.subscriber.edit', function ($breadcrumb) {
             $breadcrumb->label('Edit')
                 ->parent('admin.dashboard')
                 ->parent('admin.subscriber.index');
         });
 
-
-
-        BreadcrumbFacade::make('admin.order.index',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.order.index', function ($breadcrumb) {
             $breadcrumb->label('Order')
                 ->parent('admin.dashboard');
         });
 
-        BreadcrumbFacade::make('admin.order.view',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.order.view', function ($breadcrumb) {
             $breadcrumb->label('View')
                 ->parent('admin.dashboard')
-                ->parent('admin.order.index');;
+                ->parent('admin.order.index');
         });
 
-        BreadcrumbFacade::make('admin.theme.index',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.theme.index', function ($breadcrumb) {
             $breadcrumb->label('Theme')
                 ->parent('admin.dashboard');
         });
 
-        BreadcrumbFacade::make('admin.theme.create',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.theme.create', function ($breadcrumb) {
             $breadcrumb->label('Upload')
                 ->parent('admin.dashboard')
                 ->parent('admin.theme.index');
         });
 
-
-        BreadcrumbFacade::make('admin.role.index',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.role.index', function ($breadcrumb) {
             $breadcrumb->label('Role')
                 ->parent('admin.dashboard');
         });
 
-        BreadcrumbFacade::make('admin.role.create',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.role.create', function ($breadcrumb) {
             $breadcrumb->label('Create')
                 ->parent('admin.dashboard')
                 ->parent('admin.role.index');
         });
 
-        BreadcrumbFacade::make('admin.role.edit',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.role.edit', function ($breadcrumb) {
             $breadcrumb->label('Edit')
                 ->parent('admin.dashboard')
                 ->parent('admin.role.index');
         });
 
-
-        BreadcrumbFacade::make('admin.admin-user.index',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.admin-user.index', function ($breadcrumb) {
             $breadcrumb->label('Admin User')
                 ->parent('admin.dashboard');
         });
 
-        BreadcrumbFacade::make('admin.admin-user.create',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.admin-user.create', function ($breadcrumb) {
             $breadcrumb->label('Create')
                 ->parent('admin.dashboard')
                 ->parent('admin.admin-user.index');
         });
 
-        BreadcrumbFacade::make('admin.admin-user.edit',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.admin-user.edit', function ($breadcrumb) {
             $breadcrumb->label('Edit')
                 ->parent('admin.dashboard')
                 ->parent('admin.admin-user.index');
         });
 
-        BreadcrumbFacade::make('admin.admin-user.show',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.admin-user.show', function ($breadcrumb) {
             $breadcrumb->label('Show')
                 ->parent('admin.dashboard')
                 ->parent('admin.admin-user.index');
         });
 
-
-        BreadcrumbFacade::make('admin.configuration',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.configuration', function ($breadcrumb) {
             $breadcrumb->label('Configuration')
                 ->parent('admin.dashboard');
         });
 
-
-        BreadcrumbFacade::make('admin.category.index',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.category.index', function ($breadcrumb) {
             $breadcrumb->label('Category')
                 ->parent('admin.dashboard');
         });
 
-        BreadcrumbFacade::make('admin.category.create',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.category.create', function ($breadcrumb) {
             $breadcrumb->label('Create')
                 ->parent('admin.dashboard')
                 ->parent('admin.category.index');
         });
 
-        BreadcrumbFacade::make('admin.category.edit',function ($breadcrumb) {
+        BreadcrumbFacade::make('admin.category.edit', function ($breadcrumb) {
             $breadcrumb->label('Edit')
                 ->parent('admin.dashboard')
                 ->parent('admin.category.index');
         });
-
-
     }
 
     /**
@@ -459,7 +435,6 @@ class Provider extends ServiceProvider
         PaymentFacade::put($stripe->identifier(), $stripe);
     }
 
-
     /**
      * Register Shippiong Option for App.
      *
@@ -471,18 +446,15 @@ class Provider extends ServiceProvider
         ShippingFacade::put($freeShipping->identifier(), $freeShipping);
     }
 
-
     /**
-     * Register the permissions
+     * Register the permissions.
      *
      * @return void
      */
     protected function registerPermissions()
     {
-
         $permissionGroup = PermissionFacade::add('category')
             ->label('Category Permissions');
-
 
         $permissionGroup->addPermission('admin-category-list')
             ->label('Category List')
@@ -499,9 +471,6 @@ class Provider extends ServiceProvider
         $permissionGroup->addPermission('admin-category-destroy')
             ->label('Destroy Category')
             ->routes('admin.category.destroy');
-
-
-
 
         $permissionGroup = PermissionFacade::add('product')
             ->label('Product Permissions');
@@ -535,7 +504,6 @@ class Provider extends ServiceProvider
             ->label('Attribute')
             ->routes('admin.attribute.destroy');
 
-
         $permissionGroup = PermissionFacade::add('property')
             ->label('Attribute Permissions');
 
@@ -551,7 +519,6 @@ class Provider extends ServiceProvider
         $permissionGroup->addPermission('admin-property-destroy')
             ->label('Property Destroy')
             ->routes('admin.property.destroy');
-
 
         //
         $permissionGroup = PermissionFacade::add('subscriber')
@@ -573,7 +540,6 @@ class Provider extends ServiceProvider
             ->label('Subscriber Destroy')
             ->routes('admin.subscriber.destroy');
 
-
         $permissionGroup = PermissionFacade::add('admin-user')
             ->label('Admin User Permissions');
 
@@ -592,7 +558,6 @@ class Provider extends ServiceProvider
         $permissionGroup->addPermission('admin-admin-user-destroy')
             ->label('Admin User Destroy')
             ->routes('admin.admin-user.destroy');
-
 
         $permissionGroup = PermissionFacade::add('role')
             ->label('Role Permissions');
@@ -613,7 +578,6 @@ class Provider extends ServiceProvider
             ->label('Role Destroy')
             ->routes('admin.role.destroy');
 
-
         $permissionGroup = PermissionFacade::add('role')
             ->label('Theme Permissions');
 
@@ -623,7 +587,7 @@ class Provider extends ServiceProvider
 
         $permissionGroup->addPermission('admin-theme-create')
             ->label('Theme Upload/Create')
-            ->routes('admin.create.index','admin.theme.store');
+            ->routes('admin.create.index', 'admin.theme.store');
 
         $permissionGroup->addPermission('admin-theme-activated')
             ->label('Theme Activated')
@@ -637,7 +601,6 @@ class Provider extends ServiceProvider
             ->label('Theme Destroy')
             ->routes('admin.destroy.index');
 
-
         $permissionGroup = PermissionFacade::add('configuration')
             ->label('Configuration Permissions');
 
@@ -645,12 +608,9 @@ class Provider extends ServiceProvider
             ->label('Configuration')
             ->routes('admin.configuration');
 
-
         $permissionGroup->addPermission('admin-configuration-store')
             ->label('Configuration Store')
             ->routes('admin.configuration.store');
-
-
 
         $permissionGroup = PermissionFacade::add('order')
             ->label('Order Permissions');
@@ -658,7 +618,6 @@ class Provider extends ServiceProvider
         $permissionGroup->addPermission('admin-order-list')
             ->label('Order List')
             ->routes('admin.order.index');
-
 
         $permissionGroup->addPermission('admin-order-view')
             ->label('Order View')
@@ -672,24 +631,18 @@ class Provider extends ServiceProvider
             ->label('Order Change Status')
             ->routes('admin.order.change-status,admin.order.update-status');
 
-
         Blade::if('hasPermission', function ($routeName) {
-
             $condition = false;
             $user = Auth::guard('admin')->user();
 
-
-            if (!$user) {
+            if (! $user) {
                 $condition = $user->hasPermission($routeName) ?: false;
             }
 
             $converted_res = ($condition) ? 'true' : 'false';
 
-
             return "<?php if ($converted_res): ?>";
-
         });
-
     }
 
     /**
@@ -699,25 +652,23 @@ class Provider extends ServiceProvider
      */
     protected function registerWidget()
     {
-
         $totalUserWidget = new TotalUserWidget();
         WidgetFacade::make($totalUserWidget->identifier(), $totalUserWidget);
 
         $totalOrderWidget = new TotalOrderWidget();
         WidgetFacade::make($totalOrderWidget->identifier(), $totalOrderWidget);
-
     }
 
-    public function registerConfigData() {
-
-        $authConfig = $this->app['config']->get('auth',[]);
+    public function registerConfigData()
+    {
+        $authConfig = $this->app['config']->get('auth', []);
 
         $this->app['config']->set('auth', array_merge_recursive(require __DIR__.'/../config/avored-auth.php', $authConfig));
         $this->mergeConfigFrom(__DIR__.'/../config/avored-ecommerce.php', 'avored-ecommerce');
-
     }
 
-    public function publishFiles() {
+    public function publishFiles()
+    {
         $this->publishes([
             __DIR__.'/../config/avored-ecommerce.php' => config_path('avored-ecommerce.php'),
         ]);

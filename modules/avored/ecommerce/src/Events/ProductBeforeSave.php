@@ -1,4 +1,5 @@
 <?php
+
 namespace AvoRed\Ecommerce\Events;
 
 use Illuminate\Queue\SerializesModels;
