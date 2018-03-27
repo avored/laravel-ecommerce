@@ -41,20 +41,26 @@
                 </div>
             </div>
         </td>
+
         <td class="col-1">
             <input type="text" class="form-control" name="qty"
                    value="{{ $product->qty() }}">
-
             <input type="hidden" name="slug" value="{{$product->slug() }}"/>
         </td>
 
+        <td class="col-sm-1 col-1 text-center">
+            <strong>{{ $product->priceFormat() }}</strong>
+        </td>
 
 
+        @if(Cart::hasTax())
+        <td class="col-sm-1 col-1 text-center">
+            <strong>{{ $product->tax() }}</strong>
+        </td>
+        @endif
 
         <td class="col-sm-1 col-1 text-center">
-            <strong>{{ $product->priceFormat() }}</strong></td>
-        <td class="col-sm-1 col-1 text-center">
-            <strong>{{ $product->finalPrice() }}</strong>
+            <strong>{{ $product->lineTotal() }}</strong>
         </td>
         <td class="col-sm-1 col-1">
             <div class="btn-group">

@@ -13,7 +13,6 @@
 
 $baseAdminUrl = config('avored-ecommerce.admin_url');
 
-
 Route::middleware(['web'])
     ->prefix($baseAdminUrl)
     ->name('admin.')

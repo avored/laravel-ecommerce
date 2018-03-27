@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use AvoRed\Ecommerce\Repository\Config;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Repository\Product;
@@ -13,11 +14,18 @@ class CartController extends Controller
 
 
     /**
-     * AvoRed Attribute Repository
+     * AvoRed Product Repository
      *
      * @var \AvoRed\Framework\Repository\Product
      */
     protected $productRepository;
+
+    /**
+     * AvoRed Config Repository
+     *
+     * @var \AvoRed\Ecommerce\Repository\Config
+     */
+    protected $configRepository;
 
     /**
      * Cart Controller constructor to Set AvoRed Product Repository Property.
@@ -25,10 +33,11 @@ class CartController extends Controller
      * @param \AvoRed\Framework\Repository\Product $repository
      * @return void
      */
-    public function __construct(Product $repository)
+    public function __construct(Product $repository, Config $configRepository)
     {
         parent::__construct();
-        $this->productRepository = $repository;
+        $this->productRepository    = $repository;
+        $this->configRepository     = $configRepository;
     }
 
 
@@ -48,6 +57,17 @@ class CartController extends Controller
 
         Cart::add($slug, $qty);
 
+        $productModel   = $this->productRepository->findProductBySlug($slug);
+        $isTaxEnabled = $this->configRepository->model()->getConfiguration('avored_tax_enabled');
+
+        if($isTaxEnabled && $productModel->is_taxable) {
+
+            $percentage = $this->configRepository->model()->getConfiguration('avored_tax_percentage');
+            $taxAmount = ($percentage * $productModel->price / 100);
+
+            Cart::hasTax(true);
+            Cart::updateProductTax($slug, $taxAmount);
+        }
 
         return redirect()->back()->with('notificationText', 'Product Added to Cart Successfully!');
 

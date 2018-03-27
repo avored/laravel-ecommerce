@@ -14,10 +14,17 @@
 
                     <table class="table table-responsive">
                         <tr>
-                            <th class="col-8">Product</th>
+                            @if(Cart::hasTax())
+                                <th class="col-7">Product</th>
+                            @else
+                                <th class="col-8">Product</th>
+                            @endif
                             <th class="col-1" style="text-align: center">Quantity</th>
                             <th class="col-1 text-center">Price</th>
-                            <th class="col-1 text-center">Total</th>
+                            @if(Cart::hasTax())
+                                <th class="col-1 text-center">Tax</th>
+                            @endif
+                            <th class="col-1 text-center">Line Total</th>
                             <th class="col-1"> </th>
                         </tr>
                         <?php $total = 0; $taxTotal = 0;$giftCouponAmount = 0; ?>
@@ -32,16 +39,33 @@
 
 
                         <tr>
-                            <td class="col-8"> &nbsp; </td>
+
+                            <td class="col-8">&nbsp;  </td>
                             <td class="col-1">&nbsp;  </td>
+                            <td class="col-1"> &nbsp;  </td>
                             <td class="col-1"> &nbsp;  </td>
                             <td class="col-1"><h6>Total</h6></td>
                             <td class="col-1 text-right"><h6>
-                                    <strong>${{ number_format(($total),2) }}</strong></h6></td>
+                                    <strong>${{ number_format((Cart::total()),2) }}</strong></h6></td>
                         </tr>
+
+                        @if(Cart::hasTax())
                         <tr>
-                            <td class="col-8">  </td>
+
+                            <td class="col-8">&nbsp;  </td>
+                            <td class="col-1">&nbsp;  </td>
+                            <td class="col-1"> &nbsp;  </td>
+                            <td class="col-1"> &nbsp;  </td>
+                            <td class="col-1"><h6>Tax Total</h6></td>
+                            <td class="col-1 text-right"><h6>
+                                    <strong>${{ number_format((Cart::taxTotal()),2) }}</strong></h6></td>
+                        </tr>
+                        @endif
+                        <tr>
+
+                            <td class="col-8">&nbsp;  </td>
                             <td class="col-1">  </td>
+                            <td class="col-1"> &nbsp;</td>
                             <td class="col-1">  </td>
                             <td class="col-1">
                                 <a href="{{ route('home') }}" class="btn btn-light">

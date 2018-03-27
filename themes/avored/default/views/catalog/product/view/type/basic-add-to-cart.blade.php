@@ -10,7 +10,7 @@
 <div class="row">
     <div class="form-group col-md-2" style="">
         <label>Qty</label>
-        <input type="text" name="qty" class="form-control" value="1"/>
+        <input type="number" name="qty" class="form-control" value="1"/>
     </div>
 </div>
 <div class="clearfix"></div>

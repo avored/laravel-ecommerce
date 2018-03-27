@@ -145,6 +145,15 @@
                              data-parent="#configuration-list">
                             <div class="card-body">
 
+                                @include('avored-ecommerce::forms.select',['name' => 'avored_tax_enabled',
+                                                                           'label' => 'Is Tax Enabled?',
+                                                                           'options' => [0 => 'No',1 => 'Yes']])
+
+
+                                @include('avored-ecommerce::forms.text',['name' => 'avored_tax_percentage',
+                                                                           'label' => 'Percentage of Tax'])
+
+
                                 @include('avored-ecommerce::forms.select',['name' => 'avored_tax_class_default_country_for_tax_calculation',
                                                                            'label' => 'Default Country for Tax Calculation',
                                                                            'options' => $countryOptions])

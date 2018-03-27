@@ -221,9 +221,23 @@ class AvoredEcommerceSchema extends Migration
 
         $countryModel = Country::whereCode('nz')->first();
 
-        Configuration::create(['configuration_key' => 'avored_tax_class_default_country_for_tax_calculation',
-            'configuration_value' => $countryModel->id, ]);
+        Configuration::create([
+            'configuration_key' => 'avored_tax_class_default_country_for_tax_calculation',
+            'configuration_value' => $countryModel->id,
+            ]);
+
+        Configuration::create([
+            'configuration_key' => 'avored_tax_enabled',
+            'configuration_value' => 1,
+        ]);
+
+        Configuration::create([
+            'configuration_key' => 'avored_tax_percentage',
+            'configuration_value' => 15,
+        ]);
+
     }
+
 
     /**
      * Uninstall the AvoRed Address Module Schema.
