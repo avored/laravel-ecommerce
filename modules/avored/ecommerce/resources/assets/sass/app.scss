@@ -4,7 +4,12 @@
 @import "bootstrap4/bootstrap";
 @import "fontawesome/fontawesome";
 @import "select2/core";
-@import "flatpickr/flatpickr";
+
 @import "summernote/summernote";
+
+
+@import "pickadate/defailt-scss";
+@import "pickadate/default-date";
+@import "pickadate/default-time";
 
 @import "custom";

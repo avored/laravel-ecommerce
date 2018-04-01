@@ -29,26 +29,62 @@ class CategoryViewController extends Controller
      */
     public function view(Request $request, $slug)
     {
-        $productsOnCategoryPage = 10; //Configuration::getConfiguration('avored_catalog_no_of_product_category_page');
+        $productsOnCategoryPage = 9;
 
         $category = $this->productRepository->findCategoryBySlug($slug);
+        $categoryProducts = $category->products()
+                                ->whereStatus(1)->get();
 
-        $collections = $this->productRepository->model()->getCollection()
-            ->addCategoryFilter($category->id);
+        foreach ($request->except(['page']) as $type => $arrays) {
 
+            if('property' == $type) {
 
-        foreach ($request->except(['page']) as $attributeIdentifier => $value) {
-            $attribute = $this->productRepository->attributeModel()->where('identifier', '=', $attributeIdentifier)->first();
+                foreach ($arrays as $identifier => $value) {
 
-            $collections->addAttributeFilter($attribute->id, $value);
+                    $attribute = $this->productRepository->propertyModel()->where('identifier', '=', $identifier)->first();
+
+                    if(null !== $attribute) {
+
+                        $attributeId  = $attribute->id;
+
+                        $categoryProducts = $categoryProducts->filter(function ($product) use ($attributeId, $value) {
+
+                            foreach ($product->getProductAllProperties() as $productAttribute) {
+
+                                if ($productAttribute->property_id == $attributeId && $productAttribute->value == $value) {
+                                    return $product;
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+
+            if('attribute' == $type) {
+
+                $attribute = $this->productRepository->attributeModel()->where('identifier', '=', $identifier)->first();
+
+                if (null !== $attribute) {
+                    $categoryProducts = $this->productRepository->model()->setCollection($categoryProducts)->addAttributeFilter($attribute->id, $value);
+                }
+
+            }
         }
 
-        $categoryProducts = $collections->paginateCollection($productsOnCategoryPage);
+
+
+        $products = $this->productRepository->model()->productPaginate($categoryProducts, $productsOnCategoryPage);
+        //dd($categoryProducts);
+
+        //$categoryProducts = $collections->paginateCollection($productsOnCategoryPage);
+
+        //dd($products);
+
 
         return view('catalog.category.view')
             ->with('category', $category)
             ->with('params', $request->all())
-            ->with('products', $categoryProducts);
+            ->with('products', $products);
 
     }
 }

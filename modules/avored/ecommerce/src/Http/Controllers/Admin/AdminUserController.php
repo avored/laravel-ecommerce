@@ -66,7 +66,7 @@ class AdminUserController extends AdminController
     {
         $request->merge(['password' => bcrypt($request->get('password'))]);
 
-        $this->userRepository->createUser($request->all());
+        $this->userRepository->createAdminUser($request->all());
 
         return redirect()->route('admin.admin-user.index');
     }
@@ -80,7 +80,7 @@ class AdminUserController extends AdminController
      */
     public function edit($id)
     {
-        $user = $this->userRepository->findUserById($id);
+        $user = $this->userRepository->findAdminUserById($id);
         $roles = $this->userRepository->roleOptions();
 
         return view('avored-ecommerce::admin.admin-user.edit')
@@ -99,7 +99,7 @@ class AdminUserController extends AdminController
      */
     public function update(AdminUserRequest $request, $id)
     {
-        $user = $this->userRepository->findUserById($id);
+        $user = $this->userRepository->findAdminUserById($id);
         $path = $this->_getUserImageRelativePath();
         $image = Image::upload($request->file('image'), $path);
 
@@ -119,7 +119,7 @@ class AdminUserController extends AdminController
      */
     public function destroy($id)
     {
-        $this->userRepository->destroyUserById($id);
+        $this->userRepository->destroyAdminUserById($id);
 
         return redirect()->route('admin.admin-user.index');
     }

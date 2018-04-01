@@ -155,4 +155,51 @@ class User extends AbstractRepository
 
         return $options;
     }
+
+    /**
+     * Create User.
+     *
+     * @param array $data
+     * @return \AvoRed\Ecommerce\Models\Database\AdminUser $adminUser
+     */
+    public function createAdminUser($data):AdminUser
+    {
+        return $this->adminUserModel()->create($data);
+    }
+
+    /**
+     * Find Admin User by User Id.
+     *
+     * @param integer $id
+     * @return \AvoRed\Ecommerce\Models\Database\AdminUser $adminUser
+     */
+    public function findAdminUserById($id):AdminUser
+    {
+        return $this->adminUserModel()->find($id);
+    }
+
+    /**
+     * Find Admin User by User Id.
+     *
+     * @param integer $id
+     * @return boolean
+     */
+    public function destroyAdminUserById($id)
+    {
+        return $this->adminUserModel()->destroy($id);
+    }
+
+    /**
+     * Get Admin User Options for drop down.
+     *
+     * @return \Illuminate\Support\Collection $countryOptions
+     */
+    public function adminUserOptions()
+    {
+        $options = $this->adminUserModel()->all()->pluck('full_name', 'id');
+        $options->prepend('Please Select', null);
+
+        return $options;
+    }
+
 }

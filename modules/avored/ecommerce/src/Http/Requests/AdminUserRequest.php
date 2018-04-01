@@ -27,7 +27,7 @@ class AdminUserRequest extends Request
         $validation['last_name'] = 'required|max:255';
 
         if ($this->getMethod() == 'POST') {
-            $validation['email'] = 'required|email|max:255|unique:users';
+            $validation['email'] = 'required|email|max:255|unique:admin_users';
             $validation['password'] = 'required|min:6|confirmed';
         }
 
