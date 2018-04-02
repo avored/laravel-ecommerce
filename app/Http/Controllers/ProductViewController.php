@@ -28,15 +28,19 @@ class ProductViewController extends Controller
     public function view($slug)
     {
         $product = $this->productRepository->findProductBySlug($slug);
-        $view = view('catalog.product.view')->with('product', $product);
 
-        $title          = (!empty($product->meta_title)) ? $product->meta_title : $product->name;
-        $description    = (!empty($product->meta_description)) ? $product->meta_description : substr($product->description, 0, 255);
+        $title          = (!empty($product->meta_title)) ?
+                                            $product->meta_title :
+                                            $product->name;
 
-        $view->with('title', $title);
-        $view->with('description', $description);
+        $description    = (!empty($product->meta_description)) ?
+                                        $product->meta_description :
+                                        substr($product->description, 0, 255);
 
-        return $view;
+        return view('product.view')
+                                ->with('product', $product)
+                                ->with('title', $title)
+                                ->with('description', $description);
     }
 
 }

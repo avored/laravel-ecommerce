@@ -119,15 +119,11 @@ class Provider extends ServiceProvider
         View::composer('checkout.index', CheckoutComposer::class);
         View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
         View::composer('layouts.app', LayoutAppComposer::class);
-        //View::composer('catalog.product.view', RelatedProductViewComposer::class);
         View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
-
-        //View::composer('catalog.product.view', ProductSpecificationComposer::class);
         View::composer(['avored-ecommerce::admin.product.create',
                         'avored-ecommerce::admin.product.edit',
                         ], ProductFieldsComposer::class);
 
-        //View::composer(['avored-framework::product.create','avored-framework::product.edit'], RelatedProductComposer::class);
     }
 
     /*

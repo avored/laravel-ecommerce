@@ -2,7 +2,7 @@
     <div class="card-body">
 
         <a href="{{ route('product.view', $product->slug)}}" title="{{ $product->name }}">
-            @include('catalog.product.view.product-image',['product' => $product])
+            @include('product.view.product-image',['product' => $product])
         </a>
 
         <div class="caption">

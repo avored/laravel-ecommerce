@@ -31,57 +31,12 @@ class CategoryViewController extends Controller
     {
         $productsOnCategoryPage = 9;
 
-        $category = $this->productRepository->findCategoryBySlug($slug);
-        $categoryProducts = $category->products()
-                                ->whereStatus(1)->get();
+        $category       = $this->productRepository->findCategoryBySlug($slug);
+        $catProducts    = $this->productRepository->getCategoryProductWithFilter($category->id, $request->except(['page']));
+        
+        $products       = $this->productRepository->model()->productPaginate($catProducts, $productsOnCategoryPage);
 
-        foreach ($request->except(['page']) as $type => $arrays) {
-
-            if('property' == $type) {
-
-                foreach ($arrays as $identifier => $value) {
-
-                    $attribute = $this->productRepository->propertyModel()->where('identifier', '=', $identifier)->first();
-
-                    if(null !== $attribute) {
-
-                        $attributeId  = $attribute->id;
-
-                        $categoryProducts = $categoryProducts->filter(function ($product) use ($attributeId, $value) {
-
-                            foreach ($product->getProductAllProperties() as $productAttribute) {
-
-                                if ($productAttribute->property_id == $attributeId && $productAttribute->value == $value) {
-                                    return $product;
-                                }
-                            }
-                        });
-                    }
-                }
-            }
-
-            if('attribute' == $type) {
-
-                $attribute = $this->productRepository->attributeModel()->where('identifier', '=', $identifier)->first();
-
-                if (null !== $attribute) {
-                    $categoryProducts = $this->productRepository->model()->setCollection($categoryProducts)->addAttributeFilter($attribute->id, $value);
-                }
-
-            }
-        }
-
-
-
-        $products = $this->productRepository->model()->productPaginate($categoryProducts, $productsOnCategoryPage);
-        //dd($categoryProducts);
-
-        //$categoryProducts = $collections->paginateCollection($productsOnCategoryPage);
-
-        //dd($products);
-
-
-        return view('catalog.category.view')
+        return view('category.view')
             ->with('category', $category)
             ->with('params', $request->all())
             ->with('products', $products);

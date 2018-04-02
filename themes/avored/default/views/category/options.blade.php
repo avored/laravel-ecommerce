@@ -3,7 +3,6 @@
         <h6>Filter By Product Attributes</h6>
         <hr/>
 
-
         @if(($category->children->count()) > 0)
             <h4>Sub Categories</h4>
             <ul class="list-group">

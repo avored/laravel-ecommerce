@@ -14,7 +14,7 @@
         <div class="row">
 
             <div class="col-4">
-                @include('catalog.product.view.product-image',['imageType' => 'largeUrl'])
+                @include('product.view.product-image',['imageType' => 'largeUrl'])
                 </div>
 
             <div class="col-8">
@@ -26,9 +26,9 @@
                 </div>
 
                     @if($product->type == 'BASIC')
-                        @include('catalog.product.view.type.basic-add-to-cart')
+                        @include('product.view.type.basic-add-to-cart')
                     @elseif($product->type == 'VARIATION' )
-                        @include('catalog.product.view.type.variation-add-to-cart')
+                        @include('product.view.type.variation-add-to-cart')
                     @endif
 
                 <div class="float-left">
