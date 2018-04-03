@@ -46,7 +46,7 @@
                                             <img alt="{{ $wishlist->product->name }}"
                                                  class="img-responsive"
                                                  style="max-height: 75px"
-                                                 src="{{ asset('/img/default-product.jpg') }}"/>
+                                                 src="{{ asset('vendor/avored-default/images/default-product.jpg') }}"/>
                                         @endif
                                     </td>
                                     <td>

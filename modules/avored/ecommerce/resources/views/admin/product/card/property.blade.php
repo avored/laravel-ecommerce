@@ -173,11 +173,11 @@ $productProperties = $model->getProductAllProperties();
 
 
         $(function () {
-            jQuery('.datetime').flatpickr({
+            /**jQuery('.datetime').flatpickr({
                 altInput: true,
                 altFormat: "d-m-Y",
                 dateFormat: "Y-m-d",
-            });
+            });**/
 
 
             jQuery('.modal-use-selected').on('click', function (e) {

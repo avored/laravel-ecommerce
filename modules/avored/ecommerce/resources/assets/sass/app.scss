@@ -1,15 +1,18 @@
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
-@import "bootstrap4/bootstrap";
-@import "fontawesome/fontawesome";
-@import "select2/core";
-
-@import "summernote/summernote";
+@import "_variables";
+@import "~bootstrap/scss/bootstrap";
 
 
-@import "pickadate/defailt-scss";
-@import "pickadate/default-date";
-@import "pickadate/default-time";
+$fa-font-path: "../fonts" !default;
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
+@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands";
 
+
+@import "~select2/src/scss/core";
+@import "~summernote/src/less/summernote-bs4";
+@import "~pc-bootstrap4-datetimepicker/src/sass/bootstrap-datetimepicker-build";
 @import "custom";
