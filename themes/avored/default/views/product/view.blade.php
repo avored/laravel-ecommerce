@@ -34,11 +34,11 @@
                 <div class="float-left">
                         @if(isset(Auth::user()->id) && Auth::user()->isInWishlist($product->id))
                             <a class="btn btn-danger" href="{{ route('wishlist.remove', $product->slug) }}">
-                                <i class="oi oi-heart"></i>
+                                <i class="fa fa-heart"></i>
                             </a>
                         @else
                             <a class="btn btn-warning" href="{{ route('wishlist.add', $product->slug) }}">
-                                <i class="oi oi-heart"></i>
+                                <i class="fa fa-heart"></i>
                             </a>
 
                         @endif

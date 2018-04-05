@@ -12,7 +12,8 @@
                  src="{{ $image->$imageType }}"/>
         </div>
 
-        <div id="product-extra-media" class="carousel mt-3 carousel-multi slide" data-interval="false" data-ride="carousel">
+        @if(Route::getCurrentRoute()->getName() == "product.view")
+            <div id="product-extra-media" class="carousel mt-3 carousel-multi slide" data-interval="false" data-ride="carousel">
 
             <div class="carousel-inner" role="listbox">
                 @foreach($product->images as $productImage)
@@ -42,9 +43,11 @@
             </a>
 
         </div>
+        @endif
 
     </div>
 @endif
+@if(Route::getCurrentRoute()->getName() == "product.view")
 @push('scripts')
     <script>
 
@@ -79,3 +82,4 @@
 
     </script>
 @endpush
+@endif

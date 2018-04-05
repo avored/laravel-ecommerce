@@ -69,12 +69,12 @@
                             <td class="col-1">  </td>
                             <td class="col-1">
                                 <a href="{{ route('home') }}" class="btn btn-light">
-                                    <span class="oi oi-cart"></span> Continue Shopping
+                                    <span class="fa fa-shopping-cart"></span> Continue Shopping
                                 </a>
                             </td>
                             <td class="col-1 text-right">
                                 <a href="{{ route('checkout.index') }}" class="btn btn-success">
-                                    Checkout <span class="oi oi-play-circle"></span>
+                                    Checkout <span class="fa fa-play-circle"></span>
                                 </a>
                             </td>
                         </tr>

@@ -64,7 +64,7 @@
                         <input type="text" class="form-control" placeholder="Search entire store here..." name="q">
                         <div class="input-group-btn">
                             <button class="btn btn-primary" type="submit">
-                                <i class="oi oi-magnifying-glass"></i>
+                                <i class="fa fa-search"></i>
                             </button>
                         </div>
                     </div>

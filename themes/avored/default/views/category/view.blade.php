@@ -11,18 +11,18 @@
         </div>
         <div class="col-10">
             <div class="row">
-            @if(count($category->products) <= 0)
-                <p>Sorry No Product Found</p>
-            @else
+                @if(count($category->products) <= 0)
+                    <p>Sorry No Product Found</p>
+                @else
 
-                @foreach($products as $product)
+                    @foreach($products as $product)
                         <div class="col-4">
                             @include('product.view.product-card',['product' => $product])
-                    </div>
-                @endforeach
-                <div class="clearfix"></div>
-                {!!  $products->links('pagination.bootstrap-4') !!}
-            @endif
+                        </div>
+                    @endforeach
+                    <div class="clearfix"></div>
+                    {!!  $products->links('pagination.bootstrap-4') !!}
+                @endif
             </div>
         </div>
 

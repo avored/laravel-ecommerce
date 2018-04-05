@@ -52,11 +52,12 @@
 
                 @if(Auth::check() && Auth::user()->isInWishlist($product->id))
                     <a class="btn btn-danger" title="Remove from Wish List"
-                       data-toggle="tooltip" href="{{ route('wishlist.remove', $product->slug) }}"><i
-                                class="oi oi-heart"></i></a>
+                       data-toggle="tooltip" href="{{ route('wishlist.remove', $product->slug) }}">
+                        <i
+                                class="fa fa-heart"></i></a>
                 @else
                     <a class="btn btn-success" title="Add to Wish List" data-toggle="tooltip"
-                       href="{{ route('wishlist.add', $product->slug) }}"><i class="oi oi-heart"></i></a>
+                       href="{{ route('wishlist.add', $product->slug) }}"><i class="fa fa-heart"></i></a>
                 @endif
             </div>
         </div>
