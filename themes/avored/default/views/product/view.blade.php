@@ -14,7 +14,7 @@
         <div class="row">
 
             <div class="col-4">
-                @include('product.view.product-image',['imageType' => 'largeUrl'])
+                @include('product.view.product-image',['imageType' => 'largeUrl','extraImage' => true])
                 </div>
 
             <div class="col-8">
@@ -55,7 +55,7 @@
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="nav-item active">
                         <a data-toggle="tab" class="nav-link" href="#description">
-                            DESCRIPTION
+                            <div class="h4"> DESCRIPTION</div>
                         </a>
                     </li>
 
@@ -68,8 +68,8 @@
                     @endforeach
                 </ul>
 
-                <div class="tab-content">
-                    <div id="description" class="tab-pane active">
+                <div class="tab-content ">
+                    <div id="description" class="tab-pane pt-3 active">
 
                         <p>{!! $product->description !!}</p>
                     </div>

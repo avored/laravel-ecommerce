@@ -12,7 +12,7 @@
                  src="{{ $image->$imageType }}"/>
         </div>
 
-        @if(Route::getCurrentRoute()->getName() == "product.view")
+        @if(isset($extraImage) && true == $extraImage)
             <div id="product-extra-media" class="carousel mt-3 carousel-multi slide" data-interval="false" data-ride="carousel">
 
             <div class="carousel-inner" role="listbox">
@@ -47,7 +47,7 @@
 
     </div>
 @endif
-@if(Route::getCurrentRoute()->getName() == "product.view")
+@if(isset($extraImage) && true == $extraImage)
 @push('scripts')
     <script>
 
