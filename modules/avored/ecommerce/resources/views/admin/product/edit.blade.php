@@ -82,8 +82,7 @@
 
                 @endif
 
-
-                @foreach(Tabs::all() as $key => $tab)
+                @foreach(Tabs::all('product') as $key => $tab)
 
                     <div class="card product-card mb-2 mt-2">
                         <a data-toggle="collapse" data-parent="#product-save-accordion"
