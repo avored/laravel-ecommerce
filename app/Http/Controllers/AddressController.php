@@ -6,7 +6,7 @@ use AvoRed\Ecommerce\Repository\User;
 
 use Illuminate\Support\Facades\Auth;
 
-use AvoRed\Ecommerce\Http\Requests\AddressRequest;
+use App\Http\Requests\AddressRequest;
 
 
 class AddressController extends Controller
@@ -77,7 +77,7 @@ class AddressController extends Controller
     /**
      * Store a newly created user addresses in database.
      *
-     * @param \AvoRed\Ecommerce\Http\Requests\AddressRequest $request
+     * @param \App\Http\Requests\AddressRequest $request
      *
      * @return \Illuminate\Http\Response
      */
@@ -114,7 +114,7 @@ class AddressController extends Controller
     /**
      * Update the specified user addresses in database.
      *
-     * @param \AvoRed\Ecommerce\Http\Requests\AddressRequest $request
+     * @param \App\Http\Requests\AddressRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

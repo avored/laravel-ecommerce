@@ -80,6 +80,11 @@
                     @endforeach
                 </div>
 
+                @include("avored-related::related.product.list")
+
+
+                @include("avored-review::product.review")
+
             </div>
         </div>
 

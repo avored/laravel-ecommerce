@@ -1,10 +1,10 @@
 <?php
 
-namespace AvoRed\Ecommerce\Http\Requests;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
 
-class StateRequest extends Request
+class AddressRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,12 @@ class StateRequest extends Request
     public function rules()
     {
         return [
-            'country_id' => 'required|integer',
-            'name' => 'required|max:255',
-            'code' => 'required|max:255',
+            'first_name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'address1' => 'required|max:255',
+            'city' => 'required|max:255',
+            'country_id' => 'required',
+            'phone' => 'required|max:255',
         ];
     }
 }
