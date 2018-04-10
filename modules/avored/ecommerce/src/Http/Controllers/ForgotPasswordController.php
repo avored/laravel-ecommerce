@@ -1,10 +1,11 @@
 <?php
 
-namespace AvoRed\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use AvoRed\Ecommerce\Http\Controllers\Admin\AdminController;
 
 class ForgotPasswordController extends AdminController
 {
@@ -53,6 +54,6 @@ class ForgotPasswordController extends AdminController
      */
     public function showLinkRequestForm()
     {
-        return view('avored-ecommerce::admin.auth.passwords.email');
+        return view('avored-ecommerce::auth.passwords.email');
     }
 }

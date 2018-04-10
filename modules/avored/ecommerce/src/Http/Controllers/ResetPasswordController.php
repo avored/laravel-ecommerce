@@ -1,11 +1,12 @@
 <?php
 
-namespace AvoRed\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use AvoRed\Ecommerce\Http\Controllers\Admin\AdminController;
 
 class ResetPasswordController extends AdminController
 {
@@ -32,7 +33,6 @@ class ResetPasswordController extends AdminController
     public function __construct()
     {
         $this->middleware('admin.guest');
-        //parent::__construct();
     }
 
     /**
@@ -61,7 +61,7 @@ class ResetPasswordController extends AdminController
      */
     public function showResetForm(Request $request, $token = null)
     {
-        return view('avored-ecommerce::admin.auth.passwords.reset')
+        return view('avored-ecommerce::auth.passwords.reset')
             ->with(['token' => $token, 'email' => $request->email]
             );
     }

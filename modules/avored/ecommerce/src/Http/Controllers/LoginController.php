@@ -1,11 +1,12 @@
 <?php
 
-namespace AvoRed\Ecommerce\Http\Controllers\Admin;
+namespace AvoRed\Ecommerce\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use AvoRed\Ecommerce\Http\Controllers\Admin\AdminController;
 
 class LoginController extends AdminController
 {
@@ -28,7 +29,7 @@ class LoginController extends AdminController
      */
     public function loginForm()
     {
-        return view('avored-ecommerce::admin.user.login');
+        return view('avored-ecommerce::auth.login');
     }
 
     /**

@@ -16,7 +16,7 @@ $baseAdminUrl = config('avored-ecommerce.admin_url');
 Route::middleware(['web'])
     ->prefix($baseAdminUrl)
     ->name('admin.')
-    ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
+    ->namespace('AvoRed\Ecommerce\Http\Controllers')
     ->group(function () {
         Route::get('login', 'LoginController@loginForm')->name('login');
         Route::post('login', 'LoginController@login')->name('login.post');

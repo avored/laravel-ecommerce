@@ -122,7 +122,7 @@ class ProductController extends AdminController
         try {
 
             $product = ProductModel::findorfail($id);
-            $product->saveProduct($request->al);
+            $product->saveProduct($request->all());
 
         } catch (\Exception $e) {
             throw new \Exception('Error in Saving Product: '.$e->getMessage());
