@@ -10,7 +10,7 @@ class Attribute
 
     public function __construct($model)
     {
-        $dataGrid = DataGrid::make('admin_subscriber_controller');
+        $dataGrid = DataGrid::make('admin_attribute_controller');
 
         $dataGrid->model($model)
                 ->column('name', ['label' => 'Name', 'sortable' => true])

@@ -40,10 +40,6 @@ Route::get('/cart/destroy/{id}', 'CartController@destroy')
 Route::get('/checkout', 'CheckoutController@index')
                 ->name('checkout.index');
 
-Route::post('/subscribe', 'SubscribeController@store')
-                ->name('subscribe.store');
-
-
 Route::get('/login', 'LoginController@showLoginForm')
                 ->name('login');
 Route::post('/login', 'LoginController@login')

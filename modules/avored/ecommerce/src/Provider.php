@@ -4,7 +4,6 @@ namespace AvoRed\Ecommerce;
 
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
@@ -179,17 +178,7 @@ class Provider extends ServiceProvider
             ->route('admin.property.index')
             ->icon('fas fa-file-powerpoint');
         $catalogMenu->subMenu('property', $propertyMenu);
-        AdminMenuFacade::add('promotion')
-            ->label('Promotion')
-            ->route('#')
-            ->icon('fas fa-bullhorn');
-        $promotionMenu = AdminMenuFacade::get('promotion');
-        $subscriberMenu = new AdminMenu();
-        $subscriberMenu->key('subscriber')
-            ->label('Subscriber')
-            ->route('admin.subscriber.index')
-            ->icon('fas fa-users');
-        $promotionMenu->subMenu('subscriber', $subscriberMenu);
+
         $pageMenu = new AdminMenu();
         $pageMenu->key('page')
             ->label('Page')
@@ -312,23 +301,6 @@ class Provider extends ServiceProvider
             $breadcrumb->label('Edit')
                 ->parent('admin.dashboard')
                 ->parent('admin.attribute.index');
-        });
-
-        BreadcrumbFacade::make('admin.subscriber.index', function ($breadcrumb) {
-            $breadcrumb->label('Subscriber')
-                ->parent('admin.dashboard');
-        });
-
-        BreadcrumbFacade::make('admin.subscriber.create', function ($breadcrumb) {
-            $breadcrumb->label('Create')
-                ->parent('admin.dashboard')
-                ->parent('admin.subscriber.index');
-        });
-
-        BreadcrumbFacade::make('admin.subscriber.edit', function ($breadcrumb) {
-            $breadcrumb->label('Edit')
-                ->parent('admin.dashboard')
-                ->parent('admin.subscriber.index');
         });
 
         BreadcrumbFacade::make('admin.order.index', function ($breadcrumb) {
@@ -515,26 +487,6 @@ class Provider extends ServiceProvider
         $permissionGroup->addPermission('admin-property-destroy')
             ->label('Property Destroy')
             ->routes('admin.property.destroy');
-
-        //
-        $permissionGroup = PermissionFacade::add('subscriber')
-            ->label('Subscriber Permissions');
-
-        $permissionGroup->addPermission('admin-subscriber-list')
-            ->label('Subscriber List')
-            ->routes('admin.subscriber.index');
-
-        $permissionGroup->addPermission('admin-subscriber-create')
-            ->label('Subscriber Create')
-            ->routes('admin.subscriber.create,admin.subscriber.store');
-
-        $permissionGroup->addPermission('admin-subscriber-update')
-            ->label('Subscriber Update')
-            ->routes('admin.subscriber.edit,admin.subscriber.update');
-
-        $permissionGroup->addPermission('admin-subscriber-destroy')
-            ->label('Subscriber Destroy')
-            ->routes('admin.subscriber.destroy');
 
         $permissionGroup = PermissionFacade::add('admin-user')
             ->label('Admin User Permissions');

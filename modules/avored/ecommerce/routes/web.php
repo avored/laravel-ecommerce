@@ -91,7 +91,6 @@ Route::middleware(['web', 'admin.auth', 'permission'])
 
         Route::resource('order-status', 'OrderStatusController', ['as' => 'admin']);
 
-        Route::resource('subscriber', 'SubscriberController', ['as' => 'admin']);
 
         Route::get('order', [
                 'as' => 'admin.order.index',

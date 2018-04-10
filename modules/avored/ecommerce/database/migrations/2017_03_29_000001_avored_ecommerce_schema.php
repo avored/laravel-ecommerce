@@ -135,14 +135,6 @@ class AvoredEcommerceSchema extends Migration
             $table->timestamps();
         });
 
-        Schema::create('subscribers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable()->default(null);
-            $table->string('email')->unique()->nullable();
-
-            $table->timestamps();
-        });
-
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
