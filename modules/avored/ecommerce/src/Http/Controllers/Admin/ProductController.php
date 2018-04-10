@@ -2,15 +2,16 @@
 
 namespace AvoRed\Ecommerce\Http\Controllers\Admin;
 
+use AvoRed\Framework\Models\Database\AttributeDropdownOption;
+use AvoRed\Framework\Models\Database\Property;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Event;
 use AvoRed\Framework\Repository\Product;
+use AvoRed\Framework\Models\Database\Product as ProductModel;
 use AvoRed\Framework\Image\Facade as Image;
-use AvoRed\Ecommerce\Events\ProductAfterSave;
-use AvoRed\Ecommerce\Events\ProductBeforeSave;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;
 use AvoRed\Ecommerce\DataGrid\Product as ProductGrid;
 
@@ -42,7 +43,7 @@ class ProductController extends AdminController
      */
     public function index()
     {
-        $productGrid = new ProductGrid($this->productRepository->model()->where('type', '!=', 'VARIABLE_PRODUCT'));
+        $productGrid = new ProductGrid(ProductModel::where('type', '!=', 'VARIABLE_PRODUCT')->orderBy('id','desc'));
 
         return view('avored-ecommerce::admin.product.index')->with('dataGrid', $productGrid->dataGrid);
     }
@@ -89,18 +90,22 @@ class ProductController extends AdminController
      */
     public function edit($id)
     {
-        $product = $this->productRepository->model()->findorfail($id);
-
+        $product    = ProductModel::findorfail($id);
         $attributes = Collection::make([]);
-        $properties = $this->productRepository->propertyModel()->all()->pluck('name', 'id');
+
+        $properties                  = Property::all()->pluck('name', 'id');
+        $usedForAllProductProperties = Property::whereUseForAllProducts(1)->get();
+
+
 
         if ($product->hasVariation() == 'VARIATION') {
-            $attributes = $this->productRepository->attributeModel()->all()->pluck('name', 'id');
+            $attributes = AttributeDropdownOption::all()->pluck('name', 'id');
         }
 
         return view('avored-ecommerce::admin.product.edit')
             ->with('model', $product)
             ->with('propertyOptions', $properties)
+            ->with('usedForAllProductProperties',$usedForAllProductProperties)
             ->with('attributeOptions', $attributes);
     }
 
@@ -115,10 +120,10 @@ class ProductController extends AdminController
     public function update(ProductRequest $request, $id)
     {
         try {
-            Event::fire(new ProductBeforeSave($request));
-            $product = $this->productRepository->model()->findorfail($id);
-            $product->saveProduct($request);
-            Event::fire(new ProductAfterSave($product, $request));
+
+            $product = ProductModel::findorfail($id);
+            $product->saveProduct($request->al);
+
         } catch (\Exception $e) {
             throw new \Exception('Error in Saving Product: '.$e->getMessage());
         }

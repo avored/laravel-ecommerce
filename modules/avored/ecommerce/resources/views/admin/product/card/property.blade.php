@@ -1,5 +1,5 @@
 <?php
-$productProperties = $model->getProductAllProperties();
+$productProperties = $model->getPropertiesAll();
 ?>
 
 <div class="row">
@@ -34,75 +34,78 @@ $productProperties = $model->getProductAllProperties();
             </div>
 
         </div>
-
-
         <hr/>
-
-
         <div class="property-content-wrapper">
 
-            @if(count($productProperties) > 0 )
+
+            @if($productProperties->count() > 0 )
 
                 @foreach($productProperties as $productVarcharPropertyValue)
 
+                    @php
+                    if(!$productVarcharPropertyValue instanceof \AvoRed\Framework\Models\Database\Property) {
+                        $property = $productVarcharPropertyValue->property;
+                        //dd($productVarcharPropertyValue);
+                    } else {
+                        $property = $productVarcharPropertyValue;
+                    }
 
-                    <?php $property = $productVarcharPropertyValue; ?>
+                    @endphp
 
-
-                    @if($productVarcharPropertyValue->property->field_type == 'TEXT')
+                    @if($property->field_type == 'TEXT')
                         <div class="form-group">
-                            <label for="property-{{ $productVarcharPropertyValue->property_id }}">
-                                {{ $productVarcharPropertyValue->property->name }}
+                            <label for="property-{{ $property->id }}">
+                                {{ $property->name }}
                             </label>
 
                             <input type="text"
-                                   name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                                   name="property[{{ str_random() }}][{{ $property->id  }}]"
                                    class="form-control"
                                    value="{{ $productVarcharPropertyValue->value }}"
-                                   id="property-{{ $productVarcharPropertyValue->property_id }}"/>
+                                   id="property-{{ $property->id }}"/>
                         </div>
                     @endif
 
-                    @if($productVarcharPropertyValue->property->field_type == 'DATETIME')
+                    @if($property->field_type == 'DATETIME')
                         <div class="form-group">
-                            <label for="property-{{ $productVarcharPropertyValue->property_id }}">
-                                {{ $productVarcharPropertyValue->property->name }}
+                            <label for="property-{{ $property->id }}">
+                                {{ $property->name }}
                             </label>
 
                             <input type="text"
-                                   name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                                   name="property[{{ str_random() }}][{{ $property->id  }}]"
                                    class="form-control datetime"
                                    value="{{ $productVarcharPropertyValue->value }}"
-                                   id="property-{{ $productVarcharPropertyValue->property_id }}"/>
+                                   id="property-{{ $property_id }}"/>
                         </div>
                     @endif
 
-                    @if($productVarcharPropertyValue->property->field_type == 'TEXTAREA')
+                    @if($property->field_type == 'TEXTAREA')
                         <div class="form-group">
-                            <label for="property-{{ $productVarcharPropertyValue->property_id }}">
-                                {{ $productVarcharPropertyValue->property->name }}
+                            <label for="property-{{ $property->id }}">
+                                {{ $property->name }}
                             </label>
 
                             <textarea
-                                    name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                                    name="property[{{ str_random() }}][{{ $property->id  }}]"
                                     class="form-control"
-                                    id="property-{{ $productVarcharPropertyValue->property_id }}"
+                                    id="property-{{ $property->id }}"
                             >{{ $productVarcharPropertyValue->value }}</textarea>
 
                         </div>
                     @endif
 
-                    @if($productVarcharPropertyValue->property->field_type == 'SELECT')
+                    @if($property->field_type == 'SELECT')
                         <div class="form-group">
-                            <label for="property-{{ $productVarcharPropertyValue->property_id }}">
-                                {{ $productVarcharPropertyValue->property->name }}
+                            <label for="property-{{ $property->id }}">
+                                {{ $property->name }}
                             </label>
 
-                            <select name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                            <select name="property[{{ str_random() }}][{{ $property->id  }}]"
                                     class="form-control"
-                                    id="property-{{ $productVarcharPropertyValue->property_id }}">
+                                    id="property-{{ $property->id }}">
 
-                                @foreach($productVarcharPropertyValue->property->propertyDropdownOptions as $option)
+                                @foreach($property->propertyDropdownOptions as $option)
                                     <option
                                             value="{{ $option->id }}"
 
@@ -119,9 +122,7 @@ $productProperties = $model->getProductAllProperties();
                         </div>
                     @endif
 
-
-
-                    @if($productVarcharPropertyValue->property->field_type == 'CHECKBOX')
+                    @if($property->field_type == 'CHECKBOX')
 
                         <div class="form-check">
 
@@ -131,19 +132,19 @@ $productProperties = $model->getProductAllProperties();
                             />
 
                             <input type="checkbox"
-                                   name="property[{{ str_random() }}][{{ $productVarcharPropertyValue->property_id  }}]"
+                                   name="property[{{ str_random() }}][{{ $property->id  }}]"
                                    class="form-check-input"
                                    value="1"
                                    @if($productVarcharPropertyValue->value == 1)
                                    checked
                                    @endif
-                                   id="property-{{ $productVarcharPropertyValue->property_id }}"
+                                   id="property-{{ $property->id }}"
                             />
 
 
                             <label class="form-check-label"
-                                   for="property-{{ $productVarcharPropertyValue->property_id }}">
-                                {{ $productVarcharPropertyValue->property->name }}
+                                   for="property-{{ $property->id }}">
+                                {{ $property->name }}
                             </label>
 
 
@@ -162,24 +163,12 @@ $productProperties = $model->getProductAllProperties();
 
         </div>
     </div>
-
 </div>
 
-
-
 @push('scripts')
-
     <script>
 
-
         $(function () {
-            /**jQuery('.datetime').flatpickr({
-                altInput: true,
-                altFormat: "d-m-Y",
-                dateFormat: "Y-m-d",
-            });**/
-
-
             jQuery('.modal-use-selected').on('click', function (e) {
 
                 var token = jQuery(this).attr('data-token');
@@ -211,13 +200,6 @@ $productProperties = $model->getProductAllProperties();
                     }
                 });
             });
-
-
         });
-
-
     </script>
-
-
-
 @endpush

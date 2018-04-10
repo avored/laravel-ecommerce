@@ -6,7 +6,7 @@ use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use AvoRed\Ecommerce\Repository\User;
-use AvoRed\Framework\Repository\Order;
+use AvoRed\Ecommerce\Repository\Order;
 use AvoRed\Ecommerce\Mail\OrderInvoicedMail;
 use AvoRed\Ecommerce\Mail\UpdateOrderStatusMail;
 use AvoRed\Ecommerce\DataGrid\Order as OrderGrid;
@@ -24,7 +24,7 @@ class OrderController extends AdminController
     /**
      * AvoRed Order Repository.
      *
-     * @var \AvoRed\Framework\Repository\Order
+     * @var \AvoRed\Ecommerce\Repository\Order
      */
     protected $orderRepository;
 
@@ -32,7 +32,7 @@ class OrderController extends AdminController
      * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
      *
      * @param \AvoRed\Ecommerce\Repository\User $repository
-     * @param \AvoRed\Framework\Repository\Order $orderRepository
+     * @param \AvoRed\Ecommerce\Repository\Order $orderRepository
      * @return void
      */
     public function __construct(User $repository, Order $orderRepository)

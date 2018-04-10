@@ -64,9 +64,9 @@
                                             </div>
                                         </form>
 
-
                                     @else
-                                        {{ $order->orderStatus->title }}
+
+                                        {{ $order->orderStatus->name }}
                                     @endif
 
 

@@ -36,28 +36,21 @@
                     <strong>Newsletter</strong>
                 </div>
                 <div class="content">
+                    <div class="field newsletter">
+                        <label class="label" for="newsletter">
+                            <span>Sign Up for Our Newsletter:</span>
+                        </label>
+                    </div>
                     <form class="navbar-form" action="{{ route('subscribe.store') }}" method="post">
-
                         @csrf
-                        <div class="field newsletter">
-                            <label class="label" for="newsletter">
-                                <span>Sign Up for Our Newsletter:</span>
-                            </label>
-                        </div>
-
 
                         <div class="input-group">
 
                             <input type="text"
-
-                                   @if($errors->has('subscriber_email'))
-                                   class="form-control is-invalid"
-                                   @else
-                                   class="form-control"
-                                   @endif
-
-                                   placeholder="Enter your email address" name="subscriber_email"/>
-
+                               class="form-control {{ $errors->has('subscriber_email') ? ' is-invalid' : '' }}"
+                               placeholder="Enter your email address"
+                                   name="subscriber_email"
+                            />
 
                             <div class="input-group-btn">
 

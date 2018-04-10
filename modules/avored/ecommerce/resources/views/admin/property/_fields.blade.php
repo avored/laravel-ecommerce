@@ -1,8 +1,16 @@
-
-
-
 @include('avored-ecommerce::forms.text',['name' => 'name','label' => __('avored-ecommerce::property.name')])
 @include('avored-ecommerce::forms.text',['name' => 'identifier','label' => __('avored-ecommerce::property.identifier')])
+
+
+
+@include('avored-ecommerce::forms.select',['name' => 'use_for_all_products',
+                                            'label' => __('avored-ecommerce::property.use_for_all_products'),
+                                            'options' => [
+                                                        0 => 'No',
+                                                        1 => 'Yes'
+                                                        ]
+                                        ])
+
 
 @include('avored-ecommerce::forms.select',['name' => 'data_type',
                                             'label' => __('avored-ecommerce::property.data-type'),
@@ -15,7 +23,6 @@
                                                         'BOOLEAN' => 'Boolean'
                                                         ]
                                         ])
-
 
 
 @include('avored-ecommerce::forms.select',['name' => 'field_type',
@@ -49,27 +56,34 @@ if (isset($model) && $model->propertyDropdownOptions->count() > 0) {
 }
 ?>
 
-<div class="dynamic-field {{ $hiddenClass }}">
+<div class="dynamic-field mb-4 {{ $hiddenClass }}">
 
     @if($editMode === true)
 
         @foreach($model->propertyDropdownOptions as $key => $dropdownOptionModel)
 
-            <div class="dynamic-field-row">
-                <div class="form-group col-md-12">
-                    <label>Display Text</label>
-                    <span class="input-group">
-                        <input class="form-control"
-                               name="dropdown-options[{{ $dropdownOptionModel->id }}][display_text]"
-                               value="{{ $dropdownOptionModel->display_text }}"/>
+            <div class="dynamic-field-row mt-3">
+                <div class="input-group col-md-12">
 
-                        @if ($loop->last)
-                            <span class="input-group-addon  add-field" style='cursor: pointer'>Add</span>
-                        @else
-                            <span class="input-group-addon  remove-field" style='cursor: pointer'>Remove</span>
-                        @endif
-
+                    <span class="input-group-prepend">
+                        <span class="input-group-text">Display Text</span>
                     </span>
+
+                    <input class="form-control"
+                           name="dropdown-options[{{ $dropdownOptionModel->id }}][display_text]"
+                           value="{{ $dropdownOptionModel->display_text }}"/>
+
+                    @if ($loop->last)
+                        <span class="input-group-append  add-field">
+                            <button class="btn btn-outline-secondary">Add</button>
+                        </span>
+                    @else
+                        <span class="input-group-append  remove-field">
+                            <button class="btn btn-outline-secondary">Remove</button>
+                        </span>
+                    @endif
+
+
                 </div>
             </div>
 
@@ -77,33 +91,47 @@ if (isset($model) && $model->propertyDropdownOptions->count() > 0) {
 
     @else
 
-        <div class="dynamic-field-row">
+        <div class="dynamic-field-row mt-3">
 
-            <div class="form-group col-md-12">
-                <label>Display Text</label>
 
-                <span class="input-group">
-                    <input disabled class="form-control"
-                           name="dropdown-options[{{ $randomString }}][display_text]"/>
-                    <span class="input-group-addon  add-field"
-                          style='cursor: pointer'>Add</span>
-                </span>
+            <div class="input-group col-md-12">
+                    <span class="input-group-prepend">
+                        <span class="input-group-text">Display Text</span>
+                    </span>
+
+                <input disabled class="form-control"
+                       name="dropdown-options[{{ $randomString }}][display_text]"/>
+                <span class="input-group-append  add-field"
+                      style='cursor: pointer'>
+                         <button class="btn btn-outline-secondary" type="button">
+                            Add
+                        </button>
+
+                    </span>
             </div>
+
         </div>
 
     @endif
 
     <div class="dynamic-field-row-template d-none">
-        <div class="dynamic-field-row">
-            <div class="form-group col-md-12">
-                <label>Display Text</label>
+        <div class="dynamic-field-row mt-3">
+            <div class="input-group col-md-12">
+                <span class="input-group-prepend">
+                        <span class="input-group-text">Display Text</span>
+                    </span>
 
-                <span class="input-group">
-                    <input class="form-control"
-                           name="dropdown-options[__RANDOM_STRING__][display_text]"/>
-                    <span class="input-group-addon  add-field"
-                          style='cursor: pointer'>Add</span>
-                </span>
+
+                <input class="form-control"
+                       name="dropdown-options[__RANDOM_STRING__][display_text]"/>
+                <span class="input-group-append  add-field"
+                      style='cursor: pointer'>
+                        <button class="btn btn-outline-secondary">
+                            Add
+                        </button>
+
+                    </span>
+
             </div>
         </div>
     </div>
