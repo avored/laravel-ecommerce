@@ -1,6 +1,8 @@
 <?php
-$productVariations = $model->productVariations;
-$productAttributes = $model->getProductAllAttributes();
+$productVariations = $model->attribute;
+
+$attributeOptions = $model->getAttributeOptions();
+
 ?>
 
 
@@ -17,7 +19,7 @@ $productAttributes = $model->getProductAllAttributes();
                         style="width: 80%">
                     @foreach($attributeOptions as $value => $label)
                         <option
-                                @if($productAttributes->contains('attribute_id',$value))
+                                @if($productVariations->contains('id',$value))
                                 selected
                                 @endif
 
@@ -36,53 +38,59 @@ $productAttributes = $model->getProductAllAttributes();
 
             <div class="product-variation-card-wrapper   row"></div>
 
+            @if(null != $model->productVariations)
+
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Qty</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Destroy</th>
 
 
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Qty</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Destroy</th>
+                    </tr>
+                    </thead>
+                    <tbody>
 
 
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($model->variations as $variation)
-                <tr>
-                    <th scope="row">{{ $variation->variationProduct->id }}</th>
-                    <td>{{ $variation->variationProduct->name }}</td>
-                    <td>{{ $variation->variationProduct->price }}</td>
-                    <td>{{ $variation->variationProduct->qty }}</td>
-                    <td>
-                        <a href="#"
-                           data-token="{{ csrf_token() }}"
-                           class="edit-variation-link"
-                           data-variation-id="{{ $variation->variationProduct->id }}">
-                            Edit
-                        </a>
-                    </td>
-                    <td>
-                        <a href="#" onclick="event.preventDefault();
-                                             document.getElementById('product-variation-{{ $variation->variationProduct->id }}').submit();">
-                            Destroy
-                        </a>
-                        <form id="product-variation-{{ $variation->variationProduct->id }}" action="{{ route('admin.product.destroy', $variation->variationProduct->id) }}"
-                              method="POST" style="display: none;">
-                            <input type="hidden" name="_method" value="delete">
-                            {{ csrf_field() }}
-                        </form>
-                    </td>
-                </tr>
-                @endforeach
+                    @foreach($model->productVariations as $variation)
+                        <tr>
+                            <th scope="row">{{ $variation->variationProduct->id }}</th>
+                            <td>{{ $variation->variationProduct->name }}</td>
+                            <td>{{ $variation->variationProduct->price }}</td>
+                            <td>{{ $variation->variationProduct->qty }}</td>
+                            <td>
+                                <a href="#"
+                                   data-token="{{ csrf_token() }}"
+                                   class="edit-variation-link"
+                                   data-variation-id="{{ $variation->variationProduct->id }}">
+                                    Edit
+                                </a>
+                            </td>
+                            <td>
+                                <a href="#" onclick="event.preventDefault();
+                                        document.getElementById('product-variation-{{ $variation->variationProduct->id }}').submit();">
+                                    Destroy
+                                </a>
+                                <form id="product-variation-{{ $variation->variationProduct->id }}"
+                                      action="{{ route('admin.product.destroy', $variation->variationProduct->id) }}"
+                                      method="POST" style="display: none;">
+                                    <input type="hidden" name="_method" value="delete">
+                                    {{ csrf_field() }}
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
 
-                </tbody>
 
-            </table>
+                    </tbody>
+
+                </table>
+
+            @endif
 
         @endif
     </div>
@@ -95,13 +103,13 @@ $productAttributes = $model->getProductAllAttributes();
         $(function () {
 
 
-            jQuery(document).on('click','.edit-variation-link',function (e) {
+            jQuery(document).on('click', '.edit-variation-link', function (e) {
                 e.preventDefault();
                 e.stopPropagation();
 
                 var variationId = jQuery(this).attr('data-variation-id');
 
-                if(jQuery('#variation-modal-' + variationId).length > 0) {
+                if (jQuery('#variation-modal-' + variationId).length > 0) {
 
                     jQuery('#variation-modal-' + variationId).modal();
 

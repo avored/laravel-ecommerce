@@ -23,9 +23,7 @@
 
 <div class="row">
     <div class="col-6">
-        @if(isset($editMethod) && $editMethod)
-            @include('avored-ecommerce::forms.text',['name' => 'slug','label' => 'Slug'])
-        @endif
+        @include('avored-ecommerce::forms.text',['name' => 'slug','label' => 'Slug'])
     </div>
     <div class="col-6">
         @include('avored-ecommerce::forms.text',['name' => 'sku','label' => 'Sku'])

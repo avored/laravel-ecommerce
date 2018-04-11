@@ -120,7 +120,7 @@ class Provider extends ServiceProvider
         View::composer('layouts.app', LayoutAppComposer::class);
         View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
         View::composer(['avored-ecommerce::admin.product.create',
-                        'avored-ecommerce::admin.product.edit',
+                        'avored-ecommerce::product.edit',
                         ], ProductFieldsComposer::class);
 
     }

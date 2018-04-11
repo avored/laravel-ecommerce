@@ -27,7 +27,7 @@
                     </div>
                     </a>
                     <div class="card-body collapse show" id="basic">
-                        @include('avored-ecommerce::admin.product.card.basic', ['editMethod' => true])
+                        @include('avored-ecommerce::product.card.basic')
                     </div>
                 </div>
 
@@ -39,7 +39,7 @@
                     </div>
                     </a>
                     <div class="card-body collapse" id="images">
-                        @include('avored-ecommerce::admin.product.card.images')
+                        @include('avored-ecommerce::product.card.images')
                     </div>
                 </div>
 
@@ -50,7 +50,7 @@
                         <div class="card-header">SEO</div>
                     </a>
                     <div class="card-body collapse" id="seo">
-                        @include('avored-ecommerce::admin.product.card.seo')
+                        @include('avored-ecommerce::product.card.seo')
                     </div>
                 </div>
 
@@ -62,7 +62,7 @@
                     </div>
                     </a>
                     <div class="card-body collapse" id="property">
-                        @include('avored-ecommerce::admin.product.card.property')
+                        @include('avored-ecommerce::product.card.property')
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
                             </div>
                         </a>
                         <div class="card-body collapse" id="attribute">
-                            @include('avored-ecommerce::admin.product.card.attribute')
+                            @include('avored-ecommerce::product.card.attribute')
                         </div>
                     </div>
 

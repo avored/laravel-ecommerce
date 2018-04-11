@@ -62,14 +62,14 @@ class ProductController extends AdminController
      * Store a newly created resource in storage.
      * @todo Change the ProductRequest Validation Rules for Store and Update
      *
-     * @param \AvoRed\Ecommerce\Http\Requests\ProductRequest $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
         try {
-            $product = $this->productRepository->model()->create($request->all());
+            $product = ProductModel::create($request->all());
+
         } catch (\Exception $e) {
             echo 'Error in Saving Product: ', $e->getMessage(), "\n";
         }
@@ -77,7 +77,6 @@ class ProductController extends AdminController
         //rather then redirect we just execute Edit Method here.
         // Not sure if this is a good idea???
 
-        //return $this->edit($product->id);
         return redirect()->route('admin.product.edit', ['id' => $product->id]);
     }
 
@@ -102,7 +101,7 @@ class ProductController extends AdminController
             $attributes = AttributeDropdownOption::all()->pluck('name', 'id');
         }
 
-        return view('avored-ecommerce::admin.product.edit')
+        return view('avored-ecommerce::product.edit')
             ->with('model', $product)
             ->with('propertyOptions', $properties)
             ->with('usedForAllProductProperties',$usedForAllProductProperties)
