@@ -19,6 +19,7 @@ storage/framework/bootstrap/cache/services.php
 /modules/*
 /modules/ecommerce
 /themes/*
+**/.DS_Store
 
 # Include Ecommerce Module
 !/modules/avored
