@@ -35,9 +35,13 @@ Alternatively, you may also install Laravel by issuing the Composer `create-proj
 
     laravel-ecommerce/.env 
     
-### Go to Url
+### Execute the AvoRed Install Command
     
-    yoursite.com/install
+    php artisan avored:install
+    
+Once you finished the Installation Command for the Admin Access you can just visit
+
+    yoursite.com/admin
     
 That's it!
 
