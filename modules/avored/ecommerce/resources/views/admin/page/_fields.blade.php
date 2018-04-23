@@ -64,7 +64,7 @@
                     /* US English(Default Language) */
                     avoredWidget: {
                         exampleText: 'Widget Panel',
-                        dialogTitle: 'Example Plugin',
+                        dialogTitle: 'Widget Panel',
                         okButton: 'OK'
                     }
                 }
@@ -74,7 +74,7 @@
             $.extend($.summernote.options, {
                 avoredWidget: {
                     icon: '<i class="fab fa-usb"/>',
-                    tooltip: 'Example Plugin Tooltip'
+                    tooltip: 'Please Select AvoRed Widget'
                 }
             });
 

@@ -104,6 +104,7 @@ class AddressController extends Controller
         $defaultCountry = $this->configRepository->getConfiguration('avored_address_default_country');
         $countries      = $this->userRepository->countryOptions();
 
+
         return view('address.my-account.edit-address')
             ->with('user', $user)
             ->with('model', $address)
@@ -140,4 +141,5 @@ class AddressController extends Controller
 
         return redirect()->route('my-account.address.index');
     }
+
 }

@@ -32,89 +32,73 @@ Route::middleware(['web'])
 
 Route::middleware(['web', 'admin.auth', 'permission'])
     ->prefix($baseAdminUrl)
+    ->name('admin.')
     ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
     ->group(function () {
-        Route::post('option-combination-modal', [
-            'uses' => 'OptionController@optionCombinationModal',
-            'as' => 'admin.option.combination',
-        ]);
-
-        Route::post('edit-option-combination-modal', [
-            'uses' => 'OptionController@editOptionCombinationModal',
-            'as' => 'admin.option.combination.edit',
-        ]);
-
-        Route::post('option-combination-update', [
-            'uses' => 'OptionController@optionCombinationUpdate',
-            'as' => 'admin.product.option-combination.update',
-        ]);
-
-        Route::resource('property', 'PropertyController', ['as' => 'admin']);
-
-        Route::get('/', ['as' => 'admin.dashboard', 'uses' => 'DashboardController@index']);
-
-        Route::resource('/role', 'RoleController', ['as' => 'admin']);
-
-        Route::resource('product', 'ProductController', ['as' => 'admin']);
-        Route::resource('category', 'CategoryController', ['as' => 'admin']);
-
-        Route::resource('/page', 'PageController', ['as' => 'admin']);
-
-        Route::resource('/admin-user', 'AdminUserController', ['as' => 'admin']);
-
-        Route::post('/product-attribute-panel', ['as' => 'admin.product-attribute.get-attribute', 'uses' => 'AttributeController@getAttribute']);
-
-        Route::resource('/attribute', 'AttributeController', ['as' => 'admin']);
-
-        Route::get('/admin-user-api-show', ['as' => 'admin.admin-user.show.api', 'uses' => 'AdminUserController@apiShow']);
-
-        Route::post('product-image/upload', ['as' => 'admin.product.upload-image',
-            'uses' => 'ProductController@uploadImage', ]);
-        Route::post('product-image/delete', ['as' => 'admin.product.delete-image',
-            'uses' => 'ProductController@deleteImage', ]);
-
-        //Route::get('update-check', ['as' => 'admin.update.check', 'uses' => 'UpdateController@check']);
-
-        Route::get('configuration', ['as' => 'admin.configuration', 'uses' => 'ConfigurationController@index']);
-        Route::post('configuration', ['as' => 'admin.configuration.store', 'uses' => 'ConfigurationController@store']);
-
-        Route::get('themes', ['as' => 'admin.theme.index', 'uses' => 'ThemeController@index']);
-
-        Route::get('themes/create', ['as' => 'admin.theme.create', 'uses' => 'ThemeController@create']);
-        Route::post('themes', ['as' => 'admin.theme.store', 'uses' => 'ThemeController@store']);
-
-        Route::post('active-themes/{name}', ['as' => 'admin.theme.activated', 'uses' => 'ThemeController@activated']);
-
-        Route::post('deactive-themes/{name}', ['as' => 'admin.theme.deactivated', 'uses' => 'ThemeController@deactivated']);
-
-        Route::delete('themes/{name}', ['as' => 'admin.theme.destroy', 'uses' => 'ThemeController@destroy']);
-
-        Route::resource('order-status', 'OrderStatusController', ['as' => 'admin']);
 
 
-        Route::get('order', [
-                'as' => 'admin.order.index',
-                'uses' => 'OrderController@index',
-        ]);
+        Route::post('option-combination-modal', 'OptionController@optionCombinationModal')
+                            ->name('option.combination');
+        Route::post('edit-option-combination-modal', 'OptionController@editOptionCombinationModal')
+                            ->name('option.combination.edit');
+        Route::post('option-combination-update', 'OptionController@optionCombinationUpdate')
+                            ->name('product.option-combination.update');
 
-        Route::post('get-property-element', [
-            'as' => 'admin.property.element',
-            'uses' => 'PropertyController@getElementHtml',
-        ]);
+        Route::resource('property', 'PropertyController');
 
-        Route::post('edit-product-variation', [
-            'as' => 'admin.variation.edit',
-            'uses' => 'ProductController@editVariation',
-        ]);
+        Route::get('', 'DashboardController@index')->name('dashboard');
 
-        Route::post('get-attribute-element', [
-            'as' => 'admin.attribute.element',
-            'uses' => 'AttributeController@getElementHtml',
-        ]);
+        Route::resource('role', 'RoleController');
 
-        Route::get('order/{id}', ['as' => 'admin.order.view', 'uses' => 'OrderController@view']);
-        Route::get('order/{id}/send-email-invoice', ['as' => 'admin.order.send-email-invoice', 'uses' => 'OrderController@sendEmailInvoice']);
+        Route::resource('product', 'ProductController');
+        Route::resource('category', 'CategoryController');
 
-        Route::get('order/{id}/change-status', ['as' => 'admin.order.change-status', 'uses' => 'OrderController@changeStatus']);
-        Route::put('order/{id}/update-status', ['as' => 'admin.order.update-status', 'uses' => 'OrderController@updateStatus']);
+        Route::resource('page', 'PageController');
+
+        Route::resource('admin-user', 'AdminUserController');
+
+        Route::post('product-attribute-panel', 'AttributeController@getAttribute')
+                                ->name('product-attribute.get-attribute');
+
+        Route::resource('attribute', 'AttributeController');
+
+
+        Route::get('admin-user-api-show', 'AdminUserController@apiShow')->name('admin-user.show.api');
+
+        Route::post('product-image/upload', 'ProductController@uploadImage')->name('product.upload-image');
+
+        Route::post('product-image/delete', 'ProductController@deleteImage')->name('product.delete-image');
+
+
+        Route::get('configuration', 'ConfigurationController@index')->name('configuration');
+
+        Route::post('configuration', 'ConfigurationController@store')->name('configuration.store');
+
+        Route::get('themes', 'ThemeController@index')->name('theme.index');
+
+        Route::get('themes/create', 'ThemeController@create')->name('theme.create');
+        Route::post('themes', 'ThemeController@store')->name('theme.store');
+
+
+        Route::post('active-themes/{name}', 'ThemeController@activated')->name('theme.activated');
+        Route::post('deactive-themes/{name}', 'ThemeController@deactivated')->name('theme.deactivated');
+
+        Route::delete('themes/{name}', 'ThemeController@destroy')->name('theme.destroy');
+
+        Route::resource('order-status', 'OrderStatusController');
+
+
+        Route::get('order', 'OrderController@index')->name('order.index');
+
+        Route::post('get-property-element', 'PropertyController@getElementHtml')->name('property.element');
+
+        Route::post('edit-product-variation', 'ProductController@editVariation')->name('variation.edit');
+
+        Route::post('get-attribute-element', 'AttributeController@getElementHtml')->name('attribute.element');
+
+        Route::get('order/{id}', 'OrderController@view')->name('order.view');
+        Route::get('order/{id}/send-email-invoice', 'OrderController@sendEmailInvoice')->name('order.send-email-invoice');
+
+        Route::get('order/{id}/change-status', 'OrderController@changeStatus')->name('order.change-status');
+        Route::put('order/{id}/update-status', 'OrderController@updateStatus')->name('order.update-status');
     });
