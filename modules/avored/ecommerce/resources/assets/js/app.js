@@ -21,6 +21,7 @@ require('select2');
 require('summernote');
 require('pc-bootstrap4-datetimepicker');
 require('chartjs');
+require('jquery-sortable');
 
 window.axios = require('axios');
 

@@ -152,3 +152,16 @@ aside {
 .widget-column {
   min-height: 100px;
 }
+
+body.dragging, body.dragging {
+   cursor: move !important;
+ }
+.left-menu .list-group-item, .front-menu .list-group-item {
+  cursor: move;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}

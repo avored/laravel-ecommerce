@@ -30,6 +30,18 @@ Route::middleware(['web'])
         Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset.token');
     });
 
+
+Route::middleware(['web', 'admin.auth', 'permission'])
+    ->prefix($baseAdminUrl)
+    ->name('admin.')
+    ->namespace('AvoRed\Ecommerce\Http\Controllers')
+    ->group(function () {
+
+        Route::get('menu', 'MenuController@index')->name('menu.index');
+
+    });
+
+
 Route::middleware(['web', 'admin.auth', 'permission'])
     ->prefix($baseAdminUrl)
     ->name('admin.')
@@ -47,6 +59,8 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::resource('property', 'PropertyController');
 
         Route::get('', 'DashboardController@index')->name('dashboard');
+
+
 
         Route::resource('role', 'RoleController');
 
