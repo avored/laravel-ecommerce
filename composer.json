@@ -21,6 +21,7 @@
     "avored/install": "dev-master",
     "avored/module-installer": "dev-master",
     "avored/related": "dev-master",
+    "avored/review": "dev-master",
     "fabpot/goutte": "^3.2",
     "fideloper/proxy": "~4.0"
   },
