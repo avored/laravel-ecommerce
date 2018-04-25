@@ -211,6 +211,14 @@ class AvoredEcommerceSchema extends Migration
             Country::create(['code' => $code, 'name' => $name]);
         }
 
+        Schema::create('menus', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('parent_id')->nullable()->default(null);
+            $table->string('name')->nullable()->default(null);
+            $table->string('url')->nullable()->default(null);
+            $table->timestamps();
+        });
+
         $countryModel = Country::whereCode('nz')->first();
 
         Configuration::create([

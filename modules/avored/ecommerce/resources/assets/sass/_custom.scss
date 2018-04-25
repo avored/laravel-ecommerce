@@ -4,32 +4,31 @@
     color: $white;
 
     &:hover {
-      color : #cccccc;
+      color: #cccccc;
     }
   }
 }
-
 
 // Bootstrap
 //@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 body {
   background-color: inherit;
 }
+
 .admin-header {
-  background: #9733EE;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, $primary, #9733EE);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, $primary,#9733EE ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #9733EE; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, $primary, #9733EE); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, $primary, #9733EE); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
 
-
 aside {
   width: 225px;
-  position:fixed;
+  position: fixed;
   height: 100%;
-  background: $primary;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to left, $primary, lighten($primary, 5%) ,$primary);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to left, $primary,lighten($primary, 5%) ,$primary ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: $primary; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, $primary, lighten($primary, 5%), $primary); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, $primary, lighten($primary, 5%), $primary); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   overflow-y: scroll;
   padding-bottom: 20px;
 
@@ -38,10 +37,9 @@ aside {
     font-size: 20px;
     color: $white;
 
-
     .nav-icon {
       padding-left: 20px;
-      padding-right:10px;
+      padding-right: 10px;
       margin: 20px 0px;
     }
   }
@@ -154,10 +152,19 @@ aside {
 }
 
 body.dragging, body.dragging {
-   cursor: move !important;
- }
+  cursor: move !important;
+}
+
 .left-menu .list-group-item, .front-menu .list-group-item {
   cursor: move;
+}
+
+.left-menu .destroy-menu {
+  visibility: hidden;
+}
+
+.front .destroy-menu {
+  visibility: visible;
 }
 
 .dragged {

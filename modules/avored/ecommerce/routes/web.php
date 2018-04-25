@@ -38,6 +38,7 @@ Route::middleware(['web', 'admin.auth', 'permission'])
     ->group(function () {
 
         Route::get('menu', 'MenuController@index')->name('menu.index');
+        Route::post('menu', 'MenuController@store')->name('menu.store');
 
     });
 
