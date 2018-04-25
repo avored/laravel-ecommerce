@@ -18,7 +18,7 @@ class MenuController extends AdminController
     public function index()
     {
         $categories = Category::all();
-        $menus = Menu::all();
+        $menus = Menu::whereParentId(null)->orWhere('parent_id','=',0)->get();
         return view('avored-ecommerce::menu.index')
                     ->with('categories', $categories)
                     ->with('menus', $menus);
