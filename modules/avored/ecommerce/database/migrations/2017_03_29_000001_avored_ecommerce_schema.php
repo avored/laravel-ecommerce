@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use AvoRed\Ecommerce\Models\Database\Country;
+use AvoRed\Ecommerce\Models\Database\Menu;
 use Illuminate\Database\Migrations\Migration;
 use AvoRed\Ecommerce\Models\Database\Configuration;
 
@@ -215,11 +216,14 @@ class AvoredEcommerceSchema extends Migration
             $table->increments('id');
             $table->integer('parent_id')->nullable()->default(null);
             $table->string('name')->nullable()->default(null);
-            $table->string('url')->nullable()->default(null);
+            $table->string('route')->nullable()->default(null);
+            $table->string('params')->nullable()->default(null);
+
             $table->timestamps();
         });
 
         $countryModel = Country::whereCode('nz')->first();
+
 
         Configuration::create([
             'configuration_key' => 'avored_tax_class_default_country_for_tax_calculation',

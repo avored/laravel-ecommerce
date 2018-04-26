@@ -79,22 +79,14 @@
    
 <nav class="navbar navbar-expand-md navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="#">Hot Deals!</a>
-        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault"
-            aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                data-target="#avored-navbar">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <div class="collapse navbar-collapse" id="avored-navbar">
             <ul class="navbar-nav mr-auto">
-                @include('layouts.category-tree',['categories', $categories])
-                <li class="nav-item"><a class="nav-link" href="{{ route('cart.view') }}">Cart ({{ Cart::count() }})</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('checkout.index') }}">Checkout</a></li>
-                <li class="dropdown nav-item">
-                    <a href="{{ route('my-account.home') }}" title="My Account" class="nav-link">
-                        My Account
-                    </a>
-                </li>
+                @include('layouts.menu-tree',['menus' => $menus])
             </ul>
         </div>
     </div>

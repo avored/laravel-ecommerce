@@ -2,6 +2,7 @@
 
 namespace AvoRed\Ecommerce;
 
+use AvoRed\Framework\Menu\Menu;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ use AvoRed\Ecommerce\Http\Middleware\RedirectIfFrontAuth;
 use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\CheckoutComposer;
 use AvoRed\Framework\AdminMenu\Facade as AdminMenuFacade;
+use AvoRed\Framework\Menu\Facade as MenuFacade;
 use AvoRed\Ecommerce\Http\ViewComposers\LayoutAppComposer;
 use AvoRed\Framework\Breadcrumb\Facade as BreadcrumbFacade;
 use AvoRed\Framework\Permission\Facade as PermissionFacade;
@@ -55,6 +57,7 @@ class Provider extends ServiceProvider
         $this->registerPassportResources();
         $this->registerWidget();
         $this->registerAdminMenu();
+        $this->registerFrontMenu();
         $this->registerBreadcrumb();
         $this->registerPaymentOptions();
         $this->registerShippingOption();
@@ -249,6 +252,42 @@ class Provider extends ServiceProvider
             ->route('admin.role.index')
             ->icon('fab fa-periscope');
         $systemMenu->subMenu('roles', $roleMenu);
+    }
+
+    /**
+     * Register the Menus.
+     *
+     * @return void
+     */
+    protected function registerFrontMenu()
+    {
+        MenuFacade::make('my-account',function (Menu $accountMenu){
+            $accountMenu->label('My Account')
+                ->route('my-account.home');
+        });
+
+        MenuFacade::make('cart',function (Menu $accountMenu){
+            $accountMenu->label('Cart')
+                ->route('cart.view');
+        });
+
+
+        MenuFacade::make('checkout',function (Menu $accountMenu){
+            $accountMenu->label('Checkout')
+                ->route('checkout.index');
+        });
+
+
+        /*
+        $cart = MenuFacade::add('cart');
+        $cart->label('Cart')
+            ->route('cart.view');
+
+        $checkout = MenuFacade::add('checkout');
+        $checkout->label('Checkout')
+            ->route('checkout.index');
+        */
+
     }
 
     /**

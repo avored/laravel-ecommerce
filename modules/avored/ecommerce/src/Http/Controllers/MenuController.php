@@ -6,6 +6,7 @@ use AvoRed\Ecommerce\Http\Controllers\Admin\AdminController;
 use AvoRed\Ecommerce\Models\Database\Menu;
 use AvoRed\Framework\Models\Database\Category;
 use Illuminate\Http\Request;
+use AvoRed\Framework\Menu\Facade as MenuFacade;
 
 class MenuController extends AdminController
 {
@@ -17,10 +18,13 @@ class MenuController extends AdminController
      */
     public function index()
     {
+        $frontMenus = MenuFacade::all();
+
         $categories = Category::all();
         $menus = Menu::whereParentId(null)->orWhere('parent_id','=',0)->get();
         return view('avored-ecommerce::menu.index')
                     ->with('categories', $categories)
+                    ->with('frontMenus', $frontMenus)
                     ->with('menus', $menus);
     }
 
@@ -49,7 +53,11 @@ class MenuController extends AdminController
 
             foreach ($menus as $menu) {
 
-                $menuModel = Menu::create(['name' => $menu->name,'url' => $menu->url, 'parent_id' => $parentId]);
+
+                $menuModel = Menu::create(['name' => $menu->name,
+                                            'route' => $menu->route,
+                                            'params' => $menu->params,
+                                            'parent_id' => $parentId]);
 
                 if(isset($menu->children) && count($menu->children[0]) >0) {
                     $this->_saveMenu($menu->children[0], $menuModel->id);

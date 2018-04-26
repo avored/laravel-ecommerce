@@ -6,35 +6,41 @@
         <p>Please select the preferred shipping method to use on this order.</p>
 
         @foreach($shippingOptions as $shippingOption)
-            <div class="form-check {{ $errors->has('shipping_option') ? ' is-invalid' : '' }}">
-
-                <input type="radio" name="shipping_option"
-
-                       @if($errors->has('shipping_option'))
-                       class="is-invalid form-check-input shipping_option_radio"
-                       @else
-                       class="shipping_option_radio form-check-input"
-                       @endif
-
-                       data-title="{{ $shippingOption->name() }}"
-                       data-cost="{{ number_format($shippingOption->amount(),2) }}"
-                       id="{{ $shippingOption->identifier() }}"
-                       value="{{ $shippingOption->identifier() }}">
-
-                <label for="{{ $shippingOption->identifier() }}" class="form-check-label">
-
-                    {{ $shippingOption->name() . " " . number_format($shippingOption->amount(),2) }}
 
 
-                </label>
+                <div class="form-check">
 
-                @if ($errors->has('shipping_option'))
-                    <div class="invalid-feedback">
-                        {{ $errors->first('shipping_option') }}
-                    </div>
-                @endif
+                    @if($shippingOption->enable())
+                    <input type="radio" name="shipping_option"
 
-            </div>
+                           @if($errors->has('shipping_option'))
+                           class="is-invalid form-check-input shipping_option_radio"
+                           @else
+                           class="shipping_option_radio form-check-input"
+                           @endif
+
+                           data-title="{{ $shippingOption->name() }}"
+                           data-cost="{{ number_format($shippingOption->amount(),2) }}"
+                           id="{{ $shippingOption->identifier() }}"
+                           value="{{ $shippingOption->identifier() }}">
+
+                    <label for="{{ $shippingOption->identifier() }}" class="form-check-label">
+
+                        {{ $shippingOption->name() . " " . number_format($shippingOption->amount(),2) }}
+
+
+                    </label>
+                    @endif
+                    @if ($errors->has('shipping_option'))
+                        <div class="invalid-feedback" style="display: block">
+                            {{ $errors->first('shipping_option') }}
+                        </div>
+                    @endif
+
+                </div>
+
         @endforeach
+
+
     </div>
 </div>

@@ -2,10 +2,12 @@
 
 namespace AvoRed\Ecommerce\Http\ViewComposers;
 
+use AvoRed\Ecommerce\Models\Database\Menu;
 use Illuminate\View\View;
 use AvoRed\Ecommerce\Repository\Config;
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Repository\Product;
+use AvoRed\Framework\Menu\Facade as MenuFacade;
 
 class LayoutAppComposer
 {
@@ -39,12 +41,15 @@ class LayoutAppComposer
     {
         $cart = (null === Session::get('cart')) ? 0 : count(Session::get('cart'));
 
-        $baseCategories = $this->productRepository->categoryModel()->getAllCategories();
+        //$baseCategories = $this->productRepository->categoryModel()->getAllCategories();
+
+        $menus = Menu::all();
+
 
         $metaTitle = $this->configRepository->model()->getConfiguration('general_site_title');
         $metaDescription = $this->configRepository->model()->getConfiguration('general_site_description');
 
-        $view->with('categories', $baseCategories)
+        $view->with('menus', $menus)
             ->with('cart', $cart)
             ->with('metaTitle', $metaTitle)
             ->with('metaDescription', $metaDescription);

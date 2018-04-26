@@ -88,6 +88,7 @@ Route::get('/page/{slug}', 'PageController@show')
 
 
 Route::middleware('front.auth')
+
     ->group(function () {
 
 

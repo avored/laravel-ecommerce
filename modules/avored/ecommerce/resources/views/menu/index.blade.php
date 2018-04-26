@@ -18,13 +18,34 @@
 
                             @foreach($categories as $category)
                                 <li class="list-group-item mb-2"
-                                    data-url="{{ route('category.view', $category->slug) }}"
-
+                                    data-route="category.view"
+                                    data-params="{{ $category->slug }}"
                                     data-name="{{ $category->name }}"
                                 >
                                     <i class="fas fa-bars"></i>
                                     <a href="#"
-                                       data-url="{{ route('category.view', $category->slug) }}">{{ $category->name }}</a>
+                                       data-route="{{ route('category.view', $category->slug) }}">{{ $category->name }}</a>
+                                    <span class="float-right">
+                                    <a href="#" class="destroy-menu"><i class="fas fa-trash"></i> </a>
+                                </span>
+                                </li>
+                            @endforeach
+
+                        </ul>
+                        <div class="h4">Front Menu List</div>
+
+                        <ul class="left-menu list-group ">
+
+                            @foreach($frontMenus as $frontMenu)
+                                <li class="list-group-item mb-2"
+                                    data-route="{{ $frontMenu->route() }}"
+                                    data-params="{{ $frontMenu->params() }}"
+                                    data-name="{{ $frontMenu->label() }}"
+                                >
+                                    <i class="fas fa-bars"></i>
+                                    <a href="#"
+                                       data-route="{{ route($frontMenu->route()) }}"
+                                    >{{ $frontMenu->label() }}</a>
                                     <span class="float-right">
                                     <a href="#" class="destroy-menu"><i class="fas fa-trash"></i> </a>
                                 </span>
@@ -45,23 +66,6 @@
                         @include('avored-ecommerce::menu.menu-tree')
                     </ul>
 
-                <!--ul class="front-menu list-group border p-3">
-                        @foreach($menus as $menu)
-                    <li class="list-group-item mb-2"
-                        data-url="{{ $menu->url }}"
-
-                            data-name="{{ $menu->name }}"
-                        >
-                            <i class="fas fa-bars"></i>
-                            <a href="#" data-url="">{{ $menu->name }}</a>
-                            <span class="float-right">
-                                    <a href="#" class="destroy-menu"><i class="fas fa-trash"></i> </a>
-                                </span>
-                            <ul class="list-group"></ul>
-                        </li>
-
-                        @endforeach
-                        </ul-->
                 </div>
 
 

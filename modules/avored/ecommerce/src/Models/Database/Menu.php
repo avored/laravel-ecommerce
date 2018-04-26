@@ -4,7 +4,7 @@ namespace AvoRed\Ecommerce\Models\Database;
 
 class Menu extends BaseModel
 {
-    protected $fillable = ['name','url', 'parent_id'];
+    protected $fillable = ['name','route', 'params' ,'parent_id'];
 
     public function children()
     {
