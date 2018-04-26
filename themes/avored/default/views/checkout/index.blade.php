@@ -153,17 +153,24 @@
 
                 e.preventDefault();
 
-                jQuery(this).prop('disabled', true);
+                if(jQuery('.payment-radio-options input:radio').length <= 0) {
 
-                jQuery('.payment-radio-options input:radio').each(function (i, el) {
-                    if (jQuery(el).is(':checked')) {
-                        jQuery(el).trigger('paymentProcessStart');
-                    }
-                });
+                    jQuery('.payment-radio-options input:radio').each(function (i, el) {
+                        if (jQuery(el).is(':checked')) {
+                            jQuery(this).prop('disabled', true);
+                            jQuery(el).trigger('paymentProcessStart');
+                        }
+                    });
+                } else {
+                    jQuery('#place-order-form').submit();
+                }
+
+
             });
 
             jQuery("#place-order-button").bind('paymentProcessEnd', function (e) {
                 e.preventDefault();
+                jQuery(this).prop('disabled',false);
                 jQuery('#place-order-form').submit();
             });
 

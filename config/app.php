@@ -242,6 +242,7 @@ return [
         'Cart'          => AvoRed\Framework\Cart\Facade::class,
         'DataGrid'      => AvoRed\Framework\DataGrid\Facade::class,
         'Image'         => AvoRed\Framework\Image\Facade::class,
+        'Menu'          => AvoRed\Framework\Menu\Facade::class,
         'Payment'       => AvoRed\Framework\Payment\Facade::class,
         'Permission'    => AvoRed\Framework\Permission\Facade::class,
         'Shipping'      => AvoRed\Framework\Shipping\Facade::class,
