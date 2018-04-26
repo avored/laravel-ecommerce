@@ -2,6 +2,7 @@
 
 namespace AvoRed\Ecommerce\Shipping;
 
+use AvoRed\Ecommerce\Models\Database\Configuration;
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Shipping\Shipping as AbstractShipping;
 use AvoRed\Framework\Shipping\Contracts\Shipping as ShippingContract;
@@ -59,7 +60,9 @@ class FreeShipping extends AbstractShipping implements ShippingContract
      */
     public function enable()
     {
-        //@todo add Admin Configuration and return value based on it.
+        $configModel = new Configuration();
+        $this->enable = $configModel->getConfiguration('avored_free_shipping_enabled');
+
         return $this->enable;
     }
 

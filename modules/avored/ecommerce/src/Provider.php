@@ -205,6 +205,7 @@ class Provider extends ServiceProvider
             ->label('Configuration')
             ->route('admin.configuration')
             ->icon('fas fa-cog');
+        $systemMenu->subMenu('configuration', $configurationMenu);
 
 
         $frontMenu = new AdminMenu();
