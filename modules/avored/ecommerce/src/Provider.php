@@ -668,9 +668,15 @@ class Provider extends ServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/avored-ecommerce.php' => config_path('avored-ecommerce.php'),
-        ]);
+        ], 'config');
         $this->publishes([
             __DIR__.'/../config/avored-auth.php' => config_path('avored-auth.php'),
-        ]);
+        ],'config');
+
+        $this->publishes([
+            __DIR__ . '/../resources/views' => base_path('themes/avored/default/vendor')
+        ],'avored-module-views');
     }
+
+
 }
