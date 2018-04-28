@@ -7,12 +7,14 @@
                 <a class="nav-link dropdown-toggle" href="#"
                    id="navbarDropdown"
                    data-toggle="dropdown">
+                    <i class="fas fa-user-circle"></i>
                     {{ Auth::guard('admin')->user()->first_name . " " .  Auth::guard('admin')->user()->last_name }}
                 </a>
                 <div class="dropdown-menu">
 
                     <a class="dropdown-item"
                        href="{{ route('admin.admin-user.show', Auth::guard('admin')->user()->id) }}">
+                        <i class="fas fa-user-circle"></i>
                         My Account
                     </a>
 
@@ -21,7 +23,8 @@
                     <a class="dropdown-item"
                        href="{{ route('admin.logout') }}">
 
-                        Logout <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
                     </a>
                 </div>
             </li>

@@ -19,11 +19,13 @@
 
             <li class="nav-item has-dropdown">
                 <a class="has-submenu nav-link"  href="#"><i class="{{ $menu->icon() }}"></i> {{ $menu->label() }}
+                    <span class="float-right">
+                        <i class="fas fa-angle-down"></i>
+                    </span>
 
-                    <span class="caret"></span>
                 </a>
 
-                <ul class="sub-nav d-none">
+                <ul class="sub-nav">
 
                     @foreach($subMenu as $subKey => $subMenuObj)
                         <li class="nav-item">
@@ -60,7 +62,29 @@
     $(function() {
         $(document).on('click','.has-submenu',function(e) {
             e.preventDefault();
-            jQuery(this).parents("li:first").find('.sub-nav:first').toggleClass('d-none');
+            var subNav = jQuery(this).parents("li:first").find('.sub-nav:first');
+
+            if(jQuery(subNav).attr('data-open') == "true") {
+
+                jQuery(subNav).slideUp(500,function() {
+
+                    jQuery(this).parents('.has-dropdown:first').find('.has-submenu .float-right i').removeClass('fa-angle-up');
+                    jQuery(this).parents('.has-dropdown:first').find('.has-submenu .float-right i').addClass('fa-angle-down');
+
+                    jQuery(this).attr('data-open',false);
+                    jQuery(this).css('display','none');
+                });
+
+            } else {
+                jQuery(subNav).slideDown(500,function() {
+
+                    jQuery(this).parents('.has-dropdown:first').find('.has-submenu .float-right i').removeClass('fa-angle-down');
+                    jQuery(this).parents('.has-dropdown:first').find('.has-submenu .float-right i').addClass('fa-angle-up');
+
+                    jQuery(this).css('display','block');
+                    jQuery(this).attr('data-open','true');
+                });
+            }
 
         });
     });

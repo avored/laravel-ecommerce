@@ -34,8 +34,16 @@
                                     <textarea class="form-control"
                                               id="general_site_description"
                                               name="general_site_description">{{ $model->general_site_description }}</textarea>
+                                    @if($errors->has('message'))
+                                        <div class="invalid-feedback">
+                                            {{ $errors->first('message') }}
+                                        </div>
+                                    @endif
 
                                 </div>
+
+                                @include('avored-ecommerce::forms.text',['name' => 'general_administrator_email',
+                                                                        'label' => 'Administrator Email Address'])
 
                                 @include('avored-ecommerce::forms.select',['name' => 'general_term_condition_page',
                                                                             'label' => 'Term & Condition Page',
