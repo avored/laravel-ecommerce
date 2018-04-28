@@ -13,10 +13,6 @@
         @if(count($menu->subMenu()) > 0)
             <?php $subMenu = $menu->subMenu(); ?>
 
-                <?php
-                $menu->menuClass();
-                ?>
-
             <li class="nav-item has-dropdown">
                 <a class="has-submenu nav-link"  href="#"><i class="{{ $menu->icon() }}"></i> {{ $menu->label() }}
                     <span class="float-right">
