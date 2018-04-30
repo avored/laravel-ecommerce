@@ -58,11 +58,11 @@ class CartController extends Controller
         Cart::add($slug, $qty);
 
         $productModel   = $this->productRepository->findProductBySlug($slug);
-        $isTaxEnabled = $this->configRepository->model()->getConfiguration('avored_tax_enabled');
+        $isTaxEnabled = $this->configRepository->model()->getConfiguration('tax_enabled');
 
         if($isTaxEnabled && $productModel->is_taxable) {
 
-            $percentage = $this->configRepository->model()->getConfiguration('avored_tax_percentage');
+            $percentage = $this->configRepository->model()->getConfiguration('tax_percentage');
             $taxAmount = ($percentage * $productModel->price / 100);
 
             Cart::hasTax(true);

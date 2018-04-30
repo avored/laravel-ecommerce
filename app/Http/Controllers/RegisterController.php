@@ -96,7 +96,7 @@ class RegisterController extends Controller
 
         $this->validator($request->all())->validate();
 
-        $userActivationRequired = $this->configRepository->model()->getConfiguration('avored_user_activation_required');
+        $userActivationRequired = $this->configRepository->model()->getConfiguration('user_activation_required');
 
         if(1 == $userActivationRequired) {
             $request->merge(['activation_token' => Str::random(60)]);

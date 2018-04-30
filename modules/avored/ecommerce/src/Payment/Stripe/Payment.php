@@ -10,6 +10,11 @@ use AvoRed\Framework\Payment\Contracts\Payment as PaymentContracts;
 
 class Payment extends PaymentEcommerce implements PaymentContracts
 {
+    const CONFIG_KEY                = 'payment_stripe_enabled';
+
+    const CONFIG_PUBLISHABLE_KEY    = 'payment_stripe_publishable_key';
+
+    const CONFIG_SECRET_KEY         = 'payment_stripe_secret_key';
     /**
      * Payment Option Identifier.
      *
@@ -34,7 +39,7 @@ class Payment extends PaymentEcommerce implements PaymentContracts
     public function enable()
     {
         $model = new Configuration();
-        $isEnabled = $model->getConfiguration('avored_stripe_enabled');
+        $isEnabled = $model->getConfiguration(self::CONFIG_KEY);
         if (null === $isEnabled || false == $isEnabled) {
             return false;
         }
@@ -59,7 +64,7 @@ class Payment extends PaymentEcommerce implements PaymentContracts
 
     public function with()
     {
-        $token = Configuration::getConfiguration('avored_stripe_publishable_key');
+        $token = Configuration::getConfiguration(self::CONFIG_PUBLISHABLE_KEY);
         $data = ['token' => $token];
 
         return $data;
@@ -82,7 +87,7 @@ class Payment extends PaymentEcommerce implements PaymentContracts
         $total = (round($subTotal, 2) + round($taxTotal, 2)) * 100;
 
         $totalCents = (int) $total;
-        $apiKey = Configuration::getConfiguration('avored_stripe_secret_key');
+        $apiKey = Configuration::getConfiguration(self::CONFIG_SECRET_KEY);
 
         Stripe::setApiKey($apiKey);
 

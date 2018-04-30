@@ -66,7 +66,7 @@ class AddressController extends Controller
     {
         $user           = Auth::user();
         $countries      = $this->userRepository->countryOptions();
-        $defaultCountry = $this->configRepository->getConfiguration('avored_address_default_country');
+        $defaultCountry = $this->configRepository->getConfiguration('user_default_country');
 
         return view('address.my-account.create-address')
             ->with('user', $user)
@@ -101,7 +101,7 @@ class AddressController extends Controller
     {
         $user           = Auth::user();
         $address        = $this->userRepository->findAddress($id);
-        $defaultCountry = $this->configRepository->getConfiguration('avored_address_default_country');
+        $defaultCountry = $this->configRepository->getConfiguration('user_default_country');
         $countries      = $this->userRepository->countryOptions();
 
 

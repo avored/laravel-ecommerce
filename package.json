@@ -13,6 +13,8 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.6",
     "axios": "^0.18",
+    "ajv": "^6.0.0",
+    "ajv-keywords": "^3.1",
     "bootstrap": "^4.1.0",
     "chartjs": "^0.3.24",
     "codemirror": "^5.37.0",
@@ -20,7 +22,7 @@
     "jquery": "^3.2",
     "jquery-sortable": "^0.9.13",
     "laravel-mix": "^2.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.4",
     "pc-bootstrap4-datetimepicker": "^4.17.50",
     "popper.js": "^1.14.3",
     "select2": "^4.0.6-rc.1",

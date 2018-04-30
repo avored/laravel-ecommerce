@@ -9,6 +9,9 @@ use AvoRed\Framework\Shipping\Contracts\Shipping as ShippingContract;
 
 class FreeShipping extends AbstractShipping implements ShippingContract
 {
+
+    const CONFIG_KEY = 'shipping_free_shipping_enabled';
+
     /**
      * Identifier for the Shipping Options.
      * @var string
@@ -68,7 +71,7 @@ class FreeShipping extends AbstractShipping implements ShippingContract
     public function enable()
     {
         $configModel = new Configuration();
-        $this->enable = $configModel->getConfiguration('avored_free_shipping_enabled');
+        $this->enable = $configModel->getConfiguration(self::CONFIG_KEY);
 
         return $this->enable;
     }

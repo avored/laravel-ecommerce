@@ -202,7 +202,7 @@ class AvoredEcommerceSchema extends Migration
         });
 
         Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
-        Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
+        Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel. Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default']);
 
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
         $path = public_path().'/countries.json';
@@ -226,17 +226,17 @@ class AvoredEcommerceSchema extends Migration
 
 
         Configuration::create([
-            'configuration_key' => 'avored_tax_class_default_country_for_tax_calculation',
+            'configuration_key' => 'tax_default_country',
             'configuration_value' => $countryModel->id,
             ]);
 
         Configuration::create([
-            'configuration_key' => 'avored_tax_enabled',
+            'configuration_key' => 'tax_enabled',
             'configuration_value' => 1,
         ]);
 
         Configuration::create([
-            'configuration_key' => 'avored_tax_percentage',
+            'configuration_key' => 'tax_percentage',
             'configuration_value' => 15,
         ]);
 

@@ -2,6 +2,7 @@
 
 namespace AvoRed\Ecommerce;
 
+use AvoRed\Ecommerce\Models\Database\Country;
 use AvoRed\Ecommerce\Models\Database\Page;
 use AvoRed\Framework\Menu\Menu;
 use Carbon\Carbon;
@@ -298,7 +299,7 @@ class Provider extends ServiceProvider
             ->label('General');
 
 
-        $configurationGroup->addConfiguration('default_site_title')
+        $configurationGroup->addConfiguration('general_site_title')
             ->label('Default Site Title')
             ->type('text')
             ->name('default_site_title');
@@ -331,9 +332,104 @@ class Provider extends ServiceProvider
                 return $options;
             });
 
+        $userGroup = AdminConfigurationFacade::add('users')
+            ->label('Users');
 
+        $userGroup->addConfiguration('user_default_country')
+            ->label('User Default Country')
+            ->type('select')
+            ->name('user_default_country')
+            ->options(function (){
+                $options = Country::all()->pluck('name','id');
+                return $options;
+            });
+
+        $userGroup->addConfiguration('user_activation_required')
+            ->label('User Activation Required')
+            ->type('select')
+            ->name('user_activation_required')
+            ->options(function (){
+                $options = [0 => 'No' , 1 => 'Yes'];
+                return $options;
+            });
+
+
+        $shippingGroup = AdminConfigurationFacade::add('shipping')
+            ->label('Shipping');
+
+        $shippingGroup->addConfiguration('shipping_free_shipping_enabled')
+            ->label('Is Free Shipping Enabled')
+            ->type('select')
+            ->name('shipping_free_shipping_enabled')
+            ->options(function (){
+                $options = [1 => 'Yes' , 0 => 'No'];
+                return $options;
+            });
+
+        $paymentGroup = AdminConfigurationFacade::add('payment')
+            ->label('Payment');
+
+        $paymentGroup->addConfiguration('payment_pickup_enabled')
+            ->label('Payment Pickup Enabled')
+            ->type('select')
+            ->name('payment_pickup_enabled')
+            ->options(function (){
+                $options = [1 => 'Yes' , 0 => 'No'];
+                return $options;
+            });
+
+        $paymentGroup->addConfiguration('payment_stripe_enabled')
+            ->label('Payment Stripe Publishable Key')
+            ->type('select')
+            ->name('payment_stripe_enabled')
+            ->options(function (){
+                $options = [0 => 'No' , 1 => 'Yes'];
+                return $options;
+            });
+
+        $paymentGroup->addConfiguration('payment_stripe_publishable_key')
+            ->label('Payment Stripe Enabled')
+            ->type('text')
+            ->name('payment_stripe_publishable_key')
+            ;
+
+
+        $paymentGroup->addConfiguration('avored_stripe_secret_key')
+            ->label('Payment Stripe Secret Key')
+            ->type('text')
+            ->name('avored_stripe_secret_key')
+        ;
+
+        $taxGroup = AdminConfigurationFacade::add('tax')
+            ->label('Tax');
+
+        $taxGroup->addConfiguration('tax_enabled')
+            ->label('Is Tax Enabled')
+            ->type('select')
+            ->name('tax_enabled')
+            ->options(function () {
+                $options = [1 => 'Yes', 0 => 'No'];
+                return $options;
+            });
+
+        $taxGroup->addConfiguration('tax_percentage')
+            ->label('Tax Percentage')
+            ->type('text')
+            ->name('tax_percentage')
+            ;
+
+
+        $taxGroup->addConfiguration('tax_default_country')
+            ->label('Tax Default Country')
+            ->type('select')
+            ->name('tax_default_country')
+            ->options(function () {
+                $options = $options = Country::all()->pluck('name','id');
+                return $options;
+            });
 
     }
+
 
         /**
      * Register the Menus.

@@ -29,7 +29,7 @@ class Address extends BaseModel
             return $this->attributes['country_id'];
         }
 
-        $defaultCountry = Configuration::getConfiguration('avored_address_default_country');
+        $defaultCountry = Configuration::getConfiguration('user_default_country');
 
         if (isset($defaultCountry)) {
             return $defaultCountry;
