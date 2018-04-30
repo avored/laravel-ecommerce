@@ -143,6 +143,22 @@
                 calcualateTotal();
             });
 
+            jQuery(document).on('change','.shipping_calc',function (e) {
+                e.preventDefault();
+
+
+                if(jQuery(this).hasClass('billing') ) {
+
+                    if(!jQuery('#use_different_shipping_address').is(':checked')) {
+
+                        jQuery('.shipping-option .shipping_option_radio').each(function (i,el) {
+                            jQuery(el).trigger('shippingAddressChange');
+                        });
+                    }
+                }
+            });
+
+
 
             jQuery('.avored-payment-option').change(function (e) {
                 e.preventDefault();

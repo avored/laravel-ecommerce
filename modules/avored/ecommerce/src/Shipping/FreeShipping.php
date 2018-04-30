@@ -34,6 +34,13 @@ class FreeShipping extends AbstractShipping implements ShippingContract
     protected $amount;
 
     /**
+     * Payment options View Path.
+     *
+     * @var string
+     */
+    protected $view = 'avored-ecommerce::shipping.free-shipping';
+
+    /**
      * Get the identifier.
      *
      * return string $identifier
@@ -80,12 +87,35 @@ class FreeShipping extends AbstractShipping implements ShippingContract
         return $this->amount;
     }
 
+
+    /**
+     * Payment Option View Path.
+     *
+     * return String
+     */
+    public function view()
+    {
+        return $this->view;
+    }
+
+    /**
+     * Payment Option View Data.
+     *
+     * return Array
+     */
+    public function with()
+    {
+        return [];
+    }
+
+
     /**
      * Processing Amount for this Shipping Option.
      *
-     * return float $amount
+     * @param \Illuminate\Support\Collection $cartProducts
+     * @return self
      */
-    public function process($orderData, $cartProducts)
+    public function process($cartProducts)
     {
         //execute the shipping api here
         $this->amount = 0.00;

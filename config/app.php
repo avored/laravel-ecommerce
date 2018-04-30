@@ -237,18 +237,19 @@ return [
          *
          */
 
-        'AdminMenu'     => AvoRed\Framework\AdminMenu\Facade::class,
-        'Breadcrumb'    => AvoRed\Framework\Breadcrumb\Facade::class,
-        'Cart'          => AvoRed\Framework\Cart\Facade::class,
-        'DataGrid'      => AvoRed\Framework\DataGrid\Facade::class,
-        'Image'         => AvoRed\Framework\Image\Facade::class,
-        'Menu'          => AvoRed\Framework\Menu\Facade::class,
-        'Payment'       => AvoRed\Framework\Payment\Facade::class,
-        'Permission'    => AvoRed\Framework\Permission\Facade::class,
-        'Shipping'      => AvoRed\Framework\Shipping\Facade::class,
-        'Tabs'          => AvoRed\Framework\Tabs\Facade::class,
-        'Theme'         => AvoRed\Framework\Theme\Facade::class,
-        'Widget'        => AvoRed\Framework\Widget\Facade::class,
+        'AdminMenu'             => AvoRed\Framework\AdminMenu\Facade::class,
+        'AdminConfiguration'    => AvoRed\Framework\AdminConfiguration\Facade::class,
+        'Breadcrumb'            => AvoRed\Framework\Breadcrumb\Facade::class,
+        'Cart'                  => AvoRed\Framework\Cart\Facade::class,
+        'DataGrid'              => AvoRed\Framework\DataGrid\Facade::class,
+        'Image'                 => AvoRed\Framework\Image\Facade::class,
+        'Menu'                  => AvoRed\Framework\Menu\Facade::class,
+        'Payment'               => AvoRed\Framework\Payment\Facade::class,
+        'Permission'            => AvoRed\Framework\Permission\Facade::class,
+        'Shipping'              => AvoRed\Framework\Shipping\Facade::class,
+        'Tabs'                  => AvoRed\Framework\Tabs\Facade::class,
+        'Theme'                 => AvoRed\Framework\Theme\Facade::class,
+        'Widget'                => AvoRed\Framework\Widget\Facade::class,
 
     ],
 ];

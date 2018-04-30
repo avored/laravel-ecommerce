@@ -34,14 +34,12 @@
             @endforeach
         </div>
 
-
         @foreach($paymentOptions as $paymentOption)
-
             @if($paymentOption->enable())
                 @include($paymentOption->view(), $paymentOption->with())
             @endif
-
         @endforeach
+
     </div>
 </div>
 

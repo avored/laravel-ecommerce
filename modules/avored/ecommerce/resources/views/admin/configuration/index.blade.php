@@ -8,53 +8,52 @@
             <div class="h1">Configuration</div>
 
             <form method="post" action="{{ route('admin.configuration.store') }}" enctype="multipart/form-data">
-
-                {{ csrf_field() }}
+                @csrf
 
                 <div id="configuration-list" class="mb-3" role="tablist">
+
+
+                    @foreach(AdminConfiguration::all() as $configuration)
                     <div class="card mb-3">
-                        <a data-toggle="collapse" href="#general-config">
-                            <div class="card-header" role="tab" id="general-header">
+
+
+                        <a data-toggle="collapse" href="#avored-{{ $configuration->key() }}">
+                            <div class="card-header" role="tab" id="{{ $configuration->key() }}">
                                 <h5 class="mb-0">
-                                    General
+                                    {{ $configuration->label() }}
                                 </h5>
                             </div>
                         </a>
 
-                        <div id="general-config" class="collapse show" role="tabpanel"
+                        <div id="avored-{{ $configuration->key() }}" class="collapse show" role="tabpanel"
                              data-parent="#configuration-list">
                             <div class="card-body">
-                                <div class="form-group">
-                                    <label for="general_site_title">Default Site Title</label>
-                                    <input type="text" class="form-control" id="general_site_title"
-                                           name="general_site_title" value="{{ $model->general_site_title }}"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="general_site_description">Default Site description</label>
-                                    <textarea class="form-control"
-                                              id="general_site_description"
-                                              name="general_site_description">{{ $model->general_site_description }}</textarea>
-                                    @if($errors->has('message'))
-                                        <div class="invalid-feedback">
-                                            {{ $errors->first('message') }}
-                                        </div>
+
+                                @foreach($configuration->all() as $field)
+
+                                    @if($field->type() == 'text')
+
+                                        @include('avored-ecommerce::forms.text',['name' => $field->name(),
+                                                                        'label' => $field->label()])
+
                                     @endif
 
-                                </div>
+                                    @if($field->type() == 'select')
 
-                                @include('avored-ecommerce::forms.text',['name' => 'general_administrator_email',
-                                                                        'label' => 'Administrator Email Address'])
+                                        @include('avored-ecommerce::forms.select',['name' => $field->name(),
+                                                                        'label' => $field->label(),
+                                                                        'options' => call_user_func($field->options())])
 
-                                @include('avored-ecommerce::forms.select',['name' => 'general_term_condition_page',
-                                                                            'label' => 'Term & Condition Page',
-                                                                            'options' => $pageOptions])
-                                @include('avored-ecommerce::forms.select',['name' => 'general_home_page',
-                                                                           'label' => 'Home Page',
-                                                                           'options' => $pageOptions])
+                                    @endif
+
+                                @endforeach
+
 
                             </div>
                         </div>
                     </div>
+
+                    @endforeach
 
                     <div class="card mb-3">
                         <a class="collapsed" data-toggle="collapse" href="#user-config">

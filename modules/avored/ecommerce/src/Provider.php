@@ -2,6 +2,7 @@
 
 namespace AvoRed\Ecommerce;
 
+use AvoRed\Ecommerce\Models\Database\Page;
 use AvoRed\Framework\Menu\Menu;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
@@ -41,6 +42,7 @@ use AvoRed\Ecommerce\Http\ViewComposers\MyAccountSidebarComposer;
 use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
 use AvoRed\Ecommerce\Http\ViewComposers\RelatedProductViewComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\ProductSpecificationComposer;
+use AvoRed\Framework\AdminConfiguration\Facade as AdminConfigurationFacade;
 
 class Provider extends ServiceProvider
 {
@@ -62,6 +64,7 @@ class Provider extends ServiceProvider
         $this->registerPaymentOptions();
         $this->registerShippingOption();
         $this->registerPermissions();
+        $this->registerAdminConfiguration();
     }
 
     /**
@@ -152,57 +155,79 @@ class Provider extends ServiceProvider
      */
     protected function registerAdminMenu()
     {
-        AdminMenuFacade::add('catalog')
-            ->label('Catalog')
+        AdminMenuFacade::add('shop')
+            ->label('Shop')
             ->route('#')
-            ->icon('fa fa-book');
+            ->icon('fas fa-cart-plus');
 
-        $catalogMenu = AdminMenuFacade::get('catalog');
+        $shopMenu = AdminMenuFacade::get('shop');
+
         $productMenu = new AdminMenu();
         $productMenu->key('product')
             ->label('Product')
             ->route('admin.product.index')
             ->icon('fab fa-dropbox');
-        $catalogMenu->subMenu('product', $productMenu);
+        $shopMenu->subMenu('product', $productMenu);
+
         $categoryMenu = new AdminMenu();
         $categoryMenu->key('category')
             ->label('Category')
             ->route('admin.category.index')
             ->icon('far fa-building');
-        $catalogMenu->subMenu('category', $categoryMenu);
+        $shopMenu->subMenu('category', $categoryMenu);
+
         $attributeMenu = new AdminMenu();
         $attributeMenu->key('attribute')
             ->label('Attribute')
             ->route('admin.attribute.index')
             ->icon('fas fa-file-alt');
-        $catalogMenu->subMenu('attribute', $attributeMenu);
+        $shopMenu->subMenu('attribute', $attributeMenu);
+
         $propertyMenu = new AdminMenu();
         $propertyMenu->key('property')
             ->label('Property')
             ->route('admin.property.index')
             ->icon('fas fa-file-powerpoint');
-        $catalogMenu->subMenu('property', $propertyMenu);
+        $shopMenu->subMenu('property', $propertyMenu);
+
+        $orderMenu = new AdminMenu();
+        $orderMenu->key('order')
+            ->label('Order')
+            ->route('admin.order.index')
+            ->icon('fas fa-dollar-sign');
+        $shopMenu->subMenu('order', $orderMenu);
+
+
+        AdminMenuFacade::add('cms')
+            ->label('CMS')
+            ->route('#')
+            ->icon('fas fa-building');
+
+        $cmsMenu = AdminMenuFacade::get('cms');
+
+
+
 
         $pageMenu = new AdminMenu();
         $pageMenu->key('page')
             ->label('Page')
+            ->icon('fas fa-newspaper')
             ->route('admin.page.index');
-        //$catalogMenu->subMenu('page', $pageMenu);
-        $reviewMenu = new AdminMenu();
-        $reviewMenu->key('review')
-            ->label('Review')
-            ->route('admin.review.index');
-        //$catalogMenu->subMenu('review', $reviewMenu);
-        AdminMenuFacade::add('sale')
-            ->label('Sales')
-            ->route('#')
-            ->icon('fas fa-chart-line');
-        $saleMenu = AdminMenuFacade::get('sale');
+        $cmsMenu->subMenu('page', $pageMenu);
+        $frontMenu = new AdminMenu();
+        $frontMenu->key('menu')
+            ->label('Menu')
+            ->route('admin.menu.index')
+            ->icon('fas fa-leaf');
+        $cmsMenu->subMenu('menu', $frontMenu);
+
+
         AdminMenuFacade::add('system')
             ->label('System')
             ->route('#')
             ->icon('fas fa-cogs');
         $systemMenu = AdminMenuFacade::get('system');
+
         $configurationMenu = new AdminMenu();
         $configurationMenu->key('configuration')
             ->label('Configuration')
@@ -211,47 +236,29 @@ class Provider extends ServiceProvider
         $systemMenu->subMenu('configuration', $configurationMenu);
 
 
-        $frontMenu = new AdminMenu();
-        $frontMenu->key('menu')
-            ->label('Menu')
-            ->route('admin.menu.index')
-            ->icon('fas fa-cog');
-        $systemMenu->subMenu('menu', $frontMenu);
 
-        $orderMenu = new AdminMenu();
-        $orderMenu->key('order')
-            ->label('Order')
-            ->route('admin.order.index')
-            ->icon('fas fa-dollar-sign');
-        $saleMenu->subMenu('order', $orderMenu);
-        $giftCouponMenu = new AdminMenu();
-        $giftCouponMenu->key('gift-coupon')
-            ->label('Gift Coupon')
-            ->route('admin.gift-coupon.index');
-        //$saleMenu->subMenu('gift-coupon', $giftCouponMenu );
-        $orderStatusMenu = new AdminMenu();
-        $orderStatusMenu->key('order-status')
-            ->label('Order Status')
-            ->route('admin.order-status.index');
-        //$saleMenu->subMenu('order-status', $orderStatusMenu );
+
+
         $adminUserMenu = new AdminMenu();
         $adminUserMenu->key('admin-user')
             ->label('Admin User')
             ->route('admin.admin-user.index')
             ->icon('fas fa-user');
         $systemMenu->subMenu('admin-user', $adminUserMenu);
-        $themeMenu = new AdminMenu();
-        $themeMenu->key('themes')
-            ->label('Themes ')
-            ->route('admin.theme.index')
-            ->icon('fas fa-adjust');
-        $systemMenu->subMenu('themes', $themeMenu);
+
         $roleMenu = new AdminMenu();
         $roleMenu->key('roles')
             ->label('Role')
             ->route('admin.role.index')
             ->icon('fab fa-periscope');
         $systemMenu->subMenu('roles', $roleMenu);
+
+        $themeMenu = new AdminMenu();
+        $themeMenu->key('themes')
+            ->label('Themes ')
+            ->route('admin.theme.index')
+            ->icon('fas fa-adjust');
+        $systemMenu->subMenu('themes', $themeMenu);
     }
 
     /**
@@ -280,6 +287,55 @@ class Provider extends ServiceProvider
     }
 
     /**
+     * Register the Menus.
+     *
+     * @return void
+     */
+    protected function registerAdminConfiguration()
+    {
+
+        $configurationGroup = AdminConfigurationFacade::add('general')
+            ->label('General');
+
+
+        $configurationGroup->addConfiguration('default_site_title')
+            ->label('Default Site Title')
+            ->type('text')
+            ->name('default_site_title');
+
+        $configurationGroup->addConfiguration('general_site_description')
+            ->label('Default Site Description')
+            ->type('text')
+            ->name('general_site_description');
+
+        $configurationGroup->addConfiguration('general_administrator_email')
+            ->label('Administrator Email')
+            ->type('text')
+            ->name('general_administrator_email');
+
+        $configurationGroup->addConfiguration('general_term_condition_page')
+            ->label('Term & Condition Page')
+            ->type('select')
+            ->name('general_administrator_email')
+            ->options(function (){
+                $options = Page::all()->pluck('name','id');
+                return $options;
+            });
+
+        $configurationGroup->addConfiguration('general_home_page')
+            ->label('Home Page')
+            ->type('select')
+            ->name('general_home_page')
+            ->options(function (){
+                $options = Page::all()->pluck('name','id');
+                return $options;
+            });
+
+
+
+    }
+
+        /**
      * Register the Menus.
      *
      * @return void
@@ -427,7 +483,7 @@ class Provider extends ServiceProvider
     }
 
     /**
-     * Registering PAyment Option for the App.
+     * Registering Payment Option for the App.
      *
      *
      * @return void

@@ -2,7 +2,7 @@
     <div class="card-header">
         Shipping Option
     </div>
-    <div class="card-body shipping-method">
+    <div class="card-body shipping-option">
         <p>Please select the preferred shipping method to use on this order.</p>
 
         @foreach($shippingOptions as $shippingOption)
@@ -26,7 +26,13 @@
 
                     <label for="{{ $shippingOption->identifier() }}" class="form-check-label">
 
-                        {{ $shippingOption->name() . " " . number_format($shippingOption->amount(),2) }}
+                        @if(null === $shippingOption->amount())
+                            {{ $shippingOption->name() }}
+                        @else
+                            {{ $shippingOption->name() . " $" . number_format($shippingOption->amount(),2) }}
+                        @endif
+
+
 
 
                     </label>
@@ -39,6 +45,12 @@
 
                 </div>
 
+        @endforeach
+
+        @foreach($shippingOptions as $shippingOption)
+            @if($shippingOption->enable())
+                @include($shippingOption->view(), $shippingOption->with())
+            @endif
         @endforeach
 
 

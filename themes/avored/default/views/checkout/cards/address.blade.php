@@ -52,11 +52,8 @@
                 <div class="form-group">
                     <label for="country">Country</label>
                     <select name="billing[country_id]" data-name="country_id"
-                            @if($errors->has('billing.country_id'))
-                            class="is-invalid billing-country form-control billing tax-calculation"
-                            @else
-                            class="billing-country form-control billing tax-calculation"
-                            @endif
+                            class="{{ $errors->has('billing.country_id') ? "is-invalid" : "" }}
+                                    billing-country form-control billing tax-calculation"
                     >
                         @foreach($countries as $countryId => $countryName)
                             <option
@@ -121,9 +118,9 @@
                            id="input-billing-postcode"
 
                            @if($errors->has('billing.postcode'))
-                           class="is-invalid billing tax-calculation form-control"
+                           class="is-invalid shipping_calc billing tax-calculation form-control"
                            @else
-                           class="billing tax-calculation form-control"
+                           class="billing shipping_calc tax-calculation form-control"
                             @endif
                     />
                     @if ($errors->has('billing.postcode'))
@@ -159,8 +156,8 @@
 
 
             <div class="form-group col-12">
-                <label>
-                    <input type="checkbox" name="use_different_shipping_address"
+                <label for="use_different_shipping_address">
+                    <input type="checkbox" id="use_different_shipping_address" name="use_different_shipping_address"
                            onclick="if (this.checked == true){
                                                             jQuery('.different-shipping-form').css('display','block');
                                                             } else  { jQuery('.different-shipping-form').css('display','none'); }
