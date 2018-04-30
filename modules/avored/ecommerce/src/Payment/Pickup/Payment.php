@@ -7,6 +7,9 @@ use AvoRed\Framework\Payment\Contracts\Payment as PaymentContract;
 
 class Payment extends AbstractPayment implements PaymentContract
 {
+
+    const CONFIG_KEY = 'payment_pickup_enabled';
+
     /**
      * Identifier for this Payment options.
      *
@@ -38,13 +41,14 @@ class Payment extends AbstractPayment implements PaymentContract
         return $this->identifier;
     }
 
-    /**
-     * Is this Payment Option Enabled?
-     *
-     * return boolean
-     */
     public function enable()
     {
+        $model = new Configuration();
+        $isEnabled = $model->getConfiguration(self::CONFIG_KEY);
+        if (null === $isEnabled || false == $isEnabled) {
+            return false;
+        }
+
         return true;
     }
 
