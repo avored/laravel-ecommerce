@@ -1,60 +1,38 @@
 # AvoRed E Commerce is an Laravel Open Source Shopping Cart
 
-[![Total Downloads](https://poser.pugx.org/avored/laravel-ecommerce/downloads)](https://packagist.org/packages/avored/laravel-ecommerce)
-
-AvoRed is a Ecommerce application based on Laravel framework for shopping cart solution.
+[![Total Downloads](https://poser.pugx.org/avored/framework/downloads)](https://packagist.org/packages/avored/laravel-ecommerce)
 
 [AvoRed Laravel E Commerce Official](https://www.avored.com/)
 
 [Demo AvoRed E Commerce](http://demo.avored.com/)
 
+### About AvoRed
 
-# Installation
+AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel. Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default. Main Advantage of being an modular E commerce is you can download a module that is required by your e commerce so it is not tightly couple e commerce application.
 
-- [Installation](#installation)
-    - [Installing AvoRed E cimmerce](#installing-avored-ecommerce)
+### AvoRed Docs
 
-<a name="installation"></a>
-## AvoRed Installation
-> 
+To get started with AvoRed Installtion Please visit [AvoRed Website](https://www.avored.com/)
 
-The AvoRed E commerce framework has a few system requirements.
 
-<a name="installing-avored-ecommerce"></a>
-### Installing AvoRed E commerce
+##### Available Modules for AvoRed
+- [AvoRed Admin](https://github.com/avored/ecommerce)
+- [AvoRed Banner Slider](https://github.com/avored/banner)
+- [AvoRed Brand](https://github.com/avored/brand)
+- [AvoRed Contact](https://github.com/avored/contact)
+- [AvoRed Dummy Data](https://github.com/avored/dummy-data)
+- [AvoRed Feature Product](https://github.com/avored/feature)
+- [AvoRed Related Product](https://github.com/avored/related)
+- [AvoRed Product Review](https://github.com/avored/review)
+- [AvoRed Subscribe](https://github.com/avored/subscribe)
 
-AvoRed E commerce utilizes [Composer](https://getcomposer.org) to manage its dependencies. So, before using AvoRed E commerce, make sure you have Composer installed on your machine.
+##### Payment Gateway
+- Stripe
+- Pay by Cheque (comming soon)
 
-#### Via Composer Create-Project
-
-Alternatively, you may also install Laravel by issuing the Composer `create-project` command in your terminal:
-
-    composer create-project avored/laravel-ecommerce --stability=dev
-
-#### Set up your Envirionment(.env) file
-
-    laravel-ecommerce/.env 
-    
-### Execute the AvoRed Install Command
-    
-    php artisan avored:install
-    
-Once you finished the Installation Command for the Admin Access you can just visit
-
-    yoursite.com/admin
-    
-That's it!
-
-#### Directory Permissions
-
-After installing AvoRed E commerce, you may need to configure some permissions. Directories within the `storage` and the `public/uploads` directories should be writable by your web server or AvoRed E commerce will not run. 
-
-#### Application Key
-
-The next thing you should do after installing AvoRed E commerce is set your application key to a random string. If you installed AvoRed E commerce via Composer, this key has already been set for you by the `php artisan key:generate` command.
-
-Typically, this string should be 32 characters long. The key can be set in the `.env` environment file. If you have not renamed the `.env.example` file to `.env`, you should do that now. **If the application key is not set, your user sessions and other encrypted data will not be secure!**
-
+##### Shipping Gateway
+- Free Shipping
+- USPS (comming soon)
 
 
 ## Contributing
