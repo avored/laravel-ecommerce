@@ -1,6 +1,6 @@
 # AvoRed E Commerce is an Laravel Open Source Shopping Cart
 
-[![Total Downloads](https://poser.pugx.org/avored/framework/downloads)](https://packagist.org/packages/avored/laravel-ecommerce)
+[![Total Downloads](https://poser.pugx.org/avored/framework/downloads)](https://packagist.org/packages/avored/framework)
 
 [AvoRed Laravel E Commerce Official](https://www.avored.com/)
 
