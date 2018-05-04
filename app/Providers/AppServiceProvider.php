@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
+use App\Http\ViewComposers\CheckoutComposer;
+use App\Http\ViewComposers\MyAccountSidebarComposer;
+use App\Http\ViewComposers\LayoutAppComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::composer('checkout.index', CheckoutComposer::class);
+        View::composer('user.my-account.sidebar', MyAccountSidebarComposer::class);
+        View::composer('layouts.app', LayoutAppComposer::class);
     }
 
     /**

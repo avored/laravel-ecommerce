@@ -24,6 +24,10 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        $router = $this->app['router'];
+
+        $router->aliasMiddleware('front.auth', FrontAuth::class);
+        $router->aliasMiddleware('front.guest', RedirectIfFrontAuth::class);
 
         parent::boot();
     }
