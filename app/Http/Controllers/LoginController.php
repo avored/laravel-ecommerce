@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use AvoRed\Ecommerce\Models\Database\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
-use AvoRed\Ecommerce\Repository\User;
 
 class LoginController extends Controller
 {
@@ -21,13 +21,6 @@ class LoginController extends Controller
       |
      */
 
-    /**
-     * AvoRed Product Repository
-     *
-     * @var \AvoRed\Ecommerce\Repository\User
-     */
-    protected $userRepository;
-
     use AuthenticatesUsers;
 
     /**
@@ -39,13 +32,12 @@ class LoginController extends Controller
 
 
     /**
-     * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
+     * Admin User Controller constructor.
      *
-     * @param \AvoRed\Ecommerce\Repository\User $repository
      * @return void
      */
 
-    public function __construct(User $repository)
+    public function __construct()
     {
         parent::__construct();
 
@@ -58,7 +50,6 @@ class LoginController extends Controller
             $this->redirectTo = $checkoutUrl;
         }
 
-        $this->userRepository = $repository;
     }
 
     protected function guard()
@@ -87,7 +78,7 @@ class LoginController extends Controller
             return $this->sendLockoutResponse($request);
         }
 
-        $user = $this->userRepository->model()->whereEmail($request->get('email'))->first();
+        $user = User::whereEmail($request->get('email'))->first();
 
         if (!empty($user->activation_token)) {
             return redirect()->route('login')

@@ -1,9 +1,11 @@
 <?php
 namespace App\Http\Controllers;
 
+use AvoRed\Ecommerce\Models\Database\Country;
+use AvoRed\Framework\Models\Database\Configuration;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddressRequest;
-
+use AvoRed\Ecommerce\Models\Database\Address;
 
 class AddressController extends Controller
 {
@@ -16,8 +18,8 @@ class AddressController extends Controller
     public function index()
     {
        
-        $user = Auth::user();
-        $addresses = $this->userRepository->allUserAddresses($user->id);
+        $user       = Auth::user();
+        $addresses  = Address::whereUserId($user->id)->get();
 
         return view('address.my-account.address')
             ->with('user', $user)
@@ -31,9 +33,9 @@ class AddressController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $countries  = $this->userRepository->countryOptions();
-        $defaultCountry = $this->configRepository->getConfiguration('user_default_country');
+        $user           = Auth::user();
+        $countries      = Country::options();
+        $defaultCountry = Configuration::getConfiguration('user_default_country');
 
         return view('address.my-account.create-address')
             ->with('user', $user)
@@ -52,7 +54,7 @@ class AddressController extends Controller
     {
         $user = Auth::user();
         $request->merge(['user_id' => $user->id]);
-        $this->userRepository->createUserAddress($request->all());
+        Address::create($request->all());
 
         return redirect()->route('my-account.address.index');
     }
@@ -67,9 +69,9 @@ class AddressController extends Controller
     public function edit($id)
     {
         $user           = Auth::user();
-        $address        = $this->userRepository->findAddress($id);
-        $defaultCountry = $this->configRepository->getConfiguration('user_default_country');
-        $countries      = $this->userRepository->countryOptions();
+        $address        = Address::find($id);
+        $defaultCountry = Configuration::getConfiguration('user_default_country');
+        $countries      = Country::options();
 
 
         return view('address.my-account.edit-address')
@@ -89,7 +91,7 @@ class AddressController extends Controller
      */
     public function update(AddressRequest $request, $id)
     {
-        $address = $this->userRepository->findAddress($id);
+        $address = Address::find($id);
         $address->update($request->all());
 
         return redirect()->route('my-account.address.index');
@@ -104,7 +106,7 @@ class AddressController extends Controller
      */
     public function destroy($id)
     {
-        $this->userRepository->destroyUserAddress($id);
+        Address::destroy($id);
 
         return redirect()->route('my-account.address.index');
     }

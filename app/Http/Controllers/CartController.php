@@ -2,46 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use AvoRed\Ecommerce\Repository\Config;
+use AvoRed\Framework\Models\Database\Attribute;
+use AvoRed\Framework\Models\Database\Configuration;
+use AvoRed\Framework\Models\Database\ProductAttributeIntegerValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use AvoRed\Framework\Repository\Product;
 use Illuminate\Support\Collection;
 use AvoRed\Framework\Models\Database\Product as ProductModel;
 use AvoRed\Framework\Cart\Facade as Cart;
 
 class CartController extends Controller
 {
-
-
-    /**
-     * AvoRed Product Repository
-     *
-     * @var \AvoRed\Framework\Repository\Product
-     */
-    protected $productRepository;
-
-    /**
-     * AvoRed Config Repository
-     *
-     * @var \AvoRed\Ecommerce\Repository\Config
-     */
-    protected $configRepository;
-
-    /**
-     * Cart Controller constructor to Set AvoRed Product Repository Property.
-     *
-     * @param \AvoRed\Framework\Repository\Product $repository
-     * @return void
-     */
-    public function __construct(Product $repository, Config $configRepository)
-    {
-        parent::__construct();
-        $this->productRepository    = $repository;
-        $this->configRepository     = $configRepository;
-    }
-
-
     /**
      *
      * Add To Cart Product
@@ -59,11 +30,11 @@ class CartController extends Controller
         Cart::add($slug, $qty);
 
         $productModel   = ProductModel::whereSlug($slug)->first();
-        $isTaxEnabled = $this->configRepository->model()->getConfiguration('tax_enabled');
+        $isTaxEnabled   = Configuration::getConfiguration('tax_enabled');
 
         if($isTaxEnabled && $productModel->is_taxable) {
 
-            $percentage = $this->configRepository->model()->getConfiguration('tax_percentage');
+            $percentage = Configuration::getConfiguration('tax_percentage');
             $taxAmount = ($percentage * $productModel->price / 100);
 
             Cart::hasTax(true);
@@ -75,7 +46,7 @@ class CartController extends Controller
 
         $cart = (null === Session::get('cart')) ? Collection::make([]) : Session::get('cart');
 
-        $product = $this->productRepository->model()->where('slug', '=', $request->get('slug'))->first();
+        $product = ProductModel::whereSlug($slug)->first();
 
         $requestQty = $request->get('qty', 1);
 
@@ -94,11 +65,11 @@ class CartController extends Controller
             foreach ($attributes as $attributeId => $subProductId) {
 
 
-                $subProduct = $this->productRepository->model()->find($subProductId);
+                $subProduct = ProductModel::find($subProductId);
 
-                $productAttributeValue = $this->productRepository->integerAttributeModel()->whereProductId($subProductId)->whereAttributeId($attributeId)->first();
+                $productAttributeValue = ProductAttributeIntegerValue::whereProductId($subProductId)->whereAttributeId($attributeId)->first();
 
-                $attribute = $this->productRepository->attributeModel()->findorfail($attributeId);
+                $attribute = Attribute::findorfail($attributeId);
                 $option = $attribute->attributeDropdownOptions()->where('id', '=', $productAttributeValue->value)->get()->first();
 
                 $productAttributes[] = [

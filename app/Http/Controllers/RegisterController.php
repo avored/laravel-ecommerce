@@ -1,6 +1,8 @@
 <?php
 namespace App\Http\Controllers;
 
+use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Ecommerce\Models\Database\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
@@ -8,8 +10,6 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use AvoRed\Ecommerce\Events\UserRegisteredEvent;
 use AvoRed\Ecommerce\Mail\NewUserMail;
-use AvoRed\Ecommerce\Repository\Config;
-use AvoRed\Ecommerce\Repository\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
@@ -37,34 +37,15 @@ class RegisterController extends Controller
 
 
     /**
-     * AvoRed User Repository
-     *
-     * @var  \AvoRed\Ecommerce\Repository\User
-     */
-    protected $userRepository;
-
-
-    /**
-     * AvoRed Config Repository
-     *
-     * @var  \AvoRed\Ecommerce\Repository\Config
-     */
-    protected $configRepository;
-
-    /**
      * Create a new controller instance.
      *
-     * @param \AvoRed\Ecommerce\Repository\User
-     * @param \AvoRed\Ecommerce\Repository\Config
      * @return void
      */
-    public function __construct(User $repository, Config $configRepository)
+    public function __construct()
     {
         parent::__construct();
         $this->middleware('front.guest');
 
-        $this->userRepository   = $repository;
-        $this->configRepository = $configRepository;
     }
 
     /**
@@ -96,7 +77,7 @@ class RegisterController extends Controller
 
         $this->validator($request->all())->validate();
 
-        $userActivationRequired = $this->configRepository->model()->getConfiguration('user_activation_required');
+        $userActivationRequired = Configuration::getConfiguration('user_activation_required');
 
         if(1 == $userActivationRequired) {
             $request->merge(['activation_token' => Str::random(60)]);
@@ -104,7 +85,7 @@ class RegisterController extends Controller
 
         $request->merge(['password' => bcrypt($request->get('password'))]);
 
-        $user = $this->userRepository->model()->create($request->all());
+        $user = User::create($request->all());
         Event::fire(new UserRegisteredEvent($user));
 
         Mail::to($user)->send(new NewUserMail($user));
@@ -121,7 +102,7 @@ class RegisterController extends Controller
     public function activateAccount($token, $email)
     {
 
-        $user = $this->userRepository->model()->whereEmail($email)->first();
+        $user = User::whereEmail($email)->first();
 
         if($token == $user->activation_token) {
 

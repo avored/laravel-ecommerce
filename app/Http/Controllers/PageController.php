@@ -1,31 +1,10 @@
 <?php
 namespace App\Http\Controllers;
 
-use AvoRed\Ecommerce\Repository\Page;
+use AvoRed\Ecommerce\Models\Database\Page;
 
 class PageController extends Controller
 {
-
-
-    /**
-     * AvoRed Config Repository
-     *
-     * @var \AvoRed\Ecommerce\Repository\Page
-     */
-    protected $pageRepository;
-
-    /**
-     * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
-     *
-     * @param \AvoRed\Ecommerce\Repository\Page $repository
-
-     * @return void
-     */
-    public function __construct(Page $repository)
-    {
-        $this->pageRepository   = $repository;
-    }
-
     /**
      * Display the specified page.
      *
@@ -35,7 +14,7 @@ class PageController extends Controller
      */
     public function show($slug)
     {
-        $page = $this->pageRepository->findPageBySlug($slug);
+        $page = Page::whereSlug($slug)->first();
 
         return view('page.show')->with('page', $page);
     }

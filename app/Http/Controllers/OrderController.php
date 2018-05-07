@@ -1,60 +1,23 @@
 <?php
 namespace App\Http\Controllers;
 
+
+use AvoRed\Framework\Models\Database\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use AvoRed\Ecommerce\Events\OrderPlaceAfterEvent;
-use Illuminate\Support\Facades\Session;
-use AvoRed\Framework\Repository\Product;
-use AvoRed\Framework\Repository\Order;
 use App\Http\Requests\PlaceOrderRequest;
-use AvoRed\Ecommerce\Repository\User;
 use AvoRed\Framework\Payment\Facade as Payment;
 use AvoRed\Framework\Cart\Facade as Cart;
+use AvoRed\Framework\Models\Database\OrderStatus;
+use AvoRed\Framework\Models\Database\Order;
+use AvoRed\Ecommerce\Models\Database\User;
+use AvoRed\Ecommerce\Models\Database\Address;
+use AvoRed\Framework\Models\Database\ProductVariation;
 
 class OrderController extends Controller
 {
-
-
-    /**
-     * AvoRed Attribute Repository
-     *
-     * @var \AvoRed\Framework\Repository\Product
-     */
-    protected $productRepository;
-
-    /**
-     * AvoRed Attribute Repository
-     *
-     * @var \AvoRed\Framework\Repository\Order
-     */
-    protected $orderRepository;
-
-    /**
-     * AvoRed Attribute Repository
-     *
-     * @var \AvoRed\Ecommerce\Repository\User
-     */
-    protected $userRepository;
-
-    /**
-     * Cart Controller constructor to Set AvoRed Product Repository Property.
-     *
-     * @param \AvoRed\Framework\Repository\Product $repository
-     * @param \AvoRed\Ecommerce\Repository\User $userRepository
-     * @return void
-     */
-    public function __construct(Product $repository, User $userRepository, Order $orderRepository)
-    {
-        parent::__construct();
-
-        $this->productRepository    = $repository;
-        $this->userRepository       = $userRepository;
-        $this->orderRepository      = $orderRepository;
-    }
-
-
 
     public function place(PlaceOrderRequest $request)
     {
@@ -66,7 +29,7 @@ class OrderController extends Controller
         $billingAddress = $this->_getBillingAddress($request);
         $shippingAddress = $this->_getShippingAddress($request);
 
-        $orderStatus = $this->orderRepository->statusModel()->whereIsDefault(1)->get()->first();
+        $orderStatus = OrderStatus::whereIsDefault(1)->get()->first();
 
         $paymentOption = $request->get('payment_option');
 
@@ -83,7 +46,7 @@ class OrderController extends Controller
 
         //@todo check Response is success of fail.
 
-        $order = $this->orderRepository->model()->create($data);
+        $order = Order::create($data);
         $this->_syncOrderProductData($order, $orderProductData);
 
         Event::fire(new OrderPlaceAfterEvent($order, $orderProductData, $request));
@@ -97,7 +60,7 @@ class OrderController extends Controller
 
     public function success($id)
     {
-        $order = $this->orderRepository->model()->findorfail($id);
+        $order = Order::find($id);
 
         return view('order.success')
             ->with('order', $order);
@@ -105,8 +68,8 @@ class OrderController extends Controller
 
     public function myAccountOrderList()
     {
-        $user = Auth::guard('web')->user();
-        $orders = $this->orderRepository->model()->where('user_id', '=', $user->id)->get();
+        $user = Auth::guard()->user();
+        $orders = Order::whereUserId($user->id)->get();
         $view = view('order.my-account-order-list')->with('orders', $orders);
 
         return $view;
@@ -114,7 +77,7 @@ class OrderController extends Controller
 
     public function myAccountOrderView($id)
     {
-        $order = $this->orderRepository->model()->find($id);
+        $order = Order::find($id);
         $view = view('order.my-account-order-view')->with('order', $order);
 
         return $view;
@@ -124,13 +87,13 @@ class OrderController extends Controller
     {
 
 
-        if (Auth::guard('web')->check()) {
-            return Auth::guard('web')->user();
+        if (Auth::guard()->check()) {
+            return Auth::guard()->user();
         }
         $userData = $request->get('user');
 
 
-        $user = $this->userRepository->model()->where('email', '=', $userData['email'])->first();
+        $user = User::whereEmail($userData['email'])->first();
 
 
         if (null === $user) {
@@ -142,10 +105,10 @@ class OrderController extends Controller
             $userData['first_name'] = $billingData['first_name'];
             $userData['last_name'] = $billingData['last_name'];
 
-            $user = $this->userRepository->model()->create($userData);
+            $user = User::create($userData);
         }
 
-        Auth::guard('web')->loginUsingId($user->id);
+        Auth::guard()->loginUsingId($user->id);
 
         return $user;
 
@@ -157,13 +120,13 @@ class OrderController extends Controller
         $billingData = $request->get('billing');
 
         $billingData['type'] = 'BILLING';
-        $billingData['user_id'] = Auth::guard('web')->user()->id;
+        $billingData['user_id'] = Auth::guard()->user()->id;
 
         if (isset($billingData['id']) && $billingData['id'] > 0) {
-            $address = $this->userRepository->addressModel()->findorfail($billingData['id']);
+            $address = Address::findorfail($billingData['id']);
             //$address->update($shippingData);
         } else {
-            $address = $this->userRepository->addressModel()->create($billingData);
+            $address = Address::create($billingData);
         }
 
         return $address;
@@ -180,13 +143,13 @@ class OrderController extends Controller
 
 
         $shippingData['type'] = 'SHIPPING';
-        $shippingData['user_id'] = Auth::guard('web')->user()->id;
+        $shippingData['user_id'] = Auth::guard()->user()->id;
 
         if (isset($shippingData['id']) && $shippingData['id'] > 0) {
-            $address = $this->userRepository->addressModel()->findorfail($shippingData['id']);
+            $address = Address::findorfail($shippingData['id']);
             //$address->update($shippingData);
         } else {
-            $address = $this->userRepository->addressModel()->create($shippingData);
+            $address = Address::create($shippingData);
         }
 
         return $address;
@@ -207,18 +170,18 @@ class OrderController extends Controller
 
             if ($orderProduct->hasAttributes()) {
                 foreach ($orderProduct['attributes'] as $attribute) {
-                    $product = $this->productRepository->model()->whereSlug($orderProduct->slug())->first();
+                    $product = Product::whereSlug($orderProduct->slug())->first();
                     $data = ['order_id' => $order->id,
-                        'product_id' => $id,
+                        'product_id' => $product->id,
                         'attribute_dropdown_option_id' => $attribute['attribute_dropdown_option_id'],
                         'attribute_id' => $attribute['attribute_id'],
                     ];
 
-                    $this->orderRepository->productVariationModel()->create($data);
+                    ProductVariation::create($data);
                 }
             } else {
 
-                $product = $this->productRepository->model()->whereSlug($orderProduct->slug())->first();
+                $product = Product::whereSlug($orderProduct->slug())->first();
                 $product->update(['qty' => ($product->qty - $orderProduct->qty())]);
             }
 
@@ -226,7 +189,7 @@ class OrderController extends Controller
                                         'product_id' => $product->id,
                                         'qty' => $orderProduct->qty(),
                                         'price' => $orderProduct->price(),
-                                        'tax_amount' => 0.00//$orderProduct->tax();
+                                        'tax_amount' => 0.00 //$orderProduct->tax();
                                         ];
 
         }
