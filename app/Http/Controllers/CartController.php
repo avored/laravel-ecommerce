@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Repository\Product;
 use Illuminate\Support\Collection;
+use AvoRed\Framework\Models\Database\Product as ProductModel;
 use AvoRed\Framework\Cart\Facade as Cart;
 
 class CartController extends Controller
@@ -51,13 +52,13 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
 
-        $slug = $request->get('slug');
-        $qty = $request->get('qty', 1);
+        $slug   = $request->get('slug');
+        $qty    = $request->get('qty', 1);
 
 
         Cart::add($slug, $qty);
 
-        $productModel   = $this->productRepository->findProductBySlug($slug);
+        $productModel   = ProductModel::whereSlug($slug)->first();
         $isTaxEnabled = $this->configRepository->model()->getConfiguration('tax_enabled');
 
         if($isTaxEnabled && $productModel->is_taxable) {

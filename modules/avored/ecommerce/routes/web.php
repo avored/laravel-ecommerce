@@ -30,52 +30,36 @@ Route::middleware(['web'])
         Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset.token');
     });
 
-
 Route::middleware(['web', 'admin.auth', 'permission'])
     ->prefix($baseAdminUrl)
     ->name('admin.')
     ->namespace('AvoRed\Ecommerce\Http\Controllers')
     ->group(function () {
 
-        Route::get('menu', 'MenuController@index')->name('menu.index');
-        Route::post('menu', 'MenuController@store')->name('menu.store');
-
-    });
-
-
-Route::middleware(['web', 'admin.auth', 'permission'])
-    ->prefix($baseAdminUrl)
-    ->name('admin.')
-    ->namespace('AvoRed\Ecommerce\Http\Controllers\Admin')
-    ->group(function () {
-
-
-        Route::post('option-combination-modal', 'OptionController@optionCombinationModal')
-                            ->name('option.combination');
-        Route::post('edit-option-combination-modal', 'OptionController@editOptionCombinationModal')
-                            ->name('option.combination.edit');
-        Route::post('option-combination-update', 'OptionController@optionCombinationUpdate')
-                            ->name('product.option-combination.update');
-
-        Route::resource('property', 'PropertyController');
 
         Route::get('', 'DashboardController@index')->name('dashboard');
 
-
-
+        Route::resource('admin-user', 'AdminUserController');
+        Route::resource('attribute', 'AttributeController');
+        Route::resource('category', 'CategoryController');
+        Route::resource('page', 'PageController');
+        Route::resource('product', 'ProductController');
+        Route::resource('property', 'PropertyController');
         Route::resource('role', 'RoleController');
 
-        Route::resource('product', 'ProductController');
-        Route::resource('category', 'CategoryController');
 
-        Route::resource('page', 'PageController');
 
-        Route::resource('admin-user', 'AdminUserController');
+        Route::get('menu', 'MenuController@index')->name('menu.index');
+        Route::post('menu', 'MenuController@store')->name('menu.store');
+
+
+
+
 
         Route::post('product-attribute-panel', 'AttributeController@getAttribute')
                                 ->name('product-attribute.get-attribute');
 
-        Route::resource('attribute', 'AttributeController');
+
 
 
         Route::get('admin-user-api-show', 'AdminUserController@apiShow')->name('admin-user.show.api');
@@ -86,7 +70,6 @@ Route::middleware(['web', 'admin.auth', 'permission'])
 
 
         Route::get('configuration', 'ConfigurationController@index')->name('configuration');
-
         Route::post('configuration', 'ConfigurationController@store')->name('configuration.store');
 
         Route::get('themes', 'ThemeController@index')->name('theme.index');

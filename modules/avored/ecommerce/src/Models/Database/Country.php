@@ -16,16 +16,14 @@ class Country extends BaseModel
         return $this->hasMany(State::class);
     }
 
-    public function getCountriesOptions($empty = false)
-    {
+    public static function options($empty = true) {
+
         $model = new static();
 
-        if (true === $empty) {
-            $return = Collection::make(['' => 'Please Select'] + $model->orderBy('name', 'asc')->pluck('name', 'id')->toArray());
-        } else {
-            $return = $model->all()->pluck('name', 'id');
+        $options = $model->all()->pluck('name', 'id');
+        if(true === $empty) {
+            $options->prepend('Please Select', null);
         }
-
-        return $return;
+        return $options;
     }
 }

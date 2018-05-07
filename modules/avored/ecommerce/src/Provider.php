@@ -53,7 +53,6 @@ class Provider extends ServiceProvider
         $this->registerPassportResources();
         $this->registerWidget();
         $this->registerAdminMenu();
-        $this->registerFrontMenu();
         $this->registerBreadcrumb();
         $this->registerPaymentOptions();
         $this->registerShippingOption();
@@ -109,9 +108,9 @@ class Provider extends ServiceProvider
      */
     public function registerViewComposerData()
     {
-        View::composer('avored-ecommerce::admin.layouts.left-nav', AdminNavComposer::class);
-        View::composer(['avored-ecommerce::admin.category._fields'], CategoryFieldsComposer::class);
-        View::composer(['avored-ecommerce::admin.product.create',
+        View::composer('avored-ecommerce::layouts.left-nav', AdminNavComposer::class);
+        View::composer(['avored-ecommerce::category._fields'], CategoryFieldsComposer::class);
+        View::composer(['avored-ecommerce::product.create',
                         'avored-ecommerce::product.edit',
                         ], ProductFieldsComposer::class);
 

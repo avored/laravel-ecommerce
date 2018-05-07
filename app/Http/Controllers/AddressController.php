@@ -1,55 +1,22 @@
 <?php
 namespace App\Http\Controllers;
 
-use AvoRed\Ecommerce\Repository\Config;
-use AvoRed\Ecommerce\Repository\User;
-
 use Illuminate\Support\Facades\Auth;
-
 use App\Http\Requests\AddressRequest;
 
 
 class AddressController extends Controller
 {
 
-    /**
-     * AvoRed Product Repository
-     *
-     * @var \AvoRed\Ecommerce\Repository\User
-     */
-    protected $userRepository;
-
-    /**
-     * AvoRed Config Repository
-     *
-     * @var \AvoRed\Ecommerce\Repository\Config
-     */
-    protected $configRepository;
-
-    /**
-     * Admin User Controller constructor to Set AvoRed Ecommerce User Repository.
-     *
-     * @param \AvoRed\Ecommerce\Repository\User $repository
-     * @param \AvoRed\Ecommerce\Repository\Config $configRepository
-     * @return void
-     */
-    public function __construct(User $repository, Config $configRepository)
-    {
-        $this->userRepository   = $repository;
-        $this->configRepository = $configRepository;
-    }
-
-
-
-    /**
+   /**
      * Display a listing of the user addresses.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+       
         $user = Auth::user();
-
         $addresses = $this->userRepository->allUserAddresses($user->id);
 
         return view('address.my-account.address')
@@ -64,8 +31,8 @@ class AddressController extends Controller
      */
     public function create()
     {
-        $user           = Auth::user();
-        $countries      = $this->userRepository->countryOptions();
+        $user = Auth::user();
+        $countries  = $this->userRepository->countryOptions();
         $defaultCountry = $this->configRepository->getConfiguration('user_default_country');
 
         return view('address.my-account.create-address')
