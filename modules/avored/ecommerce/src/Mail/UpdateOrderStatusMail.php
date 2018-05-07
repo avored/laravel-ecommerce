@@ -32,6 +32,6 @@ class UpdateOrderStatusMail extends Mailable
      */
     public function build()
     {
-        return $this->view('avored-ecommerce::mail.update-order-status');
+        return $this->view('mail.update-order-status');
     }
 }

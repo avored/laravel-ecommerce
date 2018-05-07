@@ -6,19 +6,10 @@ class Role extends BaseModel
 {
     protected $fillable = ['name', 'description'];
 
-
-    public static function options($empty = true) {
-
-        $model = new static();
-
-        $options = $model->all()->pluck('name', 'id');
-        if(true === $empty) {
-            $options->prepend('Please Select', null);
-        }
-        return $options;
-    }
     /**
-     * Role can be assigned to many users.
+     * Role can be assigne to many users.
+     *
+     * @return \AvoRed\Ecommerce\Models\Database\User
      */
     public function user()
     {
@@ -27,6 +18,8 @@ class Role extends BaseModel
 
     /**
      * Role has many Permissions.
+     *
+     * @return \AvoRed\Ecommerce\Models\Database\Role
      */
     public function permissions()
     {
@@ -37,6 +30,7 @@ class Role extends BaseModel
     {
         $permissions = explode(',', $permissionName);
 
+        //dd($permissions);
         $returnData = true;
         foreach ($permissions as $permission) {
             if ($this->permissions->pluck('name')->contains($permission) == false) {

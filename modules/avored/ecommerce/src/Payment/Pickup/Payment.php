@@ -4,7 +4,6 @@ namespace AvoRed\Ecommerce\Payment\Pickup;
 
 use AvoRed\Framework\Payment\Payment as AbstractPayment;
 use AvoRed\Framework\Payment\Contracts\Payment as PaymentContract;
-use AvoRed\Framework\Models\Database\Configuration;
 
 class Payment extends AbstractPayment implements PaymentContract
 {
@@ -44,7 +43,8 @@ class Payment extends AbstractPayment implements PaymentContract
 
     public function enable()
     {
-        $isEnabled = Configuration::getConfiguration(self::CONFIG_KEY);
+        $model = new Configuration();
+        $isEnabled = $model->getConfiguration(self::CONFIG_KEY);
         if (null === $isEnabled || false == $isEnabled) {
             return false;
         }

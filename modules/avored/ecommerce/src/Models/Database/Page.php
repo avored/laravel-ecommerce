@@ -31,17 +31,6 @@ class Page extends BaseModel
         return preg_replace_callback($pattern, $callback, $content);
     }
 
-    public static function options($empty = true) {
-
-        $model = new static();
-
-        $options = $model->all()->pluck('name', 'id');
-        if(true === $empty) {
-            $options->prepend('Please Select', null);
-        }
-        return $options;
-    }
-
     public function getContent()
     {
         return $this->attributes['content'];

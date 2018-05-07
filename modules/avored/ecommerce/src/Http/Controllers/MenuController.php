@@ -2,12 +2,13 @@
 
 namespace AvoRed\Ecommerce\Http\Controllers;
 
+use AvoRed\Ecommerce\Http\Controllers\Admin\AdminController;
 use AvoRed\Ecommerce\Models\Database\Menu;
 use AvoRed\Framework\Models\Database\Category;
 use Illuminate\Http\Request;
 use AvoRed\Framework\Menu\Facade as MenuFacade;
 
-class MenuController extends Controller
+class MenuController extends AdminController
 {
 
     /**
