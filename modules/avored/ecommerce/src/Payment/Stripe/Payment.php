@@ -4,7 +4,7 @@ namespace AvoRed\Ecommerce\Payment\Stripe;
 
 use Stripe\Charge;
 use Stripe\Stripe;
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Framework\Models\Database\Configuration;
 use AvoRed\Framework\Payment\Payment as PaymentEcommerce;
 use AvoRed\Framework\Payment\Contracts\Payment as PaymentContracts;
 
