@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Framework\Models\Database\Configuration;
 use AvoRed\Ecommerce\Models\Database\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;

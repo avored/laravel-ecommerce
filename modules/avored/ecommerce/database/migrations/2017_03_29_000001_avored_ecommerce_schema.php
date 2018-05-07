@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use AvoRed\Ecommerce\Models\Database\Country;
-use AvoRed\Ecommerce\Models\Database\Menu;
 use Illuminate\Database\Migrations\Migration;
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Framework\Models\Database\Configuration;
 
 class AvoredEcommerceSchema extends Migration
 {
