@@ -128,13 +128,15 @@ class AvoredEcommerceSchema extends Migration
             $table->integer('client_id')->index();
             $table->timestamps();
         });
-
-        Schema::create('configurations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('configuration_key')->nullable()->default(null);
-            $table->string('configuration_value',999)->nullable()->default(null);
-            $table->timestamps();
-        });
+        
+        if (!Schema::hasTable('configurations')) {
+            Schema::create('configurations', function (Blueprint $table) {
+                $table->increments('id');
+                $table->string('configuration_key')->nullable()->default(null);
+                $table->string('configuration_value',999)->nullable()->default(null);
+                $table->timestamps();
+            });
+        };
 
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
