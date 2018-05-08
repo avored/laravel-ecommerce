@@ -18,7 +18,7 @@
     "php": ">=7.1.3",
     "avored/module-installer": "1.*",
     "avored/framework": "1.*",
-    "avored/banner": "dev-master",
+    "avored/banner": "1.*",
     "avored/brand": "dev-master",
     "avored/contact": "dev-master",
     "avored/dummy-data": "dev-master",
