@@ -2,22 +2,12 @@
 
 namespace AvoRed\Ecommerce\Http\ViewComposers;
 
+use AvoRed\Framework\Models\Database\Category;
 use Illuminate\View\View;
-use AvoRed\Framework\Repository\Product;
 
 class ProductFieldsComposer
 {
-    /*
-    * AvoRed Framework Category Repository
-    *
-    * @var \AvoRed\Framework\Repository\Product
-    */
-    public $productRepository;
 
-    public function __construct(Product $repository)
-    {
-        $this->productRepository = $repository;
-    }
 
     /**
      * Bind data to the view.
@@ -27,7 +17,7 @@ class ProductFieldsComposer
      */
     public function compose(View $view)
     {
-        $categoryOptions = $this->productRepository->categoryModel()->all()->pluck('name', 'id');
+        $categoryOptions = Category::getCategoryOptions();
         $storageOptions = []; //Storage::pluck('name', 'id');
         $view->with('categoryOptions', $categoryOptions)
             ->with('storageOptions', $storageOptions);

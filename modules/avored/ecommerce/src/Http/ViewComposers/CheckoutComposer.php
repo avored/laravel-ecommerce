@@ -2,33 +2,15 @@
 
 namespace AvoRed\Ecommerce\Http\ViewComposers;
 
+use AvoRed\Ecommerce\Models\Database\Page;
+use AvoRed\Framework\Models\Database\Configuration;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
-use AvoRed\Ecommerce\Repository\Page;
-use AvoRed\Ecommerce\Repository\Config;
+
 use Illuminate\Support\Facades\Session;
 
 class CheckoutComposer
 {
-    /*
-    * AvoRed Framework Category Repository
-    *
-    * @var \AvoRed\Framework\Repository\Product
-    */
-    public $configRepository;
-
-    /*
-   * AvoRed Framework Category Repository
-   *
-   * @var \AvoRed\Ecommerce\Repository\Page
-   */
-    public $pageRepository;
-
-    public function __construct(Page $repository, Config $configRepository)
-    {
-        $this->pageRepository = $repository;
-        $this->configRepository = $configRepository;
-    }
 
     /**
      * Bind data to the view.
@@ -42,10 +24,10 @@ class CheckoutComposer
 
         $user = Auth::user();
 
-        $pageId = $this->configRepository->model()->getConfiguration('general_term_condition_page');
+        $pageId = Configuration::getConfiguration('general_term_condition_page');
 
         if (null !== $pageId) {
-            $page = $this->pageRepository->findPageById($pageId);
+            $page = Page::find($pageId);
             $termConditionPageUrl = route('page.show', $page->slug);
         }
 

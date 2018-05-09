@@ -2,43 +2,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-use AvoRed\Framework\Repository\Product;
-use AvoRed\Ecommerce\Repository\User;
+use AvoRed\Framework\Models\Database\Product;
+use AvoRed\Ecommerce\Models\Database\Wishlist;
 
 class WishlistController extends Controller
 {
-
-
-    /**
-     * AvoRed E commerce Product Repository
-     *
-     * @var \AvoRed\Framework\Repository\Product
-     *
-     */
-    public $productRepository;
-
-    /**
-     * AvoRed E commerce User Repository
-     *
-     * @var \AvoRed\Ecommerce\Repository\User
-     *
-     */
-    public $userRepository;
-    /**
-     * Wish list  Controller Setting Product Repository Property of Class.
-     *
-     * @var \AvoRed\Framework\Repository\Product
-     * @return void
-     */
-    public function __construct(Product $repository, User $userRepository)
-    {
-        parent::__construct();
-        $this->middleware('front.auth');
-
-        $this->productRepository    = $repository;
-        $this->userRepository       = $userRepository;
-
-    }
 
     /**
      * @param string $slug
@@ -47,8 +15,8 @@ class WishlistController extends Controller
     public function add($slug)
     {
 
-        $product = $this->productRepository->findProductBySlug($slug);
-        $this->userRepository->wishlistModel()->create([
+        $product = Product::whereSlug($slug)->first();
+        Wishlist::create([
             'user_id' => Auth::user()->id,
             'product_id' => $product->id,
         ]);
@@ -62,10 +30,7 @@ class WishlistController extends Controller
      */
     public function mylist()
     {
-        $wishlists = $this->userRepository->wishlistModel()->where([
-            'user_id' => Auth::user()->id
-        ])->get();
-
+        $wishlists = Wishlist::whereUserId(Auth::user()->id)->get();
 
         return view('wishlist.my-account.wishlist')
             ->with('wishlists', $wishlists);
@@ -79,12 +44,9 @@ class WishlistController extends Controller
      */
     public function destroy($slug)
     {
-        $product = $this->productRepository->findProductBySlug($slug);
+        $product = Product::whereSlug($slug)->first();
 
-        $this->userRepository->wishlistModel()->where([
-            'user_id' => Auth::user()->id,
-            'product_id' => $product->id,
-        ])->delete();
+        Wishlist::whereUserId(Auth::user()->id)->whereProductId($product->id)->delete();
 
         return redirect()->back()->with('notificationText', 'Product Removed from your Wishlist Successfully!!');
     }

@@ -3,9 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use AvoRed\Ecommerce\Models\Database\Country;
-use AvoRed\Ecommerce\Models\Database\Menu;
 use Illuminate\Database\Migrations\Migration;
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Framework\Models\Database\Configuration;
 
 class AvoredEcommerceSchema extends Migration
 {
@@ -126,13 +125,6 @@ class AvoredEcommerceSchema extends Migration
         Schema::create('oauth_personal_access_clients', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('client_id')->index();
-            $table->timestamps();
-        });
-
-        Schema::create('configurations', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('configuration_key')->nullable()->default(null);
-            $table->string('configuration_value',999)->nullable()->default(null);
             $table->timestamps();
         });
 

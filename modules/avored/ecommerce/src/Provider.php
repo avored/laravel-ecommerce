@@ -379,7 +379,7 @@ class Provider extends ServiceProvider
             });
 
         $paymentGroup->addConfiguration('payment_stripe_enabled')
-            ->label('Payment Stripe Publishable Key')
+            ->label('Payment Stripe Enabled')
             ->type('select')
             ->name('payment_stripe_enabled')
             ->options(function (){
@@ -388,7 +388,7 @@ class Provider extends ServiceProvider
             });
 
         $paymentGroup->addConfiguration('payment_stripe_publishable_key')
-            ->label('Payment Stripe Enabled')
+            ->label('Payment Stripe Publishable Key')
             ->type('text')
             ->name('payment_stripe_publishable_key')
             ;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Framework\Models\Database\Configuration;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -18,9 +18,7 @@ class Controller extends BaseController
     {
         if (Schema::hasTable('configurations')) {
 
-            $config = new Configuration();
-
-            $themeViewPath = realpath($config->getConfiguration('active_theme_path'));
+            $themeViewPath = realpath(Configuration::getConfiguration('active_theme_path'));
 
             $fileViewFinder = View::getFinder();
             $fileViewFinder->prependLocation($themeViewPath);

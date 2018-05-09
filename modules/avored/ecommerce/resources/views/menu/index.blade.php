@@ -1,4 +1,4 @@
-@extends('avored-ecommerce::admin.layouts.app')
+@extends('avored-ecommerce::layouts.app')
 
 @section('content')
     <div class="row">
