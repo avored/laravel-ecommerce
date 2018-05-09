@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Foundation\Auth\ResetsPasswords;
-use AvoRed\Ecommerce\Http\Controllers\Admin\AdminController;
 
-class ResetPasswordController extends AdminController
+
+class ResetPasswordController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
