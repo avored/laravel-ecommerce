@@ -15,7 +15,7 @@ class CheckoutController extends Controller
         $cartItems          = Cart::all();
         $shippingOptions    = Shipping::all();
         $paymentOptions     = Payment::all();
-        $countries          = Country::options()();
+        $countries          = Country::options();
 
         return view('checkout.index')
             ->with('cartItems', $cartItems)
