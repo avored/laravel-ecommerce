@@ -15,11 +15,9 @@ use Laravel\Passport\Console\KeysCommand;
 use AvoRed\Ecommerce\Shipping\FreeShipping;
 use Laravel\Passport\Console\ClientCommand;
 use Laravel\Passport\Console\InstallCommand;
-use AvoRed\Ecommerce\Http\Middleware\Visitor;
 use AvoRed\Ecommerce\Http\Middleware\AdminAuth;
 use AvoRed\Ecommerce\Http\Middleware\Permission;
 use AvoRed\Ecommerce\Http\Middleware\AdminApiAuth;
-use AvoRed\Ecommerce\Http\Middleware\ProductViewed;
 use AvoRed\Framework\Widget\Facade as WidgetFacade;
 use AvoRed\Framework\Payment\Facade as PaymentFacade;
 use AvoRed\Framework\Shipping\Facade as ShippingFacade;
@@ -34,8 +32,6 @@ use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
 use AvoRed\Ecommerce\Widget\TotalUser\Widget as TotalUserWidget;
 use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
-use AvoRed\Ecommerce\Http\ViewComposers\RelatedProductViewComposer;
-use AvoRed\Ecommerce\Http\ViewComposers\ProductSpecificationComposer;
 use AvoRed\Framework\AdminConfiguration\Facade as AdminConfigurationFacade;
 
 class Provider extends ServiceProvider

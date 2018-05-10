@@ -67,7 +67,7 @@ class PropertyController extends Controller
     /**
      * Update the specified property in database.
      *
-     * @param \AvoRed\Ecommerce\Http\Requests\Property $request
+     * @param \AvoRed\Ecommerce\Http\Requests\PropertyRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

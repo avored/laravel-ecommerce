@@ -69,7 +69,7 @@ class PageController extends Controller
     /**
      * Update the specified page in database.
      *
-     * @param \AvoRed\Ecommerce\Http\Requests\Page $request
+     * @param \AvoRed\Ecommerce\Http\Requests\PageRequest $request
      * @param int $id
      *
      * @return \Illuminate\Http\Response

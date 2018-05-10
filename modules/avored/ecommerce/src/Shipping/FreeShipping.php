@@ -2,7 +2,7 @@
 
 namespace AvoRed\Ecommerce\Shipping;
 
-use AvoRed\Ecommerce\Models\Database\Configuration;
+use AvoRed\Framework\Models\Database\Configuration;
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Shipping\Shipping as AbstractShipping;
 use AvoRed\Framework\Shipping\Contracts\Shipping as ShippingContract;

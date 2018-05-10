@@ -2,7 +2,7 @@
 
 namespace AvoRed\Ecommerce\Http\Requests;
 
-use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Framework\Models\Database\Product;
 use Illuminate\Foundation\Http\FormRequest as Request;
 
 class ProductRequest extends Request

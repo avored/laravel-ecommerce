@@ -2,6 +2,8 @@
 
 namespace AvoRed\Ecommerce\Models\Database;
 
+use AvoRed\Framework\Models\Database\Configuration;
+
 class Address extends BaseModel
 {
     protected $fillable = [
