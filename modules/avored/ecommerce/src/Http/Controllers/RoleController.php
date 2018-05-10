@@ -6,7 +6,6 @@ use AvoRed\Ecommerce\DataGrid\Role;
 use AvoRed\Ecommerce\Models\Database\Role as Model;
 use AvoRed\Ecommerce\Http\Requests\RoleRequst;
 use AvoRed\Ecommerce\Models\Database\Permission;
-use AvoRed\Framework\DataGrid\Facade as DataGrid;
 
 class RoleController extends Controller
 {

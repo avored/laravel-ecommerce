@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Event;
 use AvoRed\Framework\Models\Database\Product as ProductModel;
 use AvoRed\Framework\Image\Facade as Image;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;

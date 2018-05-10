@@ -5,7 +5,6 @@ namespace AvoRed\Ecommerce\Http\Controllers;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
-use AvoRed\Ecommerce\Models\Database\User;
 use AvoRed\Framework\Models\Database\Order as Model;
 use AvoRed\Framework\Models\Database\OrderStatus;
 use AvoRed\Ecommerce\Mail\OrderInvoicedMail;

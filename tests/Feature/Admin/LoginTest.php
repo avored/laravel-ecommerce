@@ -2,10 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
-use AvoRed\Ecommerce\Models\Database\AdminUser;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class LoginTest extends TestCase

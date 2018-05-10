@@ -10,6 +10,7 @@
   | and give it the controller to call when that URI is requested.
   |
  */
+use Illuminate\Support\Facades\Route;
 
 $baseAdminUrl = config('avored-ecommerce.admin_url');
 

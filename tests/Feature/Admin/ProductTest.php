@@ -3,11 +3,8 @@
 namespace Tests\Feature\Admin;
 
 use AvoRed\Framework\Models\Database\Category;
-use AvoRed\Ecommerce\Models\Database\Product;
+use AvoRed\Framework\Models\Database\Product;
 use Tests\TestCase;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ProductTest extends TestCase

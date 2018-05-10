@@ -4,8 +4,6 @@ namespace Tests\Feature\Admin;
 
 use AvoRed\Framework\Models\Database\Category;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CategoryTest extends TestCase

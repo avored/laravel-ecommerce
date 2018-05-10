@@ -2,8 +2,6 @@
 
 namespace AvoRed\Ecommerce\Models\Database;
 
-use Illuminate\Support\Collection;
-
 class Country extends BaseModel
 {
     protected $fillable = [

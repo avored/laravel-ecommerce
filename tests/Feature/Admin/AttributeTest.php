@@ -2,10 +2,8 @@
 
 namespace Tests\Feature\Admin;
 
-use AvoRed\Ecommerce\Models\Database\Attribute;
+use AvoRed\Framework\Models\Database\Attribute;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class AttributeTest extends TestCase
