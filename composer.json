@@ -1,72 +1,78 @@
 {
-  "name": "avored/laravel-ecommerce",
-  "description": "AvoRed E Commerce is an Laravel Open Source Shopping Cart",
-  "keywords": [
-    "framework",
-    "laravel",
-    "ecommerce",
-    "laravel 5",
-    "shop",
-    "shopping-cart",
-    "e-commerce",
-    "shopping cart",
-    "e commerce"
-  ],
-  "license": "MIT",
-  "type": "project",
-  "require": {
-    "php": ">=7.1.3",
-    "avored/module-installer": "1.*",
-    "avored/framework": "dev-master",
-    "avored/banner": "dev-master",
-    "avored/brand": "dev-master",
-    "avored/contact": "dev-master",
-    "avored/dummy-data": "dev-master",
-    "avored/ecommerce": "dev-master",
-    "avored/featured": "dev-master",
-    "avored/related": "dev-master",
-    "avored/review": "dev-master",
-    "avored/subscribe": "dev-master",
-    "fabpot/goutte": "^3.2",
-    "fideloper/proxy": "~4.0"
-  },
-  "require-dev": {
-    "filp/whoops": "~2.0",
-    "nunomaduro/collision": "~1.1",
-    "fzaninotto/faker": "~1.4",
-    "mockery/mockery": "~1.0",
-    "phpunit/phpunit": "~7.0",
-    "symfony/thanks": "^1.0"
-  },
-  "autoload": {
-    "classmap": [
-      "database/seeds",
-      "database/factories"
-    ],
-    "psr-4": {
-      "App\\": "app/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Tests\\": "tests/"
-    }
-  },
-  "scripts": {
-    "post-root-package-install": [
-      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-    ],
-    "post-create-project-cmd": [
-      "@php artisan key:generate"
-    ],
-    "post-autoload-dump": [
-      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-      "@php artisan package:discover"
-    ]
-  },
-  "config": {
-    "preferred-install": "dist",
-    "sort-packages": true,
-    "optimize-autoloader": true
-  }
+	"name" : "avored/laravel-ecommerce",
+	"description" : "AvoRed E Commerce is an Laravel Open Source Shopping Cart",
+	"keywords" : [
+		"framework",
+		"laravel",
+		"ecommerce",
+		"laravel 5",
+		"shop",
+		"shopping-cart",
+		"e-commerce",
+		"shopping cart",
+		"e commerce"
+	],
+	"license" : "MIT",
+	"type" : "project",
+	"require" : {
+		"php" : ">=7.1.3",
+		"avored/banner" : "dev-master",
+		"avored/brand" : "dev-master",
+		"avored/contact" : "dev-master",
+		"avored/cash-on-delivery" : "dev-master",
+		"avored/dummy-data" : "dev-master",
+		"avored/ecommerce" : "dev-master",
+		"avored/featured" : "dev-master",
+		"avored/fixed-rate" : "^1.1",
+		"avored/framework" : "dev-master",
+		"avored/module-installer" : "1.*",
+		"avored/related" : "dev-master",
+		"avored/review" : "dev-master",
+		"avored/subscribe" : "dev-master",
+		"fabpot/goutte" : "^3.2",
+		"fideloper/proxy" : "~4.0"
+	},
+	"require-dev" : {
+		"filp/whoops" : "~2.0",
+		"nunomaduro/collision" : "~1.1",
+		"fzaninotto/faker" : "~1.4",
+		"mockery/mockery" : "~1.0",
+		"phpunit/phpunit" : "~7.0",
+		"symfony/thanks" : "^1.0"
+	},
+	"autoload" : {
+		"classmap" : [
+			"database/seeds",
+			"database/factories"
+		],
+		"psr-4" : {
+			"App\\" : "app/"
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"Tests\\" : "tests/"
+		}
+	},
+	"scripts" : {
+		"post-root-package-install" : "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+		"post-create-project-cmd" : "@php artisan key:generate",
+		"post-autoload-dump" : [
+			"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+			"@php artisan package:discover"
+		]
+	},
+	"config" : {
+		"preferred-install" : "dist",
+		"sort-packages" : true,
+		"optimize-autoloader" : true
+	},
+	"homepage" : "https://www.avored.com",
+	"support" : {
+		"email" : "ind.purvesh@gmail.com",
+		"issues" : "https://www.avored.com/discussion",
+		"forum" : "https://www.avored.com/discussion",
+		"wiki" : "https://www.avored.com/docs",
+		"source" : "https://www.github.com/avored/laravel-ecommerce"
+	}
 }
