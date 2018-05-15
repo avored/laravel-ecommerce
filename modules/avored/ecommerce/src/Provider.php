@@ -26,7 +26,6 @@ use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
 use AvoRed\Framework\AdminMenu\Facade as AdminMenuFacade;
 use AvoRed\Framework\Breadcrumb\Facade as BreadcrumbFacade;
 use AvoRed\Framework\Permission\Facade as PermissionFacade;
-use AvoRed\Ecommerce\Payment\Pickup\Payment as PickupPayment;
 use AvoRed\Ecommerce\Payment\Stripe\Payment as StripePayment;
 use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
@@ -324,15 +323,6 @@ class Provider extends ServiceProvider
         $paymentGroup = AdminConfigurationFacade::add('payment')
             ->label('Payment');
 
-        $paymentGroup->addConfiguration('payment_pickup_enabled')
-            ->label('Payment Pickup Enabled')
-            ->type('select')
-            ->name('payment_pickup_enabled')
-            ->options(function (){
-                $options = [1 => 'Yes' , 0 => 'No'];
-                return $options;
-            });
-
         $paymentGroup->addConfiguration('payment_stripe_enabled')
             ->label('Payment Stripe Enabled')
             ->type('select')
@@ -541,9 +531,6 @@ class Provider extends ServiceProvider
      */
     protected function registerPaymentOptions()
     {
-        $pickup = new PickupPayment();
-        PaymentFacade::put($pickup->identifier(), $pickup);
-
         $stripe = new StripePayment();
         PaymentFacade::put($stripe->identifier(), $stripe);
     }

@@ -24,6 +24,7 @@
 		"avored/ecommerce" : "dev-master",
 		"avored/featured" : "dev-master",
 		"avored/fixed-rate" : "^1.1",
+		"avored/pickup" : "^1.1",
 		"avored/framework" : "dev-master",
 		"avored/module-installer" : "1.*",
 		"avored/related" : "dev-master",
