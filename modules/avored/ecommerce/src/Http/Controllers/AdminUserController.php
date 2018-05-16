@@ -87,9 +87,11 @@ class AdminUserController extends Controller
     {
         $user = Model::find($id);
         $path = $this->_getUserImageRelativePath();
-        $image = Image::upload($request->file('image'), $path);
-
-        $request->merge(['image_path' => $image->relativePath]);
+        if(null !== $request->file('image')) {
+            $image = Image::upload($request->file('image'), $path);
+            $request->merge(['image_path' => $image->relativePath]);
+        }
+        
 
         $user->update($request->all());
 

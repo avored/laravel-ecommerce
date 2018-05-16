@@ -23,6 +23,9 @@ class CartController extends Controller
         $slug   = $request->get('slug');
         $qty    = $request->get('qty', 1);
 
+        if(!Cart::canAddToCart($slug, $qty)) {
+            return redirect()->back()->with('errorNotificationText', 'Not Enough Qty Available. Please with less qty or Contact site Administrator!');
+        }
 
         Cart::add($slug, $qty);
 
@@ -51,8 +54,14 @@ class CartController extends Controller
 
     public function update(Request $request)
     {
+        $slug = $request->get('slug');
+        $qty  = $request->get('qty',1);
 
-        Cart::update($request->get('slug'), $request->get('qty',1));
+        if(!Cart::canAddToCart($slug, $qty)) {
+            return redirect()->back()->with('errorNotificationText', 'Not Enough Qty Available. Please with less qty or Contact site Administrator!');
+        }
+
+        Cart::update($slug , $qty);
 
         return redirect()->back();
     }

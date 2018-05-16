@@ -19,7 +19,7 @@
 
             <div>
 
-                @if($product->canAddtoCart())
+                @if($product->qty >= 0)
                 <form method="post" action="{{ route('cart.add-to-cart') }}">
                     {{ csrf_field() }}
 
