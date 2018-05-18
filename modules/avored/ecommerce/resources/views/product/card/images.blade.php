@@ -114,9 +114,10 @@
             jQuery.ajax({
                 url: '{{ URL::to("/admin/product-image/delete")}}',
                 data: data,
+                dataType: 'json',
                 type: 'post',
                 success: function (response) {
-                    if (response == 'success') {
+                    if (response.success == true) {
                         jQuery(e.target).parents('.image-preview:first').remove();
                     }
 

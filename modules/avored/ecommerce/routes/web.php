@@ -36,8 +36,6 @@ Route::middleware(['web', 'admin.auth', 'permission'])
     ->name('admin.')
     ->namespace('AvoRed\Ecommerce\Http\Controllers')
     ->group(function () {
-
-
         Route::get('', 'DashboardController@index')->name('dashboard');
 
         Route::resource('admin-user', 'AdminUserController');

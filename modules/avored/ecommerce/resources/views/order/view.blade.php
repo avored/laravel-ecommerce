@@ -91,23 +91,18 @@
                                 <th>total</th>
                             </tr>
                             @foreach($order->products as $product)
-
-
                                 <tr>
-
                                     <td> {{ $product->id }}</td>
                                     <td>
 
                                         {{ $product->name }}
 
                                         @if($product->type == "VARIATION")
-
                                             @foreach($order->orderProductVariation as $orderProductVariation)
                                                 <p>
                                                     {{ $orderProductVariation->attribute->name }}
                                                     :
                                                     {{   $orderProductVariation->attributeDropdownOption->display_text }}
-
                                                 </p>
 
                                             @endforeach

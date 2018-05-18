@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Event;
 use AvoRed\Framework\Models\Database\Product as ProductModel;
 use AvoRed\Framework\Image\Facade as Image;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;
@@ -16,7 +15,7 @@ use AvoRed\Ecommerce\DataGrid\Product as ProductGrid;
 
 class ProductController extends Controller
 {
-   
+
 
     /**
      * Display a listing of the resource.
@@ -26,7 +25,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productGrid = new ProductGrid(ProductModel::where('type', '!=', 'VARIABLE_PRODUCT')->orderBy('id','desc'));
+        $productGrid = new ProductGrid(ProductModel::where('type', '!=', 'VARIABLE_PRODUCT')->orderBy('id', 'desc'));
 
         return view('avored-ecommerce::product.index')->with('dataGrid', $productGrid->dataGrid);
     }
@@ -52,7 +51,6 @@ class ProductController extends Controller
     {
         try {
             $product = ProductModel::create($request->all());
-
         } catch (\Exception $e) {
             echo 'Error in Saving Product: ', $e->getMessage(), "\n";
         }
@@ -87,7 +85,7 @@ class ProductController extends Controller
         return view('avored-ecommerce::product.edit')
             ->with('model', $product)
             ->with('propertyOptions', $properties)
-            ->with('usedForAllProductProperties',$usedForAllProductProperties)
+            ->with('usedForAllProductProperties', $usedForAllProductProperties)
             ->with('attributeOptions', $attributes);
     }
 
@@ -102,10 +100,8 @@ class ProductController extends Controller
     public function update(ProductRequest $request, $id)
     {
         try {
-
             $product = ProductModel::findorfail($id);
             $product->saveProduct($request->all());
-
         } catch (\Exception $e) {
             throw new \Exception('Error in Saving Product: '.$e->getMessage());
         }
@@ -162,10 +158,21 @@ class ProductController extends Controller
     {
         $path = $request->get('path');
 
-        if (File::exists($path)) {
-            File::delete(public_path().$path);
+        $path           = "uploads/catalog/images/e/0/v/1382542458778.jpeg";
+        $fileName       = pathinfo($path, PATHINFO_BASENAME);
+        $relativeDir    = pathinfo($path, PATHINFO_DIRNAME);
+
+        $sizes = config('image.sizes');
+        foreach ($sizes as $sizeName => $widthHeight) {
+            $imagePath =  $relativeDir . DIRECTORY_SEPARATOR . $sizeName . "-". $fileName;
+            if (File::exists($imagePath)) {
+                File::delete(public_path($imagePath));
+            }
         }
 
+        if (File::exists($path)) {
+            File::delete(public_path($path));
+        }
         return JsonResponse::create(['success' => true]);
     }
 
