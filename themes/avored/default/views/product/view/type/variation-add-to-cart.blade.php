@@ -18,22 +18,6 @@
 ?>
 @foreach($attributes as $attribute)
 
-
-
-        <?php
-        //$option = $attribute->getOptionsList($attributeValueList);
-
-            //dd($attribute);
-
-        //dd($product->id);
-
-
-            //$combinationProduct = $product->getVariableProduct($option);
-
-        ?>
-
-
-
         <div class="product-attribute form-group">
         <label>{{$attribute->name}}</label>
         <select name="attribute[{{ $attribute->id }}]" class="form-control product-variation-dropdown">

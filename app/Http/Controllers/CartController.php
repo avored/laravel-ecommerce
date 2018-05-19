@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use AvoRed\Framework\Models\Database\Configuration;
 use Illuminate\Http\Request;
 use AvoRed\Framework\Models\Database\Product as ProductModel;
@@ -19,21 +18,20 @@ class CartController extends Controller
      */
     public function addToCart(Request $request)
     {
+        $slug       = $request->get('slug');
+        $qty        = $request->get('qty', 1);
+        $attribute  = $request->get('attribute', null);
 
-        $slug   = $request->get('slug');
-        $qty    = $request->get('qty', 1);
-
-        if(!Cart::canAddToCart($slug, $qty)) {
+        if (!Cart::canAddToCart($slug, $qty, $attribute)) {
             return redirect()->back()->with('errorNotificationText', 'Not Enough Qty Available. Please with less qty or Contact site Administrator!');
         }
 
-        Cart::add($slug, $qty);
+        Cart::add($slug, $qty, $attribute);
 
         $productModel   = ProductModel::whereSlug($slug)->first();
         $isTaxEnabled   = Configuration::getConfiguration('tax_enabled');
 
-        if($isTaxEnabled && $productModel->is_taxable) {
-
+        if ($isTaxEnabled && $productModel->is_taxable) {
             $percentage = Configuration::getConfiguration('tax_percentage');
             $taxAmount = ($percentage * $productModel->price / 100);
 
@@ -55,20 +53,19 @@ class CartController extends Controller
     public function update(Request $request)
     {
         $slug = $request->get('slug');
-        $qty  = $request->get('qty',1);
+        $qty  = $request->get('qty', 1);
 
-        if(!Cart::canAddToCart($slug, $qty)) {
+        if (!Cart::canAddToCart($slug, $qty)) {
             return redirect()->back()->with('errorNotificationText', 'Not Enough Qty Available. Please with less qty or Contact site Administrator!');
         }
 
-        Cart::update($slug , $qty);
+        Cart::update($slug, $qty);
 
         return redirect()->back();
     }
 
     public function destroy($slug)
     {
-
         Cart::destroy($slug);
 
         return redirect()->back();
