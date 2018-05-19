@@ -9,7 +9,9 @@
             <?php $class = ($image->is_main_image == 1) ? "active" : ""; ?>
             <div class="image-preview">
                 <div class="actual-image-thumbnail">
-                    <img class="img-thumbnail img-tag img-responsive" src="{{ ($image->path->smallUrl) }}"/>
+                    <img class="img-thumbnail img-tag img-responsive"
+                        data-path="{{ $image->path->relativePath }}"
+                        src="{{ ($image->path->smallUrl) }}"/>
                     <input type="hidden" name="image[{{ $image->id }}][path]" value="{{ $image->path->relativePath }}"/>
                     @if($image->is_main_image)
                         <input type="hidden" class="is_main_image_hidden_field"
@@ -109,7 +111,7 @@
 
 
             var token = jQuery('.product-image-element').attr('data-token');
-            var path = jQuery(e.target).parents('.image-preview:first').find('.img-tag').attr('src');
+            var path = jQuery(e.target).parents('.image-preview:first').find('.img-tag').attr('data-path');
             var data = {_token: token, path: path};
             jQuery.ajax({
                 url: '{{ URL::to("/admin/product-image/delete")}}',
