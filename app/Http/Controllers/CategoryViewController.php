@@ -27,6 +27,5 @@ class CategoryViewController extends Controller
             ->with('category', $category)
             ->with('params', $request->all())
             ->with('products', $products);
-
     }
 }

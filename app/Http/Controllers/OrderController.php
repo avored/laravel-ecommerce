@@ -1,7 +1,6 @@
 <?php
 namespace App\Http\Controllers;
 
-
 use AvoRed\Framework\Models\Database\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,19 +17,13 @@ use AvoRed\Framework\Models\Database\ProductVariation;
 
 class OrderController extends Controller
 {
-
     public function place(PlaceOrderRequest $request)
     {
-
-
         $orderProductData = Cart::all();
         $user = $this->_getUser($request);
-
         $billingAddress = $this->_getBillingAddress($request);
         $shippingAddress = $this->_getShippingAddress($request);
-
         $orderStatus = OrderStatus::whereIsDefault(1)->get()->first();
-
         $paymentOption = $request->get('payment_option');
 
         $data['shipping_address_id']    = $shippingAddress->id;
@@ -44,6 +37,7 @@ class OrderController extends Controller
 
         $paymentReturn = $payment->process($data, $orderProductData, $request);
 
+        dd($orderProductData);
         //@todo check Response is success of fail.
 
         $order = Order::create($data);
@@ -54,7 +48,6 @@ class OrderController extends Controller
         Cart::clear();
 
         return redirect()->route('order.success', $order->id);
-
     }
 
 
@@ -85,8 +78,6 @@ class OrderController extends Controller
 
     private function _getUser(Request $request)
     {
-
-
         if (Auth::guard()->check()) {
             return Auth::guard()->user();
         }
@@ -111,12 +102,10 @@ class OrderController extends Controller
         Auth::guard()->loginUsingId($user->id);
 
         return $user;
-
     }
 
     private function _getBillingAddress(Request $request)
     {
-
         $billingData = $request->get('billing');
 
         $billingData['type'] = 'BILLING';
@@ -124,7 +113,7 @@ class OrderController extends Controller
 
         if (isset($billingData['id']) && $billingData['id'] > 0) {
             $address = Address::findorfail($billingData['id']);
-            //$address->update($shippingData);
+        //$address->update($shippingData);
         } else {
             $address = Address::create($billingData);
         }
@@ -134,7 +123,6 @@ class OrderController extends Controller
 
     private function _getShippingAddress(Request $request)
     {
-
         if (null == $request->get('use_different_shipping_address')) {
             $shippingData = $request->get('billing');
         } else {
@@ -147,7 +135,7 @@ class OrderController extends Controller
 
         if (isset($shippingData['id']) && $shippingData['id'] > 0) {
             $address = Address::findorfail($shippingData['id']);
-            //$address->update($shippingData);
+        //$address->update($shippingData);
         } else {
             $address = Address::create($shippingData);
         }
@@ -163,11 +151,9 @@ class OrderController extends Controller
      */
     private function _syncOrderProductData($order, $orderProducts)
     {
-
         $orderProductTableData = [];
 
         foreach ($orderProducts as $orderProduct) {
-
             if ($orderProduct->hasAttributes()) {
                 foreach ($orderProduct['attributes'] as $attribute) {
                     $product = Product::whereSlug($orderProduct->slug())->first();
@@ -180,7 +166,6 @@ class OrderController extends Controller
                     ProductVariation::create($data);
                 }
             } else {
-
                 $product = Product::whereSlug($orderProduct->slug())->first();
                 $product->update(['qty' => ($product->qty - $orderProduct->qty())]);
             }
@@ -191,10 +176,7 @@ class OrderController extends Controller
                                         'price' => $orderProduct->price(),
                                         'tax_amount' => 0.00 //$orderProduct->tax();
                                         ];
-
         }
         $order->products()->sync($orderProductTableData);
     }
-
-
 }

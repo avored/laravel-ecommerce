@@ -25,8 +25,9 @@
                     </p>
 
                     <?php $attributeText = ""; ?>
-                    @if($product->hasAttributes()) > 0)
-                        @foreach($product['attributes'] as $attribute)
+                    @if(null !== $product->attributes() && count($product->attributes()))
+
+                        @foreach($product->attributes() as $attribute)
                             @if($loop->last)
                                 <?php $attributeText .= $attribute['variation_display_text']; ?>
                             @else
