@@ -51,28 +51,23 @@ class OrderController extends Controller
     }
 
 
-    public function success($id)
+    public function success(Order $order)
     {
-        $order = Order::find($id);
-
-        return view('order.success')
-            ->with('order', $order);
+        return view('order.success')->with('order', $order);
     }
 
     public function myAccountOrderList()
     {
-        $user = Auth::guard()->user();
+        $user   = Auth::guard()->user();
         $orders = Order::whereUserId($user->id)->get();
-        $view = view('order.my-account-order-list')->with('orders', $orders);
+        $view   = view('order.my-account-order-list')->with('orders', $orders);
 
         return $view;
     }
 
-    public function myAccountOrderView($id)
+    public function myAccountOrderView(Order $order)
     {
-        $order = Order::find($id);
         $view = view('order.my-account-order-view')->with('order', $order);
-
         return $view;
     }
 

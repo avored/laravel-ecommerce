@@ -1,7 +1,8 @@
 <div class="card mb-3">
     <div class="card-header">Shopping Cart</div>
     <div class="card-body">
-        <table id="cart_table" class="table table-bordered table-hover table-responsive">
+        <div class="table-responsive">
+        <table id="cart_table" class="table table-bordered table-hover ">
             <thead>
             <tr>
                 <th class="text-left">Product Name</th>
@@ -11,7 +12,9 @@
             </tr>
             </thead>
             <tbody>
-            <?php $subTotal = 0;$totalTax = 0; ?>
+            @php
+                $subTotal = 0;$totalTax = 0;
+            @endphp
             @foreach($cartItems as $cartItem)
                 <tr>
                     <td class="text-left">
@@ -19,21 +22,21 @@
 
                         <br>
                         &nbsp;
-                        <?php $attributeText = ""; ?>
-                        @if($cartItem->hasAttributes()) > 0)
-                        @foreach($cartItem['attributes'] as $attribute)
+
+                        @if(null !== $cartItem->attributes() && count($cartItem->attributes()))
+                        @php
+                            $attributeText = "";
+                        @endphp
+                        @foreach($cartItem->attributes() as $attribute)
                             @if($loop->last)
                                 <?php $attributeText .= $attribute['variation_display_text']; ?>
                             @else
                                 <?php $attributeText .= $attribute['variation_display_text'] . ": "; ?>
                             @endif
                         @endforeach
-
-
-                        <p>Attributes: <span
-                                    class="text-success"><strong>{{ $attributeText}}</strong></span>
-                        </p>
-                        @endif
+                         <p>Attributes: <span
+                                class="text-success"><strong>{{ $attributeText}}</strong></span>
+                    @endif
 
                     </td>
 
@@ -48,9 +51,6 @@
                     $subTotal = $total = 0;
                     $subTotal += $cartItem->price();
                 @endphp
-
-
-
                 <input type="hidden" name="products[]" value="{{ $cartItem->slug() }}"/>
             @endforeach
             </tbody>
@@ -75,5 +75,6 @@
             </tfoot>
 
         </table>
+    </div>
     </div>
 </div>

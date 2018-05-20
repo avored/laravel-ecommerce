@@ -6,7 +6,6 @@ use AvoRed\Framework\Models\Database\Category;
 
 class CategoryViewController extends Controller
 {
-
     /**
      *
      *

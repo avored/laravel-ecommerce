@@ -46,56 +46,37 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::resource('property', 'PropertyController');
         Route::resource('role', 'RoleController');
 
-
-
         Route::get('menu', 'MenuController@index')->name('menu.index');
         Route::post('menu', 'MenuController@store')->name('menu.store');
 
-
-
-
-
         Route::post('product-attribute-panel', 'AttributeController@getAttribute')
                                 ->name('product-attribute.get-attribute');
-
-
-
-
-        Route::get('admin-user-api-show', 'AdminUserController@apiShow')->name('admin-user.show.api');
-
         Route::post('product-image/upload', 'ProductController@uploadImage')->name('product.upload-image');
-
         Route::post('product-image/delete', 'ProductController@deleteImage')->name('product.delete-image');
 
+        Route::get('admin-user-api-show', 'AdminUserController@apiShow')->name('admin-user.show.api');
 
         Route::get('configuration', 'ConfigurationController@index')->name('configuration');
         Route::post('configuration', 'ConfigurationController@store')->name('configuration.store');
 
         Route::get('themes', 'ThemeController@index')->name('theme.index');
-
         Route::get('themes/create', 'ThemeController@create')->name('theme.create');
         Route::post('themes', 'ThemeController@store')->name('theme.store');
-
-
         Route::post('active-themes/{name}', 'ThemeController@activated')->name('theme.activated');
         Route::post('deactive-themes/{name}', 'ThemeController@deactivated')->name('theme.deactivated');
-
         Route::delete('themes/{name}', 'ThemeController@destroy')->name('theme.destroy');
 
-        Route::resource('order-status', 'OrderStatusController');
+        //Route::resource('order-status', 'OrderStatusController');
 
 
         Route::get('order', 'OrderController@index')->name('order.index');
 
         Route::post('get-property-element', 'PropertyController@getElementHtml')->name('property.element');
-
         Route::post('edit-product-variation', 'ProductController@editVariation')->name('variation.edit');
-
         Route::post('get-attribute-element', 'AttributeController@getElementHtml')->name('attribute.element');
 
         Route::get('order/{id}', 'OrderController@view')->name('order.view');
         Route::get('order/{id}/send-email-invoice', 'OrderController@sendEmailInvoice')->name('order.send-email-invoice');
-
         Route::get('order/{id}/change-status', 'OrderController@changeStatus')->name('order.change-status');
         Route::put('order/{id}/update-status', 'OrderController@updateStatus')->name('order.update-status');
     });

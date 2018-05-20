@@ -17,10 +17,8 @@ class AddressController extends Controller
      */
     public function index()
     {
-       
         $user       = Auth::user();
         $addresses  = Address::whereUserId($user->id)->get();
-
         return view('address.my-account.address')
             ->with('user', $user)
             ->with('addresses', $addresses);
@@ -62,17 +60,14 @@ class AddressController extends Controller
     /**
      * Show the form for editing the specified user addresses.
      *
-     * @param int $id
-     *
+     * @param \AvoRed\Ecommerce\Models\Database\Address $address
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Address  $address)
     {
         $user           = Auth::user();
-        $address        = Address::find($id);
         $defaultCountry = Configuration::getConfiguration('user_default_country');
         $countries      = Country::options();
-
 
         return view('address.my-account.edit-address')
             ->with('user', $user)
@@ -85,30 +80,23 @@ class AddressController extends Controller
      * Update the specified user addresses in database.
      *
      * @param \App\Http\Requests\AddressRequest $request
-     * @param int $id
-     *
+     * @param \AvoRed\Ecommerce\Models\Database\Address $address
      * @return \Illuminate\Http\Response
      */
-    public function update(AddressRequest $request, $id)
+    public function update(AddressRequest $request, Address $address)
     {
-        $address = Address::find($id);
         $address->update($request->all());
-
         return redirect()->route('my-account.address.index');
     }
 
     /**
      * Remove the specified user address from database.
      *
-     * @param int $id
-     *
+     * @param AvoRed\Ecommerce\Models\Database\Address $address
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Address $address)
     {
-        Address::destroy($id);
-
-        return redirect()->route('my-account.address.index');
+        //Feature is not Available now.
     }
-
 }

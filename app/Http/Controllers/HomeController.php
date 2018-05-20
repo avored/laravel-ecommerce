@@ -13,16 +13,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $pageModel  = null;
         $pageId     = Configuration::getConfiguration('general_home_page');
 
-
-        if(null !== $pageId) {
+        if (null !== $pageId) {
             $pageModel = Page::find($pageId);
         }
 
         return view('home.index')->with('pageModel', $pageModel);
-
     }
 }

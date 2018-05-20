@@ -49,7 +49,6 @@ class LoginController extends Controller
         if ($url == $checkoutUrl) {
             $this->redirectTo = $checkoutUrl;
         }
-
     }
 
     protected function guard()
@@ -66,7 +65,6 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
@@ -83,7 +81,7 @@ class LoginController extends Controller
         if (!empty($user->activation_token)) {
             return redirect()->route('login')
                 ->withErrors(['email' => 'Please Activate your email', 'enableResendLink' => 'true']);
-                        ;
+            ;
         }
 
         if ($this->attemptLogin($request)) {
@@ -113,9 +111,8 @@ class LoginController extends Controller
      *
      * @return string
      */
-    public function redirectPath() {
-
+    public function redirectPath()
+    {
         return route("my-account.home");
-
     }
 }
