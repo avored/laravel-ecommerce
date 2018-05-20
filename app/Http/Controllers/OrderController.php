@@ -37,7 +37,7 @@ class OrderController extends Controller
 
         $paymentReturn = $payment->process($data, $orderProductData, $request);
 
-        dd($orderProductData);
+    
         //@todo check Response is success of fail.
 
         $order = Order::create($data);
