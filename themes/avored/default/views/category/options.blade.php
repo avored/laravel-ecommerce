@@ -34,6 +34,17 @@
                             $attributeParams = isset($params['attribute']) ? $params['attribute'] : [];
                             $queryParams = $params;
 
+                            $checkedQueryParams = ["attribute[" .$attribute->identifier . "]" => $option->id] + $queryParams; 
+                            $checkedQueryParams['slug'] = $category->slug;
+                            
+                            $uncheckedParams['slug'] = $category->slug;
+                            if(isset($queryParams['attribute'][$attribute->identifier])) {
+                                unset($queryParams['attribute'][$attribute->identifier]);
+                            } else {
+                                $uncheckedParams = ["attribute[" .$attribute->identifier . "]" => $option->id] + $queryParams;
+                            }
+                             
+
                         @endphp
                         <li class="list-group-item">
 
@@ -46,17 +57,14 @@
                                         in_array($option->id, array_values($attributeParams)))
                                    {{ "checked" }}
 
-                                   data-checked-url="{{ route('category.view',
-                                                                ['slug' => $category->slug,"attribute[" .$attribute->identifier . "]" => $option->id] + $queryParams) }}"
-                                   data-unchecked-url="{{ route('category.view',
-                                                                ['slug' => $category->slug] + $queryParams) }}"
+                                   data-checked-url="{{ route('category.view',$checkedQueryParams) }}"
+                                   data-unchecked-url="{{ route('category.view', $uncheckedParams) }}"
 
                                    @else
 
-                                   data-checked-url="{{ route('category.view',
-                                                                    ['slug' => $category->slug,"attribute[" .$attribute->identifier . "]" => $option->id] + $params) }}"
-                                   data-unchecked-url="{{ route('category.view',
-                                                                    ['slug' => $category->slug] + $params) }}"
+                                   data-checked-url="{{ route('category.view',$checkedQueryParams) }}"
+                                   data-unchecked-url="{{ route('category.view', $uncheckedParams) }}"
+
 
                                    @endif
                                    name="attribute[{{ $attribute->identifier }}]" value="{{ $option->id }}">
@@ -74,41 +82,65 @@
                 @php
                     $attribute = $filter->model;
                 @endphp
-                <?php
-                //$params = array_get($params, 'property') ?? [];
-                ?>
+               
 
                 <h4>{{ $attribute->name }}</h4>
                 <ul class="list-group">
 
                     @foreach($attribute->propertyDropdownOptions as $option)
+
+                        @php
+
+                            $attributeParams = isset($params['property']) ? $params['property'] :  [];
+                            $queryParams = $params;
+                            $checked = "";
+
+                            if(in_array($attribute->identifier, array_keys($attributeParams)) &&
+                                        in_array($option->id, array_values($attributeParams))) {
+
+                                $checked = "checked";
+                                $checkedQueryParams['property'][$attribute->identifier] = $option->id;
+                                $checkedQueryParams = $checkedQueryParams + $queryParams; 
+                                
+                                $checkedQueryParams['slug'] = $category->slug;
+
+                                if ($queryParams['property'][$attribute->identifier] == $option->id) {
+                                    unset($queryParams['property'][$attribute->identifier]);
+                                    if(count($queryParams['property']) <= 0) {
+                                        unset($queryParams['property']);
+                                    }
+
+                                }
+                                $uncheckedParams = ['slug' => $category->slug] + $queryParams;
+                                
+                                             
+                            } else {
+
+                                
+                                $checkedQueryParams['property'][$attribute->identifier] = $option->id;
+                                $checkedQueryParams = $checkedQueryParams + $queryParams; 
+                                
+                                $checkedQueryParams['slug'] = $category->slug;
+                                $uncheckedParams = $checkedQueryParams;
+                                                
+                            }
+                            
+
+
+                        @endphp
                         <li class="list-group-item">
                             <input id="variation-{{ $option->id }}"
                                    type="checkbox"
 
                                    class="category-variation-checkbox"
 
-                                   @if(in_array($attribute->identifier, array_keys($params)) &&
-                                        in_array($option->id, array_values($params)))
-                                   {{ "checked" }}
-                                   <?php
-                                   $queryParams = $params;
+                        
+                                   {{ $checked }}
+                                   
+                                   data-checked-url="{{ route('category.view',$checkedQueryParams) }}"
+                                   data-unchecked-url="{{ route('category.view', $uncheckedParams) }}"
 
-                                   unset($queryParams[$attribute->identifier]);
-                                   ?>
-                                   data-checked-url="{{ route('category.view',
-                                                                ['slug' => $category->slug,"property[" .$attribute->identifier . "]" => $option->id] + $queryParams) }}"
-                                   data-unchecked-url="{{ route('category.view',
-                                                                ['slug' => $category->slug] + $queryParams) }}"
-
-                                   @else
-
-                                   data-checked-url="{{ route('category.view',
-                                                                    ['slug' => $category->slug,"property[" .$attribute->identifier . "]" => $option->id] + $params) }}"
-                                   data-unchecked-url="{{ route('category.view',
-                                                                    ['slug' => $category->slug] + $params) }}"
-
-                                   @endif
+                                  
 
                                    name="property[{{ $attribute->identifier }}]" value="{{ $option->id }}">
                             <label for="variation-{{ $option->id }}">
