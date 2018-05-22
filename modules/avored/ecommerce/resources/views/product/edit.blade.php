@@ -14,8 +14,8 @@
         <form id="product-save-form"
               action="{{route('admin.product.update', $model->id)}}"
               enctype="multipart/form-data" method="post">
-            {{ csrf_field() }}
-            <input type="hidden" name="_method" value="put">
+            @csrf
+            @method('put')
 
         <div class="row" id="product-save-accordion" data-children=".product-card">
             <div class="col-12 mb-2 mt-2">

@@ -71,16 +71,15 @@ $attributeOptions = $model->getAttributeOptions();
                                 </a>
                             </td>
                             <td>
-                                <a href="#" onclick="event.preventDefault();
-                                        document.getElementById('product-variation-{{ $variation->variationProduct->id }}').submit();">
+                                <a href="#"
+                                        class="product-variation-delete-link"
+                                        data-csrf="{{ csrf_token() }}"
+                                        data-method="delete"
+                                        data-url="{{ route('admin.product.destroy', $variation->variationProduct->id) }}"
+                                    >
                                     Destroy
                                 </a>
-                                <form id="product-variation-{{ $variation->variationProduct->id }}"
-                                      action="{{ route('admin.product.destroy', $variation->variationProduct->id) }}"
-                                      method="POST" style="display: none;">
-                                    <input type="hidden" name="_method" value="delete">
-                                    {{ csrf_field() }}
-                                </form>
+                               
                             </td>
                         </tr>
                     @endforeach
@@ -103,6 +102,23 @@ $attributeOptions = $model->getAttributeOptions();
         $(function () {
 
 
+            jQuery(document).on('click','.product-variation-delete-link',function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var data = {'_method': jQuery(this).attr('data-method'),'_token' : jQuery(this).attr('data-csrf')};
+                var url = jQuery(this).attr('data-url');
+
+                jQuery.ajax({
+                    type: "POST",
+                    url: url,
+                    data:data,
+                    success: function(response) {
+                        location.reload();
+                    }
+
+                });
+            });
             jQuery(document).on('click', '.edit-variation-link', function (e) {
                 e.preventDefault();
                 e.stopPropagation();

@@ -97,10 +97,11 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse|\Exception
      */
-    public function update(ProductRequest $request, $id)
+    public function update(ProductRequest $request, ProductModel $product)
     {
+    
         try {
-            $product = ProductModel::findorfail($id);
+            //$product = ProductModel::findorfail($id);
             $product->saveProduct($request->all());
         } catch (\Exception $e) {
             throw new \Exception('Error in Saving Product: '.$e->getMessage());
