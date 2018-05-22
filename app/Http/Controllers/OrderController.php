@@ -13,7 +13,7 @@ use AvoRed\Framework\Models\Database\OrderStatus;
 use AvoRed\Framework\Models\Database\Order;
 use AvoRed\Ecommerce\Models\Database\User;
 use AvoRed\Ecommerce\Models\Database\Address;
-use AvoRed\Framework\Models\Database\ProductVariation;
+use AvoRed\Framework\Models\Database\OrderProductVariation;
 
 class OrderController extends Controller
 {
@@ -149,8 +149,9 @@ class OrderController extends Controller
         $orderProductTableData = [];
 
         foreach ($orderProducts as $orderProduct) {
-            if ($orderProduct->hasAttributes()) {
-                foreach ($orderProduct['attributes'] as $attribute) {
+    
+            if (count($orderProduct->attributes()) >= 0) {
+                foreach ($orderProduct->attributes() as $attribute) {
                     $product = Product::whereSlug($orderProduct->slug())->first();
                     $data = ['order_id' => $order->id,
                         'product_id' => $product->id,
@@ -158,7 +159,10 @@ class OrderController extends Controller
                         'attribute_id' => $attribute['attribute_id'],
                     ];
 
-                    ProductVariation::create($data);
+                    OrderProductVariation::create($data);
+
+                    $productVariationModel = Product::find($attribute['variation_id']);
+                    $productVariationModel->update(['qty' => ($productVariationModel->qty - $orderProduct->qty())]);
                 }
             } else {
                 $product = Product::whereSlug($orderProduct->slug())->first();
