@@ -30,7 +30,7 @@ class User extends Authenticatable
 
     public function getFullNameAttribute()
     {
-        return $this->attributes['first_name'].' '.$this->attributes['last_name'];
+        return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
 
     public function getImagePathAttribute()
@@ -41,11 +41,6 @@ class User extends Authenticatable
     public function addresses()
     {
         return $this->hasMany(Address::class);
-    }
-
-    public function userViewedProducts()
-    {
-        return $this->hasMany(UserViewedProduct::class);
     }
 
     public function getShippingAddress()
