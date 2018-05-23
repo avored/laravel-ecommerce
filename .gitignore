@@ -1,3 +1,6 @@
+# Ignore swp files from vim
+*.swp
+
 # Laravel 5 Specific
 /node_modules
 /public/hot
