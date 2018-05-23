@@ -1,27 +1,27 @@
 <?php
-namespace App\Http\Controllers;
+
+namespace App\Http\Controllers\User;
 
 use Illuminate\Support\Facades\Auth;
 use AvoRed\Framework\Models\Database\Product;
 use AvoRed\Ecommerce\Models\Database\Wishlist;
+use App\Http\Controllers\Controller;
 
 class WishlistController extends Controller
 {
-
     /**
      * @param string $slug
      * @return \Illuminate\Http\RedirectResponse
      */
     public function add($slug)
     {
-
         $product = Product::whereSlug($slug)->first();
         Wishlist::create([
             'user_id' => Auth::user()->id,
             'product_id' => $product->id,
         ]);
 
-        return redirect()->back()->with('notificationText', "Product Added into your Wishlist Successfully!!");
+        return redirect()->back()->with('notificationText', 'Product Added into your Wishlist Successfully!!');
     }
 
     /**
@@ -50,5 +50,4 @@ class WishlistController extends Controller
 
         return redirect()->back()->with('notificationText', 'Product Removed from your Wishlist Successfully!!');
     }
-
 }

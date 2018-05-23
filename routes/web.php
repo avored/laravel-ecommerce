@@ -24,18 +24,18 @@ Route::get('cart/destroy/{id}', 'CartController@destroy')->name('cart.destroy');
 
 Route::get('checkout', 'CheckoutController@index')->name('checkout.index');
 
-Route::get('login', 'LoginController@showLoginForm')->name('login');
-Route::post('login', 'LoginController@login')->name('login.post');
-Route::get('logout', 'LoginController@logout')->name('logout');
-Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset.token');
-Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset.token');
-Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('register', 'RegisterController@showRegistrationForm')->name('register');
-Route::post('register', 'RegisterController@register')->name('register.post');
-Route::get('user-activation/{token}/{email}', 'UserActivationController@activateAccount')->name('user.activation');
-Route::get('user/resend', 'UserActivationController@resend')->name('user.activation.resend');
-Route::post('user/resend', 'UserActivationController@resendPost')->name('user.activation.resend.post');
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login.post');
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset.token');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.reset.token');
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register')->name('register.post');
+Route::get('user-activation/{token}/{email}', 'Auth\UserActivationController@activateAccount')->name('user.activation');
+Route::get('user/resend', 'Auth\UserActivationController@resend')->name('user.activation.resend');
+Route::post('user/resend', 'Auth\UserActivationController@resendPost')->name('user.activation.resend.post');
 
 Route::get('order', 'OrderController@index')->name('order.index');
 Route::post('order', 'OrderController@place')->name('order.place');
@@ -45,21 +45,22 @@ Route::get('page/{slug}', 'PageController@show')->name('page.show');
 
 Route::middleware('auth')
     ->prefix('my-account')
+    ->name('my-account.')
     ->group(function () {
-        Route::get('', 'MyAccountController@home')->name('my-account.home');
-        Route::get('edit', 'MyAccountController@edit')->name('my-account.edit');
-        Route::post('edit', 'MyAccountController@store')->name('my-account.store');
-        Route::get('upload-image', 'MyAccountController@uploadImage')->name('my-account.upload-image');
-        Route::post('upload-image', 'MyAccountController@uploadImagePost')->name('my-account.upload-image.post');
-        Route::get('change-password', 'MyAccountController@changePassword')->name('my-account.change-password');
-        Route::post('change-password', 'MyAccountController@changePasswordPost')->name('my-account.change-password.post');
+        Route::get('', 'User\MyAccountController@home')->name('home');
+        Route::get('edit', 'User\MyAccountController@edit')->name('edit');
+        Route::post('edit', 'User\MyAccountController@store')->name('store');
+        Route::get('upload-image', 'User\MyAccountController@uploadImage')->name('upload-image');
+        Route::post('upload-image', 'User\MyAccountController@uploadImagePost')->name('upload-image.post');
+        Route::get('change-password', 'User\MyAccountController@changePassword')->name('change-password');
+        Route::post('change-password', 'User\MyAccountController@changePasswordPost')->name('change-password.post');
 
-        Route::resource('address', 'AddressController', ['as' => 'my-account']);
+        Route::resource('address', 'User\AddressController');
 
-        Route::get('order/list', 'OrderController@myAccountOrderList')->name('my-account.order.list');
+        Route::get('order/list', 'OrderController@myAccountOrderList')->name('order.list');
         Route::get('order/{order}/view', 'OrderController@myAccountOrderView')->name('my-account.order.view');
 
-        Route::get('wishlist/add/{slug}', 'WishlistController@add')->name('wishlist.add');
-        Route::get('wishlist', 'WishlistController@mylist')->name('wishlist.list');
-        Route::get('wishlist/remove/{slug}', 'WishlistController@destroy')->name('wishlist.remove');
+        Route::get('wishlist/add/{slug}', 'User\WishlistController@add')->name('wishlist.add');
+        Route::get('wishlist', 'User\WishlistController@mylist')->name('wishlist.list');
+        Route::get('wishlist/remove/{slug}', 'User\WishlistController@destroy')->name('wishlist.remove');
     });

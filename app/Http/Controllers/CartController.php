@@ -32,12 +32,12 @@ class CartController extends Controller
 
         Cart::add($slug, $qty, $attribute);
 
-        $productModel   = ProductModel::whereSlug($slug)->first();
-        $isTaxEnabled   = Configuration::getConfiguration('tax_enabled');
+        $productModel = ProductModel::whereSlug($slug)->first();
+        $isTaxEnabled = Configuration::getConfiguration('tax_enabled');
 
         if ($isTaxEnabled && $productModel->is_taxable) {
             $percentage = Configuration::getConfiguration('tax_percentage');
-            $taxAmount = ($percentage * $productModel->price / 100);
+            $taxAmount  = ($percentage * $productModel->price / 100);
 
             Cart::hasTax(true);
             Cart::updateProductTax($slug, $taxAmount);
@@ -57,7 +57,7 @@ class CartController extends Controller
     public function update(Request $request)
     {
         $slug = $request->get('slug');
-        $qty  = $request->get('qty', 1);
+        $qty = $request->get('qty', 1);
         if (!Cart::canAddToCart($slug, $qty)) {
             return redirect()->back()->with('errorNotificationText', 'Not Enough Qty Available. Please with less qty or Contact site Administrator!');
         }
@@ -70,6 +70,6 @@ class CartController extends Controller
     public function destroy($slug)
     {
         Cart::destroy($slug);
-        return redirect()->back();
+        return redirect()->back()->with('notificationText', 'Product has been remove from Cart!');
     }
 }

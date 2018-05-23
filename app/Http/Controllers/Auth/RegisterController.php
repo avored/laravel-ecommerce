@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use AvoRed\Framework\Models\Database\Configuration;
 use AvoRed\Ecommerce\Models\Database\User;
@@ -13,6 +13,7 @@ use AvoRed\Ecommerce\Events\UserRegisteredEvent;
 use AvoRed\Ecommerce\Mail\NewUserMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 
 class RegisterController extends Controller
 {

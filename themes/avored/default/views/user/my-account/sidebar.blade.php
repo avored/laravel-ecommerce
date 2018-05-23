@@ -32,7 +32,7 @@
             <a href="{{ route('my-account.address.index') }}" class="list-group-item list-group-item-action">
 
                 Address </a>
-            <a href="{{ route('wishlist.list') }}" class="list-group-item list-group-item-action">
+            <a href="{{ route('my-account.wishlist.list') }}" class="list-group-item list-group-item-action">
 
                 My Wishlist</a>
             <a href="{{ route('my-account.change-password') }}" class="list-group-item list-group-item-action">

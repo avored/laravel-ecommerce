@@ -1,19 +1,18 @@
 <?php
-namespace App\Http\Controllers;
 
+namespace App\Http\Controllers\User;
 
 use AvoRed\Ecommerce\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UploadUserImageRequest;
 use App\Http\Requests\UserProfileRequest;
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use AvoRed\Framework\Image\Facade as Image;
 use Illuminate\Support\Facades\File;
+use App\Http\Controllers\Controller;
 
 class MyAccountController extends Controller
 {
-
     public function home()
     {
         $user = Auth::user();
@@ -58,7 +57,6 @@ class MyAccountController extends Controller
      */
     public function uploadImagePost(UploadUserImageRequest $request)
     {
-
         $user = Auth::user();
 
         $image = $request->file('profile_image');
@@ -69,7 +67,6 @@ class MyAccountController extends Controller
 
         $relativePath = 'uploads/users/' . $user->id;
         $path = $relativePath;
-
 
         $dbPath = $relativePath . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
 

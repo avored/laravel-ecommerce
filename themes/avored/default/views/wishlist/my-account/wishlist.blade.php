@@ -51,7 +51,7 @@
                                     </td>
                                     <td>
                                         <a class="btn btn-danger"
-                                           href="{{ route('wishlist.remove', $wishlist->product->slug ) }}">Remove from
+                                           href="{{ route('my-account.wishlist.remove', $wishlist->product->slug ) }}">Remove from
                                             Wishlist</a>
                                     </td>
                                 </tr>
