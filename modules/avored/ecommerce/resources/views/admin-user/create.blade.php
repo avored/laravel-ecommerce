@@ -11,11 +11,9 @@
                 <div class="card-body">
 
                     <form action="{{ route('admin.admin-user.store') }}" method="post">
-                        {{ csrf_field() }}
+                        @csrf
 
-                        @include('avored-ecommerce::admin-user._fields',
-                                    ['editMethod' => false,'roles' => $roles]
-                                    )
+                        @include('avored-ecommerce::admin-user._fields')
 
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">

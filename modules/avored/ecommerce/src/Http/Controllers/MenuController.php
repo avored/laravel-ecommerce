@@ -18,9 +18,9 @@ class MenuController extends Controller
     public function index()
     {
         $frontMenus = MenuFacade::all();
-
         $categories = Category::all();
-        $menus = Menu::whereParentId(null)->orWhere('parent_id','=',0)->get();
+        $menus      = Menu::whereParentId(null)->orWhere('parent_id','=',0)->get();
+
         return view('avored-ecommerce::menu.index')
                     ->with('categories', $categories)
                     ->with('frontMenus', $frontMenus)
@@ -35,9 +35,7 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $menuJson = $request->get('menu_json');
-
         $menuArray = json_decode($menuJson);
-
         Menu::truncate();
 
         foreach ($menuArray as $menus) {
@@ -51,7 +49,6 @@ class MenuController extends Controller
     private function _saveMenu($menus, $parentId = null) {
 
             foreach ($menus as $menu) {
-
 
                 $menuModel = Menu::create(['name' => $menu->name,
                                             'route' => $menu->route,

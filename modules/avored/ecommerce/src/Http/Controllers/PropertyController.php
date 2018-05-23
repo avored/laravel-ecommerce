@@ -53,11 +53,11 @@ class PropertyController extends Controller
     /**
      * Show the form for editing the specified property.
      *
-     * @param int $id
+     * @param \AvoRed\Framework\Models\Database\Property $property
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Model $property)
     {
         $property = Model::findorfail($id);
 
@@ -68,11 +68,11 @@ class PropertyController extends Controller
      * Update the specified property in database.
      *
      * @param \AvoRed\Ecommerce\Http\Requests\PropertyRequest $request
-     * @param int $id
+     * @param \AvoRed\Framework\Models\Database\Property $property
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(PropertyRequest $request, $id)
+    public function update(PropertyRequest $request, Model $property)
     {
         $property = Model::find($id);
         $property->update($request->all());
@@ -85,11 +85,11 @@ class PropertyController extends Controller
     /**
      * Remove the specified property from storage.
      *
-     * @param int $id
+     * @param \AvoRed\Framework\Models\Database\Property $property
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Model $property)
     {
         Model::destroy($id);
 
@@ -116,6 +116,14 @@ class PropertyController extends Controller
         return $json;
     }
 
+    /**
+     * Save Property Dropdown Field options
+     *
+     * @param \AvoRed\Framework\Models\Database\Property $proerty
+     * @param \AvoRed\Ecommerce\Http\Request\PropertyRequest $request
+     * 
+     * @return void
+     */
     private function _saveDropdownOptions($property, $request)
     {
         if (null !== $request->get('dropdown-options')) {

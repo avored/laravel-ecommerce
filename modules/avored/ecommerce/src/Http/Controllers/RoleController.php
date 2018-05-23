@@ -55,14 +55,12 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param \AvoRed\Ecommerce\Models\Database\Role $role
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Model $role)
     {
-        $role = Model::findorfail($id);
-
         return view('avored-ecommerce::role.edit')
             ->with('model', $role);
     }
@@ -71,14 +69,13 @@ class RoleController extends Controller
      * Update the specified resource in storage.
      *
      * @param \AvoRed\Ecommerce\Http\Requests\RoleRequst $request
-     * @param int $id
+     * @param \AvoRed\Ecommerce\Models\Database\Role $role
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(RoleRequst $request, $id)
+    public function update(RoleRequst $request, Model $role)
     {
         try {
-            $role = Model::findorfail($id);
             $role->update($request->all());
             $this->_saveRolePermissions($request, $role);
         } catch (\Exception $e) {
@@ -91,16 +88,24 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param \AvoRed\Ecommerce\Models\Database\Role $role
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Model $role)
     {
-        Model::destroy($id);
+        $role->delete();
         return redirect()->route('admin.role.index')->with('notificationText', ' Role Destroy Successfully!');
     }
 
+    /**
+     * Save Role Permission for the Users
+     *
+     * @param \AvoRed\Ecommerce\Http\Requests\RoleRequst $request
+     * @param \AvoRed\Ecommerce\Models\Database\Role $rolet
+     *
+     * @return void
+     */
     private function _saveRolePermissions($request, $role)
     {
         $permissionIds = [];
@@ -123,7 +128,5 @@ class RoleController extends Controller
         }
         $ids = array_unique($permissionIds);
         $role->permissions()->sync($ids);
-
-        return $this;
     }
 }

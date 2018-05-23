@@ -13,7 +13,7 @@
                 <div class="dropdown-menu">
 
                     <a class="dropdown-item"
-                       href="{{ route('admin.admin-user.show', Auth::guard('admin')->user()->id) }}">
+                       href="{{ route('admin.admin-user.show') }}">
                         <i class="fas fa-user-circle"></i>
                         My Account
                     </a>

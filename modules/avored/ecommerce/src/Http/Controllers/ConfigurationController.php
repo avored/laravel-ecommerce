@@ -34,6 +34,7 @@ class ConfigurationController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
         foreach ($request->except(['_token', '_method']) as $key => $value) {
             $configuration = Model::getConfiguration($key);
 

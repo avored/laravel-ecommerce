@@ -12,8 +12,6 @@ use AvoRed\Ecommerce\Http\Requests\AdminUserRequest;
 
 class AdminUserController extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      *
@@ -33,12 +31,7 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-
-        $roles = Role::options();
-
-        return view('avored-ecommerce::admin-user.create')
-            ->with('roles', $roles)
-            ->with('editMethod', true);
+        return view('avored-ecommerce::admin-user.create');
     }
 
     /**
@@ -60,19 +53,14 @@ class AdminUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param \AvoRed\Ecommerce\Models\Database\AdminUser $id
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Model $adminUser)
     {
-        $user = Model::find($id);
-        $roles = Role::options();
-
         return view('avored-ecommerce::admin-user.edit')
-                                ->with('model', $user)
-                                ->with('roles', $roles)
-                                ->with('editMethod', true);
+                    ->with('model', $adminUser);
     }
 
     /**
@@ -83,17 +71,16 @@ class AdminUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(AdminUserRequest $request, $id)
-    {
-        $user = Model::find($id);
+    public function update(AdminUserRequest $request, Model $adminUser)
+    {  
         $path = $this->_getUserImageRelativePath();
+        
         if(null !== $request->file('image')) {
             $image = Image::upload($request->file('image'), $path);
             $request->merge(['image_path' => $image->relativePath]);
         }
-        
 
-        $user->update($request->all());
+        $adminUser->update($request->all());
 
         return redirect()->route('admin.admin-user.index');
     }
@@ -105,9 +92,9 @@ class AdminUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Model $adminUser)
     {
-        Model::destroy($id);
+        $adminUser->delete();
 
         return redirect()->route('admin.admin-user.index');
     }
@@ -125,7 +112,7 @@ class AdminUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
         $user = Auth::guard('admin')->user();
 
