@@ -52,13 +52,12 @@ class PageController extends Controller
     /**
      * Show the form for editing the specified page.
      *
-     * @param int $id
+     * @param \AvoRed\Ecommerce\Models\Database\Page $page
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Model $page)
     {
-        $page = Model::find($id);
         $widgetOptions = Widget::allOptions();
 
         return view('avored-ecommerce::page.edit')
@@ -70,15 +69,13 @@ class PageController extends Controller
      * Update the specified page in database.
      *
      * @param \AvoRed\Ecommerce\Http\Requests\PageRequest $request
-     * @param int $id
+     * @param \AvoRed\Ecommerce\Models\Database\Page $page
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(PageRequest $request, $id)
+    public function update(PageRequest $request, Model $page)
     {
-        $page = Model::find($id);
         $page->update($request->all());
-
         return redirect()->route('admin.page.index');
     }
 
@@ -87,12 +84,11 @@ class PageController extends Controller
      *
      * @param int $id
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Model $page)
     {
-        Model::destroy($id);
-
+        $page->delete();
         return redirect()->route('admin.page.index');
     }
 }

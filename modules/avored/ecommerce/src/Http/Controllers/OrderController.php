@@ -16,6 +16,11 @@ use AvoRed\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
 class OrderController extends Controller
 {
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $orderGrid = new OrderGrid(Model::query()->orderBy('id', 'desc'));
@@ -23,18 +28,26 @@ class OrderController extends Controller
         return view('avored-ecommerce::order.index')->with('dataGrid', $orderGrid->dataGrid);
     }
 
-    public function view($id)
+    /**
+     * View an Order Details 
+     * @param \AvoRed\Ecommerce\Models\Database\Order $order
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function view(Model $order)
     {
-        $order  = Model::find($id);
-        
         return view('avored-ecommerce::order.view')->with('order', $order);
     }
 
-    public function sendEmailInvoice($id)
+    /**
+     * Send an Order Invioced PDF to User
+     * @param \AvoRed\Ecommerce\Models\Database\Order $order
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function sendEmailInvoice(Model $order)
     {
-        $order  = Model::find($id);
         $user   = $order->user;
-
         $view = view('avored-ecommerce::mail.order-pdf')->with('order', $order);
 
         $folderPath = public_path('uploads/order/invoice');
@@ -49,10 +62,14 @@ class OrderController extends Controller
         return redirect()->back()->with('notificationText', 'Email Sent Successfully!!');
     }
 
-    public function changeStatus($id)
+    /**
+     * Edit the Order Status View
+     * @param \AvoRed\Ecommerce\Models\Database\Order $order
+     * 
+     * @return \Illuminate\Http\Response
+     */
+    public function editStatus(Model $order)
     {
-        $order = Model::find($id);
-
         $orderStatus = OrderStatus::all()->pluck('name', 'id');
 
         $view = view('avored-ecommerce::order.view')
@@ -63,7 +80,13 @@ class OrderController extends Controller
         return $view;
     }
 
-    public function updateStatus($id, UpdateOrderStatusRequest $request)
+     /**
+     * Change the Order Status
+     * @param \AvoRed\Ecommerce\Models\Database\Order $order
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function updateStatus(Model $order, UpdateOrderStatusRequest $request)
     {
         $order = Model::find($id);
         $order->update($request->all());

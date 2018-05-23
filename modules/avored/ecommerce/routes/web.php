@@ -76,8 +76,8 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::post('edit-product-variation', 'ProductController@editVariation')->name('variation.edit');
         Route::post('get-attribute-element', 'AttributeController@getElementHtml')->name('attribute.element');
 
-        Route::get('order/{id}', 'OrderController@view')->name('order.view');
-        Route::get('order/{id}/send-email-invoice', 'OrderController@sendEmailInvoice')->name('order.send-email-invoice');
-        Route::get('order/{id}/change-status', 'OrderController@changeStatus')->name('order.change-status');
-        Route::put('order/{id}/update-status', 'OrderController@updateStatus')->name('order.update-status');
+        Route::get('order/{order}', 'OrderController@view')->name('order.view');
+        Route::get('order/{order}/send-email-invoice', 'OrderController@sendEmailInvoice')->name('order.send-email-invoice');
+        Route::get('order/{order}/change-status', 'OrderController@editStatus')->name('order.change-status');
+        Route::put('order/{order}/update-status', 'OrderController@updateStatus')->name('order.update-status');
     });
