@@ -2,36 +2,43 @@
 
 namespace AvoRed\Ecommerce;
 
+use Illuminate\Support\ServiceProvider;
+
 use AvoRed\Ecommerce\Models\Database\Country;
 use AvoRed\Ecommerce\Models\Database\Page;
 use Carbon\Carbon;
 use Laravel\Passport\Passport;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
-use AvoRed\Framework\AdminMenu\AdminMenu;
 use Laravel\Passport\Console\KeysCommand;
 use AvoRed\Ecommerce\Shipping\FreeShipping;
 use Laravel\Passport\Console\ClientCommand;
 use Laravel\Passport\Console\InstallCommand;
+
 use AvoRed\Ecommerce\Http\Middleware\AdminAuth;
 use AvoRed\Ecommerce\Http\Middleware\Permission;
 use AvoRed\Ecommerce\Http\Middleware\AdminApiAuth;
+use AvoRed\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Blade;
 use AvoRed\Framework\Widget\Facade as WidgetFacade;
 use AvoRed\Framework\Payment\Facade as PaymentFacade;
 use AvoRed\Framework\Shipping\Facade as ShippingFacade;
-use AvoRed\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
-use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
 use AvoRed\Framework\AdminMenu\Facade as AdminMenuFacade;
 use AvoRed\Framework\Breadcrumb\Facade as BreadcrumbFacade;
 use AvoRed\Framework\Permission\Facade as PermissionFacade;
+use AvoRed\Framework\AdminConfiguration\Facade as AdminConfigurationFacade;
+
 use AvoRed\Ecommerce\Payment\Stripe\Payment as StripePayment;
-use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
-use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
+use AvoRed\Framework\AdminMenu\AdminMenu;
 use AvoRed\Ecommerce\Widget\TotalUser\Widget as TotalUserWidget;
 use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
-use AvoRed\Framework\AdminConfiguration\Facade as AdminConfigurationFacade;
+
+
+use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\AdminUserFieldsComposer;
 
 class Provider extends ServiceProvider
 {
@@ -105,6 +112,7 @@ class Provider extends ServiceProvider
     {
         View::composer('avored-ecommerce::layouts.left-nav', AdminNavComposer::class);
         View::composer(['avored-ecommerce::category._fields'], CategoryFieldsComposer::class);
+        View::composer(['avored-ecommerce::admin-user._fields'], AdminUserFieldsComposer::class);
         View::composer(['avored-ecommerce::product.create',
                         'avored-ecommerce::product.edit',
                         ], ProductFieldsComposer::class);
@@ -269,7 +277,7 @@ class Provider extends ServiceProvider
         $configurationGroup->addConfiguration('general_term_condition_page')
             ->label('Term & Condition Page')
             ->type('select')
-            ->name('general_administrator_email')
+            ->name('general_term_condition_page')
             ->options(function () {
                 $options = Page::all()->pluck('name', 'id');
                 return $options;

@@ -9,11 +9,13 @@
                     {{ __('avored-ecommerce::user.admin-user-update') }}
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.admin-user.update', $model->id) }}" enctype="multipart/form-data" method="post">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="_method" value="put">
+                    <form action="{{ route('admin.admin-user.update', $model->id) }}" 
+                        enctype="multipart/form-data" 
+                        method="post">
+                        @csrf()
+                        @method('put')
 
-                        @include('avored-ecommerce::admin-user._fields',['editMethod' => true,'roles' => $roles])
+                        @include('avored-ecommerce::admin-user._fields')
 
                         <div class="form-group">
                             <button class="btn btn-primary" type="submit">

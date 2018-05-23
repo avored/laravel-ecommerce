@@ -38,7 +38,7 @@ Route::middleware(['web', 'admin.auth', 'permission'])
     ->group(function () {
         Route::get('', 'DashboardController@index')->name('dashboard');
 
-        Route::resource('admin-user', 'AdminUserController');
+        Route::resource('admin-user', 'AdminUserController')->except('show');
         Route::resource('attribute', 'AttributeController');
         Route::resource('category', 'CategoryController');
         Route::resource('page', 'PageController');
@@ -54,6 +54,7 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::post('product-image/upload', 'ProductController@uploadImage')->name('product.upload-image');
         Route::post('product-image/delete', 'ProductController@deleteImage')->name('product.delete-image');
 
+        Route::get('admin-user/view', 'AdminUserController@show')->name('admin-user.show');
         Route::get('admin-user-api-show', 'AdminUserController@apiShow')->name('admin-user.show.api');
 
         Route::get('configuration', 'ConfigurationController@index')->name('configuration');

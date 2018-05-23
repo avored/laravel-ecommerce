@@ -8,8 +8,6 @@ use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
-
-
     /**
      * Display a listing of the Category.
      *
@@ -49,13 +47,11 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param \AvoRed\Framework\Models\Database\Category $category
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Model $category)
     {
-        $category = Model::find($id);
-
         return view('avored-ecommerce::category.edit')->with('model', $category);
     }
 
@@ -63,13 +59,12 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param \AvoRed\Ecommerce\Http\Requests\CategoryRequest $request
-     * @param int $id
+     * @param \AvoRed\Framework\Models\Database\Category $category
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, $id)
+    public function update(CategoryRequest $request, Model $category)
     {
-        $category = Model::find($id);
         $category->update($request->all());
 
         return redirect()->route('admin.category.index');
@@ -78,14 +73,12 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param \AvoRed\Framework\Models\Database\Category $category
      *
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Model $category)
     {
-        $category = Model::find($id);
-
         foreach ($category->children as $child) {
             $child->parent_id = 0;
             $child->update();

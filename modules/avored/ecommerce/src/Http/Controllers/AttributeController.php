@@ -11,6 +11,11 @@ use AvoRed\Ecommerce\Http\Requests\AttributeRequest;
 class AttributeController extends Controller
 {
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $attributeGrid = new Attribute(Model::query());
@@ -18,11 +23,21 @@ class AttributeController extends Controller
         return view('avored-ecommerce::attribute.index')->with('dataGrid', $attributeGrid->dataGrid);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         return view('avored-ecommerce::attribute.create');
     }
 
+    /**
+     * @param \AvoRed\Ecommerce\Http\Requests\AttributeRequest $request
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(AttributeRequest $request)
     {
         $attribute = Model::create($request->all());
@@ -31,34 +46,40 @@ class AttributeController extends Controller
         return redirect()->route('admin.attribute.index');
     }
 
-    public function edit($id)
+    /**
+     * @param \AvoRed\Framework\Models\Database\Attribute $attribute
+     * 
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function edit(Model $attribute)
     {
-        $attribute = Model::find($id);
-
         return view('avored-ecommerce::attribute.edit')->with('model', $attribute);
     }
 
-    public function update(AttributeRequest $request, $id)
+    public function update(AttributeRequest $request, Model $attribut)
     {
-        $attribute = Model::find($id);
         $attribute->update($request->all());
-
         $this->_saveDropdownOptions($attribute, $request);
 
         return redirect()->route('admin.attribute.index');
     }
 
     /**
-     * @param $id
+     * @param \AvoRed\Framework\Models\Database\Attribute $attribute
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(Model $attribute)
     {
-        Model::destroy($id);
-
+        $attribute->delete();
         return redirect()->route('admin.attribute.index');
     }
 
+    /**
+     * Get an attribute for Product Variation Modal.
+     * 
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
     public function getAttribute(Request $request)
     {
         $attribute = Model::find($request->get('id'));
@@ -96,9 +117,13 @@ class AttributeController extends Controller
     private function _saveDropdownOptions($attribute, $request)
     {
         if (null !== $request->get('dropdown-options')) {
-            if (null != $attribute->attributeDropdownOptions()->get() && $attribute->attributeDropdownOptions()->get()->count() >= 0) {
+            if (null != $attribute->attributeDropdownOptions()->get() && 
+                $attribute->attributeDropdownOptions()->get()->count() >= 0
+                ) {
+
                 $attribute->attributeDropdownOptions()->delete();
             }
+
             foreach ($request->get('dropdown-options') as $key => $val) {
                 if ($key == '__RANDOM_STRING__') {
                     continue;

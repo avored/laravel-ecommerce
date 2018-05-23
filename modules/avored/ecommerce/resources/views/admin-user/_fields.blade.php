@@ -7,7 +7,7 @@
 @include('avored-ecommerce::forms.file',['name' => 'image','label' => __('avored-ecommerce::user.file')])
 
 
-@if($editMethod == true)
+@if(isset($model) && $model->email != "")
     <?php $attributes = ['disabled' => true,'class' => 'form-control','id' => 'email'];?>
 @else
     <?php $attributes = ['class' => 'form-control','id' => 'email']; ?>
@@ -15,9 +15,7 @@
 
 @include('avored-ecommerce::forms.text',['name' => 'email','label' => __('avored-ecommerce::user.email'),'attributes' => $attributes])
 
-
-
-@if($editMethod == false)
+@if(isset($model) && $model->email != "")
 
     @include('avored-ecommerce::forms.password',['name' => 'password','label' => __('avored-ecommerce::user.password')])
     @include('avored-ecommerce::forms.password',['name' => 'password_confirmation','label' => __('avored-ecommerce::user.confirm-password')])
