@@ -126,6 +126,10 @@
                 drag: true,
                 drop: false
             });
+            
+            let data = frontMenu.sortable("serialize").get();
+            let current_menu = JSON.stringify(data, null, ' ');
+            jQuery('#menu-list').val(current_menu);
 
 
         });
