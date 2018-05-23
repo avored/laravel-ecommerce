@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use AvoRed\Framework\Models\Database\Configuration;
@@ -35,7 +36,6 @@ class RegisterController extends Controller
      */
     protected $redirectTo = '/my-account';
 
-
     /**
      * Create a new controller instance.
      *
@@ -44,8 +44,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('front.guest');
-
+        $this->middleware('guest');
     }
 
     /**
@@ -74,12 +73,11 @@ class RegisterController extends Controller
      */
     public function register(Request $request)
     {
-
         $this->validator($request->all())->validate();
 
         $userActivationRequired = Configuration::getConfiguration('user_activation_required');
 
-        if(1 == $userActivationRequired) {
+        if (1 == $userActivationRequired) {
             $request->merge(['activation_token' => Str::random(60)]);
         }
 
@@ -90,35 +88,30 @@ class RegisterController extends Controller
 
         Mail::to($user)->send(new NewUserMail($user));
 
-        if(0 == $userActivationRequired) {
+        if (0 == $userActivationRequired) {
             $this->guard()->login($user);
             return redirect($this->redirectPath());
         } else {
             return redirect()->route('login')
-                            ->with('notificationText','Please Active your account then you can login!');
+                            ->with('notificationText', 'Please Active your account then you can login!');
         }
     }
 
     public function activateAccount($token, $email)
     {
-
         $user = User::whereEmail($email)->first();
 
-        if($token == $user->activation_token) {
-
+        if ($token == $user->activation_token) {
             $user->update(['activation_token' => null]);
             Auth::loginUsingId($user->id);
             return redirect()->route('my-account.home');
         }
 
         return redirect()->route('login')->withErrors(['email' => 'User Activation token is invalid.']);
-
     }
-
 
     protected function guard()
     {
         return Auth::guard('web');
     }
-
 }

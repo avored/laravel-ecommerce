@@ -43,7 +43,7 @@ Route::get('order/success/{order}', 'OrderController@success')->name('order.succ
 
 Route::get('page/{slug}', 'PageController@show')->name('page.show');
 
-Route::middleware('front.auth')
+Route::middleware('auth')
     ->prefix('my-account')
     ->group(function () {
         Route::get('', 'MyAccountController@home')->name('my-account.home');

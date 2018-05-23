@@ -30,18 +30,16 @@ class LoginController extends Controller
      */
     protected $redirectTo = '/my-account';
 
-
     /**
      * Admin User Controller constructor.
      *
      * @return void
      */
-
     public function __construct()
     {
         parent::__construct();
 
-        $this->middleware('front.guest', ['except' => 'logout']);
+        $this->middleware('guest', ['except' => 'logout']);
 
         $url = URL::previous();
         $checkoutUrl = route('checkout.index');
@@ -55,7 +53,6 @@ class LoginController extends Controller
     {
         return Auth::guard('web');
     }
-
 
     /**
      * Handle a login request to the application.
@@ -113,6 +110,6 @@ class LoginController extends Controller
      */
     public function redirectPath()
     {
-        return route("my-account.home");
+        return route('my-account.home');
     }
 }
