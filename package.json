@@ -8,7 +8,8 @@
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "avored:admin": "npm run production -- --env.mixfile=avored.admin.webpack.mix"
+    "avored:admin": "npm run production -- --env.mixfile=avored.admin.webpack.mix",
+    "postinstall": "opencollective postinstall"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free-webfonts": "^1.0.6",
@@ -27,5 +28,12 @@
     "popper.js": "^1.14.3",
     "select2": "^4.0.6-rc.1",
     "summernote": "^0.8.10"
+  },
+  "dependencies": {
+    "opencollective": "^1.0.3"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/laravel-ecommerce"
   }
 }
