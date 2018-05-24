@@ -1,6 +1,8 @@
 # AvoRed E Commerce is an Laravel Open Source Shopping Cart
 
 [![Total Downloads](https://poser.pugx.org/avored/framework/downloads)](https://packagist.org/packages/avored/framework)
+[![Backers](https://opencollective.com/laravel-ecommerce/backers/badge.svg)](#backers) 
+[![Sponsors](https://opencollective.com/laravel-ecommerce/sponsors/badge.svg)](#sponsors)
 
 [AvoRed Laravel E Commerce Official](https://www.avored.com/)
 
@@ -41,4 +43,21 @@ AvoRed E commerce is in active development and If you want to contribute in this
 
 If you find any bug or problem please submit here [AvoRed Ecommerce Forum](http://avored.website/forum/) or [raise the issue here](https://github.com/avored/laravel-ecommerce/issues/new).
 
-[![](https://ga-beacon.appspot.com/UA-79831356-1/laravel-ecommerce?pixel)](https://github.com/avored/laravel-ecommerce)
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
+<a href="https://github.com/avored/laravel-ecommerce/graphs/contributors"><img src="https://opencollective.com/laravel-ecommerce/contributors.svg?width=890" title="contributors" alt="contributors" /></a>
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/laravel-ecommerce#backer)]
+
+<a href="https://opencollective.com/laravel-ecommerce#backers" target="_blank"><img src="https://opencollective.com/laravel-ecommerce/backers.svg?width=890"></a>
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/laravel-ecommerce#sponsor)]
+
+<a href="https://opencollective.com/laravel-ecommerce/sponsor/0/website" target="_blank"><img src="https://opencollective.com/laravel-ecommerce/sponsor/0/avatar.svg"></a>
+
+
