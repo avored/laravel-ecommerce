@@ -25,7 +25,8 @@
     "php": ">=7.1.3",
     "barryvdh/laravel-dompdf": "0.8.*",
     "laravel/passport": "5.0.*",
-    "stripe/stripe-php": "^6.3"
+    "stripe/stripe-php": "^6.3",
+    "avored/framework": "~1.4"
   },
   "autoload": {
     "classmap": [
@@ -41,5 +42,14 @@
         "AvoRed\\Ecommerce\\Provider"
       ]
     }
-  }
+  },
+  "homepage" : "https://www.avored.com",
+	"support" : {
+		"email" : "ind.purvesh@gmail.com",
+		"issues" : "https://www.avored.com/discussion",
+		"forum" : "https://www.avored.com/discussion",
+		"wiki" : "https://www.avored.com/docs",
+		"source" : "https://www.github.com/avored/laravel-ecommerce"
+	}
+  
 }
