@@ -20,7 +20,6 @@
       "email": "ind.purvesh@gmail.com"
     }
   ],
-  "minimum-stability": "dev",
   "type": "avored-module",
   "require": {
     "php": ">=7.1.3",
