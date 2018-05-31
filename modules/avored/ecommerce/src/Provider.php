@@ -34,11 +34,18 @@ use AvoRed\Framework\AdminMenu\AdminMenu;
 use AvoRed\Ecommerce\Widget\TotalUser\Widget as TotalUserWidget;
 use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
 
-
+//View Composers
 use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\AdminUserFieldsComposer;
+use AvoRed\Ecommerce\Console\AdminMakeCommand;
+
+//Model Contracts
+use AvoRed\Ecommerce\Models\Contracts\AdminUserInterface;
+
+//Repositories
+use AvoRed\Ecommerce\Models\Repository\AdminUserRepository;
 
 class Provider extends ServiceProvider
 {
@@ -60,6 +67,8 @@ class Provider extends ServiceProvider
         $this->registerShippingOption();
         $this->registerPermissions();
         $this->registerAdminConfiguration();
+        $this->registerAdminMakeCommand();
+        $this->registerModelContracts();
     }
 
     /**
@@ -72,6 +81,21 @@ class Provider extends ServiceProvider
         $this->registerConfigData();
 
         Passport::ignoreMigrations();
+    }
+
+
+    /**
+     * Register the Avored Console Admin Make .
+     *
+     * @return void
+     */
+    protected function registerAdminMakeCommand()
+    {
+        $this->app->singleton('avored:admin:make', function ($app) {
+            return new AdminMakeCommand($app['files']);
+        });
+
+        $this->commands('avored:admin:make');
     }
 
     /**
@@ -757,6 +781,17 @@ class Provider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/avored-ecommerce.php', 'avored-ecommerce');
     }
 
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['avored:admin:make'];
+    }
+
     /**
      * Register the Publish Files
      *
@@ -781,5 +816,16 @@ class Provider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('avored-migrations'),
         ]);
+    }
+
+
+    /**
+     * Register the Admin Menu instance.
+     *
+     * @return void
+     */
+    protected function registerModelContracts()
+    {
+        $this->app->bind(AdminUserInterface::class,AdminUserRepository::class);
     }
 }

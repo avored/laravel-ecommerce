@@ -15,8 +15,6 @@ use AvoRed\Ecommerce\DataGrid\Product as ProductGrid;
 
 class ProductController extends Controller
 {
-
-
     /**
      * Display a listing of the resource.
      * r.
@@ -64,21 +62,18 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param \AvoRed\Framework\Models\Database\Product $product
      *
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(ProductModel $product)
     {
-        $product    = ProductModel::findorfail($id);
         $attributes = Collection::make([]);
 
-        $properties                  = Property::all()->pluck('name', 'id');
+        $properties = Property::all()->pluck('name', 'id');
         $usedForAllProductProperties = Property::whereUseForAllProducts(1)->get();
 
-
-
-        if ($product->hasVariation() == 'VARIATION') {
+        if ($product->type == 'VARIATION') {
             $attributes = AttributeDropdownOption::all()->pluck('name', 'id');
         }
 
@@ -99,12 +94,11 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, ProductModel $product)
     {
-    
         try {
             //$product = ProductModel::findorfail($id);
             $product->saveProduct($request->all());
         } catch (\Exception $e) {
-            throw new \Exception('Error in Saving Product: '.$e->getMessage());
+            throw new \Exception('Error in Saving Product: ' . $e->getMessage());
         }
 
         return redirect()->route('admin.product.index');
@@ -135,9 +129,9 @@ class ProductController extends Controller
     {
         $image = $request->file('image');
         $tmpPath = str_split(strtolower(str_random(3)));
-        $checkDirectory = '/uploads/catalog/images/'.implode('/', $tmpPath);
+        $checkDirectory = '/uploads/catalog/images/' . implode('/', $tmpPath);
 
-        $dbPath = $checkDirectory.'/'.$image->getClientOriginalName();
+        $dbPath = $checkDirectory . '/' . $image->getClientOriginalName();
 
         $image = Image::upload($image, $checkDirectory);
 
@@ -159,13 +153,13 @@ class ProductController extends Controller
     {
         $path = $request->get('path');
 
-        $path           = "uploads/catalog/images/e/0/v/1382542458778.jpeg";
-        $fileName       = pathinfo($path, PATHINFO_BASENAME);
-        $relativeDir    = pathinfo($path, PATHINFO_DIRNAME);
+        $path = 'uploads/catalog/images/e/0/v/1382542458778.jpeg';
+        $fileName = pathinfo($path, PATHINFO_BASENAME);
+        $relativeDir = pathinfo($path, PATHINFO_DIRNAME);
 
         $sizes = config('image.sizes');
         foreach ($sizes as $sizeName => $widthHeight) {
-            $imagePath =  $relativeDir . DIRECTORY_SEPARATOR . $sizeName . "-". $fileName;
+            $imagePath = $relativeDir . DIRECTORY_SEPARATOR . $sizeName . '-' . $fileName;
             if (File::exists($imagePath)) {
                 File::delete(public_path($imagePath));
             }
@@ -190,7 +184,7 @@ class ProductController extends Controller
         $view = view('avored-ecommerce::product.variation-modal')
                             ->with('model', $product);
 
-        return new JsonResponse(['success' => true, 'content' => $view->render(), 'modalId' => '#variation-modal-'.$product->id]);
+        return new JsonResponse(['success' => true, 'content' => $view->render(), 'modalId' => '#variation-modal-' . $product->id]);
     }
 
     /**

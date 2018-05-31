@@ -5,13 +5,25 @@ namespace AvoRed\Ecommerce\Http\Controllers;
 use Laravel\Passport\Client;
 use Illuminate\Support\Facades\Auth;
 use AvoRed\Ecommerce\Models\Database\AdminUser as Model;
-use AvoRed\Ecommerce\DataGrid\AdminUser;
+use AvoRed\Ecommerce\DataGrid\AdminUser as AdminUserGrid;
 use AvoRed\Ecommerce\Models\Database\Role;
 use AvoRed\Framework\Image\Facade as Image;
 use AvoRed\Ecommerce\Http\Requests\AdminUserRequest;
+use AvoRed\Ecommerce\Models\Contracts\AdminUserInterface;
+
 
 class AdminUserController extends Controller
 {
+    /**
+     * 
+     * @var \AvoRed\Ecommerce\Models\Repository\AdminUserRepository
+     */
+    protected $repository;
+
+    public function __construct(AdminUserInterface $repository)
+    {
+        $this->repository = $repository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +31,7 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        $adminUserGrid = new AdminUser(Model::query()->orderBy('id', 'desc'));
+        $adminUserGrid = new AdminUserGrid($this->repository->query());
 
         return view('avored-ecommerce::admin-user.index')->with('dataGrid', $adminUserGrid->dataGrid);
     }
@@ -45,7 +57,7 @@ class AdminUserController extends Controller
     {
         $request->merge(['password' => bcrypt($request->get('password'))]);
 
-        Model::create($request->all());
+        $this->repository->create($request->all());
 
         return redirect()->route('admin.admin-user.index');
     }
@@ -73,10 +85,9 @@ class AdminUserController extends Controller
      */
     public function update(AdminUserRequest $request, Model $adminUser)
     {  
-        $path = $this->_getUserImageRelativePath();
-        
         if(null !== $request->file('image')) {
-            $image = Image::upload($request->file('image'), $path);
+            $path   = $this->_getUserImageRelativePath();
+            $image  = Image::upload($request->file('image'), $path);
             $request->merge(['image_path' => $image->relativePath]);
         }
 
@@ -95,13 +106,12 @@ class AdminUserController extends Controller
     public function destroy(Model $adminUser)
     {
         $adminUser->delete();
-
         return redirect()->route('admin.admin-user.index');
     }
 
     public function apiShow()
     {
-        $user = Auth::guard('admin')->user();
+        $user   = Auth::guard('admin')->user();
         $client = Client::wherePasswordClient(1)->whereUserId($user->id)->first();
 
         return view('avored-ecommerce::admin-user.show-api')->with('client', $client);
@@ -122,7 +132,6 @@ class AdminUserController extends Controller
     private function _getUserImageRelativePath()
     {
         $tmpPath = str_split(strtolower(str_random(3)));
-
         return '/uploads/users/images/'.implode('/', $tmpPath);
     }
 }

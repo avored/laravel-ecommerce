@@ -7,7 +7,7 @@
 /public/storage
 /storage/*.key
 /vendor
-/.idea
+/.vscode
 /.vagrant
 Homestead.json
 Homestead.yaml
@@ -22,7 +22,6 @@ storage/framework/bootstrap/cache/services.php
 /modules/*
 /modules/ecommerce
 /themes/*
-**/.DS_Store
 
 # Include Ecommerce Module
 !/modules/avored
@@ -38,16 +37,3 @@ storage/framework/bootstrap/cache/services.php
 composer.lock
 public/mix-manifest.json
 package-lock.json
-themes/avored/default/.DS_Store
-modules/avored/ecommerce/.DS_Store
-.DS_Store
-.DS_Store
-.settings/org.eclipse.wst.common.project.facet.core.xml
-.DS_Store
-.DS_Store
-*.sublime-project
-*.sublime-workspace
-.DS_Store
-.DS_Store
-.DS_Store
-.DS_Store
