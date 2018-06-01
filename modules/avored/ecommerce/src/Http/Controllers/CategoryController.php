@@ -5,9 +5,21 @@ namespace AvoRed\Ecommerce\Http\Controllers;
 use AvoRed\Framework\Models\Database\Category as Model;
 use AvoRed\Ecommerce\DataGrid\Category;
 use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
+use AvoRed\Framework\Models\Contracts\CategoryInterface;
 
 class CategoryController extends Controller
 {
+    /**
+    *
+    * @var \AvoRed\Framework\Models\Repository\CategoryRepository
+    */
+    protected $repository;
+
+    public function __construct(CategoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the Category.
      *
@@ -15,7 +27,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categoryGrid = new Category(Model::query());
+        $categoryGrid = new Category($this->repository->query());
 
         return view('avored-ecommerce::category.index')->with('dataGrid', $categoryGrid->dataGrid);
     }
@@ -39,7 +51,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Model::create($request->all());
+        $this->repository->create($request->all());
 
         return redirect()->route('admin.category.index');
     }

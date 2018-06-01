@@ -7,9 +7,20 @@ use Illuminate\Http\JsonResponse;
 use AvoRed\Ecommerce\DataGrid\Attribute;
 use AvoRed\Framework\Models\Database\Attribute as Model;
 use AvoRed\Ecommerce\Http\Requests\AttributeRequest;
+use AvoRed\Framework\Models\Contracts\AttributeInterface;
 
 class AttributeController extends Controller
 {
+    /**
+    *
+    * @var \AvoRed\Framework\Models\Repository\AttributeRepository
+    */
+    protected $repository;
+
+    public function __construct(AttributeInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -18,7 +29,7 @@ class AttributeController extends Controller
      */
     public function index()
     {
-        $attributeGrid = new Attribute(Model::query());
+        $attributeGrid = new Attribute($this->repository->query());
 
         return view('avored-ecommerce::attribute.index')->with('dataGrid', $attributeGrid->dataGrid);
     }
@@ -35,12 +46,12 @@ class AttributeController extends Controller
 
     /**
      * @param \AvoRed\Ecommerce\Http\Requests\AttributeRequest $request
-     * 
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(AttributeRequest $request)
     {
-        $attribute = Model::create($request->all());
+        $attribute = $this->repository->create($request->all());
         $this->_saveDropdownOptions($attribute, $request);
 
         return redirect()->route('admin.attribute.index');
@@ -48,7 +59,7 @@ class AttributeController extends Controller
 
     /**
      * @param \AvoRed\Framework\Models\Database\Attribute $attribute
-     * 
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function edit(Model $attribute)
@@ -76,7 +87,7 @@ class AttributeController extends Controller
 
     /**
      * Get an attribute for Product Variation Modal.
-     * 
+     *
      * @param \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
@@ -97,7 +108,7 @@ class AttributeController extends Controller
      */
     public function getElementHtml(Request $request)
     {
-        $attributes = Model::whereIn('id', $request->get('attribute_id'))->get();
+        $attributes = $this->repository->findMany($request->get('attribute_id'));
 
         $tmpString = '__RANDOM__STRING__';
         $view = view('avored-ecommerce::attribute.get-element')
@@ -117,10 +128,9 @@ class AttributeController extends Controller
     private function _saveDropdownOptions($attribute, $request)
     {
         if (null !== $request->get('dropdown-options')) {
-            if (null != $attribute->attributeDropdownOptions()->get() && 
+            if (null != $attribute->attributeDropdownOptions()->get() &&
                 $attribute->attributeDropdownOptions()->get()->count() >= 0
                 ) {
-
                 $attribute->attributeDropdownOptions()->delete();
             }
 

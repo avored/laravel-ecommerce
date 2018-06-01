@@ -12,9 +12,21 @@ use AvoRed\Framework\Models\Database\Product as ProductModel;
 use AvoRed\Framework\Image\Facade as Image;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;
 use AvoRed\Ecommerce\DataGrid\Product as ProductGrid;
+use AvoRed\Framework\Models\Contracts\ProductInterface;
 
 class ProductController extends Controller
 {
+    /**
+    *
+    * @var \AvoRed\Framework\Models\Repository\ProductRepository
+    */
+    protected $repository;
+
+    public function __construct(ProductInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      * r.
@@ -23,7 +35,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $productGrid = new ProductGrid(ProductModel::where('type', '!=', 'VARIABLE_PRODUCT')->orderBy('id', 'desc'));
+        $productsBuilder = $this->repository->query()->where('type', '!=', 'VARIABLE_PRODUCT')->orderBy('id', 'desc');
+        $productGrid = new ProductGrid($productsBuilder);
 
         return view('avored-ecommerce::product.index')->with('dataGrid', $productGrid->dataGrid);
     }
