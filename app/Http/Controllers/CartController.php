@@ -18,9 +18,10 @@ class CartController extends Controller
      */
     public function addToCart(Request $request)
     {
-        $slug       = $request->get('slug');
-        $qty        = $request->get('qty', 1);
-        $attribute  = $request->get('attribute', null);
+        $slug = $request->get('slug');
+        $qty = $request->get('qty', 1);
+        //dd('test');
+        $attribute = $request->get('attribute', null);
 
         if (!Cart::canAddToCart($slug, $qty, $attribute)) {
             return redirect()->back()
@@ -37,7 +38,7 @@ class CartController extends Controller
 
         if ($isTaxEnabled && $productModel->is_taxable) {
             $percentage = Configuration::getConfiguration('tax_percentage');
-            $taxAmount  = ($percentage * $productModel->price / 100);
+            $taxAmount = ($percentage * $productModel->price / 100);
 
             Cart::hasTax(true);
             Cart::updateProductTax($slug, $taxAmount);
