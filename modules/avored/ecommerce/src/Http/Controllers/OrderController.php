@@ -12,9 +12,21 @@ use AvoRed\Ecommerce\Mail\OrderInvoicedMail;
 use AvoRed\Ecommerce\Mail\UpdateOrderStatusMail;
 use AvoRed\Ecommerce\DataGrid\Order as OrderGrid;
 use AvoRed\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
+use AvoRed\Framework\Models\Contracts\OrderInterface;
 
 class OrderController extends Controller
 {
+
+     /**
+     *
+     * @var \AvoRed\Framework\Models\Repository\OrderRepository
+     */
+    protected $repository;
+
+    public function __construct(OrderInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
     /**
      * Display a listing of the resource.
@@ -23,7 +35,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orderGrid = new OrderGrid(Model::query()->orderBy('id', 'desc'));
+        $orderGrid = new OrderGrid($this->repository->query()->orderBy('id', 'desc'));
 
         return view('avored-ecommerce::order.index')->with('dataGrid', $orderGrid->dataGrid);
     }

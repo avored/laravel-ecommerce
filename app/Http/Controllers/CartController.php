@@ -2,13 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use AvoRed\Framework\Models\Database\Configuration;
 use Illuminate\Http\Request;
-use AvoRed\Framework\Models\Database\Product as ProductModel;
 use AvoRed\Framework\Cart\Facade as Cart;
+use AvoRed\Framework\Models\Contracts\ProductInterface;
+use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
 
 class CartController extends Controller
 {
+    /**
+     *
+     * @var \AvoRed\Framework\Models\Repository\ProductRepository
+     */
+    protected $repository;
+
+    /**
+     *
+     * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
+     */
+    protected $configurationRepository;
+
+    public function __construct(ProductInterface $repository, ConfigurationInterface $configRep)
+    {
+        $this->repository = $repository;
+        $this->configurationRepository = $configRep;
+    }
+
     /**
      *
      * Add To Cart Product
@@ -33,11 +51,11 @@ class CartController extends Controller
 
         Cart::add($slug, $qty, $attribute);
 
-        $productModel = ProductModel::whereSlug($slug)->first();
-        $isTaxEnabled = Configuration::getConfiguration('tax_enabled');
+        $productModel = $this->repository->findBySlug($slug);
+        $isTaxEnabled = $this->configurationRepository->getValueByKey('tax_enabled');
 
         if ($isTaxEnabled && $productModel->is_taxable) {
-            $percentage = Configuration::getConfiguration('tax_percentage');
+            $percentage = $this->configurationRepository->getValueByKey('tax_percentage');
             $taxAmount = ($percentage * $productModel->price / 100);
 
             Cart::hasTax(true);

@@ -6,9 +6,20 @@ use AvoRed\Ecommerce\Models\Database\Country;
 use Illuminate\Http\Request;
 use AvoRed\Ecommerce\Models\Database\Page;
 use AvoRed\Framework\Models\Database\Configuration as Model;
+use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
 
 class ConfigurationController extends Controller
 {
+    /**
+     *
+     * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
+     */
+    protected $repository;
+
+    public function __construct(ConfigurationInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
     /**
      * Show the application dashboard.
@@ -34,17 +45,21 @@ class ConfigurationController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
         foreach ($request->except(['_token', '_method']) as $key => $value) {
-            $configuration = Model::getConfiguration($key);
+            $configModel = $this->repository->findByKey($key);
 
-            if (null === $configuration) {
+            if ($configModel->configuration_value == $value) {
+                continue;
+            }
+
+            if (null === $configModel) {
+                dd($configModel);
                 $data['configuration_key'] = $key;
                 $data['configuration_value'] = $value;
 
-                Model::create($data);
+                $this->repository->create($data);
             } else {
-                Model::whereConfigurationKey($key)->first()->update(['configuration_value' => $value]);
+                $configModel->update(['configuration_value' => $value]);
             }
         }
 

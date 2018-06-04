@@ -22,82 +22,77 @@
         ?>
     </script>
 </head>
-<body>
-<div class="container-fluid">
+<body >
+<div id="login-page" class="container-fluid">
     <div class="row justify-content-center align-items-center" style="height: 100vh;" >
-        <div class="col-8" style="max-width: 650px">
-        <div class="card">
+        <div class="col-6">
+            <div class="offset-1 col-md-10">
+            <div class="card">
 
-            <div class="card-header bg-primary text-white">
-                {{ __('avored-ecommerce::lang.admin-login-card-title') }}
+                <div class="card-header bg-primary text-white">
+                    {{ __('avored-ecommerce::lang.admin-login-card-title') }}
+                </div>
+                <div class="card-body" >
+
+                    <form method="post" action="{{ route('admin.login') }}" >
+                        @csrf
+
+                        
+                        <div class="form-group">
+                            <label for="email" class="control-label">
+                                {{ __('avored-ecommerce::lang.admin-email-label') }}
+                            </label>
+                            
+                            <input id="email" name="email" type="email" v-model='email' class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input name="password" type="password" v-model='password' class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+
+                            <button type="submit" :disabled='isLoginDisbled'  class="btn btn-primary">
+                                {{ __('avored-ecommerce::lang.admin-login-button-title') }}
+                            </button>
+
+                            <a href="{{ route('admin.password.reset') }}">
+                                {{ __('avored-ecommerce::lang.admin-login-forget-password-link') }}
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+                </div>
             </div>
-            <div class="card-body" >
-
-                <form method="post" action="{{ route('admin.login') }}" >
-                    {{ csrf_field() }}
-
-                    @include('avored-ecommerce::forms.text',
-                                ['name' => 'email',
-                                'label' => __('avored-ecommerce::lang.admin-email-label')
-                                ])
-                    @include('avored-ecommerce::forms.password',[
-                                    'name' => 'password',
-                                    'label' => __('avored-ecommerce::lang.admin-password-label')
-                                    ])
-
-                    <div class="form-group">
-
-                        <button type="submit" class="btn btn-primary">
-                            {{ __('avored-ecommerce::lang.admin-login-button-title') }}
-                        </button>
-
-                        <a href="{{ route('admin.password.reset') }}">
-                            {{ __('avored-ecommerce::lang.admin-login-forget-password-link') }}
-                        </a>
-                    </div>
-
-                </form>
-            </div>
-        </div>
+    </div>
+    <div class="col-6" style="border-left:1px solid;height:100vh;background-color:brown">
+        
     </div>
 </div>
-</div>
 <!-- Scripts -->
-<!-- JQuery -->
 <script type="text/javascript" src="{{ asset('vendor/avored-admin/js/app.js') }}"></script>
 
 <script>
-    $(function() {
-        var timeoutFlag;
-        function checkFields() {
+    var app = new Vue({
+        el: '#login-page',
+        data : {
+            email: '',
+            password: ''
+        },
+        computed: {
+            isLoginDisbled: function() {
 
-            clearTimeout(timeoutFlag);
-            var emailFieldValue = jQuery('#email').val();
-            var passwordFieldValue = jQuery('#password').val();
+                if(this.email != "" && this.password != "") {
+                    return false;
+                }
 
+                return true;
 
-            var emailValidationRegex = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-            if(emailFieldValue != "" && emailValidationRegex.test(emailFieldValue) && passwordFieldValue  != "") {
-                jQuery('.login-button').attr('disabled', false);
-                jQuery('.login-button').addClass('btn-primary');
-            } else {
-                jQuery('.login-button').attr('disabled', true);
-                jQuery('.login-button').removeClass('btn-primary');
             }
         }
-        jQuery(document).on('keyup', '#email , #password', function(e){
-            checkFields();
-        });
-
-        jQuery(document).on('change', '#email, #password', function(e){
-            checkFields();
-        });
-        timeoutFlag = setTimeout(function(){ checkFields(); }, 100);
-
-        jQuery('.login-button').attr('disabled',true);
-        jQuery('#email').focus();
     });
 </script>
+
 </body>
 </html>
