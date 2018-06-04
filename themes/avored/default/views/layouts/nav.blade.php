@@ -85,7 +85,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="avored-navbar">
-            <ul class="navbar-nav mr-auto">
+            <ul class="main-navbar navbar-nav mr-auto">
                 @include('layouts.menu-tree',['menus' => $menus])
             </ul>
         </div>
