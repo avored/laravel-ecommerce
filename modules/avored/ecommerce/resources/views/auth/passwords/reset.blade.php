@@ -22,79 +22,99 @@
         ?>
     </script>
 </head>
-<body>
-<div class="container-fluid">
-    <div class="row justify-content-center align-items-center" style="height: 100vh;">
-        <div class="col-8" style="max-width: 650px">
-            <div class="card">
-                <div class="card-header">Reset Password</div>
+<body >
+<div id="admin-password-reset-page" class="container-fluid">
+    <div class="row justify-content-center align-items-center" style="height: 100vh;" >
+        <div class="col-6">
+            <div class="offset-1 col-10">
+                <div class="card">
+                    <div class="card-header">Reset Password</div>
 
-                <div class="card-body">
-                    <div class="col-md-12">
-                        <form class="form-horizontal" role="form" method="POST"
-                              action="{{ url('/admin/password/reset') }}">
-                            {{ csrf_field() }}
+                    <div class="card-body">
+                        <div class="col-md-12">
+                            <form class="form-horizontal" role="form" method="POST"
+                                action="{{ route('admin.password.email.post') }}">
+                                @csrf
 
-                            <input type="hidden" name="token" value="{{ $token }}">
+                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <label for="email">E-Mail Address</label>
+                                    <input v-model="email" id="email" type="email" class="form-control" name="email"
+                                        value="{{ $email or old('email') }}" required autofocus>
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email">E-Mail Address</label>
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
 
+                                </div>
 
-                                <input id="email" type="email" class="form-control" name="email"
-                                       value="{{ $email or old('email') }}" required autofocus>
+                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <label for="password">Password</label>
+                                    <input v-model="password" id="password" type="password" class="form-control" name="password" required>
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                                    @if ($errors->has('password'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
 
-                            </div>
+                                </div>
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password">Password</label>
+                                <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                    <label for="password-confirm">Confirm Password</label>
+                                    <input v-model="password_confirmation" id="password-confirm"
+                                        type="password" class="form-control"
+                                        name="password_confirmation" required>
 
+                                    @if ($errors->has('password_confirmation'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        </span>
+                                    @endif
 
-                                <input id="password" type="password" class="form-control" name="password" required>
+                                </div>
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
+                                <div class="form-group">
+                                    <button :disabled='isLoginDisbled' type="submit" class="btn btn-primary">
+                                        Reset Password
+                                    </button>
 
-                            </div>
-
-                            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                <label for="password-confirm">Confirm Password</label>
-
-                                <input id="password-confirm" type="password" class="form-control"
-                                       name="password_confirmation" required>
-
-                                @if ($errors->has('password_confirmation'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                    </span>
-                                @endif
-
-                            </div>
-
-                            <div class="form-group">
-
-                                <button type="submit" class="btn btn-primary">
-                                    Reset Password
-                                </button>
-
-                            </div>
-                        </form>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="col-6" style="border-left:1px solid;height:100vh;background-color:brown">
+            
+        </div>
     </div>
 </div>
 <script type="text/javascript" src="{{ asset('vendor/avored-admin/js/app.js') }}"></script>
+<script>
+    var app = new Vue({
+        el: '#admin-password-reset-page',
+        data : {
+            email: '',
+            password: '',
+            password_confirmation: ''
+        
+        },
+        computed: {
+            isLoginDisbled: function() {
+
+                if(this.email != "" && this.password != "" && this.password_confirmation != "" && this.password == this.password_confirmation)  {
+                    return false;
+                }
+                return true;
+
+            }
+        }
+    });
+</script>
+
 </body>
 
 </html>

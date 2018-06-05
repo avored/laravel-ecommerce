@@ -6,10 +6,20 @@ use AvoRed\Ecommerce\Models\Database\Menu;
 use AvoRed\Framework\Models\Database\Configuration;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
+use AvoRed\Ecommerce\Models\Contracts\MenuInterface;
 
 class LayoutAppComposer
 {
+    /**
+     *
+     * @var \AvoRed\Ecommerce\Models\Repository\MenuRepository
+     */
+    protected $repository;
 
+    public function __construct(MenuInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
     /**
      * Bind data to the view.
@@ -21,8 +31,7 @@ class LayoutAppComposer
     {
         $cart = (null === Session::get('cart')) ? 0 : count(Session::get('cart'));
 
-        $menus = Menu::all();
-
+        $menus = $this->repository->parentsAll();
 
         $metaTitle = Configuration::getConfiguration('general_site_title');
         $metaDescription = Configuration::getConfiguration('general_site_description');

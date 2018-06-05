@@ -22,11 +22,7 @@
         ]);
         ?>
     </script>
-    <style>
-        .content-wrapper {
-            margin: 20px 0px;
-        }
-    </style>
+   
 </head>
 <body>
 <script src="{{ asset('/vendor/avored-default/js/app.js') }}"></script>

@@ -27,3 +27,28 @@
 
 @endforeach
 
+@push('styles')
+<style>
+
+    .main-navbar li {
+        position: relative !important;
+    }
+    
+
+</style>
+@endpush
+
+@push('scripts')
+    <script>
+        jQuery(document).ready(function() {
+            $('ul.main-navbar li.nav-item').hover(function() {
+                
+                $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeIn(300);
+            }, function() {
+                $(this).find('.dropdown-menu').stop(true, true).delay(100).fadeOut(300);
+            });
+        });
+
+    </script>
+
+@endpush

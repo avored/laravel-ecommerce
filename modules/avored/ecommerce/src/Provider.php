@@ -38,14 +38,18 @@ use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
 use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
+
 use AvoRed\Ecommerce\Http\ViewComposers\AdminUserFieldsComposer;
 use AvoRed\Ecommerce\Console\AdminMakeCommand;
 
+
 //Model Contracts
 use AvoRed\Ecommerce\Models\Contracts\AdminUserInterface;
+use AvoRed\Ecommerce\Models\Contracts\MenuInterface;
 
 //Repositories
 use AvoRed\Ecommerce\Models\Repository\AdminUserRepository;
+use AvoRed\Ecommerce\Models\Repository\MenuRepository;
 
 class Provider extends ServiceProvider
 {
@@ -827,5 +831,6 @@ class Provider extends ServiceProvider
     protected function registerModelContracts()
     {
         $this->app->bind(AdminUserInterface::class,AdminUserRepository::class);
+        $this->app->bind(MenuInterface::class,MenuRepository::class);
     }
 }

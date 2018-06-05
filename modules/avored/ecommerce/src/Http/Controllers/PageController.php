@@ -6,9 +6,20 @@ use AvoRed\Ecommerce\Models\Database\Page as Model;
 use AvoRed\Framework\Widget\Facade as Widget;
 use AvoRed\Ecommerce\DataGrid\Page as PageGrid;
 use AvoRed\Ecommerce\Http\Requests\PageRequest;
+use AvoRed\Ecommerce\Models\Contracts\PageInterface;
 
 class PageController extends Controller
 {
+    /**
+     *
+     * @var \AvoRed\Framework\Models\Repository\PageRepository
+     */
+    protected $repository;
+
+    public function __construct(PageInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
     /**
      * Display a listing of the Page.
@@ -17,7 +28,7 @@ class PageController extends Controller
      */
     public function index()
     {
-        $pageGrid = new PageGrid(Model::query()->orderBy('id', 'desc'));
+        $pageGrid = new PageGrid($this->repository->query()->orderBy('id', 'desc'));
 
         return view('avored-ecommerce::page.index')->with('dataGrid', $pageGrid->dataGrid);
     }
@@ -44,7 +55,7 @@ class PageController extends Controller
      */
     public function store(PageRequest $request)
     {
-        Model::create($request->all());
+        $this->repository->create($request->all());
 
         return redirect()->route('admin.page.index');
     }
