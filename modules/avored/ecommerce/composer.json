@@ -26,7 +26,7 @@
     "barryvdh/laravel-dompdf": "0.8.*",
     "laravel/passport": "5.0.*",
     "stripe/stripe-php": "^6.3",
-    "avored/framework": "~1.4"
+    "avored/framework": "~1.5"
   },
   "autoload": {
     "classmap": [
