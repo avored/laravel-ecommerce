@@ -9,7 +9,6 @@ use AvoRed\Framework\Models\Database\Configuration as Model;
 
 class ConfigurationController extends Controller
 {
-
     /**
      * Show the application dashboard.
      *
@@ -34,17 +33,21 @@ class ConfigurationController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
         foreach ($request->except(['_token', '_method']) as $key => $value) {
-            $configuration = Model::getConfiguration($key);
+            $configModel = Model::whereConfigurationKey($key)->first();
 
-            if (null === $configuration) {
+            if ($configModel->configuration_value == $value) {
+                continue;
+            }
+
+            if (null === $configModel) {
+             
                 $data['configuration_key'] = $key;
                 $data['configuration_value'] = $value;
 
                 Model::create($data);
             } else {
-                Model::whereConfigurationKey($key)->first()->update(['configuration_value' => $value]);
+                $configModel->update(['configuration_value' => $value]);
             }
         }
 
