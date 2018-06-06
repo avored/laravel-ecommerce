@@ -1,6 +1,13 @@
 <div class="row">
     <div class="col-6">
-        @include('avored-ecommerce::forms.text',['name' => 'name','label' => 'Name'])
+        <!-- include('avored-ecommerce::forms.text',['name' => 'name','label' => 'Name']) -->
+        <avored-form-input></avored-form-input>
+       
+        <div class="form-group">
+            <label>Name</label>
+            <input v-model='product.name' name="name" class="form-control" />
+        </div>
+
     </div>
     <div class="col-6">
         @if(!isset($productCategories))
@@ -69,6 +76,7 @@
 </div>
 
 
+@if($model->type !== "DOWNLOADABLE")
 <div class="row">
     <div class="col-md-12">
         @include('avored-ecommerce::forms.text',['name' => 'weight','label' => 'Weight'])
@@ -90,7 +98,7 @@
 
 
 </div>
-
+@endif
 @push('scripts')
 
     <script>

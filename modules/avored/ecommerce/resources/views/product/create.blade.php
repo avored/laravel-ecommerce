@@ -22,7 +22,8 @@
                         @include("avored-ecommerce::forms.text",['name'=> 'name','label' => 'Name'])
                         @include("avored-ecommerce::forms.select",['name'=> 'type','label' => 'Type',
                                                                     'options' => ['BASIC' => 'Basic Product',
-                                                                                    'VARIATION' => 'Variable Product'
+                                                                                    'VARIATION' => 'Variable Product',
+                                                                                    'DOWNLOADABLE' => 'Downloadable Product'
                                                                                 ]
                                                                     ])
 

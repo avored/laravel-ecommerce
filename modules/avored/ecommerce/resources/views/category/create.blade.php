@@ -2,7 +2,7 @@
 
 
 @section('content')
-
+<div id="admin-category-create-page">
     <div class="row">
         <div class="col-12">
 
@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <button type="submit" disabled class="btn category-save-button">Create Category</button>
+                <button type="submit" class="btn category-save-button">Create Category</button>
 
                 <a href="{{ route('admin.category.index') }}" class="btn btn-default">Cancel</a>
             </form>
@@ -38,5 +38,18 @@
 
         </div>
     </div>
-
+</div>
 @endsection
+
+@push('scripts')
+
+<script>
+
+ var app = new Vue({
+        el: '#admin-category-create-page'
+    });
+
+</script>
+
+
+@endpush

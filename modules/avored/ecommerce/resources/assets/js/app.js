@@ -35,3 +35,5 @@ if (token) {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
+Vue.component('avored-form-input', require('../components/forms/avored-form-input.vue'));
+
