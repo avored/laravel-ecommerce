@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn category-save-button">Create Category</button>
+                <button type="submit"  class="btn btn-primary category-save-button">Create Category</button>
 
                 <a href="{{ route('admin.category.index') }}" class="btn btn-default">Cancel</a>
             </form>
@@ -46,7 +46,15 @@
 <script>
 
  var app = new Vue({
-        el: '#admin-category-create-page'
+        el: '#admin-category-create-page',
+        data : {
+            category: {},
+        }
+        methods: {
+            changeModelValue: function(val,fieldName) {
+                this.category[fieldName] = val;
+            }
+        }
     });
 
 </script>

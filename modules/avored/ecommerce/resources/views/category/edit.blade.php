@@ -44,14 +44,11 @@
  var app = new Vue({
         el: '#admin-category-edit-page',
         data : {
-            product: {!! $model !!}
+            category: {!! $model !!},
         },
-        method: {
-
-        },
-        computed: {
-            isSaveButtonDisabled: function() {
-                return false;
+        methods: {
+            changeModelValue: function(val,fieldName) {
+                this.category[fieldName] = val;
             }
         }
     });

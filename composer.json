@@ -21,7 +21,7 @@
 		"avored/cash-on-delivery": "~1.2",
 		"avored/contact": "~1.2",
 		"avored/dummy-data": "~1.4",
-		"avored/ecommerce": "~1.5",
+		"avored/ecommerce": "~1.5.1",
 		"avored/featured": "~1.7",
 		"avored/fixed-rate": "~1.5",
 		"avored/module-installer": "1.*",
