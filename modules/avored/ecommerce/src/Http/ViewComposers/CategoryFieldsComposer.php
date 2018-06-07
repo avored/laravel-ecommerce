@@ -2,11 +2,21 @@
 
 namespace AvoRed\Ecommerce\Http\ViewComposers;
 
-use AvoRed\Framework\Models\Database\Category;
 use Illuminate\View\View;
+use AvoRed\Framework\Models\Contracts\CategoryInterface;
 
 class CategoryFieldsComposer
 {
+    /**
+    *
+    * @var \AvoRed\Framework\Models\Repository\CategoryRepository
+    */
+    protected $repository;
+
+    public function __construct(CategoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
 
     /**
      * Bind data to the view.
@@ -16,7 +26,7 @@ class CategoryFieldsComposer
      */
     public function compose(View $view)
     {
-        $categoryOptions = Category::getCategoryOptions();
+        $categoryOptions = $this->repository->options();
         $view->with('categoryOptions', $categoryOptions);
     }
 }

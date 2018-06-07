@@ -1,12 +1,20 @@
 <template>
     <div class="form-group">
         <label :id=fieldName>{{ label }}</label>
-        <input :type="fieldType" 
+        <select 
               :id=fieldName  
               :name=fieldName 
               @input="onChange"
-              :value=fieldValue
-              :class=computedClass />
+              :class=computedClass
+                v-model="selectedValue"
+               >
+
+              <option v-for="option in options"   :key="option.id" :value="option.id">
+                  {{ option.name }}
+
+                </option>
+
+        </select>
         <div   v-show=dataDisplayError   class="invalid-feedback">
             {{ errorText }}
         </div>
@@ -16,7 +24,7 @@
 <script>
     export default {
         props: {
-            fieldType: { type:String, default: 'text'},
+            fieldOptions: { type:String, default: '' },
             label: { type:String, required: true},
             fieldName: { type:String, required: true},
             fieldClass: { type:String, default: 'form-control'},
@@ -30,6 +38,9 @@
                 }
                 
                 return this.fieldClass + " is-invalid";
+            },
+            options: function() {
+                return JSON.parse(this.fieldOptions);
             }
         },
         data: function () {
@@ -39,6 +50,9 @@
                         return false;
                     } 
                     return true;    
+                },
+                selectedValue: function() {
+                    return this.fieldValue;
                 }
             }
         },
@@ -50,7 +64,12 @@
                     this.dataDisplayError = false
                 }
 
-                this.fieldValue = event.target.value;
+                this.selectValue = event.target.value;
+            },
+            isSelected: function(option) {
+                console.info(option.id, this.fieldValue);
+                console.info(option.id == this.fieldValue);
+                return (option.id == this.fieldValue);
             }
         }
     }

@@ -37,18 +37,23 @@
                     <form method="post" action="{{ route('admin.login') }}" >
                         @csrf
 
+                        <avored-form-input 
+                            field-name="email"
+                            label="{{ __('avored-ecommerce::lang.admin-email-label') }}" 
                         
-                        <div class="form-group">
-                            <label for="email" class="control-label">
-                                {{ __('avored-ecommerce::lang.admin-email-label') }}
-                            </label>
-                            
-                            <input id="email" name="email" type="email" v-model='email' class="form-control" />
-                        </div>
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input name="password" type="password" v-model='password' class="form-control" />
-                        </div>
+                            error-text="{!! $errors->first('email') !!}"
+                            v-on:change="changeModelValue"
+                                >
+                        </avored-form-input>
+
+                        <avored-form-input 
+                            field-name="password"
+                            label="Password" 
+                            field-type="password"
+                            error-text="{!! $errors->first('password') !!}"
+                            v-on:change="changeModelValue"
+                                >
+                        </avored-form-input>
 
                         <div class="form-group">
 
@@ -65,15 +70,16 @@
                 </div>
                 </div>
             </div>
-    </div>
-    <div class="col-6" style="border-left:1px solid;height:100vh;background-color:brown">
-        
+        </div>
+        <div class="col-6" style="border-left:1px solid;height:100vh;background-color:brown">
+            
+        </div>
     </div>
 </div>
 <!-- Scripts -->
 <script type="text/javascript" src="{{ asset('vendor/avored-admin/js/app.js') }}"></script>
 
-<script>
+<script >
     var app = new Vue({
         el: '#login-page',
         data : {
@@ -82,13 +88,15 @@
         },
         computed: {
             isLoginDisbled: function() {
-
                 if(this.email != "" && this.password != "") {
                     return false;
                 }
-
                 return true;
-
+            }
+        },
+        methods: {
+            changeModelValue: function(val,fieldName) {
+                this[fieldName] = val;
             }
         }
     });

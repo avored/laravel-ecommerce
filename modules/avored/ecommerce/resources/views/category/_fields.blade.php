@@ -20,6 +20,12 @@
 </avored-form-input>
 
 
-
-
-@include('avored-ecommerce::forms.select',['name' => 'parent_id' ,'label' => 'Parent Category', 'options' => $categoryOptions])
+<avored-form-select 
+    field-name="parent_id"
+    label="Parent Category" 
+    error-text="{!! $errors->first('parent_id') !!}"
+    field-options='{!! $categoryOptions !!}'
+    field-value="{!! $model->parent_id ?? "" !!}" 
+    v-on:change="changeModelValue"
+        >
+</avored-form-select>
