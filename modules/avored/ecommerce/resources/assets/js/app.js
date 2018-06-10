@@ -39,3 +39,4 @@ Vue.component('avored-form-input', require('../components/forms/avored-form-inpu
 Vue.component('avored-form-select', require('../components/forms/avored-form-select.vue'));
 Vue.component('avored-form-textarea', require('../components/forms/avored-form-textarea.vue'));
 
+
