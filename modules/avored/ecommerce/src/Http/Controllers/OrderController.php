@@ -100,7 +100,7 @@ class OrderController extends Controller
      */
     public function updateStatus(Model $order, UpdateOrderStatusRequest $request)
     {
-        $order = Model::find($id);
+        //$order = Model::find($id);
         $order->update($request->all());
 
         $userEmail = $order->user->email;
