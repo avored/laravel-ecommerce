@@ -166,8 +166,6 @@ class ProductController extends Controller
     public function deleteImage(Request $request)
     {
         $path = $request->get('path');
-
-        $path = 'uploads/catalog/images/e/0/v/1382542458778.jpeg';
         $fileName = pathinfo($path, PATHINFO_BASENAME);
         $relativeDir = pathinfo($path, PATHINFO_DIRNAME);
 
