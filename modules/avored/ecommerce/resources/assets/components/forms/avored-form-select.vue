@@ -67,8 +67,7 @@
                 this.selectValue = event.target.value;
             },
             isSelected: function(option) {
-                console.info(option.id, this.fieldValue);
-                console.info(option.id == this.fieldValue);
+            
                 return (option.id == this.fieldValue);
             }
         }

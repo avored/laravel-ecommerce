@@ -5,9 +5,9 @@
               :id=fieldName  
               :name=fieldName 
               @input="onChange"
-              :value=fieldValue
+              v-model="value"
               :class=computedClass />
-        <div   v-show=dataDisplayError   class="invalid-feedback">
+        <div   v-if=dataDisplayError   class="invalid-feedback">
             {{ errorText }}
         </div>
     </div>
@@ -34,6 +34,7 @@
         },
         data: function () {
             return {
+                value: this.fieldValue,
                 dataDisplayError : function() {   
                     if(this.errorText == ""){
                         return false;
@@ -50,7 +51,7 @@
                     this.dataDisplayError = false
                 }
 
-                this.fieldValue = event.target.value;
+                this.value = event.target.value;
             }
         }
     }

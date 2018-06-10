@@ -6,7 +6,7 @@
                 :name=fieldName 
                 @input="onChange"
                 :class=computedClass
-                v-model="fieldValue"
+                v-model="textFieldValue"
                ></textarea>
         <div   v-show=dataDisplayError   class="invalid-feedback">
             {{ errorText }}
@@ -37,13 +37,14 @@
         },
         data: function () {
             return {
+                
                 dataDisplayError : function() {   
                     if(this.errorText == ""){
                         return false;
                     } 
                     return true;    
                 },
-                textFieldValue: "",
+                textFieldValue: this.fieldValue,
             }
         },
         methods:{
