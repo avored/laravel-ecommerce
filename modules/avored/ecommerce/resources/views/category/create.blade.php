@@ -2,7 +2,7 @@
 
 
 @section('content')
-
+<div id="admin-category-create-page">
     <div class="row">
         <div class="col-12">
 
@@ -24,13 +24,31 @@
                     <div class="card-header">SEO</div>
                     <div class="card-body">
 
-                        @include('avored-ecommerce::forms.text',['name' => 'meta_title','label' => 'Meta Title'])
-                        @include('avored-ecommerce::forms.textarea',['name' => 'meta_description','label' => 'Meta Description'])
+                        
+                        
+                        <avored-form-input 
+                            field-name="meta_title"
+                            label="Meta Name" 
+                            field-value="{!! $model->meta_title ?? "" !!}" 
+                            error-text="{!! $errors->first('meta_title') !!}"
+                            v-on:change="changeModelValue"
+                                >
+                        </avored-form-input>
+
+                        <avored-form-textarea 
+                            field-name="meta_description"
+                            label="Meta Desceription" 
+                            field-value="{!! $model->meta_description ?? "" !!}" 
+                            error-text="{!! $errors->first('meta_description') !!}"
+                            v-on:change="changeModelValue"
+                                >
+                        </avored-form-textarea>
+
 
                     </div>
                 </div>
 
-                <button type="submit" disabled class="btn category-save-button">Create Category</button>
+                <button type="submit"  class="btn btn-primary category-save-button">Create Category</button>
 
                 <a href="{{ route('admin.category.index') }}" class="btn btn-default">Cancel</a>
             </form>
@@ -38,5 +56,26 @@
 
         </div>
     </div>
-
+</div>
 @endsection
+
+@push('scripts')
+
+<script>
+
+ var app = new Vue({
+        el: '#admin-category-create-page',
+        data : {
+            category: {},
+        },
+        methods: {
+            changeModelValue: function(val,fieldName) {
+                this.category[fieldName] = val;
+            }
+        }
+    });
+
+</script>
+
+
+@endpush

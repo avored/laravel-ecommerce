@@ -41,7 +41,7 @@ foreach($attributes as $attrKey => $attrValue) {
     @if(isset($label))
         <label for="{{ $name }}">{{ $label }}</label>
     @endif
-    <input {!! $attrString !!} />
+        <input {!! $attrString !!} />
 
     @if($errors->has($name))
         <div class="invalid-feedback">

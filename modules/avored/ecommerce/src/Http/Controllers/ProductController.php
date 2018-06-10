@@ -140,9 +140,10 @@ class ProductController extends Controller
      */
     public function uploadImage(Request $request)
     {
-        $image = $request->file('image');
+        $image = $request->image;
+
         $tmpPath = str_split(strtolower(str_random(3)));
-        $checkDirectory = '/uploads/catalog/images/' . implode('/', $tmpPath);
+        $checkDirectory = 'uploads/catalog/images/' . implode('/', $tmpPath);
 
         $dbPath = $checkDirectory . '/' . $image->getClientOriginalName();
 
@@ -170,16 +171,16 @@ class ProductController extends Controller
         $fileName = pathinfo($path, PATHINFO_BASENAME);
         $relativeDir = pathinfo($path, PATHINFO_DIRNAME);
 
-        $sizes = config('image.sizes');
+        $sizes = config('avored-framework.image.sizes');
         foreach ($sizes as $sizeName => $widthHeight) {
             $imagePath = $relativeDir . DIRECTORY_SEPARATOR . $sizeName . '-' . $fileName;
             if (File::exists($imagePath)) {
-                File::delete(public_path($imagePath));
+                File::delete(storage_path('app/public/' . $imagePath));
             }
         }
 
         if (File::exists($path)) {
-            File::delete(public_path($path));
+            File::delete(storage_path('app/public/' . $path));
         }
         return JsonResponse::create(['success' => true]);
     }

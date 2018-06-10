@@ -1,12 +1,13 @@
 @extends('avored-ecommerce::layouts.app')
 
 @section('content')
-
+<div id="admin-product-edit-page">
         <div class="row">
             <div class="col-12">
                 <div class="h1">Edit Product</div>
             </div>
         </div>
+    
 
         <?php
         $productCategories = $model->categories()->get()->pluck('id')->toArray();
@@ -82,6 +83,22 @@
 
                 @endif
 
+                @if($model->type == "DOWNLOADABLE")
+
+                <div class="card product-card mb-2 mt-2">
+                    <a data-toggle="collapse" data-parent="#product-save-accordion"
+                    class="float-right" href="#downloadable">
+                        <div class="card-header ">
+                            Downloadable Info
+                        </div>
+                    </a>
+                    <div class="card-body collapse" id="downloadable">
+                        @include('avored-ecommerce::product.card.downloadable')
+                    </div>
+                </div>
+
+                @endif
+
                 @foreach(Tabs::all('product') as $key => $tab)
 
                     <div class="card product-card mb-2 mt-2">
@@ -103,17 +120,46 @@
         </div>
 
             <div class="form-group">
-                <button type="button" class="btn btn-primary" name="save" onclick="jQuery('#product-save-form').submit()">
-                    Save
+                <button type="button" 
+                        :disabled='isSaveButtonDisabled'
+                        class="btn btn-primary" 
+                        name="save" 
+                        onclick="jQuery('#product-save-form').submit()">
+                    Save Product
                 </button>
-                <button type="button" class="btn btn-primary" name="save_continue" onclick="jQuery('#product-save-form').submit()">
-                    Save & Continue
-                </button>
-                <button type="button" class="btn" onclick="location='{{ route('admin.product.index') }}'">
+               
+                <button type="button"  class="btn" onclick="location='{{ route('admin.product.index') }}'">
                     Cancel
                 </button>
             </div>
 
+        <?php 
+        
+        //dd($model);
+        ?>
         </form>
-
+</div>
 @endsection
+
+
+@push('scripts')
+
+<script>
+    var app = new Vue({
+        el: '#admin-product-edit-page',
+        data : {
+            product: {!! $model !!}
+        },
+        method: {
+
+        },
+        computed: {
+            isSaveButtonDisabled: function() {
+                return false;
+            }
+        }
+    });
+</script>
+
+
+@endpush

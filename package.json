@@ -9,6 +9,7 @@
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "avored:admin": "npm run production -- --env.mixfile=avored.admin.webpack.mix",
+    "avored:watch": "npm run production -- --env.mixfile=avored.admin.webpack.mix  --watch",
     "postinstall": "opencollective postinstall"
   },
   "devDependencies": {

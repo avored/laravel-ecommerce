@@ -69,6 +69,7 @@
 </div>
 
 
+@if($model->type !== "DOWNLOADABLE")
 <div class="row">
     <div class="col-md-12">
         @include('avored-ecommerce::forms.text',['name' => 'weight','label' => 'Weight'])
@@ -90,7 +91,7 @@
 
 
 </div>
-
+@endif
 @push('scripts')
 
     <script>

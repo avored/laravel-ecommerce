@@ -824,7 +824,7 @@ class Provider extends ServiceProvider
 
 
     /**
-     * Register the Admin Menu instance.
+     * Register the Repository Instance.
      *
      * @return void
      */
