@@ -36,6 +36,11 @@
       "AvoRed\\Ecommerce\\": "src/"
     }
   },
+  "autoload-dev" : {
+		"psr-4" : {
+			"AvoRed\\Ecommerce\\Tests\\" : "tests/"
+		}
+	},
   "extra": {
     "laravel": {
       "providers": [

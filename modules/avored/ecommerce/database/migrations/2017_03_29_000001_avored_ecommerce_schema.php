@@ -28,18 +28,27 @@ class AvoredEcommerceSchema extends Migration
             $table->timestamp('created_at');
         });
 
+        Schema::create('roles', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->nullable()->default(null);
+            $table->text('description')->nullable()->default(null);
+            $table->timestamps();
+        });
+
         Schema::create('admin_users', function (Blueprint $table) {
             $table->increments('id');
             $table->tinyInteger('is_super_admin')->nullable();
-            $table->integer('role_id');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->integer('role_id')->unsigned()->default(null);
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('language')->nullable()->default('en');
             $table->string('image_path')->nullable()->default(null);
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
 
         Schema::create('users', function (Blueprint $table) {
@@ -130,9 +139,9 @@ class AvoredEcommerceSchema extends Migration
 
         Schema::create('pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('slug');
-            $table->text('content');
+            $table->string('name')->nullable()->default(null);
+            $table->string('slug')->nullable()->default(null);
+            $table->text('content')->nullable()->default(null);
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->timestamps();
@@ -146,13 +155,6 @@ class AvoredEcommerceSchema extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-        });
-
-        Schema::create('roles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
-            $table->text('description');
-            $table->timestamps();
         });
 
         Schema::create('permissions', function (Blueprint $table) {
@@ -184,9 +186,9 @@ class AvoredEcommerceSchema extends Migration
         });
 
         Schema::table('orders', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
-            $table->integer('shipping_address_id')->unsigned();
-            $table->integer('billing_address_id')->unsigned();
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->integer('shipping_address_id')->unsigned()->nullable();
+            $table->integer('billing_address_id')->unsigned()->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('shipping_address_id')->references('id')->on('addresses');
