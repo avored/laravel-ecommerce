@@ -199,7 +199,7 @@ class AvoredEcommerceSchema extends Migration
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel. Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default']);
 
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
-        $path = public_path().'/countries.json';
+        $path = __DIR__ .'/../../assets/countries.json';
 
         $json = json_decode(file_get_contents($path), true);
         foreach ($json as $code => $name) {

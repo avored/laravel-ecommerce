@@ -1,0 +1,198 @@
+.content-wrapper {
+  margin: 20px 0px;
+}
+
+.main-navbar li {
+  position: relative;
+}
+
+.dt-bootstrap .row {
+  width: 100%;
+  margin: 0px;
+
+}
+
+.dt-bootstrap .dataTables_length {
+  float: left;
+  margin-bottom: 10px;
+}
+
+.dt-bootstrap .dataTables_info {
+  margin-top: 25px;
+
+}
+
+.dt-bootstrap .pagination {
+  display: inline-block;
+  float: right;
+  padding-left: 0;
+  margin: 20px 0 15px;
+  border-radius: 4px;
+}
+
+.dt-bootstrap .pagination > li {
+  display: inline;
+}
+
+.dt-bootstrap .pagination > li > a,
+.dt-bootstrap .pagination > li > span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #007bff;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+
+.dt-bootstrap .pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+.dt-bootstrap .pagination > li:last-child > a,
+.dt-bootstrap .pagination > li:last-child > span {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.dt-bootstrap .pagination > li > a:hover,
+.dt-bootstrap .pagination > li > span:hover,
+.dt-bootstrap .pagination > li > a:focus,
+.dt-bootstrap .pagination > li > span:focus {
+  z-index: 2;
+  color: #007bff;
+  background-color: #eee;
+  border-color: #ddd;
+}
+
+.dt-bootstrap .pagination > .active > a,
+.dt-bootstrap .pagination > .active > span,
+.dt-bootstrap .pagination > .active > a:hover,
+.dt-bootstrap .pagination > .active > span:hover,
+.dt-bootstrap .pagination > .active > a:focus,
+.dt-bootstrap .pagination > .active > span:focus {
+  z-index: 3;
+  color: #fff;
+  cursor: default;
+  background-color: #007bff;
+  border-color: #337ab7;
+}
+
+.dt-bootstrap .pagination > .disabled > span,
+.dt-bootstrap .pagination > .disabled > span:hover,
+.dt-bootstrap .pagination > .disabled > span:focus,
+.dt-bootstrap .pagination > .disabled > a,
+.dt-bootstrap .pagination > .disabled > a:hover,
+.dt-bootstrap .pagination > .disabled > a:focus {
+  color: #777;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #ddd;
+}
+
+.content-wrapper {
+  margin: 20px 0px;
+}
+
+.navbar-brand {
+  color: #40baec;
+}
+
+.logo {
+  width: 20%;
+}
+
+.copyright {
+  color: #ffffff;
+  display: block;
+  padding: 10px;
+  text-align: center
+}
+
+.page-footer {
+  background: #f4f4f4;
+  margin-top: auto;
+  font-size: 14px;
+}
+
+ul.footer {
+  padding-left: 15px;
+}
+
+.top-buffer {
+  margin-top:20px;
+}
+
+.bottom-buffer {
+  margin-bottom:20px;
+}
+
+.carousel-caption {
+  background-color: aliceblue;
+  color: black;
+}
+
+.carousel-inner .active.left {
+  left: -33%;
+}
+
+.carousel-inner .next {
+  left: 33%;
+}
+
+.carousel-inner .prev {
+  left: -33%;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+  background-image: none;
+}
+
+.carousel-multi .carousel-inner > .carousel-item {
+  transition: 500ms ease-in-out left;
+
+}
+
+.carousel-multi .carousel-inner > .carousel-item > .media-card {
+  margin-right: 10px;
+  display: table-cell;
+
+}
+
+.carousel-multi .carousel-inner > .carousel-item > .media-card:last-of-type {
+  border-right: none;
+}
+
+.carousel-multi .carousel-inner .active {
+  display: table;
+}
+
+.carousel-multi .carousel-inner .active.left {
+  left: -33%;
+}
+
+.carousel-multi .carousel-inner .active.right {
+  left: 33%;
+}
+
+.carousel-multi .carousel-inner .next {
+  left: 33%;
+}
+
+.carousel-multi .carousel-inner .prev {
+  left: -33%;
+}
+
+@media all and (transform-3d), (-webkit-transform-3d) {
+  .carousel-multi .carousel-inner > .carousel-item {
+    transition: 500ms ease-in-out all;
+    backface-visibility: visible;
+    transform: none !important;
+  }
+}
