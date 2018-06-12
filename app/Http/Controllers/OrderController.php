@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use AvoRed\Framework\Models\Database\Product;
@@ -26,18 +27,17 @@ class OrderController extends Controller
         $orderStatus = OrderStatus::whereIsDefault(1)->get()->first();
         $paymentOption = $request->get('payment_option');
 
-        $data['shipping_address_id']    = $shippingAddress->id;
-        $data['billing_address_id']     = $billingAddress->id;
-        $data['user_id']                = $user->id;
-        $data['shipping_option']        = $request->get('shipping_option');
-        $data['payment_option']         = $paymentOption;
-        $data['order_status_id']        = $orderStatus->id;
+        $data['shipping_address_id'] = $shippingAddress->id;
+        $data['billing_address_id'] = $billingAddress->id;
+        $data['user_id'] = $user->id;
+        $data['shipping_option'] = $request->get('shipping_option');
+        $data['payment_option'] = $paymentOption;
+        $data['order_status_id'] = $orderStatus->id;
 
         $payment = Payment::get($paymentOption);
 
         $paymentReturn = $payment->process($data, $orderProductData, $request);
 
-    
         //@todo check Response is success of fail.
 
         $order = Order::create($data);
@@ -50,7 +50,6 @@ class OrderController extends Controller
         return redirect()->route('order.success', $order->id);
     }
 
-
     public function success(Order $order)
     {
         return view('order.success')->with('order', $order);
@@ -58,9 +57,9 @@ class OrderController extends Controller
 
     public function myAccountOrderList()
     {
-        $user   = Auth::guard()->user();
+        $user = Auth::guard()->user();
         $orders = Order::whereUserId($user->id)->get();
-        $view   = view('order.my-account-order-list')->with('orders', $orders);
+        $view = view('order.my-account-order-list')->with('orders', $orders);
 
         return $view;
     }
@@ -78,13 +77,10 @@ class OrderController extends Controller
         }
         $userData = $request->get('user');
 
-
         $user = User::whereEmail($userData['email'])->first();
-
 
         if (null === $user) {
             $billingData = $request->get('billing');
-
 
             //register guest user as user with random password
             $userData['password'] = bcrypt(str_random(6));
@@ -124,7 +120,6 @@ class OrderController extends Controller
             $shippingData = $request->get('shipping');
         }
 
-
         $shippingData['type'] = 'SHIPPING';
         $shippingData['user_id'] = Auth::guard()->user()->id;
 
@@ -149,8 +144,7 @@ class OrderController extends Controller
         $orderProductTableData = [];
 
         foreach ($orderProducts as $orderProduct) {
-    
-            if (count($orderProduct->attributes()) >= 0) {
+            if (null != $orderProduct->attributes() && $orderProduct->attributes()->count() >= 0) {
                 foreach ($orderProduct->attributes() as $attribute) {
                     $product = Product::whereSlug($orderProduct->slug())->first();
                     $data = ['order_id' => $order->id,
@@ -169,7 +163,7 @@ class OrderController extends Controller
                 $product->update(['qty' => ($product->qty - $orderProduct->qty())]);
             }
 
-            $orderProductTableData [] = [
+            $orderProductTableData[] = [
                                         'product_id' => $product->id,
                                         'qty' => $orderProduct->qty(),
                                         'price' => $orderProduct->price(),

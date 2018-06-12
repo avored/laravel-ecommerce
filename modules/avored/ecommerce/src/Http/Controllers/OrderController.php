@@ -16,11 +16,10 @@ use AvoRed\Framework\Models\Contracts\OrderInterface;
 
 class OrderController extends Controller
 {
-
-     /**
-     *
-     * @var \AvoRed\Framework\Models\Repository\OrderRepository
-     */
+    /**
+    *
+    * @var \AvoRed\Framework\Models\Repository\OrderRepository
+    */
     protected $repository;
 
     public function __construct(OrderInterface $repository)
@@ -41,9 +40,9 @@ class OrderController extends Controller
     }
 
     /**
-     * View an Order Details 
+     * View an Order Details
      * @param \AvoRed\Ecommerce\Models\Database\Order $order
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function view(Model $order)
@@ -54,19 +53,19 @@ class OrderController extends Controller
     /**
      * Send an Order Invioced PDF to User
      * @param \AvoRed\Ecommerce\Models\Database\Order $order
-     * 
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function sendEmailInvoice(Model $order)
     {
-        $user   = $order->user;
+        $user = $order->user;
         $view = view('avored-ecommerce::mail.order-pdf')->with('order', $order);
 
         $folderPath = public_path('uploads/order/invoice');
-        if (! File::exists($folderPath)) {
+        if (!File::exists($folderPath)) {
             File::makeDirectory($folderPath, '0775', true, true);
         }
-        $path = $folderPath.DIRECTORY_SEPARATOR.$order->id.'.pdf';
+        $path = $folderPath . DIRECTORY_SEPARATOR . $order->id . '.pdf';
         PDF::loadHTML($view->render())->save($path);
 
         Mail::to($user->email)->send(new OrderInvoicedMail($order, $path));
@@ -77,7 +76,7 @@ class OrderController extends Controller
     /**
      * Edit the Order Status View
      * @param \AvoRed\Ecommerce\Models\Database\Order $order
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function editStatus(Model $order)
@@ -92,15 +91,15 @@ class OrderController extends Controller
         return $view;
     }
 
-     /**
+    /**
      * Change the Order Status
      * @param \AvoRed\Ecommerce\Models\Database\Order $order
-     * 
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function updateStatus(Model $order, UpdateOrderStatusRequest $request)
     {
-        $order = Model::find($id);
+        //$order = Model::find($id);
         $order->update($request->all());
 
         $userEmail = $order->user->email;

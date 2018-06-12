@@ -25,6 +25,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
+
+        
         $value = Configuration::getConfiguration('avored_user_total');
         $totalRegisteredUser = (null === $value) ? 0 : $value;
 
