@@ -142,24 +142,3 @@
 @endsection
 
 
-@push('scripts')
-
-<script>
-    var app = new Vue({
-        el: '#admin-product-edit-page',
-        data : {
-            product: {!! $model !!}
-        },
-        method: {
-
-        },
-        computed: {
-            isSaveButtonDisabled: function() {
-                return false;
-            }
-        }
-    });
-</script>
-
-
-@endpush

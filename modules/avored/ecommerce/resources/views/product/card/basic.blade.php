@@ -1,13 +1,6 @@
 <div class="row">
     <div class="col-6">
-        <!-- include('avored-ecommerce::forms.text',['name' => 'name','label' => 'Name']) -->
-        <avored-form-input></avored-form-input>
-       
-        <div class="form-group">
-            <label>Name</label>
-            <input v-model='product.name' name="name" class="form-control" />
-        </div>
-
+        @include('avored-ecommerce::forms.text',['name' => 'name','label' => 'Name'])
     </div>
     <div class="col-6">
         @if(!isset($productCategories))

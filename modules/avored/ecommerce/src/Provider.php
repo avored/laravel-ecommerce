@@ -46,10 +46,14 @@ use AvoRed\Ecommerce\Console\AdminMakeCommand;
 //Model Contracts
 use AvoRed\Ecommerce\Models\Contracts\AdminUserInterface;
 use AvoRed\Ecommerce\Models\Contracts\MenuInterface;
+use AvoRed\Ecommerce\Models\Contracts\PageInterface;
+use AvoRed\Ecommerce\Models\Contracts\RoleInterface;
 
 //Repositories
 use AvoRed\Ecommerce\Models\Repository\AdminUserRepository;
 use AvoRed\Ecommerce\Models\Repository\MenuRepository;
+use AvoRed\Ecommerce\Models\Repository\PageRepository;
+use AvoRed\Ecommerce\Models\Repository\RoleRepository;
 
 class Provider extends ServiceProvider
 {
@@ -832,5 +836,7 @@ class Provider extends ServiceProvider
     {
         $this->app->bind(AdminUserInterface::class,AdminUserRepository::class);
         $this->app->bind(MenuInterface::class,MenuRepository::class);
+        $this->app->bind(PageInterface::class,PageRepository::class);
+        $this->app->bind(RoleInterface::class,RoleRepository::class);
     }
 }
