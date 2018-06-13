@@ -22,6 +22,7 @@ storage/framework/bootstrap/cache/services.php
 /modules/*
 /modules/ecommerce
 /themes/*
+/public/cov/*
 
 # Include Ecommerce Module
 !/modules/avored
