@@ -10,8 +10,6 @@ use AvoRed\Ecommerce\Http\Requests\PropertyRequest;
 
 class PropertyController extends Controller
 {
-
-
     /**
      * Display a listing of the Property.
      *
@@ -19,7 +17,7 @@ class PropertyController extends Controller
      */
     public function index()
     {
-        $propertyGrid = new Property( Model::query()->orderBy('id', 'desc'));
+        $propertyGrid = new Property(Model::query()->orderBy('id', 'desc'));
 
         return view('avored-ecommerce::property.index')->with('dataGrid', $propertyGrid->dataGrid);
     }
@@ -59,8 +57,6 @@ class PropertyController extends Controller
      */
     public function edit(Model $property)
     {
-        $property = Model::findorfail($id);
-
         return view('avored-ecommerce::property.edit')->with('model', $property);
     }
 
@@ -74,7 +70,6 @@ class PropertyController extends Controller
      */
     public function update(PropertyRequest $request, Model $property)
     {
-        $property = Model::find($id);
         $property->update($request->all());
 
         $this->_saveDropdownOptions($property, $request);
@@ -121,7 +116,7 @@ class PropertyController extends Controller
      *
      * @param \AvoRed\Framework\Models\Database\Property $proerty
      * @param \AvoRed\Ecommerce\Http\Request\PropertyRequest $request
-     * 
+     *
      * @return void
      */
     private function _saveDropdownOptions($property, $request)

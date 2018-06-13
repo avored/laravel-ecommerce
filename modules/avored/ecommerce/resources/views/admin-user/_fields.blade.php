@@ -8,14 +8,16 @@
 
 
 @if(isset($model) && $model->email != "")
-    <?php $attributes = ['disabled' => true,'class' => 'form-control','id' => 'email'];?>
+    <?php $attributes = ['disabled' => true];?>
 @else
-    <?php $attributes = ['class' => 'form-control','id' => 'email']; ?>
+    <?php $attributes = []; ?>
 @endif
 
-@include('avored-ecommerce::forms.text',['name' => 'email','label' => __('avored-ecommerce::user.email'),'attributes' => $attributes])
+@include('avored-ecommerce::forms.text',['name' => 'email',
+                                        'label' => __('avored-ecommerce::user.email'),
+                                        'attributes' => $attributes])
 
-@if(isset($model) && $model->email != "")
+@if(!isset($model))
 
     @include('avored-ecommerce::forms.password',['name' => 'password','label' => __('avored-ecommerce::user.password')])
     @include('avored-ecommerce::forms.password',['name' => 'password_confirmation','label' => __('avored-ecommerce::user.confirm-password')])
