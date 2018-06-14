@@ -7,6 +7,7 @@
     field-value="{!! $model->name ?? "" !!}" 
     error-text="{!! $errors->first('name') !!}"
     v-on:change="changeModelValue"
+    autofocus="autofocus"
         >
 </avored-form-input>
 

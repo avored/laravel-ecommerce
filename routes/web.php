@@ -17,6 +17,8 @@ Route::get('category/{slug}', 'CategoryViewController@view')->name('category.vie
 Route::get('product/{slug}', 'ProductViewController@view')->name('product.view');
 Route::get('product-search', 'SearchController@result')->name('search.result');
 
+Route::post('product-demo-download', 'ProductViewController@downloadDemoProduct')->name('product.demo.download');
+
 Route::post('add-to-cart', 'CartController@addToCart')->name('cart.add-to-cart');
 Route::get('cart/view', 'CartController@view')->name('cart.view');
 Route::put('cart/update', 'CartController@update')->name('cart.update');
@@ -58,9 +60,11 @@ Route::middleware('auth')
         Route::resource('address', 'User\AddressController');
 
         Route::get('order/list', 'OrderController@myAccountOrderList')->name('order.list');
-        Route::get('order/{order}/view', 'OrderController@myAccountOrderView')->name('my-account.order.view');
+        Route::get('order/{order}/view', 'OrderController@myAccountOrderView')->name('order.view');
 
         Route::get('wishlist/add/{slug}', 'User\WishlistController@add')->name('wishlist.add');
         Route::get('wishlist', 'User\WishlistController@mylist')->name('wishlist.list');
         Route::get('wishlist/remove/{slug}', 'User\WishlistController@destroy')->name('wishlist.remove');
+
+        Route::post('product-main-download', 'ProductViewController@downloadMainProduct')->name('product.main.download');
     });
