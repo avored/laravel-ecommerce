@@ -1,11 +1,9 @@
 <template>
     <div class="form-group">
         <label :id=fieldName>{{ label }}</label>
-        <input :type=fieldType
+        <input :type="fieldType" 
               :id=fieldName  
               :name=fieldName 
-              :autofocus=autofocus
-              :disabled=disabled
               @input="onChange"
               v-model="value"
               :class=computedClass />
@@ -18,15 +16,12 @@
 <script>
     export default {
         props: {
-            fieldType:  { type:String,   default: 'text'},
-            label:      { type:String,   required: true},
-            fieldName:  { type:String,   required: true},
-            fieldClass: { type:String,   default: 'form-control'},
-            fieldValue: { type:String,   default: ''},
-            errorText : { type:String,   default: ''},
-            autofocus : { type:Boolean,  default: false},
-            disabled :  { type:Boolean,  default: false},
-
+            fieldType: { type:String, default: 'text'},
+            label: { type:String, required: true},
+            fieldName: { type:String, required: true},
+            fieldClass: { type:String, default: 'form-control'},
+            fieldValue: { type:String, default: ''},
+            errorText   : { type:String, default: ''},
         },
         computed: {
             computedClass: function() {

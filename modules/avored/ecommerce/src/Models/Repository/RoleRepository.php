@@ -3,7 +3,6 @@
 namespace AvoRed\Ecommerce\Models\Repository;
 
 use AvoRed\Ecommerce\Models\Contracts\RoleInterface;
-use AvoRed\Ecommerce\Models\Database\Role;
 
 class RoleRepository implements RoleInterface
 {

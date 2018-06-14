@@ -9,13 +9,13 @@
                 v-model="selectedValue"
                >
 
-              <option v-for="option in options"  :key="option.id" :value="option.id">
+              <option v-for="option in options"   :key="option.id" :value="option.id">
                   {{ option.name }}
 
                 </option>
 
         </select>
-        <div   v-if=dataDisplayError   class="invalid-feedback">
+        <div   v-show=dataDisplayError   class="invalid-feedback">
             {{ errorText }}
         </div>
     </div>
@@ -41,18 +41,19 @@
             },
             options: function() {
                 return JSON.parse(this.fieldOptions);
-            },
-            dataDisplayError : function() {   
-                if(this.errorText == ""){
-                    return false;
-                } 
-                return true;    
-            },
+            }
         },
         data: function () {
             return {
-                
-                selectedValue: this.fieldValue
+                dataDisplayError : function() {   
+                    if(this.errorText == ""){
+                        return false;
+                    } 
+                    return true;    
+                },
+                selectedValue: function() {
+                    return this.fieldValue;
+                }
             }
         },
         methods:{
@@ -66,6 +67,7 @@
                 this.selectValue = event.target.value;
             },
             isSelected: function(option) {
+            
                 return (option.id == this.fieldValue);
             }
         }

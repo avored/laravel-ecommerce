@@ -60,7 +60,6 @@
         el: '#admin-category-edit-page',
         data : {
             category: {!! $model !!},
-            autofocus: true
         },
         methods: {
             changeModelValue: function(val,fieldName) {

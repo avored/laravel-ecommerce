@@ -216,7 +216,7 @@ class AvoredEcommerceSchema extends Migration
             $table->timestamps();
         });
 
-        $countryModel = Country::whereCode('NZ')->first();
+        $countryModel = Country::whereCode('nz')->first();
 
 
         Configuration::create([

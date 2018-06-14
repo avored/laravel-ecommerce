@@ -1,71 +1,26 @@
 
 
-
-<avored-form-input 
-    field-name="first_name"
-    label="First Name" 
-    field-value="{!! $model->first_name ?? "" !!}" 
-    error-text="{!! $errors->first('first_name') !!}"
-    v-on:change="changeModelValue"
-    autofocus="autofocus"
-        >
-</avored-form-input>
-
-
-<avored-form-input 
-    field-name="last_name"
-    label="Last Name" 
-    field-value="{!! $model->last_name ?? "" !!}" 
-    error-text="{!! $errors->first('last_name') !!}"
-    v-on:change="changeModelValue"
-        >
-</avored-form-input>
+@include('avored-ecommerce::forms.text',['name' => 'first_name','label' => __('avored-ecommerce::user.first-name')])
+@include('avored-ecommerce::forms.text',['name' => 'last_name','label' => __('avored-ecommerce::user.last-name')])
 
 
 @include('avored-ecommerce::forms.file',['name' => 'image','label' => __('avored-ecommerce::user.file')])
 
-<avored-form-input 
-    field-name="email"
-    field-type="email"
-    label="Email" 
-    field-value="{!! $model->email ?? "" !!}" 
-    error-text="{!! $errors->first('email') !!}"
-    v-bind:disabled="disabled"
-    v-on:change="changeModelValue"
-        >
-</avored-form-input>
 
+@if(isset($model) && $model->email != "")
+    <?php $attributes = ['disabled' => true,'class' => 'form-control','id' => 'email'];?>
+@else
+    <?php $attributes = ['class' => 'form-control','id' => 'email']; ?>
+@endif
 
+@include('avored-ecommerce::forms.text',['name' => 'email','label' => __('avored-ecommerce::user.email'),'attributes' => $attributes])
 
-@if(!isset($model))
+@if(isset($model) && $model->email != "")
 
-<avored-form-input 
-    field-name="password"
-    field-type="password"
-    label="Password"  
-    error-text="{!! $errors->first('password') !!}"
-    v-on:change="changeModelValue"
-        >
-</avored-form-input>
-
-<avored-form-input 
-    field-name="password_confirmation"
-    field-type="password"
-    label="Confirm Password"  
-    error-text="{!! $errors->first('password_confirmation') !!}"
-    v-on:change="changeModelValue"
-        >
-</avored-form-input>
+    @include('avored-ecommerce::forms.password',['name' => 'password','label' => __('avored-ecommerce::user.password')])
+    @include('avored-ecommerce::forms.password',['name' => 'password_confirmation','label' => __('avored-ecommerce::user.confirm-password')])
 
 @endif
 
 
-<avored-form-select 
-    field-name="role_id"
-    label="Role" 
-    error-text="{!! $errors->first('role_id') !!}"
-    field-options='{!! $roles !!}'
-    field-value="{!! $model->role_id ?? "" !!}" 
-    v-on:change="changeModelValue"
-        >
-</avored-form-select>
+@include('avored-ecommerce::forms.select',['name' => 'role_id','label' => __('avored-ecommerce::user.user-role'),'options' => $roles])

@@ -1,23 +1,31 @@
 <?php
 
-$attributes['type'] = 'text';
-$attributes['class'] = 'form-control';
-$attributes['id'] = $name;
-$attributes['name'] = $name;
+if(isset($attributes)) {
+    $attributes['name'] = $name;
+    $attributes['type'] = "password";
+    if(!isset($attributes['id'])) {
+        $attributes['id'] = $name;
+    }
 
-if (isset($attributes)) {
-    $attributes = array_merge($attributes, $attributes);
+} else {
+    $attributes['type'] = "password";
+    $attributes['class'] = 'form-control';
+    $attributes['id'] = $name;
+    $attributes['name'] = $name;
+
 }
 
-if ($errors->has($name) && isset($attributes['class'])) {
-    $attributes['class'] .= ' is-invalid';
-} elseif ($errors->has($name) && !isset($attributes['class'])) {
-    $attributes['class'] = 'is-invalid';
+
+if($errors->has($name) && isset($attributes['class'])) {
+    $attributes['class'] .= " is-invalid";
+} elseif ($errors->has($name) && !isset($attributes['class'])){
+    $attributes['class'] = "is-invalid";
 }
 
-$attrString = '';
 
-foreach ($attributes as $attrKey => $attrValue) {
+$attrString = "";
+
+foreach($attributes as $attrKey => $attrValue) {
     $attrString .= "{$attrKey}=\"{$attrValue}\"";
 }
 

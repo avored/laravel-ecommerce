@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <div id="admin-admin-user-page" class="row">
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -31,28 +31,3 @@
         </div>
     </div>
 @endsection
-
-
-@push('scripts')
-
-<script>
-
- var app = new Vue({
-        el: '#admin-admin-user-page',
-        data : {
-            model: {},
-            autofocus:true,
-            disabled: false
-           
-        },
-        methods: {
-            changeModelValue: function(val,fieldName) {
-                this.model[fieldName] = val;
-            }
-        }
-    });
-
-</script>
-
-
-@endpush
