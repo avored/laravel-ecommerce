@@ -1,37 +1,30 @@
 <?php
 
-$value = "";
-if(old($name)) {
+$value = '';
+if (old($name)) {
     $value = old($name);
-}  elseif(isset($model) && $model->$name) {
+} elseif (isset($model) && $model->$name) {
     $value = $model->$name;
 }
 
-if(isset($attributes)) {
-    $attributes['name'] = $name;
-    $attributes['type'] = "text";
-    if(!isset($attributes['id'])) {
-        $attributes['id'] = $name;
-    }
-    $attributes['value'] = $value;
-
-} else {
-    $attributes['type'] = "text";
-    $attributes['class'] = 'form-control';
-    $attributes['id'] = $name;
-    $attributes['name'] = $name;
-    $attributes['value'] = $value;
+$attributes['type'] = 'text';
+$attributes['class'] = 'form-control';
+$attributes['id'] = $name;
+$attributes['name'] = $name;
+$attributes['value'] = $value;
+if (isset($attributes)) {
+    $attributes = array_merge($attributes, $attributes);
 }
 
-if($errors->has($name) && isset($attributes['class'])) {
-    $attributes['class'] .= " is-invalid";
-} elseif ($errors->has($name) && !isset($attributes['class'])){
-    $attributes['class'] = "is-invalid";
+if ($errors->has($name) && isset($attributes['class'])) {
+    $attributes['class'] .= ' is-invalid';
+} elseif ($errors->has($name) && !isset($attributes['class'])) {
+    $attributes['class'] = 'is-invalid';
 }
 
-$attrString = "";
+$attrString = '';
 
-foreach($attributes as $attrKey => $attrValue) {
+foreach ($attributes as $attrKey => $attrValue) {
     $attrString .= "{$attrKey}=\"{$attrValue}\"";
 }
 

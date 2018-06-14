@@ -3,27 +3,21 @@ $value = old($name);
 if (isset($model) && $model->$name) {
     $value = $model->$name;
 }
-if(isset($attributes)) {
-    $attributes['name'] = $name;
-    $attributes['type'] = "text";
-    if(!isset($attributes['id'])) {
-        $attributes['id'] = $name;
-    }
-
-} else {
-    $attributes['type'] = "text";
-    $attributes['class'] = 'form-control';
-    $attributes['id'] = $name;
-    $attributes['name'] = $name;
-
+$attributes['type'] = 'text';
+$attributes['class'] = 'form-control';
+$attributes['id'] = $name;
+$attributes['name'] = $name;
+$attributes['value'] = $value;
+if (isset($attributes)) {
+    $attributes = array_merge($attributes, $attributes);
 }
-$attrString = "";
 
-foreach($attributes as $attrKey => $attrValue) {
+$attrString = '';
+
+foreach ($attributes as $attrKey => $attrValue) {
     $attrString .= "{$attrKey}=\"{$attrValue}\"";
 }
 
-//dd($options);
 ?>
 
 

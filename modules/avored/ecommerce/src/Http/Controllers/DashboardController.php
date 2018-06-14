@@ -2,8 +2,8 @@
 
 namespace AvoRed\Ecommerce\Http\Controllers;
 
-use AvoRed\Framework\Models\Database\Configuration;
 use AvoRed\Framework\Models\Contracts\OrderInterface;
+use AvoRed\Ecommerce\Models\Database\User;
 
 class DashboardController extends Controller
 {
@@ -25,11 +25,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-
-        
-        $value = Configuration::getConfiguration('avored_user_total');
-        $totalRegisteredUser = (null === $value) ? 0 : $value;
-
+        $totalRegisteredUser = User::all()->count();
         $totalOrder = $this->repository->all()->count();
 
         return view('avored-ecommerce::home')

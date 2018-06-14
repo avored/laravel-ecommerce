@@ -67,9 +67,10 @@ class AttributeController extends Controller
         return view('avored-ecommerce::attribute.edit')->with('model', $attribute);
     }
 
-    public function update(AttributeRequest $request, Model $attribut)
+    public function update(AttributeRequest $request, Model $attribute)
     {
         $attribute->update($request->all());
+
         $this->_saveDropdownOptions($attribute, $request);
 
         return redirect()->route('admin.attribute.index');
