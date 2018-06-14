@@ -67,6 +67,7 @@
         el: '#admin-category-create-page',
         data : {
             category: {},
+            autofocus:true
         },
         methods: {
             changeModelValue: function(val,fieldName) {

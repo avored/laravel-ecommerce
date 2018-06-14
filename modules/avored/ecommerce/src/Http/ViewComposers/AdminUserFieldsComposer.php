@@ -16,7 +16,7 @@ class AdminUserFieldsComposer
      */
     public function compose(View $view)
     {
-        $roles = Role::options();
+        $roles = Role::all();
         $view->with('roles', $roles);
     }
 }

@@ -40,9 +40,9 @@
                         <avored-form-input 
                             field-name="email"
                             label="{{ __('avored-ecommerce::lang.admin-email-label') }}" 
-                        
                             error-text="{!! $errors->first('email') !!}"
                             v-on:change="changeModelValue"
+                            autofocus="autofocus"
                                 >
                         </avored-form-input>
 
@@ -84,7 +84,8 @@
         el: '#login-page',
         data : {
             email: '',
-            password: ''
+            password: '',
+            autofocus:true
         },
         computed: {
             isLoginDisbled: function() {
