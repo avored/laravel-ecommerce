@@ -27,8 +27,12 @@
 
                     @if($product->type == 'BASIC')
                         @include('product.view.type.basic-add-to-cart')
-                    @elseif($product->type == 'VARIATION' )
+                    @endif
+                    @if($product->type == 'VARIATION' )
                         @include('product.view.type.variation-add-to-cart')
+                    @endif
+                    @if($product->type == 'DOWNLOADABLE' )
+                        @include('product.view.type.downloadable-add-to-cart')
                     @endif
 
                 <div class="float-left">

@@ -54,6 +54,11 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::post('product-image/upload', 'ProductController@uploadImage')->name('product.upload-image');
         Route::post('product-image/delete', 'ProductController@deleteImage')->name('product.delete-image');
 
+        Route::get('product-downloadable-demo/{token}', 'ProductController@downloadDemoToken')
+                                ->name('product.download.demo.media');
+        Route::get('product-downloadable-main/{token}', 'ProductController@downloadMainToken')
+                                ->name('product.download.main.media');
+
         Route::get('admin-user/view', 'AdminUserController@show')->name('admin-user.show');
         Route::get('admin-user-api-show', 'AdminUserController@apiShow')->name('admin-user.show.api');
 

@@ -13,19 +13,31 @@ use AvoRed\Framework\Image\Facade as Image;
 use AvoRed\Ecommerce\Http\Requests\ProductRequest;
 use AvoRed\Ecommerce\DataGrid\Product as ProductGrid;
 use AvoRed\Framework\Models\Contracts\ProductInterface;
+use AvoRed\Framework\Models\Database\ProductDownloadableUrl;
+use AvoRed\Framework\Models\Repository\ProductDownloadableUrlRepository;
+use AvoRed\Framework\Models\Contracts\ProductDownloadableUrlInterface;
 
 class ProductController extends Controller
 {
     /**
-    *
-    * @var \AvoRed\Framework\Models\Repository\ProductRepository
-    */
+     *
+     * @var \AvoRed\Framework\Models\Repository\ProductRepository
+     */
     protected $repository;
 
-    public function __construct(ProductInterface $repository)
+    /**
+     *
+     * @var \AvoRed\Framework\Models\Repository\ProductDownloadableUrlRepository
+     */
+    protected $downRepository;
+
+    public function __construct(ProductInterface $repository, ProductDownloadableUrlInterface $downRep)
     {
-        $this->repository = $repository;
+        $this->repository       = $repository;
+        $this->downRepository   = $downRep;
     }
+
+    
 
     /**
      * Display a listing of the resource.
@@ -107,6 +119,7 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, ProductModel $product)
     {
+        //dd($request->all());
         try {
             //$product = ProductModel::findorfail($id);
             $product->saveProduct($request->all());
@@ -183,6 +196,36 @@ class ProductController extends Controller
             File::delete(storage_path('app/public/' . $path));
         }
         return JsonResponse::create(['success' => true]);
+    }
+
+    /**
+     * Products Downloadable Main Media Download.
+     *
+     * @param string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function downloadMainToken($token)
+    {
+        $downloadableUrl = $this->downRepository->findByToken($token);
+        $path = storage_path("app/public" . DIRECTORY_SEPARATOR. $downloadableUrl->main_path);
+
+        return response()->download($path);
+    }
+
+     /**
+     * Products Downloadable Main Media Download.
+     *
+     * @param string $token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function downloadDemoToken($token)
+    {
+        $downloadableUrl = $this->downRepository->findByToken($token);
+        $path = storage_path("app/public" . DIRECTORY_SEPARATOR. $downloadableUrl->demo_path);
+
+        return response()->download($path);
     }
 
     /**
