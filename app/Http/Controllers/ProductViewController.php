@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use AvoRed\Framework\Models\Database\Product;
 use AvoRed\Framework\Models\Contracts\ProductInterface;
+use Illuminate\Http\Request;
+use AvoRed\Framework\Models\Contracts\ProductDownloadableUrlInterface;
 
 class ProductViewController extends Controller
 {
@@ -13,9 +15,16 @@ class ProductViewController extends Controller
      */
     protected $repository;
 
-    public function __construct(ProductInterface $repository)
+     /**
+     * Product Downloadable Url Repository
+     * @var \AvoRed\Framework\Models\Repository\ProductDownloadableUrlRepository
+     */
+    protected $downRep;
+
+    public function __construct(ProductInterface $repository , ProductDownloadableUrlInterface $downRep)
     {
-        $this->repository = $repository;
+        $this->repository   = $repository;
+        $this->downRep      = $downRep;
     }
 
     public function view($slug)
@@ -33,5 +42,23 @@ class ProductViewController extends Controller
                                 ->with('product', $product)
                                 ->with('title', $title)
                                 ->with('description', $description);
+    }
+
+    public function downloadDemoProduct(Request $request) {
+
+        $downModel  = $this->downRep->findByToken($request->get('product_token'));
+
+        $path = storage_path('app/public' . DIRECTORY_SEPARATOR . $downModel->demo_path);
+        return response()->download($path);
+
+    }
+
+    public function downloadMainProduct(Request $request) {
+
+        $downModel  = $this->downRep->findByToken($request->get('product_token'));
+
+        $path = storage_path('app/public' . DIRECTORY_SEPARATOR . $downModel->main_path);
+        return response()->download($path);
+
     }
 }

@@ -1,9 +1,31 @@
 
+@if(isset($product->downloadable) && $product->downloadable->demo_path != "")
+<div class="demo-downloadable">
+    <a href="{{ route('product.demo.download') }}" onclick="event.preventDefault();
+                                                     document.getElementById('download-demo-product-media').submit();">
+        Download Demo Media
+    </a>
+    <form id="download-demo-product-media" method="post" action="{{ route('product.demo.download') }}">
+        @csrf()
+        <input type="hidden" name="product_token" value="{{ $product->downloadable->token }}" />
+    </form>
+</div>
+
+@else
+
+<div class="demo-downloadable">
+    <a href="#">
+        Sorry Demo is not available
+    </a>
+    
+</div>
+
+@endif
 
 @if($product->qty >= 0)
 
 <form method="post" action="{{ route('cart.add-to-cart') }}">
-    {{ csrf_field() }}
+    @csrf()
 <input type="hidden" name="slug" value="{{ $product->slug }}"/>
 <div class="product-stock">In Stock</div>
 <hr>
@@ -42,3 +64,5 @@
 
 
 @endif
+
+
