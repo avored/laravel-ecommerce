@@ -16,7 +16,7 @@ class SiteCurrencyDataGrid
                 ->column('id', ['sortable' => true])
                 ->column('code', ['label' => 'Code'])
                 ->column('name', ['label' => 'Name'])
-                ->linkColumn('conversation_rate', ['label' => 'Convertion Rate'])
+                ->column('conversion_rate', ['label' => 'Convertion Rate'])
                 ->linkColumn('edit', [], function ($model) {
                     return "<a href='".route('admin.site-currency.edit', $model->id)."' >Edit</a>";
                 })->linkColumn('destroy', [], function ($model) {

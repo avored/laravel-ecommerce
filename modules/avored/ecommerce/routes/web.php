@@ -74,11 +74,7 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::delete('themes/{name}', 'ThemeController@destroy')->name('theme.destroy');
 
         //Route::resource('order-status', 'OrderStatusController');
-
-        Route::get('currency', 'CurrencyController@index')
-                                ->name('currency.index');
-
-
+        
         Route::get('order', 'OrderController@index')->name('order.index');
 
         Route::post('get-property-element', 'PropertyController@getElementHtml')->name('property.element');

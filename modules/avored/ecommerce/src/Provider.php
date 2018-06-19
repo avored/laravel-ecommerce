@@ -36,6 +36,7 @@ use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
 
 //View Composers
 use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\SiteCurrencyFieldsComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
 
@@ -48,12 +49,14 @@ use AvoRed\Ecommerce\Models\Contracts\AdminUserInterface;
 use AvoRed\Ecommerce\Models\Contracts\MenuInterface;
 use AvoRed\Ecommerce\Models\Contracts\PageInterface;
 use AvoRed\Ecommerce\Models\Contracts\RoleInterface;
+use AvoRed\Ecommerce\Models\Contracts\SiteCurrencyInterface;
 
 //Repositories
 use AvoRed\Ecommerce\Models\Repository\AdminUserRepository;
 use AvoRed\Ecommerce\Models\Repository\MenuRepository;
 use AvoRed\Ecommerce\Models\Repository\PageRepository;
 use AvoRed\Ecommerce\Models\Repository\RoleRepository;
+use AvoRed\Ecommerce\Models\Repository\SiteCurrencyRepository;
 
 class Provider extends ServiceProvider
 {
@@ -143,6 +146,7 @@ class Provider extends ServiceProvider
     public function registerViewComposerData()
     {
         View::composer('avored-ecommerce::layouts.left-nav', AdminNavComposer::class);
+        View::composer('avored-ecommerce::site-currency._fields', SiteCurrencyFieldsComposer::class);
         View::composer(['avored-ecommerce::category._fields'], CategoryFieldsComposer::class);
         View::composer(['avored-ecommerce::admin-user._fields'], AdminUserFieldsComposer::class);
         View::composer(['avored-ecommerce::product.create',
@@ -256,11 +260,11 @@ class Provider extends ServiceProvider
 
 
         $currencySetup = new AdminMenu();
-        $currencySetup->key('currency_setup')
+        $currencySetup->key('site_currency_setup')
             ->label('Currency Setup')
-            ->route('admin.currency.index')
+            ->route('admin.site-currency.index')
             ->icon('fas fa-dollar-sign');
-        $systemMenu->subMenu('currency_setup', $currencySetup);
+        $systemMenu->subMenu('site_currency', $currencySetup);
 
 
 
@@ -844,5 +848,6 @@ class Provider extends ServiceProvider
         $this->app->bind(MenuInterface::class,MenuRepository::class);
         $this->app->bind(PageInterface::class,PageRepository::class);
         $this->app->bind(RoleInterface::class,RoleRepository::class);
+        $this->app->bind(SiteCurrencyInterface::class,SiteCurrencyRepository::class);
     }
 }

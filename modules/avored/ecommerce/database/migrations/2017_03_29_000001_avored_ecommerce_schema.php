@@ -76,13 +76,12 @@ class AvoredEcommerceSchema extends Migration
             $table->timestamps();
         });
 
-        Schema::create('site_ currencies', function (Blueprint $table) {
+        Schema::create('site_currencies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
             $table->string('name');
             $table->float('conversion_rate');
-            $table->enum()('status',['ENABLED','DISABLED'])->nullable()->default(null);
-           
+            $table->enum('status',['ENABLED','DISABLED'])->nullable()->default(null);
             $table->timestamps();
         });
 

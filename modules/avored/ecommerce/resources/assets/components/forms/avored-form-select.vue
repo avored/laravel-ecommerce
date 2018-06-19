@@ -42,17 +42,16 @@
             options: function() {
                 return JSON.parse(this.fieldOptions);
             },
-            dataDisplayError : function() {   
-                if(this.errorText == ""){
-                    return false;
-                } 
-                return true;    
-            },
         },
         data: function () {
             return {
-                
-                selectedValue: this.fieldValue
+                selectedValue: this.fieldValue,
+                dataDisplayError : function() {   
+                    if(this.errorText == ""){
+                        return false;
+                    } 
+                    return true;    
+                }
             }
         },
         methods:{
