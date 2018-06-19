@@ -70,6 +70,19 @@ class AvoredEcommerceSchema extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('name');
+            $table->string('phone_code')->nullable()->default(null);
+            $table->string('currency_code')->nullable()->default(null);
+            $table->string('lang_code')->nullable()->default(null);
+            $table->timestamps();
+        });
+
+        Schema::create('site_ currencies', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('code');
+            $table->string('name');
+            $table->float('conversion_rate');
+            $table->enum()('status',['ENABLED','DISABLED'])->nullable()->default(null);
+           
             $table->timestamps();
         });
 
@@ -199,11 +212,17 @@ class AvoredEcommerceSchema extends Migration
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel. Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default']);
 
         Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
+        
         $path = __DIR__ .'/../../assets/countries.json';
-
         $json = json_decode(file_get_contents($path), true);
-        foreach ($json as $code => $name) {
-            Country::create(['code' => $code, 'name' => $name]);
+        foreach ($json as $code => $country) {
+            
+            Country::create(['code' => strtolower($code), 
+                            'name' => $country['name'],
+                            'phone_code' => $country['phone'],
+                            'currency_code' => $country['currency'],
+                            'lang_code' => (isset($country['languages'][0]) && $country['languages']) ?? null,
+                            ]);
         }
 
         Schema::create('menus', function (Blueprint $table) {

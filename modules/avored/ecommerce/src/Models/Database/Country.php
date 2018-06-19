@@ -9,6 +9,9 @@ class Country extends BaseModel
     protected $fillable = [
         'name',
         'code',
+        'phone_code',
+        'currency_code',
+        'lang_code'
     ];
 
     public function states()

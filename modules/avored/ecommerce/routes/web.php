@@ -45,6 +45,7 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::resource('product', 'ProductController');
         Route::resource('property', 'PropertyController');
         Route::resource('role', 'RoleController');
+        Route::resource('site-currency', 'SiteCurrencyController');
 
         Route::get('menu', 'MenuController@index')->name('menu.index');
         Route::post('menu', 'MenuController@store')->name('menu.store');
@@ -73,6 +74,9 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::delete('themes/{name}', 'ThemeController@destroy')->name('theme.destroy');
 
         //Route::resource('order-status', 'OrderStatusController');
+
+        Route::get('currency', 'CurrencyController@index')
+                                ->name('currency.index');
 
 
         Route::get('order', 'OrderController@index')->name('order.index');

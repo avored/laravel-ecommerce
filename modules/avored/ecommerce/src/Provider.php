@@ -255,6 +255,12 @@ class Provider extends ServiceProvider
         $systemMenu->subMenu('configuration', $configurationMenu);
 
 
+        $currencySetup = new AdminMenu();
+        $currencySetup->key('currency_setup')
+            ->label('Currency Setup')
+            ->route('admin.currency.index')
+            ->icon('fas fa-dollar-sign');
+        $systemMenu->subMenu('currency_setup', $currencySetup);
 
 
 
