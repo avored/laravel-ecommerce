@@ -17,6 +17,7 @@ use AvoRed\Ecommerce\Http\Middleware\AdminAuth;
 use AvoRed\Ecommerce\Http\Middleware\Permission;
 use AvoRed\Ecommerce\Http\Middleware\AdminApiAuth;
 use AvoRed\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
+use AvoRed\Ecommerce\Http\Middleware\SiteCurrencyMiddleware;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -57,6 +58,7 @@ use AvoRed\Ecommerce\Models\Repository\MenuRepository;
 use AvoRed\Ecommerce\Models\Repository\PageRepository;
 use AvoRed\Ecommerce\Models\Repository\RoleRepository;
 use AvoRed\Ecommerce\Models\Repository\SiteCurrencyRepository;
+use AvoRed\Ecommerce\Models\Database\SiteCurrency;
 
 class Provider extends ServiceProvider
 {
@@ -132,6 +134,7 @@ class Provider extends ServiceProvider
     {
         $router = $this->app['router'];
 
+        $router->aliasMiddleware('currency', SiteCurrencyMiddleware::class);
         $router->aliasMiddleware('admin.api.auth', AdminApiAuth::class);
         $router->aliasMiddleware('admin.auth', AdminAuth::class);
         $router->aliasMiddleware('admin.guest', RedirectIfAdminAuth::class);
@@ -310,6 +313,17 @@ class Provider extends ServiceProvider
             ->label('Default Site Description')
             ->type('text')
             ->name('general_site_description');
+
+
+        $configurationGroup->addConfiguration('general_site_currency')
+            ->label('Default Site Currency')
+            ->type('select')
+            ->name('general_site_currency')
+            ->options(function () {
+                $options = SiteCurrency::all()->pluck('name', 'id');
+                return $options;
+            });
+
 
         $configurationGroup->addConfiguration('general_administrator_email')
             ->label('Administrator Email')
