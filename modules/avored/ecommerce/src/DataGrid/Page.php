@@ -16,7 +16,7 @@ class Page
               ->column('id', ['sortable' => true])
               ->column('name')
               ->column('slug')
-              ->column('meta_title')
+              ->column('meta_title',['label' => 'Meta Title'])
               ->linkColumn('edit', [], function ($model) {
                   return "<a href='".route('admin.page.edit', $model->id)."' >Edit</a>";
               })->linkColumn('destroy', [], function ($model) {

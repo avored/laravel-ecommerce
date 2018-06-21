@@ -5,6 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use AvoRed\Ecommerce\Models\Database\Country;
 use Illuminate\Database\Migrations\Migration;
 use AvoRed\Framework\Models\Database\Configuration;
+use AvoRed\Ecommerce\Models\Database\SiteCurrency;
 
 class AvoredEcommerceSchema extends Migration
 {
@@ -70,6 +71,18 @@ class AvoredEcommerceSchema extends Migration
             $table->increments('id');
             $table->string('code');
             $table->string('name');
+            $table->string('phone_code')->nullable()->default(null);
+            $table->string('currency_code')->nullable()->default(null);
+            $table->string('lang_code')->nullable()->default(null);
+            $table->timestamps();
+        });
+
+        Schema::create('site_currencies', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('code');
+            $table->string('name');
+            $table->float('conversion_rate');
+            $table->enum('status',['ENABLED','DISABLED'])->nullable()->default(null);
             $table->timestamps();
         });
 
@@ -195,15 +208,17 @@ class AvoredEcommerceSchema extends Migration
             $table->foreign('billing_address_id')->references('id')->on('addresses');
         });
 
-        Configuration::create(['configuration_key' => 'general_site_title', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
-        Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel. Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default']);
-
-        Configuration::create(['configuration_key' => 'general_site_description', 'configuration_value' => 'AvoRed Laravel Ecommerce']);
+        
         $path = __DIR__ .'/../../assets/countries.json';
-
         $json = json_decode(file_get_contents($path), true);
-        foreach ($json as $code => $name) {
-            Country::create(['code' => $code, 'name' => $name]);
+        foreach ($json as $code => $country) {
+            
+            Country::create(['code' => strtolower($code), 
+                            'name' => $country['name'],
+                            'phone_code' => $country['phone'],
+                            'currency_code' => $country['currency'],
+                            'lang_code' => (isset($country['languages'][0]) && $country['languages']) ?? null,
+                            ]);
         }
 
         Schema::create('menus', function (Blueprint $table) {
@@ -217,7 +232,17 @@ class AvoredEcommerceSchema extends Migration
         });
 
         $countryModel = Country::whereCode('NZ')->first();
+        $siteCurrency = SiteCurrency::create([
+            'name'              => 'NZ Dollars',
+            'code'              => 'NZD',
+            'conversion_rate'   => 1,
+            'status'            => 'ENABLED'
+        ]);
 
+        Configuration::create([
+            'configuration_key' => 'general_site_currency',
+            'configuration_value' => $siteCurrency->id,
+            ]);
 
         Configuration::create([
             'configuration_key' => 'tax_default_country',
@@ -233,6 +258,20 @@ class AvoredEcommerceSchema extends Migration
             'configuration_key' => 'tax_percentage',
             'configuration_value' => 15,
         ]);
+
+        Configuration::create([
+            'configuration_key' => 'general_site_title', 
+            'configuration_value' => 'AvoRed an Laravel Ecommerce'
+        ]);
+        Configuration::create([
+            'configuration_key' => 'general_site_description',
+            'configuration_value' => 'AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel. Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default'            
+        ]);
+        Configuration::create([
+            'configuration_key' => 'general_site_description', 
+            'configuration_value' => 'AvoRed Laravel Ecommerce
+        ']);
+        
 
     }
 

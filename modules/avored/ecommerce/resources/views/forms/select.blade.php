@@ -3,11 +3,10 @@ $value = old($name);
 if (isset($model) && $model->$name) {
     $value = $model->$name;
 }
-$attributes['type'] = 'text';
 $attributes['class'] = 'form-control';
 $attributes['id'] = $name;
 $attributes['name'] = $name;
-$attributes['value'] = $value;
+
 if (isset($attributes)) {
     $attributes = array_merge($attributes, $attributes);
 }

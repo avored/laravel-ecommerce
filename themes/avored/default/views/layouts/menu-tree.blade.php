@@ -9,9 +9,18 @@
                 $url = route($menu->route, $menu->params);
             }
         @endphp
-        <a class="nav-link" href="{{ $url }}">
-            {{ $menu->name }}
-        </a>
+
+        @if($menu->route == "cart.view")
+            <a class="nav-link" href="{{ $url }}">
+                {{ $menu->name }} <span class="badge badge-primary">{{ Cart::count() }}</span>
+            </a>
+        @else
+
+            <a class="nav-link" href="{{ $url }}">
+                {{ $menu->name }}
+            </a>
+        @endif
+        
 
         @php
             $children = $menu->children();

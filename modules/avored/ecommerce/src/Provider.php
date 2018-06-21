@@ -3,7 +3,6 @@
 namespace AvoRed\Ecommerce;
 
 use Illuminate\Support\ServiceProvider;
-
 use AvoRed\Ecommerce\Models\Database\Country;
 use AvoRed\Ecommerce\Models\Database\Page;
 use Carbon\Carbon;
@@ -12,12 +11,11 @@ use Laravel\Passport\Console\KeysCommand;
 use AvoRed\Ecommerce\Shipping\FreeShipping;
 use Laravel\Passport\Console\ClientCommand;
 use Laravel\Passport\Console\InstallCommand;
-
 use AvoRed\Ecommerce\Http\Middleware\AdminAuth;
 use AvoRed\Ecommerce\Http\Middleware\Permission;
 use AvoRed\Ecommerce\Http\Middleware\AdminApiAuth;
 use AvoRed\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
-
+use AvoRed\Ecommerce\Http\Middleware\SiteCurrencyMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Blade;
@@ -28,32 +26,29 @@ use AvoRed\Framework\AdminMenu\Facade as AdminMenuFacade;
 use AvoRed\Framework\Breadcrumb\Facade as BreadcrumbFacade;
 use AvoRed\Framework\Permission\Facade as PermissionFacade;
 use AvoRed\Framework\AdminConfiguration\Facade as AdminConfigurationFacade;
-
 use AvoRed\Ecommerce\Payment\Stripe\Payment as StripePayment;
 use AvoRed\Framework\AdminMenu\AdminMenu;
 use AvoRed\Ecommerce\Widget\TotalUser\Widget as TotalUserWidget;
 use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
-
 //View Composers
 use AvoRed\Ecommerce\Http\ViewComposers\ProductFieldsComposer;
+use AvoRed\Ecommerce\Http\ViewComposers\SiteCurrencyFieldsComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\CategoryFieldsComposer;
 use AvoRed\Ecommerce\Http\ViewComposers\AdminNavComposer;
-
 use AvoRed\Ecommerce\Http\ViewComposers\AdminUserFieldsComposer;
 use AvoRed\Ecommerce\Console\AdminMakeCommand;
-
-
 //Model Contracts
 use AvoRed\Ecommerce\Models\Contracts\AdminUserInterface;
 use AvoRed\Ecommerce\Models\Contracts\MenuInterface;
 use AvoRed\Ecommerce\Models\Contracts\PageInterface;
 use AvoRed\Ecommerce\Models\Contracts\RoleInterface;
-
+use AvoRed\Ecommerce\Models\Contracts\SiteCurrencyInterface;
 //Repositories
 use AvoRed\Ecommerce\Models\Repository\AdminUserRepository;
 use AvoRed\Ecommerce\Models\Repository\MenuRepository;
 use AvoRed\Ecommerce\Models\Repository\PageRepository;
 use AvoRed\Ecommerce\Models\Repository\RoleRepository;
+use AvoRed\Ecommerce\Models\Repository\SiteCurrencyRepository;
 
 class Provider extends ServiceProvider
 {
@@ -91,7 +86,6 @@ class Provider extends ServiceProvider
         Passport::ignoreMigrations();
     }
 
-
     /**
      * Register the Avored Console Admin Make .
      *
@@ -114,10 +108,10 @@ class Provider extends ServiceProvider
      */
     protected function registerResources()
     {
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'avored-ecommerce');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'avored-ecommerce');
+        $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-ecommerce');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-ecommerce');
     }
 
     /**
@@ -129,6 +123,7 @@ class Provider extends ServiceProvider
     {
         $router = $this->app['router'];
 
+        $router->aliasMiddleware('currency', SiteCurrencyMiddleware::class);
         $router->aliasMiddleware('admin.api.auth', AdminApiAuth::class);
         $router->aliasMiddleware('admin.auth', AdminAuth::class);
         $router->aliasMiddleware('admin.guest', RedirectIfAdminAuth::class);
@@ -143,6 +138,7 @@ class Provider extends ServiceProvider
     public function registerViewComposerData()
     {
         View::composer('avored-ecommerce::layouts.left-nav', AdminNavComposer::class);
+        View::composer('avored-ecommerce::site-currency._fields', SiteCurrencyFieldsComposer::class);
         View::composer(['avored-ecommerce::category._fields'], CategoryFieldsComposer::class);
         View::composer(['avored-ecommerce::admin-user._fields'], AdminUserFieldsComposer::class);
         View::composer(['avored-ecommerce::product.create',
@@ -216,16 +212,12 @@ class Provider extends ServiceProvider
             ->icon('fas fa-dollar-sign');
         $shopMenu->subMenu('order', $orderMenu);
 
-
         AdminMenuFacade::add('cms')
             ->label('CMS')
             ->route('#')
             ->icon('fas fa-building');
 
         $cmsMenu = AdminMenuFacade::get('cms');
-
-
-
 
         $pageMenu = new AdminMenu();
         $pageMenu->key('page')
@@ -240,7 +232,6 @@ class Provider extends ServiceProvider
             ->icon('fas fa-leaf');
         $cmsMenu->subMenu('menu', $frontMenu);
 
-
         AdminMenuFacade::add('system')
             ->label('System')
             ->route('#')
@@ -254,9 +245,12 @@ class Provider extends ServiceProvider
             ->icon('fas fa-cog');
         $systemMenu->subMenu('configuration', $configurationMenu);
 
-
-
-
+        $currencySetup = new AdminMenu();
+        $currencySetup->key('site_currency_setup')
+            ->label('Currency Setup')
+            ->route('admin.site-currency.index')
+            ->icon('fas fa-dollar-sign');
+        $systemMenu->subMenu('site_currency', $currencySetup);
 
         $adminUserMenu = new AdminMenu();
         $adminUserMenu->key('admin-user')
@@ -290,7 +284,6 @@ class Provider extends ServiceProvider
         $configurationGroup = AdminConfigurationFacade::add('general')
             ->label('General');
 
-
         $configurationGroup->addConfiguration('general_site_title')
             ->label('Default Site Title')
             ->type('text')
@@ -300,6 +293,13 @@ class Provider extends ServiceProvider
             ->label('Default Site Description')
             ->type('text')
             ->name('general_site_description');
+
+        $siteCurrencyRepository = new SiteCurrencyRepository;
+        $configurationGroup->addConfiguration('general_site_currency')
+            ->label('Default Site Currency')
+            ->type('select')
+            ->name('general_site_currency')
+            ->options($siteCurrencyRepository);
 
         $configurationGroup->addConfiguration('general_administrator_email')
             ->label('Administrator Email')
@@ -341,10 +341,9 @@ class Provider extends ServiceProvider
             ->type('select')
             ->name('user_activation_required')
             ->options(function () {
-                $options = [0 => 'No' , 1 => 'Yes'];
+                $options = [0 => 'No', 1 => 'Yes'];
                 return $options;
             });
-
 
         $shippingGroup = AdminConfigurationFacade::add('shipping')
             ->label('Shipping');
@@ -354,7 +353,7 @@ class Provider extends ServiceProvider
             ->type('select')
             ->name('shipping_free_shipping_enabled')
             ->options(function () {
-                $options = [1 => 'Yes' , 0 => 'No'];
+                $options = [1 => 'Yes', 0 => 'No'];
                 return $options;
             });
 
@@ -366,22 +365,19 @@ class Provider extends ServiceProvider
             ->type('select')
             ->name('payment_stripe_enabled')
             ->options(function () {
-                $options = [0 => 'No' , 1 => 'Yes'];
+                $options = [0 => 'No', 1 => 'Yes'];
                 return $options;
             });
 
         $paymentGroup->addConfiguration('payment_stripe_publishable_key')
             ->label('Payment Stripe Publishable Key')
             ->type('text')
-            ->name('payment_stripe_publishable_key')
-            ;
-
+            ->name('payment_stripe_publishable_key');
 
         $paymentGroup->addConfiguration('avored_stripe_secret_key')
             ->label('Payment Stripe Secret Key')
             ->type('text')
-            ->name('avored_stripe_secret_key')
-        ;
+            ->name('avored_stripe_secret_key');
 
         $taxGroup = AdminConfigurationFacade::add('tax')
             ->label('Tax');
@@ -398,9 +394,7 @@ class Provider extends ServiceProvider
         $taxGroup->addConfiguration('tax_percentage')
             ->label('Tax Percentage')
             ->type('text')
-            ->name('tax_percentage')
-            ;
-
+            ->name('tax_percentage');
 
         $taxGroup->addConfiguration('tax_default_country')
             ->label('Tax Default Country')
@@ -411,7 +405,6 @@ class Provider extends ServiceProvider
                 return $options;
             });
     }
-
 
     /**
      * Register the Menus.
@@ -752,7 +745,7 @@ class Provider extends ServiceProvider
             $condition = false;
             $user = Auth::guard('admin')->user();
 
-            if (! $user) {
+            if (!$user) {
                 $condition = $user->hasPermission($routeName) ?: false;
             }
 
@@ -785,10 +778,9 @@ class Provider extends ServiceProvider
     {
         $authConfig = $this->app['config']->get('auth', []);
 
-        $this->app['config']->set('auth', array_merge_recursive(require __DIR__.'/../config/avored-auth.php', $authConfig));
-        $this->mergeConfigFrom(__DIR__.'/../config/avored-ecommerce.php', 'avored-ecommerce');
+        $this->app['config']->set('auth', array_merge_recursive(require __DIR__ . '/../config/avored-auth.php', $authConfig));
+        $this->mergeConfigFrom(__DIR__ . '/../config/avored-ecommerce.php', 'avored-ecommerce');
     }
-
 
     /**
      * Get the services provided by the provider.
@@ -808,10 +800,10 @@ class Provider extends ServiceProvider
     public function publishFiles()
     {
         $this->publishes([
-            __DIR__.'/../config/avored-ecommerce.php' => config_path('avored-ecommerce.php'),
+            __DIR__ . '/../config/avored-ecommerce.php' => config_path('avored-ecommerce.php'),
         ], 'config');
         $this->publishes([
-            __DIR__.'/../config/avored-auth.php' => config_path('avored-auth.php'),
+            __DIR__ . '/../config/avored-auth.php' => config_path('avored-auth.php'),
         ], 'config');
 
         $this->publishes([
@@ -826,7 +818,6 @@ class Provider extends ServiceProvider
         ]);
     }
 
-
     /**
      * Register the Repository Instance.
      *
@@ -834,9 +825,10 @@ class Provider extends ServiceProvider
      */
     protected function registerModelContracts()
     {
-        $this->app->bind(AdminUserInterface::class,AdminUserRepository::class);
-        $this->app->bind(MenuInterface::class,MenuRepository::class);
-        $this->app->bind(PageInterface::class,PageRepository::class);
-        $this->app->bind(RoleInterface::class,RoleRepository::class);
+        $this->app->bind(AdminUserInterface::class, AdminUserRepository::class);
+        $this->app->bind(MenuInterface::class, MenuRepository::class);
+        $this->app->bind(PageInterface::class, PageRepository::class);
+        $this->app->bind(RoleInterface::class, RoleRepository::class);
+        $this->app->bind(SiteCurrencyInterface::class, SiteCurrencyRepository::class);
     }
 }
