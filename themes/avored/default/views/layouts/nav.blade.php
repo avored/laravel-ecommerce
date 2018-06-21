@@ -35,16 +35,26 @@
                     <span class="sr-only">(current)</span>
                 </a>
             </li>
+
             @if($currencies->count() > 1)
             <li class="nav-item dropdown" >
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                    
                     Currency : {{ Session::get('currency_code')}}
                 </a>
                     <div class="dropdown-menu">
-                        @foreach($currencies as $currency)
+                        @foreach($currencies as $siteCurrencyId => $currencyCode)
+                        <?php 
+                            if (strpos(URL::current(), '?')) {
+                                $url = URL::current() . '&currency_code=' . $currencyCode;
+                            } else {
+                                $url = URL::current() . '?currency_code=' . $currencyCode;
+                            }
+
+                        ?>
                             <a class="dropdown-item" 
-                                href="{{ route(Route::currentRouteName(),['currency_code' => $currency->code]) }}">
-                                {{ $currency->code}}
+                                href="{{ $url }}">
+                                {{ $currencyCode}}
                             </a>
                         @endforeach
                     </div>

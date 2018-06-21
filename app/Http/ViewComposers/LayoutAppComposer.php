@@ -20,14 +20,14 @@ class LayoutAppComposer
      *
      * @var \AvoRed\Ecommerce\Models\Repository\SiteCurrencyRepository
      */
-    protected $curRep;
+    protected $siteCurrencyRepository;
 
-    public function __construct(MenuInterface $repository, 
+    public function __construct(
+        MenuInterface $repository,
                                 SiteCurrencyInterface $currencyRepository
-                            )
-    {
+                            ) {
         $this->repository = $repository;
-        $this->curRep = $currencyRepository;
+        $this->siteCurrencyRepository = $currencyRepository;
     }
 
     /**
@@ -40,11 +40,11 @@ class LayoutAppComposer
     {
         $cart = (null === Session::get('cart')) ? 0 : count(Session::get('cart'));
 
-        $menus      = $this->repository->parentsAll();
-        $currencies = $this->curRep->all();
+        $menus = $this->repository->parentsAll();
+        $currencies = $this->siteCurrencyRepository->options();
 
-        $metaTitle          = Configuration::getConfiguration('general_site_title');
-        $metaDescription    = Configuration::getConfiguration('general_site_description');
+        $metaTitle = Configuration::getConfiguration('general_site_title');
+        $metaDescription = Configuration::getConfiguration('general_site_description');
 
         $view->with('menus', $menus)
             ->with('cart', $cart)

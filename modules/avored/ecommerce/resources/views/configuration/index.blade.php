@@ -43,7 +43,7 @@
 
                                         @include('avored-ecommerce::forms.select',['name' => $field->name(),
                                                                         'label' => $field->label(),
-                                                                        'options' => call_user_func($field->options())])
+                                                                        'options' => $field->options()])
 
                                     @endif
 

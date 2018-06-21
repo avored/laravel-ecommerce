@@ -12,6 +12,14 @@ interface SiteCurrencyInterface {
      */
     public function find($id);
 
+    /**
+     * Find an Site currency by given currency code which returns Site currency
+     * 
+     * @param string $code
+     * @return \AvoRed\Ecommerce\Models\SiteCurrency
+     */
+    public function findByCode($code);
+
 
     /**
      * Find an All Site currency which returns Eloquent Collection
@@ -27,6 +35,8 @@ interface SiteCurrencyInterface {
      * @return \Illuminate\Pagination\LengthAwarePaginator
      */
     public function paginate($noOfItem = 10);
+
+
 
     /**
      * Site currency Query 
