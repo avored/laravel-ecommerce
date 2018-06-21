@@ -15,9 +15,29 @@ use AvoRed\Framework\Models\Database\Order;
 use AvoRed\Ecommerce\Models\Database\User;
 use AvoRed\Ecommerce\Models\Database\Address;
 use AvoRed\Framework\Models\Database\OrderProductVariation;
+use Illuminate\Support\Facades\Session;
+use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
 
 class OrderController extends Controller
 {
+
+
+     /**
+     * 
+     * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
+     */
+    protected $repository;
+
+    /**
+     * Construct to setup Repository 
+     * 
+     */
+    public function __construct(ConfigurationInterface $rep)
+    {
+        $this->repository   = $rep; 
+    }
+
+    
     public function place(PlaceOrderRequest $request)
     {
         $orderProductData = Cart::all();
@@ -27,12 +47,15 @@ class OrderController extends Controller
         $orderStatus = OrderStatus::whereIsDefault(1)->get()->first();
         $paymentOption = $request->get('payment_option');
 
+        $currencyCode = Session::get('currency_code') ?? $this->repository->getValueByKey('general_site_currency');
+
         $data['shipping_address_id'] = $shippingAddress->id;
         $data['billing_address_id'] = $billingAddress->id;
         $data['user_id'] = $user->id;
         $data['shipping_option'] = $request->get('shipping_option');
         $data['payment_option'] = $paymentOption;
         $data['order_status_id'] = $orderStatus->id;
+        $data['currency_code'] = $currencyCode;
 
         $payment = Payment::get($paymentOption);
 
