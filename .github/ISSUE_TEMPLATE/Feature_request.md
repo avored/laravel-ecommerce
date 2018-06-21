@@ -4,6 +4,9 @@ about: Suggest an idea for this project
 
 ---
 
+**Ideally we would expect you to raise a feature request on AvoRed Official Website **
+[https://www.avored.com/discussion/category/feature](https://www.avored.com/discussion/category/feature)
+
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
