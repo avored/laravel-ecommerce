@@ -5,7 +5,7 @@ about: Create a report to help us improve
 ---
 
 **Ideally we would expect you to raise a bug on AvoRed Official Website **
-[https://www.avored.com/discussion/category/general](https://www.avored.com/discussion/category/general)
+https://www.avored.com/discussion/category/general
 
 **Describe the bug**
 A clear and concise description of what the bug is.
