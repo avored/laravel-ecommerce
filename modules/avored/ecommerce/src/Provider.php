@@ -174,7 +174,7 @@ class Provider extends ServiceProvider
         AdminMenuFacade::add('shop', function(AdminMenu $shopMenu) {
             $shopMenu->label('Shop')
                     ->route('#')
-                    ->icon('fas fas-cart-plus');
+                    ->icon('fas fa-cart-plus');
         });
 
         $shopMenu = AdminMenuFacade::get('shop');

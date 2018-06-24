@@ -2,7 +2,11 @@
 
     <i class="fas fa-bars nav-icon"></i>
 
-    <span class="logo">AvoRed Admin</span>
+    <span class="logo">
+        <a href="{{ route('admin.dashboard') }}">
+            AvoRed Admin
+        </a>
+    </span>
 
 
 </div>
