@@ -13,6 +13,7 @@ use AvoRed\Ecommerce\Mail\UpdateOrderStatusMail;
 use AvoRed\Ecommerce\DataGrid\Order as OrderGrid;
 use AvoRed\Ecommerce\Http\Requests\UpdateOrderStatusRequest;
 use AvoRed\Framework\Models\Contracts\OrderInterface;
+use AvoRed\Framework\Models\Contracts\OrderHistoryInterface;
 
 class OrderController extends Controller
 {
@@ -83,6 +84,8 @@ class OrderController extends Controller
     {
         $orderStatus = OrderStatus::all()->pluck('name', 'id');
 
+        //INSERT a RECORD INTO ORDER_HISTORY TABLE
+
         $view = view('avored-ecommerce::order.view')
             ->with('order', $order)
             ->with('orderStatus', $orderStatus)
@@ -104,6 +107,9 @@ class OrderController extends Controller
 
         $userEmail = $order->user->email;
         $orderStatusTitle = $order->orderStatus->name;
+
+        $orderHistoryRepository = app(OrderHistoryInterface::class);
+        $orderHistoryRepository->create(['order_id' => $order->id, 'order_status_id' => $request->get('order_status_id')]);
 
         Mail::to($userEmail)->send(new UpdateOrderStatusMail($orderStatusTitle));
 
