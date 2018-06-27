@@ -26,7 +26,7 @@
                 <div class="clearfix"></div>
                 <br/>
 
-                <div class="card card-default">
+                <div class="card mt-3">
                     <h3 class="card-header">Order Basic Info</h3>
 
                     <div class="card-body">
@@ -76,7 +76,23 @@
                     </div>
 
                 </div>
-                <div class="card-default card ">
+                <div class="mt-3 card ">
+                    <h3 class="card-header">Order History</h3>
+
+                    <div class="card-body">
+
+                        
+                            @foreach($order->history as $orderHistory)
+                                <p>
+                                    This Order status was {{ $orderHistory->orderStatus->name }}
+                                </p>
+                                
+                            @endforeach
+                           
+                    </div>
+
+                </div>
+                <div class="mt-3 card ">
                     <h3 class="card-header">Order Item Info</h3>
 
                     <div class="card-body">
@@ -119,7 +135,7 @@
                     </div>
 
                 </div>
-                <div class="card-default card">
+                <div class="mt-3 card">
                     <h3 class="card-header">Order Address Info</h3>
 
                     <div class="card-body">

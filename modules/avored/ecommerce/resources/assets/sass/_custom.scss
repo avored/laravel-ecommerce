@@ -36,6 +36,12 @@ aside {
 
     font-size: 20px;
     color: $white;
+    .logo {
+      a {
+        text-decoration: none;
+        color: $white;
+      }
+    }
 
     .nav-icon {
       padding-left: 20px;

@@ -17,27 +17,25 @@ use AvoRed\Ecommerce\Models\Database\Address;
 use AvoRed\Framework\Models\Database\OrderProductVariation;
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
+use AvoRed\Framework\Models\Contracts\OrderHistoryInterface;
 
 class OrderController extends Controller
 {
-
-
-     /**
-     * 
-     * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
-     */
+    /**
+    *
+    * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
+    */
     protected $repository;
 
     /**
-     * Construct to setup Repository 
-     * 
+     * Construct to setup Repository
+     *
      */
     public function __construct(ConfigurationInterface $rep)
     {
-        $this->repository   = $rep; 
+        $this->repository = $rep;
     }
 
-    
     public function place(PlaceOrderRequest $request)
     {
         $orderProductData = Cart::all();
@@ -66,6 +64,9 @@ class OrderController extends Controller
         $order = Order::create($data);
         $this->_syncOrderProductData($order, $orderProductData);
 
+        ////INSERT a RECORD INTO ORDER_HISTORY TABLE
+        $orderHistoryRepository = app(OrderHistoryInterface::class);
+        $orderHistoryRepository->create(['order_id' => $order->id, 'order_status_id' => $orderStatus->id]);
         Event::fire(new OrderPlaceAfterEvent($order, $orderProductData, $request));
 
         Cart::clear();
