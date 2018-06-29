@@ -8,8 +8,9 @@
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "avored:admin": "npm run production -- --env.mixfile=avored.admin.webpack.mix",
-    "avored:watch": "npm run production -- --env.mixfile=avored.admin.webpack.mix  --watch",
+    "avored:admin:prod": "npm run production -- --env.mixfile=avored.admin.webpack.mix",
+    "avored:admin:watch": "npm run development -- --env.mixfile=avored.admin.webpack.mix  --watch",
+    "avored:admin:dev": "npm run development -- --env.mixfile=avored.admin.webpack.mix",
     "postinstall": "opencollective postinstall"
   },
   "devDependencies": {
