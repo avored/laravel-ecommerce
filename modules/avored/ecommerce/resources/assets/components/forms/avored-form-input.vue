@@ -49,7 +49,7 @@
             }
         },
         methods:{
-            onChange: function(){
+            onChange: function(event){
                 this.$emit('change', event.target.value, this.fieldName);
 
                 if( event.target.value != "") {

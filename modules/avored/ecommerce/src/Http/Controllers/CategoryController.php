@@ -3,9 +3,9 @@
 namespace AvoRed\Ecommerce\Http\Controllers;
 
 use AvoRed\Framework\Models\Database\Category as Model;
-use AvoRed\Ecommerce\DataGrid\Category;
 use AvoRed\Ecommerce\Http\Requests\CategoryRequest;
 use AvoRed\Framework\Models\Contracts\CategoryInterface;
+use AvoRed\Ecommerce\DataGrid\CategoryDataGrid;
 
 class CategoryController extends Controller
 {
@@ -27,7 +27,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categoryGrid = new Category($this->repository->query());
+        $categoryGrid = new CategoryDataGrid($this->repository->query());
 
         return view('avored-ecommerce::category.index')->with('dataGrid', $categoryGrid->dataGrid);
     }

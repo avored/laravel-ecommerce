@@ -8,7 +8,6 @@ use App\Http\Requests\UserProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use AvoRed\Framework\Image\Facade as Image;
-use Illuminate\Support\Facades\File;
 use App\Http\Controllers\Controller;
 
 class MyAccountController extends Controller
@@ -65,16 +64,9 @@ class MyAccountController extends Controller
             $user->image_path->destroy();
         }
 
-        $relativePath = 'uploads/users/' . $user->id;
-        $path = $relativePath;
+        $image = Image::upload($image, 'uploads/users/' . $user->id);
 
-        $dbPath = $relativePath . DIRECTORY_SEPARATOR . $image->getClientOriginalName();
-
-        $this->directory(public_path($relativePath));
-
-        Image::upload($image, $path);
-
-        $user->update(['image_path' => $dbPath]);
+        $user->update(['image_path' => $image->relativePath]);
 
         return redirect()->route('my-account.home')
             ->with('notificationText', 'User Profile Image Uploaded successfully!!');
@@ -83,20 +75,6 @@ class MyAccountController extends Controller
     public function changePassword()
     {
         return view('user.my-account.change-password');
-    }
-
-    /**
-     * Create Directories if not exists
-     *
-     * @var string $path
-     * @return \AvoRed\Framework\Image\Service
-     */
-    public function directory($path)
-    {
-        if (!File::exists($path)) {
-            File::makeDirectory($path, 0775, true, true);
-        }
-        return $this;
     }
 
     public function changePasswordPost(ChangePasswordRequest $request)
