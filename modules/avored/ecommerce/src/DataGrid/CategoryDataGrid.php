@@ -17,14 +17,14 @@ class CategoryDataGrid
                 ->column('name', function (TextColumn $column) {
                     $column->identifier('name')
                             ->label('Name')
-                            ->sortable(true);
-                    //->canFilter(true);
+                            ->sortable(true)
+                            ->canFilter(true);
                 })
                 ->column('slug', function (TextColumn $column) {
                     $column->identifier('slug')
                             ->label('Slug')
-                            ->sortable(true);
-                            //->canFilter(true);
+                            ->sortable(true)
+                            ->canFilter(true);
                 })
                 ->linkColumn('edit', [], function ($model) {
                     return "<a href='" . route('admin.category.edit', $model->id) . "' >Edit</a>";
