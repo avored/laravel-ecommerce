@@ -171,7 +171,7 @@ class Provider extends ServiceProvider
      */
     protected function registerAdminMenu()
     {
-        AdminMenuFacade::add('shop', function(AdminMenu $shopMenu) {
+        AdminMenuFacade::add('shop', function (AdminMenu $shopMenu) {
             $shopMenu->label('Shop')
                     ->route('#')
                     ->icon('fas fa-cart-plus');
@@ -214,10 +214,10 @@ class Provider extends ServiceProvider
             ->icon('fas fa-dollar-sign');
         $shopMenu->subMenu('order', $orderMenu);
 
-        AdminMenuFacade::add('cms',function(AdminMenu $cmsMenu) {
+        AdminMenuFacade::add('cms', function (AdminMenu $cmsMenu) {
             $cmsMenu->label('CMS')
                     ->route('#')
-                    ->icon('fas fa-building');     
+                    ->icon('fas fa-building');
         });
 
         $cmsMenu = AdminMenuFacade::get('cms');
@@ -235,12 +235,12 @@ class Provider extends ServiceProvider
             ->icon('fas fa-leaf');
         $cmsMenu->subMenu('menu', $frontMenu);
 
-        AdminMenuFacade::add('system', function(AdminMenu $systemMenu) {
+        AdminMenuFacade::add('system', function (AdminMenu $systemMenu) {
             $systemMenu->label('System')
                     ->route('#')
                     ->icon('fas fa-cogs');
         });
-            
+
         $systemMenu = AdminMenuFacade::get('system');
 
         $configurationMenu = new AdminMenu();
@@ -277,6 +277,16 @@ class Provider extends ServiceProvider
             ->route('admin.theme.index')
             ->icon('fas fa-adjust');
         $systemMenu->subMenu('themes', $themeMenu);
+
+        //$moduleMenu = new AdminMenu();
+
+        $systemMenu->subMenu('module', function (AdminMenu $moduleMenu) {
+            //dd($moduleMenu);
+            $moduleMenu->key('module')
+            ->label('Module')
+            ->route('admin.module.index')
+            ->icon('fas fa-adjust');
+        });
     }
 
     /**
