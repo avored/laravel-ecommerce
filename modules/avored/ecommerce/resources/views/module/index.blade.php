@@ -28,7 +28,15 @@
                         <div class="card-body">
                             <div class="h5">{{ $module->name() }}</div>
                             <p>{{ $module->description() }}</p>
-                            <a href="{{ route('admin.module.show', $module->identifier() ) }}"  class="btn btn-primary card-link">View</a>
+                            <button   
+                                class="btn btn-primary" disabled>
+                                
+                                @if("enabled" == strtolower($module->status()))
+                                    Enabled
+                                @else
+                                    Disabled
+                                @endif
+                            </button>
                         </div>
                         
                     </div>
