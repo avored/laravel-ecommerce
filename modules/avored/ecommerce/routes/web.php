@@ -66,6 +66,11 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::get('configuration', 'ConfigurationController@index')->name('configuration');
         Route::post('configuration', 'ConfigurationController@store')->name('configuration.store');
 
+        /** --------  Modules ROUTES  -------- **/
+        Route::get('module', 'ModuleController@index')->name('module.index');
+        Route::get('module/create', 'ModuleController@create')->name('module.create');
+        Route::get('module/{module}', 'ModuleController@show')->name('module.show');
+
         Route::get('themes', 'ThemeController@index')->name('theme.index');
         Route::get('themes/create', 'ThemeController@create')->name('theme.create');
         Route::post('themes', 'ThemeController@store')->name('theme.store');
@@ -74,7 +79,7 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::delete('themes/{name}', 'ThemeController@destroy')->name('theme.destroy');
 
         //Route::resource('order-status', 'OrderStatusController');
-        
+
         Route::get('order', 'OrderController@index')->name('order.index');
 
         Route::post('get-property-element', 'PropertyController@getElementHtml')->name('property.element');
