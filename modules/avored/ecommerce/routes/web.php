@@ -69,7 +69,7 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         /** --------  Modules ROUTES  -------- **/
         Route::get('module', 'ModuleController@index')->name('module.index');
         Route::get('module/create', 'ModuleController@create')->name('module.create');
-        Route::get('module/{module}', 'ModuleController@show')->name('module.show');
+        Route::post('module', 'ModuleController@store')->name('module.store');
 
         Route::get('themes', 'ThemeController@index')->name('theme.index');
         Route::get('themes/create', 'ThemeController@create')->name('theme.create');
