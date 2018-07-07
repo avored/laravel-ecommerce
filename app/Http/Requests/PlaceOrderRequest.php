@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
@@ -23,12 +24,11 @@ class PlaceOrderRequest extends Request
      */
     public function rules()
     {
-
         $validation['billing.first_name'] = 'required|max:255';
         $validation['billing.last_name'] = 'required|max:255';
         $validation['billing.phone'] = 'required|max:255';
 
-
+        //dd($this->request->all());
 
         if (!Auth::check()) {
             //$validation['user.email'] = 'required|email|max:255|unique:users';
@@ -37,25 +37,24 @@ class PlaceOrderRequest extends Request
             //$validation['user.password'] = 'required|min:6|confirmed';
         }
 
-
         $billingData = $this->request->get('billing');
 
-        if (isset($billingData) && null === array_get($billingData,'id')) {
-            $validation['billing.address1']     = 'required|max:255';
-            $validation['billing.address2']     = 'max:255';
-            $validation['billing.country_id']   = 'required|max:255';
-            $validation['billing.state']        = 'required|max:255';
-            $validation['billing.city']         = 'required|max:255';
-            $validation['billing.postcode']     = 'required|max:255';
+        if (isset($billingData) && null === array_get($billingData, 'id')) {
+            $validation['billing.address1'] = 'required|max:255';
+            $validation['billing.address2'] = 'max:255';
+            $validation['billing.country_id'] = 'required|max:255';
+            $validation['billing.state'] = 'required|max:255';
+            $validation['billing.city'] = 'required|max:255';
+            $validation['billing.postcode'] = 'required|max:255';
         }
 
         if (null !== $this->request->get('use_different_shipping_address')) {
-            $validation['shipping.address1']    = 'required|max:255';
-            $validation['shipping.address2']    = 'max:255';
-            $validation['shipping.country_id']  = 'required|max:255';
-            $validation['shipping.state']       = 'required|max:255';
-            $validation['shipping.city']        = 'required|max:255';
-            $validation['shipping.postcode']    = 'required|max:255';
+            $validation['shipping.address1'] = 'required|max:255';
+            $validation['shipping.address2'] = 'max:255';
+            $validation['shipping.country_id'] = 'required|max:255';
+            $validation['shipping.state'] = 'required|max:255';
+            $validation['shipping.city'] = 'required|max:255';
+            $validation['shipping.postcode'] = 'required|max:255';
         }
 
         $validation['shipping_option'] = 'required';
@@ -63,6 +62,5 @@ class PlaceOrderRequest extends Request
         $validation['agree'] = 'required';
 
         return $validation;
-
     }
 }

@@ -12,10 +12,17 @@
 
                     <div class="form-check">
 
-                        <input class="avored-payment-option form-check-input {{ $errors->has('payment_option') ? ' is-invalid' : '' }}"
-                               type="radio" name="payment_option"
-                               id="{{ $paymentOption->identifier() }}"
-                               value="{{ $paymentOption->identifier() }}">
+                        <input 
+                                type="radio" name="payment_option"
+                                id="{{ $paymentOption->identifier() }}"
+                                value="{{ $paymentOption->identifier() }}"
+                                @if($errors->has('payment_option'))
+                                    class="is-invalid avored-payment-option form-check-input"
+                                @else
+                                    class="avored-payment-option form-check-input"
+                                @endif
+                           
+                            />
 
                         <label for="{{ $paymentOption->identifier() }}"
                                class="form-check-label">

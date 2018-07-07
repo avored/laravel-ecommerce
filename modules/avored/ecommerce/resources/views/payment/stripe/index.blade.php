@@ -74,7 +74,7 @@
             card.mount('#card-element');
 
 
-            jQuery('.avored-payment-option').change(function (e) {
+            jQuery('#stripe').bind('paymentOptionChange', function (e) {
 
                 if (jQuery(this).prop('id') != "stripe") {
 
@@ -90,7 +90,7 @@
             });
 
             jQuery('#stripe').bind('paymentProcessStart', function (e) {
-
+               
                 stripe.createToken(card).then(function (result) {
                     if (result.error) {
                         // Inform the customer that there was an error.
@@ -103,6 +103,7 @@
                         // Send the token to your server.
                         stripeTokenHandler(result.token);
                         jQuery("#place-order-button").trigger('paymentProcessEnd');
+                        
                     }
 
 
@@ -113,11 +114,19 @@
         function stripeTokenHandler(token) {
             // Insert the token ID into the form so it gets submitted to the server
             var formWrapper = document.getElementById('stripe-card-form-wrapper');
+            
             var hiddenInput = document.createElement('input');
             hiddenInput.setAttribute('type', 'hidden');
             hiddenInput.setAttribute('name', 'stripeToken');
             hiddenInput.setAttribute('value', token.id);
             formWrapper.appendChild(hiddenInput);
+
+            var hiddenInput = document.createElement('input');
+            hiddenInput.setAttribute('type', 'hidden');
+            hiddenInput.setAttribute('name', 'payment_option');
+            hiddenInput.setAttribute('value', 'stripe');
+            formWrapper.appendChild(hiddenInput);
+
         }
 
     </script>

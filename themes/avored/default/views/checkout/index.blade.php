@@ -163,29 +163,37 @@
             jQuery('.avored-payment-option').change(function (e) {
                 e.preventDefault();
                 jQuery(this).trigger('paymentOptionChange');
+                
             });
 
             jQuery('#place-order-button').click(function (e) {
 
                 e.preventDefault();
 
-                if(jQuery('.payment-radio-options input:radio').length <= 0) {
+                //if(jQuery('.payment-radio-options input:radio').length <= 0) {
 
                     jQuery('.payment-radio-options input:radio').each(function (i, el) {
                         if (jQuery(el).is(':checked')) {
                             jQuery(this).prop('disabled', true);
                             jQuery(el).trigger('paymentProcessStart');
+                            
                         }
                     });
-                } else {
-                    jQuery('#place-order-form').submit();
-                }
+                //} else {
+                    //jQuery('#place-order-form').submit();
+                //}
 
 
             });
 
+
+
             jQuery("#place-order-button").bind('paymentProcessEnd', function (e) {
                 e.preventDefault();
+
+//alert('working');
+//return true;
+
                 jQuery(this).prop('disabled',false);
                 jQuery('#place-order-form').submit();
             });

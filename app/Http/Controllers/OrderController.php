@@ -39,6 +39,7 @@ class OrderController extends Controller
     public function place(PlaceOrderRequest $request)
     {
         $orderProductData = Cart::all();
+
         $user = $this->_getUser($request);
         $billingAddress = $this->_getBillingAddress($request);
         $shippingAddress = $this->_getShippingAddress($request);
