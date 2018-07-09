@@ -2,7 +2,7 @@
 
 @section('content')
 
-        <div class="row">
+        <div id="admin-attribute-page" class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">{{ __('avored-ecommerce::attribute.create') }}</div>
@@ -26,3 +26,27 @@
             </div>
         </div>
 @endsection
+
+@push('scripts')
+
+<script>
+
+ var app = new Vue({
+        el: '#admin-attribute-page',
+        data : {
+            model: {},
+            autofocus:true,
+            disabled: false
+           
+        },
+        methods: {
+            changeModelValue: function(val,fieldName) {
+                this.model[fieldName] = val;
+            }
+        }
+    });
+
+</script>
+
+
+@endpush

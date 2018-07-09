@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | AvoRed E commerce Languages
@@ -25,7 +24,9 @@ return [
     'admin-login-card-title' => 'AvoRed Admin Login',
     'admin-login-forget-password-link' => 'Forgot your Password?',
     'admin-login-button-title' => 'Login',
+    'admin-reset-button-title' => 'Send Password Reset Link',
     'admin-password-label' => 'Password',
+    'admin-confirm-password-label' => 'Confirm Password',
     'admin-email-label' => 'Email Address',
 
     'admin-dashboard-total-user-title' => 'Total User',
@@ -40,5 +41,4 @@ return [
     'address.configuration.title' => 'Address Configuration List',
 
     'cancel' => 'Cancel',
-
 ];

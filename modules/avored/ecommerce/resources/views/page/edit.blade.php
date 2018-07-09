@@ -1,7 +1,7 @@
 @extends('avored-ecommerce::layouts.app')
 
 @section('content')
-<div class="container">
+<div id="admin-cms-page" class="container">
     <div class="row">
         <div class="col-12">
             <div class="card">
@@ -27,3 +27,27 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+
+<script>
+
+ var app = new Vue({
+        el: '#admin-cms-page',
+        data : {
+            model: {},
+            autofocus:true,
+            disabled: false
+           
+        },
+        methods: {
+            changeModelValue: function(val,fieldName) {
+                this.model[fieldName] = val;
+            }
+        }
+    });
+
+</script>
+
+
+@endpush
