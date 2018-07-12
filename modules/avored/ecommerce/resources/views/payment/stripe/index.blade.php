@@ -121,12 +121,6 @@
             hiddenInput.setAttribute('value', token.id);
             formWrapper.appendChild(hiddenInput);
 
-            var hiddenInput = document.createElement('input');
-            hiddenInput.setAttribute('type', 'hidden');
-            hiddenInput.setAttribute('name', 'payment_option');
-            hiddenInput.setAttribute('value', 'stripe');
-            formWrapper.appendChild(hiddenInput);
-
         }
 
     </script>
