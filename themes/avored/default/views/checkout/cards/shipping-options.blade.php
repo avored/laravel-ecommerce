@@ -13,16 +13,18 @@
                     @if($shippingOption->enable())
                     <input type="radio" name="shipping_option"
 
-                           @if($errors->has('shipping_option'))
-                           class="is-invalid form-check-input shipping_option_radio"
-                           @else
-                           class="shipping_option_radio form-check-input"
-                           @endif
+                        data-title="{{ $shippingOption->name() }}"
+                        data-cost="{{ number_format($shippingOption->amount(),2) }}"
+                        id="{{ $shippingOption->identifier() }}"
+                        value="{{ $shippingOption->identifier() }}"
+                         
+                        @if($errors->has('shipping_option'))
+                             class="is-invalid form-check-input shipping_option_radio"
+                        @else
+                            class="shipping_option_radio form-check-input"
+                        @endif
 
-                           data-title="{{ $shippingOption->name() }}"
-                           data-cost="{{ number_format($shippingOption->amount(),2) }}"
-                           id="{{ $shippingOption->identifier() }}"
-                           value="{{ $shippingOption->identifier() }}">
+                    />
 
                     <label for="{{ $shippingOption->identifier() }}" class="form-check-label">
 

@@ -1,6 +1,3 @@
-
-
-
 <avored-form-input 
     field-name="name"
     label="Category Name" 

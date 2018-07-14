@@ -31,7 +31,7 @@
                             @if($loop->last)
                                 <?php $attributeText .= $attribute['variation_display_text']; ?>
                             @else
-                                <?php $attributeText .= $attribute['variation_display_text'] . ": "; ?>
+                                <?php $attributeText .= $attribute['variation_display_text'] . ': '; ?>
                             @endif
                         @endforeach
                          <p>Attributes: <span
@@ -51,7 +51,7 @@
                     $subTotal = $total = 0;
                     $subTotal += $cartItem->price();
                 @endphp
-                <input type="hidden" name="products[]" value="{{ $cartItem->slug() }}"/>
+                
             @endforeach
             </tbody>
             <tfoot>

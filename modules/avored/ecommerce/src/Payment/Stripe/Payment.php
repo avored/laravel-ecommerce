@@ -7,7 +7,6 @@ use Stripe\Stripe;
 use AvoRed\Framework\Models\Database\Configuration;
 use AvoRed\Framework\Payment\Payment as PaymentEcommerce;
 use AvoRed\Framework\Payment\Contracts\Payment as PaymentContracts;
-use AvoRed\Ecommerce\Models\Database\User;
 
 class Payment extends PaymentEcommerce implements PaymentContracts
 {
@@ -91,20 +90,10 @@ class Payment extends PaymentEcommerce implements PaymentContracts
         $apiKey = Configuration::getConfiguration(self::CONFIG_SECRET_KEY);
 
         Stripe::setApiKey($apiKey);
-        //dd($orderData);
-        //$user = User::find($orderData['user_id']);
-        //$customer = \Stripe\Customer::create([
-        //    'email' => $user->email,
-        //    'description' => 'Customer for One of Charge ' . $user->id,
-        //    'source' => $request->get('stripeToken')
-        //  ]);
-
-        //dd($request->all());
-        //dd($request->get('stripeToken'));
-
+        $currencyCode = Configuration::getConfiguration('general_site_currency');
         $response = Charge::create([
             'amount' => $totalCents,
-            'currency' => 'nzd',
+            'currency' => $currencyCode,
             'source' => $request->get('stripeToken'), // obtained with Stripe.js
             'description' => 'AvoRed E commerce Payment',
         ]);

@@ -23,9 +23,9 @@ class LayoutAppComposer
     protected $siteCurrencyRepository;
 
     public function __construct(
-        MenuInterface $repository,
-                                SiteCurrencyInterface $currencyRepository
-                            ) {
+            MenuInterface $repository,
+            SiteCurrencyInterface $currencyRepository
+        ) {
         $this->repository = $repository;
         $this->siteCurrencyRepository = $currencyRepository;
     }

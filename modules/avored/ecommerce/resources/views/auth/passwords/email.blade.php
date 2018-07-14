@@ -41,23 +41,22 @@
                               action="{{ route('admin.password.reset.token') }}">
                             @csrf
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" >E-Mail Address</label>
-                                    <input v-model="email" id="email" type="email" class="form-control" name="email"
-                                           value="{{ old('email') }}" required>
-
-                                    @if ($errors->has('email'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                    @endif
-
-                            </div>
+                            <avored-form-input 
+                                field-name="email"
+                                label="{{ __('avored-ecommerce::lang.admin-email-label') }}" 
+                                error-text="{!! $errors->first('email') !!}"
+                                v-on:change="changeModelValue"
+                                autofocus="autofocus"
+                                    >
+                            </avored-form-input>
 
                             <div class="form-group">
-
-                                <button type="submit" :disabled="isLoginDisbled" class="btn btn-primary">
-                                    Send Password Reset Link
+                               
+                                <button 
+                                    type="submit" 
+                                    :disabled='isSendPasswordSubmitDisbled'  
+                                    class="btn btn-primary">
+                                    {{ __('avored-ecommerce::lang.admin-reset-button-title') }}
                                 </button>
 
                             </div>
@@ -80,17 +79,23 @@
     var app = new Vue({
         el: '#reset-password-page',
         data : {
-            email: ''
+            email: '',
+            autofocus:true
         },
         computed: {
-            isLoginDisbled: function() {
-
+            isSendPasswordSubmitDisbled: function() {
                 if(this.email != "") {
                     return false;
                 }
-
                 return true;
-
+            }
+        },
+        methods: {
+            changeModelValue: function(val,fieldName) {
+    
+                if(fieldName == "email") {
+                    this.email = val;
+                }
             }
         }
     });

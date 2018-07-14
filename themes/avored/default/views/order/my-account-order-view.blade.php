@@ -17,9 +17,9 @@
             <div class="clearfix"></div>
             <br/>
 
-            <div class="panel">
-                <div class="panel-body">
-                    <h3 class="panel-heading">Order Basic Info</h3>
+            <div class="card mb-3">
+                <div class="card-header">Order Basic Info</div>
+                <div class="card-body">
                   
 
                     <table class="table table-bordered">
@@ -28,25 +28,21 @@
                             <td>{{ $order->id }}</td>
                         </tr>
                         <tr>
-                            <th>Shipping Method</th>
-                            <td>{{ $order->shipping_method }}</td>
+                            <th>Shipping Option</th>
+                            <td>{{ $order->shipping_option }}</td>
                         </tr>
                         <tr>
-                            <th>Payment Method</th>
-                            <td>{{ $order->payment_method }}</td>
+                            <th>Payment Option</th>
+                            <td>{{ $order->payment_option }}</td>
                         </tr>
                     </table>
                 </div>
 
             </div>
-            <div class="panel ">
-                <div class="panel-body">
-                    <h3 class="panel-heading">Order Item Info</h3>
-                    <!--div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div-->
+            <div class="card mb-3">
+                <div class="card-header">Order Item Info</div>
+                <div class="card-body">
+                
 
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -102,14 +98,10 @@
                 </div>
 
             </div>
-            <div class="panel">
-                <div class="panel-body">
-                    <h3 class="panel-heading">Order Address Info</h3>
-                    <!--div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                    </div-->
+            <div class="card">
+                <div class="card-header">Order Address Info</div>
+                <div class="card-body">
+                   
                     <div class="row">
                         <div class="col-6">
                             <h6>Shipping Info</h6>

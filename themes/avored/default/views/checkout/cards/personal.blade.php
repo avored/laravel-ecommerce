@@ -19,9 +19,9 @@
                        value="{{ $firstName }}" placeholder="First Name"
                        id="input-user-first-name"
                        @if($errors->has('billing.first_name'))
-                       class="is-invalid form-control"
+                       class="is-invalid avored-checkout-field form-control"
                        @else
-                       class="form-control"
+                       class="form-control avored-checkout-field"
                         @endif
                 />
                 @if ($errors->has('billing.first_name'))
@@ -37,10 +37,10 @@
                 <input type="text" name="billing[last_name]"
                        value="{{ $lastName }}" placeholder="Last Name"
                        id="input-user-last-name"
-                       @if($errors->has('billing.last_name'))
-                       class="is-invalid form-control"
-                       @else
-                       class="form-control"
+                        @if($errors->has('billing.last_name'))
+                            class="is-invalid form-control avored-checkout-field"
+                        @else
+                            class="form-control avored-checkout-field"
                         @endif
                 />
                 @if ($errors->has('billing.last_name'))
@@ -61,9 +61,9 @@
                         id="input-user-email"
 
                         @if($errors->has('user.email'))
-                        class="is-invalid form-control"
+                        class="is-invalid avored-checkout-field form-control"
                         @else
-                        class="form-control"
+                        class="form-control avored-checkout-field"
                         @endif
                 >
                 @if ($errors->has('user.email'))
@@ -92,9 +92,9 @@
                                id="input-billing-password"
 
                                @if($errors->has('user.password'))
-                               class="is-invalid form-control"
+                               class="is-invalid avored-checkout-field form-control"
                                @else
-                               class="form-control"
+                               class="form-control avored-checkout-field"
                                 @endif
                         />
                         @if ($errors->has('user.password'))
@@ -110,9 +110,9 @@
                                placeholder="Password Confirm"
                                id="input-billing-confirm"
                                @if($errors->has('user.confirm_password'))
-                               class="is-invalid form-control"
+                               class="is-invalid avored-checkout-field form-control"
                                @else
-                               class="form-control"
+                               class="form-control avored-checkout-field"
                                 @endif
                         />
 
@@ -132,9 +132,9 @@
             <input type="text" name="billing[phone]" value="{{ $phone }}" placeholder="Phone"
                    id="input-billing-phone"
                    @if($errors->has('billing.phone'))
-                   class="is-invalid form-control"
+                   class="is-invalid form-control avored-checkout-field"
                    @else
-                   class="form-control"
+                   class="form-control avored-checkout-field"
                     @endif
             />
             @if ($errors->has('billing.phone'))

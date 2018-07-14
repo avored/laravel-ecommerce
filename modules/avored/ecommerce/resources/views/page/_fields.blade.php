@@ -1,6 +1,25 @@
-@include('avored-ecommerce::forms.text',['name' => 'name','label' => 'Name'])
-@include('avored-ecommerce::forms.text',['name' => 'slug','label' => 'Slug'])
 
+<avored-form-input 
+    field-name="name"
+    label="{{ __('avored-ecommerce::attribute.name') }}" 
+    field-value="{!! $model->name ?? "" !!}" 
+    error-text="{!! $errors->first('name') !!}"
+    v-on:change="changeModelValue"
+    autofocus="autofocus"
+        >
+</avored-form-input>
+
+
+
+<avored-form-input 
+    field-name="slug"
+    label="{{ __('Slug') }}" 
+    field-value="{!! $model->slug ?? "" !!}" 
+    error-text="{!! $errors->first('slug') !!}"
+    v-on:change="changeModelValue"
+   
+        >
+</avored-form-input>
 @php
     $content = (isset($model)) ? $model->getContent() : "";
 @endphp
@@ -11,9 +30,25 @@
     >{{ $content }}</textarea>
 </div>
 
+<avored-form-input 
+    field-name="meta_title"
+    label="{{ __('Meta Title') }}" 
+    field-value="{!! $model->meta_title ?? "" !!}" 
+    error-text="{!! $errors->first('meta_title') !!}"
+    v-on:change="changeModelValue"
+   
+        >
+</avored-form-input>
 
-@include('avored-ecommerce::forms.text',['name' => 'meta_title','label' => 'Meta Title'])
-@include('avored-ecommerce::forms.text',['name' => 'meta_description','label' => 'Meta Description'])
+<avored-form-input 
+    field-name="meta_description"
+    label="{{ __('Meta Description') }}" 
+    field-value="{!! $model->meta_description ?? "" !!}" 
+    error-text="{!! $errors->first('meta_description') !!}"
+    v-on:change="changeModelValue"
+   
+        >
+</avored-form-input>
 
 
 <div class="modal" id="widget-list-modal" tabindex="-1" role="dialog">
@@ -31,10 +66,18 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" id="widget-insert-button" data-dismiss="modal" class="btn btn-primary">Insert
-                    Widget
+                <button type="button" 
+                        id="widget-insert-button" 
+                        data-dismiss="modal" 
+                        class="btn btn-primary">
+                    Insert Widget
                 </button>
-                <button type="button" id="widget-close-button" data-dismiss="modal" class="btn btn-default">Close
+                <button type="button"   
+                    id="widget-close-button" 
+                    data-dismiss="modal"
+                     class="btn btn-default">
+                     
+                     Close
                 </button>
             </div>
         </div>

@@ -1,5 +1,22 @@
-@include('avored-ecommerce::forms.text',['name' => 'name','label' => __('avored-ecommerce::attribute.name')])
-@include('avored-ecommerce::forms.text',['name' => 'identifier','label' => __('avored-ecommerce::attribute.identifier')])
+
+<avored-form-input 
+    field-name="name"
+    label="{{ __('avored-ecommerce::attribute.name') }}" 
+    field-value="{!! $model->name ?? "" !!}" 
+    error-text="{!! $errors->first('name') !!}"
+    v-on:change="changeModelValue"
+    autofocus="autofocus"
+        >
+</avored-form-input>
+
+<avored-form-input 
+    field-name="identifier"
+    label="{{ __('avored-ecommerce::attribute.identifier') }}" 
+    field-value="{!! $model->identifier ?? "" !!}" 
+    error-text="{!! $errors->first('identifier') !!}"
+    v-on:change="changeModelValue"
+        >
+</avored-form-input>
 
 
 <?php
@@ -8,13 +25,12 @@ $pool = 'abcdefghijklmnopqrstuvwxyz';
 
 $randomString = substr(str_shuffle(str_repeat($pool, 6)), 0, 6);
 
-$hiddenClass = "";
+$hiddenClass = '';
 $editMode = false;
-
 
 if (isset($model) && $model->attributeDropdownOptions->count() > 0) {
     $editMode = true;
-    $hiddenClass = "";
+    $hiddenClass = '';
 }
 ?>
 

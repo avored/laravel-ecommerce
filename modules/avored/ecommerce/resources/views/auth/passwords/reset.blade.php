@@ -36,44 +36,36 @@
                                 action="{{ route('admin.password.email.post') }}">
                                 @csrf
 
-                                <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                    <label for="email">E-Mail Address</label>
-                                    <input v-model="email" id="email" type="email" class="form-control" name="email"
-                                        value="{{ $email or old('email') }}" required autofocus>
+                                <avored-form-input 
+                                    field-name="email"
+                                    label="{{ __('avored-ecommerce::lang.admin-email-label') }}" 
+                                    error-text="{!! $errors->first('email') !!}"
+                                    v-on:change="changeModelValue"
+                                    autofocus="autofocus"
+                                        >
+                                </avored-form-input>
 
-                                    @if ($errors->has('email'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('email') }}</strong>
-                                        </span>
-                                    @endif
+                                <avored-form-input 
+                                    field-name="password"
+                                    field-type="password"
+                                    label="{{ __('avored-ecommerce::lang.admin-password-label') }}" 
+                                    error-text="{!! $errors->first('password') !!}"
+                                    v-on:change="changeModelValue"
+                                    
+                                        >
+                                </avored-form-input>
+                                
+                                <avored-form-input 
+                                    field-name="password_confirmation"
+                                    field-type="password"
+                                    label="{{ __('avored-ecommerce::lang.admin-confirm-password-label') }}" 
+                                    error-text="{!! $errors->first('password_confirmation') !!}"
+                                    v-on:change="changeModelValue"
+                                    
+                                        >
+                                </avored-form-input>
 
-                                </div>
 
-                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                    <label for="password">Password</label>
-                                    <input v-model="password" id="password" type="password" class="form-control" name="password" required>
-
-                                    @if ($errors->has('password'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
-
-                                </div>
-
-                                <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                    <label for="password-confirm">Confirm Password</label>
-                                    <input v-model="password_confirmation" id="password-confirm"
-                                        type="password" class="form-control"
-                                        name="password_confirmation" required>
-
-                                    @if ($errors->has('password_confirmation'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
-                                        </span>
-                                    @endif
-
-                                </div>
 
                                 <div class="form-group">
                                     <button :disabled='isLoginDisbled' type="submit" class="btn btn-primary">
@@ -105,11 +97,20 @@
         computed: {
             isLoginDisbled: function() {
 
-                if(this.email != "" && this.password != "" && this.password_confirmation != "" && this.password == this.password_confirmation)  {
+                if(this.email != "" && 
+                    this.password != "" && 
+                    this.password_confirmation != "" && 
+                    this.password == this.password_confirmation)  {
                     return false;
                 }
                 return true;
 
+            }
+        },
+        methods: {
+            changeModelValue: function(val,fieldName) {
+                this[fieldName] = val;
+               
             }
         }
     });
