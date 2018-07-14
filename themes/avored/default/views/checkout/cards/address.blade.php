@@ -18,9 +18,9 @@
                     <input type="text" name="billing[address1]" value="" placeholder="Address 1"
                            id="input-billing-address-1"
                            @if($errors->has('billing.address1'))
-                           class="is-invalid form-control"
+                           class="is-invalid avored-checkout-field form-control"
                            @else
-                           class="form-control"
+                           class="form-control avored-checkout-field"
                             @endif
                     />
                     @if ($errors->has('billing.address1'))
@@ -36,9 +36,9 @@
                            id="input-billing-address-2"
 
                            @if($errors->has('billing.address2'))
-                           class="is-invalid form-control"
+                           class="is-invalid avored-checkout-field form-control"
                            @else
-                           class="form-control"
+                           class="form-control avored-checkout-field"
                             @endif
                     />
 
@@ -53,7 +53,7 @@
                     <label for="country">Country</label>
                     <select name="billing[country_id]" data-name="country_id"
                             class="{{ $errors->has('billing.country_id') ? "is-invalid" : "" }}
-                                    billing-country form-control billing tax-calculation"
+                                    billing-country avored-checkout-field form-control billing tax-calculation"
                     >
                         @foreach($countries as $countryId => $countryName)
                             <option
@@ -77,9 +77,9 @@
 
 
                                @if($errors->has('billing.state'))
-                               class="is-invalid billing tax-calculation form-control"
+                               class="is-invalid avored-checkout-field billing tax-calculation form-control"
                                @else
-                               class="billing tax-calculation form-control"
+                               class="billing avored-checkout-field tax-calculation form-control"
                                 @endif
                         />
                         @if ($errors->has('billing.state'))
@@ -98,9 +98,9 @@
                                id="input-billing-city"
 
                                @if($errors->has('billing.city'))
-                               class="is-invalid billing tax-calculation form-control"
+                               class="is-invalid avored-checkout-field billing tax-calculation form-control"
                                @else
-                               class="billing tax-calculation form-control"
+                               class="billing avored-checkout-field tax-calculation form-control"
                                 @endif
                         />
                         @if ($errors->has('billing.city'))
@@ -118,9 +118,9 @@
                            id="input-billing-postcode"
 
                            @if($errors->has('billing.postcode'))
-                           class="is-invalid shipping_calc billing tax-calculation form-control"
+                           class="is-invalid avored-checkout-field shipping_calc billing tax-calculation form-control"
                            @else
-                           class="billing shipping_calc tax-calculation form-control"
+                           class="billing avored-checkout-field shipping_calc tax-calculation form-control"
                             @endif
                     />
                     @if ($errors->has('billing.postcode'))
@@ -157,11 +157,16 @@
 
             <div class="form-group col-12">
                 <label for="use_different_shipping_address">
-                    <input type="checkbox" id="use_different_shipping_address" name="use_different_shipping_address"
-                           onclick="if (this.checked == true){
-                                                            jQuery('.different-shipping-form').css('display','block');
-                                                            } else  { jQuery('.different-shipping-form').css('display','none'); }
-                                                        ">&nbsp;Use Different Address for Shipping
+                    <input  type="checkbox" 
+                            id="use_different_shipping_address" 
+                            name="use_different_shipping_address"
+                            class="avored-checkout-field"
+                            onclick="if (this.checked == true){
+                                        jQuery('.different-shipping-form').css('display','block');
+                                    } else  { 
+                                        jQuery('.different-shipping-form').css('display','none'); 
+                                    }
+                        ">&nbsp;Use Different Address for Shipping
                     Account</label>
             </div>
 
@@ -179,9 +184,9 @@
                            id="input-billing-firstname"
 
                            @if($errors->has('shipping.first_name'))
-                           class="is-invalid form-control"
+                           class="is-invalid avored-checkout-field form-control"
                            @else
-                           class="form-control"
+                           class="form-control avored-checkout-field"
                             @endif
                     />
                     @if ($errors->has('shipping.first_name'))
@@ -196,9 +201,9 @@
                            value="" placeholder="Last Name"
                            id="input-billing-lastname"
                            @if($errors->has('shipping.last_name'))
-                           class="is-invalid form-control"
+                           class="is-invalid avored-checkout-field form-control"
                            @else
-                           class="form-control"
+                           class="form-control avored-checkout-field"
                             @endif
                     />
                     @if ($errors->has('shipping.last_name'))
@@ -214,9 +219,9 @@
                 <input type="text" name="shipping[address1]" value="" placeholder="Address 1"
                        id="input-shipping-address-1"
                        @if($errors->has('shipping.address1'))
-                       class="is-invalid form-control"
+                       class="is-invalid avored-checkout-field  form-control"
                        @else
-                       class="form-control"
+                       class="form-control avored-checkout-field"
                         @endif
                 />
                 @if ($errors->has('shipping.address1'))
@@ -231,9 +236,9 @@
                 <input type="text" name="shipping[address2]" value="" placeholder="Address 2"
                        id="input-shipping-address-2"
                        @if($errors->has('shipping.address2'))
-                       class="is-invalid form-control"
+                       class="is-invalid avored-checkout-field form-control"
                        @else
-                       class="form-control"
+                       class="form-control avored-checkout-field"
                         @endif
                 />
                 @if ($errors->has('shipping.address2'))
@@ -249,9 +254,9 @@
 
                         id="input-shipping-country-id"
                         @if($errors->has('shipping.country_id'))
-                        class="is-invalid shipping tax-calculation form-control"
+                        class="is-invalid avored-checkout-field shipping tax-calculation form-control"
                         @else
-                        class="shipping tax-calculation form-control"
+                        class="shipping avored-checkout-field tax-calculation form-control"
                         @endif
                 />
 
@@ -277,9 +282,9 @@
                            id="input-shipping-zone"
 
                            @if($errors->has('shipping.state'))
-                           class="is-invalid shipping tax-calculation form-control"
+                           class="is-invalid avored-checkout-field shipping tax-calculation form-control"
                            @else
-                           class="shipping tax-calculation form-control"
+                           class="shipping avored-checkout-field tax-calculation form-control"
                             @endif
                     />
                     @if ($errors->has('shipping.state'))
@@ -295,9 +300,9 @@
                     <input type="text" data-name="city" name="shipping[city]" placeholder="City"
                            id="input-shipping-city"
                            @if($errors->has('shipping.city'))
-                           class="is-invalid shipping tax-calculation form-control"
+                           class="is-invalid avored-checkout-field shipping tax-calculation form-control"
                            @else
-                           class="shipping tax-calculation form-control"
+                           class="shipping avored-checkout-field tax-calculation form-control"
                             @endif
                     />
                     @if ($errors->has('shipping.country_id'))
@@ -316,9 +321,9 @@
                            placeholder="Post Code"
                            id="input-shipping-postcode"
                            @if($errors->has('shipping.postcode'))
-                           class="is-invalid shipping tax-calculation form-control"
+                           class="is-invalid avored-checkout-field shipping tax-calculation form-control"
                            @else
-                           class="shipping tax-calculation form-control"
+                           class="shipping avored-checkout-field tax-calculation form-control"
                             @endif
                     />
                     @if ($errors->has('shipping.postcode'))
@@ -333,9 +338,9 @@
                     <input type="text" name="shipping[phone]" value="" placeholder="Phone"
                            id="input-shipping-phone"
                            @if($errors->has('shipping.phone'))
-                           class="is-invalid form-control"
+                           class="is-invalid avored-checkout-field form-control"
                            @else
-                           class="form-control"
+                           class="form-control avored-checkout-field" 
                             @endif
                     />
                     @if ($errors->has('shipping.phone'))

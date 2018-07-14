@@ -89,27 +89,23 @@
 $(function () {
 
     var CheckoutPage = {
-
+        fieldValues:{},
 
         init:function() {
-            this._me = CheckoutPage;
-            this.addEvents();
-            //jQuery(document).on('change', '#input-user-email',this.userInputChage);
-            
+            this.addEvents();              
         },
         addEvents: function() {
 
             jQuery(document).on('change', '.shipping_option_radio',this.shippingOptionChange);
             jQuery(document).on('change','.shipping_calc',this.shippingCalc);
             jQuery(document).on('change','.avored-payment-option',this.paymentOptionChange);
+            jQuery(document).on('change','.avored-checkout-field',this.avoredFieldChange);
+
             jQuery(document).on('click','#place-order-button',this.placeOrderButtonClick);
-            
             jQuery(document).on('click','#place-order-button',this.placeOrderButtonClick);
 
-            jQuery("#place-order-button").bind('paymentProcessEnd', this.placeOrderButtonPaymentProcessEnd);
-           
+            jQuery("#place-order-button").bind('paymentProcessEnd', this.placeOrderButtonPaymentProcessEnd);           
         },
-
         shippingOptionChange: function(e) {
 
             if (jQuery(this).is(':checked')) {
@@ -128,7 +124,6 @@ $(function () {
             }
             CheckoutPage.calculateTotal();
         },
-
         shippingCalc: function(e) {
 
             e.preventDefault();
@@ -147,7 +142,6 @@ $(function () {
             e.preventDefault();
             jQuery(this).trigger('paymentOptionChange');
         },
-
         placeOrderButtonClick: function(e) {
 
             e.preventDefault();
@@ -161,15 +155,27 @@ $(function () {
             });
 
         },
+        avoredFieldChange: function(e) {
+            e.preventDefault();
 
+            jQuery('.avored-checkout-field').each(function(index, ele){
+                if(jQuery(ele).attr('type') == "checkbox" && jQuery(ele).is(':checked')) {
+                    CheckoutPage.fieldValues[jQuery(ele).attr('name')] = jQuery(ele).val(); 
+                }
+                if(jQuery(ele).attr('type') == "text") {
+                    CheckoutPage.fieldValues[jQuery(ele).attr('name')] = jQuery(ele).val(); 
+                }
+            });
+
+            jQuery('.avored-checkout-field').trigger('avoredFieldValueChange',[CheckoutPage.fieldValues]);
+
+        },
         placeOrderButtonPaymentProcessEnd: function(e) {
             e.preventDefault();
 
             jQuery(this).prop('disabled',false);
             jQuery('#place-order-form').submit();
         },
-
-
         calculateTotal: function() {
 
             var subTotal        = parseFloat(jQuery('.sub-total').attr('data-sub-total')).toFixed(2);
@@ -181,23 +187,6 @@ $(function () {
             jQuery('.total').attr('data-total', total);
             jQuery('.total').html("$" + total);
         }
-
-
-        // userInputChage:function(e) {
-        //     var data = {
-        //         'email': jQuery(this).val(),
-        //         '_token': '{{ csrf_token()  }}'
-        //     };
-            
-        //     $.post({
-        //         url: "/check-user-exists",
-        //         data: data,
-        //         type: 'json',
-        //         success: function (res) {
-        //             console.info(res);
-        //         }
-        //     });
-        // }
     };
    
     CheckoutPage.init();
