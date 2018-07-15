@@ -24,18 +24,12 @@ class PlaceOrderRequest extends Request
      */
     public function rules()
     {
-        dd($this->request);
         $validation['billing.first_name'] = 'required|max:255';
         $validation['billing.last_name'] = 'required|max:255';
         $validation['billing.phone'] = 'required|max:255';
 
-        //dd($this->request->all());
-
         if (!Auth::check()) {
-            //$validation['user.email'] = 'required|email|max:255|unique:users';
             $validation['user.email'] = 'required|email|max:255';
-
-            //$validation['user.password'] = 'required|min:6|confirmed';
         }
 
         $billingData = $this->request->get('billing');
