@@ -26,6 +26,8 @@ Route::get('cart/destroy/{id}', 'CartController@destroy')->name('cart.destroy');
 
 Route::get('checkout', 'CheckoutController@index')->name('checkout.index');
 
+Route::post('checkout-field-updated', 'CheckoutController@checkoutFieldUpdated')->name('checkout.field.updated');
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');

@@ -89,10 +89,19 @@
 $(function () {
 
     var CheckoutPage = {
-        fieldValues:{},
+        
+        authUser : 'false',
+                
 
         init:function() {
-            this.addEvents();              
+            this.addEvents();  
+            CheckoutPage.authUser = '{{ (Auth::check()) ? "true" : "false" }}';
+            
+            if(CheckoutPage.authUser == 'true') {
+                jQuery('#input-user-first-name').trigger('change');
+            }
+            
+            
         },
         addEvents: function() {
 
@@ -157,17 +166,31 @@ $(function () {
         },
         avoredFieldChange: function(e) {
             e.preventDefault();
+            var data = jQuery('#place-order-form').serialize(); 
+            
+            var fieldName = jQuery(this).attr('name');
+            var shippingActivationFields = ['billing[country_id]','shipping[country_id]','post_code'];
 
-            jQuery('.avored-checkout-field').each(function(index, ele){
-                if(jQuery(ele).attr('type') == "checkbox" && jQuery(ele).is(':checked')) {
-                    CheckoutPage.fieldValues[jQuery(ele).attr('name')] = jQuery(ele).val(); 
-                }
-                if(jQuery(ele).attr('type') == "text") {
-                    CheckoutPage.fieldValues[jQuery(ele).attr('name')] = jQuery(ele).val(); 
-                }
-            });
+            if(jQuery.inArray(fieldName,shippingActivationFields) >= 0 || 
+                CheckoutPage.authUser == 'true'
+            ) {
 
-            jQuery('.avored-checkout-field').trigger('avoredFieldValueChange',[CheckoutPage.fieldValues]);
+                jQuery.ajax({
+                    url: "{{ route('checkout.field.updated') }}",
+                    method: "post",
+                    dataType: "json",
+                    data: data,
+                    success : function(response) {
+                        
+                        jQuery('.shipping-option .form-check').remove();
+                        for (i = 0; i < response.shipping.length; i++) {
+                            jQuery('.shipping-option').append(response.shipping[i]);
+                        }
+                    }
+                });
+            }
+
+            
 
         },
         placeOrderButtonPaymentProcessEnd: function(e) {
