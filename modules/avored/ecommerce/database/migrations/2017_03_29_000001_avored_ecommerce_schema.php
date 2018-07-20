@@ -82,7 +82,7 @@ class AvoredEcommerceSchema extends Migration
             $table->string('code');
             $table->string('name');
             $table->float('conversion_rate');
-            $table->enum('status',['ENABLED','DISABLED'])->nullable()->default(null);
+            $table->enum('status', ['ENABLED', 'DISABLED'])->nullable()->default(null);
             $table->timestamps();
         });
 
@@ -208,12 +208,10 @@ class AvoredEcommerceSchema extends Migration
             $table->foreign('billing_address_id')->references('id')->on('addresses');
         });
 
-        
-        $path = __DIR__ .'/../../assets/countries.json';
+        $path = __DIR__ . '/../../assets/countries.json';
         $json = json_decode(file_get_contents($path), true);
         foreach ($json as $code => $country) {
-            
-            Country::create(['code' => strtolower($code), 
+            Country::create(['code' => strtolower($code),
                             'name' => $country['name'],
                             'phone_code' => $country['phone'],
                             'currency_code' => $country['currency'],
@@ -233,10 +231,10 @@ class AvoredEcommerceSchema extends Migration
 
         $countryModel = Country::whereCode('NZ')->first();
         $siteCurrency = SiteCurrency::create([
-            'name'              => 'NZ Dollars',
-            'code'              => 'NZD',
-            'conversion_rate'   => 1,
-            'status'            => 'ENABLED'
+            'name' => 'NZ Dollars',
+            'code' => 'NZD',
+            'conversion_rate' => 1,
+            'status' => 'ENABLED'
         ]);
 
         Configuration::create([
@@ -260,21 +258,14 @@ class AvoredEcommerceSchema extends Migration
         ]);
 
         Configuration::create([
-            'configuration_key' => 'general_site_title', 
+            'configuration_key' => 'general_site_title',
             'configuration_value' => 'AvoRed an Laravel Ecommerce'
         ]);
         Configuration::create([
             'configuration_key' => 'general_site_description',
-            'configuration_value' => 'AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel. Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default'            
+            'configuration_value' => 'AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel. Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default'
         ]);
-        Configuration::create([
-            'configuration_key' => 'general_site_description', 
-            'configuration_value' => 'AvoRed Laravel Ecommerce
-        ']);
-        
-
     }
-
 
     /**
      * Uninstall the AvoRed Address Module Schema.

@@ -302,7 +302,7 @@ class Provider extends ServiceProvider
         $configurationGroup->addConfiguration('general_site_title')
             ->label('Default Site Title')
             ->type('text')
-            ->name('default_site_title');
+            ->name('general_site_title');
 
         $configurationGroup->addConfiguration('general_site_description')
             ->label('Default Site Description')
