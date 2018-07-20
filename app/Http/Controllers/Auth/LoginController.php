@@ -8,9 +8,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
+    const CONFIG_KEY = 'user_logout_keep_cart_products';
+
     /*
       |--------------------------------------------------------------------------
       | Login Controller
@@ -53,6 +57,31 @@ class LoginController extends Controller
     protected function guard()
     {
         return Auth::guard('web');
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $rep = app(ConfigurationInterface::class);
+        $keepCartItems = $rep->getValueByKey(self::CONFIG_KEY);
+        if ($keepCartItems) {
+            $config = $cartItems = $request->session()->get('cart_products');
+        }
+
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        if ($keepCartItems) {
+            Session::put('cart_products', $cartItems);
+        }
+
+        return $this->loggedOut($request) ?: redirect('/');
     }
 
     /**
