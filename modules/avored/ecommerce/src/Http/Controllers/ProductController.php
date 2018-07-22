@@ -95,8 +95,8 @@ class ProductController extends Controller
     {
         $attributes = Collection::make([]);
 
-        $properties = Property::all()->pluck('name', 'id');
-        $usedForAllProductProperties = Property::whereUseForAllProducts(1)->get();
+        $properties = Property::all();//->pluck('name', 'id');
+        //$usedForAllProductProperties = Property::whereUseForAllProducts(1)->get();
 
         if ($product->type == 'VARIATION') {
             $attributes = AttributeDropdownOption::all()->pluck('name', 'id');
@@ -105,7 +105,7 @@ class ProductController extends Controller
         return view('avored-ecommerce::product.edit')
             ->with('model', $product)
             ->with('propertyOptions', $properties)
-            ->with('usedForAllProductProperties', $usedForAllProductProperties)
+            //->with('usedForAllProductProperties', $usedForAllProductProperties)
             ->with('attributeOptions', $attributes);
     }
 

@@ -63,6 +63,7 @@
                     </div>
                     </a>
                     <div class="card-body collapse" id="property">
+                        <!-- include('avored-ecommerce::product.card.property') -->
                         @include('avored-ecommerce::product.card.property')
                     </div>
                 </div>
@@ -134,7 +135,7 @@
             </div>
 
         <?php 
-        
+
         //dd($model);
         ?>
         </form>

@@ -1,5 +1,6 @@
 <?php
 $productProperties = $model->getPropertiesAll();
+
 ?>
 
 <div class="row">
@@ -12,14 +13,14 @@ $productProperties = $model->getPropertiesAll();
                     multiple="true"
                     class="select2 form-control modal-product-property-select"
                     style="width: 88%">
-                @foreach($propertyOptions as $propertyId => $propertyName)
+                @foreach($propertyOptions as $propertyOption)
                     <option
-                            @if($productProperties->contains('property_id',$propertyId))
-                            selected
+                            @if($productProperties->contains('property_id',$propertyOption->id))
+                                selected
                             @endif
 
-                            value="{{ $propertyId }}">
-                        {{ $propertyName }}
+                            value="{{ $propertyOption->id }}">
+                        {{ $propertyOption->name }}
                     </option>
                 @endforeach
             </select>
@@ -45,7 +46,7 @@ $productProperties = $model->getPropertiesAll();
                     @php
                     if(!$productVarcharPropertyValue instanceof \AvoRed\Framework\Models\Database\Property) {
                         $property = $productVarcharPropertyValue->property;
-                        //dd($productVarcharPropertyValue);
+                        
                     } else {
                         $property = $productVarcharPropertyValue;
                     }
@@ -134,11 +135,11 @@ $productProperties = $model->getPropertiesAll();
                             <input type="checkbox"
                                    name="property[{{ str_random() }}][{{ $property->id  }}]"
                                    class="form-check-input"
+                                   id="property-{{ $property->id }}"
                                    value="1"
                                    @if($productVarcharPropertyValue->value == 1)
-                                   checked
+                                    checked
                                    @endif
-                                   id="property-{{ $property->id }}"
                             />
 
 
