@@ -8,7 +8,7 @@
                 <th class="text-left">Product Name</th>
                 <th class="text-right hidden-xs">Quantity</th>
                 <th class="text-right hidden-xs">Unit Price</th>
-                <th class="text-right">Total</th>
+                <th class="text-right">Total (with Tax)</th>
             </tr>
             </thead>
             <tbody>
@@ -34,17 +34,22 @@
                                 <?php $attributeText .= $attribute['variation_display_text'] . ': '; ?>
                             @endif
                         @endforeach
-                         <p>Attributes: <span
-                                class="text-success"><strong>{{ $attributeText}}</strong></span>
+                         <p>Attributes: 
+                            <span class="text-success">
+                                 <strong>{{ $attributeText}}</strong>
+                            </span>
+                         </p>
                     @endif
 
                     </td>
 
                     <td class="text-right hidden-xs">{{ $cartItem->qty() }}</td>
                     <td class="text-right hidden-xs">
-                        ${{ $cartItem->priceFormat()  }}</td>
+                        ${{ $cartItem->priceFormat()  }}
+                    </td>
                     <td class="text-right">
-                        ${{ $cartItem->finalPrice()  }}</td>
+                        ${{ $cartItem->lineTotal()  }}
+                    </td>
                 </tr>
 
                 @php
@@ -57,8 +62,9 @@
             <tfoot>
             <tr>
                 <td colspan="3" class="text-right  hidden-xs"><strong>Sub-Total:</strong></td>
-                <td class="text-right sub-total" data-sub-total="{{ number_format((float)$subTotal, 2, '.', '') }}">
-                    ${{ number_format((float)$subTotal, 2, '.', '') }}</td>
+                <td class="text-right sub-total" 
+                        data-sub-total="{{ number_format(Cart::total(),2) }}">
+                    ${{ number_format(Cart::total(),2) }}</td>
             </tr>
             <tr class="hidden shipping-row">
                 <td colspan="3" class="text-right shipping-title  hidden-xs"
@@ -69,8 +75,8 @@
 
             <tr>
                 <td colspan="3" class="text-right  hidden-xs"><strong>Total:</strong></td>
-                <td class="text-right total" data-total="{{ number_format((float)$subTotal, 2, '.', '') }}">
-                    ${{ number_format((float)$subTotal, 2, '.', '') }}</td>
+                <td class="text-right total" data-total="{{ number_format(Cart::total(),2) }}">
+                    ${{ number_format(Cart::total(),2) }}</td>
             </tr>
             </tfoot>
 
