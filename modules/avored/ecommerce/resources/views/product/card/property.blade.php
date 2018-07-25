@@ -1,6 +1,6 @@
 <?php
-$productProperties = $model->getPropertiesAll();
-
+//$productProperties = $model->getPropertiesAll();
+$productProperties = $model->properties;
 ?>
 
 <div class="row">
@@ -15,7 +15,7 @@ $productProperties = $model->getPropertiesAll();
                     style="width: 88%">
                 @foreach($propertyOptions as $propertyOption)
                     <option
-                            @if($productProperties->contains('property_id',$propertyOption->id))
+                            @if($productProperties->contains('id',$propertyOption->id))
                                 selected
                             @endif
 
@@ -43,6 +43,9 @@ $productProperties = $model->getPropertiesAll();
 
                 @foreach($productProperties as $productVarcharPropertyValue)
 
+<?php 
+//dd($productVarcharPropertyValue);
+?>
                     @php
                     if(!$productVarcharPropertyValue instanceof \AvoRed\Framework\Models\Database\Property) {
                         $property = $productVarcharPropertyValue->property;
