@@ -32,8 +32,9 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-4">
-                <!-- SUBSCRIBE FORM GOES HERE  -->
-                @include('avored-subscribe::subscribe.form')
+                <!-- SUBSCRIBE FORM GOES HERE  
+                include('avored-subscribe::subscribe.form')
+                -->
             </div>
         </div>
     </div>

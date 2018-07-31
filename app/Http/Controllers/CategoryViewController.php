@@ -33,8 +33,8 @@ class CategoryViewController extends Controller
 
         $category = $this->repository->findByKey($slug);
 
-        $catProducts = $category->getCategoryProductWithFilter($request->except(['page']));
-        $products = $category->paginateProducts($catProducts, $productsOnCategoryPage);
+        $catProducts = $this->repository->getCategoryProductWithFilter($category->id, $request->except(['page']));
+        $products = $this->repository->paginateProducts($catProducts, $productsOnCategoryPage);
 
         return view('category.view')
             ->with('category', $category)
