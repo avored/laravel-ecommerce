@@ -19,16 +19,16 @@ Route::middleware(['web'])
     ->name('admin.')
     ->namespace('AvoRed\Ecommerce\Http\Controllers')
     ->group(function () {
-        Route::get('login', 'LoginController@loginForm')->name('login');
-        Route::post('login', 'LoginController@login')->name('login.post');
+        //Route::get('login', 'LoginController@loginForm')->name('login');
+        //Route::post('login', 'LoginController@login')->name('login.post');
 
-        Route::get('logout', 'LoginController@logout')->name('logout');
+        //Route::get('logout', 'LoginController@logout')->name('logout');
 
-        Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset.token');
-        Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email.post');
+        //Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset.token');
+        //Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email.post');
 
-        Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-        Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset.token');
+        //Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+        //Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset.token');
     });
 
 Route::middleware(['web', 'admin.auth', 'permission'])
