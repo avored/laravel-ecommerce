@@ -14,22 +14,6 @@ use Illuminate\Support\Facades\Route;
 
 $baseAdminUrl = config('avored-ecommerce.admin_url');
 
-Route::middleware(['web'])
-    ->prefix($baseAdminUrl)
-    ->name('admin.')
-    ->namespace('AvoRed\Ecommerce\Http\Controllers')
-    ->group(function () {
-        //Route::get('login', 'LoginController@loginForm')->name('login');
-        //Route::post('login', 'LoginController@login')->name('login.post');
-
-        //Route::get('logout', 'LoginController@logout')->name('logout');
-
-        //Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')->name('password.reset.token');
-        //Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')->name('password.email.post');
-
-        //Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-        //Route::post('password/reset', 'ResetPasswordController@reset')->name('password.reset.token');
-    });
 
 Route::middleware(['web', 'admin.auth', 'permission'])
     ->prefix($baseAdminUrl)
@@ -40,24 +24,14 @@ Route::middleware(['web', 'admin.auth', 'permission'])
 
         Route::resource('admin-user', 'AdminUserController')->except('show');
         
-        Route::resource('category', 'CategoryController');
         Route::resource('page', 'PageController');
-        Route::resource('product', 'ProductController');
-        Route::resource('property', 'PropertyController');
+        
         Route::resource('role', 'RoleController');
         Route::resource('site-currency', 'SiteCurrencyController');
 
         Route::get('menu', 'MenuController@index')->name('menu.index');
         Route::post('menu', 'MenuController@store')->name('menu.store');
 
-        
-        Route::post('product-image/upload', 'ProductController@uploadImage')->name('product.upload-image');
-        Route::post('product-image/delete', 'ProductController@deleteImage')->name('product.delete-image');
-
-        Route::get('product-downloadable-demo/{token}', 'ProductController@downloadDemoToken')
-                                ->name('product.download.demo.media');
-        Route::get('product-downloadable-main/{token}', 'ProductController@downloadMainToken')
-                                ->name('product.download.main.media');
 
         Route::get('admin-user/view', 'AdminUserController@show')->name('admin-user.show');
         Route::get('admin-user-api-show', 'AdminUserController@apiShow')->name('admin-user.show.api');
@@ -81,8 +55,6 @@ Route::middleware(['web', 'admin.auth', 'permission'])
 
         Route::get('order', 'OrderController@index')->name('order.index');
 
-        Route::post('get-property-element', 'PropertyController@getElementHtml')->name('property.element');
-        Route::post('edit-product-variation', 'ProductController@editVariation')->name('variation.edit');
         
         Route::get('order/{order}', 'OrderController@view')->name('order.view');
         Route::get('order/{order}/send-email-invoice', 'OrderController@sendEmailInvoice')->name('order.send-email-invoice');

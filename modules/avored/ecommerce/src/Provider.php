@@ -142,8 +142,8 @@ class Provider extends ServiceProvider
         View::composer('avored-ecommerce::site-currency._fields', SiteCurrencyFieldsComposer::class);
         View::composer(['avored-framework::product.category._fields'], CategoryFieldsComposer::class);
         View::composer(['avored-ecommerce::admin-user._fields'], AdminUserFieldsComposer::class);
-        View::composer(['avored-ecommerce::product.create',
-                        'avored-ecommerce::product.edit',
+        View::composer(['avored-framework::product.create',
+                        'avored-framework::product.edit',
                         ], ProductFieldsComposer::class);
     }
 
@@ -177,20 +177,6 @@ class Provider extends ServiceProvider
                     ->icon('fas fa-cart-plus');
         });
         $shopMenu = AdminMenuFacade::get('shop');
-
-        $productMenu = new AdminMenu();
-        $productMenu->key('product')
-            ->label('Product')
-            ->route('admin.product.index')
-            ->icon('fab fa-dropbox');
-        $shopMenu->subMenu('product', $productMenu);
-
-        $propertyMenu = new AdminMenu();
-        $propertyMenu->key('property')
-            ->label('Property')
-            ->route('admin.property.index')
-            ->icon('fas fa-file-powerpoint');
-        $shopMenu->subMenu('property', $propertyMenu);
 
         $orderMenu = new AdminMenu();
         $orderMenu->key('order')
