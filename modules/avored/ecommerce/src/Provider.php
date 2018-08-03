@@ -185,13 +185,6 @@ class Provider extends ServiceProvider
             ->icon('fab fa-dropbox');
         $shopMenu->subMenu('product', $productMenu);
 
-        $attributeMenu = new AdminMenu();
-        $attributeMenu->key('attribute')
-            ->label('Attribute')
-            ->route('admin.attribute.index')
-            ->icon('fas fa-file-alt');
-        $shopMenu->subMenu('attribute', $attributeMenu);
-
         $propertyMenu = new AdminMenu();
         $propertyMenu->key('property')
             ->label('Property')

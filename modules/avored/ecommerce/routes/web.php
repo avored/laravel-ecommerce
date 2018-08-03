@@ -39,7 +39,7 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::get('', 'DashboardController@index')->name('dashboard');
 
         Route::resource('admin-user', 'AdminUserController')->except('show');
-        Route::resource('attribute', 'AttributeController');
+        
         Route::resource('category', 'CategoryController');
         Route::resource('page', 'PageController');
         Route::resource('product', 'ProductController');
@@ -50,8 +50,7 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::get('menu', 'MenuController@index')->name('menu.index');
         Route::post('menu', 'MenuController@store')->name('menu.store');
 
-        Route::post('product-attribute-panel', 'AttributeController@getAttribute')
-                                ->name('product-attribute.get-attribute');
+        
         Route::post('product-image/upload', 'ProductController@uploadImage')->name('product.upload-image');
         Route::post('product-image/delete', 'ProductController@deleteImage')->name('product.delete-image');
 
@@ -84,8 +83,7 @@ Route::middleware(['web', 'admin.auth', 'permission'])
 
         Route::post('get-property-element', 'PropertyController@getElementHtml')->name('property.element');
         Route::post('edit-product-variation', 'ProductController@editVariation')->name('variation.edit');
-        Route::post('get-attribute-element', 'AttributeController@getElementHtml')->name('attribute.element');
-
+        
         Route::get('order/{order}', 'OrderController@view')->name('order.view');
         Route::get('order/{order}/send-email-invoice', 'OrderController@sendEmailInvoice')->name('order.send-email-invoice');
         Route::get('order/{order}/change-status', 'OrderController@editStatus')->name('order.change-status');
