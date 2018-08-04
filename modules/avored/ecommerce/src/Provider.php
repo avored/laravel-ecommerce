@@ -139,9 +139,9 @@ class Provider extends ServiceProvider
     public function registerViewComposerData()
     {
         View::composer('avored-ecommerce::layouts.left-nav', AdminNavComposer::class);
-        View::composer('avored-ecommerce::site-currency._fields', SiteCurrencyFieldsComposer::class);
+        View::composer('avored-framework::site-currency._fields', SiteCurrencyFieldsComposer::class);
         View::composer(['avored-framework::product.category._fields'], CategoryFieldsComposer::class);
-        View::composer(['avored-ecommerce::admin-user._fields'], AdminUserFieldsComposer::class);
+        View::composer(['avored-framework::system.admin-user._fields'], AdminUserFieldsComposer::class);
         View::composer(['avored-framework::product.create',
                         'avored-framework::product.edit',
                         ], ProductFieldsComposer::class);
@@ -171,93 +171,9 @@ class Provider extends ServiceProvider
      */
     protected function registerAdminMenu()
     {
-        AdminMenuFacade::add('shop', function (AdminMenu $shopMenu) {
-            $shopMenu->label('Shop')
-                    ->route('#')
-                    ->icon('fas fa-cart-plus');
-        });
-        $shopMenu = AdminMenuFacade::get('shop');
+        
 
-        $orderMenu = new AdminMenu();
-        $orderMenu->key('order')
-            ->label('Order')
-            ->route('admin.order.index')
-            ->icon('fas fa-dollar-sign');
-        $shopMenu->subMenu('order', $orderMenu);
-
-        AdminMenuFacade::add('cms', function (AdminMenu $cmsMenu) {
-            $cmsMenu->label('CMS')
-                    ->route('#')
-                    ->icon('fas fa-building');
-        });
-
-        $cmsMenu = AdminMenuFacade::get('cms');
-
-        $pageMenu = new AdminMenu();
-        $pageMenu->key('page')
-            ->label('Page')
-            ->icon('fas fa-newspaper')
-            ->route('admin.page.index');
-        $cmsMenu->subMenu('page', $pageMenu);
-        $frontMenu = new AdminMenu();
-        $frontMenu->key('menu')
-            ->label('Menu')
-            ->route('admin.menu.index')
-            ->icon('fas fa-leaf');
-        $cmsMenu->subMenu('menu', $frontMenu);
-
-        AdminMenuFacade::add('system', function (AdminMenu $systemMenu) {
-            $systemMenu->label('System')
-                    ->route('#')
-                    ->icon('fas fa-cogs');
-        });
-
-        $systemMenu = AdminMenuFacade::get('system');
-
-        $configurationMenu = new AdminMenu();
-        $configurationMenu->key('configuration')
-            ->label('Configuration')
-            ->route('admin.configuration')
-            ->icon('fas fa-cog');
-        $systemMenu->subMenu('configuration', $configurationMenu);
-
-        $currencySetup = new AdminMenu();
-        $currencySetup->key('site_currency_setup')
-            ->label('Currency Setup')
-            ->route('admin.site-currency.index')
-            ->icon('fas fa-dollar-sign');
-        $systemMenu->subMenu('site_currency', $currencySetup);
-
-        $adminUserMenu = new AdminMenu();
-        $adminUserMenu->key('admin-user')
-            ->label('Admin User')
-            ->route('admin.admin-user.index')
-            ->icon('fas fa-user');
-        $systemMenu->subMenu('admin-user', $adminUserMenu);
-
-        $roleMenu = new AdminMenu();
-        $roleMenu->key('roles')
-            ->label('Role')
-            ->route('admin.role.index')
-            ->icon('fab fa-periscope');
-        $systemMenu->subMenu('roles', $roleMenu);
-
-        $themeMenu = new AdminMenu();
-        $themeMenu->key('themes')
-            ->label('Themes ')
-            ->route('admin.theme.index')
-            ->icon('fas fa-adjust');
-        $systemMenu->subMenu('themes', $themeMenu);
-
-        //$moduleMenu = new AdminMenu();
-
-        $systemMenu->subMenu('module', function (AdminMenu $moduleMenu) {
-            //dd($moduleMenu);
-            $moduleMenu->key('module')
-            ->label('Module')
-            ->route('admin.module.index')
-            ->icon('fas fa-adjust');
-        });
+        
     }
 
     /**
@@ -817,7 +733,7 @@ class Provider extends ServiceProvider
      */
     protected function registerModelContracts()
     {
-        //$this->app->bind(AdminUserInterface::class, AdminUserRepository::class);
+        $this->app->bind(AdminUserInterface::class, AdminUserRepository::class);
         $this->app->bind(MenuInterface::class, MenuRepository::class);
         $this->app->bind(PageInterface::class, PageRepository::class);
         $this->app->bind(RoleInterface::class, RoleRepository::class);
