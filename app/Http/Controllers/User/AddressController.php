@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\User;
 
-use AvoRed\Ecommerce\Models\Database\Country;
+use AvoRed\Framework\Models\Database\Country;
 use AvoRed\Framework\Models\Database\Configuration;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddressRequest;
-use AvoRed\Ecommerce\Models\Database\Address;
+use AvoRed\Framework\Models\Database\Address;
 use App\Http\Controllers\Controller;
 
 class AddressController extends Controller
@@ -61,7 +61,7 @@ class AddressController extends Controller
     /**
      * Show the form for editing the specified user addresses.
      *
-     * @param \AvoRed\Ecommerce\Models\Database\Address $address
+     * @param \AvoRed\Framework\Models\Database\Address $address
      * @return \Illuminate\Http\Response
      */
     public function edit(Address  $address)
@@ -81,7 +81,7 @@ class AddressController extends Controller
      * Update the specified user addresses in database.
      *
      * @param \App\Http\Requests\AddressRequest $request
-     * @param \AvoRed\Ecommerce\Models\Database\Address $address
+     * @param \AvoRed\Framework\Models\Database\Address $address
      * @return \Illuminate\Http\Response
      */
     public function update(AddressRequest $request, Address $address)

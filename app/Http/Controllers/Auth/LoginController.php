@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
-use AvoRed\Ecommerce\Models\Database\User;
+use AvoRed\Framework\Models\Database\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;

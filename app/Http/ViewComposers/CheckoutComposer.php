@@ -5,7 +5,7 @@ namespace App\Http\ViewComposers;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
 use AvoRed\Framework\Models\Database\Configuration;
-use AvoRed\Ecommerce\Models\Database\Page;
+use AvoRed\Framework\Models\Database\Page;
 use Illuminate\Support\Facades\Session;
 
 class CheckoutComposer

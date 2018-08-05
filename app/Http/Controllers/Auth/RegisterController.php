@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use AvoRed\Framework\Models\Database\Configuration;
-use AvoRed\Ecommerce\Models\Database\User;
+use AvoRed\Framework\Models\Database\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use AvoRed\Ecommerce\Events\UserRegisteredEvent;
-use AvoRed\Ecommerce\Mail\NewUserMail;
+use App\Events\UserRegisteredEvent;
+use App\Mail\NewUserMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;

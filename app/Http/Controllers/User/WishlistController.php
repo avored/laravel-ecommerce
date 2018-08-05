@@ -4,7 +4,7 @@ namespace App\Http\Controllers\User;
 
 use Illuminate\Support\Facades\Auth;
 use AvoRed\Framework\Models\Database\Product;
-use AvoRed\Ecommerce\Models\Database\Wishlist;
+use AvoRed\Framework\Models\Database\Wishlist;
 use App\Http\Controllers\Controller;
 
 class WishlistController extends Controller

@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => AvoRed\Ecommerce\Models\Database\User::class,
+            'model' => AvoRed\Framework\Models\Database\User::class,
         ],
     ],
 
