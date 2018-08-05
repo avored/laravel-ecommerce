@@ -11,10 +11,7 @@ use Laravel\Passport\Console\KeysCommand;
 use AvoRed\Ecommerce\Shipping\FreeShipping;
 use Laravel\Passport\Console\ClientCommand;
 use Laravel\Passport\Console\InstallCommand;
-use AvoRed\Ecommerce\Http\Middleware\AdminAuth;
-use AvoRed\Ecommerce\Http\Middleware\Permission;
 use AvoRed\Ecommerce\Http\Middleware\AdminApiAuth;
-use AvoRed\Ecommerce\Http\Middleware\RedirectIfAdminAuth;
 use AvoRed\Ecommerce\Http\Middleware\SiteCurrencyMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
@@ -22,12 +19,10 @@ use Illuminate\Support\Facades\Blade;
 use AvoRed\Framework\Widget\Facade as WidgetFacade;
 use AvoRed\Framework\Payment\Facade as PaymentFacade;
 use AvoRed\Framework\Shipping\Facade as ShippingFacade;
-use AvoRed\Framework\AdminMenu\Facade as AdminMenuFacade;
 use AvoRed\Framework\Breadcrumb\Facade as BreadcrumbFacade;
 use AvoRed\Framework\Permission\Facade as PermissionFacade;
 use AvoRed\Framework\AdminConfiguration\Facade as AdminConfigurationFacade;
 use AvoRed\Ecommerce\Payment\Stripe\Payment as StripePayment;
-use AvoRed\Framework\AdminMenu\AdminMenu;
 use AvoRed\Ecommerce\Widget\TotalUser\Widget as TotalUserWidget;
 use AvoRed\Ecommerce\Widget\TotalOrder\Widget as TotalOrderWidget;
 //View Composers
@@ -60,9 +55,9 @@ class Provider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerMiddleware();
+        
         $this->registerResources();
-        $this->registerViewComposerData();
+        //$this->registerViewComposerData();
         $this->registerPassportResources();
         $this->registerWidget();
         $this->registerAdminMenu();
@@ -115,37 +110,8 @@ class Provider extends ServiceProvider
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-ecommerce');
     }
 
-    /**
-     * Registering AvoRed E commerce Middleware.
-     *
-     * @return void
-     */
-    protected function registerMiddleware()
-    {
-        $router = $this->app['router'];
+   
 
-        $router->aliasMiddleware('currency', SiteCurrencyMiddleware::class);
-        $router->aliasMiddleware('admin.api.auth', AdminApiAuth::class);
-        $router->aliasMiddleware('admin.auth', AdminAuth::class);
-        $router->aliasMiddleware('admin.guest', RedirectIfAdminAuth::class);
-        $router->aliasMiddleware('permission', Permission::class);
-    }
-
-    /**
-     * Registering Class Based View Composer.
-     *
-     * @return void
-     */
-    public function registerViewComposerData()
-    {
-        View::composer('avored-ecommerce::layouts.left-nav', AdminNavComposer::class);
-        View::composer('avored-framework::site-currency._fields', SiteCurrencyFieldsComposer::class);
-        View::composer(['avored-framework::product.category._fields'], CategoryFieldsComposer::class);
-        View::composer(['avored-framework::system.admin-user._fields'], AdminUserFieldsComposer::class);
-        View::composer(['avored-framework::product.create',
-                        'avored-framework::product.edit',
-                        ], ProductFieldsComposer::class);
-    }
 
     /*
    *  Registering Passport Oauth2.0 client
@@ -171,9 +137,6 @@ class Provider extends ServiceProvider
      */
     protected function registerAdminMenu()
     {
-        
-
-        
     }
 
     /**
@@ -681,12 +644,12 @@ class Provider extends ServiceProvider
         /*
         $authConfig = $this->app['config']->get('auth', []);
         $this->app['config']->set(
-                            'auth', 
+                            'auth',
                             array_merge_recursive(require __DIR__ . '/../config/avored-auth.php', $authConfig)
                             );
 
         */
-        
+
         $this->mergeConfigFrom(__DIR__ . '/../config/avored-ecommerce.php', 'avored-ecommerce');
     }
 
