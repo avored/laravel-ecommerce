@@ -19,8 +19,7 @@
 		"avored/module-installer": "1.*",
 		"fabpot/goutte": "^3.2",
 		"fideloper/proxy": "~4.0",
-		"laravel/passport": "^6.0",
-		"symfony/yaml": "^4.1"
+		"avored/framework": "~2.0"
 	},
 	"require-dev" : {
 		"filp/whoops" : "~2.0",
@@ -36,8 +35,7 @@
 			"database/factories"
 		],
 		"psr-4" : {
-			"App\\" : "app/",
-			"AvoRed\\Framework\\": "packages/framework/src/"
+			"App\\" : "app/"
 		}
 	},
 	"autoload-dev" : {
