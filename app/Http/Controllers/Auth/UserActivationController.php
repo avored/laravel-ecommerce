@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
-use AvoRed\Ecommerce\Models\Database\User;
+use AvoRed\Framework\Models\Database\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use AvoRed\Ecommerce\Mail\NewUserMail;
+use App\Mail\NewUserMail;
 use App\Http\Controllers\Controller;
 
 class UserActivationController extends Controller

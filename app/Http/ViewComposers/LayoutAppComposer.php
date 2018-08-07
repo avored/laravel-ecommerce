@@ -5,20 +5,20 @@ namespace App\Http\ViewComposers;
 use AvoRed\Framework\Models\Database\Configuration;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
-use AvoRed\Ecommerce\Models\Contracts\MenuInterface;
-use AvoRed\Ecommerce\Models\Contracts\SiteCurrencyInterface;
+use AvoRed\Framework\Models\Contracts\MenuInterface;
+use AvoRed\Framework\Models\Contracts\SiteCurrencyInterface;
 
 class LayoutAppComposer
 {
     /**
      *
-     * @var \AvoRed\Ecommerce\Models\Repository\MenuRepository
+     * @var \AvoRed\Framework\Models\Repository\MenuRepository
      */
     protected $repository;
 
     /**
      *
-     * @var \AvoRed\Ecommerce\Models\Repository\SiteCurrencyRepository
+     * @var \AvoRed\Framework\Models\Repository\SiteCurrencyRepository
      */
     protected $siteCurrencyRepository;
 

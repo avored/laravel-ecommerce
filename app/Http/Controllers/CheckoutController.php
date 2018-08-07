@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use AvoRed\Ecommerce\Models\Database\Country;
+use AvoRed\Framework\Models\Database\Country;
 use AvoRed\Framework\Payment\Facade as Payment;
 use AvoRed\Framework\Shipping\Facade as Shipping;
 use AvoRed\Framework\Cart\Facade as Cart;

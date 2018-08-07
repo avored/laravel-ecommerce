@@ -45,7 +45,7 @@ return [
       | your application so that it is used when running Artisan tasks.
       |
      */
-    'url' => env('APP_URL', 'http://localhost/avored-ecommerce/public'),
+    'url' => env('APP_URL', 'http://localhost:8000'),
     /*
       |--------------------------------------------------------------------------
       | Application Timezone
@@ -145,7 +145,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         AvoRed\Framework\Provider::class,
-        AvoRed\Ecommerce\Provider::class,
+        //AvoRed\Ecommerce\Provider::class,
 
         /*
          * Package Service Providers...

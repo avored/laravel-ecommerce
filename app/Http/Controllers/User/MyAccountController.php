@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
-use AvoRed\Ecommerce\Http\Requests\ChangePasswordRequest;
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UploadUserImageRequest;
 use App\Http\Requests\UserProfileRequest;
 use Illuminate\Support\Facades\Auth;
