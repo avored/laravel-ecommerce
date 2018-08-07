@@ -16,23 +16,9 @@ yarn-error.log
 .env
 
 # AvoRed Specific
-storage/framework/bootstrap/cache/services.php
 /packages
-/public/uploads
-/modules/*
-/modules/ecommerce
 /themes/*
 /public/cov/*
-
-# Include Ecommerce Module
-!/modules/avored
-/modules/avored/*
-!/modules/avored/ecommerce
-
-# Include Default Theme
-!/themes/avored
-/themes/avored/*
-!/themes/avored/default
 
 # Etc
 composer.lock
