@@ -17,6 +17,7 @@
 	"require" : {
 		"php": ">=7.1.3",
 		"avored/module-installer": "1.*",
+		"avored/dummy-data": "~2.0",
 		"fabpot/goutte": "^3.2",
 		"fideloper/proxy": "~4.0",
 		"avored/framework": "~2.0"
