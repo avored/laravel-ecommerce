@@ -8,6 +8,7 @@ use AvoRed\Framework\Models\Database\ProductImage;
 use AvoRed\Framework\Models\Database\Page;
 use AvoRed\Framework\Models\Database\Menu;
 use AvoRed\Framework\Models\Database\Configuration;
+use AvoRed\Banner\Models\Database\Banner;
 
 class AvoRedDataSeeder extends Seeder
 {
@@ -339,7 +340,7 @@ class AvoRedDataSeeder extends Seeder
         $product->categories()->sync($kitchenCategory->id);
         ProductImage::create(['path' => 'uploads/catalog/images/0/y/4/tsf02crsa.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
 
-        $homePageContent = html_entity_decode('<p>&nbsp;</p><p>&nbsp;</p><p><strong>HOME PAGE FOR AvoRed E COMMERCE LARAVEL OPEN SOURCE SHOPPING CART</strong></p><p>&nbsp;</p><p><strong>Please star us on&nbsp;<a href="https://github.com/avored/laravel-ecommerce">https://github.com/avored/laravel-ecommerce</a></strong></p><p><strong>Like us on Facebook :&nbsp;<a href="https://www.facebook.com/avored/">https://www.facebook.com/avored/</a></strong></p><p><strong>Follow us on Twitter:&nbsp;<a href="https://twitter.com/avoredecommerce/">https://twitter.com/avoredecommerce/</a></strong></p>');
+        $homePageContent = html_entity_decode('<p>{{ avored-banner }}</p><p><strong>HOME PAGE FOR AvoRed E COMMERCE LARAVEL OPEN SOURCE SHOPPING CART</strong></p><p>&nbsp;</p><p><strong>Please star us on&nbsp;<a href="https://github.com/avored/laravel-ecommerce">https://github.com/avored/laravel-ecommerce</a></strong></p><p><strong>Like us on Facebook :&nbsp;<a href="https://www.facebook.com/avored/">https://www.facebook.com/avored/</a></strong></p><p><strong>Follow us on Twitter:&nbsp;<a href="https://twitter.com/avoredecommerce/">https://twitter.com/avoredecommerce/</a></strong></p>');
         $homePage = Page::create(['name' => 'Home Page',
                                                                                     'slug' => 'home-page',
                                                                                     'content' => $homePageContent,
@@ -352,6 +353,34 @@ class AvoRedDataSeeder extends Seeder
                                 'content' => $faker->text(200),
                                 'meta_title' => 'Term & Condition - AvoRed E commerce']);
         Configuration::create(['configuration_key' => 'general_term_condition_page',
-                                                                'configuration_value' => $termPage->id]);
+                                'configuration_value' => $termPage->id
+                            ]);
+
+        Banner::create([
+            'name' => 'Kitchen Sale',
+            'image_path' => 'uploads/cms/images/k/d/z/YLAXcxQDDub7A1LcFohetSPIEHw81bpZ67yul2GZ.jpeg',
+            'alt_text' => 'Kitchen On Sale',
+            'url' => 'category/kitchen',
+            'status' => 'ENABLED',
+            'sort_order' => 10
+        ]);
+        Banner::create([
+            'name' => 'Living Room On Sale',
+            'image_path' => 'uploads/cms/images/f/d/c/Eg9UF6oe405aBy1UTzRwql9GOpKwpZvIfPY3VVrM.jpeg',
+            'alt_text' => 'Living Room Items on Sale',
+            'url' => 'category/living-room',
+            'status' => 'ENABLED',
+            'sort_order' => 20
+        ]);
+        Banner::create([
+            'name' => 'Bedroom Sale',
+            'image_path' => 'uploads/cms/images/k/c/q/yatNWe2GC9grtXB2Rjt63jnyiL0uzqPcAKe1UdOo.jpeg',
+            'alt_text' => 'Bedroom On Sale',
+            'url' => 'category/bedroom',
+            'status' => 'ENABLED',
+            'sort_order' => 30
+        ]);
+
+                                    
     }
 }

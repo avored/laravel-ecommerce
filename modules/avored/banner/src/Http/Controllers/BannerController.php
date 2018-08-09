@@ -77,6 +77,9 @@ class BannerController extends Controller
         $checkDirectory = '/uploads/cms/images/' . implode('/', $tmpPath);
         $localImage = Image::upload($image, $checkDirectory);
 
-        return $localImage->relativePath;
+        $symblink = config('avored-framework.symlink_storage_folder'). "/";
+        
+        $relativePath = str_replace($symblink,'',$localImage->relativePath);
+        return $relativePath;
     }
 }
