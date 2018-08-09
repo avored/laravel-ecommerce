@@ -14,7 +14,7 @@ AvoRed is a free open-source e-commerce application development platform written
 
 ### AvoRed Docs
 
-To get started with AvoRed Installtion Please visit [AvoRed Documentation](https://www.avored.com/docs)
+To get started with AvoRed Installation Please visit [AvoRed Documentation](https://www.avored.com/docs)
 
 
 ##### Available Modules for AvoRed
