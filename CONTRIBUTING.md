@@ -6,7 +6,7 @@ We use GitHub issues exclusively to track all bugs and features.
 
 * [Open an issue](https://github.com/avored/laravel-ecommerce/issues) here on GitHub. 
 If you can, **please provide a fix and create a pull request (PR) instead**; this will automatically create an issue for you.
-* Please be patient as not all items will be tested immediately - remember, avored is open source and free of charge. 
+* Please be patient as not all items will be tested immediately - remember, AvoRed is open source and free of charge. 
 * Occasionally we'll close issues. 
 Please feel free to re-open issues we've closed if there's something we've missed and they still need to be addressed.
 
@@ -16,7 +16,7 @@ We gladly accept community pull requests.
 There are a few necessary steps before we can accept a pull request:
 
 * [Open an issue](https://github.com/avored/laravel-ecommerce/issues) describing the problem that you are looking to solve in 
-your PR (if one is not already open), and your approach to solving it (no necessary for bug fixes - only feature contributions). 
+your PR (if one is not already open), and your approach to solving it (not necessary for bug fixes - only feature contributions). 
 
 ### Contributor License Agreement
 The following terms are used throughout this agreement:
