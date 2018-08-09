@@ -16,15 +16,9 @@ yarn-error.log
 .env
 
 # AvoRed Specific
-storage/framework/bootstrap/cache/services.php
 /packages
 /themes/*
 /public/cov/*
-
-# Include Default Theme
-!/themes/avored
-/themes/avored/*
-!/themes/avored/default
 
 # Etc
 composer.lock
