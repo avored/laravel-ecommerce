@@ -37,7 +37,6 @@
 
                         @endforeach
 
-
                         <tr>
 
                             <td class="col-8">&nbsp;  </td>
@@ -57,8 +56,13 @@
                             <td class="col-1"> &nbsp;  </td>
                             <td class="col-1"> &nbsp;  </td>
                             <td class="col-1"><h6>Tax Total</h6></td>
-                            <td class="col-1 text-right"><h6>
-                                    <strong>${{ number_format((Cart::taxTotal()),2) }}</strong></h6></td>
+                            <td class="col-1 text-right">
+                                <h6>
+                                    <strong>
+                                        ${{ number_format((Cart::taxTotal()),2) }}
+                                    </strong>
+                                </h6>
+                            </td>
                         </tr>
                         @endif
                         <tr>
@@ -74,7 +78,8 @@
                             </td>
                             <td class="col-1 text-right">
                                 <a href="{{ route('checkout.index') }}" class="btn btn-success">
-                                    Checkout <span class="fa fa-play-circle"></span>
+                                    Checkout 
+                                    <span class="fa fa-play-circle"></span>
                                 </a>
                             </td>
                         </tr>

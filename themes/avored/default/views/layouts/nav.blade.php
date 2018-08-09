@@ -2,13 +2,19 @@
     <div class="container">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="https://github.com/avored/laravel-ecommerce"><i class="fab fa-github"></i> GitHub</a>
+                <a class="nav-link" target="_blank" href="https://github.com/avored/laravel-ecommerce">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://www.facebook.com/avoredecommerce/"><i class="fab fa-facebook"></i> Facebook</a>
+                <a class="nav-link" target="_blank" href="https://www.facebook.com/avored">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="https://twitter.com/avoredecommerce/"><i class="fab fa-twitter"></i> Twitter</a>
+                <a class="nav-link" target="_blank" href="https://twitter.com/avoredecommerce">
+                    <i class="fab fa-twitter"></i> Twitter
+                </a>
             </li>
         </ul>
         <ul class="navbar-nav">
