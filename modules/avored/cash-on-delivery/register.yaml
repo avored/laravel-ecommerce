@@ -1,0 +1,5 @@
+name: AvoRed Cash on Delivery
+identifier: avored-cash-on-delivery
+description: AvoRed Fixed Rate Module
+namespace: AvoRed\CashOnDelivery\
+status: Enabled

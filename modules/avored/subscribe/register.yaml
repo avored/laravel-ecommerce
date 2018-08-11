@@ -1,0 +1,5 @@
+identifier: avored-subscribe
+name: AvoRed Subscribe
+description: AvoRed User Subscribe Module
+namespace: AvoRed\Subscribe\
+status: Enabled
