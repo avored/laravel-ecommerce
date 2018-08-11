@@ -1,0 +1,5 @@
+identifier: avored-review
+name: AvoRed Review
+description: AvoRed Product Review Module
+namespace: AvoRed\Review\
+status: Enabled

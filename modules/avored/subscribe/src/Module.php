@@ -1,8 +1,8 @@
 <?php
+
 namespace AvoRed\Subscribe;
 
 use Illuminate\Support\ServiceProvider;
-
 use AvoRed\Framework\AdminMenu\AdminMenu;
 use AvoRed\Framework\Permission\Facade as PermissionFacade;
 use AvoRed\Framework\AdminMenu\Facade as AdminMenuFacade;
@@ -12,7 +12,6 @@ use AvoRed\Subscribe\Models\Repository\SubscribeRepository;
 
 class Module extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -28,7 +27,6 @@ class Module extends ServiceProvider
         $this->publishFiles();
     }
 
-
     /**
      * Register any application services.
      *
@@ -36,7 +34,6 @@ class Module extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     /**
@@ -61,16 +58,14 @@ class Module extends ServiceProvider
     protected function registerAdminMenu()
     {
         $systemMenu = AdminMenuFacade::get('system');
-       
-        $systemMenu->subMenu('subscribe', function(AdminMenu $menu) {
+
+        $systemMenu->subMenu('subscribe', function (AdminMenu $menu) {
             $menu->key('subscribe')
                 ->label('Subscribe')
                 ->route('admin.subscribe.index')
                 ->icon('fas fa-users');
         });
-
     }
-
 
     /**
      * Register the Breadcrumbs.
@@ -79,7 +74,6 @@ class Module extends ServiceProvider
      */
     protected function registerBreadcrumb()
     {
-
         BreadcrumbFacade::make('admin.subscribe.index', function ($breadcrumb) {
             $breadcrumb->label('Subscribe')
                 ->parent('admin.dashboard');
@@ -96,10 +90,10 @@ class Module extends ServiceProvider
                 ->parent('admin.dashboard')
                 ->parent('admin.subscribe.index');
         });
-
     }
-    
-    public function registerPermission() {
+
+    public function registerPermission()
+    {
         //
         $permissionGroup = PermissionFacade::add('subscribe')
             ->label('Subscriber Permissions');
@@ -126,18 +120,18 @@ class Module extends ServiceProvider
      *
      * @return void
      */
-    public function publishFiles() {
-
+    public function publishFiles()
+    {
         $this->publishes([
             __DIR__ . '/../resources/views' => base_path('themes/avored/default/views/vendor')
-        ],'avored-module-views');
+        ], 'avored-module-views');
 
         $this->publishes([
             __DIR__ . '/../database/migrations' => database_path('avored-migrations'),
         ]);
     }
 
-     /**
+    /**
      * Register the Repository Instance.
      *
      * @return void
