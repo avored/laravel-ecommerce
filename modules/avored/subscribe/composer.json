@@ -13,7 +13,7 @@
   "require": {
     "php": ">=7.1.3",
     "avored/module-installer": "1.*",
-    "avored/ecommerce": "2.*"
+    "avored/framework": "2.*"
   },
 
   "autoload": {

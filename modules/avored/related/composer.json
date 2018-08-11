@@ -1,9 +1,9 @@
 {
-	"name" : "avored/pickup",
-	"description" : "AvoRed Laravel E commerce - Pickup Shipping Module",
+	"name" : "avored/related",
+	"description" : "AvoRed Laravel E commerce - Related Product Module",
 	"keywords" : [
 		"framework",
-		"banner",
+		"related",
 		"cart",
 		"laravel",
 		"e commerce",
@@ -27,16 +27,19 @@
 		"avored/framework" : "2.*"
 	},
 	"autoload" : {
+		"classmap" : [
+			"database/migrations"
+		],
 		"psr-4" : {
-			"AvoRed\\Pickup\\" : "src/"
+			"AvoRed\\Related\\" : "src/"
 		}
 	},
-	"homepage" : "https://www.avored.com",
+	"homepage" : "https://www.avored.com/",
 	"support" : {
+		"source" : "https://www.github.com/avored/related",
 		"email" : "ind.purvesh@gmail.com",
 		"issues" : "https://www.avored.com/discussion",
 		"forum" : "https://www.avored.com/discussion",
-		"wiki" : "https://www.avored.com/docs",
-		"source" : "https://github.com/avored/pickup"
+		"wiki" : "https://www.avored.com/docs"
 	}
 }
