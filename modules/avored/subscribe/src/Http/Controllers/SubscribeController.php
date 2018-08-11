@@ -2,8 +2,8 @@
 namespace AvoRed\Subscribe\Http\Controllers;
 
 use AvoRed\Subscribe\Http\Requests\SubscribeRequest;
-use AvoRed\Ecommerce\Http\Controllers\Controller;
 use AvoRed\Subscribe\Models\Contracts\SubscribeInterface;
+use AvoRed\Framework\System\Controllers\Controller;
 
 class SubscribeController extends Controller
 {

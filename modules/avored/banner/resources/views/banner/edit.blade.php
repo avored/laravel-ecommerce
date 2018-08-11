@@ -20,7 +20,7 @@
                                 {{ __('avored-banner::banner.banner-update') }}
                             </button>
                             <a href="{{ route('admin.banner.index') }}" class="btn">
-                                {{ __('avored-ecommerce::lang.cancel') }}
+                                {{ __('avored-framework::lang.cancel') }}
                             </a>
                         </div>
 
