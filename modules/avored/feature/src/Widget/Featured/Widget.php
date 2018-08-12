@@ -6,6 +6,7 @@ use AvoRed\Framework\Models\Database\ProductPropertyIntegerValue;
 use AvoRed\Framework\Models\Database\Property;
 use AvoRed\Framework\Widget\Contracts\Widget as WidgetContract;
 use Illuminate\Support\Collection;
+use AvoRed\Framework\Models\Contracts\ProductInterface;
 
 class Widget implements WidgetContract
 {
@@ -105,9 +106,10 @@ class Widget implements WidgetContract
         $featuredProductIds = ProductPropertyIntegerValue::wherePropertyId($featuredProperty->id)->paginate(4)->pluck('product_id');
 
         $products = new Collection();
-
+        $productRepository = app(ProductInterface::class);
         foreach ($featuredProductIds as $featuredProductId) {
-            $products->push($productRepository->model()->find($featuredProductId));
+
+            $products->push($productRepository->find($featuredProductId));
         }
 
        // $products = $productRepository->model()->paginate(4);

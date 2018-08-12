@@ -7,10 +7,8 @@
 
 <div class="row">
 @foreach($products as $product)
-
-
     <div class="col-md-3">
-    @include('product.view.product-card',['product' => $product])
+        @include('product.view.product-card',['product' => $product])
     </div>
 
 @endforeach
