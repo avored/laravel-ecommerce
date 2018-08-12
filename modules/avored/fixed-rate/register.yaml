@@ -1,0 +1,5 @@
+identifier: avored-fixed-rate
+name: AvoRed Fixed Rate
+description: AvoRed Banner Module
+namespace: AvoRed\FixedRate\
+status: Enabled

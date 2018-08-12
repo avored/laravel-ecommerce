@@ -1,5 +1,6 @@
 # Ignore swp files from vim
 *.swp
+**/.DS_Store
 
 # Laravel 5 Specific
 /node_modules
@@ -19,6 +20,7 @@ yarn-error.log
 /packages
 /themes/*
 /public/cov/*
+
 
 # Etc
 composer.lock

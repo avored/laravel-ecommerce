@@ -1,0 +1,5 @@
+identifier: avored-pickup
+name: AvoRed Pickup
+description: AvoRed Pickup Store Module
+namespace: AvoRed\Pickup\
+status: Enabled

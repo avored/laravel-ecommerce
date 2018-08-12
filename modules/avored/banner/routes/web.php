@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-$baseAdminUrl = config('avored-ecommerce.admin_url');
+$baseAdminUrl = config('avored-framework.admin_url');
 
 
 Route::middleware(['web', 'admin.auth', 'permission'])

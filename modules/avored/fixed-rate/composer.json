@@ -1,0 +1,42 @@
+{
+	"name" : "avored/fixed-rate",
+	"description" : "AvoRed Laravel E commerce - Fixed Rate Shippung Module",
+	"keywords" : [
+		"framework",
+		"banner",
+		"cart",
+		"laravel",
+		"e commerce",
+		"laravel5",
+		"shop",
+		"shopping-cart",
+		"e-commerce",
+		"shopping cart",
+		"e commerce"
+	],
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Purvesh  ",
+			"email" : "ind.purvesh@gmail.com"
+		}
+	],
+	"type" : "avored-module",
+	"require" : {
+		"php" : ">=7.1.3",
+		"avored/module-installer" : "1.*",
+		"avored/framework" : "2.*"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"AvoRed\\FixedRate\\" : "src/"
+		}
+	},
+	"homepage" : "https://www.avored.com",
+	"support" : {
+		"email" : "ind.purvesh@gmail.com",
+		"issues" : "https://www.avored.com/discussion",
+		"forum" : "https://www.avored.com/discussion",
+		"wiki" : "https://www.avored.com/docs",
+		"source" : "https://github.com/avored/pickup"
+	}
+}
