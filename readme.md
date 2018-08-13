@@ -60,4 +60,8 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 
 <a href="https://opencollective.com/laravel-ecommerce/sponsor/0/website" target="_blank"><img src="https://opencollective.com/laravel-ecommerce/sponsor/0/avatar.svg"></a>
 
+## ChangeLog
+
+ - Setup Category API with Passport Auth and Resource.
+
 
