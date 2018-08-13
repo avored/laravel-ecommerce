@@ -4,9 +4,9 @@
 [![Backers](https://opencollective.com/laravel-ecommerce/backers/badge.svg)](#backers) 
 [![Sponsors](https://opencollective.com/laravel-ecommerce/sponsors/badge.svg)](#sponsors)
 
-[AvoRed Laravel E Commerce Official](https://www.avored.com/)
-
-[Demo AvoRed E Commerce](http://demo.avored.com/)
+[AvoRed Laravel E Commerce Official](https://www.avored.com/)    
+[Changelog](CHANGELOG.md)    
+[Demo](http://demo.avored.com/)
 
 ### About AvoRed
 
@@ -59,9 +59,3 @@ Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com
 Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/laravel-ecommerce#sponsor)]
 
 <a href="https://opencollective.com/laravel-ecommerce/sponsor/0/website" target="_blank"><img src="https://opencollective.com/laravel-ecommerce/sponsor/0/avatar.svg"></a>
-
-## ChangeLog
-
- - Setup Category API with Passport Auth and Resource.
-
-
