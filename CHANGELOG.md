@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Setup Category API with Passport Auth and Resource.
 - Setup Property API with the help of Laravel API Resource.
 - Setup Attribute API with the help of Laravel API Resource.
+- Setup Page API with the help of Laravel API Resource.
 
 ### Fixed
 - CSS issue on Order page with the Options dropdown.
