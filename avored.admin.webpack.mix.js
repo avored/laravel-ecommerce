@@ -16,4 +16,8 @@ mix.config.fileLoaderDirs.images    = 'vendor/avored-admin/images';
 
 
 //mix.js('packages/framework/resources/assets/js/app.js', 'public/vendor/avored-admin/js');
+<<<<<<< HEAD
 mix.sass('vendor/avored/framework/resources/assets/sass/app.scss', 'public/vendor/avored-admin/css');
+=======
+mix.sass('vendor/avored/framework/resources/assets/sass/app.scss', 'public/vendor/avored-admin/css');
+>>>>>>> 15d6510e660e8178d119f28455a39835d2ace0c8
