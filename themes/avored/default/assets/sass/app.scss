@@ -1,18 +1,21 @@
-
 // Fonts
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
 // Variables
+@import "colors";
 @import "variables";
 
-@import "~bootstrap/scss/bootstrap";
-
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
 
 @import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
 @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular";
 @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
 @import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands";
 
-
 // Custom
 @import "custom";
+@import "partials/carousel";
+@import "partials/typography";
+@import "partials/theme";
+@import "partials/footer";

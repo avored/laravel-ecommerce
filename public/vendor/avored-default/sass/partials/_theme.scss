@@ -1,0 +1,61 @@
+html {
+    font-family: 'Open Sans', sans-serif;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 14px;
+    color: #555;
+    margin: 0;
+    letter-spacing: 0.5px;
+    line-height: 1.5;
+}
+
+header {
+  background-color: $header-bg !important;
+  color: $white;
+}
+
+header a{
+  color: $white !important;
+}
+
+header .btn-primary {
+	background-color: $black !important;
+	border-color: $black;
+}
+
+.content-wrapper {
+  margin: 20px 0px;
+}
+
+.main-navbar li {
+  position: relative;
+}
+
+
+.bg-light {
+    background-color: $white !important;
+}
+
+.navbar-light a{
+  color: $red !important;
+}
+
+.bg-red {
+  background-color: $top-bg !important;
+  color: $white !important;
+}
+
+.bg-red a {
+  color: $white !important;
+}
+
+.card-header {
+	background-color: #ddd;
+}

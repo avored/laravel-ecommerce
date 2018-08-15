@@ -16,46 +16,44 @@
     @stack('styles')
     <!-- Scripts -->
     <script>
-        window.Laravel = <?php
-        echo json_encode([
-                'csrfToken' => csrf_token(),
-        ]);
-        ?>
+        window.Laravel = <?php echo json_encode(['csrfToken' => csrf_token(), ]); ?>
     </script>
-   
 </head>
+
 <body>
-<script src="{{ asset('/vendor/avored-default/js/app.js') }}"></script>
-@include("layouts.nav")
-<div class="container top-buffer  bottom-buffer">
+    <script src="{{ asset('/vendor/avored-default/js/app.js') }}"></script>
+    @include("layouts.nav")
 
-    <div class="row">
-        <div class="col-12">
-
-            @if(session()->has('errorNotificationText'))
+    <div class="container top-buffer bottom-buffer">
+        <div class="row">
+            <div class="col-12">
+                @if(session()->has('errorNotificationText'))
                 <div class="alert alert-danger alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
                     <strong>Error!</strong> {{ session()->get('errorNotificationText') }}
                 </div>
-            @endif
+                @endif
 
-            @if(session()->has('notificationText'))
+
+                @if(session()->has('notificationText'))
                 <div class="alert alert-success alert-dismissible" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
 
                     <strong>Success!</strong> {{ session()->get('notificationText') }}
-
                 </div>
-            @endif
-        </div>
+                @endif
+            </div>
+        </div> 
+        @yield('content')
     </div>
 
-    @yield('content')
-</div>
-
-@include('layouts.footer')
-@stack('scripts')
+    @include('layouts.footer')
+    @stack('scripts')
+    
 </body>
 </html>
