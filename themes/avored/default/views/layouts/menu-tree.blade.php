@@ -12,7 +12,7 @@
 
         @if($menu->route == "cart.view")
             <a class="nav-link" href="{{ $url }}">
-                {{ $menu->name }} <span class="badge badge-primary">{{ Cart::count() }}</span>
+                {{ $menu->name }} <span class="badge badge-primary fill">{{ Cart::count() }}</span>
             </a>
         @else
 

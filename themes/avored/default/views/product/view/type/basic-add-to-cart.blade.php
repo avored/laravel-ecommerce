@@ -2,7 +2,7 @@
 <form method="post" action="{{ route('cart.add-to-cart') }}">
     {{ csrf_field() }}
     <input type="hidden" name="slug" value="{{ $product->slug }}"/>
-    <div class="badge badge-success">In Stock</div>
+    <div class="badge badge-success fill">In Stock</div>
     <hr>
 
     <div class="row">

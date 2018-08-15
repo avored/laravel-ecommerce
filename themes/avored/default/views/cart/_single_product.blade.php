@@ -1,18 +1,11 @@
-
 <form method="post" id="cart-form-update" action="{{ route('cart.update') }}">
-
     @csrf
     @method('put')
-
     <tr>
-
         <td class="col-8">
             <div class="media">
-                <img alt="{{ $product->name() }}"
-                     class="d-flex mr-3"
-                     style="height: 72px;"
+                <img alt="{{ $product->name() }}" class="d-flex mr-3" style="height: 72px;" 
                      src="{{ $product->image()->smallUrl }}"/>
-
 
                 <div class="media-body">
                     <h4 class="media-heading">
@@ -21,12 +14,14 @@
                         </a>
                     </h4>
 
-                    <p>Status: <span class="text-success"><strong>In Stock</strong></span>
-                    </p>
+                    <p>Status @if($product->qty() >= 0)
+                                    <span class="badge badge-success fill">In Stock</span></p>
+                               @else
+                                    <span class="badge badge-danger fill">Out of stock</span></p>
+                               @endif
 
                     <?php $attributeText = ""; ?>
                     @if(null !== $product->attributes() && count($product->attributes()))
-
                         @foreach($product->attributes() as $attribute)
                             @if($loop->last)
                                 <?php $attributeText .= $attribute['variation_display_text']; ?>
@@ -35,8 +30,7 @@
                             @endif
                         @endforeach
                     @endif
-                    <p>Attributes: <span
-                                class="text-success"><strong>{{ $attributeText}}</strong></span>
+                    <p>Attributes: <span class="text-success"><strong>{{ $attributeText}}</strong></span>
                     </p>
 
                 </div>
