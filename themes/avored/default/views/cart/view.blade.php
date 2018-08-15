@@ -38,17 +38,6 @@
 
                         @endforeach
 
-                        <tr>
-
-                            <td class="col-8">&nbsp;  </td>
-                            <td class="col-1">&nbsp;  </td>
-                            <td class="col-1"> &nbsp;  </td>
-                            <td class="col-1"> &nbsp;  </td>
-                            <td class="col-1"><h6>Total</h6></td>
-                            <td class="col-1 text-right"><h6>
-                                    <strong>${{ number_format((Cart::total()),2) }}</strong></h6></td>
-                        </tr>
-
                         @if(Cart::hasTax())
                         <tr>
 
@@ -66,6 +55,17 @@
                             </td>
                         </tr>
                         @endif
+
+                        <tr>
+                            <td class="col-8">&nbsp;  </td>
+                            <td class="col-1">&nbsp;  </td>
+                            <td class="col-1"> &nbsp;  </td>
+                            <td class="col-1"> &nbsp;  </td>
+                            <td class="col-1"><h6>Total</h6></td>
+                            <td class="col-1 text-right"><h6>
+                                    <strong>${{ number_format((Cart::total()),2) }}</strong></h6></td>
+                        </tr>
+
                         <tr>
 
                             <td class="col-8">&nbsp;  </td>

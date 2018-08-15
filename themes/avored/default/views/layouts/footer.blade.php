@@ -2,8 +2,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <div class="widget block block-static-block">
-                    <ul class="footer links">
+                <h3>Information</h3>
+                <div class="footer-menu">
+                    <ul>
                         <li class="nav item">
                             <a href="#">About us</a>
                         </li>
@@ -17,7 +18,8 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <ul class="footer links">
+                <h3>Customer service</h3>
+                <ul>
                     <li class="nav item">
                         <a href="#">Privacy & Cookie Policy</a>
                     </li>
