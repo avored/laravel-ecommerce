@@ -34,7 +34,8 @@
     "bulma": "^0.7.1"
   },
   "dependencies": {
-    "opencollective": "^1.0.3"
+    "opencollective": "^1.0.3",
+    "sweetalert": "^2.1.0"
   },
   "collective": {
     "type": "opencollective",
