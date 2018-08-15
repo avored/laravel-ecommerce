@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <h3>Information</h3>
+                <h5>Information</h5>
                 <div class="footer-menu">
                     <ul>
                         <li class="nav item">
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <h3>Customer service</h3>
+                <h5>Customer service</h5>
                 <ul>
                     <li class="nav item">
                         <a href="#">Privacy & Cookie Policy</a>

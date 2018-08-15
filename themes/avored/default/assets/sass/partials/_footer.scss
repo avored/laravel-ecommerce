@@ -1,0 +1,41 @@
+.footer-main {
+    margin-bottom: 0px !important;
+    padding-top: 60px !important;
+    padding-bottom: 35px !important;
+    background: #fff;
+}
+
+.footer-copyright {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+.footer-copyright span{
+  color: #cacaca;
+  margin-bottom: 0;
+}
+
+.copyright {
+  color: $white;
+  display: block;
+  padding: 10px;
+  text-align: center
+}
+
+.page-footer {
+  background: #f4f4f4;
+  margin-top: auto;
+  font-size: 14px;
+}
+
+ul.footer {
+  padding-left: 15px;
+}
+
+.top-buffer {
+  margin-top:20px;
+}
+
+.bottom-buffer {
+  margin-bottom:20px;
+}

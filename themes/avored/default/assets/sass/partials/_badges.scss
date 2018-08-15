@@ -1,0 +1,72 @@
+.badge {
+ font-weight:400;
+ padding:4px 8px;
+ text-transform:uppercase;
+ border:1px solid;
+}
+
+.badge .badge-icon {
+ padding:0.4em 0.55em;
+}
+.badge .badge-icon i {
+ font-size:0.8em;
+}
+.badge .badge-default {
+ background:transparent;
+ border-color:#9A9A9A;
+ color:#9A9A9A;
+}
+.badge .badge-default .fill {
+ background:#9A9A9A;
+ color:#fff;
+}
+.badge .badge-primary {
+ background:transparent;
+ border-color:#49c5b6;
+ color:#49c5b6;
+}
+.badge .badge-primary.fill {
+ background:#49c5b6;
+ color:#fff;
+}
+.badge .badge-info {
+ background:transparent;
+ border-color:#3C89DA;
+ color:#3C89DA;
+}
+.badge .badge-info.fill {
+ background:#3C89DA;
+ color:#fff;
+}
+.badge .badge-success {
+ background:transparent;
+ border-color:#22af46;
+ color:#22af46;
+}
+.badge .badge-success.fill {
+ background:#22af46;
+ color:#fff;
+}
+.badge .badge-warning {
+ background:transparent;
+ border-color:#f3ad06;
+ color:#f3ad06;
+}
+.badge .badge-warning .fill {
+ background:#f3ad06;
+ color:#fff;
+}
+.badge .badge-danger {
+ background:transparent;
+ border-color:#de4848;
+ color:#de4848;
+}
+.badge .badge-danger .fill {
+ background:#de4848;
+ color:#fff;
+}
+.badge .round {
+ -webkit-border-radius:30px;
+ -moz-border-radius:30px;
+ border-radius:30px
+}
