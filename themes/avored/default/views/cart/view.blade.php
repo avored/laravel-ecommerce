@@ -11,16 +11,17 @@
                 <div class="h1">Cart Page</div>
 
                 @if($cartProducts !== null && $cartProducts->count() > 0)
-
-                    <table class="table table-responsive">
-                        <tr>
-                            @if(Cart::hasTax())
-                                <th class="col-7">Product</th>
-                            @else
-                                <th class="col-8">Product</th>
-                            @endif
-                            <th class="col-1" style="text-align: center">Quantity</th>
-                            <th class="col-1 text-center">Price</th>
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-responsive">
+                            <tr>
+                                @if(Cart::hasTax())
+                                    <th class="col-7">Product</th>
+                                @else
+                                    <th class="col-8">Product</th>
+                                @endif
+                                <th class="col-1" style="text-align: center">Quantity</th>
+                                <th class="col-1 text-center">Price</th>
                             @if(Cart::hasTax())
                                 <th class="col-1 text-center">Tax</th>
                             @endif
@@ -90,7 +91,7 @@
 
                     <p>There is no Product in Cart yet.</p>
                 @endif
-
+            </div>
             </div>
         </div>
     </div>
