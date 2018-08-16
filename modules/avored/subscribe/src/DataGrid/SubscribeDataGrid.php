@@ -18,16 +18,8 @@ class SubscribeDataGrid
           ->column('email')
           ->linkColumn('edit', [], function ($model) {
               return "<a href='".route('admin.subscribe.edit', $model->id)."' >Edit</a>";
-          })->linkColumn('destroy', [], function ($model) {
-              return "<form id='admin-subscribe-destroy-".$model->id."'
-                                          method='POST'
-                                          action='".route('admin.subscribe.destroy', $model->id)."'>
-                                      <input name='_method' type='hidden' value='DELETE' />
-                                      ".csrf_field()."
-                                      <a href='#'
-                                          onclick=\"jQuery('#admin-subscribe-destroy-$model->id').submit()\"
-                                          >Destroy</a>
-                                  </form>";
+          })->linkColumn('show', [], function ($model) {
+            return "<a href='".route('admin.subscribe.show', $model->id)."' >Show</a>";
           });
 
         $this->dataGrid = $dataGrid;

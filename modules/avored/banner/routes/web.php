@@ -28,5 +28,8 @@ Route::middleware(['web', 'admin.auth', 'permission'])
         Route::delete('banner/{banner}',  'BannerController@destroy')
             ->name('banner.destroy');
 
+        Route::get('banner/{banner}',  'BannerController@show')
+            ->name('banner.show');
+
     });
 

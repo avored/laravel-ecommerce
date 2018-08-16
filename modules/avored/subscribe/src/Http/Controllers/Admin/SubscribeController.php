@@ -104,4 +104,15 @@ class SubscribeController extends Controller
 
         return redirect()->route('admin.subscribe.index');
     }
+
+
+    /**
+     * Show the application dashboard.
+     * @param \AvoRed\Subscribe\Http\Requests\SubscribeRequest
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Subscribe $subscribe)
+    {
+        return view('avored-subscribe::subscribe.show')->with('subscribe', $subscribe);
+    }
 }
