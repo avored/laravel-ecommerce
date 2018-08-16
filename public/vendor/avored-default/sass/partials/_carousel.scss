@@ -1,0 +1,64 @@
+.carousel-caption {
+  background-color: aliceblue;
+  color: black;
+}
+
+.carousel-inner .active.left {
+  left: -33%;
+}
+
+.carousel-inner .next {
+  left: 33%;
+}
+
+.carousel-inner .prev {
+  left: -33%;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+  background-image: none;
+}
+
+.carousel-multi .carousel-inner > .carousel-item {
+  transition: 500ms ease-in-out left;
+
+}
+
+.carousel-multi .carousel-inner > .carousel-item > .media-card {
+  margin-right: 10px;
+  display: table-cell;
+
+}
+
+.carousel-multi .carousel-inner > .carousel-item > .media-card:last-of-type {
+  border-right: none;
+}
+
+.carousel-multi .carousel-inner .active {
+  display: table;
+}
+
+.carousel-multi .carousel-inner .active.left {
+  left: -33%;
+}
+
+.carousel-multi .carousel-inner .active.right {
+  left: 33%;
+}
+
+.carousel-multi .carousel-inner .next {
+  left: 33%;
+}
+
+.carousel-multi .carousel-inner .prev {
+  left: -33%;
+}
+
+@media all and (transform-3d), (-webkit-transform-3d) {
+  .carousel-multi .carousel-inner > .carousel-item {
+    transition: 500ms ease-in-out all;
+    backface-visibility: visible;
+    transform: none !important;
+  }
+}

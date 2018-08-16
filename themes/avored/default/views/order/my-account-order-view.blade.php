@@ -6,46 +6,78 @@
             @include('user.my-account.sidebar')
         </div>
         <div class="col-md-9">
-
             <div class="main-title-wrapper">
-                <h1>
-                    Order View
-                    <!--<small>Sub title</small> -->
-                </h1>
-
+                <h2>Order details</h2>
             </div>
+
             <div class="clearfix"></div>
-            <br/>
 
             <div class="card mb-3">
-                <div class="card-header">Order Basic Info</div>
+                <div class="card-header">General Information</div>
                 <div class="card-body">
-                  
-
-                    <table class="table table-bordered">
+                  <table class="table">
+                    <tbody>
                         <tr>
-                            <th>Transaction No</th>
+                            <td>Order number</td>
                             <td>{{ $order->id }}</td>
                         </tr>
                         <tr>
-                            <th>Shipping Option</th>
-                            <td>{{ $order->shipping_option }}</td>
-                        </tr>
-                        <tr>
-                            <th>Payment Option</th>
+                            <td>Payment method</td>
                             <td>{{ $order->payment_option }}</td>
                         </tr>
+                        <tr>
+                            <td>Shipping method</td>
+                            <td>{{ $order->shipping_option }}</td>
+                        </tr>
+                    </tbody>
                     </table>
                 </div>
-
             </div>
-            <div class="card mb-3">
-                <div class="card-header">Order Item Info</div>
-                <div class="card-body">
-                
 
+            <div class="card">
+                <div class="card-header">Address Information</div>
+                <div class="card-body">
+                   
+                    <div class="row">
+                        <div class="col-6">
+                            <h6>Shipping Info</h6>
+
+                            <p>
+                                {{ $order->shipping_address->first_name }} {{ $order->shipping_address->last_name }}
+                                <br/>
+                                {{ $order->shipping_address->address1 }}<br/>
+                                {{ $order->shipping_address->address2 }}<br/>
+                                {{ $order->shipping_address->area }}<br/>
+                                {{ $order->shipping_address->city }}<br/>
+                                {{ $order->shipping_address->state }} {{ $order->shipping_address->country->name }}<br/>
+                                {{ $order->shipping_address->phone }}<br/>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <h6>Billing Info</h6>
+
+                            <p>
+                                {{ $order->billing_address->first_name }} {{ $order->billing_address->last_name }}
+                                <br/>
+                                {{ $order->billing_address->address1 }}<br/>
+                                {{ $order->billing_address->address2 }}<br/>
+                                {{ $order->billing_address->area }}<br/>
+                                {{ $order->billing_address->city }}<br/>
+                                {{ $order->billing_address->state }} {{ $order->shipping_address->country->name }}<br/>
+                                {{ $order->billing_address->phone }}<br/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix">&nbsp;</div>
+
+            <div class="card mb-3">
+                <div class="card-header">Order Items</div>
+                <div class="card-body">               
                     <div class="table-responsive">
-                        <table class="table table-bordered">
+                        <table class="table">
                             <tbody>
                             <tr>
                                 <th>ID</th>
@@ -98,44 +130,6 @@
                 </div>
 
             </div>
-            <div class="card">
-                <div class="card-header">Order Address Info</div>
-                <div class="card-body">
-                   
-                    <div class="row">
-                        <div class="col-6">
-                            <h6>Shipping Info</h6>
-
-                            <p>
-                                {{ $order->shipping_address->first_name }} {{ $order->shipping_address->last_name }}
-                                <br/>
-                                {{ $order->shipping_address->address1 }}<br/>
-                                {{ $order->shipping_address->address2 }}<br/>
-                                {{ $order->shipping_address->area }}<br/>
-                                {{ $order->shipping_address->city }}<br/>
-                                {{ $order->shipping_address->state }} {{ $order->shipping_address->country->name }}<br/>
-                                {{ $order->shipping_address->phone }}<br/>
-                            </p>
-                        </div>
-                        <div class="col-6">
-                            <h6>Billing Info</h6>
-
-                            <p>
-                                {{ $order->billing_address->first_name }} {{ $order->billing_address->last_name }}
-                                <br/>
-                                {{ $order->billing_address->address1 }}<br/>
-                                {{ $order->billing_address->address2 }}<br/>
-                                {{ $order->billing_address->area }}<br/>
-                                {{ $order->billing_address->city }}<br/>
-                                {{ $order->billing_address->state }} {{ $order->shipping_address->country->name }}<br/>
-                                {{ $order->billing_address->phone }}<br/>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
         </div>
     </div>
 @endsection

@@ -1,0 +1,35 @@
+{
+  "name": "avored/promotion",
+  "description": "AvoRed Laravel E commerce - Promotion Module",
+  "keywords": ["framework", "related" ,"cart","laravel","e commerce","laravel5","shop","shopping-cart","e-commerce","shopping cart","e commerce"],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Purvesh  ",
+      "email": "ind.purvesh@gmail.com"
+    }
+  ],
+  "type": "avored-module",
+  "require": {
+    "php": ">=7.1.3",
+    "avored/module-installer": "1.*",
+    "avored/framewor": "2.*"
+  },
+
+  "autoload": {
+    "classmap": [
+      "database/migrations"
+    ],
+    "psr-4": {
+      "AvoRed\\Promotion\\": "src/"
+    }
+  },
+  "homepage" : "https://www.avored.com",
+	"support" : {
+		"email" : "ind.purvesh@gmail.com",
+		"issues" : "https://www.avored.com/discussion",
+		"forum" : "https://www.avored.com/discussion",
+		"wiki" : "https://www.avored.com/docs",
+		"source" : "https://www.github.com/avored/banner"
+	}
+}

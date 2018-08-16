@@ -15,5 +15,6 @@ mix.config.fileLoaderDirs.fonts     = 'vendor/avored-admin/fonts';
 mix.config.fileLoaderDirs.images    = 'vendor/avored-admin/images';
 
 
-//mix.js('modules/avored/ecommerce/resources/assets/js/app.js', 'public/vendor/avored-admin/js');
-//mix.sass('modules/avored/ecommerce/resources/assets/sass/app.scss',  'public/vendor/avored-admin/css');
+mix.js('vendor/avored/framework/resources/assets/js/app.js', 'public/vendor/avored-admin/js');
+mix.sass('vendor/avored/framework/resources/assets/sass/app.scss', 'public/vendor/avored-admin/css');
+

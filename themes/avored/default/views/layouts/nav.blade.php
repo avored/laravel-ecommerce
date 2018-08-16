@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-dark" style="padding:0;">
+<nav class="navbar navbar-expand-md navbar-dark bg-red" style="padding:0;">
     <div class="container">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
@@ -36,11 +36,6 @@
             @endauth
 
             @guest()
-            <li class="nav-item">
-                <a class="nav-link" href="#">Welcome msg!
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
 
             @if($currencies->count() > 1)
             <li class="nav-item dropdown" >
@@ -85,7 +80,7 @@
             <div class="col-md-6">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <span style="font-size: 32px; font-weight: 500; margin-top: 10px;">
-                        <img src="{{ asset('vendor/avored-default/images/logo.svg') }}" alt="logo" class="logo">AvoRed Store
+                        <img src="https://www.avored.com/img/logo.svg" alt="logo" class="logo">AvoRed Store
                     </span>
                 </a>
             </div>

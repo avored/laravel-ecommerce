@@ -20,16 +20,8 @@ class Banner
             })
             ->linkColumn('edit', [], function ($model) {
                 return "<a href='".route('admin.banner.edit', $model->id)."' >Edit</a>";
-            })->linkColumn('destroy', [], function ($model) {
-                return "<form id='admin-banner-destroy-".$model->id."'
-                                                method='POST'
-                                                action='".route('admin.banner.destroy', $model->id)."'>
-                                            <input name='_method' type='hidden' value='DELETE' />
-                                            ".csrf_field()."
-                                            <a href='#'
-                                                onclick=\"jQuery('#admin-banner-destroy-$model->id').submit()\"
-                                                >Destroy</a>
-                                        </form>";
+            })->linkColumn('show', [], function ($model) {
+                return "<a href='".route('admin.banner.show', $model->id)."' >Show</a>";
             });
 
         $this->dataGrid = $dataGrid;

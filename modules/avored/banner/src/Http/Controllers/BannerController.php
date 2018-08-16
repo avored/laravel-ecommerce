@@ -50,19 +50,24 @@ class BannerController extends Controller
     {
         return view('avored-banner::banner.edit')->with('model', $banner);
     }
-
+    
     public function update(BannerRequest $request, Banner $banner)
     {
         $image = $request->get('image');
-
+        
         if (null != $image) {
             $dbPath = $this->_uploadBanner($image);
             $request->merge(['image_path' => $dbPath]);
         }
-
+        
         $banner->update($request->all());
-
+        
         return redirect()->route('admin.banner.index');
+    }
+
+    public function show(Banner $banner)
+    {
+        return view('avored-banner::banner.show')->with('banner', $banner);
     }
 
     public function destroy(Banner $banner)
