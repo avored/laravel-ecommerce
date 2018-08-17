@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## 2.9.4
 ### Added
+- Reduce Page Size by using an DataGrid on Theme and Module List Page
 
 ### Fixed
 
