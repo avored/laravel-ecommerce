@@ -41,6 +41,10 @@
                             <th>Company Name</th>
                             <td> {{ $user->company_name }}</td>
                         </tr>
+                        <tr>
+                            <th>Tax No</th>
+                            <td> {{ $user->tax_no }}</td>
+                        </tr>
 
                         </tbody>
 
