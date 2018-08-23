@@ -85,6 +85,17 @@ class CartController extends Controller
 
         Cart::update($slug, $qty);
 
+        $productModel = $this->repository->findBySlug($slug);
+        $isTaxEnabled = $this->configurationRepository->getValueByKey('tax_enabled');
+
+        if ($isTaxEnabled && $productModel->is_taxable) {
+            $percentage = $this->configurationRepository->getValueByKey('tax_percentage');
+            $taxAmount = ($percentage * $productModel->price / 100);
+
+            Cart::hasTax(true);
+            Cart::updateProductTax($slug, $taxAmount);
+        }
+        
         return redirect()->back();
     }
 
