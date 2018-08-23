@@ -23,6 +23,8 @@ class CartController extends Controller
 
     public function __construct(ProductInterface $repository, ConfigurationInterface $configRep)
     {
+        parent::__construct();
+
         $this->repository = $repository;
         $this->configurationRepository = $configRep;
     }
