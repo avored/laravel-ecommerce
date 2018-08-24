@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 ## 2.9.4
 ### Added
 - Reduce Page Size by using an DataGrid on Theme and Module List Page
+- Admin Country CRUD so store admin can add/edit/delete possible countries
+- Admin State CRUD so store admin can add/edit/delete possible states
+- Admin order status CRUD so store admin can add/edit/delete possible custom order status 
+- Admin can add tracking number to an order
+- Added Recent Order Widget to Admin Dashboard
+- Admin Users CRUD so store admin can add/edit/delete possible Users 
+- Admin User Show display user order list as well
+- Admin can change User Password from admin and Mail gets sent to user
+- Admin User Group CRUD so store admin can add/edit/delete User Groups 
+- Replace Module/Theme list with DataGrid
 
 ### Fixed
 
