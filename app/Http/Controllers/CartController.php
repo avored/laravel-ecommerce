@@ -53,7 +53,7 @@ class CartController extends Controller
 
         Cart::add($slug, $qty, $attribute);
 
-        $this->_setTaxAmount($slug);
+        $this->_setTaxAmount($slug, $qty);
 
         return redirect()->back()->with('notificationText', 'Product Added to Cart Successfully!');
     }
@@ -76,7 +76,7 @@ class CartController extends Controller
 
         Cart::update($slug, $qty);
 
-        $this->_setTaxAmount($slug);
+        $this->_setTaxAmount($slug, $qty);
 
         return redirect()->back();
     }
@@ -87,14 +87,14 @@ class CartController extends Controller
         return redirect()->back()->with('notificationText', 'Product has been remove from Cart!');
     }
 
-    private function _setTaxAmount($slug)
+    private function _setTaxAmount($slug, $qty = 1)
     {
         $productModel = $this->repository->findBySlug($slug);
         $isTaxEnabled = $this->configurationRepository->getValueByKey('tax_enabled');
 
         if ($isTaxEnabled && $productModel->is_taxable) {
             $percentage = $this->configurationRepository->getValueByKey('tax_percentage');
-            $taxAmount = ($percentage * $productModel->price / 100);
+            $taxAmount = (($percentage * $productModel->price / 100) * $qty);
 
             Cart::hasTax(true);
             Cart::updateProductTax($slug, $taxAmount);
