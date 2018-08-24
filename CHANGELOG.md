@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.9.5
+### Added
+
+### Fixed
+- Admin Product Attribute Save Bug fixed: $option does not exists
+
 ## 2.9.4
 ### Added
 - Reduce Page Size by using an DataGrid on Theme and Module List Page
