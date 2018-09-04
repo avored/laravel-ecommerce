@@ -39,7 +39,7 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $slug = $request->get('slug');
-        $qty = $request->get('qty', 1);
+        $qty = abs($request->get('qty', 1));
         //dd('test');
         $attribute = $request->get('attribute', null);
 
@@ -69,7 +69,7 @@ class CartController extends Controller
     public function update(Request $request)
     {
         $slug = $request->get('slug');
-        $qty = $request->get('qty', 1);
+        $qty = abs($request->get('qty', 1));
         if (!Cart::canAddToCart($slug, $qty)) {
             return redirect()->back()->with('errorNotificationText', 'Not Enough Qty Available. Please with less qty or Contact site Administrator!');
         }
