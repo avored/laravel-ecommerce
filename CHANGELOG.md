@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Admin Product Attribute Save Bug fixed: $option does not exists
 - fixed some cart price & tax amount bug 
+- Added an Permission Group Callable Add functionality
 
 ## 2.9.4
 ### Added
