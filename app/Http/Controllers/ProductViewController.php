@@ -24,6 +24,8 @@ class ProductViewController extends Controller
         ProductInterface $repository,
         ProductDownloadableUrlInterface $downRep
         ) {
+        parent::__construct();
+
         $this->repository = $repository;
         $this->downRep = $downRep;
     }

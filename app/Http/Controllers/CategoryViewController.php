@@ -16,6 +16,8 @@ class CategoryViewController extends Controller
 
     public function __construct(CategoryInterface $repository)
     {
+        parent::__construct();
+
         $this->repository = $repository;
     }
 

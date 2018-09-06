@@ -33,6 +33,8 @@ class OrderController extends Controller
      */
     public function __construct(ConfigurationInterface $rep)
     {
+        parent::__construct();
+
         $this->repository = $rep;
     }
 
