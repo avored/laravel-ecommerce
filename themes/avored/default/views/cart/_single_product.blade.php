@@ -55,7 +55,7 @@
         @endif
 
         <td class="col-sm-1 col-1 text-center">
-            <strong>{{ $product->lineTotal() }}</strong>
+            <strong>{{ $product->finalPrice() }}</strong>
         </td>
         <td class="col-sm-1 col-1">
             <div class="btn-group">

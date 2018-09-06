@@ -39,8 +39,9 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $slug = $request->get('slug');
+
         $qty = abs($request->get('qty', 1));
-        //dd('test');
+      
         $attribute = $request->get('attribute', null);
 
         if (!Cart::canAddToCart($slug, $qty, $attribute)) {
@@ -53,7 +54,28 @@ class CartController extends Controller
 
         Cart::add($slug, $qty, $attribute);
 
+
         $this->_setTaxAmount($slug, $qty);
+
+        $productModel = $this->repository->findBySlug($slug);
+        $isTaxEnabled = $this->configurationRepository->getValueByKey('tax_enabled');
+
+        
+        if ($isTaxEnabled && $productModel->is_taxable) {
+            $percentage = $this->configurationRepository->getValueByKey('tax_percentage');
+
+            
+            if(null !== $attribute) {
+                foreach($attribute as $attributeId => $productId) {
+                    $productModel = $this->repository->find($productId);
+                }
+            }
+
+            $taxAmount = ($percentage * $productModel->price / 100);
+            
+            Cart::hasTax(true);
+            Cart::updateProductTax($slug, $taxAmount);
+        }
 
         return redirect()->back()->with('notificationText', 'Product Added to Cart Successfully!');
     }

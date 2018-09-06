@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.9.5
+### Added
+
+### Fixed
+- Admin Product Attribute Save Bug fixed: $option does not exists
+- fixed some cart price & tax amount bug 
+- Added an Permission Group Callable Add functionality
+
 ## 2.9.4
 ### Added
 - Reduce Page Size by using an DataGrid on Theme and Module List Page
