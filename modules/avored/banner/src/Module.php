@@ -10,6 +10,8 @@ use AvoRed\Framework\AdminMenu\Facade as AdminMenuFacade;
 use AvoRed\Framework\Breadcrumb\Facade as BreadcrumbFacade;
 use AvoRed\Banner\Models\Repository\BannerRepository;
 use AvoRed\Banner\Models\Contracts\BannerInterface;
+use AvoRed\Framework\Permission\Facade as PermissionFacade;
+use AvoRed\Framework\Permission\PermissionGroup;
 
 class Module extends ServiceProvider
 {
@@ -26,6 +28,7 @@ class Module extends ServiceProvider
         $this->registerBreadCrumb();
         $this->publishFiles();
         $this->registerModelContracts();
+        $this->registerPermission();
     }
 
     /**
@@ -128,5 +131,29 @@ class Module extends ServiceProvider
     protected function registerModelContracts()
     {
         $this->app->bind(BannerInterface::class, BannerRepository::class);
+    }
+
+    /**
+     * Register Permission for this Module
+     *
+     * @return void
+     */
+    public function registerPermission()
+    {
+        $permissionGroup = PermissionFacade::add('banner', function (PermissionGroup $group) {
+            $group->label('Banner Permissions');
+        });
+        $permissionGroup->addPermission('admin-banner-list')
+            ->label('Banner List')
+            ->routes('admin.banner.index');
+        $permissionGroup->addPermission('admin-banner-create')
+            ->label('Create Banner')
+            ->routes('admin.banner.create,admin.banner.store');
+        $permissionGroup->addPermission('admin-banner-update')
+            ->label('Update Banner')
+            ->routes('admin.banner.edit,admin.banner.update');
+        $permissionGroup->addPermission('admin-banner-destroy')
+            ->label('Destroy Banner')
+            ->routes('admin.banner.destroy');
     }
 }
