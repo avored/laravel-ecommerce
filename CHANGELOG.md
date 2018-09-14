@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 - fixed some cart price & tax amount bug 
 - Added an Permission Group Callable Add functionality
 - Added an newly added route permission into Permission Provider
+- Fixed Product Image Path related bug
 
 ## 2.9.4
 ### Added
