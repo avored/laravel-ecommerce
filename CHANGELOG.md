@@ -10,6 +10,7 @@ All notable changes to this project will be documented in this file.
 - Added an Permission Group Callable Add functionality
 - Added an newly added route permission into Permission Provider
 - Fixed Product Image Path related bug
+- Feature Added an monthly revenue widget
 
 ## 2.9.4
 ### Added
