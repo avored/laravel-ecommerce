@@ -20,7 +20,7 @@
 		"avored/dummy-data": "~2.0",
 		"fabpot/goutte": "^3.2",
 		"fideloper/proxy": "~4.0",
-		"avored/framework": "~2.2"
+		"avored/framework": "~2.3"
 	},
 	"require-dev" : {
 		"filp/whoops": "~2.0",
