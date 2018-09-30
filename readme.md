@@ -4,6 +4,8 @@
 [![Backers](https://opencollective.com/laravel-ecommerce/backers/badge.svg)](#backers) 
 [![Sponsors](https://opencollective.com/laravel-ecommerce/sponsors/badge.svg)](#sponsors)
 
+[![](https://img.shields.io/badge/join--slack-avored--ecommerce-c62828.svg?longCache=true&style=for-the-badge&logo=slack&color=#c62828)](https://join.slack.com/t/avored/shared_invite/enQtNDQ1Nzc0MTQ1NjIwLTNiMzIyYzc4M2Y2YWE4YzlhNjM3NzhhN2I0NTAyMzhkNGZmOWUyNjQ1N2U1NGQ3MzIzOGU0MDM0MDM1NTc2MDg)
+
 [AvoRed Laravel E Commerce Official](https://www.avored.com/)    
 [Changelog](CHANGELOG.md)    
 [Demo](http://demo.avored.com/)
