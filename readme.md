@@ -1,50 +1,61 @@
-# Mage2 Commerce using Laravel5 E-commerce App V(0.8) -- Current
+# AvoRed E Commerce is an Laravel Open Source Shopping Cart
 
-[![PHPPackages Rank](http://phppackages.org/p/mage2/laravel-ecommerce/badge/rank.svg)](http://phppackages.org/p/mage2/laravel-ecommerce)
+[![Total Downloads](https://poser.pugx.org/avored/framework/downloads)](https://packagist.org/packages/avored/framework)
+[![Backers](https://opencollective.com/laravel-ecommerce/backers/badge.svg)](#backers) 
+[![Sponsors](https://opencollective.com/laravel-ecommerce/sponsors/badge.svg)](#sponsors) [![Join the chat at https://gitter.im/avored/laravel-ecommerce](https://badges.gitter.im/avored/laravel-ecommerce.svg)](https://gitter.im/avored/laravel-ecommerce?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Mage2 is a Ecommerce application based on Laravel5 framework.
+[AvoRed Laravel E Commerce Official](https://www.avored.com/)    
+[Changelog](CHANGELOG.md)    
+[Demo](http://demo.avored.com/)
 
-[Demo Mage2 Laravel Ecommerce](http://demo.mage2.website/)
+### About AvoRed
 
-# Step 1: Install Mage2 Commerce using [Git](https://git-scm.com/).
+AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel. Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default. Main Advantage of being an modular E commerce is you can download a module that is required by your e commerce so it is not tightly couple e commerce application.
 
-Clone the repository using command:
+### AvoRed Docs
 
-    git clone https://github.com/mage2/laravel-ecommerce.git
-
-    composer update
-
-Set up your environment config file:
-
-    mage2/laravel-ecommerce/.env 
-
-composer update/install
-# Step 1: Install Mage2 Commerce using [Composer](https://getcomposer.org/download/).
-
-Run composer to create the lavender application:
-
-    composer create-project mage2/laravel-ecommerce --stability=dev
-    
-Set up your environment config file:
-
-    mage2/laravel-ecommerce/.env    
-
-# Step 2: go to url
-
-    Yoursite.com/install
-    
-That's it!
+To get started with AvoRed Installation Please visit [AvoRed Documentation](https://www.avored.com/docs)
 
 
-##Contributing
+##### Available Modules for AvoRed
+- [AvoRed Admin](https://github.com/avored/ecommerce)
+- [AvoRed Banner Slider](https://github.com/avored/banner)
+- [AvoRed Brand](https://github.com/avored/brand)
+- [AvoRed Contact](https://github.com/avored/contact)
+- [AvoRed Dummy Data](https://github.com/avored/dummy-data)
+- [AvoRed Feature Product](https://github.com/avored/feature)
+- [AvoRed Related Product](https://github.com/avored/related)
+- [AvoRed Product Review](https://github.com/avored/review)
+- [AvoRed Subscribe](https://github.com/avored/subscribe)
+
+##### Payment Gateway
+- Stripe
+- Pay by Cheque (comming soon)
+
+##### Shipping Gateway
+- Free Shipping
+- USPS (comming soon)
 
 
-Mage2 laravel5 Ecommerce is in active development and If you want to contribute in this project then simply do the [Pull Request](https://github.com/mage2/laravel-ecommerce/pulls)!
+## Contributing
 
-If you find any bug or problem please submit here [Mage2 Ecommerce Forum](http://mage2.website/forum/) or [raise the issue here](https://github.com/mage2/laravel-ecommerce/issues/new).
+AvoRed E commerce is in active development and If you want to contribute in this project then simply do the [Pull Request](https://github.com/avored/laravel-ecommerce/pulls)!
 
+If you find any bug or problem please submit here [AvoRed Ecommerce Forum](http://avored.website/forum/) or [raise the issue here](https://github.com/avored/laravel-ecommerce/issues/new).
 
+## Contributors
 
+This project exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
+<a href="https://github.com/avored/laravel-ecommerce/graphs/contributors"><img src="https://opencollective.com/laravel-ecommerce/contributors.svg?width=890" title="contributors" alt="contributors" /></a>
 
+## Backers
 
-[![](https://ga-beacon.appspot.com/UA-79831356-1/laravel-ecommerce?pixel)](https://github.com/mage2/laravel-ecommerce)
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/laravel-ecommerce#backer)]
+
+<a href="https://opencollective.com/laravel-ecommerce#backers" target="_blank"><img src="https://opencollective.com/laravel-ecommerce/backers.svg?width=890"></a>
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/laravel-ecommerce#sponsor)]
+
+<a href="https://opencollective.com/laravel-ecommerce/sponsor/0/website" target="_blank"><img src="https://opencollective.com/laravel-ecommerce/sponsor/0/avatar.svg"></a>
