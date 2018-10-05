@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use AvoRed\Framework\Models\Database\Page;
@@ -13,8 +14,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $pageModel  = null;
-        $pageId     = Configuration::getConfiguration('general_home_page');
+        $pageModel = null;
+        $pageId = Configuration::getConfiguration('general_home_page');
 
         if (null !== $pageId) {
             $pageModel = Page::find($pageId);
