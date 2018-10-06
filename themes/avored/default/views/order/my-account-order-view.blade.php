@@ -126,7 +126,7 @@
                                     {{ $total = $product->getRelationValue('pivot')->price * $product->getRelationValue('pivot')->qty }} 
                                 </td>
                                 <td>
-                                    <a href="#">
+                                    <a href="{{ route('my-account.order.return', $order->id) }}" title="Order Return Request">
                                         Order Return Request
                                     </a>
                                 </td>
