@@ -63,6 +63,10 @@ Route::middleware('auth')
 
         Route::get('order/list', 'OrderController@myAccountOrderList')->name('order.list');
         Route::get('order/{order}/view', 'OrderController@myAccountOrderView')->name('order.view');
+        Route::get('order/{order}/return', 'OrderController@return')
+                        ->name('order.return');
+        Route::post('order/{order}/return', 'OrderController@returnPost')
+                        ->name('order.return.post');
 
         Route::get('wishlist/add/{slug}', 'User\WishlistController@add')->name('wishlist.add');
         Route::get('wishlist', 'User\WishlistController@mylist')->name('wishlist.list');
