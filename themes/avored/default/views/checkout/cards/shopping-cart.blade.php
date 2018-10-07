@@ -34,7 +34,7 @@
                                 <?php $attributeText .= $attribute['variation_display_text'] . ': '; ?>
                             @endif
                         @endforeach
-                         <p>Attributes: 
+                         <p>Attributes:
                             <span class="text-success">
                                  <strong>{{ $attributeText}}</strong>
                             </span>
@@ -56,13 +56,13 @@
                     $subTotal = $total = 0;
                     $subTotal += $cartItem->price();
                 @endphp
-                
+
             @endforeach
             </tbody>
             <tfoot>
             <tr>
                 <td colspan="3" class="text-right  hidden-xs"><strong>Sub-Total:</strong></td>
-                <td class="text-right sub-total" 
+                <td class="text-right sub-total"
                         data-sub-total="{{ number_format(Cart::total(),2) }}">
                     ${{ number_format(Cart::total(),2) }}</td>
             </tr>
@@ -70,7 +70,7 @@
                 <td colspan="3" class="text-right shipping-title  hidden-xs"
                     style="font-weight: bold;">Shipping Option
                 </td>
-                <td class="text-right shipping-cost" data-shipping-cost="0.00">$</td>
+                <td class="text-right shipping-cost" data-shipping-cost="0.00">{{ Session::get('currency_code') }}</td>
             </tr>
 
             <tr>
