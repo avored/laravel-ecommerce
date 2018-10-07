@@ -18,7 +18,7 @@
         <div class="col-8">
             <h1 class="product-name">{{ $product->name }}</h1>
             <div class="product-price">
-                <span>$</span>
+                <span>{{ Session::get('currency_code') }}</span>
                 <span class="price">{{ number_format($product->price,2) }}</span>
             </div>
 
@@ -56,8 +56,8 @@
 
             <li class="nav-item">
                 <a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" aria-controls="reviews" aria-selected="false">Reviews</a>
-            </li>            
-            
+            </li>
+
             @foreach(Tabs::all('product-view') as $key => $tab)
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="tab" href="#{{ $key }}">{{ $tab->label }}</a>
@@ -68,7 +68,7 @@
         <div class="tab-content">
             <div class="tab-pane active" id="description" role="tabpanel" aria-labelledby="description-tab">
                 <p>{!! $product->description !!}</p>
-            </div>      
+            </div>
 
             <div class="tab-pane" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
                 <p>@include("avored-review::product.review")</p>
@@ -76,11 +76,11 @@
 
             @foreach(Tabs::all('product-view') as $key => $tab)
                 @include($tab->view)
-            @endforeach            
+            @endforeach
         </div>
 
         <!-- include("avored-related::related.product.list") -->
-        
+
     </div>
 </div>
 @endsection
