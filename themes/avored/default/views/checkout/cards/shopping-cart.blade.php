@@ -45,10 +45,10 @@
 
                     <td class="text-right hidden-xs">{{ $cartItem->qty() }}</td>
                     <td class="text-right hidden-xs">
-                        ${{ $cartItem->priceFormat()  }}
+                        {{ Session::get('currency_code') . $cartItem->priceFormat() }}
                     </td>
                     <td class="text-right">
-                        ${{ $cartItem->lineTotal()  }}
+                        {{ Session::get('currency_code') . $cartItem->lineTotal() }}
                     </td>
                 </tr>
 
@@ -63,8 +63,8 @@
             <tr>
                 <td colspan="3" class="text-right  hidden-xs"><strong>Sub-Total:</strong></td>
                 <td class="text-right sub-total"
-                        data-sub-total="{{ number_format(Cart::total(),2) }}">
-                    ${{ number_format(Cart::total(),2) }}</td>
+                        data-sub-total="{{ number_format(Cart::total(), 2) }}">
+                    {{ Session::get('currency_code') . number_format(Cart::total(), 2) }}</td>
             </tr>
             <tr class="hidden shipping-row">
                 <td colspan="3" class="text-right shipping-title  hidden-xs"
@@ -75,8 +75,8 @@
 
             <tr>
                 <td colspan="3" class="text-right  hidden-xs"><strong>Total:</strong></td>
-                <td class="text-right total" data-total="{{ number_format(Cart::total(),2) }}">
-                    ${{ number_format(Cart::total(),2) }}</td>
+                <td class="text-right total" data-total="{{ number_format(Cart::total(), 2) }}">
+                    {{ Session::get('currency_code') . number_format(Cart::total(), 2) }}</td>
             </tr>
             </tfoot>
 
