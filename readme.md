@@ -1,16 +1,19 @@
-# AvoRed E Commerce is an Laravel Open Source Shopping Cart
+# AvoRed E-Commerce
 
-[![Total Downloads](https://poser.pugx.org/avored/framework/downloads)](https://packagist.org/packages/avored/framework)
-[![Backers](https://opencollective.com/laravel-ecommerce/backers/badge.svg)](#backers) 
-[![Sponsors](https://opencollective.com/laravel-ecommerce/sponsors/badge.svg)](#sponsors)
+[![GitHub release](https://img.shields.io/github/release/avored/laravel-ecommerce.svg?style=flat-square)](https://github.com/avored/laravel-ecommerce/releases/latest) 
+[![Total Downloads](https://poser.pugx.org/avored/framework/downloads)](https://packagist.org/packages/avored/framework) 
+[![Backers](https://opencollective.com/laravel-ecommerce/backers/badge.svg?style=flat-square)](#backers)  
+[![Sponsors](https://opencollective.com/laravel-ecommerce/sponsors/badge.svg?style=flat-square)](#sponsors) [![](https://img.shields.io/badge/join--slack-avored--ecommerce-c62828.svg?longCache=true&style=for-the-badge&logo=slack&color=#c62828)](https://join.slack.com/t/avored/shared_invite/enQtNDQ1Nzc0MTQ1NjIwLTNiMzIyYzc4M2Y2YWE4YzlhNjM3NzhhN2I0NTAyMzhkNGZmOWUyNjQ1N2U1NGQ3MzIzOGU0MDM0MDM1NTc2MDg)
 
-[AvoRed Laravel E Commerce Official](https://www.avored.com/)    
+[AvoRed Laravel E-Commerce Official](https://www.avored.com/)    
 [Changelog](CHANGELOG.md)    
 [Demo](http://demo.avored.com/)
 
 ### About AvoRed
 
-AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel. Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default. Main Advantage of being an modular E commerce is you can download a module that is required by your e commerce so it is not tightly couple e commerce application.
+AvoRed is a free open-source e-commerce application development platform written in PHP based on Laravel.    
+Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default.    
+Main Advantage of being an modular E commerce is you can download a module that is required by your e commerce so it is not tightly couple e commerce application.
 
 ### AvoRed Docs
 
