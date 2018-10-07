@@ -18,6 +18,10 @@ use AvoRed\Framework\Models\Database\OrderProductVariation;
 use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
 use AvoRed\Framework\Models\Contracts\OrderHistoryInterface;
+use App\Http\Requests\MyAccount\Order\OrderReturnRequest;
+use AvoRed\Framework\Models\Contracts\OrderReturnRequestInterface;
+use AvoRed\Framework\Models\Contracts\OrderReturnProductInterface;
+use AvoRed\Framework\Models\Contracts\ProductInterface;
 
 class OrderController extends Controller
 {
@@ -26,16 +30,31 @@ class OrderController extends Controller
     * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
     */
     protected $repository;
+    /**
+    *
+    * @var \AvoRed\Framework\Models\Repository\OrderReturnRequestRepository  $orderReturnRequestRepository
+    */
+    protected $orderReturnRequestRepository;
+    /**
+    *
+    * @var \AvoRed\Framework\Models\Repository\OrderReturnProductRepository  $orderReturnProductRepository
+    */
+    protected $orderReturnProductRepository;
 
     /**
      * Construct to setup Repository
      *
      */
-    public function __construct(ConfigurationInterface $rep)
-    {
+    public function __construct(
+        ConfigurationInterface $rep,
+        OrderReturnRequestInterface $orderReturnRequestRepository,
+        OrderReturnProductInterface $orderReturnProductRepository
+    ) {
         parent::__construct();
 
         $this->repository = $rep;
+        $this->orderReturnRequestRepository = $orderReturnRequestRepository;
+        $this->orderReturnProductRepository = $orderReturnProductRepository;
     }
 
     public function place(PlaceOrderRequest $request)
@@ -82,6 +101,11 @@ class OrderController extends Controller
         return view('order.success')->with('order', $order);
     }
 
+    /**
+     * User Order List Page
+     *
+     * @return Illuminate\Http\Response
+     */
     public function myAccountOrderList()
     {
         $user = Auth::guard()->user();
@@ -91,10 +115,50 @@ class OrderController extends Controller
         return $view;
     }
 
+    /**
+     * User Order Details Page
+     *
+     * @param \AvoRed\Framework\Models\Database\Order $order
+     * @return Illuminate\Http\Response
+     */
     public function myAccountOrderView(Order $order)
     {
-        $view = view('order.my-account-order-view')->with('order', $order);
-        return $view;
+        return view('order.my-account-order-view')
+                    ->withOrder($order);
+    }
+
+    /**
+     * Order Return Request Page
+     * @param \AvoRed\Framework\Models\Database\Order $order
+     * @return Illuminate\Http\Response
+     */
+    public function return(Order $order)
+    {
+        return view('my-account.order.return')
+                    ->withOrder($order);
+    }
+
+    /**
+     * Order Return Request Page
+     * @param \AvoRed\Framework\Models\Database\Order $order
+     * @param \App\Http\Requests\MyAccount\Order\OrderReturnRequest $order
+     * @return Illuminate\Http\Response
+     */
+    public function returnPost(Order $order, OrderReturnRequest $request)
+    {
+        $returnRequest = $this->orderReturnRequestRepository->create([
+            'order_id' => $order->id,
+            'comment' => $request->get('comment'),
+            'status' => 'PENDING'
+        ]);
+
+        foreach ($request->get('products') as $product) {
+            $product['product_id'] = app(ProductInterface::class)->findBySlug($product['slug'])->id;
+
+            $returnRequest->products()->create($product);
+        }
+
+        return redirect()->back()->withNotificationText('Order Return Request placed successfully!');
     }
 
     private function _getUser(Request $request)
@@ -191,11 +255,11 @@ class OrderController extends Controller
             }
 
             $orderProductTableData[] = [
-                                        'product_id' => $product->id,
-                                        'qty' => $orderProduct->qty(),
-                                        'price' => $orderProduct->price(),
-                                        'tax_amount' => 0.00 //$orderProduct->tax();
-                                        ];
+                'product_id' => $product->id,
+                'qty' => $orderProduct->qty(),
+                'price' => $orderProduct->price(),
+                'tax_amount' => 0.00 //$orderProduct->tax();
+            ];
         }
         $order->products()->sync($orderProductTableData);
     }
