@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.9.5.7
+
+### Added
+- Added Github release badge to the readme.
+- Added new feature **order returns**: this allows your customers to return a product if the product is damaged or if the customer just dont like the item.
+
+### Fixed
+
+## 2.9.5.6
+
+### Fixed
+- Fixed backend theme
+
 ## 2.9.5
 ### Added
 
