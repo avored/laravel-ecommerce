@@ -1,38 +1,40 @@
-FROM indpurvesh/laravel-ecommerce
+FROM ubuntu:18.04
 MAINTAINER purvesh <ind.purvesh@gmail.com>
 
-
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
  apache2-bin \
- libapache2-mod-php5 \
- php5-curl \
- php5-ldap \
- php5-sqlite \
- php5-mysql \
- php5-mcrypt \
- php5-gd \
- patch \
+ libapache2-mod-php \
+ php-ctype \
+ php-curl \
+ php-gd \
+ php-json \
+ php-ldap \
+ php-mbstring \
+ php-mysql \
+ php-sqlite3 \
+ php-tokenizer \
+ php-xml \
  curl \
- nano \
- vim \
  git \
- mysql-client
-
-
-
-RUN rm /etc/apache2/sites-available/000-default.conf
-
-ADD 000-default.conf /etc/apache2/sites-available/
-
-RUN service apache2 start
+ mysql-client \
+ nano \
+ patch \
+ unzip \
+ vim
 
 RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.phar /usr/local/bin/composer
 
-Run rm -rf /var/www/laravel
+RUN rm -rf /var/www/laravel
 
 RUN composer create-project avored/laravel-ecommerce /var/www/laravel
 
 RUN /bin/chown www-data:www-data -R /var/www/laravel/storage
+
+ADD 000-default.conf /etc/apache2/sites-available/
+
+RUN a2enmod rewrite
+
+RUN service apache2 start
 
 EXPOSE 80
 
