@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
       |--------------------------------------------------------------------------
       | Application Name
@@ -116,7 +115,6 @@ return [
       |
      */
     'providers' => [
-
         /*
          * Laravel Framework Service Providers...
          */
@@ -154,12 +152,9 @@ return [
         //AvoRed\Install\Module::class,
         //AvoRed\Ecommerce\Provider::class,
 
-
-
         /*
          * Application Service Providers...
          */
-
 
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
@@ -186,7 +181,7 @@ return [
         'Config' => Illuminate\Support\Facades\Config::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
         'Crypt' => Illuminate\Support\Facades\Crypt::class,
-        'DB'    => Illuminate\Support\Facades\DB::class,
+        'DB' => Illuminate\Support\Facades\DB::class,
         'Eloquent' => Illuminate\Database\Eloquent\Model::class,
         'Event' => Illuminate\Support\Facades\Event::class,
         'File' => Illuminate\Support\Facades\File::class,
@@ -210,7 +205,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        'PDF'   => Barryvdh\DomPDF\Facade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
         /*
          *
@@ -222,34 +217,23 @@ return [
          *
          */
 
-
-
-
-
-
-
-
-
-
-
         /*
          * AvoRed Framework Facade
          *
          */
 
-        'AdminMenu'             => AvoRed\Framework\AdminMenu\Facade::class,
-        'AdminConfiguration'    => AvoRed\Framework\AdminConfiguration\Facade::class,
-        'Breadcrumb'            => AvoRed\Framework\Breadcrumb\Facade::class,
-        'Cart'                  => AvoRed\Framework\Cart\Facade::class,
-        'DataGrid'              => AvoRed\Framework\DataGrid\Facade::class,
-        'Image'                 => AvoRed\Framework\Image\Facade::class,
-        'Menu'                  => AvoRed\Framework\Menu\Facade::class,
-        'Payment'               => AvoRed\Framework\Payment\Facade::class,
-        'Permission'            => AvoRed\Framework\Permission\Facade::class,
-        'Shipping'              => AvoRed\Framework\Shipping\Facade::class,
-        'Tabs'                  => AvoRed\Framework\Tabs\Facade::class,
-        'Theme'                 => AvoRed\Framework\Theme\Facade::class,
-        'Widget'                => AvoRed\Framework\Widget\Facade::class,
-
+        'AdminMenu' => AvoRed\Framework\AdminMenu\Facade::class,
+        'AdminConfiguration' => AvoRed\Framework\AdminConfiguration\Facade::class,
+        'Breadcrumb' => AvoRed\Framework\Breadcrumb\Facade::class,
+        'Cart' => AvoRed\Framework\Cart\Facade::class,
+        'DataGrid' => AvoRed\Framework\DataGrid\Facade::class,
+        'Image' => AvoRed\Framework\Image\Facades\Image::class,
+        'Menu' => AvoRed\Framework\Menu\Facade::class,
+        'Payment' => AvoRed\Framework\Payment\Facade::class,
+        'Permission' => AvoRed\Framework\Permission\Facade::class,
+        'Shipping' => AvoRed\Framework\Shipping\Facade::class,
+        'Tabs' => AvoRed\Framework\Tabs\Facade::class,
+        'Theme' => AvoRed\Framework\Theme\Facade::class,
+        'Widget' => AvoRed\Framework\Widget\Facade::class,
     ],
 ];
