@@ -14,7 +14,6 @@
 
 <?php
     $attributes = $product->attribute;
-    //$attributeValueList = $product->getCombinationAttributeValueList();
 ?>
 @foreach($attributes as $attribute)
 
