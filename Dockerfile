@@ -20,9 +20,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
  nano \
  patch \
  unzip \
- vim
-
-RUN cd /tmp;curl -sS https://getcomposer.org/installer | php;mv /tmp/composer.phar /usr/local/bin/composer
+ vim \
+ composer
 
 RUN rm -rf /var/www/laravel
 
