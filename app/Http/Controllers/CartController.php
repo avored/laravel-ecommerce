@@ -41,41 +41,19 @@ class CartController extends Controller
         $slug = $request->get('slug');
 
         $qty = abs($request->get('qty', 1));
-      
+
         $attribute = $request->get('attribute', null);
 
         if (!Cart::canAddToCart($slug, $qty, $attribute)) {
             return redirect()->back()
-                        ->with(
-                            'errorNotificationText',
-                            'Not Enough Qty Available. Please with less qty or Contact site Administrator!'
-                        );
+                ->with(
+                    'errorNotificationText',
+                    'Not Enough Qty Available. Please with less qty or Contact site Administrator!'
+                );
         }
 
         Cart::add($slug, $qty, $attribute);
-
-
-        $this->_setTaxAmount($slug, $qty);
-
-        $productModel = $this->repository->findBySlug($slug);
-        $isTaxEnabled = $this->configurationRepository->getValueByKey('tax_enabled');
-
-        
-        if ($isTaxEnabled && $productModel->is_taxable) {
-            $percentage = $this->configurationRepository->getValueByKey('tax_percentage');
-
-            
-            if(null !== $attribute) {
-                foreach($attribute as $attributeId => $productId) {
-                    $productModel = $this->repository->find($productId);
-                }
-            }
-
-            $taxAmount = ($percentage * $productModel->price / 100);
-            
-            Cart::hasTax(true);
-            Cart::updateProductTax($slug, $taxAmount);
-        }
+        $this->setTaxAmount($slug, $qty);
 
         return redirect()->back()->with('notificationText', 'Product Added to Cart Successfully!');
     }
@@ -98,7 +76,7 @@ class CartController extends Controller
 
         Cart::update($slug, $qty);
 
-        $this->_setTaxAmount($slug, $qty);
+        $this->setTaxAmount($slug, $qty);
 
         return redirect()->back();
     }
@@ -106,20 +84,36 @@ class CartController extends Controller
     public function destroy($slug)
     {
         Cart::destroy($slug);
-        return redirect()->back()->with('notificationText', 'Product has been remove from Cart!');
+        return redirect()->back()->with('notificationText', 'Product has been removed from Cart!');
     }
 
-    private function _setTaxAmount($slug, $qty = 1)
+    /**
+     * Set the Tax Amount for the Product
+     *
+     * @param string $slug
+     * @param int $qty
+     * @param array $attributes
+     * @return self $this
+     */
+    private function setTaxAmount($slug, $qty = 1, $attributes = [])
     {
         $productModel = $this->repository->findBySlug($slug);
         $isTaxEnabled = $this->configurationRepository->getValueByKey('tax_enabled');
 
         if ($isTaxEnabled && $productModel->is_taxable) {
             $percentage = $this->configurationRepository->getValueByKey('tax_percentage');
-            $taxAmount = (($percentage * $productModel->price / 100) * $qty);
 
+            if(null !== $attributes) {
+                foreach($attributes as $attributeId => $productId) {
+                    $productModel = $this->repository->find($productId);
+                }
+            }
+
+            $taxAmount = ($percentage * $productModel->price / 100) * $qty;
             Cart::hasTax(true);
             Cart::updateProductTax($slug, $taxAmount);
         }
+
+        return $this;
     }
 }
