@@ -74,8 +74,6 @@ class CartControllerTest extends \Tests\TestCase
         $this->assertEquals(302, $result->getStatusCode());
     }
 
-    //TODO: success with Tax
-
     public function testUnsuccessfulAddToCart()
     {
         $slug = 'my-nice-slug';
@@ -107,8 +105,6 @@ class CartControllerTest extends \Tests\TestCase
         $result = $this->instance->update($requestMock);
         $this->assertEquals(302, $result->getStatusCode());
     }
-
-    //TODO: success update with Tax
 
     public function testDestroy()
     {
