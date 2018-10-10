@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.9.5.8
+ - HotFix AvoRed DataGrid Collection doesn't exist order by method only works for Eloquent Model
+
 ## 2.9.5.7
 
 ### Added
