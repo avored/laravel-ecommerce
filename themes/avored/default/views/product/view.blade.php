@@ -18,7 +18,7 @@
         <div class="col-8">
             <h1 class="product-name">{{ $product->name }}</h1>
             <div class="product-price">
-                <span>{{ Session::get('currency_code') }}</span>
+                <span>{{ Session::get('currency_symbol') }}</span>
                 <span class="price">{{ number_format($product->price,2) }}</span>
             </div>
 

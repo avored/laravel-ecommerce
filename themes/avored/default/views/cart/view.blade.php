@@ -43,7 +43,7 @@
                                     <td class="col-1 text-right">
                                 <h6>
                                     <strong>
-                                        {{ Session::get('currency_code') . number_format((Cart::taxTotal()), 2) }}
+                                        {{ Cart::taxTotal() }}
                                     </strong>
                                 </h6>
                             </td>
@@ -59,7 +59,7 @@
                             </td>
                             <td class="col-1 text-right">
                                 <h6>
-                                    <strong>{{ Session::get('currency_code') . number_format((Cart::total()), 2) }}</strong>
+                                    <strong>{{ Cart::total() }}</strong>
                                 </h6>
                             </td>
                         </tr>
