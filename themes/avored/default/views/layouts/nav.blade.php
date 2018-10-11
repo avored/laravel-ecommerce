@@ -41,7 +41,7 @@
             <li class="nav-item dropdown" >
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
                     
-                    Currency : {{ Session::get('currency_code')}}
+                    Currency : {{ Session::get('currency_symbol')}}
                 </a>
                     <div class="dropdown-menu">
                         @foreach($currencies as $siteCurrencyId => $currencyCode)
