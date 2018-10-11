@@ -53,7 +53,7 @@ class CartController extends Controller
         }
 
         Cart::add($slug, $qty, $attribute);
-        $this->setTaxAmount($slug, $qty);
+        $this->setTaxAmount($slug, $qty , $attribute);
 
         return redirect()->back()->with('notificationText', 'Product Added to Cart Successfully!');
     }
