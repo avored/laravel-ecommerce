@@ -5,10 +5,11 @@ namespace Tests\Feature\Admin;
 use AvoRed\Framework\Models\Database\Attribute;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AttributeTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
     /**
      * A basic Attribute Index Route.
      *
@@ -39,7 +40,7 @@ class AttributeTest extends TestCase
      */
     public function testAttributePost()
     {
-        $data = $this->_getAttributeBasicData();
+        $data = $this->_getAttributeBasicData();  
         $response = $this->actingAs($this->adminUser,'admin')
                             ->post('/admin/attribute', $data);
 
@@ -100,9 +101,7 @@ class AttributeTest extends TestCase
      */
     public function testAttributeDestroy()
     {
-
         $data = $this->_getAttributeBasicData();
-
         $attribute = Attribute::create($data);
 
         $response = $this->actingAs($this->adminUser,'admin')
@@ -115,17 +114,12 @@ class AttributeTest extends TestCase
     }
 
     private function _getAttributeBasicData() {
-        $data = [
-            'type' => 'PRODUCT',
+        $data = [     
             'name' => 'Test Attribute',
             'identifier' => 'test-attribute',
-            'use_as' => 'SPECIFICATION',
-            'field_type' => 'SELECT',
-            'sort_order' => 10,
-            'dropdown-options' => [
+            'dropdown_options' => [
                 str_random('6') => ['display_text' => 'test option1'],
                 str_random('6') => ['display_text' => 'test option2']
-
             ]
         ];
 
