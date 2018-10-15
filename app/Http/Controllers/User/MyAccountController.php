@@ -62,7 +62,7 @@ class MyAccountController extends Controller
             $user->image_path->destroy();
         }
 
-        $image = Image::upload($request->file('image'), $checkDirectory)->get();
+        $image = Image::upload($request->file('profile_image'), 'users/' . $user->id)->makeSizes()->get();
         $user->update(['image_path' => $image->relativePath]);
 
         return redirect()->route('my-account.home')
