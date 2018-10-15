@@ -6,10 +6,9 @@ use AvoRed\Framework\Models\Database\Configuration;
 use AvoRed\Framework\Models\Database\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use App\Events\UserRegisteredEvent;
+use Illuminate\Auth\Events\Registered;
 use App\Mail\NewUserMail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -77,38 +76,20 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         $userActivationRequired = Configuration::getConfiguration('user_activation_required');
-
-        if (1 == $userActivationRequired) {
-            $request->merge(['activation_token' => Str::random(60)]);
-        }
-
         $request->merge(['password' => bcrypt($request->get('password'))]);
 
         $user = User::create($request->all());
-        Event::fire(new UserRegisteredEvent($user));
-
+        event(new Registered($user));
         Mail::to($user)->send(new NewUserMail($user));
 
         if (0 == $userActivationRequired) {
+            $user->markEmailAsVerified();
             $this->guard()->login($user);
             return redirect($this->redirectPath());
         } else {
             return redirect()->route('login')
                             ->with('notificationText', 'Please Active your account then you can login!');
         }
-    }
-
-    public function activateAccount($token, $email)
-    {
-        $user = User::whereEmail($email)->first();
-
-        if ($token == $user->activation_token) {
-            $user->update(['activation_token' => null]);
-            Auth::loginUsingId($user->id);
-            return redirect()->route('my-account.home');
-        }
-
-        return redirect()->route('login')->withErrors(['email' => 'User Activation token is invalid.']);
     }
 
     protected function guard()

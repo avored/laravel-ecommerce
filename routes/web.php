@@ -37,9 +37,10 @@ Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'
 Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
 Route::post('register', 'Auth\RegisterController@register')->name('register.post');
-Route::get('user-activation/{token}/{email}', 'Auth\UserActivationController@activateAccount')->name('user.activation');
-Route::get('user/resend', 'Auth\UserActivationController@resend')->name('user.activation.resend');
-Route::post('user/resend', 'Auth\UserActivationController@resendPost')->name('user.activation.resend.post');
+
+Route::get('email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+Route::get('email/verify/{id}', 'Auth\VerificationController@verify')->name('verification.verify');
 
 Route::get('order', 'OrderController@index')->name('order.index');
 Route::post('order', 'OrderController@place')->name('order.place');
@@ -47,7 +48,7 @@ Route::get('order/success/{order}', 'OrderController@success')->name('order.succ
 
 Route::get('page/{slug}', 'PageController@show')->name('page.show');
 
-Route::middleware('auth')
+Route::middleware(['auth', 'verified'])
     ->prefix('my-account')
     ->name('my-account.')
     ->group(function () {
