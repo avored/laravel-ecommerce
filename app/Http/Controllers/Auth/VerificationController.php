@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
@@ -26,18 +28,16 @@ class VerificationController extends Controller
     {
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');    
+        $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
     /**
      * Redirect user to this route after verification
-     * 
+     *
      * @return string $url Redirect Path after verified Email
      */
-    public function redirectPath() 
+    public function redirectPath()
     {
-        return route('my-account.home');   
+        return route('my-account.home');
     }
-
-
 }
