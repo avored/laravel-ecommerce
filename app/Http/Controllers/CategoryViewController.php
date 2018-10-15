@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use AvoRed\Framework\Models\Database\Category;
 use AvoRed\Framework\Models\Contracts\CategoryInterface;
 
 class CategoryViewController extends Controller

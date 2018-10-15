@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Session;
 
 class CheckoutComposer
 {
-  
-
     /**
      * Bind data to the view.
      *

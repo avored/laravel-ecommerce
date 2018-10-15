@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Faker\Factory;
 use AvoRed\Framework\Models\Database\User;
 use AvoRed\Framework\Models\Database\AdminUser;
+use AvoRed\Framework\Models\Database\Role;
 
 abstract class TestCase extends BaseTestCase
 {
@@ -50,6 +51,7 @@ abstract class TestCase extends BaseTestCase
 
         $user = AdminUser::create(['first_name' => 'Test Name',
                                     'last_name' => 'Last Name',
+                                    'is_super_admin' => true,
                                     'email' => $this->faker->email,
                                     'password' => bcrypt($this->adminUserPassword),
                                     'role_id' => 1

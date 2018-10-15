@@ -29,11 +29,11 @@ return [
         ],
         \BeyondCode\SelfDiagnosis\Checks\EnvFileExists::class,
         \BeyondCode\SelfDiagnosis\Checks\ExampleEnvironmentVariablesAreSet::class,
-        \BeyondCode\SelfDiagnosis\Checks\LocalesAreInstalled::class => [
-            'required_locales' => [
-                'en_US'
-            ],
-        ],
+        //\BeyondCode\SelfDiagnosis\Checks\LocalesAreInstalled::class => [
+        //    'required_locales' => [
+        //        'en_US'
+        //    ],
+        //],
         \BeyondCode\SelfDiagnosis\Checks\MaintenanceModeNotEnabled::class,
         //\BeyondCode\SelfDiagnosis\Checks\MigrationsAreUpToDate::class,
         \BeyondCode\SelfDiagnosis\Checks\PhpExtensionsAreInstalled::class => [

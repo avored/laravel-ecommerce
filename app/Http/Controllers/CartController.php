@@ -53,7 +53,7 @@ class CartController extends Controller
         }
 
         Cart::add($slug, $qty, $attribute);
-        $this->setTaxAmount($slug, $qty);
+        $this->setTaxAmount($slug, $qty, $attribute);
 
         return redirect()->back()->with('notificationText', 'Product Added to Cart Successfully!');
     }
@@ -103,8 +103,8 @@ class CartController extends Controller
         if ($isTaxEnabled && $productModel->is_taxable) {
             $percentage = $this->configurationRepository->getValueByKey('tax_percentage');
 
-            if(null !== $attributes) {
-                foreach($attributes as $attributeId => $productId) {
+            if (null !== $attributes) {
+                foreach ($attributes as $attributeId => $productId) {
                     $productModel = $this->repository->find($productId);
                 }
             }
