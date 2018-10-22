@@ -14,7 +14,6 @@
     "postinstall": "opencollective postinstall"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free-webfonts": "^1.0.6",
     "axios": "^0.18",
     "ajv": "^6.0.0",
     "ajv-keywords": "^3.1",
@@ -41,7 +40,6 @@
     "popper.js": "^1.14.3",
     "select2": "^4.0.6-rc.1",
     "skycons": "^1.0.0",
-    "summernote": "^0.8.10",
     "vue": "^2.5.7"
   },
   "dependencies": {

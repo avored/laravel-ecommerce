@@ -39,6 +39,7 @@
 		],
 		"psr-4" : {
 			"App\\" : "app/"
+
 		}
 	},
 	"autoload-dev" : {
