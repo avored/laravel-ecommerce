@@ -6,11 +6,14 @@ use Faker\Factory;
 use AvoRed\Framework\Models\Database\ProductImage;
 use AvoRed\Framework\Models\Database\Page;
 use AvoRed\Framework\Models\Database\Menu;
+use AvoRed\Framework\Models\Database\MenuGroup;
 use AvoRed\Framework\Models\Database\Configuration;
 use AvoRed\Banner\Models\Database\Banner;
 use AvoRed\Framework\Models\Database\ProductPropertyIntegerValue;
 use AvoRed\Framework\Models\Database\Property;
 use AvoRed\Framework\Models\Database\PropertyDropdownOption;
+
+
 class AvoRedDataSeeder extends Seeder
 {
     /**
@@ -328,31 +331,43 @@ class AvoRedDataSeeder extends Seeder
             ProductImage::create(['path' => 'uploads/catalog/images/0/y/4/tsf02crsa.jpg', 
                                     'product_id' => $vintageToast->id, 
                                     'is_main_image' => 1]);
+
+        $menuGroup = MenuGroup::create([
+                        'name' => 'Main Menu',
+                        'identifier' => 'main-menu'
+                    ]);
+        
         Menu::create([
             'name' => $kitchenCategory->name,
+            'menu_group_id' => $menuGroup->id,
             'params' => $kitchenCategory->slug,
             'route' => 'category.view',
         ]);
         Menu::create([
             'name' => $bedroomCategory->name,
+            'menu_group_id' => $menuGroup->id,
             'params' => $bedroomCategory->slug,
             'route' => 'category.view',
         ]);
         Menu::create([
             'name' => $livingRoomCategory->name,
+            'menu_group_id' => $menuGroup->id,
             'params' => $livingRoomCategory->slug,
             'route' => 'category.view',
         ]);
         Menu::create([
             'name' => 'My Account',
+            'menu_group_id' => $menuGroup->id,
             'route' => 'my-account.home',
         ]);
         Menu::create([
             'name' => 'Cart',
+            'menu_group_id' => $menuGroup->id,
             'route' => 'cart.view',
         ]);
         Menu::create([
             'name' => 'Checkout',
+            'menu_group_id' => $menuGroup->id,
             'route' => 'checkout.index',
         ]);
         $homePageContent = html_entity_decode('<p>### avored-banner ###</p><p><strong>HOME PAGE FOR AvoRed E COMMERCE LARAVEL OPEN SOURCE SHOPPING CART</strong></p><p>&nbsp;</p><p><strong>Please star us on&nbsp;<a href="https://github.com/avored/laravel-ecommerce">https://github.com/avored/laravel-ecommerce</a></strong></p><p><strong>Like us on Facebook :&nbsp;<a href="https://www.facebook.com/avored/">https://www.facebook.com/avored/</a></strong></p><p><strong>Follow us on Twitter:&nbsp;<a href="https://twitter.com/avoredecommerce/">https://twitter.com/avoredecommerce/</a></strong></p><p></p><p>### avored-featured ###</p>');
