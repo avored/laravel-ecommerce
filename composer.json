@@ -35,7 +35,8 @@
 	"autoload" : {
 		"classmap" : [
 			"database/seeds",
-			"database/factories"
+			"database/factories",
+			"modules/avored/dummy-data/database/seeds"
 		],
 		"psr-4" : {
 			"App\\" : "app/"
