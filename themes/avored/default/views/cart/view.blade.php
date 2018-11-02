@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="h1">Cart Page</div>
+                <div class="h1">{{ __('order.cart_page') }} </div>
 
                 @if($cartProducts !== null && $cartProducts->count() > 0)
                 <div class="card">

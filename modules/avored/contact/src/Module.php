@@ -1,13 +1,13 @@
 <?php
+
 namespace AvoRed\Contact;
 
 use Illuminate\Support\ServiceProvider;
 use AvoRed\Framework\Menu\Menu;
-use AvoRed\Framework\Menu\Facade as MenuFacade;
+use AvoRed\Framework\Menu\Facades\Menu as MenuFacade;
 
 class Module extends ServiceProvider
 {
-
     /**
      * Bootstrap any application services.
      *
@@ -18,7 +18,6 @@ class Module extends ServiceProvider
         $this->registerResources();
         $this->registerFrontMenu();
         $this->publishFiles();
-
     }
 
     /**
@@ -28,7 +27,6 @@ class Module extends ServiceProvider
      */
     public function register()
     {
-
     }
 
     /**
@@ -53,7 +51,7 @@ class Module extends ServiceProvider
     {
         $this->publishes([
             __DIR__ . '/../resources/views' => base_path('themes/avored/default/views/vendor')
-        ],'avored-module-views');
+        ], 'avored-module-views');
     }
 
     /**
@@ -63,10 +61,9 @@ class Module extends ServiceProvider
      */
     protected function registerFrontMenu()
     {
-        MenuFacade::make('contact-us',function (Menu $accountMenu){
+        MenuFacade::make('contact-us', function (Menu $accountMenu) {
             $accountMenu->label('Contact Us')
                 ->route('contact.index');
         });
-
     }
 }

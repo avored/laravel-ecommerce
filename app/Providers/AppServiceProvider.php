@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\ViewComposers\CheckoutComposer;
 use App\Http\ViewComposers\MyAccountSidebarComposer;
 use App\Http\ViewComposers\LayoutAppComposer;
-use AvoRed\Framework\Menu\Facade as MenuFacade;
+use AvoRed\Framework\Menu\Facades\Menu as MenuFacade;
 use AvoRed\Framework\Menu\Menu;
 
 class AppServiceProvider extends ServiceProvider

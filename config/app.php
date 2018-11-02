@@ -228,7 +228,7 @@ return [
         'Cart' => AvoRed\Framework\Cart\Facade::class,
         'DataGrid' => AvoRed\Framework\DataGrid\Facade::class,
         'Image' => AvoRed\Framework\Image\Facades\Image::class,
-        'Menu' => AvoRed\Framework\Menu\Facade::class,
+        'Menu' => AvoRed\Framework\Menu\Facades\Menu::class,
         'Payment' => AvoRed\Framework\Payment\Facade::class,
         'Permission' => AvoRed\Framework\Permission\Facade::class,
         'Shipping' => AvoRed\Framework\Shipping\Facade::class,
