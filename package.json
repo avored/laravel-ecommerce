@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "opencollective": "^1.0.3",
+    "simplemde": "^1.11.2",
     "sweetalert": "^2.1.0"
   },
   "collective": {
