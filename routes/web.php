@@ -28,6 +28,9 @@ Route::get('checkout', 'CheckoutController@index')->name('checkout.index');
 
 Route::post('checkout-field-updated', 'CheckoutController@checkoutFieldUpdated')->name('checkout.field.updated');
 
+Route::get('login/{provider}', 'Auth\LoginController@providerLogin')->name('login.provider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@providerCallback')->name('provider.callback');
+
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
@@ -73,5 +76,6 @@ Route::middleware(['auth', 'verified'])
         Route::get('wishlist', 'User\WishlistController@mylist')->name('wishlist.list');
         Route::get('wishlist/remove/{slug}', 'User\WishlistController@destroy')->name('wishlist.remove');
 
-        Route::post('product-main-download', 'ProductViewController@downloadMainProduct')->name('product.main.download');
+        Route::post('product-main-download', 'ProductViewController@downloadMainProduct')
+                    ->name('product.main.download');
     });

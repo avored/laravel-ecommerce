@@ -20,7 +20,8 @@
 		"avored/framework": "~2.3",
 		"avored/module-installer": "1.*",
 		"fabpot/goutte": "^3.2",
-		"fideloper/proxy": "~4.0"
+		"fideloper/proxy": "~4.0",
+		"laravel/socialite": "^3.2"
 	},
 	"require-dev" : {
 		"filp/whoops": "~2.0",

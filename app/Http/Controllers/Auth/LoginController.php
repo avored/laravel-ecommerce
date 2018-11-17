@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
 use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Config;
 
 class LoginController extends Controller
 {
@@ -141,5 +143,53 @@ class LoginController extends Controller
     public function redirectPath()
     {
         return route('my-account.home');
+    }
+
+    /**
+     * Do a Provider based login
+     * @param string $provider
+     *
+     */
+    public function providerLogin($provider)
+    {
+        $rep = app(ConfigurationInterface::class);
+
+        $clientId = $rep->getValueByKey('users_' . $provider . '_client_id');
+        $clientSecret = $rep->getValueByKey('users_' . $provider . '_client_secret');
+
+        //dd($clientId, $clientSecret);
+        Config::set('services.' . $provider, [
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+            'redirect' => asset('login/' . $provider . '/callback')
+        ]);
+
+        //dd(Config::get('services.github'));
+        //dd($provider);
+
+        return Socialite::driver($provider)->redirect();
+    }
+
+    /**
+     * Do a Provider based login
+     * @param string $provider
+     *
+     */
+    public function providerCallback($provider)
+    {
+        $rep = app(ConfigurationInterface::class);
+
+        $clientId = $rep->getValueByKey('users_facebook_client_id');
+        $clientSecret = $rep->getValueByKey('users_facebook_client_secret');
+
+        Config::set('services.facebook', [
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+            'redirect' => asset('login/facebook/callback')
+        ]);
+
+        $user = Socialite::driver('facebook')->user()->stateless();
+
+        dd($user);
     }
 }
