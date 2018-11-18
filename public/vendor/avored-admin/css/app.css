@@ -77710,6 +77710,18 @@ img {
   min-width: 95px;
 }
 
+.dropable-menu-tree .placeholder {
+  border: 2px #c62828 dotted;
+  padding: 2rem 0rem;
+  margin: 0.5rem 0rem;
+}
+
+.dropable-menu-tree {
+  list-style: none;
+  margin: 2em 0px;
+  padding: 0px 2em;
+}
+
 .display-menu-tree {
   border: 3px dotted;
   border-color: #c62828;
