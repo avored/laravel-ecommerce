@@ -371,6 +371,54 @@ class AvoRedDataSeeder extends Seeder
             'menu_group_id' => $menuGroup->id,
             'route' => 'checkout.index',
         ]);
+
+        $accountMenuGroup = MenuGroup::create([
+            'name' => 'My Account',
+            'identifier' => 'my_account'
+        ]);
+
+        Menu::create([
+            'name' => 'Account Overview',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.home',
+        ]);
+        Menu::create([
+            'name' => 'Edit Account',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.edit',
+        ]);
+        Menu::create([
+            'name' => 'Upload Image',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.upload-image',
+        ]);
+        Menu::create([
+            'name' => 'My Orders',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.order.list',
+        ]);
+        Menu::create([
+            'name' => 'My Addresses',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.address.index',
+        ]);
+        Menu::create([
+            'name' => 'My Wishlist',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.wishlist.list',
+        ]);
+        Menu::create([
+            'name' => 'Change Password',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.change-password',
+        ]);
+        Menu::create([
+            'name' => 'Logout',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'logout',
+        ]);
+
+
         $homePageContent = html_entity_decode('<p>### avored-banner ###</p><p><strong>HOME PAGE FOR AvoRed E COMMERCE LARAVEL OPEN SOURCE SHOPPING CART</strong></p><p>&nbsp;</p><p><strong>Please star us on&nbsp;<a href="https://github.com/avored/laravel-ecommerce">https://github.com/avored/laravel-ecommerce</a></strong></p><p><strong>Like us on Facebook :&nbsp;<a href="https://www.facebook.com/avored/">https://www.facebook.com/avored/</a></strong></p><p><strong>Follow us on Twitter:&nbsp;<a href="https://twitter.com/avoredecommerce/">https://twitter.com/avoredecommerce/</a></strong></p><p></p><p>### avored-featured ###</p>');
         $homePage = Page::create(['name' => 'Home Page',
                                                                                     'slug' => 'home-page',
