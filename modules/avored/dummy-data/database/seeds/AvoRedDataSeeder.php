@@ -334,7 +334,8 @@ class AvoRedDataSeeder extends Seeder
 
         $menuGroup = MenuGroup::create([
                         'name' => 'Main Menu',
-                        'identifier' => 'main-menu'
+                        'identifier' => 'main-menu',
+                        'is_default' => 1
                     ]);
         
         Menu::create([
