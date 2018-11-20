@@ -179,16 +179,16 @@ class LoginController extends Controller
     {
         $rep = app(ConfigurationInterface::class);
 
-        $clientId = $rep->getValueByKey('users_facebook_client_id');
-        $clientSecret = $rep->getValueByKey('users_facebook_client_secret');
+        $clientId = $rep->getValueByKey('users_'. $provider .'_client_id');
+        $clientSecret = $rep->getValueByKey('users_'. $provider .'_client_secret');
 
-        Config::set('services.facebook', [
+        Config::set('services.' . $provider, [
             'client_id' => $clientId,
             'client_secret' => $clientSecret,
-            'redirect' => asset('login/facebook/callback')
+            'redirect' => asset('login/'. $provider .'/callback')
         ]);
 
-        $user = Socialite::driver('facebook')->user()->stateless();
+        $user = Socialite::driver($provider)->user();
 
         dd($user);
     }
