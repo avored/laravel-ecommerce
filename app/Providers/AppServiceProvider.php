@@ -40,25 +40,22 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function registerFrontMenu()
     {
+        
+        MenuFacade::make('cart', function (Menu $menu) {
+            $menu->label('Cart')
+            ->route('cart.view');
+        });
+        
+        MenuFacade::make('checkout', function (Menu $menu) {
+            $menu->label('Checkout')
+            ->route('checkout.index');
+        });
+        
         MenuFacade::make('my-account', function (Menu $menu) {
             $menu->label('My Account')
                 ->route('my-account.home');
         });
-
-        MenuFacade::make('cart', function (Menu $menu) {
-            $menu->label('Cart')
-                ->route('cart.view');
-        });
-
-        MenuFacade::make('checkout', function (Menu $menu) {
-            $menu->label('Checkout')
-                ->route('checkout.index');
-        });
-
-        MenuFacade::make('account_overview', function (Menu $menu) {
-            $menu->label('Account Overview')
-                ->route('my-account.home');
-        });
+      
         MenuFacade::make('account_edit', function (Menu $menu) {
             $menu->label('Edit Account')
                 ->route('my-account.edit');
@@ -85,7 +82,7 @@ class AppServiceProvider extends ServiceProvider
         });
         MenuFacade::make('account_logout', function (Menu $menu) {
             $menu->label('Logout')
-                ->route('Logout');
+                ->route('logout');
         });
     }
 

@@ -374,7 +374,7 @@ class AvoRedDataSeeder extends Seeder
 
         $accountMenuGroup = MenuGroup::create([
             'name' => 'My Account',
-            'identifier' => 'my_account'
+            'identifier' => 'my-account'
         ]);
 
         Menu::create([
