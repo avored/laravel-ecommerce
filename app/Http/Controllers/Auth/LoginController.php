@@ -167,7 +167,7 @@ class LoginController extends Controller
         //dd(Config::get('services.github'));
         //dd($provider);
 
-        return Socialite::driver($provider)->redirect();
+        return Socialite::driver($provider)->stateless()->redirect();
     }
 
     /**
@@ -188,7 +188,7 @@ class LoginController extends Controller
             'redirect' => asset('login/'. $provider .'/callback')
         ]);
 
-        $user = Socialite::driver($provider)->user();
+        $user = Socialite::driver($provider)->stateless()->user();
 
         dd($user);
     }
