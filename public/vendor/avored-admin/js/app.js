@@ -51661,7 +51661,7 @@ return EvEmitter;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(146);
-module.exports = __webpack_require__(216);
+module.exports = __webpack_require__(217);
 
 
 /***/ }),
@@ -76439,6 +76439,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__utils__ = __webpack_require__(213);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__select2__ = __webpack_require__(214);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__menu__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__page__ = __webpack_require__(216);
+
 
 
 
@@ -80863,6 +80865,46 @@ module.exports = function(global) {
 
 /***/ }),
 /* 216 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+
+
+
+
+/* unused harmony default export */ var _unused_webpack_default_export = ((function () {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(function () {
+        var simplemde = new SimpleMDE({
+            element: document.getElementById('content'),
+            toolbar: ['bold', 'italic', 'heading', '|', 'quote', 'unordered-list', 'ordered-list', '|', 'link', 'image', '|', 'preview', {
+                name: 'avored_widget',
+                action: function action() {
+
+                    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#widget-list-modal').modal();
+                    simplemde.codemirror.refresh();
+                },
+                className: 'ti-menu',
+                title: 'AvoRed Widget'
+            }, 'guide']
+        });
+
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#content').data('SimpleMDEInstance', simplemde);
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).on("click", "#widget-insert-button", function (e) {
+            e.preventDefault();
+            var widgetIdentifier = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#widget_list').val();
+            var cm = __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#content').data('SimpleMDEInstance').codemirror;
+            var output = '%%% ' + widgetIdentifier + ' %%%';
+            cm.replaceSelection(output);
+
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#widget-list-modal').modal('hide');
+        });
+    });
+})());
+
+/***/ }),
+/* 217 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
