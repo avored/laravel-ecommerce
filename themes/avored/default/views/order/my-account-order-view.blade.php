@@ -87,11 +87,14 @@
                             <th>Action</th>
                         </tr>
                         @foreach($order->products as $product)
+                            @php
+                                $productInfo = json_decode($product->getRelationValue('pivot')->product_info);
+                            @endphp
                             <tr>
 
-                                <td> {{ $product->id }}</td>
+                                <td> {{ $productInfo->id }}</td>
                                 <td>
-                                    {{ $product->name }}
+                                    {{ $productInfo->name }}
 
                                     @foreach($order->orderProductVariation as $orderProductVariation)
                                         <p>
