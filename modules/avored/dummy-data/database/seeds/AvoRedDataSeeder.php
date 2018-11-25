@@ -420,12 +420,22 @@ class AvoRedDataSeeder extends Seeder
             'route' => 'logout',
         ]);
 
+        $homePage = Page::create(
+            ['name' => 'Home Page',
+            'slug' => 'home-page',
+            'content' => '
+            %%% avored-banner %%%
+            ##### HOME PAGE FOR AvoRed E COMMERCE LARAVEL OPEN SOURCE SHOPPING CART
 
-        $homePageContent = html_entity_decode('<p>### avored-banner ###</p><p><strong>HOME PAGE FOR AvoRed E COMMERCE LARAVEL OPEN SOURCE SHOPPING CART</strong></p><p>&nbsp;</p><p><strong>Please star us on&nbsp;<a href="https://github.com/avored/laravel-ecommerce">https://github.com/avored/laravel-ecommerce</a></strong></p><p><strong>Like us on Facebook :&nbsp;<a href="https://www.facebook.com/avored/">https://www.facebook.com/avored/</a></strong></p><p><strong>Follow us on Twitter:&nbsp;<a href="https://twitter.com/avoredecommerce/">https://twitter.com/avoredecommerce/</a></strong></p><p></p><p>### avored-featured ###</p>');
-        $homePage = Page::create(['name' => 'Home Page',
-                                                                                    'slug' => 'home-page',
-                                                                                    'content' => $homePageContent,
-                                                                                    'meta_title' => 'Home Page - AvoRed E commerce']);
+            Please star us on [https://github.com/avored/laravel-ecommerce](https://github.com/avored/laravel-ecommerce)
+            
+            Like us on Facebook : [https://www.facebook.com/avored](https://www.facebook.com/avored)
+            
+            Follow us on Twitter:  [https://twitter.com/avoredecommerce](https://twitter.com/avoredecommerce)
+            %%% avored-featured %%%
+            ',
+            'meta_title' => 'Home Page - AvoRed E commerce']
+        );
         Configuration::create(
             ['configuration_key' => 'general_home_page',
             'configuration_value' => $homePage->id]
@@ -438,13 +448,16 @@ class AvoRedDataSeeder extends Seeder
             ['configuration_key' => 'payment_pickup_enabled',
             'configuration_value' => 1]
         );
-        $termPage = Page::create(['name' => 'Term & Condition',
-                                'slug' => 'term-condition',
-                                'content' => $faker->text(200),
-                                'meta_title' => 'Term & Condition - AvoRed E commerce']);
-        Configuration::create(['configuration_key' => 'general_term_condition_page',
-                                'configuration_value' => $termPage->id
-                            ]);
+        $termPage = Page::create(
+            ['name' => 'Term & Condition',
+            'slug' => 'term-condition',
+            'content' => $faker->text(200),
+            'meta_title' => 'Term & Condition - AvoRed E commerce']
+        );
+        Configuration::create(
+            ['configuration_key' => 'general_term_condition_page',
+            'configuration_value' => $termPage->id]
+        );
         Banner::create([
             'name' => 'Kitchen Sale',
             'image_path' => 'uploads/cms/images/b/k/o/TIydVFNLKKJTiqJjUa29LKdVH0sgxadTJGogzGuI.jpeg',
@@ -474,26 +487,26 @@ class AvoRedDataSeeder extends Seeder
             $yesPropertyDropdownValueId = PropertyDropdownOption::wherePropertyId($isFeaturedProperty->id)
                                                                 ->whereDisplayText('Yes')
                                                                 ->first();
-            ProductPropertyIntegerValue::create([
-                'property_id' => $isFeaturedProperty->id,
+            ProductPropertyIntegerValue::create(
+                ['property_id' => $isFeaturedProperty->id,
                 'product_id' => $classicTvProduct->id,
-                'value' => $yesPropertyDropdownValueId->id
-            ]);
-            ProductPropertyIntegerValue::create([
-                'property_id' => $isFeaturedProperty->id,
+                'value' => $yesPropertyDropdownValueId->id]
+            );
+            ProductPropertyIntegerValue::create(
+                ['property_id' => $isFeaturedProperty->id,
                 'product_id' => $product->id,
-                'value' => $yesPropertyDropdownValueId->id
-            ]);
-            ProductPropertyIntegerValue::create([
-                'property_id' => $isFeaturedProperty->id,
+                'value' => $yesPropertyDropdownValueId->id]
+            );
+            ProductPropertyIntegerValue::create(
+                ['property_id' => $isFeaturedProperty->id,
                 'product_id' => $vintageToast->id,
-                'value' => $yesPropertyDropdownValueId->id
-            ]);
-            ProductPropertyIntegerValue::create([
-                'property_id' => $isFeaturedProperty->id,
+                'value' => $yesPropertyDropdownValueId->id]
+            );
+            ProductPropertyIntegerValue::create(
+                ['property_id' => $isFeaturedProperty->id,
                 'product_id' => $cockTailProduct->id,
-                'value' => $yesPropertyDropdownValueId->id
-            ]);
+                'value' => $yesPropertyDropdownValueId->id]
+            );
         }
     }
 }
