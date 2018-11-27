@@ -1,11 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## 2.9.6
+## 2.9.7
  - HotFix AvoRed DataGrid Collection doesn't exist order by method only works for Eloquent Model
  - HotFix AvoRed Cart Page Sessing class missing
  - Added support for currency symbol
  - Laravel 5.7 upgrade
+ - Menu Group Feature
 
 
 ## 2.9.5.7
