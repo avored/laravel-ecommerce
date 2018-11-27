@@ -2,6 +2,13 @@
 All notable changes to this project will be documented in this file.
 
 ## 2.9.6
+ - Menu Group Feature
+ - Keep Pick from store as default shipping method
+ - Added many unit test
+ - Using summernote as text editor
+ - Order Product using product_info in the event of deleted product
+
+## 2.9.6
  - HotFix AvoRed DataGrid Collection doesn't exist order by method only works for Eloquent Model
  - HotFix AvoRed Cart Page Sessing class missing
  - Added support for currency symbol

@@ -5,16 +5,16 @@ namespace App\Http\ViewComposers;
 use AvoRed\Framework\Models\Database\Configuration;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Session;
-use AvoRed\Framework\Models\Contracts\MenuInterface;
+use AvoRed\Framework\Models\Contracts\MenuGroupInterface;
 use AvoRed\Framework\Models\Contracts\SiteCurrencyInterface;
 
 class LayoutAppComposer
 {
     /**
      *
-     * @var \AvoRed\Framework\Models\Repository\MenuRepository
+     * @var \AvoRed\Framework\Models\Repository\MenuGroupRepository
      */
-    protected $repository;
+    protected $menuGroupRepository;
 
     /**
      *
@@ -23,10 +23,10 @@ class LayoutAppComposer
     protected $siteCurrencyRepository;
 
     public function __construct(
-            MenuInterface $repository,
-            SiteCurrencyInterface $currencyRepository
-        ) {
-        $this->repository = $repository;
+        MenuGroupInterface $menuGroupRepository,
+        SiteCurrencyInterface $currencyRepository
+    ) {
+        $this->menuGroupRepository = $menuGroupRepository;
         $this->siteCurrencyRepository = $currencyRepository;
     }
 
@@ -39,17 +39,15 @@ class LayoutAppComposer
     public function compose(View $view)
     {
         $cart = (null === Session::get('cart')) ? 0 : count(Session::get('cart'));
-
-        $menus = $this->repository->parentsAll();
+        $menuGroup = $this->menuGroupRepository->query()->whereIsDefault(1)->first();
         $currencies = $this->siteCurrencyRepository->options();
-
         $metaTitle = Configuration::getConfiguration('general_site_title');
         $metaDescription = Configuration::getConfiguration('general_site_description');
 
-        $view->with('menus', $menus)
-            ->with('cart', $cart)
-            ->with('currencies', $currencies)
-            ->with('metaTitle', $metaTitle)
-            ->with('metaDescription', $metaDescription);
+        $view->withMenus($menuGroup->menus)
+            ->withCart($cart)
+            ->withCurrencies($currencies)
+            ->withMetaTitle($metaTitle)
+            ->withMetaDescription($metaDescription);
     }
 }

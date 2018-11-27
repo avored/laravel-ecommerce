@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Database\Seeder;
 use AvoRed\Framework\Models\Database\Category;
 use AvoRed\Framework\Models\Database\Product;
@@ -13,7 +14,6 @@ use AvoRed\Framework\Models\Database\ProductPropertyIntegerValue;
 use AvoRed\Framework\Models\Database\Property;
 use AvoRed\Framework\Models\Database\PropertyDropdownOption;
 
-
 class AvoRedDataSeeder extends Seeder
 {
     /**
@@ -24,7 +24,7 @@ class AvoRedDataSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create();
-        //$attribute = ProductAttribute::where('identifier', '=', 'is_featured')->first();
+        
         $kitchenCategory = Category::create([
             'parent_id' => null,
             'name' => 'Kitchen',
@@ -54,7 +54,7 @@ class AvoRedDataSeeder extends Seeder
             'meta_title' => '',
             'meta_description' => ''
         ]);
-        $product->update(['cost_price' => ($product->price * (rand(50,60)) /100)]);
+        $product->update(['cost_price' => ($product->price * (rand(50, 60)) /100)]);
         $product->categories()->sync($livingRoomCategory->id);
         ProductImage::create(['path' => 'uploads/catalog/images/f/h/2/flower-pot.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
         $classicTvProduct = Product::create([
@@ -72,10 +72,10 @@ class AvoRedDataSeeder extends Seeder
             'meta_title' => '',
             'meta_description' => ''
         ]);
-        $classicTvProduct->update(['cost_price' => ($classicTvProduct->price * (rand(50,60))/100)]);
+        $classicTvProduct->update(['cost_price' => ($classicTvProduct->price * (rand(50, 60))/100)]);
         $classicTvProduct->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => 'uploads/catalog/images/d/0/c/classic-tv-stand.jpg', 
-                                'product_id' => $classicTvProduct->id, 
+        ProductImage::create(['path' => 'uploads/catalog/images/d/0/c/classic-tv-stand.jpg',
+                                'product_id' => $classicTvProduct->id,
                                 'is_main_image' => 1
                                 ]);
         $product = Product::create([
@@ -93,10 +93,10 @@ class AvoRedDataSeeder extends Seeder
             'meta_title' => '',
             'meta_description' => ''
         ]);
-        $product->update(['cost_price' => ($product->price * (rand(50,60))/100)]);
+        $product->update(['cost_price' => ($product->price * (rand(50, 60))/100)]);
         $product->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => 'uploads/catalog/images/y/f/r/textiles-2.jpg', 
-                                'product_id' => $product->id, 
+        ProductImage::create(['path' => 'uploads/catalog/images/y/f/r/textiles-2.jpg',
+                                'product_id' => $product->id,
                                 'is_main_image' => 1]);
         $product = Product::create([
             'name' => 'Comfirtable Couch',
@@ -113,11 +113,13 @@ class AvoRedDataSeeder extends Seeder
             'meta_title' => '',
             'meta_description' => ''
         ]);
-        $product->update(['cost_price' => ($product->price * (rand(50,60))/100)]);
+        $product->update(['cost_price' => ($product->price * (rand(50, 60))/100)]);
         $product->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => 'uploads/catalog/images/1/k/0/-Single-Panel-New-Pastoral-Linen-Blending-Embroidered-Living-Room-font-b-Curtain-b-font-font.jpg', 
-                                'product_id' => $product->id, 
-                                'is_main_image' => 1]);
+        ProductImage::create(
+            ['path' => 'uploads/catalog/images/1/k/0/-Single-Panel-New-Pastoral-Linen-Blending-Embroidered-Living-Room-font-b-Curtain-b-font-font.jpg',
+            'product_id' => $product->id,
+            'is_main_image' => 1]
+        );
         $product = Product::create([
             'type' => 'BASIC',
             'name' => 'Delicate Brown Curtain',
@@ -133,10 +135,10 @@ class AvoRedDataSeeder extends Seeder
             'meta_title' => '',
             'meta_description' => '',
         ]);
-        $product->update(['cost_price' => ($product->price * (rand(50,60))/100)]);
+        $product->update(['cost_price' => ($product->price * (rand(50, 60))/100)]);
         $product->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => 'uploads/catalog/images/q/o/m/comfortable-leather-chair-published-under-the-most-comfortable-couch-group.jpg', 
-                                'product_id' => $product->id, 
+        ProductImage::create(['path' => 'uploads/catalog/images/q/o/m/comfortable-leather-chair-published-under-the-most-comfortable-couch-group.jpg',
+                                'product_id' => $product->id,
                                 'is_main_image' => 1]);
         $title = 'Medium White Couch';
         $product = Product::create([
@@ -154,10 +156,10 @@ class AvoRedDataSeeder extends Seeder
             'meta_title' => '',
             'meta_description' => ''
         ]);
-        $product->update(['cost_price' => ($product->price * (rand(50,60))/100)]);
+        $product->update(['cost_price' => ($product->price * (rand(50, 60))/100)]);
         $product->categories()->sync($livingRoomCategory->id);
-        ProductImage::create(['path' => 'uploads/catalog/images/s/e/j/ff815ea7756de71d6c5edb5566330df6.jpg', 
-                                'product_id' => $product->id, 
+        ProductImage::create(['path' => 'uploads/catalog/images/s/e/j/ff815ea7756de71d6c5edb5566330df6.jpg',
+                                'product_id' => $product->id,
                                 'is_main_image' => 1]);
         $title = 'Comfirtable Gray Bed';
         $comfirtableGrayBedProduct = Product::create([
@@ -175,10 +177,10 @@ class AvoRedDataSeeder extends Seeder
             'meta_title' => '',
             'meta_description' => ''
         ]);
-        $comfirtableGrayBedProduct->update(['cost_price' => ($comfirtableGrayBedProduct->price * (rand(50,60))/100)]);
+        $comfirtableGrayBedProduct->update(['cost_price' => ($comfirtableGrayBedProduct->price * (rand(50, 60))/100)]);
         $comfirtableGrayBedProduct->categories()->sync($bedroomCategory->id);
-        ProductImage::create(['path' => 'uploads/catalog/images/v/t/x/bed-bedding-comfortable-platform-with-smooth-gray-also-are-beds-and-headboard-plus-small-.jpg', 
-                                'product_id' => $comfirtableGrayBedProduct->id, 
+        ProductImage::create(['path' => 'uploads/catalog/images/v/t/x/bed-bedding-comfortable-platform-with-smooth-gray-also-are-beds-and-headboard-plus-small-.jpg',
+                                'product_id' => $comfirtableGrayBedProduct->id,
                                 'is_main_image' => 1]);
         $title = 'Cute Teddy Bear';
         $product = Product::create([
@@ -196,10 +198,10 @@ class AvoRedDataSeeder extends Seeder
             'meta_description' => '',
             'type' => 'BASIC',
         ]);
-        $product->update(['cost_price' => ($product->price * (rand(50,60))/100)]);
+        $product->update(['cost_price' => ($product->price * (rand(50, 60))/100)]);
         $product->categories()->sync($bedroomCategory->id);
-        ProductImage::create(['path' => 'uploads/catalog/images/z/c/u/d5d710257f2cf7cf2576f4a43dc40430.jpg', 
-                                'product_id' => $product->id, 
+        ProductImage::create(['path' => 'uploads/catalog/images/z/c/u/d5d710257f2cf7cf2576f4a43dc40430.jpg',
+                                'product_id' => $product->id,
                                 'is_main_image' => 1]);
         $title = 'Minimalist Ceramic Lamp';
         $product = Product::create([
@@ -217,10 +219,10 @@ class AvoRedDataSeeder extends Seeder
             'meta_description' => '',
             'type' => 'BASIC',
         ]);
-        $product->update(['cost_price' => ($product->price * (rand(50,60))/100)]);
+        $product->update(['cost_price' => ($product->price * (rand(50, 60))/100)]);
         $product->categories()->sync($bedroomCategory->id);
-        ProductImage::create(['path' => 'uploads/catalog/images/m/2/z/b594a5c88e527b467508aa9fa3b01228.jpg', 
-                                    'product_id' => $product->id, 
+        ProductImage::create(['path' => 'uploads/catalog/images/m/2/z/b594a5c88e527b467508aa9fa3b01228.jpg',
+                                    'product_id' => $product->id,
                                     'is_main_image' => 1]);
         $title = 'Wooden Bunk Bed';
         $product = Product::create([
@@ -238,10 +240,10 @@ class AvoRedDataSeeder extends Seeder
             'meta_description' => '',
             'type' => 'BASIC',
         ]);
-        $product->update(['cost_price' => ($product->price * (rand(50,60))/100)]);
+        $product->update(['cost_price' => ($product->price * (rand(50, 60))/100)]);
         $product->categories()->sync($bedroomCategory->id);
-        ProductImage::create(['path' => 'uploads/catalog/images/4/5/n/il_570xN.262261571.jpg', 
-                                    'product_id' => $product->id, 
+        ProductImage::create(['path' => 'uploads/catalog/images/4/5/n/il_570xN.262261571.jpg',
+                                    'product_id' => $product->id,
                                     'is_main_image' => 1]);
         $title = 'Cooktail Mixed';
         $cockTailProduct = Product::create([
@@ -259,11 +261,11 @@ class AvoRedDataSeeder extends Seeder
             'meta_description' => '',
             'type' => 'BASIC',
         ]);
-        $cockTailProduct->update(['cost_price' => ($cockTailProduct->price * (rand(50,60))/100)]);
+        $cockTailProduct->update(['cost_price' => ($cockTailProduct->price * (rand(50, 60))/100)]);
         $cockTailProduct->categories()->sync($kitchenCategory->id);
         ProductImage::create([
-                    'path' => 'uploads/catalog/images/n/y/n/CC2600.jpg', 
-                    'product_id' => $cockTailProduct->id, 
+                    'path' => 'uploads/catalog/images/n/y/n/CC2600.jpg',
+                    'product_id' => $cockTailProduct->id,
                     'is_main_image' => 1
                     ]);
         $title = 'Coffee Making Machine';
@@ -282,11 +284,11 @@ class AvoRedDataSeeder extends Seeder
             'meta_description' => '',
             'type' => 'BASIC',
         ]);
-        $coffeProduct->update(['cost_price' => ($coffeProduct->price * (rand(50,60))/100)]);
+        $coffeProduct->update(['cost_price' => ($coffeProduct->price * (rand(50, 60))/100)]);
         $coffeProduct->categories()->sync($kitchenCategory->id);
         ProductImage::create([
-                    'path' => 'uploads/catalog/images/t/b/n/20121018143846738.jpg', 
-                    'product_id' => $coffeProduct->id, 
+                    'path' => 'uploads/catalog/images/t/b/n/20121018143846738.jpg',
+                    'product_id' => $coffeProduct->id,
                     'is_main_image' => 1
                     ]);
         $title = 'Luxury Cooking Utensil';
@@ -305,10 +307,10 @@ class AvoRedDataSeeder extends Seeder
             'meta_description' => '',
             'type' => 'BASIC',
         ]);
-        $product->update(['cost_price' => ($product->price * (rand(50,60))/100)]);
+        $product->update(['cost_price' => ($product->price * (rand(50, 60))/100)]);
         $product->categories()->sync($kitchenCategory->id);
-        ProductImage::create(['path' => 'uploads/catalog/images/l/i/k/coffee-maker-20.jpg', 
-                                    'product_id' => $product->id, 
+        ProductImage::create(['path' => 'uploads/catalog/images/l/i/k/coffee-maker-20.jpg',
+                                    'product_id' => $product->id,
                                     'is_main_image' => 1]);
         $title = 'Vintage Toaste';
         $vintageToast = Product::create([
@@ -326,15 +328,16 @@ class AvoRedDataSeeder extends Seeder
             'meta_description' => '',
             'type' => 'BASIC',
             ]);
-            $vintageToast->update(['cost_price' => ($vintageToast->price * (rand(50,60))/100)]);
-            $vintageToast->categories()->sync($kitchenCategory->id);
-            ProductImage::create(['path' => 'uploads/catalog/images/0/y/4/tsf02crsa.jpg', 
-                                    'product_id' => $vintageToast->id, 
+        $vintageToast->update(['cost_price' => ($vintageToast->price * (rand(50, 60))/100)]);
+        $vintageToast->categories()->sync($kitchenCategory->id);
+        ProductImage::create(['path' => 'uploads/catalog/images/0/y/4/tsf02crsa.jpg',
+                                    'product_id' => $vintageToast->id,
                                     'is_main_image' => 1]);
 
         $menuGroup = MenuGroup::create([
                         'name' => 'Main Menu',
-                        'identifier' => 'main-menu'
+                        'identifier' => 'main-menu',
+                        'is_default' => 1
                     ]);
         
         Menu::create([
@@ -370,20 +373,91 @@ class AvoRedDataSeeder extends Seeder
             'menu_group_id' => $menuGroup->id,
             'route' => 'checkout.index',
         ]);
-        $homePageContent = html_entity_decode('<p>### avored-banner ###</p><p><strong>HOME PAGE FOR AvoRed E COMMERCE LARAVEL OPEN SOURCE SHOPPING CART</strong></p><p>&nbsp;</p><p><strong>Please star us on&nbsp;<a href="https://github.com/avored/laravel-ecommerce">https://github.com/avored/laravel-ecommerce</a></strong></p><p><strong>Like us on Facebook :&nbsp;<a href="https://www.facebook.com/avored/">https://www.facebook.com/avored/</a></strong></p><p><strong>Follow us on Twitter:&nbsp;<a href="https://twitter.com/avoredecommerce/">https://twitter.com/avoredecommerce/</a></strong></p><p></p><p>### avored-featured ###</p>');
-        $homePage = Page::create(['name' => 'Home Page',
-                                                                                    'slug' => 'home-page',
-                                                                                    'content' => $homePageContent,
-                                                                                    'meta_title' => 'Home Page - AvoRed E commerce']);
-        Configuration::create(['configuration_key' => 'general_home_page',
-                                                                'configuration_value' => $homePage->id]);
-        $termPage = Page::create(['name' => 'Term & Condition',
-                                'slug' => 'term-condition',
-                                'content' => $faker->text(200),
-                                'meta_title' => 'Term & Condition - AvoRed E commerce']);
-        Configuration::create(['configuration_key' => 'general_term_condition_page',
-                                'configuration_value' => $termPage->id
-                            ]);
+
+        $accountMenuGroup = MenuGroup::create([
+            'name' => 'My Account',
+            'identifier' => 'my-account'
+        ]);
+
+        Menu::create([
+            'name' => 'Account Overview',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.home',
+        ]);
+        Menu::create([
+            'name' => 'Edit Account',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.edit',
+        ]);
+        Menu::create([
+            'name' => 'Upload Image',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.upload-image',
+        ]);
+        Menu::create([
+            'name' => 'My Orders',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.order.list',
+        ]);
+        Menu::create([
+            'name' => 'My Addresses',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.address.index',
+        ]);
+        Menu::create([
+            'name' => 'My Wishlist',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.wishlist.list',
+        ]);
+        Menu::create([
+            'name' => 'Change Password',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'my-account.change-password',
+        ]);
+        Menu::create([
+            'name' => 'Logout',
+            'menu_group_id' => $accountMenuGroup->id,
+            'route' => 'logout',
+        ]);
+
+        $homePage = Page::create(
+            ['name' => 'Home Page',
+            'slug' => 'home-page',
+            'content' => '
+            %%% avored-banner %%%
+            ##### HOME PAGE FOR AvoRed E COMMERCE LARAVEL OPEN SOURCE SHOPPING CART
+
+            Please star us on [https://github.com/avored/laravel-ecommerce](https://github.com/avored/laravel-ecommerce)
+            
+            Like us on Facebook : [https://www.facebook.com/avored](https://www.facebook.com/avored)
+            
+            Follow us on Twitter:  [https://twitter.com/avoredecommerce](https://twitter.com/avoredecommerce)
+            %%% avored-featured %%%
+            ',
+            'meta_title' => 'Home Page - AvoRed E commerce']
+        );
+        Configuration::create(
+            ['configuration_key' => 'general_home_page',
+            'configuration_value' => $homePage->id]
+        );
+        Configuration::create(
+            ['configuration_key' => 'shipping_free_shipping_enabled',
+            'configuration_value' => 1]
+        );
+        Configuration::create(
+            ['configuration_key' => 'payment_pickup_enabled',
+            'configuration_value' => 1]
+        );
+        $termPage = Page::create(
+            ['name' => 'Term & Condition',
+            'slug' => 'term-condition',
+            'content' => $faker->text(200),
+            'meta_title' => 'Term & Condition - AvoRed E commerce']
+        );
+        Configuration::create(
+            ['configuration_key' => 'general_term_condition_page',
+            'configuration_value' => $termPage->id]
+        );
         Banner::create([
             'name' => 'Kitchen Sale',
             'image_path' => 'uploads/cms/images/b/k/o/TIydVFNLKKJTiqJjUa29LKdVH0sgxadTJGogzGuI.jpeg',
@@ -409,31 +483,30 @@ class AvoRedDataSeeder extends Seeder
             'sort_order' => 30
         ]);
         $isFeaturedProperty = Property::whereIdentifier('avored-is-featured')->first();
-        if(null !== $isFeaturedProperty) {
+        if (null !== $isFeaturedProperty) {
             $yesPropertyDropdownValueId = PropertyDropdownOption::wherePropertyId($isFeaturedProperty->id)
                                                                 ->whereDisplayText('Yes')
                                                                 ->first();
-            ProductPropertyIntegerValue::create([
-                'property_id' => $isFeaturedProperty->id,
+            ProductPropertyIntegerValue::create(
+                ['property_id' => $isFeaturedProperty->id,
                 'product_id' => $classicTvProduct->id,
-                'value' => $yesPropertyDropdownValueId->id
-            ]);
-            ProductPropertyIntegerValue::create([
-                'property_id' => $isFeaturedProperty->id,
+                'value' => $yesPropertyDropdownValueId->id]
+            );
+            ProductPropertyIntegerValue::create(
+                ['property_id' => $isFeaturedProperty->id,
                 'product_id' => $product->id,
-                'value' => $yesPropertyDropdownValueId->id
-            ]);
-            ProductPropertyIntegerValue::create([
-                'property_id' => $isFeaturedProperty->id,
+                'value' => $yesPropertyDropdownValueId->id]
+            );
+            ProductPropertyIntegerValue::create(
+                ['property_id' => $isFeaturedProperty->id,
                 'product_id' => $vintageToast->id,
-                'value' => $yesPropertyDropdownValueId->id
-            ]);
-            ProductPropertyIntegerValue::create([
-                'property_id' => $isFeaturedProperty->id,
+                'value' => $yesPropertyDropdownValueId->id]
+            );
+            ProductPropertyIntegerValue::create(
+                ['property_id' => $isFeaturedProperty->id,
                 'product_id' => $cockTailProduct->id,
-                'value' => $yesPropertyDropdownValueId->id
-            ]);
-             
+                'value' => $yesPropertyDropdownValueId->id]
+            );
         }
     }
 }

@@ -25,3 +25,4 @@ yarn-error.log
 composer.lock
 public/mix-manifest.json
 package-lock.json
+*.crt

@@ -2267,11 +2267,6 @@ pre code {
   opacity: 1;
 }
 
-.form-control:-ms-input-placeholder {
-  color: #6c757d;
-  opacity: 1;
-}
-
 .form-control::-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
@@ -77713,6 +77708,30 @@ img {
 
 #dataTable tr th:last-of-type {
   min-width: 95px;
+}
+
+.dropable-menu-tree .placeholder {
+  border: 2px #c62828 dotted;
+  padding: 2rem 0rem;
+  margin: 0.5rem 0rem;
+}
+
+.dropable-menu-tree {
+  list-style: none;
+  margin: 2em 0px;
+  padding: 0px 2em;
+}
+
+.display-menu-tree {
+  border: 3px dotted;
+  border-color: #c62828;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.left-menu li {
+  cursor: move;
+  border: 3px dotted;
 }
 
 .select2-container--default .select2-selection--single,

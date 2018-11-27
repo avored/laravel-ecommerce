@@ -61,9 +61,9 @@ class OrderController extends Controller
     {
         $orderProductData = Cart::all();
 
-        $user = $this->_getUser($request);
-        $billingAddress = $this->_getBillingAddress($request);
-        $shippingAddress = $this->_getShippingAddress($request);
+        $user = $this->getUser($request);
+        $billingAddress = $this->getBillingAddress($request);
+        $shippingAddress = $this->getShippingAddress($request);
         $orderStatus = OrderStatus::whereIsDefault(1)->get()->first();
         $paymentOption = $request->get('payment_option');
 
@@ -84,7 +84,7 @@ class OrderController extends Controller
         //@todo check Response is success of fail.
 
         $order = Order::create($data);
-        $this->_syncOrderProductData($order, $orderProductData);
+        $this->syncOrderProductData($order, $orderProductData);
 
         ////INSERT a RECORD INTO ORDER_HISTORY TABLE
         $orderHistoryRepository = app(OrderHistoryInterface::class);
@@ -161,7 +161,7 @@ class OrderController extends Controller
         return redirect()->back()->withNotificationText('Order Return Request placed successfully!');
     }
 
-    private function _getUser(Request $request)
+    private function getUser(Request $request)
     {
         if (Auth::guard()->check()) {
             return Auth::guard()->user();
@@ -186,7 +186,7 @@ class OrderController extends Controller
         return $user;
     }
 
-    private function _getBillingAddress(Request $request)
+    private function getBillingAddress(Request $request)
     {
         $billingData = $request->get('billing');
 
@@ -203,7 +203,7 @@ class OrderController extends Controller
         return $address;
     }
 
-    private function _getShippingAddress(Request $request)
+    private function getShippingAddress(Request $request)
     {
         if (null == $request->get('use_different_shipping_address')) {
             $shippingData = $request->get('billing');
@@ -230,7 +230,7 @@ class OrderController extends Controller
      *
      *
      */
-    private function _syncOrderProductData($order, $orderProducts)
+    private function syncOrderProductData($order, $orderProducts)
     {
         $orderProductTableData = [];
 
@@ -258,7 +258,9 @@ class OrderController extends Controller
                 'product_id' => $product->id,
                 'qty' => $orderProduct->qty(),
                 'price' => $orderProduct->price(),
-                'tax_amount' => 0.00 //$orderProduct->tax();
+                'tax_amount' => 0.00,
+                'product_info' => $product->toJson()
+
             ];
         }
         $order->products()->sync($orderProductTableData);
