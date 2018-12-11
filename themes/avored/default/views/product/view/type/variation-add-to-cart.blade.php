@@ -12,37 +12,28 @@
     </div>
 </div>
 
-<?php
+@php
     $attributes = $product->attribute;
-?>
-@foreach($attributes as $attribute)
-
-        <div class="product-attribute form-group">
-        <label>{{$attribute->name}}</label>
-        <select name="attribute[{{ $attribute->id }}]" class="form-control product-variation-dropdown">
-
-            <option data-qty="0" data-price="{{ number_format('0.00',2) }}" value="">Please Select</option>
-
-
-        @foreach($attribute->attributeDropdownOptions as $option)
-
-                @php
-                    $combinationProduct = $product->getVariableProduct($option);
-                @endphp
-
-                        @if(null != $combinationProduct)
-                <!-- -->
-                <option
-                        data-qty="{{ $combinationProduct->qty }}" data-price="{{  $combinationProduct->price }}"
-                        value="{{ $combinationProduct->id }}">{{ $option->display_text }}</option>
-                @endif
-            @endforeach
-        </select>
-
-
-
+@endphp
+    <div class="product-attributes-wrapper">
+        @foreach($attributes as $attribute)
+            <div class="product-attribute form-group">
+                <label>{{$attribute->name}}</label>
+                <select name="attribute[{{ $attribute->id }}]"
+                    data-attribute-id="{{ $attribute->id }}"
+                    class="form-control product-variation-dropdown"
+                >
+                    <option value="">Please Select</option>
+                    @foreach($attribute->attributeDropdownOptions as $option)
+                        <option value="{{ $option->id }}">
+                            {{ $option->display_text }}
+                        </option>
+                    @endforeach
+                </select>
+                <input type="hidden" name="variation_id" id="selected_variation_id" value="" />
+            </div>
+        @endforeach
     </div>
-@endforeach
 
 <div class="clearfix"></div>
 <div class="float-left" style="margin-right: 5px;">
@@ -56,31 +47,46 @@
 <script>
 
     jQuery(document).ready(function () {
+        jQuery('.product-attributes-wrapper').data('AttributeJsonData', {!! json_encode($jsonData) !!});
         jQuery('.product-variation-dropdown').change(function (e) {
             e.preventDefault();
 
             var basePrice = parseFloat(0);
             var i = 0;
-            var attributePrice = 0;
+            attributePrice = 0;
+            var attributesJsonData = jQuery('.product-attributes-wrapper').data().AttributeJsonData;
 
             jQuery('.product-attribute .product-variation-dropdown').each(function (index, el) {
                 if (typeof(jQuery(el).val()) != "undefined" && jQuery(el).val() != "") {
                     i++;
+                    attributeId = jQuery(el).attr('data-attribute-id');
                     var attributeValue = jQuery(el).val();
-
-                    jQuery(el).find('option').each(function (index, element) {
-
-                        if (jQuery(element).attr('value') == attributeValue) {
-                            attributePrice += parseFloat(jQuery(element).attr('data-price'));
+                    
+                    Object.keys(attributesJsonData).forEach(function(key){
+                        if (!_.has(attributesJsonData, [key, attributeId, attributeValue])) {
+                            attributesJsonData = _.omit(attributesJsonData, [key, attributeId, attributeValue])
                         }
                     });
                 }
             });
 
-            var totalPrice = attributePrice + basePrice;
-            jQuery('.price').text(totalPrice.toFixed(2));
+            if (i === jQuery('.product-attributes-wrapper .product-attribute').length) {
+                Object.keys(attributesJsonData).forEach(function(key){
+                    Object.keys(attributesJsonData[key]).forEach(function(attributeId) {
+                        Object.keys(attributesJsonData[key][attributeId]).forEach(function(attributeValue) {
+                            var variationInfo = attributesJsonData[key][attributeId][attributeValue];
+                            attributePrice = variationInfo.price;
+                        });
+                    })
+                });
+            } else {
+                attributePrice = 0;
+            }
+
 
             if (jQuery('.product-variation-dropdown').length == i) {
+                var totalPrice = attributePrice + basePrice;
+                jQuery('.price').text(totalPrice.toFixed(2));
                 jQuery('.add-to-cart').attr('disabled', false);
             } else {
                 jQuery('.add-to-cart').attr('disabled', true);
