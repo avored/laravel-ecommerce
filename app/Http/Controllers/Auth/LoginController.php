@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
+use AvoRed\Framework\Models\Contracts\UserInterface;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Config;
@@ -38,11 +39,18 @@ class LoginController extends Controller
     protected $redirectTo = '/my-account';
 
     /**
+     * Where to redirect users after login / registration.
+     *
+     * @var \AvoRed\Framework\Models\Repository\UserRepository
+     */
+    protected $userRepository;
+
+    /**
      * Admin User Controller constructor.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserInterface $userRepository)
     {
         parent::__construct();
 
@@ -164,10 +172,11 @@ class LoginController extends Controller
             'redirect' => asset('login/' . $provider . '/callback')
         ]);
 
-        //dd(Config::get('services.github'));
-        //dd($provider);
-
-        return Socialite::driver($provider)->stateless()->redirect();
+        if ('twitter' === $provider) {
+            return Socialite::driver($provider)->redirect();
+        } else {
+            return Socialite::driver($provider)->stateless()->redirect();
+        }
     }
 
     /**
@@ -188,8 +197,40 @@ class LoginController extends Controller
             'redirect' => asset('login/'. $provider .'/callback')
         ]);
 
-        $user = Socialite::driver($provider)->stateless()->user();
+        if ('twitter' === $provider) {
+            $user = Socialite::driver($provider)->user();
+        } else {
+            $user = Socialite::driver($provider)->stateless()->user();
+        }
 
-        dd($user);
+        switch ($provider) {
+            case 'twitter':
+                $channel = 'TWITTER';
+                break;
+            case 'facebook':
+                $channel = 'FACEBOOK';
+                break;
+            case 'google':
+                $channel = 'GOOGLE';
+        }
+
+        if (empty($user->email)) {
+            throw new \Exception(
+                'Please check ' . $provider . ' permisssion or asked user to allow them to give access to their email'
+            );
+        }
+
+        $data = [
+            'first_name' => $user->name,
+            'last_name' => '',
+            'email' => $user->email,
+            'password' => bcrypt(str_random(8)),
+            'registered_channel' => $channel
+        ];
+        
+        $modelUser = $this->userRepository->create($data);
+        Auth::loginUsingId($modelUser->id);
+
+        return redirect($this->redirectTo);
     }
 }
