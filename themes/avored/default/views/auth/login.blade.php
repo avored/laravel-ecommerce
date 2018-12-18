@@ -54,31 +54,35 @@
 
 
                             <div class="form-group">
-
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
-
                                 <a class="" href="{{ url('/password/reset') }}">
                                     Forgot Your Password?
                                 </a>
                                 <a class="" href="{{ url('register') }}">
                                     Create an Account
                                 </a>
-
-
                                 @if($errors->has('enableResendLink'))
                                     <div class="form-group">
-
                                         <a class="" href="{{ route('user.activation.resend') }}">
                                             Resend Activation Email
                                         </a>
                                     </div>
                                 @endif
-
                             </div>
-
-
+                            <div class="form-group">
+                                <a class="btn btn-warning" href="{{ route('login.provider', 'facebook') }}">
+                                    Login via <i class="fab fa-facebook"></i>   
+                                </a>
+                                <a class="btn btn-warning" href="{{ route('login.provider', 'google') }}">
+                                    Login via <i class="fab fa-google"></i>   
+                                </a>
+                                <a class="btn btn-warning" href="{{ route('login.provider', 'twitter') }}">
+                                    Login via <i class="fab fa-twitter"></i>   
+                                </a>
+                               
+                            </div>
                         </form>
                     </div>
 

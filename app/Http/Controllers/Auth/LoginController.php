@@ -62,6 +62,7 @@ class LoginController extends Controller
         if ($url == $checkoutUrl) {
             $this->redirectTo = $checkoutUrl;
         }
+        $this->userRepository = $userRepository;
     }
 
     protected function guard()
@@ -214,21 +215,23 @@ class LoginController extends Controller
                 $channel = 'GOOGLE';
         }
 
+        
         if (empty($user->email)) {
             throw new \Exception(
                 'Please check ' . $provider . ' permisssion or asked user to allow them to give access to their email'
             );
         }
-
-        $data = [
-            'first_name' => $user->name,
-            'last_name' => '',
-            'email' => $user->email,
-            'password' => bcrypt(str_random(8)),
-            'registered_channel' => $channel
-        ];
-        
-        $modelUser = $this->userRepository->create($data);
+        $modelUser = $this->userRepository->findByEmail($user->email);
+        if (null === $modelUser) {
+            $data = [
+                'first_name' => $user->name,
+                'last_name' => '',
+                'email' => $user->email,
+                'password' => bcrypt(str_random(8)),
+                'registered_channel' => $channel
+            ];
+            $modelUser = $this->userRepository->create($data);
+        }
         Auth::loginUsingId($modelUser->id);
 
         return redirect($this->redirectTo);
