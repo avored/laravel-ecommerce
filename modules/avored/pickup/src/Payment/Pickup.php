@@ -23,7 +23,7 @@ class Pickup extends AbstractPayment implements PaymentContract
      *
      * @var string
      */
-    protected $name = 'Pickup From Store';
+    protected $name = 'Pay at Pickup';
 
     /**
      * Payment options View Path.
