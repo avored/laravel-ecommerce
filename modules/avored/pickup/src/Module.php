@@ -31,6 +31,7 @@ class Module extends ServiceProvider
     protected function registerResources()
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-pickup');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-pickup');
     }
     
     /**
