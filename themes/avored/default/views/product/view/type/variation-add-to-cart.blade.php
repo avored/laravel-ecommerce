@@ -30,8 +30,8 @@
                         </option>
                     @endforeach
                 </select>
-                <input type="hidden" name="variation_id" id="selected_variation_id" value="" />
             </div>
+            <input type="hidden" name="attribute[variation_id]" value="2" id="selected_variation_id">
         @endforeach
     </div>
 
@@ -54,6 +54,7 @@
             var basePrice = parseFloat(0);
             var i = 0;
             attributePrice = 0;
+            var variationId;
             var attributesJsonData = jQuery('.product-attributes-wrapper').data().AttributeJsonData;
 
             jQuery('.product-attribute .product-variation-dropdown').each(function (index, el) {
@@ -76,6 +77,7 @@
                         Object.keys(attributesJsonData[key][attributeId]).forEach(function(attributeValue) {
                             var variationInfo = attributesJsonData[key][attributeId][attributeValue];
                             attributePrice = variationInfo.price;
+                            variationId = key;
                         });
                     })
                 });
@@ -86,6 +88,7 @@
 
             if (jQuery('.product-variation-dropdown').length == i) {
                 var totalPrice = attributePrice + basePrice;
+                jQuery('#selected_variation_id').val(variationId);
                 jQuery('.price').text(totalPrice.toFixed(2));
                 jQuery('.add-to-cart').attr('disabled', false);
             } else {
