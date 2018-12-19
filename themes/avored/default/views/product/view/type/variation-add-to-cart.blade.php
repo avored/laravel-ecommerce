@@ -31,8 +31,8 @@
                     @endforeach
                 </select>
             </div>
-            <input type="hidden" name="attribute[variation_id]" value="2" id="selected_variation_id">
-        @endforeach
+            @endforeach
+        <input type="hidden" name="attribute[variation_id]" value="" id="selected_variation_id" />
     </div>
 
 <div class="clearfix"></div>
