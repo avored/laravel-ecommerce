@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use AvoRed\Framework\Models\Contracts\ProductInterface;
 use Illuminate\Http\Request;
 use AvoRed\Framework\Models\Contracts\ProductDownloadableUrlInterface;
+use AvoRed\Framework\Models\Database\Product;
+use Illuminate\Support\Collection;
+use AvoRed\Framework\Models\Database\ProductAttributeIntegerValue;
 
 class ProductViewController extends Controller
 {
@@ -23,7 +26,7 @@ class ProductViewController extends Controller
     public function __construct(
         ProductInterface $repository,
         ProductDownloadableUrlInterface $downRep
-        ) {
+    ) {
         parent::__construct();
 
         $this->repository = $repository;
@@ -33,13 +36,20 @@ class ProductViewController extends Controller
     public function view($slug)
     {
         $product = $this->repository->findBySlug($slug);
+        $jsonData = [];
+
+        if ($product->hasVariation()) {
+            $jsonData = $product->getProductVariationJsonData();
+        }
+        
         $title = $product->meta_title ?? $product->name;
         $description = $product->meta_description ?? substr($product->description, 0, 255);
 
         return view('product.view')
-                                ->with('product', $product)
-                                ->with('title', $title)
-                                ->with('description', $description);
+            ->withProduct($product)
+            ->withTitle($title)
+            ->withDescription($description)
+            ->withJsonData($jsonData);
     }
 
     public function downloadDemoProduct(Request $request)

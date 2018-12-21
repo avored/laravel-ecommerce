@@ -1,5 +1,5 @@
 <div class="card mb-3">
-    <div class="card-header">Shopping Cart</div>
+    <div class="card-header">{{ __('checkout.order_summary') }}</div>
     <div class="card-body">
         <div class="table-responsive">
         <table id="cart_table" class="table table-bordered table-hover ">

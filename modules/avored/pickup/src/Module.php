@@ -23,16 +23,6 @@ class Module extends ServiceProvider
     }
 
     /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-
-    }
-
-    /**
      * Registering AvoRed featured Resource
      * e.g. Route, View, Database  & Translation Path
      *
@@ -41,6 +31,7 @@ class Module extends ServiceProvider
     protected function registerResources()
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-pickup');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-pickup');
     }
     
     /**
@@ -58,10 +49,12 @@ class Module extends ServiceProvider
                 ->label('Payment Pickup Enabled')
                 ->type('select')
                 ->name('payment_pickup_enabled')
-                ->options(function (){
-                    $options = [1 => 'Yes' , 0 => 'No'];
-                    return $options;
-                });
+                ->options(
+                    function () {
+                        $options = [1 => 'Yes' , 0 => 'No'];
+                        return $options;
+                    }
+                );
     }
     
     /**
@@ -74,5 +67,4 @@ class Module extends ServiceProvider
         $payment = new Pickup();
         PaymentFacade::put($payment->identifier(), $payment);
     }
-
 }

@@ -38,7 +38,7 @@ class PlaceOrderRequest extends Request
             $validation['billing.address1'] = 'required|max:255';
             $validation['billing.address2'] = 'max:255';
             $validation['billing.country_id'] = 'required|max:255';
-            $validation['billing.state'] = 'required|max:255';
+            $validation['billing.state'] = 'max:255';
             $validation['billing.city'] = 'required|max:255';
             $validation['billing.postcode'] = 'required|max:255';
         }
@@ -47,7 +47,7 @@ class PlaceOrderRequest extends Request
             $validation['shipping.address1'] = 'required|max:255';
             $validation['shipping.address2'] = 'max:255';
             $validation['shipping.country_id'] = 'required|max:255';
-            $validation['shipping.state'] = 'required|max:255';
+            $validation['shipping.state'] = 'max:255';
             $validation['shipping.city'] = 'required|max:255';
             $validation['shipping.postcode'] = 'required|max:255';
         }
