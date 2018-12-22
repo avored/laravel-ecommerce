@@ -17,13 +17,9 @@ class Controller extends BaseController
     public function __construct()
     {
         if (Schema::hasTable('configurations')) {
-
-            $themeViewPath = realpath(Configuration::getConfiguration('active_theme_path'));
-
+            $themeViewPath = Configuration::getConfiguration('active_theme_path');
             $fileViewFinder = View::getFinder();
-            $fileViewFinder->prependLocation($themeViewPath);
+            $fileViewFinder->prependLocation(base_path($themeViewPath));
         }
     }
 }
-
-

@@ -23,6 +23,8 @@ class CartController extends Controller
 
     public function __construct(ProductInterface $repository, ConfigurationInterface $configRep)
     {
+        parent::__construct();
+
         $this->repository = $repository;
         $this->configurationRepository = $configRep;
     }
@@ -37,30 +39,18 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $slug = $request->get('slug');
-        $qty = $request->get('qty', 1);
-        //dd('test');
+        $qty = abs($request->get('qty', 1));
         $attribute = $request->get('attribute', null);
-
         if (!Cart::canAddToCart($slug, $qty, $attribute)) {
             return redirect()->back()
-                        ->with(
-                            'errorNotificationText',
-                            'Not Enough Qty Available. Please with less qty or Contact site Administrator!'
-                        );
+                ->with(
+                    'errorNotificationText',
+                    'Not Enough Qty Available. Please with less qty or Contact site Administrator!'
+                );
         }
 
         Cart::add($slug, $qty, $attribute);
-
-        $productModel = $this->repository->findBySlug($slug);
-        $isTaxEnabled = $this->configurationRepository->getValueByKey('tax_enabled');
-
-        if ($isTaxEnabled && $productModel->is_taxable) {
-            $percentage = $this->configurationRepository->getValueByKey('tax_percentage');
-            $taxAmount = ($percentage * $productModel->price / 100);
-
-            Cart::hasTax(true);
-            Cart::updateProductTax($slug, $taxAmount);
-        }
+        $this->setTaxAmount($slug, $qty, $attribute);
 
         return redirect()->back()->with('notificationText', 'Product Added to Cart Successfully!');
     }
@@ -68,7 +58,6 @@ class CartController extends Controller
     public function view()
     {
         $cartProducts = Cart::all();
-
         return view('cart.view')
             ->with('cartProducts', $cartProducts);
     }
@@ -76,19 +65,53 @@ class CartController extends Controller
     public function update(Request $request)
     {
         $slug = $request->get('slug');
-        $qty = $request->get('qty', 1);
-        if (!Cart::canAddToCart($slug, $qty)) {
-            return redirect()->back()->with('errorNotificationText', 'Not Enough Qty Available. Please with less qty or Contact site Administrator!');
+        $qty = abs($request->get('qty', 1));
+        if (!Cart::canAddToCart($slug, $qty, $request->all())) {
+            return redirect()->back()
+                ->with(
+                    'errorNotificationText',
+                    'Not Enough Qty Available. Please with less qty or Contact site Administrator!'
+                );
         }
 
         Cart::update($slug, $qty);
-
+        $this->setTaxAmount($slug, $qty);
         return redirect()->back();
     }
 
     public function destroy($slug)
     {
         Cart::destroy($slug);
-        return redirect()->back()->with('notificationText', 'Product has been remove from Cart!');
+        return redirect()->back()->with('notificationText', 'Product has been removed from Cart!');
+    }
+
+    /**
+     * Set the Tax Amount for the Product
+     *
+     * @param string $slug
+     * @param int $qty
+     * @param array $attributes
+     * @return self $this
+     */
+    private function setTaxAmount($slug, $qty = 1, $attributes = [])
+    {
+        $productModel = $this->repository->findBySlug($slug);
+        $isTaxEnabled = $this->configurationRepository->getValueByKey('tax_enabled');
+
+        if ($isTaxEnabled && $productModel->is_taxable) {
+            $percentage = $this->configurationRepository->getValueByKey('tax_percentage');
+
+            if (null !== $attributes) {
+                foreach ($attributes as $attributeId => $productId) {
+                    $productModel = $this->repository->find($productId);
+                }
+            }
+
+            $taxAmount = ($percentage * $productModel->price / 100) * $qty;
+            Cart::hasTax(true);
+            Cart::updateProductTax($slug, $taxAmount);
+        }
+
+        return $this;
     }
 }

@@ -41,7 +41,7 @@
             <li class="nav-item dropdown" >
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
                     
-                    Currency : {{ Session::get('currency_code')}}
+                    Currency : {{ Session::get('currency_symbol')}}
                 </a>
                     <div class="dropdown-menu">
                         @foreach($currencies as $siteCurrencyId => $currencyCode)
@@ -80,7 +80,7 @@
             <div class="col-md-6">
                 <a class="navbar-brand" href="{{ route('home') }}">
                     <span style="font-size: 32px; font-weight: 500; margin-top: 10px;">
-                        <img src="https://www.avored.com/img/logo.svg" alt="logo" class="logo">AvoRed Store
+                        <img src="{{ asset('vendor/avored-default/images/logo.svg') }}" alt="logo" class="logo">AvoRed Store
                     </span>
                 </a>
             </div>

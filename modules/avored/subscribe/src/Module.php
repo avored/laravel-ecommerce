@@ -57,7 +57,7 @@ class Module extends ServiceProvider
      */
     protected function registerAdminMenu()
     {
-        $systemMenu = AdminMenuFacade::get('system');
+        $systemMenu = AdminMenuFacade::get('user');
 
         $systemMenu->subMenu('subscribe', function (AdminMenu $menu) {
             $menu->key('subscribe')

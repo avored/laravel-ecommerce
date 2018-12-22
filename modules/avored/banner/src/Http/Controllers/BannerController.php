@@ -6,7 +6,7 @@ use AvoRed\Banner\DataGrid\Banner as BannerGrid;
 use App\Http\Controllers\Controller;
 use AvoRed\Banner\Models\Database\Banner;
 use AvoRed\Banner\Http\Requests\BannerRequest;
-use AvoRed\Framework\Image\Facade as Image;
+use AvoRed\Framework\Image\Facades\Image;
 use AvoRed\Banner\Models\Contracts\BannerInterface;
 
 class BannerController extends Controller
@@ -80,7 +80,7 @@ class BannerController extends Controller
     {
         $tmpPath = str_split(strtolower(str_random(3)));
         $checkDirectory = '/uploads/cms/images/' . implode('/', $tmpPath);
-        $localImage = Image::upload($image, $checkDirectory);
+        $localImage = Image::upload($image, $checkDirectory)->makeSizes()->get();
 
         $symblink = config('avored-framework.symlink_storage_folder'). "/";
         

@@ -1,5 +1,5 @@
 <div class="card mb-3">
-    <div class="card-header">Shopping Cart</div>
+    <div class="card-header">{{ __('checkout.order_summary') }}</div>
     <div class="card-body">
         <div class="table-responsive">
         <table id="cart_table" class="table table-bordered table-hover ">
@@ -34,7 +34,7 @@
                                 <?php $attributeText .= $attribute['variation_display_text'] . ': '; ?>
                             @endif
                         @endforeach
-                         <p>Attributes: 
+                         <p>Attributes:
                             <span class="text-success">
                                  <strong>{{ $attributeText}}</strong>
                             </span>
@@ -45,10 +45,10 @@
 
                     <td class="text-right hidden-xs">{{ $cartItem->qty() }}</td>
                     <td class="text-right hidden-xs">
-                        ${{ $cartItem->priceFormat()  }}
+                        {{ Session::get('currency_symbol') . $cartItem->priceFormat() }}
                     </td>
                     <td class="text-right">
-                        ${{ $cartItem->lineTotal()  }}
+                        {{ Session::get('currency_symbol') . $cartItem->lineTotal() }}
                     </td>
                 </tr>
 
@@ -56,27 +56,27 @@
                     $subTotal = $total = 0;
                     $subTotal += $cartItem->price();
                 @endphp
-                
+
             @endforeach
             </tbody>
             <tfoot>
             <tr>
                 <td colspan="3" class="text-right  hidden-xs"><strong>Sub-Total:</strong></td>
-                <td class="text-right sub-total" 
-                        data-sub-total="{{ number_format(Cart::total(),2) }}">
-                    ${{ number_format(Cart::total(),2) }}</td>
+                <td class="text-right sub-total"
+                        data-sub-total="{{ Cart::total($formate = false) }}">
+                    {{ Cart::total() }}</td>
             </tr>
             <tr class="hidden shipping-row">
                 <td colspan="3" class="text-right shipping-title  hidden-xs"
                     style="font-weight: bold;">Shipping Option
                 </td>
-                <td class="text-right shipping-cost" data-shipping-cost="0.00">$</td>
+                <td class="text-right shipping-cost" data-shipping-cost="0.00">{{ Session::get('currency_symbol') }}</td>
             </tr>
 
             <tr>
                 <td colspan="3" class="text-right  hidden-xs"><strong>Total:</strong></td>
-                <td class="text-right total" data-total="{{ number_format(Cart::total(),2) }}">
-                    ${{ number_format(Cart::total(),2) }}</td>
+                <td class="text-right total" data-total="{{ Cart::total($formate = false) }}">
+                    {{ Cart::total() }}</td>
             </tr>
             </tfoot>
 

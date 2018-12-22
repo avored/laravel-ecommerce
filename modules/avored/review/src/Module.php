@@ -9,6 +9,8 @@ use AvoRed\Framework\Breadcrumb\Facade as BreadcrumbFacade;
 use AvoRed\Framework\AdminMenu\Facade as AdminMenuFacade;
 use AvoRed\Review\Models\Contracts\ProductReviewInterface;
 use AvoRed\Review\Models\Repository\ProductReviewRepository;
+use AvoRed\Framework\Permission\PermissionGroup;
+use AvoRed\Framework\Permission\Facade as PermissionFacade;
 
 class Module extends ServiceProvider
 {
@@ -26,7 +28,7 @@ class Module extends ServiceProvider
         $this->registerViewComposer();
         $this->publishFiles();
         $this->registerModelContracts();
-        //$this->registerListener();
+        $this->registerPermission();
     }
 
     /**
@@ -121,6 +123,27 @@ class Module extends ServiceProvider
     protected function registerModelContracts()
     {
         $this->app->bind(ProductReviewInterface::class, ProductReviewRepository::class);
+    }
+
+
+    /**
+     * Register Permission for this Module
+     * 
+     * @return void
+     */
+    public function registerPermission() 
+    {
+        $permissionGroup = PermissionFacade::add('review', function(PermissionGroup $group){
+            $group->label('Review Permissions');
+        });
+        $permissionGroup->addPermission('admin-review-list')
+            ->label('Review List')
+            ->routes('admin.review.index');
+        $permissionGroup->addPermission('admin-review-approved')
+            ->label('Review Approved')
+            ->routes('review.approve');
+        
+   
     }
 
 }

@@ -8,7 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="h1">Cart Page</div>
+                <div class="h1">{{ __('order.cart_page') }} </div>
 
                 @if($cartProducts !== null && $cartProducts->count() > 0)
                 <div class="card">
@@ -30,12 +30,7 @@
                                     <th class="col-1"> </th>
                                 </tr>
 
-                                <?php $total = 0; $taxTotal = 0;$giftCouponAmount = 0; ?>
                                     @foreach($cartProducts as $product)
-                                        @php
-                                            $total += $product->price();
-                                        @endphp
-
                                         @include('cart._single_product', ['product', $product])
                                     @endforeach
                             @if(Cart::hasTax())
@@ -48,7 +43,7 @@
                                     <td class="col-1 text-right">
                                 <h6>
                                     <strong>
-                                        ${{ number_format((Cart::taxTotal()),2) }}
+                                        {{ Cart::taxTotal() }}
                                     </strong>
                                 </h6>
                             </td>
@@ -64,7 +59,7 @@
                             </td>
                             <td class="col-1 text-right">
                                 <h6>
-                                    <strong>${{ number_format((Cart::total()),2) }}</strong>
+                                    <strong>{{ Cart::total() }}</strong>
                                 </h6>
                             </td>
                         </tr>
@@ -81,7 +76,7 @@
                             </td>
                             <td class="col-1 text-right">
                                 <a href="{{ route('checkout.index') }}" class="btn btn-success">
-                                    Checkout 
+                                    Checkout
                                     <span class="fa fa-play-circle"></span>
                                 </a>
                             </td>

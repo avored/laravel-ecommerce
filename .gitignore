@@ -18,7 +18,6 @@ yarn-error.log
 
 # AvoRed Specific
 /packages
-/themes/*
 /public/cov/*
 
 
@@ -26,3 +25,4 @@ yarn-error.log
 composer.lock
 public/mix-manifest.json
 package-lock.json
+*.crt

@@ -14,51 +14,50 @@
             </h3>
 
             <p class="product-price">
-                $ {{ number_format($product->price,2) }}
+                {{ Session::get('currency_symbol') }} {{ number_format($product->price,2) }}
             </p>
 
             <div>
 
                 @if($product->qty >= 0)
                 <form method="post" action="{{ route('cart.add-to-cart') }}">
-                    {{ csrf_field() }}
+                    @csrf
 
+                    <input type="hidden" name="slug" value="{{ $product->slug }}"/>
 
-                <input type="hidden" name="slug" value="{{ $product->slug }}"/>
-
-                <div class="product-stock">In Stock</div>
-                <hr>
-
-                <div class="clearfix"></div>
-                <div class="float-left" style="margin-right: 5px;">
-                    <button type="submit" class="btn btn-primary"
-                            href="{{ route('cart.add-to-cart', $product->id) }}">
-                        Add to Cart
-                    </button>
-                </div>
-                </form>
-
-                @else
-                    <div class="product-stock text-danger ">Out of Stock</div>
+                    <div class="product-stock">In Stock</div>
                     <hr>
 
                     <div class="clearfix"></div>
                     <div class="float-left" style="margin-right: 5px;">
-                        <button type="button" disabled class="btn btn-default">
+                        <button type="submit" class="btn btn-primary"
+                                href="{{ route('cart.add-to-cart', $product->id) }}">
                             Add to Cart
                         </button>
                     </div>
-                @endif
+                    </form>
 
-                @if(Auth::check() && Auth::user()->isInWishlist($product->id))
-                    <a class="btn btn-danger" title="Remove from Wish List"
-                       data-toggle="tooltip" href="{{ route('my-account.wishlist.remove', $product->slug) }}">
-                        <i
-                                class="fa fa-heart"></i></a>
-                @else
-                    <a class="btn btn-success" title="Add to Wish List" data-toggle="tooltip"
-                       href="{{ route('my-account.wishlist.add', $product->slug) }}"><i class="fa fa-heart"></i></a>
-                @endif
+                    @else
+                        <div class="product-stock text-danger ">Out of Stock</div>
+                        <hr>
+
+                        <div class="clearfix"></div>
+                        <div class="float-left" style="margin-right: 5px;">
+                            <button type="button" disabled class="btn btn-default">
+                                Add to Cart
+                            </button>
+                        </div>
+                    @endif
+
+                    @if(Auth::check() && Auth::user()->isInWishlist($product->id))
+                        <a class="btn btn-danger" title="Remove from Wish List"
+                        data-toggle="tooltip" href="{{ route('my-account.wishlist.remove', $product->slug) }}">
+                            <i
+                                    class="fa fa-heart"></i></a>
+                    @else
+                        <a class="btn btn-success" title="Add to Wish List" data-toggle="tooltip"
+                        href="{{ route('my-account.wishlist.add', $product->slug) }}"><i class="fa fa-heart"></i></a>
+                    @endif
             </div>
         </div>
     </div>

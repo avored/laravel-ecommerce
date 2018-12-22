@@ -1,4 +1,4 @@
-<form method="post" id="cart-form-update" action="{{ route('cart.update') }}">
+<form method="post" id="cart-form-update-{{ $product->slug() }}" action="{{ route('cart.update') }}">
     @csrf
     @method('put')
     <tr>
@@ -41,6 +41,14 @@
             <input type="text" class="form-control" name="qty"
                    value="{{ $product->qty() }}">
             <input type="hidden" name="slug" value="{{$product->slug() }}"/>
+
+            @foreach($product->attributes() as $attribute)
+                @foreach($attribute as $fieldName => $fieldValue)
+                    <input type="hidden" 
+                        name="attributes[{{ $attribute['attribute_id']}}][{{ $fieldName }}]" 
+                        value="{{ $fieldValue }}"/>
+                @endforeach
+            @endforeach
         </td>
 
         <td class="col-sm-1 col-1 text-center">
@@ -54,13 +62,17 @@
         </td>
         @endif
 
+        
         <td class="col-sm-1 col-1 text-center">
-            <strong>{{ $product->lineTotal() }}</strong>
+            <strong>{{ $product->finalPrice() }}</strong>
         </td>
         <td class="col-sm-1 col-1">
             <div class="btn-group">
                 <a class="btn btn-warning" href="#"
-                   onclick="jQuery('#cart-form-update').submit()">
+                   onclick="
+                    event.preventDefault();
+                    jQuery('#cart-form-update-{{ $product->slug() }}').submit()
+                    ">
                     Update
                 </a>
                 <button type="button"

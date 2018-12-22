@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\ViewComposers\CheckoutComposer;
 use App\Http\ViewComposers\MyAccountSidebarComposer;
 use App\Http\ViewComposers\LayoutAppComposer;
-use AvoRed\Framework\Menu\Facade as MenuFacade;
+use AvoRed\Framework\Menu\Facades\Menu as MenuFacade;
 use AvoRed\Framework\Menu\Menu;
 
 class AppServiceProvider extends ServiceProvider
@@ -40,19 +40,49 @@ class AppServiceProvider extends ServiceProvider
      */
     protected function registerFrontMenu()
     {
-        MenuFacade::make('my-account', function (Menu $accountMenu) {
-            $accountMenu->label('My Account')
+        
+        MenuFacade::make('cart', function (Menu $menu) {
+            $menu->label('Cart')
+            ->route('cart.view');
+        });
+        
+        MenuFacade::make('checkout', function (Menu $menu) {
+            $menu->label('Checkout')
+            ->route('checkout.index');
+        });
+        
+        MenuFacade::make('my-account', function (Menu $menu) {
+            $menu->label('My Account')
                 ->route('my-account.home');
         });
-
-        MenuFacade::make('cart', function (Menu $accountMenu) {
-            $accountMenu->label('Cart')
-                ->route('cart.view');
+      
+        MenuFacade::make('account_edit', function (Menu $menu) {
+            $menu->label('Edit Account')
+                ->route('my-account.edit');
         });
-
-        MenuFacade::make('checkout', function (Menu $accountMenu) {
-            $accountMenu->label('Checkout')
-                ->route('checkout.index');
+        MenuFacade::make('account_upload_image', function (Menu $menu) {
+            $menu->label('Upload Image')
+                ->route('my-account.upload-image');
+        });
+        MenuFacade::make('account_order_list', function (Menu $menu) {
+            $menu->label('My Orders')
+                ->route('my-account.order.list');
+        });
+        MenuFacade::make('account_addresses', function (Menu $menu) {
+            $menu->label('My Addresses')
+                ->route('my-account.address.index');
+        });
+        MenuFacade::make('account_wishlist', function (Menu $menu) {
+            $menu->label('My Wishlist')
+                ->route('my-account.wishlist.list');
+        });
+        MenuFacade::make('account_change_password', function (Menu $menu) {
+            $menu->label('Change Password')
+                ->route('my-account.change-password');
+        });
+        MenuFacade::make('account_logout', function (Menu $menu) {
+            $menu->label('Logout')
+                ->route('logout');
         });
     }
 

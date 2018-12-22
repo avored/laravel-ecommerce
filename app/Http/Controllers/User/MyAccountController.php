@@ -7,7 +7,7 @@ use App\Http\Requests\UploadUserImageRequest;
 use App\Http\Requests\UserProfileRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use AvoRed\Framework\Image\Facade as Image;
+use AvoRed\Framework\Image\Facades\Image;
 use App\Http\Controllers\Controller;
 
 class MyAccountController extends Controller
@@ -57,15 +57,12 @@ class MyAccountController extends Controller
     public function uploadImagePost(UploadUserImageRequest $request)
     {
         $user = Auth::user();
-
         $image = $request->file('profile_image');
-
         if (false === empty($user->image_path)) {
             $user->image_path->destroy();
         }
 
-        $image = Image::upload($image, 'uploads/users/' . $user->id);
-
+        $image = Image::upload($request->file('profile_image'), 'users/' . $user->id)->makeSizes()->get();
         $user->update(['image_path' => $image->relativePath]);
 
         return redirect()->route('my-account.home')

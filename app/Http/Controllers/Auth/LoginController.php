@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\URL;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
+use AvoRed\Framework\Models\Contracts\UserInterface;
 use Illuminate\Support\Facades\Session;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Config;
 
 class LoginController extends Controller
 {
@@ -36,11 +39,18 @@ class LoginController extends Controller
     protected $redirectTo = '/my-account';
 
     /**
+     * Where to redirect users after login / registration.
+     *
+     * @var \AvoRed\Framework\Models\Repository\UserRepository
+     */
+    protected $userRepository;
+
+    /**
      * Admin User Controller constructor.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserInterface $userRepository)
     {
         parent::__construct();
 
@@ -52,6 +62,7 @@ class LoginController extends Controller
         if ($url == $checkoutUrl) {
             $this->redirectTo = $checkoutUrl;
         }
+        $this->userRepository = $userRepository;
     }
 
     protected function guard()
@@ -141,5 +152,88 @@ class LoginController extends Controller
     public function redirectPath()
     {
         return route('my-account.home');
+    }
+
+    /**
+     * Do a Provider based login
+     * @param string $provider
+     *
+     */
+    public function providerLogin($provider)
+    {
+        $rep = app(ConfigurationInterface::class);
+
+        $clientId = $rep->getValueByKey('users_' . $provider . '_client_id');
+        $clientSecret = $rep->getValueByKey('users_' . $provider . '_client_secret');
+
+        //dd($clientId, $clientSecret);
+        Config::set('services.' . $provider, [
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+            'redirect' => asset('login/' . $provider . '/callback')
+        ]);
+
+        if ('twitter' === $provider) {
+            return Socialite::driver($provider)->redirect();
+        } else {
+            return Socialite::driver($provider)->stateless()->redirect();
+        }
+    }
+
+    /**
+     * Do a Provider based login
+     * @param string $provider
+     *
+     */
+    public function providerCallback($provider)
+    {
+        $rep = app(ConfigurationInterface::class);
+
+        $clientId = $rep->getValueByKey('users_'. $provider .'_client_id');
+        $clientSecret = $rep->getValueByKey('users_'. $provider .'_client_secret');
+
+        Config::set('services.' . $provider, [
+            'client_id' => $clientId,
+            'client_secret' => $clientSecret,
+            'redirect' => asset('login/'. $provider .'/callback')
+        ]);
+
+        if ('twitter' === $provider) {
+            $user = Socialite::driver($provider)->user();
+        } else {
+            $user = Socialite::driver($provider)->stateless()->user();
+        }
+
+        switch ($provider) {
+            case 'twitter':
+                $channel = 'TWITTER';
+                break;
+            case 'facebook':
+                $channel = 'FACEBOOK';
+                break;
+            case 'google':
+                $channel = 'GOOGLE';
+        }
+
+        
+        if (empty($user->email)) {
+            throw new \Exception(
+                'Please check ' . $provider . ' permisssion or asked user to allow them to give access to their email'
+            );
+        }
+        $modelUser = $this->userRepository->findByEmail($user->email);
+        if (null === $modelUser) {
+            $data = [
+                'first_name' => $user->name,
+                'last_name' => '',
+                'email' => $user->email,
+                'password' => bcrypt(str_random(8)),
+                'registered_channel' => $channel
+            ];
+            $modelUser = $this->userRepository->create($data);
+        }
+        Auth::loginUsingId($modelUser->id);
+
+        return redirect($this->redirectTo);
     }
 }
