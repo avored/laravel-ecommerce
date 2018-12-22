@@ -15,7 +15,7 @@
             @if(NULL === $address)
                 <div class="form-group">
                     <label class="control-label" for="input-billing-address-1">{{ __('customer.address') }} <span class="text-danger">*</span></label>
-                    <input type="text" name="billing[address1]" value="" id="input-billing-address-1"
+                    <input type="text" name="billing[address1]" value="{{old('billing.address1')}}" id="input-billing-address-1"
                            @if($errors->has('billing.address1'))
                            class="is-invalid avored-checkout-field form-control"
                            @else
@@ -31,7 +31,7 @@
 
                 <div class="form-group">
                     <label class="control-label" for="input-billing-address-2"></label>
-                    <input type="text" name="billing[address2]" value="" id="input-billing-address-2"
+                    <input type="text" name="billing[address2]" value="{{old('billing.address2')}}" id="input-billing-address-2"
                            @if($errors->has('billing.address2'))
                            class="is-invalid avored-checkout-field form-control"
                            @else
@@ -52,7 +52,11 @@
                             class="{{ $errors->has('billing.country_id') ? "is-invalid" : "" }} 
                              billing-country avored-checkout-field form-control billing tax-calculation">
                         @foreach($countries as $countryId => $countryName)
-                            <option value="{{ $countryId }}">{{ $countryName }}</option>
+                            <option value="{{ $countryId }}"
+                            @if($countryId == old('billing.country_id'))
+                                selected="selected"
+                            @endif
+                            >{{ $countryName }}</option>
                         @endforeach
                     </select>
 
@@ -66,7 +70,7 @@
                 <div class="row">
                     <div class="form-group col-6">
                         <label class="control-label" for="input-billing-zone">{{ __('customer.state') }} <span class="text-danger">*</span></label>
-                        <input type="text" name="billing[state]" data-name="state_code" id="input-billing-zone"
+                        <input type="text" name="billing[state]" data-name="state_code" id="input-billing-zone" value="{{old('billing.state')}}"
                                @if($errors->has('billing.state'))
                                class="is-invalid avored-checkout-field billing tax-calculation form-control"
                                @else
@@ -83,7 +87,7 @@
 
                     <div class="form-group  col-6">
                         <label class="control-label" for="input-billing-city">{{ __('customer.city') }} <span class="text-danger">*</span></label>
-                        <input type="text" data-name="city" name="billing[city]" id="input-billing-city"
+                        <input type="text" data-name="city" name="billing[city]" id="input-billing-city" value="{{old('billing.city')}}"
                               @if($errors->has('billing.city'))
                                class="is-invalid avored-checkout-field billing tax-calculation form-control"
                               @else
@@ -138,6 +142,13 @@
 
             @endif
 
+            @if(old('use_different_shipping_address'))
+                <script>
+                    jQuery(document).ready(function() {
+                        jQuery('.different-shipping-form').css('display','block');
+                    });
+                </script>
+            @endif
 
             <div class="form-group col-12">
                 <label for="use_different_shipping_address">
@@ -145,6 +156,11 @@
                             id="use_different_shipping_address" 
                             name="use_different_shipping_address"
                             class="avored-checkout-field"
+
+                            @if(old('use_different_shipping_address'))
+                                checked="checked"
+                            @endif
+
                             onclick="if (this.checked == true){
                                         jQuery('.different-shipping-form').css('display','block');
                                     } else  { 
@@ -162,7 +178,7 @@
             <div class="row">
                 <div class="form-group  col-6">
                     <label class="control-label" for="input-billing-firstname">{{ __('customer.first_name') }} <span class="text-danger">*</span></label>
-                    <input type="text" name="shipping[first_name]" value="" id="input-billing-firstname"
+                    <input type="text" name="shipping[first_name]" value="{{old('shipping.first_name')}}" id="input-billing-firstname"
                           @if($errors->has('shipping.first_name'))
                            class="is-invalid avored-checkout-field form-control"
                           @else
@@ -178,7 +194,7 @@
 
                 <div class="form-group  col-6">
                     <label class="control-label" for="input-billing-lastname">{{ __('customer.last_name') }} <span class="text-danger">*</span></label>
-                    <input type="text" name="shipping[last_name]" value="" id="input-billing-lastname"
+                    <input type="text" name="shipping[last_name]" value="{{old('shipping.last_name')}}" id="input-billing-lastname"
                           @if($errors->has('shipping.last_name'))
                            class="is-invalid avored-checkout-field form-control"
                           @else
@@ -195,7 +211,7 @@
 
             <div class="form-group">
                 <label class="control-label" for="input-shipping-address-1">{{ __('customer.address') }} <span class="text-danger">*</span></label>
-                <input type="text" name="shipping[address1]" value="" id="input-shipping-address-1"
+                <input type="text" name="shipping[address1]" value="{{old('shipping.address1')}}" id="input-shipping-address-1"
                       @if($errors->has('shipping.address1'))
                        class="is-invalid avored-checkout-field  form-control"
                       @else
@@ -211,7 +227,7 @@
 
             <div class="form-group">
                 <label class="control-label" for="input-shipping-address-2"></label>
-                <input type="text" name="shipping[address2]" value="" id="input-shipping-address-2"
+                <input type="text" name="shipping[address2]" value="{{old('shipping.address2')}}" id="input-shipping-address-2"
                       @if($errors->has('shipping.address2'))
                        class="is-invalid avored-checkout-field form-control"
                       @else
@@ -236,7 +252,11 @@
                 />
 
                 @foreach($countries as $countryId => $countryName)
-                  <option value="{{ $countryId }}">{{ $countryName }}</option>
+                  <option value="{{ $countryId }}"
+                      @if($countryId == old('shipping.country_id'))
+                        selected="selected"
+                      @endif
+                  >{{ $countryName }}</option>
                 @endforeach
                   </select>
 
@@ -250,7 +270,7 @@
             <div class="row">
                 <div class="form-group col-6">
                     <label class="control-label" for="input-shipping-zone">{{ __('customer.state') }} <span class="text-danger">*</span></label>
-                    <input type="text" data-name="state_code" name="shipping[state]" id="input-shipping-zone"
+                    <input type="text" data-name="state_code" name="shipping[state]" id="input-shipping-zone" value="{{old('shipping.state')}}"
                       @if($errors->has('shipping.state'))
                         class="is-invalid avored-checkout-field shipping tax-calculation form-control"
                       @else
@@ -266,7 +286,7 @@
 
                 <div class="form-group col-6">
                   <label class="control-label" for="input-shipping-city">{{ __('customer.city') }} <span class="text-danger">*</span></label>
-                  <input type="text" data-name="city" name="shipping[city]" placeholder="City" id="input-shipping-city"
+                  <input type="text" data-name="city" name="shipping[city]" placeholder="City" id="input-shipping-city" value="{{old('shipping.city')}}"
                           @if($errors->has('shipping.city'))
                            class="is-invalid avored-checkout-field shipping tax-calculation form-control"
                           @else
@@ -301,7 +321,7 @@
 
                 <div class="form-group col-6">
                     <label class="control-label" for="input-shipping-phone">{{ __('customer.phone') }} <span class="text-danger">*</span></label>
-                    <input type="text" name="shipping[phone]" value="" id="input-shipping-phone"
+                    <input type="text" name="shipping[phone]" value="{{old('shipping.phone')}}" id="input-shipping-phone"
                           @if($errors->has('shipping.phone'))
                            class="is-invalid avored-checkout-field form-control"
                           @else
