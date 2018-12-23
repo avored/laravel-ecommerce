@@ -10,19 +10,19 @@
     @else
         <table class="table table-striped">
             <thead>
-                <th>{{ __('orders.number') }}</th>
-                <th>{{ __('orders.shipping_method') }}</th>
-                <th>{{ __('orders.payment_method') }}</th>
-                <th>{{ __('orders.status') }}</th>
+                <th class="text-center">{{ __('orders.number') }}</th>
+                <th class="text-center">{{ __('orders.shipping_method') }}</th>
+                <th class="text-center">{{ __('orders.payment_method') }}</th>
+                <th class="text-center">{{ __('orders.status') }}</th>
                 <th>{{ __('orders.actions') }}</th>
             </thead>
             <tbody>
                 @foreach($orders as $order)
                 <tr>
-                    <td>{{ $order->id }}</td>
-                    <td>{{ __('shipping.' . $order->shipping_option) }}</td>
-                    <td>{{ __('payments.' . $order->payment_option) }} </td>
-                    <td>{{ $order->orderStatus->name }}</td>
+                    <td class="text-center">{{ $order->id }}</td>
+                    <td class="text-center">{{ __('shipping.' . $order->shipping_option) }}</td>
+                    <td class="text-center">{{ __('payments.' . $order->payment_option) }} </td>
+                    <td class="text-center">{{ $order->orderStatus->name }}</td>
                     <td><a href="{{ route('my-account.order.view',$order->id )}}">{{ __('orders.view') }}</a></td>
                 </tr>
                 @endforeach
