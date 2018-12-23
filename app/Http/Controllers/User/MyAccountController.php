@@ -5,9 +5,24 @@ namespace App\Http\Controllers\User;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\UploadUserImageRequest;
 use App\Http\Requests\UserProfileRequest;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use AvoRed\Framework\Image\Facades\Image;
+
+use AvoRed\Framework\Models\Database\OrderStatus;
+use AvoRed\Framework\Models\Database\Order;
+use AvoRed\Framework\Models\Database\User;
+
+use Illuminate\Support\Facades\Session;
+use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
+use AvoRed\Framework\Models\Contracts\OrderHistoryInterface;
+
+use App\Http\Requests\MyAccount\Order\OrderReturnRequest;
+use AvoRed\Framework\Models\Contracts\OrderReturnRequestInterface;
+use AvoRed\Framework\Models\Contracts\OrderReturnProductInterface;
+use AvoRed\Framework\Models\Contracts\ProductInterface;
+
 use App\Http\Controllers\Controller;
 
 class MyAccountController extends Controller
@@ -15,17 +30,16 @@ class MyAccountController extends Controller
     public function home()
     {
         $user = Auth::user();
+        $orders = Order::all();
 
-        return view('user.my-account.home')
-            ->with('user', $user);
+        return view('user.my-account.home', ['user' => $user, 'orders' => $orders]);
     }
 
     public function edit()
     {
         $user = Auth::user();
 
-        return view('user.my-account.edit')
-            ->with('user', $user);
+        return view('user.my-account.edit')->with('user', $user);
     }
 
     /**

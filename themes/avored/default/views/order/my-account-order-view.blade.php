@@ -1,31 +1,27 @@
-@extends('layouts.app')
+@extends('layouts.my-account')
 
-@section('content')
-<div class="row">
-    <div class="col-md-3">
-        @include('user.my-account.sidebar')
-    </div>
-    <div class="col-md-9">
-        <div class="main-title-wrapper">
-            <h2>Order details</h2>
-        </div>
+@section('meta_title','My Account E commerce')
+@section('meta_description','My Account E commerce')
+
+@section('account-content')
+<h3>{{ __('orders.details') }}</h3>
         <div class="clearfix"></div>
         <div class="card mb-3">
-            <div class="card-header">General Information</div>
+            <div class="card-header">{{ __('orders.details') }}</div>
             <div class="card-body">
                 <table class="table">
                 <tbody>
                     <tr>
-                        <td>Order number</td>
+                        <td>{{ __('orders.number') }}</td>
                         <td>{{ $order->id }}</td>
                     </tr>
                     <tr>
-                        <td>Payment method</td>
-                        <td>{{ $order->payment_option }}</td>
+                        <td>{{ __('orders.payment_method') }}</td>
+                        <td>{{ __('payments.' . $order->payment_option) }}</td>
                     </tr>
                     <tr>
-                        <td>Shipping method</td>
-                        <td>{{ $order->shipping_option }}</td>
+                        <td>{{ __('orders.shipping_method') }}</td>
+                        <td>{{ __('shipping.' . $order->shipping_option) }}</td>
                     </tr>
                 </tbody>
                 </table>
@@ -33,12 +29,12 @@
         </div>
 
         <div class="card">
-            <div class="card-header">Address Information</div>
+            <div class="card-header">{{ __('orders.shipping_details') }}</div>
             <div class="card-body">
                 
                 <div class="row">
                     <div class="col-6">
-                        <h6>Shipping Info</h6>
+                        <h6>{{ __('orders.shipping_address') }}</h6>
                         <p>
                             {{ $order->shipping_address->first_name }} 
                             {{ $order->shipping_address->last_name }}
@@ -53,7 +49,7 @@
                         </p>
                     </div>
                     <div class="col-6">
-                        <h6>Billing Info</h6>
+                        <h6>{{ __('orders.billing_address') }}</h6>
 
                         <p>
                             {{ $order->billing_address->first_name }} {{ $order->billing_address->last_name }}
@@ -73,35 +69,29 @@
         <div class="clearfix">&nbsp;</div>
 
         <div class="card mb-3">
-            <div class="card-header">Order Items</div>
+            <div class="card-header">{{ __('orders.order_items') }}</div>
             <div class="card-body">               
-                <div class="table-responsive">
-                    <table class="table">
+                <div class="table-responsive-sm">
+                    <table class="table table-striped">
+                        <thead>
+                            <th>{{ __('orders.product_name') }}</th>
+                            <th>{{ __('orders.quantity') }}</th>
+                            <th>{{ __('orders.price') }}</th>
+                            <th>{{ __('orders.total') }}</th>
+                            <th>{{ __('orders.action') }}</th>
+                        </thead>
                         <tbody>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Qty</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                            <th>Action</th>
-                        </tr>
                         @foreach($order->products as $product)
                             @php
                                 $productInfo = json_decode($product->getRelationValue('pivot')->product_info);
                             @endphp
                             <tr>
-
-                                <td> {{ $productInfo->id }}</td>
                                 <td>
                                     {{ $productInfo->name }}
-
                                     @foreach($order->orderProductVariation as $orderProductVariation)
-                                        <p>
-                                            {{ $orderProductVariation->attribute->name }}
+                                        <p>{{ $orderProductVariation->attribute->name }}
                                             :
                                             {{   $orderProductVariation->attributeDropdownOption->display_text }}
-
                                         </p>
                                         
                                     @endforeach
@@ -129,8 +119,8 @@
                                     {{ $total = $product->getRelationValue('pivot')->price * $product->getRelationValue('pivot')->qty }} 
                                 </td>
                                 <td>
-                                    <a href="{{ route('my-account.order.return', $order->id) }}" title="Order Return Request">
-                                        Order Return Request
+                                    <a href="{{ route('my-account.order.return', $order->id) }}" class="btn btn-sm btn-secondary">
+                                        {{ __('orders.return_product') }}
                                     </a>
                                 </td>
                             </tr>
@@ -139,9 +129,6 @@
                     </table>
                 </div>
             </div>
-
         </div>
-    </div>
-</div>
 @endsection
 

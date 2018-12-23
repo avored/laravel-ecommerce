@@ -1,56 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.my-account')
 
-@section('content')
-<div class="row">
-    <div class="col-md-3">
-        @include('user.my-account.sidebar')
-    </div>
-    <div class="col-md-9">
-        <div class="main-title-wrapper">
-            <h2>Order details</h2>
-        </div>
-        <div class="clearfix"></div>
-        <div class="card mb-3">
-            <div class="card-header">General Information</div>
-            <div class="card-body">
-                <table class="table">
+@section('meta_title','My Account E commerce')
+@section('meta_description','My Account E commerce')
+
+@section('account-content')
+<h3>Return Order #{{ $order->id }}</h3>
+<div class="col-md-12">
+    <p>Please select the product(s) you would like to return.</p>
+    <div class="clearfix">&nbsp;</div>
+
+    <div class="table-responsive-sm">
+        <form action="{{ route('my-account.order.return.post', $order->id) }}" method="post">
+            @csrf()
+            <table class="table">
                 <tbody>
                     <tr>
-                        <td>Order number</td>
-                        <td>{{ $order->id }}</td>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Reason</th>
                     </tr>
-                    <tr>
-                        <td>Payment method</td>
-                        <td>{{ $order->payment_option }}</td>
-                    </tr>
-                    <tr>
-                        <td>Shipping method</td>
-                        <td>{{ $order->shipping_option }}</td>
-                    </tr>
-                </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="clearfix">&nbsp;</div>
-
-        <div class="card mb-3">
-            <div class="card-header">Order Items</div>
-            <div class="card-body">               
-                <div class="table-responsive">
-
-                    <form action="{{ route('my-account.order.return.post', $order->id) }}" method="post">
-                        @csrf()
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <th></th>
-                            <th>Name</th>
-                            <th>Qty</th>
-                            <th>Price</th>
-                            
-                            <th>Reason</th>
-                        </tr>
                         @foreach($order->products as $product)
                             <tr>
 
@@ -138,8 +108,6 @@
             </div>
 
         </div>
-    </div>
-</div>
 @endsection
 
 @push('scripts')

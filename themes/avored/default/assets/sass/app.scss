@@ -7,15 +7,17 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
-@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-regular";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
+//@import "~@fortawesome/fontawesome-free-webfonts/scss/fa-brands";
 
 // Custom
 @import "partials/badges";
 @import "custom";
 @import "partials/carousel";
 @import "partials/typography";
+@import "partials/my-account";
 @import "partials/theme";
+@import "partials/responsive";
 @import "partials/footer";

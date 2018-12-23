@@ -37,9 +37,105 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-    margin-bottom: 1.5em;
-    color: #3a3a3a;
-    font-size: 14px;
-    line-height: 25px;
+  margin-bottom: 1.5em;
+  color: #3a3a3a;
+  font-size: 14px;
+  line-height: 25px;
 }
 
+
+.btn-primary { 
+  background-color: $black;
+  border-color: $black;
+  color: $white;
+}
+
+.btn-primary:hover{ 
+  background-color: $black;
+  border-color: $black;
+  color: $white;
+}
+
+.footer-social-icons {
+    width: 350px;
+    display:block;
+    margin: 0 auto;
+}
+.social-icon {
+    color: $white;
+}
+ul.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons li {
+    vertical-align: top;
+    display: inline;
+    height: 100px;
+}
+.social-icons a {
+    color: #fff;
+    text-decoration: none;
+}
+.social-icons .fa-facebook {
+    padding:10px 14px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+    background-color: #3d5b99;
+}
+.social-icons .fa-facebook:hover {
+    background-color: #3d5b99;
+}
+.social-icons .fa-twitter {
+    padding:10px 12px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+    background-color: #00aced;
+}
+.social-icons .fa-twitter:hover {
+    background-color: #00aced;
+}
+
+.social-icons .fa-google {
+    padding:10px 9px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .5s;
+    background-color: #e25714;
+}
+
+.social-icons .fa-google:hover {
+    background-color: #e25714;
+}
+
+
+
+.sidebar-categores-box {
+  background: #f4f4f4;
+  border: 1px solid #e1e1e1;
+  border-radius: 3px;
+  box-shadow: none;
+  margin-bottom: 30px;
+  padding: 22.1px 15px 28px;
+}
+.sidebar-title {
+  border-bottom: 1px solid #e1e1e1;
+}
+.sidebar-title h2 {
+  color: #242424;
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 30px;
+  position: relative;
+  text-transform: uppercase;
+  margin-bottom: 21px;
+}
