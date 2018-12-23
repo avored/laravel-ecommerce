@@ -13,7 +13,20 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'authenticate'   => 'Authenticate',
+    'create'         => 'Create an account',
+    'email'          => 'Email',
+    'password'       => 'Password',
+    'failed'         => 'These credentials do not match our records.',
+    'reset_password' => 'Reset your password',
+    'login'          => 'Login',
+    'remember'       => 'Rememer me',
+    'throttle'       => 'Too many login attempts. Please try again in :seconds seconds.',
+    'social_auth'    => 'or use your account from',
+    'signin'         => 'Sign in',
+    'signin_title'   => 'Sign in with your account',
+    'facebook'       => 'Login with Facebook',
+    'google'         => 'Login with Google',
+    'twitter'        => 'Login with Twitter',
 
 ];
