@@ -69,9 +69,15 @@
                                 <div class="footer-social-icons">
                                     <h4>{{ __('auth.social_auth') }}</h4>
                                     <ul class="social-icons">
-                                        <li><a href="{{ route('login.provider', 'facebook') }}" class="social-icon"><i class="fab fa-facebook"></i></a></li>
-                                        <li><a href="{{ route('login.provider', 'google') }}" class="social-icon"><i class="fab fa-google"></i></a></li>
-                                        <li><a href="{{ route('login.provider', 'twitter') }}"" class="social-icon"><i class="fab fa-twitter"></i></a></li>
+                                        @foreach ($socialKeys as $socialKey)
+                                            @if ($socialButtonStatus->get($socialKey) === true)
+                                            <li>
+                                                <a href="{{ route('login.provider', $socialKey) }}" class="social-icon">
+                                                    <i class="fab fa-{{ $socialKey }}"></i>
+                                                </a>
+                                            </li>
+                                            @endif
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>

@@ -13,23 +13,26 @@ use AvoRed\Framework\Models\Contracts\UserInterface;
 use Illuminate\Support\Facades\Session;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Collection;
 
 class LoginController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+    
+    use AuthenticatesUsers;
+    
     const CONFIG_KEY = 'user_logout_keep_cart_products';
 
-    /*
-      |--------------------------------------------------------------------------
-      | Login Controller
-      |--------------------------------------------------------------------------
-      |
-      | This controller handles authenticating users for the application and
-      | redirecting them to your home screen. The controller uses a trait
-      | to conveniently provide its functionality to your applications.
-      |
-     */
-
-    use AuthenticatesUsers;
+    const SOCIAL_BUTTON_KEYS = ['facebook', 'twitter', 'google'];
 
     /**
      * Where to redirect users after login / registration.
@@ -37,25 +40,31 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/my-account';
-
+    
     /**
-     * Where to redirect users after login / registration.
-     *
+     * User Repository
      * @var \AvoRed\Framework\Models\Repository\UserRepository
      */
     protected $userRepository;
+
+    /**
+     * User Repository
+     * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
+     */
+    protected $configurationRepository;
 
     /**
      * Admin User Controller constructor.
      *
      * @return void
      */
-    public function __construct(UserInterface $userRepository)
-    {
+    public function __construct(
+        UserInterface $userRepository,
+        ConfigurationInterface $configurationRepository
+    ) {
         parent::__construct();
 
         $this->middleware('guest', ['except' => 'logout']);
-
         $url = URL::previous();
         $checkoutUrl = route('checkout.index');
 
@@ -63,6 +72,7 @@ class LoginController extends Controller
             $this->redirectTo = $checkoutUrl;
         }
         $this->userRepository = $userRepository;
+        $this->configurationRepository = $configurationRepository;
     }
 
     protected function guard()
@@ -141,7 +151,10 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('auth.login');
+        $socialButtonStatus = $this->getSocialButtonStatus();
+        return view('auth.login')
+            ->withSocialButtonStatus($socialButtonStatus)
+            ->withSocialKeys(self::SOCIAL_BUTTON_KEYS);
     }
 
     /**
@@ -235,5 +248,25 @@ class LoginController extends Controller
         Auth::loginUsingId($modelUser->id);
 
         return redirect($this->redirectTo);
+    }
+
+    /**
+     * Get Social button status
+     * @return \Illuminate\Support\Collection $socialButtonStatus
+     */
+    private function getSocialButtonStatus()
+    {
+        $socialButtonStatus = Collection::make([]);
+        $socialKeys = self::SOCIAL_BUTTON_KEYS;
+
+        foreach ($socialKeys as $socialKey) {
+            $configValue = $this->configurationRepository->getValueByKey('users_' . $socialKey . '_client_id');
+            if (null !== $configValue) {
+                $socialButtonStatus->put($socialKey, true);
+            } else {
+                $socialButtonStatus->put($socialKey, false);
+            }
+        }
+        return $socialButtonStatus;
     }
 }
