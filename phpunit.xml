@@ -7,31 +7,37 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="true">
+         stopOnFailure="false">
     <testsuites>
-        <testsuite name="Feature">
-            <directory suffix="Test.php">./tests/Feature</directory>
-        </testsuite>
-
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
+        </testsuite>
+
+        <testsuite name="Feature">
+            <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./modules/avored/framework/src</directory>
+            <directory suffix=".php">./app</directory>
         </whitelist>
     </filter>
-    <!--logging>
-        <log type="coverage-html" target="./public/report" charset="UTF-8"
-             yui="true" highlight="true"
-             lowUpperBound="50" highLowerBound="80" />
-    </logging-->
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="APP_URL" value="http://avored.local"/>
         <env name="DB_CONNECTION" value="sqlite_testing"/>
+        <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_DRIVER" value="array"/>
+        <env name="MAIL_DRIVER" value="array"/>
+        <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
-        <env name="QUEUE_DRIVER" value="sync"/>
     </php>
+    <logging>
+        <log 
+            type="coverage-html"
+            target="./public/cov/app"
+            lowUpperBound="50" 
+            highLowerBound="80" 
+        />
+    </logging>
 </phpunit>

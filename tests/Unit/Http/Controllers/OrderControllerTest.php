@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit\Http\Controllers;
 
 use Stripe\Charge;
 use App\Http\Controllers\OrderController;
@@ -79,8 +79,17 @@ class OrderControllerTest extends \Tests\TestCase
         ];
 
         $chargeMock = $this->getMockBuilder(\Stripe\Charge::class)->disableOriginalConstructor()->getMock();
-        $this->configMock->expects($this->exactly(1))->method('getValueByKey')->with('general_site_currency')->willReturn('eur');
-        $this->paymentMock->expects($this->exactly(1))->method('process')->with($paymentDatas, [], $requestMock)->willReturn($chargeMock);
+        $this->configMock
+            ->expects($this->exactly(1))
+            ->method('getValueByKey')
+            ->with('general_site_currency')
+            ->willReturn('eur');
+
+        $this->paymentMock
+            ->expects($this->exactly(1))
+            ->method('process')
+            ->with($paymentDatas, [], $requestMock)
+            ->willReturn($chargeMock);
 
         \AvoRed\Framework\Payment\Facade::shouldReceive('get')->once()->andReturn($this->paymentMock);
 
