@@ -4,18 +4,17 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
 {
-    use DatabaseTransactions;
-    /**
-     * A basic login example.
-     *
-     * @return void
-     */
-    public function testFrontLoginGet()
-    {
-        $response = $this->get('/login');
-        $response->assertSee('AvoRed Login');
-    }
+    use RefreshDatabase;
+
+     /** @test */
+     public function home_route_status_check()
+     {
+        $response = $this->get('/');
+        $response->assertSee('AvoRed E commerce');
+        //dd($response->content());
+     }
 }
