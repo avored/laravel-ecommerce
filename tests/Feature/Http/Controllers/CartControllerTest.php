@@ -1,5 +1,5 @@
 <?php
-namespace Tests\Unit\Http\Controllers;
+namespace Tests\Feature\Http\Controllers;
 
 use App\Http\Controllers\CartController;
 use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
