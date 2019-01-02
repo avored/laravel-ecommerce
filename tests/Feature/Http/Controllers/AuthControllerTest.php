@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use AvoRed\Framework\Models\Database\User;
 use Illuminate\Support\Facades\Password;
 use AvoRed\Framework\Models\Repository\ConfigurationRepository;
+use Illuminate\Support\Facades\Auth;
 
 class AuthControllerTest extends TestCase
 {
@@ -19,6 +20,27 @@ class AuthControllerTest extends TestCase
         $response->assertSee('name="email"');
         $response->assertSee('name="password"');
     }
+
+    /** @test */
+    public function testLoginPostRoute()
+    {
+        $user = factory(User::class)->create(['password' => bcrypt('admin123')]);
+        $data = ['email' => $user->email, 'password' => 'admin123'];
+        $response = $this->post(route('login.post'), $data);
+        $response->assertStatus(302);
+        $response->assertRedirect(route('my-account.home'));
+    }
+
+    /** @test */
+    public function testLogoutRoute()
+    {
+        $user = factory(User::class)->create(['password' => bcrypt('admin123')]);
+        Auth::loginUsingId($user->id);
+        $response = $this->get(route('logout'));
+        $response->assertStatus(302);
+        $response->assertRedirect(route('home'));
+    }
+
     /** @test */
     public function testRegisterRoute()
     {
@@ -68,7 +90,7 @@ class AuthControllerTest extends TestCase
     /** @test */
     public function testPasswordResetToeknGetRoute()
     {
-        $response = $this->get(route('password.reset.token', str_random()));
+        $response = $this->get(route('password.reset', str_random()));
         $response->assertStatus(200);
         $response->assertSee('Reset Password');
         $response->assertSee('name="email"');
