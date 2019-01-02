@@ -37,4 +37,13 @@ class ResetPasswordController extends Controller
     {
         return Auth::guard('web');
     }
+
+    /**
+     * Redirect url after reset password
+     * @return string $redirectPath
+     */
+    public function redirectPath()
+    {
+        return route('my-account.home');
+    }
 }

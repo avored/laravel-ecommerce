@@ -29,6 +29,6 @@ class MyAccountSidebarComposer
     {
         $menuGroup = $this->menuGroupRepository->query()->whereIdentifier('my-account')->first();
         $view->withUser(Auth::user())
-            ->withMenus($menuGroup->menus);
+            ->withMenus($menuGroup->menus ?? []);
     }
 }
