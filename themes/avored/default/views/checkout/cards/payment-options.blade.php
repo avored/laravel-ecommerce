@@ -14,7 +14,11 @@
                                 type="radio" name="payment_option[pickup]"
                                 id="{{ $paymentOption->identifier() }}"
                                 value="{{ $paymentOption->identifier() }}"
-                                
+
+                                @if($paymentOption->identifier() == old('payment_option'))
+                                    checked="checked"
+                                @endif
+
                                 @if($errors->has('payment_option'))
                                     class="is-invalid avored-payment-option form-check-input"
                                 @else

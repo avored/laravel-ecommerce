@@ -1,8 +1,11 @@
-<div class="panel">
-    <div class="panel-body">
-        <h6>Filter By Product Attributes</h6>
-        <hr/>
+<div class="sidebar-categores-box">
+    <div class="sidebar-title">
+        <h2>Filter By</h2>
+    </div>
+    <div class="clearfix">&nbsp;</div>
 
+    <button class="btn-secondary mb-sm-30 mb-xs-30">Clear all</button>
+    <div class="filter-sub-area">
         @if(($category->children->count()) > 0)
             <h4>Sub Categories</h4>
             <ul class="list-group">
@@ -86,9 +89,7 @@
 
                 <h4>{{ $attribute->name }}</h4>
                 <ul class="list-group">
-
                     @foreach($attribute->propertyDropdownOptions as $option)
-
                         @php
 
                             $attributeParams = isset($params['property']) ? $params['property'] :  [];
@@ -153,7 +154,6 @@
 
             @endif
         @endforeach
-
     </div>
 </div>
 

@@ -6,10 +6,10 @@
 
 @section('content')
     <div class="row">
-        <div class="col-2">
+        <div class="col">
             @include('category.options')
         </div>
-        <div class="col-10">
+        <div class="col-9">
             <div class="row">
                 @if(count($category->products) <= 0)
                     <p>Sorry No Product Found</p>

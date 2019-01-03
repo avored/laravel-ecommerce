@@ -17,10 +17,9 @@
                 </a>
             </li>
         </ul>
+        
         <ul class="navbar-nav">
-
             @auth()
-
                 <li class="nav-item ">
                     <a class="nav-link" href="#">Welcome {{ Auth::user()->full_name }} !
                         <span class="sr-only">(current)</span>
@@ -31,45 +30,33 @@
                         <span class="sr-only">(current)</span>
                     </a>
                 </li>
-
-
             @endauth
 
             @guest()
-
-            @if($currencies->count() > 1)
-            <li class="nav-item dropdown" >
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-                    
-                    Currency : {{ Session::get('currency_symbol')}}
-                </a>
+                @if($currencies->count() > 1)
+                <li class="nav-item dropdown" >
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Currency : {{ Session::get('currency_symbol')}}</a>
                     <div class="dropdown-menu">
                         @foreach($currencies as $siteCurrencyId => $currencyCode)
-                        <?php 
+                            <?php 
                             if (strpos(URL::current(), '?')) {
                                 $url = URL::current() . '&currency_code=' . $currencyCode;
                             } else {
                                 $url = URL::current() . '?currency_code=' . $currencyCode;
                             }
-
-                        ?>
-                            <a class="dropdown-item" 
-                                href="{{ $url }}">
-                                {{ $currencyCode}}
-                            </a>
+                            ?>
+                            <a class="dropdown-item" href="{{ $url }}">{{ $currencyCode}}</a>
                         @endforeach
                     </div>
-               
-            </li>
-            @endif
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">Sign In </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">Create an Account</a>
-            </li>
+                </li>
+                @endif
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">{{ __('auth.signin') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">{{ __('auth.create') }}</a>
+                </li>
             @endguest()
-
         </ul>
     </div>
 </nav>
@@ -103,7 +90,7 @@
     </div>
 </header>
    
-<nav class="navbar navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
         <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
                 data-target="#avored-navbar">
@@ -112,7 +99,7 @@
 
         <div class="collapse navbar-collapse" id="avored-navbar">
             <ul class="main-navbar navbar-nav mr-auto">
-                @include('layouts.menu-tree',['menus' => $menus])
+                @include('layouts.menu-tree', ['menus' => $menus])
             </ul>
         </div>
     </div>

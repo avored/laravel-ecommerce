@@ -11,8 +11,9 @@
     <title>@yield('meta_title', $metaTitle)</title>
     <meta name="description" content="@yield('meta_description', $metaDescription )"/>
 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
-    <link href="{{ asset('vendor/avored-default/css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/avored-default/css/app.css') }}" rel="stylesheet">  
     @stack('styles')
     <!-- Scripts -->
     <script>
@@ -24,7 +25,7 @@
     <script src="{{ asset('/vendor/avored-default/js/app.js') }}"></script>
     @include("layouts.nav")
 
-    <div class="container top-buffer bottom-buffer">
+    <div class="container">
         <div class="row">
             <div class="col-12">
                 @if(session()->has('errorNotificationText'))
@@ -36,7 +37,6 @@
                     <strong>Error!</strong> {{ session()->get('errorNotificationText') }}
                 </div>
                 @endif
-
 
                 @if(session()->has('notificationText'))
                 <div class="alert alert-success alert-dismissible" role="alert">
@@ -53,7 +53,6 @@
     </div>
 
     @include('layouts.footer')
-    @stack('scripts')
-    
+    @stack('scripts')    
 </body>
 </html>

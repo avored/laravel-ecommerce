@@ -15,7 +15,7 @@
         <div class="row">
             <div class="form-group  col-6">
                 <label class="control-label" for="input-user-first-name">{{ __('customer.first_name') }} <span class="text-danger">*</span></label>
-                <input type="text" name="billing[first_name]" value="{{ $firstName }}" id="input-user-first-name"
+                <input type="text" name="billing[first_name]" value="{{old('billing.first_name', $firstName)}}" id="input-user-first-name"
                       @if($errors->has('billing.first_name'))
                        class="is-invalid avored-checkout-field form-control"
                       @else
@@ -33,7 +33,7 @@
             <div class="form-group  col-6">
                 <label class="control-label" for="input-user-last-name">{{ __('customer.last_name') }} <span class="text-danger">*</span></label>
                 <input type="text" name="billing[last_name]"
-                       value="{{ $lastName }}" id="input-user-last-name"
+                       value="{{old('billing.last_name', $lastName)}}" id="input-user-last-name"
                         @if($errors->has('billing.last_name'))
                           class="is-invalid form-control avored-checkout-field"
                         @else
@@ -52,7 +52,7 @@
 
             <div class="form-group">
                 <label class="control-label" for="input-user-email">{{ __('customer.email') }} <span class="text-danger">*</span></label>
-                <input type="text" name="user[email]" id="input-user-email"
+                <input type="text" name="user[email]" id="input-user-email" value="{{old('user.email')}}"
                         @if($errors->has('user.email'))
                         class="is-invalid avored-checkout-field form-control"
                         @else
@@ -116,7 +116,7 @@
 
         <div class="form-group">
             <label class="control-label" for="input-billing-phone">{{ __('customer.phone') }} <span class="text-danger">*</span></label>
-            <input type="text" name="billing[phone]" value="{{ $phone }}" id="input-billing-phone"
+            <input type="text" name="billing[phone]" value="{{old('billing.phone', $phone)}}" id="input-billing-phone"
                   @if($errors->has('billing.phone'))
                    class="is-invalid form-control avored-checkout-field"
                   @else

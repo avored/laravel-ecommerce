@@ -1,49 +1,27 @@
-@extends('layouts.app')
+@extends('layouts.my-account')
 
-@section('meta_title','Upload My Account E commerce')
-@section('meta_description','Upload My Account E commerce')
+@section('meta_title','My Account E commerce')
+@section('meta_description','My Account E commerce')
 
-@section('content')
-    <div class="row profile">
-        <div class="col-3">
-            @include('user.my-account.sidebar')
-        </div>
-        <div class="col-9">
+@section('account-content')
 
-            <div class="card">
-                <div class="card-header">
-                    Profile Image Upload
-                </div>
-                <div class="card-body">
-                    <form action="{{ route('my-account.upload-image.post') }}" method="post" enctype="multipart/form-data">
+<h3>{{ __('profile.upload_image') }}</h3>
+<div class="clearfix">&nbsp;</div>
 
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label for="profile_image">Profile Image</label>
-                            <input type="file"
-                                   @if($errors->has('profile_image'))
-                                   class="is-invalid form-control"
-                                   @else
-                                   class="form-control"
-                                   @endif
-
-                            name="profile_image" id="profile_image" />
-                            @if ($errors->has('profile_image'))
-                                <div class="invalid-feedback">
-                                    {{ $errors->first('profile_image') }}
-                                </div>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            <button class="btn btn-primary" type="submit">Upload Image</button>
-                        </div>
-                    </form>
-
+<form action="{{ route('my-account.upload-image.post') }}" method="post" enctype="multipart/form-data">
+    {{ csrf_field() }}
+        <div class="form-group">
+            <div class="input-group mb-3">
+                <div class="custom-file">
+                    <input type="file" name="profile_image" id="profile_image" 
+                        @if($errors->has('profile_image')) class="is-invalid form-control" @else class="custom-file-input" @endif>
+                            <label class="custom-file-label" for="inputGroupFile01">{{ __('profile.choose_file') }}</label>
                 </div>
             </div>
 
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">{{ __('profile.upload_image') }}</button>
+            </div>
         </div>
-    </div>
-
+</form>
 @endsection

@@ -44,7 +44,7 @@ class LayoutAppComposer
         $metaTitle = Configuration::getConfiguration('general_site_title');
         $metaDescription = Configuration::getConfiguration('general_site_description');
 
-        $view->withMenus($menuGroup->menus)
+        $view->withMenus($menuGroup->menus ?? [])
             ->withCart($cart)
             ->withCurrencies($currencies)
             ->withMetaTitle($metaTitle)

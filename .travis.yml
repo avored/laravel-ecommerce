@@ -1,4 +1,10 @@
 language: php
+cache:
+  directories:
+  - "$HOME/.composer/cache"
 php:
-  - '7.0'
-  - hhvm # on Trusty only
+  - '7.2'
+script:
+- vendor/bin/phpunit -c phpunit.xml
+
+install: composer install --no-interaction

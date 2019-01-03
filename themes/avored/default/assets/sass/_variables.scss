@@ -1,4 +1,20 @@
 // Default colors
+
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$gray:       $gray-600;
+$gray-dark: $gray-800;
+$black: #000 !default;
+
+$red:                   #b71c1c;
 $brand-primary:         darken($red, 6.5%) !default; // #337ab7
 $brand-success:         #5cb85c !default;
 $brand-info:            #5bc0de !default;
@@ -18,7 +34,7 @@ $btn-default-bg:                 #fff !default;
 $btn-default-border:             #ccc !default;
 
 $btn-primary-color:              #fff !default;
-$btn-primary-bg:                 #000 !important;
+$btn-primary-bg:                 #000 !default;
 $btn-primary-border:             darken($red, 5%) !default;
 
 $btn-success-color:              #fff !default;
@@ -37,7 +53,7 @@ $btn-danger-color:               #fff !default;
 $btn-danger-bg:                  $brand-danger !default;
 $btn-danger-border:              darken($btn-danger-bg, 5%) !default;
 
-$btn-link-disabled-color:        $gray-light !default;
+$btn-link-disabled-color:        $gray-600 !default;
 
 // Link color.
 $link-color:            $brand-primary !default;
@@ -47,7 +63,7 @@ $link-hover-decoration: underline !default;
 // Tabs
 
 $nav-tabs-border-color:                     #ddd !default;
-$nav-tabs-link-hover-border-color:          $gray-lighter !default;
+$nav-tabs-link-hover-border-color:          $gray-200 $gray-200 $nav-tabs-border-color;
 
 $nav-tabs-active-link-hover-bg:             $white !important;
 $nav-tabs-active-link-hover-color:          $gray !important;
@@ -69,4 +85,4 @@ $font-family-sans-serif: "Raleway", sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 
-$fa-font-path: "../fonts" !default;
+// $fa-font-path: "../fonts" !default;
