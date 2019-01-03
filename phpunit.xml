@@ -7,7 +7,7 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          processIsolation="false"
-         stopOnFailure="false">
+         stopOnFailure="true">
     <testsuites>
         <testsuite name="Unit">
             <directory suffix="Test.php">./tests/Unit</directory>
@@ -31,12 +31,12 @@
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
     </php>
-    <logging>
+    <!--logging>
         <log 
             type="coverage-html"
             target="./public/cov/app"
             lowUpperBound="50" 
             highLowerBound="80" 
         />
-    </logging>
+    </logging-->
 </phpunit>
