@@ -48,7 +48,7 @@ return [
         'sqlite_testing' => [
             'driver' => 'sqlite',
             'database' => ':memory:',
-            'prefix' => '',
+            'prefix' => env('DB_TABLE_PREFIX', 'avored_'),
         ],
         'mysql' => [
             'driver' => 'mysql',
@@ -59,7 +59,7 @@ return [
             'password' => env('DB_PASSWORD', ''),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix' => 'avored_',
+            'prefix' => env('DB_TABLE_PREFIX', 'avored_'),
             'strict' => true,
             'engine' => 'InnoDB',
         ],

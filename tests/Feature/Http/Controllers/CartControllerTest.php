@@ -5,9 +5,12 @@ use App\Http\Controllers\CartController;
 use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
 use AvoRed\Framework\Models\Contracts\ProductInterface;
 use AvoRed\Framework\Models\Database\Product;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CartControllerTest extends \Tests\TestCase
 {
+    use RefreshDatabase;
+
     /** @var ProductInterface|PHPUnit_Framework_MockObject_MockObject */
     private $productMock;
     /** @var ConfigurationInterface|PHPUnit_Framework_MockObject_MockObject */
@@ -27,6 +30,24 @@ class CartControllerTest extends \Tests\TestCase
             ->getMock();
 
         $this->instance = new CartController($this->productMock, $this->configMock);
+    }
+
+    /** @test */
+    public function testCartViewRoute()
+    {
+        $response = $this->get(route('cart.view'));
+        $response->assertStatus(200);
+        $response->assertSee('There is no Product in Cart yet.');
+    }
+    /** @test */
+    public function testCartViewWithProductRoute()
+    {
+        $product = factory(Product::class)->create();
+        $data = ['slug' => $product->slug];
+        
+        $response = $this->post(route('cart.add-to-cart', $data));
+        $response->assertStatus(302);
+        $response->assertSessionHas('notificationText', 'Product Added to Cart Successfully!');
     }
 
     public function testSuccessfulAddToCartWithoutTax()
