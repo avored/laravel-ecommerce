@@ -23,6 +23,7 @@ class Controller extends BaseController
         } catch (\Exception $e) {
             $dbConnectError = true;
         }
+        
         if (false === $dbConnectError) {
             $themeViewPath = Configuration::getConfiguration('active_theme_path');
             $fileViewFinder = View::getFinder();
