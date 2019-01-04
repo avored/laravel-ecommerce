@@ -24,7 +24,7 @@ class Controller extends BaseController
             $dbConnectError = true;
         }
         
-        if (false === $dbConnectError) {
+        if (false === $dbConnectError && Schema::hasTable('configurations')) {
             $themeViewPath = Configuration::getConfiguration('active_theme_path');
             $fileViewFinder = View::getFinder();
             $fileViewFinder->prependLocation(base_path($themeViewPath));
