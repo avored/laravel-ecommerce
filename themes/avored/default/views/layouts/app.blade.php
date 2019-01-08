@@ -10,8 +10,7 @@
 
     <title>@yield('meta_title', $metaTitle)</title>
     <meta name="description" content="@yield('meta_description', $metaDescription )"/>
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
     <link href="{{ asset('vendor/avored-default/css/app.css') }}" rel="stylesheet">  
     @stack('styles')
@@ -23,7 +22,10 @@
 
 <body>
     <script src="{{ asset('/vendor/avored-default/js/app.js') }}"></script>
-    @include("layouts.nav")
+
+    @include("layouts.partials.top")
+    @include("layouts.partials.header")
+    @include("layouts.partials.navigation")
 
     <div class="container">
         <div class="row">
@@ -52,7 +54,7 @@
         @yield('content')
     </div>
 
-    @include('layouts.footer')
+    @include('layouts.partials.footer')
     @stack('scripts')    
 </body>
 </html>
