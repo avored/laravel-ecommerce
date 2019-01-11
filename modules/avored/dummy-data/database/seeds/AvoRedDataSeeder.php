@@ -334,90 +334,28 @@ class AvoRedDataSeeder extends Seeder
                                     'product_id' => $vintageToast->id,
                                     'is_main_image' => 1]);
 
-        $menuGroup = MenuGroup::create([
-                        'name' => 'Main Menu',
-                        'identifier' => 'main-menu',
-                        'is_default' => 1
-                    ]);
-        
+        $menuGroup = MenuGroup::whereIdentifier('main-menu')->first();
+
         Menu::create([
             'name' => $kitchenCategory->name,
             'menu_group_id' => $menuGroup->id,
             'params' => $kitchenCategory->slug,
             'route' => 'category.view',
+            'sort_order' => 100
         ]);
         Menu::create([
             'name' => $bedroomCategory->name,
             'menu_group_id' => $menuGroup->id,
             'params' => $bedroomCategory->slug,
             'route' => 'category.view',
+            'sort_order' => 200
         ]);
         Menu::create([
             'name' => $livingRoomCategory->name,
             'menu_group_id' => $menuGroup->id,
             'params' => $livingRoomCategory->slug,
             'route' => 'category.view',
-        ]);
-        Menu::create([
-            'name' => 'My Account',
-            'menu_group_id' => $menuGroup->id,
-            'route' => 'my-account.home',
-        ]);
-        Menu::create([
-            'name' => 'Cart',
-            'menu_group_id' => $menuGroup->id,
-            'route' => 'cart.view',
-        ]);
-        Menu::create([
-            'name' => 'Checkout',
-            'menu_group_id' => $menuGroup->id,
-            'route' => 'checkout.index',
-        ]);
-
-        $accountMenuGroup = MenuGroup::create([
-            'name' => 'My Account',
-            'identifier' => 'my-account'
-        ]);
-
-        Menu::create([
-            'name' => 'Account Overview',
-            'menu_group_id' => $accountMenuGroup->id,
-            'route' => 'my-account.home',
-        ]);
-        Menu::create([
-            'name' => 'Edit Account',
-            'menu_group_id' => $accountMenuGroup->id,
-            'route' => 'my-account.edit',
-        ]);
-        Menu::create([
-            'name' => 'Upload Image',
-            'menu_group_id' => $accountMenuGroup->id,
-            'route' => 'my-account.upload-image',
-        ]);
-        Menu::create([
-            'name' => 'My Orders',
-            'menu_group_id' => $accountMenuGroup->id,
-            'route' => 'my-account.order.list',
-        ]);
-        Menu::create([
-            'name' => 'My Addresses',
-            'menu_group_id' => $accountMenuGroup->id,
-            'route' => 'my-account.address.index',
-        ]);
-        Menu::create([
-            'name' => 'My Wishlist',
-            'menu_group_id' => $accountMenuGroup->id,
-            'route' => 'my-account.wishlist.list',
-        ]);
-        Menu::create([
-            'name' => 'Change Password',
-            'menu_group_id' => $accountMenuGroup->id,
-            'route' => 'my-account.change-password',
-        ]);
-        Menu::create([
-            'name' => 'Logout',
-            'menu_group_id' => $accountMenuGroup->id,
-            'route' => 'logout',
+            'sort_order' => 300
         ]);
 
         $homePage = Page::create(
