@@ -30,9 +30,7 @@ class CartController extends Controller
     }
 
     /**
-     *
      * Add To Cart Product
-     *
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
