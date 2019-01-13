@@ -8,6 +8,7 @@ use AvoRed\Framework\Models\Database\User;
 use Illuminate\Support\Carbon;
 use AvoRed\Framework\Models\Database\Country;
 use AvoRed\Framework\Models\Database\Address;
+use Illuminate\Http\UploadedFile;
 
 class AccountControllerTest extends \Tests\TestCase
 {
@@ -78,5 +79,33 @@ class AccountControllerTest extends \Tests\TestCase
         $response = $this->actingAs($user)->post(route('my-account.change-password.post'), $data);
         $response->assertStatus(302);
         $response->assertRedirect(route('my-account.home'));
+    }
+
+    /** @test */
+    public function testMyAccountUploadImageGetRoute()
+    {
+        $user = factory(User::class)->create(['password' => bcrypt('testpassword')]);
+        $user->email_verified_at = Carbon::now();
+        $user->update();
+
+        $response = $this->actingAs($user)->get(route('my-account.upload-image'));
+        $response->assertStatus(200);
+        $response->assertSee('Upload Image');
+    }
+
+    /** @test */
+    public function testMyAccountUploadImagePostRoute()
+    {
+        $user = factory(User::class)->create(['password' => bcrypt('testpassword')]);
+        $user->email_verified_at = Carbon::now();
+        $user->image_path = '';
+        $user->update();
+
+        $file = UploadedFile::fake()->image('avatar.jpg');
+
+        $data = ['profile_image' => $file];
+        $response = $this->actingAs($user)->post(route('my-account.upload-image.post'), $data);
+        $response->assertStatus(302);
+        $response->assertSee(route('my-account.home'));
     }
 }
