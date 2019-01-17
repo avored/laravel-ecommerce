@@ -40,9 +40,6 @@
     "popper.js": "^1.14.3",
     "select2": "^4.0.6-rc.1",
     "skycons": "^1.0.0",
-    "tailwindcss": "^0.7.3",
-    "laravel-mix-purgecss": "^2.2",
-    "laravel-mix-tailwind": "^0.1.0",
     "vue": "^2.5.7"
   },
   "dependencies": {
