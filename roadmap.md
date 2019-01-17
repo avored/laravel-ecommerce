@@ -1,5 +1,4 @@
-# RoadMap for AvoRed E-Commerce
-This document outlines some goals, non-goals, and future aspirations for Avored.
+# Roadmap
 
 ## Release Goals
 - [Bug Fixing](#bug-fixing)
@@ -7,12 +6,12 @@ This document outlines some goals, non-goals, and future aspirations for Avored.
 - [Stability](#stability)
 
 ### Bug Fixing
-- Replace static text by using Laravel's localization method.
+- Increase code coverage of Unit Tests
 
 ## Features
 - Allow multiple vendors to manage and sell products.
-- Introduce vuejs to framework.
-- Integrate GPDR compliance.
+- Allow multiple vendors to manage and sell products.
+- Allow multiple vendors to manage and sell products.
 
 ### Stability
-- Increase code coverage of Unit Tests.
+- Increase code coverage of Unit Tests
