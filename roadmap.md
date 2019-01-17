@@ -6,10 +6,12 @@
 - [Stability](#stability)
 
 ### Bug Fixing
-- Increase code coverage of Unit Tests
+- Replace static text by using Laravel's localization method.
 
 ## Features
 - Allow multiple vendors to manage and sell products.
+- Introduce vuejs to framework.
+- Integrate GPDR compliance.
 
 ### Stability
-- Increase code coverage of Unit Tests
+- Increase code coverage of Unit Tests.
