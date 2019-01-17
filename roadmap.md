@@ -10,8 +10,6 @@
 
 ## Features
 - Allow multiple vendors to manage and sell products.
-- Allow multiple vendors to manage and sell products.
-- Allow multiple vendors to manage and sell products.
 
 ### Stability
 - Increase code coverage of Unit Tests
