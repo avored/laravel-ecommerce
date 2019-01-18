@@ -123,8 +123,7 @@ class OrderController extends Controller
      */
     public function myAccountOrderView(Order $order)
     {
-        return view('order.my-account-order-view')
-                    ->withOrder($order);
+        return view('order.my-account-order-view')->withOrder($order);
     }
 
     /**
@@ -134,8 +133,7 @@ class OrderController extends Controller
      */
     public function return(Order $order)
     {
-        return view('my-account.order.return')
-                    ->withOrder($order);
+        return view('order.return')->withOrder($order);
     }
 
     /**
