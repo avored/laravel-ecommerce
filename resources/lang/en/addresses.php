@@ -14,6 +14,7 @@ return [
     */
 
     'title'     => 'My Addresses',
-    'create'    => 'Create a address',
+    'create'    => 'Add my address',
     'edit'      => 'Edit',
+    'no_data'   => 'We need your address before we can start processing your order(s).',
 ];
