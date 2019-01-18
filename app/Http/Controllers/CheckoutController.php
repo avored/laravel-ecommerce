@@ -30,6 +30,8 @@ class CheckoutController extends Controller
         $data = $request->all();
         $shippingOptions = Shipping::all();
         foreach ($shippingOptions as $option) {
+            // Skip if isnt enabled.
+            if (!$option->enable()) continue;
             $view = $option->calculate($data);
             if (null !== $view) {
                 $responseData['shipping'][] = $view;
