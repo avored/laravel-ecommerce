@@ -16,7 +16,7 @@
 * To provide a code contribution for an issue you will need to set up your own fork of the Avored repository, make your code changes, commit the changes and make a Pull Request to the dev branch on the Avored repository. 
 * Separate each fix into a new branch in your repository and name it with the issue ID e.g. bugfix_3062 or issue-1234.
 * When committing to your individual bugfix branch, please try and use the following as your commit message 
-```Fixed #1234 - <the subject of the issue>```. By using this format we can easily include all bug fixes within major and minor release notes in our [Changelog](CHANGELOG.md).
+```Fixed #1234 - <the subject of the issue>```. By using this format we can easily include all bug fixes within major and minor release notes in our [Changelog](https://github.com/avored/laravel-ecommerce/blob/master/CHANGELOG.md).
 * If you are new to writing commit messages in git, follow the guide [here.](http://chris.beams.io/posts/git-commit/#seven-rules)
 * After you have made your commits and pushed them up to your forked repository you then create a [Pull Request](https://help.github.com/articles/about-pull-requests/) to be reviewed and merged into the Avored repository. Make a new Pull Request for each issue you fix.    **do not combine multiple bugfixes into one Pull Request**.
 * Ensure that you send your Pull Request to the dev.
