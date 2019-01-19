@@ -29,9 +29,9 @@ class MyAccountController extends Controller
 {
     public function home()
     {
-        $user = Auth::user();
-        $orders = Order::all();
-
+        $user = Auth::guard()->user();
+        $orders = Order::whereUserId($user->id)->get();
+        
         return view('user.my-account.home', ['user' => $user, 'orders' => $orders]);
     }
 
