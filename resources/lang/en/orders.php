@@ -13,6 +13,7 @@ return [
    'actions'           => 'Actions',
    'billing_address'   => 'Billing address',
    'details'           => 'Order details',
+   'my_orders'         => 'My orders',   
    'number'            => 'Number',
    'product_name'      => 'Product name',
    'price'             => 'Price',
@@ -27,5 +28,4 @@ return [
    'purchased_at'      => 'Purchased at',
    'view'              => 'View',
    'return_product'    => 'Return product',
-   'my_orders'         => 'My orders',
 ];
