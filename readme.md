@@ -21,7 +21,7 @@ Please visit the [AvoRed Documentation](https://www.avored.com/docs) to get star
 
 ## Demo 
 
-a demo store can be found at [http://demo.avored.com](http://demo.avored.com/).
+a demo store can be found at [https://demo.avored.com](https://demo.avored.com/).
 
 ## Contributing
 
