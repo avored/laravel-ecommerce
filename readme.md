@@ -21,7 +21,7 @@ Please visit the [AvoRed Documentation](https://www.avored.com/docs) to get star
 
 ## Contributing
 
-[AvoRed](https://www.avored.com/) is in active development, if you want to contribute to this project then please read our[contributing guide](.github/CONTRIBUTING.md).
+[AvoRed](https://www.avored.com/) is in active development, if you want to contribute to this project then please read our [contributing guide](.github/CONTRIBUTING.md).
 
 If you find any bug or problem please submit here [AvoRed Ecommerce Forum](http://avored.website/forum/) or [raise the issue here](https://github.com/avored/laravel-ecommerce/issues/new).
 
