@@ -156,7 +156,7 @@ class OrderController extends Controller
             $returnRequest->products()->create($product);
         }
 
-        return redirect()->back()->withNotificationText('Order Return Request placed successfully!');
+        return redirect()->back()->withNotificationText(__('return.success'));
     }
 
     private function getUser(Request $request)

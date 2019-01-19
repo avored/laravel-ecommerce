@@ -21,5 +21,6 @@ return [
    'option-other'            => 'Other',
    'other_reason'            => 'Other reason',
    'comment'                 => 'Comment',
-   'submit'                  => 'Send request'
+   'submit'                  => 'Send request',
+   'success'                 => 'Order Return Request placed successfully!'
 ];
