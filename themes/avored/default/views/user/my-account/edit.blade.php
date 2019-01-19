@@ -46,15 +46,24 @@
   
   <div class="form-group">
     <label for="PhoneNumber">{{ __('customer.phone') }}</label>
-    <input type="text" name="phone" class="form-control" id="PhoneNumber" value="{{ $user->phone }}" required="">
+    <input type="text" name="phone"
+        class="form-control" id="PhoneNumber" 
+        value="{{ $user->phone }}" required />
   </div>
 
   <button type="submit" class="btn btn-primary">{{ __('profile.update') }}</button>
-  <button type="button" data-toggle="modal" data-target="#exampleModal" class="btn btn-danger">{{ __('profile.remove') }}</button>
+  <button 
+    type="button"
+    data-toggle="modal"
+    data-target="#profile-delete-request"
+    class="btn btn-default float-right"
+  >
+    {{ __('profile.remove') }}
+  </button>
 </form>
 
 
-<div id="exampleModal" class="modal fade" tabindex="-1" role="dialog">
+<div id="profile-delete-request" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -64,12 +73,16 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>{!! __('profile.remove-modal-body') !!}</p>
+        <p>{{ $deleteRequestText }}</p>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-md btn-danger" data-dismiss="modal">{{ __('profile.close') }}</button>
-        <button type="button" class="btn btn-md btn-primary">{{ __('profile.save') }}</button>
+        <button type="button" class="btn btn-md btn-danger" data-dismiss="modal">
+          {{ __('profile.close') }}
+        </button>
+        <button type="button" class="btn btn-md btn-primary">
+          {{ __('profile.save') }}
+        </button>
       </div>
     </div>
   </div>

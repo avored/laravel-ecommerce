@@ -22,11 +22,23 @@ use App\Http\Requests\MyAccount\Order\OrderReturnRequest;
 use AvoRed\Framework\Models\Contracts\OrderReturnRequestInterface;
 use AvoRed\Framework\Models\Contracts\OrderReturnProductInterface;
 use AvoRed\Framework\Models\Contracts\ProductInterface;
-
 use App\Http\Controllers\Controller;
 
 class MyAccountController extends Controller
 {
+    /**
+    *
+    * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
+    */
+    protected $configurationRepository;
+
+
+    public function __construct(ConfigurationInterface $configurationRepository)
+    {
+        parent::__construct();
+        $this->configurationRepository = $configurationRepository;
+    }
+
     public function home()
     {
         $user = Auth::guard()->user();
@@ -38,8 +50,11 @@ class MyAccountController extends Controller
     public function edit()
     {
         $user = Auth::user();
+        $deleteRequestText = $this->configurationRepository->getValueByKey('user_delete_request_text');
 
-        return view('user.my-account.edit')->with('user', $user);
+        return view('user.my-account.edit')
+            ->withUser($user)
+            ->withDeleteRequestText($deleteRequestText);
     }
 
     /**
