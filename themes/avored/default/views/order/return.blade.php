@@ -54,7 +54,7 @@
                             <td class="text-center"> 
                                 <select class="form-control product-reason-dropdown" name="products[{{ $product->slug }}][reason]" required="">
                                     <option value="">{{ __('return.select') }}</option>
-                                    <option value="{{ __('return.option-damaged') }}">{{ __('return.option-damaged') }}</option>
+                                    <option value="{{ __('return.option-broken') }}">{{ __('return.option-broken') }}</option>
                                     <option value="{{ __('return.option-never-delivered') }}">{{ __('return.option-never-delivered') }}</option>
                                     <option value={{ __('return.option-other') }}>{{ __('return.option-other') }}</option>
                                 </select>
