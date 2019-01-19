@@ -110,7 +110,7 @@ class OrderController extends Controller
     {
         $user = Auth::guard()->user();
         $orders = Order::whereUserId($user->id)->get();
-        $view = view('order.my-account-order-list')->with('orders', $orders);
+        $view = view('order.list')->with('orders', $orders);
 
         return $view;
     }
@@ -123,7 +123,7 @@ class OrderController extends Controller
      */
     public function myAccountOrderView(Order $order)
     {
-        return view('order.my-account-order-view')->withOrder($order);
+        return view('order.view')->withOrder($order);
     }
 
     /**
