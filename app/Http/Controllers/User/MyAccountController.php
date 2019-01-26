@@ -114,4 +114,16 @@ class MyAccountController extends Controller
             return redirect()->back()->withErrors(['current_password' => 'Your Current Password Wrong!']);
         }
     }
+
+    /**
+     * Destroy the User Account as Soft Delete
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy()
+    {
+        $user = Auth::user();
+
+        $user->delete();
+        return redirect()->route('my-account.home');
+    }
 }

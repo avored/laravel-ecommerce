@@ -60,6 +60,8 @@ Route::middleware(['auth', 'verified'])->prefix('my-account')->name('my-account.
     Route::get('change-password', 'User\MyAccountController@changePassword')->name('change-password');
     Route::post('change-password', 'User\MyAccountController@changePasswordPost')->name('change-password.post');
 
+    Route::delete('destroy', 'User\MyAccountController@destroy')->name('destroy');
+
     Route::resource('address', 'User\AddressController');
 
     Route::get('order/list', 'OrderController@myAccountOrderList')->name('order.list');

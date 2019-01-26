@@ -64,6 +64,7 @@ class AccountControllerTest extends \Tests\TestCase
         $response->assertStatus(200);
         $response->assertSee('Change Password');
     }
+    
     /** @test */
     public function testMyAccountChangePasswordPostRoute()
     {
@@ -79,6 +80,23 @@ class AccountControllerTest extends \Tests\TestCase
         $response = $this->actingAs($user)->post(route('my-account.change-password.post'), $data);
         $response->assertStatus(302);
         $response->assertRedirect(route('my-account.home'));
+    }
+
+    /** @test */
+    public function testMyAccountChangePasswordPostRouteWithErrors()
+    {
+        $user = factory(User::class)->create(['password' => bcrypt('testpassword')]);
+        $user->email_verified_at = Carbon::now();
+        $user->update();
+        
+        $data = [
+            'current_password' => 'wrongpassword',
+            'password' => 'newpassword',
+            'password_confirmation' => 'newpassword'
+        ];
+        $response = $this->actingAs($user)->post(route('my-account.change-password.post'), $data);
+        $response->assertStatus(302);
+        $response->assertSessionHasErrors(['current_password']);
     }
 
     /** @test */
