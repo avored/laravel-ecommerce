@@ -77,7 +77,9 @@
             </button>
           </div>
           <div class="modal-body">
-            <p>{{ $deleteRequestText }}</p>
+            <p>We would like to inform you that we immediately deactivate your account
+                once you decide to delete your account.<br /> 
+                All your data will be removed from the system within {{ $deleteRequestDays }} days.</p>
 
           </div>
           <div class="modal-footer">

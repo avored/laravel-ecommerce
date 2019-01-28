@@ -23,6 +23,7 @@ use AvoRed\Framework\Models\Contracts\OrderReturnRequestInterface;
 use AvoRed\Framework\Models\Contracts\OrderReturnProductInterface;
 use AvoRed\Framework\Models\Contracts\ProductInterface;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class MyAccountController extends Controller
 {
@@ -50,11 +51,11 @@ class MyAccountController extends Controller
     public function edit()
     {
         $user = Auth::user();
-        $deleteRequestText = $this->configurationRepository->getValueByKey('user_delete_request_text');
+        $deleteRequestDays = $this->configurationRepository->getValueByKey('user_delete_request_days');
 
         return view('user.my-account.edit')
             ->withUser($user)
-            ->withDeleteRequestText($deleteRequestText);
+            ->withDeleteRequestDays($deleteRequestDays);
     }
 
     /**
@@ -121,8 +122,13 @@ class MyAccountController extends Controller
      */
     public function destroy()
     {
+        $days = $this->configurationRepository->getValueByKey('user_delete_request_days') ?? 60;
+        $dueData = Carbon::now()->addDay($days);
         $user = Auth::user();
-
+        $user->delete_due_date = $dueData;
+        $user->status = 'DELETE_IN_PROGRESS';
+        $user->update();
+        
         $user->delete();
         return redirect()->route('my-account.home');
     }
