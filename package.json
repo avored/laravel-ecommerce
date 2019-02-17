@@ -18,7 +18,7 @@
     "ajv-keywords": "^3.1",
     "axios": "^0.18",
     "babel-polyfill": "^6.26.0",
-    "bootstrap": "^4.1.1",
+    "bootstrap": "^4.3.1",
     "browser-sync": "^2.24.5",
     "browser-sync-webpack-plugin": "^1.2.0",
     "bulma": "^0.7.1",
@@ -40,12 +40,14 @@
     "popper.js": "^1.14.3",
     "select2": "^4.0.6-rc.1",
     "skycons": "^1.0.0",
-    "vue": "^2.5.7"
+    "vue": "^2.6.6"
   },
   "dependencies": {
+    "bootstrap-vue": "^2.0.0-rc.12",
     "opencollective": "^1.0.3",
     "simplemde": "^1.11.2",
-    "sweetalert": "^2.1.0"
+    "sweetalert": "^2.1.0",
+    "vue-template-compiler": "^2.6.6"
   },
   "collective": {
     "type": "opencollective",
