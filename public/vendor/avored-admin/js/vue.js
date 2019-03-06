@@ -1777,17 +1777,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['columns', 'data'],
   data: function data() {
     return {
-      categoryData: [],
+      items: [],
       columnsData: []
     };
   },
   methods: {},
   created: function created() {
-    this.categoryData = JSON.parse(this.data);
+    this.items = JSON.parse(this.data);
     this.columnsData = JSON.parse(this.columns);
   }
 });
@@ -2534,25 +2539,43 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "table",
-    { staticClass: "table" },
+    "div",
+    { staticClass: "d-table w-100" },
     [
       _c(
-        "tr",
+        "div",
+        { staticClass: "d-flex text-white bg-dark flex-row " },
         _vm._l(_vm.columnsData, function(column) {
-          return _c("th", { key: column.key }, [
-            _vm._v("\n            " + _vm._s(column.key) + "\n        ")
-          ])
+          return _c(
+            "div",
+            {
+              key: column.key,
+              staticClass:
+                "flex-shrink-1 font-weight-bold align-self-start pt-3 pr-3 pb-3 pl-3"
+            },
+            [_vm._v("\n            " + _vm._s(column.key) + "\n        ")]
+          )
         }),
         0
       ),
       _vm._v(" "),
-      _vm._l(_vm.categoryData, function(category) {
-        return _c("tr", { key: category.id }, [
-          _c("td", [_vm._v(_vm._s(category.id))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(category.name))])
-        ])
+      _vm._l(_vm.items, function(item) {
+        return _c(
+          "div",
+          { key: item.id, staticClass: "d-flex flex-row" },
+          _vm._l(_vm.columnsData, function(col) {
+            return _c(
+              "div",
+              {
+                key: col.key,
+                staticClass:
+                  "flex-shrink-1 align-self-start pt-2 pr-3 pb-2 pl-3"
+              },
+              [_vm._v("\n            " + _vm._s(item[col.key]) + "\n        ")]
+            )
+          }),
+          0
+        )
       })
     ],
     2
@@ -14963,6 +14986,17 @@ var app = new Vue({
 
 /***/ }),
 
+/***/ "./vendor/avored/framework/resources/sass/app.scss":
+/*!*********************************************************!*\
+  !*** ./vendor/avored/framework/resources/sass/app.scss ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./vendor/avored/framework/resources/sass/vue.scss":
 /*!*********************************************************!*\
   !*** ./vendor/avored/framework/resources/sass/vue.scss ***!
@@ -14975,13 +15009,14 @@ var app = new Vue({
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************************************************************!*\
-  !*** multi ./vendor/avored/framework/resources/js/vue.js ./vendor/avored/framework/resources/sass/vue.scss ***!
-  \*************************************************************************************************************/
+/*!***************************************************************************************************************************************************************!*\
+  !*** multi ./vendor/avored/framework/resources/js/vue.js ./vendor/avored/framework/resources/sass/app.scss ./vendor/avored/framework/resources/sass/vue.scss ***!
+  \***************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/purveshpatel/code/ecommerce/vendor/avored/framework/resources/js/vue.js */"./vendor/avored/framework/resources/js/vue.js");
+__webpack_require__(/*! /Users/purveshpatel/code/ecommerce/vendor/avored/framework/resources/sass/app.scss */"./vendor/avored/framework/resources/sass/app.scss");
 module.exports = __webpack_require__(/*! /Users/purveshpatel/code/ecommerce/vendor/avored/framework/resources/sass/vue.scss */"./vendor/avored/framework/resources/sass/vue.scss");
 
 
