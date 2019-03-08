@@ -13,6 +13,7 @@
 <div class="clearfix">&nbsp;</div>
 
 <form method="post" action="{{ route('my-account.store') }}">
+  @csrf()
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputEmail4">{{ __('customer.company') }}</label>
