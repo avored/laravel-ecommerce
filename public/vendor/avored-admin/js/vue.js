@@ -1782,18 +1782,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['columns', 'data'],
-  data: function data() {
-    return {
-      items: [],
-      columnsData: []
-    };
+  props: {
+    'columns': {
+      'required': true,
+      'type': Array
+    },
+    'items': {
+      'required': true,
+      'type': Array
+    }
   },
-  methods: {},
-  created: function created() {
-    this.items = JSON.parse(this.data);
-    this.columnsData = JSON.parse(this.columns);
+  data: function data() {
+    return {};
+  },
+  methods: {
+    render: function render(item, key) {
+      //return "test";
+      return item[key];
+    }
+  },
+  created: function created() {//this.items = JSON.parse(this.data);
+    //this.columnsData = JSON.parse(this.columns);
   }
 });
 
@@ -2545,7 +2557,7 @@ var render = function() {
       _c(
         "div",
         { staticClass: "d-flex text-white bg-dark flex-row " },
-        _vm._l(_vm.columnsData, function(column) {
+        _vm._l(_vm.columns, function(column) {
           return _c(
             "div",
             {
@@ -2553,7 +2565,7 @@ var render = function() {
               staticClass:
                 "flex-shrink-1 font-weight-bold align-self-start pt-3 pr-3 pb-3 pl-3"
             },
-            [_vm._v("\n            " + _vm._s(column.key) + "\n        ")]
+            [_vm._v("\n            " + _vm._s(column.label) + "\n        ")]
           )
         }),
         0
@@ -2563,7 +2575,7 @@ var render = function() {
         return _c(
           "div",
           { key: item.id, staticClass: "d-flex flex-row" },
-          _vm._l(_vm.columnsData, function(col) {
+          _vm._l(_vm.columns, function(col) {
             return _c(
               "div",
               {
@@ -2571,7 +2583,13 @@ var render = function() {
                 staticClass:
                   "flex-shrink-1 align-self-start pt-2 pr-3 pb-2 pl-3"
               },
-              [_vm._v("\n            " + _vm._s(item[col.key]) + "\n        ")]
+              [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(_vm.render(item, col.key)) +
+                    "\n           \n        "
+                )
+              ]
             )
           }),
           0
