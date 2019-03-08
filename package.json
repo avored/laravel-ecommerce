@@ -14,11 +14,11 @@
     "postinstall": "opencollective postinstall"
   },
   "devDependencies": {
-    "ajv": "^6.0.0",
-    "ajv-keywords": "^3.1",
+    "ajv": "^6.9.2",
+    "ajv-keywords": "^3.4.0",
     "axios": "^0.18",
     "babel-polyfill": "^6.26.0",
-    "bootstrap": "^4.1.1",
+    "bootstrap": "^4.3.1",
     "browser-sync": "^2.24.5",
     "browser-sync-webpack-plugin": "^1.2.0",
     "bulma": "^0.7.1",
@@ -31,21 +31,26 @@
     "jquery": "^3.2",
     "jquery-sortable": "^0.9.13",
     "jquery-sparkline": "^2.4.0",
-    "laravel-mix": "^2.0",
+    "laravel-mix": "^4.0.14",
     "lodash": "^4.17.10",
     "masonry-layout": "^4.2.1",
     "moment": "^2.22.2",
     "pc-bootstrap4-datetimepicker": "^4.17.50",
     "perfect-scrollbar": "^1.4.0",
     "popper.js": "^1.14.3",
+    "resolve-url-loader": "^2.3.1",
+    "sass": "^1.15.2",
+    "sass-loader": "^7.1.0",
     "select2": "^4.0.6-rc.1",
     "skycons": "^1.0.0",
-    "vue": "^2.5.7"
+    "vue": "^2.6.6"
   },
   "dependencies": {
+    "bootstrap-vue": "^2.0.0-rc.12",
     "opencollective": "^1.0.3",
     "simplemde": "^1.11.2",
-    "sweetalert": "^2.1.0"
+    "sweetalert": "^2.1.0",
+    "vue-template-compiler": "^2.6.6"
   },
   "collective": {
     "type": "opencollective",

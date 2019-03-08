@@ -179,7 +179,6 @@ class LoginController extends Controller
         $clientId = $rep->getValueByKey('users_' . $provider . '_client_id');
         $clientSecret = $rep->getValueByKey('users_' . $provider . '_client_secret');
 
-        //dd($clientId, $clientSecret);
         Config::set('services.' . $provider, [
             'client_id' => $clientId,
             'client_secret' => $clientSecret,

@@ -22,24 +22,40 @@ use App\Http\Requests\MyAccount\Order\OrderReturnRequest;
 use AvoRed\Framework\Models\Contracts\OrderReturnRequestInterface;
 use AvoRed\Framework\Models\Contracts\OrderReturnProductInterface;
 use AvoRed\Framework\Models\Contracts\ProductInterface;
-
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class MyAccountController extends Controller
 {
+    /**
+    *
+    * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
+    */
+    protected $configurationRepository;
+
+
+    public function __construct(ConfigurationInterface $configurationRepository)
+    {
+        parent::__construct();
+        $this->configurationRepository = $configurationRepository;
+    }
+
     public function home()
     {
-        $user = Auth::user();
-        $orders = Order::all();
-
+        $user = Auth::guard()->user();
+        $orders = Order::whereUserId($user->id)->get();
+        
         return view('user.my-account.home', ['user' => $user, 'orders' => $orders]);
     }
 
     public function edit()
     {
         $user = Auth::user();
+        $deleteRequestDays = $this->configurationRepository->getValueByKey('user_delete_request_days');
 
-        return view('user.my-account.edit')->with('user', $user);
+        return view('user.my-account.edit')
+            ->withUser($user)
+            ->withDeleteRequestDays($deleteRequestDays);
     }
 
     /**
@@ -98,5 +114,22 @@ class MyAccountController extends Controller
         } else {
             return redirect()->back()->withErrors(['current_password' => 'Your Current Password Wrong!']);
         }
+    }
+
+    /**
+     * Destroy the User Account as Soft Delete
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy()
+    {
+        $days = $this->configurationRepository->getValueByKey('user_delete_request_days') ?? 60;
+        $dueData = Carbon::now()->addDay($days);
+        $user = Auth::user();
+        $user->delete_due_date = $dueData;
+        $user->status = 'DELETE_IN_PROGRESS';
+        $user->update();
+        
+        $user->delete();
+        return redirect()->route('my-account.home');
     }
 }

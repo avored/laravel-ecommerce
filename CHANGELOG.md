@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## 2.9.9
+- Updated composer to use the framework branch instead version tag.
+- Moved the translations from `/themes/vendor/name/lang` to `resources/lang`.
+ 
+
 ## 2.9.6
  - Menu Group Feature
  - Keep Pick from store as default shipping method

@@ -16,7 +16,6 @@ class CategoryViewController extends Controller
     public function __construct(CategoryInterface $repository)
     {
         parent::__construct();
-
         $this->repository = $repository;
     }
 
@@ -40,6 +39,6 @@ class CategoryViewController extends Controller
         return view('category.view')
             ->with('category', $category)
             ->with('params', $request->all())
-            ->with('products', $products);
+            ->with('products', $products ?? []);
     }
 }

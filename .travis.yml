@@ -5,6 +5,12 @@ cache:
 php:
   - '7.2'
 script:
-- vendor/bin/phpunit -c phpunit.xml
+- cp .env.example .env
+- php artisan key:generate
+- php artisan migrate
+- vendor/bin/phpunit --coverage-clover=coverage.xml
 
 install: composer install --no-interaction
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)

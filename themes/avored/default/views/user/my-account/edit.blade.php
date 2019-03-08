@@ -46,9 +46,51 @@
   
   <div class="form-group">
     <label for="PhoneNumber">{{ __('customer.phone') }}</label>
-    <input type="text" name="phone" class="form-control" id="PhoneNumber" value="{{ $user->phone }}" required="">
+    <input type="text" name="phone"
+        class="form-control" id="PhoneNumber" 
+        value="{{ $user->phone }}" required />
   </div>
 
   <button type="submit" class="btn btn-primary">{{ __('profile.update') }}</button>
+  <button 
+    type="button"
+    data-toggle="modal"
+    data-target="#profile-delete-request"
+    class="btn btn-default float-right"
+  >
+    {{ __('profile.remove') }}
+  </button>
 </form>
+
+
+<div id="profile-delete-request" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+  <form method="post" action="{{ route('my-account.destroy') }}">
+      @csrf()
+      @method('delete')
+      
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">{{ __('profile.remove') }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>{{ __('profile.delete_text', ['days' => $deleteRequestDays . ' days']) }}</p>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-md btn-danger" data-dismiss="modal">
+              {{ __('profile.close') }}
+            </button>
+            <button type="submit" class="btn btn-md btn-primary">
+              {{ __('profile.save') }}
+            </button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>
+
 @endsection

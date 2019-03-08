@@ -17,7 +17,7 @@
 	"require" : {
 		"php": ">=7.1.3",
 		"andreasindal/laravel-markdown": "^3.0",
-		"avored/framework": "~2.8",
+		"avored/framework": "~2.9",
 		"avored/module-installer": "1.*",
 		"fabpot/goutte": "^3.2",
 		"fideloper/proxy": "~4.0",
