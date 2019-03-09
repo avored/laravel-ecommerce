@@ -1754,6 +1754,45 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['page'],
+  data: function data() {
+    return {
+      pageData: {}
+    };
+  },
+  methods: {
+    sanitizeName: function sanitizeName(name) {
+      return name.toLowerCase().replace(/\s*$/g, '').replace(/\s+/g, '-');
+    }
+  },
+  computed: {
+    slug: function slug() {
+      this.pageData.slug = this.sanitizeName(this.pageData.name ? this.pageData.name : '');
+      return this.pageData.slug;
+    }
+  },
+  mounted: function mounted() {
+    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.page)) {
+      this.pageData = this.page;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/datagrid/DataGrid.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/datagrid/DataGrid.vue?vue&type=script&lang=js& ***!
@@ -1787,12 +1826,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     'columns': {
-      'required': true,
-      'type': Array
+      required: true,
+      type: Array
+    },
+    'actions': {
+      required: false
     },
     'items': {
-      'required': true,
-      'type': Array
+      required: true,
+      type: Array
     }
   },
   data: function data() {
@@ -1829,6 +1871,74 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     dropdownSidebarNav: function dropdownSidebarNav() {
       this.menuActive = !this.menuActive;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['model'],
+  data: function data() {
+    return {
+      modelData: {}
+    };
+  },
+  methods: {},
+  mounted: function mounted() {
+    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.model)) {
+      this.modelData = this.model;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['model'],
+  data: function data() {
+    return {
+      modelData: {}
+    };
+  },
+  methods: {
+    sanitizeName: function sanitizeName(name) {
+      return name.toLowerCase().replace(/\s*$/g, '').replace(/\s+/g, '-');
+    }
+  },
+  computed: {
+    identifier: function identifier() {
+      this.modelData.identifier = this.sanitizeName(this.modelData.name ? this.modelData.name : '');
+      return this.modelData.identifier;
+    }
+  },
+  mounted: function mounted() {
+    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.model)) {
+      this.modelData = this.model;
     }
   }
 });
@@ -1907,6 +2017,122 @@ __webpack_require__.r(__webpack_exports__);
     this.name = lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.categoryData.name) ? '' : this.categoryData.name;
     this.meta_title = this.categoryData.meta_title;
     this.meta_description = this.categoryData.meta_description;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['model'],
+  data: function data() {
+    return {
+      modelData: {}
+    };
+  },
+  methods: {},
+  mounted: function mounted() {
+    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.model)) {
+      this.modelData = this.model;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['model'],
+  data: function data() {
+    return {
+      modelData: {}
+    };
+  },
+  methods: {},
+  mounted: function mounted() {
+    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.model)) {
+      this.modelData = this.model;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/state/StateFieldPage.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/state/StateFieldPage.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['model'],
+  data: function data() {
+    return {
+      modelData: {}
+    };
+  },
+  methods: {},
+  mounted: function mounted() {
+    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.model)) {
+      this.modelData = this.model;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/user/admin-user/AdminUserFieldPage.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/user/admin-user/AdminUserFieldPage.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['model'],
+  data: function data() {
+    return {
+      modelData: {}
+    };
+  },
+  methods: {},
+  mounted: function mounted() {
+    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.model)) {
+      this.modelData = this.model;
+    }
   }
 });
 
@@ -14620,6 +14846,56 @@ module.exports = g;
 
 /***/ }),
 
+/***/ "./vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue":
+/*!************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CmsPageFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CmsPageFieldPage.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _CmsPageFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CmsPageFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CmsPageFieldPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CmsPageFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./vendor/avored/framework/resources/components/datagrid/DataGrid.vue":
 /*!****************************************************************************!*\
   !*** ./vendor/avored/framework/resources/components/datagrid/DataGrid.vue ***!
@@ -14739,6 +15015,106 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue":
+/*!**************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue ***!
+  \**************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OrderStatusFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OrderStatusFieldPage.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _OrderStatusFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderStatusFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./OrderStatusFieldPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderStatusFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue":
+/*!***********************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue ***!
+  \***********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AttributeFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AttributeFieldPage.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _AttributeFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AttributeFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AttributeFieldPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AttributeFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./vendor/avored/framework/resources/components/product/category/CategoryFieldPage.vue":
 /*!*********************************************************************************************!*\
   !*** ./vendor/avored/framework/resources/components/product/category/CategoryFieldPage.vue ***!
@@ -14786,6 +15162,206 @@ component.options.__file = "vendor/avored/framework/resources/components/product
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoryFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CategoryFieldPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/product/category/CategoryFieldPage.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CategoryFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue":
+/*!******************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _CountryFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CountryFieldPage.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _CountryFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CountryFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CountryFieldPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CountryFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue":
+/*!*****************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue ***!
+  \*****************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SiteCurrencyFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SiteCurrencyFieldPage.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _SiteCurrencyFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SiteCurrencyFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SiteCurrencyFieldPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SiteCurrencyFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/system/state/StateFieldPage.vue":
+/*!**************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/state/StateFieldPage.vue ***!
+  \**************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _StateFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./StateFieldPage.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/system/state/StateFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _StateFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vendor/avored/framework/resources/components/system/state/StateFieldPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/system/state/StateFieldPage.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/state/StateFieldPage.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StateFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./StateFieldPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/state/StateFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_StateFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/user/admin-user/AdminUserFieldPage.vue":
+/*!*********************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/user/admin-user/AdminUserFieldPage.vue ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AdminUserFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminUserFieldPage.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/user/admin-user/AdminUserFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _AdminUserFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vendor/avored/framework/resources/components/user/admin-user/AdminUserFieldPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/user/admin-user/AdminUserFieldPage.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/user/admin-user/AdminUserFieldPage.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminUserFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminUserFieldPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/user/admin-user/AdminUserFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminUserFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -14977,7 +15553,14 @@ Vue.component('sidebar-dropdown', __webpack_require__(/*! ../components/layout/S
 Vue.component('login-page', __webpack_require__(/*! ../components/user/auth/LoginPage.vue */ "./vendor/avored/framework/resources/components/user/auth/LoginPage.vue").default);
 Vue.component('password-reset-page', __webpack_require__(/*! ../components/user/auth/PasswordResetPage.vue */ "./vendor/avored/framework/resources/components/user/auth/PasswordResetPage.vue").default);
 Vue.component('set-new-password-page', __webpack_require__(/*! ../components/user/auth/SetNewPasswordPage.vue */ "./vendor/avored/framework/resources/components/user/auth/SetNewPasswordPage.vue").default);
-Vue.component('category-field-page', __webpack_require__(/*! ../components/product/category/CategoryFieldPage.vue */ "./vendor/avored/framework/resources/components/product/category/CategoryFieldPage.vue").default); //require('./bootstrap');
+Vue.component('admin-user-field-page', __webpack_require__(/*! ../components/user/admin-user/AdminUserFieldPage.vue */ "./vendor/avored/framework/resources/components/user/admin-user/AdminUserFieldPage.vue").default);
+Vue.component('country-field-page', __webpack_require__(/*! ../components/system/country/CountryFieldPage.vue */ "./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue").default);
+Vue.component('state-field-page', __webpack_require__(/*! ../components/system/state/StateFieldPage.vue */ "./vendor/avored/framework/resources/components/system/state/StateFieldPage.vue").default);
+Vue.component('site-currency-field-page', __webpack_require__(/*! ../components/system/site-currency/SiteCurrencyFieldPage.vue */ "./vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue").default);
+Vue.component('category-field-page', __webpack_require__(/*! ../components/product/category/CategoryFieldPage.vue */ "./vendor/avored/framework/resources/components/product/category/CategoryFieldPage.vue").default);
+Vue.component('attribute-field-page', __webpack_require__(/*! ../components/product/attribute/AttributeFieldPage.vue */ "./vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue").default);
+Vue.component('cms-page-field-page', __webpack_require__(/*! ../components/cms/page/CmsPageFieldPage.vue */ "./vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue").default);
+Vue.component('order-status-field-page', __webpack_require__(/*! ../components/order/order-status/OrderStatusFieldPage.vue */ "./vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue").default); //require('./bootstrap');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15004,17 +15587,6 @@ var app = new Vue({
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/sass/app.scss":
-/*!*********************************************************!*\
-  !*** ./vendor/avored/framework/resources/sass/app.scss ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ "./vendor/avored/framework/resources/sass/vue.scss":
 /*!*********************************************************!*\
   !*** ./vendor/avored/framework/resources/sass/vue.scss ***!
@@ -15027,14 +15599,13 @@ var app = new Vue({
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************************************************************************************************!*\
-  !*** multi ./vendor/avored/framework/resources/js/vue.js ./vendor/avored/framework/resources/sass/app.scss ./vendor/avored/framework/resources/sass/vue.scss ***!
-  \***************************************************************************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** multi ./vendor/avored/framework/resources/js/vue.js ./vendor/avored/framework/resources/sass/vue.scss ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/purveshpatel/code/ecommerce/vendor/avored/framework/resources/js/vue.js */"./vendor/avored/framework/resources/js/vue.js");
-__webpack_require__(/*! /Users/purveshpatel/code/ecommerce/vendor/avored/framework/resources/sass/app.scss */"./vendor/avored/framework/resources/sass/app.scss");
 module.exports = __webpack_require__(/*! /Users/purveshpatel/code/ecommerce/vendor/avored/framework/resources/sass/vue.scss */"./vendor/avored/framework/resources/sass/vue.scss");
 
 
