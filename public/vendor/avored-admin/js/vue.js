@@ -1924,7 +1924,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['name'],
+  props: ['name', 'dropdownOptions'],
   data: function data() {
     return {
       displayTextFields: []
@@ -1937,29 +1937,68 @@ __webpack_require__.r(__webpack_exports__);
     changeLanguage: function changeLanguage(event) {
       window.location = event.target.selectedOptions[0].getAttribute('data-url');
     },
-    clickDuplicate: function clickDuplicate() {
-      this.displayTextFields.forEach(function (element) {
-        element.buttonLabel = "Remove";
-      });
-      this.addDisplayTextField();
+    clickDuplicate: function clickDuplicate(index, event) {
+      if (event.target.getAttribute('data-action') !== 'remove') {
+        this.displayTextFields.forEach(function (element) {
+          element.action = "remove";
+          element.buttonLabel = "Remove";
+        });
+      }
+
+      this.addDisplayTextField(index, event);
     },
     getRandomString: function getRandomString() {
       return Object(lodash__WEBPACK_IMPORTED_MODULE_0__["join"])(Object(lodash__WEBPACK_IMPORTED_MODULE_0__["slice"])(Object(lodash__WEBPACK_IMPORTED_MODULE_0__["shuffle"])(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']), 0, 8), '');
     },
     addDisplayTextField: function addDisplayTextField() {
-      var randomString = this.getRandomString();
-      this.displayTextFields.push({
-        name: 'dropdown_options[' + randomString + '][display_text]',
-        label: 'Display Text',
-        id: 'display-text-input-group-' + randomString,
-        buttonLabel: 'Add'
-      });
+      var index = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var event = arguments.length > 1 ? arguments[1] : undefined;
+
+      if (!Object(lodash__WEBPACK_IMPORTED_MODULE_0__["isNil"])(event) && event.target.getAttribute('data-action') === 'remove') {
+        this.displayTextFields.splice(index, 1);
+      } else {
+        var randomString = this.getRandomString();
+        this.displayTextFields.push({
+          name: 'dropdown_options[' + randomString + '][display_text]',
+          label: 'Display Text',
+          id: 'display-text-input-group-' + randomString,
+          action: 'add',
+          buttonLabel: 'Add',
+          value: ''
+        });
+      }
     }
   },
   computed: {
     identifier: function identifier() {
       this.modelData.identifier = this.sanitizeName(this.modelData.name ? this.modelData.name : '');
       return this.modelData.identifier;
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    if (!Object(lodash__WEBPACK_IMPORTED_MODULE_0__["isNil"])(this.dropdownOptions)) {
+      this.dropdownOptions.forEach(function (element) {
+        var label = 'Remove';
+        var action = 'remove';
+
+        if (_this.displayTextFields.length + 1 === _this.dropdownOptions.length) {
+          label = "Add";
+          action = "add";
+        }
+
+        _this.displayTextFields.push({
+          name: 'dropdown_options[' + element.id + '][display_text]',
+          label: 'Display Text',
+          action: action,
+          id: 'display-text-input-group-' + element.id,
+          buttonLabel: label,
+          value: element.display_text
+        });
+      });
+    } else {
+      this.addDisplayTextField();
     }
   }
 });
@@ -53755,7 +53794,7 @@ Vue.component('order-status-field-page', __webpack_require__(/*! ../components/o
 var app = new Vue({
   el: '#app',
   data: {
-    toggleSideBarData: true,
+    toggleSideBarData: false,
     displayProfileHeaderMenu: false
   },
   methods: {
