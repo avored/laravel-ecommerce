@@ -49,7 +49,7 @@ class ProductReviewRepository implements ProductReviewInterface
     }
 
     /**
-     * Query Product Review 
+     * Query Product Review
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */

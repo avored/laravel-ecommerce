@@ -2065,6 +2065,92 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/product/property/PropertyFieldPage.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/product/property/PropertyFieldPage.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['dropdownOptions'],
+  data: function data() {
+    return {
+      displayTextFields: []
+    };
+  },
+  methods: {
+    changeLanguage: function changeLanguage(event) {
+      window.location = event.target.selectedOptions[0].getAttribute('data-url');
+    },
+    clickDuplicate: function clickDuplicate(index, event) {
+      if (event.target.getAttribute('data-action') !== 'remove') {
+        this.displayTextFields.forEach(function (element) {
+          element.action = "remove";
+          element.buttonLabel = "Remove";
+        });
+      }
+
+      this.addDisplayTextField(index, event);
+    },
+    getRandomString: function getRandomString() {
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_0__["join"])(Object(lodash__WEBPACK_IMPORTED_MODULE_0__["slice"])(Object(lodash__WEBPACK_IMPORTED_MODULE_0__["shuffle"])(['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']), 0, 8), '');
+    },
+    addDisplayTextField: function addDisplayTextField() {
+      var index = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+      var event = arguments.length > 1 ? arguments[1] : undefined;
+
+      if (!Object(lodash__WEBPACK_IMPORTED_MODULE_0__["isNil"])(event) && event.target.getAttribute('data-action') === 'remove') {
+        this.displayTextFields.splice(index, 1);
+      } else {
+        var randomString = this.getRandomString();
+        this.displayTextFields.push({
+          name: 'dropdown_options[' + randomString + '][display_text]',
+          label: 'Display Text',
+          id: 'display-text-input-group-' + randomString,
+          action: 'add',
+          buttonLabel: 'Add',
+          value: ''
+        });
+      }
+    }
+  },
+  computed: {},
+  mounted: function mounted() {
+    var _this = this;
+
+    if (!Object(lodash__WEBPACK_IMPORTED_MODULE_0__["isNil"])(this.dropdownOptions)) {
+      this.dropdownOptions.forEach(function (element) {
+        var label = 'Remove';
+        var action = 'remove';
+
+        if (_this.displayTextFields.length + 1 === _this.dropdownOptions.length) {
+          label = "Add";
+          action = "add";
+        }
+
+        _this.displayTextFields.push({
+          name: 'dropdown_options[' + element.id + '][display_text]',
+          label: 'Display Text',
+          action: action,
+          id: 'display-text-input-group-' + element.id,
+          buttonLabel: label,
+          value: element.display_text
+        });
+      });
+    } else {
+      this.addDisplayTextField();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue?vue&type=script&lang=js& ***!
@@ -53387,6 +53473,56 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./vendor/avored/framework/resources/components/product/property/PropertyFieldPage.vue":
+/*!*********************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/product/property/PropertyFieldPage.vue ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _PropertyFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PropertyFieldPage.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/product/property/PropertyFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _PropertyFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vendor/avored/framework/resources/components/product/property/PropertyFieldPage.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/product/property/PropertyFieldPage.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/product/property/PropertyFieldPage.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PropertyFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PropertyFieldPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/product/property/PropertyFieldPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PropertyFieldPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue":
 /*!******************************************************************************************!*\
   !*** ./vendor/avored/framework/resources/components/system/country/CountryFieldPage.vue ***!
@@ -53780,6 +53916,7 @@ Vue.component('country-field-page', __webpack_require__(/*! ../components/system
 Vue.component('state-field-page', __webpack_require__(/*! ../components/system/state/StateFieldPage.vue */ "./vendor/avored/framework/resources/components/system/state/StateFieldPage.vue").default);
 Vue.component('site-currency-field-page', __webpack_require__(/*! ../components/system/site-currency/SiteCurrencyFieldPage.vue */ "./vendor/avored/framework/resources/components/system/site-currency/SiteCurrencyFieldPage.vue").default);
 Vue.component('category-field-page', __webpack_require__(/*! ../components/product/category/CategoryFieldPage.vue */ "./vendor/avored/framework/resources/components/product/category/CategoryFieldPage.vue").default);
+Vue.component('property-field-page', __webpack_require__(/*! ../components/product/property/PropertyFieldPage.vue */ "./vendor/avored/framework/resources/components/product/property/PropertyFieldPage.vue").default);
 Vue.component('attribute-field-page', __webpack_require__(/*! ../components/product/attribute/AttributeFieldPage.vue */ "./vendor/avored/framework/resources/components/product/attribute/AttributeFieldPage.vue").default);
 Vue.component('cms-page-field-page', __webpack_require__(/*! ../components/cms/page/CmsPageFieldPage.vue */ "./vendor/avored/framework/resources/components/cms/page/CmsPageFieldPage.vue").default);
 Vue.component('order-status-field-page', __webpack_require__(/*! ../components/order/order-status/OrderStatusFieldPage.vue */ "./vendor/avored/framework/resources/components/order/order-status/OrderStatusFieldPage.vue").default); //require('./bootstrap');
