@@ -1776,7 +1776,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
-  methods: {},
+  methods: {
+    changeLanguage: function changeLanguage(event) {
+      window.location = event.target.selectedOptions[0].getAttribute('data-url');
+    }
+  },
   computed: {},
   mounted: function mounted() {}
 });
