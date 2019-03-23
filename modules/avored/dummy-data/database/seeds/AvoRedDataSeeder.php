@@ -362,15 +362,15 @@ class AvoRedDataSeeder extends Seeder
             ['name' => 'Home Page',
             'slug' => 'home-page',
             'content' => '
-            %%% avored-banner %%%
-            ##### HOME PAGE FOR AvoRed E COMMERCE LARAVEL OPEN SOURCE SHOPPING CART
+%%% avored-banner %%%
 
-            Please star us on [https://github.com/avored/laravel-ecommerce](https://github.com/avored/laravel-ecommerce)
-            
-            Like us on Facebook : [https://www.facebook.com/avored](https://www.facebook.com/avored)
-            
-            Follow us on Twitter:  [https://twitter.com/avoredecommerce](https://twitter.com/avoredecommerce)
-            %%% avored-featured %%%
+##### HOME PAGE FOR AvoRed E COMMERCE LARAVEL OPEN SOURCE SHOPPING CART
+
+Please star us on [https://github.com/avored/laravel-ecommerce](https://github.com/avored/laravel-ecommerce)
+Like us on Facebook : [https://www.facebook.com/avored](https://www.facebook.com/avored)
+Follow us on Twitter:  [https://twitter.com/avoredecommerce](https://twitter.com/avoredecommerce)
+
+%%% avored-featured %%%
             ',
             'meta_title' => 'Home Page - AvoRed E commerce']
         );

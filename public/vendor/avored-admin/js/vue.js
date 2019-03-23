@@ -1774,26 +1774,11 @@ __webpack_require__.r(__webpack_exports__);
     markdownEditor: vue_simplemde_src_markdown_editor__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   data: function data() {
-    return {
-      pageData: {}
-    };
+    return {};
   },
-  methods: {
-    sanitizeName: function sanitizeName(name) {
-      return name.toLowerCase().replace(/\s*$/g, '').replace(/\s+/g, '-');
-    }
-  },
-  computed: {
-    slug: function slug() {
-      this.pageData.slug = this.sanitizeName(this.pageData.name ? this.pageData.name : '');
-      return this.pageData.slug;
-    }
-  },
-  mounted: function mounted() {
-    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.page)) {
-      this.pageData = this.page;
-    }
-  }
+  methods: {},
+  computed: {},
+  mounted: function mounted() {}
 });
 
 /***/ }),
