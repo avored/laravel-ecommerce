@@ -31,7 +31,7 @@
     "jquery": "^3.2",
     "jquery-sortable": "^0.9.13",
     "jquery-sparkline": "^2.4.0",
-    "laravel-mix": "^4.0.14",
+    "laravel-mix": "^4.0.15",
     "lodash": "^4.17.10",
     "masonry-layout": "^4.2.1",
     "moment": "^2.22.2",
@@ -50,8 +50,10 @@
     "opencollective": "^1.0.3",
     "simplemde": "^1.11.2",
     "sweetalert": "^2.1.0",
+    "vue-select": "^2.6.3",
     "vue-simplemde": "^0.5.1",
-    "vue-template-compiler": "^2.6.6"
+    "vue-template-compiler": "^2.6.6",
+    "vuedraggable": "^2.20.0"
   },
   "collective": {
     "type": "opencollective",
