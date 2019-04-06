@@ -91,7 +91,7 @@ class Module extends ServiceProvider
             ->label('Related Product')
             ->view('avored-related::related.admin.product.tab');
 
-        TabFacade::add('related-product', $relatedTab);
+        TabFacade::add('related', $relatedTab);
     }
 
     /**
