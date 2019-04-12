@@ -12821,3 +12821,7 @@ table.b-table.b-table-selectable > tbody > tr {
 
 /* poppins-regular - latin */
 
+.input-group-control .multiselect__tags {
+  border: none;
+}
+
