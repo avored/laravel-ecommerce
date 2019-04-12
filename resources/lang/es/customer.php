@@ -8,7 +8,7 @@ return [
     'email'              => 'E-mail',
     'phone'              => 'Teléfono',
     'mobile'             => 'Celular',
-    'postalcode'         => 'CP',
+    'postalcode'         => 'Código Postal',
     'address'            => 'Dirección',
     'address2'           => 'Departamento',
     'city'               => 'Ciudad',

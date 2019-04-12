@@ -16,5 +16,5 @@ return [
     'title'     => 'Mi dirección',
     'create'    => 'Agregar mi dirección',
     'edit'      => 'Editar',
-    'no_data'   => 'Necesitamos su dirección antes de que puedas comenzar una compra.',
+    'no_data'   => 'Necesitamos su dirección antes de que puedas iniciar una compra.',
 ];

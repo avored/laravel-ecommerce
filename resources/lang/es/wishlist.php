@@ -2,7 +2,7 @@
 
 return [
     'my_wishlist'    => 'Favoritos',
-    'product_title'  => 'Título del producto',
+    'product_title'  => 'Nombre del producto',
     'product_image'  => 'Imagen del producto',
     'actions'        => 'Acciones',
     'remove'         => 'Quitar',

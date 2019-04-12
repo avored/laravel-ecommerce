@@ -27,5 +27,5 @@ return [
    'payment_method'    => 'Método de pago',
    'purchased_at'      => 'Comprado en',
    'view'              => 'Ver',
-   'return_product'    => 'Producto devuelto',
+   'return_product'    => 'Devolver Producto',
 ];
