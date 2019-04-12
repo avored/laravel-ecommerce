@@ -2090,14 +2090,16 @@ __webpack_require__.r(__webpack_exports__);
     destroyMenuFromList: function destroyMenuFromList(index) {
       console.log(this.menuData.splice(index, 1));
     },
+    removeMenu: function removeMenu(index) {
+      this.menus.splice(index, 1);
+    },
     addMenuElement: function addMenuElement(element) {
       window.x = element;
       var menu = {
         isClone: true,
         name: element.item.getAttribute('data-name'),
         route: element.item.getAttribute('data-route'),
-        params: element.item.getAttribute('data-params') //this.menuData.splice(element.newIndex, 0, menu);
-
+        params: element.item.getAttribute('data-params')
       };
     }
   },
