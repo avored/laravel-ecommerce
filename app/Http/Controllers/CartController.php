@@ -11,21 +11,22 @@ use App\Http\Requests\CartRequest;
 class CartController extends Controller
 {
     /**
-     *
+     * Product Repository for Cart Controller
      * @var \AvoRed\Framework\Models\Repository\ProductRepository
      */
     protected $repository;
 
     /**
-     *
+     * Configuration Repository for Cart Controller
      * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
      */
     protected $configurationRepository;
 
-    public function __construct(ProductInterface $repository, ConfigurationInterface $configRep)
-    {
+    public function __construct(
+        ProductInterface $repository,
+        ConfigurationInterface $configRep
+    ) {
         parent::__construct();
-
         $this->repository = $repository;
         $this->configurationRepository = $configRep;
     }
