@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
+use illuminate\Support\Facades\Auth;
 
 class AddressRequest extends Request
 {
@@ -13,6 +14,14 @@ class AddressRequest extends Request
      */
     public function authorize()
     {
+
+        if (strtolower($this->method()) == 'put' || strtolower($this->method()) == 'patch') {
+            $address = $this->address;
+            $user = Auth::user();
+
+            return $user->addresses->pluck('id')->contains($address->id);
+        }
+
         return true;
     }
 
