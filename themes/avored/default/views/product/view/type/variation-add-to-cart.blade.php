@@ -8,7 +8,16 @@
 <div class="row">
     <div class="form-group col-md-1" style="">
         <label>Qty</label>
-        <input type="text" name="qty" class="form-control" value="1"/>
+        <input
+            type="text"
+            name="qty"
+            class="form-control {{ $errors->has('qty') ? ' is-invalid' : '' }}"
+            value="1"/>
+         @if ($errors->has('qty'))
+            <span class='invalid-feedback'>
+                <strong>{{ $errors->first('qty') }}</strong>
+            </span>
+        @endif
     </div>
 </div>
 

@@ -22,9 +22,7 @@
                 @if($product->qty >= 0)
                 <form method="post" action="{{ route('cart.add-to-cart') }}">
                     @csrf
-
                     <input type="hidden" name="slug" value="{{ $product->slug }}"/>
-
                     <div class="product-stock">In Stock</div>
                     <hr>
 

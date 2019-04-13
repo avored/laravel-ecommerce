@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use AvoRed\Framework\Cart\Facade as Cart;
 use AvoRed\Framework\Models\Contracts\ProductInterface;
 use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
+use App\Http\Requests\CartRequest;
 
 class CartController extends Controller
 {
@@ -31,11 +32,12 @@ class CartController extends Controller
 
     /**
      * Add To Cart Product
-     * @param Request $request
+     * @param \App\Http\Requests\CartRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function addToCart(Request $request)
+    public function addToCart(CartRequest $request)
     {
+        dd($request->get('qty'));
         $slug = $request->get('slug');
         $qty = abs($request->get('qty', 1));
         $attribute = $request->get('attribute', null);
