@@ -37,7 +37,6 @@ class CartController extends Controller
      */
     public function addToCart(CartRequest $request)
     {
-        dd($request->get('qty'));
         $slug = $request->get('slug');
         $qty = abs($request->get('qty', 1));
         $attribute = $request->get('attribute', null);
