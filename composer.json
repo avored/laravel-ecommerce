@@ -11,10 +11,7 @@
         "php": "^7.1.3",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
-        "laravel/passport": "^7.2",
-        "laravel/tinker": "^1.0",
-        "rebing/graphql-laravel": "^1.20",
-        "symfony/yaml": "^4.2"
+        "laravel/tinker": "^1.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
@@ -22,7 +19,6 @@
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
-        "orchestra/testbench": "^3.5",
         "phpunit/phpunit": "^7.5"
     },
     "config": {
@@ -37,8 +33,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/",
-            "AvoRed\\Framework\\": "packages/avored/framework/src"
+            "App\\": "app/"
         },
         "classmap": [
             "database/seeds",
@@ -47,8 +42,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "AvoRed\\Framework\\Tests\\": "packages/avored/framework/tests"
+            "Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",

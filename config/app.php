@@ -174,8 +174,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        
-        AvoRed\Framework\AvoRedProvider::class,
 
     ],
 
@@ -227,12 +225,6 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
-
-        'Breadcrumb' => AvoRed\Framework\Support\Facades\Breadcrumb::class,
-        'Menu' => AvoRed\Framework\Support\Facades\Menu::class,
-        'Module' => AvoRed\Framework\Support\Facades\Module::class,
-        'Permission' => AvoRed\Framework\Support\Facades\Permission::class,
 
     ],
 
