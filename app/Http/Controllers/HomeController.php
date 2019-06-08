@@ -2,25 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use AvoRed\Framework\Models\Database\Page;
-use AvoRed\Framework\Models\Database\Configuration;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        $pageModel = null;
-        $pageId = Configuration::getConfiguration('general_home_page');
-
-        if (null !== $pageId) {
-            $pageModel = Page::find($pageId);
-        }
-
-        return view('home.index')->with('pageModel', $pageModel);
+        return view('home');
     }
 }

@@ -1,2 +1,0 @@
-# default
-AvoRed Default Theme
