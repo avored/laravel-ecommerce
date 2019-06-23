@@ -13,7 +13,9 @@
 - During vendor theme publish make sure to not publish scss or vue compoents of custom theme.
 
 ## Features
-- Introduce vuejs to framework.
+- Front End Implemantation based on avored framework
+- Tax Calculation
+- Cart Facade qty check
 - Integrate GPDR compliance.
 - Remove jQuery from backend
 - Allow Multi language support
