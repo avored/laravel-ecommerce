@@ -11,5 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+
+mix.js('resources/js/app.js', 'public/js/app.js')
+    .less('resources/less/app.less', 'public/css/app.css', {
+        javascriptEnabled: true
+    })
+    .less('vendor/avored/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
+        javascriptEnabled: true
+    })
+    .js('vendor/avored/framework/resources/js/app.js', 'public/avored-admin/js/app.js');

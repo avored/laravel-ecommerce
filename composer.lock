@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9de1c556cea265f16059dc9eea9ac512",
+    "content-hash": "b47177cc0e00520cde8d3001bb7f2720",
     "packages": [
         {
             "name": "avored/framework",
-            "version": "dev-restart",
+            "version": "dev-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/avored/framework.git",
-                "reference": "a8768d63dda3eca407e815b2b37791e301ff4356"
+                "reference": "313a81af983c67dd764b6482538feb5028729780"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avored/framework/zipball/a8768d63dda3eca407e815b2b37791e301ff4356",
-                "reference": "a8768d63dda3eca407e815b2b37791e301ff4356",
+                "url": "https://api.github.com/repos/avored/framework/zipball/313a81af983c67dd764b6482538feb5028729780",
+                "reference": "313a81af983c67dd764b6482538feb5028729780",
                 "shasum": ""
             },
             "require": {
@@ -79,7 +79,7 @@
                 "shopping cart",
                 "shopping-cart"
             ],
-            "time": "2019-06-08T03:49:02+00:00"
+            "time": "2019-06-19T21:59:00+00:00"
         },
         {
             "name": "barryvdh/laravel-dompdf",
@@ -302,20 +302,23 @@
         },
         {
             "name": "doctrine/lexer",
-            "version": "v1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/lexer.git",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c"
+                "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/lexer/zipball/83893c552fd2045dd78aef794c31e694c37c0b8c",
-                "reference": "83893c552fd2045dd78aef794c31e694c37c0b8c",
+                "url": "https://api.github.com/repos/doctrine/lexer/zipball/1febd6c3ef84253d7c815bed85fc622ad207a9f8",
+                "reference": "1febd6c3ef84253d7c815bed85fc622ad207a9f8",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.5"
             },
             "type": "library",
             "extra": {
@@ -324,8 +327,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Doctrine\\Common\\Lexer\\": "lib/"
+                "psr-4": {
+                    "Doctrine\\Common\\Lexer\\": "lib/Doctrine/Common/Lexer"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -346,13 +349,16 @@
                     "email": "schmittjoh@gmail.com"
                 }
             ],
-            "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
-            "homepage": "http://www.doctrine-project.org",
+            "description": "PHP Doctrine Lexer parser library that can be used in Top-Down, Recursive Descent Parsers.",
+            "homepage": "https://www.doctrine-project.org/projects/lexer.html",
             "keywords": [
+                "annotations",
+                "docblock",
                 "lexer",
-                "parser"
+                "parser",
+                "php"
             ],
-            "time": "2014-09-09T13:34:57+00:00"
+            "time": "2019-06-08T11:03:04+00:00"
         },
         {
             "name": "dompdf/dompdf",
@@ -950,16 +956,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.8.21",
+            "version": "v5.8.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "c78796cc1159c8dc63c45a2011ddc4af17059cb4"
+                "reference": "bb2a0afef35f508f77c049c51f04087a14de0055"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/c78796cc1159c8dc63c45a2011ddc4af17059cb4",
-                "reference": "c78796cc1159c8dc63c45a2011ddc4af17059cb4",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/bb2a0afef35f508f77c049c51f04087a14de0055",
+                "reference": "bb2a0afef35f508f77c049c51f04087a14de0055",
                 "shasum": ""
             },
             "require": {
@@ -1093,7 +1099,7 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2019-06-05T00:13:05+00:00"
+            "time": "2019-06-19T16:40:24+00:00"
         },
         {
             "name": "laravel/passport",
@@ -1335,16 +1341,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.52",
+            "version": "1.0.53",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391"
+                "reference": "08e12b7628f035600634a5e76d95b5eb66cea674"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/c5a5097156387970e6f0ccfcdf03f752856f3391",
-                "reference": "c5a5097156387970e6f0ccfcdf03f752856f3391",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/08e12b7628f035600634a5e76d95b5eb66cea674",
+                "reference": "08e12b7628f035600634a5e76d95b5eb66cea674",
                 "shasum": ""
             },
             "require": {
@@ -1415,7 +1421,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-05-20T20:21:14+00:00"
+            "time": "2019-06-18T20:09:29+00:00"
         },
         {
             "name": "league/oauth2-server",
@@ -1574,16 +1580,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.19.1",
+            "version": "2.19.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "5cf102d1476fdf92f1f991bd1a1a0d93c65755ca"
+                "reference": "adcad3f3af52d0ad4ad7b05f43aa58243b6ca67b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/5cf102d1476fdf92f1f991bd1a1a0d93c65755ca",
-                "reference": "5cf102d1476fdf92f1f991bd1a1a0d93c65755ca",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/adcad3f3af52d0ad4ad7b05f43aa58243b6ca67b",
+                "reference": "adcad3f3af52d0ad4ad7b05f43aa58243b6ca67b",
                 "shasum": ""
             },
             "require": {
@@ -1630,7 +1636,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-06-04T20:07:46+00:00"
+            "time": "2019-06-07T09:56:45+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -1918,16 +1924,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.17",
+            "version": "2.0.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "3ca5b88d582c69178c8d01fd9d02b94e15042bb8"
+                "reference": "60519001db8d791215a822efd366d24cafee9e63"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/3ca5b88d582c69178c8d01fd9d02b94e15042bb8",
-                "reference": "3ca5b88d582c69178c8d01fd9d02b94e15042bb8",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/60519001db8d791215a822efd366d24cafee9e63",
+                "reference": "60519001db8d791215a822efd366d24cafee9e63",
                 "shasum": ""
             },
             "require": {
@@ -2006,7 +2012,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2019-05-26T20:38:34+00:00"
+            "time": "2019-06-13T06:15:54+00:00"
         },
         {
             "name": "psr/container",
@@ -2452,16 +2458,16 @@
         },
         {
             "name": "rebing/graphql-laravel",
-            "version": "v1.22.0",
+            "version": "v1.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rebing/graphql-laravel.git",
-                "reference": "b35f7a4768e73f4257edcf7aada20eb674de24ba"
+                "reference": "0e74bc33d618a914ffc9d237b2b2fbcda0e8b0fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rebing/graphql-laravel/zipball/b35f7a4768e73f4257edcf7aada20eb674de24ba",
-                "reference": "b35f7a4768e73f4257edcf7aada20eb674de24ba",
+                "url": "https://api.github.com/repos/rebing/graphql-laravel/zipball/0e74bc33d618a914ffc9d237b2b2fbcda0e8b0fc",
+                "reference": "0e74bc33d618a914ffc9d237b2b2fbcda0e8b0fc",
                 "shasum": ""
             },
             "require": {
@@ -2526,7 +2532,7 @@
                 "laravel",
                 "react"
             ],
-            "time": "2019-05-31T07:10:41+00:00"
+            "time": "2019-06-10T20:55:51+00:00"
         },
         {
             "name": "sabberworm/php-css-parser",
@@ -2574,16 +2580,16 @@
         },
         {
             "name": "stripe/stripe-php",
-            "version": "v6.37.0",
+            "version": "v6.38.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/stripe/stripe-php.git",
-                "reference": "6915bed0b988ca837f3e15a1f31517a6172a663a"
+                "reference": "8588b74aecd46ed5df3d97a132c922b020ca80bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/6915bed0b988ca837f3e15a1f31517a6172a663a",
-                "reference": "6915bed0b988ca837f3e15a1f31517a6172a663a",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/8588b74aecd46ed5df3d97a132c922b020ca80bc",
+                "reference": "8588b74aecd46ed5df3d97a132c922b020ca80bc",
                 "shasum": ""
             },
             "require": {
@@ -2626,7 +2632,7 @@
                 "payment processing",
                 "stripe"
             ],
-            "time": "2019-05-23T23:59:23+00:00"
+            "time": "2019-06-18T06:29:48+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4173,16 +4179,16 @@
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v3.3.3",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "dbcc609971dd9b55f48b8008b553d79fd372ddde"
+                "reference": "5084b23845c24dbff8ac6c204290c341e4776c92"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/dbcc609971dd9b55f48b8008b553d79fd372ddde",
-                "reference": "dbcc609971dd9b55f48b8008b553d79fd372ddde",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/5084b23845c24dbff8ac6c204290c341e4776c92",
+                "reference": "5084b23845c24dbff8ac6c204290c341e4776c92",
                 "shasum": ""
             },
             "require": {
@@ -4196,7 +4202,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.3-dev"
+                    "dev-master": "3.4-dev"
                 }
             },
             "autoload": {
@@ -4221,20 +4227,20 @@
                 "env",
                 "environment"
             ],
-            "time": "2019-03-06T09:39:45+00:00"
+            "time": "2019-06-15T22:40:20+00:00"
         },
         {
             "name": "webonyx/graphql-php",
-            "version": "v0.13.4",
+            "version": "v0.13.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/webonyx/graphql-php.git",
-                "reference": "e55c7d72cb2d852322ebad8ce30705ae90f20717"
+                "reference": "cdcf5b44737ee743358f5ed25b19a39ad7daf777"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/e55c7d72cb2d852322ebad8ce30705ae90f20717",
-                "reference": "e55c7d72cb2d852322ebad8ce30705ae90f20717",
+                "url": "https://api.github.com/repos/webonyx/graphql-php/zipball/cdcf5b44737ee743358f5ed25b19a39ad7daf777",
+                "reference": "cdcf5b44737ee743358f5ed25b19a39ad7daf777",
                 "shasum": ""
             },
             "require": {
@@ -4273,7 +4279,7 @@
                 "api",
                 "graphql"
             ],
-            "time": "2019-05-13T07:12:05+00:00"
+            "time": "2019-06-12T07:16:37+00:00"
         },
         {
             "name": "zendframework/zend-diactoros",
@@ -4797,6 +4803,121 @@
             "time": "2019-03-07T21:35:13+00:00"
         },
         {
+            "name": "orchestra/testbench",
+            "version": "v3.8.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/testbench.git",
+                "reference": "171b29bb9dbd754dc1eb8d9ba0ff05b914b8db1d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/171b29bb9dbd754dc1eb8d9ba0ff05b914b8db1d",
+                "reference": "171b29bb9dbd754dc1eb8d9ba0ff05b914b8db1d",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.8.19",
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench-core": "~3.8.4",
+                "php": ">=7.1",
+                "phpunit/phpunit": "^7.5 || ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Laravel Testing Helper for Packages Development",
+            "homepage": "http://orchestraplatform.com/docs/latest/components/testbench/",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "laravel",
+                "orchestra-platform",
+                "orchestral",
+                "testing"
+            ],
+            "time": "2019-05-29T23:14:15+00:00"
+        },
+        {
+            "name": "orchestra/testbench-core",
+            "version": "v3.8.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/testbench-core.git",
+                "reference": "b81c24ef1036cb1f8ff0ca711535cea3f0281848"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/b81c24ef1036cb1f8ff0ca711535cea3f0281848",
+                "reference": "b81c24ef1036cb1f8ff0ca711535cea3f0281848",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "^1.4",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "laravel/framework": "~5.8.3",
+                "laravel/laravel": "dev-master",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.5 || ^8.0"
+            },
+            "suggest": {
+                "laravel/framework": "Required for testing (~5.8.19).",
+                "mockery/mockery": "Allow to use Mockery for testing (^1.0).",
+                "orchestra/testbench-browser-kit": "Allow to use legacy Laravel BrowserKit for testing (^3.8).",
+                "orchestra/testbench-dusk": "Allow to use Laravel Dusk for testing (^3.8).",
+                "phpunit/phpunit": "Allow to use PHPUnit for testing (^7.5 || ^8.0)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\Testbench\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Testing Helper for Laravel Development",
+            "homepage": "http://orchestraplatform.com/docs/latest/components/testbench/",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "laravel",
+                "orchestra-platform",
+                "orchestral",
+                "testing"
+            ],
+            "time": "2019-06-10T08:29:56+00:00"
+        },
+        {
             "name": "phar-io/manifest",
             "version": "1.0.3",
             "source": {
@@ -5052,16 +5173,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.8.0",
+            "version": "1.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06"
+                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
-                "reference": "4ba436b55987b4bf311cb7c6ba82aa528aac0a06",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
+                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
                 "shasum": ""
             },
             "require": {
@@ -5082,8 +5203,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Prophecy\\": "src/"
+                "psr-4": {
+                    "Prophecy\\": "src/Prophecy"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -5111,7 +5232,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-08-05T17:53:17+00:00"
+            "time": "2019-06-13T12:50:23+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -5367,16 +5488,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "7.5.12",
+            "version": "7.5.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c"
+                "reference": "b9278591caa8630127f96c63b598712b699e671c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c",
-                "reference": "9ba59817745b0fe0c1a5a3032dfd4a6d2994ad1c",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b9278591caa8630127f96c63b598712b699e671c",
+                "reference": "b9278591caa8630127f96c63b598712b699e671c",
                 "shasum": ""
             },
             "require": {
@@ -5447,7 +5568,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-05-28T11:59:40+00:00"
+            "time": "2019-06-19T12:01:51+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
@@ -6017,16 +6138,16 @@
         },
         {
             "name": "theseer/tokenizer",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/theseer/tokenizer.git",
-                "reference": "1c42705be2b6c1de5904f8afacef5895cab44bf8"
+                "reference": "11336f6f84e16a720dae9d8e6ed5019efa85a0f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/1c42705be2b6c1de5904f8afacef5895cab44bf8",
-                "reference": "1c42705be2b6c1de5904f8afacef5895cab44bf8",
+                "url": "https://api.github.com/repos/theseer/tokenizer/zipball/11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
+                "reference": "11336f6f84e16a720dae9d8e6ed5019efa85a0f9",
                 "shasum": ""
             },
             "require": {
@@ -6053,7 +6174,7 @@
                 }
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
-            "time": "2019-04-04T09:56:43+00:00"
+            "time": "2019-06-13T22:48:21+00:00"
         },
         {
             "name": "webmozart/assert",
