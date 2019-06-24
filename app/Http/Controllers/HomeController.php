@@ -3,26 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use AvoRed\Framework\Database\Contracts\CategoryModelInterface;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
+     * @var \AvoRed\Framework\Database\Repository\CategoryRepository
+     */
+    protected $categoryRepository;
+
+    /**
+     * home controller construct
+     */
+    public function __construct(
+        CategoryModelInterface $categoryRepository
+    ) {
+        $this->categoryRepository = $categoryRepository;
+    }
+    /**
      * Show the application dashboard.
-     *
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index()
     {
-        return view('home');
+        $categories = $this->categoryRepository->all();
+        return view('home')
+            ->with('categories', $categories);
     }
 }

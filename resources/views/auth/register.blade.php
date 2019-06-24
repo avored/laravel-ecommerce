@@ -1,77 +1,119 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+<login-fields loginpost="{{ route('login') }}" inline-template>
+    <div>
+        <a-row type="flex" align="middle">
+            <a-col :span="12">
+                <a-row type="flex" align="middle" class="h-100 text-center">
+                <a-col :span="24">
+                    
+                </a-col>
+                </a-row>
+            </a-col>
+            <a-col :span="12">
+                <a-row type="flex">
+                <a-col :span="20" :offset="2">
+                    <a-card title="Account Management">
+                        <a-form
+                            :form="form"
+                            method="post"
+                            action="{{ route('register') }}"
+                            @submit="handleSubmit"
+                        >
+                            @csrf()
+                            <a-form-item
+                                @if ($errors->has('name'))
+                                    validate-status="error"
+                                    help="{{ $errors->first('name') }}"
+                                @endif
+                                label="Name">
+                            <a-input
+                                :auto-focus="true"
+                                name="name"
+                                v-decorator="[
+                                'name',
+                                {
+                                    rules: [
+                                        {   required: true, 
+                                            message: 'The Name field is required' 
+                                        }
+                                    ]
+                                }
+                                ]"
+                            />
+                            </a-form-item>
+                            <a-form-item
+                                @if ($errors->has('email'))
+                                    validate-status="error"
+                                    help="{{ $errors->first('email') }}"
+                                @endif
+                                label="Email Address">
+                            <a-input
+                                :auto-focus="true"
+                                name="email"
+                                v-decorator="[
+                                'email',
+                                {
+                                    rules: [
+                                        {   required: true, 
+                                            message: 'The Email field is required' 
+                                        }
+                                    ]
+                                }
+                                ]"
+                            />
+                            </a-form-item>
+                            
+                            <a-form-item 
+                                @if ($errors->has('password'))
+                                    validate-status="error"
+                                    help="{{ $errors->first('password') }}"
+                                @endif
+                                label="Password">
+                                <a-input
+                                    name="password"
+                                    type="password"
+                                    v-decorator="[
+                                    'password',
+                                    {rules: [{ required: true, message: 'The password field is required' }]}
+                                    ]"
+                                />
+                            </a-form-item>
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+                            <a-form-item 
+                                @if ($errors->has('password_confirmation'))
+                                    validate-status="error"
+                                    help="{{ $errors->first('password_confirmation') }}"
+                                @endif
+                                label="Password Confirmation">
+                                <a-input
+                                    name="password_confirmation"
+                                    type="password"
+                                    v-decorator="[
+                                    'password_confirmation',
+                                    {rules: [{ required: true, message: 'The password confirmation field is required' }]}
+                                    ]"
+                                />
+                            </a-form-item>
+                            
+                            <a-form-item>
+                                <a-button
+                                    type="primary"
+                                    :loading="loadingSubmitBtn"
+                                    html-type="submit"
+                                >
+                                    Register
+                                </a-button>
+                            </a-form-item>
+                        </a-form>
+                    </a-card>
+                </a-col>
+                </a-row>
+            </a-col>
+        
+            
+        </a-row>
     </div>
-</div>
+</login-fields>
 @endsection
