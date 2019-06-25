@@ -12,6 +12,18 @@
 */
 
 Auth::routes();
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('', 'HomeController@index')->name('home');
 
-Route::get('/category/{category}', 'CategoryController@show')->name('category.show');
+Route::get('category/{category}', 'CategoryController@show')->name('category.show');
+Route::get('product/{product}', 'ProductController@show')->name('product.show');
+
+Route::get('cart', 'CartController@show')->name('cart.show');
+Route::get('checkout', 'CheckoutController@show')->name('checkout.show');
+
+Route::middleware('auth')
+    ->name('account.')
+    ->prefix('account')
+    ->namespace('Account')
+    ->group(function () {
+        Route::get('', 'DashboardController@index')->name('dashboard');
+    });

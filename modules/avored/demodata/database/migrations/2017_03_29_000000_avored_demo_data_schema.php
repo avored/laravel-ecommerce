@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use AvoRed\Framework\Database\Models\Category;
+use AvoRed\Framework\Database\Models\Product;
 
 class AvoredDemoDataSchema extends Migration
 {
@@ -14,14 +15,20 @@ class AvoredDemoDataSchema extends Migration
      */
     public function up()
     {
-        Category::create([
-            'name' => 'Tops',
-            'slug' => 'tops'
+        $avoredCategory = Category::create([
+            'name' => 'AvoRed',
+            'slug' => 'avored'
         ]);
-        Category::create([
-            'name' => 'Dresses',
-            'slug' => 'dresses'
+        $phpCategory = Category::create([
+            'name' => 'PHP',
+            'slug' => 'php'
         ]);
+        $laravelCategory = Category::create([
+            'name' => 'Laravel',
+            'slug' => 'laravel'
+        ]);
+
+        // $avoredLaptop = Product::create();
     }
 
     /**

@@ -19,6 +19,16 @@
                         </a>
                     </a-menu-item>
                 @endforeach
+                <a-menu-item key="cart">
+                    <a href="{{ route('cart.show') }}">
+                        {{ __('Cart')}}
+                    </a>
+                </a-menu-item>
+                <a-menu-item key="checkout">
+                    <a href="{{ route('checkout.show') }}">
+                        {{ __('Checkout')}}
+                    </a>
+                </a-menu-item>
                 
                 @if (Auth::check())
                     <a-sub-menu title="{{ Auth::user()->name }}">

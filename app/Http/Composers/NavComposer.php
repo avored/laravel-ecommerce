@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Composers;
 
-use Illuminate\Http\Request;
 use AvoRed\Framework\Database\Contracts\CategoryModelInterface;
+use Illuminate\View\View;
 
-class CategoryController extends Controller
+class NavComposer
 {
     /**
      * @var \AvoRed\Framework\Database\Repository\CategoryRepository
@@ -20,15 +20,14 @@ class CategoryController extends Controller
     ) {
         $this->categoryRepository = $categoryRepository;
     }
+
     /**
      * Show the application dashboard.
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function show($slug)
+    public function compose(View $view)
     {
-        $category = $this->categoryRepository->findBySlug($slug);
-        
-        return view('category.show')
-            ->with('category', $category);
+        $categories = $this->categoryRepository->all();
+        $view->with('categories', $categories);
     }
 }
