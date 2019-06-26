@@ -18,6 +18,8 @@ Route::get('category/{category}', 'CategoryController@show')->name('category.sho
 Route::get('product/{product}', 'ProductController@show')->name('product.show');
 
 Route::get('cart', 'CartController@show')->name('cart.show');
+Route::post('add-to-cart', 'CartController@addToCart')->name('add.to.cart');
+
 Route::get('checkout', 'CheckoutController@show')->name('checkout.show');
 
 Route::middleware('auth')

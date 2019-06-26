@@ -13,16 +13,16 @@
   <a-col :span="18">
     <a-row :gutter="15">
       @foreach ($category->products as $product)
-        <?php 
-        //dd($product->main_image);
-        ?>
           <a-col :span="8">
+             
             <a-card>
-              <img
-                alt="example"
-                src="{{ $product->main_image_url }}"
-                slot="cover"
-              />
+             <a href="{{ route('product.show', $product->slug) }}">
+                <img
+                  alt="example"
+                  src="{{ $product->main_image_url }}"
+                  slot="cover"
+                />
+               </a>
               <template class="ant-card-actions" slot="actions">
                 <a-tooltip placement="topLeft" >
                   <template slot="title">
@@ -37,9 +37,12 @@
                   <a-icon type="heart"></a-icon>
                 </a-tooltip>
               </template>
-              <a-card-meta title="{{ $product->name }}">
-              </a-card-meta>
+              <a href="{{ route('product.show', $product->slug) }}">
+                <a-card-meta title="{{ $product->name }}">
+                </a-card-meta>
+              </a>
             </a-card>
+             
           </a-col>
       @endforeach
     </a-row>

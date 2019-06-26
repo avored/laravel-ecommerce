@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-     <a-card title="Cart Page">
-      <a href="#" slot="extra">more</a>
-      <p>card content</p>
-      <p>card content</p>
-      <p>card content</p>
-    </a-card>
+
+     
+     @foreach ($cartProducts as $cartProduct)
+         <p><img src="{{ $cartProduct->image() }}" /></p>
+         <p>{{ $cartProduct->name() }}</p>
+         <p>{{ $cartProduct->qty() }}</p>
+     @endforeach
+
+     ${{ Cart::total() }}
 @endsection

@@ -21,6 +21,7 @@ Vue.use(Antd);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('avored-layout', require('../components/layout/Layout.vue').default);
+Vue.component('product-page', require('../components/ProductPage.vue').default);
 
 Vue.component('login-fields', require('../components/auth/LoginFields.vue').default);
 Vue.component('register-fields', require('../components/auth/RegisterFields.vue').default);
