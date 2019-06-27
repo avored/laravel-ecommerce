@@ -20,6 +20,8 @@ Vue.use(Antd);
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
+Vue.component('address-save', require('../components/address/AddressSave.vue').default);
+
 Vue.component('avored-layout', require('../components/layout/Layout.vue').default);
 Vue.component('product-page', require('../components/ProductPage.vue').default);
 

@@ -28,4 +28,5 @@ Route::middleware('auth')
     ->namespace('Account')
     ->group(function () {
         Route::get('', 'DashboardController@index')->name('dashboard');
+        Route::resource('address', 'AddressController');
     });
