@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,9 +12,11 @@ let mix = require('laravel-mix');
  */
 
 
-mix.config.fileLoaderDirs.fonts     = "vendor/avored-default/fonts";
-mix.config.fileLoaderDirs.images    = "vendor/avored-default/images";
-
-mix.copy('themes/avored/default/assets/images', 'public/vendor/avored-default/images');
-mix.sass('themes/avored/default/assets/sass/app.scss', 'vendor/avored-default/css');
-mix.js('themes/avored/default/assets/js/app.js', 'vendor/avored-default/js');
+mix.js('resources/js/app.js', 'public/js/app.js')
+    .less('resources/less/app.less', 'public/css/app.css', {
+        javascriptEnabled: true
+    })
+    .less('vendor/avored/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
+        javascriptEnabled: true
+    })
+    .js('vendor/avored/framework/resources/js/app.js', 'public/avored-admin/js/app.js');

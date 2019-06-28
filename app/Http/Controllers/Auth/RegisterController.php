@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use AvoRed\Framework\Models\Database\Configuration;
-use AvoRed\Framework\Models\Database\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Auth\Events\Registered;
-use App\Mail\NewUserMail;
-use Illuminate\Support\Facades\Auth;
+use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -29,11 +24,11 @@ class RegisterController extends Controller
     use RegistersUsers;
 
     /**
-     * Where to redirect users after login / registration.
+     * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = '/my-account';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -42,57 +37,36 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        parent::__construct();
         $this->middleware('guest');
     }
 
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param array $data
-     *
+     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
 
     /**
-     * Handle a registration request for the application.
+     * Create a new user instance after a valid registration.
      *
-     * @param \Illuminate\Http\Request $request
-     *
-     * @return \Illuminate\Http\Response
+     * @param  array  $data
+     * @return \App\User
      */
-    public function register(Request $request)
+    protected function create(array $data)
     {
-        $this->validator($request->all())->validate();
-
-        $userActivationRequired = Configuration::getConfiguration('user_activation_required');
-        $request->merge(['password' => bcrypt($request->get('password'))]);
-
-        $user = User::create($request->all());
-        event(new Registered($user));
-        Mail::to($user)->send(new NewUserMail($user));
-
-        if (0 == $userActivationRequired) {
-            $user->markEmailAsVerified();
-            $this->guard()->login($user);
-            return redirect($this->redirectPath());
-        } else {
-            return redirect()->route('login')
-                            ->with('notificationText', 'Please Active your account then you can login!');
-        }
-    }
-
-    protected function guard()
-    {
-        return Auth::guard('web');
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
     }
 }
