@@ -1,6 +1,6 @@
 <a-menu
     mode="inline"
-    theme="dark"
+    theme="light"
     :default-selected-keys="['profile']"
     style="height: 100%"
 >

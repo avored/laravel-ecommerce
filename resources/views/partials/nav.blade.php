@@ -1,13 +1,13 @@
- <a-layout-header>
+ <a-layout-header :style="{ background: '#fff'}">
     <a-row :gutter="15" type="flex">
         <a-col  :span="6">
             <a href="{{ route('home') }}">
-                <div class="logo">AvoRed</div>
+                <div class="logo"></div>
             </a>
         </a-col>
         <a-col :span="18">
             <a-menu
-                theme="dark"
+                theme="light"
                 mode="horizontal"
                 :default-selected-keys="[]"
                 class="navigation"

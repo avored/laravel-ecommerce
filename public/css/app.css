@@ -20207,6 +20207,7 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
   line-height: 35px;
   background-repeat: no-repeat;
   text-indent: 50px;
+  background-size: 70px;
 }
 .navigation {
   line-height: 64px;

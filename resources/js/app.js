@@ -22,9 +22,10 @@ Vue.use(Antd);
 
 Vue.component('address-save', require('../components/address/AddressSave.vue').default);
 
-Vue.component('avored-layout', require('../components/layout/Layout.vue').default);
 Vue.component('product-page', require('../components/ProductPage.vue').default);
+Vue.component('checkout-page', require('../components/CheckoutPage.vue').default);
 
+Vue.component('avored-layout', require('../components/layout/Layout.vue').default);
 Vue.component('login-fields', require('../components/auth/LoginFields.vue').default);
 Vue.component('register-fields', require('../components/auth/RegisterFields.vue').default);
 /**
