@@ -5,7 +5,9 @@
                 form: this.$form.createForm(this),
                 submitStatus:false,
                 newAccount: false,
-                useDifferentBillingAddress: false
+                useDifferentBillingAddress: false,
+                paymentOption: '',
+                shippingOption: ''
             }
         },
         methods: {
@@ -24,6 +26,12 @@
             useDifferentBillingAddressSwitchChange(val) {
                 this.useDifferentBillingAddress = !val;
             },
+            handlePaymentChange(e, val) {
+                this.paymentOption = val;
+            },
+            handleShippingChange(e, val) {
+                this.shippingOption = val;
+            }
         }
     }
 </script>

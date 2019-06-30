@@ -21,6 +21,9 @@ Route::get('cart', 'CartController@show')->name('cart.show');
 Route::post('add-to-cart', 'CartController@addToCart')->name('add.to.cart');
 
 Route::get('checkout', 'CheckoutController@show')->name('checkout.show');
+Route::post('order', 'OrderController@place')->name('order.place');
+
+Route::get('order/{order}', 'OrderController@successful')->name('order.successful');
 
 Route::middleware('auth')
     ->name('account.')

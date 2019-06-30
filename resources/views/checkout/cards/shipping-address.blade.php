@@ -248,3 +248,4 @@
 
 <a-switch @change="useDifferentBillingAddressSwitchChange" default-checked></a-switch>
 {{ __('User Different Billing Address') }}
+<input type="hidden" name="use_different_address" v-model="useDifferentBillingAddress" />

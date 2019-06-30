@@ -4,7 +4,7 @@
   <checkout-page inline-template>
     <div>
     <h1>{{ __('Checkout Page') }}</h1>
-    <a-form :form="form" @submit="handleSubmit" method="post" action="#">
+    <a-form :form="form" @submit="handleSubmit" method="post" action="{{ route('order.place') }}">
       @csrf          
       <a-row :gutter="15">
         <a-col :span="12">

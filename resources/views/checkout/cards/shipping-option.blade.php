@@ -2,4 +2,8 @@
 <a-divider><h4 class="mt-1">{{ __('Shipping Options') }}</h4></a-divider>
 
 
-<a-switch></a-switch> {{ __('Pickup from store') }}
+@foreach ($shippingOptions as $shipping)
+    <a-switch @change="handleShippingChange($event, '{{ $shipping->identifier() }}')"></a-switch>
+    {{ $shipping->name() }}
+@endforeach
+<input type="hidden" name="shipping_option" v-model="shippingOption" />
