@@ -1,0 +1,5 @@
+name: AvoRed Pickup
+identifier: avored-pickup
+status: active
+description: AvoRed Pickup Module
+namespace: AvoRed\Pickup\

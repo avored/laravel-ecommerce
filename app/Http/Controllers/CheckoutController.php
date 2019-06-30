@@ -3,21 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use AvoRed\Framework\Support\Facades\Payment;
+use AvoRed\Framework\Support\Facades\Shipping;
 
 class CheckoutController extends Controller
 {
-
     /**
      * @var \AvoRed\Framework\Database\Repository\CategoryRepository
      */
     protected $categoryRepository;
 
     /**
-     * home controller construct
+     * checkout controller construct
      */
     public function __construct()
     {
-        // $this->categoryRepository = $categoryRepository;
+        //
     }
 
     /**
@@ -26,8 +27,11 @@ class CheckoutController extends Controller
      */
     public function show()
     {
-        // $category = $this->categoryRepository->findBySlug($slug);
-        // $categories = $this->categoryRepository->all();
-        return view('checkout.show');
+        $paymentOptions = Payment::all();
+        $shippingOptions = Shipping::all();
+
+        return view('checkout.show')
+            ->with('shippingOptions', $shippingOptions)
+            ->with('paymentOptions', $paymentOptions);
     }
 }
