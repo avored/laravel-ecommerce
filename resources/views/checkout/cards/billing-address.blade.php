@@ -157,21 +157,25 @@
                     help="{{ $errors->first('billing.country_id') }}"
                 @endif
                 label="{{ __('Country') }}">
-            <a-input
-                
-                name="billing[country_id]"
-                v-decorator="[
-                'billing.country_id',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('Country') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
+            <a-select
+                    @change="billingCountryOptionChange"
+                    v-decorator="[
+                    'billing.country_id',
+                    {
+                        rules: [
+                            {   required: true, 
+                                message: 'The {{ __('Country') }} field is required' 
+                            }
+                        ]
+                    }
+                    ]"
+                >
+                    @foreach ($countryOptions as $countryVal => $countryLabel)
+                        <a-select-option value="{{ $countryVal }}">{{ $countryLabel }}</a-select-option>
+                    @endforeach
+                </a-select> 
         </a-form-item>
+        <input type="hidden" name="billing[country_id]" v-model="billingCountry" />
     </a-col>
     <a-col :span="12">
         <a-form-item

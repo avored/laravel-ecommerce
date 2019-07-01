@@ -117,9 +117,6 @@ class OrderController extends Controller
      */
     public function shippingAddress($request)
     {
-        $this->shippingAddress =  $this->addressRepository->find(2);
-
-        return;
         $addressData = $request->get('shipping');
         $addressData['type'] = 'SHIPPING';
         $addressData['user_id'] = $this->user->id;
@@ -134,15 +131,14 @@ class OrderController extends Controller
      */
     public function billingAddress($request)
     {
-        $this->billingAddress = $this->shippingAddress;
-        return;
+        $flag = $request->get('use_different_address');
+        if ($flag == 'true') {
+            dd('todo create a billing address here');
+        } else {
+            $this->billingAddress = $this->shippingAddress;
+        }
 
-        // $flag = $request->get('use_different_address');
-        // if ($flag == true) {
-        //     dd('todo create a billing address here');
-        // }
-
-        // return $this->shippingAddress;
+        return $this;
     }
 
     /**

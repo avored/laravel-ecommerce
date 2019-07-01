@@ -7,7 +7,9 @@
                 newAccount: false,
                 useDifferentBillingAddress: false,
                 paymentOption: '',
-                shippingOption: ''
+                shippingOption: '',
+                shippingCountry: 0,
+                billingCountry: 0,
             }
         },
         methods: {
@@ -15,10 +17,16 @@
                this.submitStatus = true;
                 this.form.validateFields((err, values) => {
                     if (err) {
-                        this.handleSubmit = false;
+                        this.submitStatus = false;
                         e.preventDefault();
                     }
                 });
+            },
+            shippingCountryOptionChange(val) {
+                this.shippingCountry = val;
+            },
+            billingCountryOptionChange(val) {
+
             },
             newAccountSwitchChange(val) {
                 this.newAccount = val;

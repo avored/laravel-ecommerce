@@ -32,4 +32,5 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('', 'DashboardController@index')->name('dashboard');
         Route::resource('address', 'AddressController');
+        Route::resource('order', 'OrderController')->only(['index', 'show']);
     });

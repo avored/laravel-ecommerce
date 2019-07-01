@@ -33,6 +33,11 @@
                 @if (Auth::check())
                     <a-sub-menu title="{{ Auth::user()->name }}">
                         <a-menu-item>
+                            <a href="{{ route('account.dashboard') }}">
+                                {{ __('Account') }}
+                            </a>
+                        </a-menu-item>
+                        <a-menu-item>
                             <a href="{{ route('logout') }}">
                                 Logout
                             </a>
