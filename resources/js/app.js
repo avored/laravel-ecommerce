@@ -25,6 +25,7 @@ Vue.component('user-order-table', require('../components/account/order/OrderTabl
 
 Vue.component('product-page', require('../components/ProductPage.vue').default);
 Vue.component('checkout-page', require('../components/CheckoutPage.vue').default);
+Vue.component('cart-page', require('../components/CartPage.vue').default);
 
 Vue.component('avored-layout', require('../components/layout/Layout.vue').default);
 Vue.component('login-fields', require('../components/auth/LoginFields.vue').default);
