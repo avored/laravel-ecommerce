@@ -24,12 +24,14 @@
                 />
                </a>
               <template class="ant-card-actions" slot="actions">
-                <a-tooltip placement="topLeft" >
-                  <template slot="title">
-                    <span>{{ __('Add To Cart') }}</span>
-                  </template>
-                  <a-icon type="shopping-cart"></a-icon>
-                </a-tooltip>
+                  
+                      <form slot="title" method="post" action="{{ route('add.to.cart') }}">
+                        @csrf
+                        <a-button html-type="submit" type="primary" icon="shopping-cart"></a-button>
+                        <input type="hidden" name="slug" value="{{ $product->slug }}" />
+                        <input type="hidden" name="qty" value="1" />
+                      </form>
+                  
                 <a-tooltip placement="topLeft" >
                   <template slot="title">
                     <span>{{ __('Add To Wishlist') }}</span>

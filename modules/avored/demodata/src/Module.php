@@ -14,6 +14,7 @@ class Module extends ServiceProvider
     public function boot()
     {
         $this->registerResources();
+        $this->setupPublishFiles();
     }
 
     /**
@@ -23,7 +24,7 @@ class Module extends ServiceProvider
      */
     public function register()
     {
-        // register call here
+        //
     }
 
     /**
@@ -37,5 +38,17 @@ class Module extends ServiceProvider
         //$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         //$this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-demodata');
         //$this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-demodata');
+    }
+
+
+    /**
+     * Set up the file which can be published to use the package
+     * @return void
+     */
+    public function setupPublishFiles()
+    {
+        $this->publishes([
+            __DIR__.'/../assets/uploads' => storage_path('app/public/uploads')
+        ], 'avored-demo-storage');
     }
 }
