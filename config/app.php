@@ -227,6 +227,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         "Cart" => AvoRed\Framework\Support\Facades\Cart::class,
+        "Payment" => AvoRed\Framework\Support\Facades\Payment::class,
+        "Shipping" => AvoRed\Framework\Support\Facades\Shipping::class,
 
     ],
 

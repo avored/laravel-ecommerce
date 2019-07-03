@@ -20198,6 +20198,9 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
     opacity: 0;
   }
 }
+.product-main-image {
+  width: 100%;
+}
 .layout .logo {
   background-image: url(/images/logo.svg?6c9c86b…);
   color: #fff;
