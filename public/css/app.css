@@ -20216,3 +20216,16 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
   line-height: 64px;
   text-align: right;
 }
+.ant-carousel {
+  margin-bottom: 2rem;
+}
+.ant-carousel .slick-vertical .slick-slide {
+  text-align: center;
+  height: 160px;
+  line-height: 160px;
+  background: #e64448;
+  overflow: hidden;
+}
+.ant-carousel .slick-vertical .slick-slide h3 {
+  color: #fff;
+}

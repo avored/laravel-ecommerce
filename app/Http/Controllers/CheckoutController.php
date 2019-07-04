@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use AvoRed\Framework\Support\Facades\Payment;
 use AvoRed\Framework\Support\Facades\Shipping;
 use AvoRed\Framework\Database\Contracts\CountryModelInterface;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
