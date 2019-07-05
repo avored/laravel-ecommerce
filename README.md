@@ -1,6 +1,6 @@
 # AvoRed a modular Shopping cart framework for a laravel php framework
 
-[![GitHub release](https://img.shields.io/github/release/avored/laravel-ecommerce.svg?style=flat-square)](https://github.com/avored/laravel-ecommerce/releases/latest) [![Build Status](https://travis-ci.org/avored/framework.svg?branch=master)](https://travis-ci.org/avored/framework)
+[![GitHub release](https://img.shields.io/github/release/avored/laravel-ecommerce.svg?style=flat-square)](https://github.com/avored/laravel-ecommerce/releases/latest) [![Build Status](https://travis-ci.org/avored/framework.svg?branch=master)](https://travis-ci.org/avored/framework) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/avored/framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/avored/framework/?branch=master)
 [![Total Downloads](https://poser.pugx.org/avored/framework/downloads)](https://packagist.org/packages/avored/framework) 
 [![Sponsors](https://opencollective.com/laravel-ecommerce/sponsors/badge.svg?style=flat-square)](#sponsors)
 [![Chat on Slack](https://img.shields.io/badge/join--slack-avored--ecommerce-c62828.svg?longCache=true&style=for-the-badge&logo=slack&color=#c62828)](https://join.slack.com/t/avored/shared_invite/enQtNDQ1Nzc0MTQ1NjIwLTNiMzIyYzc4M2Y2YWE4YzlhNjM3NzhhN2I0NTAyMzhkNGZmOWUyNjQ1N2U1NGQ3MzIzOGU0MDM0MDM1NTc2MDg)
