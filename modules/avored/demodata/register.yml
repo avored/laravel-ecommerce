@@ -1,0 +1,5 @@
+name: AvoRed DemoData
+identifier: avored-demodata
+status: active
+description: AvoRed DemoData Module
+namespace: AvoRed\DemoData\

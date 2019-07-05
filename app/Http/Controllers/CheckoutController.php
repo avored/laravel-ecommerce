@@ -2,41 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use AvoRed\Framework\Models\Database\Country;
-use AvoRed\Framework\Payment\Facade as Payment;
-use AvoRed\Framework\Shipping\Facade as Shipping;
-use AvoRed\Framework\Cart\Facade as Cart;
 use Illuminate\Http\Request;
+use AvoRed\Framework\Support\Facades\Payment;
+use AvoRed\Framework\Support\Facades\Shipping;
+use AvoRed\Framework\Database\Contracts\CountryModelInterface;
+use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
-    public function index()
+    /**
+     * @var \AvoRed\Framework\Database\Repository\CountryRepository
+     */
+    protected $countryRepository;
+
+    /**
+     * checkout controller construct
+     */
+    public function __construct(CountryModelInterface $countryRepository)
     {
-        $cartItems = Cart::all();
-
-        $paymentOptions = Payment::all();
-        $countries = Country::options();
-
-        return view('checkout.index')
-            ->with('cartItems', $cartItems)
-            ->with('countries', $countries)
-            ->with('paymentOptions', $paymentOptions);
+        $this->CountryRepository = $countryRepository;
     }
 
-    public function checkoutFieldUpdated(Request $request)
+    /**
+     * Show the application dashboard.
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function show()
     {
-        $responseData = [];
-
-        $data = $request->all();
+        $paymentOptions = Payment::all();
         $shippingOptions = Shipping::all();
-        foreach ($shippingOptions as $option) {
-            $view = $option->calculate($data);
-            if (null !== $view) {
-                $responseData['shipping'][] = $view;
-            }
-        }
-        //$paymentOptions = Payment::all();
+        $countryOptions = $this->CountryRepository->options();
 
-        return $responseData;
+        return view('checkout.show')
+            ->with('shippingOptions', $shippingOptions)
+            ->with('paymentOptions', $paymentOptions)
+            ->with('countryOptions', $countryOptions);
     }
 }

@@ -1,12 +1,5 @@
 # Roadmap
 
-## Release Goals
-- [Roadmap](#roadmap)
-    - [Release Goals](#release-goals)
-        - [Bug Fixing](#bug-fixing)
-    - [Features](#features)
-        - [Stability](#stability)
-
 ### Bug Fixing
 
 ## Features

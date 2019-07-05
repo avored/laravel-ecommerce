@@ -1,11 +1,8 @@
 <?php
-
 namespace AvoRed\Pickup;
 
 use Illuminate\Support\ServiceProvider;
-use AvoRed\Framework\Payment\Facade as PaymentFacade;
-use AvoRed\Framework\AdminConfiguration\Facade as AdminConfigurationFacade;
-use AvoRed\Pickup\Payment\Pickup;
+use AvoRed\Framework\Support\Facades\Shipping;
 
 class Module extends ServiceProvider
 {
@@ -18,53 +15,39 @@ class Module extends ServiceProvider
     public function boot()
     {
         $this->registerResources();
-        $this->registerPaymentOption();
-        $this->registerAdminConfiguration();
+        $this->registerShippingOption();
     }
 
     /**
-     * Registering AvoRed featured Resource
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
+     * Registering AvoRed Pickup Resource
      * e.g. Route, View, Database  & Translation Path
      *
      * @return void
      */
     protected function registerResources()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-pickup');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-pickup');
+        //$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
+        //$this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-pickup');
+        //$this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-pickup');
     }
-    
-    /**
-     * Register the Menus.
-     *
+
+     /**
+     * Register Shippiong Option for App.
      * @return void
      */
-    protected function registerAdminConfiguration()
+    protected function registerShippingOption()
     {
-        
-        $paymentGroup = AdminConfigurationFacade::get('payment')
-                ->label('Payment');
-        
-        $paymentGroup->addConfiguration('payment_pickup_enabled')
-                ->label('Payment Pickup Enabled')
-                ->type('select')
-                ->name('payment_pickup_enabled')
-                ->options(
-                    function () {
-                        $options = [1 => 'Yes' , 0 => 'No'];
-                        return $options;
-                    }
-                );
-    }
-    
-    /**
-     * Register Payment Option for App.
-     *
-     * @return void
-     */
-    protected function registerPaymentOption()
-    {
-        $payment = new Pickup();
-        PaymentFacade::put($payment->identifier(), $payment);
+        $shipping = new Pickup();
+        Shipping::put($shipping);
     }
 }

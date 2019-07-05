@@ -35,6 +35,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            \AvoRed\Framework\Support\Middleware\AvoRedCore::class,
         ],
 
         'api' => [
@@ -59,13 +60,13 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified' => \App\Http\Middleware\Verified::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 
     /**
      * The priority-sorted list of middleware.
      *
-     * This forces the listed middleware to always be in the given order.
+     * This forces non-global middleware to always be in the given order.
      *
      * @var array
      */

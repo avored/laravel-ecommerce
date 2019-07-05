@@ -2,265 +2,161 @@
 
 namespace App\Http\Controllers;
 
-use AvoRed\Framework\Models\Database\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
-use App\Events\OrderPlaceAfterEvent;
-use App\Http\Requests\PlaceOrderRequest;
-use AvoRed\Framework\Payment\Facade as Payment;
-use AvoRed\Framework\Cart\Facade as Cart;
-use AvoRed\Framework\Models\Database\OrderStatus;
-use AvoRed\Framework\Models\Database\Order;
-use AvoRed\Framework\Models\Database\User;
-use AvoRed\Framework\Models\Database\Address;
-use AvoRed\Framework\Models\Database\OrderProductVariation;
-use Illuminate\Support\Facades\Session;
-use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
-use AvoRed\Framework\Models\Contracts\OrderHistoryInterface;
-use App\Http\Requests\MyAccount\Order\OrderReturnRequest;
-use AvoRed\Framework\Models\Contracts\OrderReturnRequestInterface;
-use AvoRed\Framework\Models\Contracts\OrderReturnProductInterface;
-use AvoRed\Framework\Models\Contracts\ProductInterface;
+use App\User;
+use AvoRed\Framework\Database\Contracts\AddressModelInterface;
+use AvoRed\Framework\Database\Contracts\OrderModelInterface;
+use AvoRed\Framework\Database\Contracts\OrderStatusModelInterface;
+use AvoRed\Framework\Database\Models\Order;
 
 class OrderController extends Controller
 {
     /**
-    *
-    * @var \AvoRed\Framework\Models\Repository\ConfigurationRepository
-    */
-    protected $repository;
-    /**
-    *
-    * @var \AvoRed\Framework\Models\Repository\OrderReturnRequestRepository  $orderReturnRequestRepository
-    */
-    protected $orderReturnRequestRepository;
-    /**
-    *
-    * @var \AvoRed\Framework\Models\Repository\OrderReturnProductRepository  $orderReturnProductRepository
-    */
-    protected $orderReturnProductRepository;
+     * @var \AvoRed\Framework\Database\Repository\AddressRepository
+     */
+    protected $addressRepository;
 
     /**
-     * Construct to setup Repository
-     *
+     * @var \AvoRed\Framework\Database\Repository\OrderRepository
+     */
+    protected $oderRepository;
+
+    /**
+     * @var \AvoRed\Framework\Database\Repository\OrderStatusRepository
+     */
+    protected $oderStatusRepository;
+
+    /**
+     * User Model
+     * @var \App\User
+     */
+    protected $user;
+
+    /**
+     * User Shipping Address Model
+     * @var \AvoRed\Framework\Database\Models\Address
+     */
+    protected $shippingAddress;
+
+    /**
+     * Order Status Model
+     * @var \AvoRed\Framework\Database\Models\OrderStatus
+     */
+    protected $orderStatus;
+
+    /**
+     * User Billing Address Model
+     * @var \AvoRed\Framework\Database\Models\Address
+     */
+    protected $billingAddress;
+
+    /**
+     * order controller construct
+     * @param \AvoRed\Framework\Database\Contracts\AddressModelInterface
+     * @param \AvoRed\Framework\Database\Contracts\OrderModelInterface
+     * @param \AvoRed\Framework\Database\Contracts\OrderStatusModelInterface
      */
     public function __construct(
-        ConfigurationInterface $rep,
-        OrderReturnRequestInterface $orderReturnRequestRepository,
-        OrderReturnProductInterface $orderReturnProductRepository
+        AddressModelInterface $addressRepository,
+        OrderModelInterface $orderRepository,
+        OrderStatusModelInterface $orderStatusRepository
     ) {
-        parent::__construct();
-
-        $this->repository = $rep;
-        $this->orderReturnRequestRepository = $orderReturnRequestRepository;
-        $this->orderReturnProductRepository = $orderReturnProductRepository;
-    }
-
-    public function place(PlaceOrderRequest $request)
-    {
-        $orderProductData = Cart::all();
-
-        $user = $this->getUser($request);
-        $billingAddress = $this->getBillingAddress($request);
-        $shippingAddress = $this->getShippingAddress($request);
-        $orderStatus = OrderStatus::whereIsDefault(1)->get()->first();
-        $paymentOption = $request->get('payment_option');
-
-        $currencyCode = Session::get('currency_code') ?? $this->repository->getValueByKey('general_site_currency');
-
-        $data['shipping_address_id'] = $shippingAddress->id;
-        $data['billing_address_id'] = $billingAddress->id;
-        $data['user_id'] = $user->id;
-        $data['shipping_option'] = $request->get('shipping_option');
-        $data['payment_option'] = $paymentOption;
-        $data['order_status_id'] = $orderStatus->id;
-        $data['currency_code'] = $currencyCode;
-
-        $payment = Payment::get($paymentOption);
-
-        $paymentReturn = $payment->process($data, $orderProductData, $request);
-
-        //@todo check Response is success of fail.
-
-        $order = Order::create($data);
-        $this->syncOrderProductData($order, $orderProductData);
-
-        ////INSERT a RECORD INTO ORDER_HISTORY TABLE
-        $orderHistoryRepository = app(OrderHistoryInterface::class);
-        $orderHistoryRepository->create(['order_id' => $order->id, 'order_status_id' => $orderStatus->id]);
-        Event::fire(new OrderPlaceAfterEvent($order, $orderProductData, $request));
-
-        Cart::clear();
-
-        return redirect()->route('order.success', $order->id);
-    }
-
-    public function success(Order $order)
-    {
-        return view('order.success')->with('order', $order);
+        $this->addressRepository = $addressRepository;
+        $this->orderRepository = $orderRepository;
+        $this->oderStatusRepository = $orderStatusRepository;
     }
 
     /**
-     * User Order List Page
-     *
-     * @return Illuminate\Http\Response
+     * Place the Order .
+     * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function myAccountOrderList()
+    public function place(Request $request)
     {
-        $user = Auth::guard()->user();
-        $orders = Order::whereUserId($user->id)->get();
-        $view = view('order.list')->with('orders', $orders);
+        $this->user($request);
+        $this->shippingAddress($request);
+        $this->billingAddress($request);
+        $this->orderStatus();
 
-        return $view;
+        $orderData = [
+            'shipping_option' => $request->get('shipping_option'),
+            'payment_option' => $request->get('payment_option'),
+            'order_status_id' => $this->orderStatus->id,
+            'currency_code' => 'usd',
+            'user_id' => $this->user->id,
+            'shipping_address_id' => $this->shippingAddress->id,
+            'billing_address_id' => $this->billingAddress->id,
+        ];
+        $order = $this->orderRepository->create($orderData);
+        // $this->syncProducts($order, $request);
+        
+        return redirect()
+            ->route('order.successful', $order->id)
+            ->with('success', 'Order Placed Successfuly!');
     }
 
     /**
-     * User Order Details Page
-     *
-     * @param \AvoRed\Framework\Models\Database\Order $order
-     * @return Illuminate\Http\Response
+     * Create/Get User to placed an Order
+     * @return self
      */
-    public function myAccountOrderView(Order $order)
+    public function user($request)
     {
-        return view('order.view')->withOrder($order);
-    }
+        $email = $request->get('email');
 
-    /**
-     * Order Return Request Page
-     * @param \AvoRed\Framework\Models\Database\Order $order
-     * @return Illuminate\Http\Response
-     */
-    public function return(Order $order)
-    {
-        return view('order.return')->withOrder($order);
-    }
+        $this->user = User::whereEmail($email)->first();
 
-    /**
-     * Order Return Request Page
-     * @param \AvoRed\Framework\Models\Database\Order $order
-     * @param \App\Http\Requests\MyAccount\Order\OrderReturnRequest $order
-     * @return Illuminate\Http\Response
-     */
-    public function returnPost(Order $order, OrderReturnRequest $request)
-    {
-        $returnRequest = $this->orderReturnRequestRepository->create([
-            'order_id' => $order->id,
-            'comment' => $request->get('comment'),
-            'status' => 'PENDING'
-        ]);
-
-        foreach ($request->get('products') as $product) {
-            $product['product_id'] = app(ProductInterface::class)->findBySlug($product['slug'])->id;
-
-            $returnRequest->products()->create($product);
+        if ($this->user === null) {
+            dd('@todo create user');
         }
 
-        return redirect()->back()->withNotificationText(__('return.success'));
+        return $this;
     }
 
-    private function getUser(Request $request)
+    /**
+     * Create/Get User to placed an Order
+     * @return \AvoRed\Framework\Database\Models\Address $addressModel
+     */
+    public function shippingAddress($request)
     {
-        if (Auth::guard()->check()) {
-            return Auth::guard()->user();
-        }
-        $userData = $request->get('user');
-
-        $user = User::whereEmail($userData['email'])->first();
-
-        if (null === $user) {
-            $billingData = $request->get('billing');
-
-            //register guest user as user with random password
-            $userData['password'] = bcrypt(str_random(6));
-            $userData['first_name'] = $billingData['first_name'];
-            $userData['last_name'] = $billingData['last_name'];
-
-            $user = User::create($userData);
-        }
-
-        Auth::guard()->loginUsingId($user->id);
-
-        return $user;
+        $addressData = $request->get('shipping');
+        $addressData['type'] = 'SHIPPING';
+        $addressData['user_id'] = $this->user->id;
+        
+        $this->shippingAddress = $this->addressRepository->create($addressData);
+        return $this;
     }
 
-    private function getBillingAddress(Request $request)
+    /**
+     * Create/Get User to placed an Order
+     * @return \AvoRed\Framework\Database\Models\Address $addressModel
+     */
+    public function billingAddress($request)
     {
-        $billingData = $request->get('billing');
-
-        $billingData['type'] = 'BILLING';
-        $billingData['user_id'] = Auth::guard()->user()->id;
-
-        if (isset($billingData['id']) && $billingData['id'] > 0) {
-            $address = Address::findorfail($billingData['id']);
-        //$address->update($shippingData);
+        $flag = $request->get('use_different_address');
+        if ($flag == 'true') {
+            dd('todo create a billing address here');
         } else {
-            $address = Address::create($billingData);
+            $this->billingAddress = $this->shippingAddress;
         }
 
-        return $address;
-    }
-
-    private function getShippingAddress(Request $request)
-    {
-        if (null == $request->get('use_different_shipping_address')) {
-            $shippingData = $request->get('billing');
-        } else {
-            $shippingData = $request->get('shipping');
-        }
-
-        $shippingData['type'] = 'SHIPPING';
-        $shippingData['user_id'] = Auth::guard()->user()->id;
-
-        if (isset($shippingData['id']) && $shippingData['id'] > 0) {
-            $address = Address::findorfail($shippingData['id']);
-        //$address->update($shippingData);
-        } else {
-            $address = Address::create($shippingData);
-        }
-
-        return $address;
+        return $this;
     }
 
     /**
-     * @param $order
-     * @param $orderProducts
-     *
-     *
+     * Set Default Order Status Model
+     * @return \AvoRed\Framework\Database\Models\Address $addressModel
      */
-    private function syncOrderProductData($order, $orderProducts)
+    public function orderStatus()
     {
-        $orderProductTableData = [];
+        $this->orderStatus = $this->oderStatusRepository->findDefault();
+    }
 
-        foreach ($orderProducts as $orderProduct) {
-            if (null != $orderProduct->attributes() && $orderProduct->attributes()->count() >= 0) {
-                foreach ($orderProduct->attributes() as $attribute) {
-                    $product = Product::whereSlug($orderProduct->slug())->first();
-                    $data = ['order_id' => $order->id,
-                        'product_id' => $product->id,
-                        'attribute_dropdown_option_id' => $attribute['attribute_dropdown_option_id'],
-                        'attribute_id' => $attribute['attribute_id'],
-                    ];
-
-                    OrderProductVariation::create($data);
-
-                    $productVariationModel = Product::find($attribute['variation_id']);
-                    $productVariationModel->update(['qty' => ($productVariationModel->qty - $orderProduct->qty())]);
-                }
-            } else {
-                $product = Product::whereSlug($orderProduct->slug())->first();
-                $product->update(['qty' => ($product->qty - $orderProduct->qty())]);
-            }
-
-            $orderProductTableData[] = [
-                'product_id' => $product->id,
-                'qty' => $orderProduct->qty(),
-                'price' => $orderProduct->price(),
-                'tax_amount' => 0.00,
-                'product_info' => $product->toJson()
-
-            ];
-        }
-        $order->products()->sync($orderProductTableData);
+    /**
+     * Successfull Page Display
+     * @param \AvoRed\Framework\Database\Models\Order $order
+     * @return \Illuminate\Response\Renderable
+     */
+    public function successful(Order $oder)
+    {
+        return view('order.successful');
     }
 }
