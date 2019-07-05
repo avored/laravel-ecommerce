@@ -1,4 +1,4 @@
-# AvoRed a modular Shopping cart framework for a laravel php framework
+# AvoRed is a modular shopping cart system for PHP laravel framework
 
 [![GitHub release](https://img.shields.io/github/release/avored/laravel-ecommerce.svg?style=flat-square)](https://github.com/avored/laravel-ecommerce/releases/latest) [![Build Status](https://travis-ci.org/avored/framework.svg?branch=master)](https://travis-ci.org/avored/framework) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/avored/framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/avored/framework/?branch=master)
 [![Total Downloads](https://poser.pugx.org/avored/framework/downloads)](https://packagist.org/packages/avored/framework) 
