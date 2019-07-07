@@ -20,11 +20,19 @@ export default {
                     this.filter[arraySlug] = [];
                 }
                 this.filter[arraySlug].push(filterValue);
-                    const url = this.currentUrl + '?' + querystring.stringify(this.filter);
-                    location = url;
+                
             } else {
-                console.log('un checked box')
+                if (type === 'PROPERTY') {
+                    var arraySlug = 'p___' + filterSlug + '[]';
+                }
+                if (isNil(this.filter[arraySlug])) {
+                    this.filter[arraySlug] = [];
+                }
+
+                const index = this.filter[arraySlug].findIndex(ele => ele === filterValue);
+                this.filter[arraySlug].splice(index, 1);
             }
+                location = this.currentUrl + '?' + querystring.stringify(this.filter);
         }
     },
     mounted() {
