@@ -7,6 +7,8 @@ use AvoRed\Framework\Database\Models\Category;
 use AvoRed\Framework\Database\Models\Product;
 use AvoRed\Framework\Database\Models\ProductImage;
 use Faker\Factory;
+use AvoRed\Framework\Database\Models\Property;
+use AvoRed\Framework\Database\Models\CategoryFilter;
 
 class AvoredDemoDataSchema extends Migration
 {
@@ -31,6 +33,65 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'laravel'
         ]);
 
+        $brandProperty = Property::create(
+            ['name' => 'Brand',
+            'slug' => 'brand',
+            'data_type' => 'INTEGER',
+            'field_type' => 'SELECT',
+            'use_for_all_products' => 1,
+            'use_for_category_filter' => 1,
+            'is_visible_frontend' => 1,
+            'sort_order' => 10]
+        );
+        $avoredOption = $brandProperty->dropdownOptions()->create(['display_text' => 'Avored']);
+        $phpOption = $brandProperty->dropdownOptions()->create(['display_text' => 'PHP']);
+        $laravelOption = $brandProperty->dropdownOptions()->create(['display_text' => 'Laravel']);
+
+        $materialProperty = Property::create(
+            ['name' => 'Material',
+            'slug' => 'material',
+            'data_type' => 'INTEGER',
+            'field_type' => 'SELECT',
+            'use_for_all_products' => 1,
+            'use_for_category_filter' => 1,
+            'is_visible_frontend' => 1,
+            'sort_order' => 10]
+        );
+        $leatherOption = $materialProperty->dropdownOptions()->create(['display_text' => 'Soft Leather']);
+        $corduroyOption = $materialProperty->dropdownOptions()->create(['display_text' => 'Corduroy']);
+        $linenOption = $materialProperty->dropdownOptions()->create(['display_text' => 'Linen fabric']);
+
+        CategoryFilter::create(
+            ['category_id' => $avoredCategory->id,
+            'filter_id' => $brandProperty->id,
+            'type' => 'PROPERTY']
+        );
+        CategoryFilter::create(
+            ['category_id' => $phpCategory->id,
+            'filter_id' => $brandProperty->id,
+            'type' => 'PROPERTY']
+        );
+        CategoryFilter::create(
+            ['category_id' => $laravelCategory->id,
+            'filter_id' => $brandProperty->id,
+            'type' => 'PROPERTY']
+        );
+        CategoryFilter::create(
+            ['category_id' => $avoredCategory->id,
+            'filter_id' => $materialProperty->id,
+            'type' => 'PROPERTY']
+        );
+        CategoryFilter::create(
+            ['category_id' => $phpCategory->id,
+            'filter_id' => $materialProperty->id,
+            'type' => 'PROPERTY']
+        );
+        CategoryFilter::create(
+            ['category_id' => $laravelCategory->id,
+            'filter_id' => $materialProperty->id,
+            'type' => 'PROPERTY']
+        );
+
         $price = rand(500, 1000) / 10;
         $product = Product::create([
             'type' => 'BASIC',
@@ -38,7 +99,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'avored-sofa-set',
             'sku' => 'avored-sofa-set',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text,
+            'descriptiopn' => $faker->text(),
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -52,8 +113,11 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
         ]);
         $product->categories()->sync([$avoredCategory->id]);
-        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-sofa-set.png', 'product_id' => $product->id, 'is_main_image' => 1]);  
-        
+        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-sofa-set.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);  
+        $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $avoredOption->id]);
+        $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $linenOption->id]);
+        $product->properties()->sync([$brandProperty->id, $materialProperty->id]);
+
         $price = rand(500, 1000) / 10;
         $product = Product::create([
             'type' => 'BASIC',
@@ -61,7 +125,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'avored-single-bed',
             'sku' => 'avored-single-bed',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text,
+            'descriptiopn' => $faker->text(),
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -75,8 +139,11 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
         ]);
         $product->categories()->sync([$avoredCategory->id]);
-        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-single-bed.png', 'product_id' => $product->id, 'is_main_image' => 1]);  
-        
+        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-single-bed.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);  
+        $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $avoredOption->id]);
+        $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $corduroyOption->id]);
+
+
         $price = rand(500, 1000) / 10;
         $product = Product::create([
             'type' => 'BASIC',
@@ -84,7 +151,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'avored-double-bed',
             'sku' => 'avored-double-bed',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text,
+            'descriptiopn' => $faker->text(),
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -98,8 +165,11 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
         ]);
         $product->categories()->sync([$avoredCategory->id]);
-        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-double-bed.png', 'product_id' => $product->id, 'is_main_image' => 1]);  
-        
+        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-double-bed.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);  
+        $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $avoredOption->id]);
+        $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $leatherOption->id]);
+
+
         $price = rand(500, 1000) / 10;
         $product = Product::create([
             'type' => 'BASIC',
@@ -107,7 +177,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'avored-queen-bed',
             'sku' => 'avored-queen-bed',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text,
+            'descriptiopn' => $faker->text(),
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -121,8 +191,11 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
         ]);
         $product->categories()->sync([$avoredCategory->id]);
-        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-queen-bed.png', 'product_id' => $product->id, 'is_main_image' => 1]);  
-        
+        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-queen-bed.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);  
+        $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $avoredOption->id]);
+        $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $leatherOption->id]);
+
+
         $price = rand(500, 1000) / 10;
         $product = Product::create([
             'type' => 'BASIC',
@@ -130,7 +203,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'avored-bunk-bed',
             'sku' => 'avored-bunk-bed',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text,
+            'descriptiopn' => $faker->text(),
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -144,8 +217,11 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
         ]);
         $product->categories()->sync([$avoredCategory->id]);
-        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-bunk-bed.png', 'product_id' => $product->id, 'is_main_image' => 1]);  
-        
+        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/avored-bunk-bed.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);  
+        $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $avoredOption->id]);
+        $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $corduroyOption->id]);
+
+
         $price = rand(500, 1000) / 10;
         $product = Product::create([
             'type' => 'BASIC',
@@ -153,7 +229,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'php-sofa-set',
             'sku' => 'php-sofa-set',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text,
+            'descriptiopn' => $faker->text(),
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -167,8 +243,10 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
         ]);
         $product->categories()->sync([$phpCategory->id]);
-        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/php-sofa-set.png', 'product_id' => $product->id, 'is_main_image' => 1]);
-        
+        ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/php-sofa-set.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
+        $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $phpOption->id]);
+        $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $corduroyOption->id]);
+
         
         $price = rand(500, 1000) / 10;
         $product = Product::create([
@@ -177,7 +255,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'laravel-sofa-set',
             'sku' => 'laravel-sofa-set',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text,
+            'descriptiopn' => $faker->text(),
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -191,8 +269,11 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
             ]);
             $product->categories()->sync([$laravelCategory->id]);
-            ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/laravel-sofa-set.png', 'product_id' => $product->id, 'is_main_image' => 1]);
-            
+            ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/laravel-sofa-set.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $laravelOption->id]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $leatherOption->id]);
+
+
             $price = rand(500, 1000) / 10;
             $product = Product::create([
                 'type' => 'BASIC',
@@ -200,7 +281,7 @@ class AvoredDemoDataSchema extends Migration
                 'slug' => 'php-single-mattress',
                 'sku' => 'php-sofa-set',
                 'barcode' => '123456789',
-                'descriptiopn' => $faker->text,
+                'descriptiopn' => $faker->text(),
                 'status' => 1,
                 'in_stock' => 1,
                 'track_stock' => 1,
@@ -214,7 +295,10 @@ class AvoredDemoDataSchema extends Migration
                 'width' => rand(1, 10),
             ]);
             $product->categories()->sync([$phpCategory->id]);
-            ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/php-single-mattress.png', 'product_id' => $product->id, 'is_main_image' => 1]);
+            ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/php-single-mattress.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $phpOption->id]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $leatherOption->id]);
+
 
             $price = rand(500, 1000) / 10;
             $product = Product::create([
@@ -223,7 +307,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'laravel-bedside-table',
             'sku' => 'laravel-bedside-table',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text,
+            'descriptiopn' => $faker->text(),
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -237,10 +321,9 @@ class AvoredDemoDataSchema extends Migration
             'width' => rand(1, 10),
             ]);
             $product->categories()->sync([$laravelCategory->id]);
-            ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/laravel-bedside-table.png', 'product_id' => $product->id, 'is_main_image' => 1]);
-            
-
-
+            ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/laravel-bedside-table.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $laravelOption->id]);
+            $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $linenOption->id]);
     }
 
     /**
