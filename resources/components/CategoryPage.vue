@@ -19,13 +19,9 @@ export default {
                 if (isNil(this.filter[arraySlug])) {
                     this.filter[arraySlug] = [];
                 }
-                //console.log(querystring, 'herre');
                 this.filter[arraySlug].push(filterValue);
-                if (this.filter[arraySlug].length > 1) {
                     const url = this.currentUrl + '?' + querystring.stringify(this.filter);
                     location = url;
-                }
-                
             } else {
                 console.log('un checked box')
             }
