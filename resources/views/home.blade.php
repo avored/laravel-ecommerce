@@ -9,7 +9,7 @@
 <h1>{{ __('AvoRed Special Week') }}</h1>
 <a-row :gutter="15">
   @foreach ($products as $product)
-      <a-col :span="6">
+      <a-col :span="6" class="product-cards-list">
         @include('category.card.product', ['product' => $product])
       </a-col>
   @endforeach
