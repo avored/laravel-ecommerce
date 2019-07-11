@@ -23,6 +23,7 @@ Vue.use(Antd);
 Vue.component('address-save', require('../components/address/AddressSave.vue').default);
 Vue.component('user-order-table', require('../components/account/order/OrderTable.vue').default);
 
+Vue.component('category-page', require('../components/CategoryPage.vue').default);
 Vue.component('product-page', require('../components/ProductPage.vue').default);
 Vue.component('checkout-page', require('../components/CheckoutPage.vue').default);
 Vue.component('cart-page', require('../components/CartPage.vue').default);

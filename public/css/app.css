@@ -20229,3 +20229,19 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
 .ant-carousel .slick-vertical .slick-slide h3 {
   color: #fff;
 }
+.product-card {
+  margin-top: 1rem;
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+}
+.product-card .ant-card-cover {
+  overflow: hidden;
+  text-align: center;
+  width: 100%;
+}
+.product-card .main-image {
+  max-height: 200px;
+  height: 200px;
+  width: 100%;
+}

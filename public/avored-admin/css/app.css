@@ -21591,6 +21591,12 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
 .header-avtar .anticon {
   margin-right: 0px;
 }
+.z-1 {
+  z-index: 1;
+}
+.z-0 {
+  z-index: 0;
+}
 .bg-primary {
   background-color: #1890ff;
 }
@@ -21637,11 +21643,12 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
   background-image: url(/avored-admin/images/logo.svg);
   height: 64px;
   background-repeat: no-repeat;
-  background-size: 50px;
-  background-position: 15px;
+  background-size: 40px;
+  background-position: 20px;
   line-height: 64px;
   padding-left: 80px;
   font-size: 1.2rem;
+  z-index: 0;
 }
 .header-trigger {
   line-height: 64px;

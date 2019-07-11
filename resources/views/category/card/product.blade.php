@@ -1,10 +1,10 @@
-<a-card>
-    <a href="{{ route('product.show', $product->slug) }}">
+<a-card hoverable class="product-card">
+    <a slot="cover" href="{{ route('product.show', $product->slug) }}">
         <img
         alt="example"
-        class="product-main-image"
+        class="main-image"
         src="{{ $product->main_image_url }}"
-        slot="cover"/>
+        />
     </a>
     <template class="ant-card-actions" slot="actions">
             <form slot="title" method="post" action="{{ route('add.to.cart') }}">
@@ -22,7 +22,11 @@
     </a-tooltip>
     </template>
     <a href="{{ route('product.show', $product->slug) }}">
-    <a-card-meta title="{{ $product->name }}">
-    </a-card-meta>
+               
+        <a-card-meta class="product-meta" title="{{ $product->name }}">
+            <template class="price" slot="description">
+                {{ session()->get('default_currency')->symbol }}{{ number_format($product->price, 2) }}
+            </template>
+        </a-card-meta>
     </a>
 </a-card>

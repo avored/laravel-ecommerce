@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use AvoRed\Framework\Database\Contracts\CategoryModelInterface;
+use AvoRed\Framework\Database\Contracts\CategoryFilterModelInterface;
 
 class CategoryController extends Controller
 {
@@ -13,22 +14,36 @@ class CategoryController extends Controller
     protected $categoryRepository;
 
     /**
+     * @var \AvoRed\Framework\Database\Repository\CategoryFilterRepository
+     */
+    protected $categoryFilterRepository;
+
+    /**
      * home controller construct
+     * @param \AvoRed\Framework\Database\Repository\CategoryRepository $categoryRepository
+     * @param \AvoRed\Framework\Database\Repository\CategoryFilterRepository $categoryFilterRepository
      */
     public function __construct(
-        CategoryModelInterface $categoryRepository
+        CategoryModelInterface $categoryRepository,
+        CategoryFilterModelInterface $categoryFilterRepository
     ) {
         $this->categoryRepository = $categoryRepository;
+        $this->categoryFilterRepository = $categoryFilterRepository;
     }
     /**
      * Show the application dashboard.
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function show($slug)
+    public function show(Request $request, string $slug)
     {
+        $request->merge(['slug' => $slug]);
         $category = $this->categoryRepository->findBySlug($slug);
-        
+        $categoryProducts = $this->categoryRepository->getCategoryProducts($request);
+        $categoryFilters = $this->categoryFilterRepository->findByCategoryId($category->id);
+       
         return view('category.show')
+            ->with('categoryFilters', $categoryFilters)
+            ->with('categoryProducts', $categoryProducts)
             ->with('category', $category);
     }
 }
