@@ -21588,6 +21588,10 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
 .pb-0 {
   padding-bottom: 0px;
 }
+.attribute-dropdown .ant-select-arrow {
+  top: 5px;
+  right: 0px;
+}
 .header-avtar .anticon {
   margin-right: 0px;
 }
