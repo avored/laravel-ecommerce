@@ -40,7 +40,7 @@ class CategoryController extends Controller
         $category = $this->categoryRepository->findBySlug($slug);
         $categoryProducts = $this->categoryRepository->getCategoryProducts($request);
         $categoryFilters = $this->categoryFilterRepository->findByCategoryId($category->id);
-       
+        
         return view('category.show')
             ->with('categoryFilters', $categoryFilters)
             ->with('categoryProducts', $categoryProducts)
