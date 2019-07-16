@@ -17,11 +17,12 @@ class CartController extends Controller
      */
     public function addToCart(CartRequest $request)
     {
-        Cart::add($request->get('slug'), $request->get('qty'));
+        list ($status, $message) = Cart::add($request->get('slug'), $request->get('qty'), $request->get('attributes'));
 
         return redirect()
             ->back()
-            ->with('success', __('Product Added to cart successfully!'));
+            ->with('success', $status)
+            ->with('message', $message);
     }
 
     /**
