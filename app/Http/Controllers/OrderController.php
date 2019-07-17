@@ -8,6 +8,9 @@ use AvoRed\Framework\Database\Contracts\AddressModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderStatusModelInterface;
 use AvoRed\Framework\Database\Models\Order;
+use AvoRed\Framework\Support\Facades\Cart;
+use AvoRed\Framework\Database\Contracts\OrderProductModelInterface;
+use AvoRed\Framework\Database\Contracts\OrderProductAttributeModelInterface;
 
 class OrderController extends Controller
 {
@@ -20,6 +23,16 @@ class OrderController extends Controller
      * @var \AvoRed\Framework\Database\Repository\OrderRepository
      */
     protected $oderRepository;
+
+    /**
+     * @var \AvoRed\Framework\Database\Repository\OrderProductRepository
+     */
+    protected $oderProductRepository;
+
+    /**
+     * @var \AvoRed\Framework\Database\Repository\OrderProductAttributeRepository
+     */
+    protected $oderProductAttributeRepository;
 
     /**
      * @var \AvoRed\Framework\Database\Repository\OrderStatusRepository
@@ -59,11 +72,15 @@ class OrderController extends Controller
     public function __construct(
         AddressModelInterface $addressRepository,
         OrderModelInterface $orderRepository,
-        OrderStatusModelInterface $orderStatusRepository
+        OrderStatusModelInterface $orderStatusRepository,
+        OrderProductModelInterface $orderProductRepository,
+        OrderProductAttributeModelInterface $orderProductAttributeRepository
     ) {
         $this->addressRepository = $addressRepository;
         $this->orderRepository = $orderRepository;
         $this->oderStatusRepository = $orderStatusRepository;
+        $this->oderProductRepository = $orderProductRepository;
+        $this->oderProductAttributeRepository = $orderProductAttributeRepository;
     }
 
     /**
@@ -87,8 +104,9 @@ class OrderController extends Controller
             'billing_address_id' => $this->billingAddress->id,
         ];
         $order = $this->orderRepository->create($orderData);
-        // $this->syncProducts($order, $request);
+        $this->syncProducts($order, $request);
         
+    
         return redirect()
             ->route('order.successful', $order->id)
             ->with('success', 'Order Placed Successfuly!');
@@ -158,5 +176,41 @@ class OrderController extends Controller
     public function successful(Order $oder)
     {
         return view('order.successful');
+    }
+
+    /**
+     * Sync Products and Attributes with Order Tables
+     * @param \AvoRed\Framework\Database\Models\Order $order
+     * @param \Illuminate\Http\Request $request
+     * @return void
+     */
+    private function syncProducts(Order $order, $request)
+    {
+        $cartProducts = Cart::all();
+        
+        foreach ($cartProducts as $cartProduct) {
+            $orderProductData = [
+                'product_id' => $cartProduct->id(),
+                'order_id' => $order->id,
+                'qty' => $cartProduct->qty(),
+                'price' => $cartProduct->price(),
+                'tax_amount' => $cartProduct->taxAmount()
+            ];
+            $orderProductModel = $this->oderProductRepository->create($orderProductData);
+
+            $attributes = $cartProduct->attributes();
+
+            if ($attributes !== null && count($attributes) > 0) {
+                foreach ($attributes as $attribute) {
+                    $orderProductAttributeData = [
+                        'order_product_id' => $orderProductModel->id,
+                        'attribute_id' => $attribute['attribute_id'],
+                        'attribute_dropdown_option_id' => $attribute['attribute_dropdown_option_id']
+                    ];
+                    $orderProductAttributeModel = $this->oderProductAttributeRepository
+                        ->create($orderProductAttributeData);
+                }
+            }
+        }
     }
 }
