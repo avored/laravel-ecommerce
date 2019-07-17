@@ -16,6 +16,9 @@ export default {
                 if (type === 'PROPERTY') {
                     var arraySlug = 'p___' + filterSlug + '[]';
                 }
+                if (type === 'ATTRIBUTE') {
+                    var arraySlug = 'a___' + filterSlug + '[]';
+                }
                 if (isNil(this.filter[arraySlug])) {
                     this.filter[arraySlug] = [];
                 }
@@ -25,6 +28,9 @@ export default {
                 if (type === 'PROPERTY') {
                     var arraySlug = 'p___' + filterSlug + '[]';
                 }
+                if (type === 'ATTRIBUTE') {
+                    var arraySlug = 'a___' + filterSlug + '[]';
+                }
                 if (isNil(this.filter[arraySlug])) {
                     this.filter[arraySlug] = [];
                 }
@@ -32,7 +38,8 @@ export default {
                 const index = this.filter[arraySlug].findIndex(ele => ele === filterValue);
                 this.filter[arraySlug].splice(index, 1);
             }
-                location = this.currentUrl + '?' + querystring.stringify(this.filter);
+            
+            location = this.currentUrl + '?' + querystring.stringify(this.filter);
         }
     },
     mounted() {

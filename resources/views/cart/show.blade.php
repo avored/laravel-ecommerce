@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+    <?php 
+    //dd(Cart::toArray());
+    ?>
     <cart-page inline-template>
         <a-list
             item-layout="vertical"
@@ -23,6 +26,9 @@
                                 <a :href="'/product/' + item.slug">
                                     @{{item.name}}
                                 </a>
+                                <p v-for="attributeInfo in item.attributes">
+                                    @{{ attributeInfo['attribute_name'] }}: @{{ attributeInfo['attribute_dropdown_text'] }}
+                                </p>
                             </a-col>
                             <a-col :span="4">
                                 @{{ parseFloat(item.qty).toFixed(2) }}

@@ -14,6 +14,9 @@
                 <a-row>
                     <a-col :span="12">
                         @{{item.name}}
+                        <p v-for="attributeInfo in item.attributes">
+                            @{{ attributeInfo['attribute_name'] }}: @{{ attributeInfo['attribute_dropdown_text'] }}
+                        </p>
                     </a-col>
                     <a-col :span="4">
                         @{{ parseFloat(item.qty).toFixed(2) }}

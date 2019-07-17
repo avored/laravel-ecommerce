@@ -23,11 +23,11 @@ class HomeController extends Controller
     }
     /**
      * Show the application dashboard.
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        $products = $this->productRepository->all()->random(8)->shuffle();
+        $products = $this->productRepository->getAllWithoutVaiation()->random(8)->shuffle();
         return view('home')
             ->with('products', $products);
     }
