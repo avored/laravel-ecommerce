@@ -1,5 +1,25 @@
 @extends('layouts.user')
 
+@section('breadcrumb')
+<a-breadcrumb style="margin: 16px 0">
+    <a-breadcrumb-item>
+      <a href="{{ route('home') }}" title="home">
+        Home
+      </a>
+    </a-breadcrumb-item>
+    <a-breadcrumb-item>
+      <a href="{{ route('account.dashboard') }}" title="user dashboard">
+        User Dashboard
+      </a>
+    </a-breadcrumb-item>
+
+    <a-breadcrumb-item>
+        Order details
+    </a-breadcrumb-item>
+</a-breadcrumb>
+@endsection
+
+
 @section('content')
 <a-row type="flex" class="mb-1" justify="start">
     <a-col>

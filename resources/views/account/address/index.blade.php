@@ -1,19 +1,39 @@
 @extends('layouts.user')
 
+@section('breadcrumb')
+<a-breadcrumb style="margin: 16px 0">
+    <a-breadcrumb-item>
+      <a href="{{ route('home') }}" title="home">
+        {{ __('Home') }}
+      </a>
+    </a-breadcrumb-item>
+    <a-breadcrumb-item>
+      <a href="{{ route('account.dashboard') }}" title="user dashboard">
+        {{ __('User Dashboard') }}
+      </a>
+    </a-breadcrumb-item>
+
+    <a-breadcrumb-item>
+        {{ __('Address') }}
+    </a-breadcrumb-item>
+</a-breadcrumb>
+@endsection
+
 @section('content')
-<a-row type="flex" class="mb-1" justify="end">
-    <a-col>
+<a-row type="flex" class="mb-1">
+    <a-col :span="24">
+        <h2 class="float-left">{{ __('User Addressses') }}</h2>
         <a 
             href="{{ route('account.address.create') }}"
-            class="ant-btn ant-btn-primary">
+            class="ant-btn ant-btn-primary float-right">
             <a-icon type="plus"></a-icon>
             {{ __('Create') }}
         </a>
     </a-col>
 </a-row>
 <a-row type="flex" :gutter="15" style="margin-top: 1rem">
-    <a-col :span="12">
         @foreach ($userAddresses as $address)
+            <a-col class="mt-1" :span="12">
             <a-card title="{{ $address->type }}">
                 <a-dropdown slot="extra">
                 <a class="ant-dropdown-link"  href="">
@@ -44,8 +64,8 @@
                 <p>{{ $address->city }}, {{ $address->postcode }}</p>
                 <p>{{ $address->state }}: {{ $address->country->name }}</p>
             </a-card>
+            </a-col>
         @endforeach
-    </a-col>
 </a-row>
 
 @endsection

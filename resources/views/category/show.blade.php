@@ -1,5 +1,20 @@
 @extends('layouts.app')
 
+
+@section('breadcrumb')
+      
+<a-breadcrumb style="margin: 16px 0">
+    <a-breadcrumb-item>
+      <a href="{{ route('home') }}" title="home">
+        {{ __('Home') }}
+      </a>
+    </a-breadcrumb-item>
+    <a-breadcrumb-item>
+        {{ $category->name }}
+    </a-breadcrumb-item>
+</a-breadcrumb>
+@endsection
+
 @section('content')
 <category-page
   current-url="{{ request()->url() }}"
