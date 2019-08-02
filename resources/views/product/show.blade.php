@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-<product-page inline-template>
+<product-page :product="{{ $product }}" inline-template>
 <div>
   <a-row :gutter="15">
     <a-col :span="8">
@@ -31,8 +31,6 @@
         @if ($product->type === 'VARIABLE_PRODUCT') 
           @include('product.type.variable')
         @endif
-        
-    
     </a-col>
   </a-row>
   <a-row>
