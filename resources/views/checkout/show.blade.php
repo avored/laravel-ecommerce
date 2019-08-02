@@ -15,7 +15,7 @@
 
 
 @section('content')
-  <checkout-page inline-template>
+  <checkout-page :items="{{ Cart::toArray() }}" inline-template>
     <div>
     <h1>{{ __('Checkout Page') }}</h1>
     <a-form :form="form" @submit="handleSubmit" method="post" action="{{ route('order.place') }}">

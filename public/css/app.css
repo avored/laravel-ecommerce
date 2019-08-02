@@ -20201,6 +20201,20 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
 .product-main-image {
   width: 100%;
 }
+.price {
+  font-size: 1.2rem;
+  color: #E64448;
+  padding: 10px 0px;
+}
+.availability {
+  font-size: 0.8rem;
+  color: #888;
+  padding: 10px 0px;
+}
+.description .title {
+  font-size: 2rem;
+  margin: 1rem 0;
+}
 .float-left {
   float: left;
 }

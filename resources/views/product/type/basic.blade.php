@@ -1,3 +1,11 @@
+
+<div class="price">
+    {{ session()->get('default_currency')->symbol }}{{ $product->getPrice() }}
+</div>
+<div class="availability">
+    {{ __('Availability') }}: {{ $product->getQty() }}
+</div>
+
 <form method="post" action="{{ route('add.to.cart') }}">
     @csrf
 

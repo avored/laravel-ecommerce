@@ -1,35 +1,35 @@
 
 <a-divider><h4 class="mt-1">{{ __('Cart Information') }}</h4></a-divider>
 
-<a-list
-    item-layout="vertical"
-    size="large"
-    :data-source="{{ Cart::toArray() }}">
-    <div slot="footer" :style="{'font-size': '1.0rem',float:'right'}">
-        {{ __('Total:')}} ${{ Cart::total() }}
-    </div>
-    <a-list-item slot="renderItem" slot-scope="item, index" key="item.name">
-        <a-list-item-meta>
-            <div slot="description">
-                <a-row>
-                    <a-col :span="12">
-                        @{{item.name}}
-                        <p v-for="attributeInfo in item.attributes">
-                            @{{ attributeInfo['attribute_name'] }}: @{{ attributeInfo['attribute_dropdown_text'] }}
-                        </p>
-                    </a-col>
-                    <a-col :span="4">
-                        @{{ parseFloat(item.qty).toFixed(2) }}
-                    </a-col>
-                    <a-col :span="3">
-                        $@{{ parseFloat(item.price).toFixed(2) }}
-                    </a-col>
-                    <a-col :span="5" :style="{'text-align':'right'}">
-                        $@{{ parseFloat(item.qty * item.price).toFixed(2) }}
-                    </a-col>
-                </a-row>
-            </div>
-            <a-avatar slot="avatar" :style="{width:'70px', height: '70px'}" :src="item.image" />
-        </a-list-item-meta>
-    </a-list-item>
-</a-list>
+<a-row>
+    <a-col :span="4">Image</a-col>
+    <a-col :span="8">Name</a-col>
+    <a-col :span="4">Qty</a-col>
+    <a-col :span="4">Price</a-col>
+    <a-col :span="4">Line Total</a-col>
+</a-row>
+<a-row class="mt-1" :key="item.slug" v-for="item in items">
+    <a-col :span="4">
+        <a-avatar :style="{width:'50px', height: '50px'}" :src="item.image"></a-avatar>
+    </a-col>
+    <a-col :span="8">
+        <a :href="'/product/' + item.slug">
+            @{{item.name}}
+        </a>
+        <p v-for="attributeInfo in item.attributes">
+            @{{ attributeInfo['attribute_name'] }}: @{{ attributeInfo['attribute_dropdown_text'] }}
+        </p>
+    </a-col>
+    <a-col :span="4">@{{ parseFloat(item.qty).toFixed(2) }}</a-col>
+    <a-col :span="4">$@{{ parseFloat(item.price).toFixed(2) }}</a-col>
+    <a-col :span="4">$@{{ parseFloat((item.qty * item.price) + item.tax).toFixed(2) }}(incl tax)</a-col>
+</a-row>
+<a-row class="mt-1">
+    <a-col :span="8"></a-col>
+    <a-col :span="4"></a-col>
+    <a-col :span="4"></a-col>
+    <a-col :span="4"></a-col>
+    <a-col :span="4">
+        ${{ Cart::total() }}
+    </a-col>
+</a-row>
