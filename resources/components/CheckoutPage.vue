@@ -1,5 +1,6 @@
 <script>
     export default {
+        props: ['items'],
         data() {
             return {
                 form: this.$form.createForm(this),

@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('breadcrumb')
+<a-breadcrumb style="margin: 16px 0">
+    <a-breadcrumb-item>{{ __('Home') }}</a-breadcrumb-item>
+</a-breadcrumb>
+@endsection
 @section('content')
 <a-carousel class="carousel" vertical>
     <div class="avored"><h3>AvoRed E commerce</h3></div>

@@ -1,50 +1,56 @@
 @extends('layouts.app')
 
-@section('content')
-    <?php 
-    //dd(Cart::toArray());
-    ?>
-    <cart-page inline-template>
-        <a-list
-            item-layout="vertical"
-            size="large"
-            :data-source="{{ Cart::toArray() }}">
-            <div slot="footer" :style="{'font-size': '1.3rem',float:'right'}">
-                ${{ Cart::total() }}
-            </div>
-            <a-list-item slot="renderItem" slot-scope="item, index" key="item.name">
-                <template slot="actions" v-for="{type, text} in actions">
-                    <span :key="type">
-                        <a-icon onclick="window.alert('@todo')" :type="type" style="margin-right: 8px"></a-icon>
-                    </span>
-                </template>
-               
-                <a-list-item-meta>
-                    <div slot="title">
-                        <a-row>
-                            <a-col :span="12">
-                                <a :href="'/product/' + item.slug">
-                                    @{{item.name}}
-                                </a>
-                                <p v-for="attributeInfo in item.attributes">
-                                    @{{ attributeInfo['attribute_name'] }}: @{{ attributeInfo['attribute_dropdown_text'] }}
-                                </p>
-                            </a-col>
-                            <a-col :span="4">
-                                @{{ parseFloat(item.qty).toFixed(2) }}
-                            </a-col>
-                            <a-col :span="3">
-                                $@{{ parseFloat(item.price).toFixed(2) }}
-                            </a-col>
-                            <a-col :span="5" :style="{'text-align':'right'}">
-                                $@{{ parseFloat(item.qty * item.price).toFixed(2) }}
-                            </a-col>
-                        </a-row>
-                    </div>
-                    <a-avatar slot="avatar" :style="{width:'100px', height: '100px'}" :src="item.image" />
+@section('breadcrumb')
+<a-breadcrumb style="margin: 16px 0">
+    <a-breadcrumb-item>
+      <a href="{{ route('home') }}" title="home">
+        {{ __('Home') }}
+      </a>
+    </a-breadcrumb-item>
+    <a-breadcrumb-item>
+        {{ __('Cart') }}
+    </a-breadcrumb-item>
+</a-breadcrumb>
+@endsection
 
-                </a-list-item-meta>
-            </a-list-item>
-        </a-list>
+@section('content')
+    <cart-page  :items="{{ Cart::toArray() }}" inline-template>
+        <div>
+            <a-row>
+                <a-col :span="4">Image</a-col>
+                <a-col :span="4">Name</a-col>
+                <a-col :span="4">Qty</a-col>
+                <a-col :span="4">Price</a-col>
+                <a-col :span="4">Tax</a-col>
+                <a-col :span="4">Line Total</a-col>
+            </a-row>
+            <a-row class="mt-1" :key="item.slug" v-for="item in items">
+                <a-col :span="4">
+                    <a-avatar :style="{width:'100px', height: '100px'}" :src="item.image"></a-avatar>
+                </a-col>
+                <a-col :span="4">
+                    <a :href="'/product/' + item.slug">
+                        @{{item.name}}
+                    </a>
+                    <p v-for="attributeInfo in item.attributes">
+                        @{{ attributeInfo['attribute_name'] }}: @{{ attributeInfo['attribute_dropdown_text'] }}
+                    </p>
+                </a-col>
+                <a-col :span="4">@{{ parseFloat(item.qty).toFixed(2) }}</a-col>
+                <a-col :span="4">$@{{ parseFloat(item.price).toFixed(2) }}</a-col>
+                <a-col :span="4">$@{{ parseFloat(item.tax).toFixed(2) }}</a-col>
+                <a-col :span="4">$@{{ parseFloat((item.qty * item.price) + item.tax).toFixed(2) }}</a-col>
+            </a-row>
+            <a-row class="mt-1">
+                <a-col :span="4"></a-col>
+                <a-col :span="4"></a-col>
+                <a-col :span="4"></a-col>
+                <a-col :span="4"></a-col>
+                <a-col :span="4"></a-col>
+                <a-col :span="4">
+                    ${{ Cart::total() }}
+                </a-col>
+            </a-row>
+        </div>
     </cart-page>
 @endsection

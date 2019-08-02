@@ -1,10 +1,15 @@
+<div class="price">
+    {{ session()->get('default_currency')->symbol }} @{{ parseFloat(price).toFixed(2) }}
+</div>
+<div class="availability">
+    {{ __('Availability') }}: @{{ parseFloat(productQty).toFixed(2) }}
+</div>
+
 <form method="post" action="{{ route('add.to.cart') }}">
     @csrf
-    <?php 
-    
+    @php
     $attributeIds = $product->attributes;
-    
-    ?>
+    @endphp
     @foreach ($product->attributes as $attribute)
         <a-form-item
             @if ($errors->has('attributes'))
@@ -28,6 +33,7 @@
                 @foreach ($product->attributeProductValues()->whereAttributeId($attribute->id)->get() as $attributeValue)
                     <a-select-option
                         key="{{ $attributeValue->id }}"
+                        data-product="{{ $attributeValue->variation }}"
                         :value="{{ $attributeValue->id }}">
                         {{ $attributeValue->attributeDropdownOption->display_text }}
                     </a-select-option>           

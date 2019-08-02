@@ -1,7 +1,21 @@
 @extends('layouts.app')
 
+@section('breadcrumb')
+<a-breadcrumb style="margin: 16px 0">
+    <a-breadcrumb-item>
+      <a href="{{ route('home') }}" title="home">
+        {{ __('Home') }}
+      </a>
+    </a-breadcrumb-item>
+    <a-breadcrumb-item>
+        {{ __('Checkout') }}
+    </a-breadcrumb-item>
+</a-breadcrumb>
+@endsection
+
+
 @section('content')
-  <checkout-page inline-template>
+  <checkout-page :items="{{ Cart::toArray() }}" inline-template>
     <div>
     <h1>{{ __('Checkout Page') }}</h1>
     <a-form :form="form" @submit="handleSubmit" method="post" action="{{ route('order.place') }}">
