@@ -11,6 +11,13 @@ return [
     'model' => [
         'user' => App\User::class
     ],
+
+    'routes' => [
+        'category' => [
+            'param' => 'slug',
+            'name' => 'category.show'
+        ]
+    ],
    
     'filesystems' => [
         'disks' => [

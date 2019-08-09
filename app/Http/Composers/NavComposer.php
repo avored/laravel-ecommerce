@@ -2,23 +2,24 @@
 
 namespace App\Http\Composers;
 
-use AvoRed\Framework\Database\Contracts\CategoryModelInterface;
+use AvoRed\Framework\Database\Contracts\MenuGroupModelInterface;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class NavComposer
 {
     /**
-     * @var \AvoRed\Framework\Database\Repository\CategoryRepository
+     * @var \AvoRed\Framework\Database\Repository\MenuGroupRepository
      */
-    protected $categoryRepository;
+    protected $menuGroupRepository;
 
     /**
      * home controller construct
      */
     public function __construct(
-        CategoryModelInterface $categoryRepository
+        MenuGroupModelInterface $menuGroupRepository
     ) {
-        $this->categoryRepository = $categoryRepository;
+        $this->menuGroupRepository = $menuGroupRepository;
     }
 
     /**
@@ -27,7 +28,12 @@ class NavComposer
      */
     public function compose(View $view)
     {
-        $categories = $this->categoryRepository->all();
-        $view->with('categories', $categories);
+        if (Auth::check()) {
+            $menus = $this->menuGroupRepository->getTreeByIdentifier('main-auth-menu');
+        } else {
+            $menus = $this->menuGroupRepository->getTreeByIdentifier('main-menu');
+        }
+
+        $view->with('menus', $menus);
     }
 }
