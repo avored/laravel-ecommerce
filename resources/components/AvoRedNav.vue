@@ -11,12 +11,12 @@
                         {{ menu.name }}
                     </a>
                 </a-menu-item>
-                <a-sub-menu v-if="menu.submenus.length>0" :key="menu.id">
-                    <span slot="title">
+                <a-sub-menu v-if="menu.submenus.length>0" :key="'submenu' + menu.id" :title="menu.name">
+                    <a-menu-item :key="menu.id">
                         <a :href="menu.url">
                         {{ menu.name }}
                         </a>
-                    </span> 
+                    </a-menu-item>
                     <a-menu-item v-for="submenu in menu.submenus" :key="submenu.id">
                         <a :href="submenu.url">
                             {{ submenu.name }}
