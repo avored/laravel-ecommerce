@@ -31,6 +31,8 @@ Vue.component('cart-page', require('../components/CartPage.vue').default);
 Vue.component('avored-layout', require('../components/layout/Layout.vue').default);
 Vue.component('login-fields', require('../components/auth/LoginFields.vue').default);
 Vue.component('register-fields', require('../components/auth/RegisterFields.vue').default);
+
+Vue.component('avored-nav', require('../components/AvoRedNav.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
