@@ -12,6 +12,7 @@ use AvoRed\Framework\Support\Facades\Cart;
 use AvoRed\Framework\Database\Contracts\OrderProductModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductAttributeModelInterface;
 use AvoRed\Framework\Database\Models\Currency;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -106,7 +107,7 @@ class OrderController extends Controller
         ];
         $order = $this->orderRepository->create($orderData);
         $this->syncProducts($order, $request);
-        
+        Cart::clear();
     
         return redirect()
             ->route('order.successful', $order->id)
@@ -119,12 +120,16 @@ class OrderController extends Controller
      */
     public function user($request)
     {
-        $email = $request->get('email');
-
-        $this->user = User::whereEmail($email)->first();
-
-        if ($this->user === null) {
-            dd('@todo create user');
+        if (Auth::check()) {
+            $this->user = Auth::user();
+        } else {
+            $email = $request->get('email');
+    
+            $this->user = User::whereEmail($email)->first();
+    
+            if ($this->user === null) {
+                $this->user = User::create($request->all());
+            }
         }
 
         return $this;
@@ -152,7 +157,11 @@ class OrderController extends Controller
     {
         $flag = $request->get('use_different_address');
         if ($flag == 'true') {
-            dd('todo create a billing address here');
+            $addressData = $request->get('billing');
+            $addressData['type'] = 'BILLING';
+            $addressData['user_id'] = $this->user->id;
+            
+            $this->billingAddress = $this->addressRepository->create($addressData);
         } else {
             $this->billingAddress = $this->shippingAddress;
         }

@@ -341,6 +341,8 @@ class AvoredDemoDataSchema extends Migration
             $mainMenu->menus()->create(['name' => $avoredCategory->name, 'url' => '/category/' . $avoredCategory->slug]);
             $mainMenu->menus()->create(['name' => $phpCategory->name, 'url' => '/category/' . $phpCategory->slug]);
             $mainMenu->menus()->create(['name' => $laravelCategory->name, 'url' => '/category/' . $laravelCategory->slug]);
+            $mainMenu->menus()->create(['name' => 'Cart', 'url' => '/cart']);
+            $mainMenu->menus()->create(['name' => 'Checkout', 'url' => '/checkout']);
             $mainMenu->menus()->create(['name' => 'Login', 'url' => '/login']);
             $mainMenu->menus()->create(['name' => 'Register', 'url' => '/register']);
 
@@ -349,6 +351,8 @@ class AvoredDemoDataSchema extends Migration
             $mainAuthMenu->menus()->create(['name' => $avoredCategory->name, 'url' => '/category/' . $avoredCategory->slug]);
             $mainAuthMenu->menus()->create(['name' => $phpCategory->name, 'url' => '/category/' . $phpCategory->slug]);
             $mainAuthMenu->menus()->create(['name' => $laravelCategory->name, 'url' => '/category/' . $laravelCategory->slug]);
+            $mainAuthMenu->menus()->create(['name' => 'Cart', 'url' => '/cart']);
+            $mainAuthMenu->menus()->create(['name' => 'Checkout', 'url' => '/checkout']);
             $accountMenu = $mainAuthMenu->menus()->create(['name' => 'Account', 'url' => '/account']);
             $mainAuthMenu->menus()->create(['name' => 'Logout', 'url' => '/logout', 'parent_id' => $accountMenu->id]);
     }

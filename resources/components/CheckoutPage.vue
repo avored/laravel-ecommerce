@@ -5,7 +5,7 @@
             return {
                 form: this.$form.createForm(this),
                 submitStatus:false,
-                newAccount: false,
+                newAccount: true,
                 useDifferentBillingAddress: false,
                 paymentOption: '',
                 shippingOption: '',
@@ -27,7 +27,7 @@
                 this.shippingCountry = val;
             },
             billingCountryOptionChange(val) {
-
+                this.billingCountry = val;
             },
             newAccountSwitchChange(val) {
                 this.newAccount = val;

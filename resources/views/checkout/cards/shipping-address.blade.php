@@ -98,7 +98,6 @@
     </a-col>
 </a-row>
 
-
 <a-row :gutter="15">
     <a-col :span="12">
         <a-form-item
@@ -251,6 +250,6 @@
     </a-col>
 </a-row>
 
-<a-switch @change="useDifferentBillingAddressSwitchChange" default-checked></a-switch>
+<a-switch class="mt-1" @change="useDifferentBillingAddressSwitchChange" default-checked></a-switch>
 {{ __('User Different Billing Address') }}
 <input type="hidden" name="use_different_address" v-model="useDifferentBillingAddress" />
