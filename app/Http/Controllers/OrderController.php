@@ -11,6 +11,7 @@ use AvoRed\Framework\Database\Models\Order;
 use AvoRed\Framework\Support\Facades\Cart;
 use AvoRed\Framework\Database\Contracts\OrderProductModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductAttributeModelInterface;
+use AvoRed\Framework\Database\Models\Currency;
 
 class OrderController extends Controller
 {
@@ -93,12 +94,12 @@ class OrderController extends Controller
         $this->shippingAddress($request);
         $this->billingAddress($request);
         $this->orderStatus();
-
+        
         $orderData = [
             'shipping_option' => $request->get('shipping_option'),
             'payment_option' => $request->get('payment_option'),
             'order_status_id' => $this->orderStatus->id,
-            'currency_code' => 'usd',
+            'currency_id' => $this->getCurrency()->id,
             'user_id' => $this->user->id,
             'shipping_address_id' => $this->shippingAddress->id,
             'billing_address_id' => $this->billingAddress->id,
@@ -176,6 +177,15 @@ class OrderController extends Controller
     public function successful(Order $oder)
     {
         return view('order.successful');
+    }
+
+    /**
+     * Get the current default currency from session
+     * @return \AvoRed\Framework\Database\Models\Currency
+     */
+    protected function getCurrency(): Currency
+    {
+        return session()->get('default_currency');
     }
 
     /**

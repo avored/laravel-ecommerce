@@ -157,6 +157,7 @@
                 @endif
                 label="{{ __('Country') }}">
                 <a-select
+                    autocomplete="off"
                     @change="shippingCountryOptionChange"
                     v-decorator="[
                     'shipping.country_id',

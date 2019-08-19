@@ -158,6 +158,7 @@
                 @endif
                 label="{{ __('Country') }}">
             <a-select
+                    autocomplete="off"
                     @change="billingCountryOptionChange"
                     v-decorator="[
                     'billing.country_id',
