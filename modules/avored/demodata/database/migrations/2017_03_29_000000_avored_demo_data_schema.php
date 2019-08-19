@@ -10,6 +10,7 @@ use Faker\Factory;
 use AvoRed\Framework\Database\Models\Property;
 use AvoRed\Framework\Database\Models\Attribute;
 use AvoRed\Framework\Database\Models\CategoryFilter;
+use AvoRed\Framework\Database\Models\MenuGroup;
 
 class AvoredDemoDataSchema extends Migration
 {
@@ -334,6 +335,22 @@ class AvoredDemoDataSchema extends Migration
             ProductImage::create(['path' => 'uploads/catalog/'. $product->id .'/laravel-bedside-table.jpg', 'product_id' => $product->id, 'is_main_image' => 1]);
             $product->productPropertyIntegerValues()->create(['property_id' => $brandProperty->id, 'value' => $laravelOption->id]);
             $product->productPropertyIntegerValues()->create(['property_id' => $materialProperty->id, 'value' => $aluminumFrameOption->id]);
+
+            $mainMenu = MenuGroup::create(['name' => 'Main Menu', 'identifier' => 'main-menu', 'is_default' => 1]);
+
+            $mainMenu->menus()->create(['name' => $avoredCategory->name, 'url' => '/category/' . $avoredCategory->slug]);
+            $mainMenu->menus()->create(['name' => $phpCategory->name, 'url' => '/category/' . $phpCategory->slug]);
+            $mainMenu->menus()->create(['name' => $laravelCategory->name, 'url' => '/category/' . $laravelCategory->slug]);
+            $mainMenu->menus()->create(['name' => 'Login', 'url' => '/login']);
+            $mainMenu->menus()->create(['name' => 'Register', 'url' => '/register']);
+
+            $mainAuthMenu = MenuGroup::create(['name' => 'Main Auth Menu', 'identifier' => 'main-auth-menu']);
+
+            $mainAuthMenu->menus()->create(['name' => $avoredCategory->name, 'url' => '/category/' . $avoredCategory->slug]);
+            $mainAuthMenu->menus()->create(['name' => $phpCategory->name, 'url' => '/category/' . $phpCategory->slug]);
+            $mainAuthMenu->menus()->create(['name' => $laravelCategory->name, 'url' => '/category/' . $laravelCategory->slug]);
+            $accountMenu = $mainAuthMenu->menus()->create(['name' => 'Account', 'url' => '/account']);
+            $mainAuthMenu->menus()->create(['name' => 'Logout', 'url' => '/logout', 'parent_id' => $accountMenu->id]);
     }
 
     /**
