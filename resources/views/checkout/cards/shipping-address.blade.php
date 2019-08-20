@@ -1,5 +1,7 @@
 <a-divider><h4 class="mt-1">{{ __('User Shipping Address') }}</h4></a-divider>
 
+<div v-if="shippingAddresses.length <= 0">
+
 <a-row :gutter="15">
     <a-col :span="12">
         <a-form-item
@@ -249,6 +251,43 @@
         </a-form-item>
     </a-col>
 </a-row>
+</div>
+
+<div v-if="shippingAddresses.length > 0">
+
+<a-row :gutter="15">
+    <a-col :span="24">
+        <a-form-item label="{{ __('Shipping Addresses') }}">
+
+            <a-select :default-value='0' @change="changeSelectedShippingAddress">
+                <a-select-option v-for="(address, index) in shippingAddresses"
+                    :key="'shipping-address-' + address.id"
+                    :value="index">
+                    @{{ address.address1 }} @{{ address.address2 }}
+                    @{{ address.city }}
+                    @{{ address.state }}
+                    @{{ address.country }} @{{ address.postcode }}
+                </a-select-option>
+            </a-select>
+            <input type="hidden" name="shipping[address_id]" :value="selectedShippingAddress.id" />
+        </a-form-item>
+        
+        
+        <a-card title="Selected Shipping Address">
+            <div>
+                @{{ selectedShippingAddress.id }}<br/>
+                @{{ selectedShippingAddress.company_name }}<br/>
+                @{{ selectedShippingAddress.first_name }} @{{ selectedShippingAddress.last_name }} <br/>
+                @{{ selectedShippingAddress.address1 }} @{{ selectedShippingAddress.address2 }} <br/>
+                @{{ selectedShippingAddress.city }} <br/>
+                @{{ selectedShippingAddress.state }} <br/>
+                @{{ selectedShippingAddress.country }} @{{ selectedShippingAddress.postcode }}<br/>
+            </div>
+        </a-card>
+    </a-col>
+</a-row>
+</div>
+
 
 <a-switch class="mt-1" @change="useDifferentBillingAddressSwitchChange" default-checked></a-switch>
 {{ __('User Different Billing Address') }}

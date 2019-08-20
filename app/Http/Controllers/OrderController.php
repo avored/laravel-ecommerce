@@ -142,6 +142,12 @@ class OrderController extends Controller
     public function shippingAddress($request)
     {
         $addressData = $request->get('shipping');
+
+        if (isset($addressData['address_id'])) {
+            $this->shippingAddress = $this->addressRepository->find($addressData['address_id']);
+
+            return $this;
+        }
         $addressData['type'] = 'SHIPPING';
         $addressData['user_id'] = $this->user->id;
         
@@ -155,9 +161,16 @@ class OrderController extends Controller
      */
     public function billingAddress($request)
     {
+        $addressData = $request->get('billing');
+
+        if (isset($addressData['address_id'])) {
+            $this->billingAddress = $this->addressRepository->find($addressData['address_id']);
+
+            return $this;
+        }
+
         $flag = $request->get('use_different_address');
         if ($flag == 'true') {
-            $addressData = $request->get('billing');
             $addressData['type'] = 'BILLING';
             $addressData['user_id'] = $this->user->id;
             

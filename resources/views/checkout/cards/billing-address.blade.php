@@ -2,6 +2,8 @@
 
 <a-divider><h4 class="mt-1">{{ __('User Billing Address') }}</h4></a-divider>
 
+<div v-if="billingAddresses.length <= 0">
+
 <a-row :gutter="15">
     <a-col :span="12">
         <a-form-item
@@ -98,7 +100,6 @@
         </a-form-item>
     </a-col>
 </a-row>
-
 
 <a-row :gutter="15">
     <a-col :span="12">
@@ -251,4 +252,41 @@
         </a-form-item>
     </a-col>
 </a-row>
+
+</div>
+
+
+<div v-if="billingAddresses.length > 0">
+
+<a-row :gutter="15">
+    <a-col :span="24">
+        <a-form-item label="{{ __('Billing Addresses') }}">
+
+            <a-select :default-value='0' @change="changeSelectedBillingAddress">
+                <a-select-option v-for="(address, index) in billingAddresses" :key="'billing-address-' + address.id" :value="index">
+                    @{{ address.address1 }} @{{ address.address2 }}
+                    @{{ address.city }}
+                    @{{ address.state }}
+                    @{{ address.country }} @{{ address.postcode }}
+                </a-select-option>
+            </a-select>
+            <input type="hidden" name="billing[address_id]" :value="selectedBillingAddress.id" />
+        </a-form-item>
+        
+        
+        <a-card title="Selected Billing Address">
+            <div>
+                @{{ selectedBillingAddress.id }}<br/>
+                @{{ selectedBillingAddress.company_name }}<br/>
+                @{{ selectedBillingAddress.first_name }} @{{ selectedBillingAddress.last_name }} <br/>
+                @{{ selectedBillingAddress.address1 }} @{{ selectedBillingAddress.address2 }} <br/>
+                @{{ selectedBillingAddress.city }} <br/>
+                @{{ selectedBillingAddress.state }} <br/>
+                @{{ selectedBillingAddress.country }} @{{ selectedBillingAddress.postcode }}<br/>
+            </div>
+        </a-card>
+    </a-col>
+</a-row>
+</div>
+
 </div>
