@@ -19,10 +19,10 @@ export default {
             var variableProduct = JSON.parse($event.data.attrs['data-product']);
             this.price = variableProduct['price'];
             this.productQty = variableProduct['qty'];
-            if (isNil(this.attributes['attribute_value_id'])) {
-                this.attributes['attribute_value_id'] = [];
+            if (isNil(this.attributes['attribute_product_value_id'])) {
+                this.attributes['attribute_product_value_id'] = [];
             }
-            this.attributes['attribute_value_id'].push(value);
+            this.attributes['attribute_product_value_id'].push(value);
         }
     },
     mounted() {

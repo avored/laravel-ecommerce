@@ -8,39 +8,44 @@
 <form method="post" action="{{ route('add.to.cart') }}">
     @csrf
     @php
-    $attributeIds = $product->attributes;
+    //$attributeIds = $product->attributes;
+    $attributeGroups = $product->getVariationByAttributeGroup();
     @endphp
-    @foreach ($product->attributes as $attribute)
-        <a-form-item
-            @if ($errors->has('attributes'))
-                validate-status="error"
-                help="{{ $errors->first('attributes') }}"
-            @endif
-            label="{{ $attribute->name }}">
-            
-            <a-select
-                @change="changeAttributeVariable"
-                v-decorator="[
-                    'attribute-{{ $attribute->id }}',
-                    {rules: 
-                        [
-                            {   required: true, 
-                                message: '{{ __('validation.required', ['attribute' => $attribute->name]) }}' 
-                            }
-                        ]
-                    }
-                ]">
-                @foreach ($product->attributeProductValues()->whereAttributeId($attribute->id)->get() as $attributeValue)
-                    <a-select-option
-                        key="{{ $attributeValue->id }}"
-                        data-product="{{ $attributeValue->variation }}"
-                        :value="{{ $attributeValue->id }}">
-                        {{ $attributeValue->attributeDropdownOption->display_text }}
-                    </a-select-option>           
-                @endforeach
-            </a-select>
-        </a-form-item>
+    @foreach ($attributeGroups as $attributeId => $variations)
+        <?php 
+        $attribute = $product->getAttributeById($attributeId);
 
+        ?>
+
+        
+            <a-form-item
+                @if ($errors->has('attributes'))
+                    validate-status="error"
+                    help="{{ $errors->first('attributes') }}"
+                @endif
+                label="{{ $attribute->name }}">
+                <a-select
+                    @change="changeAttributeVariable"
+                    v-decorator="[
+                        'attribute-{{ $attributeId }}',
+                        {rules: 
+                            [
+                                {   required: true, 
+                                    message: '{{ __('validation.required', ['attribute' => $attribute->name]) }}' 
+                                }
+                            ]
+                        }
+                    ]">
+                    @foreach ($variations as $variation)
+                        <a-select-option
+                            key="{{ $variation->id }}"
+                            data-product="{{ $variation->variation }}"
+                            :value="{{ $variation->id }}">
+                            {{ $variation->attributeDropdownOption->display_text }}
+                        </a-select-option>           
+                    @endforeach
+                </a-select>
+            </a-form-item>
     @endforeach
     <div class="hidden-attributes">
         <input 
