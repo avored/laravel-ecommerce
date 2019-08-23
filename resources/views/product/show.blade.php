@@ -19,7 +19,7 @@
   <a-row :gutter="15">
     <a-col :span="8">
       <a-card>
-          <img class="product-main-image" src="{{ $product->main_image_url }}" /> 
+          <img class="product-main-image" :src="productMainImage" /> 
       </a-card>
     </a-col>
     <a-col :span="16">
