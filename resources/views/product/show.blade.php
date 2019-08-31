@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-<product-page :product="{{ $product }}" inline-template>
+<product-page :product="{{ $product }}" :variations="{{ $product->getVariations() }}" inline-template>
 <div>
   <a-row :gutter="15">
     <a-col :span="8">

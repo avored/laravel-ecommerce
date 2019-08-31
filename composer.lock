@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdc15a42f5d8acb9ac5a38ad3dcef8cb",
+    "content-hash": "d3047735e5260c7c162398957341b618",
     "packages": [
         {
             "name": "avored/framework",
@@ -151,12 +151,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/avored/restapi.git",
-                "reference": "4020c7f6719caa1693f2850ede9de09976b85ef6"
+                "reference": "a858c861a31f5dae1aef00b64488bc1f178ebab9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avored/restapi/zipball/4020c7f6719caa1693f2850ede9de09976b85ef6",
-                "reference": "4020c7f6719caa1693f2850ede9de09976b85ef6",
+                "url": "https://api.github.com/repos/avored/restapi/zipball/a858c861a31f5dae1aef00b64488bc1f178ebab9",
+                "reference": "a858c861a31f5dae1aef00b64488bc1f178ebab9",
                 "shasum": ""
             },
             "require": {
@@ -205,7 +205,7 @@
                 "shopping cart",
                 "shopping-cart"
             ],
-            "time": "2019-08-23T22:11:44+00:00"
+            "time": "2019-08-23T22:27:05+00:00"
         },
         {
             "name": "defuse/php-encryption",
@@ -4650,6 +4650,121 @@
                 "symfony"
             ],
             "time": "2019-03-07T21:35:13+00:00"
+        },
+        {
+            "name": "orchestra/testbench",
+            "version": "v3.8.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/testbench.git",
+                "reference": "d1248e014d4d782dd5ad92cf772aeddf3abe84a2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/testbench/zipball/d1248e014d4d782dd5ad92cf772aeddf3abe84a2",
+                "reference": "d1248e014d4d782dd5ad92cf772aeddf3abe84a2",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.8.19",
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench-core": "~3.8.6",
+                "php": ">=7.1",
+                "phpunit/phpunit": "^7.5 || ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Laravel Testing Helper for Packages Development",
+            "homepage": "http://orchestraplatform.com/docs/latest/components/testbench/",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "laravel",
+                "orchestra-platform",
+                "orchestral",
+                "testing"
+            ],
+            "time": "2019-08-04T04:14:12+00:00"
+        },
+        {
+            "name": "orchestra/testbench-core",
+            "version": "v3.8.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orchestral/testbench-core.git",
+                "reference": "fbdca0c5106ebf6d060c7f1fbdbbeeb3f4a5a725"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orchestral/testbench-core/zipball/fbdca0c5106ebf6d060c7f1fbdbbeeb3f4a5a725",
+                "reference": "fbdca0c5106ebf6d060c7f1fbdbbeeb3f4a5a725",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "^1.4",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "laravel/framework": "~5.8.3",
+                "laravel/laravel": "dev-master",
+                "mockery/mockery": "^1.0",
+                "phpunit/phpunit": "^7.5 || ^8.0"
+            },
+            "suggest": {
+                "laravel/framework": "Required for testing (~5.8.19).",
+                "mockery/mockery": "Allow to use Mockery for testing (^1.0).",
+                "orchestra/testbench-browser-kit": "Allow to use legacy Laravel BrowserKit for testing (^3.8).",
+                "orchestra/testbench-dusk": "Allow to use Laravel Dusk for testing (^3.8).",
+                "phpunit/phpunit": "Allow to use PHPUnit for testing (^7.5 || ^8.0)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orchestra\\Testbench\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mior Muhammad Zaki",
+                    "email": "crynobone@gmail.com",
+                    "homepage": "https://github.com/crynobone"
+                }
+            ],
+            "description": "Testing Helper for Laravel Development",
+            "homepage": "http://orchestraplatform.com/docs/latest/components/testbench/",
+            "keywords": [
+                "BDD",
+                "TDD",
+                "laravel",
+                "orchestra-platform",
+                "orchestral",
+                "testing"
+            ],
+            "time": "2019-08-04T02:31:04+00:00"
         },
         {
             "name": "phar-io/manifest",

@@ -8,22 +8,23 @@
 <form method="post" action="{{ route('add.to.cart') }}">
     @csrf
     @php
-    //$attributeIds = $product->attributes;
-    $attributeGroups = $product->getVariationByAttributeGroup();
+        $attributeGroups = $product->getVariationByAttributeGroup();
     @endphp
     @foreach ($attributeGroups as $attributeId => $variations)
-        <?php 
-        $attribute = $product->getAttributeById($attributeId);
-        
-        ?>
-        @if (true && $attribute->display_as === 'IMAGE')
+        @php
+            $attribute = $product->getAttributeById($attributeId);
+        @endphp
+        @if ($attribute->display_as === 'IMAGE')
             <a-form-item
                 @if ($errors->has('attributes'))
                     validate-status="error"
                     help="{{ $errors->first('attributes') }}"
                 @endif
                 label="{{ $attribute->name }}">
-                <a-radio-group 
+                <a-radio-group
+                    ref="attribute-{{ $attributeId }}"
+                    data-attribute="{{ json_encode($attributeGroups->get($attributeId)) }}"
+                    data-attribute-length="{{ $attributeGroups->count() }}"
                     v-decorator="[
                         'attribute-{{ $attributeId }}',
                         {rules: 
@@ -41,7 +42,7 @@
                             $variation->variation->images;
                         @endphp
                         <a-radio key="{{ $variation->id }}"
-                            value="{{ $variation->variation }}">
+                            value="{{ json_encode(['attribute_id' => $attributeId, 'attribute_dropdown_option_id' => $dropdownOption->id]) }}">
                             <img style="width:25px;height:25px" src="{{ '/storage/' . $variation->attributeDropdownOption->path }}" />
                     </a-radio>         
                     @endforeach
@@ -57,6 +58,10 @@
                 @endif
                 label="{{ $attribute->name }}">
                 <a-select
+                    ref="attribute-{{ $attributeId }}"
+                    data-attribute="{{ json_encode($attributeGroups->get($attributeId)) }}"
+                    data-attribute-length="{{ $attributeGroups->count() }}"
+                    :key="{{ $attribute->id }}"
                     @change="changeAttributeVariable"
                     v-decorator="[
                         'attribute-{{ $attributeId }}',
@@ -68,14 +73,11 @@
                             ]
                         }
                     ]">
-                    @foreach ($variations as $variation)
-                        @php
-                            $variation->variation->images;
-                        @endphp
+                    @foreach ($attribute->dropdownOptions as $dropdownOption)
                         <a-select-option
-                            :key="{{ $variation->id }}"
-                            value="{{ $variation->variation }}">
-                            {{ $variation->attributeDropdownOption->display_text }}
+                            key="{{ $dropdownOption->id }}"
+                            value="{{ json_encode(['attribute_id' => $attributeId, 'attribute_dropdown_option_id' => $dropdownOption->id]) }}">
+                            {{ $dropdownOption->display_text }}
                         </a-select-option>           
                     @endforeach
                 </a-select>
