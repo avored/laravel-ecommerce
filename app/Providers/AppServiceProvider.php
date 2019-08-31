@@ -38,6 +38,16 @@ class AppServiceProvider extends ServiceProvider
                 ->type(MenuItem::FRONT)
                 ->route('register');
         });
+        Menu::make('cart', function (MenuItem $menu) {
+            $menu->label('Cart')
+                ->type(MenuItem::FRONT)
+                ->route('cart.show');
+        });
+        Menu::make('checkout', function (MenuItem $menu) {
+            $menu->label('Checkout')
+                ->type(MenuItem::FRONT)
+                ->route('checkout.show');
+        });
         Menu::make('logout', function (MenuItem $menu) {
             $menu->label('Logout')
                 ->type(MenuItem::FRONT)

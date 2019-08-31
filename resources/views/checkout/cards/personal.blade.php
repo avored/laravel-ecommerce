@@ -1,7 +1,7 @@
 <a-divider>
 <h4 class="mt-1">{{ __('User Personal Information') }}</h4>
 </a-divider>
-
+@guest()
 <a-row :gutter="15">
     <a-col :span="12">
         <a-form-item
@@ -74,12 +74,13 @@
         </a-form-item>
     </a-col>
 </a-row>
-
+<!--
 <a-row :gutter="15">
     <a-col :span="24">
         <a-switch @change="newAccountSwitchChange"></a-switch> Create New Account?
     </a-col>
 </a-row>
+-->
 
 
 <a-row v-if="newAccount" :gutter="15">
@@ -128,3 +129,12 @@
         </a-form-item>
     </a-col>
 </a-row>
+@else
+
+<a-row :gutter="15">
+    <a-col :span="24">
+        <a-card title="{{ Auth()->user()->name }}">
+        </a-card>
+    </a-col>
+</a-row>
+@endGuest

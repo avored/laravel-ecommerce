@@ -11,6 +11,8 @@ use AvoRed\Framework\Database\Models\Order;
 use AvoRed\Framework\Support\Facades\Cart;
 use AvoRed\Framework\Database\Contracts\OrderProductModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductAttributeModelInterface;
+use AvoRed\Framework\Database\Models\Currency;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -93,19 +95,19 @@ class OrderController extends Controller
         $this->shippingAddress($request);
         $this->billingAddress($request);
         $this->orderStatus();
-
+        
         $orderData = [
             'shipping_option' => $request->get('shipping_option'),
             'payment_option' => $request->get('payment_option'),
             'order_status_id' => $this->orderStatus->id,
-            'currency_code' => 'usd',
+            'currency_id' => $this->getCurrency()->id,
             'user_id' => $this->user->id,
             'shipping_address_id' => $this->shippingAddress->id,
             'billing_address_id' => $this->billingAddress->id,
         ];
         $order = $this->orderRepository->create($orderData);
         $this->syncProducts($order, $request);
-        
+        Cart::clear();
     
         return redirect()
             ->route('order.successful', $order->id)
@@ -118,12 +120,16 @@ class OrderController extends Controller
      */
     public function user($request)
     {
-        $email = $request->get('email');
-
-        $this->user = User::whereEmail($email)->first();
-
-        if ($this->user === null) {
-            dd('@todo create user');
+        if (Auth::check()) {
+            $this->user = Auth::user();
+        } else {
+            $email = $request->get('email');
+    
+            $this->user = User::whereEmail($email)->first();
+    
+            if ($this->user === null) {
+                $this->user = User::create($request->all());
+            }
         }
 
         return $this;
@@ -136,6 +142,12 @@ class OrderController extends Controller
     public function shippingAddress($request)
     {
         $addressData = $request->get('shipping');
+
+        if (isset($addressData['address_id'])) {
+            $this->shippingAddress = $this->addressRepository->find($addressData['address_id']);
+
+            return $this;
+        }
         $addressData['type'] = 'SHIPPING';
         $addressData['user_id'] = $this->user->id;
         
@@ -149,9 +161,20 @@ class OrderController extends Controller
      */
     public function billingAddress($request)
     {
+        $addressData = $request->get('billing');
+
+        if (isset($addressData['address_id'])) {
+            $this->billingAddress = $this->addressRepository->find($addressData['address_id']);
+
+            return $this;
+        }
+
         $flag = $request->get('use_different_address');
         if ($flag == 'true') {
-            dd('todo create a billing address here');
+            $addressData['type'] = 'BILLING';
+            $addressData['user_id'] = $this->user->id;
+            
+            $this->billingAddress = $this->addressRepository->create($addressData);
         } else {
             $this->billingAddress = $this->shippingAddress;
         }
@@ -176,6 +199,15 @@ class OrderController extends Controller
     public function successful(Order $oder)
     {
         return view('order.successful');
+    }
+
+    /**
+     * Get the current default currency from session
+     * @return \AvoRed\Framework\Database\Models\Currency
+     */
+    protected function getCurrency(): Currency
+    {
+        return session()->get('default_currency');
     }
 
     /**

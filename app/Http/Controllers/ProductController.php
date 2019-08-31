@@ -27,7 +27,8 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = $this->productRepository->findBySlug($slug);
-        
+        $product->images;
+
         return view('product.show')
             ->with('product', $product);
     }
