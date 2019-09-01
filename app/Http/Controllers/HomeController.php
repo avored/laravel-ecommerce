@@ -27,7 +27,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $products = $this->productRepository->getAllWithoutVaiation()->random(8)->shuffle();
+        $allProducts = $this->productRepository->getAllWithoutVaiation();
+        if ($allProducts->count() <= 0) {
+            $products = collect();
+        } elseif ($allProducts->count() >= 8) {
+            $products = $allProducts->random(8)->shuffle();
+        } else {
+            $products = $allProducts;
+        }
+        
         return view('home')
             ->with('products', $products);
     }
