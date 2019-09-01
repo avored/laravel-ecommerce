@@ -25,7 +25,6 @@ import Checkbox from 'ant-design-vue/lib/checkbox'
 import ToolTip from 'ant-design-vue/lib/tooltip'
 import Carousel from 'ant-design-vue/lib/carousel'
 
-
 Vue.use(Row)
 Vue.use(Col)
 Vue.use(Layout)

@@ -45945,7 +45945,7 @@ var columns = [{
 }];
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['baseUrl'],
+  props: ['baseUrl', 'orderStatus'],
   data: function data() {
     return {
       columns: columns,
@@ -45965,6 +45965,18 @@ var columns = [{
     },
     downloadOrderAction: function downloadOrderAction(record) {
       return this.baseUrl + '/order-download-invoice/' + record.id;
+    },
+    getOrderStatus: function getOrderStatus(statusId) {
+      var index;
+      index = this.orderStatus.findIndex(function (ele) {
+        return ele.id === statusId;
+      });
+
+      if (index >= 0) {
+        return this.orderStatus[index].name;
+      }
+
+      return '';
     },
     emailInvoiceOrderAction: function emailInvoiceOrderAction(record) {
       return this.baseUrl + '/order-email-invoice/' + record.id;
