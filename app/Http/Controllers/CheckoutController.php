@@ -50,9 +50,6 @@ class CheckoutController extends Controller
         $countryOptions = $this->CountryRepository->options();
 
         return view('checkout.show')
-            ->with('shippingOptions', $shippingOptions)
-            ->with('paymentOptions', $paymentOptions)
-            ->with('addresses', $addresses)
-            ->with('countryOptions', $countryOptions);
+            ->with(compact('shippingOptions', 'paymentOptions', 'addresses', 'countryOptions'));
     }
 }

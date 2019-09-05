@@ -34,6 +34,6 @@ class NavComposer
             $menus = $this->menuGroupRepository->getTreeByIdentifier('main-menu');
         }
 
-        $view->with('menus', $menus);
+        $view->with(compact('menus'));
     }
 }

@@ -42,8 +42,6 @@ class CategoryController extends Controller
         $categoryFilters = $this->categoryFilterRepository->findByCategoryId($category->id);
         
         return view('category.show')
-            ->with('categoryFilters', $categoryFilters)
-            ->with('categoryProducts', $categoryProducts)
-            ->with('category', $category);
+            ->with(compact('categoryFilters', 'categoryProducts', 'category'));
     }
 }
