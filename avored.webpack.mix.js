@@ -13,12 +13,12 @@ const mix = require('laravel-mix');
 
 mix.webpackConfig({
     output: {
-        chunkFilename: mix.inProduction() ? "js/chunk/[name].[chunkhash].js" : "js/chunk/[name].js",
+        chunkFilename: mix.inProduction() ? "avored-admin/js/chunk/[name].[chunkhash].js" : "avored-admin/js/chunk/[name].js",
     }
 })
-mix.js('resources/js/app.js', 'public/js/app.js');
 
-mix.less('resources/less/app.less', 'public/css/app.css', {
+mix.js('vendor/avored/framework/resources/js/app.js', 'public/avored-admin/js/app.js');
+mix.less('vendor/avored/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
     javascriptEnabled: true,
     modifyVars: {
         'primary-color': '#E64448',

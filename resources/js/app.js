@@ -4,65 +4,54 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+window.Vue = require('vue')
 
-window.Vue = require('vue');
-
-import Row from 'ant-design-vue/lib/row'
-import Col from 'ant-design-vue/lib/col'
 import Layout from 'ant-design-vue/lib/layout'
 import Menu from 'ant-design-vue/lib/menu'
-import Icon from 'ant-design-vue/lib/icon'
-import Card from 'ant-design-vue/lib/card';
 import Form from 'ant-design-vue/lib/form'
-import Input from 'ant-design-vue/lib/input'
 import Select from 'ant-design-vue/lib/select'
-import Button from 'ant-design-vue/lib/button'
-import Avatar from 'ant-design-vue/lib/avatar'
 import Breadcrumb from 'ant-design-vue/lib/breadcrumb'
-import Divider from 'ant-design-vue/lib/divider'
-import Switch from 'ant-design-vue/lib/switch'
-import Checkbox from 'ant-design-vue/lib/checkbox'
-import ToolTip from 'ant-design-vue/lib/tooltip'
-import Carousel from 'ant-design-vue/lib/carousel'
+import Dropdown from 'ant-design-vue/lib/dropdown'
 
-Vue.use(Row)
-Vue.use(Col)
 Vue.use(Layout)
 Vue.use(Menu)
-Vue.use(Icon)
-Vue.use(Card)
 Vue.use(Form)
 Vue.use(Select)
-Vue.use(Input)
-Vue.use(Button)
-Vue.use(Avatar)
 Vue.use(Breadcrumb)
-Vue.use(Divider)
-Vue.use(Switch)
-Vue.use(Checkbox)
-Vue.use(ToolTip)
-Vue.use(Carousel)
+Vue.use(Dropdown)
+
+Vue.component('a-checkbox', () => import('ant-design-vue/lib/checkbox'))
+Vue.component('a-switch', () => import('ant-design-vue/lib/switch'))
+Vue.component('a-input', () => import('ant-design-vue/lib/input'))
+Vue.component('a-input-number', () => import('ant-design-vue/lib/input-number'))
+Vue.component('a-divider', () => import('ant-design-vue/lib/divider'))
+Vue.component('a-avatar', () => import('ant-design-vue/lib/avatar'))
+Vue.component('a-tooltip', () => import('ant-design-vue/lib/tooltip'))
+Vue.component('a-avatar', () => import('ant-design-vue/lib/avatar'))
+Vue.component('a-row', () => import('ant-design-vue/lib/row'))
+Vue.component('a-col', () => import('ant-design-vue/lib/col'))
+Vue.component('a-card', () => import('ant-design-vue/lib/card'))
+Vue.component('a-card', () => import('ant-design-vue/lib/card'))
+Vue.component('a-card-meta', () => import('ant-design-vue/lib/card'))
+Vue.component('a-button', () => import('ant-design-vue/lib/button'))
+Vue.component('a-icon', () => import('ant-design-vue/lib/icon'))
+Vue.component('a-carousel', () => import('ant-design-vue/lib/carousel'))
 
 
-Vue.component('address-save', require('../components/address/AddressSave.vue').default);
-Vue.component('user-order-table', require('../components/account/order/OrderTable.vue').default);
+Vue.component('address-save', () => import('../components/address/AddressSave.vue'))
+Vue.component('user-order-table', () => import('../components/account/order/OrderTable.vue'))
 
-Vue.component('category-page', require('../components/CategoryPage.vue').default);
-Vue.component('product-page', require('../components/ProductPage.vue').default);
-Vue.component('checkout-page', require('../components/CheckoutPage.vue').default);
-Vue.component('cart-page', require('../components/CartPage.vue').default);
+Vue.component('category-page', () => import('../components/CategoryPage.vue'))
+Vue.component('product-page', () => import('../components/ProductPage.vue'))
+Vue.component('checkout-page', () => import('../components/CheckoutPage.vue'))
+Vue.component('cart-page', () => import('../components/CartPage.vue'))
 
-Vue.component('avored-layout', require('../components/layout/Layout.vue').default);
-Vue.component('login-fields', require('../components/auth/LoginFields.vue').default);
-Vue.component('register-fields', require('../components/auth/RegisterFields.vue').default);
+Vue.component('avored-layout', () => import('../components/layout/Layout.vue'))
+Vue.component('login-fields', () => import('../components/auth/LoginFields.vue'))
+Vue.component('register-fields', () => import('../components/auth/RegisterFields.vue'))
 
-Vue.component('avored-nav', require('../components/AvoRedNav.vue').default);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component('avored-nav', () => import('../components/AvoRedNav.vue'))
 
 const app = new Vue({
     el: '#app',
-});
+})

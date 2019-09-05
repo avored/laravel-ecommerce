@@ -4,25 +4,26 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6d5e1b4ef8dc5bfbc49a88365ebf3f69",
+    "content-hash": "1e1a7c15626aa3f995a9658a63283a7e",
     "packages": [
         {
             "name": "avored/framework",
-            "version": "dev-laravel6",
+            "version": "dev-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/avored/framework.git",
-                "reference": "f8e95f29ce545a1dcf1e7c9882875fbe9b06c714"
+                "reference": "22c48c838ce3ca5c9e7ac8a39aa2db61675e8ce1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avored/framework/zipball/f8e95f29ce545a1dcf1e7c9882875fbe9b06c714",
-                "reference": "f8e95f29ce545a1dcf1e7c9882875fbe9b06c714",
+                "url": "https://api.github.com/repos/avored/framework/zipball/22c48c838ce3ca5c9e7ac8a39aa2db61675e8ce1",
+                "reference": "22c48c838ce3ca5c9e7ac8a39aa2db61675e8ce1",
                 "shasum": ""
             },
             "require": {
                 "barryvdh/laravel-dompdf": "^0.8.4",
                 "laravel/framework": "^5.8|^6.0",
+                "laravel/helpers": "^1.1",
                 "laravel/passport": "^7.4",
                 "php": "^7.2",
                 "symfony/yaml": "^4.2"
@@ -80,7 +81,7 @@
                 "shopping cart",
                 "shopping-cart"
             ],
-            "time": "2019-09-04T22:12:46+00:00"
+            "time": "2019-09-04T22:37:08+00:00"
         },
         {
             "name": "barryvdh/laravel-dompdf",
