@@ -37,6 +37,6 @@ class HomeController extends Controller
         }
         
         return view('home')
-            ->with('products', $products);
+            ->with(compact('products'));
     }
 }

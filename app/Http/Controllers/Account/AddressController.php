@@ -46,7 +46,7 @@ class AddressController extends Controller
         $userAddresses = $this->addressRepository->getByUserId(Auth::user()->id);
         
         return view('account.address.index')
-            ->with('userAddresses', $userAddresses);
+            ->with(compact('userAddresses'));
     }
 
     /**
@@ -60,8 +60,7 @@ class AddressController extends Controller
         $countryOptions = $this->countryRepository->options();
         
         return view('account.address.create')
-            ->with('countryOptions', $countryOptions)
-            ->with('typeOptions', $typeOptions);
+            ->with(compact('countryOptions', 'typeOptions'));
     }
 
     /**
@@ -99,9 +98,7 @@ class AddressController extends Controller
         $countryOptions = $this->countryRepository->options();
 
         return view('account.address.edit')
-            ->with('address', $address)
-            ->with('countryOptions', $countryOptions)
-            ->with('typeOptions', $typeOptions);
+            ->with(compact('address', 'countryOptions', 'typeOptions'));
     }
 
     /**

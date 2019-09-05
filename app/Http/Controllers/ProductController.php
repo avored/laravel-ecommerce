@@ -30,6 +30,6 @@ class ProductController extends Controller
         $product->images;
 
         return view('product.show')
-            ->with('product', $product);
+            ->with(compact('product'));
     }
 }

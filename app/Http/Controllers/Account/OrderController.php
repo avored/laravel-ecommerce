@@ -36,7 +36,7 @@ class OrderController extends Controller
         $userOrders = $this->orderRepository->findByUserId(Auth::user()->id);
         
         return view('account.order.index')
-            ->with('userOrders', $userOrders);
+            ->with(compact('userOrders'));
     }
 
 
@@ -49,6 +49,6 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         return view('account.order.show')
-            ->with('order', $order);
+            ->with(compact('order'));
     }
 }

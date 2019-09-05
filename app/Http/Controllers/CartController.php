@@ -17,12 +17,11 @@ class CartController extends Controller
      */
     public function addToCart(CartRequest $request)
     {
-        list ($status, $message) = Cart::add($request->get('slug'), $request->get('qty'), $request->get('attributes'));
+        list ($success, $message) = Cart::add($request->get('slug'), $request->get('qty'), $request->get('attributes'));
 
         return redirect()
             ->back()
-            ->with('success', $status)
-            ->with('message', $message);
+            ->with(compact('success', 'message'));
     }
 
     /**
@@ -33,6 +32,6 @@ class CartController extends Controller
     {
         $cartProducts = Cart::all();
 
-        return view('cart.show')->with('cartProducts', $cartProducts);
+        return view('cart.show')->with(compact('cartProducts'));
     }
 }
