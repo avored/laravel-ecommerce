@@ -3,21 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use AvoRed\Framework\Models\Contracts\ProductInterface;
-use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
 use App\Http\Requests\CartRequest;
 use AvoRed\Framework\Support\Facades\Cart;
+use AvoRed\Framework\Models\Contracts\ProductInterface;
+use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
 
 class CartController extends Controller
 {
     /**
-     * Product Add To Cart
+     * Product Add To Cart.
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function addToCart(CartRequest $request)
     {
-        list ($success, $message) = Cart::add($request->get('slug'), $request->get('qty'), $request->get('attributes'));
+        list($success, $message) = Cart::add($request->get('slug'), $request->get('qty'), $request->get('attributes'));
 
         return redirect()
             ->back()

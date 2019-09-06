@@ -19,7 +19,7 @@ class CategoryController extends Controller
     protected $categoryFilterRepository;
 
     /**
-     * home controller construct
+     * home controller construct.
      * @param \AvoRed\Framework\Database\Repository\CategoryRepository $categoryRepository
      * @param \AvoRed\Framework\Database\Repository\CategoryFilterRepository $categoryFilterRepository
      */
@@ -30,6 +30,7 @@ class CategoryController extends Controller
         $this->categoryRepository = $categoryRepository;
         $this->categoryFilterRepository = $categoryFilterRepository;
     }
+
     /**
      * Show the application dashboard.
      * @return \Illuminate\Contracts\Support\Renderable
@@ -40,7 +41,7 @@ class CategoryController extends Controller
         $category = $this->categoryRepository->findBySlug($slug);
         $categoryProducts = $this->categoryRepository->getCategoryProducts($request);
         $categoryFilters = $this->categoryFilterRepository->findByCategoryId($category->id);
-        
+
         return view('category.show')
             ->with(compact('categoryFilters', 'categoryProducts', 'category'));
     }

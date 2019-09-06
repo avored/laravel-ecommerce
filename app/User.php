@@ -2,11 +2,11 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
+use Laravel\Passport\ClientRepository;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Passport\ClientRepository;
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -39,9 +39,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
     /**
-     * Get the Passport Client for User and If it doesnot exist then create a new one
+     * Get the Passport Client for User and If it doesnot exist then create a new one.
      * @return \Laravel\Passport\Client $client
      */
     public function getPassportClient()
@@ -49,11 +48,11 @@ class User extends Authenticatable
         $client = $this->clients->first();
         if (null === $client) {
             $clientRepository = app(ClientRepository::class);
-            
+
             $redirectUri = env('APP_URL');
             $client = $clientRepository->createPasswordGrantClient($this->id, $this->name, $redirectUri);
         }
-        
+
         return $client;
     }
 }
