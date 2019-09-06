@@ -9,16 +9,16 @@ return [
     'symlink_storage_folder' => 'storage',
     'cart' => ['session_key' => 'cart_products'],
     'model' => [
-        'user' => App\User::class
+        'user' => App\User::class,
     ],
 
     'routes' => [
         'category' => [
             'param' => 'slug',
-            'name' => 'category.show'
-        ]
+            'name' => 'category.show',
+        ],
     ],
-   
+
     'filesystems' => [
         'disks' => [
             'avored' => [
@@ -47,14 +47,14 @@ return [
                 'hash' => false,
             ],
         ],
-       
+
         'providers' => [
             'admin-users' => [
                 'driver' => 'eloquent',
                 'model' => AvoRed\Framework\Database\Models\AdminUser::class,
             ],
         ],
-    
+
         'passwords' => [
             'adminusers' => [
                 'provider' => 'admin-users',
@@ -86,7 +86,7 @@ return [
                     // 'example_query' => ExampleQuery::class,
                 ],
                 'mutation' => [
-                    'auth' => AvoRed\Framework\GraphQL\Mutation\Auth\Login::class
+                    'auth' => AvoRed\Framework\GraphQL\Mutation\Auth\Login::class,
                 ],
                 'middleware' => [],
                 'method' => ['get', 'post'],

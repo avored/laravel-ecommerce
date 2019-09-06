@@ -9,18 +9,19 @@ class HomeController extends Controller
 {
     /**
      * Product Repository
-     * \AvoRed\Framework\Database\Repository\ProductRepository $productRepository
+     * \AvoRed\Framework\Database\Repository\ProductRepository $productRepository.
      */
     protected $productRepository;
 
     /**
-     * Construct for the home controller
+     * Construct for the home controller.
      * @param \AvoRed\Framework\Database\Repository\ProductRepository $productRepository
      */
     public function __construct(ProductModelInterface $productRepository)
     {
         $this->productRepository = $productRepository;
     }
+
     /**
      * Show the application dashboard.
      * @return \Illuminate\View\View
@@ -35,7 +36,7 @@ class HomeController extends Controller
         } else {
             $products = $allProducts;
         }
-        
+
         return view('home')
             ->with(compact('products'));
     }

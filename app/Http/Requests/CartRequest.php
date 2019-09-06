@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Foundation\Http\FormRequest as Request;
 use illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
 class CartRequest extends Request
 {
@@ -28,11 +28,11 @@ class CartRequest extends Request
             'qty' => [
                 'required',
                 function ($attribute, $value, $fail) {
-                    if (!$value >= 1) {
+                    if (! $value >= 1) {
                         $fail($attribute.' is invalid');
                     }
-                }
-            ]
+                },
+            ],
         ];
     }
 }

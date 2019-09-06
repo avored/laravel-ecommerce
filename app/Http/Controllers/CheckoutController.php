@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use AvoRed\Framework\Database\Contracts\AddressModelInterface;
 use Illuminate\Http\Request;
-use AvoRed\Framework\Support\Facades\Payment;
-use AvoRed\Framework\Support\Facades\Shipping;
-use AvoRed\Framework\Database\Contracts\CountryModelInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use AvoRed\Framework\Support\Facades\Payment;
+use AvoRed\Framework\Support\Facades\Shipping;
+use AvoRed\Framework\Database\Contracts\AddressModelInterface;
+use AvoRed\Framework\Database\Contracts\CountryModelInterface;
 
 class CheckoutController extends Controller
 {
@@ -24,7 +24,7 @@ class CheckoutController extends Controller
     protected $addressRepository;
 
     /**
-     * checkout controller construct
+     * checkout controller construct.
      */
     public function __construct(
         CountryModelInterface $countryRepository,
@@ -44,7 +44,7 @@ class CheckoutController extends Controller
         if (Auth::check()) {
             $addresses = $this->addressRepository->getByUserId(Auth::user()->id);
         }
-        
+
         $paymentOptions = Payment::all();
         $shippingOptions = Shipping::all();
         $countryOptions = $this->CountryRepository->options();
