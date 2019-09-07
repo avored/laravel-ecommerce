@@ -1,4 +1,6 @@
-# AvoRed an Open Source Laravel Shopping Cart
+<p align="center">
+    <a href="https://www.avored.com/" target="_blank"><img src="https://github.com/avored/framework/raw/dev/logo.svg?sanitize=true" height="86" alt="AvoRed"></a>
+</p>
 
 [![GitHub release](https://img.shields.io/github/release/avored/laravel-ecommerce.svg?style=flat-square)](https://github.com/avored/laravel-ecommerce/releases/latest) [![Build Status](https://travis-ci.org/avored/framework.svg?branch=master)](https://travis-ci.org/avored/framework) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/avored/framework/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/avored/framework/?branch=master)
 [![Total Downloads](https://poser.pugx.org/avored/framework/downloads)](https://packagist.org/packages/avored/framework) 
