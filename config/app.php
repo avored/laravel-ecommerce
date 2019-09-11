@@ -229,6 +229,7 @@ return [
         'Cart' => AvoRed\Framework\Support\Facades\Cart::class,
         'Payment' => AvoRed\Framework\Support\Facades\Payment::class,
         'Shipping' => AvoRed\Framework\Support\Facades\Shipping::class,
+        'Widget' => AvoRed\Framework\Support\Facades\Widget::class,
 
     ],
 
