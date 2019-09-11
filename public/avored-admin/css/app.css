@@ -20935,6 +20935,13 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
   top: 5px;
   right: 0px;
 }
+.ql-snow .ql-picker-label::before {
+  position: absolute;
+}
+.widget-icon {
+  margin-bottom: 5px;
+  font-size: 1.4rem;
+}
 .menu-save-page .vddl-placeholder {
   background: #E64448;
   margin: 10px 0;

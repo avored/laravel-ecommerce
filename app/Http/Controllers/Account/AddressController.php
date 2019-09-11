@@ -4,27 +4,27 @@ namespace App\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use AvoRed\Framework\Database\Models\Address;
-use App\Http\Requests\Address\AddressRequest;
-use AvoRed\Framework\Database\Repository\CountryRepository;
-use AvoRed\Framework\Database\Contracts\CountryModelInterface;
-use AvoRed\Framework\Database\Contracts\AddressModelInterface;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Address\AddressRequest;
+use AvoRed\Framework\Database\Models\Address;
+use AvoRed\Framework\Database\Repository\CountryRepository;
+use AvoRed\Framework\Database\Contracts\AddressModelInterface;
+use AvoRed\Framework\Database\Contracts\CountryModelInterface;
 
 class AddressController extends Controller
 {
     /**
-     * @var \AvoRed\Framework\Database\Repository\CountryRepository $countryRepository
+     * @var \AvoRed\Framework\Database\Repository\CountryRepository
      */
     protected $countryRepository;
 
     /**
-     * @var \AvoRed\Framework\Database\Repository\AddressRepository $addresRepository
+     * @var \AvoRed\Framework\Database\Repository\AddressRepository
      */
     protected $addressRepository;
 
     /**
-     * Address Controller construct
+     * Address Controller construct.
      * @param \AvoRed\Framework\Database\Repository\CountryRepository $countryRepository
      * @param \AvoRed\Framework\Database\Repository\AddressRepository $addresRepository
      */
@@ -44,9 +44,9 @@ class AddressController extends Controller
     public function index()
     {
         $userAddresses = $this->addressRepository->getByUserId(Auth::user()->id);
-        
+
         return view('account.address.index')
-            ->with('userAddresses', $userAddresses);
+            ->with(compact('userAddresses'));
     }
 
     /**
@@ -58,10 +58,9 @@ class AddressController extends Controller
     {
         $typeOptions = Address::TYPEOPTIONS;
         $countryOptions = $this->countryRepository->options();
-        
+
         return view('account.address.create')
-            ->with('countryOptions', $countryOptions)
-            ->with('typeOptions', $typeOptions);
+            ->with(compact('countryOptions', 'typeOptions'));
     }
 
     /**
@@ -74,6 +73,7 @@ class AddressController extends Controller
     {
         $request->merge(['user_id' => Auth::user()->id]);
         $this->addressRepository->create($request->all());
+
         return redirect()->route('account.address.index');
     }
 
@@ -99,9 +99,7 @@ class AddressController extends Controller
         $countryOptions = $this->countryRepository->options();
 
         return view('account.address.edit')
-            ->with('address', $address)
-            ->with('countryOptions', $countryOptions)
-            ->with('typeOptions', $typeOptions);
+            ->with(compact('address', 'countryOptions', 'typeOptions'));
     }
 
     /**

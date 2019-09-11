@@ -1,7 +1,5 @@
 <?php
 
-use AvoRed\Graphql\GraphqlProvider;
-
 return [
 
     /*
@@ -177,8 +175,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        GraphqlProvider::class
-
     ],
 
     /*
@@ -230,9 +226,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        "Cart" => AvoRed\Framework\Support\Facades\Cart::class,
-        "Payment" => AvoRed\Framework\Support\Facades\Payment::class,
-        "Shipping" => AvoRed\Framework\Support\Facades\Shipping::class,
+        'Cart' => AvoRed\Framework\Support\Facades\Cart::class,
+        'Payment' => AvoRed\Framework\Support\Facades\Payment::class,
+        'Shipping' => AvoRed\Framework\Support\Facades\Shipping::class,
+        'Widget' => AvoRed\Framework\Support\Facades\Widget::class,
 
     ],
 

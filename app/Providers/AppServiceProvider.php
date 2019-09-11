@@ -2,11 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
 use App\Http\Composers\NavComposer;
-use AvoRed\Framework\Support\Facades\Menu;
 use AvoRed\Framework\Menu\MenuItem;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
+use AvoRed\Framework\Support\Facades\Menu;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //   
+        //
     }
 
     /**

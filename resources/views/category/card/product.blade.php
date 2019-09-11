@@ -1,7 +1,7 @@
 <a-card hoverable class="product-card">
     <a slot="cover" href="{{ route('product.show', $product->slug) }}">
         <img
-        alt="example"
+        alt="{{ $product->name }}"
         class="main-image"
         src="{{ $product->main_image_url }}"
         />

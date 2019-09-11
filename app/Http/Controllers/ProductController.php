@@ -13,13 +13,14 @@ class ProductController extends Controller
     protected $productRepository;
 
     /**
-     * home controller construct
+     * home controller construct.
      */
     public function __construct(
         ProductModelInterface $productRepository
     ) {
         $this->productRepository = $productRepository;
     }
+
     /**
      * Show the application dashboard.
      * @return \Illuminate\Contracts\Support\Renderable
@@ -30,6 +31,6 @@ class ProductController extends Controller
         $product->images;
 
         return view('product.show')
-            ->with('product', $product);
+            ->with(compact('product'));
     }
 }

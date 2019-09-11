@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\User;
-use AvoRed\Framework\Database\Contracts\AddressModelInterface;
-use AvoRed\Framework\Database\Contracts\OrderModelInterface;
-use AvoRed\Framework\Database\Contracts\OrderStatusModelInterface;
-use AvoRed\Framework\Database\Models\Order;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use AvoRed\Framework\Support\Facades\Cart;
+use AvoRed\Framework\Database\Models\Order;
+use AvoRed\Framework\Database\Models\Currency;
+use AvoRed\Framework\Database\Contracts\OrderModelInterface;
+use AvoRed\Framework\Database\Contracts\AddressModelInterface;
+use AvoRed\Framework\Database\Contracts\OrderStatusModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductAttributeModelInterface;
-use AvoRed\Framework\Database\Models\Currency;
-use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -42,31 +42,31 @@ class OrderController extends Controller
     protected $oderStatusRepository;
 
     /**
-     * User Model
+     * User Model.
      * @var \App\User
      */
     protected $user;
 
     /**
-     * User Shipping Address Model
+     * User Shipping Address Model.
      * @var \AvoRed\Framework\Database\Models\Address
      */
     protected $shippingAddress;
 
     /**
-     * Order Status Model
+     * Order Status Model.
      * @var \AvoRed\Framework\Database\Models\OrderStatus
      */
     protected $orderStatus;
 
     /**
-     * User Billing Address Model
+     * User Billing Address Model.
      * @var \AvoRed\Framework\Database\Models\Address
      */
     protected $billingAddress;
 
     /**
-     * order controller construct
+     * order controller construct.
      * @param \AvoRed\Framework\Database\Contracts\AddressModelInterface
      * @param \AvoRed\Framework\Database\Contracts\OrderModelInterface
      * @param \AvoRed\Framework\Database\Contracts\OrderStatusModelInterface
@@ -95,7 +95,7 @@ class OrderController extends Controller
         $this->shippingAddress($request);
         $this->billingAddress($request);
         $this->orderStatus();
-        
+
         $orderData = [
             'shipping_option' => $request->get('shipping_option'),
             'payment_option' => $request->get('payment_option'),
@@ -108,14 +108,14 @@ class OrderController extends Controller
         $order = $this->orderRepository->create($orderData);
         $this->syncProducts($order, $request);
         Cart::clear();
-    
+
         return redirect()
             ->route('order.successful', $order->id)
             ->with('success', 'Order Placed Successfuly!');
     }
 
     /**
-     * Create/Get User to placed an Order
+     * Create/Get User to placed an Order.
      * @return self
      */
     public function user($request)
@@ -124,9 +124,9 @@ class OrderController extends Controller
             $this->user = Auth::user();
         } else {
             $email = $request->get('email');
-    
+
             $this->user = User::whereEmail($email)->first();
-    
+
             if ($this->user === null) {
                 $this->user = User::create($request->all());
             }
@@ -136,7 +136,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Create/Get User to placed an Order
+     * Create/Get User to placed an Order.
      * @return \AvoRed\Framework\Database\Models\Address $addressModel
      */
     public function shippingAddress($request)
@@ -150,13 +150,14 @@ class OrderController extends Controller
         }
         $addressData['type'] = 'SHIPPING';
         $addressData['user_id'] = $this->user->id;
-        
+
         $this->shippingAddress = $this->addressRepository->create($addressData);
+
         return $this;
     }
 
     /**
-     * Create/Get User to placed an Order
+     * Create/Get User to placed an Order.
      * @return \AvoRed\Framework\Database\Models\Address $addressModel
      */
     public function billingAddress($request)
@@ -173,7 +174,7 @@ class OrderController extends Controller
         if ($flag == 'true') {
             $addressData['type'] = 'BILLING';
             $addressData['user_id'] = $this->user->id;
-            
+
             $this->billingAddress = $this->addressRepository->create($addressData);
         } else {
             $this->billingAddress = $this->shippingAddress;
@@ -183,7 +184,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Set Default Order Status Model
+     * Set Default Order Status Model.
      * @return \AvoRed\Framework\Database\Models\Address $addressModel
      */
     public function orderStatus()
@@ -192,7 +193,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Successfull Page Display
+     * Successfull Page Display.
      * @param \AvoRed\Framework\Database\Models\Order $order
      * @return \Illuminate\Response\Renderable
      */
@@ -202,7 +203,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Get the current default currency from session
+     * Get the current default currency from session.
      * @return \AvoRed\Framework\Database\Models\Currency
      */
     protected function getCurrency(): Currency
@@ -211,7 +212,7 @@ class OrderController extends Controller
     }
 
     /**
-     * Sync Products and Attributes with Order Tables
+     * Sync Products and Attributes with Order Tables.
      * @param \AvoRed\Framework\Database\Models\Order $order
      * @param \Illuminate\Http\Request $request
      * @return void
@@ -219,14 +220,14 @@ class OrderController extends Controller
     private function syncProducts(Order $order, $request)
     {
         $cartProducts = Cart::all();
-        
+
         foreach ($cartProducts as $cartProduct) {
             $orderProductData = [
                 'product_id' => $cartProduct->id(),
                 'order_id' => $order->id,
                 'qty' => $cartProduct->qty(),
                 'price' => $cartProduct->price(),
-                'tax_amount' => $cartProduct->taxAmount()
+                'tax_amount' => $cartProduct->taxAmount(),
             ];
             $orderProductModel = $this->oderProductRepository->create($orderProductData);
 
@@ -237,7 +238,7 @@ class OrderController extends Controller
                     $orderProductAttributeData = [
                         'order_product_id' => $orderProductModel->id,
                         'attribute_id' => $attribute['attribute_id'],
-                        'attribute_dropdown_option_id' => $attribute['attribute_dropdown_option_id']
+                        'attribute_dropdown_option_id' => $attribute['attribute_dropdown_option_id'],
                     ];
                     $orderProductAttributeModel = $this->oderProductAttributeRepository
                         ->create($orderProductAttributeData);

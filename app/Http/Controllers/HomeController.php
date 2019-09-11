@@ -9,26 +9,35 @@ class HomeController extends Controller
 {
     /**
      * Product Repository
-     * \AvoRed\Framework\Database\Repository\ProductRepository $productRepository
+     * \AvoRed\Framework\Database\Repository\ProductRepository $productRepository.
      */
     protected $productRepository;
 
     /**
-     * Construct for the home controller
+     * Construct for the home controller.
      * @param \AvoRed\Framework\Database\Repository\ProductRepository $productRepository
      */
     public function __construct(ProductModelInterface $productRepository)
     {
         $this->productRepository = $productRepository;
     }
+
     /**
      * Show the application dashboard.
      * @return \Illuminate\View\View
      */
     public function index()
     {
-        $products = $this->productRepository->getAllWithoutVaiation()->random(8)->shuffle();
+        $allProducts = $this->productRepository->getAllWithoutVaiation();
+        if ($allProducts->count() <= 0) {
+            $products = collect();
+        } elseif ($allProducts->count() >= 8) {
+            $products = $allProducts->random(8)->shuffle();
+        } else {
+            $products = $allProducts;
+        }
+
         return view('home')
-            ->with('products', $products);
+            ->with(compact('products'));
     }
 }
