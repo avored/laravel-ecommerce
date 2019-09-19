@@ -1,188 +1,345 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[9],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/catalog/attribute/AttributeSave.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/catalog/attribute/AttributeSave.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/ant-design-vue/lib/switch/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/switch/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
 
-var id = 0;
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['attribute', 'baseUrl'],
-  data: function data() {
-    return {
-      attributeForm: this.$form.createForm(this),
-      dropdownOptions: [],
-      image_path_lists: [],
-      headers: {},
-      display_as: '',
-      fields: ['name', 'slug', 'display_as']
-    };
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _vcSwitch = __webpack_require__(/*! ../vc-switch */ "./node_modules/ant-design-vue/lib/vc-switch/index.js");
+
+var _vcSwitch2 = _interopRequireDefault(_vcSwitch);
+
+var _wave = __webpack_require__(/*! ../_util/wave */ "./node_modules/ant-design-vue/lib/_util/wave.js");
+
+var _wave2 = _interopRequireDefault(_wave);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var Switch = {
+  name: 'ASwitch',
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: {
+    prefixCls: _vueTypes2['default'].string.def('ant-switch'),
+    // size=default and size=large are the same
+    size: _vueTypes2['default'].oneOf(['small', 'default', 'large']),
+    disabled: _vueTypes2['default'].bool,
+    checkedChildren: _vueTypes2['default'].any,
+    unCheckedChildren: _vueTypes2['default'].any,
+    tabIndex: _vueTypes2['default'].number,
+    checked: _vueTypes2['default'].bool,
+    defaultChecked: _vueTypes2['default'].bool,
+    autoFocus: _vueTypes2['default'].bool,
+    loading: _vueTypes2['default'].bool
   },
   methods: {
-    handleSubmit: function handleSubmit() {
-      this.attributeForm.validateFields(function (err, values) {
-        if (err) {
-          e.preventDefault();
-        }
-      });
+    focus: function focus() {
+      this.$refs.refSwitchNode.focus();
     },
-    imagePathName: function imagePathName(path) {
-      var name = "dropdown_option[";
-      Object.keys(path).forEach(function (key) {
-        name += key;
-      });
-      name += "][path]";
-      return name;
-    },
-    imagePathValue: function imagePathValue(path) {
-      var value = "";
-      Object.keys(path).forEach(function (key) {
-        value += path[key];
-      });
-      return value;
-    },
-    handleUploadImageChange: function handleUploadImageChange(info, record) {
-      if (info.file.status == "done") {
-        var object = {};
-        object[record] = info.file.response.path;
-        this.image_path_lists.push(object);
-      }
-    },
-    displayAsChange: function displayAsChange(val) {
-      this.display_as = val;
-    },
-    cancelAttribute: function cancelAttribute() {
-      window.location = this.baseUrl + '/attribute';
-    },
-    randomString: function randomString() {
-      var random_string = '';
-      var random_ascii;
+    blur: function blur() {
+      this.$refs.refSwitchNode.blur();
+    }
+  },
 
-      for (var i = 0; i < 6; i++) {
-        random_ascii = Math.floor(Math.random() * 25 + 97);
-        random_string += String.fromCharCode(random_ascii);
-      }
+  render: function render() {
+    var _classes;
 
-      return random_string;
-    },
-    dropdownOptionChange: function dropdownOptionChange(index) {
-      if (index == this.dropdownOptions.length - 1) {
-        this.dropdownOptions.push(this.randomString());
-      } else {
-        this.dropdownOptions.splice(index, 1);
-      }
-    },
-    getDefaultFile: function getDefaultFile(record) {
-      if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.attribute)) {
-        return [];
-      }
+    var h = arguments[0];
 
-      var dropdownOption = this.attribute.dropdown_options[record];
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        prefixCls = _getOptionProps.prefixCls,
+        size = _getOptionProps.size,
+        loading = _getOptionProps.loading,
+        disabled = _getOptionProps.disabled,
+        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'size', 'loading', 'disabled']);
 
-      if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(dropdownOption) && !lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(dropdownOption.path)) {
-        var filename = dropdownOption.path.replace(/^.*[\\\/]/, '');
-        return [{
-          uid: dropdownOption.id,
-          name: filename,
-          status: 'done',
-          url: '/storage/' + dropdownOption.path
-        }];
-      }
-    },
-    dropdownOptionDisplayTextName: function dropdownOptionDisplayTextName(index) {
-      return 'dropdown_option[' + index + '][display_text]';
-    },
-    dropdown_options_image: function dropdown_options_image(index) {
-      return 'dropdown_option_image[' + index + ']';
+    var classes = (_classes = {}, (0, _defineProperty3['default'])(_classes, prefixCls + '-small', size === 'small'), (0, _defineProperty3['default'])(_classes, prefixCls + '-loading', loading), _classes);
+    var loadingIcon = loading ? h(_icon2['default'], {
+      attrs: { type: 'loading' },
+      'class': prefixCls + '-loading-icon' }) : null;
+    var switchProps = {
+      props: (0, _extends3['default'])({}, restProps, {
+        prefixCls: prefixCls,
+        loadingIcon: loadingIcon,
+        checkedChildren: (0, _propsUtil.getComponentFromProp)(this, 'checkedChildren'),
+        unCheckedChildren: (0, _propsUtil.getComponentFromProp)(this, 'unCheckedChildren'),
+        disabled: disabled || loading
+      }),
+      on: this.$listeners,
+      'class': classes,
+      ref: 'refSwitchNode'
+    };
+    return h(
+      _wave2['default'],
+      {
+        attrs: { insertExtraNode: true }
+      },
+      [h(_vcSwitch2['default'], switchProps)]
+    );
+  }
+};
+
+/* istanbul ignore next */
+Switch.install = function (Vue) {
+  Vue.component(Switch.name, Switch);
+};
+
+exports['default'] = Switch;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-switch/PropTypes.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-switch/PropTypes.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.switchPropTypes = undefined;
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var switchPropTypes = exports.switchPropTypes = {
+  prefixCls: _vueTypes2['default'].string,
+  disabled: _vueTypes2['default'].bool.def(false),
+  checkedChildren: _vueTypes2['default'].any,
+  unCheckedChildren: _vueTypes2['default'].any,
+  // onChange: PropTypes.func,
+  // onMouseUp: PropTypes.func,
+  // onClick: PropTypes.func,
+  tabIndex: _vueTypes2['default'].number,
+  checked: _vueTypes2['default'].bool.def(false),
+  defaultChecked: _vueTypes2['default'].bool.def(false),
+  autoFocus: _vueTypes2['default'].bool.def(false),
+  loadingIcon: _vueTypes2['default'].any
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-switch/Switch.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-switch/Switch.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _PropTypes = __webpack_require__(/*! ./PropTypes */ "./node_modules/ant-design-vue/lib/vc-switch/PropTypes.js");
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// function noop () {
+// }
+exports['default'] = {
+  name: 'VcSwitch',
+  mixins: [_BaseMixin2['default']],
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: (0, _extends3['default'])({}, _PropTypes.switchPropTypes, {
+    prefixCls: _PropTypes.switchPropTypes.prefixCls.def('rc-switch')
+    // onChange: switchPropTypes.onChange.def(noop),
+    // onClick: switchPropTypes.onClick.def(noop),
+  }),
+  data: function data() {
+    var checked = false;
+    if ((0, _propsUtil.hasProp)(this, 'checked')) {
+      checked = !!this.checked;
+    } else {
+      checked = !!this.defaultChecked;
+    }
+    return {
+      stateChecked: checked
+    };
+  },
+
+  watch: {
+    checked: function checked(val) {
+      this.stateChecked = val;
     }
   },
   mounted: function mounted() {
     var _this = this;
 
-    this.headers = {
-      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-    };
+    this.$nextTick(function () {
+      var autoFocus = _this.autoFocus,
+          disabled = _this.disabled;
 
-    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.attribute)) {
-      this.display_as = this.attribute.display_as;
-      this.fields.forEach(function (field) {
-        _this.attributeForm.getFieldDecorator(field, {
-          initialValue: _this.attribute[field]
-        });
-      });
-
-      if (this.attribute.dropdown_options.length > 0) {
-        this.attribute.dropdown_options.forEach(function (element) {
-          _this.dropdownOptions.push(element.id);
-
-          _this.attributeForm.getFieldDecorator('dropdown_options[' + element.id + ']', {
-            initialValue: element.display_text,
-            preserve: true
-          });
-        });
+      if (autoFocus && !disabled) {
+        _this.focus();
       }
-    } else {
-      this.dropdownOptions.push(this.randomString());
+    });
+  },
+
+  methods: {
+    setChecked: function setChecked(checked) {
+      if (this.disabled) {
+        return;
+      }
+      if (!(0, _propsUtil.hasProp)(this, 'checked')) {
+        this.stateChecked = checked;
+      }
+      this.$emit('change', checked);
+    },
+    toggle: function toggle() {
+      var checked = !this.stateChecked;
+      this.setChecked(checked);
+      this.$emit('click', checked);
+    },
+    handleKeyDown: function handleKeyDown(e) {
+      if (e.keyCode === 37) {
+        // Left
+        this.setChecked(false);
+      } else if (e.keyCode === 39) {
+        // Right
+        this.setChecked(true);
+      }
+    },
+    handleMouseUp: function handleMouseUp(e) {
+      if (this.$refs.refSwitchNode) {
+        this.$refs.refSwitchNode.blur();
+      }
+      this.$emit('mouseup', e);
+    },
+    focus: function focus() {
+      this.$refs.refSwitchNode.focus();
+    },
+    blur: function blur() {
+      this.$refs.refSwitchNode.blur();
     }
+  },
+  render: function render() {
+    var _switchClassName;
+
+    var h = arguments[0];
+
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        prefixCls = _getOptionProps.prefixCls,
+        disabled = _getOptionProps.disabled,
+        loadingIcon = _getOptionProps.loadingIcon,
+        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'disabled', 'loadingIcon']);
+
+    var checked = this.stateChecked;
+    var switchClassName = (_switchClassName = {}, (0, _defineProperty3['default'])(_switchClassName, prefixCls, true), (0, _defineProperty3['default'])(_switchClassName, prefixCls + '-checked', checked), (0, _defineProperty3['default'])(_switchClassName, prefixCls + '-disabled', disabled), _switchClassName);
+    var spanProps = {
+      props: (0, _extends3['default'])({}, restProps),
+      on: (0, _extends3['default'])({}, this.$listeners, {
+        keydown: this.handleKeyDown,
+        click: this.toggle,
+        mouseup: this.handleMouseUp
+      }),
+      attrs: {
+        type: 'button',
+        role: 'switch',
+        'aria-checked': checked,
+        disabled: disabled
+      },
+      'class': switchClassName,
+      ref: 'refSwitchNode'
+    };
+    return h(
+      'button',
+      spanProps,
+      [loadingIcon, h(
+        'span',
+        { 'class': prefixCls + '-inner' },
+        [checked ? (0, _propsUtil.getComponentFromProp)(this, 'checkedChildren') : (0, _propsUtil.getComponentFromProp)(this, 'unCheckedChildren')]
+      )]
+    );
   }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-switch/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-switch/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-/***/ }),
+var _Switch = __webpack_require__(/*! ./Switch */ "./node_modules/ant-design-vue/lib/vc-switch/Switch.js");
 
-/***/ "./vendor/avored/framework/resources/components/catalog/attribute/AttributeSave.vue":
-/*!******************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/catalog/attribute/AttributeSave.vue ***!
-  \******************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+var _Switch2 = _interopRequireDefault(_Switch);
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AttributeSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AttributeSave.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/catalog/attribute/AttributeSave.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _AttributeSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "vendor/avored/framework/resources/components/catalog/attribute/AttributeSave.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./vendor/avored/framework/resources/components/catalog/attribute/AttributeSave.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/catalog/attribute/AttributeSave.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AttributeSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AttributeSave.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/catalog/attribute/AttributeSave.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AttributeSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+exports['default'] = _Switch2['default']; // base rc-switch 1.8.0
 
 /***/ })
 

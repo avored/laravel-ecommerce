@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use AvoRed\Framework\Database\Contracts\PageModelInterface;
 use Illuminate\Http\Request;
 use AvoRed\Framework\Database\Contracts\ProductModelInterface;
 
@@ -12,14 +13,23 @@ class HomeController extends Controller
      * \AvoRed\Framework\Database\Repository\ProductRepository $productRepository.
      */
     protected $productRepository;
+    /**
+     * Product Repository
+     * \AvoRed\Framework\Database\Repository\PageRepository $pageRepository.
+     */
+    protected $pageRepository;
 
     /**
      * Construct for the home controller.
      * @param \AvoRed\Framework\Database\Repository\ProductRepository $productRepository
+     * @param \AvoRed\Framework\Database\Repository\PageRepository $pageRepository
      */
-    public function __construct(ProductModelInterface $productRepository)
-    {
+    public function __construct(
+        ProductModelInterface $productRepository,
+        PageModelInterface $pageRepository
+    ) {
         $this->productRepository = $productRepository;
+        $this->pageRepository = $pageRepository;
     }
 
     /**
@@ -28,6 +38,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        $page = $this->pageRepository->findBySlug('home-page');
         $allProducts = $this->productRepository->getAllWithoutVaiation();
         if ($allProducts->count() <= 0) {
             $products = collect();
@@ -38,6 +50,6 @@ class HomeController extends Controller
         }
 
         return view('home')
-            ->with(compact('products'));
+            ->with(compact('products', 'page'));
     }
 }
