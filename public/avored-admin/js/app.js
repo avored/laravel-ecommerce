@@ -69620,7 +69620,7 @@ Vue.component('configuration-save', function () {
   return __webpack_require__.e(/*! import() */ 31).then(__webpack_require__.bind(null, /*! ../components/system/configuration/ConfigurationSave.vue */ "./vendor/avored/framework/resources/components/system/configuration/ConfigurationSave.vue"));
 });
 Vue.component('menu-save', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(51)]).then(__webpack_require__.bind(null, /*! ../components/cms/menu/MenuSave.vue */ "./vendor/avored/framework/resources/components/cms/menu/MenuSave.vue"));
+  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../components/cms/menu/MenuSave.vue */ "./vendor/avored/framework/resources/components/cms/menu/MenuSave.vue"));
 });
 Vue.component('menu-table', function () {
   return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ../components/cms/menu/MenuTable.vue */ "./vendor/avored/framework/resources/components/cms/menu/MenuTable.vue"));
@@ -69645,7 +69645,7 @@ Vue.component('admin-user-table', function () {
   return __webpack_require__.e(/*! import() */ 30).then(__webpack_require__.bind(null, /*! ../components/system/admin-user/AdminUserTable.vue */ "./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue"));
 });
 Vue.component('admin-user-save', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(7), __webpack_require__.e(50)]).then(__webpack_require__.bind(null, /*! ../components/system/admin-user/AdminUserSave.vue */ "./vendor/avored/framework/resources/components/system/admin-user/AdminUserSave.vue"));
+  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.bind(null, /*! ../components/system/admin-user/AdminUserSave.vue */ "./vendor/avored/framework/resources/components/system/admin-user/AdminUserSave.vue"));
 });
 Vue.component('promotion-code-table', function () {
   return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.bind(null, /*! ../components/promotion/promotion-code/PromotionCodeTable.vue */ "./vendor/avored/framework/resources/components/promotion/promotion-code/PromotionCodeTable.vue"));
