@@ -8,8 +8,8 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.2",
-        "avored/framework": "dev-dev",
+        "php": "^7.2",
+        "avored/framework": "^3.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0"
