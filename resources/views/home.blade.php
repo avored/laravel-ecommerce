@@ -6,7 +6,7 @@
 </a-breadcrumb>
 @endsection
 @section('content')
-{!! $page->getContent() !!}
+{!! $page ? $page->getContent() : '' !!}
 <h1>{{ __('AvoRed Special Week') }}</h1>
 <a-row :gutter="15">
   @foreach ($products as $product)
