@@ -15,9 +15,10 @@
 
 @section('content')
      <a-card title="User Dashboard Page">
-      <a href="#" slot="extra">more</a>
-      <p>card content</p>
-      <p>card content</p>
-      <p>card content</p>
+      <a href="{{ route('account.edit') }}" slot="extra">
+        <a-icon type="edit"></a-icon>
+      </a>
+      <p>Name: {{ $user->name }} </p>
+      <p>Email: {{ $user->email }} </p>
     </a-card>
 @endsection

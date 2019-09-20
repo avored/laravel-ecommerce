@@ -1,140 +1,86 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedNav.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/AvoRedNav.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/address/AddressSave.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/address/AddressSave.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'avored-nav',
-  props: ['menus'],
+  props: ['address'],
   data: function data() {
-    return {};
+    return {
+      form: this.$form.createForm(this),
+      country_id: '',
+      type: ''
+    };
+  },
+  methods: {
+    handleSubmit: function handleSubmit(e) {
+      this.form.validateFields(function (err, values) {
+        if (err) {
+          e.preventDefault();
+        }
+      });
+    },
+    handleTypeChange: function handleTypeChange(val) {
+      this.type = val;
+    },
+    handleCountryChange: function handleCountryChange(val) {
+      this.country_id = val;
+    },
+    cancelAddress: function cancelAddress() {
+      window.location = 'account/address';
+    }
+  },
+  mounted: function mounted() {
+    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.address)) {
+      this.type = this.address.type;
+      this.country_id = this.address.country_id;
+    }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa&":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa& ***!
-  \*********************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/lodash/isNil.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/isNil.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "a-menu",
-        {
-          staticClass: "navigation",
-          attrs: {
-            theme: "light",
-            mode: "horizontal",
-            "default-selected-keys": []
-          }
-        },
-        [
-          _vm._l(_vm.menus, function(menu) {
-            return [
-              menu.submenus.length <= 0
-                ? _c("a-menu-item", { key: menu.id }, [
-                    _c("a", { attrs: { href: menu.url } }, [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(menu.name) +
-                          "\n                "
-                      )
-                    ])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              menu.submenus.length > 0
-                ? _c(
-                    "a-sub-menu",
-                    { key: "submenu" + menu.id, attrs: { title: menu.name } },
-                    [
-                      _c("a-menu-item", { key: menu.id }, [
-                        _c("a", { attrs: { href: menu.url } }, [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(menu.name) +
-                              "\n                    "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(menu.submenus, function(submenu) {
-                        return _c("a-menu-item", { key: submenu.id }, [
-                          _c("a", { attrs: { href: submenu.url } }, [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(submenu.name) +
-                                "\n                    "
-                            )
-                          ])
-                        ])
-                      })
-                    ],
-                    2
-                  )
-                : _vm._e()
-            ]
-          })
-        ],
-        2
-      )
-    ],
-    1
-  )
+/**
+ * Checks if `value` is `null` or `undefined`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
+ * @example
+ *
+ * _.isNil(null);
+ * // => true
+ *
+ * _.isNil(void 0);
+ * // => true
+ *
+ * _.isNil(NaN);
+ * // => false
+ */
+function isNil(value) {
+  return value == null;
 }
-var staticRenderFns = []
-render._withStripped = true
 
+module.exports = isNil;
 
 
 /***/ }),
@@ -246,29 +192,28 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ "./resources/components/AvoRedNav.vue":
-/*!********************************************!*\
-  !*** ./resources/components/AvoRedNav.vue ***!
-  \********************************************/
+/***/ "./resources/components/address/AddressSave.vue":
+/*!******************************************************!*\
+  !*** ./resources/components/address/AddressSave.vue ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AvoRedNav.vue?vue&type=template&id=7ee78aaa& */ "./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa&");
-/* harmony import */ var _AvoRedNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AvoRedNav.vue?vue&type=script&lang=js& */ "./resources/components/AvoRedNav.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
+/* harmony import */ var _AddressSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AddressSave.vue?vue&type=script&lang=js& */ "./resources/components/address/AddressSave.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
 
 
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AvoRedNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  _AddressSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
   false,
   null,
   null,
@@ -278,40 +223,22 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/components/AvoRedNav.vue"
+component.options.__file = "resources/components/address/AddressSave.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/components/AvoRedNav.vue?vue&type=script&lang=js&":
-/*!*********************************************************************!*\
-  !*** ./resources/components/AvoRedNav.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************/
+/***/ "./resources/components/address/AddressSave.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/components/address/AddressSave.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib??ref--4-0!../../node_modules/vue-loader/lib??vue-loader-options!./AvoRedNav.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedNav.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa&":
-/*!***************************************************************************!*\
-  !*** ./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa& ***!
-  \***************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib??vue-loader-options!./AvoRedNav.vue?vue&type=template&id=7ee78aaa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./AddressSave.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/address/AddressSave.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AddressSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ })
 

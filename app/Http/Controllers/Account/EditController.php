@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
+use App\ViewModels\Account\EditViewModel;
 use Illuminate\Support\Facades\Auth;
 
-class DashboardController extends Controller
+class EditController extends Controller
 {
     /**
      * Show the user account dashboard.
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function __invoke()
     {
-        $user = Auth::user();
-        return view('account.dashboard', compact('user'));
+        return view('account.edit', new EditViewModel(Auth::user()));
     }
 }

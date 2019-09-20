@@ -1,5 +1,4 @@
 <script>
-import { quillEditor } from 'vue-quill-editor';
 import isNil from 'lodash/isNil';
 
 export default {

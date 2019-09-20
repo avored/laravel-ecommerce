@@ -32,6 +32,8 @@ Route::middleware('auth')
     ->namespace('Account')
     ->group(function () {
         Route::get('', 'DashboardController@index')->name('dashboard');
+        Route::get('edit', EditController::class)->name('edit');
+        Route::post('save', SaveController::class)->name('save');
         Route::resource('address', 'AddressController');
         Route::resource('order', 'OrderController')->only(['index', 'show']);
     });

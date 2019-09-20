@@ -1,4 +1,4 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[13],{
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([[23],{
 
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/account/AccountSave.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
@@ -23,10 +23,6 @@ __webpack_require__.r(__webpack_exports__);
           e.preventDefault();
         }
       });
-    },
-    cancelBtnClick: function cancelBtnClick(e) {
-      e.preventDefault();
-      location = '/account';
     }
   },
   mounted: function mounted() {}
