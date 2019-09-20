@@ -1,74 +1,33 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[28],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/currency/CurrencyIndex.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/currency/CurrencyIndex.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/PasswordNewPage.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/PasswordNewPage.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var columns = [{
-  title: 'Name',
-  dataIndex: 'name',
-  key: 'name',
-  sorter: true
-}, {
-  title: 'Code',
-  dataIndex: 'code',
-  key: 'code',
-  sorter: true
-}, {
-  title: 'Action',
-  key: 'action',
-  scopedSlots: {
-    customRender: 'action'
-  },
-  sorter: false,
-  width: "10%"
-}];
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['currencies', 'baseUrl'],
   data: function data() {
     return {
-      columns: columns
+      form: this.$form.createForm(this),
+      loadingSubmitBtn: false
     };
   },
   methods: {
-    getData: function getData() {
-      return this.currencies;
-    },
-    getEditUrl: function getEditUrl(record) {
-      return this.baseUrl + '/currency/' + record.id + '/edit';
-    },
-    getDeleteUrl: function getDeleteUrl(record) {
-      return this.baseUrl + '/currency/' + record.id;
-    },
-    deleteCurrency: function deleteCurrency(record) {
-      var url = this.baseUrl + '/currency/' + record.id;
-      var app = this;
-      this.$confirm({
-        title: 'Do you Want to delete ' + record.name + ' currency?',
-        okType: 'danger',
-        onOk: function onOk() {
-          axios["delete"](url).then(function (response) {
-            if (response.data.success === true) {
-              app.$notification.error({
-                key: 'currency.delete.success',
-                message: response.data.message
-              });
-            }
+    handleSubmit: function handleSubmit(e) {
+      var _this = this;
 
-            window.location.reload();
-          })["catch"](function (errors) {
-            app.$notification.error({
-              key: 'currency.delete.error',
-              message: errors.message
-            });
-          });
-        },
-        onCancel: function onCancel() {// Do nothing
+      this.loadingSubmitBtn = true;
+      this.form.validateFields(function (err, values) {
+        if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(err)) {
+          _this.loadingSubmitBtn = false;
+          e.preventDefault();
         }
       });
     }
@@ -77,17 +36,17 @@ var columns = [{
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/system/currency/CurrencyIndex.vue":
-/*!****************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/system/currency/CurrencyIndex.vue ***!
-  \****************************************************************************************/
+/***/ "./vendor/avored/framework/resources/components/system/PasswordNewPage.vue":
+/*!*********************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/PasswordNewPage.vue ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CurrencyIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CurrencyIndex.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/system/currency/CurrencyIndex.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _PasswordNewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PasswordNewPage.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/system/PasswordNewPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
 
 
@@ -96,7 +55,7 @@ var render, staticRenderFns
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _CurrencyIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  _PasswordNewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
   render,
   staticRenderFns,
   false,
@@ -108,22 +67,22 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vendor/avored/framework/resources/components/system/currency/CurrencyIndex.vue"
+component.options.__file = "vendor/avored/framework/resources/components/system/PasswordNewPage.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/system/currency/CurrencyIndex.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/system/currency/CurrencyIndex.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************/
+/***/ "./vendor/avored/framework/resources/components/system/PasswordNewPage.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/PasswordNewPage.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CurrencyIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CurrencyIndex.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/currency/CurrencyIndex.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CurrencyIndex_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PasswordNewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PasswordNewPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/PasswordNewPage.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PasswordNewPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ })
 

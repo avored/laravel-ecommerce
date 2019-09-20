@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-    <a href="https://circleci.com/gh/avored/framework/tree/master" target="_blank"><img src="https://circleci.com/gh/avored/framework/tree/master.svg" alt="CircleCI"></a>
+    <a href="https://circleci.com/gh/avored/framework/tree/master" target="_blank"><img src="https://circleci.com/gh/avored/framework/tree/master.svg?style=shield" alt="CircleCI"></a>
     <a href="https://packagist.org/packages/avored/framework" target="_blank"><img src="https://poser.pugx.org/avored/framework/downloads" alt="Total Downloads"></a>
     <a href="https://packagist.org/packages/avored/framework" target="_blank"><img src="https://poser.pugx.org/avored/framework/v/stable" alt="Latest Stable Version"></a>
     <a href="https://packagist.org/packages/avored/framework" target="_blank"><img src="https://poser.pugx.org/avored/framework/license" alt="License"></a>

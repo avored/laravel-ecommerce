@@ -19587,9 +19587,8 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
 }
 .ant-carousel .slick-vertical .slick-slide {
   text-align: center;
-  height: 160px;
-  line-height: 160px;
-  background: #e64448;
+  height: 460px;
+  line-height: 460px;
   overflow: hidden;
 }
 .ant-carousel .slick-vertical .slick-slide h3 {

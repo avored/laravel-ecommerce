@@ -11,6 +11,7 @@ use AvoRed\Framework\Database\Models\Property;
 use AvoRed\Framework\Database\Models\Attribute;
 use AvoRed\Framework\Database\Models\CategoryFilter;
 use AvoRed\Framework\Database\Models\MenuGroup;
+use AvoRed\Framework\Database\Models\Page;
 
 class AvoredDemoDataSchema extends Migration
 {
@@ -110,7 +111,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'avored-sofa-set',
             'sku' => 'avored-sofa-set',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text(),
+            'description' => $faker->text,
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -136,7 +137,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'avored-single-bed',
             'sku' => 'avored-single-bed',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text(),
+            'description' => $faker->text,
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -162,7 +163,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'avored-double-bed',
             'sku' => 'avored-double-bed',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text(),
+            'description' => $faker->text,
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -188,7 +189,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'avored-queen-bed',
             'sku' => 'avored-queen-bed',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text(),
+            'description' => $faker->text,
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -214,7 +215,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'avored-bunk-bed',
             'sku' => 'avored-bunk-bed',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text(),
+            'description' => $faker->text,
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -240,7 +241,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'php-sofa-set',
             'sku' => 'php-sofa-set',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text(),
+            'description' => $faker->text,
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -266,7 +267,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'laravel-sofa-set',
             'sku' => 'laravel-sofa-set',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text(),
+            'description' => $faker->text,
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -292,7 +293,7 @@ class AvoredDemoDataSchema extends Migration
                 'slug' => 'php-single-mattress',
                 'sku' => 'php-sofa-set',
                 'barcode' => '123456789',
-                'descriptiopn' => $faker->text(),
+                'description' => $faker->text,
                 'status' => 1,
                 'in_stock' => 1,
                 'track_stock' => 1,
@@ -318,7 +319,7 @@ class AvoredDemoDataSchema extends Migration
             'slug' => 'laravel-bedside-table',
             'sku' => 'laravel-bedside-table',
             'barcode' => '123456789',
-            'descriptiopn' => $faker->text(),
+            'description' => $faker->text,
             'status' => 1,
             'in_stock' => 1,
             'track_stock' => 1,
@@ -355,6 +356,12 @@ class AvoredDemoDataSchema extends Migration
             $mainAuthMenu->menus()->create(['name' => 'Checkout', 'url' => '/checkout']);
             $accountMenu = $mainAuthMenu->menus()->create(['name' => 'Account', 'url' => '/account']);
             $mainAuthMenu->menus()->create(['name' => 'Logout', 'url' => '/logout', 'parent_id' => $accountMenu->id]);
+
+            Page::create(
+                ['name' => 'HomePage',
+                'slug' => 'home-page',
+                'content' => '%%%avored-banner%%%']
+            );
     }
 
     /**

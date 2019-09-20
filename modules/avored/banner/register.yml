@@ -1,0 +1,5 @@
+name: AvoRed Banner
+identifier: avored-banner
+status: active
+description: AvoRed Banner Module
+namespace: AvoRed\Banner\

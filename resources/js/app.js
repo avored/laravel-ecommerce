@@ -41,6 +41,7 @@ Vue.component('a-carousel', () => import('ant-design-vue/lib/carousel'))
 Vue.component('address-save', () => import('../components/address/AddressSave.vue'))
 Vue.component('user-order-table', () => import('../components/account/order/OrderTable.vue'))
 
+Vue.component('account-save', () => import('../components/account/AccountSave.vue'))
 Vue.component('category-page', () => import('../components/CategoryPage.vue'))
 Vue.component('product-page', () => import('../components/ProductPage.vue'))
 Vue.component('checkout-page', () => import('../components/CheckoutPage.vue'))
