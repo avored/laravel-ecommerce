@@ -48645,7 +48645,7 @@ Vue.use(ant_design_vue_lib_select__WEBPACK_IMPORTED_MODULE_3___default.a);
 Vue.use(ant_design_vue_lib_breadcrumb__WEBPACK_IMPORTED_MODULE_4___default.a);
 Vue.use(ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_5___default.a);
 Vue.component('a-checkbox', function () {
-  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/checkbox */ "./node_modules/ant-design-vue/lib/checkbox/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/checkbox */ "./node_modules/ant-design-vue/lib/checkbox/index.js", 7));
 });
 Vue.component('a-switch', function () {
   return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/switch */ "./node_modules/ant-design-vue/lib/switch/index.js", 7));
@@ -48657,7 +48657,7 @@ Vue.component('a-input-number', function () {
   return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/input-number */ "./node_modules/ant-design-vue/lib/input-number/index.js", 7));
 });
 Vue.component('a-divider', function () {
-  return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/divider */ "./node_modules/ant-design-vue/lib/divider/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/divider */ "./node_modules/ant-design-vue/lib/divider/index.js", 7));
 });
 Vue.component('a-avatar', function () {
   return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/avatar */ "./node_modules/ant-design-vue/lib/avatar/index.js", 7));
@@ -48669,10 +48669,10 @@ Vue.component('a-avatar', function () {
   return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/avatar */ "./node_modules/ant-design-vue/lib/avatar/index.js", 7));
 });
 Vue.component('a-row', function () {
-  return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/row */ "./node_modules/ant-design-vue/lib/row/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/row */ "./node_modules/ant-design-vue/lib/row/index.js", 7));
 });
 Vue.component('a-col', function () {
-  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/col */ "./node_modules/ant-design-vue/lib/col/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/col */ "./node_modules/ant-design-vue/lib/col/index.js", 7));
 });
 Vue.component('a-card', function () {
   return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/card */ "./node_modules/ant-design-vue/lib/card/index.js", 7));
@@ -48692,38 +48692,44 @@ Vue.component('a-icon', function () {
 Vue.component('a-carousel', function () {
   return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/carousel */ "./node_modules/ant-design-vue/lib/carousel/index.js", 7));
 });
+Vue.component('a-upload', function () {
+  return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/upload */ "./node_modules/ant-design-vue/lib/upload/index.js", 7));
+});
 Vue.component('address-save', function () {
   return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.bind(null, /*! ../components/address/AddressSave.vue */ "./resources/components/address/AddressSave.vue"));
 });
 Vue.component('user-order-table', function () {
-  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../components/account/order/OrderTable.vue */ "./resources/components/account/order/OrderTable.vue"));
+  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../components/account/order/OrderTable.vue */ "./resources/components/account/order/OrderTable.vue"));
 });
 Vue.component('account-save', function () {
   return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../components/account/AccountSave.vue */ "./resources/components/account/AccountSave.vue"));
+});
+Vue.component('account-upload', function () {
+  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../components/account/AccountUpload.vue */ "./resources/components/account/AccountUpload.vue"));
 });
 Vue.component('category-page', function () {
   return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ../components/CategoryPage.vue */ "./resources/components/CategoryPage.vue"));
 });
 Vue.component('product-page', function () {
-  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../components/ProductPage.vue */ "./resources/components/ProductPage.vue"));
+  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../components/ProductPage.vue */ "./resources/components/ProductPage.vue"));
 });
 Vue.component('checkout-page', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(21)]).then(__webpack_require__.bind(null, /*! ../components/CheckoutPage.vue */ "./resources/components/CheckoutPage.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(5), __webpack_require__.e(22)]).then(__webpack_require__.bind(null, /*! ../components/CheckoutPage.vue */ "./resources/components/CheckoutPage.vue"));
 });
 Vue.component('cart-page', function () {
   return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../components/CartPage.vue */ "./resources/components/CartPage.vue"));
 });
 Vue.component('avored-layout', function () {
-  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../components/layout/Layout.vue */ "./resources/components/layout/Layout.vue"));
+  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../components/layout/Layout.vue */ "./resources/components/layout/Layout.vue"));
 });
 Vue.component('login-fields', function () {
-  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../components/auth/LoginFields.vue */ "./resources/components/auth/LoginFields.vue"));
+  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../components/auth/LoginFields.vue */ "./resources/components/auth/LoginFields.vue"));
 });
 Vue.component('register-fields', function () {
-  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../components/auth/RegisterFields.vue */ "./resources/components/auth/RegisterFields.vue"));
+  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../components/auth/RegisterFields.vue */ "./resources/components/auth/RegisterFields.vue"));
 });
 Vue.component('avored-nav', function () {
-  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../components/AvoRedNav.vue */ "./resources/components/AvoRedNav.vue"));
+  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.bind(null, /*! ../components/AvoRedNav.vue */ "./resources/components/AvoRedNav.vue"));
 });
 var app = new Vue({
   el: '#app'

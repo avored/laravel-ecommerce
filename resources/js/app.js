@@ -36,12 +36,14 @@ Vue.component('a-card-meta', () => import('ant-design-vue/lib/card'))
 Vue.component('a-button', () => import('ant-design-vue/lib/button'))
 Vue.component('a-icon', () => import('ant-design-vue/lib/icon'))
 Vue.component('a-carousel', () => import('ant-design-vue/lib/carousel'))
+Vue.component('a-upload', () => import('ant-design-vue/lib/upload'))
 
 
 Vue.component('address-save', () => import('../components/address/AddressSave.vue'))
 Vue.component('user-order-table', () => import('../components/account/order/OrderTable.vue'))
 
 Vue.component('account-save', () => import('../components/account/AccountSave.vue'))
+Vue.component('account-upload', () => import('../components/account/AccountUpload.vue'))
 Vue.component('category-page', () => import('../components/CategoryPage.vue'))
 Vue.component('product-page', () => import('../components/ProductPage.vue'))
 Vue.component('checkout-page', () => import('../components/CheckoutPage.vue'))

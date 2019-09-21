@@ -33,7 +33,9 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('', 'DashboardController@index')->name('dashboard');
         Route::get('edit', EditController::class)->name('edit');
+        Route::get('upload', UploadController::class)->name('upload');
         Route::post('save', SaveController::class)->name('save');
+        Route::post('upload-image', UploadImageController::class)->name('upload.image');
         Route::resource('address', 'AddressController');
         Route::resource('order', 'OrderController')->only(['index', 'show']);
     });
