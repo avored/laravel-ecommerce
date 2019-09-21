@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-<login-fields loginpost="{{ route('login') }}" inline-template>
+<register-fields inline-template>
     <div>
         <a-row type="flex" align="middle">
             <a-col :span="12">
@@ -128,5 +128,5 @@
             
         </a-row>
     </div>
-</login-fields>
+</register-fields>
 @endsection
