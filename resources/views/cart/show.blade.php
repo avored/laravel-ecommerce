@@ -51,6 +51,13 @@
                     ${{ Cart::total() }}
                 </a-col>
             </a-row>
+            <a-row  class="mt-1">
+                <a-col :push="20" :span="4">
+                    <a href="{{ route('checkout.show') }}">
+                        <a-button type="primary">{{ __('Checkout') }}</a-button>
+                    </a>
+                </a-col>
+            </a-row>
         </div>
     </cart-page>
 @endsection
