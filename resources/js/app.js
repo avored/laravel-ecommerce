@@ -39,6 +39,9 @@ Vue.component('a-carousel', () => import('ant-design-vue/lib/carousel'))
 Vue.component('a-upload', () => import('ant-design-vue/lib/upload'))
 
 
+Vue.component('product-card', () => import('../components/product/ProductCard.vue'))
+
+
 Vue.component('address-save', () => import('../components/address/AddressSave.vue'))
 Vue.component('user-order-table', () => import('../components/account/order/OrderTable.vue'))
 
