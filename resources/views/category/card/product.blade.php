@@ -1,6 +1,6 @@
-<?php 
+@php
 $product->main_image_url = $product->main_image_url;
-?>
+@endphp
 
 <product-card 
     :product="{{ $product }}"

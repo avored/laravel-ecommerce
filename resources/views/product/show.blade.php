@@ -55,6 +55,13 @@
       </div>
     </a-col>
   </a-row>
+  <a-row>
+    <a-col :span="24">
+      <a-review
+        save-review-url="{{ route('review.save') }}">
+      </a-review>
+    </a-col>
+  </a-row>
 </div>
 </product-page>
 
