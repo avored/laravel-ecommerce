@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use AvoRed\Framework\Database\Contracts\PageModelInterface;
-use Illuminate\Http\Request;
 use AvoRed\Framework\Database\Contracts\ProductModelInterface;
 
 class HomeController extends Controller
@@ -38,7 +37,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         $page = $this->pageRepository->findBySlug('home-page');
         $allProducts = $this->productRepository->getAllWithoutVaiation();
         if ($allProducts->count() <= 0) {

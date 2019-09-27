@@ -129,11 +129,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['saveReviewUrl'],
+  props: ['saveReviewUrl', 'productId'],
   data: function data() {
     return {
-      token: null
+      token: null,
+      star: 0
     };
   },
   methods: {},
@@ -205,16 +208,53 @@ var render = function() {
                   _c(
                     "a-form-item",
                     { attrs: { label: "Review" } },
-                    [_c("a-textarea", { attrs: { rows: 4, name: "review" } })],
+                    [_c("a-textarea", { attrs: { rows: 4, name: "content" } })],
                     1
                   ),
                   _vm._v(" "),
                   _c(
                     "a-form-item",
                     { attrs: { label: "Star" } },
-                    [_c("a-rate", { attrs: { name: "star" } })],
+                    [
+                      _c("a-rate", {
+                        attrs: { name: "star" },
+                        model: {
+                          value: _vm.star,
+                          callback: function($$v) {
+                            _vm.star = $$v
+                          },
+                          expression: "star"
+                        }
+                      })
+                    ],
                     1
                   ),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.star,
+                        expression: "star"
+                      }
+                    ],
+                    attrs: { type: "hidden", name: "star" },
+                    domProps: { value: _vm.star },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.star = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    attrs: { type: "hidden", name: "product_id" },
+                    domProps: { value: _vm.productId }
+                  }),
                   _vm._v(" "),
                   _c(
                     "a-form-item",
