@@ -1,26 +1,33 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[25],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/promotion/promotion-code/PromotionCodeTable.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/promotion/promotion-code/PromotionCodeTable.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/order/order/OrderTable.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/order/order/OrderTable.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
-
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 var columns = [{
-  title: 'Name',
-  dataIndex: 'name',
-  key: 'name',
+  title: 'Payment Options',
+  dataIndex: 'payment_option',
+  key: 'payment_option',
   sorter: true
 }, {
-  title: 'Code',
-  dataIndex: 'code',
-  key: 'code',
+  title: 'Shipping Options',
+  dataIndex: 'shipping_option',
+  key: 'shipping_option',
+  sorter: true
+}, {
+  title: 'Status',
+  dataIndex: 'order_status_id',
+  scopedSlots: {
+    customRender: 'order_status'
+  },
+  key: 'order_status_id',
   sorter: true
 }, {
   title: 'Action',
@@ -29,73 +36,113 @@ var columns = [{
     customRender: 'action'
   },
   sorter: false,
-  width: "10%"
+  width: "20%"
 }];
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['baseUrl', 'promotionCodes'],
+  props: ['baseUrl', 'orderStatus'],
   data: function data() {
     return {
-      columns: columns
+      columns: columns,
+      changeStatusId: null,
+      track_code: '',
+      track_code_modal_visibility: false,
+      change_status_modal_visibility: false,
+      currentRecord: {}
     };
   },
   methods: {
-    handleTableChange: function handleTableChange(pagination, filters, sorter) {
-      this.promotionCodes.sort(function (a, b) {
-        var columnKey = sorter.columnKey;
-        var order = sorter.order;
+    getShowUrl: function getShowUrl(record) {
+      return this.baseUrl + '/order/' + record.id;
+    },
+    changeStatusDropdown: function changeStatusDropdown(val) {
+      this.changeStatusId = val;
+    },
+    downloadOrderAction: function downloadOrderAction(record) {
+      return this.baseUrl + '/order-download-invoice/' + record.id;
+    },
+    getOrderStatus: function getOrderStatus(statusId) {
+      var index;
+      index = this.orderStatus.findIndex(function (ele) {
+        return ele.id === statusId;
+      });
 
-        if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(a[columnKey])) {
-          a[columnKey] = '';
+      if (index >= 0) {
+        return this.orderStatus[index].name;
+      }
+
+      return '';
+    },
+    emailInvoiceOrderAction: function emailInvoiceOrderAction(record) {
+      return this.baseUrl + '/order-email-invoice/' + record.id;
+    },
+    shippingLabelOrderAction: function shippingLabelOrderAction(record) {
+      return this.baseUrl + '/order-shipping-label/' + record.id;
+    },
+    orderShowAction: function orderShowAction(record) {
+      return this.baseUrl + '/order/' + record.id;
+    },
+    handleTrackCodeOk: function handleTrackCodeOk(e) {
+      var data = {
+        track_code: this.track_code
+      };
+      var url = this.baseUrl + '/save-order-track-code/' + this.currentRecord.id;
+      var app = this;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, data).then(function (response) {
+        if (response.data.success === true) {
+          app.$notification.success({
+            key: 'save.order.track.code.success',
+            message: response.data.message
+          });
         }
 
-        if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(b[columnKey])) {
-          b[columnKey] = '';
-        }
-
-        if (order === 'ascend') {
-          if (a[columnKey] < b[columnKey]) return -1;
-          if (a[columnKey] > b[columnKey]) return 1;
-        }
-
-        if (order === 'descend') {
-          if (a[columnKey] > b[columnKey]) return -1;
-          if (a[columnKey] < b[columnKey]) return 1;
-        }
-
-        return 0;
+        window.location.reload();
+        app.track_code_modal_visibility = false;
+      })["catch"](function (errors) {
+        app.$notification.error({
+          key: 'save.order.track.code.error',
+          message: errors.message
+        });
       });
     },
-    getEditUrl: function getEditUrl(record) {
-      return this.baseUrl + '/promotion-code-edit/' + record.id;
+    changeStatusMenuClick: function changeStatusMenuClick(record, e) {
+      e.preventDefault();
+      this.currentRecord = record;
+      this.change_status = record.order_Status_id;
+      this.change_status_modal_visibility = true;
     },
-    getDeleteUrl: function getDeleteUrl(record) {
-      return this.baseUrl + '/promotion-code/' + record.id;
+    addTrackingCodeMenuClick: function addTrackingCodeMenuClick(record, e) {
+      e.preventDefault();
+      this.currentRecord = record;
+      this.track_code = record.track_code;
+      this.track_code_modal_visibility = true;
     },
-    clickOnDeleteIcon: function clickOnDeleteIcon(record) {
-      var url = this.baseUrl + '/promotion-code/' + record.id;
+    handleTrackCodeCancel: function handleTrackCodeCancel() {
+      this.track_code_modal_visibility = false;
+    },
+    handleChangeStatusCancel: function handleChangeStatusCancel() {
+      this.change_status_modal_visibility = false;
+    },
+    handleChangeStatusOk: function handleChangeStatusOk() {
+      var data = {
+        order_status_id: this.changeStatusId
+      };
+      var url = this.baseUrl + '/order-change-status/' + this.currentRecord.id;
       var app = this;
-      this.$confirm({
-        title: 'Do you Want to delete ' + record.name + ' promotion-code?',
-        okType: 'danger',
-        onOk: function onOk() {
-          axios["delete"](url).then(function (response) {
-            if (response.data.success === true) {
-              app.$notification.error({
-                key: 'promotion-code.delete.success',
-                message: response.data.message
-              });
-            }
-
-            window.location.reload();
-          })["catch"](function (errors) {
-            app.$notification.error({
-              key: 'promotion-code.delete.error',
-              message: errors.message
-            });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, data).then(function (response) {
+        if (response.data.success === true) {
+          app.$notification.success({
+            key: 'order.delete.success',
+            message: response.data.message
           });
-        },
-        onCancel: function onCancel() {// Do nothing
         }
+
+        window.location.reload();
+      })["catch"](function (errors) {
+        app.$notification.error({
+          key: 'order.delete.error',
+          message: errors.message
+        });
       });
     }
   }
@@ -103,16 +150,16 @@ var columns = [{
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/promotion/promotion-code/PromotionCodeTable.vue":
-/*!******************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/promotion/promotion-code/PromotionCodeTable.vue ***!
-  \******************************************************************************************************/
+/***/ "./vendor/avored/framework/resources/components/order/order/OrderTable.vue":
+/*!*********************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/order/order/OrderTable.vue ***!
+  \*********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _PromotionCodeTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PromotionCodeTable.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/promotion/promotion-code/PromotionCodeTable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _OrderTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OrderTable.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/order/order/OrderTable.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
 
@@ -122,7 +169,7 @@ var render, staticRenderFns
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _PromotionCodeTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  _OrderTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
   render,
   staticRenderFns,
   false,
@@ -134,22 +181,22 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vendor/avored/framework/resources/components/promotion/promotion-code/PromotionCodeTable.vue"
+component.options.__file = "vendor/avored/framework/resources/components/order/order/OrderTable.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/promotion/promotion-code/PromotionCodeTable.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/promotion/promotion-code/PromotionCodeTable.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************/
+/***/ "./vendor/avored/framework/resources/components/order/order/OrderTable.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/order/order/OrderTable.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PromotionCodeTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PromotionCodeTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/promotion/promotion-code/PromotionCodeTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PromotionCodeTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./OrderTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/order/order/OrderTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ })
 

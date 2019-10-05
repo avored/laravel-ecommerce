@@ -1,5 +1,30 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[48],{
 
+/***/ "./node_modules/ant-design-vue/lib/col/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/col/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _grid = __webpack_require__(/*! ../grid */ "./node_modules/ant-design-vue/lib/grid/index.js");
+
+/* istanbul ignore next */
+_grid.Col.install = function (Vue) {
+  Vue.component(_grid.Col.name, _grid.Col);
+};
+
+exports['default'] = _grid.Col;
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/grid/index.js":
 /*!*******************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/grid/index.js ***!
@@ -27,31 +52,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 exports.Row = _Row2['default'];
 exports.Col = _Col2['default'];
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/row/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/row/index.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _grid = __webpack_require__(/*! ../grid */ "./node_modules/ant-design-vue/lib/grid/index.js");
-
-/* istanbul ignore next */
-_grid.Row.install = function (Vue) {
-  Vue.component(_grid.Row.name, _grid.Row);
-};
-
-exports['default'] = _grid.Row;
 
 /***/ })
 
