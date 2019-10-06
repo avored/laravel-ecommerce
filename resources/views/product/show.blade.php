@@ -59,6 +59,7 @@
     <a-col :span="24">
       <a-review
         product-id="{{ $product->id }}"
+        :reviews="{{ $reviews }}"
         save-review-url="{{ route('review.save') }}">
       </a-review>
     </a-col>

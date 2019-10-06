@@ -1,0 +1,5 @@
+name: AvoRed Review
+identifier: avored-review
+status: active
+description: AvoRed Review Module
+namespace: AvoRed\Review\

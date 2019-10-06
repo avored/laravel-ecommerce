@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use AvoRed\Framework\Database\Contracts\ProductModelInterface;
+use AvoRed\Review\Database\Contracts\ProductReviewModelInterface;
 
 class ProductController extends Controller
 {
@@ -11,14 +12,20 @@ class ProductController extends Controller
      * @var \AvoRed\Framework\Database\Repository\ProductRepository
      */
     protected $productRepository;
+    /**
+     * @var \AvoRed\Review\Database\Repository\ProductReviewRepository
+     */
+    protected $productReviewRepository;
 
     /**
      * home controller construct.
      */
     public function __construct(
-        ProductModelInterface $productRepository
+        ProductModelInterface $productRepository,
+        ProductReviewModelInterface $productReviewRepository
     ) {
         $this->productRepository = $productRepository;
+        $this->productReviewRepository = $productReviewRepository;
     }
 
     /**
@@ -28,9 +35,10 @@ class ProductController extends Controller
     public function show($slug)
     {
         $product = $this->productRepository->findBySlug($slug);
+        $reviews = $this->productReviewRepository->getAllReviewsByProductId($product->id);
         $product->images;
 
         return view('product.show')
-            ->with(compact('product'));
+            ->with(compact('product', 'reviews'));
     }
 }

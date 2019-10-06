@@ -143,11 +143,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['saveReviewUrl', 'productId', 'reviews'],
   data: function data() {
@@ -188,64 +183,6 @@ var render = function() {
         "a-tabs",
         { attrs: { "default-active-key": "a.review.list" } },
         [
-          _c(
-            "a-tab-pane",
-            { key: "a.review.list", attrs: { tab: "Reviews" } },
-            _vm._l(_vm.reviews, function(review, index) {
-              return _c("div", { key: index }, [
-                _c(
-                  "div",
-                  { staticClass: "review" },
-                  [
-                    _c(
-                      "a-row",
-                      { attrs: { gutter: 30 } },
-                      [
-                        _c(
-                          "a-col",
-                          { attrs: { span: 6 } },
-                          [
-                            _c(
-                              "p",
-                              [
-                                _vm._v(
-                                  "\n                  " +
-                                    _vm._s(review.name) +
-                                    "\n                  "
-                                ),
-                                _c("a-avatar", {
-                                  attrs: { size: 32, icon: "user" }
-                                })
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c("a-rate", {
-                              attrs: {
-                                "default-value": review.star,
-                                name: "star"
-                              }
-                            })
-                          ],
-                          1
-                        ),
-                        _vm._v(" "),
-                        _c("a-col", { attrs: { span: 18 } }, [
-                          _c("p", [_vm._v(_vm._s(review.content))])
-                        ])
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("a-divider")
-                  ],
-                  1
-                )
-              ])
-            }),
-            0
-          ),
-          _vm._v(" "),
           _c(
             "a-tab-pane",
             {
@@ -346,6 +283,57 @@ var render = function() {
                 1
               )
             ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a-tab-pane",
+            { key: "a.review.list", attrs: { tab: "Reviews" } },
+            _vm._l(_vm.reviews, function(review, index) {
+              return _c("div", { key: index }, [
+                _c(
+                  "div",
+                  { staticClass: "review" },
+                  [
+                    _c(
+                      "a-row",
+                      { attrs: { gutter: 30 } },
+                      [
+                        _c(
+                          "a-col",
+                          { attrs: { span: 4 } },
+                          [
+                            _c("a-avatar", {
+                              attrs: { size: 64, icon: "user" }
+                            })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a-col",
+                          { attrs: { span: 20 } },
+                          [
+                            _c("p", [_vm._v(_vm._s(review.name))]),
+                            _vm._v(" "),
+                            _c("a-rate", {
+                              attrs: {
+                                disabled: "",
+                                "default-value": "review.star",
+                                name: "star"
+                              }
+                            })
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ])
+            }),
+            0
           )
         ],
         1
