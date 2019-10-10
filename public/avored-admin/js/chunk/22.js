@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[22],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/cms/page/PageTable.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/cms/page/PageTable.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/order/order-status/OrderStatusTable.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/order/order-status/OrderStatusTable.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -18,16 +18,6 @@ var columns = [{
   key: 'name',
   sorter: true
 }, {
-  title: 'Slug',
-  dataIndex: 'slug',
-  key: 'slug',
-  sorter: true
-}, {
-  title: 'Meta Title',
-  dataIndex: 'meta_title',
-  key: 'meta_title',
-  sorter: true
-}, {
   title: 'Action',
   key: 'action',
   scopedSlots: {
@@ -37,7 +27,7 @@ var columns = [{
   width: "10%"
 }];
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['baseUrl', 'pages'],
+  props: ['baseUrl', 'orderStatuses'],
   data: function data() {
     return {
       columns: columns
@@ -45,7 +35,7 @@ var columns = [{
   },
   methods: {
     handleTableChange: function handleTableChange(pagination, filters, sorter) {
-      this.pages.sort(function (a, b) {
+      this.orderStatuses.sort(function (a, b) {
         var columnKey = sorter.columnKey;
         var order = sorter.order;
 
@@ -71,22 +61,22 @@ var columns = [{
       });
     },
     getEditUrl: function getEditUrl(record) {
-      return this.baseUrl + '/page/' + record.id + '/edit';
+      return this.baseUrl + '/order-status/' + record.id + '/edit';
     },
     getDeleteUrl: function getDeleteUrl(record) {
-      return this.baseUrl + '/page/' + record.id;
+      return this.baseUrl + '/order-status/' + record.id;
     },
-    deletePage: function deletePage(record) {
-      var url = this.baseUrl + '/page/' + record.id;
+    deleteOrderStatus: function deleteOrderStatus(record) {
+      var url = this.baseUrl + '/order-status/' + record.id;
       var app = this;
       this.$confirm({
-        title: 'Do you Want to delete ' + record.name + ' page?',
+        title: 'Do you Want to delete ' + record.name + ' order-status?',
         okType: 'danger',
         onOk: function onOk() {
           axios["delete"](url).then(function (response) {
             if (response.data.success === true) {
               app.$notification.error({
-                key: 'page.delete.success',
+                key: 'order-status.delete.success',
                 message: response.data.message
               });
             }
@@ -94,7 +84,7 @@ var columns = [{
             window.location.reload();
           })["catch"](function (errors) {
             app.$notification.error({
-              key: 'page.delete.error',
+              key: 'order-status.delete.error',
               message: errors.message
             });
           });
@@ -108,16 +98,16 @@ var columns = [{
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/cms/page/PageTable.vue":
-/*!*****************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/cms/page/PageTable.vue ***!
-  \*****************************************************************************/
+/***/ "./vendor/avored/framework/resources/components/order/order-status/OrderStatusTable.vue":
+/*!**********************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/order/order-status/OrderStatusTable.vue ***!
+  \**********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _PageTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PageTable.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/cms/page/PageTable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _OrderStatusTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OrderStatusTable.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/order/order-status/OrderStatusTable.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
 
@@ -127,7 +117,7 @@ var render, staticRenderFns
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _PageTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  _OrderStatusTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
   render,
   staticRenderFns,
   false,
@@ -139,22 +129,22 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vendor/avored/framework/resources/components/cms/page/PageTable.vue"
+component.options.__file = "vendor/avored/framework/resources/components/order/order-status/OrderStatusTable.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/cms/page/PageTable.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/cms/page/PageTable.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************/
+/***/ "./vendor/avored/framework/resources/components/order/order-status/OrderStatusTable.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/order/order-status/OrderStatusTable.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PageTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PageTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/cms/page/PageTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PageTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderStatusTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./OrderStatusTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/order/order-status/OrderStatusTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderStatusTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ })
 
