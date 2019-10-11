@@ -63,7 +63,6 @@
                                 @endif
                                 label="Email Address">
                             <a-input
-                                :auto-focus="true"
                                 name="email"
                                 v-decorator="[
                                 'email',
