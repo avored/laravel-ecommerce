@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ "./node_modules/ant-design-vue/lib/carousel/index.js":
+/***/ "./node_modules/ant-design-vue/lib/progress/index.js":
 /*!***********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/carousel/index.js ***!
+  !*** ./node_modules/ant-design-vue/lib/progress/index.js ***!
   \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -13,199 +13,253 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CarouselProps = exports.CarouselEffect = undefined;
+exports.ProgressProps = undefined;
 
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+var _progress = __webpack_require__(/*! ./progress */ "./node_modules/ant-design-vue/lib/progress/progress.js");
 
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+Object.defineProperty(exports, 'ProgressProps', {
+  enumerable: true,
+  get: function get() {
+    return _progress.ProgressProps;
+  }
+});
+
+var _progress2 = _interopRequireDefault(_progress);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/* istanbul ignore next */
+_progress2['default'].install = function (Vue) {
+  Vue.component(_progress2['default'].name, _progress2['default']);
+};
+
+exports['default'] = _progress2['default'];
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/progress/progress.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/progress/progress.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ProgressProps = exports.ProgressSize = exports.ProgressType = undefined;
 
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
-var _debounce = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
-
-var _debounce2 = _interopRequireDefault(_debounce);
-
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _vcProgress = __webpack_require__(/*! ../vc-progress */ "./node_modules/ant-design-vue/lib/vc-progress/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-// matchMedia polyfill for
-// https://github.com/WickyNilliams/enquire.js/issues/82
-if (typeof window !== 'undefined') {
-  var matchMediaPolyfill = function matchMediaPolyfill(mediaQuery) {
-    return {
-      media: mediaQuery,
-      matches: false,
-      addListener: function addListener() {},
-      removeListener: function removeListener() {}
-    };
-  };
-  window.matchMedia = window.matchMedia || matchMediaPolyfill;
+function addUnit(num, unit) {
+  var unitType = unit || 'px';
+  return num ? num + unitType : null;
 }
-// Use require over import (will be lifted up)
-// make sure matchMedia polyfill run before require('vc-slick')
-// Fix https://github.com/ant-design/ant-design/issues/6560
-// Fix https://github.com/ant-design/ant-design/issues/3308
-var SlickCarousel = __webpack_require__(/*! ../vc-slick/src */ "./node_modules/ant-design-vue/lib/vc-slick/src/index.js")['default'];
-
-var CarouselEffect = exports.CarouselEffect = _vueTypes2['default'].oneOf(['scrollx', 'fade']);
-// Carousel
-var CarouselProps = exports.CarouselProps = {
-  effect: CarouselEffect,
-  dots: _vueTypes2['default'].bool,
-  vertical: _vueTypes2['default'].bool,
-  autoplay: _vueTypes2['default'].bool,
-  easing: _vueTypes2['default'].string,
-  beforeChange: _vueTypes2['default'].func,
-  afterChange: _vueTypes2['default'].func,
-  // style: PropTypes.React.CSSProperties,
-  prefixCls: _vueTypes2['default'].string,
-  accessibility: _vueTypes2['default'].bool,
-  nextArrow: _vueTypes2['default'].any,
-  prevArrow: _vueTypes2['default'].any,
-  pauseOnHover: _vueTypes2['default'].bool,
-  // className: PropTypes.string,
-  adaptiveHeight: _vueTypes2['default'].bool,
-  arrows: _vueTypes2['default'].bool,
-  autoplaySpeed: _vueTypes2['default'].number,
-  centerMode: _vueTypes2['default'].bool,
-  centerPadding: _vueTypes2['default'].string,
-  cssEase: _vueTypes2['default'].string,
-  dotsClass: _vueTypes2['default'].string,
-  draggable: _vueTypes2['default'].bool,
-  fade: _vueTypes2['default'].bool,
-  focusOnSelect: _vueTypes2['default'].bool,
-  infinite: _vueTypes2['default'].bool,
-  initialSlide: _vueTypes2['default'].number,
-  lazyLoad: _vueTypes2['default'].bool,
-  rtl: _vueTypes2['default'].bool,
-  slide: _vueTypes2['default'].string,
-  slidesToShow: _vueTypes2['default'].number,
-  slidesToScroll: _vueTypes2['default'].number,
-  speed: _vueTypes2['default'].number,
-  swipe: _vueTypes2['default'].bool,
-  swipeToSlide: _vueTypes2['default'].bool,
-  touchMove: _vueTypes2['default'].bool,
-  touchThreshold: _vueTypes2['default'].number,
-  variableWidth: _vueTypes2['default'].bool,
-  useCSS: _vueTypes2['default'].bool,
-  slickGoTo: _vueTypes2['default'].number
+var statusColorMap = {
+  normal: '#108ee9',
+  exception: '#ff5500',
+  success: '#87d068'
 };
 
-var Carousel = {
-  name: 'ACarousel',
-  props: (0, _propsUtil.initDefaultProps)(CarouselProps, {
-    dots: true,
-    arrows: false,
-    prefixCls: 'ant-carousel',
-    draggable: false
+var ProgressType = exports.ProgressType = _vueTypes2['default'].oneOf(['line', 'circle', 'dashboard']);
+var ProgressSize = exports.ProgressSize = _vueTypes2['default'].oneOf(['default', 'small']);
+
+var ProgressProps = exports.ProgressProps = {
+  prefixCls: _vueTypes2['default'].string,
+  type: ProgressType,
+  percent: _vueTypes2['default'].number,
+  successPercent: _vueTypes2['default'].number,
+  format: _vueTypes2['default'].func,
+  status: _vueTypes2['default'].oneOf(['normal', 'success', 'active', 'exception']),
+  showInfo: _vueTypes2['default'].bool,
+  strokeWidth: _vueTypes2['default'].number,
+  strokeLinecap: _vueTypes2['default'].oneOf(['round', 'square']),
+  strokeColor: _vueTypes2['default'].string,
+  trailColor: _vueTypes2['default'].string,
+  width: _vueTypes2['default'].number,
+  gapDegree: _vueTypes2['default'].number,
+  gapPosition: _vueTypes2['default'].oneOf(['top', 'bottom', 'left', 'right']),
+  size: ProgressSize
+};
+
+var validProgress = function validProgress(progress) {
+  if (!progress || progress < 0) {
+    return 0;
+  } else if (progress > 100) {
+    return 100;
+  }
+  return progress;
+};
+
+exports['default'] = {
+  name: 'AProgress',
+  props: (0, _propsUtil.initDefaultProps)(ProgressProps, {
+    type: 'line',
+    percent: 0,
+    showInfo: true,
+    trailColor: '#f3f3f3',
+    prefixCls: 'ant-progress',
+    size: 'default'
   }),
 
-  // innerSlider: any;
-
-  // private slick: any;
-
-  beforeMount: function beforeMount() {
-    this.onWindowResized = (0, _debounce2['default'])(this.onWindowResized, 500, {
-      leading: false
-    });
-  },
-  mounted: function mounted() {
-    var autoplay = this.autoplay;
-
-    if (autoplay) {
-      window.addEventListener('resize', this.onWindowResized);
-    }
-    // https://github.com/ant-design/ant-design/issues/7191
-    this.innerSlider = this.$refs.slick && this.$refs.slick.innerSlider;
-  },
-  beforeDestroy: function beforeDestroy() {
-    var autoplay = this.autoplay;
-
-    if (autoplay) {
-      window.removeEventListener('resize', this.onWindowResized);
-      this.onWindowResized.cancel();
-    }
-  },
-
-  methods: {
-    onWindowResized: function onWindowResized() {
-      // Fix https://github.com/ant-design/ant-design/issues/2550
-      var autoplay = this.autoplay;
-
-      if (autoplay && this.$refs.slick && this.$refs.slick.innerSlider && this.$refs.slick.innerSlider.autoPlay) {
-        this.$refs.slick.innerSlider.autoPlay();
-      }
-    },
-    next: function next() {
-      this.$refs.slick.slickNext();
-    },
-    prev: function prev() {
-      this.$refs.slick.slickPrev();
-    },
-    goTo: function goTo(slide) {
-      var dontAnimate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-      this.$refs.slick.slickGoTo(slide, dontAnimate);
-    }
-  },
-
   render: function render() {
+    var _classNames;
+
     var h = arguments[0];
 
-    var props = (0, _extends3['default'])({}, this.$props);
-    var $slots = this.$slots,
-        $listeners = this.$listeners;
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var prefixCls = props.prefixCls,
+        _props$percent = props.percent,
+        percent = _props$percent === undefined ? 0 : _props$percent,
+        status = props.status,
+        format = props.format,
+        trailColor = props.trailColor,
+        size = props.size,
+        successPercent = props.successPercent,
+        type = props.type,
+        strokeWidth = props.strokeWidth,
+        width = props.width,
+        showInfo = props.showInfo,
+        _props$gapDegree = props.gapDegree,
+        gapDegree = _props$gapDegree === undefined ? 0 : _props$gapDegree,
+        gapPosition = props.gapPosition,
+        strokeColor = props.strokeColor,
+        _props$strokeLinecap = props.strokeLinecap,
+        strokeLinecap = _props$strokeLinecap === undefined ? 'round' : _props$strokeLinecap,
+        restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls', 'percent', 'status', 'format', 'trailColor', 'size', 'successPercent', 'type', 'strokeWidth', 'width', 'showInfo', 'gapDegree', 'gapPosition', 'strokeColor', 'strokeLinecap']);
 
-
-    if (props.effect === 'fade') {
-      props.fade = true;
-    }
-
-    var className = props.prefixCls;
-    if (props.vertical) {
-      className = className + ' ' + className + '-vertical';
-    }
-    var SlickCarouselProps = {
-      props: (0, _extends3['default'])({}, props, {
-        nextArrow: (0, _propsUtil.getComponentFromProp)(this, 'nextArrow'),
-        prevArrow: (0, _propsUtil.getComponentFromProp)(this, 'prevArrow')
-      }),
-      on: $listeners,
-      scopedSlots: this.$scopedSlots
+    var progressStatus = parseInt(successPercent ? successPercent.toString() : percent.toString(), 10) >= 100 && !('status' in props) ? 'success' : status || 'normal';
+    var progressInfo = void 0;
+    var progress = void 0;
+    var textFormatter = format || function (percentNumber) {
+      return percentNumber + '%';
     };
 
+    if (showInfo) {
+      var text = void 0;
+      var iconType = type === 'circle' || type === 'dashboard' ? '' : '-circle';
+      if (format || progressStatus !== 'exception' && progressStatus !== 'success') {
+        text = textFormatter(validProgress(percent), validProgress(successPercent));
+      } else if (progressStatus === 'exception') {
+        text = h(_icon2['default'], {
+          attrs: { type: 'close' + iconType, theme: type === 'line' ? 'filled' : 'outlined' }
+        });
+      } else if (progressStatus === 'success') {
+        text = h(_icon2['default'], {
+          attrs: { type: 'check' + iconType, theme: type === 'line' ? 'filled' : 'outlined' }
+        });
+      }
+      progressInfo = h(
+        'span',
+        { 'class': prefixCls + '-text', attrs: { title: typeof text === 'string' ? text : undefined }
+        },
+        [text]
+      );
+    }
+
+    if (type === 'line') {
+      var percentStyle = {
+        width: validProgress(percent) + '%',
+        height: (strokeWidth || (size === 'small' ? 6 : 8)) + 'px',
+        background: strokeColor,
+        borderRadius: strokeLinecap === 'square' ? 0 : '100px'
+      };
+      var successPercentStyle = {
+        width: validProgress(successPercent) + '%',
+        height: (strokeWidth || (size === 'small' ? 6 : 8)) + 'px',
+        borderRadius: strokeLinecap === 'square' ? 0 : '100px'
+      };
+      var successSegment = successPercent !== undefined ? h('div', { 'class': prefixCls + '-success-bg', style: successPercentStyle }) : null;
+      progress = h('div', [h(
+        'div',
+        { 'class': prefixCls + '-outer' },
+        [h(
+          'div',
+          { 'class': prefixCls + '-inner' },
+          [h('div', { 'class': prefixCls + '-bg', style: percentStyle }), successSegment]
+        )]
+      ), progressInfo]);
+    } else if (type === 'circle' || type === 'dashboard') {
+      var circleSize = width || 120;
+      var circleStyle = {
+        width: addUnit(circleSize),
+        height: addUnit(circleSize),
+        fontSize: addUnit(circleSize * 0.15 + 6)
+      };
+      var circleWidth = strokeWidth || 6;
+      var gapPos = gapPosition || type === 'dashboard' && 'bottom' || 'top';
+      var gapDeg = gapDegree || type === 'dashboard' && 75;
+      progress = h(
+        'div',
+        { 'class': prefixCls + '-inner', style: circleStyle },
+        [h(_vcProgress.Circle, {
+          attrs: {
+            percent: validProgress(percent),
+            strokeWidth: circleWidth,
+            trailWidth: circleWidth,
+            strokeColor: strokeColor || statusColorMap[progressStatus],
+            strokeLinecap: strokeLinecap,
+            trailColor: trailColor,
+            prefixCls: prefixCls,
+            gapDegree: gapDeg || 0,
+            gapPosition: gapPos
+          }
+        }), progressInfo]
+      );
+    }
+
+    var classString = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-' + (type === 'dashboard' && 'circle' || type), true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-status-' + progressStatus, true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-show-info', showInfo), (0, _defineProperty3['default'])(_classNames, prefixCls + '-' + size, size), _classNames));
+
+    var progressProps = {
+      props: (0, _extends3['default'])({}, restProps),
+      on: this.$listeners,
+      'class': classString
+    };
     return h(
       'div',
-      { 'class': className },
-      [h(
-        SlickCarousel,
-        (0, _babelHelperVueJsxMergeProps2['default'])([{ ref: 'slick' }, SlickCarouselProps]),
-        [(0, _propsUtil.filterEmpty)($slots['default'])]
-      )]
+      progressProps,
+      [progress]
     );
   }
 };
 
-/* istanbul ignore next */
-Carousel.install = function (Vue) {
-  Vue.component(Carousel.name, Carousel);
-};
-
-exports['default'] = Carousel;
-
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-slick/src/arrows.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-slick/src/arrows.js ***!
-  \****************************************************************/
+/***/ "./node_modules/ant-design-vue/lib/upload/Dragger.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/upload/Dragger.js ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -215,170 +269,49 @@ exports['default'] = Carousel;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.NextArrow = exports.PrevArrow = undefined;
-
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _vnode = __webpack_require__(/*! ../../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
-var _innerSliderUtils = __webpack_require__(/*! ./utils/innerSliderUtils */ "./node_modules/ant-design-vue/lib/vc-slick/src/utils/innerSliderUtils.js");
+var _Upload = __webpack_require__(/*! ./Upload */ "./node_modules/ant-design-vue/lib/upload/Upload.js");
+
+var _Upload2 = _interopRequireDefault(_Upload);
+
+var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/upload/interface.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function noop() {}
-
-var PrevArrow = exports.PrevArrow = {
-  functional: true,
-  clickHandler: function clickHandler(options, handle, e) {
-    if (e) {
-      e.preventDefault();
-    }
-    handle(options, e);
-  },
-  render: function render(createElement, context) {
+exports['default'] = {
+  name: 'AUploadDragger',
+  props: _interface.UploadProps,
+  render: function render() {
     var h = arguments[0];
-    var props = context.props;
-    var clickHandler = props.clickHandler,
-        infinite = props.infinite,
-        currentSlide = props.currentSlide,
-        slideCount = props.slideCount,
-        slidesToShow = props.slidesToShow;
 
-    var prevClasses = { 'slick-arrow': true, 'slick-prev': true };
-    var prevHandler = function prevHandler(e) {
-      if (e) {
-        e.preventDefault();
-      }
-      clickHandler({ message: 'previous' });
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var draggerProps = {
+      props: (0, _extends3['default'])({}, props, {
+        type: 'drag'
+      }),
+      on: this.$listeners,
+      style: { height: this.height }
     };
-
-    if (!infinite && (currentSlide === 0 || slideCount <= slidesToShow)) {
-      prevClasses['slick-disabled'] = true;
-      prevHandler = noop;
-    }
-
-    var prevArrowProps = {
-      key: '0',
-      domProps: {
-        'data-role': 'none'
-      },
-      'class': prevClasses,
-      style: { display: 'block' },
-      on: {
-        click: prevHandler
-      }
-    };
-    var customProps = {
-      currentSlide: currentSlide,
-      slideCount: slideCount
-    };
-    var prevArrow = void 0;
-
-    if (props.prevArrow) {
-      prevArrow = (0, _vnode.cloneElement)(props.prevArrow((0, _extends3['default'])({}, prevArrowProps, {
-        props: customProps
-      })), {
-        key: '0',
-        'class': prevClasses,
-        style: { display: 'block' },
-        on: {
-          click: prevHandler
-        }
-      });
-    } else {
-      prevArrow = h(
-        'button',
-        (0, _babelHelperVueJsxMergeProps2['default'])([{ key: '0', attrs: { type: 'button' }
-        }, prevArrowProps]),
-        [' ', 'Previous']
-      );
-    }
-
-    return prevArrow;
-  }
-};
-
-var NextArrow = exports.NextArrow = {
-  functional: true,
-  clickHandler: function clickHandler(options, handle, e) {
-    if (e) {
-      e.preventDefault();
-    }
-    handle(options, e);
-  },
-  render: function render(createElement, context) {
-    var h = arguments[0];
-    var props = context.props;
-    var clickHandler = props.clickHandler,
-        currentSlide = props.currentSlide,
-        slideCount = props.slideCount;
-
-
-    var nextClasses = { 'slick-arrow': true, 'slick-next': true };
-    var nextHandler = function nextHandler(e) {
-      if (e) {
-        e.preventDefault();
-      }
-      clickHandler({ message: 'next' });
-    };
-    if (!(0, _innerSliderUtils.canGoNext)(props)) {
-      nextClasses['slick-disabled'] = true;
-      nextHandler = noop;
-    }
-
-    var nextArrowProps = {
-      key: '1',
-      domProps: {
-        'data-role': 'none'
-      },
-      'class': nextClasses,
-      style: { display: 'block' },
-      on: {
-        click: nextHandler
-      }
-    };
-    var customProps = {
-      currentSlide: currentSlide,
-      slideCount: slideCount
-    };
-    var nextArrow = void 0;
-
-    if (props.nextArrow) {
-      nextArrow = (0, _vnode.cloneElement)(props.nextArrow((0, _extends3['default'])({}, nextArrowProps, {
-        props: customProps
-      })), {
-        key: '1',
-        'class': nextClasses,
-        style: { display: 'block' },
-        on: {
-          click: nextHandler
-        }
-      });
-    } else {
-      nextArrow = h(
-        'button',
-        (0, _babelHelperVueJsxMergeProps2['default'])([{ key: '1', attrs: { type: 'button' }
-        }, nextArrowProps]),
-        [' ', 'Next']
-      );
-    }
-
-    return nextArrow;
+    return h(
+      _Upload2['default'],
+      draggerProps,
+      [this.$slots['default']]
+    );
   }
 };
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-slick/src/default-props.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-slick/src/default-props.js ***!
-  \***********************************************************************/
+/***/ "./node_modules/ant-design-vue/lib/upload/Upload.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/upload/Upload.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -388,73 +321,358 @@ var NextArrow = exports.NextArrow = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.UploadProps = undefined;
 
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _uniqBy = __webpack_require__(/*! lodash/uniqBy */ "./node_modules/lodash/uniqBy.js");
+
+var _uniqBy2 = _interopRequireDefault(_uniqBy);
+
+var _vcUpload = __webpack_require__(/*! ../vc-upload */ "./node_modules/ant-design-vue/lib/vc-upload/index.js");
+
+var _vcUpload2 = _interopRequireDefault(_vcUpload);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver */ "./node_modules/ant-design-vue/lib/locale-provider/LocaleReceiver.js");
+
+var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
+
+var _default = __webpack_require__(/*! ../locale-provider/default */ "./node_modules/ant-design-vue/lib/locale-provider/default.js");
+
+var _default2 = _interopRequireDefault(_default);
+
+var _Dragger = __webpack_require__(/*! ./Dragger */ "./node_modules/ant-design-vue/lib/upload/Dragger.js");
+
+var _Dragger2 = _interopRequireDefault(_Dragger);
+
+var _UploadList = __webpack_require__(/*! ./UploadList */ "./node_modules/ant-design-vue/lib/upload/UploadList.js");
+
+var _UploadList2 = _interopRequireDefault(_UploadList);
+
+var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/upload/interface.js");
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/upload/utils.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var defaultProps = {
-  accessibility: _vueTypes2['default'].bool.def(true),
-  // 自定义高度
-  adaptiveHeight: _vueTypes2['default'].bool.def(false),
-  afterChange: _vueTypes2['default'].any.def(null),
-  arrows: _vueTypes2['default'].bool.def(true),
-  autoplay: _vueTypes2['default'].bool.def(false),
-  autoplaySpeed: _vueTypes2['default'].number.def(3000),
-  beforeChange: _vueTypes2['default'].any.def(null),
-  centerMode: _vueTypes2['default'].bool.def(false),
-  centerPadding: _vueTypes2['default'].string.def('50px'),
-  cssEase: _vueTypes2['default'].string.def('ease'),
-  dots: _vueTypes2['default'].bool.def(false),
-  dotsClass: _vueTypes2['default'].string.def('slick-dots'),
-  draggable: _vueTypes2['default'].bool.def(true),
-  unslick: _vueTypes2['default'].bool.def(false),
-  easing: _vueTypes2['default'].string.def('linear'),
-  edgeFriction: _vueTypes2['default'].number.def(0.35),
-  fade: _vueTypes2['default'].bool.def(false),
-  focusOnSelect: _vueTypes2['default'].bool.def(false),
-  infinite: _vueTypes2['default'].bool.def(true),
-  initialSlide: _vueTypes2['default'].number.def(0),
-  lazyLoad: _vueTypes2['default'].any.def(null),
-  verticalSwiping: _vueTypes2['default'].bool.def(false),
-  asNavFor: _vueTypes2['default'].any.def(null),
-  // 圆点hover是否暂停
-  pauseOnDotsHover: _vueTypes2['default'].bool.def(false),
-  // focus是否暂停
-  pauseOnFocus: _vueTypes2['default'].bool.def(false),
-  // hover是否暂停
-  pauseOnHover: _vueTypes2['default'].bool.def(true),
-  responsive: _vueTypes2['default'].any.def(null),
-  rows: _vueTypes2['default'].number.def(1),
-  rtl: _vueTypes2['default'].bool.def(false),
-  slide: _vueTypes2['default'].string.def('div'),
-  slidesPerRow: _vueTypes2['default'].number.def(1),
-  slidesToScroll: _vueTypes2['default'].number.def(1),
-  slidesToShow: _vueTypes2['default'].number.def(1),
-  speed: _vueTypes2['default'].number.def(500),
-  swipe: _vueTypes2['default'].bool.def(true),
-  swipeEvent: _vueTypes2['default'].any.def(null),
-  swipeToSlide: _vueTypes2['default'].bool.def(false),
-  touchMove: _vueTypes2['default'].bool.def(true),
-  touchThreshold: _vueTypes2['default'].number.def(5),
-  useCSS: _vueTypes2['default'].bool.def(true),
-  useTransform: _vueTypes2['default'].bool.def(true),
-  variableWidth: _vueTypes2['default'].bool.def(false),
-  vertical: _vueTypes2['default'].bool.def(false),
-  waitForAnimate: _vueTypes2['default'].bool.def(true),
-  children: _vueTypes2['default'].array,
-  __propsSymbol__: _vueTypes2['default'].any
-};
+exports.UploadProps = _interface.UploadProps;
+exports['default'] = {
+  name: 'AUpload',
+  mixins: [_BaseMixin2['default']],
+  inheritAttrs: false,
+  Dragger: _Dragger2['default'],
+  props: (0, _propsUtil.initDefaultProps)(_interface.UploadProps, {
+    prefixCls: 'ant-upload',
+    type: 'select',
+    multiple: false,
+    action: '',
+    data: {},
+    accept: '',
+    beforeUpload: _utils.T,
+    showUploadList: true,
+    listType: 'text', // or pictrue
+    disabled: false,
+    supportServerRender: true
+  }),
+  // recentUploadStatus: boolean | PromiseLike<any>;
+  data: function data() {
+    this.progressTimer = null;
+    return {
+      sFileList: this.fileList || this.defaultFileList || [],
+      dragState: 'drop'
+    };
+  },
 
-exports['default'] = defaultProps;
+  watch: {
+    fileList: function fileList(val) {
+      this.sFileList = val || [];
+    }
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.clearProgressTimer();
+  },
+
+  methods: {
+    onStart: function onStart(file) {
+      var targetItem = (0, _utils.fileToObject)(file);
+      targetItem.status = 'uploading';
+      var nextFileList = this.sFileList.concat();
+      var fileIndex = nextFileList.findIndex(function (_ref) {
+        var uid = _ref.uid;
+        return uid === targetItem.uid;
+      });
+      if (fileIndex === -1) {
+        nextFileList.push(targetItem);
+      } else {
+        nextFileList[fileIndex] = targetItem;
+      }
+      this.onChange({
+        file: targetItem,
+        fileList: nextFileList
+      });
+      // fix ie progress
+      if (!window.FormData) {
+        this.autoUpdateProgress(0, targetItem);
+      }
+    },
+    autoUpdateProgress: function autoUpdateProgress(_, file) {
+      var _this = this;
+
+      var getPercent = (0, _utils.genPercentAdd)();
+      var curPercent = 0;
+      this.clearProgressTimer();
+      this.progressTimer = setInterval(function () {
+        curPercent = getPercent(curPercent);
+        _this.onProgress({
+          percent: curPercent * 100
+        }, file);
+      }, 200);
+    },
+    onSuccess: function onSuccess(response, file) {
+      this.clearProgressTimer();
+      try {
+        if (typeof response === 'string') {
+          response = JSON.parse(response);
+        }
+      } catch (e) {
+        /* do nothing */
+      }
+      var fileList = this.sFileList;
+      var targetItem = (0, _utils.getFileItem)(file, fileList);
+      // removed
+      if (!targetItem) {
+        return;
+      }
+      targetItem.status = 'done';
+      targetItem.response = response;
+      this.onChange({
+        file: (0, _extends3['default'])({}, targetItem),
+        fileList: fileList
+      });
+    },
+    onProgress: function onProgress(e, file) {
+      var fileList = this.sFileList;
+      var targetItem = (0, _utils.getFileItem)(file, fileList);
+      // removed
+      if (!targetItem) {
+        return;
+      }
+      targetItem.percent = e.percent;
+      this.onChange({
+        event: e,
+        file: (0, _extends3['default'])({}, targetItem),
+        fileList: this.sFileList
+      });
+    },
+    onError: function onError(error, response, file) {
+      this.clearProgressTimer();
+      var fileList = this.sFileList;
+      var targetItem = (0, _utils.getFileItem)(file, fileList);
+      // removed
+      if (!targetItem) {
+        return;
+      }
+      targetItem.error = error;
+      targetItem.response = response;
+      targetItem.status = 'error';
+      this.onChange({
+        file: (0, _extends3['default'])({}, targetItem),
+        fileList: fileList
+      });
+    },
+    handleRemove: function handleRemove(file) {
+      var _this2 = this;
+
+      var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+          remove = _getOptionProps.remove;
+
+      Promise.resolve(typeof remove === 'function' ? remove(file) : remove).then(function (ret) {
+        // Prevent removing file
+        if (ret === false) {
+          return;
+        }
+
+        var removedFileList = (0, _utils.removeFileItem)(file, _this2.sFileList);
+        if (removedFileList) {
+          _this2.onChange({
+            file: file,
+            fileList: removedFileList
+          });
+        }
+      });
+    },
+    handleManualRemove: function handleManualRemove(file) {
+      this.$refs.uploadRef.abort(file);
+      file.status = 'removed'; // eslint-disable-line
+      this.handleRemove(file);
+    },
+    onChange: function onChange(info) {
+      if (!(0, _propsUtil.hasProp)(this, 'fileList')) {
+        this.setState({ sFileList: info.fileList });
+      }
+      this.$emit('change', info);
+    },
+    onFileDrop: function onFileDrop(e) {
+      this.setState({
+        dragState: e.type
+      });
+    },
+    reBeforeUpload: function reBeforeUpload(file, fileList) {
+      if (!this.beforeUpload) {
+        return true;
+      }
+      var result = this.beforeUpload(file, fileList);
+      if (result === false) {
+        this.onChange({
+          file: file,
+          fileList: (0, _uniqBy2['default'])(this.sFileList.concat(fileList.map(_utils.fileToObject)), function (item) {
+            return item.uid;
+          })
+        });
+        return false;
+      } else if (result && result.then) {
+        return result;
+      }
+      return true;
+    },
+    clearProgressTimer: function clearProgressTimer() {
+      clearInterval(this.progressTimer);
+    },
+    renderUploadList: function renderUploadList(locale) {
+      var h = this.$createElement;
+
+      var _getOptionProps2 = (0, _propsUtil.getOptionProps)(this),
+          _getOptionProps2$show = _getOptionProps2.showUploadList,
+          showUploadList = _getOptionProps2$show === undefined ? {} : _getOptionProps2$show,
+          listType = _getOptionProps2.listType;
+
+      var showRemoveIcon = showUploadList.showRemoveIcon,
+          showPreviewIcon = showUploadList.showPreviewIcon;
+
+      var uploadListProps = {
+        props: {
+          listType: listType,
+          items: this.sFileList,
+          showRemoveIcon: showRemoveIcon,
+          showPreviewIcon: showPreviewIcon,
+          locale: (0, _extends3['default'])({}, locale, this.$props.locale)
+        },
+        on: {
+          remove: this.handleManualRemove
+        }
+      };
+      if (this.$listeners.preview) {
+        uploadListProps.on.preview = this.$listeners.preview;
+      }
+      return h(_UploadList2['default'], uploadListProps);
+    }
+  },
+  render: function render() {
+    var _classNames2;
+
+    var h = arguments[0];
+
+    var _getOptionProps3 = (0, _propsUtil.getOptionProps)(this),
+        _getOptionProps3$pref = _getOptionProps3.prefixCls,
+        prefixCls = _getOptionProps3$pref === undefined ? '' : _getOptionProps3$pref,
+        showUploadList = _getOptionProps3.showUploadList,
+        listType = _getOptionProps3.listType,
+        type = _getOptionProps3.type,
+        disabled = _getOptionProps3.disabled;
+
+    var vcUploadProps = {
+      props: (0, _extends3['default'])({}, this.$props, {
+        beforeUpload: this.reBeforeUpload
+      }),
+      on: {
+        // ...this.$listeners,
+        start: this.onStart,
+        error: this.onError,
+        progress: this.onProgress,
+        success: this.onSuccess
+      },
+      ref: 'uploadRef',
+      'class': prefixCls + '-btn',
+      attrs: this.$attrs
+    };
+
+    var uploadList = showUploadList ? h(_LocaleReceiver2['default'], {
+      attrs: {
+        componentName: 'Upload',
+        defaultLocale: _default2['default'].Upload
+      },
+      scopedSlots: { 'default': this.renderUploadList }
+    }) : null;
+
+    var children = this.$slots['default'];
+
+    if (type === 'drag') {
+      var _classNames;
+
+      var dragCls = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-drag', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-drag-uploading', this.sFileList.some(function (file) {
+        return file.status === 'uploading';
+      })), (0, _defineProperty3['default'])(_classNames, prefixCls + '-drag-hover', this.dragState === 'dragover'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', disabled), _classNames));
+      return h('span', [h(
+        'div',
+        {
+          'class': dragCls,
+          on: {
+            'drop': this.onFileDrop,
+            'dragover': this.onFileDrop,
+            'dragleave': this.onFileDrop
+          }
+        },
+        [h(
+          _vcUpload2['default'],
+          vcUploadProps,
+          [h(
+            'div',
+            { 'class': prefixCls + '-drag-container' },
+            [children]
+          )]
+        )]
+      ), uploadList]);
+    }
+
+    var uploadButtonCls = (0, _classnames2['default'])(prefixCls, (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-select', true), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-select-' + listType, true), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-disabled', disabled), _classNames2));
+    var uploadButton = h(
+      'div',
+      { 'class': uploadButtonCls, style: { display: children ? '' : 'none' } },
+      [h(
+        _vcUpload2['default'],
+        vcUploadProps,
+        [children]
+      )]
+    );
+
+    if (listType === 'picture-card') {
+      return h('span', [uploadList, uploadButton]);
+    }
+    return h('span', [uploadButton, uploadList]);
+  }
+};
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-slick/src/dots.js":
+/***/ "./node_modules/ant-design-vue/lib/upload/UploadList.js":
 /*!**************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-slick/src/dots.js ***!
+  !*** ./node_modules/ant-design-vue/lib/upload/UploadList.js ***!
   \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -466,106 +684,531 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _getTransitionProps = __webpack_require__(/*! ../_util/getTransitionProps */ "./node_modules/ant-design-vue/lib/_util/getTransitionProps.js");
+
+var _getTransitionProps2 = _interopRequireDefault(_getTransitionProps);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _tooltip = __webpack_require__(/*! ../tooltip */ "./node_modules/ant-design-vue/lib/tooltip/index.js");
+
+var _tooltip2 = _interopRequireDefault(_tooltip);
+
+var _progress = __webpack_require__(/*! ../progress */ "./node_modules/ant-design-vue/lib/progress/index.js");
+
+var _progress2 = _interopRequireDefault(_progress);
 
 var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _vnode = __webpack_require__(/*! ../../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/upload/interface.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var getDotCount = function getDotCount(spec) {
-  var dots = void 0;
-
-  if (spec.infinite) {
-    dots = Math.ceil(spec.slideCount / spec.slidesToScroll);
-  } else {
-    dots = Math.ceil((spec.slideCount - spec.slidesToShow) / spec.slidesToScroll) + 1;
+var imageTypes = ['image', 'webp', 'png', 'svg', 'gif', 'jpg', 'jpeg', 'bmp', 'ico'];
+// https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
+var previewFile = function previewFile(file, callback) {
+  if (file.type && !imageTypes.includes(file.type)) {
+    callback('');
   }
+  var reader = new window.FileReader();
+  reader.onloadend = function () {
+    return callback(reader.result);
+  };
+  reader.readAsDataURL(file);
+};
 
-  return dots;
+var extname = function extname(url) {
+  if (!url) {
+    return '';
+  }
+  var temp = url.split('/');
+  var filename = temp[temp.length - 1];
+  var filenameWithoutSuffix = filename.split(/#|\?/)[0];
+  return (/\.[^./\\]*$/.exec(filenameWithoutSuffix) || [''])[0];
+};
+
+var isImageUrl = function isImageUrl(file) {
+  if (imageTypes.includes(file.type)) {
+    return true;
+  }
+  var url = file.thumbUrl || file.url;
+  var extension = extname(url);
+  if (/^data:image\//.test(url) || /(webp|svg|png|gif|jpg|jpeg|bmp|ico)$/i.test(extension)) {
+    return true;
+  } else if (/^data:/.test(url)) {
+    // other file types of base64
+    return false;
+  } else if (extension) {
+    // other file types which have extension
+    return false;
+  }
+  return true;
 };
 
 exports['default'] = {
-  functional: true,
-  render: function render(createElement, context) {
-    var h = arguments[0];
-    var props = context.props,
-        listeners = context.listeners;
-    var slideCount = props.slideCount,
-        slidesToScroll = props.slidesToScroll,
-        slidesToShow = props.slidesToShow,
-        infinite = props.infinite,
-        currentSlide = props.currentSlide,
-        appendDots = props.appendDots,
-        customPaging = props.customPaging,
-        clickHandler = props.clickHandler,
-        dotsClass = props.dotsClass;
+  name: 'AUploadList',
+  mixins: [_BaseMixin2['default']],
+  props: (0, _propsUtil.initDefaultProps)(_interface.UploadListProps, {
+    listType: 'text', // or picture
+    progressAttr: {
+      strokeWidth: 2,
+      showInfo: false
+    },
+    prefixCls: 'ant-upload',
+    showRemoveIcon: true,
+    showPreviewIcon: true
+  }),
+  updated: function updated() {
+    var _this = this;
 
-    var dotCount = getDotCount({
-      slideCount: slideCount,
-      slidesToScroll: slidesToScroll,
-      slidesToShow: slidesToShow,
-      infinite: infinite
+    this.$nextTick(function () {
+      if (_this.listType !== 'picture' && _this.listType !== 'picture-card') {
+        return;
+      }
+      (_this.items || []).forEach(function (file) {
+        if (typeof document === 'undefined' || typeof window === 'undefined' || !window.FileReader || !window.File || !(file.originFileObj instanceof window.File) || file.thumbUrl !== undefined) {
+          return;
+        }
+        /*eslint-disable */
+        file.thumbUrl = '';
+        /*eslint -enable */
+        previewFile(file.originFileObj, function (previewDataUrl) {
+          /*eslint-disable */
+          file.thumbUrl = previewDataUrl;
+          /*eslint -enable todo */
+          // this.forceUpdate()
+        });
+      });
     });
+  },
 
-    // Apply join & split to Array to pre-fill it for IE8
-    //
-    // Credit: http://stackoverflow.com/a/13735425/1849458
-    var mouseenter = listeners.mouseenter,
-        mouseover = listeners.mouseover,
-        mouseleave = listeners.mouseleave;
+  methods: {
+    handleClose: function handleClose(file) {
+      this.$emit('remove', file);
+    },
+    handlePreview: function handlePreview(file, e) {
+      var preview = this.$listeners.preview;
 
-    var mouseEvents = { mouseenter: mouseenter, mouseover: mouseover, mouseleave: mouseleave };
-    var dots = Array.apply(null, Array(dotCount + 1).join('0').split('')).map(function (x, i) {
-      var leftBound = i * slidesToScroll;
-      var rightBound = i * slidesToScroll + (slidesToScroll - 1);
-      var className = (0, _classnames2['default'])({
-        'slick-active': currentSlide >= leftBound && currentSlide <= rightBound
+      if (!preview) {
+        return;
+      }
+      e.preventDefault();
+      return this.$emit('preview', file);
+    }
+  },
+  render: function render() {
+    var _this2 = this,
+        _classNames2;
+
+    var h = arguments[0];
+
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        prefixCls = _getOptionProps.prefixCls,
+        _getOptionProps$items = _getOptionProps.items,
+        items = _getOptionProps$items === undefined ? [] : _getOptionProps$items,
+        listType = _getOptionProps.listType,
+        showPreviewIcon = _getOptionProps.showPreviewIcon,
+        showRemoveIcon = _getOptionProps.showRemoveIcon,
+        locale = _getOptionProps.locale;
+
+    var list = items.map(function (file) {
+      var _classNames;
+
+      var progress = void 0;
+      var icon = h(_icon2['default'], {
+        attrs: { type: file.status === 'uploading' ? 'loading' : 'paper-clip' }
       });
 
-      var dotOptions = {
-        message: 'dots',
-        index: i,
-        slidesToScroll: slidesToScroll,
-        currentSlide: currentSlide
-      };
-      function onClick(e) {
-        // In Autoplay the focus stays on clicked button even after transition
-        // to next slide. That only goes away by click somewhere outside
-        if (e) {
-          e.preventDefault();
+      if (listType === 'picture' || listType === 'picture-card') {
+        if (listType === 'picture-card' && file.status === 'uploading') {
+          icon = h(
+            'div',
+            { 'class': prefixCls + '-list-item-uploading-text' },
+            [locale.uploading]
+          );
+        } else if (!file.thumbUrl && !file.url) {
+          icon = h(_icon2['default'], { 'class': prefixCls + '-list-item-thumbnail', attrs: { type: 'picture', theme: 'twoTone' }
+          });
+        } else {
+          var thumbnail = isImageUrl(file) ? h('img', {
+            attrs: { src: file.thumbUrl || file.url, alt: file.name }
+          }) : h(_icon2['default'], {
+            attrs: { type: 'file', theme: 'twoTone' },
+            'class': prefixCls + '-list-item-icon' });
+          icon = h(
+            'a',
+            {
+              'class': prefixCls + '-list-item-thumbnail',
+              on: {
+                'click': function click(e) {
+                  return _this2.handlePreview(file, e);
+                }
+              },
+              attrs: {
+                href: file.url || file.thumbUrl,
+                target: '_blank',
+                rel: 'noopener noreferrer'
+              }
+            },
+            [thumbnail]
+          );
         }
-        clickHandler(dotOptions);
       }
-      return h(
-        'li',
-        { key: i, 'class': className },
-        [(0, _vnode.cloneElement)(customPaging({ i: i }), {
+
+      if (file.status === 'uploading') {
+        var progressProps = {
+          props: (0, _extends3['default'])({}, _this2.progressAttr, {
+            type: 'line',
+            percent: file.percent
+          })
+        };
+        // show loading icon if upload progress listener is disabled
+        var loadingProgress = 'percent' in file ? h(_progress2['default'], progressProps) : null;
+
+        progress = h(
+          'div',
+          { 'class': prefixCls + '-list-item-progress', key: 'progress' },
+          [loadingProgress]
+        );
+      }
+      var infoUploadingClass = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-list-item', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-list-item-' + file.status, true), _classNames));
+      var linkProps = typeof file.linkProps === 'string' ? JSON.parse(file.linkProps) : file.linkProps;
+      var preview = file.url ? h(
+        'a',
+        (0, _babelHelperVueJsxMergeProps2['default'])([{
+          attrs: {
+            target: '_blank',
+            rel: 'noopener noreferrer',
+
+            title: file.name
+          },
+          'class': prefixCls + '-list-item-name' }, linkProps, {
+          attrs: {
+            href: file.url
+          },
           on: {
-            click: onClick
+            'click': function click(e) {
+              return _this2.handlePreview(file, e);
+            }
           }
+        }]),
+        [file.name]
+      ) : h(
+        'span',
+        {
+          'class': prefixCls + '-list-item-name',
+          on: {
+            'click': function click(e) {
+              return _this2.handlePreview(file, e);
+            }
+          },
+          attrs: {
+            title: file.name
+          }
+        },
+        [file.name]
+      );
+      var style = file.url || file.thumbUrl ? undefined : {
+        pointerEvents: 'none',
+        opacity: 0.5
+      };
+      var previewIcon = showPreviewIcon ? h(
+        'a',
+        {
+          attrs: {
+            href: file.url || file.thumbUrl,
+            target: '_blank',
+            rel: 'noopener noreferrer',
+
+            title: locale.previewFile
+          },
+          style: style,
+          on: {
+            'click': function click(e) {
+              return _this2.handlePreview(file, e);
+            }
+          }
+        },
+        [h(_icon2['default'], {
+          attrs: { type: 'eye-o' }
         })]
+      ) : null;
+      var iconProps = {
+        props: {
+          type: 'delete',
+          title: locale.removeFile
+        },
+        on: {
+          click: function click() {
+            _this2.handleClose(file);
+          }
+        }
+      };
+      var iconProps1 = (0, _extends3['default'])({}, iconProps, { props: { type: 'close' } });
+      var removeIcon = showRemoveIcon ? h(_icon2['default'], iconProps) : null;
+      var removeIconClose = showRemoveIcon ? h(_icon2['default'], iconProps1) : null;
+      var actions = listType === 'picture-card' && file.status !== 'uploading' ? h(
+        'span',
+        { 'class': prefixCls + '-list-item-actions' },
+        [previewIcon, removeIcon]
+      ) : removeIconClose;
+      var message = void 0;
+      if (file.response && typeof file.response === 'string') {
+        message = file.response;
+      } else {
+        message = file.error && file.error.statusText || locale.uploadError;
+      }
+      var iconAndPreview = file.status === 'error' ? h(
+        _tooltip2['default'],
+        {
+          attrs: { title: message }
+        },
+        [icon, preview]
+      ) : h('span', [icon, preview]);
+      var transitionProps = (0, _getTransitionProps2['default'])('fade');
+      return h(
+        'div',
+        { 'class': infoUploadingClass, key: file.uid },
+        [h(
+          'div',
+          { 'class': prefixCls + '-list-item-info' },
+          [iconAndPreview]
+        ), actions, h(
+          'transition',
+          transitionProps,
+          [progress]
+        )]
       );
     });
-
-    return (0, _vnode.cloneElement)(appendDots({ dots: dots }), {
-      'class': dotsClass,
-      on: (0, _extends3['default'])({}, mouseEvents)
-    });
+    var listClassNames = (0, _classnames2['default'])((_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-list', true), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-list-' + listType, true), _classNames2));
+    var animationDirection = listType === 'picture-card' ? 'animate-inline' : 'animate';
+    var transitionGroupProps = (0, _getTransitionProps2['default'])(prefixCls + '-' + animationDirection);
+    return h(
+      'transition-group',
+      (0, _babelHelperVueJsxMergeProps2['default'])([transitionGroupProps, {
+        attrs: { tag: 'div' },
+        'class': listClassNames }]),
+      [list]
+    );
   }
 };
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-slick/src/index.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-slick/src/index.js ***!
-  \***************************************************************/
+/***/ "./node_modules/ant-design-vue/lib/upload/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/upload/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UploadChangeParam = exports.UploadListProps = exports.UploadProps = undefined;
+
+var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/upload/interface.js");
+
+Object.defineProperty(exports, 'UploadProps', {
+  enumerable: true,
+  get: function get() {
+    return _interface.UploadProps;
+  }
+});
+Object.defineProperty(exports, 'UploadListProps', {
+  enumerable: true,
+  get: function get() {
+    return _interface.UploadListProps;
+  }
+});
+Object.defineProperty(exports, 'UploadChangeParam', {
+  enumerable: true,
+  get: function get() {
+    return _interface.UploadChangeParam;
+  }
+});
+
+var _Upload = __webpack_require__(/*! ./Upload */ "./node_modules/ant-design-vue/lib/upload/Upload.js");
+
+var _Upload2 = _interopRequireDefault(_Upload);
+
+var _Dragger = __webpack_require__(/*! ./Dragger */ "./node_modules/ant-design-vue/lib/upload/Dragger.js");
+
+var _Dragger2 = _interopRequireDefault(_Dragger);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+_Upload2['default'].Dragger = _Dragger2['default'];
+
+/* istanbul ignore next */
+_Upload2['default'].install = function (Vue) {
+  Vue.component(_Upload2['default'].name, _Upload2['default']);
+  Vue.component(_Dragger2['default'].name, _Dragger2['default']);
+};
+
+exports['default'] = _Upload2['default'];
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/upload/interface.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/upload/interface.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.UploadListProps = exports.UploadState = exports.UploadProps = exports.UploadLocale = exports.ShowUploadListInterface = exports.UploadChangeParam = exports.UploadFileStatus = undefined;
+
+var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var UploadFileStatus = exports.UploadFileStatus = _vueTypes2['default'].oneOf(['error', 'success', 'done', 'uploading', 'removed']);
+
+// export const HttpRequestHeader {
+//   [key: string]: string;
+// }
+
+// export const UploadFile = PropsTypes.shape({
+//   uid: PropsTypes.oneOfType([
+//     PropsTypes.string,
+//     PropsTypes.number,
+//   ]),
+//   size: PropsTypes.number,
+//   name: PropsTypes.string,
+//   filename: PropsTypes.string,
+//   lastModified: PropsTypes.number,
+//   lastModifiedDate: PropsTypes.any,
+//   url: PropsTypes.string,
+//   status: UploadFileStatus,
+//   percent: PropsTypes.number,
+//   thumbUrl: PropsTypes.string,
+//   originFileObj: PropsTypes.any,
+//   response: PropsTypes.any,
+//   error: PropsTypes.any,
+//   linkProps: PropsTypes.any,
+//   type: PropsTypes.string,
+// }).loose
+
+function UploadFile(_ref) {
+  var uid = _ref.uid,
+      name = _ref.name;
+
+  if (!uid && uid !== 0) return false;
+  if (!['string', 'number'].includes(typeof uid === 'undefined' ? 'undefined' : (0, _typeof3['default'])(uid))) return false;
+  if (name === '' || typeof name !== 'string') return false;
+  return true;
+}
+
+var UploadChangeParam = exports.UploadChangeParam = {
+  file: _vueTypes2['default'].custom(UploadFile),
+  fileList: _vueTypes2['default'].arrayOf(_vueTypes2['default'].custom(UploadFile)),
+  event: _vueTypes2['default'].object
+};
+
+var ShowUploadListInterface = exports.ShowUploadListInterface = _vueTypes2['default'].shape({
+  showRemoveIcon: _vueTypes2['default'].bool,
+  showPreviewIcon: _vueTypes2['default'].bool
+}).loose;
+
+var UploadLocale = exports.UploadLocale = _vueTypes2['default'].shape({
+  uploading: _vueTypes2['default'].string,
+  removeFile: _vueTypes2['default'].string,
+  uploadError: _vueTypes2['default'].string,
+  previewFile: _vueTypes2['default'].string
+}).loose;
+
+var UploadProps = exports.UploadProps = {
+  type: _vueTypes2['default'].oneOf(['drag', 'select']),
+  name: _vueTypes2['default'].string,
+  defaultFileList: _vueTypes2['default'].arrayOf(_vueTypes2['default'].custom(UploadFile)),
+  fileList: _vueTypes2['default'].arrayOf(_vueTypes2['default'].custom(UploadFile)),
+  action: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].func]),
+  directory: _vueTypes2['default'].bool,
+  data: _vueTypes2['default'].oneOfType([_vueTypes2['default'].object, _vueTypes2['default'].func]),
+  headers: _vueTypes2['default'].object,
+  showUploadList: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, ShowUploadListInterface]),
+  multiple: _vueTypes2['default'].bool,
+  accept: _vueTypes2['default'].string,
+  beforeUpload: _vueTypes2['default'].func,
+  // onChange: PropsTypes.func,
+  listType: _vueTypes2['default'].oneOf(['text', 'picture', 'picture-card']),
+  // className: PropsTypes.string,
+  // onPreview: PropsTypes.func,
+  remove: _vueTypes2['default'].func,
+  supportServerRender: _vueTypes2['default'].bool,
+  // style: PropsTypes.object,
+  disabled: _vueTypes2['default'].bool,
+  prefixCls: _vueTypes2['default'].string,
+  customRequest: _vueTypes2['default'].func,
+  withCredentials: _vueTypes2['default'].bool,
+  openFileDialogOnClick: _vueTypes2['default'].bool,
+  locale: UploadLocale,
+  height: _vueTypes2['default'].number
+};
+
+var UploadState = exports.UploadState = {
+  fileList: _vueTypes2['default'].arrayOf(_vueTypes2['default'].custom(UploadFile)),
+  dragState: _vueTypes2['default'].string
+};
+
+var UploadListProps = exports.UploadListProps = {
+  listType: _vueTypes2['default'].oneOf(['text', 'picture', 'picture-card']),
+  // onPreview: PropsTypes.func,
+  // onRemove: PropsTypes.func,
+  // items: PropsTypes.arrayOf(UploadFile),
+  items: _vueTypes2['default'].arrayOf(_vueTypes2['default'].custom(UploadFile)),
+  // items: PropsTypes.any,
+  progressAttr: _vueTypes2['default'].object,
+  prefixCls: _vueTypes2['default'].string,
+  showRemoveIcon: _vueTypes2['default'].bool,
+  showPreviewIcon: _vueTypes2['default'].bool,
+  locale: UploadLocale
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/upload/utils.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/upload/utils.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -576,19 +1219,510 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _slider = __webpack_require__(/*! ./slider */ "./node_modules/ant-design-vue/lib/vc-slick/src/slider.js");
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
-var _slider2 = _interopRequireDefault(_slider);
+var _extends3 = _interopRequireDefault(_extends2);
+
+exports.T = T;
+exports.fileToObject = fileToObject;
+exports.genPercentAdd = genPercentAdd;
+exports.getFileItem = getFileItem;
+exports.removeFileItem = removeFileItem;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _slider2['default']; // base react-slick 0.23.2
+function T() {
+  return true;
+}
+
+// Fix IE file.status problem
+// via coping a new Object
+function fileToObject(file) {
+  return (0, _extends3['default'])({}, file, {
+    lastModified: file.lastModified,
+    lastModifiedDate: file.lastModifiedDate,
+    name: file.name,
+    size: file.size,
+    type: file.type,
+    uid: file.uid,
+    percent: 0,
+    originFileObj: file
+  });
+}
+
+/**
+ * 生成Progress percent: 0.1 -> 0.98
+ *   - for ie
+ */
+function genPercentAdd() {
+  var k = 0.1;
+  var i = 0.01;
+  var end = 0.98;
+  return function (s) {
+    var start = s;
+    if (start >= end) {
+      return start;
+    }
+
+    start += k;
+    k = k - i;
+    if (k < 0.001) {
+      k = 0.001;
+    }
+    return start;
+  };
+}
+
+function getFileItem(file, fileList) {
+  var matchKey = file.uid !== undefined ? 'uid' : 'name';
+  return fileList.filter(function (item) {
+    return item[matchKey] === file[matchKey];
+  })[0];
+}
+
+function removeFileItem(file, fileList) {
+  var matchKey = file.uid !== undefined ? 'uid' : 'name';
+  var removed = fileList.filter(function (item) {
+    return item[matchKey] !== file[matchKey];
+  });
+  if (removed.length === fileList.length) {
+    return null;
+  }
+  return removed;
+}
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-slick/src/initial-state.js":
+/***/ "./node_modules/ant-design-vue/lib/vc-progress/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-progress/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Circle = exports.Line = undefined;
+
+var _src = __webpack_require__(/*! ./src/ */ "./node_modules/ant-design-vue/lib/vc-progress/src/index.js");
+
+var _src2 = _interopRequireDefault(_src);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports.Line = _src.Line;
+exports.Circle = _src.Circle; // based on rc-progress 2.2.7
+
+exports['default'] = _src2['default'];
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-progress/src/Circle.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-progress/src/Circle.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _enhancer = __webpack_require__(/*! ./enhancer */ "./node_modules/ant-design-vue/lib/vc-progress/src/enhancer.js");
+
+var _enhancer2 = _interopRequireDefault(_enhancer);
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/ant-design-vue/lib/vc-progress/src/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var circlePropTypes = (0, _extends3['default'])({}, _types.propTypes, {
+  gapPosition: _vueTypes2['default'].oneOf(['top', 'bottom', 'left', 'right']),
+  gapDegree: _vueTypes2['default'].number
+});
+
+var circleDefaultProps = (0, _extends3['default'])({}, _types.defaultProps, {
+  gapPosition: 'top'
+});
+
+var Circle = {
+  props: (0, _propsUtil.initDefaultProps)(circlePropTypes, circleDefaultProps),
+  methods: {
+    getPathStyles: function getPathStyles() {
+      var _$props = this.$props,
+          percent = _$props.percent,
+          strokeWidth = _$props.strokeWidth,
+          strokeColor = _$props.strokeColor,
+          _$props$gapDegree = _$props.gapDegree,
+          gapDegree = _$props$gapDegree === undefined ? 0 : _$props$gapDegree,
+          gapPosition = _$props.gapPosition;
+
+      var radius = 50 - strokeWidth / 2;
+      var beginPositionX = 0;
+      var beginPositionY = -radius;
+      var endPositionX = 0;
+      var endPositionY = -2 * radius;
+      switch (gapPosition) {
+        case 'left':
+          beginPositionX = -radius;
+          beginPositionY = 0;
+          endPositionX = 2 * radius;
+          endPositionY = 0;
+          break;
+        case 'right':
+          beginPositionX = radius;
+          beginPositionY = 0;
+          endPositionX = -2 * radius;
+          endPositionY = 0;
+          break;
+        case 'bottom':
+          beginPositionY = radius;
+          endPositionY = 2 * radius;
+          break;
+        default:
+      }
+      var pathString = 'M 50,50 m ' + beginPositionX + ',' + beginPositionY + '\n       a ' + radius + ',' + radius + ' 0 1 1 ' + endPositionX + ',' + -endPositionY + '\n       a ' + radius + ',' + radius + ' 0 1 1 ' + -endPositionX + ',' + endPositionY;
+      var len = Math.PI * 2 * radius;
+      var trailPathStyle = {
+        strokeDasharray: len - gapDegree + 'px ' + len + 'px',
+        strokeDashoffset: '-' + gapDegree / 2 + 'px',
+        transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s'
+      };
+      var strokePathStyle = {
+        stroke: strokeColor,
+        strokeDasharray: percent / 100 * (len - gapDegree) + 'px ' + len + 'px',
+        strokeDashoffset: '-' + gapDegree / 2 + 'px',
+        transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s' // eslint-disable-line
+      };
+      return { pathString: pathString, trailPathStyle: trailPathStyle, strokePathStyle: strokePathStyle };
+    }
+  },
+  render: function render() {
+    var h = arguments[0];
+    var _$props2 = this.$props,
+        prefixCls = _$props2.prefixCls,
+        strokeWidth = _$props2.strokeWidth,
+        trailWidth = _$props2.trailWidth,
+        trailColor = _$props2.trailColor,
+        strokeLinecap = _$props2.strokeLinecap,
+        percent = _$props2.percent,
+        restProps = (0, _objectWithoutProperties3['default'])(_$props2, ['prefixCls', 'strokeWidth', 'trailWidth', 'trailColor', 'strokeLinecap', 'percent']);
+
+    var _getPathStyles = this.getPathStyles(),
+        pathString = _getPathStyles.pathString,
+        trailPathStyle = _getPathStyles.trailPathStyle,
+        strokePathStyle = _getPathStyles.strokePathStyle;
+
+    delete restProps.percent;
+    delete restProps.gapDegree;
+    delete restProps.gapPosition;
+    delete restProps.strokeColor;
+    var pathFirst = {
+      attrs: {
+        d: pathString,
+        stroke: trailColor,
+        'stroke-linecap': strokeLinecap,
+        'stroke-width': trailWidth || strokeWidth,
+        'fill-opacity': '0'
+      },
+      'class': prefixCls + '-circle-trail',
+      style: trailPathStyle
+    };
+    var pathSecond = {
+      attrs: {
+        d: pathString,
+        'stroke-linecap': strokeLinecap,
+        'stroke-width': percent === 0 ? 0 : strokeWidth,
+        'fill-opacity': '0'
+      },
+      'class': prefixCls + '-circle-path',
+      style: strokePathStyle,
+      ref: 'svgPathRef'
+    };
+    return h(
+      'svg',
+      (0, _babelHelperVueJsxMergeProps2['default'])([{ 'class': prefixCls + '-circle', attrs: { viewBox: '0 0 100 100' }
+      }, restProps]),
+      [h('path', pathFirst), h('path', pathSecond)]
+    );
+  }
+};
+
+exports['default'] = (0, _enhancer2['default'])(Circle);
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-progress/src/Line.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-progress/src/Line.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _enhancer = __webpack_require__(/*! ./enhancer */ "./node_modules/ant-design-vue/lib/vc-progress/src/enhancer.js");
+
+var _enhancer2 = _interopRequireDefault(_enhancer);
+
+var _types = __webpack_require__(/*! ./types */ "./node_modules/ant-design-vue/lib/vc-progress/src/types.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var Line = {
+  props: (0, _propsUtil.initDefaultProps)(_types.propTypes, _types.defaultProps),
+  render: function render() {
+    var h = arguments[0];
+    var _$props = this.$props,
+        percent = _$props.percent,
+        prefixCls = _$props.prefixCls,
+        strokeColor = _$props.strokeColor,
+        strokeLinecap = _$props.strokeLinecap,
+        strokeWidth = _$props.strokeWidth,
+        trailColor = _$props.trailColor,
+        trailWidth = _$props.trailWidth,
+        restProps = (0, _objectWithoutProperties3['default'])(_$props, ['percent', 'prefixCls', 'strokeColor', 'strokeLinecap', 'strokeWidth', 'trailColor', 'trailWidth']);
+
+
+    delete restProps.gapPosition;
+
+    var pathStyle = {
+      strokeDasharray: '100px, 100px',
+      strokeDashoffset: 100 - percent + 'px',
+      transition: 'stroke-dashoffset 0.3s ease 0s, stroke 0.3s linear'
+    };
+
+    var center = strokeWidth / 2;
+    var right = 100 - strokeWidth / 2;
+    var pathString = 'M ' + (strokeLinecap === 'round' ? center : 0) + ',' + center + '\n           L ' + (strokeLinecap === 'round' ? right : 100) + ',' + center;
+    var viewBoxString = '0 0 100 ' + strokeWidth;
+
+    var pathFirst = {
+      attrs: {
+        d: pathString,
+        'stroke-linecap': strokeLinecap,
+        stroke: trailColor,
+        'stroke-width': trailWidth || strokeWidth,
+        'fill-opacity': '0'
+      },
+      'class': prefixCls + '-line-trail'
+    };
+    var pathSecond = {
+      attrs: {
+        d: pathString,
+        'stroke-linecap': strokeLinecap,
+        stroke: strokeColor,
+        'stroke-width': strokeWidth,
+        'fill-opacity': '0'
+      },
+      'class': prefixCls + '-line-path',
+      style: pathStyle,
+      ref: 'svgPathRef'
+    };
+    return h(
+      'svg',
+      (0, _babelHelperVueJsxMergeProps2['default'])([{
+        'class': prefixCls + '-line',
+        attrs: { viewBox: viewBoxString,
+          preserveAspectRatio: 'none'
+        }
+      }, restProps]),
+      [h('path', pathFirst), h('path', pathSecond)]
+    );
+  }
+};
+
+exports['default'] = (0, _enhancer2['default'])(Line);
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-progress/src/enhancer.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-progress/src/enhancer.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function enhancer(Component) {
+  return {
+    mixins: [Component],
+    updated: function updated() {
+      var _this = this;
+
+      this.$nextTick(function () {
+        if (!_this.$refs.svgPathRef) {
+          return;
+        }
+        var pathStyle = _this.$refs.svgPathRef.style;
+        pathStyle.transitionDuration = '.3s, .3s, .3s, .06s';
+        var now = Date.now();
+        if (_this.prevTimeStamp && now - _this.prevTimeStamp < 100) {
+          pathStyle.transitionDuration = '0s, 0s';
+        }
+        _this.prevTimeStamp = Date.now();
+      });
+    }
+  };
+}
+
+exports['default'] = enhancer;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-progress/src/index.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-progress/src/index.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Circle = exports.Line = undefined;
+
+var _Line = __webpack_require__(/*! ./Line */ "./node_modules/ant-design-vue/lib/vc-progress/src/Line.js");
+
+var _Line2 = _interopRequireDefault(_Line);
+
+var _Circle = __webpack_require__(/*! ./Circle */ "./node_modules/ant-design-vue/lib/vc-progress/src/Circle.js");
+
+var _Circle2 = _interopRequireDefault(_Circle);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports.Line = _Line2['default'];
+exports.Circle = _Circle2['default'];
+exports['default'] = {
+  Line: _Line2['default'],
+  Circle: _Circle2['default']
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-progress/src/types.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-progress/src/types.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.propTypes = exports.defaultProps = undefined;
+
+var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var defaultProps = exports.defaultProps = {
+  // className: '',
+  percent: 0,
+  prefixCls: 'rc-progress',
+  strokeColor: '#2db7f5',
+  strokeLinecap: 'round',
+  strokeWidth: 1,
+  // style: {},
+  trailColor: '#D9D9D9',
+  trailWidth: 1
+};
+
+var propTypes = exports.propTypes = {
+  // className: PropTypes.string,
+  percent: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string]),
+  prefixCls: _vueTypes2['default'].string,
+  strokeColor: _vueTypes2['default'].string,
+  strokeLinecap: _vueTypes2['default'].oneOf(['butt', 'round', 'square']),
+  strokeWidth: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string]),
+  // style: PropTypes.object,
+  trailColor: _vueTypes2['default'].string,
+  trailWidth: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string])
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-upload/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-upload/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _src = __webpack_require__(/*! ./src */ "./node_modules/ant-design-vue/lib/vc-upload/src/index.js");
+
+var _src2 = _interopRequireDefault(_src);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = _src2['default']; // rc-upload 2.6.0
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-upload/src/AjaxUploader.js":
 /*!***********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-slick/src/initial-state.js ***!
+  !*** ./node_modules/ant-design-vue/lib/vc-upload/src/AjaxUploader.js ***!
   \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -599,39 +1733,291 @@ exports['default'] = _slider2['default']; // base react-slick 0.23.2
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var initialState = {
-  animating: false,
-  autoplaying: null,
-  currentDirection: 0,
-  currentLeft: null,
-  currentSlide: 0,
-  direction: 1,
-  dragging: false,
-  edgeDragged: false,
-  initialized: false,
-  lazyLoadedList: [],
-  listHeight: null,
-  listWidth: null,
-  scrolling: false,
-  slideCount: null,
-  slideHeight: null,
-  slideWidth: null,
-  swipeLeft: null,
-  swiped: false, // used by swipeEvent. differentites between touch and swipe.
-  swiping: false,
-  touchObject: { startX: 0, startY: 0, curX: 0, curY: 0 },
-  trackStyle: {},
-  trackWidth: 0
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _request = __webpack_require__(/*! ./request */ "./node_modules/ant-design-vue/lib/vc-upload/src/request.js");
+
+var _request2 = _interopRequireDefault(_request);
+
+var _uid = __webpack_require__(/*! ./uid */ "./node_modules/ant-design-vue/lib/vc-upload/src/uid.js");
+
+var _uid2 = _interopRequireDefault(_uid);
+
+var _attrAccept = __webpack_require__(/*! ./attr-accept */ "./node_modules/ant-design-vue/lib/vc-upload/src/attr-accept.js");
+
+var _attrAccept2 = _interopRequireDefault(_attrAccept);
+
+var _traverseFileTree = __webpack_require__(/*! ./traverseFileTree */ "./node_modules/ant-design-vue/lib/vc-upload/src/traverseFileTree.js");
+
+var _traverseFileTree2 = _interopRequireDefault(_traverseFileTree);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var upLoadPropTypes = {
+  componentTag: _vueTypes2['default'].string,
+  // style: PropTypes.object,
+  prefixCls: _vueTypes2['default'].string,
+  name: _vueTypes2['default'].string,
+  // className: PropTypes.string,
+  multiple: _vueTypes2['default'].bool,
+  directory: _vueTypes2['default'].bool,
+  disabled: _vueTypes2['default'].bool,
+  accept: _vueTypes2['default'].string,
+  // children: PropTypes.any,
+  // onStart: PropTypes.func,
+  data: _vueTypes2['default'].oneOfType([_vueTypes2['default'].object, _vueTypes2['default'].func]),
+  action: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].func]),
+  headers: _vueTypes2['default'].object,
+  beforeUpload: _vueTypes2['default'].func,
+  customRequest: _vueTypes2['default'].func,
+  // onProgress: PropTypes.func,
+  withCredentials: _vueTypes2['default'].bool,
+  openFileDialogOnClick: _vueTypes2['default'].bool
 };
 
-exports["default"] = initialState;
+var AjaxUploader = {
+  inheritAttrs: false,
+  name: 'ajaxUploader',
+  mixins: [_BaseMixin2['default']],
+  props: upLoadPropTypes,
+  data: function data() {
+    this.reqs = {};
+    return {
+      uid: (0, _uid2['default'])()
+    };
+  },
+  mounted: function mounted() {
+    this._isMounted = true;
+  },
+  beforeDestroy: function beforeDestroy() {
+    this._isMounted = false;
+    this.abort();
+  },
+
+  methods: {
+    onChange: function onChange(e) {
+      var files = e.target.files;
+      this.uploadFiles(files);
+      this.reset();
+    },
+    onClick: function onClick() {
+      var el = this.$refs.fileInputRef;
+      if (!el) {
+        return;
+      }
+      el.click();
+    },
+    onKeyDown: function onKeyDown(e) {
+      if (e.key === 'Enter') {
+        this.onClick();
+      }
+    },
+    onFileDrop: function onFileDrop(e) {
+      var _this = this;
+
+      e.preventDefault();
+      if (e.type === 'dragover') {
+        return;
+      }
+      if (this.directory) {
+        (0, _traverseFileTree2['default'])(e.dataTransfer.items, this.uploadFiles, function (_file) {
+          return (0, _attrAccept2['default'])(_file, _this.accept);
+        });
+      } else {
+        var files = Array.prototype.slice.call(e.dataTransfer.files).filter(function (file) {
+          return (0, _attrAccept2['default'])(file, _this.accept);
+        });
+        this.uploadFiles(files);
+      }
+    },
+    uploadFiles: function uploadFiles(files) {
+      var _this2 = this;
+
+      var postFiles = Array.prototype.slice.call(files);
+      postFiles.forEach(function (file) {
+        file.uid = (0, _uid2['default'])();
+        _this2.upload(file, postFiles);
+      });
+    },
+    upload: function upload(file, fileList) {
+      var _this3 = this;
+
+      if (!this.beforeUpload) {
+        // always async in case use react state to keep fileList
+        return setTimeout(function () {
+          return _this3.post(file);
+        }, 0);
+      }
+
+      var before = this.beforeUpload(file, fileList);
+      if (before && before.then) {
+        before.then(function (processedFile) {
+          var processedFileType = Object.prototype.toString.call(processedFile);
+          if (processedFileType === '[object File]' || processedFileType === '[object Blob]') {
+            return _this3.post(processedFile);
+          }
+          return _this3.post(file);
+        })['catch'](function (e) {
+          console && console.log(e); // eslint-disable-line
+        });
+      } else if (before !== false) {
+        setTimeout(function () {
+          return _this3.post(file);
+        }, 0);
+      }
+    },
+    post: function post(file) {
+      var _this4 = this;
+
+      if (!this._isMounted) {
+        return;
+      }
+      var data = this.$props.data;
+
+      if (typeof data === 'function') {
+        data = data(file);
+      }
+      new Promise(function (resolve) {
+        var action = _this4.action;
+
+        if (typeof action === 'function') {
+          return resolve(action(file));
+        }
+        resolve(action);
+      }).then(function (action) {
+        var uid = file.uid;
+
+        var request = _this4.customRequest || _request2['default'];
+        _this4.reqs[uid] = request({
+          action: action,
+          filename: _this4.name,
+          file: file,
+          data: data,
+          headers: _this4.headers,
+          withCredentials: _this4.withCredentials,
+          onProgress: function onProgress(e) {
+            _this4.$emit('progress', e, file);
+          },
+          onSuccess: function onSuccess(ret, xhr) {
+            delete _this4.reqs[uid];
+            _this4.$emit('success', ret, file, xhr);
+          },
+          onError: function onError(err, ret) {
+            delete _this4.reqs[uid];
+            _this4.$emit('error', err, ret, file);
+          }
+        });
+        _this4.$emit('start', file);
+      });
+    },
+    reset: function reset() {
+      this.setState({
+        uid: (0, _uid2['default'])()
+      });
+    },
+    abort: function abort(file) {
+      var reqs = this.reqs;
+
+      if (file) {
+        var uid = file;
+        if (file && file.uid) {
+          uid = file.uid;
+        }
+        if (reqs[uid]) {
+          reqs[uid].abort();
+          delete reqs[uid];
+        }
+      } else {
+        Object.keys(reqs).forEach(function (uid) {
+          if (reqs[uid]) {
+            reqs[uid].abort();
+          }
+
+          delete reqs[uid];
+        });
+      }
+    }
+  },
+
+  render: function render() {
+    var _classNames;
+
+    var h = arguments[0];
+    var $props = this.$props,
+        $attrs = this.$attrs;
+    var Tag = $props.componentTag,
+        prefixCls = $props.prefixCls,
+        disabled = $props.disabled,
+        multiple = $props.multiple,
+        accept = $props.accept,
+        directory = $props.directory,
+        openFileDialogOnClick = $props.openFileDialogOnClick;
+
+    var cls = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls, true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', disabled), _classNames));
+    var events = disabled ? {} : {
+      click: openFileDialogOnClick ? this.onClick : function () {},
+      keydown: this.onKeyDown,
+      drop: this.onFileDrop,
+      dragover: this.onFileDrop
+    };
+    var tagProps = {
+      on: (0, _extends3['default'])({}, this.$listeners, events),
+      attrs: {
+        role: 'button',
+        tabIndex: disabled ? null : '0'
+      },
+      'class': cls
+    };
+    return h(
+      Tag,
+      tagProps,
+      [h('input', {
+        attrs: {
+          id: $attrs.id,
+          type: 'file',
+
+          accept: accept,
+          directory: directory ? 'directory' : null,
+          webkitdirectory: directory ? 'webkitdirectory' : null,
+          multiple: multiple
+        },
+        ref: 'fileInputRef',
+        key: this.uid,
+        style: { display: 'none' }, on: {
+          'change': this.onChange
+        }
+      }), this.$slots['default']]
+    );
+  }
+};
+
+exports['default'] = AjaxUploader;
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-slick/src/inner-slider.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-slick/src/inner-slider.js ***!
-  \**********************************************************************/
+/***/ "./node_modules/ant-design-vue/lib/vc-upload/src/IframeUploader.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-upload/src/IframeUploader.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -642,33 +2028,313 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _debounce = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
+var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
-var _debounce2 = _interopRequireDefault(_debounce);
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
 var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+var _uid = __webpack_require__(/*! ./uid */ "./node_modules/ant-design-vue/lib/vc-upload/src/uid.js");
 
-var _vue2 = _interopRequireDefault(_vue);
+var _uid2 = _interopRequireDefault(_uid);
 
-var _vueRef = __webpack_require__(/*! vue-ref */ "./node_modules/vue-ref/index.js");
+var _warning = __webpack_require__(/*! ../../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
 
-var _vueRef2 = _interopRequireDefault(_vueRef);
+var _warning2 = _interopRequireDefault(_warning);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var IFRAME_STYLE = {
+  position: 'absolute',
+  top: 0,
+  opacity: 0,
+  filter: 'alpha(opacity=0)',
+  left: 0,
+  zIndex: 9999
+};
+
+// diferent from AjaxUpload, can only upload on at one time, serial seriously
+var IframeUploader = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    componentTag: _vueTypes2['default'].string,
+    // style: PropTypes.object,
+    disabled: _vueTypes2['default'].bool,
+    prefixCls: _vueTypes2['default'].string,
+    // className: PropTypes.string,
+    accept: _vueTypes2['default'].string,
+    // onStart: PropTypes.func,
+    multiple: _vueTypes2['default'].bool,
+    // children: PropTypes.any,
+    data: _vueTypes2['default'].oneOfType([_vueTypes2['default'].object, _vueTypes2['default'].func]),
+    action: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].func]),
+    name: _vueTypes2['default'].string
+  },
+  data: function data() {
+    this.file = {};
+    return {
+      uploading: false
+    };
+  },
+
+  methods: {
+    onLoad: function onLoad() {
+      if (!this.uploading) {
+        return;
+      }
+      var file = this.file;
+
+      var response = void 0;
+      try {
+        var doc = this.getIframeDocument();
+        var script = doc.getElementsByTagName('script')[0];
+        if (script && script.parentNode === doc.body) {
+          doc.body.removeChild(script);
+        }
+        response = doc.body.innerHTML;
+        this.$emit('success', response, file);
+      } catch (err) {
+        (0, _warning2['default'])(false, 'cross domain error for Upload. Maybe server should return document.domain script. see Note from https://github.com/react-component/upload');
+        response = 'cross-domain';
+        this.$emit('error', err, null, file);
+      }
+      this.endUpload();
+    },
+    onChange: function onChange() {
+      var _this = this;
+
+      var target = this.getFormInputNode();
+      // ie8/9 don't support FileList Object
+      // http://stackoverflow.com/questions/12830058/ie8-input-type-file-get-files
+      var file = this.file = {
+        uid: (0, _uid2['default'])(),
+        name: target.value
+      };
+      this.startUpload();
+      var props = this.$props;
+
+      if (!props.beforeUpload) {
+        return this.post(file);
+      }
+      var before = props.beforeUpload(file);
+      if (before && before.then) {
+        before.then(function () {
+          _this.post(file);
+        }, function () {
+          _this.endUpload();
+        });
+      } else if (before !== false) {
+        this.post(file);
+      } else {
+        this.endUpload();
+      }
+    },
+    getIframeNode: function getIframeNode() {
+      return this.$refs.iframeRef;
+    },
+    getIframeDocument: function getIframeDocument() {
+      return this.getIframeNode().contentDocument;
+    },
+    getFormNode: function getFormNode() {
+      return this.getIframeDocument().getElementById('form');
+    },
+    getFormInputNode: function getFormInputNode() {
+      return this.getIframeDocument().getElementById('input');
+    },
+    getFormDataNode: function getFormDataNode() {
+      return this.getIframeDocument().getElementById('data');
+    },
+    getFileForMultiple: function getFileForMultiple(file) {
+      return this.multiple ? [file] : file;
+    },
+    getIframeHTML: function getIframeHTML(domain) {
+      var domainScript = '';
+      var domainInput = '';
+      if (domain) {
+        var script = 'script';
+        domainScript = '<' + script + '>document.domain="' + domain + '";</' + script + '>';
+        domainInput = '<input name="_documentDomain" value="' + domain + '" />';
+      }
+      return '\n      <!DOCTYPE html>\n      <html>\n      <head>\n      <meta http-equiv="X-UA-Compatible" content="IE=edge" />\n      <style>\n      body,html {padding:0;margin:0;border:0;overflow:hidden;}\n      </style>\n      ' + domainScript + '\n      </head>\n      <body>\n      <form method="post"\n      encType="multipart/form-data"\n      action="" id="form"\n      style="display:block;height:9999px;position:relative;overflow:hidden;">\n      <input id="input" type="file"\n       name="' + this.name + '"\n       style="position:absolute;top:0;right:0;height:9999px;font-size:9999px;cursor:pointer;"/>\n      ' + domainInput + '\n      <span id="data"></span>\n      </form>\n      </body>\n      </html>\n      ';
+    },
+    initIframeSrc: function initIframeSrc() {
+      if (this.domain) {
+        this.getIframeNode().src = 'javascript:void((function(){\n          var d = document;\n          d.open();\n          d.domain=\'' + this.domain + '\';\n          d.write(\'\');\n          d.close();\n        })())';
+      }
+    },
+    initIframe: function initIframe() {
+      var iframeNode = this.getIframeNode();
+      var win = iframeNode.contentWindow;
+      var doc = void 0;
+      this.domain = this.domain || '';
+      this.initIframeSrc();
+      try {
+        doc = win.document;
+      } catch (e) {
+        this.domain = document.domain;
+        this.initIframeSrc();
+        win = iframeNode.contentWindow;
+        doc = win.document;
+      }
+      doc.open('text/html', 'replace');
+      doc.write(this.getIframeHTML(this.domain));
+      doc.close();
+      this.getFormInputNode().onchange = this.onChange;
+    },
+    endUpload: function endUpload() {
+      if (this.uploading) {
+        this.file = {};
+        // hack avoid batch
+        this.uploading = false;
+        this.setState({
+          uploading: false
+        });
+        this.initIframe();
+      }
+    },
+    startUpload: function startUpload() {
+      if (!this.uploading) {
+        this.uploading = true;
+        this.setState({
+          uploading: true
+        });
+      }
+    },
+    updateIframeWH: function updateIframeWH() {
+      var rootNode = this.$el;
+      var iframeNode = this.getIframeNode();
+      iframeNode.style.height = rootNode.offsetHeight + 'px';
+      iframeNode.style.width = rootNode.offsetWidth + 'px';
+    },
+    abort: function abort(file) {
+      if (file) {
+        var uid = file;
+        if (file && file.uid) {
+          uid = file.uid;
+        }
+        if (uid === this.file.uid) {
+          this.endUpload();
+        }
+      } else {
+        this.endUpload();
+      }
+    },
+    post: function post(file) {
+      var _this2 = this;
+
+      var formNode = this.getFormNode();
+      var dataSpan = this.getFormDataNode();
+      var data = this.$props.data;
+
+      if (typeof data === 'function') {
+        data = data(file);
+      }
+      var inputs = document.createDocumentFragment();
+      for (var key in data) {
+        if (data.hasOwnProperty(key)) {
+          var input = document.createElement('input');
+          input.setAttribute('name', key);
+          input.value = data[key];
+          inputs.appendChild(input);
+        }
+      }
+      dataSpan.appendChild(inputs);
+      new Promise(function (resolve) {
+        var action = _this2.action;
+
+        if (typeof action === 'function') {
+          return resolve(action(file));
+        }
+        resolve(action);
+      }).then(function (action) {
+        formNode.setAttribute('action', action);
+        formNode.submit();
+        dataSpan.innerHTML = '';
+        _this2.$emit('start', file);
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this3 = this;
+
+    this.$nextTick(function () {
+      _this3.updateIframeWH();
+      _this3.initIframe();
+    });
+  },
+  updated: function updated() {
+    var _this4 = this;
+
+    this.$nextTick(function () {
+      _this4.updateIframeWH();
+    });
+  },
+  render: function render() {
+    var _classNames;
+
+    var h = arguments[0];
+    var _$props = this.$props,
+        Tag = _$props.componentTag,
+        disabled = _$props.disabled,
+        prefixCls = _$props.prefixCls;
+
+    var iframeStyle = (0, _extends3['default'])({}, IFRAME_STYLE, {
+      display: this.uploading || disabled ? 'none' : ''
+    });
+    var cls = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls, true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', disabled), _classNames));
+
+    return h(
+      Tag,
+      {
+        attrs: { className: cls },
+        style: { position: 'relative', zIndex: 0 } },
+      [h('iframe', { ref: 'iframeRef', on: {
+          'load': this.onLoad
+        },
+        style: iframeStyle }), this.$slots['default']]
+    );
+  }
+};
+
+exports['default'] = IframeUploader;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-upload/src/Upload.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-upload/src/Upload.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
@@ -676,792 +2342,165 @@ var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_module
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
-var _defaultProps = __webpack_require__(/*! ./default-props */ "./node_modules/ant-design-vue/lib/vc-slick/src/default-props.js");
+var _AjaxUploader = __webpack_require__(/*! ./AjaxUploader */ "./node_modules/ant-design-vue/lib/vc-upload/src/AjaxUploader.js");
 
-var _defaultProps2 = _interopRequireDefault(_defaultProps);
+var _AjaxUploader2 = _interopRequireDefault(_AjaxUploader);
 
-var _initialState = __webpack_require__(/*! ./initial-state */ "./node_modules/ant-design-vue/lib/vc-slick/src/initial-state.js");
+var _IframeUploader = __webpack_require__(/*! ./IframeUploader */ "./node_modules/ant-design-vue/lib/vc-upload/src/IframeUploader.js");
 
-var _initialState2 = _interopRequireDefault(_initialState);
-
-var _innerSliderUtils = __webpack_require__(/*! ./utils/innerSliderUtils */ "./node_modules/ant-design-vue/lib/vc-slick/src/utils/innerSliderUtils.js");
-
-var _track = __webpack_require__(/*! ./track */ "./node_modules/ant-design-vue/lib/vc-slick/src/track.js");
-
-var _track2 = _interopRequireDefault(_track);
-
-var _dots = __webpack_require__(/*! ./dots */ "./node_modules/ant-design-vue/lib/vc-slick/src/dots.js");
-
-var _dots2 = _interopRequireDefault(_dots);
-
-var _arrows = __webpack_require__(/*! ./arrows */ "./node_modules/ant-design-vue/lib/vc-slick/src/arrows.js");
-
-var _resizeObserverPolyfill = __webpack_require__(/*! resize-observer-polyfill */ "./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js");
-
-var _resizeObserverPolyfill2 = _interopRequireDefault(_resizeObserverPolyfill);
+var _IframeUploader2 = _interopRequireDefault(_IframeUploader);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-_vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' });
+function empty() {}
 
-function noop() {}
-
+var uploadProps = {
+  componentTag: _vueTypes2['default'].string,
+  prefixCls: _vueTypes2['default'].string,
+  action: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].func]),
+  name: _vueTypes2['default'].string,
+  multipart: _vueTypes2['default'].bool,
+  directory: _vueTypes2['default'].bool,
+  // onError: PropTypes.func,
+  // onSuccess: PropTypes.func,
+  // onProgress: PropTypes.func,
+  // onStart: PropTypes.func,
+  data: _vueTypes2['default'].oneOfType([_vueTypes2['default'].object, _vueTypes2['default'].func]),
+  headers: _vueTypes2['default'].object,
+  accept: _vueTypes2['default'].string,
+  multiple: _vueTypes2['default'].bool,
+  disabled: _vueTypes2['default'].bool,
+  beforeUpload: _vueTypes2['default'].func,
+  customRequest: _vueTypes2['default'].func,
+  // onReady: PropTypes.func,
+  withCredentials: _vueTypes2['default'].bool,
+  supportServerRender: _vueTypes2['default'].bool,
+  openFileDialogOnClick: _vueTypes2['default'].bool
+};
 exports['default'] = {
-  props: (0, _extends3['default'])({}, _defaultProps2['default']),
+  name: 'Upload',
   mixins: [_BaseMixin2['default']],
+  inheritAttrs: false,
+  props: (0, _propsUtil.initDefaultProps)(uploadProps, {
+    componentTag: 'span',
+    prefixCls: 'rc-upload',
+    data: {},
+    headers: {},
+    name: 'file',
+    multipart: false,
+    // onReady: empty,
+    // onStart: empty,
+    // onError: empty,
+    // onSuccess: empty,
+    supportServerRender: false,
+    multiple: false,
+    beforeUpload: empty,
+    withCredentials: false,
+    openFileDialogOnClick: true
+  }),
   data: function data() {
-    this.preProps = (0, _extends3['default'])({}, this.$props);
-    this.list = null;
-    this.track = null;
-    this.callbackTimers = [];
-    this.clickable = true;
-    this.debouncedResize = null;
-    return (0, _extends3['default'])({}, _initialState2['default'], {
-      currentSlide: this.initialSlide,
-      slideCount: this.children.length
+    return {
+      Component: null
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      if (_this.supportServerRender) {
+        /* eslint react/no-did-mount-set-state:0 */
+        _this.setState({
+          Component: _this.getComponent()
+        }, function () {
+          _this.$emit('ready');
+        });
+      }
     });
   },
 
   methods: {
-    listRefHandler: function listRefHandler(ref) {
-      this.list = ref;
+    getComponent: function getComponent() {
+      return typeof File !== 'undefined' ? _AjaxUploader2['default'] : _IframeUploader2['default'];
     },
-    trackRefHandler: function trackRefHandler(ref) {
-      this.track = ref;
-    },
-    adaptHeight: function adaptHeight() {
-      if (this.adaptiveHeight && this.list) {
-        var elem = this.list.querySelector('[data-index="' + this.currentSlide + '"]');
-        this.list.style.height = (0, _innerSliderUtils.getHeight)(elem) + 'px';
-      }
-    },
-    onWindowResized: function onWindowResized(setTrackStyle) {
-      var _this = this;
-
-      if (this.debouncedResize) this.debouncedResize.cancel();
-      this.debouncedResize = (0, _debounce2['default'])(function () {
-        return _this.resizeWindow(setTrackStyle);
-      }, 50);
-      this.debouncedResize();
-    },
-    resizeWindow: function resizeWindow() {
-      var _this2 = this;
-
-      var setTrackStyle = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
-
-      if (!this.track) return;
-      var spec = (0, _extends3['default'])({
-        listRef: this.list,
-        trackRef: this.track,
-        children: this.children
-      }, this.$props, this.$data);
-      this.updateState(spec, setTrackStyle, function () {
-        if (_this2.autoplay) {
-          _this2.handleAutoPlay('update');
-        } else {
-          _this2.pause('paused');
-        }
-      });
-      // animating state should be cleared while resizing, otherwise autoplay stops working
-      this.setState({
-        animating: false
-      });
-      clearTimeout(this.animationEndCallback);
-      delete this.animationEndCallback;
-    },
-    updateState: function updateState(spec, setTrackStyle, callback) {
-      var updatedState = (0, _innerSliderUtils.initializedState)(spec);
-      spec = (0, _extends3['default'])({}, spec, updatedState, { slideIndex: updatedState.currentSlide });
-      var targetLeft = (0, _innerSliderUtils.getTrackLeft)(spec);
-      spec = (0, _extends3['default'])({}, spec, { left: targetLeft });
-      var trackStyle = (0, _innerSliderUtils.getTrackCSS)(spec);
-      if (setTrackStyle || this.children.length !== spec.children.length) {
-        updatedState['trackStyle'] = trackStyle;
-      }
-      this.setState(updatedState, callback);
-    },
-    ssrInit: function ssrInit() {
-      var children = this.children;
-      if (this.variableWidth) {
-        var _trackWidth = 0;
-        var _trackLeft = 0;
-        var childrenWidths = [];
-        var preClones = (0, _innerSliderUtils.getPreClones)((0, _extends3['default'])({}, this.$props, this.$data, {
-          slideCount: children.length
-        }));
-        var postClones = (0, _innerSliderUtils.getPostClones)((0, _extends3['default'])({}, this.$props, this.$data, {
-          slideCount: children.length
-        }));
-        children.forEach(function (child) {
-          var childWidth = (0, _propsUtil.getStyle)(child).width.split('px')[0];
-          childrenWidths.push(childWidth);
-          _trackWidth += childWidth;
-        });
-        for (var i = 0; i < preClones; i++) {
-          _trackLeft += childrenWidths[childrenWidths.length - 1 - i];
-          _trackWidth += childrenWidths[childrenWidths.length - 1 - i];
-        }
-        for (var _i = 0; _i < postClones; _i++) {
-          _trackWidth += childrenWidths[_i];
-        }
-        for (var _i2 = 0; _i2 < this.currentSlide; _i2++) {
-          _trackLeft += childrenWidths[_i2];
-        }
-        var _trackStyle = {
-          width: _trackWidth + 'px',
-          left: -_trackLeft + 'px'
-        };
-        if (this.centerMode) {
-          var currentWidth = childrenWidths[this.currentSlide] + 'px';
-          _trackStyle.left = 'calc(' + _trackStyle.left + ' + (100% - ' + currentWidth + ') / 2 ) ';
-        }
-        this.setState({
-          trackStyle: _trackStyle
-        });
-        return;
-      }
-      var childrenCount = children.length;
-      var spec = (0, _extends3['default'])({}, this.$props, this.$data, { slideCount: childrenCount });
-      var slideCount = (0, _innerSliderUtils.getPreClones)(spec) + (0, _innerSliderUtils.getPostClones)(spec) + childrenCount;
-      var trackWidth = 100 / this.slidesToShow * slideCount;
-      var slideWidth = 100 / slideCount;
-      var trackLeft = -slideWidth * ((0, _innerSliderUtils.getPreClones)(spec) + this.currentSlide) * trackWidth / 100;
-      if (this.centerMode) {
-        trackLeft += (100 - slideWidth * trackWidth / 100) / 2;
-      }
-      var trackStyle = {
-        width: trackWidth + '%',
-        left: trackLeft + '%'
-      };
-      this.setState({
-        slideWidth: slideWidth + '%',
-        trackStyle: trackStyle
-      });
-    },
-    checkImagesLoad: function checkImagesLoad() {
-      var _this3 = this;
-
-      var images = document.querySelectorAll('.slick-slide img');
-      var imagesCount = images.length;
-      var loadedCount = 0;
-      Array.prototype.forEach.call(images, function (image) {
-        var handler = function handler() {
-          return ++loadedCount && loadedCount >= imagesCount && _this3.onWindowResized();
-        };
-        if (!image.onclick) {
-          image.onclick = function () {
-            return image.parentNode.focus();
-          };
-        } else {
-          var prevClickHandler = image.onclick;
-          image.onclick = function () {
-            prevClickHandler();
-            image.parentNode.focus();
-          };
-        }
-        if (!image.onload) {
-          if (_this3.$props.lazyLoad) {
-            image.onload = function () {
-              _this3.adaptHeight();
-              _this3.callbackTimers.push(setTimeout(_this3.onWindowResized, _this3.speed));
-            };
-          } else {
-            image.onload = handler;
-            image.onerror = function () {
-              handler();
-              _this3.$emit('lazyLoadError');
-            };
-          }
-        }
-      });
-    },
-    progressiveLazyLoad: function progressiveLazyLoad() {
-      var slidesToLoad = [];
-      var spec = (0, _extends3['default'])({}, this.$props, this.$data);
-      for (var index = this.currentSlide; index < this.slideCount + (0, _innerSliderUtils.getPostClones)(spec); index++) {
-        if (this.lazyLoadedList.indexOf(index) < 0) {
-          slidesToLoad.push(index);
-          break;
-        }
-      }
-      for (var _index = this.currentSlide - 1; _index >= -(0, _innerSliderUtils.getPreClones)(spec); _index--) {
-        if (this.lazyLoadedList.indexOf(_index) < 0) {
-          slidesToLoad.push(_index);
-          break;
-        }
-      }
-      if (slidesToLoad.length > 0) {
-        this.setState(function (state) {
-          return {
-            lazyLoadedList: state.lazyLoadedList.concat(slidesToLoad)
-          };
-        });
-        this.$emit('lazyLoad', slidesToLoad);
-      } else {
-        if (this.lazyLoadTimer) {
-          clearInterval(this.lazyLoadTimer);
-          delete this.lazyLoadTimer;
-        }
-      }
-    },
-    slideHandler: function slideHandler(index) {
-      var _this4 = this;
-
-      var dontAnimate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var _$props = this.$props,
-          asNavFor = _$props.asNavFor,
-          currentSlide = _$props.currentSlide,
-          beforeChange = _$props.beforeChange,
-          speed = _$props.speed,
-          afterChange = _$props.afterChange;
-
-      var _slideHandler2 = (0, _innerSliderUtils.slideHandler)((0, _extends3['default'])({
-        index: index
-      }, this.$props, this.$data, {
-        trackRef: this.track,
-        useCSS: this.useCSS && !dontAnimate
-      })),
-          state = _slideHandler2.state,
-          nextState = _slideHandler2.nextState;
-
-      if (!state) return;
-      beforeChange && beforeChange(currentSlide, state.currentSlide);
-      var slidesToLoad = state.lazyLoadedList.filter(function (value) {
-        return _this4.lazyLoadedList.indexOf(value) < 0;
-      });
-      if (this.$listeners.lazyLoad && slidesToLoad.length > 0) {
-        this.$emit('lazyLoad', slidesToLoad);
-      }
-      this.setState(state, function () {
-        asNavFor && asNavFor.innerSlider.currentSlide !== currentSlide && asNavFor.innerSlider.slideHandler(index);
-        if (!nextState) return;
-        _this4.animationEndCallback = setTimeout(function () {
-          var animating = nextState.animating,
-              firstBatch = (0, _objectWithoutProperties3['default'])(nextState, ['animating']);
-
-          _this4.setState(firstBatch, function () {
-            _this4.callbackTimers.push(setTimeout(function () {
-              return _this4.setState({ animating: animating });
-            }, 10));
-            afterChange && afterChange(state.currentSlide);
-            delete _this4.animationEndCallback;
-          });
-        }, speed);
-      });
-    },
-    changeSlide: function changeSlide(options) {
-      var dontAnimate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-      var spec = (0, _extends3['default'])({}, this.$props, this.$data);
-      var targetSlide = (0, _innerSliderUtils.changeSlide)(spec, options);
-      if (targetSlide !== 0 && !targetSlide) return;
-      if (dontAnimate === true) {
-        this.slideHandler(targetSlide, dontAnimate);
-      } else {
-        this.slideHandler(targetSlide);
-      }
-    },
-    clickHandler: function clickHandler(e) {
-      if (this.clickable === false) {
-        e.stopPropagation();
-        e.preventDefault();
-      }
-      this.clickable = true;
-    },
-    keyHandler: function keyHandler(e) {
-      var dir = (0, _innerSliderUtils.keyHandler)(e, this.accessibility, this.rtl);
-      dir !== '' && this.changeSlide({ message: dir });
-    },
-    selectHandler: function selectHandler(options) {
-      this.changeSlide(options);
-    },
-    disableBodyScroll: function disableBodyScroll() {
-      var preventDefault = function preventDefault(e) {
-        e = e || window.event;
-        if (e.preventDefault) e.preventDefault();
-        e.returnValue = false;
-      };
-      window.ontouchmove = preventDefault;
-    },
-    enableBodyScroll: function enableBodyScroll() {
-      window.ontouchmove = null;
-    },
-    swipeStart: function swipeStart(e) {
-      if (this.verticalSwiping) {
-        this.disableBodyScroll();
-      }
-      var state = (0, _innerSliderUtils.swipeStart)(e, this.swipe, this.draggable);
-      state !== '' && this.setState(state);
-    },
-    swipeMove: function swipeMove(e) {
-      var state = (0, _innerSliderUtils.swipeMove)(e, (0, _extends3['default'])({}, this.$props, this.$data, {
-        trackRef: this.track,
-        listRef: this.list,
-        slideIndex: this.currentSlide
-      }));
-      if (!state) return;
-      if (state['swiping']) {
-        this.clickable = false;
-      }
-      this.setState(state);
-    },
-    swipeEnd: function swipeEnd(e) {
-      var state = (0, _innerSliderUtils.swipeEnd)(e, (0, _extends3['default'])({}, this.$props, this.$data, {
-        trackRef: this.track,
-        listRef: this.list,
-        slideIndex: this.currentSlide
-      }));
-      if (!state) return;
-      var triggerSlideHandler = state['triggerSlideHandler'];
-      delete state['triggerSlideHandler'];
-      this.setState(state);
-      if (triggerSlideHandler === undefined) return;
-      this.slideHandler(triggerSlideHandler);
-      if (this.$props.verticalSwiping) {
-        this.enableBodyScroll();
-      }
-    },
-    slickPrev: function slickPrev() {
-      var _this5 = this;
-
-      // this and fellow methods are wrapped in setTimeout
-      // to make sure initialize setState has happened before
-      // any of such methods are called
-      this.callbackTimers.push(setTimeout(function () {
-        return _this5.changeSlide({ message: 'previous' });
-      }, 0));
-    },
-    slickNext: function slickNext() {
-      var _this6 = this;
-
-      this.callbackTimers.push(setTimeout(function () {
-        return _this6.changeSlide({ message: 'next' });
-      }, 0));
-    },
-    slickGoTo: function slickGoTo(slide) {
-      var _this7 = this;
-
-      var dontAnimate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-      slide = Number(slide);
-      if (isNaN(slide)) return '';
-      this.callbackTimers.push(setTimeout(function () {
-        return _this7.changeSlide({
-          message: 'index',
-          index: slide,
-          currentSlide: _this7.currentSlide
-        }, dontAnimate);
-      }, 0));
-    },
-    play: function play() {
-      var nextIndex = void 0;
-      if (this.rtl) {
-        nextIndex = this.currentSlide - this.slidesToScroll;
-      } else {
-        if ((0, _innerSliderUtils.canGoNext)((0, _extends3['default'])({}, this.$props, this.$data))) {
-          nextIndex = this.currentSlide + this.slidesToScroll;
-        } else {
-          return false;
-        }
-      }
-
-      this.slideHandler(nextIndex);
-    },
-    handleAutoPlay: function handleAutoPlay(playType) {
-      if (this.autoplayTimer) {
-        clearInterval(this.autoplayTimer);
-      }
-      var autoplaying = this.autoplaying;
-      if (playType === 'update') {
-        if (autoplaying === 'hovered' || autoplaying === 'focused' || autoplaying === 'paused') {
-          return;
-        }
-      } else if (playType === 'leave') {
-        if (autoplaying === 'paused' || autoplaying === 'focused') {
-          return;
-        }
-      } else if (playType === 'blur') {
-        if (autoplaying === 'paused' || autoplaying === 'hovered') {
-          return;
-        }
-      }
-      this.autoplayTimer = setInterval(this.play, this.autoplaySpeed + 50);
-      this.setState({ autoplaying: 'playing' });
-    },
-    pause: function pause(pauseType) {
-      if (this.autoplayTimer) {
-        clearInterval(this.autoplayTimer);
-        this.autoplayTimer = null;
-      }
-      var autoplaying = this.autoplaying;
-      if (pauseType === 'paused') {
-        this.setState({ autoplaying: 'paused' });
-      } else if (pauseType === 'focused') {
-        if (autoplaying === 'hovered' || autoplaying === 'playing') {
-          this.setState({ autoplaying: 'focused' });
-        }
-      } else {
-        // pauseType  is 'hovered'
-        if (autoplaying === 'playing') {
-          this.setState({ autoplaying: 'hovered' });
-        }
-      }
-    },
-    onDotsOver: function onDotsOver() {
-      this.autoplay && this.pause('hovered');
-    },
-    onDotsLeave: function onDotsLeave() {
-      this.autoplay && this.autoplaying === 'hovered' && this.handleAutoPlay('leave');
-    },
-    onTrackOver: function onTrackOver() {
-      this.autoplay && this.pause('hovered');
-    },
-    onTrackLeave: function onTrackLeave() {
-      this.autoplay && this.autoplaying === 'hovered' && this.handleAutoPlay('leave');
-    },
-    onSlideFocus: function onSlideFocus() {
-      this.autoplay && this.pause('focused');
-    },
-    onSlideBlur: function onSlideBlur() {
-      this.autoplay && this.autoplaying === 'focused' && this.handleAutoPlay('blur');
-    },
-    customPaging: function customPaging(_ref) {
-      var i = _ref.i;
-      var h = this.$createElement;
-
-      return h('button', [i + 1]);
-    },
-    appendDots: function appendDots(_ref2) {
-      var dots = _ref2.dots;
-      var h = this.$createElement;
-
-      return h(
-        'ul',
-        { style: { display: 'block' } },
-        [dots]
-      );
+    abort: function abort(file) {
+      this.$refs.uploaderRef.abort(file);
     }
   },
-  beforeMount: function beforeMount() {
-    this.ssrInit();
-    this.$emit('init');
-    if (this.lazyLoad) {
-      var slidesToLoad = (0, _innerSliderUtils.getOnDemandLazySlides)((0, _extends3['default'])({}, this.$props, this.$data));
-      if (slidesToLoad.length > 0) {
-        this.setState(function (prevState) {
-          return {
-            lazyLoadedList: prevState.lazyLoadedList.concat(slidesToLoad)
-          };
-        });
-        this.$emit('lazyLoad', slidesToLoad);
-      }
-    }
-  },
-  mounted: function mounted() {
-    var _this8 = this;
 
-    this.$nextTick(function () {
-      var spec = (0, _extends3['default'])({
-        listRef: _this8.list,
-        trackRef: _this8.track,
-        children: _this8.children
-      }, _this8.$props);
-      _this8.updateState(spec, true, function () {
-        _this8.adaptHeight();
-        _this8.autoplay && _this8.handleAutoPlay('update');
-      });
-      if (_this8.lazyLoad === 'progressive') {
-        _this8.lazyLoadTimer = setInterval(_this8.progressiveLazyLoad, 1000);
-      }
-      _this8.ro = new _resizeObserverPolyfill2['default'](function () {
-        if (_this8.animating) {
-          _this8.onWindowResized(false); // don't set trackStyle hence don't break animation
-          _this8.callbackTimers.push(setTimeout(function () {
-            return _this8.onWindowResized();
-          }, _this8.speed));
-        } else {
-          _this8.onWindowResized();
-        }
-      });
-      _this8.ro.observe(_this8.list);
-      Array.prototype.forEach.call(document.querySelectorAll('.slick-slide'), function (slide) {
-        slide.onfocus = _this8.$props.pauseOnFocus ? _this8.onSlideFocus : null;
-        slide.onblur = _this8.$props.pauseOnFocus ? _this8.onSlideBlur : null;
-      });
-      // To support server-side rendering
-      if (!window) {
-        return;
-      }
-      if (window.addEventListener) {
-        window.addEventListener('resize', _this8.onWindowResized);
-      } else {
-        window.attachEvent('onresize', _this8.onWindowResized);
-      }
-    });
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.animationEndCallback) {
-      clearTimeout(this.animationEndCallback);
-    }
-    if (this.lazyLoadTimer) {
-      clearInterval(this.lazyLoadTimer);
-    }
-    if (this.callbackTimers.length) {
-      this.callbackTimers.forEach(function (timer) {
-        return clearTimeout(timer);
-      });
-      this.callbackTimers = [];
-    }
-    if (window.addEventListener) {
-      window.removeEventListener('resize', this.onWindowResized);
-    } else {
-      window.detachEvent('onresize', this.onWindowResized);
-    }
-    if (this.autoplayTimer) {
-      clearInterval(this.autoplayTimer);
-    }
-  },
-  updated: function updated() {
-    this.checkImagesLoad();
-    this.$emit('reInit');
-    if (this.lazyLoad) {
-      var slidesToLoad = (0, _innerSliderUtils.getOnDemandLazySlides)((0, _extends3['default'])({}, this.$props, this.$data));
-      if (slidesToLoad.length > 0) {
-        this.setState(function (prevState) {
-          return {
-            lazyLoadedList: prevState.lazyLoadedList.concat(slidesToLoad)
-          };
-        });
-        this.$emit('lazyLoad');
-      }
-    }
-    // if (this.props.onLazyLoad) {
-    //   this.props.onLazyLoad([leftMostSlide])
-    // }
-    this.adaptHeight();
-  },
-
-  watch: {
-    __propsSymbol__: function __propsSymbol__() {
-      var _this9 = this;
-
-      var nextProps = this.$props;
-      var spec = (0, _extends3['default'])({
-        listRef: this.list,
-        trackRef: this.track
-      }, nextProps, this.$data);
-      var setTrackStyle = false;
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = Object.keys(this.preProps)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var key = _step.value;
-
-          if (!nextProps.hasOwnProperty(key)) {
-            setTrackStyle = true;
-            break;
-          }
-          if ((0, _typeof3['default'])(nextProps[key]) === 'object' || typeof nextProps[key] === 'function' || (0, _typeof3['default'])(nextProps[key]) === 'symbol') {
-            continue;
-          }
-          if (nextProps[key] !== this.preProps[key]) {
-            setTrackStyle = true;
-            break;
-          }
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator['return']) {
-            _iterator['return']();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
-      this.updateState(spec, setTrackStyle, function () {
-        if (_this9.currentSlide >= nextProps.children.length) {
-          _this9.changeSlide({
-            message: 'index',
-            index: nextProps.children.length - nextProps.slidesToShow,
-            currentSlide: _this9.currentSlide
-          });
-        }
-        if (nextProps.autoplay) {
-          _this9.handleAutoPlay('update');
-        } else {
-          _this9.pause('paused');
-        }
-      });
-      this.preProps = (0, _extends3['default'])({}, nextProps);
-    }
-  },
   render: function render() {
     var h = arguments[0];
 
-    var className = (0, _classnames2['default'])('slick-slider', {
-      'slick-vertical': this.vertical,
-      'slick-initialized': true
-    });
-    var spec = (0, _extends3['default'])({}, this.$props, this.$data);
-    var trackProps = (0, _innerSliderUtils.extractObject)(spec, ['fade', 'cssEase', 'speed', 'infinite', 'centerMode', 'focusOnSelect', 'currentSlide', 'lazyLoad', 'lazyLoadedList', 'rtl', 'slideWidth', 'slideHeight', 'listHeight', 'vertical', 'slidesToShow', 'slidesToScroll', 'slideCount', 'trackStyle', 'variableWidth', 'unslick', 'centerPadding']);
-    var pauseOnHover = this.$props.pauseOnHover;
-
-    trackProps = {
-      props: (0, _extends3['default'])({}, trackProps, {
-        focusOnSelect: this.focusOnSelect ? this.selectHandler : null
-      }),
-      directives: [{
-        name: 'ant-ref',
-        value: this.trackRefHandler
-      }],
-      on: {
-        mouseenter: pauseOnHover ? this.onTrackOver : noop,
-        mouseleave: pauseOnHover ? this.onTrackLeave : noop,
-        mouseover: pauseOnHover ? this.onTrackOver : noop
-      }
+    var componentProps = {
+      props: (0, _extends3['default'])({}, this.$props),
+      on: this.$listeners,
+      ref: 'uploaderRef',
+      attrs: this.$attrs
     };
-
-    var dots = void 0;
-    if (this.dots === true && this.slideCount >= this.slidesToShow) {
-      var dotProps = (0, _innerSliderUtils.extractObject)(spec, ['dotsClass', 'slideCount', 'slidesToShow', 'currentSlide', 'slidesToScroll', 'clickHandler', 'children', 'infinite', 'appendDots']);
-      dotProps.customPaging = this.customPaging;
-      dotProps.appendDots = this.appendDots;
-      var _$scopedSlots = this.$scopedSlots,
-          customPaging = _$scopedSlots.customPaging,
-          appendDots = _$scopedSlots.appendDots;
-
-      if (customPaging) {
-        dotProps.customPaging = customPaging;
+    if (this.supportServerRender) {
+      var _ComponentUploader = this.Component;
+      if (_ComponentUploader) {
+        return h(
+          _ComponentUploader,
+          componentProps,
+          [this.$slots['default']]
+        );
       }
-      if (appendDots) {
-        dotProps.appendDots = appendDots;
-      }
-      var pauseOnDotsHover = this.$props.pauseOnDotsHover;
-
-      dotProps = {
-        props: (0, _extends3['default'])({}, dotProps, {
-          clickHandler: this.changeSlide
-        }),
-        on: {
-          mouseenter: pauseOnDotsHover ? this.onDotsLeave : noop,
-          mouseover: pauseOnDotsHover ? this.onDotsOver : noop,
-          mouseleave: pauseOnDotsHover ? this.onDotsLeave : noop
-        }
-      };
-      dots = h(_dots2['default'], dotProps);
+      return null;
     }
-
-    var prevArrow = void 0,
-        nextArrow = void 0;
-    var arrowProps = (0, _innerSliderUtils.extractObject)(spec, ['infinite', 'centerMode', 'currentSlide', 'slideCount', 'slidesToShow']);
-    arrowProps.clickHandler = this.changeSlide;
-    var _$scopedSlots2 = this.$scopedSlots,
-        prevArrowCustom = _$scopedSlots2.prevArrow,
-        nextArrowCustom = _$scopedSlots2.nextArrow;
-
-    if (prevArrowCustom) {
-      arrowProps.prevArrow = prevArrowCustom;
-    }
-    if (nextArrowCustom) {
-      arrowProps.nextArrow = nextArrowCustom;
-    }
-    if (this.arrows) {
-      prevArrow = h(_arrows.PrevArrow, { props: arrowProps });
-      nextArrow = h(_arrows.NextArrow, { props: arrowProps });
-    }
-    var verticalHeightStyle = null;
-
-    if (this.vertical) {
-      verticalHeightStyle = {
-        height: typeof this.listHeight === 'number' ? this.listHeight + 'px' : this.listHeight
-      };
-    }
-
-    var centerPaddingStyle = null;
-
-    if (this.vertical === false) {
-      if (this.centerMode === true) {
-        centerPaddingStyle = {
-          padding: '0px ' + this.centerPadding
-        };
-      }
-    } else {
-      if (this.centerMode === true) {
-        centerPaddingStyle = {
-          padding: this.centerPadding + ' 0px'
-        };
-      }
-    }
-
-    var listStyle = (0, _extends3['default'])({}, verticalHeightStyle, centerPaddingStyle);
-    var touchMove = this.touchMove;
-    var listProps = {
-      directives: [{
-        name: 'ant-ref',
-        value: this.listRefHandler
-      }],
-      'class': 'slick-list',
-      style: listStyle,
-      on: {
-        click: this.clickHandler,
-        mousedown: touchMove ? this.swipeStart : noop,
-        mousemove: this.dragging && touchMove ? this.swipeMove : noop,
-        mouseup: touchMove ? this.swipeEnd : noop,
-        mouseleave: this.dragging && touchMove ? this.swipeEnd : noop,
-        touchstart: touchMove ? this.swipeStart : noop,
-        touchmove: this.dragging && touchMove ? this.swipeMove : noop,
-        touchend: touchMove ? this.swipeEnd : noop,
-        touchcancel: this.dragging && touchMove ? this.swipeEnd : noop,
-        keydown: this.accessibility ? this.keyHandler : noop
-      }
-    };
-
-    var innerSliderProps = {
-      'class': className,
-      props: {
-        dir: 'ltr'
-      }
-    };
-
-    if (this.unslick) {
-      listProps = {
-        'class': 'slick-list',
-        directives: [{
-          name: 'ant-ref',
-          value: this.listRefHandler
-        }]
-      };
-      innerSliderProps = { 'class': className };
-    }
+    var ComponentUploader = this.getComponent();
     return h(
-      'div',
-      innerSliderProps,
-      [!this.unslick ? prevArrow : '', h(
-        'div',
-        listProps,
-        [h(
-          _track2['default'],
-          trackProps,
-          [this.children]
-        )]
-      ), !this.unslick ? nextArrow : '', !this.unslick ? dots : '']
+      ComponentUploader,
+      componentProps,
+      [this.$slots['default']]
     );
   }
 };
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-slick/src/slider.js":
+/***/ "./node_modules/ant-design-vue/lib/vc-upload/src/attr-accept.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-upload/src/attr-accept.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function endsWith(str, suffix) {
+  return str.indexOf(suffix, str.length - suffix.length) !== -1;
+}
+
+exports['default'] = function (file, acceptedFiles) {
+  if (file && acceptedFiles) {
+    var acceptedFilesArray = Array.isArray(acceptedFiles) ? acceptedFiles : acceptedFiles.split(',');
+    var fileName = file.name || '';
+    var mimeType = file.type || '';
+    var baseMimeType = mimeType.replace(/\/.*$/, '');
+
+    return acceptedFilesArray.some(function (type) {
+      var validType = type.trim();
+      if (validType.charAt(0) === '.') {
+        return endsWith(fileName.toLowerCase(), validType.toLowerCase());
+      } else if (/\/\*$/.test(validType)) {
+        // This is something like a image/* mime type
+        return baseMimeType === validType.replace(/\/.*$/, '');
+      }
+      return mimeType === validType;
+    });
+  }
+  return true;
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-upload/src/index.js":
 /*!****************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-slick/src/slider.js ***!
+  !*** ./node_modules/ant-design-vue/lib/vc-upload/src/index.js ***!
   \****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1473,259 +2512,21 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+var _Upload = __webpack_require__(/*! ./Upload */ "./node_modules/ant-design-vue/lib/vc-upload/src/Upload.js");
 
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _json2mq = __webpack_require__(/*! json2mq */ "./node_modules/json2mq/index.js");
-
-var _json2mq2 = _interopRequireDefault(_json2mq);
-
-var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-
-var _vue2 = _interopRequireDefault(_vue);
-
-var _vueRef = __webpack_require__(/*! vue-ref */ "./node_modules/vue-ref/index.js");
-
-var _vueRef2 = _interopRequireDefault(_vueRef);
-
-var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-var _vnode = __webpack_require__(/*! ../../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
-
-var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _innerSlider = __webpack_require__(/*! ./inner-slider */ "./node_modules/ant-design-vue/lib/vc-slick/src/inner-slider.js");
-
-var _innerSlider2 = _interopRequireDefault(_innerSlider);
-
-var _defaultProps = __webpack_require__(/*! ./default-props */ "./node_modules/ant-design-vue/lib/vc-slick/src/default-props.js");
-
-var _defaultProps2 = _interopRequireDefault(_defaultProps);
-
-var _innerSliderUtils = __webpack_require__(/*! ./utils/innerSliderUtils */ "./node_modules/ant-design-vue/lib/vc-slick/src/utils/innerSliderUtils.js");
+var _Upload2 = _interopRequireDefault(_Upload);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var enquire = (0, _innerSliderUtils.canUseDOM)() && __webpack_require__(/*! enquire.js */ "./node_modules/enquire.js/src/index.js");
-
-_vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' });
-
-exports['default'] = {
-  props: (0, _extends3['default'])({}, _defaultProps2['default']),
-  mixins: [_BaseMixin2['default']],
-  data: function data() {
-    this._responsiveMediaHandlers = [];
-    return {
-      breakpoint: null
-    };
-  },
-
-  methods: {
-    innerSliderRefHandler: function innerSliderRefHandler(ref) {
-      this.innerSlider = ref;
-    },
-    media: function media(query, handler) {
-      // javascript handler for  css media query
-      enquire.register(query, handler);
-      this._responsiveMediaHandlers.push({ query: query, handler: handler });
-    },
-    slickPrev: function slickPrev() {
-      this.innerSlider.slickPrev();
-    },
-    slickNext: function slickNext() {
-      this.innerSlider.slickNext();
-    },
-    slickGoTo: function slickGoTo(slide) {
-      var dontAnimate = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-      this.innerSlider.slickGoTo(slide, dontAnimate);
-    },
-    slickPause: function slickPause() {
-      this.innerSlider.pause('paused');
-    },
-    slickPlay: function slickPlay() {
-      this.innerSlider.handleAutoPlay('play');
-    }
-  },
-  // handles responsive breakpoints
-  beforeMount: function beforeMount() {
-    var _this = this;
-
-    // performance monitoring
-    // if (process.env.NODE_ENV !== 'production') {
-    // const { whyDidYouUpdate } = require('why-did-you-update')
-    // whyDidYouUpdate(React)
-    // }
-    if (this.responsive) {
-      var breakpoints = this.responsive.map(function (breakpt) {
-        return breakpt.breakpoint;
-      });
-      // sort them in increasing order of their numerical value
-      breakpoints.sort(function (x, y) {
-        return x - y;
-      });
-
-      breakpoints.forEach(function (breakpoint, index) {
-        // media query for each breakpoint
-        var bQuery = void 0;
-        if (index === 0) {
-          bQuery = (0, _json2mq2['default'])({ minWidth: 0, maxWidth: breakpoint });
-        } else {
-          bQuery = (0, _json2mq2['default'])({
-            minWidth: breakpoints[index - 1] + 1,
-            maxWidth: breakpoint
-          });
-        }
-        // when not using server side rendering
-        (0, _innerSliderUtils.canUseDOM)() && _this.media(bQuery, function () {
-          _this.setState({ breakpoint: breakpoint });
-        });
-      });
-
-      // Register media query for full screen. Need to support resize from small to large
-      // convert javascript object to media query string
-      var query = (0, _json2mq2['default'])({ minWidth: breakpoints.slice(-1)[0] });
-
-      (0, _innerSliderUtils.canUseDOM)() && this.media(query, function () {
-        _this.setState({ breakpoint: null });
-      });
-    }
-  },
-  beforeDestroy: function beforeDestroy() {
-    this._responsiveMediaHandlers.forEach(function (obj) {
-      enquire.unregister(obj.query, obj.handler);
-    });
-  },
-  render: function render() {
-    var _this2 = this;
-
-    var h = arguments[0];
-
-    var settings = void 0;
-    var newProps = void 0;
-    if (this.breakpoint) {
-      newProps = this.responsive.filter(function (resp) {
-        return resp.breakpoint === _this2.breakpoint;
-      });
-      settings = newProps[0].settings === 'unslick' ? 'unslick' : (0, _extends3['default'])({}, this.$props, newProps[0].settings);
-    } else {
-      settings = (0, _extends3['default'])({}, this.$props);
-    }
-
-    // force scrolling by one if centerMode is on
-    if (settings.centerMode) {
-      if (settings.slidesToScroll > 1 && "development" !== 'production') {
-        console.warn('slidesToScroll should be equal to 1 in centerMode, you are using ' + settings.slidesToScroll);
-      }
-      settings.slidesToScroll = 1;
-    }
-    // force showing one slide and scrolling by one if the fade mode is on
-    if (settings.fade) {
-      if (settings.slidesToShow > 1 && "development" !== 'production') {
-        console.warn('slidesToShow should be equal to 1 when fade is true, you\'re using ' + settings.slidesToShow);
-      }
-      if (settings.slidesToScroll > 1 && "development" !== 'production') {
-        console.warn('slidesToScroll should be equal to 1 when fade is true, you\'re using ' + settings.slidesToScroll);
-      }
-      settings.slidesToShow = 1;
-      settings.slidesToScroll = 1;
-    }
-
-    // makes sure that children is an array, even when there is only 1 child
-    var children = this.$slots['default'] || [];
-
-    // Children may contain false or null, so we should filter them
-    // children may also contain string filled with spaces (in certain cases where we use jsx strings)
-    children = children.filter(function (child) {
-      if (typeof child === 'string') {
-        return !!child.trim();
-      }
-      return !!child;
-    });
-
-    // rows and slidesPerRow logic is handled here
-    if (settings.variableWidth && (settings.rows > 1 || settings.slidesPerRow > 1)) {
-      console.warn('variableWidth is not supported in case of rows > 1 or slidesPerRow > 1');
-      settings.variableWidth = false;
-    }
-    var newChildren = [];
-    var currentWidth = null;
-    for (var i = 0; i < children.length; i += settings.rows * settings.slidesPerRow) {
-      var newSlide = [];
-      for (var j = i; j < i + settings.rows * settings.slidesPerRow; j += settings.slidesPerRow) {
-        var row = [];
-        for (var k = j; k < j + settings.slidesPerRow; k += 1) {
-          if (settings.variableWidth && (0, _propsUtil.getStyle)(children[k])) {
-            currentWidth = (0, _propsUtil.getStyle)(children[k]).width;
-          }
-          if (k >= children.length) break;
-          row.push((0, _vnode.cloneElement)(children[k], {
-            key: 100 * i + 10 * j + k,
-            attrs: {
-              tabIndex: -1
-            },
-            style: {
-              width: 100 / settings.slidesPerRow + '%',
-              display: 'inline-block'
-            }
-          }));
-        }
-        newSlide.push(h(
-          'div',
-          { key: 10 * i + j },
-          [row]
-        ));
-      }
-      if (settings.variableWidth) {
-        newChildren.push(h(
-          'div',
-          { key: i, style: { width: currentWidth } },
-          [newSlide]
-        ));
-      } else {
-        newChildren.push(h(
-          'div',
-          { key: i },
-          [newSlide]
-        ));
-      }
-    }
-
-    if (settings === 'unslick') {
-      var className = 'regular slider ' + (this.className || '');
-      return h(
-        'div',
-        { 'class': className },
-        [newChildren]
-      );
-    } else if (newChildren.length <= settings.slidesToShow) {
-      settings.unslick = true;
-    }
-    var sliderProps = {
-      props: (0, _extends3['default'])({}, settings, {
-        children: newChildren,
-        __propsSymbol__: Symbol()
-      }),
-      on: (0, _extends3['default'])({}, this.$listeners),
-      directives: [{
-        name: 'ant-ref',
-        value: this.innerSliderRefHandler
-      }],
-      scopedSlots: this.$scopedSlots
-    };
-    return h(_innerSlider2['default'], sliderProps);
-  }
-};
+exports['default'] = _Upload2['default']; // based on rc-upload 2.4.4
+// export this package's api
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-slick/src/track.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-slick/src/track.js ***!
-  \***************************************************************/
+/***/ "./node_modules/ant-design-vue/lib/vc-upload/src/request.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-upload/src/request.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1735,226 +2536,111 @@ exports['default'] = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports['default'] = upload;
+function getError(option, xhr) {
+  var msg = 'cannot post ' + option.action + ' ' + xhr.status + '\'';
+  var err = new Error(msg);
+  err.status = xhr.status;
+  err.method = 'post';
+  err.url = option.action;
+  return err;
+}
 
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _vnode = __webpack_require__(/*! ../../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
-
-var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _innerSliderUtils = __webpack_require__(/*! ./utils/innerSliderUtils */ "./node_modules/ant-design-vue/lib/vc-slick/src/utils/innerSliderUtils.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-// given specifications/props for a slide, fetch all the classes that need to be applied to the slide
-var getSlideClasses = function getSlideClasses(spec) {
-  var slickActive = void 0,
-      slickCenter = void 0;
-  var centerOffset = void 0,
-      index = void 0;
-
-  if (spec.rtl) {
-    index = spec.slideCount - 1 - spec.index;
-  } else {
-    index = spec.index;
+function getBody(xhr) {
+  var text = xhr.responseText || xhr.response;
+  if (!text) {
+    return text;
   }
-  var slickCloned = index < 0 || index >= spec.slideCount;
-  if (spec.centerMode) {
-    centerOffset = Math.floor(spec.slidesToShow / 2);
-    slickCenter = (index - spec.currentSlide) % spec.slideCount === 0;
-    if (index > spec.currentSlide - centerOffset - 1 && index <= spec.currentSlide + centerOffset) {
-      slickActive = true;
-    }
-  } else {
-    slickActive = spec.currentSlide <= index && index < spec.currentSlide + spec.slidesToShow;
+
+  try {
+    return JSON.parse(text);
+  } catch (e) {
+    return text;
   }
-  var slickCurrent = index === spec.currentSlide;
-  return {
-    'slick-slide': true,
-    'slick-active': slickActive,
-    'slick-center': slickCenter,
-    'slick-cloned': slickCloned,
-    'slick-current': slickCurrent // dubious in case of RTL
+}
+
+// option {
+//  onProgress: (event: { percent: number }): void,
+//  onError: (event: Error, body?: Object): void,
+//  onSuccess: (body: Object): void,
+//  data: Object,
+//  filename: String,
+//  file: File,
+//  withCredentials: Boolean,
+//  action: String,
+//  headers: Object,
+// }
+function upload(option) {
+  var xhr = new window.XMLHttpRequest();
+
+  if (option.onProgress && xhr.upload) {
+    xhr.upload.onprogress = function progress(e) {
+      if (e.total > 0) {
+        e.percent = e.loaded / e.total * 100;
+      }
+      option.onProgress(e);
+    };
+  }
+
+  var formData = new window.FormData();
+
+  if (option.data) {
+    Object.keys(option.data).map(function (key) {
+      formData.append(key, option.data[key]);
+    });
+  }
+
+  formData.append(option.filename, option.file);
+
+  xhr.onerror = function error(e) {
+    option.onError(e);
   };
-};
 
-var getSlideStyle = function getSlideStyle(spec) {
-  var style = {};
-
-  if (spec.variableWidth === undefined || spec.variableWidth === false) {
-    style.width = spec.slideWidth + (typeof spec.slideWidth === 'number' ? 'px' : '');
-  }
-
-  if (spec.fade) {
-    style.position = 'relative';
-    if (spec.vertical) {
-      style.top = -spec.index * parseInt(spec.slideHeight) + 'px';
-    } else {
-      style.left = -spec.index * parseInt(spec.slideWidth) + 'px';
+  xhr.onload = function onload() {
+    // allow success when 2xx status
+    // see https://github.com/react-component/upload/issues/34
+    if (xhr.status < 200 || xhr.status >= 300) {
+      return option.onError(getError(option, xhr), getBody(xhr));
     }
-    style.opacity = spec.currentSlide === spec.index ? 1 : 0;
-    style.transition = 'opacity ' + spec.speed + 'ms ' + spec.cssEase + ', ' + 'visibility ' + spec.speed + 'ms ' + spec.cssEase;
-    style.WebkitTransition = 'opacity ' + spec.speed + 'ms ' + spec.cssEase + ', ' + 'visibility ' + spec.speed + 'ms ' + spec.cssEase;
+
+    option.onSuccess(getBody(xhr), xhr);
+  };
+
+  xhr.open('post', option.action, true);
+
+  // Has to be after `.open()`. See https://github.com/enyo/dropzone/issues/179
+  if (option.withCredentials && 'withCredentials' in xhr) {
+    xhr.withCredentials = true;
   }
 
-  return style;
-};
+  var headers = option.headers || {};
 
-var getKey = function getKey(child, fallbackKey) {
-  return child.key || child.key === 0 && '0' || fallbackKey;
-};
+  // when set headers['X-Requested-With'] = null , can close default XHR header
+  // see https://github.com/react-component/upload/issues/33
+  if (headers['X-Requested-With'] !== null) {
+    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+  }
 
-var renderSlides = function renderSlides(spec, children, createElement) {
-  var key = void 0;
-  var slides = [];
-  var preCloneSlides = [];
-  var postCloneSlides = [];
-  var childrenCount = children.length;
-  var startIndex = (0, _innerSliderUtils.lazyStartIndex)(spec);
-  var endIndex = (0, _innerSliderUtils.lazyEndIndex)(spec);
-
-  children.forEach(function (elem, index) {
-    var child = void 0;
-    var childOnClickOptions = {
-      message: 'children',
-      index: index,
-      slidesToScroll: spec.slidesToScroll,
-      currentSlide: spec.currentSlide
-    };
-
-    // in case of lazyLoad, whether or not we want to fetch the slide
-    if (!spec.lazyLoad || spec.lazyLoad && spec.lazyLoadedList.indexOf(index) >= 0) {
-      child = elem;
-    } else {
-      child = createElement('div');
+  for (var h in headers) {
+    if (headers.hasOwnProperty(h) && headers[h] !== null) {
+      xhr.setRequestHeader(h, headers[h]);
     }
-    var childStyle = getSlideStyle((0, _extends3['default'])({}, spec, { index: index }));
-    var slideClass = (0, _propsUtil.getClass)(child.context) || '';
-    var slideClasses = getSlideClasses((0, _extends3['default'])({}, spec, { index: index }));
-    // push a cloned element of the desired slide
-    slides.push((0, _vnode.cloneElement)(child, {
-      key: 'original' + getKey(child, index),
-      attrs: {
-        tabIndex: '-1',
-        'data-index': index,
-        'aria-hidden': !slideClasses['slick-active']
-      },
-      'class': (0, _classnames2['default'])(slideClasses, slideClass),
-      style: (0, _extends3['default'])({ outline: 'none' }, (0, _propsUtil.getStyle)(child.context) || {}, childStyle),
-      on: {
-        click: function click() {
-          // child.props && child.props.onClick && child.props.onClick(e)
-          if (spec.focusOnSelect) {
-            spec.focusOnSelect(childOnClickOptions);
-          }
-        }
-      }
-    }, true));
+  }
+  xhr.send(formData);
 
-    // if slide needs to be precloned or postcloned
-    if (spec.infinite && spec.fade === false) {
-      var preCloneNo = childrenCount - index;
-      if (preCloneNo <= (0, _innerSliderUtils.getPreClones)(spec) && childrenCount !== spec.slidesToShow) {
-        key = -preCloneNo;
-        if (key >= startIndex) {
-          child = elem;
-        }
-        slideClasses = getSlideClasses((0, _extends3['default'])({}, spec, { index: key }));
-        preCloneSlides.push((0, _vnode.cloneElement)(child, {
-          key: 'precloned' + getKey(child, key),
-          'class': (0, _classnames2['default'])(slideClasses, slideClass),
-          attrs: {
-            tabIndex: '-1',
-            'data-index': key,
-            'aria-hidden': !slideClasses['slick-active']
-          },
-          style: (0, _extends3['default'])({}, (0, _propsUtil.getStyle)(child.context) || {}, childStyle),
-          on: {
-            click: function click() {
-              // child.props && child.props.onClick && child.props.onClick(e)
-              if (spec.focusOnSelect) {
-                spec.focusOnSelect(childOnClickOptions);
-              }
-            }
-          }
-        }));
-      }
-
-      if (childrenCount !== spec.slidesToShow) {
-        key = childrenCount + index;
-        if (key < endIndex) {
-          child = elem;
-        }
-        slideClasses = getSlideClasses((0, _extends3['default'])({}, spec, { index: key }));
-        postCloneSlides.push((0, _vnode.cloneElement)(child, {
-          key: 'postcloned' + getKey(child, key),
-          attrs: {
-            tabIndex: '-1',
-            'data-index': key,
-            'aria-hidden': !slideClasses['slick-active']
-          },
-          'class': (0, _classnames2['default'])(slideClasses, slideClass),
-          style: (0, _extends3['default'])({}, (0, _propsUtil.getStyle)(child.context) || {}, childStyle),
-          on: {
-            click: function click() {
-              // child.props && child.props.onClick && child.props.onClick(e)
-              if (spec.focusOnSelect) {
-                spec.focusOnSelect(childOnClickOptions);
-              }
-            }
-          }
-        }));
-      }
+  return {
+    abort: function abort() {
+      xhr.abort();
     }
-  });
-  if (spec.rtl) {
-    return preCloneSlides.concat(slides, postCloneSlides).reverse();
-  } else {
-    return preCloneSlides.concat(slides, postCloneSlides);
-  }
-};
-
-exports['default'] = {
-  functional: true,
-  render: function render(createElement, context) {
-    var h = arguments[0];
-    var props = context.props,
-        listeners = context.listeners,
-        children = context.children,
-        data = context.data;
-
-    var slides = renderSlides(props, children, createElement);
-    var mouseenter = listeners.mouseenter,
-        mouseover = listeners.mouseover,
-        mouseleave = listeners.mouseleave;
-
-    var mouseEvents = { mouseenter: mouseenter, mouseover: mouseover, mouseleave: mouseleave };
-    var trackProps = {
-      'class': 'slick-track',
-      style: props.trackStyle,
-      on: (0, _extends3['default'])({}, mouseEvents),
-      directives: data.directives
-    };
-    return h(
-      'div',
-      trackProps,
-      [slides]
-    );
-  }
-};
+  };
+}
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-slick/src/utils/innerSliderUtils.js":
-/*!********************************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-slick/src/utils/innerSliderUtils.js ***!
-  \********************************************************************************/
+/***/ "./node_modules/ant-design-vue/lib/vc-upload/src/traverseFileTree.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-upload/src/traverseFileTree.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1964,827 +2650,428 @@ exports['default'] = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.canUseDOM = exports.slidesOnLeft = exports.slidesOnRight = exports.siblingDirection = exports.getTotalSlides = exports.getPostClones = exports.getPreClones = exports.getTrackLeft = exports.getTrackAnimateCSS = exports.getTrackCSS = exports.checkSpecKeys = exports.getSlideCount = exports.checkNavigable = exports.getNavigableIndexes = exports.swipeEnd = exports.swipeMove = exports.swipeStart = exports.keyHandler = exports.changeSlide = exports.slideHandler = exports.initializedState = exports.extractObject = exports.canGoNext = exports.getSwipeDirection = exports.getHeight = exports.getWidth = exports.lazySlidesOnRight = exports.lazySlidesOnLeft = exports.lazyEndIndex = exports.lazyStartIndex = exports.getRequiredLazySlides = exports.getOnDemandLazySlides = undefined;
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var getOnDemandLazySlides = exports.getOnDemandLazySlides = function getOnDemandLazySlides(spec) {
-  var onDemandSlides = [];
-  var startIndex = lazyStartIndex(spec);
-  var endIndex = lazyEndIndex(spec);
-  for (var slideIndex = startIndex; slideIndex < endIndex; slideIndex++) {
-    if (spec.lazyLoadedList.indexOf(slideIndex) < 0) {
-      onDemandSlides.push(slideIndex);
-    }
-  }
-  return onDemandSlides;
-};
-
-// return list of slides that need to be present
-var getRequiredLazySlides = exports.getRequiredLazySlides = function getRequiredLazySlides(spec) {
-  var requiredSlides = [];
-  var startIndex = lazyStartIndex(spec);
-  var endIndex = lazyEndIndex(spec);
-  for (var slideIndex = startIndex; slideIndex < endIndex; slideIndex++) {
-    requiredSlides.push(slideIndex);
-  }
-  return requiredSlides;
-};
-
-// startIndex that needs to be present
-var lazyStartIndex = exports.lazyStartIndex = function lazyStartIndex(spec) {
-  return spec.currentSlide - lazySlidesOnLeft(spec);
-};
-var lazyEndIndex = exports.lazyEndIndex = function lazyEndIndex(spec) {
-  return spec.currentSlide + lazySlidesOnRight(spec);
-};
-var lazySlidesOnLeft = exports.lazySlidesOnLeft = function lazySlidesOnLeft(spec) {
-  return spec.centerMode ? Math.floor(spec.slidesToShow / 2) + (parseInt(spec.centerPadding) > 0 ? 1 : 0) : 0;
-};
-var lazySlidesOnRight = exports.lazySlidesOnRight = function lazySlidesOnRight(spec) {
-  return spec.centerMode ? Math.floor((spec.slidesToShow - 1) / 2) + 1 + (parseInt(spec.centerPadding) > 0 ? 1 : 0) : spec.slidesToShow;
-};
-
-// get width of an element
-var getWidth = exports.getWidth = function getWidth(elem) {
-  return elem && elem.offsetWidth || 0;
-};
-var getHeight = exports.getHeight = function getHeight(elem) {
-  return elem && elem.offsetHeight || 0;
-};
-var getSwipeDirection = exports.getSwipeDirection = function getSwipeDirection(touchObject) {
-  var verticalSwiping = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-
-  var swipeAngle = void 0;
-  var xDist = touchObject.startX - touchObject.curX;
-  var yDist = touchObject.startY - touchObject.curY;
-  var r = Math.atan2(yDist, xDist);
-  swipeAngle = Math.round(r * 180 / Math.PI);
-  if (swipeAngle < 0) {
-    swipeAngle = 360 - Math.abs(swipeAngle);
-  }
-  if (swipeAngle <= 45 && swipeAngle >= 0 || swipeAngle <= 360 && swipeAngle >= 315) {
-    return 'left';
-  }
-  if (swipeAngle >= 135 && swipeAngle <= 225) {
-    return 'right';
-  }
-  if (verticalSwiping === true) {
-    if (swipeAngle >= 35 && swipeAngle <= 135) {
-      return 'up';
-    } else {
-      return 'down';
-    }
-  }
-
-  return 'vertical';
-};
-
-// whether or not we can go next
-var canGoNext = exports.canGoNext = function canGoNext(spec) {
-  var canGo = true;
-  if (!spec.infinite) {
-    if (spec.centerMode && spec.currentSlide >= spec.slideCount - 1) {
-      canGo = false;
-    } else if (spec.slideCount <= spec.slidesToShow || spec.currentSlide >= spec.slideCount - spec.slidesToShow) {
-      canGo = false;
-    }
-  }
-  return canGo;
-};
-
-// given an object and a list of keys, return new object with given keys
-var extractObject = exports.extractObject = function extractObject(spec, keys) {
-  var newObject = {};
-  keys.forEach(function (key) {
-    return newObject[key] = spec[key];
-  });
-  return newObject;
-};
-
-// get initialized state
-var initializedState = exports.initializedState = function initializedState(spec) {
-  // spec also contains listRef, trackRef
-  var slideCount = spec.children.length;
-  var listWidth = Math.ceil(getWidth(spec.listRef));
-  var trackWidth = Math.ceil(getWidth(spec.trackRef));
-  var slideWidth = void 0;
-  if (!spec.vertical) {
-    var centerPaddingAdj = spec.centerMode && parseInt(spec.centerPadding) * 2;
-    if (typeof spec.centerPadding === 'string' && spec.centerPadding.slice(-1) === '%') {
-      centerPaddingAdj *= listWidth / 100;
-    }
-    slideWidth = Math.ceil((listWidth - centerPaddingAdj) / spec.slidesToShow);
-  } else {
-    slideWidth = listWidth;
-  }
-  var slideHeight = spec.listRef && getHeight(spec.listRef.querySelector('[data-index="0"]'));
-  var listHeight = slideHeight * spec.slidesToShow;
-  var currentSlide = spec.currentSlide === undefined ? spec.initialSlide : spec.currentSlide;
-  if (spec.rtl && spec.currentSlide === undefined) {
-    currentSlide = slideCount - 1 - spec.initialSlide;
-  }
-  var lazyLoadedList = spec.lazyLoadedList || [];
-  var slidesToLoad = getOnDemandLazySlides({ currentSlide: currentSlide, lazyLoadedList: lazyLoadedList }, spec);
-  lazyLoadedList.concat(slidesToLoad);
-
-  var state = {
-    slideCount: slideCount,
-    slideWidth: slideWidth,
-    listWidth: listWidth,
-    trackWidth: trackWidth,
-    currentSlide: currentSlide,
-    slideHeight: slideHeight,
-    listHeight: listHeight,
-    lazyLoadedList: lazyLoadedList
-  };
-
-  if (spec.autoplaying === null && spec.autoplay) {
-    state['autoplaying'] = 'playing';
-  }
-
-  return state;
-};
-
-var slideHandler = exports.slideHandler = function slideHandler(spec) {
-  var waitForAnimate = spec.waitForAnimate,
-      animating = spec.animating,
-      fade = spec.fade,
-      infinite = spec.infinite,
-      index = spec.index,
-      slideCount = spec.slideCount,
-      lazyLoadedList = spec.lazyLoadedList,
-      lazyLoad = spec.lazyLoad,
-      currentSlide = spec.currentSlide,
-      centerMode = spec.centerMode,
-      slidesToScroll = spec.slidesToScroll,
-      slidesToShow = spec.slidesToShow,
-      useCSS = spec.useCSS;
-
-  if (waitForAnimate && animating) return {};
-  var animationSlide = index;
-  var finalSlide = void 0;
-  var animationLeft = void 0;
-  var finalLeft = void 0;
-  var state = {};
-  var nextState = {};
-  if (fade) {
-    if (!infinite && (index < 0 || index >= slideCount)) return {};
-    if (index < 0) {
-      animationSlide = index + slideCount;
-    } else if (index >= slideCount) {
-      animationSlide = index - slideCount;
-    }
-    if (lazyLoad && lazyLoadedList.indexOf(animationSlide) < 0) {
-      lazyLoadedList.push(animationSlide);
-    }
-    state = {
-      animating: true,
-      currentSlide: animationSlide,
-      lazyLoadedList: lazyLoadedList
-    };
-    nextState = { animating: false };
-  } else {
-    finalSlide = animationSlide;
-    if (animationSlide < 0) {
-      finalSlide = animationSlide + slideCount;
-      if (!infinite) finalSlide = 0;else if (slideCount % slidesToScroll !== 0) {
-        finalSlide = slideCount - slideCount % slidesToScroll;
-      }
-    } else if (!canGoNext(spec) && animationSlide > currentSlide) {
-      animationSlide = finalSlide = currentSlide;
-    } else if (centerMode && animationSlide >= slideCount) {
-      animationSlide = infinite ? slideCount : slideCount - 1;
-      finalSlide = infinite ? 0 : slideCount - 1;
-    } else if (animationSlide >= slideCount) {
-      finalSlide = animationSlide - slideCount;
-      if (!infinite) finalSlide = slideCount - slidesToShow;else if (slideCount % slidesToScroll !== 0) finalSlide = 0;
-    }
-    animationLeft = getTrackLeft((0, _extends3['default'])({}, spec, { slideIndex: animationSlide }));
-    finalLeft = getTrackLeft((0, _extends3['default'])({}, spec, { slideIndex: finalSlide }));
-    if (!infinite) {
-      if (animationLeft === finalLeft) animationSlide = finalSlide;
-      animationLeft = finalLeft;
-    }
-    lazyLoad && lazyLoadedList.concat(getOnDemandLazySlides((0, _extends3['default'])({}, spec, { currentSlide: animationSlide })));
-    if (!useCSS) {
-      state = {
-        currentSlide: finalSlide,
-        trackStyle: getTrackCSS((0, _extends3['default'])({}, spec, { left: finalLeft })),
-        lazyLoadedList: lazyLoadedList
-      };
-    } else {
-      state = {
-        animating: true,
-        currentSlide: finalSlide,
-        trackStyle: getTrackAnimateCSS((0, _extends3['default'])({}, spec, { left: animationLeft })),
-        lazyLoadedList: lazyLoadedList
-      };
-      nextState = {
-        animating: false,
-        currentSlide: finalSlide,
-        trackStyle: getTrackCSS((0, _extends3['default'])({}, spec, { left: finalLeft })),
-        swipeLeft: null
-      };
-    }
-  }
-  return { state: state, nextState: nextState };
-};
-
-var changeSlide = exports.changeSlide = function changeSlide(spec, options) {
-  var previousInt = void 0,
-      slideOffset = void 0,
-      targetSlide = void 0;
-  var slidesToScroll = spec.slidesToScroll,
-      slidesToShow = spec.slidesToShow,
-      slideCount = spec.slideCount,
-      currentSlide = spec.currentSlide,
-      lazyLoad = spec.lazyLoad,
-      infinite = spec.infinite;
-
-  var unevenOffset = slideCount % slidesToScroll !== 0;
-  var indexOffset = unevenOffset ? 0 : (slideCount - currentSlide) % slidesToScroll;
-
-  if (options.message === 'previous') {
-    slideOffset = indexOffset === 0 ? slidesToScroll : slidesToShow - indexOffset;
-    targetSlide = currentSlide - slideOffset;
-    if (lazyLoad && !infinite) {
-      previousInt = currentSlide - slideOffset;
-      targetSlide = previousInt === -1 ? slideCount - 1 : previousInt;
-    }
-  } else if (options.message === 'next') {
-    slideOffset = indexOffset === 0 ? slidesToScroll : indexOffset;
-    targetSlide = currentSlide + slideOffset;
-    if (lazyLoad && !infinite) {
-      targetSlide = (currentSlide + slidesToScroll) % slideCount + indexOffset;
-    }
-  } else if (options.message === 'dots') {
-    // Click on dots
-    targetSlide = options.index * options.slidesToScroll;
-    if (targetSlide === options.currentSlide) {
-      return null;
-    }
-  } else if (options.message === 'children') {
-    // Click on the slides
-    targetSlide = options.index;
-    if (targetSlide === options.currentSlide) {
-      return null;
-    }
-    if (infinite) {
-      var direction = siblingDirection((0, _extends3['default'])({}, spec, { targetSlide: targetSlide }));
-      if (targetSlide > options.currentSlide && direction === 'left') {
-        targetSlide = targetSlide - slideCount;
-      } else if (targetSlide < options.currentSlide && direction === 'right') {
-        targetSlide = targetSlide + slideCount;
-      }
-    }
-  } else if (options.message === 'index') {
-    targetSlide = Number(options.index);
-    if (targetSlide === options.currentSlide) {
-      return null;
-    }
-  }
-  return targetSlide;
-};
-var keyHandler = exports.keyHandler = function keyHandler(e, accessibility, rtl) {
-  if (e.target.tagName.match('TEXTAREA|INPUT|SELECT') || !accessibility) {
-    return '';
-  }
-  if (e.keyCode === 37) return rtl ? 'next' : 'previous';
-  if (e.keyCode === 39) return rtl ? 'previous' : 'next';
-  return '';
-};
-
-var swipeStart = exports.swipeStart = function swipeStart(e, swipe, draggable) {
-  e.target.tagName === 'IMG' && e.preventDefault();
-  if (!swipe || !draggable && e.type.indexOf('mouse') !== -1) return '';
-  return {
-    dragging: true,
-    touchObject: {
-      startX: e.touches ? e.touches[0].pageX : e.clientX,
-      startY: e.touches ? e.touches[0].pageY : e.clientY,
-      curX: e.touches ? e.touches[0].pageX : e.clientX,
-      curY: e.touches ? e.touches[0].pageY : e.clientY
-    }
-  };
-};
-var swipeMove = exports.swipeMove = function swipeMove(e, spec) {
-  // spec also contains, trackRef and slideIndex
-  var scrolling = spec.scrolling,
-      animating = spec.animating,
-      vertical = spec.vertical,
-      swipeToSlide = spec.swipeToSlide,
-      verticalSwiping = spec.verticalSwiping,
-      rtl = spec.rtl,
-      currentSlide = spec.currentSlide,
-      edgeFriction = spec.edgeFriction,
-      edgeDragged = spec.edgeDragged,
-      onEdge = spec.onEdge,
-      swiped = spec.swiped,
-      swiping = spec.swiping,
-      slideCount = spec.slideCount,
-      slidesToScroll = spec.slidesToScroll,
-      infinite = spec.infinite,
-      touchObject = spec.touchObject,
-      swipeEvent = spec.swipeEvent,
-      listHeight = spec.listHeight,
-      listWidth = spec.listWidth;
-
-  if (scrolling) return;
-  if (animating) return e.preventDefault();
-  if (vertical && swipeToSlide && verticalSwiping) e.preventDefault();
-  var swipeLeft = void 0;
-  var state = {};
-  var curLeft = getTrackLeft(spec);
-  touchObject.curX = e.touches ? e.touches[0].pageX : e.clientX;
-  touchObject.curY = e.touches ? e.touches[0].pageY : e.clientY;
-  touchObject.swipeLength = Math.round(Math.sqrt(Math.pow(touchObject.curX - touchObject.startX, 2)));
-  var verticalSwipeLength = Math.round(Math.sqrt(Math.pow(touchObject.curY - touchObject.startY, 2)));
-  if (!verticalSwiping && !swiping && verticalSwipeLength > 10) {
-    return { scrolling: true };
-  }
-  if (verticalSwiping) touchObject.swipeLength = verticalSwipeLength;
-  var positionOffset = (!rtl ? 1 : -1) * (touchObject.curX > touchObject.startX ? 1 : -1);
-  if (verticalSwiping) {
-    positionOffset = touchObject.curY > touchObject.startY ? 1 : -1;
-  }
-
-  var dotCount = Math.ceil(slideCount / slidesToScroll);
-  var swipeDirection = getSwipeDirection(spec.touchObject, verticalSwiping);
-  var touchSwipeLength = touchObject.swipeLength;
-  if (!infinite) {
-    if (currentSlide === 0 && swipeDirection === 'right' || currentSlide + 1 >= dotCount && swipeDirection === 'left' || !canGoNext(spec) && swipeDirection === 'left') {
-      touchSwipeLength = touchObject.swipeLength * edgeFriction;
-      if (edgeDragged === false && onEdge) {
-        onEdge(swipeDirection);
-        state['edgeDragged'] = true;
-      }
-    }
-  }
-  if (!swiped && swipeEvent) {
-    swipeEvent(swipeDirection);
-    state['swiped'] = true;
-  }
-  if (!vertical) {
-    if (!rtl) {
-      swipeLeft = curLeft + touchSwipeLength * positionOffset;
-    } else {
-      swipeLeft = curLeft - touchSwipeLength * positionOffset;
-    }
-  } else {
-    swipeLeft = curLeft + touchSwipeLength * (listHeight / listWidth) * positionOffset;
-  }
-  if (verticalSwiping) {
-    swipeLeft = curLeft + touchSwipeLength * positionOffset;
-  }
-  state = (0, _extends3['default'])({}, state, {
-    touchObject: touchObject,
-    swipeLeft: swipeLeft,
-    trackStyle: getTrackCSS((0, _extends3['default'])({}, spec, { left: swipeLeft }))
-  });
-  if (Math.abs(touchObject.curX - touchObject.startX) < Math.abs(touchObject.curY - touchObject.startY) * 0.8) {
-    return state;
-  }
-  if (touchObject.swipeLength > 10) {
-    state['swiping'] = true;
-    e.preventDefault();
-  }
-  return state;
-};
-var swipeEnd = exports.swipeEnd = function swipeEnd(e, spec) {
-  var dragging = spec.dragging,
-      swipe = spec.swipe,
-      touchObject = spec.touchObject,
-      listWidth = spec.listWidth,
-      touchThreshold = spec.touchThreshold,
-      verticalSwiping = spec.verticalSwiping,
-      listHeight = spec.listHeight,
-      currentSlide = spec.currentSlide,
-      swipeToSlide = spec.swipeToSlide,
-      scrolling = spec.scrolling,
-      onSwipe = spec.onSwipe;
-
-  if (!dragging) {
-    if (swipe) e.preventDefault();
-    return {};
-  }
-  var minSwipe = verticalSwiping ? listHeight / touchThreshold : listWidth / touchThreshold;
-  var swipeDirection = getSwipeDirection(touchObject, verticalSwiping);
-  // reset the state of touch related state variables.
-  var state = {
-    dragging: false,
-    edgeDragged: false,
-    scrolling: false,
-    swiping: false,
-    swiped: false,
-    swipeLeft: null,
-    touchObject: {}
-  };
-  if (scrolling) {
-    return state;
-  }
-  if (!touchObject.swipeLength) {
-    return state;
-  }
-  if (touchObject.swipeLength > minSwipe) {
-    e.preventDefault();
-    if (onSwipe) {
-      onSwipe(swipeDirection);
-    }
-    var slideCount = void 0,
-        newSlide = void 0;
-    switch (swipeDirection) {
-      case 'left':
-      case 'up':
-        newSlide = currentSlide + getSlideCount(spec);
-        slideCount = swipeToSlide ? checkNavigable(spec, newSlide) : newSlide;
-        state['currentDirection'] = 0;
-        break;
-      case 'right':
-      case 'down':
-        newSlide = currentSlide - getSlideCount(spec);
-        slideCount = swipeToSlide ? checkNavigable(spec, newSlide) : newSlide;
-        state['currentDirection'] = 1;
-        break;
-      default:
-        slideCount = currentSlide;
-    }
-    state['triggerSlideHandler'] = slideCount;
-  } else {
-    // Adjust the track back to it's original position.
-    var currentLeft = getTrackLeft(spec);
-    state['trackStyle'] = getTrackAnimateCSS((0, _extends3['default'])({}, spec, { left: currentLeft }));
-  }
-  return state;
-};
-var getNavigableIndexes = exports.getNavigableIndexes = function getNavigableIndexes(spec) {
-  var max = spec.infinite ? spec.slideCount * 2 : spec.slideCount;
-  var breakpoint = spec.infinite ? spec.slidesToShow * -1 : 0;
-  var counter = spec.infinite ? spec.slidesToShow * -1 : 0;
-  var indexes = [];
-  while (breakpoint < max) {
-    indexes.push(breakpoint);
-    breakpoint = counter + spec.slidesToScroll;
-    counter += Math.min(spec.slidesToScroll, spec.slidesToShow);
-  }
-  return indexes;
-};
-var checkNavigable = exports.checkNavigable = function checkNavigable(spec, index) {
-  var navigables = getNavigableIndexes(spec);
-  var prevNavigable = 0;
-  if (index > navigables[navigables.length - 1]) {
-    index = navigables[navigables.length - 1];
-  } else {
-    for (var n in navigables) {
-      if (index < navigables[n]) {
-        index = prevNavigable;
-        break;
-      }
-      prevNavigable = navigables[n];
-    }
-  }
-  return index;
-};
-var getSlideCount = exports.getSlideCount = function getSlideCount(spec) {
-  var centerOffset = spec.centerMode ? spec.slideWidth * Math.floor(spec.slidesToShow / 2) : 0;
-  if (spec.swipeToSlide) {
-    var swipedSlide = void 0;
-    var slickList = spec.listRef;
-    var slides = slickList.querySelectorAll('.slick-slide');
-    Array.from(slides).every(function (slide) {
-      if (!spec.vertical) {
-        if (slide.offsetLeft - centerOffset + getWidth(slide) / 2 > spec.swipeLeft * -1) {
-          swipedSlide = slide;
-          return false;
+var traverseFileTree = function traverseFileTree(files, callback, isAccepted) {
+  var _traverseFileTree = function _traverseFileTree(item, path) {
+    path = path || '';
+    if (item.isFile) {
+      item.file(function (file) {
+        if (isAccepted(file)) {
+          callback([file]);
         }
-      } else {
-        if (slide.offsetTop + getHeight(slide) / 2 > spec.swipeLeft * -1) {
-          swipedSlide = slide;
-          return false;
-        }
-      }
+      });
+    } else if (item.isDirectory) {
+      var dirReader = item.createReader();
 
+      dirReader.readEntries(function (entries) {
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = entries[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var entrieItem = _step.value;
+
+            _traverseFileTree(entrieItem, '' + path + item.name + '/');
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator['return']) {
+              _iterator['return']();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+      });
+    }
+  };
+  var _iteratorNormalCompletion2 = true;
+  var _didIteratorError2 = false;
+  var _iteratorError2 = undefined;
+
+  try {
+    for (var _iterator2 = files[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+      var file = _step2.value;
+
+      _traverseFileTree(file.webkitGetAsEntry());
+    }
+  } catch (err) {
+    _didIteratorError2 = true;
+    _iteratorError2 = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion2 && _iterator2['return']) {
+        _iterator2['return']();
+      }
+    } finally {
+      if (_didIteratorError2) {
+        throw _iteratorError2;
+      }
+    }
+  }
+};
+
+exports['default'] = traverseFileTree;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-upload/src/uid.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-upload/src/uid.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = uid;
+var now = +new Date();
+var index = 0;
+
+function uid() {
+  return "vc-upload-" + now + "-" + ++index;
+}
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arrayIncludes.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_arrayIncludes.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIndexOf = __webpack_require__(/*! ./_baseIndexOf */ "./node_modules/lodash/_baseIndexOf.js");
+
+/**
+ * A specialized version of `_.includes` for arrays without support for
+ * specifying an index to search from.
+ *
+ * @private
+ * @param {Array} [array] The array to inspect.
+ * @param {*} target The value to search for.
+ * @returns {boolean} Returns `true` if `target` is found, else `false`.
+ */
+function arrayIncludes(array, value) {
+  var length = array == null ? 0 : array.length;
+  return !!length && baseIndexOf(array, value, 0) > -1;
+}
+
+module.exports = arrayIncludes;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arrayIncludesWith.js":
+/*!***************************************************!*\
+  !*** ./node_modules/lodash/_arrayIncludesWith.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * This function is like `arrayIncludes` except that it accepts a comparator.
+ *
+ * @private
+ * @param {Array} [array] The array to inspect.
+ * @param {*} target The value to search for.
+ * @param {Function} comparator The comparator invoked per element.
+ * @returns {boolean} Returns `true` if `target` is found, else `false`.
+ */
+function arrayIncludesWith(array, value, comparator) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  while (++index < length) {
+    if (comparator(value, array[index])) {
       return true;
-    });
-
-    if (!swipedSlide) {
-      return 0;
-    }
-    var currentIndex = spec.rtl === true ? spec.slideCount - spec.currentSlide : spec.currentSlide;
-    var slidesTraversed = Math.abs(swipedSlide.dataset.index - currentIndex) || 1;
-    return slidesTraversed;
-  } else {
-    return spec.slidesToScroll;
-  }
-};
-
-var checkSpecKeys = exports.checkSpecKeys = function checkSpecKeys(spec, keysArray) {
-  return keysArray.reduce(function (value, key) {
-    return value && spec.hasOwnProperty(key);
-  }, true) ? null : console.error('Keys Missing:', spec);
-};
-
-var getTrackCSS = exports.getTrackCSS = function getTrackCSS(spec) {
-  checkSpecKeys(spec, ['left', 'variableWidth', 'slideCount', 'slidesToShow', 'slideWidth']);
-  var trackWidth = void 0,
-      trackHeight = void 0;
-  var trackChildren = spec.slideCount + 2 * spec.slidesToShow;
-  if (!spec.vertical) {
-    trackWidth = getTotalSlides(spec) * spec.slideWidth;
-  } else {
-    trackHeight = trackChildren * spec.slideHeight;
-  }
-  var style = {
-    opacity: 1,
-    transition: '',
-    WebkitTransition: ''
-  };
-  if (spec.useTransform) {
-    var WebkitTransform = !spec.vertical ? 'translate3d(' + spec.left + 'px, 0px, 0px)' : 'translate3d(0px, ' + spec.left + 'px, 0px)';
-    var transform = !spec.vertical ? 'translate3d(' + spec.left + 'px, 0px, 0px)' : 'translate3d(0px, ' + spec.left + 'px, 0px)';
-    var msTransform = !spec.vertical ? 'translateX(' + spec.left + 'px)' : 'translateY(' + spec.left + 'px)';
-    style = (0, _extends3['default'])({}, style, {
-      WebkitTransform: WebkitTransform,
-      transform: transform,
-      msTransform: msTransform
-    });
-  } else {
-    if (spec.vertical) {
-      style['top'] = spec.left;
-    } else {
-      style['left'] = spec.left;
     }
   }
-  if (spec.fade) style = { opacity: 1 };
-  if (trackWidth) style.width = trackWidth + 'px';
-  if (trackHeight) style.height = trackHeight + 'px';
+  return false;
+}
 
-  // Fallback for IE8
-  if (window && !window.addEventListener && window.attachEvent) {
-    if (!spec.vertical) {
-      style.marginLeft = spec.left + 'px';
-    } else {
-      style.marginTop = spec.left + 'px';
-    }
-  }
+module.exports = arrayIncludesWith;
 
-  return style;
-};
-var getTrackAnimateCSS = exports.getTrackAnimateCSS = function getTrackAnimateCSS(spec) {
-  checkSpecKeys(spec, ['left', 'variableWidth', 'slideCount', 'slidesToShow', 'slideWidth', 'speed', 'cssEase']);
-  var style = getTrackCSS(spec);
-  // useCSS is true by default so it can be undefined
-  if (spec.useTransform) {
-    style.WebkitTransition = '-webkit-transform ' + spec.speed + 'ms ' + spec.cssEase;
-    style.transition = 'transform ' + spec.speed + 'ms ' + spec.cssEase;
-  } else {
-    if (spec.vertical) {
-      style.transition = 'top ' + spec.speed + 'ms ' + spec.cssEase;
-    } else {
-      style.transition = 'left ' + spec.speed + 'ms ' + spec.cssEase;
-    }
-  }
-  return style;
-};
-var getTrackLeft = exports.getTrackLeft = function getTrackLeft(spec) {
-  if (spec.unslick) {
-    return 0;
-  }
-
-  checkSpecKeys(spec, ['slideIndex', 'trackRef', 'infinite', 'centerMode', 'slideCount', 'slidesToShow', 'slidesToScroll', 'slideWidth', 'listWidth', 'variableWidth', 'slideHeight']);
-
-  var slideIndex = spec.slideIndex,
-      trackRef = spec.trackRef,
-      infinite = spec.infinite,
-      centerMode = spec.centerMode,
-      slideCount = spec.slideCount,
-      slidesToShow = spec.slidesToShow,
-      slidesToScroll = spec.slidesToScroll,
-      slideWidth = spec.slideWidth,
-      listWidth = spec.listWidth,
-      variableWidth = spec.variableWidth,
-      slideHeight = spec.slideHeight,
-      fade = spec.fade,
-      vertical = spec.vertical;
-
-
-  var slideOffset = 0;
-  var targetLeft = void 0;
-  var targetSlide = void 0;
-  var verticalOffset = 0;
-
-  if (fade || spec.slideCount === 1) {
-    return 0;
-  }
-
-  var slidesToOffset = 0;
-  if (infinite) {
-    slidesToOffset = -getPreClones(spec); // bring active slide to the beginning of visual area
-    // if next scroll doesn't have enough children, just reach till the end of original slides instead of shifting slidesToScroll children
-    if (slideCount % slidesToScroll !== 0 && slideIndex + slidesToScroll > slideCount) {
-      slidesToOffset = -(slideIndex > slideCount ? slidesToShow - (slideIndex - slideCount) : slideCount % slidesToScroll);
-    }
-    // shift current slide to center of the frame
-    if (centerMode) {
-      slidesToOffset += parseInt(slidesToShow / 2);
-    }
-  } else {
-    if (slideCount % slidesToScroll !== 0 && slideIndex + slidesToScroll > slideCount) {
-      slidesToOffset = slidesToShow - slideCount % slidesToScroll;
-    }
-    if (centerMode) {
-      slidesToOffset = parseInt(slidesToShow / 2);
-    }
-  }
-  slideOffset = slidesToOffset * slideWidth;
-  verticalOffset = slidesToOffset * slideHeight;
-
-  if (!vertical) {
-    targetLeft = slideIndex * slideWidth * -1 + slideOffset;
-  } else {
-    targetLeft = slideIndex * slideHeight * -1 + verticalOffset;
-  }
-
-  if (variableWidth === true) {
-    var targetSlideIndex = void 0;
-    var trackElem = trackRef;
-    targetSlideIndex = slideIndex + getPreClones(spec);
-    targetSlide = trackElem && trackElem.childNodes[targetSlideIndex];
-    targetLeft = targetSlide ? targetSlide.offsetLeft * -1 : 0;
-    if (centerMode === true) {
-      targetSlideIndex = infinite ? slideIndex + getPreClones(spec) : slideIndex;
-      targetSlide = trackElem && trackElem.children[targetSlideIndex];
-      targetLeft = 0;
-      for (var slide = 0; slide < targetSlideIndex; slide++) {
-        targetLeft -= trackElem && trackElem.children[slide] && trackElem.children[slide].offsetWidth;
-      }
-      targetLeft -= parseInt(spec.centerPadding);
-      targetLeft += targetSlide && (listWidth - targetSlide.offsetWidth) / 2;
-    }
-  }
-
-  return targetLeft;
-};
-
-var getPreClones = exports.getPreClones = function getPreClones(spec) {
-  if (spec.unslick || !spec.infinite) {
-    return 0;
-  }
-  if (spec.variableWidth) {
-    return spec.slideCount;
-  }
-  return spec.slidesToShow + (spec.centerMode ? 1 : 0);
-};
-
-var getPostClones = exports.getPostClones = function getPostClones(spec) {
-  if (spec.unslick || !spec.infinite) {
-    return 0;
-  }
-  return spec.slideCount;
-};
-
-var getTotalSlides = exports.getTotalSlides = function getTotalSlides(spec) {
-  return spec.slideCount === 1 ? 1 : getPreClones(spec) + spec.slideCount + getPostClones(spec);
-};
-var siblingDirection = exports.siblingDirection = function siblingDirection(spec) {
-  if (spec.targetSlide > spec.currentSlide) {
-    if (spec.targetSlide > spec.currentSlide + slidesOnRight(spec)) {
-      return 'left';
-    }
-    return 'right';
-  } else {
-    if (spec.targetSlide < spec.currentSlide - slidesOnLeft(spec)) {
-      return 'right';
-    }
-    return 'left';
-  }
-};
-
-var slidesOnRight = exports.slidesOnRight = function slidesOnRight(_ref) {
-  var slidesToShow = _ref.slidesToShow,
-      centerMode = _ref.centerMode,
-      rtl = _ref.rtl,
-      centerPadding = _ref.centerPadding;
-
-  // returns no of slides on the right of active slide
-  if (centerMode) {
-    var right = (slidesToShow - 1) / 2 + 1;
-    if (parseInt(centerPadding) > 0) right += 1;
-    if (rtl && slidesToShow % 2 === 0) right += 1;
-    return right;
-  }
-  if (rtl) {
-    return 0;
-  }
-  return slidesToShow - 1;
-};
-
-var slidesOnLeft = exports.slidesOnLeft = function slidesOnLeft(_ref2) {
-  var slidesToShow = _ref2.slidesToShow,
-      centerMode = _ref2.centerMode,
-      rtl = _ref2.rtl,
-      centerPadding = _ref2.centerPadding;
-
-  // returns no of slides on the left of active slide
-  if (centerMode) {
-    var left = (slidesToShow - 1) / 2 + 1;
-    if (parseInt(centerPadding) > 0) left += 1;
-    if (!rtl && slidesToShow % 2 === 0) left += 1;
-    return left;
-  }
-  if (rtl) {
-    return slidesToShow - 1;
-  }
-  return 0;
-};
-
-var canUseDOM = exports.canUseDOM = function canUseDOM() {
-  return !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-};
 
 /***/ }),
 
-/***/ "./node_modules/json2mq/index.js":
+/***/ "./node_modules/lodash/_baseIndexOf.js":
+/*!*********************************************!*\
+  !*** ./node_modules/lodash/_baseIndexOf.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseFindIndex = __webpack_require__(/*! ./_baseFindIndex */ "./node_modules/lodash/_baseFindIndex.js"),
+    baseIsNaN = __webpack_require__(/*! ./_baseIsNaN */ "./node_modules/lodash/_baseIsNaN.js"),
+    strictIndexOf = __webpack_require__(/*! ./_strictIndexOf */ "./node_modules/lodash/_strictIndexOf.js");
+
+/**
+ * The base implementation of `_.indexOf` without `fromIndex` bounds checks.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} fromIndex The index to search from.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function baseIndexOf(array, value, fromIndex) {
+  return value === value
+    ? strictIndexOf(array, value, fromIndex)
+    : baseFindIndex(array, baseIsNaN, fromIndex);
+}
+
+module.exports = baseIndexOf;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseIsNaN.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_baseIsNaN.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.isNaN` without support for number objects.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is `NaN`, else `false`.
+ */
+function baseIsNaN(value) {
+  return value !== value;
+}
+
+module.exports = baseIsNaN;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseUniq.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_baseUniq.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var SetCache = __webpack_require__(/*! ./_SetCache */ "./node_modules/lodash/_SetCache.js"),
+    arrayIncludes = __webpack_require__(/*! ./_arrayIncludes */ "./node_modules/lodash/_arrayIncludes.js"),
+    arrayIncludesWith = __webpack_require__(/*! ./_arrayIncludesWith */ "./node_modules/lodash/_arrayIncludesWith.js"),
+    cacheHas = __webpack_require__(/*! ./_cacheHas */ "./node_modules/lodash/_cacheHas.js"),
+    createSet = __webpack_require__(/*! ./_createSet */ "./node_modules/lodash/_createSet.js"),
+    setToArray = __webpack_require__(/*! ./_setToArray */ "./node_modules/lodash/_setToArray.js");
+
+/** Used as the size to enable large array optimizations. */
+var LARGE_ARRAY_SIZE = 200;
+
+/**
+ * The base implementation of `_.uniqBy` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {Function} [iteratee] The iteratee invoked per element.
+ * @param {Function} [comparator] The comparator invoked per element.
+ * @returns {Array} Returns the new duplicate free array.
+ */
+function baseUniq(array, iteratee, comparator) {
+  var index = -1,
+      includes = arrayIncludes,
+      length = array.length,
+      isCommon = true,
+      result = [],
+      seen = result;
+
+  if (comparator) {
+    isCommon = false;
+    includes = arrayIncludesWith;
+  }
+  else if (length >= LARGE_ARRAY_SIZE) {
+    var set = iteratee ? null : createSet(array);
+    if (set) {
+      return setToArray(set);
+    }
+    isCommon = false;
+    includes = cacheHas;
+    seen = new SetCache;
+  }
+  else {
+    seen = iteratee ? [] : result;
+  }
+  outer:
+  while (++index < length) {
+    var value = array[index],
+        computed = iteratee ? iteratee(value) : value;
+
+    value = (comparator || value !== 0) ? value : 0;
+    if (isCommon && computed === computed) {
+      var seenIndex = seen.length;
+      while (seenIndex--) {
+        if (seen[seenIndex] === computed) {
+          continue outer;
+        }
+      }
+      if (iteratee) {
+        seen.push(computed);
+      }
+      result.push(value);
+    }
+    else if (!includes(seen, computed, comparator)) {
+      if (seen !== result) {
+        seen.push(computed);
+      }
+      result.push(value);
+    }
+  }
+  return result;
+}
+
+module.exports = baseUniq;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_createSet.js":
+/*!*******************************************!*\
+  !*** ./node_modules/lodash/_createSet.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Set = __webpack_require__(/*! ./_Set */ "./node_modules/lodash/_Set.js"),
+    noop = __webpack_require__(/*! ./noop */ "./node_modules/lodash/noop.js"),
+    setToArray = __webpack_require__(/*! ./_setToArray */ "./node_modules/lodash/_setToArray.js");
+
+/** Used as references for various `Number` constants. */
+var INFINITY = 1 / 0;
+
+/**
+ * Creates a set object of `values`.
+ *
+ * @private
+ * @param {Array} values The values to add to the set.
+ * @returns {Object} Returns the new set.
+ */
+var createSet = !(Set && (1 / setToArray(new Set([,-0]))[1]) == INFINITY) ? noop : function(values) {
+  return new Set(values);
+};
+
+module.exports = createSet;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_strictIndexOf.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_strictIndexOf.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `_.indexOf` which performs strict equality
+ * comparisons of values, i.e. `===`.
+ *
+ * @private
+ * @param {Array} array The array to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} fromIndex The index to search from.
+ * @returns {number} Returns the index of the matched value, else `-1`.
+ */
+function strictIndexOf(array, value, fromIndex) {
+  var index = fromIndex - 1,
+      length = array.length;
+
+  while (++index < length) {
+    if (array[index] === value) {
+      return index;
+    }
+  }
+  return -1;
+}
+
+module.exports = strictIndexOf;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/noop.js":
+/*!*************************************!*\
+  !*** ./node_modules/lodash/noop.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * This method returns `undefined`.
+ *
+ * @static
+ * @memberOf _
+ * @since 2.3.0
+ * @category Util
+ * @example
+ *
+ * _.times(2, _.noop);
+ * // => [undefined, undefined]
+ */
+function noop() {
+  // No operation performed.
+}
+
+module.exports = noop;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/uniqBy.js":
 /*!***************************************!*\
-  !*** ./node_modules/json2mq/index.js ***!
+  !*** ./node_modules/lodash/uniqBy.js ***!
   \***************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var camel2hyphen = __webpack_require__(/*! string-convert/camel2hyphen */ "./node_modules/string-convert/camel2hyphen.js");
+var baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js"),
+    baseUniq = __webpack_require__(/*! ./_baseUniq */ "./node_modules/lodash/_baseUniq.js");
 
-var isDimension = function (feature) {
-  var re = /[height|width]$/;
-  return re.test(feature);
-};
+/**
+ * This method is like `_.uniq` except that it accepts `iteratee` which is
+ * invoked for each element in `array` to generate the criterion by which
+ * uniqueness is computed. The order of result values is determined by the
+ * order they occur in the array. The iteratee is invoked with one argument:
+ * (value).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Array
+ * @param {Array} array The array to inspect.
+ * @param {Function} [iteratee=_.identity] The iteratee invoked per element.
+ * @returns {Array} Returns the new duplicate free array.
+ * @example
+ *
+ * _.uniqBy([2.1, 1.2, 2.3], Math.floor);
+ * // => [2.1, 1.2]
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.uniqBy([{ 'x': 1 }, { 'x': 2 }, { 'x': 1 }], 'x');
+ * // => [{ 'x': 1 }, { 'x': 2 }]
+ */
+function uniqBy(array, iteratee) {
+  return (array && array.length) ? baseUniq(array, baseIteratee(iteratee, 2)) : [];
+}
 
-var obj2mq = function (obj) {
-  var mq = '';
-  var features = Object.keys(obj);
-  features.forEach(function (feature, index) {
-    var value = obj[feature];
-    feature = camel2hyphen(feature);
-    // Add px to dimension features
-    if (isDimension(feature) && typeof value === 'number') {
-      value = value + 'px';
-    }
-    if (value === true) {
-      mq += feature;
-    } else if (value === false) {
-      mq += 'not ' + feature;
-    } else {
-      mq += '(' + feature + ': ' + value + ')';
-    }
-    if (index < features.length-1) {
-      mq += ' and '
-    }
-  });
-  return mq;
-};
+module.exports = uniqBy;
 
-var json2mq = function (query) {
-  var mq = '';
-  if (typeof query === 'string') {
-    return query;
-  }
-  // Handling array of media queries
-  if (query instanceof Array) {
-    query.forEach(function (q, index) {
-      mq += obj2mq(q);
-      if (index < query.length-1) {
-        mq += ', '
-      }
-    });
-    return mq;
-  }
-  // Handling single media query
-  return obj2mq(query);
-};
-
-module.exports = json2mq;
-
-/***/ }),
-
-/***/ "./node_modules/string-convert/camel2hyphen.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/string-convert/camel2hyphen.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-var camel2hyphen = function (str) {
-  return str
-          .replace(/[A-Z]/g, function (match) {
-            return '-' + match.toLowerCase();
-          })
-          .toLowerCase();
-};
-
-module.exports = camel2hyphen;
 
 /***/ })
 

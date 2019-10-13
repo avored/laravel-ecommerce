@@ -1,9 +1,9 @@
 {
-	"name" : "avored/review",
-	"description" : "AvoRed Laravel E commerce - Product Review Module",
+	"name" : "avored/wishlist",
+	"description" : "AvoRed Laravel E commerce - User Wishlist Module",
 	"keywords" : [
 		"framework",
-		"review",
+		"wishlist",
 		"cart",
 		"laravel",
 		"e commerce",
@@ -22,7 +22,7 @@
 	],
 	"type" : "avored-module",
 	"require" : {
-		"php" : ">=7.1.3",
+		"php" : ">=7.2",
 		"avored/module-installer" : "1.*",
 		"avored/framework": "^3.0"
 	},

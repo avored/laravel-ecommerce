@@ -3,7 +3,6 @@
 namespace AvoRed\Review\Http\Controllers\Admin;
 
 use AvoRed\Review\Database\Models\ProductReview;
-use Zend\Diactoros\Response\JsonResponse;
 
 class ReviewController
 {
