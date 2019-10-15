@@ -28,8 +28,11 @@ class CartController extends Controller
      * Show the application dashboard.
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function show()
+    public function show(Request $request)
     {
+        if ($request->get('promotion_code') !== null) {
+            Cart::applyCoupon($request->get('promotion_code'));
+        }
         $cartProducts = Cart::all();
 
         return view('cart.show')->with(compact('cartProducts'));

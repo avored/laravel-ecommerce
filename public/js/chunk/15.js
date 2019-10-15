@@ -10,9 +10,21 @@
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['items'],
+  props: ['items', 'couponUrl'],
   data: function data() {
-    return {};
+    return {
+      form: this.$form.createForm(this)
+    };
+  },
+  methods: {
+    handleCouponSubmit: function handleCouponSubmit(e) {
+      //@todo catch the required field error
+      this.form.validateFields(function (err, values) {
+        if (err) {
+          e.preventDefault();
+        }
+      });
+    }
   },
   mounted: function mounted() {}
 });

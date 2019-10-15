@@ -14,8 +14,11 @@
 @endsection
 
 @section('content')
-    <cart-page  :items="{{ Cart::toArray() }}" inline-template>
+    <cart-page :items="{{ Cart::toArray() }}" inline-template>
         <div>
+        @php
+            $currencySymbol = session()->get('default_currency')->symbol;
+        @endphp
             <a-row>
                 <a-col :span="4">Image</a-col>
                 <a-col :span="4">Name</a-col>
@@ -37,23 +40,51 @@
                     </p>
                 </a-col>
                 <a-col :span="4">@{{ parseFloat(item.qty).toFixed(2) }}</a-col>
-                <a-col :span="4">$@{{ parseFloat(item.price).toFixed(2) }}</a-col>
-                <a-col :span="4">$@{{ parseFloat(item.tax).toFixed(2) }}</a-col>
-                <a-col :span="4">$@{{ parseFloat((item.qty * item.price) + item.tax).toFixed(2) }}</a-col>
+                <a-col :span="4">{{ $currencySymbol }}@{{ parseFloat(item.price).toFixed(2) }}</a-col>
+                <a-col :span="4">{{ $currencySymbol }}@{{ parseFloat(item.tax).toFixed(2) }}</a-col>
+                <a-col :span="4">{{ $currencySymbol }}@{{ parseFloat((item.qty * item.price) + item.tax).toFixed(2) }}</a-col>
             </a-row>
             <a-row class="mt-1">
                 <a-col :span="4"></a-col>
                 <a-col :span="4"></a-col>
                 <a-col :span="4"></a-col>
                 <a-col :span="4"></a-col>
-                <a-col :span="4"></a-col>
+                <a-col :span="4">{{ __('Discount:') }}</a-col>
                 <a-col :span="4">
-                    ${{ Cart::total() }}
+                    {{ $currencySymbol }}{{ Cart::discount() }}
                 </a-col>
             </a-row>
-            <a-row  class="mt-1">
-                <a-col :push="20" :span="4">
-                    <a href="{{ route('checkout.show') }}">
+            <a-row class="mt-1">
+                <a-col :span="4"></a-col>
+                <a-col :span="4"></a-col>
+                <a-col :span="4"></a-col>
+                <a-col :span="4"></a-col>
+                <a-col :span="4">{{ __('Grand Total:') }}</a-col>
+                <a-col :span="4">
+                    {{ $currencySymbol }}{{ Cart::total() }}
+                </a-col>
+            </a-row>
+            <a-row :gutter="20" class="mt-1">
+                <a-col :span="12" :push="4">
+                    <a-card title="Apply Promotion Code">
+                        @if (Cart::discount(false) <= 0)
+                        <div>
+                            <form method="get" :form="form" @submit="handleCouponSubmit" action="">
+                                <a-form-item label="{{ __('Promotion Code') }}">
+                                    <a-input :auto-focus="true" name="promotion_code"></a-input>
+                                </a-form-item>
+                                <a-form-item>
+                                    <a-button html-type="submit" type="primary">{{ __('Apply') }}</a-button>
+                                </a-form-item>
+                            </form>
+                        </div>
+                        @else
+                            {{ __('You have used one coupon already')  }}
+                        @endif
+                    </a-card>
+                </a-col>
+                <a-col :span="8" :push="4">
+                    <a class="btn-checkout" href="{{ route('checkout.show') }}">
                         <a-button type="primary">{{ __('Checkout') }}</a-button>
                     </a>
                 </a-col>
