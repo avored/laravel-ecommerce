@@ -27,8 +27,6 @@ Route::post('order', 'OrderController@place')->name('order.place');
 
 Route::get('order/{order}', 'OrderController@successful')->name('order.successful');
 
-Route::post('apply-coupon', 'CouponController@apply')->name('coupon.apply');
-
 Route::middleware('auth')
     ->name('account.')
     ->prefix('account')
