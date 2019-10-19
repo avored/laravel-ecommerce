@@ -4156,6 +4156,45 @@ exports['default'] = KeyCode;
 
 /***/ }),
 
+/***/ "./node_modules/ant-design-vue/lib/_util/createChainedFunction.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/createChainedFunction.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = createChainedFunction;
+/**
+ * Safe chained function
+ *
+ * Will only create a new function if needed,
+ * otherwise will pass back existing functions or null.
+ *
+ * @returns {function|null}
+ */
+function createChainedFunction() {
+  var args = [].slice.call(arguments, 0);
+  if (args.length === 1) {
+    return args[0];
+  }
+
+  return function chainedFunction() {
+    for (var i = 0; i < args.length; i++) {
+      if (args[i] && args[i].apply) {
+        args[i].apply(this, arguments);
+      }
+    }
+  };
+}
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/_util/css-animation/Event.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/_util/css-animation/Event.js ***!
@@ -10402,6 +10441,258 @@ exports['default'] = Menu;
 
 /***/ }),
 
+/***/ "./node_modules/ant-design-vue/lib/notification/index.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/notification/index.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vcNotification = __webpack_require__(/*! ../vc-notification */ "./node_modules/ant-design-vue/lib/vc-notification/index.js");
+
+var _vcNotification2 = _interopRequireDefault(_vcNotification);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// export type NotificationPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+
+// export type IconType = 'success' | 'info' | 'error' | 'warning';
+
+var notificationInstance = {};
+var defaultDuration = 4.5;
+var defaultTop = '24px';
+var defaultBottom = '24px';
+var defaultPlacement = 'topRight';
+var defaultGetContainer = function defaultGetContainer() {
+  return document.body;
+};
+
+// export interface ConfigProps {
+//   top?: number;
+//   bottom?: number;
+//   duration?: number;
+//   placement?: NotificationPlacement;
+//   getContainer?: () => HTMLElement;
+// }
+function setNotificationConfig(options) {
+  var duration = options.duration,
+      placement = options.placement,
+      bottom = options.bottom,
+      top = options.top,
+      getContainer = options.getContainer;
+
+  if (duration !== undefined) {
+    defaultDuration = duration;
+  }
+  if (placement !== undefined) {
+    defaultPlacement = placement;
+  }
+  if (bottom !== undefined) {
+    defaultBottom = typeof bottom === 'number' ? bottom + 'px' : bottom;
+  }
+  if (top !== undefined) {
+    defaultTop = typeof top === 'number' ? top + 'px' : top;
+  }
+  if (getContainer !== undefined) {
+    defaultGetContainer = getContainer;
+  }
+}
+
+function getPlacementStyle(placement) {
+  var style = void 0;
+  switch (placement) {
+    case 'topLeft':
+      style = {
+        left: 0,
+        top: defaultTop,
+        bottom: 'auto'
+      };
+      break;
+    case 'topRight':
+      style = {
+        right: 0,
+        top: defaultTop,
+        bottom: 'auto'
+      };
+      break;
+    case 'bottomLeft':
+      style = {
+        left: 0,
+        top: 'auto',
+        bottom: defaultBottom
+      };
+      break;
+    default:
+      style = {
+        right: 0,
+        top: 'auto',
+        bottom: defaultBottom
+      };
+      break;
+  }
+  return style;
+}
+
+function getNotificationInstance(prefixCls, placement, callback) {
+  var cacheKey = prefixCls + '-' + placement;
+  if (notificationInstance[cacheKey]) {
+    callback(notificationInstance[cacheKey]);
+    return;
+  }
+  _vcNotification2['default'].newInstance({
+    prefixCls: prefixCls,
+    'class': prefixCls + '-' + placement,
+    style: getPlacementStyle(placement),
+    getContainer: defaultGetContainer,
+    closeIcon: function closeIcon(h) {
+      return h(_icon2['default'], { 'class': prefixCls + '-close-icon', attrs: { type: 'close' }
+      });
+    } // eslint-disable-line
+  }, function (notification) {
+    notificationInstance[cacheKey] = notification;
+    callback(notification);
+  });
+}
+
+var typeToIcon = {
+  success: 'check-circle-o',
+  info: 'info-circle-o',
+  error: 'close-circle-o',
+  warning: 'exclamation-circle-o'
+};
+
+// export interface ArgsProps {
+//   message: React.ReactNode;
+//   description: React.ReactNode;
+//   btn?: React.ReactNode;
+//   key?: string;
+//   onClose?: () => void;
+//   duration?: number | null;
+//   icon?: React.ReactNode;
+//   placement?: NotificationPlacement;
+//   style?: React.CSSProperties;
+//   prefixCls?: string;
+//   className?: string;
+//   readonly type?: IconType;
+// }
+function notice(args) {
+  var icon = args.icon,
+      type = args.type,
+      description = args.description,
+      placement = args.placement,
+      message = args.message,
+      btn = args.btn;
+
+  var outerPrefixCls = args.prefixCls || 'ant-notification';
+  var prefixCls = outerPrefixCls + '-notice';
+  var duration = args.duration === undefined ? defaultDuration : args.duration;
+
+  var iconNode = null;
+  if (icon) {
+    iconNode = function iconNode(h) {
+      return h(
+        'span',
+        { 'class': prefixCls + '-icon' },
+        [typeof icon === 'function' ? icon(h) : icon]
+      );
+    };
+  } else if (type) {
+    var iconType = typeToIcon[type];
+    iconNode = function iconNode(h) {
+      return h(_icon2['default'], { 'class': prefixCls + '-icon ' + prefixCls + '-icon-' + type, attrs: { type: iconType }
+      });
+    }; // eslint-disable-line
+  }
+
+  getNotificationInstance(outerPrefixCls, placement || defaultPlacement, function (notification) {
+    notification.notice({
+      content: function content(h) {
+        return h(
+          'div',
+          { 'class': iconNode ? prefixCls + '-with-icon' : '' },
+          [iconNode && iconNode(h), h(
+            'div',
+            { 'class': prefixCls + '-message' },
+            [!description && iconNode ? h('span', { 'class': prefixCls + '-message-single-line-auto-margin' }) : null, typeof message === 'function' ? message(h) : message]
+          ), h(
+            'div',
+            { 'class': prefixCls + '-description' },
+            [typeof description === 'function' ? description(h) : description]
+          ), btn ? h(
+            'span',
+            { 'class': prefixCls + '-btn' },
+            [typeof btn === 'function' ? btn(h) : btn]
+          ) : null]
+        );
+      },
+      duration: duration,
+      closable: true,
+      onClose: args.onClose,
+      onClick: args.onClick,
+      key: args.key,
+      style: args.style || {},
+      'class': args['class']
+    });
+  });
+}
+
+var api = {
+  open: notice,
+  close: function close(key) {
+    Object.keys(notificationInstance).forEach(function (cacheKey) {
+      return notificationInstance[cacheKey].removeNotice(key);
+    });
+  },
+
+  config: setNotificationConfig,
+  destroy: function destroy() {
+    Object.keys(notificationInstance).forEach(function (cacheKey) {
+      notificationInstance[cacheKey].destroy();
+      delete notificationInstance[cacheKey];
+    });
+  }
+};
+
+['success', 'info', 'warning', 'error'].forEach(function (type) {
+  api[type] = function (args) {
+    return api.open((0, _extends3['default'])({}, args, {
+      type: type
+    }));
+  };
+});
+
+api.warn = api.warning;
+
+// export interface NotificationApi {
+//   success(args: ArgsProps): void;
+//   error(args: ArgsProps): void;
+//   info(args: ArgsProps): void;
+//   warn(args: ArgsProps): void;
+//   warning(args: ArgsProps): void;
+//   open(args: ArgsProps): void;
+//   close(key: string): void;
+//   config(options: ConfigProps): void;
+//   destroy(): void;
+// }
+exports['default'] = api;
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/select/index.js":
 /*!*********************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/select/index.js ***!
@@ -15928,6 +16219,401 @@ var setStyle = exports.setStyle = function setStyle(elem, styleProperty, value) 
 var isMobileDevice = exports.isMobileDevice = function isMobileDevice() {
   return isMobile.any;
 };
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-notification/Notice.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-notification/Notice.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+
+exports['default'] = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    duration: _vueTypes2['default'].number.def(1.5),
+    closable: _vueTypes2['default'].bool,
+    prefixCls: _vueTypes2['default'].string,
+    update: _vueTypes2['default'].bool,
+    closeIcon: _vueTypes2['default'].any
+  },
+  watch: {
+    duration: function duration() {
+      this.restartCloseTimer();
+    }
+  },
+
+  mounted: function mounted() {
+    this.startCloseTimer();
+  },
+  updated: function updated() {
+    if (this.update) {
+      this.restartCloseTimer();
+    }
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.clearCloseTimer();
+    this.willDestroy = true; // beforeDestroy调用后依然会触发onMouseleave事件
+  },
+
+  methods: {
+    close: function close() {
+      this.clearCloseTimer();
+      this.__emit('close');
+    },
+    startCloseTimer: function startCloseTimer() {
+      var _this = this;
+
+      this.clearCloseTimer();
+      if (!this.willDestroy && this.duration) {
+        this.closeTimer = setTimeout(function () {
+          _this.close();
+        }, this.duration * 1000);
+      }
+    },
+    clearCloseTimer: function clearCloseTimer() {
+      if (this.closeTimer) {
+        clearTimeout(this.closeTimer);
+        this.closeTimer = null;
+      }
+    },
+    restartCloseTimer: function restartCloseTimer() {
+      this.clearCloseTimer();
+      this.startCloseTimer();
+    }
+  },
+
+  render: function render() {
+    var _className;
+
+    var h = arguments[0];
+    var prefixCls = this.prefixCls,
+        closable = this.closable,
+        clearCloseTimer = this.clearCloseTimer,
+        startCloseTimer = this.startCloseTimer,
+        $slots = this.$slots,
+        close = this.close,
+        $listeners = this.$listeners;
+
+    var componentClass = prefixCls + '-notice';
+    var className = (_className = {}, (0, _defineProperty3['default'])(_className, '' + componentClass, 1), (0, _defineProperty3['default'])(_className, componentClass + '-closable', closable), _className);
+    var style = (0, _propsUtil.getStyle)(this);
+    var closeIcon = (0, _propsUtil.getComponentFromProp)(this, 'closeIcon');
+    return h(
+      'div',
+      {
+        'class': className,
+        style: style || { right: '50%' },
+        on: {
+          'mouseenter': clearCloseTimer,
+          'mouseleave': startCloseTimer,
+          'click': $listeners.click || noop
+        }
+      },
+      [h(
+        'div',
+        { 'class': componentClass + '-content' },
+        [$slots['default']]
+      ), closable ? h(
+        'a',
+        {
+          attrs: { tabIndex: '0' },
+          on: {
+            'click': close
+          },
+          'class': componentClass + '-close' },
+        [closeIcon || h('span', { 'class': componentClass + '-close-x' })]
+      ) : null]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-notification/Notification.js":
+/*!*************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-notification/Notification.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _createChainedFunction = __webpack_require__(/*! ../_util/createChainedFunction */ "./node_modules/ant-design-vue/lib/_util/createChainedFunction.js");
+
+var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
+
+var _getTransitionProps = __webpack_require__(/*! ../_util/getTransitionProps */ "./node_modules/ant-design-vue/lib/_util/getTransitionProps.js");
+
+var _getTransitionProps2 = _interopRequireDefault(_getTransitionProps);
+
+var _Notice = __webpack_require__(/*! ./Notice */ "./node_modules/ant-design-vue/lib/vc-notification/Notice.js");
+
+var _Notice2 = _interopRequireDefault(_Notice);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+
+var seed = 0;
+var now = Date.now();
+
+function getUuid() {
+  return 'rcNotification_' + now + '_' + seed++;
+}
+
+var Notification = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    prefixCls: _vueTypes2['default'].string.def('rc-notification'),
+    transitionName: _vueTypes2['default'].string,
+    animation: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].object]).def('fade'),
+    maxCount: _vueTypes2['default'].number,
+    closeIcon: _vueTypes2['default'].any
+  },
+  data: function data() {
+    return {
+      notices: []
+    };
+  },
+
+  methods: {
+    getTransitionName: function getTransitionName() {
+      var props = this.$props;
+      var transitionName = props.transitionName;
+      if (!transitionName && props.animation) {
+        transitionName = props.prefixCls + '-' + props.animation;
+      }
+      return transitionName;
+    },
+    add: function add(notice) {
+      var key = notice.key = notice.key || getUuid();
+      var maxCount = this.$props.maxCount;
+
+      this.setState(function (previousState) {
+        var notices = previousState.notices;
+        var noticeIndex = notices.map(function (v) {
+          return v.key;
+        }).indexOf(key);
+        var updatedNotices = notices.concat();
+        if (noticeIndex !== -1) {
+          updatedNotices.splice(noticeIndex, 1, notice);
+        } else {
+          if (maxCount && notices.length >= maxCount) {
+            // XXX, use key of first item to update new added (let React to move exsiting
+            // instead of remove and mount). Same key was used before for both a) external
+            // manual control and b) internal react 'key' prop , which is not that good.
+            notice.updateKey = updatedNotices[0].updateKey || updatedNotices[0].key;
+            updatedNotices.shift();
+          }
+          updatedNotices.push(notice);
+        }
+        return {
+          notices: updatedNotices
+        };
+      });
+    },
+    remove: function remove(key) {
+      this.setState(function (previousState) {
+        return {
+          notices: previousState.notices.filter(function (notice) {
+            return notice.key !== key;
+          })
+        };
+      });
+    }
+  },
+
+  render: function render(h) {
+    var _this = this;
+
+    var prefixCls = this.prefixCls,
+        notices = this.notices,
+        remove = this.remove,
+        getTransitionName = this.getTransitionName;
+
+    var transitionProps = (0, _getTransitionProps2['default'])(getTransitionName());
+    var noticeNodes = notices.map(function (notice, index) {
+      var update = Boolean(index === notices.length - 1 && notice.updateKey);
+      var key = notice.updateKey ? notice.updateKey : notice.key;
+
+      var content = notice.content,
+          duration = notice.duration,
+          closable = notice.closable,
+          onClose = notice.onClose,
+          style = notice.style,
+          className = notice['class'];
+
+      var close = (0, _createChainedFunction2['default'])(remove.bind(_this, notice.key), onClose);
+      var noticeProps = {
+        props: {
+          prefixCls: prefixCls,
+          duration: duration,
+          closable: closable,
+          update: update,
+          closeIcon: (0, _propsUtil.getComponentFromProp)(_this, 'closeIcon')
+        },
+        on: {
+          close: close,
+          click: notice.onClick || noop
+        },
+        style: style,
+        'class': className,
+        key: key
+      };
+      return h(
+        _Notice2['default'],
+        noticeProps,
+        [typeof content === 'function' ? content(h) : content]
+      );
+    });
+    var className = (0, _defineProperty3['default'])({}, prefixCls, 1);
+    var style = (0, _propsUtil.getStyle)(this);
+    return h(
+      'div',
+      {
+        'class': className,
+        style: style || {
+          top: '65px',
+          left: '50%'
+        }
+      },
+      [h(
+        'transition-group',
+        transitionProps,
+        [noticeNodes]
+      )]
+    );
+  }
+};
+
+Notification.newInstance = function newNotificationInstance(properties, callback) {
+  var _ref = properties || {},
+      getContainer = _ref.getContainer,
+      style = _ref.style,
+      className = _ref['class'],
+      props = (0, _objectWithoutProperties3['default'])(_ref, ['getContainer', 'style', 'class']);
+
+  var div = document.createElement('div');
+  if (getContainer) {
+    var root = getContainer();
+    root.appendChild(div);
+  } else {
+    document.body.appendChild(div);
+  }
+  new _vue2['default']({
+    el: div,
+    mounted: function mounted() {
+      var self = this;
+      this.$nextTick(function () {
+        callback({
+          notice: function notice(noticeProps) {
+            self.$refs.notification.add(noticeProps);
+          },
+          removeNotice: function removeNotice(key) {
+            self.$refs.notification.remove(key);
+          },
+
+          component: self,
+          destroy: function destroy() {
+            self.$destroy();
+            self.$el.parentNode.removeChild(self.$el);
+          }
+        });
+      });
+    },
+    render: function render() {
+      var h = arguments[0];
+
+      var p = {
+        props: props,
+        ref: 'notification',
+        style: style,
+        'class': className
+      };
+      return h(Notification, p);
+    }
+  });
+};
+
+exports['default'] = Notification;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-notification/index.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-notification/index.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Notification = __webpack_require__(/*! ./Notification */ "./node_modules/ant-design-vue/lib/vc-notification/Notification.js");
+
+var _Notification2 = _interopRequireDefault(_Notification);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = _Notification2['default']; // based on rc-notification 3.3.0
 
 /***/ }),
 
@@ -51036,6 +51722,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ant-design-vue/lib/tabs */ "./node_modules/ant-design-vue/lib/tabs/index.js");
 /* harmony import */ var ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ant-design-vue/lib/notification */ "./node_modules/ant-design-vue/lib/notification/index.js");
+/* harmony import */ var ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_8__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -51053,6 +51741,7 @@ window.AvoRed = _avored__WEBPACK_IMPORTED_MODULE_0___default.a;
 
 
 
+
 Vue.use(ant_design_vue_lib_layout__WEBPACK_IMPORTED_MODULE_1___default.a);
 Vue.use(ant_design_vue_lib_menu__WEBPACK_IMPORTED_MODULE_2___default.a);
 Vue.use(ant_design_vue_lib_form__WEBPACK_IMPORTED_MODULE_3___default.a);
@@ -51060,6 +51749,7 @@ Vue.use(ant_design_vue_lib_select__WEBPACK_IMPORTED_MODULE_4___default.a);
 Vue.use(ant_design_vue_lib_breadcrumb__WEBPACK_IMPORTED_MODULE_5___default.a);
 Vue.use(ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_6___default.a);
 Vue.use(ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_7___default.a);
+Vue.prototype.$notification = ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_8___default.a;
 Vue.component('a-checkbox', function () {
   return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/checkbox */ "./node_modules/ant-design-vue/lib/checkbox/index.js", 7));
 });
@@ -51144,7 +51834,7 @@ Vue.component('checkout-page', function () {
   return Promise.all(/*! import() */[__webpack_require__.e(6), __webpack_require__.e(25)]).then(__webpack_require__.bind(null, /*! ../components/CheckoutPage.vue */ "./resources/components/CheckoutPage.vue"));
 });
 Vue.component('cart-page', function () {
-  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../components/CartPage.vue */ "./resources/components/CartPage.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(15), __webpack_require__.e(26)]).then(__webpack_require__.bind(null, /*! ../components/CartPage.vue */ "./resources/components/CartPage.vue"));
 });
 Vue.component('avored-layout', function () {
   return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ../components/layout/Layout.vue */ "./resources/components/layout/Layout.vue"));

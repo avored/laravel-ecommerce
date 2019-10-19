@@ -1,12 +1,14 @@
 <script>
 
+import axios from 'axios'
+
 export default {
-    props: ['items', 'couponUrl'],
+    props: ['items', 'couponUrl', 'cartDeleteUrl'],
     data () {
         return {
             form: this.$form.createForm(this),
             showCartActionBtn: false,
-            cartActionProducts: []
+            cartActionProducts: [],
         };
     },
     methods: {
@@ -31,7 +33,24 @@ export default {
             }
         },
         delteCartProductClick() {
-            console.log(this.cartActionProducts)
+            var app = this
+            axios({
+                method: 'delete',
+            url: this.cartDeleteUrl,
+                data: {'products' : this.cartActionProducts}
+            }).then(response => {
+                if (response.data.success == true) {
+                    app.$notification.success({
+                        key: 'cart.destroy.success',
+                        message: response.data.message,
+                    });
+                } else {
+                     app.$notification.error({
+                        key: 'cart.destroy.error',
+                        message: response.data.message,
+                    });
+                }
+            })
         }
     },
     mounted() {

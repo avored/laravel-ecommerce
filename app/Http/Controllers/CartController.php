@@ -7,6 +7,8 @@ use App\Http\Requests\CartRequest;
 use AvoRed\Framework\Support\Facades\Cart;
 use AvoRed\Framework\Models\Contracts\ProductInterface;
 use AvoRed\Framework\Models\Contracts\ConfigurationInterface;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
 
 class CartController extends Controller
 {
@@ -36,5 +38,20 @@ class CartController extends Controller
         $cartProducts = Cart::all();
 
         return view('cart.show')->with(compact('cartProducts'));
+    }
+
+    /**
+     * Show the application dashboard.
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function destroy(Request $request)
+    {
+        $cartProducts = $request->get('products');
+        foreach ($cartProducts as $product) {
+            $slug = Arr::get($product, 'slug');
+            Cart::destroy($slug);
+        }
+        
+        return response()->json(['success' => true, 'message' => 'Product Destroyed from Cart Successfully']);
     }
 }

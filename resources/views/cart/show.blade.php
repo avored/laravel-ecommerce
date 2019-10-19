@@ -14,7 +14,7 @@
 @endsection
 
 @section('content')
-    <cart-page :items="{{ Cart::toArray() }}" inline-template>
+    <cart-page :items="{{ Cart::toArray() }}" cart-delete-url="{{ route('cart.destroy') }}" inline-template>
         <div>
         @php
             $currencySymbol = session()->get('default_currency')->symbol;
