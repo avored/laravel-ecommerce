@@ -13,17 +13,37 @@ __webpack_require__.r(__webpack_exports__);
   props: ['items', 'couponUrl'],
   data: function data() {
     return {
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
+      showCartActionBtn: false,
+      cartActionProducts: []
     };
   },
   methods: {
     handleCouponSubmit: function handleCouponSubmit(e) {
-      //@todo catch the required field error
       this.form.validateFields(function (err, values) {
         if (err) {
           e.preventDefault();
         }
       });
+    },
+    clickOnCheckBox: function clickOnCheckBox(e, product) {
+      if (e.target.checked) {
+        this.cartActionProducts.push(product);
+      } else {
+        var index = this.cartActionProducts.findIndex(function (ele) {
+          return ele.slug === product.slug;
+        });
+        this.cartActionProducts.splice(index, 1);
+      }
+
+      if (this.cartActionProducts.length > 0) {
+        this.showCartActionBtn = true;
+      } else {
+        this.showCartActionBtn = false;
+      }
+    },
+    delteCartProductClick: function delteCartProductClick() {
+      console.log(this.cartActionProducts);
     }
   },
   mounted: function mounted() {}
