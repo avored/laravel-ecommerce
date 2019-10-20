@@ -3,12 +3,13 @@
 import axios from 'axios'
 
 export default {
-    props: ['items', 'couponUrl', 'cartDeleteUrl'],
+    props: ['items', 'couponUrl', 'cartDeleteUrl', 'cartUpdateUrl'],
     data () {
         return {
             form: this.$form.createForm(this),
             showCartActionBtn: false,
             cartActionProducts: [],
+            cartUpdateModalVisibility: false
         };
     },
     methods: {
@@ -47,6 +48,34 @@ export default {
                 } else {
                      app.$notification.error({
                         key: 'cart.destroy.error',
+                        message: response.data.message,
+                    });
+                }
+            })
+        },
+        updateCartProductClick() {
+            this.cartUpdateModalVisibility = !this.cartUpdateModalVisibility
+        },
+        clickOnCartUpdateCancel() {
+            this.cartUpdateModalVisibility = false
+        },
+        clickOnCartUpdateOk() {
+            var app = this
+            
+            axios({
+                method: 'put',
+                url: this.cartUpdateUrl,
+                data: {'products' : this.cartActionProducts}
+            }).then(response => {
+                if (response.data.success == true) {
+                    app.$notification.success({
+                        key: 'cart.update.success',
+                        message: response.data.message,
+                    });
+                    location.reload()
+                } else {
+                     app.$notification.error({
+                        key: 'cart.update.error',
                         message: response.data.message,
                     });
                 }

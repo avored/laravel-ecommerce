@@ -14,7 +14,10 @@
 @endsection
 
 @section('content')
-    <cart-page :items="{{ Cart::toArray() }}" cart-delete-url="{{ route('cart.destroy') }}" inline-template>
+    <cart-page 
+        :items="{{ Cart::toArray() }}"
+        cart-update-url="{{ route('cart.update') }}"
+        cart-delete-url="{{ route('cart.destroy') }}" inline-template>
         <div>
         @php
             $currencySymbol = session()->get('default_currency')->symbol;
@@ -33,7 +36,7 @@
                     <a-checkbox @change="clickOnCheckBox($event, item)"></a-checkbox>
                 </a-col>
                 <a-col :span="4">
-                    <a-avatar :style="{width:'100px', height: '100px'}" :src="item.image"></a-avatar>
+                    <a-avatar :style="{width:'75px', height: '75px'}" :src="item.image"></a-avatar>
                 </a-col>
                 <a-col :span="4">
                     <a :href="'/product/' + item.slug">
@@ -73,7 +76,7 @@
             </a-row>
             <a-row class="mt-1">
                 <a-col v-if="showCartActionBtn" :span="24">
-                    <a-button type="primary">Update</a-button>
+                    <a-button v-on:click="updateCartProductClick" type="primary">Update</a-button>
                     <a-button v-on:click="delteCartProductClick" type="dashed">Delete</a-button>
                 </a-col>
             </a-row>
@@ -103,6 +106,47 @@
                     </a>
                 </a-col>
             </a-row>
+            <a-modal
+                title="Cart Update"
+                :visible="cartUpdateModalVisibility"
+                @ok="clickOnCartUpdateOk"
+                ok-text="Update"
+                @cancel="clickOnCartUpdateCancel">
+                <p v-if="cartActionProducts.length">
+                    <a-row :gutter="5">
+                        <a-col :span="4">Image</a-col>
+                        <a-col :span="6">Name</a-col>
+                        <a-col :span="5">Qty</a-col>
+                        <a-col :span="3">Price</a-col>
+                        <a-col :span="3">Tax</a-col>
+                        <a-col :span="3">Total</a-col>
+                    </a-row>
+                    <a-row :gutter="5" class="mt-1" key="index" v-for="(cartProduct, index) in cartActionProducts">
+                        <a-col :span="4">
+                            <a-avatar :style="{width:'50px', height: '50px'}" :src="cartProduct.image">
+                            </a-avatar>
+                        </a-col>
+                        <a-col :span="6">
+                            <a :href="'/product/' + cartProduct.slug">
+                                @{{cartProduct.name}}
+                            </a>
+                        </a-col>
+                        <a-col :span="5">
+                            <a-input-number :style="'width:50px;'" :min="1" v-model="cartProduct.qty">
+                            </a-input-number>
+                        </a-col>
+                        <a-col :span="3">
+                            @{{ parseFloat(cartProduct.price).toFixed(2) }}
+                        </a-col>
+                        <a-col :span="3">
+                            @{{ parseFloat(cartProduct.tax).toFixed(2) }}
+                        </a-col>
+                        <a-col :span="3">
+                            @{{ parseFloat((cartProduct.qty * cartProduct.price) + cartProduct.tax).toFixed(2) }}
+                        </a-col>      
+                    </a-row>
+                </p>
+            </a-modal>
         </div>
     </cart-page>
 @endsection

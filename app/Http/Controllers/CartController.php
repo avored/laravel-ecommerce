@@ -54,4 +54,20 @@ class CartController extends Controller
         
         return response()->json(['success' => true, 'message' => 'Product Destroyed from Cart Successfully']);
     }
+
+    /**
+     * Show the application dashboard.
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function update(Request $request)
+    {
+        $cartProducts = $request->get('products');
+        foreach ($cartProducts as $product) {
+            $slug = Arr::get($product, 'slug');
+            $qty = Arr::get($product, 'qty');
+            Cart::update($slug, $qty);
+        }
+        
+        return response()->json(['success' => true, 'message' => 'Product Update from Cart Successfully']);
+    }
 }

@@ -50,6 +50,7 @@ Vue.component('a-button', () => import('ant-design-vue/lib/button'))
 Vue.component('a-icon', () => import('ant-design-vue/lib/icon'))
 Vue.component('a-carousel', () => import('ant-design-vue/lib/carousel'))
 Vue.component('a-upload', () => import('ant-design-vue/lib/upload'))
+Vue.component('a-modal', () => import('ant-design-vue/lib/modal'))
 
 
 /*************** AVORED CREATED VUE COMPONENTS ***************/

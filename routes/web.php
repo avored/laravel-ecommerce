@@ -21,6 +21,7 @@ Route::get('product/{product}', 'ProductController@show')->name('product.show');
 Route::get('cart', 'CartController@show')->name('cart.show');
 Route::post('add-to-cart', 'CartController@addToCart')->name('add.to.cart');
 Route::delete('destroy-cart', 'CartController@destroy')->name('cart.destroy');
+Route::put('update-cart', 'CartController@update')->name('cart.update');
 
 Route::get('checkout', 'CheckoutController@show')->name('checkout.show');
 Route::post('order', 'OrderController@place')->name('order.place');
