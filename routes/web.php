@@ -20,6 +20,8 @@ Route::get('product/{product}', 'ProductController@show')->name('product.show');
 
 Route::get('cart', 'CartController@show')->name('cart.show');
 Route::post('add-to-cart', 'CartController@addToCart')->name('add.to.cart');
+Route::delete('destroy-cart', 'CartController@destroy')->name('cart.destroy');
+Route::put('update-cart', 'CartController@update')->name('cart.update');
 
 Route::get('checkout', 'CheckoutController@show')->name('checkout.show');
 Route::post('order', 'OrderController@place')->name('order.place');
@@ -33,7 +35,9 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('', 'DashboardController@index')->name('dashboard');
         Route::get('edit', EditController::class)->name('edit');
+        Route::get('upload', UploadController::class)->name('upload');
         Route::post('save', SaveController::class)->name('save');
+        Route::post('upload-image', UploadImageController::class)->name('upload.image');
         Route::resource('address', 'AddressController');
         Route::resource('order', 'OrderController')->only(['index', 'show']);
     });

@@ -28,7 +28,7 @@
     <a-col :span="18">
       <a-row :gutter="15" justify="center" >
         @foreach ($categoryProducts as $product)
-            <a-col :span="8">
+            <a-col :xs="24" :sm="12" :md="8">
               @include('category.card.product', ['product' => $product])
             </a-col>
         @endforeach

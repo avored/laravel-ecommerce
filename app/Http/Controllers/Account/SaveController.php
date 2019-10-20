@@ -15,7 +15,6 @@ class SaveController extends Controller
      */
     public function __invoke(SaveRequest $request)
     {
-
         Auth::user()->fill($request->all())->save();
 
         return redirect()->route('account.dashboard');

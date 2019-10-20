@@ -86,8 +86,10 @@ __webpack_require__.r(__webpack_exports__);
 
     if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.menuGroup)) {
       this.fields.forEach(function (field) {
+        console.log(window.x = _this);
+
         _this.form.getFieldDecorator(field, {
-          initialValue: _this.menuGroup[field]
+          'name': _this.menuGroup[field]
         });
       });
     }

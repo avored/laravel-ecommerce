@@ -12,13 +12,9 @@
         {{ __('User Dashboard') }}
       </a>
     </a-breadcrumb-item>
+    
     <a-breadcrumb-item>
-      <a href="{{ route('account.address.index') }}" title="user dashboard">
-        {{ __('Address') }}
-      </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
-        {{ __('Address Edit') }}
+        {{ __('Account Edit') }}
     </a-breadcrumb-item>
 </a-breadcrumb>
 @endsection

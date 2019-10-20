@@ -4,9 +4,28 @@
     :default-selected-keys="['{{  Route::currentRouteName() }}']"
     style="height: 100%"
 >
+    <a-menu-item style="min-height:120px;text-align:center">
+        @if(empty($user->image))
+            <a-avatar 
+                shape="square"
+                style="backgroundColor:#E64448;width:100%;height:100px">
+                {{ $user->name }}</a-avatar>
+        @else
+            <a-avatar 
+                shape="square"
+                style="width:100%; height: auto"
+                src="{{ '/storage/' . $user->image }}">
+            </a-avatar>
+        @endif
+    </a-menu-item>
     <a-menu-item key="account.dashboard">
         <a href="{{ route('account.dashboard') }}">
             {{ __('Profile') }}
+        </a>
+    </a-menu-item>
+    <a-menu-item key="account.upload">
+        <a href="{{ route('account.upload') }}">
+            {{ __('Upload Photo') }}
         </a>
     </a-menu-item>
     <a-menu-item key="account.address.index">

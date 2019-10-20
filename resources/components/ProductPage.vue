@@ -1,7 +1,6 @@
 <script>
 import isNil from 'lodash/isNil';
 import isEqual from 'lodash/isEqual'
-import { tmpdir } from 'os';
 
 export default {
     props: ['product', 'variations'],

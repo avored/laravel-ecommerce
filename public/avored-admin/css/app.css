@@ -21206,6 +21206,24 @@ li.ant-select-tree-treenode-disabled > .ant-select-tree-node-content-wrapper:hov
 .pb-0 {
   padding-bottom: 0px;
 }
+.dashboard-widget .ant-card-head-title {
+  color: #fff;
+}
+.dashboard-widget .amount {
+  color: #fff;
+  font-size: 4rem;
+  margin-bottom: 0px;
+  line-height: 3rem;
+}
+.dashboard-widget.primary {
+  background-color: #E64448;
+}
+.dashboard-widget.warning {
+  background-color: #faad14;
+}
+.dashboard-widget.info {
+  background-color: #1890ff;
+}
 .attribute-dropdown .ant-select-arrow {
   top: 5px;
   right: 0px;

@@ -1,0 +1,45 @@
+{
+	"name" : "avored/wishlist",
+	"description" : "AvoRed Laravel E commerce - User Wishlist Module",
+	"keywords" : [
+		"framework",
+		"wishlist",
+		"cart",
+		"laravel",
+		"e commerce",
+		"laravel5",
+		"shop",
+		"shopping-cart",
+		"e-commerce",
+		"shopping cart",
+		"e commerce"
+	],
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Purvesh  ",
+			"email" : "ind.purvesh@gmail.com"
+		}
+	],
+	"type" : "avored-module",
+	"require" : {
+		"php" : ">=7.2",
+		"avored/module-installer" : "1.*",
+		"avored/framework": "^3.0"
+	},
+	"autoload" : {
+		"classmap" : [
+			"database/migrations"
+		],
+		"psr-4" : {
+			"AvoRed\\Review\\" : "src/"
+		}
+	},
+	"homepage" : "https://www.avored.com/",
+	"support" : {
+		"email" : "ind.purvesh@gmail.com",
+		"issues" : "https://www.avored.com/discussion",
+		"forum" : "https://www.avored.com/discussion",
+		"wiki" : "https://www.avored.com/docs",
+		"source" : "https://www.github.com/avored/review"
+	}
+}
