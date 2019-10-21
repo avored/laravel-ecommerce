@@ -38,6 +38,7 @@ class Module extends ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'a-wishlist');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         //$this->loadViewsFrom(__DIR__ . '/../resources/views', 'a-wishlist');
     }
 }

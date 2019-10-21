@@ -38,7 +38,7 @@ class Module extends ServiceProvider
     {
         //$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         //$this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-cash-on-delivery');
-        //$this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-cash-on-delivery');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'a-cash-on-delivery');
     }
 
     /**
