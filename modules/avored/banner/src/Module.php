@@ -84,13 +84,13 @@ class Module extends ServiceProvider
     {
         BreadcrumbFacade::make('admin.banner.index', function ($breadcrumb) {
             $breadcrumb->label('Banner')
-                                    ->parent('admin.dashboard');
+                ->parent('admin.dashboard');
         });
 
         BreadcrumbFacade::make('admin.banner.create', function ($breadcrumb) {
             $breadcrumb->label('Create')
-                                    ->parent('admin.dashboard')
-                                    ->parent('admin.banner.index');
+                ->parent('admin.dashboard')
+                ->parent('admin.banner.index');
         });
 
         BreadcrumbFacade::make('admin.banner.edit', function ($breadcrumb) {

@@ -16,6 +16,7 @@ class Module extends ServiceProvider
     {
         $this->registerResources();
         $this->registerPaymentOption();
+        $this->publishFiles();
     }
 
     /**
@@ -50,5 +51,16 @@ class Module extends ServiceProvider
     {
         $payment = new CashOnDelivery();
         Payment::put($payment);
+    }
+
+    /**
+     * Publish Files for AvoRed Banner Modules.
+     * @return void
+     */
+    public function publishFiles()
+    {
+        $this->publishes([
+            __DIR__ . '/../dist/js' => public_path('avored-admin/js'),
+        ]);
     }
 }
