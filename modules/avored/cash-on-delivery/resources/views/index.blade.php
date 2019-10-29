@@ -1,3 +1,2 @@
-<a-switch @change="handlePaymentChange($event, '{{ $payment->identifier() }}')">
-</a-switch>
-{{ $payment->name() }}
+<avored-cash-on-delivery>
+</avored-cash-on-delivery>

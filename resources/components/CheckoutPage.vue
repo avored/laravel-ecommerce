@@ -17,17 +17,36 @@ export default {
             shippingOption: '',
             shippingCountry: 0,
             billingCountry: 0,
+            stripeToken: ''
         }
     },
     methods: {
         handleSubmit (e) {
-            this.submitStatus = true;
-            this.form.validateFields((err, values) => {
-                if (err) {
-                    this.submitStatus = false;
-                    e.preventDefault();
+            //var app = this
+            e.preventDefault()
+            window.x = this
+            EventBus.$emit('placeOrderBefore')
+
+            return
+
+            this.handleBeforeSubmit().then(result => {
+                if (result.error) {
+                    var errorElement = document.getElementById('card-errors')
+                    errorElement.textContent = result.error.message
+                    return false
+                } else {
+                    app.stripeToken = result.token.id
+                    console.log(app.stripeToken, 'i am ready for submit')
+                    document.getElementById('checkout-form').submit()
+                    return true
                 }
-            });
+            })
+        },
+        stripePlaceOrderBefore() {
+            console.log('here');    
+        },
+        handleBeforeSubmit() {
+            return stripe.createToken(card)
         },
         shippingCountryOptionChange(val) {
             this.shippingCountry = val;
@@ -41,9 +60,10 @@ export default {
         useDifferentBillingAddressSwitchChange(val) {
             this.useDifferentBillingAddress = !val;
         },
-        handlePaymentChange(e, val) {
-            this.paymentOption = val;
-        },
+        // handlePaymentChange(identifier) {
+        //     console.log('i am listener', identifier)
+        //     //this.paymentOption = val;
+        // },
         handleShippingChange(e, val) {
             this.shippingOption = val;
         },
@@ -73,6 +93,15 @@ export default {
                 
             });
         }
+        var app = this
+        EventBus.$on('selectedPaymentIdentifier', function(identifier) {
+            app.paymentOption = identifier
+        })
+
+        EventBus.$on('placeOrderAfter', function() {
+            console.log('placeorder after')
+            document.getElementById('checkout-form').submit()
+        })
     }
 }
 </script>

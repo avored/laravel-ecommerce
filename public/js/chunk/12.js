@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[12],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedNav.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/AvoRedNav.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedCashOnDelivery.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/AvoRedCashOnDelivery.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -17,43 +17,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'avored-nav',
-  props: ['menus'],
+  name: 'avored-cash-on-delivery',
+  props: [],
   data: function data() {
-    return {};
+    return {
+      selectedCashOnDeliveryPaymentOption: false
+    };
+  },
+  methods: {
+    handlePaymentChange: function handlePaymentChange(checked, identifier) {
+      if (checked) {
+        this.selectedCashOnDeliveryPaymentOption = true;
+      } else {
+        this.selectedCashOnDeliveryPaymentOption = false;
+      }
+
+      EventBus.$emit('selectedPaymentIdentifier', identifier);
+    }
+  },
+  mounted: function mounted() {
+    var app = this;
+    var eventBus = EventBus;
+    eventBus.$on('placeOrderBefore', function () {
+      if (app.selectedCashOnDeliveryPaymentOption) {
+        eventBus.$emit('placeOrderAfter');
+      }
+    });
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa&":
-/*!*********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa& ***!
-  \*********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedCashOnDelivery.vue?vue&type=template&id=da88b8a4&":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/AvoRedCashOnDelivery.vue?vue&type=template&id=da88b8a4& ***!
+  \********************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -68,66 +67,14 @@ var render = function() {
   return _c(
     "div",
     [
-      _c(
-        "a-menu",
-        {
-          staticClass: "navigation",
-          attrs: {
-            theme: "light",
-            mode: "horizontal",
-            "default-selected-keys": []
+      _c("a-switch", {
+        on: {
+          change: function($event) {
+            return _vm.handlePaymentChange($event, "a-cash-on-delivery")
           }
-        },
-        [
-          _vm._l(_vm.menus, function(menu) {
-            return [
-              menu.submenus.length <= 0
-                ? _c("a-menu-item", { key: menu.id }, [
-                    _c("a", { attrs: { href: menu.url } }, [
-                      _vm._v(
-                        "\n                    " +
-                          _vm._s(menu.name) +
-                          "\n                "
-                      )
-                    ])
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              menu.submenus.length > 0
-                ? _c(
-                    "a-sub-menu",
-                    { key: "submenu" + menu.id, attrs: { title: menu.name } },
-                    [
-                      _c("a-menu-item", { key: menu.id }, [
-                        _c("a", { attrs: { href: menu.url } }, [
-                          _vm._v(
-                            "\n                    " +
-                              _vm._s(menu.name) +
-                              "\n                    "
-                          )
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _vm._l(menu.submenus, function(submenu) {
-                        return _c("a-menu-item", { key: submenu.id }, [
-                          _c("a", { attrs: { href: submenu.url } }, [
-                            _vm._v(
-                              "\n                        " +
-                                _vm._s(submenu.name) +
-                                "\n                    "
-                            )
-                          ])
-                        ])
-                      })
-                    ],
-                    2
-                  )
-                : _vm._e()
-            ]
-          })
-        ],
-        2
-      )
+        }
+      }),
+      _vm._v(" \n    Cash On Delivery\n")
     ],
     1
   )
@@ -246,17 +193,17 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ "./resources/components/AvoRedNav.vue":
-/*!********************************************!*\
-  !*** ./resources/components/AvoRedNav.vue ***!
-  \********************************************/
+/***/ "./resources/components/AvoRedCashOnDelivery.vue":
+/*!*******************************************************!*\
+  !*** ./resources/components/AvoRedCashOnDelivery.vue ***!
+  \*******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AvoRedNav.vue?vue&type=template&id=7ee78aaa& */ "./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa&");
-/* harmony import */ var _AvoRedNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AvoRedNav.vue?vue&type=script&lang=js& */ "./resources/components/AvoRedNav.vue?vue&type=script&lang=js&");
+/* harmony import */ var _AvoRedCashOnDelivery_vue_vue_type_template_id_da88b8a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AvoRedCashOnDelivery.vue?vue&type=template&id=da88b8a4& */ "./resources/components/AvoRedCashOnDelivery.vue?vue&type=template&id=da88b8a4&");
+/* harmony import */ var _AvoRedCashOnDelivery_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AvoRedCashOnDelivery.vue?vue&type=script&lang=js& */ "./resources/components/AvoRedCashOnDelivery.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -266,9 +213,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AvoRedNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _AvoRedCashOnDelivery_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AvoRedCashOnDelivery_vue_vue_type_template_id_da88b8a4___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AvoRedCashOnDelivery_vue_vue_type_template_id_da88b8a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -278,38 +225,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/components/AvoRedNav.vue"
+component.options.__file = "resources/components/AvoRedCashOnDelivery.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/components/AvoRedNav.vue?vue&type=script&lang=js&":
-/*!*********************************************************************!*\
-  !*** ./resources/components/AvoRedNav.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************/
+/***/ "./resources/components/AvoRedCashOnDelivery.vue?vue&type=script&lang=js&":
+/*!********************************************************************************!*\
+  !*** ./resources/components/AvoRedCashOnDelivery.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib??ref--4-0!../../node_modules/vue-loader/lib??vue-loader-options!./AvoRedNav.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedNav.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedNav_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedCashOnDelivery_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib??ref--4-0!../../node_modules/vue-loader/lib??vue-loader-options!./AvoRedCashOnDelivery.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedCashOnDelivery.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedCashOnDelivery_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa&":
-/*!***************************************************************************!*\
-  !*** ./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa& ***!
-  \***************************************************************************/
+/***/ "./resources/components/AvoRedCashOnDelivery.vue?vue&type=template&id=da88b8a4&":
+/*!**************************************************************************************!*\
+  !*** ./resources/components/AvoRedCashOnDelivery.vue?vue&type=template&id=da88b8a4& ***!
+  \**************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib??vue-loader-options!./AvoRedNav.vue?vue&type=template&id=7ee78aaa& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedNav.vue?vue&type=template&id=7ee78aaa&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedCashOnDelivery_vue_vue_type_template_id_da88b8a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../node_modules/vue-loader/lib??vue-loader-options!./AvoRedCashOnDelivery.vue?vue&type=template&id=da88b8a4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/AvoRedCashOnDelivery.vue?vue&type=template&id=da88b8a4&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedCashOnDelivery_vue_vue_type_template_id_da88b8a4___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedNav_vue_vue_type_template_id_7ee78aaa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedCashOnDelivery_vue_vue_type_template_id_da88b8a4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

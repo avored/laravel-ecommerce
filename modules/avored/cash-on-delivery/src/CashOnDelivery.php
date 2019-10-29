@@ -11,7 +11,7 @@ class CashOnDelivery
      *
      * @var string
      */
-    protected $identifier = 'cash-on-delivery';
+    protected $identifier = 'a-cash-on-delivery';
     
     /**
      * Title for this Payment options.
