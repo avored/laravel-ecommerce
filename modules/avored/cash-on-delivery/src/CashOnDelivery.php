@@ -41,6 +41,11 @@ class CashOnDelivery
     {
         return true;
     }
+
+    public function process()
+    {
+        //
+    }
     
     /**
      * Get Title for this Payment Option.

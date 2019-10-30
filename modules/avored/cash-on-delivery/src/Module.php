@@ -3,6 +3,8 @@ namespace AvoRed\CashOnDelivery;
 
 use Illuminate\Support\ServiceProvider;
 use AvoRed\Framework\Support\Facades\Payment;
+use AvoRed\Framework\Support\Facades\Tab;
+use AvoRed\Framework\Tab\TabItem;
 
 class Module extends ServiceProvider
 {
@@ -16,6 +18,7 @@ class Module extends ServiceProvider
     {
         $this->registerResources();
         $this->registerPaymentOption();
+        $this->registerTab();
         $this->publishFiles();
     }
 
@@ -38,7 +41,7 @@ class Module extends ServiceProvider
     protected function registerResources()
     {
         //$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        //$this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-cash-on-delivery');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'a-cash-on-delivery');
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'a-cash-on-delivery');
     }
 
@@ -62,5 +65,14 @@ class Module extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../dist/js' => public_path('avored-admin/js'),
         ]);
+    }
+
+    public function registerTab()
+    {
+        Tab::put('system.configuration', function (TabItem $tab) {
+            $tab->key('system.configuration.cash-on-delivery')
+                ->label('a-cash-on-delivery::cash-on-delivery.config-title')
+                ->view('a-cash-on-delivery::system.configuration.payment-card');
+        });
     }
 }
