@@ -2,10 +2,10 @@
 
 namespace App;
 
+use AvoRed\Framework\Database\Models\Address;
 use Laravel\Passport\HasApiTokens;
 use Laravel\Passport\ClientRepository;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -54,5 +54,10 @@ class User extends Authenticatable
         }
 
         return $client;
+    }
+
+    public function addresses()
+    {
+        return $this->hasMany(Address::class);
     }
 }

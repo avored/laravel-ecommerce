@@ -5,16 +5,16 @@
     style="height: 100%"
 >
     <a-menu-item style="min-height:120px;text-align:center">
-        @if(empty($user->image))
+        @if(empty(Auth::user()->image))
             <a-avatar 
                 shape="square"
                 style="backgroundColor:#E64448;width:100%;height:100px">
-                {{ $user->name }}</a-avatar>
+                {{ Auth::user()->name }}</a-avatar>
         @else
             <a-avatar 
                 shape="square"
                 style="width:100%; height: auto"
-                src="{{ '/storage/' . $user->image }}">
+                src="{{ '/storage/' . Auth::user()->image }}">
             </a-avatar>
         @endif
     </a-menu-item>
