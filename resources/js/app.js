@@ -72,3 +72,4 @@ Vue.component('avored-nav', () => import('../components/AvoRedNav.vue'))
 const app = new Vue({
     el: '#app',
 })
+window.EventBus = new Vue();

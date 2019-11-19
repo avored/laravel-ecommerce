@@ -15,10 +15,13 @@
 
 
 @section('content')
-  <checkout-page :items="{{ Cart::toArray() }}" :addresses="{{ $addresses }}" inline-template>
+  <checkout-page 
+    :items="{{ Cart::toArray() }}"
+    :addresses="{{ $addresses }}"
+    inline-template>
     <div>
     <h1>{{ __('Checkout Page') }}</h1>
-    <a-form :form="form" @submit="handleSubmit" method="post" action="{{ route('order.place') }}">
+    <a-form :form="form" @submit.prevent="handleSubmit" id="checkout-form"  method="post" action="{{ route('order.place') }}">
       @csrf          
       <a-row :gutter="15">
         <a-col :span="12">

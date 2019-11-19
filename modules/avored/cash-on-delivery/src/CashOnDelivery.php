@@ -11,7 +11,7 @@ class CashOnDelivery
      *
      * @var string
      */
-    protected $identifier = 'cash-on-delivery';
+    protected $identifier = 'a-cash-on-delivery';
     
     /**
      * Title for this Payment options.
@@ -25,7 +25,7 @@ class CashOnDelivery
      *
      * @var string
      */
-    protected $view = 'avored-cash-on-delivery::cash-on-delivery';
+    protected $view = 'a-cash-on-delivery::index';
     
     /**
      * Get Identifier for this Payment options.
@@ -41,6 +41,11 @@ class CashOnDelivery
     {
         return true;
     }
+
+    public function process()
+    {
+        //
+    }
     
     /**
      * Get Title for this Payment Option.
@@ -54,13 +59,22 @@ class CashOnDelivery
     
     /**
      * Payment Option View Path.
-     *
      * return String
      */
     public function view()
     {
         return $this->view;
     }
+
+     /**
+     * Render Payment Option
+     * return String
+     */
+    public function render()
+    {
+        return view($this->view())->with($this->with());
+    }
+    
     
     /**
      * Payment Option View Data.
@@ -69,6 +83,6 @@ class CashOnDelivery
      */
     public function with()
     {
-        return [];
+        return ['payment' => $this];
     }
 }

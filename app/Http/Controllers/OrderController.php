@@ -13,6 +13,7 @@ use AvoRed\Framework\Database\Contracts\AddressModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderStatusModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductAttributeModelInterface;
+use AvoRed\Framework\Support\Facades\Payment;
 
 class OrderController extends Controller
 {
@@ -94,6 +95,7 @@ class OrderController extends Controller
         $this->user($request);
         $this->shippingAddress($request);
         $this->billingAddress($request);
+        $this->paymentOption();
         $this->orderStatus();
 
         $orderData = [
@@ -190,6 +192,15 @@ class OrderController extends Controller
     public function orderStatus()
     {
         $this->orderStatus = $this->oderStatusRepository->findDefault();
+    }
+
+    /**
+     * check and process payment option
+     */
+    public function paymentOption()
+    {
+        $payment = Payment::get(request()->get('payment_option'));
+        $payment->process();
     }
 
     /**
