@@ -1,25 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ "./node_modules/ant-design-vue/lib/_util/env.js":
-/*!******************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/_util/env.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var inBrowser = exports.inBrowser = typeof window !== 'undefined';
-var UA = exports.UA = inBrowser && window.navigator.userAgent.toLowerCase();
-var isIE = exports.isIE = UA && /msie|trident/.test(UA);
-var isIE9 = exports.isIE9 = UA && UA.indexOf('msie 9.0') > 0;
-
-/***/ }),
-
 /***/ "./node_modules/ant-design-vue/lib/_util/interopDefault.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/_util/interopDefault.js ***!
@@ -94,6 +74,8 @@ var _icon2 = _interopRequireDefault(_icon);
 var _tag = __webpack_require__(/*! ../tag */ "./node_modules/ant-design-vue/lib/tag/index.js");
 
 var _tag2 = _interopRequireDefault(_tag);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 var _interopDefault = __webpack_require__(/*! ../_util/interopDefault */ "./node_modules/ant-design-vue/lib/_util/interopDefault.js");
 
@@ -179,11 +161,14 @@ exports['default'] = {
     event: 'change'
   },
   props: (0, _propsUtil.initDefaultProps)((0, _interface.RangePickerProps)(), {
-    prefixCls: 'ant-calendar',
-    tagPrefixCls: 'ant-tag',
     allowClear: true,
     showToday: false
   }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   data: function data() {
     var value = this.value || this.defaultValue || [];
 
@@ -215,8 +200,16 @@ exports['default'] = {
       this.setState(state);
     },
     open: function open(val) {
-      this.setState({
-        sOpen: val
+      var state = { sOpen: val };
+      this.setState(state);
+    },
+    sOpen: function sOpen(val, oldVal) {
+      var _this = this;
+
+      this.$nextTick(function () {
+        if (!(0, _propsUtil.hasProp)(_this, 'open') && oldVal && !val) {
+          _this.focus();
+        }
       });
     }
   },
@@ -256,10 +249,6 @@ exports['default'] = {
         this.clearHoverValue();
       }
       this.$emit('openChange', open);
-
-      if (!open) {
-        this.focus();
-      }
     },
     handleShowDateChange: function handleShowDateChange(showDate) {
       this.setState({ sShowDate: showDate });
@@ -315,14 +304,14 @@ exports['default'] = {
       this.$refs.picker.blur();
     },
     renderFooter: function renderFooter() {
-      var _this = this;
+      var _this2 = this;
 
       var h = this.$createElement;
-      var prefixCls = this.prefixCls,
-          ranges = this.ranges,
+      var ranges = this.ranges,
           $scopedSlots = this.$scopedSlots,
-          $slots = this.$slots,
-          tagPrefixCls = this.tagPrefixCls;
+          $slots = this.$slots;
+      var prefixCls = this._prefixCls,
+          tagPrefixCls = this._tagPrefixCls;
 
       var renderExtraFooter = this.renderExtraFooter || $scopedSlots.renderExtraFooter || $slots.renderExtraFooter;
       if (!ranges && !renderExtraFooter) {
@@ -344,12 +333,12 @@ exports['default'] = {
             },
             on: {
               'click': function click() {
-                return _this.handleRangeClick(value);
+                return _this2.handleRangeClick(value);
               },
               'mouseenter': function mouseenter() {
-                return _this.setState({ sHoverValue: value });
+                return _this2.setState({ sHoverValue: value });
               },
-              'mouseleave': _this.handleRangeMouseLeave
+              'mouseleave': _this2.handleRangeMouseLeave
             }
           },
           [range]
@@ -366,7 +355,7 @@ exports['default'] = {
 
   render: function render() {
     var _classNames,
-        _this2 = this;
+        _this3 = this;
 
     var h = arguments[0];
 
@@ -389,7 +378,8 @@ exports['default'] = {
         blur = _$listeners$blur === undefined ? noop : _$listeners$blur,
         _$listeners$panelChan = $listeners.panelChange,
         panelChange = _$listeners$panelChan === undefined ? noop : _$listeners$panelChan;
-    var prefixCls = props.prefixCls,
+    var customizePrefixCls = props.prefixCls,
+        customizeTagPrefixCls = props.tagPrefixCls,
         popupStyle = props.popupStyle,
         disabledDate = props.disabledDate,
         disabledTime = props.disabledTime,
@@ -399,6 +389,12 @@ exports['default'] = {
         locale = props.locale,
         localeCode = props.localeCode,
         format = props.format;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('calendar', customizePrefixCls);
+    var tagPrefixCls = getPrefixCls('tag', customizeTagPrefixCls);
+    this._prefixCls = prefixCls;
+    this._tagPrefixCls = tagPrefixCls;
 
     var dateRender = props.dateRender || $scopedSlots.dateRender;
     fixLocale(value, localeCode);
@@ -420,7 +416,7 @@ exports['default'] = {
     };
     if (props.timePicker) {
       pickerChangeHandler.on.change = function (changedValue) {
-        return _this2.handleChange(changedValue);
+        return _this3.handleChange(changedValue);
       };
     } else {
       calendarProps = { on: {}, props: {} };
@@ -604,6 +600,8 @@ var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/li
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
@@ -644,6 +642,11 @@ exports['default'] = {
     format: 'gggg-wo',
     allowClear: true
   }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   data: function data() {
     var value = this.value || this.defaultValue;
     if (value && !(0, _interopDefault2['default'])(moment).isMoment(value)) {
@@ -657,11 +660,36 @@ exports['default'] = {
 
   watch: {
     value: function value(val) {
-      this.setState({ _value: val });
+      var state = { _value: val };
+      this.setState(state);
+      this.prevState = (0, _extends3['default'])({}, this.$data, state);
     },
     open: function open(val) {
-      this.setState({ _open: val });
+      var state = { _open: val };
+      this.setState(state);
+      this.prevState = (0, _extends3['default'])({}, this.$data, state);
+    },
+    _open: function _open(val, oldVal) {
+      var _this = this;
+
+      this.$nextTick(function () {
+        if (!(0, _propsUtil.hasProp)(_this, 'open') && oldVal && !val) {
+          _this.focus();
+        }
+      });
     }
+  },
+  mounted: function mounted() {
+    this.prevState = (0, _extends3['default'])({}, this.$data);
+  },
+  updated: function updated() {
+    var _this2 = this;
+
+    this.$nextTick(function () {
+      if (!(0, _propsUtil.hasProp)(_this2, 'open') && _this2.prevState._open && !_this2._open) {
+        _this2.focus();
+      }
+    });
   },
 
   methods: {
@@ -669,8 +697,11 @@ exports['default'] = {
       var h = this.$createElement;
 
       var selectedValue = this.$data._value;
-      var prefixCls = this.prefixCls;
+      var prefixCls = this._prefixCls,
+          $scopedSlots = this.$scopedSlots;
 
+      var dateRender = this.dateRender || $scopedSlots.dateRender;
+      var dateNode = dateRender ? dateRender(current) : current.date();
       if (selectedValue && current.year() === selectedValue.year() && current.week() === selectedValue.week()) {
         return h(
           'div',
@@ -678,14 +709,14 @@ exports['default'] = {
           [h(
             'div',
             { 'class': prefixCls + '-date' },
-            [current.date()]
+            [dateNode]
           )]
         );
       }
       return h(
         'div',
         { 'class': prefixCls + '-date' },
-        [current.date()]
+        [dateNode]
       );
     },
     handleChange: function handleChange(value) {
@@ -699,15 +730,23 @@ exports['default'] = {
         this.setState({ _open: open });
       }
       this.$emit('openChange', open);
-
-      if (!open) {
-        this.focus();
-      }
     },
     clearSelection: function clearSelection(e) {
       e.preventDefault();
       e.stopPropagation();
       this.handleChange(null);
+    },
+    renderFooter: function renderFooter() {
+      var h = this.$createElement;
+      var prefixCls = this._prefixCls,
+          $scopedSlots = this.$scopedSlots;
+
+      var renderExtraFooter = this.renderExtraFooter || $scopedSlots.renderExtraFooter;
+      return renderExtraFooter ? h(
+        'div',
+        { 'class': prefixCls + '-footer-extra' },
+        [renderExtraFooter.apply(undefined, arguments)]
+      ) : null;
     },
     focus: function focus() {
       this.$refs.input.focus();
@@ -723,7 +762,7 @@ exports['default'] = {
     var props = (0, _propsUtil.getOptionProps)(this);
     var suffixIcon = (0, _propsUtil.getComponentFromProp)(this, 'suffixIcon');
     suffixIcon = Array.isArray(suffixIcon) ? suffixIcon[0] : suffixIcon;
-    var prefixCls = this.prefixCls,
+    var customizePrefixCls = this.prefixCls,
         disabled = this.disabled,
         pickerClass = this.pickerClass,
         popupStyle = this.popupStyle,
@@ -736,6 +775,12 @@ exports['default'] = {
         $data = this.$data,
         $listeners = this.$listeners,
         $scopedSlots = this.$scopedSlots;
+
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('calendar', customizePrefixCls);
+    this._prefixCls = prefixCls;
+
     var pickerValue = $data._value,
         open = $data._open;
     var _$listeners$focus = $listeners.focus,
@@ -759,7 +804,8 @@ exports['default'] = {
         locale: locale.lang,
         showDateInput: false,
         showToday: false,
-        disabledDate: disabledDate
+        disabledDate: disabledDate,
+        renderFooter: this.renderFooter
       }
     });
     var clearIcon = !disabled && allowClear && $data._value ? h(_icon2['default'], {
@@ -883,6 +929,8 @@ var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/li
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 var _interopDefault = __webpack_require__(/*! ../_util/interopDefault */ "./node_modules/ant-design-vue/lib/_util/interopDefault.js");
 
 var _interopDefault2 = _interopRequireDefault(_interopDefault);
@@ -906,15 +954,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 function noop() {}
 function createPicker(TheCalendar, props) {
   return {
-    // static defaultProps = {
-    //   prefixCls: 'ant-calendar',
-    //   allowClear: true,
-    //   showToday: true,
-    // };
-
-    // private input: any;
     props: (0, _propsUtil.initDefaultProps)(props, {
-      prefixCls: 'ant-calendar',
       allowClear: true,
       showToday: true
     }),
@@ -922,6 +962,11 @@ function createPicker(TheCalendar, props) {
     model: {
       prop: 'value',
       event: 'change'
+    },
+    inject: {
+      configProvider: { 'default': function _default() {
+          return _configProvider.ConfigConsumerProps;
+        } }
     },
     data: function data() {
       var value = this.value || this.defaultValue;
@@ -952,14 +997,23 @@ function createPicker(TheCalendar, props) {
           state.showDate = val;
         }
         this.setState(state);
+      },
+      _open: function _open(val, oldVal) {
+        var _this = this;
+
+        this.$nextTick(function () {
+          if (!(0, _propsUtil.hasProp)(_this, 'open') && oldVal && !val) {
+            _this.focus();
+          }
+        });
       }
     },
     methods: {
       renderFooter: function renderFooter() {
         var h = this.$createElement;
-        var prefixCls = this.prefixCls,
-            $scopedSlots = this.$scopedSlots,
-            $slots = this.$slots;
+        var $scopedSlots = this.$scopedSlots,
+            $slots = this.$slots,
+            prefixCls = this._prefixCls;
 
         var renderExtraFooter = this.renderExtraFooter || $scopedSlots.renderExtraFooter || $slots.renderExtraFooter;
         return renderExtraFooter ? h(
@@ -991,9 +1045,6 @@ function createPicker(TheCalendar, props) {
           this.setState({ _open: open });
         }
         this.$emit('openChange', open);
-        if (!open) {
-          this.focus();
-        }
       },
       focus: function focus() {
         this.$refs.input.focus();
@@ -1032,9 +1083,14 @@ function createPicker(TheCalendar, props) {
           ok = _$listeners$ok === undefined ? noop : _$listeners$ok;
 
       var props = (0, _propsUtil.getOptionProps)(this);
-      var prefixCls = props.prefixCls,
+
+      var customizePrefixCls = props.prefixCls,
           locale = props.locale,
           localeCode = props.localeCode;
+
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('calendar', customizePrefixCls);
+      this._prefixCls = prefixCls;
 
       var dateRender = props.dateRender || $scopedSlots.dateRender;
       var monthCellContentRender = props.monthCellContentRender || $scopedSlots.monthCellContentRender;
@@ -1208,20 +1264,25 @@ var _WeekPicker2 = _interopRequireDefault(_WeekPicker);
 
 var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/date-picker/interface.js");
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var DatePicker = (0, _wrapPicker2['default'])((0, _extends3['default'])({}, (0, _createPicker2['default'])(_vcCalendar2['default'], (0, _interface.DatePickerProps)()), { name: 'ADatePicker' }), (0, _interface.DatePickerProps)());
+var DatePicker = (0, _wrapPicker2['default'])((0, _extends3['default'])({}, (0, _createPicker2['default'])(_vcCalendar2['default'], (0, _interface.DatePickerProps)()), { name: 'ADatePicker' }), (0, _interface.DatePickerProps)(), 'date');
 
-var MonthPicker = (0, _wrapPicker2['default'])((0, _extends3['default'])({}, (0, _createPicker2['default'])(_MonthCalendar2['default'], (0, _interface.MonthPickerProps)()), { name: 'AMonthPicker' }), (0, _interface.MonthPickerProps)(), 'YYYY-MM');
+var MonthPicker = (0, _wrapPicker2['default'])((0, _extends3['default'])({}, (0, _createPicker2['default'])(_MonthCalendar2['default'], (0, _interface.MonthPickerProps)()), { name: 'AMonthPicker' }), (0, _interface.MonthPickerProps)(), 'month');
 
 (0, _extends3['default'])(DatePicker, {
-  RangePicker: (0, _wrapPicker2['default'])(_RangePicker2['default'], (0, _interface.RangePickerProps)()),
+  RangePicker: (0, _wrapPicker2['default'])(_RangePicker2['default'], (0, _interface.RangePickerProps)(), 'date'),
   MonthPicker: MonthPicker,
-  WeekPicker: (0, _wrapPicker2['default'])(_WeekPicker2['default'], (0, _interface.WeekPickerProps)(), 'gggg-wo')
+  WeekPicker: (0, _wrapPicker2['default'])(_WeekPicker2['default'], (0, _interface.WeekPickerProps)(), 'week')
 });
 
 /* istanbul ignore next */
 DatePicker.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(DatePicker.name, DatePicker);
   Vue.component(DatePicker.RangePicker.name, DatePicker.RangePicker);
   Vue.component(DatePicker.MonthPicker.name, DatePicker.MonthPicker);
@@ -1316,7 +1377,8 @@ var DatePickerProps = exports.DatePickerProps = function DatePickerProps() {
     disabledTime: _vueTypes2['default'].func,
     // onOpenChange?: (status: bool) => void;
     // onOk?: (selectedTime: moment.Moment) => void;
-    placeholder: _vueTypes2['default'].string
+    placeholder: _vueTypes2['default'].string,
+    mode: _vueTypes2['default'].oneOf(['time', 'date', 'month', 'year'])
   });
 };
 
@@ -1414,7 +1476,23 @@ var _en_US2 = _interopRequireDefault(_en_US);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var DEFAULT_FORMAT = {
+  date: 'YYYY-MM-DD',
+  dateTime: 'YYYY-MM-DD HH:mm:ss',
+  week: 'gggg-wo',
+  month: 'YYYY-MM'
+};
+
+var LOCALE_FORMAT_MAPPING = {
+  date: 'dateFormat',
+  dateTime: 'dateTimeFormat',
+  week: 'weekFormat',
+  month: 'monthFormat'
+};
 
 function getColumns(_ref) {
   var showHour = _ref.showHour,
@@ -1438,20 +1516,22 @@ function getColumns(_ref) {
   return column;
 }
 
-function wrapPicker(Picker, props, defaultFormat) {
+function wrapPicker(Picker, props, pickerType) {
   return {
     name: Picker.name,
     props: (0, _propsUtil.initDefaultProps)(props, {
-      format: defaultFormat || 'YYYY-MM-DD',
       transitionName: 'slide-up',
       popupStyle: {},
-      locale: {},
-      prefixCls: 'ant-calendar',
-      inputPrefixCls: 'ant-input'
+      locale: {}
     }),
     model: {
       prop: 'value',
       event: 'change'
+    },
+    inject: {
+      configProvider: { 'default': function _default() {
+          return _configProvider.ConfigConsumerProps;
+        } }
     },
     provide: function provide() {
       return {
@@ -1508,11 +1588,19 @@ function wrapPicker(Picker, props, defaultFormat) {
         var h = this.$createElement;
 
         var props = (0, _propsUtil.getOptionProps)(this);
-        var prefixCls = props.prefixCls,
-            inputPrefixCls = props.inputPrefixCls,
+        var customizePrefixCls = props.prefixCls,
+            customizeInputPrefixCls = props.inputPrefixCls,
             size = props.size,
             showTime = props.showTime,
-            disabled = props.disabled;
+            disabled = props.disabled,
+            format = props.format;
+
+        var mergedPickerType = showTime ? pickerType + 'Time' : pickerType;
+        var mergedFormat = format || locale[LOCALE_FORMAT_MAPPING[mergedPickerType]] || DEFAULT_FORMAT[mergedPickerType];
+
+        var getPrefixCls = this.configProvider.getPrefixCls;
+        var prefixCls = getPrefixCls('calendar', customizePrefixCls);
+        var inputPrefixCls = getPrefixCls('input', customizeInputPrefixCls);
 
         var pickerClass = (0, _classnames2['default'])(prefixCls + '-picker', (0, _defineProperty3['default'])({}, prefixCls + '-picker-' + size, !!size));
         var pickerInputClass = (0, _classnames2['default'])(prefixCls + '-picker-input', inputPrefixCls, (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, inputPrefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_classNames2, inputPrefixCls + '-sm', size === 'small'), (0, _defineProperty3['default'])(_classNames2, inputPrefixCls + '-disabled', disabled), _classNames2));
@@ -1535,6 +1623,7 @@ function wrapPicker(Picker, props, defaultFormat) {
         var timePicker = showTime ? h(_Panel2['default'], timePickerPanelProps) : null;
         var pickerProps = {
           props: (0, _extends3['default'])({}, props, {
+            format: mergedFormat,
             pickerClass: pickerClass,
             pickerInputClass: pickerInputClass,
             locale: locale,
@@ -1599,6 +1688,12 @@ var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/definePrope
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
@@ -1607,19 +1702,23 @@ exports['default'] = {
     prop: 'checked'
   },
   props: {
-    prefixCls: {
-      'default': 'ant-tag',
-      type: String
-    },
+    prefixCls: _vueTypes2['default'].string,
     checked: Boolean
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   computed: {
     classes: function classes() {
       var _ref;
 
-      var prefixCls = this.prefixCls,
-          checked = this.checked;
+      var checked = this.checked,
+          customizePrefixCls = this.prefixCls;
 
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('tag', customizePrefixCls);
       return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-checkable', true), (0, _defineProperty3['default'])(_ref, prefixCls + '-checkable-checked', checked), _ref;
     }
   },
@@ -1698,6 +1797,8 @@ var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/a
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
@@ -1708,11 +1809,16 @@ exports['default'] = {
     event: 'close.visible'
   },
   props: {
-    prefixCls: _vueTypes2['default'].string.def('ant-tag'),
+    prefixCls: _vueTypes2['default'].string,
     color: _vueTypes2['default'].string,
     closable: _vueTypes2['default'].bool.def(false),
     visible: _vueTypes2['default'].bool,
     afterClose: _vueTypes2['default'].func
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   data: function data() {
     var _visible = true;
@@ -1766,12 +1872,10 @@ exports['default'] = {
         backgroundColor: color && !isPresetColor ? color : undefined
       };
     },
-    getTagClassName: function getTagClassName() {
+    getTagClassName: function getTagClassName(prefixCls) {
       var _ref;
 
-      var _$props = this.$props,
-          prefixCls = _$props.prefixCls,
-          color = _$props.color;
+      var color = this.$props.color;
 
       var isPresetColor = this.isPresetColor(color);
       return _ref = {}, (0, _defineProperty3['default'])(_ref, prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + color, isPresetColor), (0, _defineProperty3['default'])(_ref, prefixCls + '-has-color', color && !isPresetColor), _ref;
@@ -1791,7 +1895,10 @@ exports['default'] = {
 
   render: function render() {
     var h = arguments[0];
-    var prefixCls = this.$props.prefixCls;
+    var customizePrefixCls = this.$props.prefixCls;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('tag', customizePrefixCls);
     var visible = this.$data._visible;
 
     var tag = h(
@@ -1802,7 +1909,7 @@ exports['default'] = {
           value: visible
         }]
       }, { on: (0, _omit2['default'])(this.$listeners, ['close']) }, {
-        'class': this.getTagClassName(),
+        'class': this.getTagClassName(prefixCls),
         style: this.getTagStyle()
       }]),
       [this.$slots['default'], this.renderCloseIcon()]
@@ -1843,12 +1950,17 @@ var _CheckableTag = __webpack_require__(/*! ./CheckableTag */ "./node_modules/an
 
 var _CheckableTag2 = _interopRequireDefault(_CheckableTag);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _Tag2['default'].CheckableTag = _CheckableTag2['default'];
 
 /* istanbul ignore next */
 _Tag2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Tag2['default'].name, _Tag2['default']);
   Vue.component(_Tag2['default'].CheckableTag.name, _Tag2['default'].CheckableTag);
 };
@@ -1886,6 +1998,10 @@ var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js
 
 var moment = _interopRequireWildcard(_moment);
 
+var _omit = __webpack_require__(/*! omit.js */ "./node_modules/omit.js/es/index.js");
+
+var _omit2 = _interopRequireDefault(_omit);
+
 var _vcTimePicker = __webpack_require__(/*! ../vc-time-picker */ "./node_modules/ant-design-vue/lib/vc-time-picker/index.js");
 
 var _vcTimePicker2 = _interopRequireDefault(_vcTimePicker);
@@ -1906,6 +2022,10 @@ var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/an
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
+var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+
+var _warning2 = _interopRequireDefault(_warning);
+
 var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
 
 var _icon2 = _interopRequireDefault(_icon);
@@ -1917,6 +2037,12 @@ var _interopDefault2 = _interopRequireDefault(_interopDefault);
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
@@ -1961,10 +2087,12 @@ var TimePickerProps = exports.TimePickerProps = function TimePickerProps() {
     minuteStep: _vueTypes2['default'].number,
     secondStep: _vueTypes2['default'].number,
     allowEmpty: _vueTypes2['default'].bool,
+    allowClear: _vueTypes2['default'].bool,
     inputReadOnly: _vueTypes2['default'].bool,
     clearText: _vueTypes2['default'].string,
     defaultOpenValue: _vueTypes2['default'].object,
     popupClassName: _vueTypes2['default'].string,
+    popupStyle: _vueTypes2['default'].object,
     suffixIcon: _vueTypes2['default'].any,
     align: _vueTypes2['default'].object,
     placement: _vueTypes2['default'].any,
@@ -1978,7 +2106,6 @@ var TimePicker = {
   name: 'ATimePicker',
   mixins: [_BaseMixin2['default']],
   props: (0, _propsUtil.initDefaultProps)(TimePickerProps(), {
-    prefixCls: 'ant-time-picker',
     align: {
       offset: [0, -2]
     },
@@ -2003,7 +2130,7 @@ var TimePicker = {
 
   inject: {
     configProvider: { 'default': function _default() {
-        return {};
+        return _configProvider.ConfigConsumerProps;
       } }
   },
   data: function data() {
@@ -2011,6 +2138,7 @@ var TimePicker = {
     if (value && !(0, _interopDefault2['default'])(moment).isMoment(value)) {
       throw new Error('The value/defaultValue of TimePicker must be a moment object, ');
     }
+    (0, _warning2['default'])(!(0, _propsUtil.hasProp)(this, 'allowEmpty'), '`allowEmpty` in TimePicker is deprecated. Please use `allowClear` instead.');
     return {
       sValue: value
     };
@@ -2057,24 +2185,18 @@ var TimePicker = {
       }
       return 'HH:mm:ss';
     },
-    renderTimePicker: function renderTimePicker(locale) {
+    getAllowClear: function getAllowClear() {
+      var _$props = this.$props,
+          allowClear = _$props.allowClear,
+          allowEmpty = _$props.allowEmpty;
+
+      if ((0, _propsUtil.hasProp)(this, 'allowClear')) {
+        return allowClear;
+      }
+      return allowEmpty;
+    },
+    renderInputIcon: function renderInputIcon(prefixCls) {
       var h = this.$createElement;
-
-      var props = (0, _propsUtil.getOptionProps)(this);
-      delete props.defaultValue;
-
-      var format = this.getDefaultFormat();
-      var className = (0, _defineProperty3['default'])({}, props.prefixCls + '-' + props.size, !!props.size);
-      var tempAddon = (0, _propsUtil.getComponentFromProp)(this, 'addon', {}, false);
-      var addon = function addon(panel) {
-        return tempAddon ? h(
-          'div',
-          { 'class': props.prefixCls + '-panel-addon' },
-          [typeof tempAddon === 'function' ? tempAddon(panel) : tempAddon]
-        ) : null;
-      };
-      var prefixCls = props.prefixCls,
-          getPopupContainer = props.getPopupContainer;
 
       var suffixIcon = (0, _propsUtil.getComponentFromProp)(this, 'suffixIcon');
       suffixIcon = Array.isArray(suffixIcon) ? suffixIcon[0] : suffixIcon;
@@ -2088,28 +2210,62 @@ var TimePicker = {
         attrs: { type: 'clock-circle', theme: 'outlined' },
         'class': prefixCls + '-clock-icon' });
 
-      var inputIcon = h(
+      return h(
         'span',
         { 'class': prefixCls + '-icon' },
         [clockIcon]
       );
+    },
+    renderClearIcon: function renderClearIcon(prefixCls) {
+      var h = this.$createElement;
 
       var clearIcon = h(_icon2['default'], {
         attrs: { type: 'close-circle', theme: 'filled' },
-        'class': prefixCls + '-panel-clear-btn-icon' });
+        'class': prefixCls + '-clear' });
+      return clearIcon;
+    },
+    renderTimePicker: function renderTimePicker(locale) {
+      var h = this.$createElement;
+
+      var props = (0, _propsUtil.getOptionProps)(this);
+      props = (0, _omit2['default'])(props, ['defaultValue', 'suffixIcon', 'allowEmpty', 'allowClear']);
+
+      var _props = props,
+          customizePrefixCls = _props.prefixCls,
+          getPopupContainer = _props.getPopupContainer,
+          placeholder = _props.placeholder,
+          size = _props.size;
+
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('time-picker', customizePrefixCls);
+
+      var format = this.getDefaultFormat();
+      var pickerClassName = (0, _defineProperty3['default'])({}, prefixCls + '-' + size, !!size);
+      var tempAddon = (0, _propsUtil.getComponentFromProp)(this, 'addon', {}, false);
+      var pickerAddon = function pickerAddon(panel) {
+        return tempAddon ? h(
+          'div',
+          { 'class': prefixCls + '-panel-addon' },
+          [typeof tempAddon === 'function' ? tempAddon(panel) : tempAddon]
+        ) : null;
+      };
+      var inputIcon = this.renderInputIcon(prefixCls);
+      var clearIcon = this.renderClearIcon(prefixCls);
       var getContextPopupContainer = this.configProvider.getPopupContainer;
 
       var timeProps = {
         props: (0, _extends3['default'])({}, generateShowHourMinuteSecond(format), props, {
+          allowEmpty: this.getAllowClear(),
+          prefixCls: prefixCls,
           getPopupContainer: getPopupContainer || getContextPopupContainer,
           format: format,
           value: this.sValue,
-          placeholder: props.placeholder === undefined ? locale.placeholder : props.placeholder,
-          addon: addon,
+          placeholder: placeholder === undefined ? locale.placeholder : placeholder,
+          addon: pickerAddon,
           inputIcon: inputIcon,
           clearIcon: clearIcon
         }),
-        'class': className,
+        'class': pickerClassName,
         ref: 'timePicker',
         on: (0, _extends3['default'])({}, this.$listeners, {
           change: this.handleChange,
@@ -2136,6 +2292,7 @@ var TimePicker = {
 
 /* istanbul ignore next */
 TimePicker.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(TimePicker.name, TimePicker);
 };
 
@@ -2157,13 +2314,22 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vueRef = __webpack_require__(/*! vue-ref */ "./node_modules/vue-ref/index.js");
+
+var _vueRef2 = _interopRequireDefault(_vueRef);
+
 var _src = __webpack_require__(/*! ./src/ */ "./node_modules/ant-design-vue/lib/vc-calendar/src/index.js");
 
 var _src2 = _interopRequireDefault(_src);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _src2['default']; // based on rc-calendar 9.8.2
+_vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' }); // based on rc-calendar 9.10.10
+exports['default'] = _src2['default'];
 
 /***/ }),
 
@@ -2203,7 +2369,7 @@ var _KeyCode2 = _interopRequireDefault(_KeyCode);
 
 var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
-var moment = _interopRequireWildcard(_moment);
+var _moment2 = _interopRequireDefault(_moment);
 
 var _DateTable = __webpack_require__(/*! ./date/DateTable */ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTable.js");
 
@@ -2237,20 +2403,8 @@ var _util = __webpack_require__(/*! ./util */ "./node_modules/ant-design-vue/lib
 
 var _toTime = __webpack_require__(/*! ./util/toTime */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/toTime.js");
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function isMoment(value) {
-  if (Array.isArray(value)) {
-    return value.length === 0 || value.findIndex(function (val) {
-      return val === undefined || moment.isMoment(val);
-    }) !== -1;
-  } else {
-    return value === undefined || moment.isMoment(value);
-  }
-}
-var MomentType = _vueTypes2['default'].custom(isMoment);
 var Calendar = {
   props: {
     locale: _vueTypes2['default'].object.def(_en_US2['default']),
@@ -2258,9 +2412,10 @@ var Calendar = {
     visible: _vueTypes2['default'].bool.def(true),
     prefixCls: _vueTypes2['default'].string.def('rc-calendar'),
     // prefixCls: PropTypes.string,
-    defaultValue: MomentType,
-    value: MomentType,
-    selectedValue: MomentType,
+    defaultValue: _vueTypes2['default'].object,
+    value: _vueTypes2['default'].object,
+    selectedValue: _vueTypes2['default'].object,
+    defaultSelectedValue: _vueTypes2['default'].object,
     mode: _vueTypes2['default'].oneOf(['time', 'date', 'month', 'year', 'decade']),
     // locale: PropTypes.object,
     showDateInput: _vueTypes2['default'].bool.def(true),
@@ -2284,23 +2439,54 @@ var Calendar = {
     renderSidebar: _vueTypes2['default'].func.def(function () {
       return null;
     }),
-    clearIcon: _vueTypes2['default'].any
+    clearIcon: _vueTypes2['default'].any,
+    focusablePanel: _vueTypes2['default'].bool.def(true)
   },
 
   mixins: [_BaseMixin2['default'], _CommonMixin2['default'], _CalendarMixin2['default']],
 
   data: function data() {
+    var props = this.$props;
     return {
-      sMode: this.mode || 'date'
+      sMode: this.mode || 'date',
+      sValue: props.value || props.defaultValue || (0, _moment2['default'])(),
+      sSelectedValue: props.selectedValue || props.defaultSelectedValue
     };
   },
 
   watch: {
     mode: function mode(val) {
       this.setState({ sMode: val });
+    },
+    value: function value(val) {
+      var sValue = val || this.defaultValue || (0, _CalendarMixin.getNowByCurrentStateValue)(this.sValue);
+      this.setState({
+        sValue: sValue
+      });
+    },
+    selectedValue: function selectedValue(val) {
+      this.setState({
+        sSelectedValue: val
+      });
     }
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      _this.saveFocusElement(_DateInput2['default'].getInstance());
+    });
+  },
+
   methods: {
+    onPanelChange: function onPanelChange(value, mode) {
+      var sValue = this.sValue;
+
+      if (!(0, _propsUtil.hasProp)(this, 'mode')) {
+        this.setState({ sMode: mode });
+      }
+      this.__emit('panelChange', value || sValue, mode);
+    },
     onKeyDown: function onKeyDown(event) {
       if (event.target.nodeName.toLowerCase() === 'input') {
         return undefined;
@@ -2381,6 +2567,11 @@ var Calendar = {
         source: 'dateInput'
       });
     },
+    onDateInputSelect: function onDateInputSelect(value) {
+      this.onSelect(value, {
+        source: 'dateInputSelect'
+      });
+    },
     onDateTableSelect: function onDateTableSelect(value) {
       var timePicker = this.timePicker,
           sSelectedValue = this.sSelectedValue;
@@ -2401,14 +2592,6 @@ var Calendar = {
       this.onSelect(now, {
         source: 'todayButton'
       });
-    },
-    onPanelChange: function onPanelChange(value, mode) {
-      var sValue = this.sValue;
-
-      if (!(0, _propsUtil.hasProp)(this, 'mode')) {
-        this.setState({ sMode: mode });
-      }
-      this.__emit('panelChange', value || sValue, mode);
     },
     getRootDOMNode: function getRootDOMNode() {
       return this.$el;
@@ -2433,10 +2616,10 @@ var Calendar = {
         timePicker = this.timePicker,
         disabledTime = this.disabledTime,
         showDateInput = this.showDateInput,
-        renderSidebar = this.renderSidebar,
         sValue = this.sValue,
         sSelectedValue = this.sSelectedValue,
         sMode = this.sMode,
+        renderFooter = this.renderFooter,
         props = this.$props;
 
     var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
@@ -2485,21 +2668,29 @@ var Calendar = {
       },
       key: 'date-input', on: {
         'clear': this.onClear,
-        'change': this.onDateInputChange
+        'change': this.onDateInputChange,
+        'select': this.onDateInputSelect
       }
     }) : null;
-    var children = [renderSidebar(), h(
+    var children = [];
+    if (props.renderSidebar) {
+      children.push(props.renderSidebar());
+    }
+    children.push(h(
       'div',
       { 'class': prefixCls + '-panel', key: 'panel' },
       [dateInputElement, h(
         'div',
-        { 'class': prefixCls + '-date-panel' },
+        {
+          attrs: { tabIndex: props.focusablePanel ? 0 : undefined },
+          'class': prefixCls + '-date-panel' },
         [h(_CalendarHeader2['default'], {
           attrs: {
             locale: locale,
             mode: sMode,
             value: sValue,
 
+            renderFooter: renderFooter,
             showTimePicker: showTimePicker,
             prefixCls: prefixCls
           },
@@ -2536,6 +2727,7 @@ var Calendar = {
         ), h(_CalendarFooter2['default'], {
           attrs: {
             showOk: props.showOk,
+            mode: sMode,
             renderFooter: props.renderFooter,
             locale: locale,
             prefixCls: prefixCls,
@@ -2558,7 +2750,7 @@ var Calendar = {
           }
         })]
       )]
-    )];
+    ));
 
     return this.renderRoot({
       children: children,
@@ -2584,6 +2776,10 @@ exports['default'] = Calendar;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
 
 var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
@@ -2627,6 +2823,10 @@ var MonthCalendar = {
     prefixCls: _vueTypes2['default'].string.def('rc-calendar'),
     monthCellRender: _vueTypes2['default'].func,
     dateCellRender: _vueTypes2['default'].func,
+    value: _vueTypes2['default'].object,
+    defaultValue: _vueTypes2['default'].object,
+    selectedValue: _vueTypes2['default'].object,
+    defaultSelectedValue: _vueTypes2['default'].object,
     disabledDate: _vueTypes2['default'].func,
     monthCellContentRender: _vueTypes2['default'].func,
     renderFooter: _vueTypes2['default'].func.def(function () {
@@ -2639,7 +2839,12 @@ var MonthCalendar = {
   mixins: [_BaseMixin2['default'], _CommonMixin2['default'], _CalendarMixin2['default']],
 
   data: function data() {
-    return { mode: 'month' };
+    var props = this.$props;
+    return {
+      mode: 'month',
+      sValue: props.value || props.defaultValue || (0, _moment2['default'])(),
+      sSelectedValue: props.selectedValue || props.defaultSelectedValue
+    };
   },
 
   methods: {
@@ -2887,13 +3092,13 @@ var Picker = {
         });
       }
       var calendarProps = (0, _propsUtil.getOptionProps)(props.calendar);
-      if (cause.source === 'keyboard' || !calendarProps.timePicker && cause.source !== 'dateInput' || cause.source === 'todayButton') {
+      if (cause.source === 'keyboard' || cause.source === 'dateInputSelect' || !calendarProps.timePicker && cause.source !== 'dateInput' || cause.source === 'todayButton') {
         this.closeCalendar(this.focus);
       }
       this.__emit('change', value);
     },
     onKeyDown: function onKeyDown(event) {
-      if (event.keyCode === _KeyCode2['default'].DOWN && !this.sOpen) {
+      if (!this.sOpen && (event.keyCode === _KeyCode2['default'].DOWN || event.keyCode === _KeyCode2['default'].ENTER)) {
         this.openCalendar();
         event.preventDefault();
       }
@@ -3143,7 +3348,7 @@ function generateOptions(length, extraOptionGen) {
   return arr;
 }
 
-function onInputSelect(direction, value) {
+function onInputSelect(direction, value, cause) {
   if (!value) {
     return;
   }
@@ -3155,7 +3360,7 @@ function onInputSelect(direction, value) {
     selectedValue[1 - index] = this.showTimePicker ? selectedValue[index] : undefined;
   }
   this.__emit('inputSelect', selectedValue);
-  this.fireSelectValueChange(selectedValue);
+  this.fireSelectValueChange(selectedValue, null, cause || { source: 'dateInput' });
 }
 
 var RangeCalendar = {
@@ -3164,6 +3369,7 @@ var RangeCalendar = {
     visible: _vueTypes2['default'].bool.def(true),
     prefixCls: _vueTypes2['default'].string.def('rc-calendar'),
     dateInputPlaceholder: _vueTypes2['default'].any,
+    seperator: _vueTypes2['default'].string.def('~'),
     defaultValue: _vueTypes2['default'].any,
     value: _vueTypes2['default'].any,
     hoverValue: _vueTypes2['default'].any,
@@ -3483,7 +3689,7 @@ var RangeCalendar = {
         this.__emit('ok', sSelectedValue);
       }
     },
-    onStartInputSelect: function onStartInputSelect() {
+    onStartInputChange: function onStartInputChange() {
       for (var _len = arguments.length, oargs = Array(_len), _key = 0; _key < _len; _key++) {
         oargs[_key] = arguments[_key];
       }
@@ -3491,12 +3697,20 @@ var RangeCalendar = {
       var args = ['left'].concat(oargs);
       return onInputSelect.apply(this, args);
     },
-    onEndInputSelect: function onEndInputSelect() {
+    onEndInputChange: function onEndInputChange() {
       for (var _len2 = arguments.length, oargs = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
         oargs[_key2] = arguments[_key2];
       }
 
       var args = ['right'].concat(oargs);
+      return onInputSelect.apply(this, args);
+    },
+    onStartInputSelect: function onStartInputSelect(value) {
+      var args = ['left', value, { source: 'dateInputSelect' }];
+      return onInputSelect.apply(this, args);
+    },
+    onEndInputSelect: function onEndInputSelect(value) {
+      var args = ['right', value, { source: 'dateInputSelect' }];
       return onInputSelect.apply(this, args);
     },
     onStartValueChange: function onStartValueChange(leftValue) {
@@ -3624,7 +3838,7 @@ var RangeCalendar = {
       }
       return v1.diff(v2, 'days');
     },
-    fireSelectValueChange: function fireSelectValueChange(selectedValue, direct) {
+    fireSelectValueChange: function fireSelectValueChange(selectedValue, direct, cause) {
       var timePicker = this.timePicker,
           prevSelectedValue = this.prevSelectedValue;
 
@@ -3661,7 +3875,7 @@ var RangeCalendar = {
           firstSelectedValue: null
         });
         this.fireHoverValueChange([]);
-        this.__emit('select', selectedValue);
+        this.__emit('select', selectedValue, cause);
       }
       if (!(0, _propsUtil.hasProp)(this, 'selectedValue')) {
         this.setState({
@@ -3718,7 +3932,8 @@ var RangeCalendar = {
         locale = props.locale,
         showClear = props.showClear,
         showToday = props.showToday,
-        type = props.type;
+        type = props.type,
+        seperator = props.seperator;
 
     var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
     var sHoverValue = this.sHoverValue,
@@ -3785,6 +4000,7 @@ var RangeCalendar = {
         clearIcon: clearIcon
       },
       on: {
+        inputChange: this.onStartInputChange,
         inputSelect: this.onStartInputSelect,
         valueChange: this.onStartValueChange,
         panelChange: this.onStartPanelChange
@@ -3809,6 +4025,7 @@ var RangeCalendar = {
         clearIcon: clearIcon
       },
       on: {
+        inputChange: this.onEndInputChange,
         inputSelect: this.onEndInputSelect,
         valueChange: this.onEndValueChange,
         panelChange: this.onEndPanelChange
@@ -3856,7 +4073,7 @@ var RangeCalendar = {
       });
       OkButtonNode = h(_OkButton2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{ key: 'okButtonNode' }, okButtonProps]));
     }
-    var extraFooter = this.renderFooter();
+    var extraFooter = this.renderFooter(sMode);
     return h(
       'div',
       { ref: 'rootInstance', 'class': className, attrs: { tabIndex: '0' },
@@ -3888,7 +4105,7 @@ var RangeCalendar = {
           [h(_CalendarPart2['default'], leftPartProps), h(
             'span',
             { 'class': prefixCls + '-range-middle' },
-            ['~']
+            [seperator]
           ), h(_CalendarPart2['default'], rightPartProps)]
         ), h(
           'div',
@@ -3975,7 +4192,8 @@ var CalendarFooter = {
     showToday: _vueTypes2['default'].bool,
     disabledDate: _vueTypes2['default'].func,
     showTimePicker: _vueTypes2['default'].bool,
-    okDisabled: _vueTypes2['default'].bool
+    okDisabled: _vueTypes2['default'].bool,
+    mode: _vueTypes2['default'].string
   },
   methods: {
     onSelect: function onSelect(value) {
@@ -3996,10 +4214,11 @@ var CalendarFooter = {
         showOk = props.showOk,
         timePicker = props.timePicker,
         renderFooter = props.renderFooter,
-        showToday = props.showToday;
+        showToday = props.showToday,
+        mode = props.mode;
 
     var footerEl = null;
-    var extraFooter = renderFooter();
+    var extraFooter = renderFooter && renderFooter(mode);
     if (showToday || timePicker || extraFooter) {
       var _cls;
 
@@ -4115,7 +4334,8 @@ var CalendarHeader = {
     disabledMonth: _vueTypes2['default'].func,
     mode: _vueTypes2['default'].any,
     monthCellRender: _vueTypes2['default'].func,
-    monthCellContentRender: _vueTypes2['default'].func
+    monthCellContentRender: _vueTypes2['default'].func,
+    renderFooter: _vueTypes2['default'].func
   },
   data: function data() {
     this.nextMonth = goMonth.bind(this, 1);
@@ -4236,7 +4456,8 @@ var CalendarHeader = {
         showTimePicker = props.showTimePicker,
         enableNext = props.enableNext,
         enablePrev = props.enablePrev,
-        disabledMonth = props.disabledMonth;
+        disabledMonth = props.disabledMonth,
+        renderFooter = props.renderFooter;
 
 
     var panel = null;
@@ -4249,7 +4470,8 @@ var CalendarHeader = {
 
           disabledDate: disabledMonth,
           cellRender: props.monthCellRender,
-          contentRender: props.monthCellContentRender
+          contentRender: props.monthCellContentRender,
+          renderFooter: renderFooter
         },
         on: {
           'select': this.onMonthSelect,
@@ -4264,7 +4486,9 @@ var CalendarHeader = {
         attrs: {
           locale: locale,
           defaultValue: value,
-          rootPrefixCls: prefixCls
+          rootPrefixCls: prefixCls,
+
+          renderFooter: renderFooter
         },
         on: {
           'select': this.onYearSelect,
@@ -4277,7 +4501,9 @@ var CalendarHeader = {
         attrs: {
           locale: locale,
           defaultValue: value,
-          rootPrefixCls: prefixCls
+          rootPrefixCls: prefixCls,
+
+          renderFooter: renderFooter
         },
         on: {
           'select': this.onDecadeSelect
@@ -4528,6 +4754,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
 var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
@@ -4544,9 +4774,18 @@ var _moment2 = _interopRequireDefault(_moment);
 
 var _util = __webpack_require__(/*! ../util */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js");
 
+var _KeyCode = __webpack_require__(/*! ../../../_util/KeyCode */ "./node_modules/ant-design-vue/lib/_util/KeyCode.js");
+
+var _KeyCode2 = _interopRequireDefault(_KeyCode);
+
 var _env = __webpack_require__(/*! ../../../_util/env */ "./node_modules/ant-design-vue/lib/_util/env.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var cachedSelectionStart = void 0;
+var cachedSelectionEnd = void 0;
+var dateInputInstance = void 0;
+
 
 var DateInput = {
   mixins: [_BaseMixin2['default']],
@@ -4588,16 +4827,21 @@ var DateInput = {
     var _this = this;
 
     this.$nextTick(function () {
-      if (_this.$data.hasFocus && !_this.invalid && !(_this.cachedSelectionStart === 0 && _this.cachedSelectionEnd === 0)) {
-        _this.$refs.dateInputInstance.setSelectionRange(_this.cachedSelectionStart, _this.cachedSelectionEnd);
+      if (dateInputInstance && _this.$data.hasFocus && !_this.invalid && !(cachedSelectionStart === 0 && cachedSelectionEnd === 0)) {
+        dateInputInstance.setSelectionRange(cachedSelectionStart, cachedSelectionEnd);
       }
     });
+  },
+  getInstance: function getInstance() {
+    return dateInputInstance;
   },
 
   methods: {
     updateState: function updateState() {
-      this.cachedSelectionStart = this.$refs.dateInputInstance.selectionStart;
-      this.cachedSelectionEnd = this.$refs.dateInputInstance.selectionEnd;
+      if (dateInputInstance) {
+        cachedSelectionStart = dateInputInstance.selectionStart;
+        cachedSelectionEnd = dateInputInstance.selectionEnd;
+      }
       // when popup show, click body will call this, bug!
       var selectedValue = this.selectedValue;
       if (!this.$data.hasFocus) {
@@ -4607,12 +4851,21 @@ var DateInput = {
         });
       }
     },
-    onInputChange: function onInputChange(event) {
-      var str = event.target.value;
-      // https://github.com/vueComponent/ant-design-vue/issues/92
-      if (_env.isIE && !_env.isIE9 && this.str === str) {
-        return;
-      }
+    onClear: function onClear() {
+      this.setState({
+        str: ''
+      });
+      this.__emit('clear', null);
+    },
+    onInputChange: function onInputChange(e) {
+      var _e$target = e.target,
+          str = _e$target.value,
+          composing = _e$target.composing;
+      var _str = this.str,
+          oldStr = _str === undefined ? '' : _str;
+
+      if (composing || oldStr === str) return;
+
       var _$props = this.$props,
           disabledDate = _$props.disabledDate,
           format = _$props.format,
@@ -4629,6 +4882,7 @@ var DateInput = {
         return;
       }
 
+      // 不合法直接退出
       var parsed = (0, _moment2['default'])(str, format, true);
       if (!parsed.isValid()) {
         this.setState({
@@ -4650,23 +4904,10 @@ var DateInput = {
 
       if (selectedValue !== value || selectedValue && value && !selectedValue.isSame(value)) {
         this.setState({
+          invalid: false,
           str: str
         });
         this.__emit('change', value);
-      }
-    },
-    onClear: function onClear() {
-      this.setState({
-        str: ''
-      });
-      this.__emit('clear', null);
-    },
-    getRootDOMNode: function getRootDOMNode() {
-      return this.$el;
-    },
-    focus: function focus() {
-      if (this.$refs.dateInputInstance) {
-        this.$refs.dateInputInstance.focus();
       }
     },
     onFocus: function onFocus() {
@@ -4679,6 +4920,30 @@ var DateInput = {
           str: (0, _util.formatDate)(prevProps.value, prevProps.format)
         };
       });
+    },
+    onKeyDown: function onKeyDown(_ref) {
+      var keyCode = _ref.keyCode;
+      var _$props2 = this.$props,
+          value = _$props2.value,
+          disabledDate = _$props2.disabledDate;
+
+      if (keyCode === _KeyCode2['default'].ENTER) {
+        var validateDate = !disabledDate || !disabledDate(value);
+        if (validateDate) {
+          this.__emit('select', value.clone());
+        }
+      }
+    },
+    getRootDOMNode: function getRootDOMNode() {
+      return this.$el;
+    },
+    focus: function focus() {
+      if (dateInputInstance) {
+        dateInputInstance.focus();
+      }
+    },
+    saveDateInput: function saveDateInput(dateInput) {
+      dateInputInstance = dateInput;
     }
   },
 
@@ -4700,8 +4965,14 @@ var DateInput = {
       [h(
         'div',
         { 'class': prefixCls + '-date-input-wrap' },
-        [h('input', {
-          ref: 'dateInputInstance',
+        [h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
+          directives: [{
+            name: 'ant-ref',
+            value: this.saveDateInput
+          }, {
+            name: 'ant-input'
+          }]
+        }, {
           'class': prefixCls + '-input ' + invalidClass,
           domProps: {
             'value': str
@@ -4712,10 +4983,11 @@ var DateInput = {
           },
           on: {
             'input': this.onInputChange,
+            'keydown': this.onKeyDown,
             'focus': this.onFocus,
             'blur': this.onBlur
           }
-        })]
+        }]))]
       ), showClear ? h(
         'a',
         {
@@ -5215,7 +5487,8 @@ exports['default'] = {
     locale: _vueTypes2['default'].object,
     value: _vueTypes2['default'].object,
     defaultValue: _vueTypes2['default'].object,
-    rootPrefixCls: _vueTypes2['default'].string
+    rootPrefixCls: _vueTypes2['default'].string,
+    renderFooter: _vueTypes2['default'].func
   },
   data: function data() {
     this.nextCentury = goYear.bind(this, 100);
@@ -5230,7 +5503,10 @@ exports['default'] = {
     var h = arguments[0];
 
     var value = this.sValue;
-    var locale = this.locale;
+    var _$props = this.$props,
+        locale = _$props.locale,
+        renderFooter = _$props.renderFooter;
+
     var currentYear = value.year();
     var startYear = parseInt(currentYear / 100, 10) * 100;
     var preYear = startYear - 10;
@@ -5252,6 +5528,7 @@ exports['default'] = {
       }
     }
 
+    var footer = renderFooter && renderFooter('decade');
     var decadesEls = decades.map(function (row, decadeIndex) {
       var tds = row.map(function (decadeData) {
         var _classNameMap;
@@ -5334,6 +5611,10 @@ exports['default'] = {
             [decadesEls]
           )]
         )]
+      ), footer && h(
+        'div',
+        { 'class': prefixCls + '-footer' },
+        [footer]
       )]
     );
   }
@@ -5383,6 +5664,8 @@ var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/definePrope
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
+exports.getNowByCurrentStateValue = getNowByCurrentStateValue;
+
 var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
@@ -5402,16 +5685,13 @@ var _index = __webpack_require__(/*! ../util/index */ "./node_modules/ant-design
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function noop() {}
-function getNow() {
-  return (0, _moment2['default'])();
-}
 
 function getNowByCurrentStateValue(value) {
   var ret = void 0;
   if (value) {
     ret = (0, _index.getTodayTime)(value);
   } else {
-    ret = getNow();
+    ret = (0, _moment2['default'])();
   }
   return ret;
 }
@@ -5427,6 +5707,7 @@ function isMoment(value) {
 var MomentType = _vueTypes2['default'].custom(isMoment);
 var CalendarMixin = {
   mixins: [_BaseMixin2['default']],
+  name: 'CalendarMixinWrapper',
   props: {
     value: MomentType,
     defaultValue: MomentType
@@ -5434,7 +5715,7 @@ var CalendarMixin = {
 
   data: function data() {
     var props = this.$props;
-    var sValue = props.value || props.defaultValue || getNow();
+    var sValue = props.value || props.defaultValue || getNowByCurrentStateValue();
     return {
       sValue: sValue,
       sSelectedValue: props.selectedValue || props.defaultSelectedValue
@@ -5561,9 +5842,14 @@ exports["default"] = {
       return format;
     },
     focus: function focus() {
-      if (this.$refs.rootInstance) {
+      if (this.focusElement) {
+        this.focusElement.focus();
+      } else if (this.$refs.rootInstance) {
         this.$refs.rootInstance.focus();
       }
+    },
+    saveFocusElement: function saveFocusElement(focusElement) {
+      this.focusElement = focusElement;
     }
   }
 };
@@ -5618,8 +5904,9 @@ var MonthPanel = {
     locale: _vueTypes2['default'].any,
     rootPrefixCls: _vueTypes2['default'].string,
     // onChange: PropTypes.func,
-    disabledDate: _vueTypes2['default'].func
+    disabledDate: _vueTypes2['default'].func,
     // onSelect: PropTypes.func,
+    renderFooter: _vueTypes2['default'].func
   },
 
   data: function data() {
@@ -5667,11 +5954,14 @@ var MonthPanel = {
         locale = this.locale,
         rootPrefixCls = this.rootPrefixCls,
         disabledDate = this.disabledDate,
+        renderFooter = this.renderFooter,
         _$listeners = this.$listeners,
         $listeners = _$listeners === undefined ? {} : _$listeners;
 
     var year = sValue.year();
     var prefixCls = rootPrefixCls + '-month-panel';
+
+    var footer = renderFooter && renderFooter('month');
     return h(
       'div',
       { 'class': prefixCls },
@@ -5735,6 +6025,10 @@ var MonthPanel = {
             'select': this.setAndSelectValue
           }
         })]
+      ), footer && h(
+        'div',
+        { 'class': prefixCls + '-footer' },
+        [footer]
       )])]
     );
   }
@@ -5991,6 +6285,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -6051,6 +6349,8 @@ var CalendarPart = {
     clearIcon: _vueTypes2['default'].any
   },
   render: function render() {
+    var _on;
+
     var h = arguments[0];
     var props = this.$props,
         _$listeners = this.$listeners,
@@ -6077,7 +6377,9 @@ var CalendarPart = {
         showWeekNumber = props.showWeekNumber;
 
     var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
-    var _$listeners$inputSele = $listeners.inputSelect,
+    var _$listeners$inputChan = $listeners.inputChange,
+        inputChange = _$listeners$inputChan === undefined ? noop : _$listeners$inputChan,
+        _$listeners$inputSele = $listeners.inputSelect,
         inputSelect = _$listeners$inputSele === undefined ? noop : _$listeners$inputSele,
         _$listeners$valueChan = $listeners.valueChange,
         valueChange = _$listeners$valueChan === undefined ? noop : _$listeners$valueChan,
@@ -6111,7 +6413,7 @@ var CalendarPart = {
           value: selectedValue[index]
         }),
         on: {
-          change: inputSelect
+          change: inputChange
         }
       });
     }
@@ -6131,9 +6433,9 @@ var CalendarPart = {
 
         clearIcon: clearIcon
       },
-      on: {
+      on: (_on = {
         'change': inputSelect
-      }
+      }, (0, _defineProperty3['default'])(_on, 'change', inputChange), (0, _defineProperty3['default'])(_on, 'select', inputSelect), _on)
     });
     var headerProps = {
       props: (0, _extends3['default'])({}, newProps, {
@@ -6408,6 +6710,7 @@ function chooseYear(year) {
   var value = this.sValue.clone();
   value.year(year);
   value.month(this.sValue.month());
+  this.sValue = value;
   this.__emit('select', value);
 }
 
@@ -6417,7 +6720,8 @@ exports['default'] = {
     rootPrefixCls: _vueTypes2['default'].string,
     value: _vueTypes2['default'].object,
     defaultValue: _vueTypes2['default'].object,
-    locale: _vueTypes2['default'].object
+    locale: _vueTypes2['default'].object,
+    renderFooter: _vueTypes2['default'].func
   },
   data: function data() {
     this.nextDecade = goYear.bind(this, 10);
@@ -6458,6 +6762,7 @@ exports['default'] = {
     var h = arguments[0];
     var value = this.sValue,
         locale = this.locale,
+        renderFooter = this.renderFooter,
         _$listeners = this.$listeners,
         $listeners = _$listeners === undefined ? {} : _$listeners;
 
@@ -6509,7 +6814,7 @@ exports['default'] = {
         [tds]
       );
     });
-
+    var footer = renderFooter && renderFooter('year');
     return h(
       'div',
       { 'class': prefixCls },
@@ -6569,6 +6874,10 @@ exports['default'] = {
             [yeasEls]
           )]
         )]
+      ), footer && h(
+        'div',
+        { 'class': prefixCls + '-footer' },
+        [footer]
       )])]
     );
   }
@@ -6630,6 +6939,7 @@ var Combobox = {
     prefixCls: _vueTypes2['default'].string,
     value: _vueTypes2['default'].object,
     // onChange: PropTypes.func,
+    // onAmPmChange: PropTypes.func,
     showHour: _vueTypes2['default'].bool,
     showMinute: _vueTypes2['default'].bool,
     showSecond: _vueTypes2['default'].bool,
@@ -6647,9 +6957,10 @@ var Combobox = {
     onItemChange: function onItemChange(type, itemValue) {
       var defaultOpenValue = this.defaultOpenValue,
           use12Hours = this.use12Hours,
+          propValue = this.value,
           isAM = this.isAM;
 
-      var value = (this.value || defaultOpenValue).clone();
+      var value = (propValue || defaultOpenValue).clone();
 
       if (type === 'hour') {
         if (use12Hours) {
@@ -6676,6 +6987,7 @@ var Combobox = {
             }
           }
         }
+        this.__emit('amPmChange', ampm);
       } else {
         value.second(+itemValue);
       }
@@ -6685,6 +6997,8 @@ var Combobox = {
       this.__emit('currentSelectPanelChange', range);
     },
     getHourSelect: function getHourSelect(hour) {
+      var _this = this;
+
       var h = this.$createElement;
       var prefixCls = this.prefixCls,
           hourOptions = this.hourOptions,
@@ -6719,22 +7033,27 @@ var Combobox = {
         },
         on: {
           'select': this.onItemChange,
-          'mouseenter': this.onEnterSelectPanel.bind(this, 'hour')
+          'mouseenter': function mouseenter() {
+            return _this.onEnterSelectPanel('hour');
+          }
         }
       });
     },
     getMinuteSelect: function getMinuteSelect(minute) {
+      var _this2 = this;
+
       var h = this.$createElement;
       var prefixCls = this.prefixCls,
           minuteOptions = this.minuteOptions,
           disabledMinutes = this.disabledMinutes,
           defaultOpenValue = this.defaultOpenValue,
-          showMinute = this.showMinute;
+          showMinute = this.showMinute,
+          propValue = this.value;
 
       if (!showMinute) {
         return null;
       }
-      var value = this.value || defaultOpenValue;
+      var value = propValue || defaultOpenValue;
       var disabledOptions = disabledMinutes(value.hour());
 
       return h(_Select2['default'], {
@@ -6748,22 +7067,27 @@ var Combobox = {
         },
         on: {
           'select': this.onItemChange,
-          'mouseenter': this.onEnterSelectPanel.bind(this, 'minute')
+          'mouseenter': function mouseenter() {
+            return _this2.onEnterSelectPanel('minute');
+          }
         }
       });
     },
     getSecondSelect: function getSecondSelect(second) {
+      var _this3 = this;
+
       var h = this.$createElement;
       var prefixCls = this.prefixCls,
           secondOptions = this.secondOptions,
           disabledSeconds = this.disabledSeconds,
           showSecond = this.showSecond,
-          defaultOpenValue = this.defaultOpenValue;
+          defaultOpenValue = this.defaultOpenValue,
+          propValue = this.value;
 
       if (!showSecond) {
         return null;
       }
-      var value = this.value || defaultOpenValue;
+      var value = propValue || defaultOpenValue;
       var disabledOptions = disabledSeconds(value.hour(), value.minute());
 
       return h(_Select2['default'], {
@@ -6777,11 +7101,15 @@ var Combobox = {
         },
         on: {
           'select': this.onItemChange,
-          'mouseenter': this.onEnterSelectPanel.bind(this, 'second')
+          'mouseenter': function mouseenter() {
+            return _this3.onEnterSelectPanel('second');
+          }
         }
       });
     },
     getAMPMSelect: function getAMPMSelect() {
+      var _this4 = this;
+
       var h = this.$createElement;
       var prefixCls = this.prefixCls,
           use12Hours = this.use12Hours,
@@ -6810,7 +7138,9 @@ var Combobox = {
         },
         on: {
           'select': this.onItemChange,
-          'mouseenter': this.onEnterSelectPanel.bind(this, 'ampm')
+          'mouseenter': function mouseenter() {
+            return _this4.onEnterSelectPanel('ampm');
+          }
         }
       });
     }
@@ -6819,9 +7149,10 @@ var Combobox = {
   render: function render() {
     var h = arguments[0];
     var prefixCls = this.prefixCls,
-        defaultOpenValue = this.defaultOpenValue;
+        defaultOpenValue = this.defaultOpenValue,
+        propValue = this.value;
 
-    var value = this.value || defaultOpenValue;
+    var value = propValue || defaultOpenValue;
     return h(
       'div',
       { 'class': prefixCls + '-combobox' },
@@ -6847,6 +7178,10 @@ exports['default'] = Combobox;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
@@ -6890,7 +7225,6 @@ var Header = {
     currentSelectPanel: _vueTypes2['default'].string,
     focusOnOpen: _vueTypes2['default'].bool,
     // onKeyDown: PropTypes.func,
-    showStr: _vueTypes2['default'].bool.def(true),
     clearIcon: _vueTypes2['default'].any
   },
   data: function data() {
@@ -6931,14 +7265,15 @@ var Header = {
   },
 
   methods: {
-    onInputChange: function onInputChange(event) {
-      var str = event.target.value;
-      // https://github.com/vueComponent/ant-design-vue/issues/92
-      if (_env.isIE && !_env.isIE9 && this.str === str) {
-        return;
-      }
+    onInputChange: function onInputChange(e) {
+      var _e$target = e.target,
+          str = _e$target.value,
+          composing = _e$target.composing;
+      var _str = this.str,
+          oldStr = _str === undefined ? '' : _str;
 
-      this.showStr = true;
+      if (composing || oldStr === str) return;
+
       this.setState({
         str: str
       });
@@ -7014,35 +7349,6 @@ var Header = {
       }
       this.__emit('keydown', e);
     },
-    onClear: function onClear() {
-      this.__emit('clear');
-      this.setState({ str: '' });
-    },
-    getClearButton: function getClearButton() {
-      var h = this.$createElement;
-      var prefixCls = this.prefixCls,
-          allowEmpty = this.allowEmpty,
-          clearText = this.clearText;
-
-      var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
-      if (!allowEmpty) {
-        return null;
-      }
-      return h(
-        'a',
-        {
-          attrs: {
-            role: 'button',
-
-            title: clearText
-          },
-          'class': prefixCls + '-clear-btn', on: {
-            'mousedown': this.onClear
-          }
-        },
-        [clearIcon || h('i', { 'class': prefixCls + '-clear-btn-icon' })]
-      );
-    },
     getProtoValue: function getProtoValue() {
       return this.value || this.defaultOpenValue;
     },
@@ -7052,11 +7358,10 @@ var Header = {
           placeholder = this.placeholder,
           inputReadOnly = this.inputReadOnly,
           invalid = this.invalid,
-          str = this.str,
-          showStr = this.showStr;
+          str = this.str;
 
       var invalidClass = invalid ? prefixCls + '-input-invalid' : '';
-      return h('input', {
+      return h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
         'class': prefixCls + '-input ' + invalidClass,
         ref: 'input',
         on: {
@@ -7064,14 +7369,18 @@ var Header = {
           'input': this.onInputChange
         },
         domProps: {
-          'value': showStr ? str : ''
+          'value': str
         },
         attrs: {
           placeholder: placeholder,
 
           readOnly: !!inputReadOnly
         }
-      });
+      }, {
+        directives: [{
+          name: 'ant-input'
+        }]
+      }]));
     }
   },
 
@@ -7082,7 +7391,7 @@ var Header = {
     return h(
       'div',
       { 'class': prefixCls + '-input-wrap' },
-      [this.getInput(), this.getClearButton()]
+      [this.getInput()]
     );
   }
 };
@@ -7105,6 +7414,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
@@ -7120,10 +7433,6 @@ var _Header2 = _interopRequireDefault(_Header);
 var _Combobox = __webpack_require__(/*! ./Combobox */ "./node_modules/ant-design-vue/lib/vc-time-picker/Combobox.js");
 
 var _Combobox2 = _interopRequireDefault(_Combobox);
-
-var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-
-var _moment2 = _interopRequireDefault(_moment);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
@@ -7142,6 +7451,20 @@ function generateOptions(length, disabledOptions, hideDisabledOptions) {
   }
   return arr;
 }
+
+function toNearestValidTime(time, hourOptions, minuteOptions, secondOptions) {
+  var hour = hourOptions.slice().sort(function (a, b) {
+    return Math.abs(time.hour() - a) - Math.abs(time.hour() - b);
+  })[0];
+  var minute = minuteOptions.slice().sort(function (a, b) {
+    return Math.abs(time.minute() - a) - Math.abs(time.minute() - b);
+  })[0];
+  var second = secondOptions.slice().sort(function (a, b) {
+    return Math.abs(time.second() - a) - Math.abs(time.second() - b);
+  })[0];
+  return (0, _moment2['default'])(hour + ':' + minute + ':' + second, 'HH:mm:ss');
+}
+
 var Panel = {
   mixins: [_BaseMixin2['default']],
   props: {
@@ -7182,8 +7505,7 @@ var Panel = {
     return {
       sValue: this.value,
       selectionRange: [],
-      currentSelectPanel: '',
-      showStr: true
+      currentSelectPanel: ''
     };
   },
 
@@ -7191,12 +7513,7 @@ var Panel = {
     value: function value(val) {
       if (val) {
         this.setState({
-          sValue: val,
-          showStr: true
-        });
-      } else {
-        this.setState({
-          showStr: false
+          sValue: val
         });
       }
     }
@@ -7206,6 +7523,9 @@ var Panel = {
     onChange: function onChange(newValue) {
       this.setState({ sValue: newValue });
       this.__emit('change', newValue);
+    },
+    onAmPmChange: function onAmPmChange(ampm) {
+      this.__emit('amPmChange', ampm);
     },
     onCurrentSelectPanelChange: function onCurrentSelectPanelChange(currentSelectPanel) {
       this.setState({ currentSelectPanel: currentSelectPanel });
@@ -7265,7 +7585,6 @@ var Panel = {
         inputReadOnly = this.inputReadOnly,
         sValue = this.sValue,
         currentSelectPanel = this.currentSelectPanel,
-        showStr = this.showStr,
         _$listeners = this.$listeners,
         $listeners = _$listeners === undefined ? {} : _$listeners;
 
@@ -7284,7 +7603,7 @@ var Panel = {
     var hourOptions = generateOptions(24, disabledHourOptions, hideDisabledOptions, hourStep);
     var minuteOptions = generateOptions(60, disabledMinuteOptions, hideDisabledOptions, minuteStep);
     var secondOptions = generateOptions(60, disabledSecondOptions, hideDisabledOptions, secondStep);
-
+    var validDefaultOpenValue = toNearestValidTime(defaultOpenValue, hourOptions, minuteOptions, secondOptions);
     return h(
       'div',
       { 'class': prefixCls + '-inner' },
@@ -7292,7 +7611,7 @@ var Panel = {
         attrs: {
           clearText: clearText,
           prefixCls: prefixCls,
-          defaultOpenValue: defaultOpenValue,
+          defaultOpenValue: validDefaultOpenValue,
           value: sValue,
           currentSelectPanel: currentSelectPanel,
 
@@ -7309,20 +7628,18 @@ var Panel = {
           focusOnOpen: focusOnOpen,
 
           inputReadOnly: inputReadOnly,
-          showStr: showStr,
           clearIcon: clearIcon
         },
         on: {
           'esc': esc,
           'change': this.onChange,
-          'clear': clear,
           'keydown': keydown
         }
       }), h(_Combobox2['default'], {
         attrs: {
           prefixCls: prefixCls,
           value: sValue,
-          defaultOpenValue: defaultOpenValue,
+          defaultOpenValue: validDefaultOpenValue,
           format: format,
 
           showHour: showHour,
@@ -7340,6 +7657,7 @@ var Panel = {
         },
         on: {
           'change': this.onChange,
+          'amPmChange': this.onAmPmChange,
           'currentSelectPanelChange': this.onCurrentSelectPanelChange
         }
       }), addon(this)]
@@ -7397,7 +7715,7 @@ var scrollTo = function scrollTo(element, to, duration) {
   var perTick = difference / duration * 10;
 
   requestAnimationFrame(function () {
-    element.scrollTop = element.scrollTop + perTick;
+    element.scrollTop += perTick;
     if (element.scrollTop === to) return;
     scrollTo(element, to, duration - 10);
   });
@@ -7455,20 +7773,27 @@ var Select = {
         var _classnames;
 
         var cls = (0, _classnames3['default'])((_classnames = {}, (0, _defineProperty3['default'])(_classnames, prefixCls + '-select-option-selected', selectedIndex === index), (0, _defineProperty3['default'])(_classnames, prefixCls + '-select-option-disabled', item.disabled), _classnames));
-        var onClick = noop;
-        if (!item.disabled) {
-          onClick = _this3.onSelect.bind(_this3, item.value);
-        }
+        var onClick = item.disabled ? noop : function () {
+          _this3.onSelect(item.value);
+        };
         return h(
           'li',
-          { 'class': cls, key: index, on: {
+          {
+            attrs: { role: 'button', disabled: item.disabled },
+            on: {
               'click': onClick
             },
-            attrs: { disabled: item.disabled }
-          },
+            'class': cls, key: index },
           [item.value]
         );
       });
+    },
+    handleMouseEnter: function handleMouseEnter(e) {
+      this.setState({ active: true });
+      this.__emit('mouseenter', e);
+    },
+    handleMouseLeave: function handleMouseLeave() {
+      this.setState({ active: false });
     },
     scrollToSelected: function scrollToSelected(duration) {
       // move to selected item
@@ -7484,13 +7809,6 @@ var Select = {
       var topOption = list.children[index];
       var to = topOption.offsetTop;
       scrollTo(select, to, duration);
-    },
-    handleMouseEnter: function handleMouseEnter(e) {
-      this.setState({ active: true });
-      this.__emit('mouseenter', e);
-    },
-    handleMouseLeave: function handleMouseLeave() {
-      this.setState({ active: false });
     }
   },
 
@@ -7498,14 +7816,15 @@ var Select = {
     var _cls;
 
     var h = arguments[0];
+    var prefixCls = this.prefixCls,
+        options = this.options,
+        active = this.active;
 
-    if (this.options.length === 0) {
+    if (options.length === 0) {
       return null;
     }
 
-    var prefixCls = this.prefixCls;
-
-    var cls = (_cls = {}, (0, _defineProperty3['default'])(_cls, prefixCls + '-select', 1), (0, _defineProperty3['default'])(_cls, prefixCls + '-select-active', this.active), _cls);
+    var cls = (_cls = {}, (0, _defineProperty3['default'])(_cls, prefixCls + '-select', 1), (0, _defineProperty3['default'])(_cls, prefixCls + '-select-active', active), _cls);
 
     return h(
       'div',
@@ -7541,6 +7860,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
@@ -7548,6 +7871,10 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
 
 var _vcTrigger = __webpack_require__(/*! ../vc-trigger */ "./node_modules/ant-design-vue/lib/vc-trigger/index.js");
 
@@ -7560,12 +7887,6 @@ var _Panel2 = _interopRequireDefault(_Panel);
 var _placements = __webpack_require__(/*! ./placements */ "./node_modules/ant-design-vue/lib/vc-time-picker/placements.js");
 
 var _placements2 = _interopRequireDefault(_placements);
-
-var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-
-var _moment2 = _interopRequireDefault(_moment);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -7600,11 +7921,13 @@ exports['default'] = {
     showMinute: _vueTypes2['default'].bool,
     showSecond: _vueTypes2['default'].bool,
     popupClassName: _vueTypes2['default'].string,
+    popupStyle: _vueTypes2['default'].object,
     disabledHours: _vueTypes2['default'].func,
     disabledMinutes: _vueTypes2['default'].func,
     disabledSeconds: _vueTypes2['default'].func,
     hideDisabledOptions: _vueTypes2['default'].bool,
     // onChange: PropTypes.func,
+    // onAmPmChange: PropTypes.func,
     // onOpen: PropTypes.func,
     // onClose: PropTypes.func,
     // onFocus: PropTypes.func,
@@ -7628,6 +7951,7 @@ exports['default'] = {
     defaultOpen: false,
     inputReadOnly: false,
     popupClassName: '',
+    popupStyle: {},
     align: {},
     id: '',
     allowEmpty: true,
@@ -7685,7 +8009,11 @@ exports['default'] = {
     onPanelChange: function onPanelChange(value) {
       this.setValue(value);
     },
-    onPanelClear: function onPanelClear() {
+    onAmPmChange: function onAmPmChange(ampm) {
+      this.__emit('amPmChange', ampm);
+    },
+    onClear: function onClear(event) {
+      event.stopPropagation();
       this.setValue(null);
       this.setOpen(false);
     },
@@ -7791,7 +8119,7 @@ exports['default'] = {
         },
         ref: 'panel', on: {
           'change': this.onPanelChange,
-          'clear': this.onPanelClear,
+          'amPmChange': this.onAmPmChange,
           'esc': this.onEsc,
           'keydown': onKeyDown2
         }
@@ -7848,6 +8176,51 @@ exports['default'] = {
     },
     onBlur: function onBlur(e) {
       this.__emit('blur', e);
+    },
+    renderClearButton: function renderClearButton() {
+      var _this2 = this;
+
+      var h = this.$createElement;
+      var sValue = this.sValue;
+      var _$props = this.$props,
+          prefixCls = _$props.prefixCls,
+          allowEmpty = _$props.allowEmpty,
+          clearText = _$props.clearText;
+
+      if (!allowEmpty || !sValue) {
+        return null;
+      }
+      var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
+      if ((0, _propsUtil.isValidElement)(clearIcon)) {
+        var _ref = (0, _propsUtil.getEvents)(clearIcon) || {},
+            _click = _ref.click;
+
+        return (0, _vnode.cloneElement)(clearIcon, {
+          on: {
+            click: function click() {
+              if (_click) _click.apply(undefined, arguments);
+              _this2.onClear.apply(_this2, arguments);
+            }
+          }
+        });
+      }
+
+      return h(
+        'a',
+        {
+          attrs: {
+            role: 'button',
+
+            title: clearText,
+
+            tabIndex: 0
+          },
+          'class': prefixCls + '-clear', on: {
+            'click': this.onClear
+          }
+        },
+        [clearIcon || h('i', { 'class': prefixCls + '-clear-icon' })]
+      );
     }
   },
 
@@ -7868,7 +8241,8 @@ exports['default'] = {
         sOpen = this.sOpen,
         sValue = this.sValue,
         onFocus = this.onFocus,
-        onBlur = this.onBlur;
+        onBlur = this.onBlur,
+        popupStyle = this.popupStyle;
 
     var popupClassName = this.getPopupClassName();
     var inputIcon = (0, _propsUtil.getComponentFromProp)(this, 'inputIcon');
@@ -7878,6 +8252,7 @@ exports['default'] = {
         attrs: {
           prefixCls: prefixCls + '-panel',
           popupClassName: popupClassName,
+          popupStyle: popupStyle,
           popupAlign: align,
           builtinPlacements: _placements2['default'],
           popupPlacement: placement,
@@ -7921,7 +8296,7 @@ exports['default'] = {
           domProps: {
             'value': sValue && sValue.format(this.getFormat()) || ''
           }
-        }), inputIcon || h('span', { 'class': prefixCls + '-icon' })]
+        }), inputIcon || h('span', { 'class': prefixCls + '-icon' }), this.renderClearButton()]
       )]
     );
   }

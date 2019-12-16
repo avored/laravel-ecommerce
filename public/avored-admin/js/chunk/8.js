@@ -44,6 +44,12 @@ var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/li
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var Switch = {
@@ -53,17 +59,22 @@ var Switch = {
     event: 'change'
   },
   props: {
-    prefixCls: _vueTypes2['default'].string.def('ant-switch'),
+    prefixCls: _vueTypes2['default'].string,
     // size=default and size=large are the same
     size: _vueTypes2['default'].oneOf(['small', 'default', 'large']),
     disabled: _vueTypes2['default'].bool,
     checkedChildren: _vueTypes2['default'].any,
     unCheckedChildren: _vueTypes2['default'].any,
-    tabIndex: _vueTypes2['default'].number,
+    tabIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
     checked: _vueTypes2['default'].bool,
     defaultChecked: _vueTypes2['default'].bool,
     autoFocus: _vueTypes2['default'].bool,
     loading: _vueTypes2['default'].bool
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   methods: {
     focus: function focus() {
@@ -80,11 +91,14 @@ var Switch = {
     var h = arguments[0];
 
     var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-        prefixCls = _getOptionProps.prefixCls,
+        customizePrefixCls = _getOptionProps.prefixCls,
         size = _getOptionProps.size,
         loading = _getOptionProps.loading,
         disabled = _getOptionProps.disabled,
         restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'size', 'loading', 'disabled']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('switch', customizePrefixCls);
 
     var classes = (_classes = {}, (0, _defineProperty3['default'])(_classes, prefixCls + '-small', size === 'small'), (0, _defineProperty3['default'])(_classes, prefixCls + '-loading', loading), _classes);
     var loadingIcon = loading ? h(_icon2['default'], {
@@ -114,6 +128,7 @@ var Switch = {
 
 /* istanbul ignore next */
 Switch.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(Switch.name, Switch);
 };
 
@@ -150,7 +165,7 @@ var switchPropTypes = exports.switchPropTypes = {
   // onChange: PropTypes.func,
   // onMouseUp: PropTypes.func,
   // onClick: PropTypes.func,
-  tabIndex: _vueTypes2['default'].number,
+  tabIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
   checked: _vueTypes2['default'].bool.def(false),
   defaultChecked: _vueTypes2['default'].bool.def(false),
   autoFocus: _vueTypes2['default'].bool.def(false),
@@ -240,27 +255,27 @@ exports['default'] = {
   },
 
   methods: {
-    setChecked: function setChecked(checked) {
+    setChecked: function setChecked(checked, e) {
       if (this.disabled) {
         return;
       }
       if (!(0, _propsUtil.hasProp)(this, 'checked')) {
         this.stateChecked = checked;
       }
-      this.$emit('change', checked);
+      this.$emit('change', checked, e);
     },
-    toggle: function toggle() {
+    handleClick: function handleClick(e) {
       var checked = !this.stateChecked;
-      this.setChecked(checked);
-      this.$emit('click', checked);
+      this.setChecked(checked, e);
+      this.$emit('click', checked, e);
     },
     handleKeyDown: function handleKeyDown(e) {
       if (e.keyCode === 37) {
         // Left
-        this.setChecked(false);
+        this.setChecked(false, e);
       } else if (e.keyCode === 39) {
         // Right
-        this.setChecked(true);
+        this.setChecked(true, e);
       }
     },
     handleMouseUp: function handleMouseUp(e) {
@@ -285,7 +300,8 @@ exports['default'] = {
         prefixCls = _getOptionProps.prefixCls,
         disabled = _getOptionProps.disabled,
         loadingIcon = _getOptionProps.loadingIcon,
-        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'disabled', 'loadingIcon']);
+        tabIndex = _getOptionProps.tabIndex,
+        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'disabled', 'loadingIcon', 'tabIndex']);
 
     var checked = this.stateChecked;
     var switchClassName = (_switchClassName = {}, (0, _defineProperty3['default'])(_switchClassName, prefixCls, true), (0, _defineProperty3['default'])(_switchClassName, prefixCls + '-checked', checked), (0, _defineProperty3['default'])(_switchClassName, prefixCls + '-disabled', disabled), _switchClassName);
@@ -293,14 +309,15 @@ exports['default'] = {
       props: (0, _extends3['default'])({}, restProps),
       on: (0, _extends3['default'])({}, this.$listeners, {
         keydown: this.handleKeyDown,
-        click: this.toggle,
+        click: this.handleClick,
         mouseup: this.handleMouseUp
       }),
       attrs: {
         type: 'button',
         role: 'switch',
         'aria-checked': checked,
-        disabled: disabled
+        disabled: disabled,
+        tabIndex: tabIndex
       },
       'class': switchClassName,
       ref: 'refSwitchNode'
@@ -339,7 +356,7 @@ var _Switch2 = _interopRequireDefault(_Switch);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _Switch2['default']; // base rc-switch 1.8.0
+exports['default'] = _Switch2['default']; // base rc-switch 1.9.0
 
 /***/ })
 

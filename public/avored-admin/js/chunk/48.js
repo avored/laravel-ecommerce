@@ -46,8 +46,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _grid = __webpack_require__(/*! ../grid */ "./node_modules/ant-design-vue/lib/grid/index.js");
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 /* istanbul ignore next */
 _grid.Row.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_grid.Row.name, _grid.Row);
 };
 

@@ -18,6 +18,12 @@ var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/definePrope
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
@@ -26,19 +32,23 @@ exports['default'] = {
     prop: 'checked'
   },
   props: {
-    prefixCls: {
-      'default': 'ant-tag',
-      type: String
-    },
+    prefixCls: _vueTypes2['default'].string,
     checked: Boolean
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   computed: {
     classes: function classes() {
       var _ref;
 
-      var prefixCls = this.prefixCls,
-          checked = this.checked;
+      var checked = this.checked,
+          customizePrefixCls = this.prefixCls;
 
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('tag', customizePrefixCls);
       return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-checkable', true), (0, _defineProperty3['default'])(_ref, prefixCls + '-checkable-checked', checked), _ref;
     }
   },
@@ -117,6 +127,8 @@ var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/a
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
@@ -127,11 +139,16 @@ exports['default'] = {
     event: 'close.visible'
   },
   props: {
-    prefixCls: _vueTypes2['default'].string.def('ant-tag'),
+    prefixCls: _vueTypes2['default'].string,
     color: _vueTypes2['default'].string,
     closable: _vueTypes2['default'].bool.def(false),
     visible: _vueTypes2['default'].bool,
     afterClose: _vueTypes2['default'].func
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   data: function data() {
     var _visible = true;
@@ -185,12 +202,10 @@ exports['default'] = {
         backgroundColor: color && !isPresetColor ? color : undefined
       };
     },
-    getTagClassName: function getTagClassName() {
+    getTagClassName: function getTagClassName(prefixCls) {
       var _ref;
 
-      var _$props = this.$props,
-          prefixCls = _$props.prefixCls,
-          color = _$props.color;
+      var color = this.$props.color;
 
       var isPresetColor = this.isPresetColor(color);
       return _ref = {}, (0, _defineProperty3['default'])(_ref, prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + color, isPresetColor), (0, _defineProperty3['default'])(_ref, prefixCls + '-has-color', color && !isPresetColor), _ref;
@@ -210,7 +225,10 @@ exports['default'] = {
 
   render: function render() {
     var h = arguments[0];
-    var prefixCls = this.$props.prefixCls;
+    var customizePrefixCls = this.$props.prefixCls;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('tag', customizePrefixCls);
     var visible = this.$data._visible;
 
     var tag = h(
@@ -221,7 +239,7 @@ exports['default'] = {
           value: visible
         }]
       }, { on: (0, _omit2['default'])(this.$listeners, ['close']) }, {
-        'class': this.getTagClassName(),
+        'class': this.getTagClassName(prefixCls),
         style: this.getTagStyle()
       }]),
       [this.$slots['default'], this.renderCloseIcon()]
@@ -262,12 +280,17 @@ var _CheckableTag = __webpack_require__(/*! ./CheckableTag */ "./node_modules/an
 
 var _CheckableTag2 = _interopRequireDefault(_CheckableTag);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _Tag2['default'].CheckableTag = _CheckableTag2['default'];
 
 /* istanbul ignore next */
 _Tag2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Tag2['default'].name, _Tag2['default']);
   Vue.component(_Tag2['default'].CheckableTag.name, _Tag2['default'].CheckableTag);
 };
