@@ -52458,6 +52458,9 @@ Vue.component('a-upload', function () {
 Vue.component('a-modal', function () {
   return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/modal */ "./node_modules/ant-design-vue/lib/modal/index.js", 7));
 });
+Vue.component('a-table', function () {
+  return Promise.all(/*! import() */[__webpack_require__.e(10), __webpack_require__.e(28)]).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/table */ "./node_modules/ant-design-vue/lib/table/index.js", 7));
+});
 /*************** AVORED CREATED VUE COMPONENTS ***************/
 
 Vue.component('product-card', function () {
