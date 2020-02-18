@@ -1,119 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[1],{
 
-/***/ "./node_modules/ant-design-vue/lib/_util/antInputDirective.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/_util/antInputDirective.js ***!
-  \********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.antInput = antInput;
-/**
- * Not type checking this file because flow doesn't like attaching
- * properties to Elements.
- */
-
-var inBrowser = exports.inBrowser = typeof window !== 'undefined';
-var UA = exports.UA = inBrowser && window.navigator.userAgent.toLowerCase();
-var isIE9 = exports.isIE9 = UA && UA.indexOf('msie 9.0') > 0;
-function makeMap(str, expectsLowerCase) {
-  var map = Object.create(null);
-  var list = str.split(',');
-  for (var i = 0; i < list.length; i++) {
-    map[list[i]] = true;
-  }
-  return expectsLowerCase ? function (val) {
-    return map[val.toLowerCase()];
-  } : function (val) {
-    return map[val];
-  };
-}
-var isTextInputType = makeMap('text,number,password,search,email,tel,url');
-
-function onCompositionStart(e) {
-  e.target.composing = true;
-}
-
-function onCompositionEnd(e) {
-  // prevent triggering an input event for no reason
-  if (!e.target.composing) return;
-  e.target.composing = false;
-  trigger(e.target, 'input');
-}
-
-function trigger(el, type) {
-  var e = document.createEvent('HTMLEvents');
-  e.initEvent(type, true, true);
-  el.dispatchEvent(e);
-}
-
-/* istanbul ignore if */
-if (isIE9) {
-  // http://www.matts411.com/post/internet-explorer-9-oninput/
-  document.addEventListener('selectionchange', function () {
-    var el = document.activeElement;
-    if (el && el.vmodel) {
-      trigger(el, 'input');
-    }
-  });
-}
-
-function antInput(Vue) {
-  return Vue.directive('ant-input', {
-    inserted: function inserted(el, binding, vnode) {
-      if (vnode.tag === 'textarea' || isTextInputType(el.type)) {
-        if (!binding.modifiers || !binding.modifiers.lazy) {
-          el.addEventListener('compositionstart', onCompositionStart);
-          el.addEventListener('compositionend', onCompositionEnd);
-          // Safari < 10.2 & UIWebView doesn't fire compositionend when
-          // switching focus before confirming composition choice
-          // this also fixes the issue where some browsers e.g. iOS Chrome
-          // fires "change" instead of "input" on autocomplete.
-          el.addEventListener('change', onCompositionEnd);
-          /* istanbul ignore if */
-          if (isIE9) {
-            el.vmodel = true;
-          }
-        }
-      }
-    }
-  });
-}
-
-exports['default'] = {
-  install: function install(Vue) {
-    antInput(Vue);
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/_util/env.js":
-/*!******************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/_util/env.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var inBrowser = exports.inBrowser = typeof window !== 'undefined';
-var UA = exports.UA = inBrowser && window.navigator.userAgent.toLowerCase();
-var isIE = exports.isIE = UA && /msie|trident/.test(UA);
-var isIE9 = exports.isIE9 = UA && UA.indexOf('msie 9.0') > 0;
-
-/***/ }),
-
 /***/ "./node_modules/ant-design-vue/lib/input/Group.js":
 /*!********************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/input/Group.js ***!
@@ -136,17 +22,20 @@ var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/definePrope
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
   name: 'AInputGroup',
   props: {
-    prefixCls: {
-      'default': 'ant-input-group',
-      type: String
-    },
+    prefixCls: _vueTypes2['default'].string,
     size: {
       validator: function validator(value) {
         return ['small', 'large', 'default'].includes(value);
@@ -154,14 +43,22 @@ exports['default'] = {
     },
     compact: Boolean
   },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   computed: {
     classes: function classes() {
       var _ref;
 
-      var prefixCls = this.prefixCls,
+      var customizePrefixCls = this.prefixCls,
           size = this.size,
           _compact = this.compact,
           compact = _compact === undefined ? false : _compact;
+
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('input-group', customizePrefixCls);
 
       return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_ref, prefixCls + '-sm', size === 'small'), (0, _defineProperty3['default'])(_ref, prefixCls + '-compact', compact), _ref;
     }
@@ -227,6 +124,12 @@ var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/
 
 var _env = __webpack_require__(/*! ../_util/env */ "./node_modules/ant-design-vue/lib/_util/env.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function noop() {}
@@ -238,6 +141,10 @@ function fixControlledValue(value) {
   return value;
 }
 
+function hasPrefixSuffix(instance) {
+  return !!((0, _propsUtil.getComponentFromProp)(instance, 'prefix') || (0, _propsUtil.getComponentFromProp)(instance, 'suffix') || instance.$props.allowClear);
+}
+
 exports['default'] = {
   name: 'AInput',
   inheritAttrs: false,
@@ -246,19 +153,26 @@ exports['default'] = {
     event: 'change.value'
   },
   props: (0, _extends3['default'])({}, _inputProps2['default']),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   data: function data() {
     var _$props = this.$props,
-        value = _$props.value,
-        defaultValue = _$props.defaultValue;
+        _$props$value = _$props.value,
+        value = _$props$value === undefined ? '' : _$props$value,
+        _$props$defaultValue = _$props.defaultValue,
+        defaultValue = _$props$defaultValue === undefined ? '' : _$props$defaultValue;
 
     return {
-      stateValue: fixControlledValue(!(0, _propsUtil.hasProp)(this, 'value') ? defaultValue : value)
+      stateValue: !(0, _propsUtil.hasProp)(this, 'value') ? defaultValue : value
     };
   },
 
   watch: {
     value: function value(val) {
-      this.stateValue = fixControlledValue(val);
+      this.stateValue = val;
     }
   },
   mounted: function mounted() {
@@ -278,22 +192,6 @@ exports['default'] = {
       }
       this.$emit('keydown', e);
     },
-    handleChange: function handleChange(e) {
-      // https://github.com/vueComponent/ant-design-vue/issues/92
-      if (_env.isIE && !_env.isIE9 && this.stateValue === e.target.value) {
-        return;
-      }
-      if (!(0, _propsUtil.hasProp)(this, 'value')) {
-        this.stateValue = e.target.value;
-      } else {
-        this.$forceUpdate();
-      }
-      if (!e.target.composing) {
-        this.$emit('change.value', e.target.value);
-      }
-      this.$emit('change', e);
-      this.$emit('input', e);
-    },
     focus: function focus() {
       this.$refs.input.focus();
     },
@@ -303,18 +201,98 @@ exports['default'] = {
     select: function select() {
       this.$refs.input.select();
     },
-    getInputClassName: function getInputClassName() {
+    getInputClassName: function getInputClassName(prefixCls) {
       var _ref;
 
       var _$props2 = this.$props,
-          prefixCls = _$props2.prefixCls,
           size = _$props2.size,
           disabled = _$props2.disabled;
 
       return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-sm', size === 'small'), (0, _defineProperty3['default'])(_ref, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_ref, prefixCls + '-disabled', disabled), _ref;
     },
-    renderLabeledInput: function renderLabeledInput(children) {
-      var _className, _classNames;
+    setValue: function setValue(value, e) {
+      if (this.stateValue === value) {
+        return;
+      }
+      if (!(0, _propsUtil.hasProp)(this, 'value')) {
+        this.stateValue = value;
+      } else {
+        this.$forceUpdate();
+      }
+      this.$emit('change.value', value);
+      var event = e;
+      if (e.type === 'click' && this.$refs.input) {
+        // click clear icon
+        event = (0, _extends3['default'])({}, e);
+        event.target = this.$refs.input;
+        event.currentTarget = this.$refs.input;
+        var originalInputValue = this.$refs.input.value;
+        // change input value cause e.target.value should be '' when clear input
+        this.$refs.input.value = '';
+        this.$emit('change', event);
+        this.$emit('input', event);
+        // reset input value
+        this.$refs.input.value = originalInputValue;
+        return;
+      }
+      this.$emit('change', e);
+      this.$emit('input', e);
+    },
+    handleReset: function handleReset(e) {
+      var _this2 = this;
+
+      this.setValue('', e);
+      this.$nextTick(function () {
+        _this2.focus();
+      });
+    },
+    handleChange: function handleChange(e) {
+      var _e$target = e.target,
+          value = _e$target.value,
+          composing = _e$target.composing;
+
+      if (composing || this.stateValue === value) return;
+      this.setValue(value, e);
+    },
+    renderClearIcon: function renderClearIcon(prefixCls) {
+      var h = this.$createElement;
+      var _$props3 = this.$props,
+          allowClear = _$props3.allowClear,
+          disabled = _$props3.disabled;
+      var stateValue = this.stateValue;
+
+      if (!allowClear || disabled || stateValue === undefined || stateValue === null || stateValue === '') {
+        return null;
+      }
+      return h(_icon2['default'], {
+        attrs: {
+          type: 'close-circle',
+          theme: 'filled',
+
+          role: 'button'
+        },
+        on: {
+          'click': this.handleReset
+        },
+
+        'class': prefixCls + '-clear-icon' });
+    },
+    renderSuffix: function renderSuffix(prefixCls) {
+      var h = this.$createElement;
+      var allowClear = this.$props.allowClear;
+
+      var suffix = (0, _propsUtil.getComponentFromProp)(this, 'suffix');
+      if (suffix || allowClear) {
+        return h(
+          'span',
+          { 'class': prefixCls + '-suffix', key: 'suffix' },
+          [this.renderClearIcon(prefixCls), suffix]
+        );
+      }
+      return null;
+    },
+    renderLabeledInput: function renderLabeledInput(prefixCls, children) {
+      var _mergedWrapperClassNa, _classNames;
 
       var h = this.$createElement;
 
@@ -326,7 +304,7 @@ exports['default'] = {
         return children;
       }
 
-      var wrapperClassName = props.prefixCls + '-group';
+      var wrapperClassName = prefixCls + '-group';
       var addonClassName = wrapperClassName + '-addon';
       addonBefore = addonBefore ? h(
         'span',
@@ -340,55 +318,47 @@ exports['default'] = {
         [addonAfter]
       ) : null;
 
-      var className = (_className = {}, (0, _defineProperty3['default'])(_className, props.prefixCls + '-wrapper', true), (0, _defineProperty3['default'])(_className, wrapperClassName, addonBefore || addonAfter), _className);
+      var mergedWrapperClassName = (_mergedWrapperClassNa = {}, (0, _defineProperty3['default'])(_mergedWrapperClassNa, prefixCls + '-wrapper', true), (0, _defineProperty3['default'])(_mergedWrapperClassNa, wrapperClassName, addonBefore || addonAfter), _mergedWrapperClassNa);
 
-      var groupClassName = (0, _classnames2['default'])(props.prefixCls + '-group-wrapper', (_classNames = {}, (0, _defineProperty3['default'])(_classNames, props.prefixCls + '-group-wrapper-sm', props.size === 'small'), (0, _defineProperty3['default'])(_classNames, props.prefixCls + '-group-wrapper-lg', props.size === 'large'), _classNames));
+      var mergedGroupClassName = (0, _classnames2['default'])(prefixCls + '-group-wrapper', (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-group-wrapper-sm', props.size === 'small'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-group-wrapper-lg', props.size === 'large'), _classNames));
       return h(
         'span',
-        { 'class': groupClassName },
+        { 'class': mergedGroupClassName },
         [h(
           'span',
-          { 'class': className },
+          { 'class': mergedWrapperClassName },
           [addonBefore, children, addonAfter]
         )]
       );
     },
-    renderLabeledIcon: function renderLabeledIcon(children) {
+    renderLabeledIcon: function renderLabeledIcon(prefixCls, children) {
       var _classNames2;
 
       var h = this.$createElement;
-      var _$props3 = this.$props,
-          prefixCls = _$props3.prefixCls,
-          size = _$props3.size;
+      var size = this.$props.size;
 
-      var prefix = (0, _propsUtil.getComponentFromProp)(this, 'prefix');
-      var suffix = (0, _propsUtil.getComponentFromProp)(this, 'suffix');
-      if (!prefix && !suffix) {
+      var suffix = this.renderSuffix(prefixCls);
+      if (!hasPrefixSuffix(this)) {
         return children;
       }
-
+      var prefix = (0, _propsUtil.getComponentFromProp)(this, 'prefix');
       prefix = prefix ? h(
         'span',
-        { 'class': prefixCls + '-prefix' },
+        { 'class': prefixCls + '-prefix', key: 'prefix' },
         [prefix]
       ) : null;
 
-      suffix = suffix ? h(
-        'span',
-        { 'class': prefixCls + '-suffix' },
-        [suffix]
-      ) : null;
       var affixWrapperCls = (0, _classnames2['default'])(prefixCls + '-affix-wrapper', (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-affix-wrapper-sm', size === 'small'), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-affix-wrapper-lg', size === 'large'), _classNames2));
       return h(
         'span',
-        { 'class': affixWrapperCls },
+        { 'class': affixWrapperCls, key: 'affix' },
         [prefix, children, suffix]
       );
     },
-    renderInput: function renderInput() {
+    renderInput: function renderInput(prefixCls) {
       var h = this.$createElement;
 
-      var otherProps = (0, _omit2['default'])(this.$props, ['prefixCls', 'addonBefore', 'addonAfter', 'prefix', 'suffix', 'value', 'defaultValue']);
+      var otherProps = (0, _omit2['default'])(this.$props, ['prefixCls', 'addonBefore', 'addonAfter', 'prefix', 'suffix', 'allowClear', 'value', 'defaultValue']);
       var stateValue = this.stateValue,
           getInputClassName = this.getInputClassName,
           handleKeyDown = this.handleKeyDown,
@@ -396,8 +366,9 @@ exports['default'] = {
           $listeners = this.$listeners;
 
       var inputProps = {
+        directives: [{ name: 'ant-input' }],
         domProps: {
-          value: stateValue
+          value: fixControlledValue(stateValue)
         },
         attrs: (0, _extends3['default'])({}, otherProps, this.$attrs),
         on: (0, _extends3['default'])({}, $listeners, {
@@ -405,13 +376,11 @@ exports['default'] = {
           input: handleChange,
           change: noop
         }),
-        'class': getInputClassName(),
-        ref: 'input'
+        'class': getInputClassName(prefixCls),
+        ref: 'input',
+        key: 'ant-input'
       };
-      if ($listeners['change.value']) {
-        inputProps.directives = [{ name: 'ant-input' }];
-      }
-      return this.renderLabeledIcon(h('input', inputProps));
+      return this.renderLabeledIcon(prefixCls, h('input', inputProps));
     }
   },
   render: function render() {
@@ -424,8 +393,9 @@ exports['default'] = {
         props: this.$props,
         attrs: this.$attrs,
         on: (0, _extends3['default'])({}, $listeners, {
-          change: this.handleChange,
-          keydown: this.handleKeyDown
+          input: this.handleChange,
+          keydown: this.handleKeyDown,
+          change: noop
         }),
         directives: [{
           name: 'ant-input'
@@ -433,7 +403,153 @@ exports['default'] = {
       };
       return h(_TextArea2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([textareaProps, { ref: 'input' }]));
     }
-    return this.renderLabeledInput(this.renderInput());
+    var customizePrefixCls = this.$props.prefixCls;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('input', customizePrefixCls);
+    return this.renderLabeledInput(prefixCls, this.renderInput(prefixCls));
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/input/Password.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/input/Password.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _Input = __webpack_require__(/*! ./Input */ "./node_modules/ant-design-vue/lib/input/Input.js");
+
+var _Input2 = _interopRequireDefault(_Input);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _inputProps = __webpack_require__(/*! ./inputProps */ "./node_modules/ant-design-vue/lib/input/inputProps.js");
+
+var _inputProps2 = _interopRequireDefault(_inputProps);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var ActionMap = {
+  click: 'click',
+  hover: 'mouseover'
+};
+
+exports['default'] = {
+  name: 'AInputPassword',
+  mixins: [_BaseMixin2['default']],
+  model: {
+    prop: 'value',
+    event: 'change.value'
+  },
+  props: (0, _extends3['default'])({}, _inputProps2['default'], {
+    prefixCls: _vueTypes2['default'].string.def('ant-input-password'),
+    inputPrefixCls: _vueTypes2['default'].string.def('ant-input'),
+    action: _vueTypes2['default'].string.def('click'),
+    visibilityToggle: _vueTypes2['default'].bool.def(true)
+  }),
+  data: function data() {
+    return {
+      visible: false
+    };
+  },
+
+  methods: {
+    onChange: function onChange() {
+      this.setState({
+        visible: !this.visible
+      });
+    },
+    getIcon: function getIcon() {
+      var _on;
+
+      var h = this.$createElement;
+      var _$props = this.$props,
+          prefixCls = _$props.prefixCls,
+          action = _$props.action;
+
+      var iconTrigger = ActionMap[action] || '';
+      var iconProps = {
+        props: {
+          type: this.visible ? 'eye' : 'eye-invisible'
+        },
+        on: (_on = {}, (0, _defineProperty3['default'])(_on, iconTrigger, this.onChange), (0, _defineProperty3['default'])(_on, 'mousedown', function mousedown(e) {
+          // Prevent focused state lost
+          // https://github.com/ant-design/ant-design/issues/15173
+          e.preventDefault();
+        }), _on),
+        'class': prefixCls + '-icon',
+        key: 'passwordIcon'
+      };
+      return h(_icon2['default'], iconProps);
+    }
+  },
+  render: function render() {
+    var h = arguments[0];
+
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        prefixCls = _getOptionProps.prefixCls,
+        inputPrefixCls = _getOptionProps.inputPrefixCls,
+        size = _getOptionProps.size,
+        suffix = _getOptionProps.suffix,
+        visibilityToggle = _getOptionProps.visibilityToggle,
+        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'inputPrefixCls', 'size', 'suffix', 'visibilityToggle']);
+
+    var suffixIcon = visibilityToggle && this.getIcon();
+    var inputClassName = (0, _classnames2['default'])(prefixCls, (0, _defineProperty3['default'])({}, prefixCls + '-' + size, !!size));
+    var inputProps = {
+      props: (0, _extends3['default'])({}, restProps, {
+        prefixCls: inputPrefixCls,
+        size: size,
+        suffix: suffixIcon,
+        prefix: (0, _propsUtil.getComponentFromProp)(this, 'prefix'),
+        addonAfter: (0, _propsUtil.getComponentFromProp)(this, 'addonAfter'),
+        addonBefore: (0, _propsUtil.getComponentFromProp)(this, 'addonBefore')
+      }),
+      attrs: (0, _extends3['default'])({}, this.$attrs, {
+        type: this.visible ? 'text' : 'password'
+      }),
+      'class': inputClassName,
+      on: this.$listeners
+    };
+    return h(_Input2['default'], inputProps);
   }
 };
 
@@ -452,10 +568,6 @@ exports['default'] = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
 var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
@@ -497,6 +609,8 @@ var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/an
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
@@ -507,16 +621,13 @@ exports['default'] = {
     event: 'change.value'
   },
   props: (0, _extends3['default'])({}, _inputProps2['default'], {
-    prefixCls: {
-      'default': 'ant-input-search',
-      type: String
-    },
-    inputPrefixCls: {
-      'default': 'ant-input',
-      type: String
-    },
     enterButton: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].string, _vueTypes2['default'].object])
   }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   methods: {
     onSearch: function onSearch(e) {
       this.$emit('search', this.$refs.input.stateValue, e);
@@ -528,88 +639,119 @@ exports['default'] = {
     blur: function blur() {
       this.$refs.input.blur();
     },
-    getButtonOrIcon: function getButtonOrIcon() {
+    renderSuffix: function renderSuffix(prefixCls) {
       var h = this.$createElement;
-      var prefixCls = this.prefixCls,
-          size = this.size,
+
+      var suffix = (0, _propsUtil.getComponentFromProp)(this, 'suffix');
+      var enterButton = (0, _propsUtil.getComponentFromProp)(this, 'enterButton');
+      if (enterButton) return suffix;
+
+      var node = h(_icon2['default'], { 'class': prefixCls + '-icon', attrs: { type: 'search' },
+        key: 'searchIcon', on: {
+          'click': this.onSearch
+        }
+      });
+
+      if (suffix) {
+        // let cloneSuffix = suffix;
+        // if (isValidElement(cloneSuffix) && !cloneSuffix.key) {
+        //   cloneSuffix = cloneElement(cloneSuffix, {
+        //     key: 'originSuffix',
+        //   });
+        // }
+        return [suffix, node];
+      }
+
+      return node;
+    },
+    renderAddonAfter: function renderAddonAfter(prefixCls) {
+      var h = this.$createElement;
+      var size = this.size,
           disabled = this.disabled;
 
       var enterButton = (0, _propsUtil.getComponentFromProp)(this, 'enterButton');
+      var addonAfter = (0, _propsUtil.getComponentFromProp)(this, 'addonAfter');
+      if (!enterButton) return addonAfter;
+      var btnClassName = prefixCls + '-button';
       var enterButtonAsElement = Array.isArray(enterButton) ? enterButton[0] : enterButton;
-      var node = void 0;
-      if (!enterButton) {
-        node = h(_icon2['default'], { 'class': prefixCls + '-icon', attrs: { type: 'search' },
-          key: 'searchIcon' });
-      } else if (enterButtonAsElement.tag === 'button' || enterButtonAsElement.componentOptions && enterButtonAsElement.componentOptions.Ctor.extendOptions.__ANT_BUTTON) {
-        node = (0, _vnode.cloneElement)(enterButtonAsElement, {
-          'class': prefixCls + '-button',
-          props: { size: size }
+      var button = void 0;
+      if (enterButtonAsElement.tag === 'button' || enterButtonAsElement.componentOptions && enterButtonAsElement.componentOptions.Ctor.extendOptions.__ANT_BUTTON) {
+        button = (0, _vnode.cloneElement)(enterButtonAsElement, {
+          'class': btnClassName,
+          props: { size: size },
+          on: {
+            click: this.onSearch
+          }
         });
       } else {
-        node = h(
+        button = h(
           _button2['default'],
           {
-            'class': prefixCls + '-button',
+            'class': btnClassName,
             attrs: { type: 'primary',
               size: size,
               disabled: disabled
             },
-            key: 'enterButton'
+            key: 'enterButton',
+            on: {
+              'click': this.onSearch
+            }
           },
           [enterButton === true ? h(_icon2['default'], {
             attrs: { type: 'search' }
           }) : enterButton]
         );
       }
-      return (0, _vnode.cloneElement)(node, {
-        on: {
-          click: this.onSearch
-        }
-      });
+      if (addonAfter) {
+        return [button, addonAfter];
+      }
+
+      return button;
     }
   },
   render: function render() {
-    var _classNames;
-
     var h = arguments[0];
 
     var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-        prefixCls = _getOptionProps.prefixCls,
-        inputPrefixCls = _getOptionProps.inputPrefixCls,
+        customizePrefixCls = _getOptionProps.prefixCls,
+        customizeInputPrefixCls = _getOptionProps.inputPrefixCls,
         size = _getOptionProps.size,
         others = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'inputPrefixCls', 'size']);
 
-    var suffix = (0, _propsUtil.getComponentFromProp)(this, 'suffix');
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('input-search', customizePrefixCls);
+    var inputPrefixCls = getPrefixCls('input', customizeInputPrefixCls);
+
     var enterButton = (0, _propsUtil.getComponentFromProp)(this, 'enterButton');
-    var addonAfter = (0, _propsUtil.getComponentFromProp)(this, 'addonAfter');
     var addonBefore = (0, _propsUtil.getComponentFromProp)(this, 'addonBefore');
-    var buttonOrIcon = this.getButtonOrIcon();
-    var searchSuffix = suffix ? [suffix, buttonOrIcon] : buttonOrIcon;
-    if (Array.isArray(searchSuffix)) {
-      searchSuffix = searchSuffix.map(function (item, index) {
-        if (!(0, _propsUtil.isValidElement)(item) || item.key) {
-          return item;
-        }
-        return (0, _vnode.cloneElement)(item, { key: index });
-      });
+    var inputClassName = void 0;
+    if (enterButton) {
+      var _classNames;
+
+      inputClassName = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-enter-button', !!enterButton), (0, _defineProperty3['default'])(_classNames, prefixCls + '-' + size, !!size), _classNames));
+    } else {
+      inputClassName = prefixCls;
     }
-    var inputClassName = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-enter-button', !!enterButton), (0, _defineProperty3['default'])(_classNames, prefixCls + '-' + size, !!size), _classNames));
+
     var on = (0, _extends3['default'])({}, this.$listeners);
     delete on.search;
     var inputProps = {
       props: (0, _extends3['default'])({}, others, {
         prefixCls: inputPrefixCls,
         size: size,
-        suffix: searchSuffix,
-        addonAfter: addonAfter,
+        suffix: this.renderSuffix(prefixCls),
+        prefix: (0, _propsUtil.getComponentFromProp)(this, 'prefix'),
+        addonAfter: this.renderAddonAfter(prefixCls),
         addonBefore: addonBefore
       }),
       attrs: this.$attrs,
+      'class': inputClassName,
+      ref: 'input',
       on: (0, _extends3['default'])({
         pressEnter: this.onSearch
       }, on)
     };
-    return h(_Input2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([inputProps, { 'class': inputClassName, ref: 'input' }]));
+    return h(_Input2['default'], inputProps);
   }
 };
 
@@ -641,6 +783,10 @@ var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _omit = __webpack_require__(/*! omit.js */ "./node_modules/omit.js/es/index.js");
 
 var _omit2 = _interopRequireDefault(_omit);
@@ -660,6 +806,8 @@ var _calculateNodeHeight2 = _interopRequireDefault(_calculateNodeHeight);
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _propsUtil2 = _interopRequireDefault(_propsUtil);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -694,10 +842,17 @@ exports['default'] = {
   props: (0, _extends3['default'])({}, _inputProps2['default'], {
     autosize: [Object, Boolean]
   }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   data: function data() {
     var _$props = this.$props,
-        value = _$props.value,
-        defaultValue = _$props.defaultValue;
+        _$props$value = _$props.value,
+        value = _$props$value === undefined ? '' : _$props$value,
+        _$props$defaultValue = _$props.defaultValue,
+        defaultValue = _$props$defaultValue === undefined ? '' : _$props$defaultValue;
 
     return {
       stateValue: fixControlledValue(!(0, _propsUtil2['default'])(this, 'value') ? defaultValue : value),
@@ -774,30 +929,26 @@ exports['default'] = {
       if (!autosize || !this.$refs.textArea) {
         return;
       }
-      var minRows = autosize ? autosize.minRows : null;
-      var maxRows = autosize ? autosize.maxRows : null;
+      var minRows = autosize.minRows,
+          maxRows = autosize.maxRows;
+
       var textareaStyles = (0, _calculateNodeHeight2['default'])(this.$refs.textArea, false, minRows, maxRows);
       this.textareaStyles = textareaStyles;
     },
-    getTextAreaClassName: function getTextAreaClassName() {
-      var _ref;
-
-      var _$props2 = this.$props,
-          prefixCls = _$props2.prefixCls,
-          disabled = _$props2.disabled;
-
-      return _ref = {}, (0, _defineProperty3['default'])(_ref, prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-disabled', disabled), _ref;
-    },
     handleTextareaChange: function handleTextareaChange(e) {
+      var _e$target = e.target,
+          value = _e$target.value,
+          composing = _e$target.composing;
+
+      if (composing || this.stateValue === value) return;
       if (!(0, _propsUtil2['default'])(this, 'value')) {
-        this.stateValue = e.target.value;
+        this.stateValue = value;
         this.resizeTextarea();
       } else {
         this.$forceUpdate();
       }
-      if (!e.target.composing) {
-        this.$emit('change.value', e.target.value);
-      }
+
+      this.$emit('change.value', value);
       this.$emit('change', e);
       this.$emit('input', e);
     },
@@ -811,15 +962,22 @@ exports['default'] = {
   render: function render() {
     var h = arguments[0];
     var stateValue = this.stateValue,
-        getTextAreaClassName = this.getTextAreaClassName,
         handleKeyDown = this.handleKeyDown,
         handleTextareaChange = this.handleTextareaChange,
         textareaStyles = this.textareaStyles,
         $attrs = this.$attrs,
-        $listeners = this.$listeners;
+        $listeners = this.$listeners,
+        customizePrefixCls = this.prefixCls,
+        disabled = this.disabled;
 
     var otherProps = (0, _omit2['default'])(this.$props, ['prefixCls', 'autosize', 'type', 'value', 'defaultValue']);
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('input', customizePrefixCls);
+
+    var cls = (0, _classnames2['default'])(prefixCls, (0, _defineProperty3['default'])({}, prefixCls + '-disabled', disabled));
+
     var textareaProps = {
+      directives: [{ name: 'ant-input' }],
       attrs: (0, _extends3['default'])({}, otherProps, $attrs),
       on: (0, _extends3['default'])({}, $listeners, {
         keydown: handleKeyDown,
@@ -827,15 +985,12 @@ exports['default'] = {
         change: noop
       })
     };
-    if ($listeners['change.value']) {
-      textareaProps.directives = [{ name: 'ant-input' }];
-    }
     return h('textarea', (0, _babelHelperVueJsxMergeProps2['default'])([textareaProps, {
       domProps: {
         'value': stateValue
       },
 
-      'class': getTextAreaClassName(),
+      'class': cls,
       style: textareaStyles,
       ref: 'textArea'
     }]));
@@ -857,6 +1012,7 @@ exports['default'] = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.calculateNodeStyling = calculateNodeStyling;
 exports['default'] = calculateNodeHeight;
 // Thanks to https://github.com/andreypopp/react-textarea-autosize/
 
@@ -866,7 +1022,7 @@ exports['default'] = calculateNodeHeight;
 
 var HIDDEN_TEXTAREA_STYLE = '\n  min-height:0 !important;\n  max-height:none !important;\n  height:0 !important;\n  visibility:hidden !important;\n  overflow:hidden !important;\n  position:absolute !important;\n  z-index:-1000 !important;\n  top:0 !important;\n  right:0 !important\n';
 
-var SIZING_STYLE = ['letter-spacing', 'line-height', 'padding-top', 'padding-bottom', 'font-family', 'font-weight', 'font-size', 'text-rendering', 'text-transform', 'width', 'text-indent', 'padding-left', 'padding-right', 'border-width', 'box-sizing'];
+var SIZING_STYLE = ['letter-spacing', 'line-height', 'padding-top', 'padding-bottom', 'font-family', 'font-weight', 'font-size', 'font-variant', 'text-rendering', 'text-transform', 'width', 'text-indent', 'padding-left', 'padding-right', 'border-width', 'box-sizing'];
 
 var computedStyleCache = {};
 var hiddenTextarea = void 0;
@@ -1023,9 +1179,17 @@ var _TextArea = __webpack_require__(/*! ./TextArea */ "./node_modules/ant-design
 
 var _TextArea2 = _interopRequireDefault(_TextArea);
 
+var _Password = __webpack_require__(/*! ./Password */ "./node_modules/ant-design-vue/lib/input/Password.js");
+
+var _Password2 = _interopRequireDefault(_Password);
+
 var _antInputDirective = __webpack_require__(/*! ../_util/antInputDirective */ "./node_modules/ant-design-vue/lib/_util/antInputDirective.js");
 
 var _antInputDirective2 = _interopRequireDefault(_antInputDirective);
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -1034,13 +1198,16 @@ _vue2['default'].use(_antInputDirective2['default']);
 _Input2['default'].Group = _Group2['default'];
 _Input2['default'].Search = _Search2['default'];
 _Input2['default'].TextArea = _TextArea2['default'];
+_Input2['default'].Password = _Password2['default'];
 
 /* istanbul ignore next */
 _Input2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Input2['default'].name, _Input2['default']);
   Vue.component(_Input2['default'].Group.name, _Input2['default'].Group);
   Vue.component(_Input2['default'].Search.name, _Input2['default'].Search);
   Vue.component(_Input2['default'].TextArea.name, _Input2['default'].TextArea);
+  Vue.component(_Input2['default'].Password.name, _Input2['default'].Password);
 };
 
 exports['default'] = _Input2['default'];
@@ -1068,10 +1235,8 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
-  prefixCls: {
-    'default': 'ant-input',
-    type: String
-  },
+  prefixCls: _vueTypes2['default'].string,
+  inputPrefixCls: _vueTypes2['default'].string,
   defaultValue: [String, Number],
   value: [String, Number],
   placeholder: [String, Number],
@@ -1101,7 +1266,8 @@ exports['default'] = {
   prefix: _vueTypes2['default'].any,
   suffix: _vueTypes2['default'].any,
   spellCheck: Boolean,
-  autoFocus: Boolean
+  autoFocus: Boolean,
+  allowClear: Boolean
 };
 
 /***/ })

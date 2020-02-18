@@ -44,6 +44,8 @@ var _vcCheckbox2 = _interopRequireDefault(_vcCheckbox);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function noop() {}
@@ -55,22 +57,22 @@ exports['default'] = {
     prop: 'checked'
   },
   props: {
-    prefixCls: {
-      'default': 'ant-checkbox',
-      type: String
-    },
+    prefixCls: _vueTypes2['default'].string,
     defaultChecked: _vueTypes2['default'].bool,
     checked: _vueTypes2['default'].bool,
     disabled: _vueTypes2['default'].bool,
-    isGroup: Boolean,
+    isGroup: _vueTypes2['default'].bool,
     value: _vueTypes2['default'].any,
-    name: String,
-    id: String,
-    indeterminate: Boolean,
+    name: _vueTypes2['default'].string,
+    id: _vueTypes2['default'].string,
+    indeterminate: _vueTypes2['default'].bool,
     type: _vueTypes2['default'].string.def('checkbox'),
-    autoFocus: Boolean
+    autoFocus: _vueTypes2['default'].bool
   },
   inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } },
     checkboxGroupContext: { 'default': function _default() {
         return null;
       } }
@@ -104,10 +106,14 @@ exports['default'] = {
         mouseenter = _$listeners$mouseente === undefined ? noop : _$listeners$mouseente,
         _$listeners$mouseleav = $listeners.mouseleave,
         mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav,
-        restListeners = (0, _objectWithoutProperties3['default'])($listeners, ['mouseenter', 'mouseleave']);
-    var prefixCls = props.prefixCls,
+        input = $listeners.input,
+        restListeners = (0, _objectWithoutProperties3['default'])($listeners, ['mouseenter', 'mouseleave', 'input']);
+    var customizePrefixCls = props.prefixCls,
         indeterminate = props.indeterminate,
         restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls', 'indeterminate']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('checkbox', customizePrefixCls);
 
     var checkboxProps = {
       props: (0, _extends3['default'])({}, restProps, { prefixCls: prefixCls }),
@@ -166,6 +172,10 @@ var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
 var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js");
 
 var _Checkbox2 = _interopRequireDefault(_Checkbox);
@@ -173,6 +183,8 @@ var _Checkbox2 = _interopRequireDefault(_Checkbox);
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _propsUtil2 = _interopRequireDefault(_propsUtil);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -183,30 +195,22 @@ exports['default'] = {
     prop: 'value'
   },
   props: {
-    prefixCls: {
-      'default': 'ant-checkbox',
-      type: String
-    },
-    defaultValue: {
-      'default': undefined,
-      type: Array
-    },
-    value: {
-      'default': undefined,
-      type: Array
-    },
-    options: {
-      'default': function _default() {
-        return [];
-      },
-      type: Array
-    },
-    disabled: Boolean
+    prefixCls: _vueTypes2['default'].string,
+    defaultValue: _vueTypes2['default'].array,
+    value: _vueTypes2['default'].array,
+    options: _vueTypes2['default'].array.def([]),
+    disabled: _vueTypes2['default'].bool
   },
   provide: function provide() {
     return {
       checkboxGroupContext: this
     };
+  },
+
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   data: function data() {
     var value = this.value,
@@ -219,7 +223,7 @@ exports['default'] = {
 
   watch: {
     value: function value(val) {
-      this.sValue = val;
+      this.sValue = val || [];
     }
   },
   methods: {
@@ -261,8 +265,11 @@ exports['default'] = {
     var props = this.$props,
         state = this.$data,
         $slots = this.$slots;
-    var prefixCls = props.prefixCls,
+    var customizePrefixCls = props.prefixCls,
         options = props.options;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('checkbox', customizePrefixCls);
 
     var children = $slots['default'];
     var groupPrefixCls = prefixCls + '-group';
@@ -320,12 +327,17 @@ var _Group = __webpack_require__(/*! ./Group */ "./node_modules/ant-design-vue/l
 
 var _Group2 = _interopRequireDefault(_Group);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _Checkbox2['default'].Group = _Group2['default'];
 
 /* istanbul ignore next */
 _Checkbox2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Checkbox2['default'].name, _Checkbox2['default']);
   Vue.component(_Group2['default'].name, _Group2['default']);
 };

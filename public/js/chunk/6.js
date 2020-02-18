@@ -33,6 +33,12 @@ var _debounce2 = _interopRequireDefault(_debounce);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 // matchMedia polyfill for
@@ -95,7 +101,8 @@ var CarouselProps = exports.CarouselProps = {
   touchThreshold: _vueTypes2['default'].number,
   variableWidth: _vueTypes2['default'].bool,
   useCSS: _vueTypes2['default'].bool,
-  slickGoTo: _vueTypes2['default'].number
+  slickGoTo: _vueTypes2['default'].number,
+  responsive: _vueTypes2['default'].array
 };
 
 var Carousel = {
@@ -103,13 +110,13 @@ var Carousel = {
   props: (0, _propsUtil.initDefaultProps)(CarouselProps, {
     dots: true,
     arrows: false,
-    prefixCls: 'ant-carousel',
     draggable: false
   }),
-
-  // innerSlider: any;
-
-  // private slick: any;
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
 
   beforeMount: function beforeMount() {
     this.onWindowResized = (0, _debounce2['default'])(this.onWindowResized, 500, {
@@ -168,7 +175,9 @@ var Carousel = {
       props.fade = true;
     }
 
-    var className = props.prefixCls;
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var className = getPrefixCls('carousel', props.prefixCls);
+
     if (props.vertical) {
       className = className + ' ' + className + '-vertical';
     }
@@ -195,6 +204,7 @@ var Carousel = {
 
 /* istanbul ignore next */
 Carousel.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(Carousel.name, Carousel);
 };
 
@@ -426,7 +436,7 @@ var defaultProps = {
   pauseOnFocus: _vueTypes2['default'].bool.def(false),
   // hover是否暂停
   pauseOnHover: _vueTypes2['default'].bool.def(true),
-  responsive: _vueTypes2['default'].any.def(null),
+  responsive: _vueTypes2['default'].array,
   rows: _vueTypes2['default'].number.def(1),
   rtl: _vueTypes2['default'].bool.def(false),
   slide: _vueTypes2['default'].string.def('div'),

@@ -19,11 +19,21 @@ var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _omit = __webpack_require__(/*! omit.js */ "./node_modules/omit.js/es/index.js");
+
+var _omit2 = _interopRequireDefault(_omit);
+
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 var _vcRate = __webpack_require__(/*! ../vc-rate */ "./node_modules/ant-design-vue/lib/vc-rate/index.js");
 
@@ -32,6 +42,14 @@ var _vcRate2 = _interopRequireDefault(_vcRate);
 var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
 
 var _icon2 = _interopRequireDefault(_icon);
+
+var _tooltip = __webpack_require__(/*! ../tooltip */ "./node_modules/ant-design-vue/lib/tooltip/index.js");
+
+var _tooltip2 = _interopRequireDefault(_tooltip);
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -42,6 +60,7 @@ var RateProps = exports.RateProps = {
   defaultValue: _vueTypes2['default'].value,
   allowHalf: _vueTypes2['default'].bool,
   allowClear: _vueTypes2['default'].bool,
+  tooltips: _vueTypes2['default'].arrayOf(_vueTypes2['default'].string),
   disabled: _vueTypes2['default'].bool,
   character: _vueTypes2['default'].any,
   autoFocus: _vueTypes2['default'].bool
@@ -53,27 +72,53 @@ var Rate = {
     prop: 'value',
     event: 'change'
   },
-  props: (0, _propsUtil.initDefaultProps)(RateProps, {
-    prefixCls: 'ant-rate'
-  }),
+  props: RateProps,
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   methods: {
     focus: function focus() {
       this.$refs.refRate.focus();
     },
     blur: function blur() {
       this.$refs.refRate.blur();
+    },
+    characterRender: function characterRender(node, _ref) {
+      var index = _ref.index;
+      var h = this.$createElement;
+      var tooltips = this.$props.tooltips;
+
+      if (!tooltips) return node;
+      return h(
+        _tooltip2['default'],
+        {
+          attrs: { title: tooltips[index] }
+        },
+        [node]
+      );
     }
   },
   render: function render() {
     var h = arguments[0];
+
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        customizePrefixCls = _getOptionProps.prefixCls,
+        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('rate', customizePrefixCls);
 
     var character = (0, _propsUtil.getComponentFromProp)(this, 'character') || h(_icon2['default'], {
       attrs: { type: 'star', theme: 'filled' }
     });
     var rateProps = {
       props: (0, _extends3['default'])({
-        character: character
-      }, (0, _propsUtil.getOptionProps)(this)),
+        character: character,
+        characterRender: this.characterRender,
+        prefixCls: prefixCls
+      }, (0, _omit2['default'])(restProps, ['tooltips'])),
       on: this.$listeners,
       ref: 'refRate'
     };
@@ -83,6 +128,7 @@ var Rate = {
 
 /* istanbul ignore next */
 Rate.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(Rate.name, Rate);
 };
 exports['default'] = Rate;
@@ -109,7 +155,7 @@ var _src2 = _interopRequireDefault(_src);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _src2['default']; // based on rc-rate 2.4.3
+exports['default'] = _src2['default']; // based on rc-rate 2.5.0
 
 /***/ }),
 
@@ -162,6 +208,7 @@ var rateProps = {
   allowClear: _vueTypes2['default'].bool,
   prefixCls: _vueTypes2['default'].string,
   character: _vueTypes2['default'].any,
+  characterRender: _vueTypes2['default'].func,
   tabIndex: _vueTypes2['default'].number,
   autoFocus: _vueTypes2['default'].bool
 };
@@ -235,15 +282,18 @@ exports['default'] = {
       this.$emit('hoverChange', undefined);
     },
     onClick: function onClick(event, index) {
-      var value = this.getStarValue(index, event.pageX);
+      var allowClear = this.allowClear,
+          value = this.sValue;
+
+      var newValue = this.getStarValue(index, event.pageX);
       var isReset = false;
-      if (this.allowClear) {
-        isReset = value === this.sValue;
+      if (allowClear) {
+        isReset = newValue === value;
       }
       this.onMouseLeave(true);
-      this.changeValue(isReset ? 0 : value);
+      this.changeValue(isReset ? 0 : newValue);
       this.setState({
-        cleanedValue: isReset ? value : null
+        cleanedValue: isReset ? newValue : null
       });
     },
     onFocus: function onFocus() {
@@ -334,6 +384,7 @@ exports['default'] = {
     var stars = [];
     var disabledClass = disabled ? prefixCls + '-disabled' : '';
     var character = (0, _propsUtil.getComponentFromProp)(this, 'character');
+    var characterRender = this.characterRender || this.$scopedSlots.characterRender;
     for (var index = 0; index < count; index++) {
       var starProps = {
         props: {
@@ -344,6 +395,7 @@ exports['default'] = {
           allowHalf: allowHalf,
           value: hoverValue === undefined ? sValue : hoverValue,
           character: character,
+          characterRender: characterRender,
           focused: focused
         },
         on: {
@@ -417,6 +469,7 @@ exports['default'] = {
     allowHalf: _vueTypes2['default'].bool,
     disabled: _vueTypes2['default'].bool,
     character: _vueTypes2['default'].any,
+    characterRender: _vueTypes2['default'].func,
     focused: _vueTypes2['default'].bool,
     count: _vueTypes2['default'].number
   },
@@ -470,39 +523,47 @@ exports['default'] = {
         onKeyDown = this.onKeyDown,
         disabled = this.disabled,
         prefixCls = this.prefixCls,
+        characterRender = this.characterRender,
         index = this.index,
         count = this.count,
         value = this.value;
 
 
     var character = (0, _propsUtil.getComponentFromProp)(this, 'character');
-    return h(
+    var star = h(
       'li',
-      {
-        'class': this.getClassName(),
-        on: {
-          'click': disabled ? noop : onClick,
-          'keydown': disabled ? noop : onKeyDown,
-          'mousemove': disabled ? noop : onHover
-        },
-        attrs: {
-          role: 'radio',
-          'aria-checked': value > index ? 'true' : 'false',
-          'aria-posinset': index + 1,
-          'aria-setsize': count,
-          tabIndex: 0
-        }
-      },
+      { 'class': this.getClassName() },
       [h(
         'div',
-        { 'class': prefixCls + '-first' },
-        [character]
-      ), h(
-        'div',
-        { 'class': prefixCls + '-second' },
-        [character]
+        {
+          on: {
+            'click': disabled ? noop : onClick,
+            'keydown': disabled ? noop : onKeyDown,
+            'mousemove': disabled ? noop : onHover
+          },
+          attrs: {
+            role: 'radio',
+            'aria-checked': value > index ? 'true' : 'false',
+            'aria-posinset': index + 1,
+            'aria-setsize': count,
+            tabIndex: 0
+          }
+        },
+        [h(
+          'div',
+          { 'class': prefixCls + '-first' },
+          [character]
+        ), h(
+          'div',
+          { 'class': prefixCls + '-second' },
+          [character]
+        )]
       )]
     );
+    if (characterRender) {
+      star = characterRender(star, this.$props);
+    }
+    return star;
   }
 };
 

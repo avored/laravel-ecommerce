@@ -337,7 +337,7 @@ var presetPalettes = {};
 exports.presetPalettes = presetPalettes;
 Object.keys(presetPrimaryColors).forEach(function (key) {
     presetPalettes[key] = generate_1.default(presetPrimaryColors[key]);
-    presetPalettes[key].primary = presetPalettes[key][6];
+    presetPalettes[key].primary = presetPalettes[key][5];
 });
 var red = presetPalettes.red;
 exports.red = red;
@@ -345,6 +345,8 @@ var volcano = presetPalettes.volcano;
 exports.volcano = volcano;
 var gold = presetPalettes.gold;
 exports.gold = gold;
+var orange = presetPalettes.orange;
+exports.orange = orange;
 var yellow = presetPalettes.yellow;
 exports.yellow = yellow;
 var lime = presetPalettes.lime;
@@ -3441,6 +3443,10 @@ var _vueTypes = __webpack_require__(/*! ./vue-types */ "./node_modules/ant-desig
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
@@ -3497,9 +3503,9 @@ exports['default'] = {
           this.componentEl = el;
           this.container.appendChild(el);
         }
-
         if (!this._component) {
-          this._component = new _vue2['default']({
+          var V = _base2['default'].Vue || _vue2['default'];
+          this._component = new V({
             el: el,
             parent: self.parent,
             data: {
@@ -4156,6 +4162,134 @@ exports['default'] = KeyCode;
 
 /***/ }),
 
+/***/ "./node_modules/ant-design-vue/lib/_util/antDirective.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/antDirective.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vueRef = __webpack_require__(/*! vue-ref */ "./node_modules/vue-ref/index.js");
+
+var _vueRef2 = _interopRequireDefault(_vueRef);
+
+var _antInputDirective = __webpack_require__(/*! ./antInputDirective */ "./node_modules/ant-design-vue/lib/_util/antInputDirective.js");
+
+var _FormDecoratorDirective = __webpack_require__(/*! ./FormDecoratorDirective */ "./node_modules/ant-design-vue/lib/_util/FormDecoratorDirective.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = {
+  install: function install(Vue) {
+    Vue.use(_vueRef2['default'], { name: 'ant-ref' });
+    (0, _antInputDirective.antInput)(Vue);
+    (0, _FormDecoratorDirective.antDecorator)(Vue);
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/_util/antInputDirective.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/antInputDirective.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.antInput = antInput;
+/**
+ * Not type checking this file because flow doesn't like attaching
+ * properties to Elements.
+ */
+
+var inBrowser = exports.inBrowser = typeof window !== 'undefined';
+var UA = exports.UA = inBrowser && window.navigator.userAgent.toLowerCase();
+var isIE9 = exports.isIE9 = UA && UA.indexOf('msie 9.0') > 0;
+function makeMap(str, expectsLowerCase) {
+  var map = Object.create(null);
+  var list = str.split(',');
+  for (var i = 0; i < list.length; i++) {
+    map[list[i]] = true;
+  }
+  return expectsLowerCase ? function (val) {
+    return map[val.toLowerCase()];
+  } : function (val) {
+    return map[val];
+  };
+}
+var isTextInputType = makeMap('text,number,password,search,email,tel,url');
+
+function onCompositionStart(e) {
+  e.target.composing = true;
+}
+
+function onCompositionEnd(e) {
+  // prevent triggering an input event for no reason
+  if (!e.target.composing) return;
+  e.target.composing = false;
+  trigger(e.target, 'input');
+}
+
+function trigger(el, type) {
+  var e = document.createEvent('HTMLEvents');
+  e.initEvent(type, true, true);
+  el.dispatchEvent(e);
+}
+
+/* istanbul ignore if */
+if (isIE9) {
+  // http://www.matts411.com/post/internet-explorer-9-oninput/
+  document.addEventListener('selectionchange', function () {
+    var el = document.activeElement;
+    if (el && el.vmodel) {
+      trigger(el, 'input');
+    }
+  });
+}
+
+function antInput(Vue) {
+  return Vue.directive('ant-input', {
+    inserted: function inserted(el, binding, vnode) {
+      if (vnode.tag === 'textarea' || isTextInputType(el.type)) {
+        if (!binding.modifiers || !binding.modifiers.lazy) {
+          el.addEventListener('compositionstart', onCompositionStart);
+          el.addEventListener('compositionend', onCompositionEnd);
+          // Safari < 10.2 & UIWebView doesn't fire compositionend when
+          // switching focus before confirming composition choice
+          // this also fixes the issue where some browsers e.g. iOS Chrome
+          // fires "change" instead of "input" on autocomplete.
+          el.addEventListener('change', onCompositionEnd);
+          /* istanbul ignore if */
+          if (isIE9) {
+            el.vmodel = true;
+          }
+        }
+      }
+    }
+  });
+}
+
+exports['default'] = {
+  install: function install(Vue) {
+    antInput(Vue);
+  }
+};
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/_util/createChainedFunction.js":
 /*!************************************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/_util/createChainedFunction.js ***!
@@ -4545,6 +4679,35 @@ exports['default'] = cssAnimation;
 
 /***/ }),
 
+/***/ "./node_modules/ant-design-vue/lib/_util/env.js":
+/*!******************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/env.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// Browser environment sniffing
+var inBrowser = exports.inBrowser = typeof window !== 'undefined';
+var inWeex = exports.inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform;
+var weexPlatform = exports.weexPlatform = inWeex && WXEnvironment.platform.toLowerCase();
+var UA = exports.UA = inBrowser && window.navigator.userAgent.toLowerCase();
+var isIE = exports.isIE = UA && /msie|trident/.test(UA);
+var isIE9 = exports.isIE9 = UA && UA.indexOf('msie 9.0') > 0;
+var isEdge = exports.isEdge = UA && UA.indexOf('edge/') > 0;
+var isAndroid = exports.isAndroid = UA && UA.indexOf('android') > 0 || weexPlatform === 'android';
+var isIOS = exports.isIOS = UA && /iphone|ipad|ipod|ios/.test(UA) || weexPlatform === 'ios';
+var isChrome = exports.isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge;
+var isPhantomJS = exports.isPhantomJS = UA && /phantomjs/.test(UA);
+var isFF = exports.isFF = UA && UA.match(/firefox\/(\d+)/);
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/_util/getRequestAnimationFrame.js":
 /*!***************************************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/_util/getRequestAnimationFrame.js ***!
@@ -4667,31 +4830,6 @@ exports['default'] = getTransitionProps;
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/_util/isFlexSupported.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/_util/isFlexSupported.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports['default'] = isFlexSupported;
-function isFlexSupported() {
-  if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
-    var documentElement = window.document.documentElement;
-
-    return 'flex' in documentElement.style || 'webkitFlex' in documentElement.style || 'Flex' in documentElement.style || 'msFlex' in documentElement.style;
-  }
-  return false;
-}
-
-/***/ }),
-
 /***/ "./node_modules/ant-design-vue/lib/_util/isNumeric.js":
 /*!************************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/_util/isNumeric.js ***!
@@ -4733,6 +4871,10 @@ var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 var _raf = __webpack_require__(/*! raf */ "./node_modules/raf/index.js");
 
 var _raf2 = _interopRequireDefault(_raf);
+
+var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+var _vue2 = _interopRequireDefault(_vue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -4789,7 +4931,9 @@ function animate(node, show, done) {
 
 var animation = {
   enter: function enter(node, done) {
-    return animate(node, true, done);
+    _vue2['default'].nextTick(function () {
+      animate(node, true, done);
+    });
   },
   leave: function leave(node, done) {
     return animate(node, false, done);
@@ -4813,19 +4957,19 @@ exports['default'] = animation;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getAllChildren = exports.getAllProps = exports.getSlots = exports.camelize = exports.isValidElement = exports.initDefaultProps = exports.parseStyleText = exports.getValueByProp = exports.getAttrs = exports.getKey = exports.getPropsData = exports.slotHasProp = exports.getSlotOptions = exports.getComponentFromProp = exports.getOptionProps = exports.filterProps = exports.hasProp = undefined;
+exports.getAllChildren = exports.getAllProps = exports.getSlot = exports.getSlots = exports.camelize = exports.isValidElement = exports.initDefaultProps = exports.parseStyleText = exports.getValueByProp = exports.getAttrs = exports.getKey = exports.getPropsData = exports.slotHasProp = exports.getSlotOptions = exports.getComponentFromProp = exports.getOptionProps = exports.filterProps = exports.hasProp = undefined;
 
 var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
 var _slicedToArray2 = __webpack_require__(/*! babel-runtime/helpers/slicedToArray */ "./node_modules/babel-runtime/helpers/slicedToArray.js");
 
 var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 exports.getEvents = getEvents;
 exports.getClass = getClass;
@@ -4896,6 +5040,11 @@ var filterProps = function filterProps(props) {
   });
   return res;
 };
+
+var getScopedSlots = function getScopedSlots(ele) {
+  return ele.data && ele.data.scopedSlots || {};
+};
+
 var getSlots = function getSlots(ele) {
   var componentOptions = ele.componentOptions || {};
   if (ele.$vnode) {
@@ -4910,8 +5059,15 @@ var getSlots = function getSlots(ele) {
       slots[name].push(child);
     }
   });
-  return slots;
+  return (0, _extends3['default'])({}, slots, getScopedSlots(ele));
 };
+var getSlot = function getSlot(self) {
+  var name = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'default';
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+  return self.$scopedSlots && self.$scopedSlots[name] && self.$scopedSlots[name](options) || self.$slots[name] || [];
+};
+
 var getAllChildren = function getAllChildren(ele) {
   var componentOptions = ele.componentOptions || {};
   if (ele.$vnode) {
@@ -4993,17 +5149,24 @@ var getComponentFromProp = function getComponentFromProp(instance, prop) {
     if (temp !== undefined) {
       return typeof temp === 'function' && execute ? temp(h, options) : temp;
     }
-    return instance.$slots[prop] || instance.$scopedSlots[prop] && execute && instance.$scopedSlots[prop](options) || instance.$scopedSlots[prop] || undefined;
+    return instance.$scopedSlots[prop] && execute && instance.$scopedSlots[prop](options) || instance.$scopedSlots[prop] || instance.$slots[prop] || undefined;
   } else {
     var _h = instance.context.$createElement;
     var _temp = getPropsData(instance)[prop];
     if (_temp !== undefined) {
       return typeof _temp === 'function' && execute ? _temp(_h, options) : _temp;
     }
+    var slotScope = getScopedSlots(instance)[prop];
+    if (slotScope !== undefined) {
+      return typeof slotScope === 'function' && execute ? slotScope(_h, options) : slotScope;
+    }
     var slotsProp = [];
     var componentOptions = instance.componentOptions || {};
     (componentOptions.children || []).forEach(function (child) {
       if (child.data && child.data.slot === prop) {
+        if (child.data.attrs) {
+          delete child.data.attrs.slot;
+        }
         if (child.tag === 'template') {
           slotsProp.push(child.children);
         } else {
@@ -5196,6 +5359,7 @@ exports.initDefaultProps = initDefaultProps;
 exports.isValidElement = isValidElement;
 exports.camelize = camelize;
 exports.getSlots = getSlots;
+exports.getSlot = getSlot;
 exports.getAllProps = getAllProps;
 exports.getAllChildren = getAllChildren;
 exports['default'] = hasProp;
@@ -5349,9 +5513,9 @@ function wrapperRaf(callback) {
   return myId;
 }
 
-wrapperRaf.cancel = function (id) {
-  _raf2['default'].cancel(ids[id]);
-  delete ids[id];
+wrapperRaf.cancel = function (pid) {
+  _raf2['default'].cancel(ids[pid]);
+  delete ids[pid];
 };
 
 /***/ }),
@@ -5724,6 +5888,38 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 /***/ }),
 
+/***/ "./node_modules/ant-design-vue/lib/_util/styleChecker.js":
+/*!***************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/styleChecker.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function isStyleSupport(styleName) {
+  if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
+    var styleNameList = Array.isArray(styleName) ? styleName : [styleName];
+    var documentElement = window.document.documentElement;
+
+
+    return styleNameList.some(function (name) {
+      return name in documentElement.style;
+    });
+  }
+  return false;
+}
+
+var isFlexSupported = exports.isFlexSupported = isStyleSupport(['flex', 'webkitFlex', 'Flex', 'msFlex']);
+
+exports['default'] = isStyleSupport;
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/_util/vnode.js":
 /*!********************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/_util/vnode.js ***!
@@ -5751,6 +5947,10 @@ exports.cloneVNodes = cloneVNodes;
 exports.cloneElement = cloneElement;
 
 var _propsUtil = __webpack_require__(/*! ./props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -5849,6 +6049,10 @@ function cloneElement(n) {
     data['class'].split(' ').forEach(function (c) {
       cls[c.trim()] = true;
     });
+  } else if (Array.isArray(data['class'])) {
+    (0, _classnames2['default'])(data['class']).split(' ').forEach(function (c) {
+      cls[c.trim()] = true;
+    });
   } else {
     cls = (0, _extends3['default'])({}, data['class'], cls);
   }
@@ -5877,6 +6081,10 @@ function cloneElement(n) {
       node.componentOptions.children = children;
     }
   } else {
+    node.data.on = (0, _extends3['default'])({}, node.data.on || {}, on);
+  }
+
+  if (node.fnOptions && node.fnOptions.functional) {
     node.data.on = (0, _extends3['default'])({}, node.data.on || {}, on);
   }
 
@@ -6420,21 +6628,50 @@ exports.warn = warn;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _warning = __webpack_require__(/*! warning */ "./node_modules/warning/browser.js");
-
-var _warning2 = _interopRequireDefault(_warning);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
+exports.warning = warning;
+exports.note = note;
+exports.resetWarned = resetWarned;
+exports.call = call;
+exports.warningOnce = warningOnce;
+exports.noteOnce = noteOnce;
+/* eslint-disable no-console */
 var warned = {};
 
-exports['default'] = function (valid, message) {
+function warning(valid, message) {
+  // Support uglify
+  if ( true && !valid && console !== undefined) {
+    console.error('Warning: ' + message);
+  }
+}
+
+function note(valid, message) {
+  // Support uglify
+  if ( true && !valid && console !== undefined) {
+    console.warn('Note: ' + message);
+  }
+}
+
+function resetWarned() {
+  warned = {};
+}
+
+function call(method, valid, message) {
   if (!valid && !warned[message]) {
-    (0, _warning2['default'])(false, message);
+    method(false, message);
     warned[message] = true;
   }
-};
+}
+
+function warningOnce(valid, message) {
+  call(warning, valid, message);
+}
+
+function noteOnce(valid, message) {
+  call(note, valid, message);
+}
+
+exports['default'] = warningOnce;
+/* eslint-enable */
 
 /***/ }),
 
@@ -6617,6 +6854,37 @@ exports['default'] = {
 
 /***/ }),
 
+/***/ "./node_modules/ant-design-vue/lib/base/index.js":
+/*!*******************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/base/index.js ***!
+  \*******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _antDirective = __webpack_require__(/*! ../_util/antDirective */ "./node_modules/ant-design-vue/lib/_util/antDirective.js");
+
+var _antDirective2 = _interopRequireDefault(_antDirective);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var base = {};
+var install = function install(Vue) {
+  base.Vue = Vue;
+  Vue.use(_antDirective2['default']);
+};
+base.install = install;
+
+exports['default'] = base;
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/breadcrumb/Breadcrumb.js":
 /*!******************************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/breadcrumb/Breadcrumb.js ***!
@@ -6643,6 +6911,8 @@ var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-d
 
 var _warning2 = _interopRequireDefault(_warning);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 var _BreadcrumbItem = __webpack_require__(/*! ./BreadcrumbItem */ "./node_modules/ant-design-vue/lib/breadcrumb/BreadcrumbItem.js");
 
 var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
@@ -6655,7 +6925,7 @@ var Route = _vueTypes2['default'].shape({
 }).loose;
 
 var BreadcrumbProps = {
-  prefixCls: _vueTypes2['default'].string.def('ant-breadcrumb'),
+  prefixCls: _vueTypes2['default'].string,
   routes: _vueTypes2['default'].arrayOf(Route),
   params: _vueTypes2['default'].any,
   separator: _vueTypes2['default'].any,
@@ -6676,6 +6946,11 @@ function getBreadcrumbName(route, params) {
 exports['default'] = {
   name: 'ABreadcrumb',
   props: BreadcrumbProps,
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   methods: {
     defaultItemRender: function defaultItemRender(_ref) {
       var route = _ref.route,
@@ -6699,12 +6974,15 @@ exports['default'] = {
     var h = arguments[0];
 
     var crumbs = void 0;
-    var prefixCls = this.prefixCls,
+    var customizePrefixCls = this.prefixCls,
         routes = this.routes,
         _params = this.params,
         params = _params === undefined ? {} : _params,
         $slots = this.$slots,
         $scopedSlots = this.$scopedSlots;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('breadcrumb', customizePrefixCls);
 
     var children = (0, _propsUtil.filterEmpty)($slots['default']);
     var separator = (0, _propsUtil.getComponentFromProp)(this, 'separator');
@@ -6767,20 +7045,30 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
   name: 'ABreadcrumbItem',
   __ANT_BREADCRUMB_ITEM: true,
   props: {
-    prefixCls: _vueTypes2['default'].string.def('ant-breadcrumb'),
+    prefixCls: _vueTypes2['default'].string,
     href: _vueTypes2['default'].string,
     separator: _vueTypes2['default'].any
   },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   render: function render() {
     var h = arguments[0];
-    var prefixCls = this.prefixCls,
+    var customizePrefixCls = this.prefixCls,
         $slots = this.$slots;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('breadcrumb', customizePrefixCls);
 
     var children = $slots['default'];
     var link = void 0;
@@ -6832,12 +7120,17 @@ var _BreadcrumbItem = __webpack_require__(/*! ./BreadcrumbItem */ "./node_module
 
 var _BreadcrumbItem2 = _interopRequireDefault(_BreadcrumbItem);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _Breadcrumb2['default'].Item = _BreadcrumbItem2['default'];
 
 /* istanbul ignore next */
 _Breadcrumb2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Breadcrumb2['default'].name, _Breadcrumb2['default']);
   Vue.component(_BreadcrumbItem2['default'].name, _BreadcrumbItem2['default']);
 };
@@ -6867,13 +7160,16 @@ var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var ButtonGroupProps = {
-  prefixCls: {
-    'default': 'ant-btn-group',
-    type: String
-  },
+  prefixCls: _vueTypes2['default'].string,
   size: {
     validator: function validator(value) {
       return ['small', 'large', 'default'].includes(value);
@@ -6884,6 +7180,11 @@ exports.ButtonGroupProps = ButtonGroupProps;
 exports['default'] = {
   name: 'AButtonGroup',
   props: ButtonGroupProps,
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   data: function data() {
     return {
       sizeMap: {
@@ -6892,24 +7193,31 @@ exports['default'] = {
       }
     };
   },
-
-  computed: {
-    classes: function classes() {
-      var _ref;
-
-      var prefixCls = this.prefixCls,
-          size = this.size,
-          sizeMap = this.sizeMap;
-
-      var sizeCls = sizeMap[size] || '';
-      return [(_ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + sizeCls, sizeCls), _ref)];
-    }
-  },
   render: function render() {
+    var _classes;
+
     var h = arguments[0];
-    var classes = this.classes,
+    var customizePrefixCls = this.prefixCls,
+        size = this.size,
+        sizeMap = this.sizeMap,
         $slots = this.$slots;
 
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('btn-group', customizePrefixCls);
+
+    // large => lg
+    // small => sm
+    var sizeCls = '';
+    switch (size) {
+      case 'large':
+        sizeCls = 'lg';
+        break;
+      case 'small':
+        sizeCls = 'sm';
+      default:
+        break;
+    }
+    var classes = (_classes = {}, (0, _defineProperty3['default'])(_classes, '' + prefixCls, true), (0, _defineProperty3['default'])(_classes, prefixCls + '-' + sizeCls, sizeCls), _classes);
     return h(
       'div',
       { 'class': classes },
@@ -6960,24 +7268,29 @@ var _buttonTypes2 = _interopRequireDefault(_buttonTypes);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var rxTwoCNChar = /^[\u4e00-\u9fa5]{2}$/;
 var isTwoCNChar = rxTwoCNChar.test.bind(rxTwoCNChar);
-
 var props = (0, _buttonTypes2['default'])();
 exports['default'] = {
   name: 'AButton',
   inheritAttrs: false,
   __ANT_BUTTON: true,
   props: props,
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   data: function data() {
     return {
       sizeMap: {
         large: 'lg',
         small: 'sm'
       },
-      // clicked: false,
       sLoading: !!this.loading,
       hasTwoCNChar: false
     };
@@ -6987,7 +7300,7 @@ exports['default'] = {
     classes: function classes() {
       var _ref;
 
-      var prefixCls = this.prefixCls,
+      var customizePrefixCls = this.prefixCls,
           type = this.type,
           shape = this.shape,
           size = this.size,
@@ -6999,17 +7312,24 @@ exports['default'] = {
           icon = this.icon,
           $slots = this.$slots;
 
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('btn', customizePrefixCls);
+      var autoInsertSpace = this.configProvider.autoInsertSpaceInButton !== false;
+
       var sizeCls = sizeMap[size] || '';
+      var iconType = sLoading ? 'loading' : icon;
       var children = (0, _propsUtil.filterEmpty)($slots['default']);
-      return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + type, type), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + shape, shape), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + sizeCls, sizeCls), (0, _defineProperty3['default'])(_ref, prefixCls + '-icon-only', !children && children !== 0 && icon), (0, _defineProperty3['default'])(_ref, prefixCls + '-loading', sLoading), (0, _defineProperty3['default'])(_ref, prefixCls + '-background-ghost', ghost || type === 'ghost'), (0, _defineProperty3['default'])(_ref, prefixCls + '-two-chinese-chars', hasTwoCNChar), (0, _defineProperty3['default'])(_ref, prefixCls + '-block', block), _ref;
+      return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + type, type), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + shape, shape), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + sizeCls, sizeCls), (0, _defineProperty3['default'])(_ref, prefixCls + '-icon-only', children.length === 0 && iconType), (0, _defineProperty3['default'])(_ref, prefixCls + '-loading', sLoading), (0, _defineProperty3['default'])(_ref, prefixCls + '-background-ghost', ghost || type === 'ghost'), (0, _defineProperty3['default'])(_ref, prefixCls + '-two-chinese-chars', hasTwoCNChar && autoInsertSpace), (0, _defineProperty3['default'])(_ref, prefixCls + '-block', block), _ref;
     }
   },
   watch: {
-    loading: function loading(val) {
+    loading: function loading(val, preVal) {
       var _this = this;
 
-      clearTimeout(this.delayTimeout);
-      if (typeof val !== 'boolean' && val && val.delay) {
+      if (preVal && typeof preVal !== 'boolean') {
+        clearTimeout(this.delayTimeout);
+      }
+      if (val && typeof val !== 'boolean' && val.delay) {
         this.delayTimeout = setTimeout(function () {
           _this.sLoading = !!val;
         }, val.delay);
@@ -7081,7 +7401,8 @@ exports['default'] = {
     var _this2 = this;
 
     var h = arguments[0];
-    var htmlType = this.htmlType,
+    var type = this.type,
+        htmlType = this.htmlType,
         classes = this.classes,
         icon = this.icon,
         disabled = this.disabled,
@@ -7105,8 +7426,9 @@ exports['default'] = {
       attrs: { type: iconType }
     }) : null;
     var children = (0, _propsUtil.filterEmpty)($slots['default']);
+    var autoInsertSpace = this.configProvider.autoInsertSpaceInButton !== false;
     var kids = children.map(function (child) {
-      return _this2.insertSpace(child, _this2.isNeedInserted());
+      return _this2.insertSpace(child, _this2.isNeedInserted() && autoInsertSpace);
     });
 
     if ($attrs.href !== undefined) {
@@ -7115,14 +7437,20 @@ exports['default'] = {
         (0, _babelHelperVueJsxMergeProps2['default'])([buttonProps, { ref: 'buttonNode' }]),
         [iconNode, kids]
       );
-    } else {
-      return h(_wave2['default'], [h(
-        'button',
-        (0, _babelHelperVueJsxMergeProps2['default'])([buttonProps, { ref: 'buttonNode', attrs: { type: htmlType || 'button' }
-        }]),
-        [iconNode, kids]
-      )]);
     }
+
+    var buttonNode = h(
+      'button',
+      (0, _babelHelperVueJsxMergeProps2['default'])([buttonProps, { ref: 'buttonNode', attrs: { type: htmlType || 'button' }
+      }]),
+      [iconNode, kids]
+    );
+
+    if (type === 'link') {
+      return buttonNode;
+    }
+
+    return h(_wave2['default'], [buttonNode]);
   }
 };
 
@@ -7150,11 +7478,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 exports['default'] = function () {
   return {
-    prefixCls: _vueTypes2['default'].string.def('ant-btn'),
-    type: _vueTypes2['default'].oneOf(['primary', 'danger', 'dashed', 'ghost', 'default']).def('default'),
+    prefixCls: _vueTypes2['default'].string,
+    type: _vueTypes2['default'].string,
     htmlType: _vueTypes2['default'].oneOf(['button', 'submit', 'reset']).def('button'),
     icon: _vueTypes2['default'].string,
-    shape: _vueTypes2['default'].oneOf(['circle', 'circle-outline']),
+    shape: _vueTypes2['default'].oneOf(['circle', 'circle-outline', 'round']),
     size: _vueTypes2['default'].oneOf(['small', 'large', 'default']).def('default'),
     loading: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].object]),
     disabled: _vueTypes2['default'].bool,
@@ -7187,12 +7515,17 @@ var _buttonGroup = __webpack_require__(/*! ./button-group */ "./node_modules/ant
 
 var _buttonGroup2 = _interopRequireDefault(_buttonGroup);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _button2['default'].Group = _buttonGroup2['default'];
 
 /* istanbul ignore next */
 _button2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_button2['default'].name, _button2['default']);
   Vue.component(_buttonGroup2['default'].name, _buttonGroup2['default']);
 };
@@ -7222,6 +7555,198 @@ var _en_US2 = _interopRequireDefault(_en_US);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = _en_US2['default'];
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/config-provider/index.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/config-provider/index.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.ConfigConsumerProps = undefined;
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _renderEmpty = __webpack_require__(/*! ./renderEmpty */ "./node_modules/ant-design-vue/lib/config-provider/renderEmpty.js");
+
+var _renderEmpty2 = _interopRequireDefault(_renderEmpty);
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function getWatch() {
+  var keys = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+
+  var watch = {};
+  keys.forEach(function (k) {
+    watch[k] = function () {
+      this._proxyVm._data[k] = value;
+    };
+  });
+  return watch;
+}
+
+var ConfigProvider = {
+  name: 'AConfigProvider',
+  props: {
+    getPopupContainer: _vueTypes2['default'].func,
+    prefixCls: _vueTypes2['default'].string,
+    renderEmpty: _vueTypes2['default'].func,
+    csp: _vueTypes2['default'].object,
+    autoInsertSpaceInButton: _vueTypes2['default'].bool
+  },
+  provide: function provide() {
+    var _self = this;
+    this._proxyVm = new _vue2['default']({
+      data: function data() {
+        return (0, _extends3['default'])({}, _self.$props, {
+          getPrefixCls: _self.getPrefixCls,
+          renderEmpty: _self.renderEmptyComponent
+        });
+      }
+    });
+    return {
+      configProvider: this._proxyVm._data
+    };
+  },
+
+  watch: (0, _extends3['default'])({}, getWatch(['prefixCls', 'csp', 'autoInsertSpaceInButton'])),
+  methods: {
+    renderEmptyComponent: function renderEmptyComponent(h, name) {
+      var renderEmpty = (0, _propsUtil.getComponentFromProp)(this, 'renderEmpty', {}, false) || _renderEmpty2['default'];
+      return renderEmpty(h, name);
+    },
+    getPrefixCls: function getPrefixCls(suffixCls, customizePrefixCls) {
+      var _$props$prefixCls = this.$props.prefixCls,
+          prefixCls = _$props$prefixCls === undefined ? 'ant' : _$props$prefixCls;
+
+      if (customizePrefixCls) return customizePrefixCls;
+      return suffixCls ? prefixCls + '-' + suffixCls : prefixCls;
+    }
+  },
+  render: function render() {
+    return this.$slots['default'] ? (0, _propsUtil.filterEmpty)(this.$slots['default']) : null;
+  }
+};
+
+var ConfigConsumerProps = exports.ConfigConsumerProps = {
+  getPrefixCls: function getPrefixCls(suffixCls, customizePrefixCls) {
+    if (customizePrefixCls) return customizePrefixCls;
+    return 'ant-' + suffixCls;
+  },
+  renderEmpty: _renderEmpty2['default']
+};
+
+/* istanbul ignore next */
+ConfigProvider.install = function (Vue) {
+  Vue.use(_base2['default']);
+  Vue.component(ConfigProvider.name, ConfigProvider);
+};
+
+exports['default'] = ConfigProvider;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/config-provider/renderEmpty.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/config-provider/renderEmpty.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _empty = __webpack_require__(/*! ../empty */ "./node_modules/ant-design-vue/lib/empty/index.js");
+
+var _empty2 = _interopRequireDefault(_empty);
+
+var _ = __webpack_require__(/*! ./ */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/* babel-plugin-inline-import './empty.svg' */var emptyImg = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNDEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCAxKSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgIDxlbGxpcHNlIGZpbGw9IiNGNUY1RjUiIGN4PSIzMiIgY3k9IjMzIiByeD0iMzIiIHJ5PSI3Ii8+CiAgICA8ZyBmaWxsLXJ1bGU9Im5vbnplcm8iIHN0cm9rZT0iI0Q5RDlEOSI+CiAgICAgIDxwYXRoIGQ9Ik01NSAxMi43Nkw0NC44NTQgMS4yNThDNDQuMzY3LjQ3NCA0My42NTYgMCA0Mi45MDcgMEgyMS4wOTNjLS43NDkgMC0xLjQ2LjQ3NC0xLjk0NyAxLjI1N0w5IDEyLjc2MVYyMmg0NnYtOS4yNHoiLz4KICAgICAgPHBhdGggZD0iTTQxLjYxMyAxNS45MzFjMC0xLjYwNS45OTQtMi45MyAyLjIyNy0yLjkzMUg1NXYxOC4xMzdDNTUgMzMuMjYgNTMuNjggMzUgNTIuMDUgMzVoLTQwLjFDMTAuMzIgMzUgOSAzMy4yNTkgOSAzMS4xMzdWMTNoMTEuMTZjMS4yMzMgMCAyLjIyNyAxLjMyMyAyLjIyNyAyLjkyOHYuMDIyYzAgMS42MDUgMS4wMDUgMi45MDEgMi4yMzcgMi45MDFoMTQuNzUyYzEuMjMyIDAgMi4yMzctMS4zMDggMi4yMzctMi45MTN2LS4wMDd6IiBmaWxsPSIjRkFGQUZBIi8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K';
+
+
+var RenderEmpty = {
+  functional: true,
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _.ConfigConsumerProps;
+      } }
+  },
+  props: {
+    componentName: _vueTypes2['default'].string
+  },
+  render: function render(createElement, context) {
+    var h = arguments[0];
+    var props = context.props,
+        injections = context.injections;
+
+    function renderHtml(componentName) {
+      var getPrefixCls = injections.configProvider.getPrefixCls;
+      var prefix = getPrefixCls('empty');
+      switch (componentName) {
+        case 'Table':
+        case 'List':
+          return h(_empty2['default'], {
+            attrs: { image: emptyImg },
+            'class': prefix + '-normal' });
+
+        case 'Select':
+        case 'TreeSelect':
+        case 'Cascader':
+        case 'Transfer':
+          return h(_empty2['default'], {
+            attrs: { image: emptyImg },
+            'class': prefix + '-small' });
+
+        default:
+          return h(_empty2['default']);
+      }
+    }
+    return renderHtml(props.componentName);
+  }
+};
+
+function renderEmpty(h, componentName) {
+  return h(RenderEmpty, {
+    attrs: { componentName: componentName }
+  });
+}
+
+exports['default'] = renderEmpty;
 
 /***/ }),
 
@@ -7285,10 +7810,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DropdownButtonProps = undefined;
 
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
-
 var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
@@ -7321,6 +7842,8 @@ var _getDropdownProps = __webpack_require__(/*! ./getDropdownProps */ "./node_mo
 
 var _getDropdownProps2 = _interopRequireDefault(_getDropdownProps);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var ButtonTypesProps = (0, _buttonTypes2['default'])();
@@ -7328,9 +7851,11 @@ var DropdownProps = (0, _getDropdownProps2['default'])();
 var ButtonGroup = _button2['default'].Group;
 var DropdownButtonProps = (0, _extends3['default'])({}, _buttonGroup.ButtonGroupProps, DropdownProps, {
   type: _vueTypes2['default'].oneOf(['primary', 'ghost', 'dashed', 'danger', 'default']).def('default'),
+  size: _vueTypes2['default'].oneOf(['small', 'large', 'default']).def('default'),
   htmlType: ButtonTypesProps.htmlType,
+  href: _vueTypes2['default'].string,
   disabled: _vueTypes2['default'].bool,
-  prefixCls: _vueTypes2['default'].string.def('ant-dropdown-button'),
+  prefixCls: _vueTypes2['default'].string,
   placement: DropdownProps.placement.def('bottomRight')
 });
 exports.DropdownButtonProps = DropdownButtonProps;
@@ -7349,7 +7874,7 @@ exports['default'] = {
 
   inject: {
     configProvider: { 'default': function _default() {
-        return {};
+        return _configProvider.ConfigConsumerProps;
       } }
   },
   methods: {
@@ -7369,15 +7894,18 @@ exports['default'] = {
         type = _$props.type,
         disabled = _$props.disabled,
         htmlType = _$props.htmlType,
-        prefixCls = _$props.prefixCls,
+        customizePrefixCls = _$props.prefixCls,
         trigger = _$props.trigger,
         align = _$props.align,
         visible = _$props.visible,
         placement = _$props.placement,
         getPopupContainer = _$props.getPopupContainer,
-        restProps = (0, _objectWithoutProperties3['default'])(_$props, ['type', 'disabled', 'htmlType', 'prefixCls', 'trigger', 'align', 'visible', 'placement', 'getPopupContainer']);
+        href = _$props.href,
+        restProps = (0, _objectWithoutProperties3['default'])(_$props, ['type', 'disabled', 'htmlType', 'prefixCls', 'trigger', 'align', 'visible', 'placement', 'getPopupContainer', 'href']);
     var getContextPopupContainer = this.configProvider.getPopupContainer;
 
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('dropdown-button', customizePrefixCls);
     var dropdownProps = {
       props: {
         align: align,
@@ -7394,13 +7922,24 @@ exports['default'] = {
       dropdownProps.props.visible = visible;
     }
 
+    var buttonGroupProps = {
+      props: (0, _extends3['default'])({}, restProps),
+      'class': prefixCls
+    };
+
     return h(
       ButtonGroup,
-      (0, _babelHelperVueJsxMergeProps2['default'])([restProps, { 'class': prefixCls }]),
+      buttonGroupProps,
       [h(
         _button2['default'],
         {
-          attrs: { type: type, disabled: disabled, htmlType: htmlType },
+          attrs: {
+            type: type,
+            disabled: disabled,
+
+            htmlType: htmlType,
+            href: href
+          },
           on: {
             'click': this.onClick
           }
@@ -7462,6 +8001,8 @@ var _getDropdownProps = __webpack_require__(/*! ./getDropdownProps */ "./node_mo
 
 var _getDropdownProps2 = _interopRequireDefault(_getDropdownProps);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
 
 var _icon2 = _interopRequireDefault(_icon);
@@ -7472,7 +8013,7 @@ var DropdownProps = (0, _getDropdownProps2['default'])();
 var Dropdown = {
   name: 'ADropdown',
   props: (0, _extends3['default'])({}, DropdownProps, {
-    prefixCls: _vueTypes2['default'].string.def('ant-dropdown'),
+    prefixCls: _vueTypes2['default'].string,
     mouseEnterDelay: _vueTypes2['default'].number.def(0.15),
     mouseLeaveDelay: _vueTypes2['default'].number.def(0.1),
     placement: DropdownProps.placement.def('bottomLeft')
@@ -7489,7 +8030,7 @@ var Dropdown = {
 
   inject: {
     configProvider: { 'default': function _default() {
-        return {};
+        return _configProvider.ConfigConsumerProps;
       } }
   },
   methods: {
@@ -7509,6 +8050,39 @@ var Dropdown = {
         return 'slide-down';
       }
       return 'slide-up';
+    },
+    renderOverlay: function renderOverlay(prefixCls) {
+      var h = this.$createElement;
+
+      var overlay = (0, _propsUtil.getComponentFromProp)(this, 'overlay');
+      var overlayNode = Array.isArray(overlay) ? overlay[0] : overlay;
+      // menu cannot be selectable in dropdown defaultly
+      // menu should be focusable in dropdown defaultly
+      var overlayProps = overlayNode && (0, _propsUtil.getPropsData)(overlayNode);
+
+      var _ref = overlayProps || {},
+          _ref$selectable = _ref.selectable,
+          selectable = _ref$selectable === undefined ? false : _ref$selectable,
+          _ref$focusable = _ref.focusable,
+          focusable = _ref$focusable === undefined ? true : _ref$focusable;
+
+      var expandIcon = h(
+        'span',
+        { 'class': prefixCls + '-menu-submenu-arrow' },
+        [h(_icon2['default'], {
+          attrs: { type: 'right' },
+          'class': prefixCls + '-menu-submenu-arrow-icon' })]
+      );
+
+      var fixedModeOverlay = overlayNode && overlayNode.componentOptions ? (0, _vnode.cloneElement)(overlayNode, {
+        props: {
+          mode: 'vertical',
+          selectable: selectable,
+          focusable: focusable,
+          expandIcon: expandIcon
+        }
+      }) : overlay;
+      return fixedModeOverlay;
     }
   },
 
@@ -7518,43 +8092,21 @@ var Dropdown = {
         $listeners = this.$listeners;
 
     var props = (0, _propsUtil.getOptionProps)(this);
-    var prefixCls = props.prefixCls,
+    var customizePrefixCls = props.prefixCls,
         trigger = props.trigger,
         disabled = props.disabled,
         getPopupContainer = props.getPopupContainer;
     var getContextPopupContainer = this.configProvider.getPopupContainer;
 
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('dropdown', customizePrefixCls);
+
     var dropdownTrigger = (0, _vnode.cloneElement)($slots['default'], {
       'class': prefixCls + '-trigger',
-      disabled: disabled
-    });
-    var overlay = this.overlay || $slots.overlay && $slots.overlay[0];
-    // menu cannot be selectable in dropdown defaultly
-    // menu should be focusable in dropdown defaultly
-    var overlayProps = overlay && (0, _propsUtil.getPropsData)(overlay);
-
-    var _ref = overlayProps || {},
-        _ref$selectable = _ref.selectable,
-        selectable = _ref$selectable === undefined ? false : _ref$selectable,
-        _ref$focusable = _ref.focusable,
-        focusable = _ref$focusable === undefined ? true : _ref$focusable;
-
-    var expandIcon = h(
-      'span',
-      { 'class': prefixCls + '-menu-submenu-arrow' },
-      [h(_icon2['default'], {
-        attrs: { type: 'right' },
-        'class': prefixCls + '-menu-submenu-arrow-icon' })]
-    );
-
-    var fixedModeOverlay = overlay && overlay.componentOptions ? (0, _vnode.cloneElement)(overlay, {
       props: {
-        mode: 'vertical',
-        selectable: selectable,
-        focusable: focusable,
-        expandIcon: expandIcon
+        disabled: disabled
       }
-    }) : overlay;
+    });
     var triggerActions = disabled ? [] : trigger;
     var alignPoint = void 0;
     if (triggerActions && triggerActions.indexOf('contextmenu') !== -1) {
@@ -7564,6 +8116,7 @@ var Dropdown = {
       props: (0, _extends3['default'])({
         alignPoint: alignPoint
       }, props, {
+        prefixCls: prefixCls,
         getPopupContainer: getPopupContainer || getContextPopupContainer,
         transitionName: this.getTransitionName(),
         trigger: triggerActions
@@ -7576,7 +8129,7 @@ var Dropdown = {
       [dropdownTrigger, h(
         'template',
         { slot: 'overlay' },
-        [fixedModeOverlay]
+        [this.renderOverlay(prefixCls)]
       )]
     );
   }
@@ -7624,6 +8177,7 @@ exports['default'] = function () {
     forceRender: _vueTypes2['default'].bool,
     mouseEnterDelay: _vueTypes2['default'].number,
     mouseLeaveDelay: _vueTypes2['default'].number,
+    openClassName: _vueTypes2['default'].string,
     minOverlayWidthMatchTrigger: _vueTypes2['default'].bool
   };
 };
@@ -7667,17 +8221,149 @@ var _dropdown2 = _interopRequireDefault(_dropdown);
 
 var _dropdownButton2 = _interopRequireDefault(_dropdownButton);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _dropdown2['default'].Button = _dropdownButton2['default'];
 
 /* istanbul ignore next */
 _dropdown2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_dropdown2['default'].name, _dropdown2['default']);
   Vue.component(_dropdownButton2['default'].name, _dropdownButton2['default']);
 };
 
 exports['default'] = _dropdown2['default'];
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/empty/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/empty/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.EmptyProps = exports.TransferLocale = undefined;
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver */ "./node_modules/ant-design-vue/lib/locale-provider/LocaleReceiver.js");
+
+var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/* babel-plugin-inline-import './empty.svg' */var emptyImg = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTg0IiBoZWlnaHQ9IjE1MiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQgMzEuNjcpIj4KICAgICAgPGVsbGlwc2UgZmlsbC1vcGFjaXR5PSIuOCIgZmlsbD0iI0Y1RjVGNyIgY3g9IjY3Ljc5NyIgY3k9IjEwNi44OSIgcng9IjY3Ljc5NyIgcnk9IjEyLjY2OCIvPgogICAgICA8cGF0aCBkPSJNMTIyLjAzNCA2OS42NzRMOTguMTA5IDQwLjIyOWMtMS4xNDgtMS4zODYtMi44MjYtMi4yMjUtNC41OTMtMi4yMjVoLTUxLjQ0Yy0xLjc2NiAwLTMuNDQ0LjgzOS00LjU5MiAyLjIyNUwxMy41NiA2OS42NzR2MTUuMzgzaDEwOC40NzVWNjkuNjc0eiIgZmlsbD0iI0FFQjhDMiIvPgogICAgICA8cGF0aCBkPSJNMTAxLjUzNyA4Ni4yMTRMODAuNjMgNjEuMTAyYy0xLjAwMS0xLjIwNy0yLjUwNy0xLjg2Ny00LjA0OC0xLjg2N0gzMS43MjRjLTEuNTQgMC0zLjA0Ny42Ni00LjA0OCAxLjg2N0w2Ljc2OSA4Ni4yMTR2MTMuNzkyaDk0Ljc2OFY4Ni4yMTR6IiBmaWxsPSJ1cmwoI2xpbmVhckdyYWRpZW50LTEpIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMy41NikiLz4KICAgICAgPHBhdGggZD0iTTMzLjgzIDBoNjcuOTMzYTQgNCAwIDAgMSA0IDR2OTMuMzQ0YTQgNCAwIDAgMS00IDRIMzMuODNhNCA0IDAgMCAxLTQtNFY0YTQgNCAwIDAgMSA0LTR6IiBmaWxsPSIjRjVGNUY3Ii8+CiAgICAgIDxwYXRoIGQ9Ik00Mi42NzggOS45NTNoNTAuMjM3YTIgMiAwIDAgMSAyIDJWMzYuOTFhMiAyIDAgMCAxLTIgMkg0Mi42NzhhMiAyIDAgMCAxLTItMlYxMS45NTNhMiAyIDAgMCAxIDItMnpNNDIuOTQgNDkuNzY3aDQ5LjcxM2EyLjI2MiAyLjI2MiAwIDEgMSAwIDQuNTI0SDQyLjk0YTIuMjYyIDIuMjYyIDAgMCAxIDAtNC41MjR6TTQyLjk0IDYxLjUzaDQ5LjcxM2EyLjI2MiAyLjI2MiAwIDEgMSAwIDQuNTI1SDQyLjk0YTIuMjYyIDIuMjYyIDAgMCAxIDAtNC41MjV6TTEyMS44MTMgMTA1LjAzMmMtLjc3NSAzLjA3MS0zLjQ5NyA1LjM2LTYuNzM1IDUuMzZIMjAuNTE1Yy0zLjIzOCAwLTUuOTYtMi4yOS02LjczNC01LjM2YTcuMzA5IDcuMzA5IDAgMCAxLS4yMjItMS43OVY2OS42NzVoMjYuMzE4YzIuOTA3IDAgNS4yNSAyLjQ0OCA1LjI1IDUuNDJ2LjA0YzAgMi45NzEgMi4zNyA1LjM3IDUuMjc3IDUuMzdoMzQuNzg1YzIuOTA3IDAgNS4yNzctMi40MjEgNS4yNzctNS4zOTNWNzUuMWMwLTIuOTcyIDIuMzQzLTUuNDI2IDUuMjUtNS40MjZoMjYuMzE4djMzLjU2OWMwIC42MTctLjA3NyAxLjIxNi0uMjIxIDEuNzg5eiIgZmlsbD0iI0RDRTBFNiIvPgogICAgPC9nPgogICAgPHBhdGggZD0iTTE0OS4xMjEgMzMuMjkybC02LjgzIDIuNjVhMSAxIDAgMCAxLTEuMzE3LTEuMjNsMS45MzctNi4yMDdjLTIuNTg5LTIuOTQ0LTQuMTA5LTYuNTM0LTQuMTA5LTEwLjQwOEMxMzguODAyIDguMTAyIDE0OC45MiAwIDE2MS40MDIgMCAxNzMuODgxIDAgMTg0IDguMTAyIDE4NCAxOC4wOTdjMCA5Ljk5NS0xMC4xMTggMTguMDk3LTIyLjU5OSAxOC4wOTctNC41MjggMC04Ljc0NC0xLjA2Ni0xMi4yOC0yLjkwMnoiIGZpbGw9IiNEQ0UwRTYiLz4KICAgIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDE0OS42NSAxNS4zODMpIiBmaWxsPSIjRkZGIj4KICAgICAgPGVsbGlwc2UgY3g9IjIwLjY1NCIgY3k9IjMuMTY3IiByeD0iMi44NDkiIHJ5PSIyLjgxNSIvPgogICAgICA8cGF0aCBkPSJNNS42OTggNS42M0gwTDIuODk4LjcwNHpNOS4yNTkuNzA0aDQuOTg1VjUuNjNIOS4yNTl6Ii8+CiAgICA8L2c+CiAgPC9nPgo8L3N2Zz4K';
+var TransferLocale = exports.TransferLocale = function TransferLocale() {
+  return {
+    description: _vueTypes2['default'].string
+  };
+};
+
+var EmptyProps = exports.EmptyProps = function EmptyProps() {
+  return {
+    prefixCls: _vueTypes2['default'].string,
+    image: _vueTypes2['default'].any,
+    description: _vueTypes2['default'].any
+  };
+};
+
+var Empty = {
+  name: 'AEmpty',
+  props: (0, _extends3['default'])({}, EmptyProps()),
+  methods: {
+    renderEmpty: function renderEmpty(contentLocale) {
+      var h = this.$createElement;
+      var _$props = this.$props,
+          customizePrefixCls = _$props.prefixCls,
+          restProps = (0, _objectWithoutProperties3['default'])(_$props, ['prefixCls']);
+
+      var prefixCls = _configProvider.ConfigConsumerProps.getPrefixCls('empty', customizePrefixCls);
+      var image = (0, _propsUtil.getComponentFromProp)(this, 'image');
+      var description = (0, _propsUtil.getComponentFromProp)(this, 'description');
+
+      var des = description || contentLocale.description;
+      var alt = typeof des === 'string' ? des : 'empty';
+
+      var imageNode = null;
+      if (!image) {
+        imageNode = h('img', {
+          attrs: { alt: alt, src: emptyImg }
+        });
+      } else if (typeof image === 'string') {
+        imageNode = h('img', {
+          attrs: { alt: alt, src: image }
+        });
+      } else {
+        imageNode = image;
+      }
+      return h(
+        'div',
+        (0, _babelHelperVueJsxMergeProps2['default'])([{ 'class': prefixCls }, { on: this.$listeners }]),
+        [h(
+          'div',
+          { 'class': prefixCls + '-image' },
+          [imageNode]
+        ), h(
+          'p',
+          { 'class': prefixCls + '-description' },
+          [des]
+        ), this.$slots['default'] && h(
+          'div',
+          { 'class': prefixCls + '-footer' },
+          [this.$slots['default']]
+        )]
+      );
+    }
+  },
+  render: function render() {
+    var h = arguments[0];
+
+    return h(_LocaleReceiver2['default'], {
+      attrs: { componentName: 'Empty' },
+      scopedSlots: { 'default': this.renderEmpty } });
+  }
+};
+
+/* istanbul ignore next */
+Empty.install = function (Vue) {
+  Vue.use(_base2['default']);
+  Vue.component(Empty.name, Empty);
+};
+
+exports['default'] = Empty;
 
 /***/ }),
 
@@ -7712,6 +8398,8 @@ var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnam
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+var _Col = __webpack_require__(/*! ../grid/Col */ "./node_modules/ant-design-vue/lib/grid/Col.js");
+
 var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
 var _vue2 = _interopRequireDefault(_vue);
@@ -7740,6 +8428,12 @@ var _constants = __webpack_require__(/*! ./constants */ "./node_modules/ant-desi
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var FormCreateOption = exports.FormCreateOption = {
@@ -7747,7 +8441,8 @@ var FormCreateOption = exports.FormCreateOption = {
   onValuesChange: _vueTypes2['default'].func,
   mapPropsToFields: _vueTypes2['default'].func,
   validateMessages: _vueTypes2['default'].any,
-  withRef: _vueTypes2['default'].bool
+  withRef: _vueTypes2['default'].bool,
+  name: _vueTypes2['default'].string
 };
 
 // function create
@@ -7789,12 +8484,15 @@ var WrappedFormUtils = exports.WrappedFormUtils = {
 
 var FormProps = exports.FormProps = {
   layout: _vueTypes2['default'].oneOf(['horizontal', 'inline', 'vertical']),
+  labelCol: _vueTypes2['default'].shape(_Col.ColProps).loose,
+  wrapperCol: _vueTypes2['default'].shape(_Col.ColProps).loose,
   form: _vueTypes2['default'].object,
   // onSubmit: React.FormEventHandler<any>;
   prefixCls: _vueTypes2['default'].string,
   hideRequiredMark: _vueTypes2['default'].bool,
   autoFormCreate: _vueTypes2['default'].func,
-  options: _vueTypes2['default'].object
+  options: _vueTypes2['default'].object,
+  selfUpdate: _vueTypes2['default'].bool
 };
 
 var ValidationRule = exports.ValidationRule = {
@@ -7852,15 +8550,11 @@ var ValidationRule = exports.ValidationRule = {
 var Form = {
   name: 'AForm',
   props: (0, _propsUtil.initDefaultProps)(FormProps, {
-    prefixCls: 'ant-form',
     layout: 'horizontal',
     hideRequiredMark: false
   }),
-
   Item: _FormItem2['default'],
-
   createFormField: _createFormField2['default'],
-
   create: function create() {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -7874,7 +8568,8 @@ var Form = {
   createForm: function createForm(context) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-    return new _vue2['default'](Form.create((0, _extends3['default'])({}, options, { templateContext: context }))());
+    var V = _base2['default'].Vue || _vue2['default'];
+    return new V(Form.create((0, _extends3['default'])({}, options, { templateContext: context }))());
   },
   created: function created() {
     this.formItemContexts = new Map();
@@ -7905,6 +8600,11 @@ var Form = {
     };
   },
 
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   watch: {
     form: function form() {
       this.$forceUpdate();
@@ -7940,7 +8640,7 @@ var Form = {
         _this2 = this;
 
     var h = arguments[0];
-    var prefixCls = this.prefixCls,
+    var customizePrefixCls = this.prefixCls,
         hideRequiredMark = this.hideRequiredMark,
         layout = this.layout,
         onSubmit = this.onSubmit,
@@ -7949,6 +8649,8 @@ var Form = {
         _options = this.options,
         options = _options === undefined ? {} : _options;
 
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('form', customizePrefixCls);
 
     var formClassName = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-horizontal', layout === 'horizontal'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-vertical', layout === 'vertical'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-inline', layout === 'inline'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-hide-required-mark', hideRequiredMark), _classNames));
     if (autoFormCreate) {
@@ -8058,10 +8760,6 @@ var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsum
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _intersperse = __webpack_require__(/*! intersperse */ "./node_modules/intersperse/lib/intersperse.js");
-
-var _intersperse2 = _interopRequireDefault(_intersperse);
-
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
@@ -8104,9 +8802,17 @@ var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/li
 
 var _icon2 = _interopRequireDefault(_icon);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function noop() {}
+
+function intersperseSpace(list) {
+  return list.reduce(function (current, item) {
+    return [].concat((0, _toConsumableArray3['default'])(current), [' ', item]);
+  }, []).slice(1);
+}
 var FormItemProps = exports.FormItemProps = {
   id: _vueTypes2['default'].string,
   prefixCls: _vueTypes2['default'].string,
@@ -8120,7 +8826,8 @@ var FormItemProps = exports.FormItemProps = {
   required: _vueTypes2['default'].bool,
   colon: _vueTypes2['default'].bool,
   fieldDecoratorId: _vueTypes2['default'].string,
-  fieldDecoratorOptions: _vueTypes2['default'].object
+  fieldDecoratorOptions: _vueTypes2['default'].object,
+  selfUpdate: _vueTypes2['default'].bool
 };
 function comeFromSlot() {
   var vnodes = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -8132,7 +8839,8 @@ function comeFromSlot() {
     if (vnode && (vnode === itemVnode || vnode.$vnode === itemVnode)) {
       isSlot = true;
     } else {
-      var children = vnode.componentOptions ? vnode.componentOptions.children : vnode.children;
+      var componentOptions = vnode.componentOptions || vnode.$vnode && vnode.$vnode.componentOptions;
+      var children = componentOptions ? componentOptions.children : vnode.$children;
       isSlot = comeFromSlot(children, itemVnode);
     }
     if (isSlot) {
@@ -8148,7 +8856,6 @@ exports['default'] = {
   mixins: [_BaseMixin2['default']],
   props: (0, _propsUtil.initDefaultProps)(FormItemProps, {
     hasFeedback: false,
-    prefixCls: 'ant-form',
     colon: true
   }),
   inject: {
@@ -8160,10 +8867,19 @@ exports['default'] = {
       } },
     collectFormItemContext: { 'default': function _default() {
         return noop;
+      } },
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
       } }
   },
   data: function data() {
     return { helpShow: false };
+  },
+
+  computed: {
+    itemSelfUpdate: function itemSelfUpdate() {
+      return !!(this.selfUpdate === undefined ? this.FormProps.selfUpdate : this.selfUpdate);
+    }
   },
   created: function created() {
     this.collectContext();
@@ -8177,7 +8893,11 @@ exports['default'] = {
     this.collectFormItemContext(this.$vnode.context, 'delete');
   },
   mounted: function mounted() {
-    (0, _warning2['default'])(this.getControls(this.slotDefault, true).length <= 1, '`Form.Item` cannot generate `validateStatus` and `help` automatically, ' + 'while there are more than one `getFieldDecorator` in it.');
+    var _$props = this.$props,
+        help = _$props.help,
+        validateStatus = _$props.validateStatus;
+
+    (0, _warning2['default'])(this.getControls(this.slotDefault, true).length <= 1 || help !== undefined || validateStatus !== undefined, '`Form.Item` cannot generate `validateStatus` and `help` automatically, ' + 'while there are more than one `getFieldDecorator` in it.');
     (0, _warning2['default'])(!this.fieldDecoratorId, '`fieldDecoratorId` is deprecated. please use `v-decorator={id, options}` instead.');
   },
 
@@ -8207,9 +8927,15 @@ exports['default'] = {
       if (help === undefined && onlyControl) {
         var errors = this.getField().errors;
         if (errors) {
-          return (0, _intersperse2['default'])(errors.map(function (e, index) {
-            return (0, _propsUtil.isValidElement)(e.message) ? (0, _vnode.cloneElement)(e.message, { key: index }) : e.message;
-          }), ' ');
+          return intersperseSpace(errors.map(function (e, index) {
+            var node = null;
+            if ((0, _propsUtil.isValidElement)(e)) {
+              node = e;
+            } else if ((0, _propsUtil.isValidElement)(e.message)) {
+              node = e.message;
+            }
+            return node ? (0, _vnode.cloneElement)(node, { key: index }) : e.message;
+          }));
         } else {
           return '';
         }
@@ -8278,12 +9004,11 @@ exports['default'] = {
         this.$forceUpdate();
       }
     },
-    renderHelp: function renderHelp() {
+    renderHelp: function renderHelp(prefixCls) {
       var _this = this;
 
       var h = this.$createElement;
 
-      var prefixCls = this.prefixCls;
       var help = this.getHelpMessage();
       var children = help ? h(
         'div',
@@ -8307,9 +9032,8 @@ exports['default'] = {
         [children]
       );
     },
-    renderExtra: function renderExtra() {
+    renderExtra: function renderExtra(prefixCls) {
       var h = this.$createElement;
-      var prefixCls = this.prefixCls;
 
       var extra = (0, _propsUtil.getComponentFromProp)(this, 'extra');
       return extra ? h(
@@ -8336,16 +9060,16 @@ exports['default'] = {
       }
       return '';
     },
-    renderValidateWrapper: function renderValidateWrapper(c1, c2, c3) {
+    renderValidateWrapper: function renderValidateWrapper(prefixCls, c1, c2, c3) {
       var h = this.$createElement;
 
       var props = this.$props;
       var onlyControl = this.getOnlyControl;
       var validateStatus = props.validateStatus === undefined && onlyControl ? this.getValidateStatus() : props.validateStatus;
 
-      var classes = props.prefixCls + '-item-control';
+      var classes = prefixCls + '-item-control';
       if (validateStatus) {
-        classes = (0, _classnames2['default'])(props.prefixCls + '-item-control', {
+        classes = (0, _classnames2['default'])(prefixCls + '-item-control', {
           'has-feedback': props.hasFeedback || validateStatus === 'validating',
           'has-success': validateStatus === 'success',
           'has-warning': validateStatus === 'warning',
@@ -8373,7 +9097,7 @@ exports['default'] = {
       }
       var icon = props.hasFeedback && iconType ? h(
         'span',
-        { 'class': props.prefixCls + '-item-children-icon' },
+        { 'class': prefixCls + '-item-children-icon' },
         [h(_icon2['default'], {
           attrs: { type: iconType, theme: iconType === 'loading' ? 'outlined' : 'filled' }
         })]
@@ -8383,16 +9107,19 @@ exports['default'] = {
         { 'class': classes },
         [h(
           'span',
-          { 'class': props.prefixCls + '-item-children' },
+          { 'class': prefixCls + '-item-children' },
           [c1, icon]
         ), c2, c3]
       );
     },
-    renderWrapper: function renderWrapper(children) {
+    renderWrapper: function renderWrapper(prefixCls, children) {
       var h = this.$createElement;
-      var prefixCls = this.prefixCls,
-          _wrapperCol = this.wrapperCol,
-          wrapperCol = _wrapperCol === undefined ? {} : _wrapperCol;
+      var _FormProps = this.FormProps;
+      _FormProps = _FormProps === undefined ? {} : _FormProps;
+      var _FormProps$wrapperCol = _FormProps.wrapperCol,
+          wrapperColForm = _FormProps$wrapperCol === undefined ? {} : _FormProps$wrapperCol;
+      var _wrapperCol = this.wrapperCol,
+          wrapperCol = _wrapperCol === undefined ? wrapperColForm : _wrapperCol;
       var cls = wrapperCol['class'],
           style = wrapperCol.style,
           id = wrapperCol.id,
@@ -8444,24 +9171,27 @@ exports['default'] = {
       if (!id) {
         return;
       }
-      var controls = document.querySelectorAll('[id="' + id + '"]');
-      if (controls.length !== 1) {
+      var formItemNode = this.$el;
+      var control = formItemNode.querySelector('[id="' + id + '"]');
+      if (control) {
         // Only prevent in default situation
         // Avoid preventing event in `label={<a href="xx">link</a>}``
         if (typeof label === 'string') {
           e.preventDefault();
         }
-        var control = this.$el.querySelector('[id="' + id + '"]');
-        if (control && control.focus) {
+        if (control.focus) {
           control.focus();
         }
       }
     },
-    renderLabel: function renderLabel() {
+    renderLabel: function renderLabel(prefixCls) {
       var h = this.$createElement;
-      var prefixCls = this.prefixCls,
-          _labelCol = this.labelCol,
-          labelCol = _labelCol === undefined ? {} : _labelCol,
+      var _FormProps2 = this.FormProps;
+      _FormProps2 = _FormProps2 === undefined ? {} : _FormProps2;
+      var _FormProps2$labelCol = _FormProps2.labelCol,
+          labelColForm = _FormProps2$labelCol === undefined ? {} : _FormProps2$labelCol;
+      var _labelCol = this.labelCol,
+          labelCol = _labelCol === undefined ? labelColForm : _labelCol,
           colon = this.colon,
           id = this.id;
 
@@ -8511,17 +9241,21 @@ exports['default'] = {
         )]
       ) : null;
     },
-    renderChildren: function renderChildren() {
-      return [this.renderLabel(), this.renderWrapper(this.renderValidateWrapper(this.slotDefault, this.renderHelp(), this.renderExtra()))];
+    renderChildren: function renderChildren(prefixCls) {
+      return [this.renderLabel(prefixCls), this.renderWrapper(prefixCls, this.renderValidateWrapper(prefixCls, this.slotDefault, this.renderHelp(prefixCls), this.renderExtra(prefixCls)))];
     },
-    renderFormItem: function renderFormItem(children) {
+    renderFormItem: function renderFormItem() {
       var _itemClassName;
 
       var h = this.$createElement;
+      var _$props2 = this.$props,
+          customizePrefixCls = _$props2.prefixCls,
+          colon = _$props2.colon;
 
-      var props = this.$props;
-      var prefixCls = props.prefixCls;
-      var itemClassName = (_itemClassName = {}, (0, _defineProperty3['default'])(_itemClassName, prefixCls + '-item', true), (0, _defineProperty3['default'])(_itemClassName, prefixCls + '-item-with-help', this.helpShow), (0, _defineProperty3['default'])(_itemClassName, prefixCls + '-item-no-colon', !props.colon), _itemClassName);
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('form', customizePrefixCls);
+      var children = this.renderChildren(prefixCls);
+      var itemClassName = (_itemClassName = {}, (0, _defineProperty3['default'])(_itemClassName, prefixCls + '-item', true), (0, _defineProperty3['default'])(_itemClassName, prefixCls + '-item-with-help', this.helpShow), (0, _defineProperty3['default'])(_itemClassName, prefixCls + '-item-no-colon', !colon), _itemClassName);
 
       return h(
         _Row2['default'],
@@ -8554,7 +9288,7 @@ exports['default'] = {
         }
         var option = this.decoratorOption(vnode);
         if (option && option[0]) {
-          vnodes[i] = getFieldDecorator(option[0], option[1])(vnode);
+          vnodes[i] = getFieldDecorator(option[0], option[1], this)(vnode);
         }
       }
       return vnodes;
@@ -8572,7 +9306,7 @@ exports['default'] = {
     var child = (0, _propsUtil.filterEmpty)($slots['default'] || []);
     if (decoratorFormProps.form && fieldDecoratorId && child.length) {
       var getFieldDecorator = decoratorFormProps.form.getFieldDecorator;
-      child[0] = getFieldDecorator(fieldDecoratorId, fieldDecoratorOptions)(child[0]);
+      child[0] = getFieldDecorator(fieldDecoratorId, fieldDecoratorOptions, this)(child[0]);
       (0, _warning2['default'])(!(child.length > 1), '`autoFormCreate` just `decorator` then first children. but you can use JSX to support multiple children');
       this.slotDefault = child;
     } else if (FormProps.form) {
@@ -8581,9 +9315,7 @@ exports['default'] = {
     } else {
       this.slotDefault = child;
     }
-
-    var children = this.renderChildren();
-    return this.renderFormItem(children);
+    return this.renderFormItem();
   }
 };
 
@@ -8666,6 +9398,10 @@ var _FormDecoratorDirective = __webpack_require__(/*! ../_util/FormDecoratorDire
 
 var _FormDecoratorDirective2 = _interopRequireDefault(_FormDecoratorDirective);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' });
@@ -8674,6 +9410,7 @@ _vue2['default'].prototype.$form = _Form2['default'];
 
 /* istanbul ignore next */
 _Form2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Form2['default'].name, _Form2['default']);
   Vue.component(_Form2['default'].Item.name, _Form2['default'].Item);
   Vue.prototype.$form = _Form2['default'];
@@ -8714,6 +9451,8 @@ var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/an
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var stringOrNumber = _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]);
@@ -8726,7 +9465,7 @@ var ColSize = exports.ColSize = _vueTypes2['default'].shape({
   pull: stringOrNumber
 }).loose;
 
-var objectOrNumber = _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, ColSize]);
+var objectOrNumber = _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number, ColSize]);
 
 var ColProps = exports.ColProps = {
   span: stringOrNumber,
@@ -8747,6 +9486,9 @@ exports['default'] = {
   name: 'ACol',
   props: ColProps,
   inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } },
     rowContext: {
       'default': function _default() {
         return null;
@@ -8763,12 +9505,14 @@ exports['default'] = {
         offset = this.offset,
         push = this.push,
         pull = this.pull,
-        _prefixCls = this.prefixCls,
-        prefixCls = _prefixCls === undefined ? 'ant-col' : _prefixCls,
+        customizePrefixCls = this.prefixCls,
         $slots = this.$slots,
         $attrs = this.$attrs,
         $listeners = this.$listeners,
         rowContext = this.rowContext;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('col', customizePrefixCls);
 
     var sizeClassObj = {};
     ['xs', 'sm', 'md', 'lg', 'xl', 'xxl'].forEach(function (size) {
@@ -8843,6 +9587,8 @@ var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/a
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 // matchMedia polyfill for
@@ -8899,6 +9645,12 @@ exports['default'] = {
     return {
       rowContext: this
     };
+  },
+
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   data: function data() {
     return {
@@ -8966,9 +9718,11 @@ exports['default'] = {
     var type = this.type,
         justify = this.justify,
         align = this.align,
-        _prefixCls = this.prefixCls,
-        prefixCls = _prefixCls === undefined ? 'ant-row' : _prefixCls,
+        customizePrefixCls = this.prefixCls,
         $slots = this.$slots;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('row', customizePrefixCls);
 
     var gutter = this.getGutter();
     var classes = (_classes = {}, (0, _defineProperty3['default'])(_classes, prefixCls, !type), (0, _defineProperty3['default'])(_classes, prefixCls + '-' + type, type), (0, _defineProperty3['default'])(_classes, prefixCls + '-' + type + '-' + justify, type && justify), (0, _defineProperty3['default'])(_classes, prefixCls + '-' + type + '-' + align, type && align), _classes);
@@ -9085,6 +9839,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
 var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
 
 var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
@@ -9127,9 +9885,17 @@ var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-d
 
 var _warning2 = _interopRequireDefault(_warning);
 
+var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver */ "./node_modules/ant-design-vue/lib/locale-provider/LocaleReceiver.js");
+
+var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
+
 var _twoTonePrimaryColor = __webpack_require__(/*! ./twoTonePrimaryColor */ "./node_modules/ant-design-vue/lib/icon/twoTonePrimaryColor.js");
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
@@ -9143,102 +9909,137 @@ _iconsVue2['default'].add.apply(_iconsVue2['default'], (0, _toConsumableArray3['
 var defaultTheme = 'outlined';
 var dangerousTheme = void 0;
 
+function renderIcon(h, locale, context) {
+  var _extends2;
+
+  var props = context.props,
+      slots = context.slots,
+      listeners = context.listeners,
+      data = context.data;
+  var type = props.type,
+      Component = props.component,
+      viewBox = props.viewBox,
+      spin = props.spin,
+      theme = props.theme,
+      twoToneColor = props.twoToneColor,
+      rotate = props.rotate,
+      tabIndex = props.tabIndex;
+
+  var slotsMap = slots();
+  var children = (0, _propsUtil.filterEmpty)(slotsMap['default']);
+  children = children.length === 0 ? undefined : children;
+  (0, _warning2['default'])(Boolean(type || Component || children), 'Icon should have `type` prop or `component` prop or `children`.');
+
+  var classString = (0, _classnames2['default'])((0, _extends4['default'])({}, (0, _propsUtil.getClass)(context), (_extends2 = {}, (0, _defineProperty3['default'])(_extends2, 'anticon', true), (0, _defineProperty3['default'])(_extends2, 'anticon-' + type, !!type), _extends2)));
+
+  var svgClassString = (0, _classnames2['default'])((0, _defineProperty3['default'])({}, 'anticon-spin', !!spin || type === 'loading'));
+
+  var svgStyle = rotate ? {
+    msTransform: 'rotate(' + rotate + 'deg)',
+    transform: 'rotate(' + rotate + 'deg)'
+  } : undefined;
+
+  var innerNode = void 0;
+
+  // component > children > type
+  if (Component) {
+    var innerSvgProps = {
+      attrs: (0, _extends4['default'])({}, _utils.svgBaseProps, {
+        viewBox: viewBox
+      }),
+      'class': svgClassString,
+      style: svgStyle
+    };
+    if (!viewBox) {
+      delete innerSvgProps.attrs.viewBox;
+    }
+
+    innerNode = h(
+      Component,
+      innerSvgProps,
+      [children]
+    );
+  }
+  if (children) {
+    (0, _warning2['default'])(Boolean(viewBox) || children.length === 1 && children[0].tag === 'use', 'Make sure that you provide correct `viewBox`' + ' prop (default `0 0 1024 1024`) to the icon.');
+    var _innerSvgProps = {
+      attrs: (0, _extends4['default'])({}, _utils.svgBaseProps),
+      'class': svgClassString,
+      style: svgStyle
+    };
+    innerNode = h(
+      'svg',
+      (0, _babelHelperVueJsxMergeProps2['default'])([_innerSvgProps, {
+        attrs: { viewBox: viewBox }
+      }]),
+      [children]
+    );
+  }
+
+  if (typeof type === 'string') {
+    var computedType = type;
+    if (theme) {
+      var themeInName = (0, _utils.getThemeFromTypeName)(type);
+      (0, _warning2['default'])(!themeInName || theme === themeInName, 'The icon name \'' + type + '\' already specify a theme \'' + themeInName + '\',' + (' the \'theme\' prop \'' + theme + '\' will be ignored.'));
+    }
+    computedType = (0, _utils.withThemeSuffix)((0, _utils.removeTypeTheme)((0, _utils.alias)(computedType)), dangerousTheme || theme || defaultTheme);
+    innerNode = h(_iconsVue2['default'], {
+      attrs: {
+        focusable: 'false',
+
+        type: computedType,
+        primaryColor: twoToneColor
+      },
+      'class': svgClassString, style: svgStyle
+    });
+  }
+  var iconTabIndex = tabIndex;
+  if (iconTabIndex === undefined && 'click' in listeners) {
+    iconTabIndex = -1;
+  }
+  var attrs = data.attrs,
+      restDataProps = (0, _objectWithoutProperties3['default'])(data, ['attrs']);
+  // functional component not support nativeOn，https://github.com/vuejs/vue/issues/7526
+
+  var iProps = (0, _extends4['default'])({}, restDataProps, {
+    attrs: (0, _extends4['default'])({}, attrs, {
+      'aria-label': type && locale.icon + ': ' + type,
+      tabIndex: iconTabIndex
+    }),
+    on: (0, _extends4['default'])({}, listeners, data.nativeOn),
+    'class': classString,
+    staticClass: ''
+  });
+  return h(
+    'i',
+    iProps,
+    [innerNode]
+  );
+}
+
 var Icon = {
   functional: true,
   name: 'AIcon',
   props: {
+    tabIndex: _vueTypes2['default'].number,
     type: _vueTypes2['default'].string,
     component: _vueTypes2['default'].any,
     viewBox: _vueTypes2['default'].any,
     spin: _vueTypes2['default'].bool.def(false),
+    rotate: _vueTypes2['default'].number,
     theme: _vueTypes2['default'].oneOf(['filled', 'outlined', 'twoTone']),
-    twoToneColor: _vueTypes2['default'].string
+    twoToneColor: _vueTypes2['default'].string,
+    role: _vueTypes2['default'].string
   },
   render: function render(h, context) {
-    var _extends2;
-
-    var props = context.props,
-        slots = context.slots,
-        listeners = context.listeners,
-        data = context.data;
-    var type = props.type,
-        Component = props.component,
-        viewBox = props.viewBox,
-        spin = props.spin,
-        theme = props.theme,
-        twoToneColor = props.twoToneColor;
-
-    var slotsMap = slots();
-    var children = (0, _propsUtil.filterEmpty)(slotsMap['default']);
-    children = children.length === 0 ? undefined : children;
-    (0, _warning2['default'])(Boolean(type || Component || children), 'Icon should have `type` prop or `component` prop or `children`.');
-
-    var classString = (0, _classnames2['default'])((0, _extends4['default'])({}, (0, _propsUtil.getClass)(context), (_extends2 = {}, (0, _defineProperty3['default'])(_extends2, 'anticon', true), (0, _defineProperty3['default'])(_extends2, 'anticon-' + type, !!type), _extends2)));
-
-    var svgClassString = (0, _classnames2['default'])((0, _defineProperty3['default'])({}, 'anticon-spin', !!spin || type === 'loading'));
-
-    var innerNode = void 0;
-
-    // component > children > type
-    if (Component) {
-      var innerSvgProps = {
-        attrs: (0, _extends4['default'])({}, _utils.svgBaseProps, {
-          viewBox: viewBox
-        }),
-        'class': svgClassString
-      };
-      if (!viewBox) {
-        delete innerSvgProps.attrs.viewBox;
-      }
-
-      innerNode = h(
-        Component,
-        innerSvgProps,
-        [children]
-      );
-    }
-    if (children) {
-      (0, _warning2['default'])(Boolean(viewBox) || children.length === 1 && children[0].tag === 'use', 'Make sure that you provide correct `viewBox`' + ' prop (default `0 0 1024 1024`) to the icon.');
-      var _innerSvgProps = {
-        attrs: (0, _extends4['default'])({}, _utils.svgBaseProps),
-        'class': svgClassString
-      };
-      innerNode = h(
-        'svg',
-        (0, _babelHelperVueJsxMergeProps2['default'])([_innerSvgProps, {
-          attrs: { viewBox: viewBox }
-        }]),
-        [children]
-      );
-    }
-
-    if (typeof type === 'string') {
-      var computedType = type;
-      if (theme) {
-        var themeInName = (0, _utils.getThemeFromTypeName)(type);
-        (0, _warning2['default'])(!themeInName || theme === themeInName, 'The icon name \'' + type + '\' already specify a theme \'' + themeInName + '\',' + (' the \'theme\' prop \'' + theme + '\' will be ignored.'));
-      }
-      computedType = (0, _utils.withThemeSuffix)((0, _utils.removeTypeTheme)((0, _utils.alias)(computedType)), dangerousTheme || theme || defaultTheme);
-      innerNode = h(_iconsVue2['default'], {
-        attrs: {
-          focusable: 'false',
-
-          type: computedType,
-          primaryColor: twoToneColor
-        },
-        'class': svgClassString });
-    }
-    // functional component not support nativeOn，https://github.com/vuejs/vue/issues/7526
-    var iProps = (0, _extends4['default'])({}, data, {
-      on: (0, _extends4['default'])({}, listeners, data.nativeOn),
-      'class': classString,
-      staticClass: ''
+    return h(_LocaleReceiver2['default'], {
+      attrs: {
+        componentName: 'Icon'
+      },
+      scopedSlots: { 'default': function _default(locale) {
+          return renderIcon(h, locale, context);
+        } }
     });
-    return h(
-      'i',
-      iProps,
-      [innerNode]
-    );
   }
 };
 
@@ -9248,6 +10049,7 @@ Icon.setTwoToneColor = _twoTonePrimaryColor.setTwoToneColor;
 
 /* istanbul ignore next */
 Icon.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(Icon.name, Icon);
 };
 
@@ -9412,6 +10214,8 @@ var _isNumeric = __webpack_require__(/*! ../_util/isNumeric */ "./node_modules/a
 
 var _isNumeric2 = _interopRequireDefault(_isNumeric);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 // matchMedia polyfill for
@@ -9482,14 +10286,12 @@ exports['default'] = {
     event: 'collapse'
   },
   props: (0, _propsUtil.initDefaultProps)(SiderProps, {
-    prefixCls: 'ant-layout-sider',
     collapsible: false,
     defaultCollapsed: false,
     reverseArrow: false,
     width: 200,
     collapsedWidth: 80
   }),
-
   data: function data() {
     this.uniqueId = generateId('ant-sider-');
     var matchMedia = void 0;
@@ -9521,6 +10323,9 @@ exports['default'] = {
   inject: {
     siderHook: { 'default': function _default() {
         return {};
+      } },
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
       } }
   },
   // getChildContext() {
@@ -9592,12 +10397,15 @@ exports['default'] = {
     var h = arguments[0];
 
     var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-        prefixCls = _getOptionProps.prefixCls,
+        customizePrefixCls = _getOptionProps.prefixCls,
         theme = _getOptionProps.theme,
         collapsible = _getOptionProps.collapsible,
         reverseArrow = _getOptionProps.reverseArrow,
         width = _getOptionProps.width,
         collapsedWidth = _getOptionProps.collapsedWidth;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('layout-sider', customizePrefixCls);
 
     var trigger = (0, _propsUtil.getComponentFromProp)(this, 'trigger');
     var rawWidth = this.sCollapsed ? collapsedWidth : width;
@@ -9610,7 +10418,9 @@ exports['default'] = {
         on: {
           'click': this.toggle
         },
-        'class': prefixCls + '-zero-width-trigger' },
+
+        'class': prefixCls + '-zero-width-trigger ' + prefixCls + '-zero-width-trigger-' + (reverseArrow ? 'right' : 'left')
+      },
       [h(_icon2['default'], {
         attrs: { type: 'bars' }
       })]
@@ -9686,12 +10496,17 @@ var _Sider = __webpack_require__(/*! ./Sider */ "./node_modules/ant-design-vue/l
 
 var _Sider2 = _interopRequireDefault(_Sider);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _layout2['default'].Sider = _Sider2['default'];
 
 /* istanbul ignore next */
 _layout2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_layout2['default'].name, _layout2['default']);
   Vue.component(_layout2['default'].Header.name, _layout2['default'].Header);
   Vue.component(_layout2['default'].Footer.name, _layout2['default'].Footer);
@@ -9739,6 +10554,8 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var BasicProps = exports.BasicProps = {
@@ -9751,9 +10568,18 @@ function generator(props, name) {
     return {
       name: name,
       props: BasicComponent.props,
+      inject: {
+        configProvider: { 'default': function _default() {
+            return _configProvider.ConfigConsumerProps;
+          } }
+      },
       render: function render() {
         var h = arguments[0];
-        var prefixCls = props.prefixCls;
+        var suffixCls = props.suffixCls;
+        var customizePrefixCls = this.$props.prefixCls;
+
+        var getPrefixCls = this.configProvider.getPrefixCls;
+        var prefixCls = getPrefixCls(suffixCls, customizePrefixCls);
 
         var basicComponentProps = {
           props: (0, _extends3['default'])({
@@ -9835,19 +10661,19 @@ var BasicLayout = {
 };
 
 var Layout = generator({
-  prefixCls: 'ant-layout'
+  suffixCls: 'layout'
 }, 'ALayout')(BasicLayout);
 
 var Header = generator({
-  prefixCls: 'ant-layout-header'
+  suffixCls: 'layout-header'
 }, 'ALayoutHeader')(Basic);
 
 var Footer = generator({
-  prefixCls: 'ant-layout-footer'
+  suffixCls: 'layout-footer'
 }, 'ALayoutFooter')(Basic);
 
 var Content = generator({
-  prefixCls: 'ant-layout-content'
+  suffixCls: 'layout-content'
 }, 'ALayoutContent')(Basic);
 
 Layout.Header = Header;
@@ -9969,7 +10795,6 @@ exports['default'] = {
   DatePicker: _en_US4['default'],
   TimePicker: _en_US6['default'],
   Calendar: _en_US8['default'],
-  // locales for all comoponents
   global: {
     placeholder: 'Please select'
   },
@@ -9977,7 +10802,6 @@ exports['default'] = {
     filterTitle: 'Filter menu',
     filterConfirm: 'OK',
     filterReset: 'Reset',
-    emptyText: 'No data',
     selectAll: 'Select current page',
     selectInvert: 'Invert current page',
     sortTitle: 'Sort'
@@ -9993,19 +10817,21 @@ exports['default'] = {
   },
   Transfer: {
     titles: ['', ''],
-    notFoundContent: 'Not Found',
     searchPlaceholder: 'Search here',
     itemUnit: 'item',
     itemsUnit: 'items'
-  },
-  Select: {
-    notFoundContent: 'Not Found'
   },
   Upload: {
     uploading: 'Uploading...',
     removeFile: 'Remove file',
     uploadError: 'Upload error',
     previewFile: 'Preview file'
+  },
+  Empty: {
+    description: 'No Data'
+  },
+  Icon: {
+    icon: 'icon'
   }
 };
 
@@ -10166,6 +10992,12 @@ var _commonPropsType = __webpack_require__(/*! ../vc-menu/commonPropsType */ "./
 
 var _commonPropsType2 = _interopRequireDefault(_commonPropsType);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var MenuMode = exports.MenuMode = _vueTypes2['default'].oneOf(['vertical', 'vertical-left', 'vertical-right', 'horizontal', 'inline']);
@@ -10180,7 +11012,7 @@ var menuProps = exports.menuProps = (0, _extends3['default'])({}, _commonPropsTy
   defaultOpenKeys: _vueTypes2['default'].array,
   openAnimation: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].object]),
   openTransitionName: _vueTypes2['default'].string,
-  prefixCls: _vueTypes2['default'].string.def('ant-menu'),
+  prefixCls: _vueTypes2['default'].string,
   multiple: _vueTypes2['default'].bool,
   inlineIndent: _vueTypes2['default'].number.def(24),
   inlineCollapsed: _vueTypes2['default'].bool,
@@ -10207,7 +11039,7 @@ var Menu = {
         return {};
       } },
     configProvider: { 'default': function _default() {
-        return {};
+        return _configProvider.ConfigConsumerProps;
       } }
   },
   model: {
@@ -10376,10 +11208,12 @@ var Menu = {
     var collapsedWidth = layoutSiderContext.collapsedWidth;
     var getContextPopupContainer = this.configProvider.getPopupContainer;
     var _$props2 = this.$props,
-        prefixCls = _$props2.prefixCls,
+        customizePrefixCls = _$props2.prefixCls,
         theme = _$props2.theme,
         getPopupContainer = _$props2.getPopupContainer;
 
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('menu', customizePrefixCls);
     var menuMode = this.getRealMenuMode();
     var menuOpenAnimation = this.getMenuOpenAnimation(menuMode);
 
@@ -10389,7 +11223,8 @@ var Menu = {
       props: (0, _extends3['default'])({}, (0, _omit2['default'])(this.$props, ['inlineCollapsed']), {
         getPopupContainer: getPopupContainer || getContextPopupContainer,
         openKeys: this.sOpenKeys,
-        mode: menuMode
+        mode: menuMode,
+        prefixCls: prefixCls
       }),
       on: (0, _extends3['default'])({}, $listeners, {
         select: this.handleSelect,
@@ -10431,6 +11266,7 @@ var Menu = {
 
 /* istanbul ignore next */
 Menu.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(Menu.name, Menu);
   Vue.component(Menu.Item.name, Menu.Item);
   Vue.component(Menu.SubMenu.name, Menu.SubMenu);
@@ -10724,7 +11560,7 @@ var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _warning = __webpack_require__(/*! warning */ "./node_modules/warning/browser.js");
+var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
 
 var _warning2 = _interopRequireDefault(_warning);
 
@@ -10738,13 +11574,7 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 var _vcSelect = __webpack_require__(/*! ../vc-select */ "./node_modules/ant-design-vue/lib/vc-select/index.js");
 
-var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver */ "./node_modules/ant-design-vue/lib/locale-provider/LocaleReceiver.js");
-
-var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
-
-var _default2 = __webpack_require__(/*! ../locale-provider/default */ "./node_modules/ant-design-vue/lib/locale-provider/default.js");
-
-var _default3 = _interopRequireDefault(_default2);
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
@@ -10753,6 +11583,10 @@ var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/li
 var _icon2 = _interopRequireDefault(_icon);
 
 var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -10788,7 +11622,7 @@ var AbstractSelectProps = function AbstractSelectProps() {
   };
 };
 var Value = _vueTypes2['default'].shape({
-  key: _vueTypes2['default'].string
+  key: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number])
 }).loose;
 
 var SelectValue = _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number, _vueTypes2['default'].arrayOf(_vueTypes2['default'].oneOfType([Value, _vueTypes2['default'].string, _vueTypes2['default'].number])), Value]);
@@ -10802,6 +11636,7 @@ var SelectProps = (0, _extends3['default'])({}, AbstractSelectProps(), {
   firstActiveValue: _vueTypes2['default'].oneOfType([String, _vueTypes2['default'].arrayOf(String)]),
   maxTagCount: _vueTypes2['default'].number,
   maxTagPlaceholder: _vueTypes2['default'].any,
+  maxTagTextLength: _vueTypes2['default'].number,
   dropdownMatchSelectWidth: _vueTypes2['default'].bool,
   optionFilterProp: _vueTypes2['default'].string,
   labelInValue: _vueTypes2['default'].boolean,
@@ -10837,7 +11672,6 @@ var Select = {
   OptGroup: (0, _extends3['default'])({}, _vcSelect.OptGroup, { name: 'ASelectOptGroup' }),
   name: 'ASelect',
   props: (0, _extends3['default'])({}, SelectProps, {
-    prefixCls: _vueTypes2['default'].string.def('ant-select'),
     showSearch: _vueTypes2['default'].bool.def(false),
     transitionName: _vueTypes2['default'].string.def('slide-up'),
     choiceTransitionName: _vueTypes2['default'].string.def('zoom')
@@ -10855,7 +11689,7 @@ var Select = {
 
   inject: {
     configProvider: { 'default': function _default() {
-        return {};
+        return _configProvider.ConfigConsumerProps;
       } }
   },
   created: function created() {
@@ -10872,24 +11706,25 @@ var Select = {
     blur: function blur() {
       this.$refs.vcSelect.blur();
     },
-    getNotFoundContent: function getNotFoundContent(locale) {
+    getNotFoundContent: function getNotFoundContent(renderEmpty) {
+      var h = this.$createElement;
       var notFoundContent = (0, _propsUtil.getComponentFromProp)(this, 'notFoundContent');
-      if (this.isCombobox()) {
-        // AutoComplete don't have notFoundContent defaultly
-        return notFoundContent === undefined ? null : notFoundContent;
+      if (notFoundContent !== undefined) {
+        return notFoundContent;
       }
-      return notFoundContent === undefined ? locale.notFoundContent : notFoundContent;
+      if (this.isCombobox()) {
+        return null;
+      }
+      return renderEmpty(h, 'Select');
     },
     isCombobox: function isCombobox() {
       var mode = this.mode;
 
       return mode === 'combobox' || mode === SECRET_COMBOBOX_MODE_DO_NOT_USE;
     },
-    renderSuffixIcon: function renderSuffixIcon() {
+    renderSuffixIcon: function renderSuffixIcon(prefixCls) {
       var h = this.$createElement;
-      var _$props = this.$props,
-          prefixCls = _$props.prefixCls,
-          loading = _$props.loading;
+      var loading = this.$props.loading;
 
       var suffixIcon = (0, _propsUtil.getComponentFromProp)(this, 'suffixIcon');
       suffixIcon = Array.isArray(suffixIcon) ? suffixIcon[0] : suffixIcon;
@@ -10904,109 +11739,103 @@ var Select = {
       return h(_icon2['default'], {
         attrs: { type: 'down' },
         'class': prefixCls + '-arrow-icon' });
-    },
-    renderSelect: function renderSelect(locale) {
-      var _cls;
-
-      var h = this.$createElement;
-
-      var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-          prefixCls = _getOptionProps.prefixCls,
-          size = _getOptionProps.size,
-          mode = _getOptionProps.mode,
-          options = _getOptionProps.options,
-          getPopupContainer = _getOptionProps.getPopupContainer,
-          restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'size', 'mode', 'options', 'getPopupContainer']);
-
-      var getContextPopupContainer = this.configProvider.getPopupContainer;
-
-      var removeIcon = (0, _propsUtil.getComponentFromProp)(this, 'removeIcon');
-      removeIcon = Array.isArray(removeIcon) ? removeIcon[0] : removeIcon;
-      var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
-      clearIcon = Array.isArray(clearIcon) ? clearIcon[0] : clearIcon;
-      var menuItemSelectedIcon = (0, _propsUtil.getComponentFromProp)(this, 'menuItemSelectedIcon');
-      menuItemSelectedIcon = Array.isArray(menuItemSelectedIcon) ? menuItemSelectedIcon[0] : menuItemSelectedIcon;
-      var rest = (0, _omit2['default'])(restProps, ['inputIcon', 'removeIcon', 'clearIcon', 'suffixIcon', 'menuItemSelectedIcon']);
-
-      var cls = (_cls = {}, (0, _defineProperty3['default'])(_cls, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_cls, prefixCls + '-sm', size === 'small'), _cls);
-
-      var optionLabelProp = this.$props.optionLabelProp;
-
-      if (this.isCombobox()) {
-        // children 带 dom 结构时，无法填入输入框
-        optionLabelProp = optionLabelProp || 'value';
-      }
-
-      var modeConfig = {
-        multiple: mode === 'multiple',
-        tags: mode === 'tags',
-        combobox: this.isCombobox()
-      };
-      var finalRemoveIcon = removeIcon && ((0, _propsUtil.isValidElement)(removeIcon) ? (0, _vnode.cloneElement)(removeIcon, { 'class': prefixCls + '-remove-icon' }) : removeIcon) || h(_icon2['default'], {
-        attrs: { type: 'close' },
-        'class': prefixCls + '-remove-icon' });
-
-      var finalClearIcon = clearIcon && ((0, _propsUtil.isValidElement)(clearIcon) ? (0, _vnode.cloneElement)(clearIcon, { 'class': prefixCls + '-clear-icon' }) : clearIcon) || h(_icon2['default'], {
-        attrs: { type: 'close-circle', theme: 'filled' },
-        'class': prefixCls + '-clear-icon' });
-
-      var finalMenuItemSelectedIcon = menuItemSelectedIcon && ((0, _propsUtil.isValidElement)(menuItemSelectedIcon) ? (0, _vnode.cloneElement)(menuItemSelectedIcon, { 'class': prefixCls + '-selected-icon' }) : menuItemSelectedIcon) || h(_icon2['default'], {
-        attrs: { type: 'check' },
-        'class': prefixCls + '-selected-icon' });
-
-      var selectProps = {
-        props: (0, _extends3['default'])({
-          inputIcon: this.renderSuffixIcon(),
-          removeIcon: finalRemoveIcon,
-          clearIcon: finalClearIcon,
-          menuItemSelectedIcon: finalMenuItemSelectedIcon
-        }, rest, modeConfig, {
-          prefixCls: prefixCls,
-          optionLabelProp: optionLabelProp || 'children',
-          notFoundContent: this.getNotFoundContent(locale),
-          maxTagPlaceholder: (0, _propsUtil.getComponentFromProp)(this, 'maxTagPlaceholder'),
-          placeholder: (0, _propsUtil.getComponentFromProp)(this, 'placeholder'),
-          children: options ? options.map(function (option) {
-            var key = option.key,
-                _option$label = option.label,
-                label = _option$label === undefined ? option.title : _option$label,
-                on = option.on,
-                cls = option['class'],
-                style = option.style,
-                restOption = (0, _objectWithoutProperties3['default'])(option, ['key', 'label', 'on', 'class', 'style']);
-
-            return h(
-              _vcSelect.Option,
-              (0, _babelHelperVueJsxMergeProps2['default'])([{ key: key }, { props: restOption, on: on, 'class': cls, style: style }]),
-              [label]
-            );
-          }) : (0, _propsUtil.filterEmpty)(this.$slots['default']),
-          __propsSymbol__: Symbol(),
-          dropdownRender: (0, _propsUtil.getComponentFromProp)(this, 'dropdownRender', {}, false),
-          getPopupContainer: getPopupContainer || getContextPopupContainer
-        }),
-        on: this.$listeners,
-        'class': cls,
-        ref: 'vcSelect'
-      };
-      return h(_vcSelect.Select, selectProps);
     }
   },
   render: function render() {
+    var _cls;
+
     var h = arguments[0];
 
-    return h(_LocaleReceiver2['default'], {
-      attrs: {
-        componentName: 'Select',
-        defaultLocale: _default3['default'].Select
-      },
-      scopedSlots: { 'default': this.renderSelect }
-    });
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        customizePrefixCls = _getOptionProps.prefixCls,
+        size = _getOptionProps.size,
+        mode = _getOptionProps.mode,
+        options = _getOptionProps.options,
+        getPopupContainer = _getOptionProps.getPopupContainer,
+        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'size', 'mode', 'options', 'getPopupContainer']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var renderEmpty = this.configProvider.renderEmpty;
+    var prefixCls = getPrefixCls('select', customizePrefixCls);
+
+    var getContextPopupContainer = this.configProvider.getPopupContainer;
+
+    var removeIcon = (0, _propsUtil.getComponentFromProp)(this, 'removeIcon');
+    removeIcon = Array.isArray(removeIcon) ? removeIcon[0] : removeIcon;
+    var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
+    clearIcon = Array.isArray(clearIcon) ? clearIcon[0] : clearIcon;
+    var menuItemSelectedIcon = (0, _propsUtil.getComponentFromProp)(this, 'menuItemSelectedIcon');
+    menuItemSelectedIcon = Array.isArray(menuItemSelectedIcon) ? menuItemSelectedIcon[0] : menuItemSelectedIcon;
+    var rest = (0, _omit2['default'])(restProps, ['inputIcon', 'removeIcon', 'clearIcon', 'suffixIcon', 'menuItemSelectedIcon']);
+
+    var cls = (_cls = {}, (0, _defineProperty3['default'])(_cls, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_cls, prefixCls + '-sm', size === 'small'), _cls);
+
+    var optionLabelProp = this.$props.optionLabelProp;
+
+    if (this.isCombobox()) {
+      // children 带 dom 结构时，无法填入输入框
+      optionLabelProp = optionLabelProp || 'value';
+    }
+
+    var modeConfig = {
+      multiple: mode === 'multiple',
+      tags: mode === 'tags',
+      combobox: this.isCombobox()
+    };
+    var finalRemoveIcon = removeIcon && ((0, _propsUtil.isValidElement)(removeIcon) ? (0, _vnode.cloneElement)(removeIcon, { 'class': prefixCls + '-remove-icon' }) : removeIcon) || h(_icon2['default'], {
+      attrs: { type: 'close' },
+      'class': prefixCls + '-remove-icon' });
+
+    var finalClearIcon = clearIcon && ((0, _propsUtil.isValidElement)(clearIcon) ? (0, _vnode.cloneElement)(clearIcon, { 'class': prefixCls + '-clear-icon' }) : clearIcon) || h(_icon2['default'], {
+      attrs: { type: 'close-circle', theme: 'filled' },
+      'class': prefixCls + '-clear-icon' });
+
+    var finalMenuItemSelectedIcon = menuItemSelectedIcon && ((0, _propsUtil.isValidElement)(menuItemSelectedIcon) ? (0, _vnode.cloneElement)(menuItemSelectedIcon, { 'class': prefixCls + '-selected-icon' }) : menuItemSelectedIcon) || h(_icon2['default'], {
+      attrs: { type: 'check' },
+      'class': prefixCls + '-selected-icon' });
+
+    var selectProps = {
+      props: (0, _extends3['default'])({
+        inputIcon: this.renderSuffixIcon(prefixCls),
+        removeIcon: finalRemoveIcon,
+        clearIcon: finalClearIcon,
+        menuItemSelectedIcon: finalMenuItemSelectedIcon
+      }, rest, modeConfig, {
+        prefixCls: prefixCls,
+        optionLabelProp: optionLabelProp || 'children',
+        notFoundContent: this.getNotFoundContent(renderEmpty),
+        maxTagPlaceholder: (0, _propsUtil.getComponentFromProp)(this, 'maxTagPlaceholder'),
+        placeholder: (0, _propsUtil.getComponentFromProp)(this, 'placeholder'),
+        children: options ? options.map(function (option) {
+          var key = option.key,
+              _option$label = option.label,
+              label = _option$label === undefined ? option.title : _option$label,
+              on = option.on,
+              cls = option['class'],
+              style = option.style,
+              restOption = (0, _objectWithoutProperties3['default'])(option, ['key', 'label', 'on', 'class', 'style']);
+
+          return h(
+            _vcSelect.Option,
+            (0, _babelHelperVueJsxMergeProps2['default'])([{ key: key }, { props: restOption, on: on, 'class': cls, style: style }]),
+            [label]
+          );
+        }) : (0, _propsUtil.filterEmpty)(this.$slots['default']),
+        __propsSymbol__: Symbol(),
+        dropdownRender: (0, _propsUtil.getComponentFromProp)(this, 'dropdownRender', {}, false),
+        getPopupContainer: getPopupContainer || getContextPopupContainer
+      }),
+      on: this.$listeners,
+      'class': cls,
+      ref: 'vcSelect'
+    };
+    return h(_vcSelect.Select, selectProps);
   }
 };
 
 /* istanbul ignore next */
 Select.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(Select.name, Select);
   Vue.component(Select.Option.name, Select.Option);
   Vue.component(Select.OptGroup.name, Select.OptGroup);
@@ -11161,6 +11990,10 @@ var _TabContent = __webpack_require__(/*! ../vc-tabs/src/TabContent */ "./node_m
 
 var _TabContent2 = _interopRequireDefault(_TabContent);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _tabs2['default'].TabPane = (0, _extends3['default'])({}, _TabPane2['default'], { name: 'ATabPane', __ANT_TAB_PANE: true });
@@ -11169,6 +12002,7 @@ _vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' });
 
 /* istanbul ignore next */
 _tabs2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_tabs2['default'].name, _tabs2['default']);
   Vue.component(_tabs2['default'].TabPane.name, _tabs2['default'].TabPane);
   Vue.component(_tabs2['default'].TabContent.name, _tabs2['default'].TabContent);
@@ -11218,9 +12052,7 @@ var _TabContent = __webpack_require__(/*! ../vc-tabs/src/TabContent */ "./node_m
 
 var _TabContent2 = _interopRequireDefault(_TabContent);
 
-var _isFlexSupported = __webpack_require__(/*! ../_util/isFlexSupported */ "./node_modules/ant-design-vue/lib/_util/isFlexSupported.js");
-
-var _isFlexSupported2 = _interopRequireDefault(_isFlexSupported);
+var _styleChecker = __webpack_require__(/*! ../_util/styleChecker */ "./node_modules/ant-design-vue/lib/_util/styleChecker.js");
 
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
@@ -11229,6 +12061,8 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 var _TabBar = __webpack_require__(/*! ./TabBar */ "./node_modules/ant-design-vue/lib/tabs/TabBar.js");
 
@@ -11244,7 +12078,7 @@ exports['default'] = {
     event: 'change'
   },
   props: {
-    prefixCls: _vueTypes2['default'].string.def('ant-tabs'),
+    prefixCls: _vueTypes2['default'].string,
     activeKey: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
     defaultActiveKey: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
     hideAdd: _vueTypes2['default'].bool.def(false),
@@ -11258,10 +12092,15 @@ exports['default'] = {
     tabBarGutter: _vueTypes2['default'].number,
     renderTabBar: _vueTypes2['default'].func
   },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   mounted: function mounted() {
     var NO_FLEX = ' no-flex';
     var tabNode = this.$el;
-    if (tabNode && !(0, _isFlexSupported2['default'])() && tabNode.className.indexOf(NO_FLEX) === -1) {
+    if (tabNode && !_styleChecker.isFlexSupported && tabNode.className.indexOf(NO_FLEX) === -1) {
       tabNode.className += NO_FLEX;
     }
   },
@@ -11299,7 +12138,7 @@ exports['default'] = {
     var h = arguments[0];
 
     var props = (0, _propsUtil.getOptionProps)(this);
-    var prefixCls = props.prefixCls,
+    var customizePrefixCls = props.prefixCls,
         size = props.size,
         _props$type = props.type,
         type = _props$type === undefined ? 'line' : _props$type,
@@ -11309,6 +12148,8 @@ exports['default'] = {
         hideAdd = props.hideAdd,
         renderTabBar = props.renderTabBar;
 
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('tabs', customizePrefixCls);
     var children = (0, _propsUtil.filterEmpty)(this.$slots['default']);
 
     var tabBarExtraContent = (0, _propsUtil.getComponentFromProp)(this, 'tabBarExtraContent');
@@ -11369,6 +12210,7 @@ exports['default'] = {
     var renderTabBarSlot = renderTabBar || this.$scopedSlots.renderTabBar;
     var tabBarProps = {
       props: (0, _extends3['default'])({}, this.$props, {
+        prefixCls: prefixCls,
         tabBarExtraContent: tabBarExtraContent,
         renderTabBar: renderTabBarSlot
       }),
@@ -11377,6 +12219,7 @@ exports['default'] = {
     var contentCls = (_contentCls = {}, (0, _defineProperty3['default'])(_contentCls, prefixCls + '-' + tabPosition + '-content', true), (0, _defineProperty3['default'])(_contentCls, prefixCls + '-card-content', type.indexOf('card') >= 0), _contentCls);
     var tabsProps = {
       props: (0, _extends3['default'])({}, (0, _propsUtil.getOptionProps)(this), {
+        prefixCls: prefixCls,
         tabBarPosition: tabPosition,
         renderTabBar: function renderTabBar() {
           return h(_TabBar2['default'], tabBarProps);
@@ -11458,6 +12301,8 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 var _abstractTooltipProps = __webpack_require__(/*! ./abstractTooltipProps */ "./node_modules/ant-design-vue/lib/tooltip/abstractTooltipProps.js");
 
 var _abstractTooltipProps2 = _interopRequireDefault(_abstractTooltipProps);
@@ -11487,12 +12332,12 @@ exports['default'] = {
   }),
   inject: {
     configProvider: { 'default': function _default() {
-        return {};
+        return _configProvider.ConfigConsumerProps;
       } }
   },
   data: function data() {
     return {
-      sVisible: !!this.$props.visible
+      sVisible: !!this.$props.visible || !!this.$props.defaultVisible
     };
   },
 
@@ -11606,11 +12451,13 @@ exports['default'] = {
         $data = this.$data,
         $slots = this.$slots,
         $listeners = this.$listeners;
-    var prefixCls = $props.prefixCls,
+    var customizePrefixCls = $props.prefixCls,
         openClassName = $props.openClassName,
         getPopupContainer = $props.getPopupContainer;
     var getContextPopupContainer = this.configProvider.getPopupContainer;
 
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('tooltip', customizePrefixCls);
     var children = ($slots['default'] || []).filter(function (c) {
       return c.tag || c.text.trim() !== '';
     });
@@ -11627,6 +12474,7 @@ exports['default'] = {
     var childCls = (0, _defineProperty3['default'])({}, openClassName || prefixCls + '-open', true);
     var tooltipProps = {
       props: (0, _extends3['default'])({}, $props, {
+        prefixCls: prefixCls,
         getTooltipContainer: getPopupContainer || getContextPopupContainer,
         builtinPlacements: this.getPlacements(),
         visible: sVisible
@@ -11683,14 +12531,15 @@ exports['default'] = function () {
     // onVisibleChange: PropTypes.func,
     overlayStyle: _vueTypes2['default'].object.def({}),
     overlayClassName: _vueTypes2['default'].string,
-    prefixCls: _vueTypes2['default'].string.def('ant-tooltip'),
+    prefixCls: _vueTypes2['default'].string,
     mouseEnterDelay: _vueTypes2['default'].number.def(0.1),
     mouseLeaveDelay: _vueTypes2['default'].number.def(0.1),
     getPopupContainer: _vueTypes2['default'].func,
     arrowPointAtCenter: _vueTypes2['default'].bool.def(false),
     autoAdjustOverflow: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].object]).def(true),
     destroyTooltipOnHide: _vueTypes2['default'].bool.def(false),
-    align: _vueTypes2['default'].object.def({})
+    align: _vueTypes2['default'].object.def({}),
+    builtinPlacements: _vueTypes2['default'].object
   };
 };
 
@@ -11714,10 +12563,15 @@ var _Tooltip = __webpack_require__(/*! ./Tooltip */ "./node_modules/ant-design-v
 
 var _Tooltip2 = _interopRequireDefault(_Tooltip);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 /* istanbul ignore next */
 _Tooltip2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Tooltip2['default'].name, _Tooltip2['default']);
 };
 
@@ -11883,6 +12737,8 @@ var _cloneDeep = __webpack_require__(/*! lodash/cloneDeep */ "./node_modules/lod
 
 var _cloneDeep2 = _interopRequireDefault(_cloneDeep);
 
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function getElement(func) {
@@ -11953,7 +12809,7 @@ exports['default'] = {
 
           // If source element size changed
           var preRect = _this2.sourceRect || {};
-          if (!reAlign && source && (preRect.width !== sourceRect.width || preRect.height !== sourceRect.height)) {
+          if (!reAlign && source && (!(0, _util.isSimilarValue)(preRect.width, sourceRect.width) || !(0, _util.isSimilarValue)(preRect.height, sourceRect.height))) {
             reAlign = true;
           }
         }
@@ -12003,11 +12859,16 @@ exports['default'] = {
         var element = getElement(target);
         var point = getPoint(target);
 
+        // IE lose focus after element realign
+        // We should record activeElement and restore later
+        var activeElement = document.activeElement;
+
         if (element) {
           result = (0, _domAlign.alignElement)(source, element, align);
         } else if (point) {
           result = (0, _domAlign.alignPoint)(source, point, align);
         }
+        (0, _util.restoreFocus)(activeElement, source);
         this.aligned = true;
         this.$listeners.align && this.$listeners.align(source, result);
       }
@@ -12017,8 +12878,8 @@ exports['default'] = {
   render: function render() {
     var childrenProps = this.$props.childrenProps;
 
-    var child = this.$slots['default'][0];
-    if (childrenProps) {
+    var child = (0, _propsUtil.getSlot)(this)[0];
+    if (child && childrenProps) {
       return (0, _vnode.cloneElement)(child, { props: childrenProps });
     }
     return child;
@@ -12047,7 +12908,7 @@ var _Align2 = _interopRequireDefault(_Align);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _Align2['default']; // based on vc-align 2.4.3
+exports['default'] = _Align2['default']; // based on vc-align 2.4.5
 
 /***/ }),
 
@@ -12072,6 +12933,12 @@ var _typeof3 = _interopRequireDefault(_typeof2);
 exports.buffer = buffer;
 exports.isSamePoint = isSamePoint;
 exports.isWindow = isWindow;
+exports.isSimilarValue = isSimilarValue;
+exports.restoreFocus = restoreFocus;
+
+var _contains = __webpack_require__(/*! ../_util/Dom/contains */ "./node_modules/ant-design-vue/lib/_util/Dom/contains.js");
+
+var _contains2 = _interopRequireDefault(_contains);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -12112,6 +12979,19 @@ function isSamePoint(prev, next) {
 
 function isWindow(obj) {
   return obj && (typeof obj === 'undefined' ? 'undefined' : (0, _typeof3['default'])(obj)) === 'object' && obj.window === obj;
+}
+
+function isSimilarValue(val1, val2) {
+  var int1 = Math.floor(val1);
+  var int2 = Math.floor(val2);
+  return Math.abs(int1 - int2) <= 1;
+}
+
+function restoreFocus(activeElement, container) {
+  // Focus back if is in the container
+  if (activeElement !== document.activeElement && (0, _contains2['default'])(container, activeElement)) {
+    activeElement.focus();
+  }
 }
 
 /***/ }),
@@ -12211,10 +13091,12 @@ exports['default'] = {
     prefixCls: _vueTypes2['default'].string.def('rc-dropdown'),
     transitionName: _vueTypes2['default'].string,
     overlayClassName: _vueTypes2['default'].string.def(''),
+    openClassName: _vueTypes2['default'].string,
     animation: _vueTypes2['default'].any,
     align: _vueTypes2['default'].object,
     overlayStyle: _vueTypes2['default'].object.def({}),
     placement: _vueTypes2['default'].string.def('bottomLeft'),
+    overlay: _vueTypes2['default'].any,
     trigger: _vueTypes2['default'].array.def(['hover']),
     alignPoint: _vueTypes2['default'].bool,
     showAction: _vueTypes2['default'].array.def([]),
@@ -12276,6 +13158,16 @@ exports['default'] = {
 
       return !alignPoint;
     },
+    getOverlayElement: function getOverlayElement() {
+      var overlay = this.overlay || this.$slots.overlay || this.$scopedSlots.overlay;
+      var overlayElement = void 0;
+      if (typeof overlay === 'function') {
+        overlayElement = overlay();
+      } else {
+        overlayElement = overlay;
+      }
+      return overlayElement;
+    },
     getMenuElement: function getMenuElement() {
       var _this = this;
 
@@ -12284,6 +13176,7 @@ exports['default'] = {
           $slots = this.$slots;
 
       this.childOriginEvents = (0, _propsUtil.getEvents)($slots.overlay[0]);
+      var overlayElement = this.getOverlayElement();
       var extraOverlayProps = {
         props: {
           prefixCls: prefixCls + '-menu',
@@ -12295,10 +13188,30 @@ exports['default'] = {
           click: onClick
         }
       };
+      if (typeof overlayElement.type === 'string') {
+        delete extraOverlayProps.props.prefixCls;
+      }
       return (0, _vnode.cloneElement)($slots.overlay[0], extraOverlayProps);
+    },
+    getMenuElementOrLambda: function getMenuElementOrLambda() {
+      var overlay = this.overlay || this.$slots.overlay || this.$scopedSlots.overlay;
+      if (typeof overlay === 'function') {
+        return this.getMenuElement;
+      }
+      return this.getMenuElement();
     },
     getPopupDomNode: function getPopupDomNode() {
       return this.$refs.trigger.getPopupDomNode();
+    },
+    getOpenClassName: function getOpenClassName() {
+      var _$props = this.$props,
+          openClassName = _$props.openClassName,
+          prefixCls = _$props.prefixCls;
+
+      if (openClassName !== undefined) {
+        return openClassName;
+      }
+      return prefixCls + '-open';
     },
     afterVisibleChange: function afterVisibleChange(visible) {
       if (visible && this.getMinOverlayWidthMatchTrigger()) {
@@ -12311,24 +13224,30 @@ exports['default'] = {
           }
         }
       }
+    },
+    renderChildren: function renderChildren() {
+      var children = this.$slots['default'] && this.$slots['default'][0];
+      var sVisible = this.sVisible;
+
+      return sVisible && children ? (0, _vnode.cloneElement)(children, { 'class': this.getOpenClassName() }) : children;
     }
   },
 
   render: function render() {
     var h = arguments[0];
-    var _$props = this.$props,
-        prefixCls = _$props.prefixCls,
-        transitionName = _$props.transitionName,
-        animation = _$props.animation,
-        align = _$props.align,
-        placement = _$props.placement,
-        getPopupContainer = _$props.getPopupContainer,
-        showAction = _$props.showAction,
-        hideAction = _$props.hideAction,
-        overlayClassName = _$props.overlayClassName,
-        overlayStyle = _$props.overlayStyle,
-        trigger = _$props.trigger,
-        otherProps = (0, _objectWithoutProperties3['default'])(_$props, ['prefixCls', 'transitionName', 'animation', 'align', 'placement', 'getPopupContainer', 'showAction', 'hideAction', 'overlayClassName', 'overlayStyle', 'trigger']);
+    var _$props2 = this.$props,
+        prefixCls = _$props2.prefixCls,
+        transitionName = _$props2.transitionName,
+        animation = _$props2.animation,
+        align = _$props2.align,
+        placement = _$props2.placement,
+        getPopupContainer = _$props2.getPopupContainer,
+        showAction = _$props2.showAction,
+        hideAction = _$props2.hideAction,
+        overlayClassName = _$props2.overlayClassName,
+        overlayStyle = _$props2.overlayStyle,
+        trigger = _$props2.trigger,
+        otherProps = (0, _objectWithoutProperties3['default'])(_$props2, ['prefixCls', 'transitionName', 'animation', 'align', 'placement', 'getPopupContainer', 'showAction', 'hideAction', 'overlayClassName', 'overlayStyle', 'trigger']);
 
     var triggerHideAction = hideAction;
     if (!triggerHideAction && trigger.indexOf('contextmenu') !== -1) {
@@ -12361,7 +13280,7 @@ exports['default'] = {
     return h(
       _vcTrigger2['default'],
       triggerProps,
-      [child && !child.tag ? h('span', [child]) : child, h(
+      [this.renderChildren(), h(
         'template',
         { slot: 'popup' },
         [this.$slots.overlay && this.getMenuElement()]
@@ -12392,7 +13311,7 @@ var _Dropdown2 = _interopRequireDefault(_Dropdown);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _Dropdown2['default']; // base in 2.2.1
+exports['default'] = _Dropdown2['default']; // base in 2.4.1
 
 /***/ }),
 
@@ -12485,15 +13404,15 @@ var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/definePrope
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+var _extends4 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
-var _extends3 = _interopRequireDefault(_extends2);
+var _extends5 = _interopRequireDefault(_extends4);
 
 var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _asyncValidator = __webpack_require__(/*! async-validator */ "./node_modules/async-validator/es/index.js");
+var _asyncValidator = __webpack_require__(/*! async-validator */ "./node_modules/async-validator/dist-web/index.js");
 
 var _asyncValidator2 = _interopRequireDefault(_asyncValidator);
 
@@ -12508,6 +13427,10 @@ var _get2 = _interopRequireDefault(_get);
 var _set = __webpack_require__(/*! lodash/set */ "./node_modules/lodash/set.js");
 
 var _set2 = _interopRequireDefault(_set);
+
+var _eq = __webpack_require__(/*! lodash/eq */ "./node_modules/lodash/eq.js");
+
+var _eq2 = _interopRequireDefault(_eq);
 
 var _omit = __webpack_require__(/*! lodash/omit */ "./node_modules/lodash/omit.js");
 
@@ -12565,7 +13488,7 @@ function createBaseForm() {
     }
     var Form = {
       mixins: [_BaseMixin2['default']].concat((0, _toConsumableArray3['default'])(mixins)),
-      props: (0, _extends3['default'])({}, formProps, {
+      props: (0, _extends5['default'])({}, formProps, {
         wrappedComponentRef: _vueTypes2['default'].func.def(function () {})
       }),
       data: function data() {
@@ -12577,7 +13500,7 @@ function createBaseForm() {
         this.instances = {};
         this.cachedBind = {};
         this.clearedFieldMetaCache = {};
-
+        this.formItems = {};
         this.renderFields = {};
         this.domFields = {};
 
@@ -12639,10 +13562,10 @@ function createBaseForm() {
             Object.keys(valuesAll).forEach(function (key) {
               return (0, _set2['default'])(valuesAllSet, key, valuesAll[key]);
             });
-            onValuesChange(this, (0, _set2['default'])({}, name, value), valuesAllSet);
+            onValuesChange((0, _extends5['default'])((0, _defineProperty3['default'])({}, formPropName, this.getForm()), this.$props), (0, _set2['default'])({}, name, value), valuesAllSet);
           }
           var field = this.fieldsStore.getField(name);
-          return { name: name, field: (0, _extends3['default'])({}, field, { value: value, touched: true }), fieldMeta: fieldMeta };
+          return { name: name, field: (0, _extends5['default'])({}, field, { value: value, touched: true }), fieldMeta: fieldMeta };
         },
         onCollect: function onCollect(name_, action) {
           for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
@@ -12656,7 +13579,8 @@ function createBaseForm() {
 
           var validate = fieldMeta.validate;
 
-          var newField = (0, _extends3['default'])({}, field, {
+          this.fieldsStore.setFieldsAsDirty();
+          var newField = (0, _extends5['default'])({}, field, {
             dirty: (0, _utils.hasRules)(validate)
           });
           this.setFields((0, _defineProperty3['default'])({}, name, newField));
@@ -12670,9 +13594,10 @@ function createBaseForm() {
               field = _onCollectCommon2.field,
               fieldMeta = _onCollectCommon2.fieldMeta;
 
-          var newField = (0, _extends3['default'])({}, field, {
+          var newField = (0, _extends5['default'])({}, field, {
             dirty: true
           });
+          this.fieldsStore.setFieldsAsDirty();
           this.validateFieldsInternal([newField], {
             action: action,
             options: {
@@ -12693,13 +13618,14 @@ function createBaseForm() {
           }
           return cache[action].fn;
         },
-        getFieldDecorator: function getFieldDecorator(name, fieldOption) {
+        getFieldDecorator: function getFieldDecorator(name, fieldOption, formItem) {
           var _this2 = this;
 
           var _getFieldProps = this.getFieldProps(name, fieldOption),
               props = _getFieldProps.props,
               restProps = (0, _objectWithoutProperties3['default'])(_getFieldProps, ['props']);
 
+          this.formItems[name] = formItem;
           return function (fieldElem) {
             // We should put field in record if it is rendered
             _this2.renderFields[name] = true;
@@ -12710,14 +13636,14 @@ function createBaseForm() {
             if (true) {
               var valuePropName = fieldMeta.valuePropName;
               (0, _warning2['default'])(!(0, _propsUtil.slotHasProp)(fieldElem, valuePropName), '`getFieldDecorator` will override `' + valuePropName + '`, ' + ('so please don\'t set `' + valuePropName + ' and v-model` directly ') + 'and use `setFieldsValue` to set it.');
-              (0, _warning2['default'])(!(!(0, _propsUtil.slotHasProp)(fieldElem, valuePropName) && valuePropName in originalProps && !(fieldOption && fieldOption.initialValue)), (0, _propsUtil.getComponentName)(fieldElem.componentOptions) + ' `default value` can not collect, ' + ' please use `option.initialValue` to set default value.');
+              (0, _warning2['default'])(!(!(0, _propsUtil.slotHasProp)(fieldElem, valuePropName) && valuePropName in originalProps && !(fieldOption && 'initialValue' in fieldOption)), (0, _propsUtil.getComponentName)(fieldElem.componentOptions) + ' `default value` can not collect, ' + ' please use `option.initialValue` to set default value.');
               var defaultValuePropName = 'default' + valuePropName[0].toUpperCase() + valuePropName.slice(1);
               (0, _warning2['default'])(!(0, _propsUtil.slotHasProp)(fieldElem, defaultValuePropName), '`' + defaultValuePropName + '` is invalid ' + ('for `getFieldDecorator` will set `' + valuePropName + '`,') + ' please use `option.initialValue` instead.');
             }
             fieldMeta.originalProps = originalProps;
             // fieldMeta.ref = fieldElem.data && fieldElem.data.ref
-            var newProps = (0, _extends3['default'])({
-              props: (0, _extends3['default'])({}, props, _this2.fieldsStore.getFieldValuePropValue(fieldMeta))
+            var newProps = (0, _extends5['default'])({
+              props: (0, _extends5['default'])({}, props, _this2.fieldsStore.getFieldValuePropValue(fieldMeta))
             }, restProps);
             newProps.domProps.value = newProps.props.value;
             var newEvents = {};
@@ -12732,7 +13658,7 @@ function createBaseForm() {
                 newEvents[key] = newProps.on[key];
               }
             });
-            return (0, _vnode.cloneElement)(fieldElem, (0, _extends3['default'])({}, newProps, { on: newEvents }));
+            return (0, _vnode.cloneElement)(fieldElem, (0, _extends5['default'])({}, newProps, { on: newEvents }));
           };
         },
         getFieldProps: function getFieldProps(name) {
@@ -12744,13 +13670,13 @@ function createBaseForm() {
             throw new Error('Must call `getFieldProps` with valid name string!');
           }
           if (true) {
-            (0, _warning2['default'])(this.fieldsStore.isValidNestedFieldName(name), 'One field name cannot be part of another, e.g. `a` and `a.b`.');
+            (0, _warning2['default'])(this.fieldsStore.isValidNestedFieldName(name), 'One field name cannot be part of another, e.g. `a` and `a.b`. Check field: ' + name);
             (0, _warning2['default'])(!('exclusive' in usersFieldOption), '`option.exclusive` of `getFieldProps`|`getFieldDecorator` had been remove.');
           }
 
           delete this.clearedFieldMetaCache[name];
 
-          var fieldOption = (0, _extends3['default'])({
+          var fieldOption = (0, _extends5['default'])({
             name: name,
             trigger: DEFAULT_TRIGGER,
             valuePropName: 'value',
@@ -12769,7 +13695,7 @@ function createBaseForm() {
             fieldMeta.initialValue = fieldOption.initialValue;
           }
 
-          var inputProps = (0, _extends3['default'])({}, this.fieldsStore.getFieldValuePropValue(fieldOption));
+          var inputProps = (0, _extends5['default'])({}, this.fieldsStore.getFieldValuePropValue(fieldOption));
           var inputListeners = {};
           var inputAttrs = {};
           if (fieldNameProp) {
@@ -12788,7 +13714,7 @@ function createBaseForm() {
             inputListeners[trigger] = this.getCacheBind(name, trigger, this.onCollect);
           }
 
-          var meta = (0, _extends3['default'])({}, fieldMeta, fieldOption, {
+          var meta = (0, _extends5['default'])({}, fieldMeta, fieldOption, {
             validate: validateRules
           });
           this.fieldsStore.setFieldMeta(name, meta);
@@ -12807,7 +13733,7 @@ function createBaseForm() {
             domProps: {
               value: inputProps.value
             },
-            attrs: (0, _extends3['default'])({}, inputAttrs, {
+            attrs: (0, _extends5['default'])({}, inputAttrs, {
               id: inputProps.id
             }),
             directives: [{
@@ -12833,16 +13759,28 @@ function createBaseForm() {
 
           var fields = this.fieldsStore.flattenRegisteredFields(maybeNestedFields);
           this.fieldsStore.setFields(fields);
+          var changedFields = Object.keys(fields).reduce(function (acc, name) {
+            return (0, _set2['default'])(acc, name, _this4.fieldsStore.getField(name));
+          }, {});
           if (onFieldsChange) {
-            var changedFields = Object.keys(fields).reduce(function (acc, name) {
+            var _changedFields = Object.keys(fields).reduce(function (acc, name) {
               return (0, _set2['default'])(acc, name, _this4.fieldsStore.getField(name));
             }, {});
-            onFieldsChange(this, changedFields, this.fieldsStore.getNestedAllFields());
+            onFieldsChange(this, _changedFields, this.fieldsStore.getNestedAllFields());
           }
-          if (templateContext) {
-            templateContext.$forceUpdate();
-          } else {
-            this.$forceUpdate();
+          var formContext = templateContext || this;
+          var allUpdate = false;
+          Object.keys(changedFields).forEach(function (key) {
+            var formItem = _this4.formItems[key];
+            formItem = typeof formItem === 'function' ? formItem() : formItem;
+            if (formItem && formItem.itemSelfUpdate) {
+              formItem.$forceUpdate();
+            } else {
+              allUpdate = true;
+            }
+          });
+          if (allUpdate) {
+            formContext.$forceUpdate();
           }
           this.$nextTick(function () {
             callback && callback();
@@ -12868,7 +13806,7 @@ function createBaseForm() {
           this.setFields(newFields, callback);
           if (onValuesChange) {
             var allValues = this.fieldsStore.getAllValues();
-            onValuesChange(this, changedValues, allValues);
+            onValuesChange((0, _extends5['default'])((0, _defineProperty3['default'])({}, formPropName, this.getForm()), this.$props), changedValues, allValues);
           }
         },
         saveRef: function saveRef(name, _, component) {
@@ -12961,7 +13899,7 @@ function createBaseForm() {
               return;
             }
             var fieldMeta = _this7.fieldsStore.getFieldMeta(name);
-            var newField = (0, _extends3['default'])({}, field);
+            var newField = (0, _extends5['default'])({}, field);
             newField.errors = undefined;
             newField.validating = true;
             newField.dirty = true;
@@ -12983,10 +13921,41 @@ function createBaseForm() {
             validator.messages(validateMessages);
           }
           validator.validate(allValues, options, function (errors) {
-            var errorsGroup = (0, _extends3['default'])({}, alreadyErrors);
+            var errorsGroup = (0, _extends5['default'])({}, alreadyErrors);
             if (errors && errors.length) {
               errors.forEach(function (e) {
-                var fieldName = e.field;
+                var errorFieldName = e.field;
+                var fieldName = errorFieldName;
+
+                // Handle using array validation rule.
+                // ref: https://github.com/ant-design/ant-design/issues/14275
+                Object.keys(allRules).some(function (ruleFieldName) {
+                  var rules = allRules[ruleFieldName] || [];
+
+                  // Exist if match rule
+                  if (ruleFieldName === errorFieldName) {
+                    fieldName = ruleFieldName;
+                    return true;
+                  }
+
+                  // Skip if not match array type
+                  if (rules.every(function (_ref2) {
+                    var type = _ref2.type;
+                    return type !== 'array';
+                  }) && errorFieldName.indexOf(ruleFieldName) !== 0) {
+                    return false;
+                  }
+
+                  // Exist if match the field name
+                  var restPath = errorFieldName.slice(ruleFieldName.length + 1);
+                  if (/^\d+$/.test(restPath)) {
+                    fieldName = ruleFieldName;
+                    return true;
+                  }
+
+                  return false;
+                });
+
                 var field = (0, _get2['default'])(errorsGroup, fieldName);
                 if ((typeof field === 'undefined' ? 'undefined' : (0, _typeof3['default'])(field)) !== 'object' || Array.isArray(field)) {
                   (0, _set2['default'])(errorsGroup, fieldName, { errors: [] });
@@ -13001,7 +13970,7 @@ function createBaseForm() {
               var fieldErrors = (0, _get2['default'])(errorsGroup, name);
               var nowField = _this7.fieldsStore.getField(name);
               // avoid concurrency problems
-              if (nowField.value !== allValues[name]) {
+              if (!(0, _eq2['default'])(nowField.value, allValues[name])) {
                 expired.push({
                   name: name
                 });
@@ -13016,8 +13985,8 @@ function createBaseForm() {
             _this7.setFields(nowAllFields);
             if (callback) {
               if (expired.length) {
-                expired.forEach(function (_ref2) {
-                  var name = _ref2.name;
+                expired.forEach(function (_ref3) {
+                  var name = _ref3.name;
 
                   var fieldErrors = [{
                     message: name + ' need to revalidate',
@@ -13067,9 +14036,7 @@ function createBaseForm() {
               return field;
             });
             if (!fields.length) {
-              if (callback) {
-                callback(null, _this8.fieldsStore.getFieldsValue(fieldNames));
-              }
+              callback(null, _this8.fieldsStore.getFieldsValue(fieldNames));
               return;
             }
             if (!('firstFields' in options)) {
@@ -13084,7 +14051,7 @@ function createBaseForm() {
             }, callback);
           });
           pending['catch'](function (e) {
-            if (console.error) {
+            if (console.error && "development" !== 'production') {
               console.error(e);
             }
             return e;
@@ -13101,7 +14068,7 @@ function createBaseForm() {
           var _this9 = this;
 
           if (true) {
-            (0, _warning2['default'])(false, '`submit` is deprecated.' + "Actually, it's more convenient to handle submitting status by yourself.");
+            (0, _warning2['default'])(false, '`submit` is deprecated. ' + "Actually, it's more convenient to handle submitting status by yourself.");
           }
           var fn = function fn() {
             _this9.setState({
@@ -13127,7 +14094,7 @@ function createBaseForm() {
             restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['wrappedComponentRef']);
 
         var wrappedComponentProps = {
-          props: mapProps.call(this, (0, _extends3['default'])({}, formProps, restProps)),
+          props: mapProps.call(this, (0, _extends5['default'])({}, formProps, restProps)),
           on: $listeners,
           ref: 'WrappedComponent',
           directives: [{
@@ -13419,6 +14386,21 @@ var FieldsStore = function () {
       this.fieldsMeta[name] = meta;
     }
   }, {
+    key: 'setFieldsAsDirty',
+    value: function setFieldsAsDirty() {
+      var _this2 = this;
+
+      Object.keys(this.fields).forEach(function (name) {
+        var field = _this2.fields[name];
+        var fieldMeta = _this2.fieldsMeta[name];
+        if (field && fieldMeta && (0, _utils.hasRules)(fieldMeta.validate)) {
+          _this2.fields[name] = (0, _extends3['default'])({}, field, {
+            dirty: true
+          });
+        }
+      });
+    }
+  }, {
     key: 'getFieldMeta',
     value: function getFieldMeta(name) {
       this.fieldsMeta[name] = this.fieldsMeta[name] || {};
@@ -13437,12 +14419,12 @@ var FieldsStore = function () {
   }, {
     key: 'getValidFieldsName',
     value: function getValidFieldsName() {
-      var _this2 = this;
+      var _this3 = this;
 
       var fieldsMeta = this.fieldsMeta;
 
       return fieldsMeta ? Object.keys(fieldsMeta).filter(function (name) {
-        return !_this2.getFieldMeta(name).hidden;
+        return !_this3.getFieldMeta(name).hidden;
       }) : [];
     }
   }, {
@@ -13486,16 +14468,16 @@ var FieldsStore = function () {
   }, {
     key: 'getNotCollectedFields',
     value: function getNotCollectedFields() {
-      var _this3 = this;
+      var _this4 = this;
 
       var fieldsName = this.getValidFieldsName();
       return fieldsName.filter(function (name) {
-        return !_this3.fields[name];
+        return !_this4.fields[name];
       }).map(function (name) {
         return {
           name: name,
           dirty: false,
-          value: _this3.getFieldMeta(name).initialValue
+          value: _this4.getFieldMeta(name).initialValue
         };
       }).reduce(function (acc, field) {
         return (0, _set2['default'])(acc, field.name, (0, _createFormField2['default'])(field));
@@ -13504,10 +14486,10 @@ var FieldsStore = function () {
   }, {
     key: 'getNestedAllFields',
     value: function getNestedAllFields() {
-      var _this4 = this;
+      var _this5 = this;
 
       return Object.keys(this.fields).reduce(function (acc, name) {
-        return (0, _set2['default'])(acc, name, (0, _createFormField2['default'])(_this4.fields[name]));
+        return (0, _set2['default'])(acc, name, (0, _createFormField2['default'])(_this5.fields[name]));
       }, this.getNotCollectedFields());
     }
   }, {
@@ -13561,14 +14543,14 @@ var FieldsStore = function () {
 }();
 
 var _initialiseProps = function _initialiseProps() {
-  var _this5 = this;
+  var _this6 = this;
 
   this.setFieldsInitialValue = function (initialValues) {
-    var flattenedInitialValues = _this5.flattenRegisteredFields(initialValues);
-    var fieldsMeta = _this5.fieldsMeta;
+    var flattenedInitialValues = _this6.flattenRegisteredFields(initialValues);
+    var fieldsMeta = _this6.fieldsMeta;
     Object.keys(flattenedInitialValues).forEach(function (name) {
       if (fieldsMeta[name]) {
-        _this5.setFieldMeta(name, (0, _extends3['default'])({}, _this5.getFieldMeta(name), {
+        _this6.setFieldMeta(name, (0, _extends3['default'])({}, _this6.getFieldMeta(name), {
           initialValue: flattenedInitialValues[name]
         }));
       }
@@ -13576,55 +14558,55 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.getAllValues = function () {
-    var fieldsMeta = _this5.fieldsMeta,
-        fields = _this5.fields;
+    var fieldsMeta = _this6.fieldsMeta,
+        fields = _this6.fields;
 
     return Object.keys(fieldsMeta).reduce(function (acc, name) {
-      return (0, _set2['default'])(acc, name, _this5.getValueFromFields(name, fields));
+      return (0, _set2['default'])(acc, name, _this6.getValueFromFields(name, fields));
     }, {});
   };
 
   this.getFieldsValue = function (names) {
-    return _this5.getNestedFields(names, _this5.getFieldValue);
+    return _this6.getNestedFields(names, _this6.getFieldValue);
   };
 
   this.getFieldValue = function (name) {
-    var fields = _this5.fields;
+    var fields = _this6.fields;
 
-    return _this5.getNestedField(name, function (fullName) {
-      return _this5.getValueFromFields(fullName, fields);
+    return _this6.getNestedField(name, function (fullName) {
+      return _this6.getValueFromFields(fullName, fields);
     });
   };
 
   this.getFieldsError = function (names) {
-    return _this5.getNestedFields(names, _this5.getFieldError);
+    return _this6.getNestedFields(names, _this6.getFieldError);
   };
 
   this.getFieldError = function (name) {
-    return _this5.getNestedField(name, function (fullName) {
-      return (0, _utils.getErrorStrs)(_this5.getFieldMember(fullName, 'errors'));
+    return _this6.getNestedField(name, function (fullName) {
+      return (0, _utils.getErrorStrs)(_this6.getFieldMember(fullName, 'errors'));
     });
   };
 
   this.isFieldValidating = function (name) {
-    return _this5.getFieldMember(name, 'validating');
+    return _this6.getFieldMember(name, 'validating');
   };
 
   this.isFieldsValidating = function (ns) {
-    var names = ns || _this5.getValidFieldsName();
+    var names = ns || _this6.getValidFieldsName();
     return names.some(function (n) {
-      return _this5.isFieldValidating(n);
+      return _this6.isFieldValidating(n);
     });
   };
 
   this.isFieldTouched = function (name) {
-    return _this5.getFieldMember(name, 'touched');
+    return _this6.getFieldMember(name, 'touched');
   };
 
   this.isFieldsTouched = function (ns) {
-    var names = ns || _this5.getValidFieldsName();
+    var names = ns || _this6.getValidFieldsName();
     return names.some(function (n) {
-      return _this5.isFieldTouched(n);
+      return _this6.isFieldTouched(n);
     });
   };
 };
@@ -16283,7 +17265,10 @@ exports['default'] = {
   },
 
   methods: {
-    close: function close() {
+    close: function close(e) {
+      if (e) {
+        e.stopPropagation();
+      }
       this.clearCloseTimer();
       this.__emit('close');
     },
@@ -16403,6 +17388,10 @@ var _getTransitionProps2 = _interopRequireDefault(_getTransitionProps);
 var _Notice = __webpack_require__(/*! ./Notice */ "./node_modules/ant-design-vue/lib/vc-notification/Notice.js");
 
 var _Notice2 = _interopRequireDefault(_Notice);
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -16554,7 +17543,8 @@ Notification.newInstance = function newNotificationInstance(properties, callback
   } else {
     document.body.appendChild(div);
   }
-  new _vue2['default']({
+  var V = _base2['default'].Vue || _vue2['default'];
+  new V({
     el: div,
     mounted: function mounted() {
       var self = this;
@@ -16613,7 +17603,7 @@ var _Notification2 = _interopRequireDefault(_Notification);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _Notification2['default']; // based on rc-notification 3.3.0
+exports['default'] = _Notification2['default']; // based on rc-notification 3.3.1
 
 /***/ }),
 
@@ -16833,8 +17823,8 @@ exports['default'] = {
         }
         var activeKeyProps = {};
 
-        var clonedMenuItems = menuItems;
         var defaultActiveFirst = defaultActiveFirstOption;
+        var clonedMenuItems = menuItems;
         if (selectedKeys.length || firstActiveValue) {
           if (props.visible && !this.lastVisible) {
             activeKeyProps.activeKey = selectedKeys[0] || firstActiveValue;
@@ -17083,13 +18073,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Select = undefined;
 
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
-
 var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
@@ -17157,6 +18147,12 @@ var _util = __webpack_require__(/*! ./util */ "./node_modules/ant-design-vue/lib
 
 var _PropTypes = __webpack_require__(/*! ./PropTypes */ "./node_modules/ant-design-vue/lib/vc-select/PropTypes.js");
 
+var _contains = __webpack_require__(/*! ../_util/Dom/contains */ "./node_modules/ant-design-vue/lib/_util/Dom/contains.js");
+
+var _contains2 = _interopRequireDefault(_contains);
+
+var _env = __webpack_require__(/*! ../_util/env */ "./node_modules/ant-design-vue/lib/_util/env.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' });
@@ -17199,7 +18195,7 @@ var Select = {
     showSearch: _PropTypes.SelectPropTypes.showSearch.def(true),
     allowClear: _PropTypes.SelectPropTypes.allowClear.def(false),
     placeholder: _PropTypes.SelectPropTypes.placeholder.def(''),
-    showArrow: _PropTypes.SelectPropTypes.showArrow.def(true),
+    // showArrow: SelectPropTypes.showArrow.def(true),
     dropdownMatchSelectWidth: _vueTypes2['default'].bool.def(true),
     dropdownStyle: _PropTypes.SelectPropTypes.dropdownStyle.def({}),
     dropdownMenuStyle: _vueTypes2['default'].object.def({}),
@@ -17237,6 +18233,7 @@ var Select = {
     this._focused = false;
     this._mouseDown = false;
     this._options = [];
+    this._empty = false;
   },
   data: function data() {
     var props = (0, _propsUtil.getOptionProps)(this);
@@ -17259,7 +18256,14 @@ var Select = {
     var _this = this;
 
     this.$nextTick(function () {
-      _this.autoFocus && _this.focus();
+      // when defaultOpen is true, we should auto focus search input
+      // https://github.com/ant-design/ant-design/issues/14254
+      if (_this.autoFocus || _this._open) {
+        _this.focus();
+      }
+      // this.setState({
+      //   _ariaId: generateUUID(),
+      // });
     });
   },
 
@@ -17275,7 +18279,7 @@ var Select = {
       if ((0, _util.isMultipleOrTags)(_this2.$props)) {
         var inputNode = _this2.getInputDOMNode();
         var mirrorNode = _this2.getInputMirrorDOMNode();
-        if (inputNode.value && inputNode.value && mirrorNode) {
+        if (inputNode && inputNode.value && mirrorNode) {
           inputNode.style.width = '';
           inputNode.style.width = mirrorNode.clientWidth + 10 + 'px';
         } else if (inputNode) {
@@ -17372,7 +18376,8 @@ var Select = {
           option: option,
           value: singleValue,
           label: _this4.getLabelFromOption(props, option),
-          title: (0, _propsUtil.getValueByProp)(option, 'title')
+          title: (0, _propsUtil.getValueByProp)(option, 'title'),
+          disabled: (0, _propsUtil.getValueByProp)(option, 'disabled')
         };
       });
       if (preState) {
@@ -17405,10 +18410,17 @@ var Select = {
       }
       return value;
     },
-    onInputChange: function onInputChange(event) {
+    onInputChange: function onInputChange(e) {
+      var _e$target = e.target,
+          val = _e$target.value,
+          composing = _e$target.composing;
+
+      var _$data$_inputValue = this.$data._inputValue,
+          _inputValue = _$data$_inputValue === undefined ? '' : _$data$_inputValue;
+
+      if (composing || _inputValue === val) return;
       var tokenSeparators = this.$props.tokenSeparators;
 
-      var val = event.target.value;
       if ((0, _util.isMultipleOrTags)(this.$props) && tokenSeparators.length && (0, _util.includesSeparators)(val, tokenSeparators)) {
         var nextValue = this.getValueByInput(val);
         if (nextValue !== undefined) {
@@ -17450,6 +18462,7 @@ var Select = {
         this.onInputKeydown(event);
       } else if (keyCode === _KeyCode2['default'].ENTER || keyCode === _KeyCode2['default'].DOWN) {
         // vue state是同步更新，onKeyDown在onMenuSelect后会再次调用，单选时不在调用setOpenState
+        // https://github.com/vueComponent/ant-design-vue/issues/1142
         if (keyCode === _KeyCode2['default'].ENTER && !(0, _util.isMultipleOrTags)(this.$props)) {
           this.maybeFocus(true);
         } else if (!open) {
@@ -17470,6 +18483,7 @@ var Select = {
         return;
       }
       var state = this.$data;
+      var isRealOpen = this.getRealOpenState(state);
       var keyCode = event.keyCode;
       if ((0, _util.isMultipleOrTags)(props) && !event.target.value && keyCode === _KeyCode2['default'].BACKSPACE) {
         event.preventDefault();
@@ -17490,7 +18504,10 @@ var Select = {
       } else if (keyCode === _KeyCode2['default'].ENTER && state._open) {
         // Aviod trigger form submit when select item
         // https://github.com/ant-design/ant-design/issues/10861
-        event.preventDefault();
+        // https://github.com/ant-design/ant-design/issues/14544
+        if (isRealOpen || !props.combobox) {
+          event.preventDefault();
+        }
       } else if (keyCode === _KeyCode2['default'].ESC) {
         if (state._open) {
           this.setOpenState(false);
@@ -17500,7 +18517,7 @@ var Select = {
         return;
       }
 
-      if (this.getRealOpenState(state) && this.selectTriggerRef) {
+      if (isRealOpen && this.selectTriggerRef) {
         var menu = this.selectTriggerRef.getInnerMenu();
         if (menu && menu.onKeyDown(event, this.handleBackfill)) {
           event.preventDefault();
@@ -17525,7 +18542,7 @@ var Select = {
         }
         value = value.concat([selectedValue]);
       } else {
-        if (lastValue !== undefined && lastValue === selectedValue && selectedValue !== this.$data._backfillValue) {
+        if (!(0, _util.isCombobox)(props) && lastValue !== undefined && lastValue === selectedValue && selectedValue !== this.$data._backfillValue) {
           this.setOpenState(false, true);
           return;
         }
@@ -17557,6 +18574,7 @@ var Select = {
     onArrowClick: function onArrowClick(e) {
       e.stopPropagation();
       e.preventDefault();
+      this.clearBlurTime();
       if (!this.disabled) {
         this.setOpenState(!this.$data._open, !this.$data._open);
       }
@@ -17646,6 +18664,11 @@ var Select = {
       var value = null;
       Object.keys(this.$data._optionsInfo).forEach(function (key) {
         var info = _this6.$data._optionsInfo[key];
+        var disabled = info.disabled;
+
+        if (disabled) {
+          return;
+        }
         var oldLable = (0, _util.toArray)(info.label);
         if (oldLable && oldLable.join('') === label) {
           value = info.value;
@@ -17741,11 +18764,21 @@ var Select = {
         this._focused = false;
       }
     },
-    inputBlur: function inputBlur() {
+    inputBlur: function inputBlur(e) {
       var _this8 = this;
 
+      var target = e.relatedTarget || document.activeElement;
+
+      // https://github.com/vueComponent/ant-design-vue/issues/999
+      // https://github.com/vueComponent/ant-design-vue/issues/1223
+      if ((_env.isIE || _env.isEdge) && (e.relatedTarget === this.$refs.arrow || target && this.selectTriggerRef && this.selectTriggerRef.getInnerMenu() && this.selectTriggerRef.getInnerMenu().$el === target || (0, _contains2['default'])(e.target, target))) {
+        e.target.focus();
+        e.preventDefault();
+        return;
+      }
       this.clearBlurTime();
       if (this.disabled) {
+        e.preventDefault();
         return;
       }
       this.blurTimer = setTimeout(function () {
@@ -17771,11 +18804,9 @@ var Select = {
           } else {
             // why not use setState?
             _this8.$data._inputValue = '';
-            _this8.$nextTick(function () {
-              if (_this8.getInputDOMNode && _this8.getInputDOMNode()) {
-                _this8.getInputDOMNode().value = '';
-              }
-            });
+            if (_this8.getInputDOMNode && _this8.getInputDOMNode()) {
+              _this8.getInputDOMNode().value = '';
+            }
           }
           var tmpValue = _this8.getValueByInput(inputValue);
           if (tmpValue !== undefined) {
@@ -17791,7 +18822,7 @@ var Select = {
         }
         _this8.setOpenState(false);
         _this8.$emit('blur', _this8.getVLForOnChange(value));
-      }, 10);
+      }, 200);
     },
     inputFocus: function inputFocus(e) {
       if (this.$props.disabled) {
@@ -17819,9 +18850,16 @@ var Select = {
       var inputValue = this.$data._inputValue;
 
       var attrs = (0, _propsUtil.getAttrs)(this);
-      var defaultInput = h('input', {
-        attrs: { id: attrs.id, autoComplete: 'off' }
-      });
+      var defaultInput = h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
+        directives: [{
+          name: 'ant-input'
+        }]
+      }, {
+        attrs: {
+          id: attrs.id,
+          autoComplete: 'off'
+        }
+      }]));
 
       var inputElement = props.getInputElement ? props.getInputElement() : defaultInput;
       var inputCls = (0, _classnames3['default'])((0, _propsUtil.getClass)(inputElement), (0, _defineProperty3['default'])({}, props.prefixCls + '-search__field', true));
@@ -18161,6 +19199,7 @@ var Select = {
 
       var menuItems = [];
       var childrenKeys = [];
+      var empty = false;
       var options = this.renderFilterOptionsFromChildren(children, childrenKeys, menuItems);
       if (tags) {
         // tags value must be string
@@ -18168,6 +19207,12 @@ var Select = {
         value = value.filter(function (singleValue) {
           return childrenKeys.indexOf(singleValue) === -1 && (!inputValue || String(singleValue).indexOf(String(inputValue)) > -1);
         });
+
+        // sort by length
+        value.sort(function (val1, val2) {
+          return val1.length - val2.length;
+        });
+
         value.forEach(function (singleValue) {
           var key = singleValue;
           var attrs = (0, _extends3['default'])({}, _util.UNSELECTABLE_ATTRIBUTE, {
@@ -18217,6 +19262,7 @@ var Select = {
       }
 
       if (!options.length && notFoundContent) {
+        empty = true;
         var _p = {
           attrs: _util.UNSELECTABLE_ATTRIBUTE,
           key: 'NOT_FOUND',
@@ -18233,7 +19279,7 @@ var Select = {
           [notFoundContent]
         )];
       }
-      return options;
+      return { empty: empty, options: options };
     },
     renderFilterOptionsFromChildren: function renderFilterOptionsFromChildren() {
       var children = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -18262,6 +19308,7 @@ var Select = {
             label = key;
           }
           var childChildren = (0, _propsUtil.getSlots)(child)['default'];
+          childChildren = typeof childChildren === 'function' ? childChildren() : childChildren;
           // Match option group label
           if (inputValue && _this13._filterOption(inputValue, child)) {
             var innerItems = childChildren.map(function (subChild) {
@@ -18527,19 +19574,19 @@ var Select = {
     },
     renderArrow: function renderArrow(multiple) {
       var h = this.$createElement;
+
+      // showArrow : Set to true if not multiple by default but keep set value.
       var _$props3 = this.$props,
-          showArrow = _$props3.showArrow,
+          _$props3$showArrow = _$props3.showArrow,
+          showArrow = _$props3$showArrow === undefined ? !multiple : _$props3$showArrow,
           loading = _$props3.loading,
           prefixCls = _$props3.prefixCls;
 
       var inputIcon = (0, _propsUtil.getComponentFromProp)(this, 'inputIcon');
-      if (!showArrow) {
+      if (!showArrow && !loading) {
         return null;
       }
       // if loading  have loading icon
-      if (multiple && !loading) {
-        return null;
-      }
       var defaultIcon = loading ? h('i', { 'class': prefixCls + '-arrow-loading' }) : h('i', { 'class': prefixCls + '-arrow-icon' });
       return h(
         'span',
@@ -18550,7 +19597,9 @@ var Select = {
         }, { attrs: _util.UNSELECTABLE_ATTRIBUTE }, {
           on: {
             'click': this.onArrowClick
-          }
+          },
+
+          ref: 'arrow'
         }]),
         [inputIcon || defaultIcon]
       );
@@ -18606,31 +19655,36 @@ var Select = {
       return null;
     },
     selectionRefClick: function selectionRefClick(e) {
-      e.stopPropagation();
+      //e.stopPropagation();
       if (!this.disabled) {
         var input = this.getInputDOMNode();
         if (this._focused && this.$data._open) {
-          this._focused = false;
+          // this._focused = false;
           this.setOpenState(false, false);
           input && input.blur();
         } else {
           this.clearBlurTime();
-          this._focused = true;
+          //this._focused = true;
           this.setOpenState(true, true);
           input && input.focus();
         }
       }
     },
-    selectionRefFocus: function selectionRefFocus() {
-      if (this._focused || this.disabled) {
+    selectionRefFocus: function selectionRefFocus(e) {
+      if (this._focused || this.disabled || (0, _util.isMultipleOrTagsOrCombobox)(this.$props)) {
+        e.preventDefault();
         return;
       }
       this._focused = true;
       this.updateFocusClassName();
       this.$emit('focus');
     },
-    selectionRefBlur: function selectionRefBlur() {
-      this.inputBlur();
+    selectionRefBlur: function selectionRefBlur(e) {
+      if ((0, _util.isMultipleOrTagsOrCombobox)(this.$props)) {
+        e.preventDefault();
+        return;
+      }
+      this.inputBlur(e);
     }
   },
 
@@ -18641,9 +19695,14 @@ var Select = {
 
     var props = this.$props;
     var multiple = (0, _util.isMultipleOrTags)(props);
+    // Default set showArrow to true if not set (not set directly in defaultProps to handle multiple case)
+    var _props$showArrow = props.showArrow,
+        showArrow = _props$showArrow === undefined ? true : _props$showArrow;
+
     var state = this.$data;
     var disabled = props.disabled,
-        prefixCls = props.prefixCls;
+        prefixCls = props.prefixCls,
+        loading = props.loading;
 
     var ctrlNode = this.renderTopControlNode();
     var _$data4 = this.$data,
@@ -18652,9 +19711,12 @@ var Select = {
         value = _$data4._value;
 
     if (open) {
-      this._options = this.renderFilterOptions();
+      var filterOptions = this.renderFilterOptions();
+      this._empty = filterOptions.empty;
+      this._options = filterOptions.options;
     }
     var realOpen = this.getRealOpenState();
+    var empty = this._empty;
     var options = this._options || [];
     var $listeners = this.$listeners;
     var _$listeners$mouseente = $listeners.mouseenter,
@@ -18674,22 +19736,24 @@ var Select = {
         'aria-controls': this.$data._ariaId
       },
       on: {
-        click: this.selectionRefClick
+        // click: this.selectionRefClick,
       },
       'class': prefixCls + '-selection ' + prefixCls + '-selection--' + (multiple ? 'multiple' : 'single'),
-      directives: [{
-        name: 'ant-ref',
-        value: this.saveSelectionRef
-      }],
+      // directives: [
+      //   {
+      //     name: 'ant-ref',
+      //     value: this.saveSelectionRef,
+      //   },
+      // ],
       key: 'selection'
     };
-    if (!(0, _util.isMultipleOrTagsOrCombobox)(props)) {
-      selectionProps.on.keydown = this.onKeyDown;
-      selectionProps.on.focus = this.selectionRefFocus;
-      selectionProps.on.blur = this.selectionRefBlur;
-      selectionProps.attrs.tabIndex = props.disabled ? -1 : props.tabIndex;
-    }
-    var rootCls = (_rootCls = {}, (0, _defineProperty3['default'])(_rootCls, prefixCls, true), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-open', open), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-focused', open || !!this._focused), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-combobox', (0, _util.isCombobox)(props)), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-disabled', disabled), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-enabled', !disabled), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-allow-clear', !!props.allowClear), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-no-arrow', !props.showArrow), _rootCls);
+    //if (!isMultipleOrTagsOrCombobox(props)) {
+    // selectionProps.on.keydown = this.onKeyDown;
+    // selectionProps.on.focus = this.selectionRefFocus;
+    // selectionProps.on.blur = this.selectionRefBlur;
+    // selectionProps.attrs.tabIndex = props.disabled ? -1 : props.tabIndex;
+    //}
+    var rootCls = (_rootCls = {}, (0, _defineProperty3['default'])(_rootCls, prefixCls, true), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-open', open), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-focused', open || !!this._focused), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-combobox', (0, _util.isCombobox)(props)), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-disabled', disabled), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-enabled', !disabled), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-allow-clear', !!props.allowClear), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-no-arrow', !showArrow), (0, _defineProperty3['default'])(_rootCls, prefixCls + '-loading', !!loading), _rootCls);
     return h(
       _SelectTrigger2['default'],
       (0, _babelHelperVueJsxMergeProps2['default'])([{
@@ -18706,6 +19770,7 @@ var Select = {
           combobox: props.combobox,
           showSearch: props.showSearch,
           options: options,
+          empty: empty,
           multiple: multiple,
           disabled: disabled,
           visible: realOpen,
@@ -18744,7 +19809,7 @@ var Select = {
         (0, _babelHelperVueJsxMergeProps2['default'])([{
           directives: [{
             name: 'ant-ref',
-            value: this.saveRootRef
+            value: chaining(this.saveRootRef, this.saveSelectionRef)
           }]
         }, {
           style: (0, _propsUtil.getStyle)(this),
@@ -18752,7 +19817,14 @@ var Select = {
           on: {
             'mousedown': this.markMouseDown,
             'mouseup': this.markMouseLeave,
-            'mouseout': this.markMouseLeave
+            'mouseout': this.markMouseLeave,
+            'blur': this.selectionRefBlur,
+            'focus': this.selectionRefFocus,
+            'click': this.selectionRefClick,
+            'keydown': (0, _util.isMultipleOrTagsOrCombobox)(props) ? noop : this.onKeyDown
+          },
+          attrs: {
+            tabIndex: props.disabled ? -1 : props.tabIndex
           }
         }]),
         [h(
@@ -18852,6 +19924,7 @@ exports['default'] = {
     multiple: _vueTypes2['default'].bool,
     inputValue: _vueTypes2['default'].string,
     filterOption: _vueTypes2['default'].any,
+    empty: _vueTypes2['default'].bool,
     options: _vueTypes2['default'].any,
     prefixCls: _vueTypes2['default'].string,
     popupClassName: _vueTypes2['default'].string,
@@ -18982,14 +20055,15 @@ exports['default'] = {
         dropdownMatchSelectWidth = $props.dropdownMatchSelectWidth,
         options = $props.options,
         getPopupContainer = $props.getPopupContainer,
-        showAction = $props.showAction;
+        showAction = $props.showAction,
+        empty = $props.empty;
     var mouseenter = $listeners.mouseenter,
         mouseleave = $listeners.mouseleave,
         popupFocus = $listeners.popupFocus,
         dropdownVisibleChange = $listeners.dropdownVisibleChange;
 
     var dropdownPrefixCls = this.getDropdownPrefixCls();
-    var popupClassName = (_popupClassName = {}, (0, _defineProperty3['default'])(_popupClassName, dropdownClassName, !!dropdownClassName), (0, _defineProperty3['default'])(_popupClassName, dropdownPrefixCls + '--' + (multiple ? 'multiple' : 'single'), 1), _popupClassName);
+    var popupClassName = (_popupClassName = {}, (0, _defineProperty3['default'])(_popupClassName, dropdownClassName, !!dropdownClassName), (0, _defineProperty3['default'])(_popupClassName, dropdownPrefixCls + '--' + (multiple ? 'multiple' : 'single'), 1), (0, _defineProperty3['default'])(_popupClassName, dropdownPrefixCls + '--empty', empty), _popupClassName);
     var popupElement = this.getDropdownElement({
       props: {
         menuItems: options,
@@ -19088,7 +20162,7 @@ var _OptGroup2 = _interopRequireDefault(_OptGroup);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-// based on vc-select 8.7.0
+// based on vc-select 8.9.0
 _Select.Select.Option = _Option2['default'];
 _Select.Select.OptGroup = _OptGroup2['default'];
 _Select2['default'].Option = _Option2['default'];
@@ -19663,6 +20737,8 @@ exports['default'] = {
 
     var props = (0, _extends3['default'])({}, this.$props);
     var listeners = this.$listeners;
+    var renderTabBarNode = this.$scopedSlots['default'];
+
     return h(_SaveRef2['default'], {
       attrs: {
         children: function children(saveRef, getRef) {
@@ -19677,8 +20753,10 @@ exports['default'] = {
                 attrs: { saveRef: saveRef, getRef: getRef }
               }, { props: props, on: listeners }]),
               [h(_TabBarTabsNode2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{
-                attrs: { saveRef: saveRef }
-              }, { props: props, on: listeners }])), h(_InkTabBarNode2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{
+                attrs: {
+                  saveRef: saveRef
+                }
+              }, { props: (0, _extends3['default'])({}, props, { renderTabBarNode: renderTabBarNode }), on: listeners }])), h(_InkTabBarNode2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{
                 attrs: { saveRef: saveRef, getRef: getRef }
               }, { props: props, on: listeners }]))]
             )]
@@ -19744,15 +20822,15 @@ exports['default'] = {
   name: 'ScrollableTabBarNode',
   mixins: [_BaseMixin2['default']],
   props: {
-    saveRef: _vueTypes2['default'].func.def(function () {}),
+    activeKey: _vueTypes2['default'].any,
     getRef: _vueTypes2['default'].func.def(function () {}),
+    saveRef: _vueTypes2['default'].func.def(function () {}),
     tabBarPosition: _vueTypes2['default'].oneOf(['left', 'right', 'top', 'bottom']).def('left'),
     prefixCls: _vueTypes2['default'].string.def(''),
     scrollAnimated: _vueTypes2['default'].bool.def(true),
     navWrapper: _vueTypes2['default'].func.def(function (arg) {
       return arg;
     }),
-    activeKey: _vueTypes2['default'].any,
     prevIcon: _vueTypes2['default'].any,
     nextIcon: _vueTypes2['default'].any
   },
@@ -20340,6 +21418,7 @@ exports['default'] = {
     onTabClick: _vueTypes2['default'].func,
     saveRef: _vueTypes2['default'].func.def(noop),
     getRef: _vueTypes2['default'].func.def(noop),
+    renderTabBarNode: _vueTypes2['default'].func,
     tabBarPosition: _vueTypes2['default'].string
   },
   render: function render() {
@@ -20355,7 +21434,7 @@ exports['default'] = {
         tabBarPosition = _$props.tabBarPosition;
 
     var rst = [];
-
+    var renderTabBarNode = this.renderTabBarNode || this.$scopedSlots.renderTabBarNode;
     children.forEach(function (child, index) {
       if (!child) {
         return;
@@ -20385,7 +21464,7 @@ exports['default'] = {
       gutter = typeof gutter === 'number' ? gutter + 'px' : gutter;
       var style = (0, _defineProperty3['default'])({}, (0, _utils.isVertical)(tabBarPosition) ? 'marginBottom' : 'marginRight', gutter);
       (0, _warning2['default'])(tab !== undefined, 'There must be `tab` property or slot on children of Tabs.');
-      rst.push(h(
+      var node = h(
         'div',
         (0, _babelHelperVueJsxMergeProps2['default'])([{
           attrs: {
@@ -20399,7 +21478,12 @@ exports['default'] = {
           style: style
         }, { directives: directives }]),
         [tab]
-      ));
+      );
+      if (renderTabBarNode) {
+        node = renderTabBarNode(node);
+      }
+
+      rst.push(node);
     });
 
     return h(
@@ -20954,7 +22038,7 @@ var _TabContent2 = _interopRequireDefault(_TabContent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-_vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' }); // based on rc-tabs 9.5.8
+_vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' }); // based on rc-tabs 9.6.1
 exports['default'] = _Tabs2['default'];
 exports.TabPane = _TabPane2['default'];
 exports.TabContent = _TabContent2['default'];
@@ -21565,6 +22649,7 @@ exports['default'] = {
     })
   },
   data: function data() {
+    this.domEl = null;
     return {
       // Used for stretch
       stretchChecked: false,
@@ -21579,6 +22664,12 @@ exports['default'] = {
       _this.rootNode = _this.getPopupDomNode();
       _this.setStretchSize();
     });
+  },
+  beforeUpdate: function beforeUpdate() {
+    if (this.domEl && this.domEl.rcEndListener) {
+      this.domEl.rcEndListener();
+      this.domEl = null;
+    }
   },
   updated: function updated() {
     var _this2 = this;
@@ -21758,17 +22849,21 @@ exports['default'] = {
       var transitionEvent = {
         beforeEnter: function beforeEnter() {
           // el.style.display = el.__vOriginalDisplay
-          // this.$refs.alignInstance.forceAlign()
+          // this.$refs.alignInstance.forceAlign();
         },
         enter: function enter(el, done) {
-          // align updated后执行动画
+          // render 后 vue 会移除通过animate动态添加的 class导致动画闪动，延迟两帧添加动画class，可以进一步定位或者重写 transition 组件
           _this3.$nextTick(function () {
             if (_this3.$refs.alignInstance) {
               _this3.$refs.alignInstance.$nextTick(function () {
+                _this3.domEl = el;
                 (0, _cssAnimation2['default'])(el, transitionName + '-enter', done);
               });
             }
           });
+        },
+        beforeLeave: function beforeLeave() {
+          _this3.domEl = null;
         },
         leave: function leave(el, done) {
           (0, _cssAnimation2['default'])(el, transitionName + '-leave', done);
@@ -22112,7 +23207,7 @@ exports['default'] = {
 
       this.$nextTick(function () {
         _this.renderComponent(null, function () {
-          _this.afterPopupVisibleChange(val);
+          _this.afterPopupVisibleChange(_this.sPopupVisible);
         });
       });
     }
@@ -22222,10 +23317,12 @@ exports['default'] = {
       this.preTouchTime = Date.now();
     },
     onBlur: function onBlur(e) {
-      this.fireEvents('blur', e);
-      this.clearDelayTimer();
-      if (this.isBlurToHide()) {
-        this.delaySetPopupVisible(false, this.$props.blurDelay);
+      if (!(0, _contains2['default'])(e.target, e.relatedTarget || document.activeElement)) {
+        this.fireEvents('blur', e);
+        this.clearDelayTimer();
+        if (this.isBlurToHide()) {
+          this.delaySetPopupVisible(false, this.$props.blurDelay);
+        }
       }
     },
     onContextmenu: function onContextmenu(e) {
@@ -22729,334 +23826,979 @@ function noop() {}
 
 /***/ }),
 
-/***/ "./node_modules/async-validator/es/index.js":
-/*!**************************************************!*\
-  !*** ./node_modules/async-validator/es/index.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/async-validator/dist-web/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/async-validator/dist-web/index.js ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function(process) {function _extends() {
+  _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
 
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+    return target;
+  };
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _util = __webpack_require__(/*! ./util */ "./node_modules/async-validator/es/util.js");
-
-var _validator = __webpack_require__(/*! ./validator/ */ "./node_modules/async-validator/es/validator/index.js");
-
-var _validator2 = _interopRequireDefault(_validator);
-
-var _messages2 = __webpack_require__(/*! ./messages */ "./node_modules/async-validator/es/messages.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Encapsulates a validation schema.
- *
- *  @param descriptor An object declaring validation rules
- *  for this schema.
- */
-function Schema(descriptor) {
-  this.rules = null;
-  this._messages = _messages2.messages;
-  this.define(descriptor);
+  return _extends.apply(this, arguments);
 }
 
-Schema.prototype = {
-  messages: function messages(_messages) {
-    if (_messages) {
-      this._messages = (0, _util.deepMerge)((0, _messages2.newMessages)(), _messages);
-    }
-    return this._messages;
-  },
-  define: function define(rules) {
-    if (!rules) {
-      throw new Error('Cannot configure a schema with no rules');
-    }
-    if ((typeof rules === 'undefined' ? 'undefined' : _typeof(rules)) !== 'object' || Array.isArray(rules)) {
-      throw new Error('Rules must be an object');
-    }
-    this.rules = {};
-    var z = void 0;
-    var item = void 0;
-    for (z in rules) {
-      if (rules.hasOwnProperty(z)) {
-        item = rules[z];
-        this.rules[z] = Array.isArray(item) ? item : [item];
+/* eslint no-console:0 */
+var formatRegExp = /%[sdj%]/g;
+var warning = function warning() {}; // don't print warning message when in production env or node runtime
+
+if (typeof process !== 'undefined' && process.env && "development" !== 'production' && typeof window !== 'undefined' && typeof document !== 'undefined') {
+  warning = function warning(type, errors) {
+    if (typeof console !== 'undefined' && console.warn) {
+      if (errors.every(function (e) {
+        return typeof e === 'string';
+      })) {
+        console.warn(type, errors);
       }
     }
-  },
-  validate: function validate(source_) {
-    var _this = this;
+  };
+}
 
-    var o = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var oc = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+function convertFieldsError(errors) {
+  if (!errors || !errors.length) return null;
+  var fields = {};
+  errors.forEach(function (error) {
+    var field = error.field;
+    fields[field] = fields[field] || [];
+    fields[field].push(error);
+  });
+  return fields;
+}
+function format() {
+  for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+    args[_key] = arguments[_key];
+  }
 
-    var source = source_;
-    var options = o;
-    var callback = oc;
-    if (typeof options === 'function') {
-      callback = options;
-      options = {};
+  var i = 1;
+  var f = args[0];
+  var len = args.length;
+
+  if (typeof f === 'function') {
+    return f.apply(null, args.slice(1));
+  }
+
+  if (typeof f === 'string') {
+    var str = String(f).replace(formatRegExp, function (x) {
+      if (x === '%%') {
+        return '%';
+      }
+
+      if (i >= len) {
+        return x;
+      }
+
+      switch (x) {
+        case '%s':
+          return String(args[i++]);
+
+        case '%d':
+          return Number(args[i++]);
+
+        case '%j':
+          try {
+            return JSON.stringify(args[i++]);
+          } catch (_) {
+            return '[Circular]';
+          }
+
+          break;
+
+        default:
+          return x;
+      }
+    });
+
+    for (var arg = args[i]; i < len; arg = args[++i]) {
+      str += " " + arg;
     }
-    if (!this.rules || Object.keys(this.rules).length === 0) {
-      if (callback) {
-        callback();
-      }
-      return Promise.resolve();
+
+    return str;
+  }
+
+  return f;
+}
+
+function isNativeStringType(type) {
+  return type === 'string' || type === 'url' || type === 'hex' || type === 'email' || type === 'pattern';
+}
+
+function isEmptyValue(value, type) {
+  if (value === undefined || value === null) {
+    return true;
+  }
+
+  if (type === 'array' && Array.isArray(value) && !value.length) {
+    return true;
+  }
+
+  if (isNativeStringType(type) && typeof value === 'string' && !value) {
+    return true;
+  }
+
+  return false;
+}
+
+function asyncParallelArray(arr, func, callback) {
+  var results = [];
+  var total = 0;
+  var arrLength = arr.length;
+
+  function count(errors) {
+    results.push.apply(results, errors);
+    total++;
+
+    if (total === arrLength) {
+      callback(results);
+    }
+  }
+
+  arr.forEach(function (a) {
+    func(a, count);
+  });
+}
+
+function asyncSerialArray(arr, func, callback) {
+  var index = 0;
+  var arrLength = arr.length;
+
+  function next(errors) {
+    if (errors && errors.length) {
+      callback(errors);
+      return;
     }
 
-    function complete(results) {
-      var i = void 0;
-      var errors = [];
-      var fields = {};
+    var original = index;
+    index = index + 1;
 
-      function add(e) {
-        if (Array.isArray(e)) {
-          var _errors;
-
-          errors = (_errors = errors).concat.apply(_errors, e);
-        } else {
-          errors.push(e);
-        }
-      }
-
-      for (i = 0; i < results.length; i++) {
-        add(results[i]);
-      }
-      if (!errors.length) {
-        errors = null;
-        fields = null;
-      } else {
-        fields = (0, _util.convertFieldsError)(errors);
-      }
-      callback(errors, fields);
-    }
-
-    if (options.messages) {
-      var messages = this.messages();
-      if (messages === _messages2.messages) {
-        messages = (0, _messages2.newMessages)();
-      }
-      (0, _util.deepMerge)(messages, options.messages);
-      options.messages = messages;
+    if (original < arrLength) {
+      func(arr[original], next);
     } else {
-      options.messages = this.messages();
+      callback([]);
     }
-    var arr = void 0;
-    var value = void 0;
-    var series = {};
-    var keys = options.keys || Object.keys(this.rules);
-    keys.forEach(function (z) {
-      arr = _this.rules[z];
-      value = source[z];
-      arr.forEach(function (r) {
-        var rule = r;
-        if (typeof rule.transform === 'function') {
-          if (source === source_) {
-            source = _extends({}, source);
-          }
-          value = source[z] = rule.transform(value);
-        }
-        if (typeof rule === 'function') {
-          rule = {
-            validator: rule
-          };
-        } else {
-          rule = _extends({}, rule);
-        }
-        rule.validator = _this.getValidationMethod(rule);
-        rule.field = z;
-        rule.fullField = rule.fullField || z;
-        rule.type = _this.getType(rule);
-        if (!rule.validator) {
-          return;
-        }
-        series[z] = series[z] || [];
-        series[z].push({
-          rule: rule,
-          value: value,
-          source: source,
-          field: z
-        });
-      });
+  }
+
+  next([]);
+}
+
+function flattenObjArr(objArr) {
+  var ret = [];
+  Object.keys(objArr).forEach(function (k) {
+    ret.push.apply(ret, objArr[k]);
+  });
+  return ret;
+}
+
+function asyncMap(objArr, option, func, callback) {
+  if (option.first) {
+    var _pending = new Promise(function (resolve, reject) {
+      var next = function next(errors) {
+        callback(errors);
+        return errors.length ? reject({
+          errors: errors,
+          fields: convertFieldsError(errors)
+        }) : resolve();
+      };
+
+      var flattenArr = flattenObjArr(objArr);
+      asyncSerialArray(flattenArr, func, next);
     });
-    var errorFields = {};
-    return (0, _util.asyncMap)(series, options, function (data, doIt) {
-      var rule = data.rule;
-      var deep = (rule.type === 'object' || rule.type === 'array') && (_typeof(rule.fields) === 'object' || _typeof(rule.defaultField) === 'object');
-      deep = deep && (rule.required || !rule.required && data.value);
-      rule.field = data.field;
 
-      function addFullfield(key, schema) {
-        return _extends({}, schema, {
-          fullField: rule.fullField + '.' + key
-        });
-      }
-
-      function cb() {
-        var e = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-        var errors = e;
-        if (!Array.isArray(errors)) {
-          errors = [errors];
-        }
-        if (!options.suppressWarning && errors.length) {
-          Schema.warning('async-validator:', errors);
-        }
-        if (errors.length && rule.message) {
-          errors = [].concat(rule.message);
-        }
-
-        errors = errors.map((0, _util.complementError)(rule));
-
-        if (options.first && errors.length) {
-          errorFields[rule.field] = 1;
-          return doIt(errors);
-        }
-        if (!deep) {
-          doIt(errors);
-        } else {
-          // if rule is required but the target object
-          // does not exist fail at the rule level and don't
-          // go deeper
-          if (rule.required && !data.value) {
-            if (rule.message) {
-              errors = [].concat(rule.message).map((0, _util.complementError)(rule));
-            } else if (options.error) {
-              errors = [options.error(rule, (0, _util.format)(options.messages.required, rule.field))];
-            } else {
-              errors = [];
-            }
-            return doIt(errors);
-          }
-
-          var fieldsSchema = {};
-          if (rule.defaultField) {
-            for (var k in data.value) {
-              if (data.value.hasOwnProperty(k)) {
-                fieldsSchema[k] = rule.defaultField;
-              }
-            }
-          }
-          fieldsSchema = _extends({}, fieldsSchema, data.rule.fields);
-          for (var f in fieldsSchema) {
-            if (fieldsSchema.hasOwnProperty(f)) {
-              var fieldSchema = Array.isArray(fieldsSchema[f]) ? fieldsSchema[f] : [fieldsSchema[f]];
-              fieldsSchema[f] = fieldSchema.map(addFullfield.bind(null, f));
-            }
-          }
-          var schema = new Schema(fieldsSchema);
-          schema.messages(options.messages);
-          if (data.rule.options) {
-            data.rule.options.messages = options.messages;
-            data.rule.options.error = options.error;
-          }
-          schema.validate(data.value, data.rule.options || options, function (errs) {
-            var finalErrors = [];
-            if (errors && errors.length) {
-              finalErrors.push.apply(finalErrors, errors);
-            }
-            if (errs && errs.length) {
-              finalErrors.push.apply(finalErrors, errs);
-            }
-            doIt(finalErrors.length ? finalErrors : null);
-          });
-        }
-      }
-
-      var res = void 0;
-      if (rule.asyncValidator) {
-        res = rule.asyncValidator(rule, data.value, cb, data.source, options);
-      } else if (rule.validator) {
-        res = rule.validator(rule, data.value, cb, data.source, options);
-        if (res === true) {
-          cb();
-        } else if (res === false) {
-          cb(rule.message || rule.field + ' fails');
-        } else if (res instanceof Array) {
-          cb(res);
-        } else if (res instanceof Error) {
-          cb(res.message);
-        }
-      }
-      if (res && res.then) {
-        res.then(function () {
-          return cb();
-        }, function (e) {
-          return cb(e);
-        });
-      }
-    }, function (results) {
-      complete(results);
+    _pending["catch"](function (e) {
+      return e;
     });
+
+    return _pending;
+  }
+
+  var firstFields = option.firstFields || [];
+
+  if (firstFields === true) {
+    firstFields = Object.keys(objArr);
+  }
+
+  var objArrKeys = Object.keys(objArr);
+  var objArrLength = objArrKeys.length;
+  var total = 0;
+  var results = [];
+  var pending = new Promise(function (resolve, reject) {
+    var next = function next(errors) {
+      results.push.apply(results, errors);
+      total++;
+
+      if (total === objArrLength) {
+        callback(results);
+        return results.length ? reject({
+          errors: results,
+          fields: convertFieldsError(results)
+        }) : resolve();
+      }
+    };
+
+    objArrKeys.forEach(function (key) {
+      var arr = objArr[key];
+
+      if (firstFields.indexOf(key) !== -1) {
+        asyncSerialArray(arr, func, next);
+      } else {
+        asyncParallelArray(arr, func, next);
+      }
+    });
+  });
+  pending["catch"](function (e) {
+    return e;
+  });
+  return pending;
+}
+function complementError(rule) {
+  return function (oe) {
+    if (oe && oe.message) {
+      oe.field = oe.field || rule.fullField;
+      return oe;
+    }
+
+    return {
+      message: typeof oe === 'function' ? oe() : oe,
+      field: oe.field || rule.fullField
+    };
+  };
+}
+function deepMerge(target, source) {
+  if (source) {
+    for (var s in source) {
+      if (source.hasOwnProperty(s)) {
+        var value = source[s];
+
+        if (typeof value === 'object' && typeof target[s] === 'object') {
+          target[s] = _extends({}, target[s], {}, value);
+        } else {
+          target[s] = value;
+        }
+      }
+    }
+  }
+
+  return target;
+}
+
+/**
+ *  Rule for validating required fields.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param source The source object being validated.
+ *  @param errors An array of errors that this rule may add
+ *  validation errors to.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function required(rule, value, source, errors, options, type) {
+  if (rule.required && (!source.hasOwnProperty(rule.field) || isEmptyValue(value, type || rule.type))) {
+    errors.push(format(options.messages.required, rule.fullField));
+  }
+}
+
+/**
+ *  Rule for validating whitespace.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param source The source object being validated.
+ *  @param errors An array of errors that this rule may add
+ *  validation errors to.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function whitespace(rule, value, source, errors, options) {
+  if (/^\s+$/.test(value) || value === '') {
+    errors.push(format(options.messages.whitespace, rule.fullField));
+  }
+}
+
+/* eslint max-len:0 */
+
+var pattern = {
+  // http://emailregex.com/
+  email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  url: new RegExp("^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-*)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$", 'i'),
+  hex: /^#?([a-f0-9]{6}|[a-f0-9]{3})$/i
+};
+var types = {
+  integer: function integer(value) {
+    return types.number(value) && parseInt(value, 10) === value;
   },
-  getType: function getType(rule) {
-    if (rule.type === undefined && rule.pattern instanceof RegExp) {
-      rule.type = 'pattern';
-    }
-    if (typeof rule.validator !== 'function' && rule.type && !_validator2['default'].hasOwnProperty(rule.type)) {
-      throw new Error((0, _util.format)('Unknown rule type %s', rule.type));
-    }
-    return rule.type || 'string';
+  "float": function float(value) {
+    return types.number(value) && !types.integer(value);
   },
-  getValidationMethod: function getValidationMethod(rule) {
-    if (typeof rule.validator === 'function') {
-      return rule.validator;
+  array: function array(value) {
+    return Array.isArray(value);
+  },
+  regexp: function regexp(value) {
+    if (value instanceof RegExp) {
+      return true;
     }
-    var keys = Object.keys(rule);
-    var messageIndex = keys.indexOf('message');
-    if (messageIndex !== -1) {
-      keys.splice(messageIndex, 1);
+
+    try {
+      return !!new RegExp(value);
+    } catch (e) {
+      return false;
     }
-    if (keys.length === 1 && keys[0] === 'required') {
-      return _validator2['default'].required;
+  },
+  date: function date(value) {
+    return typeof value.getTime === 'function' && typeof value.getMonth === 'function' && typeof value.getYear === 'function';
+  },
+  number: function number(value) {
+    if (isNaN(value)) {
+      return false;
     }
-    return _validator2['default'][this.getType(rule)] || false;
+
+    return typeof value === 'number';
+  },
+  object: function object(value) {
+    return typeof value === 'object' && !types.array(value);
+  },
+  method: function method(value) {
+    return typeof value === 'function';
+  },
+  email: function email(value) {
+    return typeof value === 'string' && !!value.match(pattern.email) && value.length < 255;
+  },
+  url: function url(value) {
+    return typeof value === 'string' && !!value.match(pattern.url);
+  },
+  hex: function hex(value) {
+    return typeof value === 'string' && !!value.match(pattern.hex);
   }
 };
+/**
+ *  Rule for validating the type of a value.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param source The source object being validated.
+ *  @param errors An array of errors that this rule may add
+ *  validation errors to.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
 
-Schema.register = function register(type, validator) {
-  if (typeof validator !== 'function') {
-    throw new Error('Cannot register a validator by type, validator is not a function');
+function type(rule, value, source, errors, options) {
+  if (rule.required && value === undefined) {
+    required(rule, value, source, errors, options);
+    return;
   }
-  _validator2['default'][type] = validator;
+
+  var custom = ['integer', 'float', 'array', 'regexp', 'object', 'method', 'email', 'number', 'date', 'url', 'hex'];
+  var ruleType = rule.type;
+
+  if (custom.indexOf(ruleType) > -1) {
+    if (!types[ruleType](value)) {
+      errors.push(format(options.messages.types[ruleType], rule.fullField, rule.type));
+    } // straight typeof check
+
+  } else if (ruleType && typeof value !== rule.type) {
+    errors.push(format(options.messages.types[ruleType], rule.fullField, rule.type));
+  }
+}
+
+/**
+ *  Rule for validating minimum and maximum allowed values.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param source The source object being validated.
+ *  @param errors An array of errors that this rule may add
+ *  validation errors to.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function range(rule, value, source, errors, options) {
+  var len = typeof rule.len === 'number';
+  var min = typeof rule.min === 'number';
+  var max = typeof rule.max === 'number'; // 正则匹配码点范围从U+010000一直到U+10FFFF的文字（补充平面Supplementary Plane）
+
+  var spRegexp = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
+  var val = value;
+  var key = null;
+  var num = typeof value === 'number';
+  var str = typeof value === 'string';
+  var arr = Array.isArray(value);
+
+  if (num) {
+    key = 'number';
+  } else if (str) {
+    key = 'string';
+  } else if (arr) {
+    key = 'array';
+  } // if the value is not of a supported type for range validation
+  // the validation rule rule should use the
+  // type property to also test for a particular type
+
+
+  if (!key) {
+    return false;
+  }
+
+  if (arr) {
+    val = value.length;
+  }
+
+  if (str) {
+    // 处理码点大于U+010000的文字length属性不准确的bug，如"𠮷𠮷𠮷".lenght !== 3
+    val = value.replace(spRegexp, '_').length;
+  }
+
+  if (len) {
+    if (val !== rule.len) {
+      errors.push(format(options.messages[key].len, rule.fullField, rule.len));
+    }
+  } else if (min && !max && val < rule.min) {
+    errors.push(format(options.messages[key].min, rule.fullField, rule.min));
+  } else if (max && !min && val > rule.max) {
+    errors.push(format(options.messages[key].max, rule.fullField, rule.max));
+  } else if (min && max && (val < rule.min || val > rule.max)) {
+    errors.push(format(options.messages[key].range, rule.fullField, rule.min, rule.max));
+  }
+}
+
+var ENUM = 'enum';
+/**
+ *  Rule for validating a value exists in an enumerable list.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param source The source object being validated.
+ *  @param errors An array of errors that this rule may add
+ *  validation errors to.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function enumerable(rule, value, source, errors, options) {
+  rule[ENUM] = Array.isArray(rule[ENUM]) ? rule[ENUM] : [];
+
+  if (rule[ENUM].indexOf(value) === -1) {
+    errors.push(format(options.messages[ENUM], rule.fullField, rule[ENUM].join(', ')));
+  }
+}
+
+/**
+ *  Rule for validating a regular expression pattern.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param source The source object being validated.
+ *  @param errors An array of errors that this rule may add
+ *  validation errors to.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function pattern$1(rule, value, source, errors, options) {
+  if (rule.pattern) {
+    if (rule.pattern instanceof RegExp) {
+      // if a RegExp instance is passed, reset `lastIndex` in case its `global`
+      // flag is accidentally set to `true`, which in a validation scenario
+      // is not necessary and the result might be misleading
+      rule.pattern.lastIndex = 0;
+
+      if (!rule.pattern.test(value)) {
+        errors.push(format(options.messages.pattern.mismatch, rule.fullField, value, rule.pattern));
+      }
+    } else if (typeof rule.pattern === 'string') {
+      var _pattern = new RegExp(rule.pattern);
+
+      if (!_pattern.test(value)) {
+        errors.push(format(options.messages.pattern.mismatch, rule.fullField, value, rule.pattern));
+      }
+    }
+  }
+}
+
+var rules = {
+  required: required,
+  whitespace: whitespace,
+  type: type,
+  range: range,
+  "enum": enumerable,
+  pattern: pattern$1
 };
 
-Schema.warning = _util.warning;
+/**
+ *  Performs validation for string types.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
 
-Schema.messages = _messages2.messages;
+function string(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
 
-exports['default'] = Schema;
+  if (validate) {
+    if (isEmptyValue(value, 'string') && !rule.required) {
+      return callback();
+    }
 
-/***/ }),
+    rules.required(rule, value, source, errors, options, 'string');
 
-/***/ "./node_modules/async-validator/es/messages.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/async-validator/es/messages.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+    if (!isEmptyValue(value, 'string')) {
+      rules.type(rule, value, source, errors, options);
+      rules.range(rule, value, source, errors, options);
+      rules.pattern(rule, value, source, errors, options);
 
-"use strict";
+      if (rule.whitespace === true) {
+        rules.whitespace(rule, value, source, errors, options);
+      }
+    }
+  }
 
+  callback(errors);
+}
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.newMessages = newMessages;
+/**
+ *  Validates a function.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function method(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+
+    if (value !== undefined) {
+      rules.type(rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+/**
+ *  Validates a number.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function number(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (value === '') {
+      value = undefined;
+    }
+
+    if (isEmptyValue(value) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+
+    if (value !== undefined) {
+      rules.type(rule, value, source, errors, options);
+      rules.range(rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+/**
+ *  Validates a boolean.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function _boolean(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+
+    if (value !== undefined) {
+      rules.type(rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+/**
+ *  Validates the regular expression type.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function regexp(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+
+    if (!isEmptyValue(value)) {
+      rules.type(rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+/**
+ *  Validates a number is an integer.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function integer(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+
+    if (value !== undefined) {
+      rules.type(rule, value, source, errors, options);
+      rules.range(rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+/**
+ *  Validates a number is a floating point number.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function floatFn(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+
+    if (value !== undefined) {
+      rules.type(rule, value, source, errors, options);
+      rules.range(rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+/**
+ *  Validates an array.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function array(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value, 'array') && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options, 'array');
+
+    if (!isEmptyValue(value, 'array')) {
+      rules.type(rule, value, source, errors, options);
+      rules.range(rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+/**
+ *  Validates an object.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function object(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+
+    if (value !== undefined) {
+      rules.type(rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+var ENUM$1 = 'enum';
+/**
+ *  Validates an enumerable list.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function enumerable$1(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+
+    if (value !== undefined) {
+      rules[ENUM$1](rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+/**
+ *  Validates a regular expression pattern.
+ *
+ *  Performs validation when a rule only contains
+ *  a pattern property but is not declared as a string type.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function pattern$2(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value, 'string') && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+
+    if (!isEmptyValue(value, 'string')) {
+      rules.pattern(rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+function date(rule, value, callback, source, options) {
+  // console.log('integer rule called %j', rule);
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field); // console.log('validate on %s value', value);
+
+  if (validate) {
+    if (isEmptyValue(value) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+
+    if (!isEmptyValue(value)) {
+      var dateObject;
+
+      if (typeof value === 'number') {
+        dateObject = new Date(value);
+      } else {
+        dateObject = value;
+      }
+
+      rules.type(rule, dateObject, source, errors, options);
+
+      if (dateObject) {
+        rules.range(rule, dateObject.getTime(), source, errors, options);
+      }
+    }
+  }
+
+  callback(errors);
+}
+
+function required$1(rule, value, callback, source, options) {
+  var errors = [];
+  var type = Array.isArray(value) ? 'array' : typeof value;
+  rules.required(rule, value, source, errors, options, type);
+  callback(errors);
+}
+
+function type$1(rule, value, callback, source, options) {
+  var ruleType = rule.type;
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value, ruleType) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options, ruleType);
+
+    if (!isEmptyValue(value, ruleType)) {
+      rules.type(rule, value, source, errors, options);
+    }
+  }
+
+  callback(errors);
+}
+
+/**
+ *  Performs validation for any type.
+ *
+ *  @param rule The validation rule.
+ *  @param value The value of the field on the source object.
+ *  @param callback The callback function.
+ *  @param source The source object being validated.
+ *  @param options The validation options.
+ *  @param options.messages The validation messages.
+ */
+
+function any(rule, value, callback, source, options) {
+  var errors = [];
+  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
+
+  if (validate) {
+    if (isEmptyValue(value) && !rule.required) {
+      return callback();
+    }
+
+    rules.required(rule, value, source, errors, options);
+  }
+
+  callback(errors);
+}
+
+var validators = {
+  string: string,
+  method: method,
+  number: number,
+  "boolean": _boolean,
+  regexp: regexp,
+  integer: integer,
+  "float": floatFn,
+  array: array,
+  object: object,
+  "enum": enumerable$1,
+  pattern: pattern$2,
+  date: date,
+  url: type$1,
+  hex: type$1,
+  email: type$1,
+  required: required$1,
+  any: any
+};
+
 function newMessages() {
   return {
-    'default': 'Validation error on field %s',
+    "default": 'Validation error on field %s',
     required: '%s is required',
-    'enum': '%s must be one of %s',
+    "enum": '%s must be one of %s',
     whitespace: '%s cannot be empty',
     date: {
       format: '%s date %s is invalid for format %s',
@@ -23070,9 +24812,9 @@ function newMessages() {
       object: '%s is not an %s',
       number: '%s is not a %s',
       date: '%s is not a %s',
-      boolean: '%s is not a %s',
+      "boolean": '%s is not a %s',
       integer: '%s is not an %s',
-      float: '%s is not a %s',
+      "float": '%s is not a %s',
       regexp: '%s is not a valid %s',
       email: '%s is not a valid %s',
       url: '%s is not a valid %s',
@@ -23106,1467 +24848,338 @@ function newMessages() {
     }
   };
 }
-
-var messages = exports.messages = newMessages();
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/rule/enum.js":
-/*!******************************************************!*\
-  !*** ./node_modules/async-validator/es/rule/enum.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-var util = _interopRequireWildcard(_util);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-var ENUM = 'enum';
+var messages = newMessages();
 
 /**
- *  Rule for validating a value exists in an enumerable list.
+ *  Encapsulates a validation schema.
  *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param source The source object being validated.
- *  @param errors An array of errors that this rule may add
- *  validation errors to.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
+ *  @param descriptor An object declaring validation rules
+ *  for this schema.
  */
-function enumerable(rule, value, source, errors, options) {
-  rule[ENUM] = Array.isArray(rule[ENUM]) ? rule[ENUM] : [];
-  if (rule[ENUM].indexOf(value) === -1) {
-    errors.push(util.format(options.messages[ENUM], rule.fullField, rule[ENUM].join(', ')));
-  }
+
+function Schema(descriptor) {
+  this.rules = null;
+  this._messages = messages;
+  this.define(descriptor);
 }
 
-exports['default'] = enumerable;
+Schema.prototype = {
+  messages: function messages(_messages) {
+    if (_messages) {
+      this._messages = deepMerge(newMessages(), _messages);
+    }
 
-/***/ }),
+    return this._messages;
+  },
+  define: function define(rules) {
+    if (!rules) {
+      throw new Error('Cannot configure a schema with no rules');
+    }
 
-/***/ "./node_modules/async-validator/es/rule/index.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/async-validator/es/rule/index.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+    if (typeof rules !== 'object' || Array.isArray(rules)) {
+      throw new Error('Rules must be an object');
+    }
 
-"use strict";
+    this.rules = {};
+    var z;
+    var item;
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _required = __webpack_require__(/*! ./required */ "./node_modules/async-validator/es/rule/required.js");
-
-var _required2 = _interopRequireDefault(_required);
-
-var _whitespace = __webpack_require__(/*! ./whitespace */ "./node_modules/async-validator/es/rule/whitespace.js");
-
-var _whitespace2 = _interopRequireDefault(_whitespace);
-
-var _type = __webpack_require__(/*! ./type */ "./node_modules/async-validator/es/rule/type.js");
-
-var _type2 = _interopRequireDefault(_type);
-
-var _range = __webpack_require__(/*! ./range */ "./node_modules/async-validator/es/rule/range.js");
-
-var _range2 = _interopRequireDefault(_range);
-
-var _enum = __webpack_require__(/*! ./enum */ "./node_modules/async-validator/es/rule/enum.js");
-
-var _enum2 = _interopRequireDefault(_enum);
-
-var _pattern = __webpack_require__(/*! ./pattern */ "./node_modules/async-validator/es/rule/pattern.js");
-
-var _pattern2 = _interopRequireDefault(_pattern);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  required: _required2['default'],
-  whitespace: _whitespace2['default'],
-  type: _type2['default'],
-  range: _range2['default'],
-  'enum': _enum2['default'],
-  pattern: _pattern2['default']
-};
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/rule/pattern.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/async-validator/es/rule/pattern.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-var util = _interopRequireWildcard(_util);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-/**
- *  Rule for validating a regular expression pattern.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param source The source object being validated.
- *  @param errors An array of errors that this rule may add
- *  validation errors to.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function pattern(rule, value, source, errors, options) {
-  if (rule.pattern) {
-    if (rule.pattern instanceof RegExp) {
-      // if a RegExp instance is passed, reset `lastIndex` in case its `global`
-      // flag is accidentally set to `true`, which in a validation scenario
-      // is not necessary and the result might be misleading
-      rule.pattern.lastIndex = 0;
-      if (!rule.pattern.test(value)) {
-        errors.push(util.format(options.messages.pattern.mismatch, rule.fullField, value, rule.pattern));
-      }
-    } else if (typeof rule.pattern === 'string') {
-      var _pattern = new RegExp(rule.pattern);
-      if (!_pattern.test(value)) {
-        errors.push(util.format(options.messages.pattern.mismatch, rule.fullField, value, rule.pattern));
+    for (z in rules) {
+      if (rules.hasOwnProperty(z)) {
+        item = rules[z];
+        this.rules[z] = Array.isArray(item) ? item : [item];
       }
     }
-  }
-}
+  },
+  validate: function validate(source_, o, oc) {
+    var _this = this;
 
-exports['default'] = pattern;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/rule/range.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/async-validator/es/rule/range.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-var util = _interopRequireWildcard(_util);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-/**
- *  Rule for validating minimum and maximum allowed values.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param source The source object being validated.
- *  @param errors An array of errors that this rule may add
- *  validation errors to.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function range(rule, value, source, errors, options) {
-  var len = typeof rule.len === 'number';
-  var min = typeof rule.min === 'number';
-  var max = typeof rule.max === 'number';
-  // 正则匹配码点范围从U+010000一直到U+10FFFF的文字（补充平面Supplementary Plane）
-  var spRegexp = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g;
-  var val = value;
-  var key = null;
-  var num = typeof value === 'number';
-  var str = typeof value === 'string';
-  var arr = Array.isArray(value);
-  if (num) {
-    key = 'number';
-  } else if (str) {
-    key = 'string';
-  } else if (arr) {
-    key = 'array';
-  }
-  // if the value is not of a supported type for range validation
-  // the validation rule rule should use the
-  // type property to also test for a particular type
-  if (!key) {
-    return false;
-  }
-  if (arr) {
-    val = value.length;
-  }
-  if (str) {
-    // 处理码点大于U+010000的文字length属性不准确的bug，如"𠮷𠮷𠮷".lenght !== 3
-    val = value.replace(spRegexp, '_').length;
-  }
-  if (len) {
-    if (val !== rule.len) {
-      errors.push(util.format(options.messages[key].len, rule.fullField, rule.len));
+    if (o === void 0) {
+      o = {};
     }
-  } else if (min && !max && val < rule.min) {
-    errors.push(util.format(options.messages[key].min, rule.fullField, rule.min));
-  } else if (max && !min && val > rule.max) {
-    errors.push(util.format(options.messages[key].max, rule.fullField, rule.max));
-  } else if (min && max && (val < rule.min || val > rule.max)) {
-    errors.push(util.format(options.messages[key].range, rule.fullField, rule.min, rule.max));
-  }
-}
 
-exports['default'] = range;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/rule/required.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/async-validator/es/rule/required.js ***!
-  \**********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-var util = _interopRequireWildcard(_util);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-/**
- *  Rule for validating required fields.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param source The source object being validated.
- *  @param errors An array of errors that this rule may add
- *  validation errors to.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function required(rule, value, source, errors, options, type) {
-  if (rule.required && (!source.hasOwnProperty(rule.field) || util.isEmptyValue(value, type || rule.type))) {
-    errors.push(util.format(options.messages.required, rule.fullField));
-  }
-}
-
-exports['default'] = required;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/rule/type.js":
-/*!******************************************************!*\
-  !*** ./node_modules/async-validator/es/rule/type.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-var util = _interopRequireWildcard(_util);
-
-var _required = __webpack_require__(/*! ./required */ "./node_modules/async-validator/es/rule/required.js");
-
-var _required2 = _interopRequireDefault(_required);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-/* eslint max-len:0 */
-
-var pattern = {
-  // http://emailregex.com/
-  email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-  url: new RegExp('^(?!mailto:)(?:(?:http|https|ftp)://|//)(?:\\S+(?::\\S*)?@)?(?:(?:(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[0-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)(?:\\.(?:[a-z\\u00a1-\\uffff0-9]+-?)*[a-z\\u00a1-\\uffff0-9]+)*(?:\\.(?:[a-z\\u00a1-\\uffff]{2,})))|localhost)(?::\\d{2,5})?(?:(/|\\?|#)[^\\s]*)?$', 'i'),
-  hex: /^#?([a-f0-9]{6}|[a-f0-9]{3})$/i
-};
-
-var types = {
-  integer: function integer(value) {
-    return types.number(value) && parseInt(value, 10) === value;
-  },
-  float: function float(value) {
-    return types.number(value) && !types.integer(value);
-  },
-  array: function array(value) {
-    return Array.isArray(value);
-  },
-  regexp: function regexp(value) {
-    if (value instanceof RegExp) {
-      return true;
+    if (oc === void 0) {
+      oc = function oc() {};
     }
-    try {
-      return !!new RegExp(value);
-    } catch (e) {
-      return false;
+
+    var source = source_;
+    var options = o;
+    var callback = oc;
+
+    if (typeof options === 'function') {
+      callback = options;
+      options = {};
     }
-  },
-  date: function date(value) {
-    return typeof value.getTime === 'function' && typeof value.getMonth === 'function' && typeof value.getYear === 'function';
-  },
-  number: function number(value) {
-    if (isNaN(value)) {
-      return false;
-    }
-    return typeof value === 'number';
-  },
-  object: function object(value) {
-    return (typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && !types.array(value);
-  },
-  method: function method(value) {
-    return typeof value === 'function';
-  },
-  email: function email(value) {
-    return typeof value === 'string' && !!value.match(pattern.email) && value.length < 255;
-  },
-  url: function url(value) {
-    return typeof value === 'string' && !!value.match(pattern.url);
-  },
-  hex: function hex(value) {
-    return typeof value === 'string' && !!value.match(pattern.hex);
-  }
-};
 
-/**
- *  Rule for validating the type of a value.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param source The source object being validated.
- *  @param errors An array of errors that this rule may add
- *  validation errors to.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function type(rule, value, source, errors, options) {
-  if (rule.required && value === undefined) {
-    (0, _required2['default'])(rule, value, source, errors, options);
-    return;
-  }
-  var custom = ['integer', 'float', 'array', 'regexp', 'object', 'method', 'email', 'number', 'date', 'url', 'hex'];
-  var ruleType = rule.type;
-  if (custom.indexOf(ruleType) > -1) {
-    if (!types[ruleType](value)) {
-      errors.push(util.format(options.messages.types[ruleType], rule.fullField, rule.type));
-    }
-    // straight typeof check
-  } else if (ruleType && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== rule.type) {
-    errors.push(util.format(options.messages.types[ruleType], rule.fullField, rule.type));
-  }
-}
-
-exports['default'] = type;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/rule/whitespace.js":
-/*!************************************************************!*\
-  !*** ./node_modules/async-validator/es/rule/whitespace.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-var util = _interopRequireWildcard(_util);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-/**
- *  Rule for validating whitespace.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param source The source object being validated.
- *  @param errors An array of errors that this rule may add
- *  validation errors to.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function whitespace(rule, value, source, errors, options) {
-  if (/^\s+$/.test(value) || value === '') {
-    errors.push(util.format(options.messages.whitespace, rule.fullField));
-  }
-}
-
-exports['default'] = whitespace;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/util.js":
-/*!*************************************************!*\
-  !*** ./node_modules/async-validator/es/util.js ***!
-  \*************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-exports.convertFieldsError = convertFieldsError;
-exports.format = format;
-exports.isEmptyValue = isEmptyValue;
-exports.isEmptyObject = isEmptyObject;
-exports.asyncMap = asyncMap;
-exports.complementError = complementError;
-exports.deepMerge = deepMerge;
-/* eslint no-console:0 */
-
-var formatRegExp = /%[sdj%]/g;
-
-var warning = exports.warning = function warning() {};
-
-// don't print warning message when in production env or node runtime
-if ( true && typeof window !== 'undefined' && typeof document !== 'undefined') {
-  exports.warning = warning = function warning(type, errors) {
-    if (typeof console !== 'undefined' && console.warn) {
-      if (errors.every(function (e) {
-        return typeof e === 'string';
-      })) {
-        console.warn(type, errors);
+    if (!this.rules || Object.keys(this.rules).length === 0) {
+      if (callback) {
+        callback();
       }
+
+      return Promise.resolve();
     }
-  };
-}
 
-function convertFieldsError(errors) {
-  if (!errors || !errors.length) return null;
-  var fields = {};
-  errors.forEach(function (error) {
-    var field = error.field;
-    fields[field] = fields[field] || [];
-    fields[field].push(error);
-  });
-  return fields;
-}
+    function complete(results) {
+      var i;
+      var errors = [];
+      var fields = {};
 
-function format() {
-  for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-    args[_key] = arguments[_key];
-  }
+      function add(e) {
+        if (Array.isArray(e)) {
+          var _errors;
 
-  var i = 1;
-  var f = args[0];
-  var len = args.length;
-  if (typeof f === 'function') {
-    return f.apply(null, args.slice(1));
-  }
-  if (typeof f === 'string') {
-    var str = String(f).replace(formatRegExp, function (x) {
-      if (x === '%%') {
-        return '%';
-      }
-      if (i >= len) {
-        return x;
-      }
-      switch (x) {
-        case '%s':
-          return String(args[i++]);
-        case '%d':
-          return Number(args[i++]);
-        case '%j':
-          try {
-            return JSON.stringify(args[i++]);
-          } catch (_) {
-            return '[Circular]';
-          }
-          break;
-        default:
-          return x;
-      }
-    });
-    for (var arg = args[i]; i < len; arg = args[++i]) {
-      str += ' ' + arg;
-    }
-    return str;
-  }
-  return f;
-}
-
-function isNativeStringType(type) {
-  return type === 'string' || type === 'url' || type === 'hex' || type === 'email' || type === 'pattern';
-}
-
-function isEmptyValue(value, type) {
-  if (value === undefined || value === null) {
-    return true;
-  }
-  if (type === 'array' && Array.isArray(value) && !value.length) {
-    return true;
-  }
-  if (isNativeStringType(type) && typeof value === 'string' && !value) {
-    return true;
-  }
-  return false;
-}
-
-function isEmptyObject(obj) {
-  return Object.keys(obj).length === 0;
-}
-
-function asyncParallelArray(arr, func, callback) {
-  var results = [];
-  var total = 0;
-  var arrLength = arr.length;
-
-  function count(errors) {
-    results.push.apply(results, errors);
-    total++;
-    if (total === arrLength) {
-      callback(results);
-    }
-  }
-
-  arr.forEach(function (a) {
-    func(a, count);
-  });
-}
-
-function asyncSerialArray(arr, func, callback) {
-  var index = 0;
-  var arrLength = arr.length;
-
-  function next(errors) {
-    if (errors && errors.length) {
-      callback(errors);
-      return;
-    }
-    var original = index;
-    index = index + 1;
-    if (original < arrLength) {
-      func(arr[original], next);
-    } else {
-      callback([]);
-    }
-  }
-
-  next([]);
-}
-
-function flattenObjArr(objArr) {
-  var ret = [];
-  Object.keys(objArr).forEach(function (k) {
-    ret.push.apply(ret, objArr[k]);
-  });
-  return ret;
-}
-
-function asyncMap(objArr, option, func, callback) {
-  if (option.first) {
-    var flattenArr = flattenObjArr(objArr);
-    return asyncSerialArray(flattenArr, func, callback);
-  }
-  var firstFields = option.firstFields || [];
-  if (firstFields === true) {
-    firstFields = Object.keys(objArr);
-  }
-  var objArrKeys = Object.keys(objArr);
-  var objArrLength = objArrKeys.length;
-  var total = 0;
-  var results = [];
-  var pending = new Promise(function (resolve, reject) {
-    var next = function next(errors) {
-      results.push.apply(results, errors);
-      total++;
-      if (total === objArrLength) {
-        callback(results);
-        return results.length ? reject({ errors: results, fields: convertFieldsError(results) }) : resolve();
-      }
-    };
-    objArrKeys.forEach(function (key) {
-      var arr = objArr[key];
-      if (firstFields.indexOf(key) !== -1) {
-        asyncSerialArray(arr, func, next);
-      } else {
-        asyncParallelArray(arr, func, next);
-      }
-    });
-  });
-  pending['catch'](function (e) {
-    return e;
-  });
-  return pending;
-}
-
-function complementError(rule) {
-  return function (oe) {
-    if (oe && oe.message) {
-      oe.field = oe.field || rule.fullField;
-      return oe;
-    }
-    return {
-      message: typeof oe === 'function' ? oe() : oe,
-      field: oe.field || rule.fullField
-    };
-  };
-}
-
-function deepMerge(target, source) {
-  if (source) {
-    for (var s in source) {
-      if (source.hasOwnProperty(s)) {
-        var value = source[s];
-        if ((typeof value === 'undefined' ? 'undefined' : _typeof(value)) === 'object' && _typeof(target[s]) === 'object') {
-          target[s] = _extends({}, target[s], value);
+          errors = (_errors = errors).concat.apply(_errors, e);
         } else {
-          target[s] = value;
+          errors.push(e);
         }
       }
-    }
-  }
-  return target;
-}
 
-/***/ }),
+      for (i = 0; i < results.length; i++) {
+        add(results[i]);
+      }
 
-/***/ "./node_modules/async-validator/es/validator/array.js":
-/*!************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/array.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Validates an array.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function array(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value, 'array') && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options, 'array');
-    if (!(0, _util.isEmptyValue)(value, 'array')) {
-      _rule2['default'].type(rule, value, source, errors, options);
-      _rule2['default'].range(rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = array;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/boolean.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/boolean.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Validates a boolean.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function boolean(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value) && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options);
-    if (value !== undefined) {
-      _rule2['default'].type(rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = boolean;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/date.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/date.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function date(rule, value, callback, source, options) {
-  // console.log('integer rule called %j', rule);
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  // console.log('validate on %s value', value);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value) && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options);
-    if (!(0, _util.isEmptyValue)(value)) {
-      var dateObject = void 0;
-
-      if (typeof value === 'number') {
-        dateObject = new Date(value);
+      if (!errors.length) {
+        errors = null;
+        fields = null;
       } else {
-        dateObject = value;
+        fields = convertFieldsError(errors);
       }
 
-      _rule2['default'].type(rule, dateObject, source, errors, options);
-      if (dateObject) {
-        _rule2['default'].range(rule, dateObject.getTime(), source, errors, options);
+      callback(errors, fields);
+    }
+
+    if (options.messages) {
+      var messages$1 = this.messages();
+
+      if (messages$1 === messages) {
+        messages$1 = newMessages();
       }
+
+      deepMerge(messages$1, options.messages);
+      options.messages = messages$1;
+    } else {
+      options.messages = this.messages();
     }
+
+    var arr;
+    var value;
+    var series = {};
+    var keys = options.keys || Object.keys(this.rules);
+    keys.forEach(function (z) {
+      arr = _this.rules[z];
+      value = source[z];
+      arr.forEach(function (r) {
+        var rule = r;
+
+        if (typeof rule.transform === 'function') {
+          if (source === source_) {
+            source = _extends({}, source);
+          }
+
+          value = source[z] = rule.transform(value);
+        }
+
+        if (typeof rule === 'function') {
+          rule = {
+            validator: rule
+          };
+        } else {
+          rule = _extends({}, rule);
+        }
+
+        rule.validator = _this.getValidationMethod(rule);
+        rule.field = z;
+        rule.fullField = rule.fullField || z;
+        rule.type = _this.getType(rule);
+
+        if (!rule.validator) {
+          return;
+        }
+
+        series[z] = series[z] || [];
+        series[z].push({
+          rule: rule,
+          value: value,
+          source: source,
+          field: z
+        });
+      });
+    });
+    var errorFields = {};
+    return asyncMap(series, options, function (data, doIt) {
+      var rule = data.rule;
+      var deep = (rule.type === 'object' || rule.type === 'array') && (typeof rule.fields === 'object' || typeof rule.defaultField === 'object');
+      deep = deep && (rule.required || !rule.required && data.value);
+      rule.field = data.field;
+
+      function addFullfield(key, schema) {
+        return _extends({}, schema, {
+          fullField: rule.fullField + "." + key
+        });
+      }
+
+      function cb(e) {
+        if (e === void 0) {
+          e = [];
+        }
+
+        var errors = e;
+
+        if (!Array.isArray(errors)) {
+          errors = [errors];
+        }
+
+        if (!options.suppressWarning && errors.length) {
+          Schema.warning('async-validator:', errors);
+        }
+
+        if (errors.length && rule.message) {
+          errors = [].concat(rule.message);
+        }
+
+        errors = errors.map(complementError(rule));
+
+        if (options.first && errors.length) {
+          errorFields[rule.field] = 1;
+          return doIt(errors);
+        }
+
+        if (!deep) {
+          doIt(errors);
+        } else {
+          // if rule is required but the target object
+          // does not exist fail at the rule level and don't
+          // go deeper
+          if (rule.required && !data.value) {
+            if (rule.message) {
+              errors = [].concat(rule.message).map(complementError(rule));
+            } else if (options.error) {
+              errors = [options.error(rule, format(options.messages.required, rule.field))];
+            } else {
+              errors = [];
+            }
+
+            return doIt(errors);
+          }
+
+          var fieldsSchema = {};
+
+          if (rule.defaultField) {
+            for (var k in data.value) {
+              if (data.value.hasOwnProperty(k)) {
+                fieldsSchema[k] = rule.defaultField;
+              }
+            }
+          }
+
+          fieldsSchema = _extends({}, fieldsSchema, {}, data.rule.fields);
+
+          for (var f in fieldsSchema) {
+            if (fieldsSchema.hasOwnProperty(f)) {
+              var fieldSchema = Array.isArray(fieldsSchema[f]) ? fieldsSchema[f] : [fieldsSchema[f]];
+              fieldsSchema[f] = fieldSchema.map(addFullfield.bind(null, f));
+            }
+          }
+
+          var schema = new Schema(fieldsSchema);
+          schema.messages(options.messages);
+
+          if (data.rule.options) {
+            data.rule.options.messages = options.messages;
+            data.rule.options.error = options.error;
+          }
+
+          schema.validate(data.value, data.rule.options || options, function (errs) {
+            var finalErrors = [];
+
+            if (errors && errors.length) {
+              finalErrors.push.apply(finalErrors, errors);
+            }
+
+            if (errs && errs.length) {
+              finalErrors.push.apply(finalErrors, errs);
+            }
+
+            doIt(finalErrors.length ? finalErrors : null);
+          });
+        }
+      }
+
+      var res;
+
+      if (rule.asyncValidator) {
+        res = rule.asyncValidator(rule, data.value, cb, data.source, options);
+      } else if (rule.validator) {
+        res = rule.validator(rule, data.value, cb, data.source, options);
+
+        if (res === true) {
+          cb();
+        } else if (res === false) {
+          cb(rule.message || rule.field + " fails");
+        } else if (res instanceof Array) {
+          cb(res);
+        } else if (res instanceof Error) {
+          cb(res.message);
+        }
+      }
+
+      if (res && res.then) {
+        res.then(function () {
+          return cb();
+        }, function (e) {
+          return cb(e);
+        });
+      }
+    }, function (results) {
+      complete(results);
+    });
+  },
+  getType: function getType(rule) {
+    if (rule.type === undefined && rule.pattern instanceof RegExp) {
+      rule.type = 'pattern';
+    }
+
+    if (typeof rule.validator !== 'function' && rule.type && !validators.hasOwnProperty(rule.type)) {
+      throw new Error(format('Unknown rule type %s', rule.type));
+    }
+
+    return rule.type || 'string';
+  },
+  getValidationMethod: function getValidationMethod(rule) {
+    if (typeof rule.validator === 'function') {
+      return rule.validator;
+    }
+
+    var keys = Object.keys(rule);
+    var messageIndex = keys.indexOf('message');
+
+    if (messageIndex !== -1) {
+      keys.splice(messageIndex, 1);
+    }
+
+    if (keys.length === 1 && keys[0] === 'required') {
+      return validators.required;
+    }
+
+    return validators[this.getType(rule)] || false;
   }
-  callback(errors);
-}
-
-exports['default'] = date;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/enum.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/enum.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var ENUM = 'enum';
-
-/**
- *  Validates an enumerable list.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function enumerable(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value) && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options);
-    if (value) {
-      _rule2['default'][ENUM](rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = enumerable;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/float.js":
-/*!************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/float.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Validates a number is a floating point number.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function floatFn(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value) && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options);
-    if (value !== undefined) {
-      _rule2['default'].type(rule, value, source, errors, options);
-      _rule2['default'].range(rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = floatFn;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/index.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _string = __webpack_require__(/*! ./string */ "./node_modules/async-validator/es/validator/string.js");
-
-var _string2 = _interopRequireDefault(_string);
-
-var _method = __webpack_require__(/*! ./method */ "./node_modules/async-validator/es/validator/method.js");
-
-var _method2 = _interopRequireDefault(_method);
-
-var _number = __webpack_require__(/*! ./number */ "./node_modules/async-validator/es/validator/number.js");
-
-var _number2 = _interopRequireDefault(_number);
-
-var _boolean = __webpack_require__(/*! ./boolean */ "./node_modules/async-validator/es/validator/boolean.js");
-
-var _boolean2 = _interopRequireDefault(_boolean);
-
-var _regexp = __webpack_require__(/*! ./regexp */ "./node_modules/async-validator/es/validator/regexp.js");
-
-var _regexp2 = _interopRequireDefault(_regexp);
-
-var _integer = __webpack_require__(/*! ./integer */ "./node_modules/async-validator/es/validator/integer.js");
-
-var _integer2 = _interopRequireDefault(_integer);
-
-var _float = __webpack_require__(/*! ./float */ "./node_modules/async-validator/es/validator/float.js");
-
-var _float2 = _interopRequireDefault(_float);
-
-var _array = __webpack_require__(/*! ./array */ "./node_modules/async-validator/es/validator/array.js");
-
-var _array2 = _interopRequireDefault(_array);
-
-var _object = __webpack_require__(/*! ./object */ "./node_modules/async-validator/es/validator/object.js");
-
-var _object2 = _interopRequireDefault(_object);
-
-var _enum = __webpack_require__(/*! ./enum */ "./node_modules/async-validator/es/validator/enum.js");
-
-var _enum2 = _interopRequireDefault(_enum);
-
-var _pattern = __webpack_require__(/*! ./pattern */ "./node_modules/async-validator/es/validator/pattern.js");
-
-var _pattern2 = _interopRequireDefault(_pattern);
-
-var _date = __webpack_require__(/*! ./date */ "./node_modules/async-validator/es/validator/date.js");
-
-var _date2 = _interopRequireDefault(_date);
-
-var _required = __webpack_require__(/*! ./required */ "./node_modules/async-validator/es/validator/required.js");
-
-var _required2 = _interopRequireDefault(_required);
-
-var _type = __webpack_require__(/*! ./type */ "./node_modules/async-validator/es/validator/type.js");
-
-var _type2 = _interopRequireDefault(_type);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  string: _string2['default'],
-  method: _method2['default'],
-  number: _number2['default'],
-  boolean: _boolean2['default'],
-  regexp: _regexp2['default'],
-  integer: _integer2['default'],
-  float: _float2['default'],
-  array: _array2['default'],
-  object: _object2['default'],
-  'enum': _enum2['default'],
-  pattern: _pattern2['default'],
-  date: _date2['default'],
-  url: _type2['default'],
-  hex: _type2['default'],
-  email: _type2['default'],
-  required: _required2['default']
 };
 
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/integer.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/integer.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Validates a number is an integer.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function integer(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value) && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options);
-    if (value !== undefined) {
-      _rule2['default'].type(rule, value, source, errors, options);
-      _rule2['default'].range(rule, value, source, errors, options);
-    }
+Schema.register = function register(type, validator) {
+  if (typeof validator !== 'function') {
+    throw new Error('Cannot register a validator by type, validator is not a function');
   }
-  callback(errors);
-}
 
-exports['default'] = integer;
+  validators[type] = validator;
+};
 
-/***/ }),
+Schema.warning = warning;
+Schema.messages = messages;
 
-/***/ "./node_modules/async-validator/es/validator/method.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/method.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/* harmony default export */ __webpack_exports__["default"] = (Schema);
+//# sourceMappingURL=index.js.map
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Validates a function.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function method(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value) && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options);
-    if (value !== undefined) {
-      _rule2['default'].type(rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = method;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/number.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/number.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Validates a number.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function number(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if (value === '') {
-      value = undefined;
-    }
-    if ((0, _util.isEmptyValue)(value) && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options);
-    if (value !== undefined) {
-      _rule2['default'].type(rule, value, source, errors, options);
-      _rule2['default'].range(rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = number;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/object.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/object.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Validates an object.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function object(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value) && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options);
-    if (value !== undefined) {
-      _rule2['default'].type(rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = object;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/pattern.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/pattern.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Validates a regular expression pattern.
- *
- *  Performs validation when a rule only contains
- *  a pattern property but is not declared as a string type.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function pattern(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value, 'string') && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options);
-    if (!(0, _util.isEmptyValue)(value, 'string')) {
-      _rule2['default'].pattern(rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = pattern;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/regexp.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/regexp.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Validates the regular expression type.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function regexp(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value) && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options);
-    if (!(0, _util.isEmptyValue)(value)) {
-      _rule2['default'].type(rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = regexp;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/required.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/required.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function required(rule, value, callback, source, options) {
-  var errors = [];
-  var type = Array.isArray(value) ? 'array' : typeof value === 'undefined' ? 'undefined' : _typeof(value);
-  _rule2['default'].required(rule, value, source, errors, options, type);
-  callback(errors);
-}
-
-exports['default'] = required;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/string.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/string.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/**
- *  Performs validation for string types.
- *
- *  @param rule The validation rule.
- *  @param value The value of the field on the source object.
- *  @param callback The callback function.
- *  @param source The source object being validated.
- *  @param options The validation options.
- *  @param options.messages The validation messages.
- */
-function string(rule, value, callback, source, options) {
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value, 'string') && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options, 'string');
-    if (!(0, _util.isEmptyValue)(value, 'string')) {
-      _rule2['default'].type(rule, value, source, errors, options);
-      _rule2['default'].range(rule, value, source, errors, options);
-      _rule2['default'].pattern(rule, value, source, errors, options);
-      if (rule.whitespace === true) {
-        _rule2['default'].whitespace(rule, value, source, errors, options);
-      }
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = string;
-
-/***/ }),
-
-/***/ "./node_modules/async-validator/es/validator/type.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/async-validator/es/validator/type.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _rule = __webpack_require__(/*! ../rule/ */ "./node_modules/async-validator/es/rule/index.js");
-
-var _rule2 = _interopRequireDefault(_rule);
-
-var _util = __webpack_require__(/*! ../util */ "./node_modules/async-validator/es/util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function type(rule, value, callback, source, options) {
-  var ruleType = rule.type;
-  var errors = [];
-  var validate = rule.required || !rule.required && source.hasOwnProperty(rule.field);
-  if (validate) {
-    if ((0, _util.isEmptyValue)(value, ruleType) && !rule.required) {
-      return callback();
-    }
-    _rule2['default'].required(rule, value, source, errors, options, ruleType);
-    if (!(0, _util.isEmptyValue)(value, ruleType)) {
-      _rule2['default'].type(rule, value, source, errors, options);
-    }
-  }
-  callback(errors);
-}
-
-exports['default'] = type;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -25503,7 +26116,7 @@ module.exports = function (it) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.6.9' };
+var core = module.exports = { version: '2.6.10' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -27310,6 +27923,69 @@ for (var i = 0; i < DOMIterables.length; i++) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "alignElement", function() { return alignElement; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "alignPoint", function() { return alignPoint; });
+function _typeof(obj) {
+  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
+    _typeof = function (obj) {
+      return typeof obj;
+    };
+  } else {
+    _typeof = function (obj) {
+      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+    };
+  }
+
+  return _typeof(obj);
+}
+
+function _defineProperty(obj, key, value) {
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+}
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    if (enumerableOnly) symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    });
+    keys.push.apply(keys, symbols);
+  }
+
+  return keys;
+}
+
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+
+    if (i % 2) {
+      ownKeys(source, true).forEach(function (key) {
+        _defineProperty(target, key, source[key]);
+      });
+    } else if (Object.getOwnPropertyDescriptors) {
+      Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));
+    } else {
+      ownKeys(source).forEach(function (key) {
+        Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+      });
+    }
+  }
+
+  return target;
+}
+
 var vendorPrefix;
 var jsCssMap = {
   Webkit: '-webkit-',
@@ -27420,7 +28096,6 @@ function setTransformXY(node, xy) {
   }
 }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 var RE_NUM = /[\-+]?(?:\d*\.|)\d+(?:[eE][\-+]?\d+|)/.source;
 var getComputedStyleX; // https://stackoverflow.com/a/3485654/3040605
 
@@ -28524,11 +29199,6 @@ function alignElement(el, refNode, align) {
 alignElement.__getOffsetParent = getOffsetParent;
 alignElement.__getVisibleRectForElement = getVisibleRectForElement;
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 /**
  * `tgtPoint`: { pageX, pageY } or { clientX, clientY }.
  * If client position provided, will internal convert to page position.
@@ -28565,13 +29235,14 @@ function alignPoint(el, tgtPoint, align) {
   var pointInView = pageX >= 0 && pageX <= scrollX + viewportWidth && pageY >= 0 && pageY <= scrollY + viewportHeight; // Provide default target point
 
   var points = [align.points[0], 'cc'];
-  return doAlign(el, tgtRegion, _objectSpread({}, align, {
+  return doAlign(el, tgtRegion, _objectSpread2({}, align, {
     points: points
   }), pointInView);
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (alignElement);
 
+//# sourceMappingURL=index.js.map
 
 
 /***/ }),
@@ -29530,29 +30201,6 @@ module.exports = {
 var MediaQueryDispatch = __webpack_require__(/*! ./MediaQueryDispatch */ "./node_modules/enquire.js/src/MediaQueryDispatch.js");
 module.exports = new MediaQueryDispatch();
 
-
-/***/ }),
-
-/***/ "./node_modules/intersperse/lib/intersperse.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/intersperse/lib/intersperse.js ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = intersperse;
-
-function intersperse(arr, obj) {
-	if (!arr.length) return [];
-	if (arr.length === 1) return arr.slice(0);
-
-	var items = [arr[0]];
-	for (var i = 1, len = arr.length; i < len; ++i) {
-		items.push(obj, arr[i]);
-	}
-
-	return items;
-}
 
 /***/ }),
 
@@ -51754,7 +52402,7 @@ Vue.component('a-checkbox', function () {
   return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/checkbox */ "./node_modules/ant-design-vue/lib/checkbox/index.js", 7));
 });
 Vue.component('a-switch', function () {
-  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/switch */ "./node_modules/ant-design-vue/lib/switch/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/switch */ "./node_modules/ant-design-vue/lib/switch/index.js", 7));
 });
 Vue.component('a-input', function () {
   return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/input */ "./node_modules/ant-design-vue/lib/input/index.js", 7));
@@ -51769,7 +52417,7 @@ Vue.component('a-input-number', function () {
   return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/input-number */ "./node_modules/ant-design-vue/lib/input-number/index.js", 7));
 });
 Vue.component('a-divider', function () {
-  return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/divider */ "./node_modules/ant-design-vue/lib/divider/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/divider */ "./node_modules/ant-design-vue/lib/divider/index.js", 7));
 });
 Vue.component('a-avatar', function () {
   return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/avatar */ "./node_modules/ant-design-vue/lib/avatar/index.js", 7));
@@ -51781,10 +52429,10 @@ Vue.component('a-avatar', function () {
   return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/avatar */ "./node_modules/ant-design-vue/lib/avatar/index.js", 7));
 });
 Vue.component('a-row', function () {
-  return __webpack_require__.e(/*! import() */ 27).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/row */ "./node_modules/ant-design-vue/lib/row/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/row */ "./node_modules/ant-design-vue/lib/row/index.js", 7));
 });
 Vue.component('a-col', function () {
-  return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/col */ "./node_modules/ant-design-vue/lib/col/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/col */ "./node_modules/ant-design-vue/lib/col/index.js", 7));
 });
 Vue.component('a-card', function () {
   return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/card */ "./node_modules/ant-design-vue/lib/card/index.js", 7));
@@ -51813,43 +52461,43 @@ Vue.component('a-modal', function () {
 /*************** AVORED CREATED VUE COMPONENTS ***************/
 
 Vue.component('product-card', function () {
-  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../components/product/ProductCard.vue */ "./resources/components/product/ProductCard.vue"));
+  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../components/product/ProductCard.vue */ "./resources/components/product/ProductCard.vue"));
 });
 Vue.component('address-save', function () {
-  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../components/address/AddressSave.vue */ "./resources/components/address/AddressSave.vue"));
+  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../components/address/AddressSave.vue */ "./resources/components/address/AddressSave.vue"));
 });
 Vue.component('user-order-table', function () {
-  return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ../components/account/order/OrderTable.vue */ "./resources/components/account/order/OrderTable.vue"));
+  return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ../components/account/order/OrderTable.vue */ "./resources/components/account/order/OrderTable.vue"));
 });
 Vue.component('account-save', function () {
-  return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ../components/account/AccountSave.vue */ "./resources/components/account/AccountSave.vue"));
+  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../components/account/AccountSave.vue */ "./resources/components/account/AccountSave.vue"));
 });
 Vue.component('account-upload', function () {
-  return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ../components/account/AccountUpload.vue */ "./resources/components/account/AccountUpload.vue"));
+  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../components/account/AccountUpload.vue */ "./resources/components/account/AccountUpload.vue"));
 });
 Vue.component('category-page', function () {
   return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../components/CategoryPage.vue */ "./resources/components/CategoryPage.vue"));
 });
 Vue.component('product-page', function () {
-  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../components/ProductPage.vue */ "./resources/components/ProductPage.vue"));
+  return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../components/ProductPage.vue */ "./resources/components/ProductPage.vue"));
 });
 Vue.component('checkout-page', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(29)]).then(__webpack_require__.bind(null, /*! ../components/CheckoutPage.vue */ "./resources/components/CheckoutPage.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(27)]).then(__webpack_require__.bind(null, /*! ../components/CheckoutPage.vue */ "./resources/components/CheckoutPage.vue"));
 });
 Vue.component('cart-page', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(25)]).then(__webpack_require__.bind(null, /*! ../components/CartPage.vue */ "./resources/components/CartPage.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(23)]).then(__webpack_require__.bind(null, /*! ../components/CartPage.vue */ "./resources/components/CartPage.vue"));
 });
 Vue.component('avored-layout', function () {
-  return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.bind(null, /*! ../components/layout/Layout.vue */ "./resources/components/layout/Layout.vue"));
+  return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ../components/layout/Layout.vue */ "./resources/components/layout/Layout.vue"));
 });
 Vue.component('login-fields', function () {
-  return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ../components/auth/LoginFields.vue */ "./resources/components/auth/LoginFields.vue"));
+  return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ../components/auth/LoginFields.vue */ "./resources/components/auth/LoginFields.vue"));
 });
 Vue.component('register-fields', function () {
-  return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! ../components/auth/RegisterFields.vue */ "./resources/components/auth/RegisterFields.vue"));
+  return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ../components/auth/RegisterFields.vue */ "./resources/components/auth/RegisterFields.vue"));
 });
 Vue.component('avored-nav', function () {
-  return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../components/AvoRedNav.vue */ "./resources/components/AvoRedNav.vue"));
+  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../components/AvoRedNav.vue */ "./resources/components/AvoRedNav.vue"));
 });
 var app = new Vue({
   el: '#app'
@@ -51895,8 +52543,8 @@ exports = module.exports = AvoRed;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/purveshpatel/avored/ecommerce/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/purveshpatel/avored/ecommerce/resources/less/app.less */"./resources/less/app.less");
+__webpack_require__(/*! /Users/purvesh/code/ecommerce/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/purvesh/code/ecommerce/resources/less/app.less */"./resources/less/app.less");
 
 
 /***/ })

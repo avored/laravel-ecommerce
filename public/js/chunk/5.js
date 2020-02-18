@@ -55,6 +55,45 @@ function getScrollBarSize(fresh) {
 
 /***/ }),
 
+/***/ "./node_modules/ant-design-vue/lib/_util/switchScrollingEffect.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/switchScrollingEffect.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _getScrollBarSize = __webpack_require__(/*! ./getScrollBarSize */ "./node_modules/ant-design-vue/lib/_util/getScrollBarSize.js");
+
+var _getScrollBarSize2 = _interopRequireDefault(_getScrollBarSize);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = function (close) {
+  var bodyIsOverflowing = document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight) && window.innerWidth > document.body.offsetWidth;
+  if (!bodyIsOverflowing) {
+    return;
+  }
+  if (close) {
+    document.body.style.position = '';
+    document.body.style.width = '';
+    return;
+  }
+  var scrollBarSize = (0, _getScrollBarSize2['default'])();
+  if (scrollBarSize) {
+    document.body.style.position = 'relative';
+    document.body.style.width = 'calc(100% - ' + scrollBarSize + 'px)';
+  }
+};
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/modal/ActionButton.js":
 /*!***************************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/modal/ActionButton.js ***!
@@ -213,6 +252,10 @@ var _ActionButton2 = _interopRequireDefault(_ActionButton);
 
 var _locale = __webpack_require__(/*! ./locale */ "./node_modules/ant-design-vue/lib/modal/locale.js");
 
+var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+
+var _warning2 = _interopRequireDefault(_warning);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
@@ -231,10 +274,13 @@ exports['default'] = {
         maskStyle = props.maskStyle,
         okButtonProps = props.okButtonProps,
         cancelButtonProps = props.cancelButtonProps,
+        _props$iconType = props.iconType,
+        iconType = _props$iconType === undefined ? 'question-circle' : _props$iconType,
         _props$closable = props.closable,
         closable = _props$closable === undefined ? false : _props$closable;
 
-    var iconType = props.iconType || 'question-circle';
+    (0, _warning2['default'])(!('iconType' in props), 'The property \'iconType\' is deprecated. Use the property \'icon\' instead.');
+    var icon = props.icon ? props.icon : iconType;
     var okType = props.okType || 'primary';
     var prefixCls = props.prefixCls || 'ant-modal';
     var contentPrefixCls = prefixCls + '-confirm';
@@ -242,12 +288,15 @@ exports['default'] = {
     var okCancel = 'okCancel' in props ? props.okCancel : true;
     var width = props.width || 416;
     var style = props.style || {};
+    var mask = props.mask === undefined ? true : props.mask;
     // 默认为 false，保持旧版默认行为
     var maskClosable = props.maskClosable === undefined ? false : props.maskClosable;
     var runtimeLocale = (0, _locale.getConfirmLocale)();
     var okText = props.okText || (okCancel ? runtimeLocale.okText : runtimeLocale.justOkText);
     var cancelText = props.cancelText || runtimeLocale.cancelText;
     var autoFocusButton = props.autoFocusButton === null ? false : props.autoFocusButton || 'ok';
+    var transitionName = props.transitionName || 'zoom';
+    var maskTransitionName = props.maskTransitionName || 'fade';
 
     var classString = (0, _classnames2['default'])(contentPrefixCls, contentPrefixCls + '-' + props.type, prefixCls + '-' + props.type, props['class']);
 
@@ -263,6 +312,9 @@ exports['default'] = {
       },
       [cancelText]
     );
+    var iconNode = typeof icon === 'string' ? h(_icon2['default'], {
+      attrs: { type: icon }
+    }) : icon(h);
 
     return h(
       _Modal2['default'],
@@ -275,9 +327,10 @@ exports['default'] = {
           visible: visible,
           closable: closable,
           title: '',
-          transitionName: 'zoom',
+          transitionName: transitionName,
           footer: '',
-          maskTransitionName: 'fade',
+          maskTransitionName: maskTransitionName,
+          mask: mask,
           maskClosable: maskClosable,
           maskStyle: maskStyle,
 
@@ -300,16 +353,14 @@ exports['default'] = {
         [h(
           'div',
           { 'class': contentPrefixCls + '-body' },
-          [h(_icon2['default'], {
-            attrs: { type: iconType }
-          }), h(
+          [iconNode, h(
             'span',
             { 'class': contentPrefixCls + '-title' },
-            [props.title]
+            [typeof props.title === 'function' ? props.title(h) : props.title]
           ), h(
             'div',
             { 'class': contentPrefixCls + '-content' },
-            [props.content]
+            [typeof props.content === 'function' ? props.content(h) : props.content]
           )]
         ), h(
           'div',
@@ -348,6 +399,7 @@ exports['default'] = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.destroyFns = undefined;
 
 var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
@@ -373,6 +425,12 @@ var _addEventListener = __webpack_require__(/*! ../_util/Dom/addEventListener */
 
 var _addEventListener2 = _interopRequireDefault(_addEventListener);
 
+var _locale = __webpack_require__(/*! ./locale */ "./node_modules/ant-design-vue/lib/modal/locale.js");
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
 var _button = __webpack_require__(/*! ../button */ "./node_modules/ant-design-vue/lib/button/index.js");
 
 var _button2 = _interopRequireDefault(_button);
@@ -385,13 +443,9 @@ var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver 
 
 var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
 
-var _locale = __webpack_require__(/*! ./locale */ "./node_modules/ant-design-vue/lib/modal/locale.js");
-
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
-var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
-
-var _icon2 = _interopRequireDefault(_icon);
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -426,13 +480,16 @@ var modalProps = function modalProps() {
     /** 底部内容*/
     footer: _vueTypes2['default'].any,
     /** 确认按钮文字*/
-    okText: _vueTypes2['default'].string,
+    okText: _vueTypes2['default'].any,
     /** 确认按钮类型*/
     okType: ButtonType,
     /** 取消按钮文字*/
-    cancelText: _vueTypes2['default'].string,
+    cancelText: _vueTypes2['default'].any,
+    icon: _vueTypes2['default'].any,
     /** 点击蒙层是否允许关闭*/
     maskClosable: _vueTypes2['default'].bool,
+    /** 强制渲染 Modal*/
+    forceRender: _vueTypes2['default'].bool,
     okButtonProps: _vueTypes2['default'].object,
     cancelButtonProps: _vueTypes2['default'].object,
     destroyOnClose: _vueTypes2['default'].bool,
@@ -450,6 +507,8 @@ var modalProps = function modalProps() {
   return (0, _propsUtil.initDefaultProps)(props, defaultProps);
 };
 
+var destroyFns = exports.destroyFns = [];
+
 exports['default'] = {
   name: 'AModal',
   model: {
@@ -457,7 +516,6 @@ exports['default'] = {
     event: 'change'
   },
   props: modalProps({
-    prefixCls: 'ant-modal',
     width: 520,
     transitionName: 'zoom',
     maskTransitionName: 'fade',
@@ -467,6 +525,11 @@ exports['default'] = {
     // okButtonDisabled: false,
     // cancelButtonDisabled: false,
   }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   mounted: function mounted() {
     if (mousePositionEventBinded) {
       return;
@@ -528,13 +591,16 @@ exports['default'] = {
 
   render: function render() {
     var h = arguments[0];
-    var visible = this.visible,
+    var customizePrefixCls = this.prefixCls,
+        visible = this.visible,
         wrapClassName = this.wrapClassName,
         centered = this.centered,
-        prefixCls = this.prefixCls,
         $listeners = this.$listeners,
         $slots = this.$slots;
 
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('modal', customizePrefixCls);
 
     var defaultFooter = h(_LocaleReceiver2['default'], {
       attrs: {
@@ -605,6 +671,12 @@ var _ConfirmDialog = __webpack_require__(/*! ./ConfirmDialog */ "./node_modules/
 
 var _ConfirmDialog2 = _interopRequireDefault(_ConfirmDialog);
 
+var _Modal = __webpack_require__(/*! ./Modal */ "./node_modules/ant-design-vue/lib/modal/Modal.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function confirm(config) {
@@ -640,11 +712,19 @@ function confirm(config) {
     if (config.onCancel && triggerCancel) {
       config.onCancel.apply(config, args);
     }
+    for (var i = 0; i < _Modal.destroyFns.length; i++) {
+      var fn = _Modal.destroyFns[i];
+      if (fn === close) {
+        _Modal.destroyFns.splice(i, 1);
+        break;
+      }
+    }
   }
 
   function render(props) {
     confirmDialogProps.props = props;
-    return new _vue2['default']({
+    var V = _base2['default'].Vue || _vue2['default'];
+    return new V({
       el: el,
       data: function data() {
         return { confirmDialogProps: confirmDialogProps };
@@ -660,7 +740,7 @@ function confirm(config) {
   }
 
   confirmDialogInstance = render(currentConfig);
-
+  _Modal.destroyFns.push(close);
   return {
     destroy: close,
     update: update
@@ -695,6 +775,14 @@ var _confirm = __webpack_require__(/*! ./confirm */ "./node_modules/ant-design-v
 
 var _confirm2 = _interopRequireDefault(_confirm);
 
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 // export { ActionButtonProps } from './ActionButton'
@@ -703,7 +791,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 var info = function info(props) {
   var config = (0, _extends3['default'])({
     type: 'info',
-    iconType: 'info-circle',
+    icon: function icon(h) {
+      return h(_icon2['default'], {
+        attrs: { type: 'info-circle' }
+      });
+    },
     okCancel: false
   }, props);
   return (0, _confirm2['default'])(config);
@@ -712,7 +804,11 @@ var info = function info(props) {
 var success = function success(props) {
   var config = (0, _extends3['default'])({
     type: 'success',
-    iconType: 'check-circle',
+    icon: function icon(h) {
+      return h(_icon2['default'], {
+        attrs: { type: 'check-circle' }
+      });
+    },
     okCancel: false
   }, props);
   return (0, _confirm2['default'])(config);
@@ -721,7 +817,11 @@ var success = function success(props) {
 var error = function error(props) {
   var config = (0, _extends3['default'])({
     type: 'error',
-    iconType: 'close-circle',
+    icon: function icon(h) {
+      return h(_icon2['default'], {
+        attrs: { type: 'close-circle' }
+      });
+    },
     okCancel: false
   }, props);
   return (0, _confirm2['default'])(config);
@@ -730,7 +830,11 @@ var error = function error(props) {
 var warning = function warning(props) {
   var config = (0, _extends3['default'])({
     type: 'warning',
-    iconType: 'exclamation-circle',
+    icon: function icon(h) {
+      return h(_icon2['default'], {
+        attrs: { type: 'exclamation-circle' }
+      });
+    },
     okCancel: false
   }, props);
   return (0, _confirm2['default'])(config);
@@ -751,8 +855,18 @@ _Modal2['default'].warning = warning;
 _Modal2['default'].warn = warn;
 _Modal2['default'].confirm = confirm;
 
+_Modal2['default'].destroyAll = function () {
+  while (_Modal.destroyFns.length) {
+    var close = _Modal.destroyFns.pop();
+    if (close) {
+      close();
+    }
+  }
+};
+
 /* istanbul ignore next */
 _Modal2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Modal2['default'].name, _Modal2['default']);
 };
 
@@ -857,9 +971,9 @@ var _getTransitionProps = __webpack_require__(/*! ../_util/getTransitionProps */
 
 var _getTransitionProps2 = _interopRequireDefault(_getTransitionProps);
 
-var _getScrollBarSize = __webpack_require__(/*! ../_util/getScrollBarSize */ "./node_modules/ant-design-vue/lib/_util/getScrollBarSize.js");
+var _switchScrollingEffect = __webpack_require__(/*! ../_util/switchScrollingEffect */ "./node_modules/ant-design-vue/lib/_util/switchScrollingEffect.js");
 
-var _getScrollBarSize2 = _interopRequireDefault(_getScrollBarSize);
+var _switchScrollingEffect2 = _interopRequireDefault(_switchScrollingEffect);
 
 var _IDialogPropTypes = __webpack_require__(/*! ./IDialogPropTypes */ "./node_modules/ant-design-vue/lib/vc-dialog/IDialogPropTypes.js");
 
@@ -870,7 +984,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 var IDialogPropTypes = (0, _IDialogPropTypes2['default'])();
 
 var uuid = 0;
-var openCount = 0;
 
 /* eslint react/no-is-mounted:0 */
 function noop() {}
@@ -907,22 +1020,21 @@ function offset(el) {
   pos.top += getScroll(w, true);
   return pos;
 }
-var initDefaultProps = function initDefaultProps(propTypes, defaultProps) {
-  return Object.keys(defaultProps).map(function (k) {
-    return propTypes[k].def(defaultProps[k]);
-  });
-};
+
 exports['default'] = {
   mixins: [_BaseMixin2['default']],
-  props: (0, _extends4['default'])({}, IDialogPropTypes, initDefaultProps(IDialogPropTypes, {
+  props: (0, _propsUtil.initDefaultProps)(IDialogPropTypes, {
     mask: true,
     visible: false,
     keyboard: true,
     closable: true,
     maskClosable: true,
     destroyOnClose: false,
-    prefixCls: 'rc-dialog'
-  })),
+    prefixCls: 'rc-dialog',
+    getOpenCount: function getOpenCount() {
+      return null;
+    }
+  }),
   data: function data() {
     return {
       destroyPopup: false
@@ -962,12 +1074,20 @@ exports['default'] = {
 
     this.$nextTick(function () {
       _this2.updatedCallback(false);
+      // if forceRender is true, set element style display to be none;
+      if ((_this2.forceRender || _this2.getContainer === false && !_this2.visible) && _this2.$refs.wrap) {
+        _this2.$refs.wrap.style.display = 'none';
+      }
     });
   },
   beforeDestroy: function beforeDestroy() {
-    if (this.visible || this.inTransition) {
+    var visible = this.visible,
+        getOpenCount = this.getOpenCount;
+
+    if ((visible || this.inTransition) && !getOpenCount()) {
       this.removeScrollingEffect();
     }
+    clearTimeout(this.timeoutId);
   },
 
   methods: {
@@ -1025,12 +1145,24 @@ exports['default'] = {
         afterClose();
       }
     },
+    onDialogMouseDown: function onDialogMouseDown() {
+      this.dialogMouseDown = true;
+    },
+    onMaskMouseUp: function onMaskMouseUp() {
+      var _this3 = this;
+
+      if (this.dialogMouseDown) {
+        this.timeoutId = setTimeout(function () {
+          _this3.dialogMouseDown = false;
+        }, 0);
+      }
+    },
     onMaskClick: function onMaskClick(e) {
       // android trigger click on open (fastclick??)
       if (Date.now() - this.openTime < 300) {
         return;
       }
-      if (e.target === e.currentTarget) {
+      if (e.target === e.currentTarget && !this.dialogMouseDown) {
         this.close(e);
       }
     },
@@ -1105,12 +1237,14 @@ exports['default'] = {
         closer = h(
           'button',
           {
+            attrs: {
+              type: 'button',
+
+              'aria-label': 'Close'
+            },
             key: 'close',
             on: {
               'click': this.close || noop
-            },
-            attrs: {
-              'aria-label': 'Close'
             },
             'class': prefixCls + '-close'
           },
@@ -1135,15 +1269,14 @@ exports['default'] = {
           },
           ref: 'dialog',
           style: style,
-          'class': cls
+          'class': cls,
+          on: {
+            'mousedown': this.onDialogMouseDown
+          }
         },
-        [h(
-          'div',
-          {
-            attrs: { tabIndex: 0 },
-            ref: 'sentinelStart', style: sentinelStyle },
-          ['sentinelStart']
-        ), h(
+        [h('div', {
+          attrs: { tabIndex: 0, 'aria-hidden': 'true' },
+          ref: 'sentinelStart', style: sentinelStyle }), h(
           'div',
           { 'class': prefixCls + '-content' },
           [closer, header, h(
@@ -1151,13 +1284,9 @@ exports['default'] = {
             (0, _babelHelperVueJsxMergeProps2['default'])([{ key: 'body', 'class': prefixCls + '-body', style: bodyStyle, ref: 'body' }, bodyProps]),
             [this.$slots['default']]
           ), footer]
-        ), h(
-          'div',
-          {
-            attrs: { tabIndex: 0 },
-            ref: 'sentinelEnd', style: sentinelStyle },
-          ['sentinelEnd']
-        )]
+        ), h('div', {
+          attrs: { tabIndex: 0, 'aria-hidden': 'true' },
+          ref: 'sentinelEnd', style: sentinelStyle })]
       );
       var dialogTransitionProps = (0, _getTransitionProps2['default'])(transitionName, {
         afterLeave: this.onAnimateLeave
@@ -1228,59 +1357,35 @@ exports['default'] = {
       }
       return transitionName;
     },
-    setScrollbar: function setScrollbar() {
-      if (this.bodyIsOverflowing && this.scrollbarWidth !== undefined) {
-        document.body.style.paddingRight = this.scrollbarWidth + 'px';
-      }
-    },
+
+    // setScrollbar() {
+    //   if (this.bodyIsOverflowing && this.scrollbarWidth !== undefined) {
+    //     document.body.style.paddingRight = `${this.scrollbarWidth}px`;
+    //   }
+    // },
     addScrollingEffect: function addScrollingEffect() {
-      openCount++;
+      var getOpenCount = this.getOpenCount;
+
+      var openCount = getOpenCount();
       if (openCount !== 1) {
         return;
       }
-      this.checkScrollbar();
-      this.setScrollbar();
+      (0, _switchScrollingEffect2['default'])();
       document.body.style.overflow = 'hidden';
-      // this.adjustDialog();
     },
     removeScrollingEffect: function removeScrollingEffect() {
-      openCount--;
+      var getOpenCount = this.getOpenCount;
+
+      var openCount = getOpenCount();
       if (openCount !== 0) {
         return;
       }
       document.body.style.overflow = '';
-      this.resetScrollbar();
+      (0, _switchScrollingEffect2['default'])(true);
       // this.resetAdjustments();
     },
     close: function close(e) {
       this.__emit('close', e);
-    },
-    checkScrollbar: function checkScrollbar() {
-      var fullWindowWidth = window.innerWidth;
-      if (!fullWindowWidth) {
-        // workaround for missing window.innerWidth in IE8
-        var documentElementRect = document.documentElement.getBoundingClientRect();
-        fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
-      }
-      this.bodyIsOverflowing = document.body.clientWidth < fullWindowWidth;
-      if (this.bodyIsOverflowing) {
-        this.scrollbarWidth = (0, _getScrollBarSize2['default'])();
-      }
-    },
-    resetScrollbar: function resetScrollbar() {
-      document.body.style.paddingRight = '';
-    },
-    adjustDialog: function adjustDialog() {
-      if (this.$refs.wrap && this.scrollbarWidth !== undefined) {
-        var modalIsOverflowing = this.$refs.wrap.scrollHeight > document.documentElement.clientHeight;
-        this.$refs.wrap.style.paddingLeft = (!this.bodyIsOverflowing && modalIsOverflowing ? this.scrollbarWidth : '') + 'px';
-        this.$refs.wrap.style.paddingRight = (this.bodyIsOverflowing && !modalIsOverflowing ? this.scrollbarWidth : '') + 'px';
-      }
-    },
-    resetAdjustments: function resetAdjustments() {
-      if (this.$refs.wrap) {
-        this.$refs.wrap.style.paddingLeft = this.$refs.wrap.style.paddingLeft = '';
-      }
     }
   },
   render: function render() {
@@ -1309,7 +1414,8 @@ exports['default'] = {
         },
         on: {
           'keydown': this.onKeydown,
-          'click': maskClosable ? this.onMaskClick : noop
+          'click': maskClosable ? this.onMaskClick : noop,
+          'mouseup': maskClosable ? this.onMaskMouseUp : noop
         },
 
         'class': prefixCls + '-wrap ' + (wrapClassName || ''),
@@ -1504,10 +1610,12 @@ function IDialogPropTypes() {
     bodyProps: _vueTypes2['default'].any,
     maskProps: _vueTypes2['default'].any,
     wrapProps: _vueTypes2['default'].any,
-    getContainer: _vueTypes2['default'].func,
+    getContainer: _vueTypes2['default'].any,
     dialogStyle: _vueTypes2['default'].object.def({}),
     dialogClass: _vueTypes2['default'].object.def({}),
-    closeIcon: _vueTypes2['default'].any
+    closeIcon: _vueTypes2['default'].any,
+    forceRender: _vueTypes2['default'].bool,
+    getOpenCount: _vueTypes2['default'].func
   };
 }
 
@@ -1545,7 +1653,11 @@ exports['default'] = {
   render: function render() {
     var h = arguments[0];
 
-    return h('div', [this.$slots['default']]);
+    return h(
+      'div',
+      { on: this.$listeners },
+      [this.$slots['default']]
+    );
   }
 };
 
@@ -1571,7 +1683,7 @@ var _DialogWrap2 = _interopRequireDefault(_DialogWrap);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _DialogWrap2['default']; // based on vc-dialog 7.2.1
+exports['default'] = _DialogWrap2['default']; // based on vc-dialog 7.5.5
 
 /***/ })
 

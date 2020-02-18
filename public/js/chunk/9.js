@@ -45,6 +45,12 @@ var _src = __webpack_require__(/*! ../vc-input-number/src */ "./node_modules/ant
 
 var _src2 = _interopRequireDefault(_src);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var InputNumberProps = exports.InputNumberProps = {
@@ -74,9 +80,13 @@ var InputNumber = {
     event: 'change'
   },
   props: (0, _propsUtil.initDefaultProps)(InputNumberProps, {
-    prefixCls: 'ant-input-number',
     step: 1
   }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   methods: {
     focus: function focus() {
       this.$refs.inputNumberRef.focus();
@@ -92,19 +102,24 @@ var InputNumber = {
     var h = arguments[0];
 
     var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        customizePrefixCls = _getOptionProps.prefixCls,
         size = _getOptionProps.size,
-        others = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['size']);
+        others = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'size']);
 
-    var inputNumberClass = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, this.prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_classNames, this.prefixCls + '-sm', size === 'small'), _classNames));
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('input-number', customizePrefixCls);
+
+    var inputNumberClass = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-sm', size === 'small'), _classNames));
     var upIcon = h(_icon2['default'], {
       attrs: { type: 'up' },
-      'class': this.prefixCls + '-handler-up-inner' });
+      'class': prefixCls + '-handler-up-inner' });
     var downIcon = h(_icon2['default'], {
       attrs: { type: 'down' },
-      'class': this.prefixCls + '-handler-down-inner' });
+      'class': prefixCls + '-handler-down-inner' });
 
     var vcInputNumberprops = {
       props: (0, _extends3['default'])({
+        prefixCls: prefixCls,
         upHandler: upIcon,
         downHandler: downIcon
       }, others),
@@ -118,6 +133,7 @@ var InputNumber = {
 
 /* istanbul ignore next */
 InputNumber.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(InputNumber.name, InputNumber);
 };
 
@@ -229,7 +245,7 @@ var _InputHandler2 = _interopRequireDefault(_InputHandler);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function noop() {} // based on rc-input-number 4.3.8
+function noop() {} // based on rc-input-number 4.4.0
 
 
 function preventDefault(e) {
@@ -255,6 +271,11 @@ var DELAY = 600;
  * The reason this is used, instead of Infinity is because numbers above the MSI are unstable
  */
 var MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER || Math.pow(2, 53) - 1;
+
+var isValidProps = function isValidProps(value) {
+  return value !== undefined && value !== null;
+};
+
 var inputNumberProps = {
   value: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string]),
   defaultValue: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string]),
@@ -538,7 +559,7 @@ exports['default'] = {
       // https://github.com/ant-design/ant-design/issues/8196
       var value = e.target.value.trim().replace(/。/g, '.');
 
-      if (this.decimalSeparator !== undefined) {
+      if (isValidProps(this.decimalSeparator)) {
         value = value.replace(this.decimalSeparator, '.');
       }
 
@@ -563,7 +584,7 @@ exports['default'] = {
     },
     setValue: function setValue(v, callback) {
       // trigger onChange
-      var newValue = this.isNotCompleteNumber(parseFloat(v, 10)) ? undefined : parseFloat(v, 10);
+      var newValue = this.isNotCompleteNumber(parseFloat(v, 10)) ? null : parseFloat(v, 10);
       var changed = newValue !== this.sValue || '' + newValue !== '' + this.inputValue; // https://github.com/ant-design/ant-design/issues/7363
       if (!(0, _propsUtil.hasProp)(this, 'value')) {
         this.setState({
@@ -581,7 +602,7 @@ exports['default'] = {
       }
     },
     getPrecision: function getPrecision(value) {
-      if ((0, _propsUtil.hasProp)(this, 'precision')) {
+      if (isValidProps(this.precision)) {
         return this.precision;
       }
       var valueString = value.toString();
@@ -603,7 +624,7 @@ exports['default'] = {
     getMaxPrecision: function getMaxPrecision(currentValue) {
       var ratio = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1;
 
-      if ((0, _propsUtil.hasProp)(this, 'precision')) {
+      if (isValidProps(this.precision)) {
         return this.precision;
       }
       var step = this.step;
@@ -744,7 +765,7 @@ exports['default'] = {
       if (this.isNotCompleteNumber(num)) {
         return num;
       }
-      if ((0, _propsUtil.hasProp)(this, 'precision')) {
+      if (isValidProps(this.precision)) {
         return Number(Number(num).toFixed(this.precision));
       }
       return Number(num);
@@ -914,7 +935,7 @@ exports['default'] = {
       };
     }
     var inputDisplayValueFormat = this.formatWrapper(inputDisplayValue);
-    if (this.decimalSeparator !== undefined) {
+    if (isValidProps(this.decimalSeparator)) {
       inputDisplayValueFormat = inputDisplayValueFormat.toString().replace('.', this.decimalSeparator);
     }
     var isUpDisabled = !!upDisabledClass || disabled || readOnly;
