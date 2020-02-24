@@ -15,6 +15,7 @@ window.AvoRed = AvoRed
 import Layout from 'ant-design-vue/lib/layout'
 import Menu from 'ant-design-vue/lib/menu'
 import Form from 'ant-design-vue/lib/form'
+import Radio from 'ant-design-vue/lib/radio'
 import Select from 'ant-design-vue/lib/select'
 import Breadcrumb from 'ant-design-vue/lib/breadcrumb'
 import Dropdown from 'ant-design-vue/lib/dropdown'
@@ -24,12 +25,16 @@ import Notification from 'ant-design-vue/lib/notification'
 Vue.use(Layout)
 Vue.use(Menu)
 Vue.use(Form)
+Vue.use(Radio)
 Vue.use(Select)
 Vue.use(Breadcrumb)
 Vue.use(Dropdown)
 Vue.use(Tabs)
 
 Vue.prototype.$notification = Notification;
+
+// Vue.component('a-radio', () => import('ant-design-vue/lib/radio'))
+// Vue.component('a-radio-group', () => import('ant-design-vue/lib/radio'))
 
 Vue.component('a-checkbox', () => import('ant-design-vue/lib/checkbox'))
 Vue.component('a-switch', () => import('ant-design-vue/lib/switch'))

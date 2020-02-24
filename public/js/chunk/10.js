@@ -1,596 +1,741 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
-/***/ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/checkbox/Checkbox.js ***!
-  \**************************************************************/
+/***/ "./node_modules/css-loader/lib/css-base.js":
+/*!*************************************************!*\
+  !*** ./node_modules/css-loader/lib/css-base.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isNil.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/isNil.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is `null` or `undefined`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
+ * @example
+ *
+ * _.isNil(null);
+ * // => true
+ *
+ * _.isNil(void 0);
+ * // => true
+ *
+ * _.isNil(NaN);
+ * // => false
+ */
+function isNil(value) {
+  return value == null;
+}
+
+module.exports = isNil;
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/addStyles.js":
+/*!****************************************************!*\
+  !*** ./node_modules/style-loader/lib/addStyles.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
 
+var stylesInDom = {};
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
 });
 
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+var getTarget = function (target, parent) {
+  if (parent){
+    return parent.querySelector(target);
+  }
+  return document.querySelector(target);
+};
 
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+var getElement = (function (fn) {
+	var memo = {};
 
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+	return function(target, parent) {
+                // If passing function in options, then use it for resolve "head" element.
+                // Useful for Shadow Root style i.e
+                // {
+                //   insertInto: function () { return document.querySelector("#foo").shadowRoot }
+                // }
+                if (typeof target === 'function') {
+                        return target();
+                }
+                if (typeof memo[target] === "undefined") {
+			var styleTarget = getTarget.call(this, target, parent);
+			// Special case to return head of iframe instead of iframe itself
+			if (window.HTMLIFrameElement && styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[target] = styleTarget;
+		}
+		return memo[target]
+	};
+})();
 
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
 
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+var	fixUrls = __webpack_require__(/*! ./urls */ "./node_modules/style-loader/lib/urls.js");
 
-var _extends3 = _interopRequireDefault(_extends2);
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
 
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+	options = options || {};
 
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
 
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton && typeof options.singleton !== "boolean") options.singleton = isOldIE();
 
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
+	// By default, add <style> tags to the <head> element
+        if (!options.insertInto) options.insertInto = "head";
 
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
 
-var _classnames2 = _interopRequireDefault(_classnames);
+	var styles = listToStyles(list, options);
 
-var _vcCheckbox = __webpack_require__(/*! ../vc-checkbox */ "./node_modules/ant-design-vue/lib/vc-checkbox/index.js");
+	addStylesToDom(styles, options);
 
-var _vcCheckbox2 = _interopRequireDefault(_vcCheckbox);
+	return function update (newList) {
+		var mayRemove = [];
 
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
 
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
 
-function noop() {}
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
 
-exports['default'] = {
-  name: 'ACheckbox',
-  inheritAttrs: false,
-  model: {
-    prop: 'checked'
-  },
-  props: {
-    prefixCls: _vueTypes2['default'].string,
-    defaultChecked: _vueTypes2['default'].bool,
-    checked: _vueTypes2['default'].bool,
-    disabled: _vueTypes2['default'].bool,
-    isGroup: _vueTypes2['default'].bool,
-    value: _vueTypes2['default'].any,
-    name: _vueTypes2['default'].string,
-    id: _vueTypes2['default'].string,
-    indeterminate: _vueTypes2['default'].bool,
-    type: _vueTypes2['default'].string.def('checkbox'),
-    autoFocus: _vueTypes2['default'].bool
-  },
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } },
-    checkboxGroupContext: { 'default': function _default() {
-        return null;
-      } }
-  },
-  methods: {
-    handleChange: function handleChange(event) {
-      var targetChecked = event.target.checked;
-      this.$emit('input', targetChecked);
-      this.$emit('change', event);
-    },
-    focus: function focus() {
-      this.$refs.vcCheckbox.focus();
-    },
-    blur: function blur() {
-      this.$refs.vcCheckbox.blur();
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertAt.before, target);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+
+	if(options.attrs.nonce === undefined) {
+		var nonce = getNonce();
+		if (nonce) {
+			options.attrs.nonce = nonce;
+		}
+	}
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	if(options.attrs.type === undefined) {
+		options.attrs.type = "text/css";
+	}
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function getNonce() {
+	if (false) {}
+
+	return __webpack_require__.nc;
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = typeof options.transform === 'function'
+		 ? options.transform(obj.css) 
+		 : options.transform.default(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/lib/urls.js":
+/*!***********************************************!*\
+  !*** ./node_modules/style-loader/lib/urls.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/|\s*$)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
     }
-  },
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      : injectStyles
+  }
 
-  render: function render() {
-    var _this = this,
-        _classNames;
-
-    var h = arguments[0];
-    var checkboxGroup = this.checkboxGroupContext,
-        $listeners = this.$listeners,
-        $slots = this.$slots;
-
-    var props = (0, _propsUtil.getOptionProps)(this);
-    var children = $slots['default'];
-    var _$listeners$mouseente = $listeners.mouseenter,
-        mouseenter = _$listeners$mouseente === undefined ? noop : _$listeners$mouseente,
-        _$listeners$mouseleav = $listeners.mouseleave,
-        mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav,
-        input = $listeners.input,
-        restListeners = (0, _objectWithoutProperties3['default'])($listeners, ['mouseenter', 'mouseleave', 'input']);
-    var customizePrefixCls = props.prefixCls,
-        indeterminate = props.indeterminate,
-        restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls', 'indeterminate']);
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('checkbox', customizePrefixCls);
-
-    var checkboxProps = {
-      props: (0, _extends3['default'])({}, restProps, { prefixCls: prefixCls }),
-      on: restListeners,
-      attrs: (0, _propsUtil.getAttrs)(this)
-    };
-    if (checkboxGroup) {
-      checkboxProps.on.change = function () {
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
-        _this.$emit.apply(_this, ['change'].concat(args));
-        checkboxGroup.toggleOption({ label: children, value: props.value });
-      };
-      checkboxProps.props.checked = checkboxGroup.sValue.indexOf(props.value) !== -1;
-      checkboxProps.props.disabled = props.disabled || checkboxGroup.disabled;
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
     } else {
-      checkboxProps.on.change = this.handleChange;
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
     }
-    var classString = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper-checked', checkboxProps.props.checked), (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper-disabled', checkboxProps.props.disabled), _classNames));
-    var checkboxClass = (0, _classnames2['default'])((0, _defineProperty3['default'])({}, prefixCls + '-indeterminate', indeterminate));
-    return h(
-      'label',
-      { 'class': classString, on: {
-          'mouseenter': mouseenter,
-          'mouseleave': mouseleave
-        }
-      },
-      [h(_vcCheckbox2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([checkboxProps, { 'class': checkboxClass, ref: 'vcCheckbox' }])), children !== undefined && h('span', [children])]
-    );
   }
-};
 
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/checkbox/Group.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/checkbox/Group.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js");
-
-var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _propsUtil2 = _interopRequireDefault(_propsUtil);
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function noop() {}
-exports['default'] = {
-  name: 'ACheckboxGroup',
-  model: {
-    prop: 'value'
-  },
-  props: {
-    prefixCls: _vueTypes2['default'].string,
-    defaultValue: _vueTypes2['default'].array,
-    value: _vueTypes2['default'].array,
-    options: _vueTypes2['default'].array.def([]),
-    disabled: _vueTypes2['default'].bool
-  },
-  provide: function provide() {
-    return {
-      checkboxGroupContext: this
-    };
-  },
-
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  data: function data() {
-    var value = this.value,
-        defaultValue = this.defaultValue;
-
-    return {
-      sValue: value || defaultValue || []
-    };
-  },
-
-  watch: {
-    value: function value(val) {
-      this.sValue = val || [];
-    }
-  },
-  methods: {
-    getOptions: function getOptions() {
-      var options = this.options,
-          $scopedSlots = this.$scopedSlots;
-
-      return options.map(function (option) {
-        if (typeof option === 'string') {
-          return {
-            label: option,
-            value: option
-          };
-        }
-        var label = option.label;
-        if (label === undefined && $scopedSlots.label) {
-          label = $scopedSlots.label(option);
-        }
-        return (0, _extends3['default'])({}, option, { label: label });
-      });
-    },
-    toggleOption: function toggleOption(option) {
-      var optionIndex = this.sValue.indexOf(option.value);
-      var value = [].concat((0, _toConsumableArray3['default'])(this.sValue));
-      if (optionIndex === -1) {
-        value.push(option.value);
-      } else {
-        value.splice(optionIndex, 1);
-      }
-      if (!(0, _propsUtil2['default'])(this, 'value')) {
-        this.sValue = value;
-      }
-      this.$emit('input', value);
-      this.$emit('change', value);
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var props = this.$props,
-        state = this.$data,
-        $slots = this.$slots;
-    var customizePrefixCls = props.prefixCls,
-        options = props.options;
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('checkbox', customizePrefixCls);
-
-    var children = $slots['default'];
-    var groupPrefixCls = prefixCls + '-group';
-    if (options && options.length > 0) {
-      children = this.getOptions().map(function (option) {
-        return h(
-          _Checkbox2['default'],
-          {
-            attrs: {
-              prefixCls: prefixCls,
-
-              disabled: 'disabled' in option ? option.disabled : props.disabled,
-              value: option.value,
-              checked: state.sValue.indexOf(option.value) !== -1
-            },
-            key: option.value.toString(), on: {
-              'change': option.onChange || noop
-            },
-
-            'class': groupPrefixCls + '-item'
-          },
-          [option.label]
-        );
-      });
-    }
-    return h(
-      'div',
-      { 'class': groupPrefixCls },
-      [children]
-    );
+  return {
+    exports: scriptExports,
+    options: options
   }
-};
+}
 
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/checkbox/index.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/checkbox/index.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js");
-
-var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-var _Group = __webpack_require__(/*! ./Group */ "./node_modules/ant-design-vue/lib/checkbox/Group.js");
-
-var _Group2 = _interopRequireDefault(_Group);
-
-var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
-
-var _base2 = _interopRequireDefault(_base);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-_Checkbox2['default'].Group = _Group2['default'];
-
-/* istanbul ignore next */
-_Checkbox2['default'].install = function (Vue) {
-  Vue.use(_base2['default']);
-  Vue.component(_Checkbox2['default'].name, _Checkbox2['default']);
-  Vue.component(_Group2['default'].name, _Group2['default']);
-};
-
-exports['default'] = _Checkbox2['default'];
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-checkbox/index.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-checkbox/index.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _src = __webpack_require__(/*! ./src/ */ "./node_modules/ant-design-vue/lib/vc-checkbox/src/index.js");
-
-Object.defineProperty(exports, 'default', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_src)['default'];
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-checkbox/src/Checkbox.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-checkbox/src/Checkbox.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'Checkbox',
-  mixins: [_BaseMixin2['default']],
-  inheritAttrs: false,
-  model: {
-    prop: 'checked',
-    event: 'change'
-  },
-  props: (0, _propsUtil.initDefaultProps)({
-    prefixCls: _vueTypes2['default'].string,
-    name: _vueTypes2['default'].string,
-    id: _vueTypes2['default'].string,
-    type: _vueTypes2['default'].string,
-    defaultChecked: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].bool]),
-    checked: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].bool]),
-    disabled: _vueTypes2['default'].bool,
-    // onFocus: PropTypes.func,
-    // onBlur: PropTypes.func,
-    // onChange: PropTypes.func,
-    // onClick: PropTypes.func,
-    tabIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-    readOnly: _vueTypes2['default'].bool,
-    autoFocus: _vueTypes2['default'].bool,
-    value: _vueTypes2['default'].any
-  }, {
-    prefixCls: 'rc-checkbox',
-    type: 'checkbox',
-    defaultChecked: false
-  }),
-  data: function data() {
-    var checked = (0, _propsUtil.hasProp)(this, 'checked') ? this.checked : this.defaultChecked;
-    return {
-      sChecked: checked
-    };
-  },
-
-  watch: {
-    checked: function checked(val) {
-      this.sChecked = val;
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.$nextTick(function () {
-      if (_this.autoFocus) {
-        _this.$refs.input && _this.$refs.input.focus();
-      }
-    });
-  },
-
-  methods: {
-    focus: function focus() {
-      this.$refs.input.focus();
-    },
-    blur: function blur() {
-      this.$refs.input.blur();
-    },
-    handleChange: function handleChange(e) {
-      var props = (0, _propsUtil.getOptionProps)(this);
-      if (props.disabled) {
-        return;
-      }
-      if (!('checked' in props)) {
-        this.sChecked = e.target.checked;
-      }
-      this.$forceUpdate(); // change前，维持现有状态
-      this.__emit('change', {
-        target: (0, _extends3['default'])({}, props, {
-          checked: e.target.checked
-        }),
-        stopPropagation: function stopPropagation() {
-          e.stopPropagation();
-        },
-        preventDefault: function preventDefault() {
-          e.preventDefault();
-        },
-
-        nativeEvent: (0, _extends3['default'])({}, e, { shiftKey: this.eventShiftKey })
-      });
-      this.eventShiftKey = false;
-    },
-    onClick: function onClick(e) {
-      this.__emit('click', e);
-      // onChange没能获取到shiftKey，使用onClick hack
-      this.eventShiftKey = e.shiftKey;
-    }
-  },
-
-  render: function render() {
-    var _classNames;
-
-    var h = arguments[0];
-
-    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-        prefixCls = _getOptionProps.prefixCls,
-        name = _getOptionProps.name,
-        id = _getOptionProps.id,
-        type = _getOptionProps.type,
-        disabled = _getOptionProps.disabled,
-        readOnly = _getOptionProps.readOnly,
-        tabIndex = _getOptionProps.tabIndex,
-        autoFocus = _getOptionProps.autoFocus,
-        value = _getOptionProps.value,
-        others = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'name', 'id', 'type', 'disabled', 'readOnly', 'tabIndex', 'autoFocus', 'value']);
-
-    var attrs = (0, _propsUtil.getAttrs)(this);
-    var globalProps = Object.keys((0, _extends3['default'])({}, others, attrs)).reduce(function (prev, key) {
-      if (key.substr(0, 5) === 'aria-' || key.substr(0, 5) === 'data-' || key === 'role') {
-        prev[key] = others[key];
-      }
-      return prev;
-    }, {});
-
-    var sChecked = this.sChecked;
-
-    var classString = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-checked', sChecked), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', disabled), _classNames));
-
-    return h(
-      'span',
-      { 'class': classString },
-      [h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
-        attrs: {
-          name: name,
-          id: id,
-          type: type,
-          readOnly: readOnly,
-          disabled: disabled,
-          tabIndex: tabIndex,
-
-          autoFocus: autoFocus
-        },
-        'class': prefixCls + '-input',
-        domProps: {
-          'checked': !!sChecked,
-          'value': value
-        },
-        ref: 'input'
-      }, {
-        attrs: globalProps,
-        on: (0, _extends3['default'])({}, this.$listeners, {
-          change: this.handleChange,
-          click: this.onClick
-        })
-      }])), h('span', { 'class': prefixCls + '-inner' })]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-checkbox/src/index.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-checkbox/src/index.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/vc-checkbox/src/Checkbox.js");
-
-var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = _Checkbox2['default'];
 
 /***/ })
 

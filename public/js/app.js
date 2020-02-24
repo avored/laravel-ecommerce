@@ -11529,6 +11529,477 @@ exports['default'] = api;
 
 /***/ }),
 
+/***/ "./node_modules/ant-design-vue/lib/radio/Group.js":
+/*!********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/radio/Group.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _Radio = __webpack_require__(/*! ./Radio */ "./node_modules/ant-design-vue/lib/radio/Radio.js");
+
+var _Radio2 = _interopRequireDefault(_Radio);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+
+exports['default'] = {
+  name: 'ARadioGroup',
+  model: {
+    prop: 'value'
+  },
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    defaultValue: _vueTypes2['default'].any,
+    value: _vueTypes2['default'].any,
+    size: {
+      'default': 'default',
+      validator: function validator(value) {
+        return ['large', 'default', 'small'].includes(value);
+      }
+    },
+    options: {
+      'default': function _default() {
+        return [];
+      },
+      type: Array
+    },
+    disabled: Boolean,
+    name: String,
+    buttonStyle: _vueTypes2['default'].string.def('outline')
+  },
+  data: function data() {
+    var value = this.value,
+        defaultValue = this.defaultValue;
+
+    this.updatingValue = false;
+    return {
+      stateValue: value === undefined ? defaultValue : value
+    };
+  },
+  provide: function provide() {
+    return {
+      radioGroupContext: this
+    };
+  },
+
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  computed: {
+    radioOptions: function radioOptions() {
+      var disabled = this.disabled;
+
+      return this.options.map(function (option) {
+        return typeof option === 'string' ? { label: option, value: option } : (0, _extends3['default'])({}, option, { disabled: option.disabled === undefined ? disabled : option.disabled });
+      });
+    },
+    classes: function classes() {
+      var _ref;
+
+      var prefixCls = this.prefixCls,
+          size = this.size;
+
+      return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + size, size), _ref;
+    }
+  },
+  watch: {
+    value: function value(val) {
+      this.updatingValue = false;
+      this.stateValue = val;
+    }
+  },
+  methods: {
+    onRadioChange: function onRadioChange(ev) {
+      var _this = this;
+
+      var lastValue = this.stateValue;
+      var value = ev.target.value;
+
+      if (!(0, _propsUtil.hasProp)(this, 'value')) {
+        this.stateValue = value;
+      }
+      // nextTick for https://github.com/vueComponent/ant-design-vue/issues/1280
+      if (!this.updatingValue && value !== lastValue) {
+        this.updatingValue = true;
+        this.$emit('input', value);
+        this.$emit('change', ev);
+      }
+      this.$nextTick(function () {
+        _this.updatingValue = false;
+      });
+    }
+  },
+  render: function render() {
+    var _this2 = this;
+
+    var h = arguments[0];
+    var _$listeners = this.$listeners,
+        _$listeners$mouseente = _$listeners.mouseenter,
+        mouseenter = _$listeners$mouseente === undefined ? noop : _$listeners$mouseente,
+        _$listeners$mouseleav = _$listeners.mouseleave,
+        mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav;
+
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var customizePrefixCls = props.prefixCls,
+        options = props.options,
+        buttonStyle = props.buttonStyle;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('radio', customizePrefixCls);
+
+    var groupPrefixCls = prefixCls + '-group';
+    var classString = (0, _classnames2['default'])(groupPrefixCls, groupPrefixCls + '-' + buttonStyle, (0, _defineProperty3['default'])({}, groupPrefixCls + '-' + props.size, props.size));
+
+    var children = (0, _propsUtil.filterEmpty)(this.$slots['default']);
+
+    // 如果存在 options, 优先使用
+    if (options && options.length > 0) {
+      children = options.map(function (option, index) {
+        if (typeof option === 'string') {
+          return h(
+            _Radio2['default'],
+            {
+              key: index,
+              attrs: { prefixCls: prefixCls,
+                disabled: props.disabled,
+                value: option,
+                checked: _this2.stateValue === option
+              }
+            },
+            [option]
+          );
+        } else {
+          return h(
+            _Radio2['default'],
+            {
+              key: index,
+              attrs: { prefixCls: prefixCls,
+                disabled: option.disabled || props.disabled,
+                value: option.value,
+                checked: _this2.stateValue === option.value
+              }
+            },
+            [option.label]
+          );
+        }
+      });
+    }
+
+    return h(
+      'div',
+      { 'class': classString, on: {
+          'mouseenter': mouseenter,
+          'mouseleave': mouseleave
+        }
+      },
+      [children]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/radio/Radio.js":
+/*!********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/radio/Radio.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _vcCheckbox = __webpack_require__(/*! ../vc-checkbox */ "./node_modules/ant-design-vue/lib/vc-checkbox/index.js");
+
+var _vcCheckbox2 = _interopRequireDefault(_vcCheckbox);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+
+exports['default'] = {
+  name: 'ARadio',
+  model: {
+    prop: 'checked'
+  },
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    defaultChecked: Boolean,
+    checked: { type: Boolean, 'default': undefined },
+    disabled: Boolean,
+    isGroup: Boolean,
+    value: _vueTypes2['default'].any,
+    name: String,
+    id: String,
+    autoFocus: Boolean,
+    type: _vueTypes2['default'].string.def('radio')
+  },
+  inject: {
+    radioGroupContext: { 'default': undefined },
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  methods: {
+    handleChange: function handleChange(event) {
+      var targetChecked = event.target.checked;
+      this.$emit('input', targetChecked);
+      this.$emit('change', event);
+    },
+    focus: function focus() {
+      this.$refs.vcCheckbox.focus();
+    },
+    blur: function blur() {
+      this.$refs.vcCheckbox.blur();
+    },
+    onChange: function onChange(e) {
+      this.$emit('change', e);
+      if (this.radioGroupContext && this.radioGroupContext.onRadioChange) {
+        this.radioGroupContext.onRadioChange(e);
+      }
+    }
+  },
+
+  render: function render() {
+    var _classNames;
+
+    var h = arguments[0];
+    var $slots = this.$slots,
+        $listeners = this.$listeners,
+        radioGroup = this.radioGroupContext;
+
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var children = $slots['default'];
+    var _$listeners$mouseente = $listeners.mouseenter,
+        mouseenter = _$listeners$mouseente === undefined ? noop : _$listeners$mouseente,
+        _$listeners$mouseleav = $listeners.mouseleave,
+        mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav,
+        restListeners = (0, _objectWithoutProperties3['default'])($listeners, ['mouseenter', 'mouseleave']);
+    var customizePrefixCls = props.prefixCls,
+        restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('radio', customizePrefixCls);
+
+    var radioProps = {
+      props: (0, _extends3['default'])({}, restProps, { prefixCls: prefixCls }),
+      on: restListeners,
+      attrs: (0, _propsUtil.getAttrs)(this)
+    };
+
+    if (radioGroup) {
+      radioProps.props.name = radioGroup.name;
+      radioProps.on.change = this.onChange;
+      radioProps.props.checked = props.value === radioGroup.stateValue;
+      radioProps.props.disabled = props.disabled || radioGroup.disabled;
+    } else {
+      radioProps.on.change = this.handleChange;
+    }
+    var wrapperClassString = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper-checked', radioProps.props.checked), (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper-disabled', radioProps.props.disabled), _classNames));
+
+    return h(
+      'label',
+      { 'class': wrapperClassString, on: {
+          'mouseenter': mouseenter,
+          'mouseleave': mouseleave
+        }
+      },
+      [h(_vcCheckbox2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([radioProps, { ref: 'vcCheckbox' }])), children !== undefined ? h('span', [children]) : null]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/radio/RadioButton.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/radio/RadioButton.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _Radio = __webpack_require__(/*! ./Radio */ "./node_modules/ant-design-vue/lib/radio/Radio.js");
+
+var _Radio2 = _interopRequireDefault(_Radio);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = {
+  name: 'ARadioButton',
+  props: (0, _extends3['default'])({}, _Radio2['default'].props),
+  inject: {
+    radioGroupContext: { 'default': undefined },
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  render: function render() {
+    var h = arguments[0];
+
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        customizePrefixCls = _getOptionProps.prefixCls,
+        otherProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('radio-button', customizePrefixCls);
+
+    var radioProps = {
+      props: (0, _extends3['default'])({}, otherProps, {
+        prefixCls: prefixCls
+      }),
+      on: (0, _extends3['default'])({}, this.$listeners)
+    };
+    if (this.radioGroupContext) {
+      radioProps.on.change = this.radioGroupContext.onRadioChange;
+      radioProps.props.checked = this.$props.value === this.radioGroupContext.stateValue;
+      radioProps.props.disabled = this.$props.disabled || this.radioGroupContext.disabled;
+    }
+    return h(
+      _Radio2['default'],
+      radioProps,
+      [this.$slots['default']]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/radio/index.js":
+/*!********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/radio/index.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Group = exports.Button = undefined;
+
+var _Radio = __webpack_require__(/*! ./Radio */ "./node_modules/ant-design-vue/lib/radio/Radio.js");
+
+var _Radio2 = _interopRequireDefault(_Radio);
+
+var _Group = __webpack_require__(/*! ./Group */ "./node_modules/ant-design-vue/lib/radio/Group.js");
+
+var _Group2 = _interopRequireDefault(_Group);
+
+var _RadioButton = __webpack_require__(/*! ./RadioButton */ "./node_modules/ant-design-vue/lib/radio/RadioButton.js");
+
+var _RadioButton2 = _interopRequireDefault(_RadioButton);
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+_Radio2['default'].Group = _Group2['default'];
+_Radio2['default'].Button = _RadioButton2['default'];
+
+/* istanbul ignore next */
+_Radio2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
+  Vue.component(_Radio2['default'].name, _Radio2['default']);
+  Vue.component(_Radio2['default'].Group.name, _Radio2['default'].Group);
+  Vue.component(_Radio2['default'].Button.name, _Radio2['default'].Button);
+};
+
+exports.Button = _RadioButton2['default'];
+exports.Group = _Group2['default'];
+exports['default'] = _Radio2['default'];
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/select/index.js":
 /*!*********************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/select/index.js ***!
@@ -13037,6 +13508,254 @@ exports['default'] = {
   previousCentury: 'Last century',
   nextCentury: 'Next century'
 };
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-checkbox/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-checkbox/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _src = __webpack_require__(/*! ./src/ */ "./node_modules/ant-design-vue/lib/vc-checkbox/src/index.js");
+
+Object.defineProperty(exports, 'default', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_src)['default'];
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-checkbox/src/Checkbox.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-checkbox/src/Checkbox.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = {
+  name: 'Checkbox',
+  mixins: [_BaseMixin2['default']],
+  inheritAttrs: false,
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: (0, _propsUtil.initDefaultProps)({
+    prefixCls: _vueTypes2['default'].string,
+    name: _vueTypes2['default'].string,
+    id: _vueTypes2['default'].string,
+    type: _vueTypes2['default'].string,
+    defaultChecked: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].bool]),
+    checked: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].bool]),
+    disabled: _vueTypes2['default'].bool,
+    // onFocus: PropTypes.func,
+    // onBlur: PropTypes.func,
+    // onChange: PropTypes.func,
+    // onClick: PropTypes.func,
+    tabIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
+    readOnly: _vueTypes2['default'].bool,
+    autoFocus: _vueTypes2['default'].bool,
+    value: _vueTypes2['default'].any
+  }, {
+    prefixCls: 'rc-checkbox',
+    type: 'checkbox',
+    defaultChecked: false
+  }),
+  data: function data() {
+    var checked = (0, _propsUtil.hasProp)(this, 'checked') ? this.checked : this.defaultChecked;
+    return {
+      sChecked: checked
+    };
+  },
+
+  watch: {
+    checked: function checked(val) {
+      this.sChecked = val;
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      if (_this.autoFocus) {
+        _this.$refs.input && _this.$refs.input.focus();
+      }
+    });
+  },
+
+  methods: {
+    focus: function focus() {
+      this.$refs.input.focus();
+    },
+    blur: function blur() {
+      this.$refs.input.blur();
+    },
+    handleChange: function handleChange(e) {
+      var props = (0, _propsUtil.getOptionProps)(this);
+      if (props.disabled) {
+        return;
+      }
+      if (!('checked' in props)) {
+        this.sChecked = e.target.checked;
+      }
+      this.$forceUpdate(); // change前，维持现有状态
+      this.__emit('change', {
+        target: (0, _extends3['default'])({}, props, {
+          checked: e.target.checked
+        }),
+        stopPropagation: function stopPropagation() {
+          e.stopPropagation();
+        },
+        preventDefault: function preventDefault() {
+          e.preventDefault();
+        },
+
+        nativeEvent: (0, _extends3['default'])({}, e, { shiftKey: this.eventShiftKey })
+      });
+      this.eventShiftKey = false;
+    },
+    onClick: function onClick(e) {
+      this.__emit('click', e);
+      // onChange没能获取到shiftKey，使用onClick hack
+      this.eventShiftKey = e.shiftKey;
+    }
+  },
+
+  render: function render() {
+    var _classNames;
+
+    var h = arguments[0];
+
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        prefixCls = _getOptionProps.prefixCls,
+        name = _getOptionProps.name,
+        id = _getOptionProps.id,
+        type = _getOptionProps.type,
+        disabled = _getOptionProps.disabled,
+        readOnly = _getOptionProps.readOnly,
+        tabIndex = _getOptionProps.tabIndex,
+        autoFocus = _getOptionProps.autoFocus,
+        value = _getOptionProps.value,
+        others = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'name', 'id', 'type', 'disabled', 'readOnly', 'tabIndex', 'autoFocus', 'value']);
+
+    var attrs = (0, _propsUtil.getAttrs)(this);
+    var globalProps = Object.keys((0, _extends3['default'])({}, others, attrs)).reduce(function (prev, key) {
+      if (key.substr(0, 5) === 'aria-' || key.substr(0, 5) === 'data-' || key === 'role') {
+        prev[key] = others[key];
+      }
+      return prev;
+    }, {});
+
+    var sChecked = this.sChecked;
+
+    var classString = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-checked', sChecked), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', disabled), _classNames));
+
+    return h(
+      'span',
+      { 'class': classString },
+      [h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
+        attrs: {
+          name: name,
+          id: id,
+          type: type,
+          readOnly: readOnly,
+          disabled: disabled,
+          tabIndex: tabIndex,
+
+          autoFocus: autoFocus
+        },
+        'class': prefixCls + '-input',
+        domProps: {
+          'checked': !!sChecked,
+          'value': value
+        },
+        ref: 'input'
+      }, {
+        attrs: globalProps,
+        on: (0, _extends3['default'])({}, this.$listeners, {
+          change: this.handleChange,
+          click: this.onClick
+        })
+      }])), h('span', { 'class': prefixCls + '-inner' })]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-checkbox/src/index.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-checkbox/src/index.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/vc-checkbox/src/Checkbox.js");
+
+var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = _Checkbox2['default'];
 
 /***/ }),
 
@@ -52362,16 +53081,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var ant_design_vue_lib_menu__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_menu__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var ant_design_vue_lib_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ant-design-vue/lib/form */ "./node_modules/ant-design-vue/lib/form/index.js");
 /* harmony import */ var ant_design_vue_lib_form__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_form__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var ant_design_vue_lib_select__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ant-design-vue/lib/select */ "./node_modules/ant-design-vue/lib/select/index.js");
-/* harmony import */ var ant_design_vue_lib_select__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_select__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var ant_design_vue_lib_breadcrumb__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ant-design-vue/lib/breadcrumb */ "./node_modules/ant-design-vue/lib/breadcrumb/index.js");
-/* harmony import */ var ant_design_vue_lib_breadcrumb__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_breadcrumb__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ant-design-vue/lib/dropdown */ "./node_modules/ant-design-vue/lib/dropdown/index.js");
-/* harmony import */ var ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ant-design-vue/lib/tabs */ "./node_modules/ant-design-vue/lib/tabs/index.js");
-/* harmony import */ var ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ant-design-vue/lib/notification */ "./node_modules/ant-design-vue/lib/notification/index.js");
-/* harmony import */ var ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var ant_design_vue_lib_radio__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ant-design-vue/lib/radio */ "./node_modules/ant-design-vue/lib/radio/index.js");
+/* harmony import */ var ant_design_vue_lib_radio__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_radio__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var ant_design_vue_lib_select__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ant-design-vue/lib/select */ "./node_modules/ant-design-vue/lib/select/index.js");
+/* harmony import */ var ant_design_vue_lib_select__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_select__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var ant_design_vue_lib_breadcrumb__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ant-design-vue/lib/breadcrumb */ "./node_modules/ant-design-vue/lib/breadcrumb/index.js");
+/* harmony import */ var ant_design_vue_lib_breadcrumb__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_breadcrumb__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ant-design-vue/lib/dropdown */ "./node_modules/ant-design-vue/lib/dropdown/index.js");
+/* harmony import */ var ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ant-design-vue/lib/tabs */ "./node_modules/ant-design-vue/lib/tabs/index.js");
+/* harmony import */ var ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ant-design-vue/lib/notification */ "./node_modules/ant-design-vue/lib/notification/index.js");
+/* harmony import */ var ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_9__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -52390,19 +53111,23 @@ window.AvoRed = _avored__WEBPACK_IMPORTED_MODULE_0___default.a;
 
 
 
+
 Vue.use(ant_design_vue_lib_layout__WEBPACK_IMPORTED_MODULE_1___default.a);
 Vue.use(ant_design_vue_lib_menu__WEBPACK_IMPORTED_MODULE_2___default.a);
 Vue.use(ant_design_vue_lib_form__WEBPACK_IMPORTED_MODULE_3___default.a);
-Vue.use(ant_design_vue_lib_select__WEBPACK_IMPORTED_MODULE_4___default.a);
-Vue.use(ant_design_vue_lib_breadcrumb__WEBPACK_IMPORTED_MODULE_5___default.a);
-Vue.use(ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_6___default.a);
-Vue.use(ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_7___default.a);
-Vue.prototype.$notification = ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_8___default.a;
+Vue.use(ant_design_vue_lib_radio__WEBPACK_IMPORTED_MODULE_4___default.a);
+Vue.use(ant_design_vue_lib_select__WEBPACK_IMPORTED_MODULE_5___default.a);
+Vue.use(ant_design_vue_lib_breadcrumb__WEBPACK_IMPORTED_MODULE_6___default.a);
+Vue.use(ant_design_vue_lib_dropdown__WEBPACK_IMPORTED_MODULE_7___default.a);
+Vue.use(ant_design_vue_lib_tabs__WEBPACK_IMPORTED_MODULE_8___default.a);
+Vue.prototype.$notification = ant_design_vue_lib_notification__WEBPACK_IMPORTED_MODULE_9___default.a; // Vue.component('a-radio', () => import('ant-design-vue/lib/radio'))
+// Vue.component('a-radio-group', () => import('ant-design-vue/lib/radio'))
+
 Vue.component('a-checkbox', function () {
-  return __webpack_require__.e(/*! import() */ 10).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/checkbox */ "./node_modules/ant-design-vue/lib/checkbox/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 28).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/checkbox */ "./node_modules/ant-design-vue/lib/checkbox/index.js", 7));
 });
 Vue.component('a-switch', function () {
-  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/switch */ "./node_modules/ant-design-vue/lib/switch/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/switch */ "./node_modules/ant-design-vue/lib/switch/index.js", 7));
 });
 Vue.component('a-input', function () {
   return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/input */ "./node_modules/ant-design-vue/lib/input/index.js", 7));
@@ -52411,28 +53136,28 @@ Vue.component('a-textarea', function () {
   return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/input */ "./node_modules/ant-design-vue/lib/input/index.js", 7));
 });
 Vue.component('a-rate', function () {
-  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/rate */ "./node_modules/ant-design-vue/lib/rate/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/rate */ "./node_modules/ant-design-vue/lib/rate/index.js", 7));
 });
 Vue.component('a-input-number', function () {
-  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/input-number */ "./node_modules/ant-design-vue/lib/input-number/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 11).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/input-number */ "./node_modules/ant-design-vue/lib/input-number/index.js", 7));
 });
 Vue.component('a-divider', function () {
-  return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/divider */ "./node_modules/ant-design-vue/lib/divider/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 27).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/divider */ "./node_modules/ant-design-vue/lib/divider/index.js", 7));
 });
 Vue.component('a-avatar', function () {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/avatar */ "./node_modules/ant-design-vue/lib/avatar/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/avatar */ "./node_modules/ant-design-vue/lib/avatar/index.js", 7));
 });
 Vue.component('a-tooltip', function () {
   return Promise.resolve(/*! import() */).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/tooltip */ "./node_modules/ant-design-vue/lib/tooltip/index.js", 7));
 });
 Vue.component('a-avatar', function () {
-  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/avatar */ "./node_modules/ant-design-vue/lib/avatar/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/avatar */ "./node_modules/ant-design-vue/lib/avatar/index.js", 7));
 });
 Vue.component('a-row', function () {
-  return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/row */ "./node_modules/ant-design-vue/lib/row/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 26).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/row */ "./node_modules/ant-design-vue/lib/row/index.js", 7));
 });
 Vue.component('a-col', function () {
-  return __webpack_require__.e(/*! import() */ 24).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/col */ "./node_modules/ant-design-vue/lib/col/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 25).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/col */ "./node_modules/ant-design-vue/lib/col/index.js", 7));
 });
 Vue.component('a-card', function () {
   return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/card */ "./node_modules/ant-design-vue/lib/card/index.js", 7));
@@ -52450,57 +53175,57 @@ Vue.component('a-icon', function () {
   return Promise.resolve(/*! import() */).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/icon */ "./node_modules/ant-design-vue/lib/icon/index.js", 7));
 });
 Vue.component('a-carousel', function () {
-  return __webpack_require__.e(/*! import() */ 6).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/carousel */ "./node_modules/ant-design-vue/lib/carousel/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 8).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/carousel */ "./node_modules/ant-design-vue/lib/carousel/index.js", 7));
 });
 Vue.component('a-upload', function () {
-  return __webpack_require__.e(/*! import() */ 3).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/upload */ "./node_modules/ant-design-vue/lib/upload/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/upload */ "./node_modules/ant-design-vue/lib/upload/index.js", 7));
 });
 Vue.component('a-modal', function () {
-  return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/modal */ "./node_modules/ant-design-vue/lib/modal/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/modal */ "./node_modules/ant-design-vue/lib/modal/index.js", 7));
 });
 Vue.component('a-table', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(10), __webpack_require__.e(28)]).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/table */ "./node_modules/ant-design-vue/lib/table/index.js", 7));
+  return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.t.bind(null, /*! ant-design-vue/lib/table */ "./node_modules/ant-design-vue/lib/table/index.js", 7));
 });
 /*************** AVORED CREATED VUE COMPONENTS ***************/
 
 Vue.component('product-card', function () {
-  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../components/product/ProductCard.vue */ "./resources/components/product/ProductCard.vue"));
+  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../components/product/ProductCard.vue */ "./resources/components/product/ProductCard.vue"));
 });
 Vue.component('address-save', function () {
-  return __webpack_require__.e(/*! import() */ 15).then(__webpack_require__.bind(null, /*! ../components/address/AddressSave.vue */ "./resources/components/address/AddressSave.vue"));
+  return __webpack_require__.e(/*! import() */ 16).then(__webpack_require__.bind(null, /*! ../components/address/AddressSave.vue */ "./resources/components/address/AddressSave.vue"));
 });
 Vue.component('user-order-table', function () {
-  return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ../components/account/order/OrderTable.vue */ "./resources/components/account/order/OrderTable.vue"));
+  return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ../components/account/order/OrderTable.vue */ "./resources/components/account/order/OrderTable.vue"));
 });
 Vue.component('account-save', function () {
-  return __webpack_require__.e(/*! import() */ 17).then(__webpack_require__.bind(null, /*! ../components/account/AccountSave.vue */ "./resources/components/account/AccountSave.vue"));
+  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../components/account/AccountSave.vue */ "./resources/components/account/AccountSave.vue"));
 });
 Vue.component('account-upload', function () {
-  return __webpack_require__.e(/*! import() */ 18).then(__webpack_require__.bind(null, /*! ../components/account/AccountUpload.vue */ "./resources/components/account/AccountUpload.vue"));
+  return __webpack_require__.e(/*! import() */ 19).then(__webpack_require__.bind(null, /*! ../components/account/AccountUpload.vue */ "./resources/components/account/AccountUpload.vue"));
 });
 Vue.component('category-page', function () {
-  return __webpack_require__.e(/*! import() */ 7).then(__webpack_require__.bind(null, /*! ../components/CategoryPage.vue */ "./resources/components/CategoryPage.vue"));
+  return __webpack_require__.e(/*! import() */ 9).then(__webpack_require__.bind(null, /*! ../components/CategoryPage.vue */ "./resources/components/CategoryPage.vue"));
 });
 Vue.component('product-page', function () {
-  return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../components/ProductPage.vue */ "./resources/components/ProductPage.vue"));
+  return __webpack_require__.e(/*! import() */ 14).then(__webpack_require__.bind(null, /*! ../components/ProductPage.vue */ "./resources/components/ProductPage.vue"));
 });
 Vue.component('checkout-page', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(8), __webpack_require__.e(27)]).then(__webpack_require__.bind(null, /*! ../components/CheckoutPage.vue */ "./resources/components/CheckoutPage.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(10), __webpack_require__.e(29)]).then(__webpack_require__.bind(null, /*! ../components/CheckoutPage.vue */ "./resources/components/CheckoutPage.vue"));
 });
 Vue.component('cart-page', function () {
-  return Promise.all(/*! import() */[__webpack_require__.e(4), __webpack_require__.e(23)]).then(__webpack_require__.bind(null, /*! ../components/CartPage.vue */ "./resources/components/CartPage.vue"));
+  return Promise.all(/*! import() */[__webpack_require__.e(6), __webpack_require__.e(24)]).then(__webpack_require__.bind(null, /*! ../components/CartPage.vue */ "./resources/components/CartPage.vue"));
 });
 Vue.component('avored-layout', function () {
-  return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ../components/layout/Layout.vue */ "./resources/components/layout/Layout.vue"));
+  return __webpack_require__.e(/*! import() */ 23).then(__webpack_require__.bind(null, /*! ../components/layout/Layout.vue */ "./resources/components/layout/Layout.vue"));
 });
 Vue.component('login-fields', function () {
-  return __webpack_require__.e(/*! import() */ 20).then(__webpack_require__.bind(null, /*! ../components/auth/LoginFields.vue */ "./resources/components/auth/LoginFields.vue"));
+  return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ../components/auth/LoginFields.vue */ "./resources/components/auth/LoginFields.vue"));
 });
 Vue.component('register-fields', function () {
-  return __webpack_require__.e(/*! import() */ 21).then(__webpack_require__.bind(null, /*! ../components/auth/RegisterFields.vue */ "./resources/components/auth/RegisterFields.vue"));
+  return __webpack_require__.e(/*! import() */ 22).then(__webpack_require__.bind(null, /*! ../components/auth/RegisterFields.vue */ "./resources/components/auth/RegisterFields.vue"));
 });
 Vue.component('avored-nav', function () {
-  return __webpack_require__.e(/*! import() */ 12).then(__webpack_require__.bind(null, /*! ../components/AvoRedNav.vue */ "./resources/components/AvoRedNav.vue"));
+  return __webpack_require__.e(/*! import() */ 13).then(__webpack_require__.bind(null, /*! ../components/AvoRedNav.vue */ "./resources/components/AvoRedNav.vue"));
 });
 var app = new Vue({
   el: '#app'

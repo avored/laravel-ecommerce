@@ -16,13 +16,11 @@
         @endphp
         @if ($attribute->display_as === 'IMAGE')
             <a-form-item
-                @if ($errors->has('attributes'))
-                    validate-status="error"
-                    help="{{ $errors->first('attributes') }}"
-                @endif
+              
                 label="{{ $attribute->name }}">
                 <a-radio-group
                     ref="attribute-{{ $attributeId }}"
+                    name="attribute_{{ $attributeId }}"
                     data-attribute="{{ json_encode($attributeGroups->get($attributeId)) }}"
                     data-attribute-length="{{ $attributeGroups->count() }}"
                     v-decorator="[
@@ -36,18 +34,16 @@
                         }
                     ]"
                     @change="changeAttributeVariable"
-                    button-style="outline">
-                    @foreach ($variations as $variation)
-                        @php
-                            $variation->variation->images;
-                        @endphp
-                        <a-radio key="{{ $variation->id }}"
-                            value="{{ json_encode(['attribute_id' => $attributeId, 'attribute_dropdown_option_id' => $dropdownOption->id]) }}">
-                            <img style="width:25px;height:25px" src="{{ '/storage/' . $variation->attributeDropdownOption->path }}" />
-                    </a-radio>         
+                        >
+                    @foreach ($attribute->dropdownOptions as $dropdownOption)
+                        <a-radio key="{{ $dropdownOption->id }}"
+                            value="{{ json_encode(['attribute_id' => $attributeId, 'attribute_dropdown_option_id' => $dropdownOption->id]) }}"
+                        >
+                            <img style="width:25px;height:25px" 
+                                src="{{ '/storage/' . $dropdownOption->path }}"></img>
+                        </a-radio>
                     @endforeach
                 </a-radio-group>
-
 
             </a-form-item>
         @else

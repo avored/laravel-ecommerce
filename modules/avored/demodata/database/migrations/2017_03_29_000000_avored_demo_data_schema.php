@@ -38,11 +38,12 @@ class AvoredDemoDataSchema extends Migration
 
         $colorAttribute = Attribute::create(
             ['name' => 'Color',
-            'slug' => 'color']
+            'slug' => 'color',
+            'display_as' => 'IMAGE']
         );
-        $whiteOption = $colorAttribute->dropdownOptions()->create(['display_text' => 'White']);
-        $blackOption = $colorAttribute->dropdownOptions()->create(['display_text' => 'Black']);
-        $brownOption = $colorAttribute->dropdownOptions()->create(['display_text' => 'Brown']);
+        $redOption = $colorAttribute->dropdownOptions()->create(['display_text' => 'Red', 'path' => 'uploads/catalog/attributes/red-attribute.jpg']);
+        $blueOption = $colorAttribute->dropdownOptions()->create(['display_text' => 'Blue', 'path' => 'uploads/catalog/attributes/blue-attribute.png']);
+        $yellowOption = $colorAttribute->dropdownOptions()->create(['display_text' => 'Yellow', 'path' => 'uploads/catalog/attributes/yellow-attribute.png']);
 
 
         $brandProperty = Property::create(
