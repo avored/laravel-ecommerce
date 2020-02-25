@@ -20,21 +20,9 @@
                 label="{{ $attribute->name }}">
                 <a-radio-group
                     ref="attribute-{{ $attributeId }}"
-                    name="attribute_{{ $attributeId }}"
                     data-attribute="{{ json_encode($attributeGroups->get($attributeId)) }}"
                     data-attribute-length="{{ $attributeGroups->count() }}"
-                    v-decorator="[
-                        'attribute-{{ $attributeId }}',
-                        {rules: 
-                            [
-                                {   required: true, 
-                                    message: '{{ __('validation.required', ['attribute' => $attribute->name]) }}' 
-                                }
-                            ]
-                        }
-                    ]"
-                    @change="changeAttributeVariable"
-                        >
+                    @change="changeAttributeVariable">
                     @foreach ($attribute->dropdownOptions as $dropdownOption)
                         <a-radio key="{{ $dropdownOption->id }}"
                             value="{{ json_encode(['attribute_id' => $attributeId, 'attribute_dropdown_option_id' => $dropdownOption->id]) }}"
@@ -44,7 +32,13 @@
                         </a-radio>
                     @endforeach
                 </a-radio-group>
-
+            <div class="hidden-attributes">
+                <input 
+                    type="hidden" 
+                    :name="'attributes[' + index + ']'"
+                    v-for="(attributeValueId, index) in attributes"
+                    :value="attributeValueId" />
+            </div>
             </a-form-item>
         @else
             <a-form-item

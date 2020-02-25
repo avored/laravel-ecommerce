@@ -49,6 +49,10 @@ __webpack_require__.r(__webpack_exports__);
     changeAttributeVariable: function changeAttributeVariable(value) {
       var _this = this;
 
+      if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(value.target)) {
+        value = value.target.value;
+      }
+
       var attributeValue = JSON.parse(value);
       var attributeRef = this.$refs['attribute-' + attributeValue.attribute_id];
       var attributeLength = JSON.parse(attributeRef.$attrs['data-attribute-length']);
