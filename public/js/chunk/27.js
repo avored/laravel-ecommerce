@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[27],{
 
-/***/ "./node_modules/ant-design-vue/lib/grid/index.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/grid/index.js ***!
-  \*******************************************************/
+/***/ "./node_modules/ant-design-vue/lib/divider/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/divider/index.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13,45 +13,72 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.Col = exports.Row = undefined;
 
-var _Row = __webpack_require__(/*! ./Row */ "./node_modules/ant-design-vue/lib/grid/Row.js");
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
-var _Row2 = _interopRequireDefault(_Row);
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _Col = __webpack_require__(/*! ./Col */ "./node_modules/ant-design-vue/lib/grid/Col.js");
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
-var _Col2 = _interopRequireDefault(_Col);
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports.Row = _Row2['default'];
-exports.Col = _Col2['default'];
+var Divider = {
+  name: 'ADivider',
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    type: _vueTypes2['default'].oneOf(['horizontal', 'vertical', '']).def('horizontal'),
+    dashed: _vueTypes2['default'].bool,
+    orientation: _vueTypes2['default'].oneOf(['left', 'right'])
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  render: function render() {
+    var _classString;
 
-/***/ }),
+    var h = arguments[0];
+    var customizePrefixCls = this.prefixCls,
+        type = this.type,
+        $slots = this.$slots,
+        dashed = this.dashed,
+        _orientation = this.orientation,
+        orientation = _orientation === undefined ? '' : _orientation;
 
-/***/ "./node_modules/ant-design-vue/lib/row/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/row/index.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('divider', customizePrefixCls);
+    var orientationPrefix = orientation.length > 0 ? '-' + orientation : orientation;
 
-"use strict";
+    var classString = (_classString = {}, (0, _defineProperty3['default'])(_classString, prefixCls, true), (0, _defineProperty3['default'])(_classString, prefixCls + '-' + type, true), (0, _defineProperty3['default'])(_classString, prefixCls + '-with-text' + orientationPrefix, $slots['default']), (0, _defineProperty3['default'])(_classString, prefixCls + '-dashed', !!dashed), _classString);
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _grid = __webpack_require__(/*! ../grid */ "./node_modules/ant-design-vue/lib/grid/index.js");
-
-/* istanbul ignore next */
-_grid.Row.install = function (Vue) {
-  Vue.component(_grid.Row.name, _grid.Row);
+    return h(
+      'div',
+      { 'class': classString },
+      [$slots['default'] && h(
+        'span',
+        { 'class': prefixCls + '-inner-text' },
+        [$slots['default']]
+      )]
+    );
+  }
 };
 
-exports['default'] = _grid.Row;
+/* istanbul ignore next */
+Divider.install = function (Vue) {
+  Vue.use(_base2['default']);
+  Vue.component(Divider.name, Divider);
+};
+
+exports['default'] = Divider;
 
 /***/ })
 

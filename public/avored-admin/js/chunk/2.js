@@ -44,6 +44,8 @@ var _vcCheckbox2 = _interopRequireDefault(_vcCheckbox);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function noop() {}
@@ -55,22 +57,22 @@ exports['default'] = {
     prop: 'checked'
   },
   props: {
-    prefixCls: {
-      'default': 'ant-checkbox',
-      type: String
-    },
+    prefixCls: _vueTypes2['default'].string,
     defaultChecked: _vueTypes2['default'].bool,
     checked: _vueTypes2['default'].bool,
     disabled: _vueTypes2['default'].bool,
-    isGroup: Boolean,
+    isGroup: _vueTypes2['default'].bool,
     value: _vueTypes2['default'].any,
-    name: String,
-    id: String,
-    indeterminate: Boolean,
+    name: _vueTypes2['default'].string,
+    id: _vueTypes2['default'].string,
+    indeterminate: _vueTypes2['default'].bool,
     type: _vueTypes2['default'].string.def('checkbox'),
-    autoFocus: Boolean
+    autoFocus: _vueTypes2['default'].bool
   },
   inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } },
     checkboxGroupContext: { 'default': function _default() {
         return null;
       } }
@@ -104,10 +106,14 @@ exports['default'] = {
         mouseenter = _$listeners$mouseente === undefined ? noop : _$listeners$mouseente,
         _$listeners$mouseleav = $listeners.mouseleave,
         mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav,
-        restListeners = (0, _objectWithoutProperties3['default'])($listeners, ['mouseenter', 'mouseleave']);
-    var prefixCls = props.prefixCls,
+        input = $listeners.input,
+        restListeners = (0, _objectWithoutProperties3['default'])($listeners, ['mouseenter', 'mouseleave', 'input']);
+    var customizePrefixCls = props.prefixCls,
         indeterminate = props.indeterminate,
         restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls', 'indeterminate']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('checkbox', customizePrefixCls);
 
     var checkboxProps = {
       props: (0, _extends3['default'])({}, restProps, { prefixCls: prefixCls }),
@@ -166,6 +172,10 @@ var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
 var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js");
 
 var _Checkbox2 = _interopRequireDefault(_Checkbox);
@@ -173,6 +183,8 @@ var _Checkbox2 = _interopRequireDefault(_Checkbox);
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _propsUtil2 = _interopRequireDefault(_propsUtil);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -183,30 +195,22 @@ exports['default'] = {
     prop: 'value'
   },
   props: {
-    prefixCls: {
-      'default': 'ant-checkbox',
-      type: String
-    },
-    defaultValue: {
-      'default': undefined,
-      type: Array
-    },
-    value: {
-      'default': undefined,
-      type: Array
-    },
-    options: {
-      'default': function _default() {
-        return [];
-      },
-      type: Array
-    },
-    disabled: Boolean
+    prefixCls: _vueTypes2['default'].string,
+    defaultValue: _vueTypes2['default'].array,
+    value: _vueTypes2['default'].array,
+    options: _vueTypes2['default'].array.def([]),
+    disabled: _vueTypes2['default'].bool
   },
   provide: function provide() {
     return {
       checkboxGroupContext: this
     };
+  },
+
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   data: function data() {
     var value = this.value,
@@ -219,7 +223,7 @@ exports['default'] = {
 
   watch: {
     value: function value(val) {
-      this.sValue = val;
+      this.sValue = val || [];
     }
   },
   methods: {
@@ -261,8 +265,11 @@ exports['default'] = {
     var props = this.$props,
         state = this.$data,
         $slots = this.$slots;
-    var prefixCls = props.prefixCls,
+    var customizePrefixCls = props.prefixCls,
         options = props.options;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('checkbox', customizePrefixCls);
 
     var children = $slots['default'];
     var groupPrefixCls = prefixCls + '-group';
@@ -320,12 +327,17 @@ var _Group = __webpack_require__(/*! ./Group */ "./node_modules/ant-design-vue/l
 
 var _Group2 = _interopRequireDefault(_Group);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _Checkbox2['default'].Group = _Group2['default'];
 
 /* istanbul ignore next */
 _Checkbox2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Checkbox2['default'].name, _Checkbox2['default']);
   Vue.component(_Group2['default'].name, _Group2['default']);
 };
@@ -428,9 +440,15 @@ var _vcPagination = __webpack_require__(/*! ../vc-pagination */ "./node_modules/
 
 var _vcPagination2 = _interopRequireDefault(_vcPagination);
 
+var _en_US = __webpack_require__(/*! ../vc-pagination/locale/en_US */ "./node_modules/ant-design-vue/lib/vc-pagination/locale/en_US.js");
+
+var _en_US2 = _interopRequireDefault(_en_US);
+
 var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
 
 var _icon2 = _interopRequireDefault(_icon);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -470,14 +488,15 @@ exports['default'] = {
     prop: 'current',
     event: 'change.current'
   },
-  props: (0, _extends3['default'])({}, PaginationProps(), {
-    prefixCls: _vueTypes2['default'].string.def('ant-pagination'),
-    selectPrefixCls: _vueTypes2['default'].string.def('ant-select')
-  }),
+  props: (0, _extends3['default'])({}, PaginationProps()),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   methods: {
-    getIconsProps: function getIconsProps() {
+    getIconsProps: function getIconsProps(prefixCls) {
       var h = this.$createElement;
-      var prefixCls = this.$props.prefixCls;
 
       var prevIcon = h(
         'a',
@@ -532,14 +551,23 @@ exports['default'] = {
       var h = this.$createElement;
 
       var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+          customizePrefixCls = _getOptionProps.prefixCls,
+          customizeSelectPrefixCls = _getOptionProps.selectPrefixCls,
           buildOptionText = _getOptionProps.buildOptionText,
           size = _getOptionProps.size,
           customLocale = _getOptionProps.locale,
-          restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['buildOptionText', 'size', 'locale']);
+          restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'selectPrefixCls', 'buildOptionText', 'size', 'locale']);
+
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('pagination', customizePrefixCls);
+      var selectPrefixCls = getPrefixCls('select', customizeSelectPrefixCls);
 
       var isSmall = size === 'small';
       var paginationProps = {
-        props: (0, _extends3['default'])({}, restProps, this.getIconsProps(), {
+        props: (0, _extends3['default'])({
+          prefixCls: prefixCls,
+          selectPrefixCls: selectPrefixCls
+        }, restProps, this.getIconsProps(prefixCls), {
           selectComponentClass: isSmall ? _MiniSelect2['default'] : _select2['default'],
           locale: (0, _extends3['default'])({}, contextLocale, customLocale),
           buildOptionText: buildOptionText || this.$scopedSlots.buildOptionText
@@ -557,8 +585,12 @@ exports['default'] = {
     var h = arguments[0];
 
     return h(_LocaleReceiver2['default'], {
-      attrs: { componentName: 'Pagination' },
-      scopedSlots: { 'default': this.renderPagination } });
+      attrs: {
+        componentName: 'Pagination',
+        defaultLocale: _en_US2['default']
+      },
+      scopedSlots: { 'default': this.renderPagination }
+    });
   }
 };
 
@@ -596,10 +628,15 @@ Object.defineProperty(exports, 'PaginationConfig', {
 
 var _Pagination2 = _interopRequireDefault(_Pagination);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 /* istanbul ignore next */
 _Pagination2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Pagination2['default'].name, _Pagination2['default']);
 };
 
@@ -643,6 +680,8 @@ var _Radio2 = _interopRequireDefault(_Radio);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function noop() {}
@@ -653,10 +692,7 @@ exports['default'] = {
     prop: 'value'
   },
   props: {
-    prefixCls: {
-      'default': 'ant-radio',
-      type: String
-    },
+    prefixCls: _vueTypes2['default'].string,
     defaultValue: _vueTypes2['default'].any,
     value: _vueTypes2['default'].any,
     size: {
@@ -679,6 +715,7 @@ exports['default'] = {
     var value = this.value,
         defaultValue = this.defaultValue;
 
+    this.updatingValue = false;
     return {
       stateValue: value === undefined ? defaultValue : value
     };
@@ -689,6 +726,11 @@ exports['default'] = {
     };
   },
 
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   computed: {
     radioOptions: function radioOptions() {
       var disabled = this.disabled;
@@ -708,25 +750,33 @@ exports['default'] = {
   },
   watch: {
     value: function value(val) {
+      this.updatingValue = false;
       this.stateValue = val;
     }
   },
   methods: {
     onRadioChange: function onRadioChange(ev) {
+      var _this = this;
+
       var lastValue = this.stateValue;
       var value = ev.target.value;
 
       if (!(0, _propsUtil.hasProp)(this, 'value')) {
         this.stateValue = value;
       }
-      if (value !== lastValue) {
+      // nextTick for https://github.com/vueComponent/ant-design-vue/issues/1280
+      if (!this.updatingValue && value !== lastValue) {
+        this.updatingValue = true;
         this.$emit('input', value);
         this.$emit('change', ev);
       }
+      this.$nextTick(function () {
+        _this.updatingValue = false;
+      });
     }
   },
   render: function render() {
-    var _this = this;
+    var _this2 = this;
 
     var h = arguments[0];
     var _$listeners = this.$listeners,
@@ -736,9 +786,12 @@ exports['default'] = {
         mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav;
 
     var props = (0, _propsUtil.getOptionProps)(this);
-    var prefixCls = props.prefixCls,
+    var customizePrefixCls = props.prefixCls,
         options = props.options,
         buttonStyle = props.buttonStyle;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('radio', customizePrefixCls);
 
     var groupPrefixCls = prefixCls + '-group';
     var classString = (0, _classnames2['default'])(groupPrefixCls, groupPrefixCls + '-' + buttonStyle, (0, _defineProperty3['default'])({}, groupPrefixCls + '-' + props.size, props.size));
@@ -756,11 +809,7 @@ exports['default'] = {
               attrs: { prefixCls: prefixCls,
                 disabled: props.disabled,
                 value: option,
-
-                checked: _this.stateValue === option
-              },
-              on: {
-                'change': _this.onRadioChange
+                checked: _this2.stateValue === option
               }
             },
             [option]
@@ -773,11 +822,7 @@ exports['default'] = {
               attrs: { prefixCls: prefixCls,
                 disabled: option.disabled || props.disabled,
                 value: option.value,
-
-                checked: _this.stateValue === option.value
-              },
-              on: {
-                'change': _this.onRadioChange
+                checked: _this2.stateValue === option.value
               }
             },
             [option.label]
@@ -844,6 +889,8 @@ var _classnames2 = _interopRequireDefault(_classnames);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function noop() {}
@@ -854,10 +901,7 @@ exports['default'] = {
     prop: 'checked'
   },
   props: {
-    prefixCls: {
-      'default': 'ant-radio',
-      type: String
-    },
+    prefixCls: _vueTypes2['default'].string,
     defaultChecked: Boolean,
     checked: { type: Boolean, 'default': undefined },
     disabled: Boolean,
@@ -869,7 +913,10 @@ exports['default'] = {
     type: _vueTypes2['default'].string.def('radio')
   },
   inject: {
-    radioGroupContext: { 'default': undefined }
+    radioGroupContext: { 'default': undefined },
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   methods: {
     handleChange: function handleChange(event) {
@@ -882,6 +929,12 @@ exports['default'] = {
     },
     blur: function blur() {
       this.$refs.vcCheckbox.blur();
+    },
+    onChange: function onChange(e) {
+      this.$emit('change', e);
+      if (this.radioGroupContext && this.radioGroupContext.onRadioChange) {
+        this.radioGroupContext.onRadioChange(e);
+      }
     }
   },
 
@@ -900,8 +953,11 @@ exports['default'] = {
         _$listeners$mouseleav = $listeners.mouseleave,
         mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav,
         restListeners = (0, _objectWithoutProperties3['default'])($listeners, ['mouseenter', 'mouseleave']);
-    var prefixCls = props.prefixCls,
+    var customizePrefixCls = props.prefixCls,
         restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('radio', customizePrefixCls);
 
     var radioProps = {
       props: (0, _extends3['default'])({}, restProps, { prefixCls: prefixCls }),
@@ -911,7 +967,7 @@ exports['default'] = {
 
     if (radioGroup) {
       radioProps.props.name = radioGroup.name;
-      radioProps.on.change = radioGroup.onRadioChange;
+      radioProps.on.change = this.onChange;
       radioProps.props.checked = props.value === radioGroup.stateValue;
       radioProps.props.disabled = props.disabled || radioGroup.disabled;
     } else {
@@ -947,6 +1003,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -955,30 +1015,45 @@ var _Radio = __webpack_require__(/*! ./Radio */ "./node_modules/ant-design-vue/l
 
 var _Radio2 = _interopRequireDefault(_Radio);
 
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
   name: 'ARadioButton',
-  props: (0, _extends3['default'])({}, _Radio2['default'].props, {
-    prefixCls: {
-      'default': 'ant-radio-button',
-      type: String
-    }
-  }),
+  props: (0, _extends3['default'])({}, _Radio2['default'].props),
   inject: {
-    radioGroupContext: { 'default': undefined }
+    radioGroupContext: { 'default': undefined },
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   render: function render() {
     var h = arguments[0];
 
-    var props = (0, _propsUtil.getOptionProps)(this);
-    var radioProps = { props: props, on: (0, _extends3['default'])({}, this.$listeners) };
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        customizePrefixCls = _getOptionProps.prefixCls,
+        otherProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('radio-button', customizePrefixCls);
+
+    var radioProps = {
+      props: (0, _extends3['default'])({}, otherProps, {
+        prefixCls: prefixCls
+      }),
+      on: (0, _extends3['default'])({}, this.$listeners)
+    };
     if (this.radioGroupContext) {
       radioProps.on.change = this.radioGroupContext.onRadioChange;
-      radioProps.props.checked = props.value === this.radioGroupContext.stateValue;
-      radioProps.props.disabled = props.disabled || this.radioGroupContext.disabled;
+      radioProps.props.checked = this.$props.value === this.radioGroupContext.stateValue;
+      radioProps.props.disabled = this.$props.disabled || this.radioGroupContext.disabled;
     }
     return h(
       _Radio2['default'],
@@ -1017,6 +1092,10 @@ var _RadioButton = __webpack_require__(/*! ./RadioButton */ "./node_modules/ant-
 
 var _RadioButton2 = _interopRequireDefault(_RadioButton);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _Radio2['default'].Group = _Group2['default'];
@@ -1024,6 +1103,7 @@ _Radio2['default'].Button = _RadioButton2['default'];
 
 /* istanbul ignore next */
 _Radio2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Radio2['default'].name, _Radio2['default']);
   Vue.component(_Radio2['default'].Group.name, _Radio2['default'].Group);
   Vue.component(_Radio2['default'].Button.name, _Radio2['default'].Button);
@@ -1064,6 +1144,10 @@ var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2
 
 exports.setDefaultIndicator = setDefaultIndicator;
 
+var _debounce = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
@@ -1075,6 +1159,8 @@ var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -1109,66 +1195,53 @@ exports['default'] = {
   name: 'ASpin',
   mixins: [_BaseMixin2['default']],
   props: (0, _propsUtil.initDefaultProps)(SpinProps(), {
-    prefixCls: 'ant-spin',
     size: 'default',
     spinning: true,
     wrapperClassName: ''
   }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   data: function data() {
     var spinning = this.spinning,
         delay = this.delay;
 
-    this.debounceTimeout = null;
-    this.delayTimeout = null;
+    var shouldBeDelayed = shouldDelay(spinning, delay);
+    this.originalUpdateSpinning = this.updateSpinning;
+    this.debouncifyUpdateSpinning(this.$props);
     return {
-      sSpinning: spinning && !shouldDelay(spinning, delay)
+      sSpinning: spinning && !shouldBeDelayed
     };
+  },
+  mounted: function mounted() {
+    this.updateSpinning();
   },
   updated: function updated() {
     var _this = this;
 
     this.$nextTick(function () {
-      var delay = _this.delay,
-          spinning = _this.spinning,
-          sSpinning = _this.sSpinning;
-
-      if (sSpinning === spinning) {
-        return;
-      }
-
-      if (_this.debounceTimeout) {
-        clearTimeout(_this.debounceTimeout);
-      }
-      if (sSpinning && !spinning) {
-        _this.debounceTimeout = window.setTimeout(function () {
-          return _this.setState({ sSpinning: spinning });
-        }, 200);
-        if (_this.delayTimeout) {
-          clearTimeout(_this.delayTimeout);
-        }
-      } else {
-        if (shouldDelay(spinning, delay)) {
-          if (_this.delayTimeout) {
-            clearTimeout(_this.delayTimeout);
-          }
-          _this.delayTimeout = window.setTimeout(_this.delayUpdateSpinning, delay);
-        } else {
-          _this.setState({ sSpinning: spinning });
-        }
-      }
+      _this.debouncifyUpdateSpinning();
+      _this.updateSpinning();
     });
   },
   beforeDestroy: function beforeDestroy() {
-    if (this.debounceTimeout) {
-      clearTimeout(this.debounceTimeout);
-    }
-    if (this.delayTimeout) {
-      clearTimeout(this.delayTimeout);
+    if (this.updateSpinning && this.updateSpinning.cancel) {
+      this.updateSpinning.cancel();
     }
   },
 
   methods: {
-    delayUpdateSpinning: function delayUpdateSpinning() {
+    debouncifyUpdateSpinning: function debouncifyUpdateSpinning(props) {
+      var _ref = props || this.$props,
+          delay = _ref.delay;
+
+      if (delay) {
+        this.updateSpinning = (0, _debounce2['default'])(this.originalUpdateSpinning, delay);
+      }
+    },
+    updateSpinning: function updateSpinning() {
       var spinning = this.spinning,
           sSpinning = this.sSpinning;
 
@@ -1182,10 +1255,8 @@ exports['default'] = {
       }
       return null;
     },
-    renderIndicator: function renderIndicator(h, props) {
+    renderIndicator: function renderIndicator(h, prefixCls) {
       // const h = this.$createElement
-      var prefixCls = props.prefixCls;
-
       var dotClassName = prefixCls + '-dot';
       var indicator = (0, _propsUtil.getComponentFromProp)(this, 'indicator');
       if (Array.isArray(indicator)) {
@@ -1212,10 +1283,14 @@ exports['default'] = {
 
     var _$props = this.$props,
         size = _$props.size,
-        prefixCls = _$props.prefixCls,
+        customizePrefixCls = _$props.prefixCls,
         tip = _$props.tip,
         wrapperClassName = _$props.wrapperClassName,
         restProps = (0, _objectWithoutProperties3['default'])(_$props, ['size', 'prefixCls', 'tip', 'wrapperClassName']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('spin', customizePrefixCls);
+
     var sSpinning = this.sSpinning;
 
     var spinClassName = (_spinClassName = {}, (0, _defineProperty3['default'])(_spinClassName, prefixCls, true), (0, _defineProperty3['default'])(_spinClassName, prefixCls + '-sm', size === 'small'), (0, _defineProperty3['default'])(_spinClassName, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_spinClassName, prefixCls + '-spinning', sSpinning), (0, _defineProperty3['default'])(_spinClassName, prefixCls + '-show-text', !!tip), _spinClassName);
@@ -1223,7 +1298,7 @@ exports['default'] = {
     var spinElement = h(
       'div',
       (0, _babelHelperVueJsxMergeProps2['default'])([restProps, { 'class': spinClassName }]),
-      [this.renderIndicator(h, this.$props), tip ? h(
+      [this.renderIndicator(h, prefixCls), tip ? h(
         'div',
         { 'class': prefixCls + '-text' },
         [tip]
@@ -1281,12 +1356,17 @@ Object.defineProperty(exports, 'SpinProps', {
 
 var _Spin2 = _interopRequireDefault(_Spin);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _Spin2['default'].setDefaultIndicator = _Spin.setDefaultIndicator;
 
 /* istanbul ignore next */
 _Spin2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Spin2['default'].name, _Spin2['default']);
 };
 
@@ -1360,10 +1440,11 @@ exports['default'] = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports['default'] = {
+exports["default"] = {
   methods: {
     handelClick: function handelClick(e) {
-      this.$emit('click', e);
+      e.stopPropagation();
+      //this.$emit('click', e);
     }
   },
   render: function render() {
@@ -1372,13 +1453,13 @@ exports['default'] = {
         handelClick = this.handelClick;
 
     return h(
-      'div',
+      "div",
       {
         on: {
-          'click': handelClick
+          "click": handelClick
         }
       },
-      [$slots['default']]
+      [$slots["default"]]
     );
   }
 };
@@ -1761,10 +1842,6 @@ var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/ob
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
 var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
@@ -1772,6 +1849,10 @@ var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
 
 var _extends4 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
@@ -1788,30 +1869,6 @@ var _classnames2 = _interopRequireDefault(_classnames);
 var _shallowequal = __webpack_require__(/*! shallowequal */ "./node_modules/shallowequal/index.js");
 
 var _shallowequal2 = _interopRequireDefault(_shallowequal);
-
-var _pagination = __webpack_require__(/*! ../pagination */ "./node_modules/ant-design-vue/lib/pagination/index.js");
-
-var _pagination2 = _interopRequireDefault(_pagination);
-
-var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
-
-var _icon2 = _interopRequireDefault(_icon);
-
-var _spin = __webpack_require__(/*! ../spin */ "./node_modules/ant-design-vue/lib/spin/index.js");
-
-var _spin2 = _interopRequireDefault(_spin);
-
-var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver */ "./node_modules/ant-design-vue/lib/locale-provider/LocaleReceiver.js");
-
-var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
-
-var _default = __webpack_require__(/*! ../locale-provider/default */ "./node_modules/ant-design-vue/lib/locale-provider/default.js");
-
-var _default2 = _interopRequireDefault(_default);
-
-var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
-
-var _warning2 = _interopRequireDefault(_warning);
 
 var _filterDropdown = __webpack_require__(/*! ./filterDropdown */ "./node_modules/ant-design-vue/lib/table/filterDropdown.js");
 
@@ -1849,7 +1906,33 @@ var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/a
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/table/interface.js");
+
+var _pagination = __webpack_require__(/*! ../pagination */ "./node_modules/ant-design-vue/lib/pagination/index.js");
+
+var _pagination2 = _interopRequireDefault(_pagination);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _spin = __webpack_require__(/*! ../spin */ "./node_modules/ant-design-vue/lib/spin/index.js");
+
+var _spin2 = _interopRequireDefault(_spin);
+
+var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver */ "./node_modules/ant-design-vue/lib/locale-provider/LocaleReceiver.js");
+
+var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
+
+var _default2 = __webpack_require__(/*! ../locale-provider/default */ "./node_modules/ant-design-vue/lib/locale-provider/default.js");
+
+var _default3 = _interopRequireDefault(_default2);
+
+var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+
+var _warning2 = _interopRequireDefault(_warning);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -1871,6 +1954,8 @@ var defaultPagination = {
   onShowSizeChange: noop
 };
 
+var ROW_SELECTION_COLUMN_WIDTH = '62px';
+
 /**
  * Avoid creating new object, so that parent component's shouldComponentUpdate
  * can works appropriately。
@@ -1884,7 +1969,6 @@ exports['default'] = {
   mixins: [_BaseMixin2['default']],
   props: (0, _propsUtil.initDefaultProps)(_interface.TableProps, {
     dataSource: [],
-    prefixCls: 'ant-table',
     useFixedHeader: false,
     // rowSelection: null,
     size: 'default',
@@ -1893,9 +1977,15 @@ exports['default'] = {
     indentSize: 20,
     locale: {},
     rowKey: 'key',
-    showHeader: true
+    showHeader: true,
+    sortDirections: ['ascend', 'descend']
   }),
 
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   // CheckboxPropsCache: {
   //   [key: string]: any;
   // };
@@ -1905,7 +1995,8 @@ exports['default'] = {
 
   data: function data() {
     // this.columns = props.columns || normalizeColumns(props.children)
-
+    var props = (0, _propsUtil.getOptionProps)(this);
+    (0, _warning2['default'])(!props.expandedRowRender || !('scroll' in props), '`expandedRowRender` and `scroll` are not compatible. Please use one of them at one time.');
     this.createComponents(this.components);
     this.CheckboxPropsCache = {};
 
@@ -1935,7 +2026,7 @@ exports['default'] = {
       deep: true
     },
     rowSelection: {
-      handler: function handler(val) {
+      handler: function handler(val, oldVal) {
         if (val && 'selectedRowKeys' in val) {
           this.store.setState({
             selectedRowKeys: val.selectedRowKeys || []
@@ -1945,6 +2036,10 @@ exports['default'] = {
           if (rowSelection && val.getCheckboxProps !== rowSelection.getCheckboxProps) {
             this.CheckboxPropsCache = {};
           }
+        } else if (oldVal && !val) {
+          this.store.setState({
+            selectedRowKeys: []
+          });
         }
       },
 
@@ -2008,15 +2103,26 @@ exports['default'] = {
       });
     },
     getDefaultPagination: function getDefaultPagination(props) {
-      var pagination = props.pagination || {};
+      var pagination = (0, _typeof3['default'])(props.pagination) === 'object' ? props.pagination : {};
+      var current = void 0;
+      if ('current' in pagination) {
+        current = pagination.current;
+      } else if ('defaultCurrent' in pagination) {
+        current = pagination.defaultCurrent;
+      }
+      var pageSize = void 0;
+      if ('pageSize' in pagination) {
+        pageSize = pagination.pageSize;
+      } else if ('defaultPageSize' in pagination) {
+        pageSize = pagination.defaultPageSize;
+      }
       return this.hasPagination(props) ? (0, _extends5['default'])({}, defaultPagination, pagination, {
-        current: pagination.defaultCurrent || pagination.current || 1,
-        pageSize: pagination.defaultPageSize || pagination.pageSize || 10
+        current: current || 1,
+        pageSize: pageSize || 10
       }) : {};
     },
-    onRow: function onRow(record, index) {
-      var prefixCls = this.prefixCls,
-          customRow = this.customRow;
+    onRow: function onRow(prefixCls, record, index) {
+      var customRow = this.customRow;
 
       var custom = customRow ? customRow(record, index) : {};
       return (0, _propsUtil.mergeProps)(custom, {
@@ -2169,20 +2275,19 @@ exports['default'] = {
       if (!column.sorter) {
         return;
       }
+      var sortDirections = column.sortDirections || this.sortDirections;
       var sortOrder = this.sSortOrder,
           sortColumn = this.sSortColumn;
       // 只同时允许一列进行排序，否则会导致排序顺序的逻辑问题
 
       var newSortOrder = void 0;
       // 切换另一列时，丢弃 sortOrder 的状态
-      var oldSortOrder = this.isSameColumn(sortColumn, column) ? sortOrder : undefined;
-      // 切换排序状态，按照降序/升序/不排序的顺序
-      if (!oldSortOrder) {
-        newSortOrder = 'ascend';
-      } else if (oldSortOrder === 'ascend') {
-        newSortOrder = 'descend';
+      if (this.isSameColumn(sortColumn, column) && sortOrder !== undefined) {
+        // 按照sortDirections的内容依次切换排序状态
+        var methodIndex = sortDirections.indexOf(sortOrder) + 1;
+        newSortOrder = methodIndex === sortDirections.length ? undefined : sortDirections[methodIndex];
       } else {
-        newSortOrder = undefined;
+        newSortOrder = sortDirections[0];
       }
       var newState = {
         sSortOrder: newSortOrder,
@@ -2499,12 +2604,18 @@ exports['default'] = {
     getPopupContainer: function getPopupContainer() {
       return this.$el;
     },
-    renderRowSelection: function renderRowSelection(locale) {
+    generatePopupContainerFunc: function generatePopupContainerFunc() {
+      var scroll = this.$props.scroll;
+
+      // Use undefined to let rc component use default logic.
+
+      return scroll ? this.getPopupContainer : undefined;
+    },
+    renderRowSelection: function renderRowSelection(prefixCls, locale) {
       var _this9 = this;
 
       var h = this.$createElement;
-      var prefixCls = this.prefixCls,
-          rowSelection = this.rowSelection,
+      var rowSelection = this.rowSelection,
           childrenColumnName = this.childrenColumnName;
 
       var columns = this.columns.concat();
@@ -2521,7 +2632,7 @@ exports['default'] = {
           customRender: this.renderSelectionBox(rowSelection.type),
           className: selectionColumnClass,
           fixed: rowSelection.fixed,
-          width: rowSelection.columnWidth,
+          width: rowSelection.columnWidth || ROW_SELECTION_COLUMN_WIDTH,
           title: rowSelection.columnTitle
         };
         if (rowSelection.type !== 'radio') {
@@ -2540,7 +2651,7 @@ exports['default'] = {
 
               selections: rowSelection.selections,
               hideDefaultSelections: rowSelection.hideDefaultSelections,
-              getPopupContainer: this.getPopupContainer
+              getPopupContainer: this.generatePopupContainerFunc()
             },
             on: {
               'select': this.handleSelectRow
@@ -2583,12 +2694,10 @@ exports['default'] = {
       }
       return this.getColumnKey(sortColumn) === this.getColumnKey(column);
     },
-    renderColumnsDropdown: function renderColumnsDropdown(columns, locale) {
+    renderColumnsDropdown: function renderColumnsDropdown(prefixCls, dropdownPrefixCls, columns, locale) {
       var _this10 = this;
 
       var h = this.$createElement;
-      var prefixCls = this.prefixCls,
-          dropdownPrefixCls = this.dropdownPrefixCls;
       var sortOrder = this.sSortOrder,
           filters = this.sFilters;
 
@@ -2599,7 +2708,7 @@ exports['default'] = {
         var filterDropdown = void 0;
         var sortButton = void 0;
         var customHeaderCell = column.customHeaderCell;
-        var sortTitle = _this10.getColumnTitle(column.title, {}) || locale.sortTitle;
+        var title = _this10.renderColumnTitle(column.title);
         var isSortColumn = _this10.isSortColumn(column);
         if (column.filters && column.filters.length > 0 || column.filterDropdown) {
           var colFilters = key in filters ? filters[key] : [];
@@ -2612,28 +2721,37 @@ exports['default'] = {
               confirmFilter: _this10.handleFilter,
               prefixCls: prefixCls + '-filter',
               dropdownPrefixCls: dropdownPrefixCls || 'ant-dropdown',
-              getPopupContainer: _this10.getPopupContainer
+              getPopupContainer: _this10.generatePopupContainerFunc()
             },
             key: 'filter-dropdown'
           });
         }
         if (column.sorter) {
+          var sortDirections = column.sortDirections || _this10.sortDirections;
           var isAscend = isSortColumn && sortOrder === 'ascend';
           var isDescend = isSortColumn && sortOrder === 'descend';
+          var ascend = sortDirections.indexOf('ascend') !== -1 && h(_icon2['default'], {
+            'class': prefixCls + '-column-sorter-up ' + (isAscend ? 'on' : 'off'),
+            attrs: { type: 'caret-up',
+              theme: 'filled'
+            },
+            key: 'caret-up'
+          });
+
+          var descend = sortDirections.indexOf('descend') !== -1 && h(_icon2['default'], {
+            'class': prefixCls + '-column-sorter-down ' + (isDescend ? 'on' : 'off'),
+            attrs: { type: 'caret-down',
+              theme: 'filled'
+            },
+            key: 'caret-down'
+          });
+
           sortButton = h(
             'div',
-            { 'class': prefixCls + '-column-sorter', key: 'sorter' },
-            [h(_icon2['default'], {
-              'class': prefixCls + '-column-sorter-up ' + (isAscend ? 'on' : 'off'),
-              attrs: { type: 'caret-up',
-                theme: 'filled'
-              }
-            }), h(_icon2['default'], {
-              'class': prefixCls + '-column-sorter-down ' + (isDescend ? 'on' : 'off'),
-              attrs: { type: 'caret-down',
-                theme: 'filled'
-              }
-            })]
+            {
+              attrs: { title: locale.sortTitle },
+              'class': prefixCls + '-column-sorter', key: 'sorter' },
+            [ascend, descend]
           );
           customHeaderCell = function customHeaderCell(col) {
             var colProps = {};
@@ -2653,18 +2771,12 @@ exports['default'] = {
             return colProps;
           };
         }
-        var sortTitleString = sortButton && typeof sortTitle === 'string' ? sortTitle : undefined;
         return (0, _extends5['default'])({}, column, {
           className: (0, _classnames2['default'])(column.className, (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-has-actions', sortButton || filterDropdown), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-has-filters', filterDropdown), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-has-sorters', sortButton), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-sort', isSortColumn && sortOrder), _classNames2)),
           title: [h(
             'div',
-            {
-              key: 'title',
-              attrs: { title: sortTitleString
-              },
-              'class': sortButton ? prefixCls + '-column-sorters' : undefined
-            },
-            [_this10.renderColumnTitle(column.title), sortButton]
+            { key: 'title', 'class': sortButton ? prefixCls + '-column-sorters' : undefined },
+            [title, sortButton]
           ), filterDropdown],
           customHeaderCell: customHeaderCell
         });
@@ -2684,33 +2796,6 @@ exports['default'] = {
       }
       return title;
     },
-    getColumnTitle: function getColumnTitle(title, parentNode) {
-      if (!title) {
-        return;
-      }
-      if ((0, _propsUtil.isValidElement)(title)) {
-        var props = title.componentOptions;
-        var children = null;
-        if (props && props.children) {
-          // for component
-          children = (0, _propsUtil.filterEmpty)(props.children);
-        } else if (title.children) {
-          // for dom
-          children = (0, _propsUtil.filterEmpty)(title.children);
-        }
-        if (children && children.length === 1) {
-          children = children[0];
-          var attrs = (0, _propsUtil.getAllProps)(title);
-          if (!children.tag && children.text) {
-            // for textNode
-            children = children.text;
-          }
-          return this.getColumnTitle(children, attrs);
-        }
-      } else {
-        return parentNode.title || title;
-      }
-    },
     handleShowSizeChange: function handleShowSizeChange(current, pageSize) {
       var pagination = this.sPagination;
       pagination.onShowSizeChange(current, pageSize);
@@ -2723,7 +2808,7 @@ exports['default'] = {
         sPagination: nextPagination
       })))));
     },
-    renderPagination: function renderPagination(paginationPosition) {
+    renderPagination: function renderPagination(prefixCls, paginationPosition) {
       var h = this.$createElement;
 
       // 强制不需要分页
@@ -2748,7 +2833,7 @@ exports['default'] = {
 
       var paginationProps = (0, _propsUtil.mergeProps)({
         key: 'pagination-' + paginationPosition,
-        'class': (0, _classnames2['default'])(cls, this.prefixCls + '-pagination'),
+        'class': (0, _classnames2['default'])(cls, prefixCls + '-pagination'),
         props: (0, _extends5['default'])({}, restProps, {
           total: total,
           size: size,
@@ -2888,7 +2973,7 @@ exports['default'] = {
         })
       });
     },
-    renderTable: function renderTable(contextLocale, loading) {
+    renderTable: function renderTable(prefixCls, renderEmpty, dropdownPrefixCls, contextLocale, loading) {
       var _classNames3,
           _this14 = this;
 
@@ -2897,17 +2982,21 @@ exports['default'] = {
       var locale = (0, _extends5['default'])({}, contextLocale, this.locale);
 
       var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-          prefixCls = _getOptionProps.prefixCls,
           showHeader = _getOptionProps.showHeader,
-          restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'showHeader']);
+          restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['showHeader']);
 
       var data = this.getCurrentPageData();
       var expandIconAsCell = this.expandedRowRender && this.expandIconAsCell !== false;
 
+      var mergedLocale = (0, _extends5['default'])({}, contextLocale, locale);
+      if (!locale || !locale.emptyText) {
+        mergedLocale.emptyText = renderEmpty(h, 'Table');
+      }
+
       var classString = (0, _classnames2['default'])((_classNames3 = {}, (0, _defineProperty3['default'])(_classNames3, prefixCls + '-' + this.size, true), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-bordered', this.bordered), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-empty', !data.length), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-without-column-header', !showHeader), _classNames3));
 
-      var columns = this.renderRowSelection(locale);
-      columns = this.renderColumnsDropdown(columns, locale);
+      var columns = this.renderRowSelection(prefixCls, mergedLocale);
+      columns = this.renderColumnsDropdown(prefixCls, dropdownPrefixCls, columns, mergedLocale);
       columns = columns.map(function (column, i) {
         var newColumn = (0, _extends5['default'])({}, column);
         newColumn.key = _this14.getColumnKey(newColumn, i);
@@ -2920,7 +3009,9 @@ exports['default'] = {
       var vcTableProps = {
         key: 'table',
         props: (0, _extends5['default'])({}, restProps, {
-          customRow: this.onRow,
+          customRow: function customRow(record, index) {
+            return _this14.onRow(prefixCls, record, index);
+          },
           components: this.customComponents,
           prefixCls: prefixCls,
           data: data,
@@ -2928,7 +3019,7 @@ exports['default'] = {
           showHeader: showHeader,
           expandIconColumnIndex: expandIconColumnIndex,
           expandIconAsCell: expandIconAsCell,
-          emptyText: !(loading.props && loading.props.spinning) && locale.emptyText
+          emptyText: !(loading.props && loading.props.spinning) && mergedLocale.emptyText
         }),
         on: this.$listeners,
         'class': classString
@@ -2941,7 +3032,8 @@ exports['default'] = {
     var _this15 = this;
 
     var h = arguments[0];
-    var prefixCls = this.prefixCls;
+    var customizePrefixCls = this.prefixCls,
+        customizeDropdownPrefixCls = this.dropdownPrefixCls;
 
     var data = this.getCurrentPageData();
 
@@ -2957,13 +3049,18 @@ exports['default'] = {
         props: (0, _extends5['default'])({}, loading)
       };
     }
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var renderEmpty = this.configProvider.renderEmpty;
+
+    var prefixCls = getPrefixCls('table', customizePrefixCls);
+    var dropdownPrefixCls = getPrefixCls('dropdown', customizeDropdownPrefixCls);
 
     var table = h(_LocaleReceiver2['default'], {
       attrs: {
         componentName: 'Table',
-        defaultLocale: _default2['default'].Table,
+        defaultLocale: _default3['default'].Table,
         children: function children(locale) {
-          return _this15.renderTable(locale, loading);
+          return _this15.renderTable(prefixCls, renderEmpty, dropdownPrefixCls, locale, loading);
         }
       }
     });
@@ -2980,7 +3077,7 @@ exports['default'] = {
       [h(
         _spin2['default'],
         spinProps,
-        [this.renderPagination('top'), table, this.renderPagination('bottom')]
+        [this.renderPagination(prefixCls, 'top'), table, this.renderPagination(prefixCls, 'bottom')]
       )]
     );
   }
@@ -3448,7 +3545,11 @@ exports['default'] = {
       });
     }
 
-    var menus = filterDropdown ? h(_FilterDropdownMenuWrapper2['default'], [filterDropdown]) : h(
+    var menus = filterDropdown ? h(
+      _FilterDropdownMenuWrapper2['default'],
+      { 'class': prefixCls + '-dropdown' },
+      [filterDropdown]
+    ) : h(
       _FilterDropdownMenuWrapper2['default'],
       { 'class': prefixCls + '-dropdown' },
       [h(
@@ -3547,6 +3648,10 @@ var _Table2 = _interopRequireDefault(_Table);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var Table = {
@@ -3585,7 +3690,7 @@ var Table = {
           column.key = key;
         }
         if ((0, _propsUtil.getSlotOptions)(element).__ANT_TABLE_COLUMN_GROUP) {
-          column.children = _this.normalize(children);
+          column.children = _this.normalize(typeof children === 'function' ? children() : children);
         } else {
           var customRender = element.data && element.data.scopedSlots && element.data.scopedSlots['default'];
           column.customRender = column.customRender || customRender;
@@ -3666,6 +3771,7 @@ var Table = {
 };
 /* istanbul ignore next */
 Table.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(Table.name, Table);
   Vue.component(Table.Column.name, Table.Column);
   Vue.component(Table.ColumnGroup.name, Table.ColumnGroup);
@@ -3738,7 +3844,8 @@ var ColumnProps = exports.ColumnProps = {
   fixed: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].oneOf(['left', 'right'])]),
   filterIcon: _vueTypes2['default'].any,
   filteredValue: _vueTypes2['default'].array,
-  sortOrder: _vueTypes2['default'].oneOf(['ascend', 'descend'])
+  sortOrder: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].oneOf(['ascend', 'descend'])]),
+  sortDirections: _vueTypes2['default'].array
   // children?: ColumnProps<T>[];
   // onCellClick?: (record: T, event: any) => void;
   // onCell?: (record: T) => any;
@@ -3812,7 +3919,7 @@ var TableProps = exports.TableProps = {
   //  onExpand?: (expanded: boolean, record: T) => void;
   // onChange?: (pagination: PaginationProps | boolean, filters: string[], sorter: Object) => any;
   loading: _vueTypes2['default'].oneOfType([_vueTypes2['default'].shape(SpinProps).loose, _vueTypes2['default'].bool]),
-  locale: _vueTypes2['default'].object,
+  locale: TableLocale,
   indentSize: _vueTypes2['default'].number,
   // onRowClick?: (record: T, index: number, event: Event) => any;
   customRow: _vueTypes2['default'].func,
@@ -3825,6 +3932,7 @@ var TableProps = exports.TableProps = {
   scroll: _vueTypes2['default'].object,
   childrenColumnName: _vueTypes2['default'].oneOfType([_vueTypes2['default'].array, _vueTypes2['default'].string]),
   bodyStyle: _vueTypes2['default'].any,
+  sortDirections: _vueTypes2['default'].array,
   expandIcon: _vueTypes2['default'].func
   // className?: PropTypes.string,
   // style?: React.CSSProperties;
@@ -4294,6 +4402,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
@@ -4311,8 +4423,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 exports['default'] = {
   mixins: [_BaseMixin2['default']],
   props: {
-    rootPrefixCls: _vueTypes2['default'].String,
-    selectPrefixCls: _vueTypes2['default'].String,
+    disabled: _vueTypes2['default'].bool,
     changeSize: _vueTypes2['default'].func,
     quickGo: _vueTypes2['default'].func,
     selectComponentClass: _vueTypes2['default'].any,
@@ -4321,6 +4432,8 @@ exports['default'] = {
     pageSize: _vueTypes2['default'].number,
     buildOptionText: _vueTypes2['default'].func,
     locale: _vueTypes2['default'].object,
+    rootPrefixCls: _vueTypes2['default'].string,
+    selectPrefixCls: _vueTypes2['default'].string,
     goButton: _vueTypes2['default'].any
   },
   data: function data() {
@@ -4330,25 +4443,46 @@ exports['default'] = {
   },
 
   methods: {
+    getValidValue: function getValidValue() {
+      var goInputText = this.goInputText,
+          current = this.current;
+
+      return isNaN(goInputText) ? current : Number(goInputText);
+    },
     defaultBuildOptionText: function defaultBuildOptionText(opt) {
       return opt.value + ' ' + this.locale.items_per_page;
     },
     handleChange: function handleChange(e) {
+      var _e$target = e.target,
+          value = _e$target.value,
+          composing = _e$target.composing;
+
+      if (composing || this.goInputText === value) return;
       this.setState({
-        goInputText: e.target.value
+        goInputText: value
       });
     },
-    go: function go(e) {
-      var val = this.goInputText;
-      if (val === '') {
+    handleBlur: function handleBlur() {
+      var goButton = this.goButton,
+          quickGo = this.quickGo;
+
+      if (goButton) {
         return;
       }
-      val = isNaN(val) ? this.current : Number(val);
+      quickGo(this.getValidValue());
+    },
+    go: function go(e) {
+      var goInputText = this.goInputText;
+
+      if (goInputText === '') {
+        return;
+      }
       if (e.keyCode === _KeyCode2['default'].ENTER || e.type === 'click') {
+        // https://github.com/vueComponent/ant-design-vue/issues/1316
+        this.quickGo(this.getValidValue());
         this.setState({
           goInputText: ''
         });
-        this.quickGo(val);
       }
     }
   },
@@ -4362,24 +4496,27 @@ exports['default'] = {
         quickGo = this.quickGo,
         goButton = this.goButton,
         Select = this.selectComponentClass,
-        defaultBuildOptionText = this.defaultBuildOptionText;
+        defaultBuildOptionText = this.defaultBuildOptionText,
+        selectPrefixCls = this.selectPrefixCls,
+        pageSize = this.pageSize,
+        pageSizeOptions = this.pageSizeOptions,
+        goInputText = this.goInputText,
+        disabled = this.disabled;
 
     var prefixCls = rootPrefixCls + '-options';
     var changeSelect = null;
     var goInput = null;
     var gotoButton = null;
 
-    if (!(changeSize || quickGo)) {
+    if (!changeSize && !quickGo) {
       return null;
     }
 
     if (changeSize && Select) {
-      var Option = Select.Option;
-      var pageSize = this.pageSize || this.pageSizeOptions[0];
       var buildOptionText = this.buildOptionText || defaultBuildOptionText;
-      var options = this.pageSizeOptions.map(function (opt, i) {
+      var options = pageSizeOptions.map(function (opt, i) {
         return h(
-          Option,
+          Select.Option,
           { key: i, attrs: { value: opt }
           },
           [buildOptionText({ value: opt })]
@@ -4390,12 +4527,13 @@ exports['default'] = {
         Select,
         {
           attrs: {
-            prefixCls: this.selectPrefixCls,
+            disabled: disabled,
+            prefixCls: selectPrefixCls,
             showSearch: false,
 
             optionLabelProp: 'children',
             dropdownMatchSelectWidth: false,
-            value: pageSize.toString(),
+            value: (pageSize || pageSizeOptions[0]).toString(),
 
             getPopupContainer: function getPopupContainer(triggerNode) {
               return triggerNode.parentNode;
@@ -4413,46 +4551,48 @@ exports['default'] = {
 
     if (quickGo) {
       if (goButton) {
-        if (typeof goButton === 'boolean') {
-          gotoButton = h(
-            'button',
-            {
-              attrs: { type: 'button' },
-              on: {
-                'click': this.go,
-                'keyup': this.go
-              }
-            },
-            [locale.jump_to_confirm]
-          );
-        } else {
-          gotoButton = h(
-            'span',
-            {
-              on: {
-                'click': this.go,
-                'keyup': this.go
-              }
-            },
-            [goButton]
-          );
-        }
+        gotoButton = typeof goButton === 'boolean' ? h(
+          'button',
+          {
+            attrs: { type: 'button', disabled: disabled },
+            on: {
+              'click': this.go,
+              'keyup': this.go
+            }
+          },
+          [locale.jump_to_confirm]
+        ) : h(
+          'span',
+          {
+            on: {
+              'click': this.go,
+              'keyup': this.go
+            }
+          },
+          [goButton]
+        );
       }
       goInput = h(
         'div',
         { 'class': prefixCls + '-quick-jumper' },
-        [locale.jump_to, h('input', {
+        [locale.jump_to, h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
           attrs: {
+            disabled: disabled,
             type: 'text'
           },
           domProps: {
-            'value': this.goInputText
+            'value': goInputText
           },
           on: {
             'input': this.handleChange,
-            'keyup': this.go
+            'keyup': this.go,
+            'blur': this.handleBlur
           }
-        }), locale.page, gotoButton]
+        }, {
+          directives: [{
+            name: 'ant-input'
+          }]
+        }])), locale.page, gotoButton]
       );
     }
 
@@ -4569,6 +4709,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
 
 var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
@@ -4632,6 +4776,7 @@ exports['default'] = {
     event: 'change.current'
   },
   props: {
+    disabled: _vueTypes2['default'].bool,
     prefixCls: _vueTypes2['default'].string.def('rc-pagination'),
     selectPrefixCls: _vueTypes2['default'].string.def('rc-select'),
     current: _vueTypes2['default'].number,
@@ -4729,8 +4874,33 @@ exports['default'] = {
       var iconNode = (0, _propsUtil.getComponentFromProp)(this, icon, this.$props) || h('a', { 'class': prefixCls + '-item-link' });
       return iconNode;
     },
+    getValidValue: function getValidValue(e) {
+      var inputValue = e.target.value;
+      var stateCurrentInputValue = this.$data.stateCurrentInputValue;
+
+      var value = void 0;
+      if (inputValue === '') {
+        value = inputValue;
+      } else if (isNaN(Number(inputValue))) {
+        value = stateCurrentInputValue;
+      } else {
+        value = Number(inputValue);
+      }
+      return value;
+    },
     isValid: function isValid(page) {
       return isInteger(page) && page >= 1 && page !== this.stateCurrent;
+    },
+    shouldDisplayQuickJumper: function shouldDisplayQuickJumper() {
+      var _$props = this.$props,
+          showQuickJumper = _$props.showQuickJumper,
+          pageSize = _$props.pageSize,
+          total = _$props.total;
+
+      if (total <= pageSize) {
+        return false;
+      }
+      return showQuickJumper;
     },
 
     // calculatePage (p) {
@@ -4745,18 +4915,10 @@ exports['default'] = {
         event.preventDefault();
       }
     },
-    handleKeyUp: function handleKeyUp(event) {
-      var inputValue = event.target.value;
+    handleKeyUp: function handleKeyUp(e) {
+      if (e.target.composing) return;
+      var value = this.getValidValue(e);
       var stateCurrentInputValue = this.stateCurrentInputValue;
-      var value = void 0;
-
-      if (inputValue === '') {
-        value = inputValue;
-      } else if (isNaN(Number(inputValue))) {
-        value = stateCurrentInputValue;
-      } else {
-        value = Number(inputValue);
-      }
 
       if (value !== stateCurrentInputValue) {
         this.setState({
@@ -4764,11 +4926,11 @@ exports['default'] = {
         });
       }
 
-      if (event.keyCode === _KeyCode2['default'].ENTER) {
+      if (e.keyCode === _KeyCode2['default'].ENTER) {
         this.handleChange(value);
-      } else if (event.keyCode === _KeyCode2['default'].ARROW_UP) {
+      } else if (e.keyCode === _KeyCode2['default'].ARROW_UP) {
         this.handleChange(value - 1);
-      } else if (event.keyCode === _KeyCode2['default'].ARROW_DOWN) {
+      } else if (e.keyCode === _KeyCode2['default'].ARROW_DOWN) {
         this.handleChange(value + 1);
       }
     },
@@ -4802,8 +4964,10 @@ exports['default'] = {
       }
     },
     handleChange: function handleChange(p) {
+      var disabled = this.$props.disabled;
+
       var page = p;
-      if (this.isValid(page)) {
+      if (this.isValid(page) && !disabled) {
         var currentPage = calculatePage(undefined, this.$data, this.$props);
         if (page > currentPage) {
           page = currentPage;
@@ -4871,16 +5035,21 @@ exports['default'] = {
     }
   },
   render: function render() {
+    var _ref;
+
     var h = arguments[0];
+    var _$props2 = this.$props,
+        prefixCls = _$props2.prefixCls,
+        disabled = _$props2.disabled;
 
     // When hideOnSinglePage is true and there is only 1 page, hide the pager
+
     if (this.hideOnSinglePage === true && this.total <= this.statePageSize) {
       return null;
     }
     var props = this.$props;
     var locale = this.locale;
 
-    var prefixCls = this.prefixCls;
     var allPages = calculatePage(undefined, this.$data, this.$props);
     var pagerList = [];
     var jumpPrev = null;
@@ -4963,7 +5132,7 @@ exports['default'] = {
             },
             'class': prefixCls + '-simple-pager'
           },
-          [h('input', {
+          [h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
             attrs: {
               type: 'text',
 
@@ -4977,7 +5146,11 @@ exports['default'] = {
               'keyup': this.handleKeyUp,
               'input': this.handleKeyUp
             }
-          }), h(
+          }, {
+            directives: [{
+              name: 'ant-input'
+            }]
+          }])), h(
             'span',
             { 'class': prefixCls + '-slash' },
             ['\uFF0F']
@@ -5193,7 +5366,7 @@ exports['default'] = {
       totalText = h(
         'li',
         { 'class': prefixCls + '-total-text' },
-        [this.showTotal(this.total, [(stateCurrent - 1) * statePageSize + 1, stateCurrent * statePageSize > this.total ? this.total : stateCurrent * statePageSize])]
+        [this.showTotal(this.total, [this.total === 0 ? 0 : (stateCurrent - 1) * statePageSize + 1, stateCurrent * statePageSize > this.total ? this.total : stateCurrent * statePageSize])]
       );
     }
     var prevDisabled = !this.hasPrev() || !allPages;
@@ -5201,8 +5374,12 @@ exports['default'] = {
     var buildOptionText = this.buildOptionText || this.$scopedSlots.buildOptionText;
     return h(
       'ul',
-      { 'class': '' + prefixCls, attrs: { unselectable: 'unselectable' },
-        ref: 'paginationNode' },
+      {
+        'class': (_ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-disabled', disabled), _ref),
+        attrs: { unselectable: 'unselectable'
+        },
+        ref: 'paginationNode'
+      },
       [totalText, h(
         'li',
         {
@@ -5239,6 +5416,7 @@ exports['default'] = {
         [this.itemRender(nextPage, 'next', this.getItemIcon('nextIcon'))]
       ), h(_Options2['default'], {
         attrs: {
+          disabled: disabled,
           locale: locale,
           rootPrefixCls: prefixCls,
           selectComponentClass: this.selectComponentClass,
@@ -5248,7 +5426,7 @@ exports['default'] = {
           pageSize: statePageSize,
           pageSizeOptions: this.pageSizeOptions,
           buildOptionText: buildOptionText || null,
-          quickGo: this.showQuickJumper ? this.handleChange : null,
+          quickGo: this.shouldDisplayQuickJumper() ? this.handleChange : null,
           goButton: goButton
         }
       })]
@@ -5388,7 +5566,7 @@ var Table = {
           column.key = key;
         }
         if ((0, _propsUtil.getSlotOptions)(element).isTableColumnGroup) {
-          column.children = _this.normalize(children);
+          column.children = _this.normalize(typeof children === 'function' ? children() : children);
         } else {
           var customRender = element.data && element.data.scopedSlots && element.data.scopedSlots['default'];
           column.customRender = column.customRender || customRender;

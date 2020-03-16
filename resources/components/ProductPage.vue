@@ -34,6 +34,9 @@ export default {
             return isEqual(comparableVariation, this.selectedAttributes)
         },
         changeAttributeVariable(value) {
+            if (!isNil(value.target)) {
+                value = value.target.value
+            }
             var attributeValue = JSON.parse(value)
             var attributeRef = this.$refs['attribute-' + attributeValue.attribute_id]
             var attributeLength = JSON.parse(attributeRef.$attrs['data-attribute-length'])

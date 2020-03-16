@@ -124,7 +124,6 @@ class AddressController extends Controller
      */
     public function destroy(Address $address)
     {
-        dd($address);
         $address->delete();
 
         return redirect()->route('account.address.index');

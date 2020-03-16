@@ -1,5 +1,98 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[1],{
 
+/***/ "./node_modules/ant-design-vue/lib/progress/circle.js":
+/*!************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/progress/circle.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vcProgress = __webpack_require__(/*! ../vc-progress */ "./node_modules/ant-design-vue/lib/vc-progress/index.js");
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/progress/utils.js");
+
+var statusColorMap = {
+  normal: '#108ee9',
+  exception: '#ff5500',
+  success: '#87d068'
+};
+
+function getPercentage(_ref) {
+  var percent = _ref.percent,
+      successPercent = _ref.successPercent;
+
+  var ptg = (0, _utils.validProgress)(percent);
+  if (!successPercent) return ptg;
+
+  var successPtg = (0, _utils.validProgress)(successPercent);
+  return [successPercent, (0, _utils.validProgress)(ptg - successPtg)];
+}
+
+function getStrokeColor(_ref2) {
+  var progressStatus = _ref2.progressStatus,
+      successPercent = _ref2.successPercent,
+      strokeColor = _ref2.strokeColor;
+
+  var color = strokeColor || statusColorMap[progressStatus];
+  if (!successPercent) return color;
+  return [statusColorMap.success, color];
+}
+
+var Circle = {
+  functional: true,
+  render: function render(h, context) {
+    var props = context.props,
+        children = context.children;
+    var prefixCls = props.prefixCls,
+        width = props.width,
+        strokeWidth = props.strokeWidth,
+        trailColor = props.trailColor,
+        strokeLinecap = props.strokeLinecap,
+        gapPosition = props.gapPosition,
+        gapDegree = props.gapDegree,
+        type = props.type;
+
+    var circleSize = width || 120;
+    var circleStyle = {
+      width: typeof circleSize === 'number' ? circleSize + 'px' : circleSize,
+      height: typeof circleSize === 'number' ? circleSize + 'px' : circleSize,
+      fontSize: circleSize * 0.15 + 6
+    };
+    var circleWidth = strokeWidth || 6;
+    var gapPos = gapPosition || type === 'dashboard' && 'bottom' || 'top';
+    var gapDeg = gapDegree || type === 'dashboard' && 75;
+
+    return h(
+      'div',
+      { 'class': prefixCls + '-inner', style: circleStyle },
+      [h(_vcProgress.Circle, {
+        attrs: {
+          percent: getPercentage(props),
+          strokeWidth: circleWidth,
+          trailWidth: circleWidth,
+          strokeColor: getStrokeColor(props),
+          strokeLinecap: strokeLinecap,
+          trailColor: trailColor,
+          prefixCls: prefixCls,
+          gapDegree: gapDeg,
+          gapPosition: gapPos
+        }
+      }), children]
+    );
+  }
+};
+
+exports['default'] = Circle;
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/progress/index.js":
 /*!***********************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/progress/index.js ***!
@@ -26,14 +119,76 @@ Object.defineProperty(exports, 'ProgressProps', {
 
 var _progress2 = _interopRequireDefault(_progress);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 /* istanbul ignore next */
 _progress2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_progress2['default'].name, _progress2['default']);
 };
 
 exports['default'] = _progress2['default'];
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/progress/line.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/progress/line.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/progress/utils.js");
+
+var Line = {
+  functional: true,
+  render: function render(h, context) {
+    var props = context.props,
+        children = context.children;
+    var prefixCls = props.prefixCls,
+        percent = props.percent,
+        successPercent = props.successPercent,
+        strokeWidth = props.strokeWidth,
+        size = props.size,
+        strokeColor = props.strokeColor,
+        strokeLinecap = props.strokeLinecap;
+
+    var percentStyle = {
+      width: (0, _utils.validProgress)(percent) + '%',
+      height: (strokeWidth || (size === 'small' ? 6 : 8)) + 'px',
+      background: strokeColor,
+      borderRadius: strokeLinecap === 'square' ? 0 : '100px'
+    };
+    var successPercentStyle = {
+      width: (0, _utils.validProgress)(successPercent) + '%',
+      height: (strokeWidth || (size === 'small' ? 6 : 8)) + 'px',
+      borderRadius: strokeLinecap === 'square' ? 0 : '100px'
+    };
+    var successSegment = successPercent !== undefined ? h('div', { 'class': prefixCls + '-success-bg', style: successPercentStyle }) : null;
+    return h('div', [h(
+      'div',
+      { 'class': prefixCls + '-outer' },
+      [h(
+        'div',
+        { 'class': prefixCls + '-inner' },
+        [h('div', { 'class': prefixCls + '-bg', style: percentStyle }), successSegment]
+      )]
+    ), children]);
+  }
+};
+
+exports['default'] = Line;
 
 /***/ }),
 
@@ -52,13 +207,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.ProgressProps = exports.ProgressSize = exports.ProgressType = undefined;
 
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
 var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
 
@@ -74,11 +229,21 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _vcProgress = __webpack_require__(/*! ../vc-progress */ "./node_modules/ant-design-vue/lib/vc-progress/index.js");
+var _line = __webpack_require__(/*! ./line */ "./node_modules/ant-design-vue/lib/progress/line.js");
+
+var _line2 = _interopRequireDefault(_line);
+
+var _circle = __webpack_require__(/*! ./circle */ "./node_modules/ant-design-vue/lib/progress/circle.js");
+
+var _circle2 = _interopRequireDefault(_circle);
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/progress/utils.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -86,11 +251,6 @@ function addUnit(num, unit) {
   var unitType = unit || 'px';
   return num ? num + unitType : null;
 }
-var statusColorMap = {
-  normal: '#108ee9',
-  exception: '#ff5500',
-  success: '#87d068'
-};
 
 var ProgressType = exports.ProgressType = _vueTypes2['default'].oneOf(['line', 'circle', 'dashboard']);
 var ProgressSize = exports.ProgressSize = _vueTypes2['default'].oneOf(['default', 'small']);
@@ -113,15 +273,6 @@ var ProgressProps = exports.ProgressProps = {
   size: ProgressSize
 };
 
-var validProgress = function validProgress(progress) {
-  if (!progress || progress < 0) {
-    return 0;
-  } else if (progress > 100) {
-    return 100;
-  }
-  return progress;
-};
-
 exports['default'] = {
   name: 'AProgress',
   props: (0, _propsUtil.initDefaultProps)(ProgressProps, {
@@ -129,17 +280,58 @@ exports['default'] = {
     percent: 0,
     showInfo: true,
     trailColor: '#f3f3f3',
-    prefixCls: 'ant-progress',
-    size: 'default'
+    size: 'default',
+    gapDegree: 0,
+    strokeLinecap: 'round'
   }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  methods: {
+    renderProcessInfo: function renderProcessInfo(prefixCls, progressStatus) {
+      var h = this.$createElement;
+      var _$props = this.$props,
+          showInfo = _$props.showInfo,
+          format = _$props.format,
+          type = _$props.type,
+          percent = _$props.percent,
+          successPercent = _$props.successPercent;
 
+      if (!showInfo) return null;
+
+      var text = void 0;
+      var textFormatter = format || this.$scopedSlots.format || function (percentNumber) {
+        return percentNumber + '%';
+      };
+      var iconType = type === 'circle' || type === 'dashboard' ? '' : '-circle';
+      if (format || this.$scopedSlots.format || progressStatus !== 'exception' && progressStatus !== 'success') {
+        text = textFormatter((0, _utils.validProgress)(percent), (0, _utils.validProgress)(successPercent));
+      } else if (progressStatus === 'exception') {
+        text = h(_icon2['default'], {
+          attrs: { type: 'close' + iconType, theme: type === 'line' ? 'filled' : 'outlined' }
+        });
+      } else if (progressStatus === 'success') {
+        text = h(_icon2['default'], {
+          attrs: { type: 'check' + iconType, theme: type === 'line' ? 'filled' : 'outlined' }
+        });
+      }
+      return h(
+        'span',
+        { 'class': prefixCls + '-text', attrs: { title: typeof text === 'string' ? text : undefined }
+        },
+        [text]
+      );
+    }
+  },
   render: function render() {
     var _classNames;
 
     var h = arguments[0];
 
     var props = (0, _propsUtil.getOptionProps)(this);
-    var prefixCls = props.prefixCls,
+    var customizePrefixCls = props.prefixCls,
         _props$percent = props.percent,
         percent = _props$percent === undefined ? 0 : _props$percent,
         status = props.status,
@@ -159,83 +351,36 @@ exports['default'] = {
         strokeLinecap = _props$strokeLinecap === undefined ? 'round' : _props$strokeLinecap,
         restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls', 'percent', 'status', 'format', 'trailColor', 'size', 'successPercent', 'type', 'strokeWidth', 'width', 'showInfo', 'gapDegree', 'gapPosition', 'strokeColor', 'strokeLinecap']);
 
-    var progressStatus = parseInt(successPercent ? successPercent.toString() : percent.toString(), 10) >= 100 && !('status' in props) ? 'success' : status || 'normal';
-    var progressInfo = void 0;
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('progress', customizePrefixCls);
+
+    var progressStatus = parseInt(successPercent !== undefined ? successPercent.toString() : percent.toString(), 10) >= 100 && !('status' in props) ? 'success' : status || 'normal';
     var progress = void 0;
-    var textFormatter = format || function (percentNumber) {
-      return percentNumber + '%';
-    };
+    var progressInfo = this.renderProcessInfo(prefixCls, progressStatus);
 
-    if (showInfo) {
-      var text = void 0;
-      var iconType = type === 'circle' || type === 'dashboard' ? '' : '-circle';
-      if (format || progressStatus !== 'exception' && progressStatus !== 'success') {
-        text = textFormatter(validProgress(percent), validProgress(successPercent));
-      } else if (progressStatus === 'exception') {
-        text = h(_icon2['default'], {
-          attrs: { type: 'close' + iconType, theme: type === 'line' ? 'filled' : 'outlined' }
-        });
-      } else if (progressStatus === 'success') {
-        text = h(_icon2['default'], {
-          attrs: { type: 'check' + iconType, theme: type === 'line' ? 'filled' : 'outlined' }
-        });
-      }
-      progressInfo = h(
-        'span',
-        { 'class': prefixCls + '-text', attrs: { title: typeof text === 'string' ? text : undefined }
-        },
-        [text]
-      );
-    }
-
+    // Render progress shape
     if (type === 'line') {
-      var percentStyle = {
-        width: validProgress(percent) + '%',
-        height: (strokeWidth || (size === 'small' ? 6 : 8)) + 'px',
-        background: strokeColor,
-        borderRadius: strokeLinecap === 'square' ? 0 : '100px'
+      var lineProps = {
+        props: (0, _extends3['default'])({}, props, {
+          prefixCls: prefixCls
+        })
       };
-      var successPercentStyle = {
-        width: validProgress(successPercent) + '%',
-        height: (strokeWidth || (size === 'small' ? 6 : 8)) + 'px',
-        borderRadius: strokeLinecap === 'square' ? 0 : '100px'
-      };
-      var successSegment = successPercent !== undefined ? h('div', { 'class': prefixCls + '-success-bg', style: successPercentStyle }) : null;
-      progress = h('div', [h(
-        'div',
-        { 'class': prefixCls + '-outer' },
-        [h(
-          'div',
-          { 'class': prefixCls + '-inner' },
-          [h('div', { 'class': prefixCls + '-bg', style: percentStyle }), successSegment]
-        )]
-      ), progressInfo]);
-    } else if (type === 'circle' || type === 'dashboard') {
-      var circleSize = width || 120;
-      var circleStyle = {
-        width: addUnit(circleSize),
-        height: addUnit(circleSize),
-        fontSize: addUnit(circleSize * 0.15 + 6)
-      };
-      var circleWidth = strokeWidth || 6;
-      var gapPos = gapPosition || type === 'dashboard' && 'bottom' || 'top';
-      var gapDeg = gapDegree || type === 'dashboard' && 75;
       progress = h(
-        'div',
-        { 'class': prefixCls + '-inner', style: circleStyle },
-        [h(_vcProgress.Circle, {
-          attrs: {
-            percent: validProgress(percent),
-            strokeWidth: circleWidth,
-            trailWidth: circleWidth,
-            strokeColor: strokeColor || statusColorMap[progressStatus],
-            strokeLinecap: strokeLinecap,
-            trailColor: trailColor,
-            prefixCls: prefixCls,
-            gapDegree: gapDeg || 0,
-            gapPosition: gapPos
-          }
-        }), progressInfo]
+        _line2['default'],
+        lineProps,
+        [progressInfo]
+      );
+    } else if (type === 'circle' || type === 'dashboard') {
+      var circleProps = {
+        props: (0, _extends3['default'])({}, props, {
+          prefixCls: prefixCls,
+          progressStatus: progressStatus
+        })
+      };
+      progress = h(
+        _circle2['default'],
+        circleProps,
+        [progressInfo]
       );
     }
 
@@ -253,6 +398,31 @@ exports['default'] = {
     );
   }
 };
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/progress/utils.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/progress/utils.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.validProgress = validProgress;
+function validProgress(progress) {
+  if (!progress || progress < 0) {
+    return 0;
+  } else if (progress > 100) {
+    return 100;
+  }
+  return progress;
+}
 
 /***/ }),
 
@@ -339,6 +509,10 @@ var _uniqBy = __webpack_require__(/*! lodash/uniqBy */ "./node_modules/lodash/un
 
 var _uniqBy2 = _interopRequireDefault(_uniqBy);
 
+var _findIndex = __webpack_require__(/*! lodash/findIndex */ "./node_modules/lodash/findIndex.js");
+
+var _findIndex2 = _interopRequireDefault(_findIndex);
+
 var _vcUpload = __webpack_require__(/*! ../vc-upload */ "./node_modules/ant-design-vue/lib/vc-upload/index.js");
 
 var _vcUpload2 = _interopRequireDefault(_vcUpload);
@@ -353,9 +527,11 @@ var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver 
 
 var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
 
-var _default = __webpack_require__(/*! ../locale-provider/default */ "./node_modules/ant-design-vue/lib/locale-provider/default.js");
+var _default2 = __webpack_require__(/*! ../locale-provider/default */ "./node_modules/ant-design-vue/lib/locale-provider/default.js");
 
-var _default2 = _interopRequireDefault(_default);
+var _default3 = _interopRequireDefault(_default2);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 var _Dragger = __webpack_require__(/*! ./Dragger */ "./node_modules/ant-design-vue/lib/upload/Dragger.js");
 
@@ -378,7 +554,6 @@ exports['default'] = {
   inheritAttrs: false,
   Dragger: _Dragger2['default'],
   props: (0, _propsUtil.initDefaultProps)(_interface.UploadProps, {
-    prefixCls: 'ant-upload',
     type: 'select',
     multiple: false,
     action: '',
@@ -390,6 +565,11 @@ exports['default'] = {
     disabled: false,
     supportServerRender: true
   }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   // recentUploadStatus: boolean | PromiseLike<any>;
   data: function data() {
     this.progressTimer = null;
@@ -413,7 +593,7 @@ exports['default'] = {
       var targetItem = (0, _utils.fileToObject)(file);
       targetItem.status = 'uploading';
       var nextFileList = this.sFileList.concat();
-      var fileIndex = nextFileList.findIndex(function (_ref) {
+      var fileIndex = (0, _findIndex2['default'])(nextFileList, function (_ref) {
         var uid = _ref.uid;
         return uid === targetItem.uid;
       });
@@ -496,15 +676,21 @@ exports['default'] = {
         fileList: fileList
       });
     },
+    onReject: function onReject(fileList) {
+      this.$emit('reject', fileList);
+    },
     handleRemove: function handleRemove(file) {
       var _this2 = this;
 
-      var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-          remove = _getOptionProps.remove;
+      var remove = this.remove;
+      var status = file.status;
+
+      file.status = 'removed'; // eslint-disable-line
 
       Promise.resolve(typeof remove === 'function' ? remove(file) : remove).then(function (ret) {
         // Prevent removing file
         if (ret === false) {
+          file.status = status;
           return;
         }
 
@@ -518,8 +704,9 @@ exports['default'] = {
       });
     },
     handleManualRemove: function handleManualRemove(file) {
-      this.$refs.uploadRef.abort(file);
-      file.status = 'removed'; // eslint-disable-line
+      if (this.$refs.uploadRef) {
+        this.$refs.uploadRef.abort(file);
+      }
       this.handleRemove(file);
     },
     onChange: function onChange(info) {
@@ -546,7 +733,8 @@ exports['default'] = {
           })
         });
         return false;
-      } else if (result && result.then) {
+      }
+      if (result && result.then) {
         return result;
       }
       return true;
@@ -557,10 +745,10 @@ exports['default'] = {
     renderUploadList: function renderUploadList(locale) {
       var h = this.$createElement;
 
-      var _getOptionProps2 = (0, _propsUtil.getOptionProps)(this),
-          _getOptionProps2$show = _getOptionProps2.showUploadList,
-          showUploadList = _getOptionProps2$show === undefined ? {} : _getOptionProps2$show,
-          listType = _getOptionProps2.listType;
+      var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+          _getOptionProps$showU = _getOptionProps.showUploadList,
+          showUploadList = _getOptionProps$showU === undefined ? {} : _getOptionProps$showU,
+          listType = _getOptionProps.listType;
 
       var showRemoveIcon = showUploadList.showRemoveIcon,
           showPreviewIcon = showUploadList.showPreviewIcon;
@@ -588,16 +776,19 @@ exports['default'] = {
 
     var h = arguments[0];
 
-    var _getOptionProps3 = (0, _propsUtil.getOptionProps)(this),
-        _getOptionProps3$pref = _getOptionProps3.prefixCls,
-        prefixCls = _getOptionProps3$pref === undefined ? '' : _getOptionProps3$pref,
-        showUploadList = _getOptionProps3.showUploadList,
-        listType = _getOptionProps3.listType,
-        type = _getOptionProps3.type,
-        disabled = _getOptionProps3.disabled;
+    var _getOptionProps2 = (0, _propsUtil.getOptionProps)(this),
+        customizePrefixCls = _getOptionProps2.prefixCls,
+        showUploadList = _getOptionProps2.showUploadList,
+        listType = _getOptionProps2.listType,
+        type = _getOptionProps2.type,
+        disabled = _getOptionProps2.disabled;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('upload', customizePrefixCls);
 
     var vcUploadProps = {
       props: (0, _extends3['default'])({}, this.$props, {
+        prefixCls: prefixCls,
         beforeUpload: this.reBeforeUpload
       }),
       on: {
@@ -605,17 +796,17 @@ exports['default'] = {
         start: this.onStart,
         error: this.onError,
         progress: this.onProgress,
-        success: this.onSuccess
+        success: this.onSuccess,
+        reject: this.onReject
       },
       ref: 'uploadRef',
-      'class': prefixCls + '-btn',
       attrs: this.$attrs
     };
 
     var uploadList = showUploadList ? h(_LocaleReceiver2['default'], {
       attrs: {
         componentName: 'Upload',
-        defaultLocale: _default2['default'].Upload
+        defaultLocale: _default3['default'].Upload
       },
       scopedSlots: { 'default': this.renderUploadList }
     }) : null;
@@ -651,9 +842,16 @@ exports['default'] = {
     }
 
     var uploadButtonCls = (0, _classnames2['default'])(prefixCls, (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-select', true), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-select-' + listType, true), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-disabled', disabled), _classNames2));
+
+    // Remove id to avoid open by label when trigger is hidden
+    // https://github.com/ant-design/ant-design/issues/14298
+    if (!children) {
+      delete vcUploadProps.props.id;
+    }
+
     var uploadButton = h(
       'div',
-      { 'class': uploadButtonCls, style: { display: children ? '' : 'none' } },
+      { 'class': uploadButtonCls, style: children ? undefined : { display: 'none' } },
       [h(
         _vcUpload2['default'],
         vcUploadProps,
@@ -706,6 +904,8 @@ var _getTransitionProps = __webpack_require__(/*! ../_util/getTransitionProps */
 
 var _getTransitionProps2 = _interopRequireDefault(_getTransitionProps);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
 
 var _icon2 = _interopRequireDefault(_icon);
@@ -726,7 +926,7 @@ var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-desi
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var imageTypes = ['image', 'webp', 'png', 'svg', 'gif', 'jpg', 'jpeg', 'bmp', 'ico'];
+var imageTypes = ['image', 'webp', 'png', 'svg', 'gif', 'jpg', 'jpeg', 'bmp', 'dpg', 'ico'];
 // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
 var previewFile = function previewFile(file, callback) {
   if (file.type && !imageTypes.includes(file.type)) {
@@ -755,7 +955,7 @@ var isImageUrl = function isImageUrl(file) {
   }
   var url = file.thumbUrl || file.url;
   var extension = extname(url);
-  if (/^data:image\//.test(url) || /(webp|svg|png|gif|jpg|jpeg|bmp|ico)$/i.test(extension)) {
+  if (/^data:image\//.test(url) || /(webp|svg|png|gif|jpg|jpeg|bmp|dpg|ico)$/i.test(extension)) {
     return true;
   } else if (/^data:/.test(url)) {
     // other file types of base64
@@ -776,10 +976,14 @@ exports['default'] = {
       strokeWidth: 2,
       showInfo: false
     },
-    prefixCls: 'ant-upload',
     showRemoveIcon: true,
     showPreviewIcon: true
   }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   updated: function updated() {
     var _this = this;
 
@@ -825,13 +1029,16 @@ exports['default'] = {
     var h = arguments[0];
 
     var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-        prefixCls = _getOptionProps.prefixCls,
+        customizePrefixCls = _getOptionProps.prefixCls,
         _getOptionProps$items = _getOptionProps.items,
         items = _getOptionProps$items === undefined ? [] : _getOptionProps$items,
         listType = _getOptionProps.listType,
         showPreviewIcon = _getOptionProps.showPreviewIcon,
         showRemoveIcon = _getOptionProps.showRemoveIcon,
         locale = _getOptionProps.locale;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('upload', customizePrefixCls);
 
     var list = items.map(function (file) {
       var _classNames;
@@ -1061,12 +1268,17 @@ var _Dragger = __webpack_require__(/*! ./Dragger */ "./node_modules/ant-design-v
 
 var _Dragger2 = _interopRequireDefault(_Dragger);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _Upload2['default'].Dragger = _Dragger2['default'];
 
 /* istanbul ignore next */
 _Upload2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Upload2['default'].name, _Upload2['default']);
   Vue.component(_Dragger2['default'].name, _Dragger2['default']);
 };
@@ -1181,7 +1393,8 @@ var UploadProps = exports.UploadProps = {
   withCredentials: _vueTypes2['default'].bool,
   openFileDialogOnClick: _vueTypes2['default'].bool,
   locale: UploadLocale,
-  height: _vueTypes2['default'].number
+  height: _vueTypes2['default'].number,
+  id: _vueTypes2['default'].string
 };
 
 var UploadState = exports.UploadState = {
@@ -1315,7 +1528,7 @@ var _src2 = _interopRequireDefault(_src);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports.Line = _src.Line;
-exports.Circle = _src.Circle; // based on rc-progress 2.2.7
+exports.Circle = _src.Circle; // based on rc-progress 2.3.0
 
 exports['default'] = _src2['default'];
 
@@ -1347,6 +1560,14 @@ var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vueRef = __webpack_require__(/*! vue-ref */ "./node_modules/vue-ref/index.js");
+
+var _vueRef2 = _interopRequireDefault(_vueRef);
+
 var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
@@ -1363,24 +1584,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 
 var circlePropTypes = (0, _extends3['default'])({}, _types.propTypes, {
   gapPosition: _vueTypes2['default'].oneOf(['top', 'bottom', 'left', 'right']),
-  gapDegree: _vueTypes2['default'].number
+  gapDegree: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string, _vueTypes2['default'].bool])
 });
 
 var circleDefaultProps = (0, _extends3['default'])({}, _types.defaultProps, {
   gapPosition: 'top'
 });
 
+_vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' });
+
 var Circle = {
   props: (0, _propsUtil.initDefaultProps)(circlePropTypes, circleDefaultProps),
+  created: function created() {
+    this.paths = {};
+  },
+
   methods: {
-    getPathStyles: function getPathStyles() {
-      var _$props = this.$props,
-          percent = _$props.percent,
-          strokeWidth = _$props.strokeWidth,
-          strokeColor = _$props.strokeColor,
-          _$props$gapDegree = _$props.gapDegree,
-          gapDegree = _$props$gapDegree === undefined ? 0 : _$props$gapDegree,
-          gapPosition = _$props.gapPosition;
+    getPathStyles: function getPathStyles(offset, percent, strokeColor, strokeWidth) {
+      var gapDegree = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
+      var gapPosition = arguments[5];
 
       var radius = 50 - strokeWidth / 2;
       var beginPositionX = 0;
@@ -1408,39 +1630,82 @@ var Circle = {
       }
       var pathString = 'M 50,50 m ' + beginPositionX + ',' + beginPositionY + '\n       a ' + radius + ',' + radius + ' 0 1 1 ' + endPositionX + ',' + -endPositionY + '\n       a ' + radius + ',' + radius + ' 0 1 1 ' + -endPositionX + ',' + endPositionY;
       var len = Math.PI * 2 * radius;
-      var trailPathStyle = {
-        strokeDasharray: len - gapDegree + 'px ' + len + 'px',
-        strokeDashoffset: '-' + gapDegree / 2 + 'px',
-        transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s'
-      };
-      var strokePathStyle = {
+      var pathStyle = {
         stroke: strokeColor,
         strokeDasharray: percent / 100 * (len - gapDegree) + 'px ' + len + 'px',
-        strokeDashoffset: '-' + gapDegree / 2 + 'px',
+        strokeDashoffset: '-' + (gapDegree / 2 + offset / 100 * (len - gapDegree)) + 'px',
         transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s' // eslint-disable-line
       };
-      return { pathString: pathString, trailPathStyle: trailPathStyle, strokePathStyle: strokePathStyle };
+      return {
+        pathString: pathString,
+        pathStyle: pathStyle
+      };
+    },
+    getStokeList: function getStokeList() {
+      var _this = this;
+
+      var h = this.$createElement;
+      var _$props = this.$props,
+          prefixCls = _$props.prefixCls,
+          percent = _$props.percent,
+          strokeColor = _$props.strokeColor,
+          strokeWidth = _$props.strokeWidth,
+          strokeLinecap = _$props.strokeLinecap,
+          gapDegree = _$props.gapDegree,
+          gapPosition = _$props.gapPosition;
+
+      var percentList = Array.isArray(percent) ? percent : [percent];
+      var strokeColorList = Array.isArray(strokeColor) ? strokeColor : [strokeColor];
+
+      var stackPtg = 0;
+      return percentList.map(function (ptg, index) {
+        var color = strokeColorList[index] || strokeColorList[strokeColorList.length - 1];
+
+        var _getPathStyles = _this.getPathStyles(stackPtg, ptg, color, strokeWidth, gapDegree, gapPosition),
+            pathString = _getPathStyles.pathString,
+            pathStyle = _getPathStyles.pathStyle;
+
+        stackPtg += ptg;
+
+        var pathProps = {
+          key: index,
+          attrs: {
+            d: pathString,
+            'stroke-linecap': strokeLinecap,
+            'stroke-width': ptg === 0 ? 0 : strokeWidth,
+            'fill-opacity': '0'
+          },
+          'class': prefixCls + '-circle-path',
+          style: pathStyle,
+          directives: [{
+            name: 'ant-ref',
+            value: function value(c) {
+              _this.paths[index] = c;
+            }
+          }]
+        };
+        return h('path', pathProps);
+      });
     }
   },
+
   render: function render() {
     var h = arguments[0];
     var _$props2 = this.$props,
         prefixCls = _$props2.prefixCls,
         strokeWidth = _$props2.strokeWidth,
         trailWidth = _$props2.trailWidth,
+        gapDegree = _$props2.gapDegree,
+        gapPosition = _$props2.gapPosition,
         trailColor = _$props2.trailColor,
         strokeLinecap = _$props2.strokeLinecap,
-        percent = _$props2.percent,
-        restProps = (0, _objectWithoutProperties3['default'])(_$props2, ['prefixCls', 'strokeWidth', 'trailWidth', 'trailColor', 'strokeLinecap', 'percent']);
+        restProps = (0, _objectWithoutProperties3['default'])(_$props2, ['prefixCls', 'strokeWidth', 'trailWidth', 'gapDegree', 'gapPosition', 'trailColor', 'strokeLinecap']);
 
-    var _getPathStyles = this.getPathStyles(),
-        pathString = _getPathStyles.pathString,
-        trailPathStyle = _getPathStyles.trailPathStyle,
-        strokePathStyle = _getPathStyles.strokePathStyle;
+    var _getPathStyles2 = this.getPathStyles(0, 100, trailColor, strokeWidth, gapDegree, gapPosition),
+        pathString = _getPathStyles2.pathString,
+        pathStyle = _getPathStyles2.pathStyle;
 
     delete restProps.percent;
-    delete restProps.gapDegree;
-    delete restProps.gapPosition;
     delete restProps.strokeColor;
     var pathFirst = {
       attrs: {
@@ -1451,24 +1716,14 @@ var Circle = {
         'fill-opacity': '0'
       },
       'class': prefixCls + '-circle-trail',
-      style: trailPathStyle
+      style: pathStyle
     };
-    var pathSecond = {
-      attrs: {
-        d: pathString,
-        'stroke-linecap': strokeLinecap,
-        'stroke-width': percent === 0 ? 0 : strokeWidth,
-        'fill-opacity': '0'
-      },
-      'class': prefixCls + '-circle-path',
-      style: strokePathStyle,
-      ref: 'svgPathRef'
-    };
+
     return h(
       'svg',
       (0, _babelHelperVueJsxMergeProps2['default'])([{ 'class': prefixCls + '-circle', attrs: { viewBox: '0 0 100 100' }
       }, restProps]),
-      [h('path', pathFirst), h('path', pathSecond)]
+      [h('path', pathFirst), this.getStokeList()]
     );
   }
 };
@@ -1499,6 +1754,14 @@ var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/ob
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
+var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vueRef = __webpack_require__(/*! vue-ref */ "./node_modules/vue-ref/index.js");
+
+var _vueRef2 = _interopRequireDefault(_vueRef);
+
 var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _enhancer = __webpack_require__(/*! ./enhancer */ "./node_modules/ant-design-vue/lib/vc-progress/src/enhancer.js");
@@ -1509,9 +1772,16 @@ var _types = __webpack_require__(/*! ./types */ "./node_modules/ant-design-vue/l
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+_vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' });
+
 var Line = {
   props: (0, _propsUtil.initDefaultProps)(_types.propTypes, _types.defaultProps),
+  created: function created() {
+    this.paths = {};
+  },
   render: function render() {
+    var _this = this;
+
     var h = arguments[0];
     var _$props = this.$props,
         percent = _$props.percent,
@@ -1526,16 +1796,15 @@ var Line = {
 
     delete restProps.gapPosition;
 
-    var pathStyle = {
-      strokeDasharray: '100px, 100px',
-      strokeDashoffset: 100 - percent + 'px',
-      transition: 'stroke-dashoffset 0.3s ease 0s, stroke 0.3s linear'
-    };
+    var percentList = Array.isArray(percent) ? percent : [percent];
+    var strokeColorList = Array.isArray(strokeColor) ? strokeColor : [strokeColor];
 
     var center = strokeWidth / 2;
     var right = 100 - strokeWidth / 2;
     var pathString = 'M ' + (strokeLinecap === 'round' ? center : 0) + ',' + center + '\n           L ' + (strokeLinecap === 'round' ? right : 100) + ',' + center;
     var viewBoxString = '0 0 100 ' + strokeWidth;
+
+    var stackPtg = 0;
 
     var pathFirst = {
       attrs: {
@@ -1547,18 +1816,6 @@ var Line = {
       },
       'class': prefixCls + '-line-trail'
     };
-    var pathSecond = {
-      attrs: {
-        d: pathString,
-        'stroke-linecap': strokeLinecap,
-        stroke: strokeColor,
-        'stroke-width': strokeWidth,
-        'fill-opacity': '0'
-      },
-      'class': prefixCls + '-line-path',
-      style: pathStyle,
-      ref: 'svgPathRef'
-    };
     return h(
       'svg',
       (0, _babelHelperVueJsxMergeProps2['default'])([{
@@ -1567,7 +1824,37 @@ var Line = {
           preserveAspectRatio: 'none'
         }
       }, restProps]),
-      [h('path', pathFirst), h('path', pathSecond)]
+      [h('path', pathFirst), percentList.map(function (ptg, index) {
+        var pathStyle = {
+          strokeDasharray: ptg + 'px, 100px',
+          strokeDashoffset: '-' + stackPtg + 'px',
+          transition: 'stroke-dashoffset 0.3s ease 0s, stroke-dasharray .3s ease 0s, stroke 0.3s linear'
+        };
+        var color = strokeColorList[index] || strokeColorList[strokeColorList.length - 1];
+
+        stackPtg += ptg;
+
+        var pathProps = {
+          key: index,
+          attrs: {
+            d: pathString,
+            'stroke-linecap': strokeLinecap,
+            stroke: color,
+            'stroke-width': strokeWidth,
+            'fill-opacity': '0'
+          },
+          'class': prefixCls + '-line-path',
+          style: pathStyle,
+          directives: [{
+            name: 'ant-ref',
+            value: function value(c) {
+              _this.paths[index] = c;
+            }
+          }]
+        };
+
+        return h('path', pathProps);
+      })]
     );
   }
 };
@@ -1595,18 +1882,27 @@ function enhancer(Component) {
     updated: function updated() {
       var _this = this;
 
-      this.$nextTick(function () {
-        if (!_this.$refs.svgPathRef) {
+      var now = Date.now();
+      var updated = false;
+
+      Object.keys(this.paths).forEach(function (key) {
+        var path = _this.paths[key];
+
+        if (!path) {
           return;
         }
-        var pathStyle = _this.$refs.svgPathRef.style;
+
+        updated = true;
+        var pathStyle = path.style;
         pathStyle.transitionDuration = '.3s, .3s, .3s, .06s';
-        var now = Date.now();
+
         if (_this.prevTimeStamp && now - _this.prevTimeStamp < 100) {
           pathStyle.transitionDuration = '0s, 0s';
         }
-        _this.prevTimeStamp = Date.now();
       });
+      if (updated) {
+        this.prevTimeStamp = Date.now();
+      }
     }
   };
 }
@@ -1681,17 +1977,18 @@ var defaultProps = exports.defaultProps = {
   trailColor: '#D9D9D9',
   trailWidth: 1
 };
+var mixedType = _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string]);
 
 var propTypes = exports.propTypes = {
   // className: PropTypes.string,
-  percent: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string]),
+  percent: _vueTypes2['default'].oneOfType([mixedType, _vueTypes2['default'].arrayOf(mixedType)]),
   prefixCls: _vueTypes2['default'].string,
-  strokeColor: _vueTypes2['default'].string,
+  strokeColor: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].arrayOf(_vueTypes2['default'].string)]),
   strokeLinecap: _vueTypes2['default'].oneOf(['butt', 'round', 'square']),
-  strokeWidth: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string]),
+  strokeWidth: mixedType,
   // style: PropTypes.object,
   trailColor: _vueTypes2['default'].string,
-  trailWidth: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string])
+  trailWidth: mixedType
 };
 
 /***/ }),
@@ -1716,7 +2013,7 @@ var _src2 = _interopRequireDefault(_src);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _src2['default']; // rc-upload 2.6.0
+exports['default'] = _src2['default']; // rc-upload 2.6.3
 
 /***/ }),
 
@@ -1749,6 +2046,10 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _partition = __webpack_require__(/*! lodash/partition */ "./node_modules/lodash/partition.js");
+
+var _partition2 = _interopRequireDefault(_partition);
 
 var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 
@@ -1843,10 +2144,13 @@ var AjaxUploader = {
           return (0, _attrAccept2['default'])(_file, _this.accept);
         });
       } else {
-        var files = Array.prototype.slice.call(e.dataTransfer.files).filter(function (file) {
+        var files = (0, _partition2['default'])(Array.prototype.slice.call(e.dataTransfer.files), function (file) {
           return (0, _attrAccept2['default'])(file, _this.accept);
         });
-        this.uploadFiles(files);
+        this.uploadFiles(files[0]);
+        if (files[1].length) {
+          this.$emit('reject', files[1]);
+        }
       }
     },
     uploadFiles: function uploadFiles(files) {
@@ -2122,7 +2426,7 @@ var IframeUploader = {
       // http://stackoverflow.com/questions/12830058/ie8-input-type-file-get-files
       var file = this.file = {
         uid: (0, _uid2['default'])(),
-        name: target.value
+        name: target.value && target.value.substring(target.value.lastIndexOf('\\') + 1, target.value.length)
       };
       this.startUpload();
       var props = this.$props;
@@ -2518,8 +2822,7 @@ var _Upload2 = _interopRequireDefault(_Upload);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _Upload2['default']; // based on rc-upload 2.4.4
-// export this package's api
+exports['default'] = _Upload2['default']; // export this package's api
 
 /***/ }),
 
@@ -2650,6 +2953,29 @@ function upload(option) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+function loopFiles(item, callback) {
+  var dirReader = item.createReader();
+  var fileList = [];
+
+  function sequence() {
+    dirReader.readEntries(function (entries) {
+      var entryList = Array.prototype.slice.apply(entries);
+      fileList = fileList.concat(entryList);
+
+      // Check if all the file has been viewed
+      var isFinished = !entryList.length;
+
+      if (isFinished) {
+        callback(fileList);
+      } else {
+        sequence();
+      }
+    });
+  }
+
+  sequence();
+}
+
 var traverseFileTree = function traverseFileTree(files, callback, isAccepted) {
   var _traverseFileTree = function _traverseFileTree(item, path) {
     path = path || '';
@@ -2660,57 +2986,34 @@ var traverseFileTree = function traverseFileTree(files, callback, isAccepted) {
         }
       });
     } else if (item.isDirectory) {
-      var dirReader = item.createReader();
-
-      dirReader.readEntries(function (entries) {
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = entries[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var entrieItem = _step.value;
-
-            _traverseFileTree(entrieItem, '' + path + item.name + '/');
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator['return']) {
-              _iterator['return']();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
+      loopFiles(item, function (entries) {
+        entries.forEach(function (entryItem) {
+          _traverseFileTree(entryItem, '' + path + item.name + '/');
+        });
       });
     }
   };
-  var _iteratorNormalCompletion2 = true;
-  var _didIteratorError2 = false;
-  var _iteratorError2 = undefined;
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
 
   try {
-    for (var _iterator2 = files[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-      var file = _step2.value;
+    for (var _iterator = files[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var file = _step.value;
 
       _traverseFileTree(file.webkitGetAsEntry());
     }
   } catch (err) {
-    _didIteratorError2 = true;
-    _iteratorError2 = err;
+    _didIteratorError = true;
+    _iteratorError = err;
   } finally {
     try {
-      if (!_iteratorNormalCompletion2 && _iterator2['return']) {
-        _iterator2['return']();
+      if (!_iteratorNormalCompletion && _iterator['return']) {
+        _iterator['return']();
       }
     } finally {
-      if (_didIteratorError2) {
-        throw _iteratorError2;
+      if (_didIteratorError) {
+        throw _iteratorError;
       }
     }
   }
@@ -2740,6 +3043,39 @@ var index = 0;
 function uid() {
   return "vc-upload-" + now + "-" + ++index;
 }
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_arrayAggregator.js":
+/*!*************************************************!*\
+  !*** ./node_modules/lodash/_arrayAggregator.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `baseAggregator` for arrays.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} setter The function to set `accumulator` values.
+ * @param {Function} iteratee The iteratee to transform keys.
+ * @param {Object} accumulator The initial aggregated object.
+ * @returns {Function} Returns `accumulator`.
+ */
+function arrayAggregator(array, setter, iteratee, accumulator) {
+  var index = -1,
+      length = array == null ? 0 : array.length;
+
+  while (++index < length) {
+    var value = array[index];
+    setter(accumulator, value, iteratee(value), array);
+  }
+  return accumulator;
+}
+
+module.exports = arrayAggregator;
+
 
 /***/ }),
 
@@ -2800,6 +3136,117 @@ function arrayIncludesWith(array, value, comparator) {
 }
 
 module.exports = arrayIncludesWith;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseAggregator.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_baseAggregator.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseEach = __webpack_require__(/*! ./_baseEach */ "./node_modules/lodash/_baseEach.js");
+
+/**
+ * Aggregates elements of `collection` on `accumulator` with keys transformed
+ * by `iteratee` and values set by `setter`.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} setter The function to set `accumulator` values.
+ * @param {Function} iteratee The iteratee to transform keys.
+ * @param {Object} accumulator The initial aggregated object.
+ * @returns {Function} Returns `accumulator`.
+ */
+function baseAggregator(collection, setter, iteratee, accumulator) {
+  baseEach(collection, function(value, key, collection) {
+    setter(accumulator, value, iteratee(value), collection);
+  });
+  return accumulator;
+}
+
+module.exports = baseAggregator;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseEach.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_baseEach.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseForOwn = __webpack_require__(/*! ./_baseForOwn */ "./node_modules/lodash/_baseForOwn.js"),
+    createBaseEach = __webpack_require__(/*! ./_createBaseEach */ "./node_modules/lodash/_createBaseEach.js");
+
+/**
+ * The base implementation of `_.forEach` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array|Object} Returns `collection`.
+ */
+var baseEach = createBaseEach(baseForOwn);
+
+module.exports = baseEach;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseFor.js":
+/*!*****************************************!*\
+  !*** ./node_modules/lodash/_baseFor.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var createBaseFor = __webpack_require__(/*! ./_createBaseFor */ "./node_modules/lodash/_createBaseFor.js");
+
+/**
+ * The base implementation of `baseForOwn` which iterates over `object`
+ * properties returned by `keysFunc` and invokes `iteratee` for each property.
+ * Iteratee functions may exit iteration early by explicitly returning `false`.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @param {Function} keysFunc The function to get the keys of `object`.
+ * @returns {Object} Returns `object`.
+ */
+var baseFor = createBaseFor();
+
+module.exports = baseFor;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_baseForOwn.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_baseForOwn.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseFor = __webpack_require__(/*! ./_baseFor */ "./node_modules/lodash/_baseFor.js"),
+    keys = __webpack_require__(/*! ./keys */ "./node_modules/lodash/keys.js");
+
+/**
+ * The base implementation of `_.forOwn` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The object to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Object} Returns `object`.
+ */
+function baseForOwn(object, iteratee) {
+  return object && baseFor(object, iteratee, keys);
+}
+
+module.exports = baseForOwn;
 
 
 /***/ }),
@@ -2941,6 +3388,119 @@ module.exports = baseUniq;
 
 /***/ }),
 
+/***/ "./node_modules/lodash/_createAggregator.js":
+/*!**************************************************!*\
+  !*** ./node_modules/lodash/_createAggregator.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayAggregator = __webpack_require__(/*! ./_arrayAggregator */ "./node_modules/lodash/_arrayAggregator.js"),
+    baseAggregator = __webpack_require__(/*! ./_baseAggregator */ "./node_modules/lodash/_baseAggregator.js"),
+    baseIteratee = __webpack_require__(/*! ./_baseIteratee */ "./node_modules/lodash/_baseIteratee.js"),
+    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js");
+
+/**
+ * Creates a function like `_.groupBy`.
+ *
+ * @private
+ * @param {Function} setter The function to set accumulator values.
+ * @param {Function} [initializer] The accumulator object initializer.
+ * @returns {Function} Returns the new aggregator function.
+ */
+function createAggregator(setter, initializer) {
+  return function(collection, iteratee) {
+    var func = isArray(collection) ? arrayAggregator : baseAggregator,
+        accumulator = initializer ? initializer() : {};
+
+    return func(collection, setter, baseIteratee(iteratee, 2), accumulator);
+  };
+}
+
+module.exports = createAggregator;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_createBaseEach.js":
+/*!************************************************!*\
+  !*** ./node_modules/lodash/_createBaseEach.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js");
+
+/**
+ * Creates a `baseEach` or `baseEachRight` function.
+ *
+ * @private
+ * @param {Function} eachFunc The function to iterate over a collection.
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseEach(eachFunc, fromRight) {
+  return function(collection, iteratee) {
+    if (collection == null) {
+      return collection;
+    }
+    if (!isArrayLike(collection)) {
+      return eachFunc(collection, iteratee);
+    }
+    var length = collection.length,
+        index = fromRight ? length : -1,
+        iterable = Object(collection);
+
+    while ((fromRight ? index-- : ++index < length)) {
+      if (iteratee(iterable[index], index, iterable) === false) {
+        break;
+      }
+    }
+    return collection;
+  };
+}
+
+module.exports = createBaseEach;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_createBaseFor.js":
+/*!***********************************************!*\
+  !*** ./node_modules/lodash/_createBaseFor.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Creates a base function for methods like `_.forIn` and `_.forOwn`.
+ *
+ * @private
+ * @param {boolean} [fromRight] Specify iterating from right to left.
+ * @returns {Function} Returns the new base function.
+ */
+function createBaseFor(fromRight) {
+  return function(object, iteratee, keysFunc) {
+    var index = -1,
+        iterable = Object(object),
+        props = keysFunc(object),
+        length = props.length;
+
+    while (length--) {
+      var key = props[fromRight ? length : ++index];
+      if (iteratee(iterable[key], key, iterable) === false) {
+        break;
+      }
+    }
+    return object;
+  };
+}
+
+module.exports = createBaseFor;
+
+
+/***/ }),
+
 /***/ "./node_modules/lodash/_createSet.js":
 /*!*******************************************!*\
   !*** ./node_modules/lodash/_createSet.js ***!
@@ -3029,6 +3589,60 @@ function noop() {
 }
 
 module.exports = noop;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/partition.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/partition.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var createAggregator = __webpack_require__(/*! ./_createAggregator */ "./node_modules/lodash/_createAggregator.js");
+
+/**
+ * Creates an array of elements split into two groups, the first of which
+ * contains elements `predicate` returns truthy for, the second of which
+ * contains elements `predicate` returns falsey for. The predicate is
+ * invoked with one argument: (value).
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to iterate over.
+ * @param {Function} [predicate=_.identity] The function invoked per iteration.
+ * @returns {Array} Returns the array of grouped elements.
+ * @example
+ *
+ * var users = [
+ *   { 'user': 'barney',  'age': 36, 'active': false },
+ *   { 'user': 'fred',    'age': 40, 'active': true },
+ *   { 'user': 'pebbles', 'age': 1,  'active': false }
+ * ];
+ *
+ * _.partition(users, function(o) { return o.active; });
+ * // => objects for [['fred'], ['barney', 'pebbles']]
+ *
+ * // The `_.matches` iteratee shorthand.
+ * _.partition(users, { 'age': 1, 'active': false });
+ * // => objects for [['pebbles'], ['barney', 'fred']]
+ *
+ * // The `_.matchesProperty` iteratee shorthand.
+ * _.partition(users, ['active', false]);
+ * // => objects for [['barney', 'pebbles'], ['fred']]
+ *
+ * // The `_.property` iteratee shorthand.
+ * _.partition(users, 'active');
+ * // => objects for [['fred'], ['barney', 'pebbles']]
+ */
+var partition = createAggregator(function(result, value, key) {
+  result[key ? 0 : 1].push(value);
+}, function() { return [[], []]; });
+
+module.exports = partition;
 
 
 /***/ }),

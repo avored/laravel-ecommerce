@@ -137,6 +137,8 @@ var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/a
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var TabPane = _tabs2['default'].TabPane;
@@ -144,7 +146,7 @@ exports['default'] = {
   name: 'ACard',
   mixins: [_BaseMixin2['default']],
   props: {
-    prefixCls: _vueTypes2['default'].string.def('ant-card'),
+    prefixCls: _vueTypes2['default'].string,
     title: _vueTypes2['default'].any,
     extra: _vueTypes2['default'].any,
     bordered: _vueTypes2['default'].bool.def(true),
@@ -153,10 +155,16 @@ exports['default'] = {
     loading: _vueTypes2['default'].bool.def(false),
     hoverable: _vueTypes2['default'].bool.def(false),
     type: _vueTypes2['default'].string,
+    size: _vueTypes2['default'].oneOf(['default', 'small']),
     actions: _vueTypes2['default'].any,
     tabList: _vueTypes2['default'].array,
     activeTabKey: _vueTypes2['default'].string,
     defaultActiveTabKey: _vueTypes2['default'].string
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   data: function data() {
     this.updateWiderPaddingCalled = false;
@@ -234,8 +242,7 @@ exports['default'] = {
 
     var h = arguments[0];
     var _$props = this.$props,
-        _$props$prefixCls = _$props.prefixCls,
-        prefixCls = _$props$prefixCls === undefined ? 'ant-card' : _$props$prefixCls,
+        customizePrefixCls = _$props.prefixCls,
         _$props$headStyle = _$props.headStyle,
         headStyle = _$props$headStyle === undefined ? {} : _$props$headStyle,
         _$props$bodyStyle = _$props.bodyStyle,
@@ -243,17 +250,24 @@ exports['default'] = {
         loading = _$props.loading,
         _$props$bordered = _$props.bordered,
         bordered = _$props$bordered === undefined ? true : _$props$bordered,
+        _$props$size = _$props.size,
+        size = _$props$size === undefined ? 'default' : _$props$size,
         type = _$props.type,
         tabList = _$props.tabList,
         hoverable = _$props.hoverable,
         activeTabKey = _$props.activeTabKey,
         defaultActiveTabKey = _$props.defaultActiveTabKey;
+
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('card', customizePrefixCls);
+
     var $slots = this.$slots,
         $scopedSlots = this.$scopedSlots,
         $listeners = this.$listeners;
 
 
-    var classString = (_classString = {}, (0, _defineProperty3['default'])(_classString, '' + prefixCls, true), (0, _defineProperty3['default'])(_classString, prefixCls + '-loading', loading), (0, _defineProperty3['default'])(_classString, prefixCls + '-bordered', bordered), (0, _defineProperty3['default'])(_classString, prefixCls + '-hoverable', !!hoverable), (0, _defineProperty3['default'])(_classString, prefixCls + '-wider-padding', this.widerPadding), (0, _defineProperty3['default'])(_classString, prefixCls + '-padding-transition', this.updateWiderPaddingCalled), (0, _defineProperty3['default'])(_classString, prefixCls + '-contain-grid', this.isContainGrid($slots['default'])), (0, _defineProperty3['default'])(_classString, prefixCls + '-contain-tabs', tabList && tabList.length), (0, _defineProperty3['default'])(_classString, prefixCls + '-type-' + type, !!type), _classString);
+    var classString = (_classString = {}, (0, _defineProperty3['default'])(_classString, '' + prefixCls, true), (0, _defineProperty3['default'])(_classString, prefixCls + '-loading', loading), (0, _defineProperty3['default'])(_classString, prefixCls + '-bordered', bordered), (0, _defineProperty3['default'])(_classString, prefixCls + '-hoverable', !!hoverable), (0, _defineProperty3['default'])(_classString, prefixCls + '-wider-padding', this.widerPadding), (0, _defineProperty3['default'])(_classString, prefixCls + '-padding-transition', this.updateWiderPaddingCalled), (0, _defineProperty3['default'])(_classString, prefixCls + '-contain-grid', this.isContainGrid($slots['default'])), (0, _defineProperty3['default'])(_classString, prefixCls + '-contain-tabs', tabList && tabList.length), (0, _defineProperty3['default'])(_classString, prefixCls + '-' + size, size !== 'default'), (0, _defineProperty3['default'])(_classString, prefixCls + '-type-' + type, !!type), _classString);
 
     var loadingBlockStyle = bodyStyle.padding === 0 || bodyStyle.padding === '0px' ? { padding: 24 } : undefined;
 
@@ -347,30 +361,6 @@ exports['default'] = {
           _col2['default'],
           {
             attrs: { span: 16 }
-          },
-          [h('div', { 'class': prefixCls + '-loading-block' })]
-        )]
-      ), h(
-        _row2['default'],
-        {
-          attrs: { gutter: 8 }
-        },
-        [h(
-          _col2['default'],
-          {
-            attrs: { span: 8 }
-          },
-          [h('div', { 'class': prefixCls + '-loading-block' })]
-        ), h(
-          _col2['default'],
-          {
-            attrs: { span: 6 }
-          },
-          [h('div', { 'class': prefixCls + '-loading-block' })]
-        ), h(
-          _col2['default'],
-          {
-            attrs: { span: 8 }
           },
           [h('div', { 'class': prefixCls + '-loading-block' })]
         )]
@@ -484,18 +474,28 @@ var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/an
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
   name: 'ACardGrid',
   __ANT_CARD_GRID: true,
   props: {
-    prefixCls: _vueTypes2['default'].string.def('ant-card')
+    prefixCls: _vueTypes2['default'].string
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
   },
   render: function render() {
     var h = arguments[0];
-    var _$props$prefixCls = this.$props.prefixCls,
-        prefixCls = _$props$prefixCls === undefined ? 'ant-card' : _$props$prefixCls;
+    var customizePrefixCls = this.$props.prefixCls;
+
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('card', customizePrefixCls);
 
     var classString = (0, _defineProperty3['default'])({}, prefixCls + '-grid', true);
     return h(
@@ -536,19 +536,29 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
   name: 'ACardMeta',
   props: {
-    prefixCls: _vueTypes2['default'].string.def('ant-card'),
+    prefixCls: _vueTypes2['default'].string,
     title: _vueTypes2['default'].any,
     description: _vueTypes2['default'].any
   },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   render: function render() {
     var h = arguments[0];
-    var _$props$prefixCls = this.$props.prefixCls,
-        prefixCls = _$props$prefixCls === undefined ? 'ant-card' : _$props$prefixCls;
+    var customizePrefixCls = this.$props.prefixCls;
+
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('card', customizePrefixCls);
 
     var classString = (0, _defineProperty3['default'])({}, prefixCls + '-meta', true);
 
@@ -612,6 +622,10 @@ var _Grid = __webpack_require__(/*! ./Grid */ "./node_modules/ant-design-vue/lib
 
 var _Grid2 = _interopRequireDefault(_Grid);
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 _Card2['default'].Meta = _Meta2['default'];
@@ -619,6 +633,7 @@ _Card2['default'].Grid = _Grid2['default'];
 
 /* istanbul ignore next */
 _Card2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_Card2['default'].name, _Card2['default']);
   Vue.component(_Meta2['default'].name, _Meta2['default']);
   Vue.component(_Grid2['default'].name, _Grid2['default']);
@@ -644,8 +659,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _grid = __webpack_require__(/*! ../grid */ "./node_modules/ant-design-vue/lib/grid/index.js");
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 /* istanbul ignore next */
 _grid.Col.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_grid.Col.name, _grid.Col);
 };
 
@@ -699,8 +721,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _grid = __webpack_require__(/*! ../grid */ "./node_modules/ant-design-vue/lib/grid/index.js");
 
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 /* istanbul ignore next */
 _grid.Row.install = function (Vue) {
+  Vue.use(_base2['default']);
   Vue.component(_grid.Row.name, _grid.Row);
 };
 

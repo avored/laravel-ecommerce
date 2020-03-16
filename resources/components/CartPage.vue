@@ -45,12 +45,14 @@ export default {
                         key: 'cart.destroy.success',
                         message: response.data.message,
                     });
+                    location.reload()
                 } else {
                      app.$notification.error({
                         key: 'cart.destroy.error',
                         message: response.data.message,
                     });
                 }
+                
             })
         },
         updateCartProductClick() {
