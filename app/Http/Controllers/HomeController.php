@@ -49,13 +49,15 @@ class HomeController extends Controller
         $wishlists = $this->wishlistRepository->userWishlists();
         $page = $this->pageRepository->findBySlug('home-page');
         $allProducts = $this->productRepository->getAllWithoutVaiation();
-        if ($allProducts->count() <= 0) {
-            $products = collect();
-        } elseif ($allProducts->count() >= 8) {
-            $products = $allProducts->random(8)->shuffle();
-        } else {
-            $products = $allProducts;
-        }
+        
+        $products = collect();
+        
+        if ($allProducts->count() > 0) {
+            $products = $allProducts->load('mainImage');
+        } 
+        if ($allProducts->count() >= 8) {
+            $products = $allProducts->load('mainImage')->random(8)->shuffle();
+        } 
 
         return view('home')
             ->with(compact('products', 'page', 'wishlists'));
