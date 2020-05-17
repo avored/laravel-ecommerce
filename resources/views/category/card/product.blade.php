@@ -1,5 +1,5 @@
 @php
-$product->main_image_url = $product->main_image_url;
+$product->main_image_url = empty($product->mainImage) ? 'https://placehold.it/250x250' : asset('storage/'.$product->mainImage->path);
 @endphp
 
 <product-card 
