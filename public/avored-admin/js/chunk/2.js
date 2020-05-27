@@ -1,8 +1,8 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[2],{
 
-/***/ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js":
+/***/ "./node_modules/ant-design-vue/lib/_util/moment-util.js":
 /*!**************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/checkbox/Checkbox.js ***!
+  !*** ./node_modules/ant-design-vue/lib/_util/moment-util.js ***!
   \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -13,3082 +13,96 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.momentToString = exports.stringToMoment = exports.TimeOrTimesType = exports.TimesType = exports.TimeType = undefined;
+exports.checkValidate = checkValidate;
 
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+var _interopDefault = __webpack_require__(/*! ./interopDefault */ "./node_modules/ant-design-vue/lib/_util/interopDefault.js");
 
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+var _interopDefault2 = _interopRequireDefault(_interopDefault);
 
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+var moment = _interopRequireWildcard(_moment);
 
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _vcCheckbox = __webpack_require__(/*! ../vc-checkbox */ "./node_modules/ant-design-vue/lib/vc-checkbox/index.js");
-
-var _vcCheckbox2 = _interopRequireDefault(_vcCheckbox);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function noop() {}
-
-exports['default'] = {
-  name: 'ACheckbox',
-  inheritAttrs: false,
-  model: {
-    prop: 'checked'
-  },
-  props: {
-    prefixCls: _vueTypes2['default'].string,
-    defaultChecked: _vueTypes2['default'].bool,
-    checked: _vueTypes2['default'].bool,
-    disabled: _vueTypes2['default'].bool,
-    isGroup: _vueTypes2['default'].bool,
-    value: _vueTypes2['default'].any,
-    name: _vueTypes2['default'].string,
-    id: _vueTypes2['default'].string,
-    indeterminate: _vueTypes2['default'].bool,
-    type: _vueTypes2['default'].string.def('checkbox'),
-    autoFocus: _vueTypes2['default'].bool
-  },
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } },
-    checkboxGroupContext: { 'default': function _default() {
-        return null;
-      } }
-  },
-  methods: {
-    handleChange: function handleChange(event) {
-      var targetChecked = event.target.checked;
-      this.$emit('input', targetChecked);
-      this.$emit('change', event);
-    },
-    focus: function focus() {
-      this.$refs.vcCheckbox.focus();
-    },
-    blur: function blur() {
-      this.$refs.vcCheckbox.blur();
-    }
-  },
-
-  render: function render() {
-    var _this = this,
-        _classNames;
-
-    var h = arguments[0];
-    var checkboxGroup = this.checkboxGroupContext,
-        $listeners = this.$listeners,
-        $slots = this.$slots;
-
-    var props = (0, _propsUtil.getOptionProps)(this);
-    var children = $slots['default'];
-    var _$listeners$mouseente = $listeners.mouseenter,
-        mouseenter = _$listeners$mouseente === undefined ? noop : _$listeners$mouseente,
-        _$listeners$mouseleav = $listeners.mouseleave,
-        mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav,
-        input = $listeners.input,
-        restListeners = (0, _objectWithoutProperties3['default'])($listeners, ['mouseenter', 'mouseleave', 'input']);
-    var customizePrefixCls = props.prefixCls,
-        indeterminate = props.indeterminate,
-        restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls', 'indeterminate']);
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('checkbox', customizePrefixCls);
-
-    var checkboxProps = {
-      props: (0, _extends3['default'])({}, restProps, { prefixCls: prefixCls }),
-      on: restListeners,
-      attrs: (0, _propsUtil.getAttrs)(this)
-    };
-    if (checkboxGroup) {
-      checkboxProps.on.change = function () {
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
-        _this.$emit.apply(_this, ['change'].concat(args));
-        checkboxGroup.toggleOption({ label: children, value: props.value });
-      };
-      checkboxProps.props.checked = checkboxGroup.sValue.indexOf(props.value) !== -1;
-      checkboxProps.props.disabled = props.disabled || checkboxGroup.disabled;
-    } else {
-      checkboxProps.on.change = this.handleChange;
-    }
-    var classString = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper-checked', checkboxProps.props.checked), (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper-disabled', checkboxProps.props.disabled), _classNames));
-    var checkboxClass = (0, _classnames2['default'])((0, _defineProperty3['default'])({}, prefixCls + '-indeterminate', indeterminate));
-    return h(
-      'label',
-      { 'class': classString, on: {
-          'mouseenter': mouseenter,
-          'mouseleave': mouseleave
-        }
-      },
-      [h(_vcCheckbox2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([checkboxProps, { 'class': checkboxClass, ref: 'vcCheckbox' }])), children !== undefined && h('span', [children])]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/checkbox/Group.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/checkbox/Group.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js");
-
-var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _propsUtil2 = _interopRequireDefault(_propsUtil);
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function noop() {}
-exports['default'] = {
-  name: 'ACheckboxGroup',
-  model: {
-    prop: 'value'
-  },
-  props: {
-    prefixCls: _vueTypes2['default'].string,
-    defaultValue: _vueTypes2['default'].array,
-    value: _vueTypes2['default'].array,
-    options: _vueTypes2['default'].array.def([]),
-    disabled: _vueTypes2['default'].bool
-  },
-  provide: function provide() {
-    return {
-      checkboxGroupContext: this
-    };
-  },
-
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  data: function data() {
-    var value = this.value,
-        defaultValue = this.defaultValue;
-
-    return {
-      sValue: value || defaultValue || []
-    };
-  },
-
-  watch: {
-    value: function value(val) {
-      this.sValue = val || [];
-    }
-  },
-  methods: {
-    getOptions: function getOptions() {
-      var options = this.options,
-          $scopedSlots = this.$scopedSlots;
-
-      return options.map(function (option) {
-        if (typeof option === 'string') {
-          return {
-            label: option,
-            value: option
-          };
-        }
-        var label = option.label;
-        if (label === undefined && $scopedSlots.label) {
-          label = $scopedSlots.label(option);
-        }
-        return (0, _extends3['default'])({}, option, { label: label });
-      });
-    },
-    toggleOption: function toggleOption(option) {
-      var optionIndex = this.sValue.indexOf(option.value);
-      var value = [].concat((0, _toConsumableArray3['default'])(this.sValue));
-      if (optionIndex === -1) {
-        value.push(option.value);
-      } else {
-        value.splice(optionIndex, 1);
-      }
-      if (!(0, _propsUtil2['default'])(this, 'value')) {
-        this.sValue = value;
-      }
-      this.$emit('input', value);
-      this.$emit('change', value);
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var props = this.$props,
-        state = this.$data,
-        $slots = this.$slots;
-    var customizePrefixCls = props.prefixCls,
-        options = props.options;
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('checkbox', customizePrefixCls);
-
-    var children = $slots['default'];
-    var groupPrefixCls = prefixCls + '-group';
-    if (options && options.length > 0) {
-      children = this.getOptions().map(function (option) {
-        return h(
-          _Checkbox2['default'],
-          {
-            attrs: {
-              prefixCls: prefixCls,
-
-              disabled: 'disabled' in option ? option.disabled : props.disabled,
-              value: option.value,
-              checked: state.sValue.indexOf(option.value) !== -1
-            },
-            key: option.value.toString(), on: {
-              'change': option.onChange || noop
-            },
-
-            'class': groupPrefixCls + '-item'
-          },
-          [option.label]
-        );
-      });
-    }
-    return h(
-      'div',
-      { 'class': groupPrefixCls },
-      [children]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/checkbox/index.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/checkbox/index.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js");
-
-var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-var _Group = __webpack_require__(/*! ./Group */ "./node_modules/ant-design-vue/lib/checkbox/Group.js");
-
-var _Group2 = _interopRequireDefault(_Group);
-
-var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
-
-var _base2 = _interopRequireDefault(_base);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-_Checkbox2['default'].Group = _Group2['default'];
-
-/* istanbul ignore next */
-_Checkbox2['default'].install = function (Vue) {
-  Vue.use(_base2['default']);
-  Vue.component(_Checkbox2['default'].name, _Checkbox2['default']);
-  Vue.component(_Group2['default'].name, _Group2['default']);
-};
-
-exports['default'] = _Checkbox2['default'];
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/pagination/MiniSelect.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/pagination/MiniSelect.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _select = __webpack_require__(/*! ../select */ "./node_modules/ant-design-vue/lib/select/index.js");
-
-var _select2 = _interopRequireDefault(_select);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  props: (0, _extends3['default'])({}, _select.SelectProps),
-  Option: _select2['default'].Option,
-  render: function render() {
-    var h = arguments[0];
-
-    var selectOptionsProps = (0, _propsUtil.getOptionProps)(this);
-    var selelctProps = {
-      props: (0, _extends3['default'])({}, selectOptionsProps, {
-        size: 'small'
-      }),
-      on: this.$listeners
-    };
-    return h(
-      _select2['default'],
-      selelctProps,
-      [(0, _propsUtil.filterEmpty)(this.$slots['default'])]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/pagination/Pagination.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/pagination/Pagination.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.PaginationConfig = exports.PaginationProps = undefined;
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _select = __webpack_require__(/*! ../select */ "./node_modules/ant-design-vue/lib/select/index.js");
-
-var _select2 = _interopRequireDefault(_select);
-
-var _MiniSelect = __webpack_require__(/*! ./MiniSelect */ "./node_modules/ant-design-vue/lib/pagination/MiniSelect.js");
-
-var _MiniSelect2 = _interopRequireDefault(_MiniSelect);
-
-var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver */ "./node_modules/ant-design-vue/lib/locale-provider/LocaleReceiver.js");
-
-var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _vcPagination = __webpack_require__(/*! ../vc-pagination */ "./node_modules/ant-design-vue/lib/vc-pagination/index.js");
-
-var _vcPagination2 = _interopRequireDefault(_vcPagination);
-
-var _en_US = __webpack_require__(/*! ../vc-pagination/locale/en_US */ "./node_modules/ant-design-vue/lib/vc-pagination/locale/en_US.js");
-
-var _en_US2 = _interopRequireDefault(_en_US);
-
-var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
-
-var _icon2 = _interopRequireDefault(_icon);
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var PaginationProps = exports.PaginationProps = function PaginationProps() {
-  return {
-    total: _vueTypes2['default'].number,
-    defaultCurrent: _vueTypes2['default'].number,
-    current: _vueTypes2['default'].number,
-    defaultPageSize: _vueTypes2['default'].number,
-    pageSize: _vueTypes2['default'].number,
-    hideOnSinglePage: _vueTypes2['default'].bool,
-    showSizeChanger: _vueTypes2['default'].bool,
-    pageSizeOptions: _vueTypes2['default'].arrayOf(_vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string])),
-    buildOptionText: _vueTypes2['default'].func,
-    showSizeChange: _vueTypes2['default'].func,
-    showQuickJumper: _vueTypes2['default'].bool,
-    showTotal: _vueTypes2['default'].any,
-    size: _vueTypes2['default'].string,
-    simple: _vueTypes2['default'].bool,
-    locale: _vueTypes2['default'].object,
-    prefixCls: _vueTypes2['default'].string,
-    selectPrefixCls: _vueTypes2['default'].string,
-    itemRender: _vueTypes2['default'].any,
-    role: _vueTypes2['default'].string
-  };
-};
-
-var PaginationConfig = exports.PaginationConfig = function PaginationConfig() {
-  return (0, _extends3['default'])({}, PaginationProps(), {
-    position: _vueTypes2['default'].oneOf(['top', 'bottom', 'both'])
-  });
-};
-
-exports['default'] = {
-  name: 'APagination',
-  model: {
-    prop: 'current',
-    event: 'change.current'
-  },
-  props: (0, _extends3['default'])({}, PaginationProps()),
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  methods: {
-    getIconsProps: function getIconsProps(prefixCls) {
-      var h = this.$createElement;
-
-      var prevIcon = h(
-        'a',
-        { 'class': prefixCls + '-item-link' },
-        [h(_icon2['default'], {
-          attrs: { type: 'left' }
-        })]
-      );
-      var nextIcon = h(
-        'a',
-        { 'class': prefixCls + '-item-link' },
-        [h(_icon2['default'], {
-          attrs: { type: 'right' }
-        })]
-      );
-      var jumpPrevIcon = h(
-        'a',
-        { 'class': prefixCls + '-item-link' },
-        [h(
-          'div',
-          { 'class': prefixCls + '-item-container' },
-          [h(_icon2['default'], { 'class': prefixCls + '-item-link-icon', attrs: { type: 'double-left' }
-          }), h(
-            'span',
-            { 'class': prefixCls + '-item-ellipsis' },
-            ['\u2022\u2022\u2022']
-          )]
-        )]
-      );
-      var jumpNextIcon = h(
-        'a',
-        { 'class': prefixCls + '-item-link' },
-        [h(
-          'div',
-          { 'class': prefixCls + '-item-container' },
-          [h(_icon2['default'], { 'class': prefixCls + '-item-link-icon', attrs: { type: 'double-right' }
-          }), h(
-            'span',
-            { 'class': prefixCls + '-item-ellipsis' },
-            ['\u2022\u2022\u2022']
-          )]
-        )]
-      );
-      return {
-        prevIcon: prevIcon,
-        nextIcon: nextIcon,
-        jumpPrevIcon: jumpPrevIcon,
-        jumpNextIcon: jumpNextIcon
-      };
-    },
-    renderPagination: function renderPagination(contextLocale) {
-      var h = this.$createElement;
-
-      var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-          customizePrefixCls = _getOptionProps.prefixCls,
-          customizeSelectPrefixCls = _getOptionProps.selectPrefixCls,
-          buildOptionText = _getOptionProps.buildOptionText,
-          size = _getOptionProps.size,
-          customLocale = _getOptionProps.locale,
-          restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'selectPrefixCls', 'buildOptionText', 'size', 'locale']);
-
-      var getPrefixCls = this.configProvider.getPrefixCls;
-      var prefixCls = getPrefixCls('pagination', customizePrefixCls);
-      var selectPrefixCls = getPrefixCls('select', customizeSelectPrefixCls);
-
-      var isSmall = size === 'small';
-      var paginationProps = {
-        props: (0, _extends3['default'])({
-          prefixCls: prefixCls,
-          selectPrefixCls: selectPrefixCls
-        }, restProps, this.getIconsProps(prefixCls), {
-          selectComponentClass: isSmall ? _MiniSelect2['default'] : _select2['default'],
-          locale: (0, _extends3['default'])({}, contextLocale, customLocale),
-          buildOptionText: buildOptionText || this.$scopedSlots.buildOptionText
-        }),
-        'class': {
-          mini: isSmall
-        },
-        on: this.$listeners
-      };
-
-      return h(_vcPagination2['default'], paginationProps);
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-
-    return h(_LocaleReceiver2['default'], {
-      attrs: {
-        componentName: 'Pagination',
-        defaultLocale: _en_US2['default']
-      },
-      scopedSlots: { 'default': this.renderPagination }
-    });
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/pagination/index.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/pagination/index.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.PaginationConfig = exports.PaginationProps = undefined;
-
-var _Pagination = __webpack_require__(/*! ./Pagination */ "./node_modules/ant-design-vue/lib/pagination/Pagination.js");
-
-Object.defineProperty(exports, 'PaginationProps', {
-  enumerable: true,
-  get: function get() {
-    return _Pagination.PaginationProps;
-  }
-});
-Object.defineProperty(exports, 'PaginationConfig', {
-  enumerable: true,
-  get: function get() {
-    return _Pagination.PaginationConfig;
-  }
-});
-
-var _Pagination2 = _interopRequireDefault(_Pagination);
-
-var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
-
-var _base2 = _interopRequireDefault(_base);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/* istanbul ignore next */
-_Pagination2['default'].install = function (Vue) {
-  Vue.use(_base2['default']);
-  Vue.component(_Pagination2['default'].name, _Pagination2['default']);
-};
-
-exports['default'] = _Pagination2['default'];
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/radio/Group.js":
-/*!********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/radio/Group.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _Radio = __webpack_require__(/*! ./Radio */ "./node_modules/ant-design-vue/lib/radio/Radio.js");
-
-var _Radio2 = _interopRequireDefault(_Radio);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function noop() {}
-
-exports['default'] = {
-  name: 'ARadioGroup',
-  model: {
-    prop: 'value'
-  },
-  props: {
-    prefixCls: _vueTypes2['default'].string,
-    defaultValue: _vueTypes2['default'].any,
-    value: _vueTypes2['default'].any,
-    size: {
-      'default': 'default',
-      validator: function validator(value) {
-        return ['large', 'default', 'small'].includes(value);
-      }
-    },
-    options: {
-      'default': function _default() {
-        return [];
-      },
-      type: Array
-    },
-    disabled: Boolean,
-    name: String,
-    buttonStyle: _vueTypes2['default'].string.def('outline')
-  },
-  data: function data() {
-    var value = this.value,
-        defaultValue = this.defaultValue;
-
-    this.updatingValue = false;
-    return {
-      stateValue: value === undefined ? defaultValue : value
-    };
-  },
-  provide: function provide() {
-    return {
-      radioGroupContext: this
-    };
-  },
-
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  computed: {
-    radioOptions: function radioOptions() {
-      var disabled = this.disabled;
-
-      return this.options.map(function (option) {
-        return typeof option === 'string' ? { label: option, value: option } : (0, _extends3['default'])({}, option, { disabled: option.disabled === undefined ? disabled : option.disabled });
-      });
-    },
-    classes: function classes() {
-      var _ref;
-
-      var prefixCls = this.prefixCls,
-          size = this.size;
-
-      return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + size, size), _ref;
-    }
-  },
-  watch: {
-    value: function value(val) {
-      this.updatingValue = false;
-      this.stateValue = val;
-    }
-  },
-  methods: {
-    onRadioChange: function onRadioChange(ev) {
-      var _this = this;
-
-      var lastValue = this.stateValue;
-      var value = ev.target.value;
-
-      if (!(0, _propsUtil.hasProp)(this, 'value')) {
-        this.stateValue = value;
-      }
-      // nextTick for https://github.com/vueComponent/ant-design-vue/issues/1280
-      if (!this.updatingValue && value !== lastValue) {
-        this.updatingValue = true;
-        this.$emit('input', value);
-        this.$emit('change', ev);
-      }
-      this.$nextTick(function () {
-        _this.updatingValue = false;
-      });
-    }
-  },
-  render: function render() {
-    var _this2 = this;
-
-    var h = arguments[0];
-    var _$listeners = this.$listeners,
-        _$listeners$mouseente = _$listeners.mouseenter,
-        mouseenter = _$listeners$mouseente === undefined ? noop : _$listeners$mouseente,
-        _$listeners$mouseleav = _$listeners.mouseleave,
-        mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav;
-
-    var props = (0, _propsUtil.getOptionProps)(this);
-    var customizePrefixCls = props.prefixCls,
-        options = props.options,
-        buttonStyle = props.buttonStyle;
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('radio', customizePrefixCls);
-
-    var groupPrefixCls = prefixCls + '-group';
-    var classString = (0, _classnames2['default'])(groupPrefixCls, groupPrefixCls + '-' + buttonStyle, (0, _defineProperty3['default'])({}, groupPrefixCls + '-' + props.size, props.size));
-
-    var children = (0, _propsUtil.filterEmpty)(this.$slots['default']);
-
-    // 如果存在 options, 优先使用
-    if (options && options.length > 0) {
-      children = options.map(function (option, index) {
-        if (typeof option === 'string') {
-          return h(
-            _Radio2['default'],
-            {
-              key: index,
-              attrs: { prefixCls: prefixCls,
-                disabled: props.disabled,
-                value: option,
-                checked: _this2.stateValue === option
-              }
-            },
-            [option]
-          );
-        } else {
-          return h(
-            _Radio2['default'],
-            {
-              key: index,
-              attrs: { prefixCls: prefixCls,
-                disabled: option.disabled || props.disabled,
-                value: option.value,
-                checked: _this2.stateValue === option.value
-              }
-            },
-            [option.label]
-          );
-        }
-      });
-    }
-
-    return h(
-      'div',
-      { 'class': classString, on: {
-          'mouseenter': mouseenter,
-          'mouseleave': mouseleave
-        }
-      },
-      [children]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/radio/Radio.js":
-/*!********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/radio/Radio.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _vcCheckbox = __webpack_require__(/*! ../vc-checkbox */ "./node_modules/ant-design-vue/lib/vc-checkbox/index.js");
-
-var _vcCheckbox2 = _interopRequireDefault(_vcCheckbox);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function noop() {}
-
-exports['default'] = {
-  name: 'ARadio',
-  model: {
-    prop: 'checked'
-  },
-  props: {
-    prefixCls: _vueTypes2['default'].string,
-    defaultChecked: Boolean,
-    checked: { type: Boolean, 'default': undefined },
-    disabled: Boolean,
-    isGroup: Boolean,
-    value: _vueTypes2['default'].any,
-    name: String,
-    id: String,
-    autoFocus: Boolean,
-    type: _vueTypes2['default'].string.def('radio')
-  },
-  inject: {
-    radioGroupContext: { 'default': undefined },
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  methods: {
-    handleChange: function handleChange(event) {
-      var targetChecked = event.target.checked;
-      this.$emit('input', targetChecked);
-      this.$emit('change', event);
-    },
-    focus: function focus() {
-      this.$refs.vcCheckbox.focus();
-    },
-    blur: function blur() {
-      this.$refs.vcCheckbox.blur();
-    },
-    onChange: function onChange(e) {
-      this.$emit('change', e);
-      if (this.radioGroupContext && this.radioGroupContext.onRadioChange) {
-        this.radioGroupContext.onRadioChange(e);
-      }
-    }
-  },
-
-  render: function render() {
-    var _classNames;
-
-    var h = arguments[0];
-    var $slots = this.$slots,
-        $listeners = this.$listeners,
-        radioGroup = this.radioGroupContext;
-
-    var props = (0, _propsUtil.getOptionProps)(this);
-    var children = $slots['default'];
-    var _$listeners$mouseente = $listeners.mouseenter,
-        mouseenter = _$listeners$mouseente === undefined ? noop : _$listeners$mouseente,
-        _$listeners$mouseleav = $listeners.mouseleave,
-        mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav,
-        restListeners = (0, _objectWithoutProperties3['default'])($listeners, ['mouseenter', 'mouseleave']);
-    var customizePrefixCls = props.prefixCls,
-        restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls']);
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('radio', customizePrefixCls);
-
-    var radioProps = {
-      props: (0, _extends3['default'])({}, restProps, { prefixCls: prefixCls }),
-      on: restListeners,
-      attrs: (0, _propsUtil.getAttrs)(this)
-    };
-
-    if (radioGroup) {
-      radioProps.props.name = radioGroup.name;
-      radioProps.on.change = this.onChange;
-      radioProps.props.checked = props.value === radioGroup.stateValue;
-      radioProps.props.disabled = props.disabled || radioGroup.disabled;
-    } else {
-      radioProps.on.change = this.handleChange;
-    }
-    var wrapperClassString = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper-checked', radioProps.props.checked), (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper-disabled', radioProps.props.disabled), _classNames));
-
-    return h(
-      'label',
-      { 'class': wrapperClassString, on: {
-          'mouseenter': mouseenter,
-          'mouseleave': mouseleave
-        }
-      },
-      [h(_vcCheckbox2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([radioProps, { ref: 'vcCheckbox' }])), children !== undefined ? h('span', [children]) : null]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/radio/RadioButton.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/radio/RadioButton.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _Radio = __webpack_require__(/*! ./Radio */ "./node_modules/ant-design-vue/lib/radio/Radio.js");
-
-var _Radio2 = _interopRequireDefault(_Radio);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'ARadioButton',
-  props: (0, _extends3['default'])({}, _Radio2['default'].props),
-  inject: {
-    radioGroupContext: { 'default': undefined },
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  render: function render() {
-    var h = arguments[0];
-
-    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-        customizePrefixCls = _getOptionProps.prefixCls,
-        otherProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls']);
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('radio-button', customizePrefixCls);
-
-    var radioProps = {
-      props: (0, _extends3['default'])({}, otherProps, {
-        prefixCls: prefixCls
-      }),
-      on: (0, _extends3['default'])({}, this.$listeners)
-    };
-    if (this.radioGroupContext) {
-      radioProps.on.change = this.radioGroupContext.onRadioChange;
-      radioProps.props.checked = this.$props.value === this.radioGroupContext.stateValue;
-      radioProps.props.disabled = this.$props.disabled || this.radioGroupContext.disabled;
-    }
-    return h(
-      _Radio2['default'],
-      radioProps,
-      [this.$slots['default']]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/radio/index.js":
-/*!********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/radio/index.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Group = exports.Button = undefined;
-
-var _Radio = __webpack_require__(/*! ./Radio */ "./node_modules/ant-design-vue/lib/radio/Radio.js");
-
-var _Radio2 = _interopRequireDefault(_Radio);
-
-var _Group = __webpack_require__(/*! ./Group */ "./node_modules/ant-design-vue/lib/radio/Group.js");
-
-var _Group2 = _interopRequireDefault(_Group);
-
-var _RadioButton = __webpack_require__(/*! ./RadioButton */ "./node_modules/ant-design-vue/lib/radio/RadioButton.js");
-
-var _RadioButton2 = _interopRequireDefault(_RadioButton);
-
-var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
-
-var _base2 = _interopRequireDefault(_base);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-_Radio2['default'].Group = _Group2['default'];
-_Radio2['default'].Button = _RadioButton2['default'];
-
-/* istanbul ignore next */
-_Radio2['default'].install = function (Vue) {
-  Vue.use(_base2['default']);
-  Vue.component(_Radio2['default'].name, _Radio2['default']);
-  Vue.component(_Radio2['default'].Group.name, _Radio2['default'].Group);
-  Vue.component(_Radio2['default'].Button.name, _Radio2['default'].Button);
-};
-
-exports.Button = _RadioButton2['default'];
-exports.Group = _Group2['default'];
-exports['default'] = _Radio2['default'];
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/spin/Spin.js":
-/*!******************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/spin/Spin.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.SpinProps = exports.SpinSize = undefined;
-
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-exports.setDefaultIndicator = setDefaultIndicator;
-
-var _debounce = __webpack_require__(/*! lodash/debounce */ "./node_modules/lodash/debounce.js");
-
-var _debounce2 = _interopRequireDefault(_debounce);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var SpinSize = exports.SpinSize = _vueTypes2['default'].oneOf(['small', 'default', 'large']);
-
-var SpinProps = exports.SpinProps = function SpinProps() {
-  return {
-    prefixCls: _vueTypes2['default'].string,
-    spinning: _vueTypes2['default'].bool,
-    size: SpinSize,
-    wrapperClassName: _vueTypes2['default'].string,
-    tip: _vueTypes2['default'].string,
-    delay: _vueTypes2['default'].number,
-    indicator: _vueTypes2['default'].any
-  };
-};
-
-// Render indicator
-var defaultIndicator = void 0;
-
-function shouldDelay(spinning, delay) {
-  return !!spinning && !!delay && !isNaN(Number(delay));
-}
-
-function setDefaultIndicator(content) {
-  defaultIndicator = typeof content.indicator === 'function' ? content.indicator : function (h) {
-    return h(content.indicator);
-  };
-}
-
-exports['default'] = {
-  name: 'ASpin',
-  mixins: [_BaseMixin2['default']],
-  props: (0, _propsUtil.initDefaultProps)(SpinProps(), {
-    size: 'default',
-    spinning: true,
-    wrapperClassName: ''
-  }),
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  data: function data() {
-    var spinning = this.spinning,
-        delay = this.delay;
-
-    var shouldBeDelayed = shouldDelay(spinning, delay);
-    this.originalUpdateSpinning = this.updateSpinning;
-    this.debouncifyUpdateSpinning(this.$props);
-    return {
-      sSpinning: spinning && !shouldBeDelayed
-    };
-  },
-  mounted: function mounted() {
-    this.updateSpinning();
-  },
-  updated: function updated() {
-    var _this = this;
-
-    this.$nextTick(function () {
-      _this.debouncifyUpdateSpinning();
-      _this.updateSpinning();
-    });
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.updateSpinning && this.updateSpinning.cancel) {
-      this.updateSpinning.cancel();
-    }
-  },
-
-  methods: {
-    debouncifyUpdateSpinning: function debouncifyUpdateSpinning(props) {
-      var _ref = props || this.$props,
-          delay = _ref.delay;
-
-      if (delay) {
-        this.updateSpinning = (0, _debounce2['default'])(this.originalUpdateSpinning, delay);
-      }
-    },
-    updateSpinning: function updateSpinning() {
-      var spinning = this.spinning,
-          sSpinning = this.sSpinning;
-
-      if (sSpinning !== spinning) {
-        this.setState({ sSpinning: spinning });
-      }
-    },
-    getChildren: function getChildren() {
-      if (this.$slots && this.$slots['default']) {
-        return (0, _propsUtil.filterEmpty)(this.$slots['default']);
-      }
-      return null;
-    },
-    renderIndicator: function renderIndicator(h, prefixCls) {
-      // const h = this.$createElement
-      var dotClassName = prefixCls + '-dot';
-      var indicator = (0, _propsUtil.getComponentFromProp)(this, 'indicator');
-      if (Array.isArray(indicator)) {
-        indicator = (0, _propsUtil.filterEmpty)(indicator);
-        indicator = indicator.length === 1 ? indicator[0] : indicator;
-      }
-      if ((0, _propsUtil.isValidElement)(indicator)) {
-        return (0, _vnode.cloneElement)(indicator, { 'class': dotClassName });
-      }
-
-      if (defaultIndicator && (0, _propsUtil.isValidElement)(defaultIndicator(h))) {
-        return (0, _vnode.cloneElement)(defaultIndicator(h), { 'class': dotClassName });
-      }
-
-      return h(
-        'span',
-        { 'class': dotClassName + ' ' + prefixCls + '-dot-spin' },
-        [h('i'), h('i'), h('i'), h('i')]
-      );
-    }
-  },
-  render: function render(h) {
-    var _spinClassName;
-
-    var _$props = this.$props,
-        size = _$props.size,
-        customizePrefixCls = _$props.prefixCls,
-        tip = _$props.tip,
-        wrapperClassName = _$props.wrapperClassName,
-        restProps = (0, _objectWithoutProperties3['default'])(_$props, ['size', 'prefixCls', 'tip', 'wrapperClassName']);
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('spin', customizePrefixCls);
-
-    var sSpinning = this.sSpinning;
-
-    var spinClassName = (_spinClassName = {}, (0, _defineProperty3['default'])(_spinClassName, prefixCls, true), (0, _defineProperty3['default'])(_spinClassName, prefixCls + '-sm', size === 'small'), (0, _defineProperty3['default'])(_spinClassName, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_spinClassName, prefixCls + '-spinning', sSpinning), (0, _defineProperty3['default'])(_spinClassName, prefixCls + '-show-text', !!tip), _spinClassName);
-
-    var spinElement = h(
-      'div',
-      (0, _babelHelperVueJsxMergeProps2['default'])([restProps, { 'class': spinClassName }]),
-      [this.renderIndicator(h, prefixCls), tip ? h(
-        'div',
-        { 'class': prefixCls + '-text' },
-        [tip]
-      ) : null]
-    );
-    var children = this.getChildren();
-    if (children) {
-      var _containerClassName;
-
-      var containerClassName = (_containerClassName = {}, (0, _defineProperty3['default'])(_containerClassName, prefixCls + '-container', true), (0, _defineProperty3['default'])(_containerClassName, prefixCls + '-blur', sSpinning), _containerClassName);
-
-      return h(
-        'div',
-        (0, _babelHelperVueJsxMergeProps2['default'])([{ on: this.$listeners }, { 'class': [prefixCls + '-nested-loading', wrapperClassName] }]),
-        [sSpinning && h(
-          'div',
-          { key: 'loading' },
-          [spinElement]
-        ), h(
-          'div',
-          { 'class': containerClassName, key: 'container' },
-          [children]
-        )]
-      );
-    }
-    return spinElement;
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/spin/index.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/spin/index.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.SpinProps = undefined;
-
-var _Spin = __webpack_require__(/*! ./Spin */ "./node_modules/ant-design-vue/lib/spin/Spin.js");
-
-Object.defineProperty(exports, 'SpinProps', {
-  enumerable: true,
-  get: function get() {
-    return _Spin.SpinProps;
-  }
-});
-
-var _Spin2 = _interopRequireDefault(_Spin);
-
-var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
-
-var _base2 = _interopRequireDefault(_base);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-_Spin2['default'].setDefaultIndicator = _Spin.setDefaultIndicator;
-
-/* istanbul ignore next */
-_Spin2['default'].install = function (Vue) {
-  Vue.use(_base2['default']);
-  Vue.component(_Spin2['default'].name, _Spin2['default']);
-};
-
-exports['default'] = _Spin2['default'];
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/Column.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/Column.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/table/interface.js");
-
-exports['default'] = {
-  name: 'ATableColumn',
-  props: _interface.ColumnProps
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/ColumnGroup.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/ColumnGroup.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'ATableColumnGroup',
-  props: {
-    title: _vueTypes2['default'].any
-  },
-  __ANT_TABLE_COLUMN_GROUP: true
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/FilterDropdownMenuWrapper.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/FilterDropdownMenuWrapper.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = {
-  methods: {
-    handelClick: function handelClick(e) {
-      e.stopPropagation();
-      //this.$emit('click', e);
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var $slots = this.$slots,
-        handelClick = this.handelClick;
-
-    return h(
-      "div",
-      {
-        on: {
-          "click": handelClick
-        }
-      },
-      [$slots["default"]]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/SelectionBox.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/SelectionBox.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _checkbox = __webpack_require__(/*! ../checkbox */ "./node_modules/ant-design-vue/lib/checkbox/index.js");
-
-var _checkbox2 = _interopRequireDefault(_checkbox);
-
-var _radio = __webpack_require__(/*! ../radio */ "./node_modules/ant-design-vue/lib/radio/index.js");
-
-var _radio2 = _interopRequireDefault(_radio);
-
-var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/table/interface.js");
-
-var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'SelectionBox',
-  mixins: [_BaseMixin2['default']],
-  props: _interface.SelectionBoxProps,
-  data: function data() {
-    return {
-      checked: this.getCheckState(this.$props)
-    };
-  },
-  mounted: function mounted() {
-    this.subscribe();
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.unsubscribe) {
-      this.unsubscribe();
-    }
-  },
-
-  methods: {
-    subscribe: function subscribe() {
-      var _this = this;
-
-      var store = this.store;
-
-      this.unsubscribe = store.subscribe(function () {
-        var checked = _this.getCheckState(_this.$props);
-        _this.setState({ checked: checked });
-      });
-    },
-    getCheckState: function getCheckState(props) {
-      var store = props.store,
-          defaultSelection = props.defaultSelection,
-          rowIndex = props.rowIndex;
-
-      var checked = false;
-      if (store.getState().selectionDirty) {
-        checked = store.getState().selectedRowKeys.indexOf(rowIndex) >= 0;
-      } else {
-        checked = store.getState().selectedRowKeys.indexOf(rowIndex) >= 0 || defaultSelection.indexOf(rowIndex) >= 0;
-      }
-      return checked;
-    }
-  },
-
-  render: function render() {
-    var h = arguments[0];
-
-    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-        type = _getOptionProps.type,
-        rowIndex = _getOptionProps.rowIndex,
-        rest = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['type', 'rowIndex']);
-
-    var checked = this.checked,
-        $attrs = this.$attrs,
-        $listeners = this.$listeners;
-
-    var checkboxProps = {
-      props: (0, _extends3['default'])({
-        checked: checked
-      }, rest),
-      attrs: $attrs,
-      on: $listeners
-    };
-    if (type === 'radio') {
-      checkboxProps.props.value = rowIndex;
-      return h(_radio2['default'], checkboxProps);
-    } else {
-      return h(_checkbox2['default'], checkboxProps);
-    }
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/SelectionCheckboxAll.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/SelectionCheckboxAll.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _checkbox = __webpack_require__(/*! ../checkbox */ "./node_modules/ant-design-vue/lib/checkbox/index.js");
-
-var _checkbox2 = _interopRequireDefault(_checkbox);
-
-var _dropdown = __webpack_require__(/*! ../dropdown */ "./node_modules/ant-design-vue/lib/dropdown/index.js");
-
-var _dropdown2 = _interopRequireDefault(_dropdown);
-
-var _menu = __webpack_require__(/*! ../menu */ "./node_modules/ant-design-vue/lib/menu/index.js");
-
-var _menu2 = _interopRequireDefault(_menu);
-
-var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
-
-var _icon2 = _interopRequireDefault(_icon);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/table/interface.js");
-
-var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'SelectionCheckboxAll',
-  mixins: [_BaseMixin2['default']],
-  props: _interface.SelectionCheckboxAllProps,
-  data: function data() {
-    var props = this.$props;
-
-    this.defaultSelections = props.hideDefaultSelections ? [] : [{
-      key: 'all',
-      text: props.locale.selectAll,
-      onSelect: function onSelect() {}
-    }, {
-      key: 'invert',
-      text: props.locale.selectInvert,
-      onSelect: function onSelect() {}
-    }];
-
-    return {
-      checked: this.getCheckState(props),
-      indeterminate: this.getIndeterminateState(props)
-    };
-  },
-
-
-  watch: {
-    $props: {
-      handler: function handler() {
-        this.setCheckState();
-      },
-      deep: true
-    }
-  },
-
-  mounted: function mounted() {
-    this.subscribe();
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.unsubscribe) {
-      this.unsubscribe();
-    }
-  },
-
-  methods: {
-    subscribe: function subscribe() {
-      var _this = this;
-
-      var store = this.store;
-
-      this.unsubscribe = store.subscribe(function () {
-        _this.setCheckState(_this.$props);
-      });
-    },
-    checkSelection: function checkSelection(props, data, type, byDefaultChecked) {
-      var _ref = props || this.$props,
-          store = _ref.store,
-          getCheckboxPropsByItem = _ref.getCheckboxPropsByItem,
-          getRecordKey = _ref.getRecordKey;
-      // type should be 'every' | 'some'
-
-
-      if (type === 'every' || type === 'some') {
-        return byDefaultChecked ? data[type](function (item, i) {
-          return getCheckboxPropsByItem(item, i).props.defaultChecked;
-        }) : data[type](function (item, i) {
-          return store.getState().selectedRowKeys.indexOf(getRecordKey(item, i)) >= 0;
-        });
-      }
-      return false;
-    },
-    setCheckState: function setCheckState(props) {
-      var checked = this.getCheckState(props);
-      var indeterminate = this.getIndeterminateState(props);
-      this.setState(function (prevState) {
-        var newState = {};
-        if (indeterminate !== prevState.indeterminate) {
-          newState.indeterminate = indeterminate;
-        }
-        if (checked !== prevState.checked) {
-          newState.checked = checked;
-        }
-        return newState;
-      });
-    },
-    getCheckState: function getCheckState(props) {
-      var store = this.store,
-          data = this.data;
-
-      var checked = void 0;
-      if (!data.length) {
-        checked = false;
-      } else {
-        checked = store.getState().selectionDirty ? this.checkSelection(props, data, 'every', false) : this.checkSelection(props, data, 'every', false) || this.checkSelection(props, data, 'every', true);
-      }
-      return checked;
-    },
-    getIndeterminateState: function getIndeterminateState(props) {
-      var store = this.store,
-          data = this.data;
-
-      var indeterminate = void 0;
-      if (!data.length) {
-        indeterminate = false;
-      } else {
-        indeterminate = store.getState().selectionDirty ? this.checkSelection(props, data, 'some', false) && !this.checkSelection(props, data, 'every', false) : this.checkSelection(props, data, 'some', false) && !this.checkSelection(props, data, 'every', false) || this.checkSelection(props, data, 'some', true) && !this.checkSelection(props, data, 'every', true);
-      }
-      return indeterminate;
-    },
-    handleSelectAllChange: function handleSelectAllChange(e) {
-      var checked = e.target.checked;
-      this.$emit('select', checked ? 'all' : 'removeAll', 0, null);
-    },
-    renderMenus: function renderMenus(selections) {
-      var _this2 = this;
-
-      var h = this.$createElement;
-
-      return selections.map(function (selection, index) {
-        return h(
-          _menu2['default'].Item,
-          { key: selection.key || index },
-          [h(
-            'div',
-            {
-              on: {
-                'click': function click() {
-                  _this2.$emit('select', selection.key, index, selection.onSelect);
-                }
-              }
-            },
-            [selection.text]
-          )]
-        );
-      });
-    }
-  },
-
-  render: function render() {
-    var h = arguments[0];
-    var disabled = this.disabled,
-        prefixCls = this.prefixCls,
-        selections = this.selections,
-        getPopupContainer = this.getPopupContainer,
-        checked = this.checked,
-        indeterminate = this.indeterminate;
-
-
-    var selectionPrefixCls = prefixCls + '-selection';
-
-    var customSelections = null;
-
-    if (selections) {
-      var newSelections = Array.isArray(selections) ? this.defaultSelections.concat(selections) : this.defaultSelections;
-
-      var menu = h(
-        _menu2['default'],
-        { 'class': selectionPrefixCls + '-menu', attrs: { selectedKeys: [] }
-        },
-        [this.renderMenus(newSelections)]
-      );
-
-      customSelections = newSelections.length > 0 ? h(
-        _dropdown2['default'],
-        {
-          attrs: { getPopupContainer: getPopupContainer }
-        },
-        [h(
-          'template',
-          { slot: 'overlay' },
-          [menu]
-        ), h(
-          'div',
-          { 'class': selectionPrefixCls + '-down' },
-          [h(_icon2['default'], {
-            attrs: { type: 'down' }
-          })]
-        )]
-      ) : null;
-    }
-
-    return h(
-      'div',
-      { 'class': selectionPrefixCls },
-      [h(_checkbox2['default'], {
-        'class': (0, _classnames2['default'])((0, _defineProperty3['default'])({}, selectionPrefixCls + '-select-all-custom', customSelections)),
-        attrs: { checked: checked,
-          indeterminate: indeterminate,
-          disabled: disabled
-        },
-        on: {
-          'change': this.handleSelectAllChange
-        }
-      }), customSelections]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/Table.js":
-/*!********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/Table.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-var _extends4 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends5 = _interopRequireDefault(_extends4);
-
-var _vcTable = __webpack_require__(/*! ../vc-table */ "./node_modules/ant-design-vue/lib/vc-table/index.js");
-
-var _vcTable2 = _interopRequireDefault(_vcTable);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _shallowequal = __webpack_require__(/*! shallowequal */ "./node_modules/shallowequal/index.js");
-
-var _shallowequal2 = _interopRequireDefault(_shallowequal);
-
-var _filterDropdown = __webpack_require__(/*! ./filterDropdown */ "./node_modules/ant-design-vue/lib/table/filterDropdown.js");
-
-var _filterDropdown2 = _interopRequireDefault(_filterDropdown);
-
-var _createStore = __webpack_require__(/*! ./createStore */ "./node_modules/ant-design-vue/lib/table/createStore.js");
-
-var _createStore2 = _interopRequireDefault(_createStore);
-
-var _SelectionBox = __webpack_require__(/*! ./SelectionBox */ "./node_modules/ant-design-vue/lib/table/SelectionBox.js");
-
-var _SelectionBox2 = _interopRequireDefault(_SelectionBox);
-
-var _SelectionCheckboxAll = __webpack_require__(/*! ./SelectionCheckboxAll */ "./node_modules/ant-design-vue/lib/table/SelectionCheckboxAll.js");
-
-var _SelectionCheckboxAll2 = _interopRequireDefault(_SelectionCheckboxAll);
-
-var _Column = __webpack_require__(/*! ./Column */ "./node_modules/ant-design-vue/lib/table/Column.js");
-
-var _Column2 = _interopRequireDefault(_Column);
-
-var _ColumnGroup = __webpack_require__(/*! ./ColumnGroup */ "./node_modules/ant-design-vue/lib/table/ColumnGroup.js");
-
-var _ColumnGroup2 = _interopRequireDefault(_ColumnGroup);
-
-var _createBodyRow = __webpack_require__(/*! ./createBodyRow */ "./node_modules/ant-design-vue/lib/table/createBodyRow.js");
-
-var _createBodyRow2 = _interopRequireDefault(_createBodyRow);
-
-var _util = __webpack_require__(/*! ./util */ "./node_modules/ant-design-vue/lib/table/util.js");
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/table/interface.js");
-
-var _pagination = __webpack_require__(/*! ../pagination */ "./node_modules/ant-design-vue/lib/pagination/index.js");
-
-var _pagination2 = _interopRequireDefault(_pagination);
-
-var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
-
-var _icon2 = _interopRequireDefault(_icon);
-
-var _spin = __webpack_require__(/*! ../spin */ "./node_modules/ant-design-vue/lib/spin/index.js");
-
-var _spin2 = _interopRequireDefault(_spin);
-
-var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver */ "./node_modules/ant-design-vue/lib/locale-provider/LocaleReceiver.js");
-
-var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
-
-var _default2 = __webpack_require__(/*! ../locale-provider/default */ "./node_modules/ant-design-vue/lib/locale-provider/default.js");
-
-var _default3 = _interopRequireDefault(_default2);
-
-var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+var _warning = __webpack_require__(/*! ./warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
 
 var _warning2 = _interopRequireDefault(_warning);
 
+var _isNil = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+
+var _isNil2 = _interopRequireDefault(_isNil);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function noop() {}
-
-function stopPropagation(e) {
-  e.stopPropagation();
-  if (e.nativeEvent && e.nativeEvent.stopImmediatePropagation) {
-    e.nativeEvent.stopImmediatePropagation();
+var TimeType = exports.TimeType = {
+  validator: function validator(value) {
+    return typeof value === 'string' || (0, _isNil2['default'])(value) || moment.isMoment(value);
   }
-}
-
-function getRowSelection(props) {
-  return props.rowSelection || {};
-}
-
-var defaultPagination = {
-  onChange: noop,
-  onShowSizeChange: noop
 };
 
-var ROW_SELECTION_COLUMN_WIDTH = '62px';
-
-/**
- * Avoid creating new object, so that parent component's shouldComponentUpdate
- * can works appropriately。
- */
-var emptyObject = {};
-
-exports['default'] = {
-  name: 'Table',
-  Column: _Column2['default'],
-  ColumnGroup: _ColumnGroup2['default'],
-  mixins: [_BaseMixin2['default']],
-  props: (0, _propsUtil.initDefaultProps)(_interface.TableProps, {
-    dataSource: [],
-    useFixedHeader: false,
-    // rowSelection: null,
-    size: 'default',
-    loading: false,
-    bordered: false,
-    indentSize: 20,
-    locale: {},
-    rowKey: 'key',
-    showHeader: true,
-    sortDirections: ['ascend', 'descend']
-  }),
-
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  // CheckboxPropsCache: {
-  //   [key: string]: any;
-  // };
-  // store: Store;
-  // columns: ColumnProps<T>[];
-  // components: TableComponents;
-
-  data: function data() {
-    // this.columns = props.columns || normalizeColumns(props.children)
-    var props = (0, _propsUtil.getOptionProps)(this);
-    (0, _warning2['default'])(!props.expandedRowRender || !('scroll' in props), '`expandedRowRender` and `scroll` are not compatible. Please use one of them at one time.');
-    this.createComponents(this.components);
-    this.CheckboxPropsCache = {};
-
-    this.store = (0, _createStore2['default'])({
-      selectedRowKeys: getRowSelection(this.$props).selectedRowKeys || [],
-      selectionDirty: false
-    });
-    return (0, _extends5['default'])({}, this.getDefaultSortOrder(this.columns), {
-      // 减少状态
-      sFilters: this.getFiltersFromColumns(),
-      sPagination: this.getDefaultPagination(this.$props),
-      pivot: undefined
-    });
-  },
-
-  watch: {
-    pagination: {
-      handler: function handler(val) {
-        this.setState(function (previousState) {
-          var newPagination = (0, _extends5['default'])({}, defaultPagination, previousState.sPagination, val);
-          newPagination.current = newPagination.current || 1;
-          newPagination.pageSize = newPagination.pageSize || 10;
-          return { sPagination: val !== false ? newPagination : emptyObject };
-        });
-      },
-
-      deep: true
-    },
-    rowSelection: {
-      handler: function handler(val, oldVal) {
-        if (val && 'selectedRowKeys' in val) {
-          this.store.setState({
-            selectedRowKeys: val.selectedRowKeys || []
-          });
-          var rowSelection = this.rowSelection;
-
-          if (rowSelection && val.getCheckboxProps !== rowSelection.getCheckboxProps) {
-            this.CheckboxPropsCache = {};
-          }
-        } else if (oldVal && !val) {
-          this.store.setState({
-            selectedRowKeys: []
-          });
-        }
-      },
-
-      deep: true
-    },
-    dataSource: function dataSource() {
-      this.store.setState({
-        selectionDirty: false
-      });
-      this.CheckboxPropsCache = {};
-    },
-    columns: function columns(val) {
-      if (this.getSortOrderColumns(val).length > 0) {
-        var sortState = this.getSortStateFromColumns(val);
-        if (sortState.sSortColumn !== this.sSortColumn || sortState.sSortOrder !== this.sSortOrder) {
-          this.setState(sortState);
-        }
-      }
-
-      var filteredValueColumns = this.getFilteredValueColumns(val);
-      if (filteredValueColumns.length > 0) {
-        var filtersFromColumns = this.getFiltersFromColumns(val);
-        var newFilters = (0, _extends5['default'])({}, this.sFilters);
-        Object.keys(filtersFromColumns).forEach(function (key) {
-          newFilters[key] = filtersFromColumns[key];
-        });
-        if (this.isFiltersChanged(newFilters)) {
-          this.setState({ sFilters: newFilters });
-        }
-      }
-    },
-    components: function components(val, preVal) {
-      this.createComponents(val, preVal);
+var TimesType = exports.TimesType = {
+  validator: function validator(value) {
+    if (Array.isArray(value)) {
+      return value.length === 0 || value.findIndex(function (val) {
+        return typeof val !== 'string';
+      }) === -1 || value.findIndex(function (val) {
+        return !(0, _isNil2['default'])(val) && !moment.isMoment(val);
+      }) === -1;
     }
-  },
-  methods: {
-    getCheckboxPropsByItem: function getCheckboxPropsByItem(item, index) {
-      var rowSelection = getRowSelection(this.$props);
-      if (!rowSelection.getCheckboxProps) {
-        return { props: {} };
-      }
-      var key = this.getRecordKey(item, index);
-      // Cache checkboxProps
-      if (!this.CheckboxPropsCache[key]) {
-        this.CheckboxPropsCache[key] = rowSelection.getCheckboxProps(item);
-      }
-      this.CheckboxPropsCache[key].props = this.CheckboxPropsCache[key].props || {};
-      return this.CheckboxPropsCache[key];
-    },
-    getDefaultSelection: function getDefaultSelection() {
-      var _this = this;
-
-      var rowSelection = getRowSelection(this.$props);
-      if (!rowSelection.getCheckboxProps) {
-        return [];
-      }
-      return this.getFlatData().filter(function (item, rowIndex) {
-        return _this.getCheckboxPropsByItem(item, rowIndex).props.defaultChecked;
-      }).map(function (record, rowIndex) {
-        return _this.getRecordKey(record, rowIndex);
-      });
-    },
-    getDefaultPagination: function getDefaultPagination(props) {
-      var pagination = (0, _typeof3['default'])(props.pagination) === 'object' ? props.pagination : {};
-      var current = void 0;
-      if ('current' in pagination) {
-        current = pagination.current;
-      } else if ('defaultCurrent' in pagination) {
-        current = pagination.defaultCurrent;
-      }
-      var pageSize = void 0;
-      if ('pageSize' in pagination) {
-        pageSize = pagination.pageSize;
-      } else if ('defaultPageSize' in pagination) {
-        pageSize = pagination.defaultPageSize;
-      }
-      return this.hasPagination(props) ? (0, _extends5['default'])({}, defaultPagination, pagination, {
-        current: current || 1,
-        pageSize: pageSize || 10
-      }) : {};
-    },
-    onRow: function onRow(prefixCls, record, index) {
-      var customRow = this.customRow;
-
-      var custom = customRow ? customRow(record, index) : {};
-      return (0, _propsUtil.mergeProps)(custom, {
-        props: {
-          prefixCls: prefixCls,
-          store: this.store,
-          rowKey: this.getRecordKey(record, index)
-        }
-      });
-    },
-    setSelectedRowKeys: function setSelectedRowKeys(selectedRowKeys, selectionInfo) {
-      var _this2 = this;
-
-      var selectWay = selectionInfo.selectWay,
-          record = selectionInfo.record,
-          checked = selectionInfo.checked,
-          changeRowKeys = selectionInfo.changeRowKeys,
-          nativeEvent = selectionInfo.nativeEvent;
-
-      var rowSelection = getRowSelection(this.$props);
-      if (rowSelection && !('selectedRowKeys' in rowSelection)) {
-        this.store.setState({ selectedRowKeys: selectedRowKeys });
-      }
-      var data = this.getFlatData();
-      if (!rowSelection.onChange && !rowSelection[selectWay]) {
-        return;
-      }
-      var selectedRows = data.filter(function (row, i) {
-        return selectedRowKeys.indexOf(_this2.getRecordKey(row, i)) >= 0;
-      });
-      if (rowSelection.onChange) {
-        rowSelection.onChange(selectedRowKeys, selectedRows);
-      }
-      if (selectWay === 'onSelect' && rowSelection.onSelect) {
-        rowSelection.onSelect(record, checked, selectedRows, nativeEvent);
-      } else if (selectWay === 'onSelectMultiple' && rowSelection.onSelectMultiple) {
-        var changeRows = data.filter(function (row, i) {
-          return changeRowKeys.indexOf(_this2.getRecordKey(row, i)) >= 0;
-        });
-        rowSelection.onSelectMultiple(checked, selectedRows, changeRows);
-      } else if (selectWay === 'onSelectAll' && rowSelection.onSelectAll) {
-        var _changeRows = data.filter(function (row, i) {
-          return changeRowKeys.indexOf(_this2.getRecordKey(row, i)) >= 0;
-        });
-        rowSelection.onSelectAll(checked, selectedRows, _changeRows);
-      } else if (selectWay === 'onSelectInvert' && rowSelection.onSelectInvert) {
-        rowSelection.onSelectInvert(selectedRowKeys);
-      }
-    },
-    hasPagination: function hasPagination() {
-      return this.pagination !== false;
-    },
-    isFiltersChanged: function isFiltersChanged(filters) {
-      var _this3 = this;
-
-      var filtersChanged = false;
-      if (Object.keys(filters).length !== Object.keys(this.sFilters).length) {
-        filtersChanged = true;
-      } else {
-        Object.keys(filters).forEach(function (columnKey) {
-          if (filters[columnKey] !== _this3.sFilters[columnKey]) {
-            filtersChanged = true;
-          }
-        });
-      }
-      return filtersChanged;
-    },
-    getSortOrderColumns: function getSortOrderColumns(columns) {
-      return (0, _util.flatFilter)(columns || this.columns || [], function (column) {
-        return 'sortOrder' in column;
-      });
-    },
-    getFilteredValueColumns: function getFilteredValueColumns(columns) {
-      return (0, _util.flatFilter)(columns || this.columns || [], function (column) {
-        return typeof column.filteredValue !== 'undefined';
-      });
-    },
-    getFiltersFromColumns: function getFiltersFromColumns(columns) {
-      var _this4 = this;
-
-      var filters = {};
-      this.getFilteredValueColumns(columns).forEach(function (col) {
-        var colKey = _this4.getColumnKey(col);
-        filters[colKey] = col.filteredValue;
-      });
-      return filters;
-    },
-    getDefaultSortOrder: function getDefaultSortOrder(columns) {
-      var definedSortState = this.getSortStateFromColumns(columns);
-
-      var defaultSortedColumn = (0, _util.flatFilter)(columns || [], function (column) {
-        return column.defaultSortOrder != null;
-      })[0];
-
-      if (defaultSortedColumn && !definedSortState.sortColumn) {
-        return {
-          sSortColumn: defaultSortedColumn,
-          sSortOrder: defaultSortedColumn.defaultSortOrder
-        };
-      }
-
-      return definedSortState;
-    },
-    getSortStateFromColumns: function getSortStateFromColumns(columns) {
-      // return first column which sortOrder is not falsy
-      var sortedColumn = this.getSortOrderColumns(columns).filter(function (col) {
-        return col.sortOrder;
-      })[0];
-
-      if (sortedColumn) {
-        return {
-          sSortColumn: sortedColumn,
-          sSortOrder: sortedColumn.sortOrder
-        };
-      }
-
-      return {
-        sSortColumn: null,
-        sSortOrder: null
-      };
-    },
-    getSorterFn: function getSorterFn(state) {
-      var _ref = state || this.$data,
-          sortOrder = _ref.sSortOrder,
-          sortColumn = _ref.sSortColumn;
-
-      if (!sortOrder || !sortColumn || typeof sortColumn.sorter !== 'function') {
-        return;
-      }
-
-      return function (a, b) {
-        var result = sortColumn.sorter(a, b, sortOrder);
-        if (result !== 0) {
-          return sortOrder === 'descend' ? -result : result;
-        }
-        return 0;
-      };
-    },
-    isSameColumn: function isSameColumn(a, b) {
-      if (a && b && a.key && a.key === b.key) {
-        return true;
-      }
-      return a === b || (0, _shallowequal2['default'])(a, b, function (value, other) {
-        if (typeof value === 'function' && typeof other === 'function') {
-          return value === other || value.toString() === other.toString();
-        }
-      });
-    },
-    toggleSortOrder: function toggleSortOrder(column) {
-      if (!column.sorter) {
-        return;
-      }
-      var sortDirections = column.sortDirections || this.sortDirections;
-      var sortOrder = this.sSortOrder,
-          sortColumn = this.sSortColumn;
-      // 只同时允许一列进行排序，否则会导致排序顺序的逻辑问题
-
-      var newSortOrder = void 0;
-      // 切换另一列时，丢弃 sortOrder 的状态
-      if (this.isSameColumn(sortColumn, column) && sortOrder !== undefined) {
-        // 按照sortDirections的内容依次切换排序状态
-        var methodIndex = sortDirections.indexOf(sortOrder) + 1;
-        newSortOrder = methodIndex === sortDirections.length ? undefined : sortDirections[methodIndex];
-      } else {
-        newSortOrder = sortDirections[0];
-      }
-      var newState = {
-        sSortOrder: newSortOrder,
-        sSortColumn: newSortOrder ? column : null
-      };
-
-      // Controlled
-      if (this.getSortOrderColumns().length === 0) {
-        this.setState(newState);
-      }
-      this.$emit.apply(this, ['change'].concat((0, _toConsumableArray3['default'])(this.prepareParamsArguments((0, _extends5['default'])({}, this.$data, newState)))));
-    },
-    handleFilter: function handleFilter(column, nextFilters) {
-      var _this5 = this;
-
-      var props = this.$props;
-      var pagination = (0, _extends5['default'])({}, this.sPagination);
-      var filters = (0, _extends5['default'])({}, this.sFilters, (0, _defineProperty3['default'])({}, this.getColumnKey(column), nextFilters));
-      // Remove filters not in current columns
-      var currentColumnKeys = [];
-      (0, _util.treeMap)(this.columns, function (c) {
-        if (!c.children) {
-          currentColumnKeys.push(_this5.getColumnKey(c));
-        }
-      });
-      Object.keys(filters).forEach(function (columnKey) {
-        if (currentColumnKeys.indexOf(columnKey) < 0) {
-          delete filters[columnKey];
-        }
-      });
-
-      if (props.pagination) {
-        // Reset current prop
-        pagination.current = 1;
-        pagination.onChange(pagination.current);
-      }
-
-      var newState = {
-        sPagination: pagination,
-        sFilters: {}
-      };
-      var filtersToSetState = (0, _extends5['default'])({}, filters);
-      // Remove filters which is controlled
-      this.getFilteredValueColumns().forEach(function (col) {
-        var columnKey = _this5.getColumnKey(col);
-        if (columnKey) {
-          delete filtersToSetState[columnKey];
-        }
-      });
-      if (Object.keys(filtersToSetState).length > 0) {
-        newState.sFilters = filtersToSetState;
-      }
-
-      // Controlled current prop will not respond user interaction
-      if ((0, _typeof3['default'])(props.pagination) === 'object' && 'current' in props.pagination) {
-        newState.sPagination = (0, _extends5['default'])({}, pagination, {
-          current: this.sPagination.current
-        });
-      }
-
-      this.setState(newState, function () {
-        _this5.store.setState({
-          selectionDirty: false
-        });
-        _this5.$emit.apply(_this5, ['change'].concat((0, _toConsumableArray3['default'])(_this5.prepareParamsArguments((0, _extends5['default'])({}, _this5.$data, {
-          sSelectionDirty: false,
-          sFilters: filters,
-          sPagination: pagination
-        })))));
-      });
-    },
-    handleSelect: function handleSelect(record, rowIndex, e) {
-      var _this6 = this;
-
-      var checked = e.target.checked;
-      var nativeEvent = e.nativeEvent;
-      var defaultSelection = this.store.getState().selectionDirty ? [] : this.getDefaultSelection();
-      var selectedRowKeys = this.store.getState().selectedRowKeys.concat(defaultSelection);
-      var key = this.getRecordKey(record, rowIndex);
-      var pivot = this.$data.pivot;
-
-      var rows = this.getFlatCurrentPageData(this.$props.childrenColumnName);
-      var realIndex = rowIndex;
-      if (this.$props.expandedRowRender) {
-        realIndex = rows.findIndex(function (row) {
-          return _this6.getRecordKey(row, rowIndex) === key;
-        });
-      }
-      if (nativeEvent.shiftKey && pivot !== undefined && realIndex !== pivot) {
-        var changeRowKeys = [];
-        var direction = Math.sign(pivot - realIndex);
-        var dist = Math.abs(pivot - realIndex);
-        var step = 0;
-
-        var _loop = function _loop() {
-          var i = realIndex + step * direction;
-          step += 1;
-          var row = rows[i];
-          var rowKey = _this6.getRecordKey(row, i);
-          var checkboxProps = _this6.getCheckboxPropsByItem(row, i);
-          if (!checkboxProps.disabled) {
-            if (selectedRowKeys.includes(rowKey)) {
-              if (!checked) {
-                selectedRowKeys = selectedRowKeys.filter(function (j) {
-                  return rowKey !== j;
-                });
-                changeRowKeys.push(rowKey);
-              }
-            } else if (checked) {
-              selectedRowKeys.push(rowKey);
-              changeRowKeys.push(rowKey);
-            }
-          }
-        };
-
-        while (step <= dist) {
-          _loop();
-        }
-
-        this.setState({ pivot: realIndex });
-        this.store.setState({
-          selectionDirty: true
-        });
-        this.setSelectedRowKeys(selectedRowKeys, {
-          selectWay: 'onSelectMultiple',
-          record: record,
-          checked: checked,
-          changeRowKeys: changeRowKeys,
-          nativeEvent: nativeEvent
-        });
-      } else {
-        if (checked) {
-          selectedRowKeys.push(this.getRecordKey(record, realIndex));
-        } else {
-          selectedRowKeys = selectedRowKeys.filter(function (i) {
-            return key !== i;
-          });
-        }
-        this.setState({ pivot: realIndex });
-        this.store.setState({
-          selectionDirty: true
-        });
-        this.setSelectedRowKeys(selectedRowKeys, {
-          selectWay: 'onSelect',
-          record: record,
-          checked: checked,
-          changeRowKeys: void 0,
-          nativeEvent: nativeEvent
-        });
-      }
-    },
-    handleRadioSelect: function handleRadioSelect(record, rowIndex, e) {
-      var checked = e.target.checked;
-      var nativeEvent = e.nativeEvent;
-      var key = this.getRecordKey(record, rowIndex);
-      var selectedRowKeys = [key];
-      this.store.setState({
-        selectionDirty: true
-      });
-      this.setSelectedRowKeys(selectedRowKeys, {
-        selectWay: 'onSelect',
-        record: record,
-        checked: checked,
-        changeRowKeys: void 0,
-        nativeEvent: nativeEvent
-      });
-    },
-    handleSelectRow: function handleSelectRow(selectionKey, index, onSelectFunc) {
-      var _this7 = this;
-
-      var data = this.getFlatCurrentPageData(this.$props.childrenColumnName);
-      var defaultSelection = this.store.getState().selectionDirty ? [] : this.getDefaultSelection();
-      var selectedRowKeys = this.store.getState().selectedRowKeys.concat(defaultSelection);
-      var changeableRowKeys = data.filter(function (item, i) {
-        return !_this7.getCheckboxPropsByItem(item, i).props.disabled;
-      }).map(function (item, i) {
-        return _this7.getRecordKey(item, i);
-      });
-
-      var changeRowKeys = [];
-      var selectWay = 'onSelectAll';
-      var checked = void 0;
-      // handle default selection
-      switch (selectionKey) {
-        case 'all':
-          changeableRowKeys.forEach(function (key) {
-            if (selectedRowKeys.indexOf(key) < 0) {
-              selectedRowKeys.push(key);
-              changeRowKeys.push(key);
-            }
-          });
-          selectWay = 'onSelectAll';
-          checked = true;
-          break;
-        case 'removeAll':
-          changeableRowKeys.forEach(function (key) {
-            if (selectedRowKeys.indexOf(key) >= 0) {
-              selectedRowKeys.splice(selectedRowKeys.indexOf(key), 1);
-              changeRowKeys.push(key);
-            }
-          });
-          selectWay = 'onSelectAll';
-          checked = false;
-          break;
-        case 'invert':
-          changeableRowKeys.forEach(function (key) {
-            if (selectedRowKeys.indexOf(key) < 0) {
-              selectedRowKeys.push(key);
-            } else {
-              selectedRowKeys.splice(selectedRowKeys.indexOf(key), 1);
-            }
-            changeRowKeys.push(key);
-            selectWay = 'onSelectInvert';
-          });
-          break;
-        default:
-          break;
-      }
-
-      this.store.setState({
-        selectionDirty: true
-      });
-      // when select custom selection, callback selections[n].onSelect
-      var rowSelection = this.rowSelection;
-
-      var customSelectionStartIndex = 2;
-      if (rowSelection && rowSelection.hideDefaultSelections) {
-        customSelectionStartIndex = 0;
-      }
-      if (index >= customSelectionStartIndex && typeof onSelectFunc === 'function') {
-        return onSelectFunc(changeableRowKeys);
-      }
-      this.setSelectedRowKeys(selectedRowKeys, {
-        selectWay: selectWay,
-        checked: checked,
-        changeRowKeys: changeRowKeys
-      });
-    },
-    handlePageChange: function handlePageChange(current) {
-      var props = this.$props;
-      var pagination = (0, _extends5['default'])({}, this.sPagination);
-      if (current) {
-        pagination.current = current;
-      } else {
-        pagination.current = pagination.current || 1;
-      }
-
-      for (var _len = arguments.length, otherArguments = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-        otherArguments[_key - 1] = arguments[_key];
-      }
-
-      pagination.onChange.apply(pagination, [pagination.current].concat((0, _toConsumableArray3['default'])(otherArguments)));
-
-      var newState = {
-        sPagination: pagination
-      };
-      // Controlled current prop will not respond user interaction
-      if (props.pagination && (0, _typeof3['default'])(props.pagination) === 'object' && 'current' in props.pagination) {
-        newState.sPagination = (0, _extends5['default'])({}, pagination, {
-          current: this.sPagination.current
-        });
-      }
-      this.setState(newState);
-
-      this.store.setState({
-        selectionDirty: false
-      });
-      this.$emit.apply(this, ['change'].concat((0, _toConsumableArray3['default'])(this.prepareParamsArguments((0, _extends5['default'])({}, this.$data, {
-        sSelectionDirty: false,
-        sPagination: pagination
-      })))));
-    },
-    renderSelectionBox: function renderSelectionBox(type) {
-      var _this8 = this;
-
-      var h = this.$createElement;
-
-      return function (_, record, index) {
-        var rowKey = _this8.getRecordKey(record, index); // 从 1 开始
-        var props = _this8.getCheckboxPropsByItem(record, index);
-        var handleChange = function handleChange(e) {
-          type === 'radio' ? _this8.handleRadioSelect(record, index, e) : _this8.handleSelect(record, index, e);
-        };
-        var selectionBoxProps = (0, _propsUtil.mergeProps)({
-          props: {
-            type: type,
-            store: _this8.store,
-            rowIndex: rowKey,
-            defaultSelection: _this8.getDefaultSelection()
-          },
-          on: {
-            change: handleChange
-          }
-        }, props);
-
-        return h(
-          'span',
-          {
-            on: {
-              'click': stopPropagation
-            }
-          },
-          [h(_SelectionBox2['default'], selectionBoxProps)]
-        );
-      };
-    },
-    getRecordKey: function getRecordKey(record, index) {
-      var rowKey = this.rowKey;
-
-      var recordKey = typeof rowKey === 'function' ? rowKey(record, index) : record[rowKey];
-      (0, _warning2['default'])(recordKey !== undefined, 'Each record in dataSource of table should have a unique `key` prop, or set `rowKey` of Table to an unique primary key,');
-      return recordKey === undefined ? index : recordKey;
-    },
-    getPopupContainer: function getPopupContainer() {
-      return this.$el;
-    },
-    generatePopupContainerFunc: function generatePopupContainerFunc() {
-      var scroll = this.$props.scroll;
-
-      // Use undefined to let rc component use default logic.
-
-      return scroll ? this.getPopupContainer : undefined;
-    },
-    renderRowSelection: function renderRowSelection(prefixCls, locale) {
-      var _this9 = this;
-
-      var h = this.$createElement;
-      var rowSelection = this.rowSelection,
-          childrenColumnName = this.childrenColumnName;
-
-      var columns = this.columns.concat();
-      if (rowSelection) {
-        var data = this.getFlatCurrentPageData(childrenColumnName).filter(function (item, index) {
-          if (rowSelection.getCheckboxProps) {
-            return !_this9.getCheckboxPropsByItem(item, index).props.disabled;
-          }
-          return true;
-        });
-        var selectionColumnClass = (0, _classnames2['default'])(prefixCls + '-selection-column', (0, _defineProperty3['default'])({}, prefixCls + '-selection-column-custom', rowSelection.selections));
-        var selectionColumn = {
-          key: 'selection-column',
-          customRender: this.renderSelectionBox(rowSelection.type),
-          className: selectionColumnClass,
-          fixed: rowSelection.fixed,
-          width: rowSelection.columnWidth || ROW_SELECTION_COLUMN_WIDTH,
-          title: rowSelection.columnTitle
-        };
-        if (rowSelection.type !== 'radio') {
-          var checkboxAllDisabled = data.every(function (item, index) {
-            return _this9.getCheckboxPropsByItem(item, index).props.disabled;
-          });
-          selectionColumn.title = selectionColumn.title || h(_SelectionCheckboxAll2['default'], {
-            attrs: {
-              store: this.store,
-              locale: locale,
-              data: data,
-              getCheckboxPropsByItem: this.getCheckboxPropsByItem,
-              getRecordKey: this.getRecordKey,
-              disabled: checkboxAllDisabled,
-              prefixCls: prefixCls,
-
-              selections: rowSelection.selections,
-              hideDefaultSelections: rowSelection.hideDefaultSelections,
-              getPopupContainer: this.generatePopupContainerFunc()
-            },
-            on: {
-              'select': this.handleSelectRow
-            }
-          });
-        }
-        if ('fixed' in rowSelection) {
-          selectionColumn.fixed = rowSelection.fixed;
-        } else if (columns.some(function (column) {
-          return column.fixed === 'left' || column.fixed === true;
-        })) {
-          selectionColumn.fixed = 'left';
-        }
-        if (columns[0] && columns[0].key === 'selection-column') {
-          columns[0] = selectionColumn;
-        } else {
-          columns.unshift(selectionColumn);
-        }
-      }
-      return columns;
-    },
-    getColumnKey: function getColumnKey(column, index) {
-      return column.key || column.dataIndex || index;
-    },
-    getMaxCurrent: function getMaxCurrent(total) {
-      var _sPagination = this.sPagination,
-          current = _sPagination.current,
-          pageSize = _sPagination.pageSize;
-
-      if ((current - 1) * pageSize >= total) {
-        return Math.floor((total - 1) / pageSize) + 1;
-      }
-      return current;
-    },
-    isSortColumn: function isSortColumn(column) {
-      var sortColumn = this.sSortColumn;
-
-      if (!column || !sortColumn) {
-        return false;
-      }
-      return this.getColumnKey(sortColumn) === this.getColumnKey(column);
-    },
-    renderColumnsDropdown: function renderColumnsDropdown(prefixCls, dropdownPrefixCls, columns, locale) {
-      var _this10 = this;
-
-      var h = this.$createElement;
-      var sortOrder = this.sSortOrder,
-          filters = this.sFilters;
-
-      return (0, _util.treeMap)(columns, function (column, i) {
-        var _classNames2;
-
-        var key = _this10.getColumnKey(column, i);
-        var filterDropdown = void 0;
-        var sortButton = void 0;
-        var customHeaderCell = column.customHeaderCell;
-        var title = _this10.renderColumnTitle(column.title);
-        var isSortColumn = _this10.isSortColumn(column);
-        if (column.filters && column.filters.length > 0 || column.filterDropdown) {
-          var colFilters = key in filters ? filters[key] : [];
-          filterDropdown = h(_filterDropdown2['default'], {
-            attrs: {
-              _propsSymbol: Symbol(),
-              locale: locale,
-              column: column,
-              selectedKeys: colFilters,
-              confirmFilter: _this10.handleFilter,
-              prefixCls: prefixCls + '-filter',
-              dropdownPrefixCls: dropdownPrefixCls || 'ant-dropdown',
-              getPopupContainer: _this10.generatePopupContainerFunc()
-            },
-            key: 'filter-dropdown'
-          });
-        }
-        if (column.sorter) {
-          var sortDirections = column.sortDirections || _this10.sortDirections;
-          var isAscend = isSortColumn && sortOrder === 'ascend';
-          var isDescend = isSortColumn && sortOrder === 'descend';
-          var ascend = sortDirections.indexOf('ascend') !== -1 && h(_icon2['default'], {
-            'class': prefixCls + '-column-sorter-up ' + (isAscend ? 'on' : 'off'),
-            attrs: { type: 'caret-up',
-              theme: 'filled'
-            },
-            key: 'caret-up'
-          });
-
-          var descend = sortDirections.indexOf('descend') !== -1 && h(_icon2['default'], {
-            'class': prefixCls + '-column-sorter-down ' + (isDescend ? 'on' : 'off'),
-            attrs: { type: 'caret-down',
-              theme: 'filled'
-            },
-            key: 'caret-down'
-          });
-
-          sortButton = h(
-            'div',
-            {
-              attrs: { title: locale.sortTitle },
-              'class': prefixCls + '-column-sorter', key: 'sorter' },
-            [ascend, descend]
-          );
-          customHeaderCell = function customHeaderCell(col) {
-            var colProps = {};
-            // Get original first
-            if (column.customHeaderCell) {
-              colProps = (0, _extends5['default'])({}, column.customHeaderCell(col));
-            }
-            colProps.on = colProps.on || {};
-            // Add sorter logic
-            var onHeaderCellClick = colProps.on.click;
-            colProps.on.click = function () {
-              _this10.toggleSortOrder(column);
-              if (onHeaderCellClick) {
-                onHeaderCellClick.apply(undefined, arguments);
-              }
-            };
-            return colProps;
-          };
-        }
-        return (0, _extends5['default'])({}, column, {
-          className: (0, _classnames2['default'])(column.className, (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-has-actions', sortButton || filterDropdown), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-has-filters', filterDropdown), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-has-sorters', sortButton), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-sort', isSortColumn && sortOrder), _classNames2)),
-          title: [h(
-            'div',
-            { key: 'title', 'class': sortButton ? prefixCls + '-column-sorters' : undefined },
-            [title, sortButton]
-          ), filterDropdown],
-          customHeaderCell: customHeaderCell
-        });
-      });
-    },
-    renderColumnTitle: function renderColumnTitle(title) {
-      var _$data = this.$data,
-          filters = _$data.sFilters,
-          sortOrder = _$data.sSortOrder;
-      // https://github.com/ant-design/ant-design/issues/11246#issuecomment-405009167
-
-      if (title instanceof Function) {
-        return title({
-          filters: filters,
-          sortOrder: sortOrder
-        });
-      }
-      return title;
-    },
-    handleShowSizeChange: function handleShowSizeChange(current, pageSize) {
-      var pagination = this.sPagination;
-      pagination.onShowSizeChange(current, pageSize);
-      var nextPagination = (0, _extends5['default'])({}, pagination, {
-        pageSize: pageSize,
-        current: current
-      });
-      this.setState({ sPagination: nextPagination });
-      this.$emit.apply(this, ['change'].concat((0, _toConsumableArray3['default'])(this.prepareParamsArguments((0, _extends5['default'])({}, this.$data, {
-        sPagination: nextPagination
-      })))));
-    },
-    renderPagination: function renderPagination(prefixCls, paginationPosition) {
-      var h = this.$createElement;
-
-      // 强制不需要分页
-      if (!this.hasPagination()) {
-        return null;
-      }
-      var size = 'default';
-      var pagination = this.sPagination;
-
-      if (pagination.size) {
-        size = pagination.size;
-      } else if (this.size === 'middle' || this.size === 'small') {
-        size = 'small';
-      }
-      var position = pagination.position || 'bottom';
-      var total = pagination.total || this.getLocalData().length;
-      var cls = pagination['class'],
-          style = pagination.style,
-          onChange = pagination.onChange,
-          onShowSizeChange = pagination.onShowSizeChange,
-          restProps = (0, _objectWithoutProperties3['default'])(pagination, ['class', 'style', 'onChange', 'onShowSizeChange']); // eslint-disable-line
-
-      var paginationProps = (0, _propsUtil.mergeProps)({
-        key: 'pagination-' + paginationPosition,
-        'class': (0, _classnames2['default'])(cls, prefixCls + '-pagination'),
-        props: (0, _extends5['default'])({}, restProps, {
-          total: total,
-          size: size,
-          current: this.getMaxCurrent(total)
-        }),
-        style: style,
-        on: {
-          change: this.handlePageChange,
-          showSizeChange: this.handleShowSizeChange
-        }
-      });
-      return total > 0 && (position === paginationPosition || position === 'both') ? h(_pagination2['default'], paginationProps) : null;
-    },
-
-
-    // Get pagination, filters, sorter
-    prepareParamsArguments: function prepareParamsArguments(state) {
-      var pagination = (0, _extends5['default'])({}, state.sPagination);
-      // remove useless handle function in Table.onChange
-      delete pagination.onChange;
-      delete pagination.onShowSizeChange;
-      var filters = state.sFilters;
-      var sorter = {};
-      if (state.sSortColumn && state.sSortOrder) {
-        sorter.column = state.sSortColumn;
-        sorter.order = state.sSortOrder;
-        sorter.field = state.sSortColumn.dataIndex;
-        sorter.columnKey = this.getColumnKey(state.sSortColumn);
-      }
-      var extra = {
-        currentDataSource: this.getLocalData(state)
-      };
-
-      return [pagination, filters, sorter, extra];
-    },
-    findColumn: function findColumn(myKey) {
-      var _this11 = this;
-
-      var column = void 0;
-      (0, _util.treeMap)(this.columns, function (c) {
-        if (_this11.getColumnKey(c) === myKey) {
-          column = c;
-        }
-      });
-      return column;
-    },
-    getCurrentPageData: function getCurrentPageData() {
-      var data = this.getLocalData();
-      var current = void 0;
-      var pageSize = void 0;
-      var sPagination = this.sPagination;
-      // 如果没有分页的话，默认全部展示
-      if (!this.hasPagination()) {
-        pageSize = Number.MAX_VALUE;
-        current = 1;
-      } else {
-        pageSize = sPagination.pageSize;
-        current = this.getMaxCurrent(sPagination.total || data.length);
-      }
-
-      // 分页
-      // ---
-      // 当数据量少于等于每页数量时，直接设置数据
-      // 否则进行读取分页数据
-      if (data.length > pageSize || pageSize === Number.MAX_VALUE) {
-        data = data.filter(function (_, i) {
-          return i >= (current - 1) * pageSize && i < current * pageSize;
-        });
-      }
-      return data;
-    },
-    getFlatData: function getFlatData() {
-      return (0, _util.flatArray)(this.getLocalData(null, false));
-    },
-    getFlatCurrentPageData: function getFlatCurrentPageData(childrenColumnName) {
-      return (0, _util.flatArray)(this.getCurrentPageData(), childrenColumnName);
-    },
-    recursiveSort: function recursiveSort(data, sorterFn) {
-      var _this12 = this;
-
-      var _childrenColumnName = this.childrenColumnName,
-          childrenColumnName = _childrenColumnName === undefined ? 'children' : _childrenColumnName;
-
-      return data.sort(sorterFn).map(function (item) {
-        return item[childrenColumnName] ? (0, _extends5['default'])({}, item, (0, _defineProperty3['default'])({}, childrenColumnName, _this12.recursiveSort(item[childrenColumnName], sorterFn))) : item;
-      });
-    },
-    getLocalData: function getLocalData(state) {
-      var _this13 = this;
-
-      var filter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-      var currentState = state || this.$data;
-      var filters = currentState.sFilters;
-      var dataSource = this.$props.dataSource;
-
-      var data = dataSource || [];
-      // 优化本地排序
-      data = data.slice(0);
-      var sorterFn = this.getSorterFn(currentState);
-      if (sorterFn) {
-        data = this.recursiveSort(data, sorterFn);
-      }
-      // 筛选
-      if (filter && filters) {
-        Object.keys(filters).forEach(function (columnKey) {
-          var col = _this13.findColumn(columnKey);
-          if (!col) {
-            return;
-          }
-          var values = filters[columnKey] || [];
-          if (values.length === 0) {
-            return;
-          }
-          var onFilter = col.onFilter;
-          data = onFilter ? data.filter(function (record) {
-            return values.some(function (v) {
-              return onFilter(v, record);
-            });
-          }) : data;
-        });
-      }
-      return data;
-    },
-    createComponents: function createComponents() {
-      var components = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var prevComponents = arguments[1];
-
-      var bodyRow = components && components.body && components.body.row;
-      var preBodyRow = prevComponents && prevComponents.body && prevComponents.body.row;
-      if (!this.row || bodyRow !== preBodyRow) {
-        this.row = (0, _createBodyRow2['default'])(bodyRow);
-      }
-      this.customComponents = (0, _extends5['default'])({}, components, {
-        body: (0, _extends5['default'])({}, components.body, {
-          row: this.row
-        })
-      });
-    },
-    renderTable: function renderTable(prefixCls, renderEmpty, dropdownPrefixCls, contextLocale, loading) {
-      var _classNames3,
-          _this14 = this;
-
-      var h = this.$createElement;
-
-      var locale = (0, _extends5['default'])({}, contextLocale, this.locale);
-
-      var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-          showHeader = _getOptionProps.showHeader,
-          restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['showHeader']);
-
-      var data = this.getCurrentPageData();
-      var expandIconAsCell = this.expandedRowRender && this.expandIconAsCell !== false;
-
-      var mergedLocale = (0, _extends5['default'])({}, contextLocale, locale);
-      if (!locale || !locale.emptyText) {
-        mergedLocale.emptyText = renderEmpty(h, 'Table');
-      }
-
-      var classString = (0, _classnames2['default'])((_classNames3 = {}, (0, _defineProperty3['default'])(_classNames3, prefixCls + '-' + this.size, true), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-bordered', this.bordered), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-empty', !data.length), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-without-column-header', !showHeader), _classNames3));
-
-      var columns = this.renderRowSelection(prefixCls, mergedLocale);
-      columns = this.renderColumnsDropdown(prefixCls, dropdownPrefixCls, columns, mergedLocale);
-      columns = columns.map(function (column, i) {
-        var newColumn = (0, _extends5['default'])({}, column);
-        newColumn.key = _this14.getColumnKey(newColumn, i);
-        return newColumn;
-      });
-      var expandIconColumnIndex = columns[0] && columns[0].key === 'selection-column' ? 1 : 0;
-      if ('expandIconColumnIndex' in restProps) {
-        expandIconColumnIndex = restProps.expandIconColumnIndex;
-      }
-      var vcTableProps = {
-        key: 'table',
-        props: (0, _extends5['default'])({}, restProps, {
-          customRow: function customRow(record, index) {
-            return _this14.onRow(prefixCls, record, index);
-          },
-          components: this.customComponents,
-          prefixCls: prefixCls,
-          data: data,
-          columns: columns,
-          showHeader: showHeader,
-          expandIconColumnIndex: expandIconColumnIndex,
-          expandIconAsCell: expandIconAsCell,
-          emptyText: !(loading.props && loading.props.spinning) && mergedLocale.emptyText
-        }),
-        on: this.$listeners,
-        'class': classString
-      };
-      return h(_vcTable2['default'], vcTableProps);
-    }
-  },
-
-  render: function render() {
-    var _this15 = this;
-
-    var h = arguments[0];
-    var customizePrefixCls = this.prefixCls,
-        customizeDropdownPrefixCls = this.dropdownPrefixCls;
-
-    var data = this.getCurrentPageData();
-
-    var loading = this.loading;
-    if (typeof loading === 'boolean') {
-      loading = {
-        props: {
-          spinning: loading
-        }
-      };
+    return false;
+  }
+};
+
+var TimeOrTimesType = exports.TimeOrTimesType = {
+  validator: function validator(value) {
+    if (Array.isArray(value)) {
+      return value.length === 0 || value.findIndex(function (val) {
+        return typeof val !== 'string';
+      }) === -1 || value.findIndex(function (val) {
+        return !(0, _isNil2['default'])(val) && !moment.isMoment(val);
+      }) === -1;
     } else {
-      loading = {
-        props: (0, _extends5['default'])({}, loading)
-      };
+      return typeof value === 'string' || (0, _isNil2['default'])(value) || moment.isMoment(value);
     }
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var renderEmpty = this.configProvider.renderEmpty;
+  }
+};
 
-    var prefixCls = getPrefixCls('table', customizePrefixCls);
-    var dropdownPrefixCls = getPrefixCls('dropdown', customizeDropdownPrefixCls);
-
-    var table = h(_LocaleReceiver2['default'], {
-      attrs: {
-        componentName: 'Table',
-        defaultLocale: _default3['default'].Table,
-        children: function children(locale) {
-          return _this15.renderTable(prefixCls, renderEmpty, dropdownPrefixCls, locale, loading);
-        }
-      }
+function checkValidate(componentName, value, propName, valueFormat) {
+  var values = Array.isArray(value) ? value : [value];
+  values.forEach(function (val) {
+    if (!val) return;
+    valueFormat && (0, _warning2['default'])((0, _interopDefault2['default'])(moment)(val, valueFormat).isValid(), componentName, 'When set `valueFormat`, `' + propName + '` should provides invalidate string time. ');
+    !valueFormat && (0, _warning2['default'])((0, _interopDefault2['default'])(moment).isMoment(val) && val.isValid(), componentName, '`' + propName + '` provides invalidate moment time. If you want to set empty value, use `null` instead.');
+  });
+}
+var stringToMoment = exports.stringToMoment = function stringToMoment(value, valueFormat) {
+  if (Array.isArray(value)) {
+    return value.map(function (val) {
+      return typeof val === 'string' && val ? (0, _interopDefault2['default'])(moment)(val, valueFormat) : val || null;
     });
+  } else {
+    return typeof value === 'string' && value ? (0, _interopDefault2['default'])(moment)(value, valueFormat) : value || null;
+  }
+};
 
-    // if there is no pagination or no data,
-    // the height of spin should decrease by half of pagination
-    var paginationPatchClass = this.hasPagination() && data && data.length !== 0 ? prefixCls + '-with-pagination' : prefixCls + '-without-pagination';
-    var spinProps = (0, _extends5['default'])({}, loading, {
-      'class': loading.props && loading.props.spinning ? paginationPatchClass + ' ' + prefixCls + '-spin-holder' : ''
+var momentToString = exports.momentToString = function momentToString(value, valueFormat) {
+  if (Array.isArray(value)) {
+    return value.map(function (val) {
+      return (0, _interopDefault2['default'])(moment).isMoment(val) ? val.format(valueFormat) : val;
     });
-    return h(
-      'div',
-      { 'class': (0, _classnames2['default'])(prefixCls + '-wrapper') },
-      [h(
-        _spin2['default'],
-        spinProps,
-        [this.renderPagination(prefixCls, 'top'), table, this.renderPagination(prefixCls, 'bottom')]
-      )]
-    );
+  } else {
+    return (0, _interopDefault2['default'])(moment).isMoment(value) ? value.format(valueFormat) : value;
   }
 };
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/table/createBodyRow.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/createBodyRow.js ***!
-  \****************************************************************/
+/***/ "./node_modules/ant-design-vue/lib/date-picker/InputIcon.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/date-picker/InputIcon.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3098,3276 +112,41 @@ exports['default'] = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-exports['default'] = createTableRow;
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _createStore = __webpack_require__(/*! ./createStore */ "./node_modules/ant-design-vue/lib/table/createStore.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var BodyRowProps = {
-  store: _createStore.Store,
-  rowKey: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-  prefixCls: _vueTypes2['default'].string
-};
-
-function createTableRow() {
-  var Component = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'tr';
-
-  var BodyRow = {
-    name: 'BodyRow',
-    props: BodyRowProps,
-    data: function data() {
-      var _store$getState = this.store.getState(),
-          selectedRowKeys = _store$getState.selectedRowKeys;
-
-      return {
-        selected: selectedRowKeys.indexOf(this.rowKey) >= 0
-      };
-    },
-    mounted: function mounted() {
-      this.subscribe();
-    },
-    beforeDestroy: function beforeDestroy() {
-      if (this.unsubscribe) {
-        this.unsubscribe();
-      }
-    },
-
-    methods: {
-      subscribe: function subscribe() {
-        var _this = this;
-
-        var store = this.store,
-            rowKey = this.rowKey;
-
-        this.unsubscribe = store.subscribe(function () {
-          var _store$getState2 = _this.store.getState(),
-              selectedRowKeys = _store$getState2.selectedRowKeys;
-
-          var selected = selectedRowKeys.indexOf(rowKey) >= 0;
-          if (selected !== _this.selected) {
-            _this.selected = selected;
-          }
-        });
-      }
-    },
-
-    render: function render() {
-      var h = arguments[0];
-
-      var className = (0, _defineProperty3['default'])({}, this.prefixCls + '-row-selected', this.selected);
-
-      return h(
-        Component,
-        (0, _babelHelperVueJsxMergeProps2['default'])([{ 'class': className }, { on: this.$listeners }]),
-        [this.$slots['default']]
-      );
-    }
-  };
-
-  return BodyRow;
-}
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/createStore.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/createStore.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.Store = undefined;
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _create = __webpack_require__(/*! ../_util/store/create */ "./node_modules/ant-design-vue/lib/_util/store/create.js");
-
-var _create2 = _interopRequireDefault(_create);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var Store = exports.Store = _vueTypes2['default'].shape({
-  setState: _vueTypes2['default'].func,
-  getState: _vueTypes2['default'].func,
-  subscribe: _vueTypes2['default'].func
-}).loose;
-
-var createStore = _create2['default'];
-
-exports['default'] = createStore;
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/filterDropdown.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/filterDropdown.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vcMenu = __webpack_require__(/*! ../vc-menu */ "./node_modules/ant-design-vue/lib/vc-menu/index.js");
-
-var _vcMenu2 = _interopRequireDefault(_vcMenu);
-
-var _domClosest = __webpack_require__(/*! dom-closest */ "./node_modules/dom-closest/index.js");
-
-var _domClosest2 = _interopRequireDefault(_domClosest);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _shallowequal = __webpack_require__(/*! shallowequal */ "./node_modules/shallowequal/index.js");
-
-var _shallowequal2 = _interopRequireDefault(_shallowequal);
-
-var _dropdown = __webpack_require__(/*! ../dropdown */ "./node_modules/ant-design-vue/lib/dropdown/index.js");
-
-var _dropdown2 = _interopRequireDefault(_dropdown);
 
 var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
 
 var _icon2 = _interopRequireDefault(_icon);
 
-var _checkbox = __webpack_require__(/*! ../checkbox */ "./node_modules/ant-design-vue/lib/checkbox/index.js");
-
-var _checkbox2 = _interopRequireDefault(_checkbox);
-
-var _radio = __webpack_require__(/*! ../radio */ "./node_modules/ant-design-vue/lib/radio/index.js");
-
-var _radio2 = _interopRequireDefault(_radio);
-
-var _FilterDropdownMenuWrapper = __webpack_require__(/*! ./FilterDropdownMenuWrapper */ "./node_modules/ant-design-vue/lib/table/FilterDropdownMenuWrapper.js");
-
-var _FilterDropdownMenuWrapper2 = _interopRequireDefault(_FilterDropdownMenuWrapper);
-
-var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/table/interface.js");
-
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
 
-var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function stopPropagation(e) {
-  e.stopPropagation();
-}
-
-exports['default'] = {
-  name: 'FilterMenu',
-  mixins: [_BaseMixin2['default']],
-  props: (0, _propsUtil.initDefaultProps)(_interface.FilterMenuProps, {
-    handleFilter: function handleFilter() {},
-
-    column: {}
-  }),
-
-  data: function data() {
-    var visible = 'filterDropdownVisible' in this.column ? this.column.filterDropdownVisible : false;
-    this.preProps = (0, _extends3['default'])({}, (0, _propsUtil.getOptionProps)(this));
-    return {
-      sSelectedKeys: this.selectedKeys,
-      sKeyPathOfSelectedItem: {}, // 记录所有有选中子菜单的祖先菜单
-      sVisible: visible
-    };
-  },
-
-  watch: {
-    _propsSymbol: function _propsSymbol() {
-      var nextProps = (0, _propsUtil.getOptionProps)(this);
-      var column = nextProps.column;
-
-      this.setNeverShown(column);
-      var newState = {};
-
-      /**
-       * if the state is visible the component should ignore updates on selectedKeys prop to avoid
-       * that the user selection is lost
-       * this happens frequently when a table is connected on some sort of realtime data
-       * Fixes https://github.com/ant-design/ant-design/issues/10289 and
-       * https://github.com/ant-design/ant-design/issues/10209
-       */
-      if ('selectedKeys' in nextProps && !(0, _shallowequal2['default'])(this.preProps.selectedKeys, nextProps.selectedKeys)) {
-        newState.sSelectedKeys = nextProps.selectedKeys;
-      }
-      if ('filterDropdownVisible' in column) {
-        newState.sVisible = column.filterDropdownVisible;
-      }
-      if (Object.keys(newState).length > 0) {
-        this.setState(newState);
-      }
-      this.preProps = (0, _extends3['default'])({}, nextProps);
-    }
-  },
-
-  mounted: function mounted() {
-    var _this = this;
-
-    var column = this.column;
-
-    this.$nextTick(function () {
-      _this.setNeverShown(column);
-    });
-  },
-
-  methods: {
-    getDropdownVisible: function getDropdownVisible() {
-      return this.neverShown ? false : this.sVisible;
-    },
-    setNeverShown: function setNeverShown(column) {
-      var rootNode = this.$el;
-      var filterBelongToScrollBody = !!(0, _domClosest2['default'])(rootNode, '.ant-table-scroll');
-      if (filterBelongToScrollBody) {
-        // When fixed column have filters, there will be two dropdown menus
-        // Filter dropdown menu inside scroll body should never be shown
-        // To fix https://github.com/ant-design/ant-design/issues/5010 and
-        // https://github.com/ant-design/ant-design/issues/7909
-        this.neverShown = !!column.fixed;
-      }
-    },
-    setSelectedKeys: function setSelectedKeys(_ref) {
-      var selectedKeys = _ref.selectedKeys;
-
-      this.setState({ sSelectedKeys: selectedKeys });
-    },
-    setVisible: function setVisible(visible) {
-      var column = this.column;
-
-      if (!('filterDropdownVisible' in column)) {
-        this.setState({ sVisible: visible });
-      }
-      if (column.onFilterDropdownVisibleChange) {
-        column.onFilterDropdownVisibleChange(visible);
-      }
-    },
-    handleClearFilters: function handleClearFilters() {
-      this.setState({
-        sSelectedKeys: []
-      }, this.handleConfirm);
-    },
-    handleConfirm: function handleConfirm() {
-      var _this2 = this;
-
-      this.setVisible(false);
-      this.confirmFilter2();
-      // Call `setSelectedKeys` & `confirm` in the same time will make filter data not up to date
-      // https://github.com/ant-design/ant-design/issues/12284
-      this.$forceUpdate();
-      this.$nextTick(function () {
-        _this2.confirmFilter;
-      });
-    },
-    onVisibleChange: function onVisibleChange(visible) {
-      this.setVisible(visible);
-      if (!visible) {
-        this.confirmFilter2();
-      }
-    },
-    confirmFilter2: function confirmFilter2() {
-      if (!(0, _shallowequal2['default'])(this.sSelectedKeys, this.selectedKeys)) {
-        this.confirmFilter(this.column, this.sSelectedKeys);
-      }
-    },
-    renderMenuItem: function renderMenuItem(item) {
-      var h = this.$createElement;
-      var column = this.column;
-      var selectedKeys = this.$data.sSelectedKeys;
-
-      var multiple = 'filterMultiple' in column ? column.filterMultiple : true;
-      var input = multiple ? h(_checkbox2['default'], {
-        attrs: { checked: selectedKeys && selectedKeys.indexOf(item.value.toString()) >= 0 }
-      }) : h(_radio2['default'], {
-        attrs: { checked: selectedKeys && selectedKeys.indexOf(item.value.toString()) >= 0 }
-      });
-
-      return h(
-        _vcMenu.Item,
-        { key: item.value },
-        [input, h('span', [item.text])]
-      );
-    },
-    hasSubMenu: function hasSubMenu() {
-      var _column$filters = this.column.filters,
-          filters = _column$filters === undefined ? [] : _column$filters;
-
-      return filters.some(function (item) {
-        return !!(item.children && item.children.length > 0);
-      });
-    },
-    renderMenus: function renderMenus(items) {
-      var _this3 = this;
-
-      var h = this.$createElement;
-
-      return items.map(function (item) {
-        if (item.children && item.children.length > 0) {
-          var sKeyPathOfSelectedItem = _this3.sKeyPathOfSelectedItem;
-
-          var containSelected = Object.keys(sKeyPathOfSelectedItem).some(function (key) {
-            return sKeyPathOfSelectedItem[key].indexOf(item.value) >= 0;
-          });
-          var subMenuCls = containSelected ? _this3.dropdownPrefixCls + '-submenu-contain-selected' : '';
-          return h(
-            _vcMenu.SubMenu,
-            {
-              attrs: { title: item.text },
-              'class': subMenuCls, key: item.value.toString() },
-            [_this3.renderMenus(item.children)]
-          );
-        }
-        return _this3.renderMenuItem(item);
-      });
-    },
-    handleMenuItemClick: function handleMenuItemClick(info) {
-      var selectedKeys = this.$data.sSelectedKeys;
-
-      if (!info.keyPath || info.keyPath.length <= 1) {
-        return;
-      }
-      var keyPathOfSelectedItem = this.sKeyPathOfSelectedItem;
-      if (selectedKeys && selectedKeys.indexOf(info.key) >= 0) {
-        // deselect SubMenu child
-        delete keyPathOfSelectedItem[info.key];
-      } else {
-        // select SubMenu child
-        keyPathOfSelectedItem[info.key] = info.keyPath;
-      }
-      this.setState({ keyPathOfSelectedItem: keyPathOfSelectedItem });
-    },
-    renderFilterIcon: function renderFilterIcon() {
-      var _classNames;
-
-      var h = this.$createElement;
-      var column = this.column,
-          locale = this.locale,
-          prefixCls = this.prefixCls,
-          selectedKeys = this.selectedKeys;
-
-      var filtered = selectedKeys && selectedKeys.length > 0;
-      var filterIcon = column.filterIcon;
-      if (typeof filterIcon === 'function') {
-        filterIcon = filterIcon(filtered, column);
-      }
-      var dropdownIconClass = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-selected', filtered), (0, _defineProperty3['default'])(_classNames, prefixCls + '-open', this.getDropdownVisible()), _classNames));
-
-      return filterIcon ? (0, _vnode.cloneElement)(filterIcon, {
-        attrs: {
-          title: locale.filterTitle
-        },
-        on: {
-          click: stopPropagation
-        },
-        'class': (0, _classnames2['default'])(prefixCls + '-icon', dropdownIconClass)
-      }) : h(_icon2['default'], {
-        attrs: {
-          title: locale.filterTitle,
-          type: 'filter',
-          theme: 'filled'
-        },
-        'class': dropdownIconClass,
-        on: {
-          'click': stopPropagation
-        }
-      });
-    }
-  },
-
-  render: function render() {
-    var _this4 = this;
-
-    var h = arguments[0];
-    var column = this.column,
-        locale = this.locale,
-        prefixCls = this.prefixCls,
-        dropdownPrefixCls = this.dropdownPrefixCls,
-        getPopupContainer = this.getPopupContainer;
-    // default multiple selection in filter dropdown
-
-    var multiple = 'filterMultiple' in column ? column.filterMultiple : true;
-    var dropdownMenuClass = (0, _classnames2['default'])((0, _defineProperty3['default'])({}, dropdownPrefixCls + '-menu-without-submenu', !this.hasSubMenu()));
-    var filterDropdown = column.filterDropdown;
-
-    if (filterDropdown instanceof Function) {
-      filterDropdown = filterDropdown({
-        prefixCls: dropdownPrefixCls + '-custom',
-        setSelectedKeys: function setSelectedKeys(selectedKeys) {
-          return _this4.setSelectedKeys({ selectedKeys: selectedKeys });
-        },
-        selectedKeys: this.sSelectedKeys,
-        confirm: this.handleConfirm,
-        clearFilters: this.handleClearFilters,
-        filters: column.filters,
-        getPopupContainer: function getPopupContainer(triggerNode) {
-          return triggerNode.parentNode;
-        },
-        column: column
-      });
-    }
-
-    var menus = filterDropdown ? h(
-      _FilterDropdownMenuWrapper2['default'],
-      { 'class': prefixCls + '-dropdown' },
-      [filterDropdown]
-    ) : h(
-      _FilterDropdownMenuWrapper2['default'],
-      { 'class': prefixCls + '-dropdown' },
-      [h(
-        _vcMenu2['default'],
-        {
-          attrs: {
-            multiple: multiple,
-
-            prefixCls: dropdownPrefixCls + '-menu',
-
-            selectedKeys: this.sSelectedKeys,
-            getPopupContainer: function getPopupContainer(triggerNode) {
-              return triggerNode.parentNode;
-            }
-          },
-          on: {
-            'click': this.handleMenuItemClick,
-            'select': this.setSelectedKeys,
-            'deselect': this.setSelectedKeys
-          },
-          'class': dropdownMenuClass
-        },
-        [this.renderMenus(column.filters)]
-      ), h(
-        'div',
-        { 'class': prefixCls + '-dropdown-btns' },
-        [h(
-          'a',
-          { 'class': prefixCls + '-dropdown-link confirm', on: {
-              'click': this.handleConfirm
-            }
-          },
-          [locale.filterConfirm]
-        ), h(
-          'a',
-          { 'class': prefixCls + '-dropdown-link clear', on: {
-              'click': this.handleClearFilters
-            }
-          },
-          [locale.filterReset]
-        )]
-      )]
-    );
-
-    return h(
-      _dropdown2['default'],
-      {
-        attrs: {
-          trigger: ['click'],
-          placement: 'bottomRight',
-          visible: this.getDropdownVisible(),
-
-          getPopupContainer: getPopupContainer,
-          forceRender: true
-        },
-        on: {
-          'visibleChange': this.onVisibleChange
-        }
-      },
-      [h(
-        'template',
-        { slot: 'overlay' },
-        [menus]
-      ), this.renderFilterIcon()]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/index.js":
-/*!********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/index.js ***!
-  \********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _Table = __webpack_require__(/*! ./Table */ "./node_modules/ant-design-vue/lib/table/Table.js");
-
-var _Table2 = _interopRequireDefault(_Table);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
-
-var _base2 = _interopRequireDefault(_base);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var Table = {
-  name: 'ATable',
-  Column: _Table2['default'].Column,
-  ColumnGroup: _Table2['default'].ColumnGroup,
-  props: _Table2['default'].props,
-  methods: {
-    normalize: function normalize() {
-      var _this = this;
-
-      var elements = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-      var columns = [];
-      elements.forEach(function (element) {
-        if (!element.tag) {
-          return;
-        }
-        var key = (0, _propsUtil.getKey)(element);
-        var style = (0, _propsUtil.getStyle)(element);
-        var cls = (0, _propsUtil.getClass)(element);
-        var props = (0, _propsUtil.getOptionProps)(element);
-        var events = (0, _propsUtil.getEvents)(element);
-        var listeners = {};
-        Object.keys(events).forEach(function (e) {
-          var k = 'on-' + e;
-          listeners[(0, _propsUtil.camelize)(k)] = events[e];
-        });
-
-        var _getSlots = (0, _propsUtil.getSlots)(element),
-            children = _getSlots['default'],
-            restSlots = (0, _objectWithoutProperties3['default'])(_getSlots, ['default']);
-
-        var column = (0, _extends3['default'])({}, restSlots, props, { style: style, 'class': cls }, listeners);
-        if (key) {
-          column.key = key;
-        }
-        if ((0, _propsUtil.getSlotOptions)(element).__ANT_TABLE_COLUMN_GROUP) {
-          column.children = _this.normalize(typeof children === 'function' ? children() : children);
-        } else {
-          var customRender = element.data && element.data.scopedSlots && element.data.scopedSlots['default'];
-          column.customRender = column.customRender || customRender;
-        }
-        columns.push(column);
-      });
-      return columns;
-    },
-    updateColumns: function updateColumns() {
-      var _this2 = this;
-
-      var cols = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-      var columns = [];
-      var $slots = this.$slots,
-          $scopedSlots = this.$scopedSlots;
-
-      cols.forEach(function (col) {
-        var _col$slots = col.slots,
-            slots = _col$slots === undefined ? {} : _col$slots,
-            _col$scopedSlots = col.scopedSlots,
-            scopedSlots = _col$scopedSlots === undefined ? {} : _col$scopedSlots,
-            restProps = (0, _objectWithoutProperties3['default'])(col, ['slots', 'scopedSlots']);
-
-        var column = (0, _extends3['default'])({}, restProps);
-        Object.keys(slots).forEach(function (key) {
-          var name = slots[key];
-          if (column[key] === undefined && $slots[name]) {
-            column[key] = $slots[name].length === 1 ? $slots[name][0] : $slots[name];
-          }
-        });
-        Object.keys(scopedSlots).forEach(function (key) {
-          var name = scopedSlots[key];
-          if (column[key] === undefined && $scopedSlots[name]) {
-            column[key] = $scopedSlots[name];
-          }
-        });
-        // if (slotScopeName && $scopedSlots[slotScopeName]) {
-        //   column.customRender = column.customRender || $scopedSlots[slotScopeName]
-        // }
-        if (col.children) {
-          column.children = _this2.updateColumns(column.children);
-        }
-        columns.push(column);
-      });
-      return columns;
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var $listeners = this.$listeners,
-        $slots = this.$slots,
-        normalize = this.normalize,
-        $scopedSlots = this.$scopedSlots;
-
-    var props = (0, _propsUtil.getOptionProps)(this);
-    var columns = props.columns ? this.updateColumns(props.columns) : normalize($slots['default']);
-    var title = props.title,
-        footer = props.footer;
-    var slotTitle = $scopedSlots.title,
-        slotFooter = $scopedSlots.footer,
-        _$scopedSlots$expande = $scopedSlots.expandedRowRender,
-        expandedRowRender = _$scopedSlots$expande === undefined ? props.expandedRowRender : _$scopedSlots$expande;
-
-    title = title || slotTitle;
-    footer = footer || slotFooter;
-    var tProps = {
-      props: (0, _extends3['default'])({}, props, {
-        columns: columns,
-        title: title,
-        footer: footer,
-        expandedRowRender: expandedRowRender
-      }),
-      on: $listeners
-    };
-    return h(_Table2['default'], tProps);
-  }
-};
-/* istanbul ignore next */
-Table.install = function (Vue) {
-  Vue.use(_base2['default']);
-  Vue.component(Table.name, Table);
-  Vue.component(Table.Column.name, Table.Column);
-  Vue.component(Table.ColumnGroup.name, Table.ColumnGroup);
-};
-
-exports['default'] = Table;
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/interface.js":
-/*!************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/interface.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.FilterMenuProps = exports.SelectionBoxProps = exports.SelectionCheckboxAllProps = exports.TableProps = exports.TableRowSelection = exports.RowSelectionType = exports.TableLocale = exports.ColumnProps = exports.ColumnFilterItem = undefined;
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _pagination = __webpack_require__(/*! ../pagination */ "./node_modules/ant-design-vue/lib/pagination/index.js");
-
-var _spin = __webpack_require__(/*! ../spin */ "./node_modules/ant-design-vue/lib/spin/index.js");
-
-var _createStore = __webpack_require__(/*! ./createStore */ "./node_modules/ant-design-vue/lib/table/createStore.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var PaginationProps = (0, _pagination.PaginationProps)();
-var SpinProps = (0, _spin.SpinProps)();
-
-// export type CompareFn<T> = ((a: T, b: T) => number);
-var ColumnFilterItem = exports.ColumnFilterItem = _vueTypes2['default'].shape({
-  text: _vueTypes2['default'].string,
-  value: _vueTypes2['default'].string,
-  children: _vueTypes2['default'].array
-}).loose;
-
-var ColumnProps = exports.ColumnProps = {
-  title: _vueTypes2['default'].any,
-  // key?: React.Key;
-  dataIndex: _vueTypes2['default'].string,
-  customRender: _vueTypes2['default'].func,
-  customCell: _vueTypes2['default'].func,
-  customHeaderCell: _vueTypes2['default'].func,
-  align: _vueTypes2['default'].oneOf(['left', 'right', 'center']),
-  filters: _vueTypes2['default'].arrayOf(ColumnFilterItem),
-  // onFilter: (value: any, record: T) => PropTypes.bool,
-  filterMultiple: _vueTypes2['default'].bool,
-  filterDropdown: _vueTypes2['default'].any,
-  filterDropdownVisible: _vueTypes2['default'].bool,
-  // onFilterDropdownVisibleChange?: (visible: boolean) => void;
-  sorter: _vueTypes2['default'].oneOfType([_vueTypes2['default'].boolean, _vueTypes2['default'].func]),
-  defaultSortOrder: _vueTypes2['default'].oneOf(['ascend', 'descend']),
-  colSpan: _vueTypes2['default'].number,
-  width: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-  className: _vueTypes2['default'].string,
-  fixed: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].oneOf(['left', 'right'])]),
-  filterIcon: _vueTypes2['default'].any,
-  filteredValue: _vueTypes2['default'].array,
-  sortOrder: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].oneOf(['ascend', 'descend'])]),
-  sortDirections: _vueTypes2['default'].array
-  // children?: ColumnProps<T>[];
-  // onCellClick?: (record: T, event: any) => void;
-  // onCell?: (record: T) => any;
-  // onHeaderCell?: (props: ColumnProps<T>) => any;
-};
-
-// export interface TableComponents {
-//   table?: any;
-//   header?: {
-//     wrapper?: any;
-//     row?: any;
-//     cell?: any;
-//   };
-//   body?: {
-//     wrapper?: any;
-//     row?: any;
-//     cell?: any;
-//   };
-// }
-
-var TableLocale = exports.TableLocale = _vueTypes2['default'].shape({
-  filterTitle: _vueTypes2['default'].string,
-  filterConfirm: _vueTypes2['default'].any,
-  filterReset: _vueTypes2['default'].any,
-  emptyText: _vueTypes2['default'].any,
-  selectAll: _vueTypes2['default'].any,
-  selectInvert: _vueTypes2['default'].any,
-  sortTitle: _vueTypes2['default'].string
-}).loose;
-
-var RowSelectionType = exports.RowSelectionType = _vueTypes2['default'].oneOf(['checkbox', 'radio']);
-// export type SelectionSelectFn<T> = (record: T, selected: boolean, selectedRows: Object[]) => any;
-
-var TableRowSelection = exports.TableRowSelection = {
-  type: RowSelectionType,
-  selectedRowKeys: _vueTypes2['default'].array,
-  // onChange?: (selectedRowKeys: string[] | number[], selectedRows: Object[]) => any;
-  getCheckboxProps: _vueTypes2['default'].func,
-  // onSelect?: SelectionSelectFn<T>;
-  // onSelectAll?: (selected: boolean, selectedRows: Object[], changeRows: Object[]) => any;
-  // onSelectInvert?: (selectedRows: Object[]) => any;
-  selections: _vueTypes2['default'].oneOfType([_vueTypes2['default'].array, _vueTypes2['default'].bool]),
-  hideDefaultSelections: _vueTypes2['default'].bool,
-  fixed: _vueTypes2['default'].bool,
-  columnWidth: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-  selectWay: _vueTypes2['default'].oneOf(['onSelect', 'onSelectMultiple', 'onSelectAll', 'onSelectInvert']),
-  columnTitle: _vueTypes2['default'].any
-};
-
-var TableProps = exports.TableProps = {
-  prefixCls: _vueTypes2['default'].string,
-  dropdownPrefixCls: _vueTypes2['default'].string,
-  rowSelection: _vueTypes2['default'].oneOfType([_vueTypes2['default'].shape(TableRowSelection).loose, null]),
-  pagination: _vueTypes2['default'].oneOfType([_vueTypes2['default'].shape((0, _extends3['default'])({}, PaginationProps, {
-    position: _vueTypes2['default'].oneOf(['top', 'bottom', 'both'])
-  })).loose, _vueTypes2['default'].bool]),
-  size: _vueTypes2['default'].oneOf(['default', 'middle', 'small', 'large']),
-  dataSource: _vueTypes2['default'].array,
-  components: _vueTypes2['default'].object,
-  columns: _vueTypes2['default'].array,
-  rowKey: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].func]),
-  rowClassName: _vueTypes2['default'].func,
-  expandedRowRender: _vueTypes2['default'].any,
-  defaultExpandAllRows: _vueTypes2['default'].bool,
-  defaultExpandedRowKeys: _vueTypes2['default'].array,
-  expandedRowKeys: _vueTypes2['default'].array,
-  expandIconAsCell: _vueTypes2['default'].bool,
-  expandIconColumnIndex: _vueTypes2['default'].number,
-  expandRowByClick: _vueTypes2['default'].bool,
-  // onExpandedRowsChange?: (expandedRowKeys: string[] | number[]) => void;
-  //  onExpand?: (expanded: boolean, record: T) => void;
-  // onChange?: (pagination: PaginationProps | boolean, filters: string[], sorter: Object) => any;
-  loading: _vueTypes2['default'].oneOfType([_vueTypes2['default'].shape(SpinProps).loose, _vueTypes2['default'].bool]),
-  locale: TableLocale,
-  indentSize: _vueTypes2['default'].number,
-  // onRowClick?: (record: T, index: number, event: Event) => any;
-  customRow: _vueTypes2['default'].func,
-  customHeaderRow: _vueTypes2['default'].func,
-  useFixedHeader: _vueTypes2['default'].bool,
-  bordered: _vueTypes2['default'].bool,
-  showHeader: _vueTypes2['default'].bool,
-  footer: _vueTypes2['default'].func,
-  title: _vueTypes2['default'].func,
-  scroll: _vueTypes2['default'].object,
-  childrenColumnName: _vueTypes2['default'].oneOfType([_vueTypes2['default'].array, _vueTypes2['default'].string]),
-  bodyStyle: _vueTypes2['default'].any,
-  sortDirections: _vueTypes2['default'].array,
-  expandIcon: _vueTypes2['default'].func
-  // className?: PropTypes.string,
-  // style?: React.CSSProperties;
-  // children?: React.ReactNode;
-};
-
-// export interface TableStateFilters {
-//   [key: string]: string[];
-// }
-
-// export interface TableState<T> {
-//   pagination: PaginationProps;
-//   filters: TableStateFilters;
-//   sortColumn: ColumnProps<T> | null;
-//   sortOrder: PropTypes.string,
-// }
-
-// export type SelectionItemSelectFn = (key: string[]) => any;
-
-// export interface SelectionItem {
-//   key: PropTypes.string,
-//   text: PropTypes.any,
-//   onSelect: SelectionItemSelectFn;
-// }
-
-var SelectionCheckboxAllProps = exports.SelectionCheckboxAllProps = {
-  store: _createStore.Store,
-  locale: _vueTypes2['default'].any,
-  disabled: _vueTypes2['default'].bool,
-  getCheckboxPropsByItem: _vueTypes2['default'].func,
-  getRecordKey: _vueTypes2['default'].func,
-  data: _vueTypes2['default'].array,
-  prefixCls: _vueTypes2['default'].string,
-  // onSelect: (key: string, index: number, selectFunc: any) => void;
-  hideDefaultSelections: _vueTypes2['default'].bool,
-  selections: _vueTypes2['default'].oneOfType([_vueTypes2['default'].array, _vueTypes2['default'].bool]),
-  getPopupContainer: _vueTypes2['default'].func
-};
-
-// export interface SelectionCheckboxAllState {
-//   checked: PropTypes.bool,
-//   indeterminate: PropTypes.bool,
-// }
-
-var SelectionBoxProps = exports.SelectionBoxProps = {
-  store: _createStore.Store,
-  type: RowSelectionType,
-  defaultSelection: _vueTypes2['default'].arrayOf([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-  rowIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-  name: _vueTypes2['default'].string,
-  disabled: _vueTypes2['default'].bool,
-  id: _vueTypes2['default'].string
-  // onChange: React.ChangeEventHandler<HTMLInputElement>;
-};
-
-// export interface SelectionBoxState {
-//   checked?: PropTypes.bool,
-// }
-
-var FilterMenuProps = exports.FilterMenuProps = {
-  _propsSymbol: _vueTypes2['default'].any,
-  locale: TableLocale,
-  selectedKeys: _vueTypes2['default'].arrayOf([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-  column: _vueTypes2['default'].object,
-  confirmFilter: _vueTypes2['default'].func,
-  prefixCls: _vueTypes2['default'].string,
-  dropdownPrefixCls: _vueTypes2['default'].string,
-  getPopupContainer: _vueTypes2['default'].func,
-  handleFilter: _vueTypes2['default'].func
-};
-
-// export interface FilterMenuState {
-//   selectedKeys: string[];
-//   keyPathOfSelectedItem: { [key: string]: string };
-//   visible?: PropTypes.bool,
-// }
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/table/util.js":
-/*!*******************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/table/util.js ***!
-  \*******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-exports.flatArray = flatArray;
-exports.treeMap = treeMap;
-exports.flatFilter = flatFilter;
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function flatArray() {
-  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-  var childrenName = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'children';
-
-  var result = [];
-  var loop = function loop(array) {
-    array.forEach(function (item) {
-      if (item[childrenName]) {
-        var newItem = (0, _extends3['default'])({}, item);
-        delete newItem[childrenName];
-        result.push(newItem);
-        if (item[childrenName].length > 0) {
-          loop(item[childrenName]);
-        }
-      } else {
-        result.push(item);
-      }
-    });
-  };
-  loop(data);
-  return result;
-}
-
-function treeMap(tree, mapper) {
-  var childrenName = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'children';
-
-  return tree.map(function (node, index) {
-    var extra = {};
-    if (node[childrenName]) {
-      extra[childrenName] = treeMap(node[childrenName], mapper, childrenName);
-    }
-    return (0, _extends3['default'])({}, mapper(node, index), extra);
-  });
-}
-
-function flatFilter(tree, callback) {
-  return tree.reduce(function (acc, node) {
-    if (callback(node)) {
-      acc.push(node);
-    }
-    if (node.children) {
-      var children = flatFilter(node.children, callback);
-      acc.push.apply(acc, (0, _toConsumableArray3['default'])(children));
-    }
-    return acc;
-  }, []);
-}
-
-// export function normalizeColumns (elements) {
-//   const columns = []
-//   React.Children.forEach(elements, (element) => {
-//     if (!React.isValidElement(element)) {
-//       return
-//     }
-//     const column = {
-//       ...element.props,
-//     }
-//     if (element.key) {
-//       column.key = element.key
-//     }
-//     if (element.type && element.type.__ANT_TABLE_COLUMN_GROUP) {
-//       column.children = normalizeColumns(column.children)
-//     }
-//     columns.push(column)
-//   })
-//   return columns
-// }
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-checkbox/index.js":
-/*!**************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-checkbox/index.js ***!
-  \**************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _src = __webpack_require__(/*! ./src/ */ "./node_modules/ant-design-vue/lib/vc-checkbox/src/index.js");
-
-Object.defineProperty(exports, 'default', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_src)['default'];
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-checkbox/src/Checkbox.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-checkbox/src/Checkbox.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
-  name: 'Checkbox',
-  mixins: [_BaseMixin2['default']],
-  inheritAttrs: false,
-  model: {
-    prop: 'checked',
-    event: 'change'
-  },
-  props: (0, _propsUtil.initDefaultProps)({
-    prefixCls: _vueTypes2['default'].string,
-    name: _vueTypes2['default'].string,
-    id: _vueTypes2['default'].string,
-    type: _vueTypes2['default'].string,
-    defaultChecked: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].bool]),
-    checked: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].bool]),
-    disabled: _vueTypes2['default'].bool,
-    // onFocus: PropTypes.func,
-    // onBlur: PropTypes.func,
-    // onChange: PropTypes.func,
-    // onClick: PropTypes.func,
-    tabIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-    readOnly: _vueTypes2['default'].bool,
-    autoFocus: _vueTypes2['default'].bool,
-    value: _vueTypes2['default'].any
-  }, {
-    prefixCls: 'rc-checkbox',
-    type: 'checkbox',
-    defaultChecked: false
-  }),
-  data: function data() {
-    var checked = (0, _propsUtil.hasProp)(this, 'checked') ? this.checked : this.defaultChecked;
-    return {
-      sChecked: checked
-    };
-  },
+  functional: true,
+  render: function render(h, context) {
+    var props = context.props;
+    var suffixIcon = props.suffixIcon,
+        prefixCls = props.prefixCls;
 
-  watch: {
-    checked: function checked(val) {
-      this.sChecked = val;
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.$nextTick(function () {
-      if (_this.autoFocus) {
-        _this.$refs.input && _this.$refs.input.focus();
-      }
-    });
-  },
-
-  methods: {
-    focus: function focus() {
-      this.$refs.input.focus();
-    },
-    blur: function blur() {
-      this.$refs.input.blur();
-    },
-    handleChange: function handleChange(e) {
-      var props = (0, _propsUtil.getOptionProps)(this);
-      if (props.disabled) {
-        return;
-      }
-      if (!('checked' in props)) {
-        this.sChecked = e.target.checked;
-      }
-      this.$forceUpdate(); // change前，维持现有状态
-      this.__emit('change', {
-        target: (0, _extends3['default'])({}, props, {
-          checked: e.target.checked
-        }),
-        stopPropagation: function stopPropagation() {
-          e.stopPropagation();
-        },
-        preventDefault: function preventDefault() {
-          e.preventDefault();
-        },
-
-        nativeEvent: (0, _extends3['default'])({}, e, { shiftKey: this.eventShiftKey })
-      });
-      this.eventShiftKey = false;
-    },
-    onClick: function onClick(e) {
-      this.__emit('click', e);
-      // onChange没能获取到shiftKey，使用onClick hack
-      this.eventShiftKey = e.shiftKey;
-    }
-  },
-
-  render: function render() {
-    var _classNames;
-
-    var h = arguments[0];
-
-    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-        prefixCls = _getOptionProps.prefixCls,
-        name = _getOptionProps.name,
-        id = _getOptionProps.id,
-        type = _getOptionProps.type,
-        disabled = _getOptionProps.disabled,
-        readOnly = _getOptionProps.readOnly,
-        tabIndex = _getOptionProps.tabIndex,
-        autoFocus = _getOptionProps.autoFocus,
-        value = _getOptionProps.value,
-        others = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'name', 'id', 'type', 'disabled', 'readOnly', 'tabIndex', 'autoFocus', 'value']);
-
-    var attrs = (0, _propsUtil.getAttrs)(this);
-    var globalProps = Object.keys((0, _extends3['default'])({}, others, attrs)).reduce(function (prev, key) {
-      if (key.substr(0, 5) === 'aria-' || key.substr(0, 5) === 'data-' || key === 'role') {
-        prev[key] = others[key];
-      }
-      return prev;
-    }, {});
-
-    var sChecked = this.sChecked;
-
-    var classString = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-checked', sChecked), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', disabled), _classNames));
-
-    return h(
+    return (suffixIcon && (0, _propsUtil.isValidElement)(suffixIcon) ? (0, _vnode.cloneElement)(suffixIcon, {
+      'class': prefixCls + '-picker-icon'
+    }) : h(
       'span',
-      { 'class': classString },
-      [h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
-        attrs: {
-          name: name,
-          id: id,
-          type: type,
-          readOnly: readOnly,
-          disabled: disabled,
-          tabIndex: tabIndex,
-
-          autoFocus: autoFocus
-        },
-        'class': prefixCls + '-input',
-        domProps: {
-          'checked': !!sChecked,
-          'value': value
-        },
-        ref: 'input'
-      }, {
-        attrs: globalProps,
-        on: (0, _extends3['default'])({}, this.$listeners, {
-          change: this.handleChange,
-          click: this.onClick
-        })
-      }])), h('span', { 'class': prefixCls + '-inner' })]
-    );
+      { 'class': prefixCls + '-picker-icon' },
+      [suffixIcon]
+    )) || h(_icon2['default'], {
+      attrs: { type: 'calendar' },
+      'class': prefixCls + '-picker-icon' });
   }
 };
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-checkbox/src/index.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-checkbox/src/index.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/vc-checkbox/src/Checkbox.js");
-
-var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = _Checkbox2['default'];
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-pagination/KeyCode.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-pagination/KeyCode.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports["default"] = {
-  ZERO: 48,
-  NINE: 57,
-
-  NUMPAD_ZERO: 96,
-  NUMPAD_NINE: 105,
-
-  BACKSPACE: 8,
-  DELETE: 46,
-  ENTER: 13,
-
-  ARROW_UP: 38,
-  ARROW_DOWN: 40
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-pagination/Options.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-pagination/Options.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _KeyCode = __webpack_require__(/*! ./KeyCode */ "./node_modules/ant-design-vue/lib/vc-pagination/KeyCode.js");
-
-var _KeyCode2 = _interopRequireDefault(_KeyCode);
-
-var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  mixins: [_BaseMixin2['default']],
-  props: {
-    disabled: _vueTypes2['default'].bool,
-    changeSize: _vueTypes2['default'].func,
-    quickGo: _vueTypes2['default'].func,
-    selectComponentClass: _vueTypes2['default'].any,
-    current: _vueTypes2['default'].number,
-    pageSizeOptions: _vueTypes2['default'].array.def(['10', '20', '30', '40']),
-    pageSize: _vueTypes2['default'].number,
-    buildOptionText: _vueTypes2['default'].func,
-    locale: _vueTypes2['default'].object,
-    rootPrefixCls: _vueTypes2['default'].string,
-    selectPrefixCls: _vueTypes2['default'].string,
-    goButton: _vueTypes2['default'].any
-  },
-  data: function data() {
-    return {
-      goInputText: ''
-    };
-  },
-
-  methods: {
-    getValidValue: function getValidValue() {
-      var goInputText = this.goInputText,
-          current = this.current;
-
-      return isNaN(goInputText) ? current : Number(goInputText);
-    },
-    defaultBuildOptionText: function defaultBuildOptionText(opt) {
-      return opt.value + ' ' + this.locale.items_per_page;
-    },
-    handleChange: function handleChange(e) {
-      var _e$target = e.target,
-          value = _e$target.value,
-          composing = _e$target.composing;
-
-      if (composing || this.goInputText === value) return;
-      this.setState({
-        goInputText: value
-      });
-    },
-    handleBlur: function handleBlur() {
-      var goButton = this.goButton,
-          quickGo = this.quickGo;
-
-      if (goButton) {
-        return;
-      }
-      quickGo(this.getValidValue());
-    },
-    go: function go(e) {
-      var goInputText = this.goInputText;
-
-      if (goInputText === '') {
-        return;
-      }
-      if (e.keyCode === _KeyCode2['default'].ENTER || e.type === 'click') {
-        // https://github.com/vueComponent/ant-design-vue/issues/1316
-        this.quickGo(this.getValidValue());
-        this.setState({
-          goInputText: ''
-        });
-      }
-    }
-  },
-  render: function render() {
-    var _this = this;
-
-    var h = arguments[0];
-    var rootPrefixCls = this.rootPrefixCls,
-        locale = this.locale,
-        changeSize = this.changeSize,
-        quickGo = this.quickGo,
-        goButton = this.goButton,
-        Select = this.selectComponentClass,
-        defaultBuildOptionText = this.defaultBuildOptionText,
-        selectPrefixCls = this.selectPrefixCls,
-        pageSize = this.pageSize,
-        pageSizeOptions = this.pageSizeOptions,
-        goInputText = this.goInputText,
-        disabled = this.disabled;
-
-    var prefixCls = rootPrefixCls + '-options';
-    var changeSelect = null;
-    var goInput = null;
-    var gotoButton = null;
-
-    if (!changeSize && !quickGo) {
-      return null;
-    }
-
-    if (changeSize && Select) {
-      var buildOptionText = this.buildOptionText || defaultBuildOptionText;
-      var options = pageSizeOptions.map(function (opt, i) {
-        return h(
-          Select.Option,
-          { key: i, attrs: { value: opt }
-          },
-          [buildOptionText({ value: opt })]
-        );
-      });
-
-      changeSelect = h(
-        Select,
-        {
-          attrs: {
-            disabled: disabled,
-            prefixCls: selectPrefixCls,
-            showSearch: false,
-
-            optionLabelProp: 'children',
-            dropdownMatchSelectWidth: false,
-            value: (pageSize || pageSizeOptions[0]).toString(),
-
-            getPopupContainer: function getPopupContainer(triggerNode) {
-              return triggerNode.parentNode;
-            }
-          },
-          'class': prefixCls + '-size-changer', on: {
-            'change': function change(value) {
-              return _this.changeSize(Number(value));
-            }
-          }
-        },
-        [options]
-      );
-    }
-
-    if (quickGo) {
-      if (goButton) {
-        gotoButton = typeof goButton === 'boolean' ? h(
-          'button',
-          {
-            attrs: { type: 'button', disabled: disabled },
-            on: {
-              'click': this.go,
-              'keyup': this.go
-            }
-          },
-          [locale.jump_to_confirm]
-        ) : h(
-          'span',
-          {
-            on: {
-              'click': this.go,
-              'keyup': this.go
-            }
-          },
-          [goButton]
-        );
-      }
-      goInput = h(
-        'div',
-        { 'class': prefixCls + '-quick-jumper' },
-        [locale.jump_to, h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
-          attrs: {
-            disabled: disabled,
-            type: 'text'
-          },
-          domProps: {
-            'value': goInputText
-          },
-          on: {
-            'input': this.handleChange,
-            'keyup': this.go,
-            'blur': this.handleBlur
-          }
-        }, {
-          directives: [{
-            name: 'ant-input'
-          }]
-        }])), locale.page, gotoButton]
-      );
-    }
-
-    return h(
-      'li',
-      { 'class': '' + prefixCls },
-      [changeSelect, goInput]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-pagination/Pager.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-pagination/Pager.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'Pager',
-  props: {
-    rootPrefixCls: _vueTypes2['default'].string,
-    page: _vueTypes2['default'].number,
-    active: _vueTypes2['default'].bool,
-    last: _vueTypes2['default'].bool,
-    locale: _vueTypes2['default'].object,
-    showTitle: _vueTypes2['default'].bool,
-    itemRender: {
-      type: Function,
-      'default': function _default() {}
-    }
-  },
-  computed: {
-    classes: function classes() {
-      var prefixCls = this.rootPrefixCls + '-item';
-      var cls = prefixCls + ' ' + prefixCls + '-' + this.page;
-      if (this.active) {
-        cls = cls + ' ' + prefixCls + '-active';
-      }
-      return cls;
-    }
-  },
-  methods: {
-    handleClick: function handleClick() {
-      this.$emit('click', this.page);
-    },
-    handleKeyPress: function handleKeyPress(event) {
-      this.$emit('keypress', event, this.handleClick, this.page);
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var rootPrefixCls = this.rootPrefixCls,
-        page = this.page,
-        active = this.active;
-
-    var prefixCls = rootPrefixCls + '-item';
-    var cls = prefixCls + ' ' + prefixCls + '-' + page;
-
-    if (active) {
-      cls = cls + ' ' + prefixCls + '-active';
-    }
-
-    if (!page) {
-      cls = cls + ' ' + prefixCls + '-disabled';
-    }
-
-    return h(
-      'li',
-      {
-        'class': cls,
-        on: {
-          'click': this.handleClick,
-          'keypress': this.handleKeyPress
-        },
-        attrs: {
-          title: this.showTitle ? this.page : null,
-          tabIndex: '0'
-        }
-      },
-      [this.itemRender(this.page, 'page', h('a', [this.page]))]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-pagination/Pagination.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-pagination/Pagination.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
-
-var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _Pager = __webpack_require__(/*! ./Pager */ "./node_modules/ant-design-vue/lib/vc-pagination/Pager.js");
-
-var _Pager2 = _interopRequireDefault(_Pager);
-
-var _Options = __webpack_require__(/*! ./Options */ "./node_modules/ant-design-vue/lib/vc-pagination/Options.js");
-
-var _Options2 = _interopRequireDefault(_Options);
-
-var _zh_CN = __webpack_require__(/*! ./locale/zh_CN */ "./node_modules/ant-design-vue/lib/vc-pagination/locale/zh_CN.js");
-
-var _zh_CN2 = _interopRequireDefault(_zh_CN);
-
-var _KeyCode = __webpack_require__(/*! ./KeyCode */ "./node_modules/ant-design-vue/lib/vc-pagination/KeyCode.js");
-
-var _KeyCode2 = _interopRequireDefault(_KeyCode);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function noop() {}
-
-// 是否是正整数
-function isInteger(value) {
-  return typeof value === 'number' && isFinite(value) && Math.floor(value) === value;
-}
-
-function defaultItemRender(page, type, element) {
-  return element;
-}
-
-function calculatePage(p, state, props) {
-  var pageSize = p;
-  if (typeof pageSize === 'undefined') {
-    pageSize = state.statePageSize;
-  }
-  return Math.floor((props.total - 1) / pageSize) + 1;
-}
-
-exports['default'] = {
-  name: 'Pagination',
-  mixins: [_BaseMixin2['default']],
-  model: {
-    prop: 'current',
-    event: 'change.current'
-  },
-  props: {
-    disabled: _vueTypes2['default'].bool,
-    prefixCls: _vueTypes2['default'].string.def('rc-pagination'),
-    selectPrefixCls: _vueTypes2['default'].string.def('rc-select'),
-    current: _vueTypes2['default'].number,
-    defaultCurrent: _vueTypes2['default'].number.def(1),
-    total: _vueTypes2['default'].number.def(0),
-    pageSize: _vueTypes2['default'].number,
-    defaultPageSize: _vueTypes2['default'].number.def(10),
-    hideOnSinglePage: _vueTypes2['default'].bool.def(false),
-    showSizeChanger: _vueTypes2['default'].bool.def(false),
-    showLessItems: _vueTypes2['default'].bool.def(false),
-    // showSizeChange: PropTypes.func.def(noop),
-    selectComponentClass: _vueTypes2['default'].any,
-    showPrevNextJumpers: _vueTypes2['default'].bool.def(true),
-    showQuickJumper: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].object]).def(false),
-    showTitle: _vueTypes2['default'].bool.def(true),
-    pageSizeOptions: _vueTypes2['default'].arrayOf(_vueTypes2['default'].string),
-    buildOptionText: _vueTypes2['default'].func,
-    showTotal: _vueTypes2['default'].func,
-    simple: _vueTypes2['default'].bool,
-    locale: _vueTypes2['default'].object.def(_zh_CN2['default']),
-    itemRender: _vueTypes2['default'].func.def(defaultItemRender),
-    prevIcon: _vueTypes2['default'].any,
-    nextIcon: _vueTypes2['default'].any,
-    jumpPrevIcon: _vueTypes2['default'].any,
-    jumpNextIcon: _vueTypes2['default'].any
-  },
-  data: function data() {
-    var hasOnChange = this.onChange !== noop;
-    var hasCurrent = (0, _propsUtil.hasProp)(this, 'current');
-    if (hasCurrent && !hasOnChange) {
-      console.warn('Warning: You provided a `current` prop to a Pagination component without an `onChange` handler. This will render a read-only component.'); // eslint-disable-line
-    }
-    var current = this.defaultCurrent;
-    if (hasCurrent) {
-      current = this.current;
-    }
-
-    var pageSize = this.defaultPageSize;
-    if ((0, _propsUtil.hasProp)(this, 'pageSize')) {
-      pageSize = this.pageSize;
-    }
-
-    return {
-      stateCurrent: current,
-      stateCurrentInputValue: current,
-      statePageSize: pageSize
-    };
-  },
-
-  watch: {
-    current: function current(val) {
-      this.setState({
-        stateCurrent: val,
-        stateCurrentInputValue: val
-      });
-    },
-    pageSize: function pageSize(val) {
-      var newState = {};
-      var current = this.stateCurrent;
-      var newCurrent = calculatePage(val, this.$data, this.$props);
-      current = current > newCurrent ? newCurrent : current;
-      if (!(0, _propsUtil.hasProp)(this, 'current')) {
-        newState.stateCurrent = current;
-        newState.stateCurrentInputValue = current;
-      }
-      newState.statePageSize = val;
-      this.setState(newState);
-    },
-    stateCurrent: function stateCurrent(val, oldValue) {
-      var _this = this;
-
-      // When current page change, fix focused style of prev item
-      // A hacky solution of https://github.com/ant-design/ant-design/issues/8948
-      this.$nextTick(function () {
-        if (_this.$refs.paginationNode) {
-          var lastCurrentNode = _this.$refs.paginationNode.querySelector('.' + _this.prefixCls + '-item-' + oldValue);
-          if (lastCurrentNode && document.activeElement === lastCurrentNode) {
-            lastCurrentNode.blur();
-          }
-        }
-      });
-    }
-  },
-  methods: {
-    getJumpPrevPage: function getJumpPrevPage() {
-      return Math.max(1, this.stateCurrent - (this.showLessItems ? 3 : 5));
-    },
-    getJumpNextPage: function getJumpNextPage() {
-      return Math.min(calculatePage(undefined, this.$data, this.$props), this.stateCurrent + (this.showLessItems ? 3 : 5));
-    },
-    getItemIcon: function getItemIcon(icon) {
-      var h = this.$createElement;
-      var prefixCls = this.$props.prefixCls;
-
-      var iconNode = (0, _propsUtil.getComponentFromProp)(this, icon, this.$props) || h('a', { 'class': prefixCls + '-item-link' });
-      return iconNode;
-    },
-    getValidValue: function getValidValue(e) {
-      var inputValue = e.target.value;
-      var stateCurrentInputValue = this.$data.stateCurrentInputValue;
-
-      var value = void 0;
-      if (inputValue === '') {
-        value = inputValue;
-      } else if (isNaN(Number(inputValue))) {
-        value = stateCurrentInputValue;
-      } else {
-        value = Number(inputValue);
-      }
-      return value;
-    },
-    isValid: function isValid(page) {
-      return isInteger(page) && page >= 1 && page !== this.stateCurrent;
-    },
-    shouldDisplayQuickJumper: function shouldDisplayQuickJumper() {
-      var _$props = this.$props,
-          showQuickJumper = _$props.showQuickJumper,
-          pageSize = _$props.pageSize,
-          total = _$props.total;
-
-      if (total <= pageSize) {
-        return false;
-      }
-      return showQuickJumper;
-    },
-
-    // calculatePage (p) {
-    //   let pageSize = p
-    //   if (typeof pageSize === 'undefined') {
-    //     pageSize = this.statePageSize
-    //   }
-    //   return Math.floor((this.total - 1) / pageSize) + 1
-    // },
-    handleKeyDown: function handleKeyDown(event) {
-      if (event.keyCode === _KeyCode2['default'].ARROW_UP || event.keyCode === _KeyCode2['default'].ARROW_DOWN) {
-        event.preventDefault();
-      }
-    },
-    handleKeyUp: function handleKeyUp(e) {
-      if (e.target.composing) return;
-      var value = this.getValidValue(e);
-      var stateCurrentInputValue = this.stateCurrentInputValue;
-
-      if (value !== stateCurrentInputValue) {
-        this.setState({
-          stateCurrentInputValue: value
-        });
-      }
-
-      if (e.keyCode === _KeyCode2['default'].ENTER) {
-        this.handleChange(value);
-      } else if (e.keyCode === _KeyCode2['default'].ARROW_UP) {
-        this.handleChange(value - 1);
-      } else if (e.keyCode === _KeyCode2['default'].ARROW_DOWN) {
-        this.handleChange(value + 1);
-      }
-    },
-    changePageSize: function changePageSize(size) {
-      var current = this.stateCurrent;
-      var preCurrent = current;
-      var newCurrent = calculatePage(size, this.$data, this.$props);
-      current = current > newCurrent ? newCurrent : current;
-      // fix the issue:
-      // Once 'total' is 0, 'current' in 'onShowSizeChange' is 0, which is not correct.
-      if (newCurrent === 0) {
-        current = this.stateCurrent;
-      }
-      if (typeof size === 'number') {
-        if (!(0, _propsUtil.hasProp)(this, 'pageSize')) {
-          this.setState({
-            statePageSize: size
-          });
-        }
-        if (!(0, _propsUtil.hasProp)(this, 'current')) {
-          this.setState({
-            stateCurrent: current,
-            stateCurrentInputValue: current
-          });
-        }
-      }
-      this.$emit('update:pageSize', size);
-      this.$emit('showSizeChange', current, size);
-      if (current !== preCurrent) {
-        this.$emit('change.current', current, size);
-      }
-    },
-    handleChange: function handleChange(p) {
-      var disabled = this.$props.disabled;
-
-      var page = p;
-      if (this.isValid(page) && !disabled) {
-        var currentPage = calculatePage(undefined, this.$data, this.$props);
-        if (page > currentPage) {
-          page = currentPage;
-        }
-        if (!(0, _propsUtil.hasProp)(this, 'current')) {
-          this.setState({
-            stateCurrent: page,
-            stateCurrentInputValue: page
-          });
-        }
-        // this.$emit('input', page)
-        this.$emit('change', page, this.statePageSize);
-        this.$emit('change.current', page, this.statePageSize);
-        return page;
-      }
-      return this.stateCurrent;
-    },
-    prev: function prev() {
-      if (this.hasPrev()) {
-        this.handleChange(this.stateCurrent - 1);
-      }
-    },
-    next: function next() {
-      if (this.hasNext()) {
-        this.handleChange(this.stateCurrent + 1);
-      }
-    },
-    jumpPrev: function jumpPrev() {
-      this.handleChange(this.getJumpPrevPage());
-    },
-    jumpNext: function jumpNext() {
-      this.handleChange(this.getJumpNextPage());
-    },
-    hasPrev: function hasPrev() {
-      return this.stateCurrent > 1;
-    },
-    hasNext: function hasNext() {
-      return this.stateCurrent < calculatePage(undefined, this.$data, this.$props);
-    },
-    runIfEnter: function runIfEnter(event, callback) {
-      if (event.key === 'Enter' || event.charCode === 13) {
-        for (var _len = arguments.length, restParams = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-          restParams[_key - 2] = arguments[_key];
-        }
-
-        callback.apply(undefined, (0, _toConsumableArray3['default'])(restParams));
-      }
-    },
-    runIfEnterPrev: function runIfEnterPrev(event) {
-      this.runIfEnter(event, this.prev);
-    },
-    runIfEnterNext: function runIfEnterNext(event) {
-      this.runIfEnter(event, this.next);
-    },
-    runIfEnterJumpPrev: function runIfEnterJumpPrev(event) {
-      this.runIfEnter(event, this.jumpPrev);
-    },
-    runIfEnterJumpNext: function runIfEnterJumpNext(event) {
-      this.runIfEnter(event, this.jumpNext);
-    },
-    handleGoTO: function handleGoTO(event) {
-      if (event.keyCode === _KeyCode2['default'].ENTER || event.type === 'click') {
-        this.handleChange(this.stateCurrentInputValue);
-      }
-    }
-  },
-  render: function render() {
-    var _ref;
-
-    var h = arguments[0];
-    var _$props2 = this.$props,
-        prefixCls = _$props2.prefixCls,
-        disabled = _$props2.disabled;
-
-    // When hideOnSinglePage is true and there is only 1 page, hide the pager
-
-    if (this.hideOnSinglePage === true && this.total <= this.statePageSize) {
-      return null;
-    }
-    var props = this.$props;
-    var locale = this.locale;
-
-    var allPages = calculatePage(undefined, this.$data, this.$props);
-    var pagerList = [];
-    var jumpPrev = null;
-    var jumpNext = null;
-    var firstPager = null;
-    var lastPager = null;
-    var gotoButton = null;
-    var goButton = this.showQuickJumper && this.showQuickJumper.goButton;
-    var pageBufferSize = this.showLessItems ? 1 : 2;
-    var stateCurrent = this.stateCurrent,
-        statePageSize = this.statePageSize;
-
-    var prevPage = stateCurrent - 1 > 0 ? stateCurrent - 1 : 0;
-    var nextPage = stateCurrent + 1 < allPages ? stateCurrent + 1 : allPages;
-
-    if (this.simple) {
-      if (goButton) {
-        if (typeof goButton === 'boolean') {
-          gotoButton = h(
-            'button',
-            {
-              attrs: { type: 'button' },
-              on: {
-                'click': this.handleGoTO,
-                'keyup': this.handleGoTO
-              }
-            },
-            [locale.jump_to_confirm]
-          );
-        } else {
-          gotoButton = h(
-            'span',
-            {
-              on: {
-                'click': this.handleGoTO,
-                'keyup': this.handleGoTO
-              }
-            },
-            [goButton]
-          );
-        }
-        gotoButton = h(
-          'li',
-          {
-            attrs: {
-              title: this.showTitle ? '' + locale.jump_to + this.stateCurrent + '/' + allPages : null
-            },
-            'class': prefixCls + '-simple-pager'
-          },
-          [gotoButton]
-        );
-      }
-      var hasPrev = this.hasPrev();
-      var hasNext = this.hasNext();
-      return h(
-        'ul',
-        { 'class': prefixCls + ' ' + prefixCls + '-simple' },
-        [h(
-          'li',
-          {
-            attrs: {
-              title: this.showTitle ? locale.prev_page : null,
-
-              tabIndex: hasPrev ? 0 : null,
-
-              'aria-disabled': !this.hasPrev()
-            },
-            on: {
-              'click': this.prev,
-              'keypress': this.runIfEnterPrev
-            },
-
-            'class': (hasPrev ? '' : prefixCls + '-disabled') + ' ' + prefixCls + '-prev' },
-          [this.itemRender(prevPage, 'prev', this.getItemIcon('prevIcon'))]
-        ), h(
-          'li',
-          {
-            attrs: {
-              title: this.showTitle ? stateCurrent + '/' + allPages : null
-            },
-            'class': prefixCls + '-simple-pager'
-          },
-          [h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
-            attrs: {
-              type: 'text',
-
-              size: '3'
-            },
-            domProps: {
-              'value': this.stateCurrentInputValue
-            },
-            on: {
-              'keydown': this.handleKeyDown,
-              'keyup': this.handleKeyUp,
-              'input': this.handleKeyUp
-            }
-          }, {
-            directives: [{
-              name: 'ant-input'
-            }]
-          }])), h(
-            'span',
-            { 'class': prefixCls + '-slash' },
-            ['\uFF0F']
-          ), allPages]
-        ), h(
-          'li',
-          {
-            attrs: {
-              title: this.showTitle ? locale.next_page : null,
-
-              tabIndex: this.hasNext ? 0 : null,
-
-              'aria-disabled': !this.hasNext()
-            },
-            on: {
-              'click': this.next,
-              'keypress': this.runIfEnterNext
-            },
-
-            'class': (hasNext ? '' : prefixCls + '-disabled') + ' ' + prefixCls + '-next' },
-          [this.itemRender(nextPage, 'next', this.getItemIcon('nextIcon'))]
-        ), gotoButton]
-      );
-    }
-    if (allPages <= 5 + pageBufferSize * 2) {
-      var pagerProps = {
-        props: {
-          locale: locale,
-          rootPrefixCls: prefixCls,
-          showTitle: props.showTitle,
-          itemRender: props.itemRender
-        },
-        on: {
-          click: this.handleChange,
-          keypress: this.runIfEnter
-        }
-      };
-      if (!allPages) {
-        pagerList.push(h(_Pager2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([pagerProps, { key: 'noPager', attrs: { page: allPages },
-          'class': prefixCls + '-disabled' }])));
-      }
-      for (var i = 1; i <= allPages; i++) {
-        var active = stateCurrent === i;
-        pagerList.push(h(_Pager2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([pagerProps, { key: i, attrs: { page: i, active: active }
-        }])));
-      }
-    } else {
-      var prevItemTitle = this.showLessItems ? locale.prev_3 : locale.prev_5;
-      var nextItemTitle = this.showLessItems ? locale.next_3 : locale.next_5;
-      if (this.showPrevNextJumpers) {
-        var jumpPrevClassString = prefixCls + '-jump-prev';
-        if (props.jumpPrevIcon) {
-          jumpPrevClassString += ' ' + prefixCls + '-jump-prev-custom-icon';
-        }
-        jumpPrev = h(
-          'li',
-          {
-            attrs: {
-              title: this.showTitle ? prevItemTitle : null,
-
-              tabIndex: '0'
-            },
-            key: 'prev',
-            on: {
-              'click': this.jumpPrev,
-              'keypress': this.runIfEnterJumpPrev
-            },
-
-            'class': jumpPrevClassString
-          },
-          [this.itemRender(this.getJumpPrevPage(), 'jump-prev', this.getItemIcon('jumpPrevIcon'))]
-        );
-        var jumpNextClassString = prefixCls + '-jump-next';
-        if (props.jumpNextIcon) {
-          jumpNextClassString += ' ' + prefixCls + '-jump-next-custom-icon';
-        }
-        jumpNext = h(
-          'li',
-          {
-            attrs: {
-              title: this.showTitle ? nextItemTitle : null,
-
-              tabIndex: '0'
-            },
-            key: 'next', on: {
-              'click': this.jumpNext,
-              'keypress': this.runIfEnterJumpNext
-            },
-
-            'class': jumpNextClassString
-          },
-          [this.itemRender(this.getJumpNextPage(), 'jump-next', this.getItemIcon('jumpNextIcon'))]
-        );
-      }
-
-      lastPager = h(_Pager2['default'], {
-        attrs: {
-          locale: locale,
-          last: true,
-          rootPrefixCls: prefixCls,
-
-          page: allPages,
-          active: false,
-          showTitle: this.showTitle,
-          itemRender: this.itemRender
-        },
-        on: {
-          'click': this.handleChange,
-          'keypress': this.runIfEnter
-        },
-
-        key: allPages });
-      firstPager = h(_Pager2['default'], {
-        attrs: {
-          locale: locale,
-          rootPrefixCls: prefixCls,
-
-          page: 1,
-          active: false,
-          showTitle: this.showTitle,
-          itemRender: this.itemRender
-        },
-        on: {
-          'click': this.handleChange,
-          'keypress': this.runIfEnter
-        },
-
-        key: 1 });
-
-      var left = Math.max(1, stateCurrent - pageBufferSize);
-      var right = Math.min(stateCurrent + pageBufferSize, allPages);
-
-      if (stateCurrent - 1 <= pageBufferSize) {
-        right = 1 + pageBufferSize * 2;
-      }
-
-      if (allPages - stateCurrent <= pageBufferSize) {
-        left = allPages - pageBufferSize * 2;
-      }
-
-      for (var _i = left; _i <= right; _i++) {
-        var _active = stateCurrent === _i;
-        pagerList.push(h(_Pager2['default'], {
-          attrs: {
-            locale: locale,
-            rootPrefixCls: prefixCls,
-
-            page: _i,
-            active: _active,
-            showTitle: this.showTitle,
-            itemRender: this.itemRender
-          },
-          on: {
-            'click': this.handleChange,
-            'keypress': this.runIfEnter
-          },
-
-          key: _i }));
-      }
-
-      if (stateCurrent - 1 >= pageBufferSize * 2 && stateCurrent !== 1 + 2) {
-        pagerList[0] = h(_Pager2['default'], {
-          attrs: {
-            locale: locale,
-            rootPrefixCls: prefixCls,
-
-            page: left,
-
-            active: false,
-            showTitle: this.showTitle,
-            itemRender: this.itemRender
-          },
-          on: {
-            'click': this.handleChange,
-            'keypress': this.runIfEnter
-          },
-
-          key: left, 'class': prefixCls + '-item-after-jump-prev' });
-        pagerList.unshift(jumpPrev);
-      }
-      if (allPages - stateCurrent >= pageBufferSize * 2 && stateCurrent !== allPages - 2) {
-        pagerList[pagerList.length - 1] = h(_Pager2['default'], {
-          attrs: {
-            locale: locale,
-            rootPrefixCls: prefixCls,
-
-            page: right,
-
-            active: false,
-            showTitle: this.showTitle,
-            itemRender: this.itemRender
-          },
-          on: {
-            'click': this.handleChange,
-            'keypress': this.runIfEnter
-          },
-
-          key: right, 'class': prefixCls + '-item-before-jump-next' });
-        pagerList.push(jumpNext);
-      }
-
-      if (left !== 1) {
-        pagerList.unshift(firstPager);
-      }
-      if (right !== allPages) {
-        pagerList.push(lastPager);
-      }
-    }
-
-    var totalText = null;
-
-    if (this.showTotal) {
-      totalText = h(
-        'li',
-        { 'class': prefixCls + '-total-text' },
-        [this.showTotal(this.total, [this.total === 0 ? 0 : (stateCurrent - 1) * statePageSize + 1, stateCurrent * statePageSize > this.total ? this.total : stateCurrent * statePageSize])]
-      );
-    }
-    var prevDisabled = !this.hasPrev() || !allPages;
-    var nextDisabled = !this.hasNext() || !allPages;
-    var buildOptionText = this.buildOptionText || this.$scopedSlots.buildOptionText;
-    return h(
-      'ul',
-      {
-        'class': (_ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-disabled', disabled), _ref),
-        attrs: { unselectable: 'unselectable'
-        },
-        ref: 'paginationNode'
-      },
-      [totalText, h(
-        'li',
-        {
-          attrs: {
-            title: this.showTitle ? locale.prev_page : null,
-
-            tabIndex: prevDisabled ? null : 0,
-
-            'aria-disabled': prevDisabled
-          },
-          on: {
-            'click': this.prev,
-            'keypress': this.runIfEnterPrev
-          },
-
-          'class': (!prevDisabled ? '' : prefixCls + '-disabled') + ' ' + prefixCls + '-prev' },
-        [this.itemRender(prevPage, 'prev', this.getItemIcon('prevIcon'))]
-      ), pagerList, h(
-        'li',
-        {
-          attrs: {
-            title: this.showTitle ? locale.next_page : null,
-
-            tabIndex: nextDisabled ? null : 0,
-
-            'aria-disabled': nextDisabled
-          },
-          on: {
-            'click': this.next,
-            'keypress': this.runIfEnterNext
-          },
-
-          'class': (!nextDisabled ? '' : prefixCls + '-disabled') + ' ' + prefixCls + '-next' },
-        [this.itemRender(nextPage, 'next', this.getItemIcon('nextIcon'))]
-      ), h(_Options2['default'], {
-        attrs: {
-          disabled: disabled,
-          locale: locale,
-          rootPrefixCls: prefixCls,
-          selectComponentClass: this.selectComponentClass,
-          selectPrefixCls: this.selectPrefixCls,
-          changeSize: this.showSizeChanger ? this.changePageSize : null,
-          current: stateCurrent,
-          pageSize: statePageSize,
-          pageSizeOptions: this.pageSizeOptions,
-          buildOptionText: buildOptionText || null,
-          quickGo: this.shouldDisplayQuickJumper() ? this.handleChange : null,
-          goButton: goButton
-        }
-      })]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-pagination/index.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-pagination/index.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Pagination = __webpack_require__(/*! ./Pagination */ "./node_modules/ant-design-vue/lib/vc-pagination/Pagination.js");
-
-Object.defineProperty(exports, 'default', {
-  enumerable: true,
-  get: function get() {
-    return _interopRequireDefault(_Pagination)['default'];
-  }
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-pagination/locale/zh_CN.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-pagination/locale/zh_CN.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports['default'] = {
-  // Options.jsx
-  items_per_page: '条/页',
-  jump_to: '跳至',
-  jump_to_confirm: '确定',
-  page: '页',
-
-  // Pagination.jsx
-  prev_page: '上一页',
-  next_page: '下一页',
-  prev_5: '向前 5 页',
-  next_5: '向后 5 页',
-  prev_3: '向前 3 页',
-  next_3: '向后 3 页'
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/index.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/index.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ColumnGroup = exports.Column = undefined;
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _Table = __webpack_require__(/*! ./src/Table */ "./node_modules/ant-design-vue/lib/vc-table/src/Table.js");
-
-var _Table2 = _interopRequireDefault(_Table);
-
-var _Column = __webpack_require__(/*! ./src/Column */ "./node_modules/ant-design-vue/lib/vc-table/src/Column.js");
-
-var _Column2 = _interopRequireDefault(_Column);
-
-var _ColumnGroup = __webpack_require__(/*! ./src/ColumnGroup */ "./node_modules/ant-design-vue/lib/vc-table/src/ColumnGroup.js");
-
-var _ColumnGroup2 = _interopRequireDefault(_ColumnGroup);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-// base rc-table 6.4.3
-var Table = {
-  name: 'Table',
-  Column: _Column2['default'],
-  ColumnGroup: _ColumnGroup2['default'],
-  props: _Table2['default'].props,
-  methods: {
-    normalize: function normalize() {
-      var _this = this;
-
-      var elements = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-
-      var columns = [];
-      elements.forEach(function (element) {
-        if (!element.tag) {
-          return;
-        }
-        var key = (0, _propsUtil.getKey)(element);
-        var style = (0, _propsUtil.getStyle)(element);
-        var cls = (0, _propsUtil.getClass)(element);
-        var props = (0, _propsUtil.getOptionProps)(element);
-        var events = (0, _propsUtil.getEvents)(element);
-        var listeners = {};
-        Object.keys(events).forEach(function (e) {
-          var k = 'on-' + e;
-          listeners[(0, _propsUtil.camelize)(k)] = events[e];
-        });
-
-        var _getSlots = (0, _propsUtil.getSlots)(element),
-            children = _getSlots['default'],
-            title = _getSlots.title;
-
-        var column = (0, _extends3['default'])({ title: title }, props, { style: style, 'class': cls }, listeners);
-        if (key) {
-          column.key = key;
-        }
-        if ((0, _propsUtil.getSlotOptions)(element).isTableColumnGroup) {
-          column.children = _this.normalize(typeof children === 'function' ? children() : children);
-        } else {
-          var customRender = element.data && element.data.scopedSlots && element.data.scopedSlots['default'];
-          column.customRender = column.customRender || customRender;
-        }
-        columns.push(column);
-      });
-      return columns;
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var $listeners = this.$listeners,
-        $slots = this.$slots,
-        normalize = this.normalize;
-
-    var props = (0, _propsUtil.getOptionProps)(this);
-    var columns = props.columns || normalize($slots['default']);
-    var tProps = {
-      props: (0, _extends3['default'])({}, props, {
-        columns: columns
-      }),
-      on: $listeners
-    };
-    return h(_Table2['default'], tProps);
-  }
-};
-
-exports['default'] = Table;
-exports.Column = _Column2['default'];
-exports.ColumnGroup = _ColumnGroup2['default'];
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/BaseTable.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/BaseTable.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _ColGroup = __webpack_require__(/*! ./ColGroup */ "./node_modules/ant-design-vue/lib/vc-table/src/ColGroup.js");
-
-var _ColGroup2 = _interopRequireDefault(_ColGroup);
-
-var _TableHeader = __webpack_require__(/*! ./TableHeader */ "./node_modules/ant-design-vue/lib/vc-table/src/TableHeader.js");
-
-var _TableHeader2 = _interopRequireDefault(_TableHeader);
-
-var _TableRow = __webpack_require__(/*! ./TableRow */ "./node_modules/ant-design-vue/lib/vc-table/src/TableRow.js");
-
-var _TableRow2 = _interopRequireDefault(_TableRow);
-
-var _ExpandableRow = __webpack_require__(/*! ./ExpandableRow */ "./node_modules/ant-design-vue/lib/vc-table/src/ExpandableRow.js");
-
-var _ExpandableRow2 = _interopRequireDefault(_ExpandableRow);
-
-var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _store = __webpack_require__(/*! ../../_util/store */ "./node_modules/ant-design-vue/lib/_util/store/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function noop() {}
-var BaseTable = {
-  name: 'BaseTable',
-  props: {
-    fixed: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].bool]),
-    columns: _vueTypes2['default'].array.isRequired,
-    tableClassName: _vueTypes2['default'].string.isRequired,
-    hasHead: _vueTypes2['default'].bool.isRequired,
-    hasBody: _vueTypes2['default'].bool.isRequired,
-    store: _vueTypes2['default'].object.isRequired,
-    expander: _vueTypes2['default'].object.isRequired,
-    getRowKey: _vueTypes2['default'].func,
-    isAnyColumnsFixed: _vueTypes2['default'].bool
-  },
-  inject: {
-    table: { 'default': function _default() {
-        return {};
-      } }
-  },
-  methods: {
-    getColumns: function getColumns(cols) {
-      var _$props = this.$props,
-          _$props$columns = _$props.columns,
-          columns = _$props$columns === undefined ? [] : _$props$columns,
-          fixed = _$props.fixed;
-      var table = this.table;
-      var prefixCls = table.$props.prefixCls;
-
-      return (cols || columns).map(function (column) {
-        return (0, _extends3['default'])({}, column, {
-          className: !!column.fixed && !fixed ? (0, _classnames2['default'])(prefixCls + '-fixed-columns-in-body', column.className || column['class']) : column.className || column['class']
-        });
-      });
-    },
-    handleRowHover: function handleRowHover(isHover, key) {
-      this.store.setState({
-        currentHoverKey: isHover ? key : null
-      });
-    },
-    renderRows: function renderRows(renderData, indent) {
-      var _this = this;
-
-      var ancestorKeys = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
-      var h = this.$createElement;
-      var _table = this.table,
-          columnManager = _table.columnManager,
-          components = _table.sComponents,
-          prefixCls = _table.prefixCls,
-          childrenColumnName = _table.childrenColumnName,
-          rowClassName = _table.rowClassName,
-          _table$$listeners = _table.$listeners,
-          _table$$listeners$row = _table$$listeners.rowClick,
-          onRowClick = _table$$listeners$row === undefined ? noop : _table$$listeners$row,
-          _table$$listeners$row2 = _table$$listeners.rowDoubleclick,
-          onRowDoubleClick = _table$$listeners$row2 === undefined ? noop : _table$$listeners$row2,
-          _table$$listeners$row3 = _table$$listeners.rowContextmenu,
-          onRowContextMenu = _table$$listeners$row3 === undefined ? noop : _table$$listeners$row3,
-          _table$$listeners$row4 = _table$$listeners.rowMouseenter,
-          onRowMouseEnter = _table$$listeners$row4 === undefined ? noop : _table$$listeners$row4,
-          _table$$listeners$row5 = _table$$listeners.rowMouseleave,
-          onRowMouseLeave = _table$$listeners$row5 === undefined ? noop : _table$$listeners$row5,
-          _table$customRow = _table.customRow,
-          customRow = _table$customRow === undefined ? noop : _table$customRow;
-      var getRowKey = this.getRowKey,
-          fixed = this.fixed,
-          expander = this.expander,
-          isAnyColumnsFixed = this.isAnyColumnsFixed;
-
-
-      var rows = [];
-
-      var _loop = function _loop(i) {
-        var record = renderData[i];
-        var key = getRowKey(record, i);
-        var className = typeof rowClassName === 'string' ? rowClassName : rowClassName(record, i, indent);
-
-        var onHoverProps = {};
-        if (columnManager.isAnyColumnsFixed()) {
-          onHoverProps.hover = _this.handleRowHover;
-        }
-
-        var leafColumns = void 0;
-        if (fixed === 'left') {
-          leafColumns = columnManager.leftLeafColumns();
-        } else if (fixed === 'right') {
-          leafColumns = columnManager.rightLeafColumns();
-        } else {
-          leafColumns = _this.getColumns(columnManager.leafColumns());
-        }
-
-        var rowPrefixCls = prefixCls + '-row';
-
-        var expandableRowProps = {
-          props: (0, _extends3['default'])({}, expander.props, {
-            fixed: fixed,
-            index: i,
-            prefixCls: rowPrefixCls,
-            record: record,
-            rowKey: key,
-            needIndentSpaced: expander.needIndentSpaced
-          }),
-          key: key,
-          on: {
-            // ...expander.on,
-            rowClick: onRowClick,
-            expandedChange: expander.handleExpandChange
-          },
-          scopedSlots: {
-            'default': function _default(expandableRow) {
-              var tableRowProps = (0, _propsUtil.mergeProps)({
-                props: {
-                  fixed: fixed,
-                  indent: indent,
-                  record: record,
-                  index: i,
-                  prefixCls: rowPrefixCls,
-                  childrenColumnName: childrenColumnName,
-                  columns: leafColumns,
-                  rowKey: key,
-                  ancestorKeys: ancestorKeys,
-                  components: components,
-                  isAnyColumnsFixed: isAnyColumnsFixed,
-                  customRow: customRow
-                },
-                on: (0, _extends3['default'])({
-                  rowDoubleclick: onRowDoubleClick,
-                  rowContextmenu: onRowContextMenu,
-                  rowMouseenter: onRowMouseEnter,
-                  rowMouseleave: onRowMouseLeave
-                }, onHoverProps),
-                'class': className,
-                ref: 'row_' + i + '_' + indent
-              }, expandableRow);
-              return h(_TableRow2['default'], tableRowProps);
-            }
-          }
-        };
-        var row = h(_ExpandableRow2['default'], expandableRowProps);
-
-        rows.push(row);
-        expander.renderRows(_this.renderRows, rows, record, i, indent, fixed, key, ancestorKeys);
-      };
-
-      for (var i = 0; i < renderData.length; i++) {
-        _loop(i);
-      }
-      return rows;
-    }
-  },
-
-  render: function render() {
-    var h = arguments[0];
-    var _table2 = this.table,
-        components = _table2.sComponents,
-        prefixCls = _table2.prefixCls,
-        scroll = _table2.scroll,
-        data = _table2.data,
-        getBodyWrapper = _table2.getBodyWrapper;
-    var _$props2 = this.$props,
-        expander = _$props2.expander,
-        tableClassName = _$props2.tableClassName,
-        hasHead = _$props2.hasHead,
-        hasBody = _$props2.hasBody,
-        fixed = _$props2.fixed;
-
-
-    var tableStyle = {};
-
-    if (!fixed && scroll.x) {
-      // not set width, then use content fixed width
-      if (scroll.x === true) {
-        tableStyle.tableLayout = 'fixed';
-      } else {
-        tableStyle.width = typeof scroll.x === 'number' ? scroll.x + 'px' : scroll.x;
-      }
-    }
-
-    var Table = hasBody ? components.table : 'table';
-    var BodyWrapper = components.body.wrapper;
-
-    var body = void 0;
-    if (hasBody) {
-      body = h(
-        BodyWrapper,
-        { 'class': prefixCls + '-tbody' },
-        [this.renderRows(data, 0)]
-      );
-      if (getBodyWrapper) {
-        body = getBodyWrapper(body);
-      }
-    }
-    var columns = this.getColumns();
-    return h(
-      Table,
-      { 'class': tableClassName, style: tableStyle, key: 'table' },
-      [h(_ColGroup2['default'], {
-        attrs: { columns: columns, fixed: fixed }
-      }), hasHead && h(_TableHeader2['default'], {
-        attrs: { expander: expander, columns: columns, fixed: fixed }
-      }), body]
-    );
-  }
-};
-
-exports['default'] = (0, _store.connect)()(BaseTable);
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/BodyTable.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/BodyTable.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/vc-table/src/utils.js");
-
-var _BaseTable = __webpack_require__(/*! ./BaseTable */ "./node_modules/ant-design-vue/lib/vc-table/src/BaseTable.js");
-
-var _BaseTable2 = _interopRequireDefault(_BaseTable);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'BodyTable',
-  props: {
-    fixed: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].bool]),
-    columns: _vueTypes2['default'].array.isRequired,
-    tableClassName: _vueTypes2['default'].string.isRequired,
-    handleBodyScroll: _vueTypes2['default'].func.isRequired,
-    handleWheel: _vueTypes2['default'].func.isRequired,
-    getRowKey: _vueTypes2['default'].func.isRequired,
-    expander: _vueTypes2['default'].object.isRequired,
-    isAnyColumnsFixed: _vueTypes2['default'].bool
-  },
-  inject: {
-    table: { 'default': function _default() {
-        return {};
-      } }
-  },
-  mounted: function mounted() {
-    this.updateTableRef();
-  },
-  updated: function updated() {
-    this.updateTableRef();
-  },
-
-  methods: {
-    updateTableRef: function updateTableRef() {
-      this.$refs.fixedColumnsBodyLeft && this.table.saveChildrenRef('fixedColumnsBodyLeft', this.$refs.fixedColumnsBodyLeft);
-      this.$refs.fixedColumnsBodyRight && this.table.saveChildrenRef('fixedColumnsBodyRight', this.$refs.fixedColumnsBodyRight);
-      this.$refs.bodyTable && this.table.saveChildrenRef('bodyTable', this.$refs.bodyTable);
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var _table = this.table,
-        prefixCls = _table.prefixCls,
-        scroll = _table.scroll;
-    var columns = this.columns,
-        fixed = this.fixed,
-        tableClassName = this.tableClassName,
-        getRowKey = this.getRowKey,
-        handleBodyScroll = this.handleBodyScroll,
-        handleWheel = this.handleWheel,
-        expander = this.expander,
-        isAnyColumnsFixed = this.isAnyColumnsFixed;
-    var useFixedHeader = this.table.useFixedHeader;
-
-    var bodyStyle = (0, _extends3['default'])({}, this.table.bodyStyle);
-    var innerBodyStyle = {};
-
-    if (scroll.x || fixed) {
-      bodyStyle.overflowX = bodyStyle.overflowX || 'scroll';
-      // Fix weired webkit render bug
-      // https://github.com/ant-design/ant-design/issues/7783
-      bodyStyle.WebkitTransform = 'translate3d (0, 0, 0)';
-    }
-
-    if (scroll.y) {
-      // maxHeight will make fixed-Table scrolling not working
-      // so we only set maxHeight to body-Table here
-      var maxHeight = bodyStyle.maxHeight || scroll.y;
-      maxHeight = typeof maxHeight === 'number' ? maxHeight + 'px' : maxHeight;
-      if (fixed) {
-        innerBodyStyle.maxHeight = maxHeight;
-        innerBodyStyle.overflowY = bodyStyle.overflowY || 'scroll';
-      } else {
-        bodyStyle.maxHeight = maxHeight;
-      }
-      bodyStyle.overflowY = bodyStyle.overflowY || 'scroll';
-      useFixedHeader = true;
-
-      // Add negative margin bottom for scroll bar overflow bug
-      var scrollbarWidth = (0, _utils.measureScrollbar)();
-      if (scrollbarWidth > 0 && fixed) {
-        bodyStyle.marginBottom = '-' + scrollbarWidth + 'px';
-        bodyStyle.paddingBottom = '0px';
-      }
-    }
-
-    var baseTable = h(_BaseTable2['default'], {
-      attrs: {
-        tableClassName: tableClassName,
-        hasHead: !useFixedHeader,
-        hasBody: true,
-        fixed: fixed,
-        columns: columns,
-        expander: expander,
-        getRowKey: getRowKey,
-        isAnyColumnsFixed: isAnyColumnsFixed
-      }
-    });
-
-    if (fixed && columns.length) {
-      var refName = void 0;
-      if (columns[0].fixed === 'left' || columns[0].fixed === true) {
-        refName = 'fixedColumnsBodyLeft';
-      } else if (columns[0].fixed === 'right') {
-        refName = 'fixedColumnsBodyRight';
-      }
-      delete bodyStyle.overflowX;
-      delete bodyStyle.overflowY;
-      return h(
-        'div',
-        { key: 'bodyTable', 'class': prefixCls + '-body-outer', style: (0, _extends3['default'])({}, bodyStyle) },
-        [h(
-          'div',
-          {
-            'class': prefixCls + '-body-inner',
-            style: innerBodyStyle,
-            ref: refName,
-            on: {
-              'wheel': handleWheel,
-              'scroll': handleBodyScroll
-            }
-          },
-          [baseTable]
-        )]
-      );
-    }
-    return h(
-      'div',
-      {
-        key: 'bodyTable',
-        'class': prefixCls + '-body',
-        style: bodyStyle,
-        ref: 'bodyTable',
-        on: {
-          'wheel': handleWheel,
-          'scroll': handleBodyScroll
-        }
-      },
-      [baseTable]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/ColGroup.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/ColGroup.js ***!
-  \******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'ColGroup',
-  props: {
-    fixed: _vueTypes2['default'].string,
-    columns: _vueTypes2['default'].array
-  },
-  inject: {
-    table: { 'default': function _default() {
-        return {};
-      } }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var fixed = this.fixed,
-        table = this.table;
-    var prefixCls = table.prefixCls,
-        expandIconAsCell = table.expandIconAsCell,
-        columnManager = table.columnManager;
-
-
-    var cols = [];
-
-    if (expandIconAsCell && fixed !== 'right') {
-      cols.push(h('col', { 'class': prefixCls + '-expand-icon-col', key: 'rc-table-expand-icon-col' }));
-    }
-
-    var leafColumns = void 0;
-
-    if (fixed === 'left') {
-      leafColumns = columnManager.leftLeafColumns();
-    } else if (fixed === 'right') {
-      leafColumns = columnManager.rightLeafColumns();
-    } else {
-      leafColumns = columnManager.leafColumns();
-    }
-    cols = cols.concat(leafColumns.map(function (c) {
-      var width = typeof c.width === 'number' ? c.width + 'px' : c.width;
-      return h('col', { key: c.key || c.dataIndex, style: width ? { width: width, minWidth: width } : {} });
-    }));
-    return h('colgroup', [cols]);
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/Column.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/Column.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'Column',
-  props: {
-    colSpan: _vueTypes2['default'].number,
-    title: _vueTypes2['default'].any,
-    dataIndex: _vueTypes2['default'].string,
-    width: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string]),
-    fixed: _vueTypes2['default'].oneOf([true, 'left', 'right']),
-    customRender: _vueTypes2['default'].func,
-    className: _vueTypes2['default'].string,
-    // onCellClick: PropTypes.func,
-    customCell: _vueTypes2['default'].func,
-    customHeaderCell: _vueTypes2['default'].func
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/ColumnGroup.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/ColumnGroup.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'ColumnGroup',
-  props: {
-    title: _vueTypes2['default'].any
-  },
-  isTableColumnGroup: true
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/ColumnManager.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/ColumnManager.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _classCallCheck2 = __webpack_require__(/*! babel-runtime/helpers/classCallCheck */ "./node_modules/babel-runtime/helpers/classCallCheck.js");
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(/*! babel-runtime/helpers/createClass */ "./node_modules/babel-runtime/helpers/createClass.js");
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var ColumnManager = function () {
-  function ColumnManager(columns) {
-    (0, _classCallCheck3['default'])(this, ColumnManager);
-
-    this.columns = columns;
-    this._cached = {};
-  }
-
-  (0, _createClass3['default'])(ColumnManager, [{
-    key: 'isAnyColumnsFixed',
-    value: function isAnyColumnsFixed() {
-      var _this = this;
-
-      return this._cache('isAnyColumnsFixed', function () {
-        return _this.columns.some(function (column) {
-          return !!column.fixed;
-        });
-      });
-    }
-  }, {
-    key: 'isAnyColumnsLeftFixed',
-    value: function isAnyColumnsLeftFixed() {
-      var _this2 = this;
-
-      return this._cache('isAnyColumnsLeftFixed', function () {
-        return _this2.columns.some(function (column) {
-          return column.fixed === 'left' || column.fixed === true;
-        });
-      });
-    }
-  }, {
-    key: 'isAnyColumnsRightFixed',
-    value: function isAnyColumnsRightFixed() {
-      var _this3 = this;
-
-      return this._cache('isAnyColumnsRightFixed', function () {
-        return _this3.columns.some(function (column) {
-          return column.fixed === 'right';
-        });
-      });
-    }
-  }, {
-    key: 'leftColumns',
-    value: function leftColumns() {
-      var _this4 = this;
-
-      return this._cache('leftColumns', function () {
-        return _this4.groupedColumns().filter(function (column) {
-          return column.fixed === 'left' || column.fixed === true;
-        });
-      });
-    }
-  }, {
-    key: 'rightColumns',
-    value: function rightColumns() {
-      var _this5 = this;
-
-      return this._cache('rightColumns', function () {
-        return _this5.groupedColumns().filter(function (column) {
-          return column.fixed === 'right';
-        });
-      });
-    }
-  }, {
-    key: 'leafColumns',
-    value: function leafColumns() {
-      var _this6 = this;
-
-      return this._cache('leafColumns', function () {
-        return _this6._leafColumns(_this6.columns);
-      });
-    }
-  }, {
-    key: 'leftLeafColumns',
-    value: function leftLeafColumns() {
-      var _this7 = this;
-
-      return this._cache('leftLeafColumns', function () {
-        return _this7._leafColumns(_this7.leftColumns());
-      });
-    }
-  }, {
-    key: 'rightLeafColumns',
-    value: function rightLeafColumns() {
-      var _this8 = this;
-
-      return this._cache('rightLeafColumns', function () {
-        return _this8._leafColumns(_this8.rightColumns());
-      });
-    }
-
-    // add appropriate rowspan and colspan to column
-
-  }, {
-    key: 'groupedColumns',
-    value: function groupedColumns() {
-      var _this9 = this;
-
-      return this._cache('groupedColumns', function () {
-        var _groupColumns = function _groupColumns(columns) {
-          var currentRow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-          var parentColumn = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-          var rows = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : [];
-
-          // track how many rows we got
-          rows[currentRow] = rows[currentRow] || [];
-          var grouped = [];
-          var setRowSpan = function setRowSpan(column) {
-            var rowSpan = rows.length - currentRow;
-            if (column && !column.children && // parent columns are supposed to be one row
-            rowSpan > 1 && (!column.rowSpan || column.rowSpan < rowSpan)) {
-              column.rowSpan = rowSpan;
-            }
-          };
-          columns.forEach(function (column, index) {
-            var newColumn = (0, _extends3['default'])({}, column);
-            rows[currentRow].push(newColumn);
-            parentColumn.colSpan = parentColumn.colSpan || 0;
-            if (newColumn.children && newColumn.children.length > 0) {
-              newColumn.children = _groupColumns(newColumn.children, currentRow + 1, newColumn, rows);
-              parentColumn.colSpan += newColumn.colSpan;
-            } else {
-              parentColumn.colSpan++;
-            }
-            // update rowspan to all same row columns
-            for (var i = 0; i < rows[currentRow].length - 1; ++i) {
-              setRowSpan(rows[currentRow][i]);
-            }
-            // last column, update rowspan immediately
-            if (index + 1 === columns.length) {
-              setRowSpan(newColumn);
-            }
-            grouped.push(newColumn);
-          });
-          return grouped;
-        };
-        return _groupColumns(_this9.columns);
-      });
-    }
-  }, {
-    key: 'reset',
-    value: function reset(columns) {
-      this.columns = columns;
-      this._cached = {};
-    }
-  }, {
-    key: '_cache',
-    value: function _cache(name, fn) {
-      if (name in this._cached) {
-        return this._cached[name];
-      }
-      this._cached[name] = fn();
-      return this._cached[name];
-    }
-  }, {
-    key: '_leafColumns',
-    value: function _leafColumns(columns) {
-      var _this10 = this;
-
-      var leafColumns = [];
-      columns.forEach(function (column) {
-        if (!column.children) {
-          leafColumns.push(column);
-        } else {
-          leafColumns.push.apply(leafColumns, (0, _toConsumableArray3['default'])(_this10._leafColumns(column.children)));
-        }
-      });
-      return leafColumns;
-    }
-  }]);
-  return ColumnManager;
-}();
-
-exports['default'] = ColumnManager;
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/ExpandIcon.js":
+/***/ "./node_modules/ant-design-vue/lib/date-picker/RangePicker.js":
 /*!********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/ExpandIcon.js ***!
+  !*** ./node_modules/ant-design-vue/lib/date-picker/RangePicker.js ***!
   \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -6379,1394 +158,857 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'ExpandIcon',
-  mixins: [_BaseMixin2['default']],
-  props: {
-    record: _vueTypes2['default'].object,
-    prefixCls: _vueTypes2['default'].string,
-    expandable: _vueTypes2['default'].any,
-    expanded: _vueTypes2['default'].bool,
-    needIndentSpaced: _vueTypes2['default'].bool
-  },
-  methods: {
-    onExpand: function onExpand(e) {
-      this.__emit('expand', this.record, e);
-    }
-  },
-
-  render: function render() {
-    var h = arguments[0];
-    var expandable = this.expandable,
-        prefixCls = this.prefixCls,
-        onExpand = this.onExpand,
-        needIndentSpaced = this.needIndentSpaced,
-        expanded = this.expanded;
-
-    if (expandable) {
-      var expandClassName = expanded ? 'expanded' : 'collapsed';
-      return h('span', {
-        'class': prefixCls + '-expand-icon ' + prefixCls + '-' + expandClassName,
-        on: {
-          'click': onExpand
-        }
-      });
-    } else if (needIndentSpaced) {
-      return h('span', { 'class': prefixCls + '-expand-icon ' + prefixCls + '-spaced' });
-    }
-    return null;
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/ExpandableRow.js":
-/*!***********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/ExpandableRow.js ***!
-  \***********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _ExpandIcon = __webpack_require__(/*! ./ExpandIcon */ "./node_modules/ant-design-vue/lib/vc-table/src/ExpandIcon.js");
-
-var _ExpandIcon2 = _interopRequireDefault(_ExpandIcon);
-
-var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-var _store = __webpack_require__(/*! ../../_util/store */ "./node_modules/ant-design-vue/lib/_util/store/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var ExpandableRow = {
-  mixins: [_BaseMixin2['default']],
-  name: 'ExpandableRow',
-  props: {
-    prefixCls: _vueTypes2['default'].string.isRequired,
-    rowKey: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]).isRequired,
-    fixed: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].bool]),
-    record: _vueTypes2['default'].oneOfType([_vueTypes2['default'].object, _vueTypes2['default'].array]).isRequired,
-    indentSize: _vueTypes2['default'].number,
-    needIndentSpaced: _vueTypes2['default'].bool.isRequired,
-    expandRowByClick: _vueTypes2['default'].bool,
-    expanded: _vueTypes2['default'].bool.isRequired,
-    expandIconAsCell: _vueTypes2['default'].bool,
-    expandIconColumnIndex: _vueTypes2['default'].number,
-    childrenColumnName: _vueTypes2['default'].string,
-    expandedRowRender: _vueTypes2['default'].func,
-    expandIcon: _vueTypes2['default'].func
-    // onExpandedChange: PropTypes.func.isRequired,
-    // onRowClick: PropTypes.func,
-    // children: PropTypes.func.isRequired,
-  },
-
-  beforeDestroy: function beforeDestroy() {
-    this.handleDestroy();
-  },
-
-  methods: {
-    hasExpandIcon: function hasExpandIcon(columnIndex) {
-      var expandRowByClick = this.expandRowByClick;
-
-      return !this.tempExpandIconAsCell && !expandRowByClick && columnIndex === this.tempExpandIconColumnIndex;
-    },
-    handleExpandChange: function handleExpandChange(record, event) {
-      var expanded = this.expanded,
-          rowKey = this.rowKey;
-
-      this.__emit('expandedChange', !expanded, record, event, rowKey);
-    },
-    handleDestroy: function handleDestroy() {
-      var rowKey = this.rowKey,
-          record = this.record;
-
-      this.__emit('expandedChange', false, record, null, rowKey, true);
-    },
-    handleRowClick: function handleRowClick(record, index, event) {
-      var expandRowByClick = this.expandRowByClick;
-
-      if (expandRowByClick) {
-        this.handleExpandChange(record, event);
-      }
-      this.__emit('rowClick', record, index, event);
-    },
-    renderExpandIcon: function renderExpandIcon() {
-      var h = this.$createElement;
-      var prefixCls = this.prefixCls,
-          expanded = this.expanded,
-          record = this.record,
-          needIndentSpaced = this.needIndentSpaced,
-          expandIcon = this.expandIcon;
-
-      if (expandIcon) {
-        return expandIcon({
-          prefixCls: prefixCls,
-          expanded: expanded,
-          record: record,
-          needIndentSpaced: needIndentSpaced,
-          expandable: this.expandable,
-          onExpand: this.handleExpandChange
-        });
-      }
-      return h(_ExpandIcon2['default'], {
-        attrs: {
-          expandable: this.expandable,
-          prefixCls: prefixCls,
-
-          needIndentSpaced: needIndentSpaced,
-          expanded: expanded,
-          record: record
-        },
-        on: {
-          'expand': this.handleExpandChange
-        }
-      });
-    },
-    renderExpandIconCell: function renderExpandIconCell(cells) {
-      var h = this.$createElement;
-
-      if (!this.tempExpandIconAsCell) {
-        return;
-      }
-      var prefixCls = this.prefixCls;
-
-
-      cells.push(h(
-        'td',
-        { 'class': prefixCls + '-expand-icon-cell', key: 'rc-table-expand-icon-cell' },
-        [this.renderExpandIcon()]
-      ));
-    }
-  },
-
-  render: function render() {
-    var childrenColumnName = this.childrenColumnName,
-        expandedRowRender = this.expandedRowRender,
-        indentSize = this.indentSize,
-        record = this.record,
-        fixed = this.fixed,
-        $scopedSlots = this.$scopedSlots,
-        expanded = this.expanded;
-
-
-    this.tempExpandIconAsCell = fixed !== 'right' ? this.expandIconAsCell : false;
-    this.tempExpandIconColumnIndex = fixed !== 'right' ? this.expandIconColumnIndex : -1;
-    var childrenData = record[childrenColumnName];
-    this.expandable = !!(childrenData || expandedRowRender);
-    var expandableRowProps = {
-      props: {
-        indentSize: indentSize,
-        expanded: expanded, // not used in TableRow, but it's required to re-render TableRow when `expanded` changes
-        hasExpandIcon: this.hasExpandIcon,
-        renderExpandIcon: this.renderExpandIcon,
-        renderExpandIconCell: this.renderExpandIconCell
-      },
-
-      on: {
-        rowClick: this.handleRowClick
-      }
-    };
-
-    return $scopedSlots['default'] && $scopedSlots['default'](expandableRowProps);
-  }
-};
-
-exports['default'] = (0, _store.connect)(function (_ref, _ref2) {
-  var expandedRowKeys = _ref.expandedRowKeys;
-  var rowKey = _ref2.rowKey;
-  return {
-    expanded: !!~expandedRowKeys.indexOf(rowKey)
-  };
-})(ExpandableRow);
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/ExpandableTable.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/ExpandableTable.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.ExpandableTableProps = undefined;
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
+var _slicedToArray2 = __webpack_require__(/*! babel-runtime/helpers/slicedToArray */ "./node_modules/babel-runtime/helpers/slicedToArray.js");
 
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
+var moment = _interopRequireWildcard(_moment);
 
-var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+var _RangeCalendar = __webpack_require__(/*! ../vc-calendar/src/RangeCalendar */ "./node_modules/ant-design-vue/lib/vc-calendar/src/RangeCalendar.js");
 
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+var _RangeCalendar2 = _interopRequireDefault(_RangeCalendar);
 
-var _store = __webpack_require__(/*! ../../_util/store */ "./node_modules/ant-design-vue/lib/_util/store/index.js");
+var _Picker = __webpack_require__(/*! ../vc-calendar/src/Picker */ "./node_modules/ant-design-vue/lib/vc-calendar/src/Picker.js");
+
+var _Picker2 = _interopRequireDefault(_Picker);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 var _shallowequal = __webpack_require__(/*! shallowequal */ "./node_modules/shallowequal/index.js");
 
 var _shallowequal2 = _interopRequireDefault(_shallowequal);
 
-var _TableRow = __webpack_require__(/*! ./TableRow */ "./node_modules/ant-design-vue/lib/vc-table/src/TableRow.js");
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
 
-var _TableRow2 = _interopRequireDefault(_TableRow);
+var _icon2 = _interopRequireDefault(_icon);
 
-var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/vc-table/src/utils.js");
+var _tag = __webpack_require__(/*! ../tag */ "./node_modules/ant-design-vue/lib/tag/index.js");
 
-var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+var _tag2 = _interopRequireDefault(_tag);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
-var ExpandableTableProps = exports.ExpandableTableProps = function ExpandableTableProps() {
-  return {
-    expandIconAsCell: _vueTypes2['default'].bool,
-    expandRowByClick: _vueTypes2['default'].bool,
-    expandedRowKeys: _vueTypes2['default'].array,
-    expandedRowClassName: _vueTypes2['default'].func,
-    defaultExpandAllRows: _vueTypes2['default'].bool,
-    defaultExpandedRowKeys: _vueTypes2['default'].array,
-    expandIconColumnIndex: _vueTypes2['default'].number,
-    expandedRowRender: _vueTypes2['default'].func,
-    expandIcon: _vueTypes2['default'].func,
-    childrenColumnName: _vueTypes2['default'].string,
-    indentSize: _vueTypes2['default'].number,
-    // onExpand: PropTypes.func,
-    // onExpandedRowsChange: PropTypes.func,
-    columnManager: _vueTypes2['default'].object.isRequired,
-    store: _vueTypes2['default'].object.isRequired,
-    prefixCls: _vueTypes2['default'].string.isRequired,
-    data: _vueTypes2['default'].array,
-    getRowKey: _vueTypes2['default'].func
-  };
-};
+var _interopDefault = __webpack_require__(/*! ../_util/interopDefault */ "./node_modules/ant-design-vue/lib/_util/interopDefault.js");
 
-var ExpandableTable = {
-  name: 'ExpandableTable',
-  mixins: [_BaseMixin2['default']],
-  props: (0, _propsUtil.initDefaultProps)(ExpandableTableProps(), {
-    expandIconAsCell: false,
-    expandedRowClassName: function expandedRowClassName() {
-      return '';
-    },
-    expandIconColumnIndex: 0,
-    defaultExpandAllRows: false,
-    defaultExpandedRowKeys: [],
-    childrenColumnName: 'children',
-    indentSize: 15
-  }),
+var _interopDefault2 = _interopRequireDefault(_interopDefault);
 
-  data: function data() {
-    var data = this.data,
-        childrenColumnName = this.childrenColumnName,
-        defaultExpandAllRows = this.defaultExpandAllRows,
-        expandedRowKeys = this.expandedRowKeys,
-        defaultExpandedRowKeys = this.defaultExpandedRowKeys,
-        getRowKey = this.getRowKey;
+var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/date-picker/interface.js");
 
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
-    var finnalExpandedRowKeys = [];
-    var rows = [].concat((0, _toConsumableArray3['default'])(data));
-
-    if (defaultExpandAllRows) {
-      for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        finnalExpandedRowKeys.push(getRowKey(row, i));
-        rows = rows.concat(row[childrenColumnName] || []);
-      }
-    } else {
-      finnalExpandedRowKeys = expandedRowKeys || defaultExpandedRowKeys;
-    }
-
-    // this.columnManager = props.columnManager
-    // this.store = props.store
-
-    this.store.setState({
-      expandedRowsHeight: {},
-      expandedRowKeys: finnalExpandedRowKeys
-    });
-    return {};
-  },
-  mounted: function mounted() {
-    this.handleUpdated();
-  },
-  updated: function updated() {
-    this.handleUpdated();
-  },
-
-  watch: {
-    expandedRowKeys: function expandedRowKeys(val) {
-      var _this = this;
-
-      this.$nextTick(function () {
-        _this.store.setState({
-          expandedRowKeys: val
-        });
-      });
-    }
-  },
-  methods: {
-    handleUpdated: function handleUpdated() {
-      // We should record latest expanded rows to avoid multiple rows remove cause `onExpandedRowsChange` trigger many times
-      this.latestExpandedRows = null;
-    },
-    handleExpandChange: function handleExpandChange(expanded, record, event, rowKey) {
-      var destroy = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : false;
-
-      if (event) {
-        event.preventDefault();
-        event.stopPropagation();
-      }
-
-      var _store$getState = this.store.getState(),
-          expandedRowKeys = _store$getState.expandedRowKeys;
-
-      if (expanded) {
-        // row was expaned
-        expandedRowKeys = [].concat((0, _toConsumableArray3['default'])(expandedRowKeys), [rowKey]);
-      } else {
-        // row was collapse
-        var expandedRowIndex = expandedRowKeys.indexOf(rowKey);
-        if (expandedRowIndex !== -1) {
-          expandedRowKeys = (0, _utils.remove)(expandedRowKeys, rowKey);
-        }
-      }
-
-      if (!this.expandedRowKeys) {
-        this.store.setState({ expandedRowKeys: expandedRowKeys });
-      }
-      // De-dup of repeat call
-      if (!this.latestExpandedRows || !(0, _shallowequal2['default'])(this.latestExpandedRows, expandedRowKeys)) {
-        this.latestExpandedRows = expandedRowKeys;
-        this.__emit('expandedRowsChange', expandedRowKeys);
-      }
-
-      if (!destroy) {
-        this.__emit('expand', expanded, record);
-      }
-    },
-    renderExpandIndentCell: function renderExpandIndentCell(rows, fixed) {
-      var prefixCls = this.prefixCls,
-          expandIconAsCell = this.expandIconAsCell;
-
-      if (!expandIconAsCell || fixed === 'right' || !rows.length) {
-        return;
-      }
-
-      var iconColumn = {
-        key: 'rc-table-expand-icon-cell',
-        className: prefixCls + '-expand-icon-th',
-        title: '',
-        rowSpan: rows.length
-      };
-
-      rows[0].unshift((0, _extends3['default'])({}, iconColumn, { column: iconColumn }));
-    },
-    renderExpandedRow: function renderExpandedRow(record, index, expandedRowRender, className, ancestorKeys, indent, fixed) {
-      var _this2 = this;
-
-      var h = this.$createElement;
-      var prefixCls = this.prefixCls,
-          expandIconAsCell = this.expandIconAsCell,
-          indentSize = this.indentSize;
-
-      var parentKey = ancestorKeys[ancestorKeys.length - 1];
-      var rowKey = parentKey + '-extra-row';
-      var components = {
-        body: {
-          row: 'tr',
-          cell: 'td'
-        }
-      };
-      var colCount = void 0;
-      if (fixed === 'left') {
-        colCount = this.columnManager.leftLeafColumns().length;
-      } else if (fixed === 'right') {
-        colCount = this.columnManager.rightLeafColumns().length;
-      } else {
-        colCount = this.columnManager.leafColumns().length;
-      }
-      var columns = [{
-        key: 'extra-row',
-        customRender: function customRender() {
-          var _store$getState2 = _this2.store.getState(),
-              expandedRowKeys = _store$getState2.expandedRowKeys;
-
-          var expanded = !!~expandedRowKeys.indexOf(parentKey);
-          return {
-            attrs: {
-              colSpan: colCount
-            },
-            children: fixed !== 'right' ? expandedRowRender(record, index, indent, expanded) : '&nbsp;'
-          };
-        }
-      }];
-      if (expandIconAsCell && fixed !== 'right') {
-        columns.unshift({
-          key: 'expand-icon-placeholder',
-          customRender: function customRender() {
-            return null;
-          }
-        });
-      }
-
-      return h(_TableRow2['default'], {
-        key: rowKey,
-        attrs: { columns: columns,
-
-          rowKey: rowKey,
-          ancestorKeys: ancestorKeys,
-          prefixCls: prefixCls + '-expanded-row',
-          indentSize: indentSize,
-          indent: indent,
-          fixed: fixed,
-          components: components,
-          expandedRow: true,
-          hasExpandIcon: function hasExpandIcon() {}
-        },
-        'class': className });
-    },
-    renderRows: function renderRows(_renderRows, rows, record, index, indent, fixed, parentKey, ancestorKeys) {
-      var expandedRowClassName = this.expandedRowClassName,
-          expandedRowRender = this.expandedRowRender,
-          childrenColumnName = this.childrenColumnName;
-
-      var childrenData = record[childrenColumnName];
-      var nextAncestorKeys = [].concat((0, _toConsumableArray3['default'])(ancestorKeys), [parentKey]);
-      var nextIndent = indent + 1;
-
-      if (expandedRowRender) {
-        rows.push(this.renderExpandedRow(record, index, expandedRowRender, expandedRowClassName(record, index, indent), nextAncestorKeys, nextIndent, fixed));
-      }
-
-      if (childrenData) {
-        rows.push.apply(rows, (0, _toConsumableArray3['default'])(_renderRows(childrenData, nextIndent, nextAncestorKeys)));
-      }
-    }
-  },
-
-  render: function render() {
-    var data = this.data,
-        childrenColumnName = this.childrenColumnName,
-        $scopedSlots = this.$scopedSlots,
-        $listeners = this.$listeners;
-
-    var props = (0, _propsUtil.getOptionProps)(this);
-    var needIndentSpaced = data.some(function (record) {
-      return record[childrenColumnName];
-    });
-
-    return $scopedSlots['default'] && $scopedSlots['default']({
-      props: props,
-      on: $listeners,
-      needIndentSpaced: needIndentSpaced,
-      renderRows: this.renderRows,
-      handleExpandChange: this.handleExpandChange,
-      renderExpandIndentCell: this.renderExpandIndentCell
-    });
-  }
-};
-
-exports['default'] = (0, _store.connect)()(ExpandableTable);
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/HeadTable.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/HeadTable.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/vc-table/src/utils.js");
-
-var _BaseTable = __webpack_require__(/*! ./BaseTable */ "./node_modules/ant-design-vue/lib/vc-table/src/BaseTable.js");
-
-var _BaseTable2 = _interopRequireDefault(_BaseTable);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'HeadTable',
-  props: {
-    fixed: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].bool]),
-    columns: _vueTypes2['default'].array.isRequired,
-    tableClassName: _vueTypes2['default'].string.isRequired,
-    handleBodyScrollLeft: _vueTypes2['default'].func.isRequired,
-    expander: _vueTypes2['default'].object.isRequired
-  },
-  inject: {
-    table: { 'default': function _default() {
-        return {};
-      } }
-  },
-  mounted: function mounted() {
-    this.updateTableRef();
-  },
-  updated: function updated() {
-    this.updateTableRef();
-  },
-
-  methods: {
-    updateTableRef: function updateTableRef() {
-      var _this = this;
-
-      this.$nextTick(function () {
-        _this.$refs.headTable && _this.table.saveChildrenRef('headTable', _this.$refs.headTable);
-      });
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var columns = this.columns,
-        fixed = this.fixed,
-        tableClassName = this.tableClassName,
-        handleBodyScrollLeft = this.handleBodyScrollLeft,
-        expander = this.expander,
-        table = this.table;
-    var prefixCls = table.prefixCls,
-        scroll = table.scroll,
-        showHeader = table.showHeader;
-    var useFixedHeader = table.useFixedHeader;
-
-    var headStyle = {};
-
-    if (scroll.y) {
-      useFixedHeader = true;
-      // Add negative margin bottom for scroll bar overflow bug
-      var scrollbarWidth = (0, _utils.measureScrollbar)('horizontal');
-      if (scrollbarWidth > 0 && !fixed) {
-        headStyle.marginBottom = '-' + scrollbarWidth + 'px';
-        headStyle.paddingBottom = '0px';
-      }
-    }
-
-    if (!useFixedHeader || !showHeader) {
-      return null;
-    }
-    return h(
-      'div',
-      {
-        key: 'headTable',
-        ref: fixed ? null : 'headTable',
-        'class': prefixCls + '-header',
-        style: headStyle,
-        on: {
-          'scroll': handleBodyScrollLeft
-        }
-      },
-      [h(_BaseTable2['default'], {
-        attrs: {
-          tableClassName: tableClassName,
-          hasHead: true,
-          hasBody: false,
-          fixed: fixed,
-          columns: columns,
-          expander: expander
-        }
-      })]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/Table.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/Table.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _shallowequal = __webpack_require__(/*! shallowequal */ "./node_modules/shallowequal/index.js");
-
-var _shallowequal2 = _interopRequireDefault(_shallowequal);
-
-var _merge = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
-
-var _merge2 = _interopRequireDefault(_merge);
-
-var _componentClasses = __webpack_require__(/*! component-classes */ "./node_modules/component-classes/index.js");
-
-var _componentClasses2 = _interopRequireDefault(_componentClasses);
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/vc-table/src/utils.js");
-
-var _addEventListener = __webpack_require__(/*! ../../_util/Dom/addEventListener */ "./node_modules/ant-design-vue/lib/_util/Dom/addEventListener.js");
-
-var _addEventListener2 = _interopRequireDefault(_addEventListener);
-
-var _store = __webpack_require__(/*! ../../_util/store */ "./node_modules/ant-design-vue/lib/_util/store/index.js");
-
-var _ColumnManager = __webpack_require__(/*! ./ColumnManager */ "./node_modules/ant-design-vue/lib/vc-table/src/ColumnManager.js");
-
-var _ColumnManager2 = _interopRequireDefault(_ColumnManager);
-
-var _HeadTable = __webpack_require__(/*! ./HeadTable */ "./node_modules/ant-design-vue/lib/vc-table/src/HeadTable.js");
-
-var _HeadTable2 = _interopRequireDefault(_HeadTable);
-
-var _BodyTable = __webpack_require__(/*! ./BodyTable */ "./node_modules/ant-design-vue/lib/vc-table/src/BodyTable.js");
-
-var _BodyTable2 = _interopRequireDefault(_BodyTable);
-
-var _ExpandableTable = __webpack_require__(/*! ./ExpandableTable */ "./node_modules/ant-design-vue/lib/vc-table/src/ExpandableTable.js");
-
-var _ExpandableTable2 = _interopRequireDefault(_ExpandableTable);
-
-var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/date-picker/utils.js");
+
+var _InputIcon = __webpack_require__(/*! ./InputIcon */ "./node_modules/ant-design-vue/lib/date-picker/InputIcon.js");
+
+var _InputIcon2 = _interopRequireDefault(_InputIcon);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = {
-  name: 'Table',
-  mixins: [_BaseMixin2['default']],
-  props: (0, _propsUtil.initDefaultProps)({
-    data: _vueTypes2['default'].array,
-    useFixedHeader: _vueTypes2['default'].bool,
-    columns: _vueTypes2['default'].array,
-    prefixCls: _vueTypes2['default'].string,
-    bodyStyle: _vueTypes2['default'].object,
-    rowKey: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].func]),
-    rowClassName: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].func]),
-    customRow: _vueTypes2['default'].func,
-    customHeaderRow: _vueTypes2['default'].func,
-    // onRowClick: PropTypes.func,
-    // onRowDoubleClick: PropTypes.func,
-    // onRowContextMenu: PropTypes.func,
-    // onRowMouseEnter: PropTypes.func,
-    // onRowMouseLeave: PropTypes.func,
-    showHeader: _vueTypes2['default'].bool,
-    title: _vueTypes2['default'].func,
-    id: _vueTypes2['default'].string,
-    footer: _vueTypes2['default'].func,
-    emptyText: _vueTypes2['default'].any,
-    scroll: _vueTypes2['default'].object,
-    rowRef: _vueTypes2['default'].func,
-    getBodyWrapper: _vueTypes2['default'].func,
-    components: _vueTypes2['default'].shape({
-      table: _vueTypes2['default'].any,
-      header: _vueTypes2['default'].shape({
-        wrapper: _vueTypes2['default'].any,
-        row: _vueTypes2['default'].any,
-        cell: _vueTypes2['default'].any
-      }),
-      body: _vueTypes2['default'].shape({
-        wrapper: _vueTypes2['default'].any,
-        row: _vueTypes2['default'].any,
-        cell: _vueTypes2['default'].any
-      })
-    }),
-    expandIconAsCell: _vueTypes2['default'].bool,
-    expandedRowKeys: _vueTypes2['default'].array,
-    expandedRowClassName: _vueTypes2['default'].func,
-    defaultExpandAllRows: _vueTypes2['default'].bool,
-    defaultExpandedRowKeys: _vueTypes2['default'].array,
-    expandIconColumnIndex: _vueTypes2['default'].number,
-    expandedRowRender: _vueTypes2['default'].func,
-    childrenColumnName: _vueTypes2['default'].string,
-    indentSize: _vueTypes2['default'].number,
-    expandRowByClick: _vueTypes2['default'].bool,
-    expandIcon: _vueTypes2['default'].func
-  }, {
-    data: [],
-    useFixedHeader: false,
-    rowKey: 'key',
-    rowClassName: function rowClassName() {
-      return '';
-    },
-    prefixCls: 'rc-table',
-    bodyStyle: {},
-    showHeader: true,
-    scroll: {},
-    rowRef: function rowRef() {
-      return null;
-    },
-    emptyText: function emptyText() {
-      return 'No Data';
-    },
-    customHeaderRow: function customHeaderRow() {}
-  }),
-  data: function data() {
-    this.preData = [].concat((0, _toConsumableArray3['default'])(this.data));
-    return {
-      columnManager: new _ColumnManager2['default'](this.columns),
-      sComponents: (0, _merge2['default'])({
-        table: 'table',
-        header: {
-          wrapper: 'thead',
-          row: 'tr',
-          cell: 'th'
-        },
-        body: {
-          wrapper: 'tbody',
-          row: 'tr',
-          cell: 'td'
-        }
-      }, this.components)
-    };
-  },
-
-  watch: {
-    components: function components() {
-      this._components = (0, _merge2['default'])({
-        table: 'table',
-        header: {
-          wrapper: 'thead',
-          row: 'tr',
-          cell: 'th'
-        },
-        body: {
-          wrapper: 'tbody',
-          row: 'tr',
-          cell: 'td'
-        }
-      }, this.components);
-    },
-    columns: function columns(val) {
-      if (val) {
-        this.columnManager.reset(val);
-      }
-    },
-    data: function data(val) {
-      var _this = this;
-
-      if (val.length === 0 && this.hasScrollX()) {
-        this.$nextTick(function () {
-          _this.resetScrollX();
-        });
-      }
-    }
-  },
-
-  // static childContextTypes = {
-  //   table: PropTypes.any,
-  //   components: PropTypes.any,
-  // },
-
-  created: function created() {
-    var _this2 = this;
-
-    ['rowClick', 'rowDoubleclick', 'rowContextmenu', 'rowMouseenter', 'rowMouseleave'].forEach(function (name) {
-      (0, _utils.warningOnce)(_this2.$listeners[name] === undefined, name + ' is deprecated, please use customRow instead.');
-    });
-
-    (0, _utils.warningOnce)(this.getBodyWrapper === undefined, 'getBodyWrapper is deprecated, please use custom components instead.');
-
-    // this.columnManager = new ColumnManager(this.columns, this.$slots.default)
-
-    this.store = (0, _store.create)({
-      currentHoverKey: null,
-      fixedColumnsHeadRowsHeight: [],
-      fixedColumnsBodyRowsHeight: {}
-    });
-
-    this.setScrollPosition('left');
-
-    this.debouncedWindowResize = (0, _utils.debounce)(this.handleWindowResize, 150);
-  },
-  provide: function provide() {
-    return {
-      table: this
-    };
-  },
-  mounted: function mounted() {
-    var _this3 = this;
-
-    this.$nextTick(function () {
-      if (_this3.columnManager.isAnyColumnsFixed()) {
-        _this3.handleWindowResize();
-        _this3.resizeEvent = (0, _addEventListener2['default'])(window, 'resize', _this3.debouncedWindowResize);
-      }
-      // https://github.com/ant-design/ant-design/issues/11635
-      if (_this3.ref_headTable) {
-        _this3.ref_headTable.scrollLeft = 0;
-      }
-      if (_this3.ref_bodyTable) {
-        _this3.ref_bodyTable.scrollLeft = 0;
-      }
-    });
-  },
-  updated: function updated() {
-    var _this4 = this;
-
-    this.$nextTick(function () {
-      if (_this4.columnManager.isAnyColumnsFixed()) {
-        _this4.handleWindowResize();
-        if (!_this4.resizeEvent) {
-          _this4.resizeEvent = (0, _addEventListener2['default'])(window, 'resize', _this4.debouncedWindowResize);
-        }
-      }
-    });
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.resizeEvent) {
-      this.resizeEvent.remove();
-    }
-    if (this.debouncedWindowResize) {
-      this.debouncedWindowResize.cancel();
-    }
-  },
-
-  methods: {
-    getRowKey: function getRowKey(record, index) {
-      var rowKey = this.rowKey;
-      var key = typeof rowKey === 'function' ? rowKey(record, index) : record[rowKey];
-      (0, _utils.warningOnce)(key !== undefined, 'Each record in table should have a unique `key` prop,' + 'or set `rowKey` to an unique primary key.');
-      return key === undefined ? index : key;
-    },
-    setScrollPosition: function setScrollPosition(position) {
-      this.scrollPosition = position;
-      if (this.$refs.tableNode) {
-        var prefixCls = this.prefixCls;
-
-        if (position === 'both') {
-          (0, _componentClasses2['default'])(this.$refs.tableNode).remove(new RegExp('^' + prefixCls + '-scroll-position-.+$')).add(prefixCls + '-scroll-position-left').add(prefixCls + '-scroll-position-right');
-        } else {
-          (0, _componentClasses2['default'])(this.$refs.tableNode).remove(new RegExp('^' + prefixCls + '-scroll-position-.+$')).add(prefixCls + '-scroll-position-' + position);
-        }
-      }
-    },
-    setScrollPositionClassName: function setScrollPositionClassName() {
-      var node = this.ref_bodyTable;
-      var scrollToLeft = node.scrollLeft === 0;
-      var scrollToRight = node.scrollLeft + 1 >= node.children[0].getBoundingClientRect().width - node.getBoundingClientRect().width;
-      if (scrollToLeft && scrollToRight) {
-        this.setScrollPosition('both');
-      } else if (scrollToLeft) {
-        this.setScrollPosition('left');
-      } else if (scrollToRight) {
-        this.setScrollPosition('right');
-      } else if (this.scrollPosition !== 'middle') {
-        this.setScrollPosition('middle');
-      }
-    },
-    handleWindowResize: function handleWindowResize() {
-      this.syncFixedTableRowHeight();
-      this.setScrollPositionClassName();
-    },
-    syncFixedTableRowHeight: function syncFixedTableRowHeight() {
-      var tableRect = this.$refs.tableNode.getBoundingClientRect();
-      // If tableNode's height less than 0, suppose it is hidden and don't recalculate rowHeight.
-      // see: https://github.com/ant-design/ant-design/issues/4836
-      if (tableRect.height !== undefined && tableRect.height <= 0) {
-        return;
-      }
-      var prefixCls = this.prefixCls;
-
-      var headRows = this.ref_headTable ? this.ref_headTable.querySelectorAll('thead') : this.ref_bodyTable.querySelectorAll('thead');
-      var bodyRows = this.ref_bodyTable.querySelectorAll('.' + prefixCls + '-row') || [];
-      var fixedColumnsHeadRowsHeight = [].map.call(headRows, function (row) {
-        return row.getBoundingClientRect().height || 'auto';
-      });
-      var state = this.store.getState();
-      var fixedColumnsBodyRowsHeight = [].reduce.call(bodyRows, function (acc, row) {
-        var rowKey = row.getAttribute('data-row-key');
-        var height = row.getBoundingClientRect().height || state.fixedColumnsBodyRowsHeight[rowKey] || 'auto';
-        acc[rowKey] = height;
-        return acc;
-      }, {});
-      if ((0, _shallowequal2['default'])(state.fixedColumnsHeadRowsHeight, fixedColumnsHeadRowsHeight) && (0, _shallowequal2['default'])(state.fixedColumnsBodyRowsHeight, fixedColumnsBodyRowsHeight)) {
-        return;
-      }
-      this.store.setState({
-        fixedColumnsHeadRowsHeight: fixedColumnsHeadRowsHeight,
-        fixedColumnsBodyRowsHeight: fixedColumnsBodyRowsHeight
-      });
-    },
-    resetScrollX: function resetScrollX() {
-      if (this.ref_headTable) {
-        this.ref_headTable.scrollLeft = 0;
-      }
-      if (this.ref_bodyTable) {
-        this.ref_bodyTable.scrollLeft = 0;
-      }
-    },
-    hasScrollX: function hasScrollX() {
-      var _scroll = this.scroll,
-          scroll = _scroll === undefined ? {} : _scroll;
-
-      return 'x' in scroll;
-    },
-    handleBodyScrollLeft: function handleBodyScrollLeft(e) {
-      // Fix https://github.com/ant-design/ant-design/issues/7635
-      if (e.currentTarget !== e.target) {
-        return;
-      }
-      var target = e.target;
-      var _scroll2 = this.scroll,
-          scroll = _scroll2 === undefined ? {} : _scroll2;
-      var ref_headTable = this.ref_headTable,
-          ref_bodyTable = this.ref_bodyTable;
-
-      if (target.scrollLeft !== this.lastScrollLeft && scroll.x) {
-        if (target === ref_bodyTable && ref_headTable) {
-          ref_headTable.scrollLeft = target.scrollLeft;
-        } else if (target === ref_headTable && ref_bodyTable) {
-          ref_bodyTable.scrollLeft = target.scrollLeft;
-        }
-        this.setScrollPositionClassName();
-      }
-      // Remember last scrollLeft for scroll direction detecting.
-      this.lastScrollLeft = target.scrollLeft;
-    },
-    handleBodyScrollTop: function handleBodyScrollTop(e) {
-      var target = e.target;
-      // Fix https://github.com/ant-design/ant-design/issues/9033
-      if (e.currentTarget !== target) {
-        return;
-      }
-      var _scroll3 = this.scroll,
-          scroll = _scroll3 === undefined ? {} : _scroll3;
-      var ref_headTable = this.ref_headTable,
-          ref_bodyTable = this.ref_bodyTable,
-          ref_fixedColumnsBodyLeft = this.ref_fixedColumnsBodyLeft,
-          ref_fixedColumnsBodyRight = this.ref_fixedColumnsBodyRight;
-
-      if (target.scrollTop !== this.lastScrollTop && scroll.y && target !== ref_headTable) {
-        var scrollTop = target.scrollTop;
-        if (ref_fixedColumnsBodyLeft && target !== ref_fixedColumnsBodyLeft) {
-          ref_fixedColumnsBodyLeft.scrollTop = scrollTop;
-        }
-        if (ref_fixedColumnsBodyRight && target !== ref_fixedColumnsBodyRight) {
-          ref_fixedColumnsBodyRight.scrollTop = scrollTop;
-        }
-        if (ref_bodyTable && target !== ref_bodyTable) {
-          ref_bodyTable.scrollTop = scrollTop;
-        }
-      }
-      // Remember last scrollTop for scroll direction detecting.
-      this.lastScrollTop = target.scrollTop;
-    },
-    handleBodyScroll: function handleBodyScroll(e) {
-      this.handleBodyScrollLeft(e);
-      this.handleBodyScrollTop(e);
-    },
-    handleWheel: function handleWheel(event) {
-      var _$props$scroll = this.$props.scroll,
-          scroll = _$props$scroll === undefined ? {} : _$props$scroll;
-
-      if (window.navigator.userAgent.match(/Trident\/7\./) && scroll.y) {
-        event.preventDefault();
-        var wd = event.deltaY;
-        var target = event.target;
-        var bodyTable = this.ref_bodyTable,
-            fixedColumnsBodyLeft = this.ref_fixedColumnsBodyLeft,
-            fixedColumnsBodyRight = this.ref_fixedColumnsBodyRight;
-
-        var scrollTop = 0;
-
-        if (this.lastScrollTop) {
-          scrollTop = this.lastScrollTop + wd;
-        } else {
-          scrollTop = wd;
-        }
-
-        if (fixedColumnsBodyLeft && target !== fixedColumnsBodyLeft) {
-          fixedColumnsBodyLeft.scrollTop = scrollTop;
-        }
-        if (fixedColumnsBodyRight && target !== fixedColumnsBodyRight) {
-          fixedColumnsBodyRight.scrollTop = scrollTop;
-        }
-        if (bodyTable && target !== bodyTable) {
-          bodyTable.scrollTop = scrollTop;
-        }
-      }
-    },
-    saveChildrenRef: function saveChildrenRef(name, node) {
-      this['ref_' + name] = node;
-    },
-    renderMainTable: function renderMainTable() {
-      var h = this.$createElement;
-      var scroll = this.scroll,
-          prefixCls = this.prefixCls;
-
-      var isAnyColumnsFixed = this.columnManager.isAnyColumnsFixed();
-      var scrollable = isAnyColumnsFixed || scroll.x || scroll.y;
-
-      var table = [this.renderTable({
-        columns: this.columnManager.groupedColumns(),
-        isAnyColumnsFixed: isAnyColumnsFixed
-      }), this.renderEmptyText(), this.renderFooter()];
-
-      return scrollable ? h(
-        'div',
-        { 'class': prefixCls + '-scroll' },
-        [table]
-      ) : table;
-    },
-    renderLeftFixedTable: function renderLeftFixedTable() {
-      var h = this.$createElement;
-      var prefixCls = this.prefixCls;
+function noop() {}
+function getShowDateFromValue(value, mode) {
+  var _value = (0, _slicedToArray3['default'])(value, 2),
+      start = _value[0],
+      end = _value[1];
+  // value could be an empty array, then we should not reset showDate
 
 
-      return h(
-        'div',
-        { 'class': prefixCls + '-fixed-left' },
-        [this.renderTable({
-          columns: this.columnManager.leftColumns(),
-          fixed: 'left'
-        })]
-      );
-    },
-    renderRightFixedTable: function renderRightFixedTable() {
-      var h = this.$createElement;
-      var prefixCls = this.prefixCls;
-
-
-      return h(
-        'div',
-        { 'class': prefixCls + '-fixed-right' },
-        [this.renderTable({
-          columns: this.columnManager.rightColumns(),
-          fixed: 'right'
-        })]
-      );
-    },
-    renderTable: function renderTable(options) {
-      var h = this.$createElement;
-      var columns = options.columns,
-          fixed = options.fixed,
-          isAnyColumnsFixed = options.isAnyColumnsFixed;
-      var prefixCls = this.prefixCls,
-          _scroll4 = this.scroll,
-          scroll = _scroll4 === undefined ? {} : _scroll4;
-
-      var tableClassName = scroll.x || fixed ? prefixCls + '-fixed' : '';
-
-      var headTable = h(_HeadTable2['default'], {
-        key: 'head',
-        attrs: { columns: columns,
-          fixed: fixed,
-          tableClassName: tableClassName,
-          handleBodyScrollLeft: this.handleBodyScrollLeft,
-          expander: this.expander
-        }
-      });
-
-      var bodyTable = h(_BodyTable2['default'], {
-        key: 'body',
-        attrs: { columns: columns,
-          fixed: fixed,
-          tableClassName: tableClassName,
-          getRowKey: this.getRowKey,
-          handleWheel: this.handleWheel,
-          handleBodyScroll: this.handleBodyScroll,
-          expander: this.expander,
-          isAnyColumnsFixed: isAnyColumnsFixed
-        }
-      });
-
-      return [headTable, bodyTable];
-    },
-    renderTitle: function renderTitle() {
-      var h = this.$createElement;
-      var title = this.title,
-          prefixCls = this.prefixCls,
-          data = this.data;
-
-      return title ? h(
-        'div',
-        { 'class': prefixCls + '-title', key: 'title' },
-        [title(data)]
-      ) : null;
-    },
-    renderFooter: function renderFooter() {
-      var h = this.$createElement;
-      var footer = this.footer,
-          prefixCls = this.prefixCls,
-          data = this.data;
-
-      return footer ? h(
-        'div',
-        { 'class': prefixCls + '-footer', key: 'footer' },
-        [footer(data)]
-      ) : null;
-    },
-    renderEmptyText: function renderEmptyText() {
-      var h = this.$createElement;
-      var emptyText = this.emptyText,
-          prefixCls = this.prefixCls,
-          data = this.data;
-
-      if (data.length) {
-        return null;
-      }
-      var emptyClassName = prefixCls + '-placeholder';
-      return h(
-        'div',
-        { 'class': emptyClassName, key: 'emptyText' },
-        [typeof emptyText === 'function' ? emptyText() : emptyText]
-      );
-    }
-  },
-
-  render: function render() {
-    var _this5 = this;
-
-    var h = arguments[0];
-
-    var props = (0, _propsUtil.getOptionProps)(this);
-    var $listeners = this.$listeners,
-        columnManager = this.columnManager,
-        getRowKey = this.getRowKey;
-
-    var prefixCls = props.prefixCls;
-    var className = props.prefixCls;
-    if (props.useFixedHeader || props.scroll && props.scroll.y) {
-      className += ' ' + prefixCls + '-fixed-header';
-    }
-    if (this.scrollPosition === 'both') {
-      className += ' ' + prefixCls + '-scroll-position-left ' + prefixCls + '-scroll-position-right';
-    } else {
-      className += ' ' + prefixCls + '-scroll-position-' + this.scrollPosition;
-    }
-    var hasLeftFixed = columnManager.isAnyColumnsLeftFixed();
-    var hasRightFixed = columnManager.isAnyColumnsRightFixed();
-
-    var expandableTableProps = {
-      props: (0, _extends3['default'])({}, props, {
-        columnManager: columnManager,
-        getRowKey: getRowKey
-      }),
-      on: (0, _extends3['default'])({}, $listeners),
-      scopedSlots: {
-        'default': function _default(expander) {
-          _this5.expander = expander;
-          return h(
-            'div',
-            {
-              ref: 'tableNode',
-              'class': className
-              // style={props.style}
-              // id={props.id}
-            },
-            [_this5.renderTitle(), h(
-              'div',
-              { 'class': prefixCls + '-content' },
-              [_this5.renderMainTable(), hasLeftFixed && _this5.renderLeftFixedTable(), hasRightFixed && _this5.renderRightFixedTable()]
-            )]
-          );
-        }
-      }
-    };
-    return h(
-      _store.Provider,
-      {
-        attrs: { store: this.store }
-      },
-      [h(_ExpandableTable2['default'], expandableTableProps)]
-    );
+  if (!start && !end) {
+    return;
   }
-}; /* eslint-disable camelcase */
+  if (mode && mode[0] === 'month') {
+    return [start, end];
+  }
+  var newEnd = end && end.isSame(start, 'month') ? end.clone().add(1, 'month') : end;
+  return [start, newEnd];
+}
 
-/***/ }),
+function pickerValueAdapter(value) {
+  if (!value) {
+    return;
+  }
+  if (Array.isArray(value)) {
+    return value;
+  }
+  return [value, value.clone().add(1, 'month')];
+}
 
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/TableCell.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/TableCell.js ***!
-  \*******************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+function isEmptyArray(arr) {
+  if (Array.isArray(arr)) {
+    return arr.length === 0 || arr.every(function (i) {
+      return !i;
+    });
+  }
+  return false;
+}
 
-"use strict";
+function fixLocale(value, localeCode) {
+  if (!localeCode) {
+    return;
+  }
+  if (!value || value.length === 0) {
+    return;
+  }
 
+  var _value2 = (0, _slicedToArray3['default'])(value, 2),
+      start = _value2[0],
+      end = _value2[1];
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _get = __webpack_require__(/*! lodash/get */ "./node_modules/lodash/get.js");
-
-var _get2 = _interopRequireDefault(_get);
-
-var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function isInvalidRenderCellText(text) {
-  return text && !(0, _propsUtil.isValidElement)(text) && Object.prototype.toString.call(text) === '[object Object]';
+  if (start) {
+    start.locale(localeCode);
+  }
+  if (end) {
+    end.locale(localeCode);
+  }
 }
 
 exports['default'] = {
-  name: 'TableCell',
-  props: {
-    record: _vueTypes2['default'].object,
-    prefixCls: _vueTypes2['default'].string,
-    index: _vueTypes2['default'].number,
-    indent: _vueTypes2['default'].number,
-    indentSize: _vueTypes2['default'].number,
-    column: _vueTypes2['default'].object,
-    expandIcon: _vueTypes2['default'].any,
-    component: _vueTypes2['default'].any
+  name: 'ARangePicker',
+  mixins: [_BaseMixin2['default']],
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
+  props: (0, _propsUtil.initDefaultProps)((0, _interface.RangePickerProps)(), {
+    allowClear: true,
+    showToday: false,
+    separator: '~'
+  }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  data: function data() {
+    var value = this.value || this.defaultValue || [];
+
+    var _value3 = (0, _slicedToArray3['default'])(value, 2),
+        start = _value3[0],
+        end = _value3[1];
+
+    if (start && !(0, _interopDefault2['default'])(moment).isMoment(start) || end && !(0, _interopDefault2['default'])(moment).isMoment(end)) {
+      throw new Error('The value/defaultValue of RangePicker must be a moment object array after `antd@2.0`, ' + 'see: https://u.ant.design/date-picker-value');
+    }
+    var pickerValue = !value || isEmptyArray(value) ? this.defaultPickerValue : value;
+    return {
+      sValue: value,
+      sShowDate: pickerValueAdapter(pickerValue || (0, _interopDefault2['default'])(moment)()),
+      sOpen: this.open,
+      sHoverValue: []
+    };
+  },
+
+  watch: {
+    value: function value(val) {
+      var value = val || [];
+      var state = { sValue: value };
+      if (!(0, _shallowequal2['default'])(val, this.sValue)) {
+        state = (0, _extends3['default'])({}, state, {
+          sShowDate: getShowDateFromValue(value, this.mode) || this.sShowDate
+        });
+      }
+      this.setState(state);
+    },
+    open: function open(val) {
+      var state = { sOpen: val };
+      this.setState(state);
+    },
+    sOpen: function sOpen(val, oldVal) {
+      var _this = this;
+
+      this.$nextTick(function () {
+        if (!(0, _propsUtil.hasProp)(_this, 'open') && oldVal && !val) {
+          _this.focus();
+        }
+      });
+    }
   },
   methods: {
-    handleClick: function handleClick(e) {
-      var record = this.record,
-          onCellClick = this.column.onCellClick;
-
-      if (onCellClick) {
-        onCellClick(record, e);
+    setValue: function setValue(value, hidePanel) {
+      this.handleChange(value);
+      if ((hidePanel || !this.showTime) && !(0, _propsUtil.hasProp)(this, 'open')) {
+        this.setState({ sOpen: false });
       }
+    },
+    clearSelection: function clearSelection(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.setState({ sValue: [] });
+      this.handleChange([]);
+    },
+    clearHoverValue: function clearHoverValue() {
+      this.setState({ sHoverValue: [] });
+    },
+    handleChange: function handleChange(value) {
+      if (!(0, _propsUtil.hasProp)(this, 'value')) {
+        this.setState(function (_ref) {
+          var sShowDate = _ref.sShowDate;
+          return {
+            sValue: value,
+            sShowDate: getShowDateFromValue(value) || sShowDate
+          };
+        });
+      }
+      if (value[0] && value[1] && value[0].diff(value[1]) > 0) {
+        value[1] = undefined;
+      }
+
+      var _value4 = (0, _slicedToArray3['default'])(value, 2),
+          start = _value4[0],
+          end = _value4[1];
+
+      this.$emit('change', value, [(0, _utils.formatDate)(start, this.format), (0, _utils.formatDate)(end, this.format)]);
+    },
+    handleOpenChange: function handleOpenChange(open) {
+      if (!(0, _propsUtil.hasProp)(this, 'open')) {
+        this.setState({ sOpen: open });
+      }
+
+      if (open === false) {
+        this.clearHoverValue();
+      }
+      this.$emit('openChange', open);
+    },
+    handleShowDateChange: function handleShowDateChange(showDate) {
+      this.setState({ sShowDate: showDate });
+    },
+    handleHoverChange: function handleHoverChange(hoverValue) {
+      this.setState({ sHoverValue: hoverValue });
+    },
+    handleRangeMouseLeave: function handleRangeMouseLeave() {
+      if (this.sOpen) {
+        this.clearHoverValue();
+      }
+    },
+    handleCalendarInputSelect: function handleCalendarInputSelect(value) {
+      var _value5 = (0, _slicedToArray3['default'])(value, 1),
+          start = _value5[0];
+
+      if (!start) {
+        return;
+      }
+      this.setState(function (_ref2) {
+        var sShowDate = _ref2.sShowDate;
+        return {
+          sValue: value,
+          sShowDate: getShowDateFromValue(value) || sShowDate
+        };
+      });
+    },
+    handleRangeClick: function handleRangeClick(value) {
+      if (typeof value === 'function') {
+        value = value();
+      }
+
+      this.setValue(value, true);
+      this.$emit('ok', value);
+      this.$emit('openChange', false);
+    },
+    onMouseEnter: function onMouseEnter(e) {
+      this.$emit('mouseenter', e);
+    },
+    onMouseLeave: function onMouseLeave(e) {
+      this.$emit('mouseleave', e);
+    },
+    focus: function focus() {
+      this.$refs.picker.focus();
+    },
+    blur: function blur() {
+      this.$refs.picker.blur();
+    },
+    renderFooter: function renderFooter() {
+      var _this2 = this;
+
+      var h = this.$createElement;
+      var ranges = this.ranges,
+          $scopedSlots = this.$scopedSlots,
+          $slots = this.$slots;
+      var prefixCls = this._prefixCls,
+          tagPrefixCls = this._tagPrefixCls;
+
+      var renderExtraFooter = this.renderExtraFooter || $scopedSlots.renderExtraFooter || $slots.renderExtraFooter;
+      if (!ranges && !renderExtraFooter) {
+        return null;
+      }
+      var customFooter = renderExtraFooter ? h(
+        'div',
+        { 'class': prefixCls + '-footer-extra', key: 'extra' },
+        [typeof renderExtraFooter === 'function' ? renderExtraFooter() : renderExtraFooter]
+      ) : null;
+      var operations = ranges && Object.keys(ranges).map(function (range) {
+        var value = ranges[range];
+        var hoverValue = typeof value === 'function' ? value.call(_this2) : value;
+        return h(
+          _tag2['default'],
+          {
+            key: range,
+            attrs: { prefixCls: tagPrefixCls,
+              color: 'blue'
+            },
+            on: {
+              'click': function click() {
+                return _this2.handleRangeClick(value);
+              },
+              'mouseenter': function mouseenter() {
+                return _this2.setState({ sHoverValue: hoverValue });
+              },
+              'mouseleave': _this2.handleRangeMouseLeave
+            }
+          },
+          [range]
+        );
+      });
+      var rangeNode = operations && operations.length > 0 ? h(
+        'div',
+        { 'class': prefixCls + '-footer-extra ' + prefixCls + '-range-quick-selector', key: 'range' },
+        [operations]
+      ) : null;
+      return [rangeNode, customFooter];
     }
   },
 
   render: function render() {
-    var h = arguments[0];
-    var record = this.record,
-        indentSize = this.indentSize,
-        prefixCls = this.prefixCls,
-        indent = this.indent,
-        index = this.index,
-        expandIcon = this.expandIcon,
-        column = this.column,
-        BodyCell = this.component;
-    var dataIndex = column.dataIndex,
-        customRender = column.customRender,
-        _column$className = column.className,
-        className = _column$className === undefined ? '' : _column$className;
+    var _classNames,
+        _this3 = this;
 
-    var cls = className || column['class'];
-    // We should return undefined if no dataIndex is specified, but in order to
-    // be compatible with object-path's behavior, we return the record object instead.
-    var text = void 0;
-    if (typeof dataIndex === 'number') {
-      text = (0, _get2['default'])(record, dataIndex);
-    } else if (!dataIndex || dataIndex.length === 0) {
-      text = record;
-    } else {
-      text = (0, _get2['default'])(record, dataIndex);
-    }
-    var tdProps = {
-      props: {},
-      attrs: {},
-      'class': cls,
+    var h = arguments[0];
+
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var suffixIcon = (0, _propsUtil.getComponentFromProp)(this, 'suffixIcon');
+    suffixIcon = Array.isArray(suffixIcon) ? suffixIcon[0] : suffixIcon;
+    var value = this.sValue,
+        showDate = this.sShowDate,
+        hoverValue = this.sHoverValue,
+        open = this.sOpen,
+        $scopedSlots = this.$scopedSlots;
+
+    var listeners = (0, _propsUtil.getListeners)(this);
+    var _listeners$calendarCh = listeners.calendarChange,
+        calendarChange = _listeners$calendarCh === undefined ? noop : _listeners$calendarCh,
+        _listeners$ok = listeners.ok,
+        ok = _listeners$ok === undefined ? noop : _listeners$ok,
+        _listeners$focus = listeners.focus,
+        focus = _listeners$focus === undefined ? noop : _listeners$focus,
+        _listeners$blur = listeners.blur,
+        blur = _listeners$blur === undefined ? noop : _listeners$blur,
+        _listeners$panelChang = listeners.panelChange,
+        panelChange = _listeners$panelChang === undefined ? noop : _listeners$panelChang;
+    var customizePrefixCls = props.prefixCls,
+        customizeTagPrefixCls = props.tagPrefixCls,
+        popupStyle = props.popupStyle,
+        disabledDate = props.disabledDate,
+        disabledTime = props.disabledTime,
+        showTime = props.showTime,
+        showToday = props.showToday,
+        ranges = props.ranges,
+        locale = props.locale,
+        localeCode = props.localeCode,
+        format = props.format,
+        separator = props.separator,
+        inputReadOnly = props.inputReadOnly;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('calendar', customizePrefixCls);
+    var tagPrefixCls = getPrefixCls('tag', customizeTagPrefixCls);
+    this._prefixCls = prefixCls;
+    this._tagPrefixCls = tagPrefixCls;
+
+    var dateRender = props.dateRender || $scopedSlots.dateRender;
+    fixLocale(value, localeCode);
+    fixLocale(showDate, localeCode);
+
+    var calendarClassName = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-time', showTime), (0, _defineProperty3['default'])(_classNames, prefixCls + '-range-with-ranges', ranges), _classNames));
+
+    // 需要选择时间时，点击 ok 时才触发 onChange
+    var pickerChangeHandler = {
       on: {
-        click: this.handleClick
+        change: this.handleChange
       }
     };
-    var colSpan = void 0;
-    var rowSpan = void 0;
+    var calendarProps = {
+      on: {
+        ok: this.handleChange
+      },
+      props: {}
+    };
+    if (props.timePicker) {
+      pickerChangeHandler.on.change = function (changedValue) {
+        return _this3.handleChange(changedValue);
+      };
+    } else {
+      calendarProps = { on: {}, props: {} };
+    }
+    if ('mode' in props) {
+      calendarProps.props.mode = props.mode;
+    }
 
-    if (customRender) {
-      text = customRender(text, record, index);
-      if (isInvalidRenderCellText(text)) {
-        tdProps.attrs = text.attrs || {};
-        tdProps.props = text.props || {};
-        colSpan = tdProps.attrs.colSpan;
-        rowSpan = tdProps.attrs.rowSpan;
-        text = text.children;
+    var startPlaceholder = Array.isArray(props.placeholder) ? props.placeholder[0] : locale.lang.rangePlaceholder[0];
+    var endPlaceholder = Array.isArray(props.placeholder) ? props.placeholder[1] : locale.lang.rangePlaceholder[1];
+
+    var rangeCalendarProps = (0, _propsUtil.mergeProps)(calendarProps, {
+      props: {
+        separator: separator,
+        format: format,
+        prefixCls: prefixCls,
+        renderFooter: this.renderFooter,
+        timePicker: props.timePicker,
+        disabledDate: disabledDate,
+        disabledTime: disabledTime,
+        dateInputPlaceholder: [startPlaceholder, endPlaceholder],
+        locale: locale.lang,
+        dateRender: dateRender,
+        value: showDate,
+        hoverValue: hoverValue,
+        showToday: showToday,
+        inputReadOnly: inputReadOnly
+      },
+      on: {
+        change: calendarChange,
+        ok: ok,
+        valueChange: this.handleShowDateChange,
+        hoverChange: this.handleHoverChange,
+        panelChange: panelChange,
+        inputSelect: this.handleCalendarInputSelect
+      },
+      'class': calendarClassName,
+      scopedSlots: $scopedSlots
+    });
+    var calendar = h(_RangeCalendar2['default'], rangeCalendarProps);
+
+    // default width for showTime
+    var pickerStyle = {};
+    if (props.showTime) {
+      pickerStyle.width = '350px';
+    }
+
+    var _value6 = (0, _slicedToArray3['default'])(value, 2),
+        startValue = _value6[0],
+        endValue = _value6[1];
+
+    var clearIcon = !props.disabled && props.allowClear && value && (startValue || endValue) ? h(_icon2['default'], {
+      attrs: {
+        type: 'close-circle',
+
+        theme: 'filled'
+      },
+      'class': prefixCls + '-picker-clear',
+      on: {
+        'click': this.clearSelection
       }
-    }
-
-    if (column.customCell) {
-      tdProps = (0, _propsUtil.mergeProps)(tdProps, column.customCell(record, index));
-    }
-
-    // Fix https://github.com/ant-design/ant-design/issues/1202
-    if (isInvalidRenderCellText(text)) {
-      text = null;
-    }
-
-    var indentText = expandIcon ? h('span', {
-      style: { paddingLeft: indentSize * indent + 'px' },
-      'class': prefixCls + '-indent indent-level-' + indent
     }) : null;
 
-    if (rowSpan === 0 || colSpan === 0) {
-      return null;
-    }
-    if (column.align) {
-      tdProps.style = (0, _extends3['default'])({}, tdProps.style, { textAlign: column.align });
-    }
+    var inputIcon = h(_InputIcon2['default'], {
+      attrs: { suffixIcon: suffixIcon, prefixCls: prefixCls }
+    });
 
+    var input = function input(_ref3) {
+      var inputValue = _ref3.value;
+
+      var _inputValue = (0, _slicedToArray3['default'])(inputValue, 2),
+          start = _inputValue[0],
+          end = _inputValue[1];
+
+      return h(
+        'span',
+        { 'class': props.pickerInputClass },
+        [h('input', {
+          attrs: {
+            disabled: props.disabled,
+            readOnly: true,
+
+            placeholder: startPlaceholder,
+
+            tabIndex: -1
+          },
+          domProps: {
+            'value': (0, _utils.formatDate)(start, props.format)
+          },
+          'class': prefixCls + '-range-picker-input' }), h(
+          'span',
+          { 'class': prefixCls + '-range-picker-separator' },
+          [' ', separator, ' ']
+        ), h('input', {
+          attrs: {
+            disabled: props.disabled,
+            readOnly: true,
+
+            placeholder: endPlaceholder,
+
+            tabIndex: -1
+          },
+          domProps: {
+            'value': (0, _utils.formatDate)(end, props.format)
+          },
+          'class': prefixCls + '-range-picker-input' }), clearIcon, inputIcon]
+      );
+    };
+    var vcDatePickerProps = (0, _propsUtil.mergeProps)({
+      props: props,
+      on: listeners
+    }, pickerChangeHandler, {
+      props: {
+        calendar: calendar,
+        value: value,
+        open: open,
+        prefixCls: prefixCls + '-picker-container'
+      },
+      on: {
+        openChange: this.handleOpenChange
+      },
+      style: popupStyle,
+      scopedSlots: (0, _extends3['default'])({ 'default': input }, $scopedSlots)
+    });
     return h(
-      BodyCell,
-      tdProps,
-      [indentText, expandIcon, text]
+      'span',
+      {
+        ref: 'picker',
+        'class': props.pickerClass,
+        style: pickerStyle,
+        attrs: { tabIndex: props.disabled ? -1 : 0
+        },
+        on: {
+          'focus': focus,
+          'blur': blur,
+          'mouseenter': this.onMouseEnter,
+          'mouseleave': this.onMouseLeave
+        }
+      },
+      [h(_Picker2['default'], vcDatePickerProps)]
     );
   }
 };
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/TableHeader.js":
+/***/ "./node_modules/ant-design-vue/lib/date-picker/WeekPicker.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/date-picker/WeekPicker.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var moment = _interopRequireWildcard(_moment);
+
+var _vcCalendar = __webpack_require__(/*! ../vc-calendar */ "./node_modules/ant-design-vue/lib/vc-calendar/index.js");
+
+var _vcCalendar2 = _interopRequireDefault(_vcCalendar);
+
+var _Picker = __webpack_require__(/*! ../vc-calendar/src/Picker */ "./node_modules/ant-design-vue/lib/vc-calendar/src/Picker.js");
+
+var _Picker2 = _interopRequireDefault(_Picker);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/date-picker/interface.js");
+
+var _interopDefault = __webpack_require__(/*! ../_util/interopDefault */ "./node_modules/ant-design-vue/lib/_util/interopDefault.js");
+
+var _interopDefault2 = _interopRequireDefault(_interopDefault);
+
+var _InputIcon = __webpack_require__(/*! ./InputIcon */ "./node_modules/ant-design-vue/lib/date-picker/InputIcon.js");
+
+var _InputIcon2 = _interopRequireDefault(_InputIcon);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function formatValue(value, format) {
+  return value && value.format(format) || '';
+}
+function noop() {}
+
+exports['default'] = {
+  // static defaultProps = {
+  //   format: 'YYYY-wo',
+  //   allowClear: true,
+  // };
+
+  // private input: any;
+  name: 'AWeekPicker',
+  mixins: [_BaseMixin2['default']],
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
+  props: (0, _propsUtil.initDefaultProps)((0, _interface.WeekPickerProps)(), {
+    format: 'gggg-wo',
+    allowClear: true
+  }),
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  data: function data() {
+    var value = this.value || this.defaultValue;
+    if (value && !(0, _interopDefault2['default'])(moment).isMoment(value)) {
+      throw new Error('The value/defaultValue of WeekPicker or MonthPicker must be ' + 'a moment object');
+    }
+    return {
+      _value: value,
+      _open: this.open
+    };
+  },
+
+  watch: {
+    value: function value(val) {
+      var state = { _value: val };
+      this.setState(state);
+      this.prevState = (0, _extends3['default'])({}, this.$data, state);
+    },
+    open: function open(val) {
+      var state = { _open: val };
+      this.setState(state);
+      this.prevState = (0, _extends3['default'])({}, this.$data, state);
+    },
+    _open: function _open(val, oldVal) {
+      var _this = this;
+
+      this.$nextTick(function () {
+        if (!(0, _propsUtil.hasProp)(_this, 'open') && oldVal && !val) {
+          _this.focus();
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.prevState = (0, _extends3['default'])({}, this.$data);
+  },
+  updated: function updated() {
+    var _this2 = this;
+
+    this.$nextTick(function () {
+      if (!(0, _propsUtil.hasProp)(_this2, 'open') && _this2.prevState._open && !_this2._open) {
+        _this2.focus();
+      }
+    });
+  },
+
+  methods: {
+    weekDateRender: function weekDateRender(current) {
+      var h = this.$createElement;
+
+      var selectedValue = this.$data._value;
+      var prefixCls = this._prefixCls,
+          $scopedSlots = this.$scopedSlots;
+
+      var dateRender = this.dateRender || $scopedSlots.dateRender;
+      var dateNode = dateRender ? dateRender(current) : current.date();
+      if (selectedValue && current.year() === selectedValue.year() && current.week() === selectedValue.week()) {
+        return h(
+          'div',
+          { 'class': prefixCls + '-selected-day' },
+          [h(
+            'div',
+            { 'class': prefixCls + '-date' },
+            [dateNode]
+          )]
+        );
+      }
+      return h(
+        'div',
+        { 'class': prefixCls + '-date' },
+        [dateNode]
+      );
+    },
+    handleChange: function handleChange(value) {
+      if (!(0, _propsUtil.hasProp)(this, 'value')) {
+        this.setState({ _value: value });
+      }
+      this.$emit('change', value, formatValue(value, this.format));
+    },
+    handleOpenChange: function handleOpenChange(open) {
+      if (!(0, _propsUtil.hasProp)(this, 'open')) {
+        this.setState({ _open: open });
+      }
+      this.$emit('openChange', open);
+    },
+    clearSelection: function clearSelection(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      this.handleChange(null);
+    },
+    focus: function focus() {
+      this.$refs.input.focus();
+    },
+    blur: function blur() {
+      this.$refs.input.blur();
+    },
+    renderFooter: function renderFooter() {
+      var h = this.$createElement;
+      var prefixCls = this._prefixCls,
+          $scopedSlots = this.$scopedSlots;
+
+      var renderExtraFooter = this.renderExtraFooter || $scopedSlots.renderExtraFooter;
+      return renderExtraFooter ? h(
+        'div',
+        { 'class': prefixCls + '-footer-extra' },
+        [renderExtraFooter.apply(undefined, arguments)]
+      ) : null;
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var suffixIcon = (0, _propsUtil.getComponentFromProp)(this, 'suffixIcon');
+    suffixIcon = Array.isArray(suffixIcon) ? suffixIcon[0] : suffixIcon;
+    var customizePrefixCls = this.prefixCls,
+        disabled = this.disabled,
+        pickerClass = this.pickerClass,
+        popupStyle = this.popupStyle,
+        pickerInputClass = this.pickerInputClass,
+        format = this.format,
+        allowClear = this.allowClear,
+        locale = this.locale,
+        localeCode = this.localeCode,
+        disabledDate = this.disabledDate,
+        defaultPickerValue = this.defaultPickerValue,
+        $data = this.$data,
+        $scopedSlots = this.$scopedSlots;
+
+    var listeners = (0, _propsUtil.getListeners)(this);
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('calendar', customizePrefixCls);
+    this._prefixCls = prefixCls;
+
+    var pickerValue = $data._value,
+        open = $data._open;
+    var _listeners$focus = listeners.focus,
+        focus = _listeners$focus === undefined ? noop : _listeners$focus,
+        _listeners$blur = listeners.blur,
+        blur = _listeners$blur === undefined ? noop : _listeners$blur;
+
+
+    if (pickerValue && localeCode) {
+      pickerValue.locale(localeCode);
+    }
+
+    var placeholder = (0, _propsUtil.hasProp)(this, 'placeholder') ? this.placeholder : locale.lang.placeholder;
+    var weekDateRender = this.dateRender || $scopedSlots.dateRender || this.weekDateRender;
+    var calendar = h(_vcCalendar2['default'], {
+      attrs: {
+        showWeekNumber: true,
+        dateRender: weekDateRender,
+        prefixCls: prefixCls,
+        format: format,
+        locale: locale.lang,
+        showDateInput: false,
+        showToday: false,
+        disabledDate: disabledDate,
+        renderFooter: this.renderFooter,
+        defaultValue: defaultPickerValue
+      }
+    });
+    var clearIcon = !disabled && allowClear && $data._value ? h(_icon2['default'], {
+      attrs: {
+        type: 'close-circle',
+
+        theme: 'filled'
+      },
+      'class': prefixCls + '-picker-clear',
+      on: {
+        'click': this.clearSelection
+      }
+    }) : null;
+
+    var inputIcon = h(_InputIcon2['default'], {
+      attrs: { suffixIcon: suffixIcon, prefixCls: prefixCls }
+    });
+
+    var input = function input(_ref) {
+      var value = _ref.value;
+
+      return h(
+        'span',
+        { style: { display: 'inline-block', width: '100%' } },
+        [h('input', {
+          ref: 'input',
+          attrs: { disabled: disabled,
+            readOnly: true,
+
+            placeholder: placeholder
+          },
+          domProps: {
+            'value': value && value.format(format) || ''
+          },
+          'class': pickerInputClass,
+          on: {
+            'focus': focus,
+            'blur': blur
+          }
+        }), clearIcon, inputIcon]
+      );
+    };
+    var vcDatePickerProps = {
+      props: (0, _extends3['default'])({}, props, {
+        calendar: calendar,
+        prefixCls: prefixCls + '-picker-container',
+        value: pickerValue,
+        open: open
+      }),
+      on: (0, _extends3['default'])({}, listeners, {
+        change: this.handleChange,
+        openChange: this.handleOpenChange
+      }),
+      style: popupStyle,
+      scopedSlots: (0, _extends3['default'])({ 'default': input }, $scopedSlots)
+    };
+    return h(
+      'span',
+      { 'class': pickerClass },
+      [h(_Picker2['default'], vcDatePickerProps)]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/date-picker/createPicker.js":
 /*!*********************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/TableHeader.js ***!
+  !*** ./node_modules/ant-design-vue/lib/date-picker/createPicker.js ***!
   \*********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -7778,116 +1020,931 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
+var _extends3 = _interopRequireDefault(_extends2);
 
-var _TableHeaderRow = __webpack_require__(/*! ./TableHeaderRow */ "./node_modules/ant-design-vue/lib/vc-table/src/TableHeaderRow.js");
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
-var _TableHeaderRow2 = _interopRequireDefault(_TableHeaderRow);
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+exports['default'] = createPicker;
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var moment = _interopRequireWildcard(_moment);
+
+var _omit = __webpack_require__(/*! lodash/omit */ "./node_modules/lodash/omit.js");
+
+var _omit2 = _interopRequireDefault(_omit);
+
+var _MonthCalendar = __webpack_require__(/*! ../vc-calendar/src/MonthCalendar */ "./node_modules/ant-design-vue/lib/vc-calendar/src/MonthCalendar.js");
+
+var _MonthCalendar2 = _interopRequireDefault(_MonthCalendar);
+
+var _Picker = __webpack_require__(/*! ../vc-calendar/src/Picker */ "./node_modules/ant-design-vue/lib/vc-calendar/src/Picker.js");
+
+var _Picker2 = _interopRequireDefault(_Picker);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _interopDefault = __webpack_require__(/*! ../_util/interopDefault */ "./node_modules/ant-design-vue/lib/_util/interopDefault.js");
+
+var _interopDefault2 = _interopRequireDefault(_interopDefault);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/date-picker/utils.js");
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function getHeaderRows(columns) {
-  var currentRow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  var rows = arguments[2];
-
-  rows = rows || [];
-  rows[currentRow] = rows[currentRow] || [];
-
-  columns.forEach(function (column) {
-    if (column.rowSpan && rows.length < column.rowSpan) {
-      while (rows.length < column.rowSpan) {
-        rows.push([]);
+// export const PickerProps = {
+//   value?: moment.Moment;
+//   prefixCls: string;
+// }
+function noop() {}
+function createPicker(TheCalendar, props) {
+  return {
+    props: (0, _propsUtil.initDefaultProps)(props, {
+      allowClear: true,
+      showToday: true
+    }),
+    mixins: [_BaseMixin2['default']],
+    model: {
+      prop: 'value',
+      event: 'change'
+    },
+    inject: {
+      configProvider: { 'default': function _default() {
+          return _configProvider.ConfigConsumerProps;
+        } }
+    },
+    data: function data() {
+      var value = this.value || this.defaultValue;
+      if (value && !(0, _interopDefault2['default'])(moment).isMoment(value)) {
+        throw new Error('The value/defaultValue of DatePicker or MonthPicker must be ' + 'a moment object');
       }
+      return {
+        sValue: value,
+        showDate: value,
+        _open: !!this.open
+      };
+    },
+
+    watch: {
+      open: function open(val) {
+        var props = (0, _propsUtil.getOptionProps)(this);
+        var state = {};
+        state._open = val;
+        if ('value' in props && !val && props.value !== this.showDate) {
+          state.showDate = props.value;
+        }
+        this.setState(state);
+      },
+      value: function value(val) {
+        var state = {};
+        state.sValue = val;
+        if (val !== this.sValue) {
+          state.showDate = val;
+        }
+        this.setState(state);
+      },
+      _open: function _open(val, oldVal) {
+        var _this = this;
+
+        this.$nextTick(function () {
+          if (!(0, _propsUtil.hasProp)(_this, 'open') && oldVal && !val) {
+            _this.focus();
+          }
+        });
+      }
+    },
+    methods: {
+      clearSelection: function clearSelection(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.handleChange(null);
+      },
+      handleChange: function handleChange(value) {
+        if (!(0, _propsUtil.hasProp)(this, 'value')) {
+          this.setState({
+            sValue: value,
+            showDate: value
+          });
+        }
+        this.$emit('change', value, (0, _utils.formatDate)(value, this.format));
+      },
+      handleCalendarChange: function handleCalendarChange(value) {
+        this.setState({ showDate: value });
+      },
+      handleOpenChange: function handleOpenChange(open) {
+        var props = (0, _propsUtil.getOptionProps)(this);
+        if (!('open' in props)) {
+          this.setState({ _open: open });
+        }
+        this.$emit('openChange', open);
+      },
+      focus: function focus() {
+        this.$refs.input.focus();
+      },
+      blur: function blur() {
+        this.$refs.input.blur();
+      },
+      renderFooter: function renderFooter() {
+        var h = this.$createElement;
+        var $scopedSlots = this.$scopedSlots,
+            $slots = this.$slots,
+            prefixCls = this._prefixCls;
+
+        var renderExtraFooter = this.renderExtraFooter || $scopedSlots.renderExtraFooter || $slots.renderExtraFooter;
+        return renderExtraFooter ? h(
+          'div',
+          { 'class': prefixCls + '-footer-extra' },
+          [typeof renderExtraFooter === 'function' ? renderExtraFooter.apply(undefined, arguments) : renderExtraFooter]
+        ) : null;
+      },
+      onMouseEnter: function onMouseEnter(e) {
+        this.$emit('mouseenter', e);
+      },
+      onMouseLeave: function onMouseLeave(e) {
+        this.$emit('mouseleave', e);
+      }
+    },
+
+    render: function render() {
+      var _classNames,
+          _this2 = this;
+
+      var h = arguments[0];
+      var $scopedSlots = this.$scopedSlots;
+      var _$data = this.$data,
+          value = _$data.sValue,
+          showDate = _$data.showDate,
+          open = _$data._open;
+
+      var suffixIcon = (0, _propsUtil.getComponentFromProp)(this, 'suffixIcon');
+      suffixIcon = Array.isArray(suffixIcon) ? suffixIcon[0] : suffixIcon;
+      var listeners = (0, _propsUtil.getListeners)(this);
+      var _listeners$panelChang = listeners.panelChange,
+          panelChange = _listeners$panelChang === undefined ? noop : _listeners$panelChang,
+          _listeners$focus = listeners.focus,
+          focus = _listeners$focus === undefined ? noop : _listeners$focus,
+          _listeners$blur = listeners.blur,
+          blur = _listeners$blur === undefined ? noop : _listeners$blur,
+          _listeners$ok = listeners.ok,
+          ok = _listeners$ok === undefined ? noop : _listeners$ok;
+
+      var props = (0, _propsUtil.getOptionProps)(this);
+
+      var customizePrefixCls = props.prefixCls,
+          locale = props.locale,
+          localeCode = props.localeCode,
+          inputReadOnly = props.inputReadOnly;
+
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('calendar', customizePrefixCls);
+      this._prefixCls = prefixCls;
+
+      var dateRender = props.dateRender || $scopedSlots.dateRender;
+      var monthCellContentRender = props.monthCellContentRender || $scopedSlots.monthCellContentRender;
+      var placeholder = 'placeholder' in props ? props.placeholder : locale.lang.placeholder;
+
+      var disabledTime = props.showTime ? props.disabledTime : null;
+
+      var calendarClassName = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-time', props.showTime), (0, _defineProperty3['default'])(_classNames, prefixCls + '-month', _MonthCalendar2['default'] === TheCalendar), _classNames));
+
+      if (value && localeCode) {
+        value.locale(localeCode);
+      }
+
+      var pickerProps = { props: {}, on: {} };
+      var calendarProps = { props: {}, on: {} };
+      var pickerStyle = {};
+      if (props.showTime) {
+        // fix https://github.com/ant-design/ant-design/issues/1902
+        calendarProps.on.select = this.handleChange;
+        pickerStyle.minWidth = '195px';
+      } else {
+        pickerProps.on.change = this.handleChange;
+      }
+      if ('mode' in props) {
+        calendarProps.props.mode = props.mode;
+      }
+      var theCalendarProps = (0, _propsUtil.mergeProps)(calendarProps, {
+        props: {
+          disabledDate: props.disabledDate,
+          disabledTime: disabledTime,
+          locale: locale.lang,
+          timePicker: props.timePicker,
+          defaultValue: props.defaultPickerValue || (0, _interopDefault2['default'])(moment)(),
+          dateInputPlaceholder: placeholder,
+          prefixCls: prefixCls,
+          dateRender: dateRender,
+          format: props.format,
+          showToday: props.showToday,
+          monthCellContentRender: monthCellContentRender,
+          renderFooter: this.renderFooter,
+          value: showDate,
+          inputReadOnly: inputReadOnly
+        },
+        on: {
+          ok: ok,
+          panelChange: panelChange,
+          change: this.handleCalendarChange
+        },
+        'class': calendarClassName,
+        scopedSlots: $scopedSlots
+      });
+      var calendar = h(TheCalendar, theCalendarProps);
+
+      var clearIcon = !props.disabled && props.allowClear && value ? h(_icon2['default'], {
+        attrs: {
+          type: 'close-circle',
+
+          theme: 'filled'
+        },
+        'class': prefixCls + '-picker-clear',
+        on: {
+          'click': this.clearSelection
+        }
+      }) : null;
+
+      var inputIcon = suffixIcon && ((0, _propsUtil.isValidElement)(suffixIcon) ? (0, _vnode.cloneElement)(suffixIcon, {
+        'class': prefixCls + '-picker-icon'
+      }) : h(
+        'span',
+        { 'class': prefixCls + '-picker-icon' },
+        [suffixIcon]
+      )) || h(_icon2['default'], {
+        attrs: { type: 'calendar' },
+        'class': prefixCls + '-picker-icon' });
+
+      var input = function input(_ref) {
+        var inputValue = _ref.value;
+        return h('div', [h('input', {
+          ref: 'input',
+          attrs: { disabled: props.disabled,
+
+            readOnly: true,
+
+            placeholder: placeholder,
+
+            tabIndex: props.tabIndex,
+            name: _this2.name
+          },
+          on: {
+            'focus': focus,
+            'blur': blur
+          },
+          domProps: {
+            'value': (0, _utils.formatDate)(inputValue, _this2.format)
+          },
+          'class': props.pickerInputClass }), clearIcon, inputIcon]);
+      };
+      var vcDatePickerProps = {
+        props: (0, _extends3['default'])({}, props, pickerProps.props, {
+          calendar: calendar,
+          value: value,
+          prefixCls: prefixCls + '-picker-container'
+        }),
+        on: (0, _extends3['default'])({}, (0, _omit2['default'])(listeners, 'change'), pickerProps.on, {
+          open: open,
+          onOpenChange: this.handleOpenChange
+        }),
+        style: props.popupStyle,
+        scopedSlots: (0, _extends3['default'])({ 'default': input }, $scopedSlots)
+      };
+      return h(
+        'span',
+        {
+          'class': props.pickerClass,
+          style: pickerStyle
+          // tabIndex={props.disabled ? -1 : 0}
+          // onFocus={focus}
+          // onBlur={blur}
+          , on: {
+            'mouseenter': this.onMouseEnter,
+            'mouseleave': this.onMouseLeave
+          }
+        },
+        [h(_Picker2['default'], vcDatePickerProps)]
+      );
     }
-    var cell = {
-      key: column.key,
-      className: column.className || column['class'] || '',
-      children: column.title,
-      column: column
-    };
-    if (column.children) {
-      getHeaderRows(column.children, currentRow + 1, rows);
-    }
-    if ('colSpan' in column) {
-      cell.colSpan = column.colSpan;
-    }
-    if ('rowSpan' in column) {
-      cell.rowSpan = column.rowSpan;
-    }
-    if (cell.colSpan !== 0) {
-      rows[currentRow].push(cell);
-    }
-  });
-  return rows.filter(function (row) {
-    return row.length > 0;
-  });
+  };
 }
 
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/date-picker/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/date-picker/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vcCalendar = __webpack_require__(/*! ../vc-calendar */ "./node_modules/ant-design-vue/lib/vc-calendar/index.js");
+
+var _vcCalendar2 = _interopRequireDefault(_vcCalendar);
+
+var _MonthCalendar = __webpack_require__(/*! ../vc-calendar/src/MonthCalendar */ "./node_modules/ant-design-vue/lib/vc-calendar/src/MonthCalendar.js");
+
+var _MonthCalendar2 = _interopRequireDefault(_MonthCalendar);
+
+var _createPicker = __webpack_require__(/*! ./createPicker */ "./node_modules/ant-design-vue/lib/date-picker/createPicker.js");
+
+var _createPicker2 = _interopRequireDefault(_createPicker);
+
+var _wrapPicker = __webpack_require__(/*! ./wrapPicker */ "./node_modules/ant-design-vue/lib/date-picker/wrapPicker.js");
+
+var _wrapPicker2 = _interopRequireDefault(_wrapPicker);
+
+var _RangePicker = __webpack_require__(/*! ./RangePicker */ "./node_modules/ant-design-vue/lib/date-picker/RangePicker.js");
+
+var _RangePicker2 = _interopRequireDefault(_RangePicker);
+
+var _WeekPicker = __webpack_require__(/*! ./WeekPicker */ "./node_modules/ant-design-vue/lib/date-picker/WeekPicker.js");
+
+var _WeekPicker2 = _interopRequireDefault(_WeekPicker);
+
+var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/date-picker/interface.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var DatePicker = (0, _wrapPicker2['default'])((0, _extends3['default'])({}, (0, _createPicker2['default'])(_vcCalendar2['default'], (0, _interface.DatePickerProps)()), { name: 'ADatePicker' }), (0, _interface.DatePickerProps)(), 'date');
+
+var MonthPicker = (0, _wrapPicker2['default'])((0, _extends3['default'])({}, (0, _createPicker2['default'])(_MonthCalendar2['default'], (0, _interface.MonthPickerProps)()), { name: 'AMonthPicker' }), (0, _interface.MonthPickerProps)(), 'month');
+
+(0, _extends3['default'])(DatePicker, {
+  RangePicker: (0, _wrapPicker2['default'])(_RangePicker2['default'], (0, _interface.RangePickerProps)(), 'date'),
+  MonthPicker: MonthPicker,
+  WeekPicker: (0, _wrapPicker2['default'])(_WeekPicker2['default'], (0, _interface.WeekPickerProps)(), 'week')
+});
+
+/* istanbul ignore next */
+DatePicker.install = function (Vue) {
+  Vue.use(_base2['default']);
+  Vue.component(DatePicker.name, DatePicker);
+  Vue.component(DatePicker.RangePicker.name, DatePicker.RangePicker);
+  Vue.component(DatePicker.MonthPicker.name, DatePicker.MonthPicker);
+  Vue.component(DatePicker.WeekPicker.name, DatePicker.WeekPicker);
+};
+
+exports['default'] = DatePicker;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/date-picker/interface.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/date-picker/interface.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.WeekPickerProps = exports.RangePickerProps = exports.MonthPickerProps = exports.DatePickerProps = exports.SinglePickerProps = exports.PickerProps = undefined;
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _momentUtil = __webpack_require__(/*! ../_util/moment-util */ "./node_modules/ant-design-vue/lib/_util/moment-util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// import { TimePickerProps } from '../time-picker'
+var PickerProps = exports.PickerProps = function PickerProps() {
+  return {
+    name: _vueTypes2['default'].string,
+    transitionName: _vueTypes2['default'].string,
+    prefixCls: _vueTypes2['default'].string,
+    inputPrefixCls: _vueTypes2['default'].string,
+    format: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].array]),
+    disabled: _vueTypes2['default'].bool,
+    allowClear: _vueTypes2['default'].bool,
+    suffixIcon: _vueTypes2['default'].any,
+    popupStyle: _vueTypes2['default'].object,
+    dropdownClassName: _vueTypes2['default'].string,
+    locale: _vueTypes2['default'].any,
+    localeCode: _vueTypes2['default'].string,
+    size: _vueTypes2['default'].oneOf(['large', 'small', 'default']),
+    getCalendarContainer: _vueTypes2['default'].func,
+    open: _vueTypes2['default'].bool,
+    // onOpenChange: PropTypes.(status: bool) => void,
+    disabledDate: _vueTypes2['default'].func,
+    showToday: _vueTypes2['default'].bool,
+    dateRender: _vueTypes2['default'].any, // (current: moment.Moment, today: moment.Moment) => React.ReactNode,
+    pickerClass: _vueTypes2['default'].string,
+    pickerInputClass: _vueTypes2['default'].string,
+    timePicker: _vueTypes2['default'].any,
+    autoFocus: _vueTypes2['default'].bool,
+    tagPrefixCls: _vueTypes2['default'].string,
+    tabIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
+    align: _vueTypes2['default'].object.def(function () {
+      return {};
+    }),
+    inputReadOnly: _vueTypes2['default'].bool,
+    valueFormat: _vueTypes2['default'].string
+  };
+};
+
+var SinglePickerProps = exports.SinglePickerProps = function SinglePickerProps() {
+  return {
+    value: _momentUtil.TimeType,
+    defaultValue: _momentUtil.TimeType,
+    defaultPickerValue: _momentUtil.TimeType,
+    renderExtraFooter: _vueTypes2['default'].any,
+    placeholder: _vueTypes2['default'].string
+    // onChange?: (date: moment.Moment, dateString: string) => void;
+  };
+};
+
+var DatePickerProps = exports.DatePickerProps = function DatePickerProps() {
+  return (0, _extends3['default'])({}, PickerProps(), SinglePickerProps(), {
+    showTime: _vueTypes2['default'].oneOfType([_vueTypes2['default'].object, _vueTypes2['default'].bool]),
+    open: _vueTypes2['default'].bool,
+    disabledTime: _vueTypes2['default'].func,
+    // onOpenChange?: (status: bool) => void;
+    // onOk?: (selectedTime: moment.Moment) => void;
+    mode: _vueTypes2['default'].oneOf(['time', 'date', 'month', 'year'])
+  });
+};
+
+var MonthPickerProps = exports.MonthPickerProps = function MonthPickerProps() {
+  return (0, _extends3['default'])({}, PickerProps(), SinglePickerProps(), {
+    placeholder: _vueTypes2['default'].string,
+    monthCellContentRender: _vueTypes2['default'].func
+  });
+};
+// export const RangePickerPresetRange = PropTypes.oneOfType([TimesType, PropTypes.func])
+
+var RangePickerProps = exports.RangePickerProps = function RangePickerProps() {
+  return (0, _extends3['default'])({}, PickerProps(), {
+    tagPrefixCls: _vueTypes2['default'].string,
+    value: _momentUtil.TimesType,
+    defaultValue: _momentUtil.TimesType,
+    defaultPickerValue: _momentUtil.TimesType,
+    timePicker: _vueTypes2['default'].any,
+    // onChange?: (dates: TimesType, dateStrings: [string, string]) => void;
+    // onCalendarChange?: (dates: TimesType, dateStrings: [string, string]) => void;
+    // onOk?: (selectedTime: moment.Moment) => void;
+    showTime: _vueTypes2['default'].oneOfType([_vueTypes2['default'].object, _vueTypes2['default'].bool]),
+    ranges: _vueTypes2['default'].object,
+    placeholder: _vueTypes2['default'].arrayOf(String),
+    mode: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].arrayOf(String)]),
+    separator: _vueTypes2['default'].any,
+    disabledTime: _vueTypes2['default'].func,
+    showToday: _vueTypes2['default'].bool,
+    renderExtraFooter: _vueTypes2['default'].any
+    // onPanelChange?: (value?: TimesType, mode?: string | string[]) => void;
+  });
+};
+
+var WeekPickerProps = exports.WeekPickerProps = function WeekPickerProps() {
+  return (0, _extends3['default'])({}, PickerProps(), SinglePickerProps(), {
+    placeholder: _vueTypes2['default'].string
+  });
+};
+
+// export interface DatePickerDecorator extends React.ClassicComponentClass<DatePickerProps> {
+//   RangePicker: React.ClassicComponentClass<RangePickerProps>;
+//   MonthPicker: React.ClassicComponentClass<MonthPickerProps>;
+//   WeekPicker: React.ClassicComponentClass<WeexPickerProps>;
+// }
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/date-picker/utils.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/date-picker/utils.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.formatDate = formatDate;
+function formatDate(value, format) {
+  if (!value) {
+    return '';
+  }
+  if (Array.isArray(format)) {
+    format = format[0];
+  }
+  return value.format(format);
+}
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/date-picker/wrapPicker.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/date-picker/wrapPicker.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+exports['default'] = wrapPicker;
+
+var _Panel = __webpack_require__(/*! ../vc-time-picker/Panel */ "./node_modules/ant-design-vue/lib/vc-time-picker/Panel.js");
+
+var _Panel2 = _interopRequireDefault(_Panel);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver */ "./node_modules/ant-design-vue/lib/locale-provider/LocaleReceiver.js");
+
+var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
+
+var _timePicker = __webpack_require__(/*! ../time-picker */ "./node_modules/ant-design-vue/lib/time-picker/index.js");
+
+var _en_US = __webpack_require__(/*! ./locale/en_US */ "./node_modules/ant-design-vue/lib/date-picker/locale/en_US.js");
+
+var _en_US2 = _interopRequireDefault(_en_US);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _configProvider2 = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _momentUtil = __webpack_require__(/*! ../_util/moment-util */ "./node_modules/ant-design-vue/lib/_util/moment-util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var DEFAULT_FORMAT = {
+  date: 'YYYY-MM-DD',
+  dateTime: 'YYYY-MM-DD HH:mm:ss',
+  week: 'gggg-wo',
+  month: 'YYYY-MM'
+};
+
+var LOCALE_FORMAT_MAPPING = {
+  date: 'dateFormat',
+  dateTime: 'dateTimeFormat',
+  week: 'weekFormat',
+  month: 'monthFormat'
+};
+
+function getColumns(_ref) {
+  var showHour = _ref.showHour,
+      showMinute = _ref.showMinute,
+      showSecond = _ref.showSecond,
+      use12Hours = _ref.use12Hours;
+
+  var column = 0;
+  if (showHour) {
+    column += 1;
+  }
+  if (showMinute) {
+    column += 1;
+  }
+  if (showSecond) {
+    column += 1;
+  }
+  if (use12Hours) {
+    column += 1;
+  }
+  return column;
+}
+
+function wrapPicker(Picker, props, pickerType) {
+  return {
+    name: Picker.name,
+    props: (0, _propsUtil.initDefaultProps)(props, {
+      transitionName: 'slide-up',
+      popupStyle: {},
+      locale: {}
+    }),
+    model: {
+      prop: 'value',
+      event: 'change'
+    },
+    inject: {
+      configProvider: { 'default': function _default() {
+          return _configProvider2.ConfigConsumerProps;
+        } }
+    },
+    provide: function provide() {
+      return {
+        savePopupRef: this.savePopupRef
+      };
+    },
+    mounted: function mounted() {
+      var _this = this;
+
+      var autoFocus = this.autoFocus,
+          disabled = this.disabled,
+          value = this.value,
+          defaultValue = this.defaultValue,
+          valueFormat = this.valueFormat;
+
+      (0, _momentUtil.checkValidate)('DatePicker', defaultValue, 'defaultValue', valueFormat);
+      (0, _momentUtil.checkValidate)('DatePicker', value, 'value', valueFormat);
+      if (autoFocus && !disabled) {
+        this.$nextTick(function () {
+          _this.focus();
+        });
+      }
+    },
+
+    watch: {
+      value: function value(val) {
+        (0, _momentUtil.checkValidate)('DatePicker', val, 'value', this.valueFormat);
+      }
+    },
+    methods: {
+      getDefaultLocale: function getDefaultLocale() {
+        var result = (0, _extends3['default'])({}, _en_US2['default'], this.locale);
+        result.lang = (0, _extends3['default'])({}, result.lang, (this.locale || {}).lang);
+        return result;
+      },
+      savePopupRef: function savePopupRef(ref) {
+        this.popupRef = ref;
+      },
+      handleOpenChange: function handleOpenChange(open) {
+        this.$emit('openChange', open);
+      },
+      handleFocus: function handleFocus(e) {
+        this.$emit('focus', e);
+      },
+      handleBlur: function handleBlur(e) {
+        this.$emit('blur', e);
+      },
+      handleMouseEnter: function handleMouseEnter(e) {
+        this.$emit('mouseenter', e);
+      },
+      handleMouseLeave: function handleMouseLeave(e) {
+        this.$emit('mouseleave', e);
+      },
+      handleChange: function handleChange(date, dateString) {
+        this.$emit('change', this.valueFormat ? (0, _momentUtil.momentToString)(date, this.valueFormat) : date, dateString);
+      },
+      handleOk: function handleOk(val) {
+        this.$emit('ok', this.valueFormat ? (0, _momentUtil.momentToString)(val, this.valueFormat) : val);
+      },
+      handleCalendarChange: function handleCalendarChange(date, dateString) {
+        this.$emit('calendarChange', this.valueFormat ? (0, _momentUtil.momentToString)(date, this.valueFormat) : date, dateString);
+      },
+      focus: function focus() {
+        this.$refs.picker.focus();
+      },
+      blur: function blur() {
+        this.$refs.picker.blur();
+      },
+      transformValue: function transformValue(props) {
+        if ('value' in props) {
+          props.value = (0, _momentUtil.stringToMoment)(props.value, this.valueFormat);
+        }
+        if ('defaultValue' in props) {
+          props.defaultValue = (0, _momentUtil.stringToMoment)(props.defaultValue, this.valueFormat);
+        }
+        if ('defaultPickerValue' in props) {
+          props.defaultPickerValue = (0, _momentUtil.stringToMoment)(props.defaultPickerValue, this.valueFormat);
+        }
+      },
+      renderPicker: function renderPicker(locale, localeCode) {
+        var _classNames2,
+            _this2 = this;
+
+        var h = this.$createElement;
+
+        var props = (0, _propsUtil.getOptionProps)(this);
+        this.transformValue(props);
+        var customizePrefixCls = props.prefixCls,
+            customizeInputPrefixCls = props.inputPrefixCls,
+            getCalendarContainer = props.getCalendarContainer,
+            size = props.size,
+            showTime = props.showTime,
+            disabled = props.disabled,
+            format = props.format;
+
+        var mergedPickerType = showTime ? pickerType + 'Time' : pickerType;
+        var mergedFormat = format || locale[LOCALE_FORMAT_MAPPING[mergedPickerType]] || DEFAULT_FORMAT[mergedPickerType];
+
+        var _configProvider = this.configProvider,
+            getPrefixCls = _configProvider.getPrefixCls,
+            getContextPopupContainer = _configProvider.getPopupContainer;
+
+        var getPopupContainer = getCalendarContainer || getContextPopupContainer;
+        var prefixCls = getPrefixCls('calendar', customizePrefixCls);
+        var inputPrefixCls = getPrefixCls('input', customizeInputPrefixCls);
+
+        var pickerClass = (0, _classnames2['default'])(prefixCls + '-picker', (0, _defineProperty3['default'])({}, prefixCls + '-picker-' + size, !!size));
+        var pickerInputClass = (0, _classnames2['default'])(prefixCls + '-picker-input', inputPrefixCls, (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, inputPrefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_classNames2, inputPrefixCls + '-sm', size === 'small'), (0, _defineProperty3['default'])(_classNames2, inputPrefixCls + '-disabled', disabled), _classNames2));
+
+        var timeFormat = showTime && showTime.format || 'HH:mm:ss';
+        var vcTimePickerProps = (0, _extends3['default'])({}, (0, _timePicker.generateShowHourMinuteSecond)(timeFormat), {
+          format: timeFormat,
+          use12Hours: showTime && showTime.use12Hours
+        });
+        var columns = getColumns(vcTimePickerProps);
+        var timePickerCls = prefixCls + '-time-picker-column-' + columns;
+        var timePickerPanelProps = {
+          props: (0, _extends3['default'])({}, vcTimePickerProps, showTime, {
+            prefixCls: prefixCls + '-time-picker',
+            placeholder: locale.timePickerLocale.placeholder,
+            transitionName: 'slide-up'
+          }),
+          'class': timePickerCls,
+          on: {
+            esc: function esc() {}
+          }
+        };
+        var timePicker = showTime ? h(_Panel2['default'], timePickerPanelProps) : null;
+        var pickerProps = {
+          props: (0, _extends3['default'])({}, props, {
+            getCalendarContainer: getPopupContainer,
+            format: mergedFormat,
+            pickerClass: pickerClass,
+            pickerInputClass: pickerInputClass,
+            locale: locale,
+            localeCode: localeCode,
+            timePicker: timePicker
+          }),
+          on: (0, _extends3['default'])({}, (0, _propsUtil.getListeners)(this), {
+            openChange: this.handleOpenChange,
+            focus: this.handleFocus,
+            blur: this.handleBlur,
+            mouseenter: this.handleMouseEnter,
+            mouseleave: this.handleMouseLeave,
+            change: this.handleChange,
+            ok: this.handleOk,
+            calendarChange: this.handleCalendarChange
+          }),
+          ref: 'picker',
+          scopedSlots: this.$scopedSlots || {}
+        };
+        return h(
+          Picker,
+          pickerProps,
+          [this.$slots && Object.keys(this.$slots).map(function (key) {
+            return h(
+              'template',
+              { slot: key, key: key },
+              [_this2.$slots[key]]
+            );
+          })]
+        );
+      }
+    },
+
+    render: function render() {
+      var h = arguments[0];
+
+      return h(_LocaleReceiver2['default'], {
+        attrs: {
+          componentName: 'DatePicker',
+          defaultLocale: this.getDefaultLocale
+        },
+        scopedSlots: { 'default': this.renderPicker }
+      });
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/tag/CheckableTag.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/tag/CheckableTag.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
 exports['default'] = {
-  name: 'TableHeader',
+  name: 'ACheckableTag',
+  model: {
+    prop: 'checked'
+  },
   props: {
-    fixed: _vueTypes2['default'].string,
-    columns: _vueTypes2['default'].array.isRequired,
-    expander: _vueTypes2['default'].object.isRequired
+    prefixCls: _vueTypes2['default'].string,
+    checked: Boolean
   },
   inject: {
-    table: { 'default': function _default() {
-        return {};
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
       } }
   },
+  computed: {
+    classes: function classes() {
+      var _ref;
 
+      var checked = this.checked,
+          customizePrefixCls = this.prefixCls;
+
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('tag', customizePrefixCls);
+      return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-checkable', true), (0, _defineProperty3['default'])(_ref, prefixCls + '-checkable-checked', checked), _ref;
+    }
+  },
+  methods: {
+    handleClick: function handleClick() {
+      var checked = this.checked;
+
+      this.$emit('input', !checked);
+      this.$emit('change', !checked);
+    }
+  },
   render: function render() {
     var h = arguments[0];
-    var _table = this.table,
-        components = _table.sComponents,
-        prefixCls = _table.prefixCls,
-        showHeader = _table.showHeader,
-        customHeaderRow = _table.customHeaderRow;
-    var expander = this.expander,
-        columns = this.columns,
-        fixed = this.fixed;
-
-
-    if (!showHeader) {
-      return null;
-    }
-
-    var rows = getHeaderRows(columns);
-
-    expander.renderExpandIndentCell(rows, fixed);
-
-    var HeaderWrapper = components.header.wrapper;
+    var classes = this.classes,
+        handleClick = this.handleClick,
+        $slots = this.$slots;
 
     return h(
-      HeaderWrapper,
-      { 'class': prefixCls + '-thead' },
-      [rows.map(function (row, index) {
-        return h(_TableHeaderRow2['default'], {
-          attrs: {
-            prefixCls: prefixCls,
-
-            index: index,
-            fixed: fixed,
-            columns: columns,
-            rows: rows,
-            row: row,
-            components: components,
-            customHeaderRow: customHeaderRow
-          },
-          key: index });
-      })]
+      'div',
+      { 'class': classes, on: {
+          'click': handleClick
+        }
+      },
+      [$slots['default']]
     );
   }
 };
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/TableHeaderRow.js":
-/*!************************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/TableHeaderRow.js ***!
-  \************************************************************************/
+/***/ "./node_modules/ant-design-vue/lib/tag/Tag.js":
+/*!****************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/tag/Tag.js ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -7906,128 +1963,3964 @@ var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/definePrope
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _getTransitionProps = __webpack_require__(/*! ../_util/getTransitionProps */ "./node_modules/ant-design-vue/lib/_util/getTransitionProps.js");
+
+var _getTransitionProps2 = _interopRequireDefault(_getTransitionProps);
+
+var _omit = __webpack_require__(/*! omit.js */ "./node_modules/omit.js/es/index.js");
+
+var _omit2 = _interopRequireDefault(_omit);
+
+var _wave = __webpack_require__(/*! ../_util/wave */ "./node_modules/ant-design-vue/lib/_util/wave.js");
+
+var _wave2 = _interopRequireDefault(_wave);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+
+var _warning2 = _interopRequireDefault(_warning);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var PresetColorTypes = ['pink', 'red', 'yellow', 'orange', 'cyan', 'green', 'blue', 'purple', 'geekblue', 'magenta', 'volcano', 'gold', 'lime'];
+var PresetColorRegex = new RegExp('^(' + PresetColorTypes.join('|') + ')(-inverse)?$');
+
+exports['default'] = {
+  name: 'ATag',
+  mixins: [_BaseMixin2['default']],
+  model: {
+    prop: 'visible',
+    event: 'close.visible'
+  },
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    color: _vueTypes2['default'].string,
+    closable: _vueTypes2['default'].bool.def(false),
+    visible: _vueTypes2['default'].bool,
+    afterClose: _vueTypes2['default'].func
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  data: function data() {
+    var _visible = true;
+    var props = (0, _propsUtil.getOptionProps)(this);
+    if ('visible' in props) {
+      _visible = this.visible;
+    }
+    (0, _warning2['default'])(!('afterClose' in props), 'Tag', "'afterClose' will be deprecated, please use 'close' event, we will remove this in the next version.");
+    return {
+      _visible: _visible
+    };
+  },
+
+  watch: {
+    visible: function visible(val) {
+      this.setState({
+        _visible: val
+      });
+    }
+  },
+  methods: {
+    setVisible: function setVisible(visible, e) {
+      this.$emit('close', e);
+      this.$emit('close.visible', false);
+      var afterClose = this.afterClose;
+      if (afterClose) {
+        // next version remove.
+        afterClose();
+      }
+      if (e.defaultPrevented) {
+        return;
+      }
+      if (!(0, _propsUtil.hasProp)(this, 'visible')) {
+        this.setState({ _visible: visible });
+      }
+    },
+    handleIconClick: function handleIconClick(e) {
+      e.stopPropagation();
+      this.setVisible(false, e);
+    },
+    isPresetColor: function isPresetColor() {
+      var color = this.$props.color;
+
+      if (!color) {
+        return false;
+      }
+      return PresetColorRegex.test(color);
+    },
+    getTagStyle: function getTagStyle() {
+      var color = this.$props.color;
+
+      var isPresetColor = this.isPresetColor();
+      return {
+        backgroundColor: color && !isPresetColor ? color : undefined
+      };
+    },
+    getTagClassName: function getTagClassName(prefixCls) {
+      var _ref;
+
+      var color = this.$props.color;
+
+      var isPresetColor = this.isPresetColor();
+      return _ref = {}, (0, _defineProperty3['default'])(_ref, prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + color, isPresetColor), (0, _defineProperty3['default'])(_ref, prefixCls + '-has-color', color && !isPresetColor), _ref;
+    },
+    renderCloseIcon: function renderCloseIcon() {
+      var h = this.$createElement;
+      var closable = this.$props.closable;
+
+      return closable ? h(_icon2['default'], {
+        attrs: { type: 'close' },
+        on: {
+          'click': this.handleIconClick
+        }
+      }) : null;
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+    var customizePrefixCls = this.$props.prefixCls;
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('tag', customizePrefixCls);
+    var visible = this.$data._visible;
+
+    var tag = h(
+      'span',
+      (0, _babelHelperVueJsxMergeProps2['default'])([{
+        directives: [{
+          name: 'show',
+          value: visible
+        }]
+      }, { on: (0, _omit2['default'])((0, _propsUtil.getListeners)(this), ['close']) }, {
+        'class': this.getTagClassName(prefixCls),
+        style: this.getTagStyle()
+      }]),
+      [this.$slots['default'], this.renderCloseIcon()]
+    );
+    var transitionProps = (0, _getTransitionProps2['default'])(prefixCls + '-zoom', {
+      appear: false
+    });
+    return h(_wave2['default'], [h(
+      'transition',
+      transitionProps,
+      [tag]
+    )]);
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/tag/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/tag/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Tag = __webpack_require__(/*! ./Tag */ "./node_modules/ant-design-vue/lib/tag/Tag.js");
+
+var _Tag2 = _interopRequireDefault(_Tag);
+
+var _CheckableTag = __webpack_require__(/*! ./CheckableTag */ "./node_modules/ant-design-vue/lib/tag/CheckableTag.js");
+
+var _CheckableTag2 = _interopRequireDefault(_CheckableTag);
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+_Tag2['default'].CheckableTag = _CheckableTag2['default'];
+
+/* istanbul ignore next */
+_Tag2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
+  Vue.component(_Tag2['default'].name, _Tag2['default']);
+  Vue.component(_Tag2['default'].CheckableTag.name, _Tag2['default'].CheckableTag);
+};
+
+exports['default'] = _Tag2['default'];
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/time-picker/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/time-picker/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.TimePickerProps = undefined;
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+exports.generateShowHourMinuteSecond = generateShowHourMinuteSecond;
 
-var _classnames2 = _interopRequireDefault(_classnames);
+var _omit = __webpack_require__(/*! omit.js */ "./node_modules/omit.js/es/index.js");
+
+var _omit2 = _interopRequireDefault(_omit);
+
+var _vcTimePicker = __webpack_require__(/*! ../vc-time-picker */ "./node_modules/ant-design-vue/lib/vc-time-picker/index.js");
+
+var _vcTimePicker2 = _interopRequireDefault(_vcTimePicker);
+
+var _LocaleReceiver = __webpack_require__(/*! ../locale-provider/LocaleReceiver */ "./node_modules/ant-design-vue/lib/locale-provider/LocaleReceiver.js");
+
+var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+
+var _warning2 = _interopRequireDefault(_warning);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _en_US = __webpack_require__(/*! ./locale/en_US */ "./node_modules/ant-design-vue/lib/time-picker/locale/en_US.js");
+
+var _en_US2 = _interopRequireDefault(_en_US);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
+var _momentUtil = __webpack_require__(/*! ../_util/moment-util */ "./node_modules/ant-design-vue/lib/_util/moment-util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function generateShowHourMinuteSecond(format) {
+  // Ref: http://momentjs.com/docs/#/parsing/string-format/
+  return {
+    showHour: format.indexOf('H') > -1 || format.indexOf('h') > -1 || format.indexOf('k') > -1,
+    showMinute: format.indexOf('m') > -1,
+    showSecond: format.indexOf('s') > -1
+  };
+}
+
+var TimePickerProps = exports.TimePickerProps = function TimePickerProps() {
+  return {
+    size: _vueTypes2['default'].oneOf(['large', 'default', 'small']),
+    value: _momentUtil.TimeOrTimesType,
+    defaultValue: _momentUtil.TimeOrTimesType,
+    open: _vueTypes2['default'].bool,
+    format: _vueTypes2['default'].string,
+    disabled: _vueTypes2['default'].bool,
+    placeholder: _vueTypes2['default'].string,
+    prefixCls: _vueTypes2['default'].string,
+    hideDisabledOptions: _vueTypes2['default'].bool,
+    disabledHours: _vueTypes2['default'].func,
+    disabledMinutes: _vueTypes2['default'].func,
+    disabledSeconds: _vueTypes2['default'].func,
+    getPopupContainer: _vueTypes2['default'].func,
+    use12Hours: _vueTypes2['default'].bool,
+    focusOnOpen: _vueTypes2['default'].bool,
+    hourStep: _vueTypes2['default'].number,
+    minuteStep: _vueTypes2['default'].number,
+    secondStep: _vueTypes2['default'].number,
+    allowEmpty: _vueTypes2['default'].bool,
+    allowClear: _vueTypes2['default'].bool,
+    inputReadOnly: _vueTypes2['default'].bool,
+    clearText: _vueTypes2['default'].string,
+    defaultOpenValue: _vueTypes2['default'].object,
+    popupClassName: _vueTypes2['default'].string,
+    popupStyle: _vueTypes2['default'].object,
+    suffixIcon: _vueTypes2['default'].any,
+    align: _vueTypes2['default'].object,
+    placement: _vueTypes2['default'].any,
+    transitionName: _vueTypes2['default'].string,
+    autoFocus: _vueTypes2['default'].bool,
+    addon: _vueTypes2['default'].any,
+    clearIcon: _vueTypes2['default'].any,
+    locale: _vueTypes2['default'].object,
+    valueFormat: _vueTypes2['default'].string
+  };
+};
+
+var TimePicker = {
+  name: 'ATimePicker',
+  mixins: [_BaseMixin2['default']],
+  props: (0, _propsUtil.initDefaultProps)(TimePickerProps(), {
+    align: {
+      offset: [0, -2]
+    },
+    disabled: false,
+    disabledHours: undefined,
+    disabledMinutes: undefined,
+    disabledSeconds: undefined,
+    hideDisabledOptions: false,
+    placement: 'bottomLeft',
+    transitionName: 'slide-up',
+    focusOnOpen: true,
+    allowClear: true
+  }),
+  model: {
+    prop: 'value',
+    event: 'change'
+  },
+  provide: function provide() {
+    return {
+      savePopupRef: this.savePopupRef
+    };
+  },
+
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  data: function data() {
+    var value = this.value,
+        defaultValue = this.defaultValue,
+        valueFormat = this.valueFormat;
+
+
+    (0, _momentUtil.checkValidate)('TimePicker', defaultValue, 'defaultValue', valueFormat);
+    (0, _momentUtil.checkValidate)('TimePicker', value, 'value', valueFormat);
+    (0, _warning2['default'])(!(0, _propsUtil.hasProp)(this, 'allowEmpty'), 'TimePicker', '`allowEmpty` is deprecated. Please use `allowClear` instead.');
+    return {
+      sValue: (0, _momentUtil.stringToMoment)(value || defaultValue, valueFormat)
+    };
+  },
+
+  watch: {
+    value: function value(val) {
+      (0, _momentUtil.checkValidate)('TimePicker', val, 'value', this.valueFormat);
+      this.setState({ sValue: (0, _momentUtil.stringToMoment)(val, this.valueFormat) });
+    }
+  },
+  methods: {
+    getDefaultFormat: function getDefaultFormat() {
+      var format = this.format,
+          use12Hours = this.use12Hours;
+
+      if (format) {
+        return format;
+      } else if (use12Hours) {
+        return 'h:mm:ss a';
+      }
+      return 'HH:mm:ss';
+    },
+    getAllowClear: function getAllowClear() {
+      var _$props = this.$props,
+          allowClear = _$props.allowClear,
+          allowEmpty = _$props.allowEmpty;
+
+      if ((0, _propsUtil.hasProp)(this, 'allowClear')) {
+        return allowClear;
+      }
+      return allowEmpty;
+    },
+    getDefaultLocale: function getDefaultLocale() {
+      var defaultLocale = (0, _extends3['default'])({}, _en_US2['default'], this.$props.locale);
+      return defaultLocale;
+    },
+    savePopupRef: function savePopupRef(ref) {
+      this.popupRef = ref;
+    },
+    handleChange: function handleChange(value) {
+      if (!(0, _propsUtil.hasProp)(this, 'value')) {
+        this.setState({ sValue: value });
+      }
+      var _format = this.format,
+          format = _format === undefined ? 'HH:mm:ss' : _format;
+
+      this.$emit('change', this.valueFormat ? (0, _momentUtil.momentToString)(value, this.valueFormat) : value, value && value.format(format) || '');
+    },
+    handleOpenClose: function handleOpenClose(_ref) {
+      var open = _ref.open;
+
+      this.$emit('openChange', open);
+      this.$emit('update:open', open);
+    },
+    focus: function focus() {
+      this.$refs.timePicker.focus();
+    },
+    blur: function blur() {
+      this.$refs.timePicker.blur();
+    },
+    renderInputIcon: function renderInputIcon(prefixCls) {
+      var h = this.$createElement;
+
+      var suffixIcon = (0, _propsUtil.getComponentFromProp)(this, 'suffixIcon');
+      suffixIcon = Array.isArray(suffixIcon) ? suffixIcon[0] : suffixIcon;
+      var clockIcon = suffixIcon && (0, _propsUtil.isValidElement)(suffixIcon) && (0, _vnode.cloneElement)(suffixIcon, {
+        'class': prefixCls + '-clock-icon'
+      }) || h(_icon2['default'], {
+        attrs: { type: 'clock-circle' },
+        'class': prefixCls + '-clock-icon' });
+
+      return h(
+        'span',
+        { 'class': prefixCls + '-icon' },
+        [clockIcon]
+      );
+    },
+    renderClearIcon: function renderClearIcon(prefixCls) {
+      var h = this.$createElement;
+
+      var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
+      var clearIconPrefixCls = prefixCls + '-clear';
+
+      if (clearIcon && (0, _propsUtil.isValidElement)(clearIcon)) {
+        return (0, _vnode.cloneElement)(clearIcon, {
+          'class': clearIconPrefixCls
+        });
+      }
+
+      return h(_icon2['default'], {
+        attrs: { type: 'close-circle', theme: 'filled' },
+        'class': clearIconPrefixCls });
+    },
+    renderTimePicker: function renderTimePicker(locale) {
+      var h = this.$createElement;
+
+      var props = (0, _propsUtil.getOptionProps)(this);
+      props = (0, _omit2['default'])(props, ['defaultValue', 'suffixIcon', 'allowEmpty', 'allowClear']);
+
+      var _props = props,
+          customizePrefixCls = _props.prefixCls,
+          getPopupContainer = _props.getPopupContainer,
+          placeholder = _props.placeholder,
+          size = _props.size;
+
+      var getPrefixCls = this.configProvider.getPrefixCls;
+      var prefixCls = getPrefixCls('time-picker', customizePrefixCls);
+
+      var format = this.getDefaultFormat();
+      var pickerClassName = (0, _defineProperty3['default'])({}, prefixCls + '-' + size, !!size);
+      var tempAddon = (0, _propsUtil.getComponentFromProp)(this, 'addon', {}, false);
+      var pickerAddon = function pickerAddon(panel) {
+        return tempAddon ? h(
+          'div',
+          { 'class': prefixCls + '-panel-addon' },
+          [typeof tempAddon === 'function' ? tempAddon(panel) : tempAddon]
+        ) : null;
+      };
+      var inputIcon = this.renderInputIcon(prefixCls);
+      var clearIcon = this.renderClearIcon(prefixCls);
+      var getContextPopupContainer = this.configProvider.getPopupContainer;
+
+      var timeProps = {
+        props: (0, _extends3['default'])({}, generateShowHourMinuteSecond(format), props, {
+          allowEmpty: this.getAllowClear(),
+          prefixCls: prefixCls,
+          getPopupContainer: getPopupContainer || getContextPopupContainer,
+          format: format,
+          value: this.sValue,
+          placeholder: placeholder === undefined ? locale.placeholder : placeholder,
+          addon: pickerAddon,
+          inputIcon: inputIcon,
+          clearIcon: clearIcon
+        }),
+        'class': pickerClassName,
+        ref: 'timePicker',
+        on: (0, _extends3['default'])({}, (0, _propsUtil.getListeners)(this), {
+          change: this.handleChange,
+          open: this.handleOpenClose,
+          close: this.handleOpenClose
+        })
+      };
+      return h(_vcTimePicker2['default'], timeProps);
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+
+    return h(_LocaleReceiver2['default'], {
+      attrs: {
+        componentName: 'TimePicker',
+        defaultLocale: this.getDefaultLocale()
+      },
+      scopedSlots: { 'default': this.renderTimePicker }
+    });
+  }
+};
+
+/* istanbul ignore next */
+TimePicker.install = function (Vue) {
+  Vue.use(_base2['default']);
+  Vue.component(TimePicker.name, TimePicker);
+};
+
+exports['default'] = TimePicker;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/index.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/index.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vueRef = __webpack_require__(/*! vue-ref */ "./node_modules/vue-ref/index.js");
+
+var _vueRef2 = _interopRequireDefault(_vueRef);
+
+var _src = __webpack_require__(/*! ./src/ */ "./node_modules/ant-design-vue/lib/vc-calendar/src/index.js");
+
+var _src2 = _interopRequireDefault(_src);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+_vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' }); // based on rc-calendar 9.15.10
+exports['default'] = _src2['default'];
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/Calendar.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/Calendar.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
-var _store = __webpack_require__(/*! ../../_util/store */ "./node_modules/ant-design-vue/lib/_util/store/index.js");
+var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
 var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _vnode = __webpack_require__(/*! ../../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _KeyCode = __webpack_require__(/*! ../../_util/KeyCode */ "./node_modules/ant-design-vue/lib/_util/KeyCode.js");
+
+var _KeyCode2 = _interopRequireDefault(_KeyCode);
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _DateTable = __webpack_require__(/*! ./date/DateTable */ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTable.js");
+
+var _DateTable2 = _interopRequireDefault(_DateTable);
+
+var _CalendarHeader = __webpack_require__(/*! ./calendar/CalendarHeader */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/CalendarHeader.js");
+
+var _CalendarHeader2 = _interopRequireDefault(_CalendarHeader);
+
+var _CalendarFooter = __webpack_require__(/*! ./calendar/CalendarFooter */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/CalendarFooter.js");
+
+var _CalendarFooter2 = _interopRequireDefault(_CalendarFooter);
+
+var _CalendarMixin = __webpack_require__(/*! ./mixin/CalendarMixin */ "./node_modules/ant-design-vue/lib/vc-calendar/src/mixin/CalendarMixin.js");
+
+var _CalendarMixin2 = _interopRequireDefault(_CalendarMixin);
+
+var _CommonMixin = __webpack_require__(/*! ./mixin/CommonMixin */ "./node_modules/ant-design-vue/lib/vc-calendar/src/mixin/CommonMixin.js");
+
+var _CommonMixin2 = _interopRequireDefault(_CommonMixin);
+
+var _DateInput = __webpack_require__(/*! ./date/DateInput */ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateInput.js");
+
+var _DateInput2 = _interopRequireDefault(_DateInput);
+
+var _en_US = __webpack_require__(/*! ./locale/en_US */ "./node_modules/ant-design-vue/lib/vc-calendar/src/locale/en_US.js");
+
+var _en_US2 = _interopRequireDefault(_en_US);
+
+var _util = __webpack_require__(/*! ./util */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js");
+
+var _toTime = __webpack_require__(/*! ./util/toTime */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/toTime.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var TableHeaderRow = {
+var getMomentObjectIfValid = function getMomentObjectIfValid(date) {
+  if (_moment2['default'].isMoment(date) && date.isValid()) {
+    return date;
+  }
+  return false;
+};
+
+var Calendar = {
+  name: 'Calendar',
   props: {
-    index: _vueTypes2['default'].number,
-    fixed: _vueTypes2['default'].string,
-    columns: _vueTypes2['default'].array,
-    rows: _vueTypes2['default'].array,
-    row: _vueTypes2['default'].array,
-    components: _vueTypes2['default'].object,
-    height: _vueTypes2['default'].any,
-    customHeaderRow: _vueTypes2['default'].func,
-    prefixCls: _vueTypes2['default'].prefixCls
+    locale: _vueTypes2['default'].object.def(_en_US2['default']),
+    format: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].arrayOf(_vueTypes2['default'].string)]),
+    visible: _vueTypes2['default'].bool.def(true),
+    prefixCls: _vueTypes2['default'].string.def('rc-calendar'),
+    // prefixCls: PropTypes.string,
+    defaultValue: _vueTypes2['default'].object,
+    value: _vueTypes2['default'].object,
+    selectedValue: _vueTypes2['default'].object,
+    defaultSelectedValue: _vueTypes2['default'].object,
+    mode: _vueTypes2['default'].oneOf(['time', 'date', 'month', 'year', 'decade']),
+    // locale: PropTypes.object,
+    showDateInput: _vueTypes2['default'].bool.def(true),
+    showWeekNumber: _vueTypes2['default'].bool,
+    showToday: _vueTypes2['default'].bool.def(true),
+    showOk: _vueTypes2['default'].bool,
+    // onSelect: PropTypes.func,
+    // onOk: PropTypes.func,
+    // onKeyDown: PropTypes.func,
+    timePicker: _vueTypes2['default'].any,
+    dateInputPlaceholder: _vueTypes2['default'].any,
+    // onClear: PropTypes.func,
+    // onChange: PropTypes.func,
+    // onPanelChange: PropTypes.func,
+    disabledDate: _vueTypes2['default'].func,
+    disabledTime: _vueTypes2['default'].any,
+    dateRender: _vueTypes2['default'].func,
+    renderFooter: _vueTypes2['default'].func.def(function () {
+      return null;
+    }),
+    renderSidebar: _vueTypes2['default'].func.def(function () {
+      return null;
+    }),
+    clearIcon: _vueTypes2['default'].any,
+    focusablePanel: _vueTypes2['default'].bool.def(true),
+    inputMode: _vueTypes2['default'].string,
+    inputReadOnly: _vueTypes2['default'].bool
   },
-  name: 'TableHeaderRow',
-  render: function render(h) {
-    var row = this.row,
-        index = this.index,
-        height = this.height,
-        components = this.components,
-        customHeaderRow = this.customHeaderRow,
-        prefixCls = this.prefixCls;
 
-    var HeaderRow = components.header.row;
-    var HeaderCell = components.header.cell;
-    var rowProps = customHeaderRow(row.map(function (cell) {
-      return cell.column;
-    }), index);
-    var customStyle = rowProps ? rowProps.style : {};
-    var style = (0, _extends3['default'])({ height: height }, customStyle);
-    if (style.height === null) {
-      delete style.height;
+  mixins: [_BaseMixin2['default'], _CommonMixin2['default'], _CalendarMixin2['default']],
+
+  data: function data() {
+    var props = this.$props;
+    return {
+      sMode: this.mode || 'date',
+      sValue: getMomentObjectIfValid(props.value) || getMomentObjectIfValid(props.defaultValue) || (0, _moment2['default'])(),
+      sSelectedValue: props.selectedValue || props.defaultSelectedValue
+    };
+  },
+
+  watch: {
+    mode: function mode(val) {
+      this.setState({ sMode: val });
+    },
+    value: function value(val) {
+      this.setState({
+        sValue: getMomentObjectIfValid(val) || getMomentObjectIfValid(this.defaultValue) || (0, _CalendarMixin.getNowByCurrentStateValue)(this.sValue)
+      });
+    },
+    selectedValue: function selectedValue(val) {
+      this.setState({
+        sSelectedValue: val
+      });
     }
-    return h(
-      HeaderRow,
-      (0, _babelHelperVueJsxMergeProps2['default'])([rowProps, { style: style }]),
-      [row.map(function (cell, i) {
-        var column = cell.column,
-            children = cell.children,
-            className = cell.className,
-            cellProps = (0, _objectWithoutProperties3['default'])(cell, ['column', 'children', 'className']);
+  },
+  mounted: function mounted() {
+    var _this = this;
 
-        var cls = cell['class'] || className;
-        var customProps = column.customHeaderCell ? column.customHeaderCell(column) : {};
+    this.$nextTick(function () {
+      _this.saveFocusElement(_DateInput2['default'].getInstance());
+    });
+  },
 
-        var headerCellProps = (0, _propsUtil.mergeProps)({
-          attrs: (0, _extends3['default'])({}, cellProps),
-          'class': cls
-        }, (0, _extends3['default'])({}, customProps, {
-          key: column.key || column.dataIndex || i
-        }));
+  methods: {
+    onPanelChange: function onPanelChange(value, mode) {
+      var sValue = this.sValue;
 
-        if (column.align) {
-          headerCellProps.style = (0, _extends3['default'])({}, customProps.style, { textAlign: column.align });
-          headerCellProps['class'] = (0, _classnames2['default'])(customProps.cls, column['class'], column.className, (0, _defineProperty3['default'])({}, prefixCls + '-align-' + column.align, !!column.align));
+      if (!(0, _propsUtil.hasProp)(this, 'mode')) {
+        this.setState({ sMode: mode });
+      }
+      this.__emit('panelChange', value || sValue, mode);
+    },
+    onKeyDown: function onKeyDown(event) {
+      if (event.target.nodeName.toLowerCase() === 'input') {
+        return undefined;
+      }
+      var keyCode = event.keyCode;
+      // mac
+      var ctrlKey = event.ctrlKey || event.metaKey;
+      var disabledDate = this.disabledDate,
+          value = this.sValue;
+
+      switch (keyCode) {
+        case _KeyCode2['default'].DOWN:
+          this.goTime(1, 'weeks');
+          event.preventDefault();
+          return 1;
+        case _KeyCode2['default'].UP:
+          this.goTime(-1, 'weeks');
+          event.preventDefault();
+          return 1;
+        case _KeyCode2['default'].LEFT:
+          if (ctrlKey) {
+            this.goTime(-1, 'years');
+          } else {
+            this.goTime(-1, 'days');
+          }
+          event.preventDefault();
+          return 1;
+        case _KeyCode2['default'].RIGHT:
+          if (ctrlKey) {
+            this.goTime(1, 'years');
+          } else {
+            this.goTime(1, 'days');
+          }
+          event.preventDefault();
+          return 1;
+        case _KeyCode2['default'].HOME:
+          this.setValue((0, _toTime.goStartMonth)(value));
+          event.preventDefault();
+          return 1;
+        case _KeyCode2['default'].END:
+          this.setValue((0, _toTime.goEndMonth)(value));
+          event.preventDefault();
+          return 1;
+        case _KeyCode2['default'].PAGE_DOWN:
+          this.goTime(1, 'month');
+          event.preventDefault();
+          return 1;
+        case _KeyCode2['default'].PAGE_UP:
+          this.goTime(-1, 'month');
+          event.preventDefault();
+          return 1;
+        case _KeyCode2['default'].ENTER:
+          if (!disabledDate || !disabledDate(value)) {
+            this.onSelect(value, {
+              source: 'keyboard'
+            });
+          }
+          event.preventDefault();
+          return 1;
+        default:
+          this.__emit('keydown', event);
+          return 1;
+      }
+    },
+    onClear: function onClear() {
+      this.onSelect(null);
+      this.__emit('clear');
+    },
+    onOk: function onOk() {
+      var sSelectedValue = this.sSelectedValue;
+
+      if (this.isAllowedDate(sSelectedValue)) {
+        this.__emit('ok', sSelectedValue);
+      }
+    },
+    onDateInputChange: function onDateInputChange(value) {
+      this.onSelect(value, {
+        source: 'dateInput'
+      });
+    },
+    onDateInputSelect: function onDateInputSelect(value) {
+      this.onSelect(value, {
+        source: 'dateInputSelect'
+      });
+    },
+    onDateTableSelect: function onDateTableSelect(value) {
+      var timePicker = this.timePicker,
+          sSelectedValue = this.sSelectedValue;
+
+      if (!sSelectedValue && timePicker) {
+        var timePickerProps = (0, _propsUtil.getOptionProps)(timePicker);
+        var timePickerDefaultValue = timePickerProps.defaultValue;
+        if (timePickerDefaultValue) {
+          (0, _util.syncTime)(timePickerDefaultValue, value);
+        }
+      }
+      this.onSelect(value);
+    },
+    onToday: function onToday() {
+      var sValue = this.sValue;
+
+      var now = (0, _util.getTodayTime)(sValue);
+      this.onSelect(now, {
+        source: 'todayButton'
+      });
+    },
+    onBlur: function onBlur(event) {
+      var _this2 = this;
+
+      setTimeout(function () {
+        var dateInput = _DateInput2['default'].getInstance();
+        var rootInstance = _this2.rootInstance;
+
+        if (!rootInstance || rootInstance.contains(document.activeElement) || dateInput && dateInput.contains(document.activeElement)) {
+          // focused element is still part of Calendar
+          return;
         }
 
-        if (typeof HeaderCell === 'function') {
-          return HeaderCell(h, headerCellProps, children);
+        _this2.$emit('blur', event);
+      }, 0);
+    },
+    getRootDOMNode: function getRootDOMNode() {
+      return this.$el;
+    },
+    openTimePicker: function openTimePicker() {
+      this.onPanelChange(null, 'time');
+    },
+    closeTimePicker: function closeTimePicker() {
+      this.onPanelChange(null, 'date');
+    },
+    goTime: function goTime(direction, unit) {
+      this.setValue((0, _toTime.goTime)(this.sValue, direction, unit));
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+    var locale = this.locale,
+        prefixCls = this.prefixCls,
+        disabledDate = this.disabledDate,
+        dateInputPlaceholder = this.dateInputPlaceholder,
+        timePicker = this.timePicker,
+        disabledTime = this.disabledTime,
+        showDateInput = this.showDateInput,
+        sValue = this.sValue,
+        sSelectedValue = this.sSelectedValue,
+        sMode = this.sMode,
+        renderFooter = this.renderFooter,
+        inputMode = this.inputMode,
+        inputReadOnly = this.inputReadOnly,
+        monthCellRender = this.monthCellRender,
+        monthCellContentRender = this.monthCellContentRender,
+        props = this.$props;
+
+    var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
+    var showTimePicker = sMode === 'time';
+    var disabledTimeConfig = showTimePicker && disabledTime && timePicker ? (0, _util.getTimeConfig)(sSelectedValue, disabledTime) : null;
+
+    var timePickerEle = null;
+
+    if (timePicker && showTimePicker) {
+      var timePickerOriginProps = (0, _propsUtil.getOptionProps)(timePicker);
+      var timePickerProps = {
+        props: (0, _extends3['default'])({
+          showHour: true,
+          showSecond: true,
+          showMinute: true
+        }, timePickerOriginProps, disabledTimeConfig, {
+          value: sSelectedValue,
+          disabledTime: disabledTime
+        }),
+        on: {
+          change: this.onDateInputChange
         }
-        return h(
-          HeaderCell,
-          headerCellProps,
-          [children]
-        );
+      };
+
+      if (timePickerOriginProps.defaultValue !== undefined) {
+        timePickerProps.props.defaultOpenValue = timePickerOriginProps.defaultValue;
+      }
+      timePickerEle = (0, _vnode.cloneElement)(timePicker, timePickerProps);
+    }
+
+    var dateInputElement = showDateInput ? h(_DateInput2['default'], {
+      attrs: {
+        format: this.getFormat(),
+
+        value: sValue,
+        locale: locale,
+        placeholder: dateInputPlaceholder,
+        showClear: true,
+        disabledTime: disabledTime,
+        disabledDate: disabledDate,
+
+        prefixCls: prefixCls,
+        selectedValue: sSelectedValue,
+
+        clearIcon: clearIcon,
+
+        inputMode: inputMode,
+        inputReadOnly: inputReadOnly
+      },
+      key: 'date-input', on: {
+        'clear': this.onClear,
+        'change': this.onDateInputChange,
+        'select': this.onDateInputSelect
+      }
+    }) : null;
+    var children = [];
+    if (props.renderSidebar) {
+      children.push(props.renderSidebar());
+    }
+    children.push(h(
+      'div',
+      { 'class': prefixCls + '-panel', key: 'panel' },
+      [dateInputElement, h(
+        'div',
+        {
+          attrs: { tabIndex: props.focusablePanel ? 0 : undefined },
+          'class': prefixCls + '-date-panel' },
+        [h(_CalendarHeader2['default'], {
+          attrs: {
+            locale: locale,
+            mode: sMode,
+            value: sValue,
+
+            renderFooter: renderFooter,
+            showTimePicker: showTimePicker,
+            prefixCls: prefixCls,
+            monthCellRender: monthCellRender,
+            monthCellContentRender: monthCellContentRender
+          },
+          on: {
+            'valueChange': this.setValue,
+            'panelChange': this.onPanelChange
+          }
+        }), timePicker && showTimePicker ? h(
+          'div',
+          { 'class': prefixCls + '-time-picker' },
+          [h(
+            'div',
+            { 'class': prefixCls + '-time-picker-panel' },
+            [timePickerEle]
+          )]
+        ) : null, h(
+          'div',
+          { 'class': prefixCls + '-body' },
+          [h(_DateTable2['default'], {
+            attrs: {
+              locale: locale,
+              value: sValue,
+              selectedValue: sSelectedValue,
+              prefixCls: prefixCls,
+              dateRender: props.dateRender,
+
+              disabledDate: disabledDate,
+              showWeekNumber: props.showWeekNumber
+            },
+            on: {
+              'select': this.onDateTableSelect
+            }
+          })]
+        ), h(_CalendarFooter2['default'], {
+          attrs: {
+            showOk: props.showOk,
+            mode: sMode,
+            renderFooter: props.renderFooter,
+            locale: locale,
+            prefixCls: prefixCls,
+            showToday: props.showToday,
+            disabledTime: disabledTime,
+            showTimePicker: showTimePicker,
+            showDateInput: props.showDateInput,
+            timePicker: timePicker,
+            selectedValue: sSelectedValue,
+            timePickerDisabled: !sSelectedValue,
+            value: sValue,
+            disabledDate: disabledDate,
+            okDisabled: props.showOk !== false && (!sSelectedValue || !this.isAllowedDate(sSelectedValue))
+          },
+          on: {
+            'ok': this.onOk,
+            'select': this.onSelect,
+            'today': this.onToday,
+            'openTimePicker': this.openTimePicker,
+            'closeTimePicker': this.closeTimePicker
+          }
+        })]
+      )]
+    ));
+
+    return this.renderRoot({
+      children: children,
+      'class': props.showWeekNumber ? prefixCls + '-week-number' : ''
+    });
+  }
+};
+
+exports['default'] = Calendar;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/MonthCalendar.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/MonthCalendar.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _KeyCode = __webpack_require__(/*! ../../_util/KeyCode */ "./node_modules/ant-design-vue/lib/_util/KeyCode.js");
+
+var _KeyCode2 = _interopRequireDefault(_KeyCode);
+
+var _CalendarHeader = __webpack_require__(/*! ./calendar/CalendarHeader */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/CalendarHeader.js");
+
+var _CalendarHeader2 = _interopRequireDefault(_CalendarHeader);
+
+var _CalendarFooter = __webpack_require__(/*! ./calendar/CalendarFooter */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/CalendarFooter.js");
+
+var _CalendarFooter2 = _interopRequireDefault(_CalendarFooter);
+
+var _CalendarMixin = __webpack_require__(/*! ./mixin/CalendarMixin */ "./node_modules/ant-design-vue/lib/vc-calendar/src/mixin/CalendarMixin.js");
+
+var _CalendarMixin2 = _interopRequireDefault(_CalendarMixin);
+
+var _CommonMixin = __webpack_require__(/*! ./mixin/CommonMixin */ "./node_modules/ant-design-vue/lib/vc-calendar/src/mixin/CommonMixin.js");
+
+var _CommonMixin2 = _interopRequireDefault(_CommonMixin);
+
+var _en_US = __webpack_require__(/*! ./locale/en_US */ "./node_modules/ant-design-vue/lib/vc-calendar/src/locale/en_US.js");
+
+var _en_US2 = _interopRequireDefault(_en_US);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var MonthCalendar = {
+  name: 'MonthCalendar',
+  props: {
+    locale: _vueTypes2['default'].object.def(_en_US2['default']),
+    format: _vueTypes2['default'].string,
+    visible: _vueTypes2['default'].bool.def(true),
+    prefixCls: _vueTypes2['default'].string.def('rc-calendar'),
+    monthCellRender: _vueTypes2['default'].func,
+    value: _vueTypes2['default'].object,
+    defaultValue: _vueTypes2['default'].object,
+    selectedValue: _vueTypes2['default'].object,
+    defaultSelectedValue: _vueTypes2['default'].object,
+    disabledDate: _vueTypes2['default'].func,
+    monthCellContentRender: _vueTypes2['default'].func,
+    renderFooter: _vueTypes2['default'].func.def(function () {
+      return null;
+    }),
+    renderSidebar: _vueTypes2['default'].func.def(function () {
+      return null;
+    })
+  },
+  mixins: [_BaseMixin2['default'], _CommonMixin2['default'], _CalendarMixin2['default']],
+
+  data: function data() {
+    var props = this.$props;
+    return {
+      mode: 'month',
+      sValue: props.value || props.defaultValue || (0, _moment2['default'])(),
+      sSelectedValue: props.selectedValue || props.defaultSelectedValue
+    };
+  },
+
+  methods: {
+    onKeyDown: function onKeyDown(event) {
+      var keyCode = event.keyCode;
+      var ctrlKey = event.ctrlKey || event.metaKey;
+      var stateValue = this.sValue;
+      var disabledDate = this.disabledDate;
+
+      var value = stateValue;
+      switch (keyCode) {
+        case _KeyCode2['default'].DOWN:
+          value = stateValue.clone();
+          value.add(3, 'months');
+          break;
+        case _KeyCode2['default'].UP:
+          value = stateValue.clone();
+          value.add(-3, 'months');
+          break;
+        case _KeyCode2['default'].LEFT:
+          value = stateValue.clone();
+          if (ctrlKey) {
+            value.add(-1, 'years');
+          } else {
+            value.add(-1, 'months');
+          }
+          break;
+        case _KeyCode2['default'].RIGHT:
+          value = stateValue.clone();
+          if (ctrlKey) {
+            value.add(1, 'years');
+          } else {
+            value.add(1, 'months');
+          }
+          break;
+        case _KeyCode2['default'].ENTER:
+          if (!disabledDate || !disabledDate(stateValue)) {
+            this.onSelect(stateValue);
+          }
+          event.preventDefault();
+          return 1;
+        default:
+          return undefined;
+      }
+      if (value !== stateValue) {
+        this.setValue(value);
+        event.preventDefault();
+        return 1;
+      }
+    },
+    handlePanelChange: function handlePanelChange(_, mode) {
+      if (mode !== 'date') {
+        this.setState({ mode: mode });
+      }
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+    var mode = this.mode,
+        value = this.sValue,
+        props = this.$props,
+        $scopedSlots = this.$scopedSlots;
+    var prefixCls = props.prefixCls,
+        locale = props.locale,
+        disabledDate = props.disabledDate;
+
+    var monthCellRender = this.monthCellRender || $scopedSlots.monthCellRender;
+    var monthCellContentRender = this.monthCellContentRender || $scopedSlots.monthCellContentRender;
+    var renderFooter = this.renderFooter || $scopedSlots.renderFooter;
+    var children = h(
+      'div',
+      { 'class': prefixCls + '-month-calendar-content' },
+      [h(
+        'div',
+        { 'class': prefixCls + '-month-header-wrap' },
+        [h(_CalendarHeader2['default'], {
+          attrs: {
+            prefixCls: prefixCls,
+            mode: mode,
+            value: value,
+            locale: locale,
+            disabledMonth: disabledDate,
+            monthCellRender: monthCellRender,
+            monthCellContentRender: monthCellContentRender
+          },
+          on: {
+            'monthSelect': this.onSelect,
+            'valueChange': this.setValue,
+            'panelChange': this.handlePanelChange
+          }
+        })]
+      ), h(_CalendarFooter2['default'], {
+        attrs: { prefixCls: prefixCls, renderFooter: renderFooter }
       })]
+    );
+    return this.renderRoot({
+      'class': props.prefixCls + '-month-calendar',
+      children: children
+    });
+  }
+};
+
+exports['default'] = MonthCalendar;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/Picker.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/Picker.js ***!
+  \*******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _vnode = __webpack_require__(/*! ../../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _createChainedFunction = __webpack_require__(/*! ../../_util/createChainedFunction */ "./node_modules/ant-design-vue/lib/_util/createChainedFunction.js");
+
+var _createChainedFunction2 = _interopRequireDefault(_createChainedFunction);
+
+var _KeyCode = __webpack_require__(/*! ../../_util/KeyCode */ "./node_modules/ant-design-vue/lib/_util/KeyCode.js");
+
+var _KeyCode2 = _interopRequireDefault(_KeyCode);
+
+var _placements = __webpack_require__(/*! ./picker/placements */ "./node_modules/ant-design-vue/lib/vc-calendar/src/picker/placements.js");
+
+var _placements2 = _interopRequireDefault(_placements);
+
+var _vcTrigger = __webpack_require__(/*! ../../vc-trigger */ "./node_modules/ant-design-vue/lib/vc-trigger/index.js");
+
+var _vcTrigger2 = _interopRequireDefault(_vcTrigger);
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _isNil = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+
+var _isNil2 = _interopRequireDefault(_isNil);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var TimeType = {
+  validator: function validator(value) {
+    if (Array.isArray(value)) {
+      return value.length === 0 || value.findIndex(function (val) {
+        return !(0, _isNil2['default'])(val) && !_moment2['default'].isMoment(val);
+      }) === -1;
+    } else {
+      return (0, _isNil2['default'])(value) || _moment2['default'].isMoment(value);
+    }
+  }
+};
+var Picker = {
+  name: 'Picker',
+  props: {
+    animation: _vueTypes2['default'].oneOfType([_vueTypes2['default'].func, _vueTypes2['default'].string]),
+    disabled: _vueTypes2['default'].bool,
+    transitionName: _vueTypes2['default'].string,
+    format: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].array]),
+    // onChange: PropTypes.func,
+    // onOpenChange: PropTypes.func,
+    children: _vueTypes2['default'].func,
+    getCalendarContainer: _vueTypes2['default'].func,
+    calendar: _vueTypes2['default'].any,
+    open: _vueTypes2['default'].bool,
+    defaultOpen: _vueTypes2['default'].bool.def(false),
+    prefixCls: _vueTypes2['default'].string.def('rc-calendar-picker'),
+    placement: _vueTypes2['default'].any.def('bottomLeft'),
+    value: TimeType,
+    defaultValue: TimeType,
+    align: _vueTypes2['default'].object.def(function () {
+      return {};
+    }),
+    dropdownClassName: _vueTypes2['default'].string,
+    dateRender: _vueTypes2['default'].func
+  },
+  mixins: [_BaseMixin2['default']],
+
+  data: function data() {
+    var props = this.$props;
+    var open = void 0;
+    if ((0, _propsUtil.hasProp)(this, 'open')) {
+      open = props.open;
+    } else {
+      open = props.defaultOpen;
+    }
+    var value = props.value || props.defaultValue;
+    return {
+      sOpen: open,
+      sValue: value
+    };
+  },
+
+  watch: {
+    value: function value(val) {
+      this.setState({
+        sValue: val
+      });
+    },
+    open: function open(val) {
+      this.setState({
+        sOpen: val
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.preSOpen = this.sOpen;
+  },
+  updated: function updated() {
+    if (!this.preSOpen && this.sOpen) {
+      // setTimeout is for making sure saveCalendarRef happen before focusCalendar
+      this.focusTimeout = setTimeout(this.focusCalendar, 0);
+    }
+    this.preSOpen = this.sOpen;
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearTimeout(this.focusTimeout);
+  },
+
+  methods: {
+    onCalendarKeyDown: function onCalendarKeyDown(event) {
+      if (event.keyCode === _KeyCode2['default'].ESC) {
+        event.stopPropagation();
+        this.closeCalendar(this.focus);
+      }
+    },
+    onCalendarSelect: function onCalendarSelect(value) {
+      var cause = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      var props = this.$props;
+      if (!(0, _propsUtil.hasProp)(this, 'value')) {
+        this.setState({
+          sValue: value
+        });
+      }
+      var calendarProps = (0, _propsUtil.getOptionProps)(props.calendar);
+      if (cause.source === 'keyboard' || cause.source === 'dateInputSelect' || !calendarProps.timePicker && cause.source !== 'dateInput' || cause.source === 'todayButton') {
+        this.closeCalendar(this.focus);
+      }
+      this.__emit('change', value);
+    },
+    onKeyDown: function onKeyDown(event) {
+      if (!this.sOpen && (event.keyCode === _KeyCode2['default'].DOWN || event.keyCode === _KeyCode2['default'].ENTER)) {
+        this.openCalendar();
+        event.preventDefault();
+      }
+    },
+    onCalendarOk: function onCalendarOk() {
+      this.closeCalendar(this.focus);
+    },
+    onCalendarClear: function onCalendarClear() {
+      this.closeCalendar(this.focus);
+    },
+    onCalendarBlur: function onCalendarBlur() {
+      this.setOpen(false);
+    },
+    onVisibleChange: function onVisibleChange(open) {
+      this.setOpen(open);
+    },
+    getCalendarElement: function getCalendarElement() {
+      var props = this.$props;
+      var calendarProps = (0, _propsUtil.getOptionProps)(props.calendar);
+      var calendarEvents = (0, _propsUtil.getEvents)(props.calendar);
+      var value = this.sValue;
+
+      var defaultValue = value;
+      var extraProps = {
+        ref: 'calendarInstance',
+        props: {
+          defaultValue: defaultValue || calendarProps.defaultValue,
+          selectedValue: value
+        },
+        on: {
+          keydown: this.onCalendarKeyDown,
+          ok: (0, _createChainedFunction2['default'])(calendarEvents.ok, this.onCalendarOk),
+          select: (0, _createChainedFunction2['default'])(calendarEvents.select, this.onCalendarSelect),
+          clear: (0, _createChainedFunction2['default'])(calendarEvents.clear, this.onCalendarClear),
+          blur: (0, _createChainedFunction2['default'])(calendarEvents.blur, this.onCalendarBlur)
+        }
+      };
+
+      return (0, _vnode.cloneElement)(props.calendar, extraProps);
+    },
+    setOpen: function setOpen(open, callback) {
+      if (this.sOpen !== open) {
+        if (!(0, _propsUtil.hasProp)(this, 'open')) {
+          this.setState({
+            sOpen: open
+          }, callback);
+        }
+        this.__emit('openChange', open);
+      }
+    },
+    openCalendar: function openCalendar(callback) {
+      this.setOpen(true, callback);
+    },
+    closeCalendar: function closeCalendar(callback) {
+      this.setOpen(false, callback);
+    },
+    focus: function focus() {
+      if (!this.sOpen) {
+        this.$el.focus();
+      }
+    },
+    focusCalendar: function focusCalendar() {
+      if (this.sOpen && this.calendarInstance && this.calendarInstance.componentInstance) {
+        this.calendarInstance.componentInstance.focus();
+      }
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var style = (0, _propsUtil.getStyle)(this);
+    var prefixCls = props.prefixCls,
+        placement = props.placement,
+        getCalendarContainer = props.getCalendarContainer,
+        align = props.align,
+        animation = props.animation,
+        disabled = props.disabled,
+        dropdownClassName = props.dropdownClassName,
+        transitionName = props.transitionName;
+    var sValue = this.sValue,
+        sOpen = this.sOpen;
+
+    var children = this.$scopedSlots['default'];
+    var childrenState = {
+      value: sValue,
+      open: sOpen
+    };
+    if (this.sOpen || !this.calendarInstance) {
+      this.calendarInstance = this.getCalendarElement();
+    }
+
+    return h(
+      _vcTrigger2['default'],
+      {
+        attrs: {
+          popupAlign: align,
+          builtinPlacements: _placements2['default'],
+          popupPlacement: placement,
+          action: disabled && !sOpen ? [] : ['click'],
+          destroyPopupOnHide: true,
+          getPopupContainer: getCalendarContainer,
+          popupStyle: style,
+          popupAnimation: animation,
+          popupTransitionName: transitionName,
+          popupVisible: sOpen,
+
+          prefixCls: prefixCls,
+          popupClassName: dropdownClassName
+        },
+        on: {
+          'popupVisibleChange': this.onVisibleChange
+        }
+      },
+      [h(
+        'template',
+        { slot: 'popup' },
+        [this.calendarInstance]
+      ), (0, _vnode.cloneElement)(children(childrenState, props), { on: { keydown: this.onKeyDown } })]
     );
   }
 };
 
-function getRowHeight(state, props) {
-  var fixedColumnsHeadRowsHeight = state.fixedColumnsHeadRowsHeight;
-  var columns = props.columns,
-      rows = props.rows,
-      fixed = props.fixed;
-
-  var headerHeight = fixedColumnsHeadRowsHeight[0];
-
-  if (!fixed) {
-    return null;
-  }
-
-  if (headerHeight && columns) {
-    if (headerHeight === 'auto') {
-      return 'auto';
-    }
-    return headerHeight / rows.length + 'px';
-  }
-  return null;
-}
-
-exports['default'] = (0, _store.connect)(function (state, props) {
-  return {
-    height: getRowHeight(state, props)
-  };
-})(TableHeaderRow);
+exports['default'] = Picker;
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/TableRow.js":
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/RangeCalendar.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/RangeCalendar.js ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _slicedToArray2 = __webpack_require__(/*! babel-runtime/helpers/slicedToArray */ "./node_modules/babel-runtime/helpers/slicedToArray.js");
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _KeyCode = __webpack_require__(/*! ../../_util/KeyCode */ "./node_modules/ant-design-vue/lib/_util/KeyCode.js");
+
+var _KeyCode2 = _interopRequireDefault(_KeyCode);
+
+var _CalendarPart = __webpack_require__(/*! ./range-calendar/CalendarPart */ "./node_modules/ant-design-vue/lib/vc-calendar/src/range-calendar/CalendarPart.js");
+
+var _CalendarPart2 = _interopRequireDefault(_CalendarPart);
+
+var _TodayButton = __webpack_require__(/*! ./calendar/TodayButton */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/TodayButton.js");
+
+var _TodayButton2 = _interopRequireDefault(_TodayButton);
+
+var _OkButton = __webpack_require__(/*! ./calendar/OkButton */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/OkButton.js");
+
+var _OkButton2 = _interopRequireDefault(_OkButton);
+
+var _TimePickerButton = __webpack_require__(/*! ./calendar/TimePickerButton */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/TimePickerButton.js");
+
+var _TimePickerButton2 = _interopRequireDefault(_TimePickerButton);
+
+var _CommonMixin = __webpack_require__(/*! ./mixin/CommonMixin */ "./node_modules/ant-design-vue/lib/vc-calendar/src/mixin/CommonMixin.js");
+
+var _CommonMixin2 = _interopRequireDefault(_CommonMixin);
+
+var _en_US = __webpack_require__(/*! ./locale/en_US */ "./node_modules/ant-design-vue/lib/vc-calendar/src/locale/en_US.js");
+
+var _en_US2 = _interopRequireDefault(_en_US);
+
+var _util = __webpack_require__(/*! ./util/ */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js");
+
+var _toTime = __webpack_require__(/*! ./util/toTime */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/toTime.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+
+function isEmptyArray(arr) {
+  return Array.isArray(arr) && (arr.length === 0 || arr.every(function (i) {
+    return !i;
+  }));
+}
+
+function isArraysEqual(a, b) {
+  if (a === b) return true;
+  if (a === null || typeof a === 'undefined' || b === null || typeof b === 'undefined') {
+    return false;
+  }
+  if (a.length !== b.length) return false;
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
+function getValueFromSelectedValue(selectedValue) {
+  var _selectedValue = (0, _slicedToArray3['default'])(selectedValue, 2),
+      start = _selectedValue[0],
+      end = _selectedValue[1];
+
+  if (end && (start === undefined || start === null)) {
+    start = end.clone().subtract(1, 'month');
+  }
+
+  if (start && (end === undefined || end === null)) {
+    end = start.clone().add(1, 'month');
+  }
+  return [start, end];
+}
+
+function normalizeAnchor(props, init) {
+  var selectedValue = props.selectedValue || init && props.defaultSelectedValue;
+  var value = props.value || init && props.defaultValue;
+  var normalizedValue = value ? getValueFromSelectedValue(value) : getValueFromSelectedValue(selectedValue);
+  return !isEmptyArray(normalizedValue) ? normalizedValue : init && [(0, _moment2['default'])(), (0, _moment2['default'])().add(1, 'months')];
+}
+
+function generateOptions(length, extraOptionGen) {
+  var arr = extraOptionGen ? extraOptionGen().concat() : [];
+  for (var value = 0; value < length; value++) {
+    if (arr.indexOf(value) === -1) {
+      arr.push(value);
+    }
+  }
+  return arr;
+}
+
+function onInputSelect(direction, value, cause) {
+  if (!value) {
+    return;
+  }
+  var originalValue = this.sSelectedValue;
+  var selectedValue = originalValue.concat();
+  var index = direction === 'left' ? 0 : 1;
+  selectedValue[index] = value;
+  if (selectedValue[0] && this.compare(selectedValue[0], selectedValue[1]) > 0) {
+    selectedValue[1 - index] = this.sShowTimePicker ? selectedValue[index] : undefined;
+  }
+  this.__emit('inputSelect', selectedValue);
+  this.fireSelectValueChange(selectedValue, null, cause || { source: 'dateInput' });
+}
+
+var RangeCalendar = {
+  props: {
+    locale: _vueTypes2['default'].object.def(_en_US2['default']),
+    visible: _vueTypes2['default'].bool.def(true),
+    prefixCls: _vueTypes2['default'].string.def('rc-calendar'),
+    dateInputPlaceholder: _vueTypes2['default'].any,
+    seperator: _vueTypes2['default'].string.def('~'),
+    defaultValue: _vueTypes2['default'].any,
+    value: _vueTypes2['default'].any,
+    hoverValue: _vueTypes2['default'].any,
+    mode: _vueTypes2['default'].arrayOf(_vueTypes2['default'].oneOf(['time', 'date', 'month', 'year', 'decade'])),
+    showDateInput: _vueTypes2['default'].bool.def(true),
+    timePicker: _vueTypes2['default'].any,
+    showOk: _vueTypes2['default'].bool,
+    showToday: _vueTypes2['default'].bool.def(true),
+    defaultSelectedValue: _vueTypes2['default'].array.def([]),
+    selectedValue: _vueTypes2['default'].array,
+    showClear: _vueTypes2['default'].bool,
+    showWeekNumber: _vueTypes2['default'].bool,
+    // locale: PropTypes.object,
+    // onChange: PropTypes.func,
+    // onSelect: PropTypes.func,
+    // onValueChange: PropTypes.func,
+    // onHoverChange: PropTypes.func,
+    // onPanelChange: PropTypes.func,
+    format: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].arrayOf(_vueTypes2['default'].string)]),
+    // onClear: PropTypes.func,
+    type: _vueTypes2['default'].any.def('both'),
+    disabledDate: _vueTypes2['default'].func,
+    disabledTime: _vueTypes2['default'].func.def(noop),
+    renderFooter: _vueTypes2['default'].func.def(function () {
+      return null;
+    }),
+    renderSidebar: _vueTypes2['default'].func.def(function () {
+      return null;
+    }),
+    dateRender: _vueTypes2['default'].func,
+    clearIcon: _vueTypes2['default'].any,
+    inputReadOnly: _vueTypes2['default'].bool
+  },
+
+  mixins: [_BaseMixin2['default'], _CommonMixin2['default']],
+
+  data: function data() {
+    var props = this.$props;
+    var selectedValue = props.selectedValue || props.defaultSelectedValue;
+    var value = normalizeAnchor(props, 1);
+    return {
+      sSelectedValue: selectedValue,
+      prevSelectedValue: selectedValue,
+      firstSelectedValue: null,
+      sHoverValue: props.hoverValue || [],
+      sValue: value,
+      sShowTimePicker: false,
+      sMode: props.mode || ['date', 'date'],
+      sPanelTriggerSource: '' // Trigger by which picker panel: 'start' & 'end'
+    };
+  },
+
+  watch: {
+    value: function value() {
+      var newState = {};
+      newState.sValue = normalizeAnchor(this.$props, 0);
+      this.setState(newState);
+    },
+    hoverValue: function hoverValue(val) {
+      if (!isArraysEqual(this.sHoverValue, val)) {
+        this.setState({ sHoverValue: val });
+      }
+    },
+    selectedValue: function selectedValue(val) {
+      var newState = {};
+      newState.sSelectedValue = val;
+      newState.prevSelectedValue = val;
+      this.setState(newState);
+    },
+    mode: function mode(val) {
+      if (!isArraysEqual(this.sMode, val)) {
+        this.setState({ sMode: val });
+      }
+    }
+  },
+
+  methods: {
+    onDatePanelEnter: function onDatePanelEnter() {
+      if (this.hasSelectedValue()) {
+        this.fireHoverValueChange(this.sSelectedValue.concat());
+      }
+    },
+    onDatePanelLeave: function onDatePanelLeave() {
+      if (this.hasSelectedValue()) {
+        this.fireHoverValueChange([]);
+      }
+    },
+    onSelect: function onSelect(value) {
+      var type = this.type,
+          sSelectedValue = this.sSelectedValue,
+          prevSelectedValue = this.prevSelectedValue,
+          firstSelectedValue = this.firstSelectedValue;
+
+      var nextSelectedValue = void 0;
+      if (type === 'both') {
+        if (!firstSelectedValue) {
+          (0, _util.syncTime)(prevSelectedValue[0], value);
+          nextSelectedValue = [value];
+        } else if (this.compare(firstSelectedValue, value) < 0) {
+          (0, _util.syncTime)(prevSelectedValue[1], value);
+          nextSelectedValue = [firstSelectedValue, value];
+        } else {
+          (0, _util.syncTime)(prevSelectedValue[0], value);
+          (0, _util.syncTime)(prevSelectedValue[1], firstSelectedValue);
+          nextSelectedValue = [value, firstSelectedValue];
+        }
+      } else if (type === 'start') {
+        (0, _util.syncTime)(prevSelectedValue[0], value);
+        var endValue = sSelectedValue[1];
+        nextSelectedValue = endValue && this.compare(endValue, value) > 0 ? [value, endValue] : [value];
+      } else {
+        // type === 'end'
+        var startValue = sSelectedValue[0];
+        if (startValue && this.compare(startValue, value) <= 0) {
+          (0, _util.syncTime)(prevSelectedValue[1], value);
+          nextSelectedValue = [startValue, value];
+        } else {
+          (0, _util.syncTime)(prevSelectedValue[0], value);
+          nextSelectedValue = [value];
+        }
+      }
+
+      this.fireSelectValueChange(nextSelectedValue);
+    },
+    onKeyDown: function onKeyDown(event) {
+      var _this = this;
+
+      if (event.target.nodeName.toLowerCase() === 'input') {
+        return;
+      }
+
+      var keyCode = event.keyCode;
+
+      var ctrlKey = event.ctrlKey || event.metaKey;
+
+      var _$data = this.$data,
+          selectedValue = _$data.sSelectedValue,
+          hoverValue = _$data.sHoverValue,
+          firstSelectedValue = _$data.firstSelectedValue,
+          value = _$data.sValue;
+      var disabledDate = this.$props.disabledDate;
+
+      // Update last time of the picker
+
+      var updateHoverPoint = function updateHoverPoint(func) {
+        // Change hover to make focus in UI
+        var currentHoverTime = void 0;
+        var nextHoverTime = void 0;
+        var nextHoverValue = void 0;
+
+        if (!firstSelectedValue) {
+          currentHoverTime = hoverValue[0] || selectedValue[0] || value[0] || (0, _moment2['default'])();
+          nextHoverTime = func(currentHoverTime);
+          nextHoverValue = [nextHoverTime];
+          _this.fireHoverValueChange(nextHoverValue);
+        } else {
+          if (hoverValue.length === 1) {
+            currentHoverTime = hoverValue[0].clone();
+            nextHoverTime = func(currentHoverTime);
+            nextHoverValue = _this.onDayHover(nextHoverTime);
+          } else {
+            currentHoverTime = hoverValue[0].isSame(firstSelectedValue, 'day') ? hoverValue[1] : hoverValue[0];
+            nextHoverTime = func(currentHoverTime);
+            nextHoverValue = _this.onDayHover(nextHoverTime);
+          }
+        }
+
+        // Find origin hover time on value index
+        if (nextHoverValue.length >= 2) {
+          var miss = nextHoverValue.some(function (ht) {
+            return !(0, _toTime.includesTime)(value, ht, 'month');
+          });
+          if (miss) {
+            var newValue = nextHoverValue.slice().sort(function (t1, t2) {
+              return t1.valueOf() - t2.valueOf();
+            });
+            if (newValue[0].isSame(newValue[1], 'month')) {
+              newValue[1] = newValue[0].clone().add(1, 'month');
+            }
+            _this.fireValueChange(newValue);
+          }
+        } else if (nextHoverValue.length === 1) {
+          // If only one value, let's keep the origin panel
+          var oriValueIndex = value.findIndex(function (time) {
+            return time.isSame(currentHoverTime, 'month');
+          });
+          if (oriValueIndex === -1) oriValueIndex = 0;
+
+          if (value.every(function (time) {
+            return !time.isSame(nextHoverTime, 'month');
+          })) {
+            var _newValue = value.slice();
+            _newValue[oriValueIndex] = nextHoverTime.clone();
+            _this.fireValueChange(_newValue);
+          }
+        }
+
+        event.preventDefault();
+
+        return nextHoverTime;
+      };
+
+      switch (keyCode) {
+        case _KeyCode2['default'].DOWN:
+          updateHoverPoint(function (time) {
+            return (0, _toTime.goTime)(time, 1, 'weeks');
+          });
+          return;
+        case _KeyCode2['default'].UP:
+          updateHoverPoint(function (time) {
+            return (0, _toTime.goTime)(time, -1, 'weeks');
+          });
+          return;
+        case _KeyCode2['default'].LEFT:
+          if (ctrlKey) {
+            updateHoverPoint(function (time) {
+              return (0, _toTime.goTime)(time, -1, 'years');
+            });
+          } else {
+            updateHoverPoint(function (time) {
+              return (0, _toTime.goTime)(time, -1, 'days');
+            });
+          }
+          return;
+        case _KeyCode2['default'].RIGHT:
+          if (ctrlKey) {
+            updateHoverPoint(function (time) {
+              return (0, _toTime.goTime)(time, 1, 'years');
+            });
+          } else {
+            updateHoverPoint(function (time) {
+              return (0, _toTime.goTime)(time, 1, 'days');
+            });
+          }
+          return;
+        case _KeyCode2['default'].HOME:
+          updateHoverPoint(function (time) {
+            return (0, _toTime.goStartMonth)(time);
+          });
+          return;
+        case _KeyCode2['default'].END:
+          updateHoverPoint(function (time) {
+            return (0, _toTime.goEndMonth)(time);
+          });
+          return;
+        case _KeyCode2['default'].PAGE_DOWN:
+          updateHoverPoint(function (time) {
+            return (0, _toTime.goTime)(time, 1, 'month');
+          });
+          return;
+        case _KeyCode2['default'].PAGE_UP:
+          updateHoverPoint(function (time) {
+            return (0, _toTime.goTime)(time, -1, 'month');
+          });
+          return;
+        case _KeyCode2['default'].ENTER:
+          {
+            var lastValue = void 0;
+            if (hoverValue.length === 0) {
+              lastValue = updateHoverPoint(function (time) {
+                return time;
+              });
+            } else if (hoverValue.length === 1) {
+              lastValue = hoverValue[0];
+            } else {
+              lastValue = hoverValue[0].isSame(firstSelectedValue, 'day') ? hoverValue[1] : hoverValue[0];
+            }
+            if (lastValue && (!disabledDate || !disabledDate(lastValue))) {
+              this.onSelect(lastValue);
+            }
+            event.preventDefault();
+            return;
+          }
+        default:
+          this.__emit('keydown', event);
+      }
+    },
+    onDayHover: function onDayHover(value) {
+      var hoverValue = [];
+      var sSelectedValue = this.sSelectedValue,
+          firstSelectedValue = this.firstSelectedValue,
+          type = this.type;
+
+      if (type === 'start' && sSelectedValue[1]) {
+        hoverValue = this.compare(value, sSelectedValue[1]) < 0 ? [value, sSelectedValue[1]] : [value];
+      } else if (type === 'end' && sSelectedValue[0]) {
+        hoverValue = this.compare(value, sSelectedValue[0]) > 0 ? [sSelectedValue[0], value] : [];
+      } else {
+        if (!firstSelectedValue) {
+          if (this.sHoverValue.length) {
+            this.setState({ sHoverValue: [] });
+          }
+          return hoverValue;
+        }
+        hoverValue = this.compare(value, firstSelectedValue) < 0 ? [value, firstSelectedValue] : [firstSelectedValue, value];
+      }
+      this.fireHoverValueChange(hoverValue);
+      return hoverValue;
+    },
+    onToday: function onToday() {
+      var startValue = (0, _util.getTodayTime)(this.sValue[0]);
+      var endValue = startValue.clone().add(1, 'months');
+      this.setState({ sValue: [startValue, endValue] });
+    },
+    onOpenTimePicker: function onOpenTimePicker() {
+      this.setState({
+        sShowTimePicker: true
+      });
+    },
+    onCloseTimePicker: function onCloseTimePicker() {
+      this.setState({
+        sShowTimePicker: false
+      });
+    },
+    onOk: function onOk() {
+      var sSelectedValue = this.sSelectedValue;
+
+      if (this.isAllowedDateAndTime(sSelectedValue)) {
+        this.__emit('ok', sSelectedValue);
+      }
+    },
+    onStartInputChange: function onStartInputChange() {
+      for (var _len = arguments.length, oargs = Array(_len), _key = 0; _key < _len; _key++) {
+        oargs[_key] = arguments[_key];
+      }
+
+      var args = ['left'].concat(oargs);
+      return onInputSelect.apply(this, args);
+    },
+    onEndInputChange: function onEndInputChange() {
+      for (var _len2 = arguments.length, oargs = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+        oargs[_key2] = arguments[_key2];
+      }
+
+      var args = ['right'].concat(oargs);
+      return onInputSelect.apply(this, args);
+    },
+    onStartInputSelect: function onStartInputSelect(value) {
+      var args = ['left', value, { source: 'dateInputSelect' }];
+      return onInputSelect.apply(this, args);
+    },
+    onEndInputSelect: function onEndInputSelect(value) {
+      var args = ['right', value, { source: 'dateInputSelect' }];
+      return onInputSelect.apply(this, args);
+    },
+    onStartValueChange: function onStartValueChange(leftValue) {
+      var value = [].concat((0, _toConsumableArray3['default'])(this.sValue));
+      value[0] = leftValue;
+      return this.fireValueChange(value);
+    },
+    onEndValueChange: function onEndValueChange(rightValue) {
+      var value = [].concat((0, _toConsumableArray3['default'])(this.sValue));
+      value[1] = rightValue;
+      return this.fireValueChange(value);
+    },
+    onStartPanelChange: function onStartPanelChange(value, mode) {
+      var sMode = this.sMode,
+          sValue = this.sValue;
+
+      var newMode = [mode, sMode[1]];
+      var newValue = [value || sValue[0], sValue[1]];
+      this.__emit('panelChange', newValue, newMode);
+      var newState = {
+        sPanelTriggerSource: 'start'
+      };
+      if (!(0, _propsUtil.hasProp)(this, 'mode')) {
+        newState.sMode = newMode;
+      }
+      this.setState(newState);
+    },
+    onEndPanelChange: function onEndPanelChange(value, mode) {
+      var sMode = this.sMode,
+          sValue = this.sValue;
+
+      var newMode = [sMode[0], mode];
+      var newValue = [sValue[0], value || sValue[1]];
+      this.__emit('panelChange', newValue, newMode);
+      var newState = {
+        sPanelTriggerSource: 'end'
+      };
+      if (!(0, _propsUtil.hasProp)(this, 'mode')) {
+        newState.sMode = newMode;
+      }
+      this.setState(newState);
+    },
+    getStartValue: function getStartValue() {
+      var _$data2 = this.$data,
+          selectedValue = _$data2.sSelectedValue,
+          showTimePicker = _$data2.sShowTimePicker,
+          value = _$data2.sValue,
+          mode = _$data2.sMode,
+          panelTriggerSource = _$data2.sPanelTriggerSource;
+
+      var startValue = value[0];
+      // keep selectedTime when select date
+      if (selectedValue[0] && this.$props.timePicker) {
+        startValue = startValue.clone();
+        (0, _util.syncTime)(selectedValue[0], startValue);
+      }
+      if (showTimePicker && selectedValue[0]) {
+        startValue = selectedValue[0];
+      }
+
+      // Adjust month if date not align
+      if (panelTriggerSource === 'end' && mode[0] === 'date' && mode[1] === 'date' && startValue.isSame(value[1], 'month')) {
+        startValue = startValue.clone().subtract(1, 'month');
+      }
+
+      return startValue;
+    },
+    getEndValue: function getEndValue() {
+      var _$data3 = this.$data,
+          selectedValue = _$data3.sSelectedValue,
+          showTimePicker = _$data3.sShowTimePicker,
+          value = _$data3.sValue,
+          mode = _$data3.sMode,
+          panelTriggerSource = _$data3.sPanelTriggerSource;
+
+      var endValue = value[1] ? value[1].clone() : value[0].clone().add(1, 'month');
+      // keep selectedTime when select date
+      if (selectedValue[1] && this.$props.timePicker) {
+        (0, _util.syncTime)(selectedValue[1], endValue);
+      }
+      if (showTimePicker) {
+        endValue = selectedValue[1] ? selectedValue[1] : this.getStartValue();
+      }
+
+      // Adjust month if date not align
+      if (!showTimePicker && panelTriggerSource === 'start' && mode[0] === 'date' && mode[1] === 'date' && endValue.isSame(value[0], 'month')) {
+        endValue = endValue.clone().add(1, 'month');
+      }
+
+      return endValue;
+    },
+
+    // get disabled hours for second picker
+    getEndDisableTime: function getEndDisableTime() {
+      var sSelectedValue = this.sSelectedValue,
+          sValue = this.sValue,
+          disabledTime = this.disabledTime;
+
+      var userSettingDisabledTime = disabledTime(sSelectedValue, 'end') || {};
+      var startValue = sSelectedValue && sSelectedValue[0] || sValue[0].clone();
+      // if startTime and endTime is same day..
+      // the second time picker will not able to pick time before first time picker
+      if (!sSelectedValue[1] || startValue.isSame(sSelectedValue[1], 'day')) {
+        var hours = startValue.hour();
+        var minutes = startValue.minute();
+        var second = startValue.second();
+        var _disabledHours = userSettingDisabledTime.disabledHours,
+            _disabledMinutes = userSettingDisabledTime.disabledMinutes,
+            _disabledSeconds = userSettingDisabledTime.disabledSeconds;
+
+        var oldDisabledMinutes = _disabledMinutes ? _disabledMinutes() : [];
+        var olddisabledSeconds = _disabledSeconds ? _disabledSeconds() : [];
+        _disabledHours = generateOptions(hours, _disabledHours);
+        _disabledMinutes = generateOptions(minutes, _disabledMinutes);
+        _disabledSeconds = generateOptions(second, _disabledSeconds);
+        return {
+          disabledHours: function disabledHours() {
+            return _disabledHours;
+          },
+          disabledMinutes: function disabledMinutes(hour) {
+            if (hour === hours) {
+              return _disabledMinutes;
+            }
+            return oldDisabledMinutes;
+          },
+          disabledSeconds: function disabledSeconds(hour, minute) {
+            if (hour === hours && minute === minutes) {
+              return _disabledSeconds;
+            }
+            return olddisabledSeconds;
+          }
+        };
+      }
+      return userSettingDisabledTime;
+    },
+    isAllowedDateAndTime: function isAllowedDateAndTime(selectedValue) {
+      return (0, _util.isAllowedDate)(selectedValue[0], this.disabledDate, this.disabledStartTime) && (0, _util.isAllowedDate)(selectedValue[1], this.disabledDate, this.disabledEndTime);
+    },
+    isMonthYearPanelShow: function isMonthYearPanelShow(mode) {
+      return ['month', 'year', 'decade'].indexOf(mode) > -1;
+    },
+    hasSelectedValue: function hasSelectedValue() {
+      var sSelectedValue = this.sSelectedValue;
+
+      return !!sSelectedValue[1] && !!sSelectedValue[0];
+    },
+    compare: function compare(v1, v2) {
+      if (this.timePicker) {
+        return v1.diff(v2);
+      }
+      return v1.diff(v2, 'days');
+    },
+    fireSelectValueChange: function fireSelectValueChange(selectedValue, direct, cause) {
+      var timePicker = this.timePicker,
+          prevSelectedValue = this.prevSelectedValue;
+
+      if (timePicker) {
+        var timePickerProps = (0, _propsUtil.getOptionProps)(timePicker);
+        if (timePickerProps.defaultValue) {
+          var timePickerDefaultValue = timePickerProps.defaultValue;
+          if (!prevSelectedValue[0] && selectedValue[0]) {
+            (0, _util.syncTime)(timePickerDefaultValue[0], selectedValue[0]);
+          }
+          if (!prevSelectedValue[1] && selectedValue[1]) {
+            (0, _util.syncTime)(timePickerDefaultValue[1], selectedValue[1]);
+          }
+        }
+      }
+      // 尚未选择过时间，直接输入的话
+      if (!this.sSelectedValue[0] || !this.sSelectedValue[1]) {
+        var startValue = selectedValue[0] || (0, _moment2['default'])();
+        var endValue = selectedValue[1] || startValue.clone().add(1, 'months');
+        this.setState({
+          sSelectedValue: selectedValue,
+          sValue: selectedValue && selectedValue.length === 2 ? getValueFromSelectedValue([startValue, endValue]) : this.sValue
+        });
+      }
+
+      if (selectedValue[0] && !selectedValue[1]) {
+        this.setState({ firstSelectedValue: selectedValue[0] });
+        this.fireHoverValueChange(selectedValue.concat());
+      }
+      this.__emit('change', selectedValue);
+      if (direct || selectedValue[0] && selectedValue[1]) {
+        this.setState({
+          prevSelectedValue: selectedValue,
+          firstSelectedValue: null
+        });
+        this.fireHoverValueChange([]);
+        this.__emit('select', selectedValue, cause);
+      }
+      if (!(0, _propsUtil.hasProp)(this, 'selectedValue')) {
+        this.setState({
+          sSelectedValue: selectedValue
+        });
+      }
+    },
+    fireValueChange: function fireValueChange(value) {
+      if (!(0, _propsUtil.hasProp)(this, 'value')) {
+        this.setState({
+          sValue: value
+        });
+      }
+      this.__emit('valueChange', value);
+    },
+    fireHoverValueChange: function fireHoverValueChange(hoverValue) {
+      if (!(0, _propsUtil.hasProp)(this, 'hoverValue')) {
+        this.setState({ sHoverValue: hoverValue });
+      }
+      this.__emit('hoverChange', hoverValue);
+    },
+    clear: function clear() {
+      this.fireSelectValueChange([], true);
+      this.__emit('clear');
+    },
+    disabledStartTime: function disabledStartTime(time) {
+      return this.disabledTime(time, 'start');
+    },
+    disabledEndTime: function disabledEndTime(time) {
+      return this.disabledTime(time, 'end');
+    },
+    disabledStartMonth: function disabledStartMonth(month) {
+      var sValue = this.sValue;
+
+      return month.isAfter(sValue[1], 'month');
+    },
+    disabledEndMonth: function disabledEndMonth(month) {
+      var sValue = this.sValue;
+
+      return month.isBefore(sValue[0], 'month');
+    }
+  },
+
+  render: function render() {
+    var _className, _cls;
+
+    var h = arguments[0];
+
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var prefixCls = props.prefixCls,
+        dateInputPlaceholder = props.dateInputPlaceholder,
+        timePicker = props.timePicker,
+        showOk = props.showOk,
+        locale = props.locale,
+        showClear = props.showClear,
+        showToday = props.showToday,
+        type = props.type,
+        seperator = props.seperator;
+
+    var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
+    var sHoverValue = this.sHoverValue,
+        sSelectedValue = this.sSelectedValue,
+        mode = this.sMode,
+        sShowTimePicker = this.sShowTimePicker,
+        sValue = this.sValue;
+
+    var className = (_className = {}, (0, _defineProperty3['default'])(_className, prefixCls, 1), (0, _defineProperty3['default'])(_className, prefixCls + '-hidden', !props.visible), (0, _defineProperty3['default'])(_className, prefixCls + '-range', 1), (0, _defineProperty3['default'])(_className, prefixCls + '-show-time-picker', sShowTimePicker), (0, _defineProperty3['default'])(_className, prefixCls + '-week-number', props.showWeekNumber), _className);
+    var baseProps = {
+      props: props,
+      on: (0, _propsUtil.getListeners)(this)
+    };
+    var newProps = {
+      props: {
+        selectedValue: sSelectedValue
+      },
+      on: {
+        select: this.onSelect,
+        dayHover: type === 'start' && sSelectedValue[1] || type === 'end' && sSelectedValue[0] || !!sHoverValue.length ? this.onDayHover : noop
+      }
+    };
+
+    var placeholder1 = void 0;
+    var placeholder2 = void 0;
+
+    if (dateInputPlaceholder) {
+      if (Array.isArray(dateInputPlaceholder)) {
+        var _dateInputPlaceholder = (0, _slicedToArray3['default'])(dateInputPlaceholder, 2);
+
+        placeholder1 = _dateInputPlaceholder[0];
+        placeholder2 = _dateInputPlaceholder[1];
+      } else {
+        placeholder1 = placeholder2 = dateInputPlaceholder;
+      }
+    }
+    var showOkButton = showOk === true || showOk !== false && !!timePicker;
+    var cls = (_cls = {}, (0, _defineProperty3['default'])(_cls, prefixCls + '-footer', true), (0, _defineProperty3['default'])(_cls, prefixCls + '-range-bottom', true), (0, _defineProperty3['default'])(_cls, prefixCls + '-footer-show-ok', showOkButton), _cls);
+
+    var startValue = this.getStartValue();
+    var endValue = this.getEndValue();
+    var todayTime = (0, _util.getTodayTime)(startValue);
+    var thisMonth = todayTime.month();
+    var thisYear = todayTime.year();
+    var isTodayInView = startValue.year() === thisYear && startValue.month() === thisMonth || endValue.year() === thisYear && endValue.month() === thisMonth;
+    var nextMonthOfStart = startValue.clone().add(1, 'months');
+    var isClosestMonths = nextMonthOfStart.year() === endValue.year() && nextMonthOfStart.month() === endValue.month();
+    var leftPartProps = (0, _propsUtil.mergeProps)(baseProps, newProps, {
+      props: {
+        hoverValue: sHoverValue,
+        direction: 'left',
+        disabledTime: this.disabledStartTime,
+        disabledMonth: this.disabledStartMonth,
+        format: this.getFormat(),
+        value: startValue,
+        mode: mode[0],
+        placeholder: placeholder1,
+        showDateInput: this.showDateInput,
+        timePicker: timePicker,
+        showTimePicker: sShowTimePicker || mode[0] === 'time',
+        enablePrev: true,
+        enableNext: !isClosestMonths || this.isMonthYearPanelShow(mode[1]),
+        clearIcon: clearIcon
+      },
+      on: {
+        inputChange: this.onStartInputChange,
+        inputSelect: this.onStartInputSelect,
+        valueChange: this.onStartValueChange,
+        panelChange: this.onStartPanelChange
+      }
+    });
+    var rightPartProps = (0, _propsUtil.mergeProps)(baseProps, newProps, {
+      props: {
+        hoverValue: sHoverValue,
+        direction: 'right',
+        format: this.getFormat(),
+        timePickerDisabledTime: this.getEndDisableTime(),
+        placeholder: placeholder2,
+        value: endValue,
+        mode: mode[1],
+        showDateInput: this.showDateInput,
+        timePicker: timePicker,
+        showTimePicker: sShowTimePicker || mode[1] === 'time',
+        disabledTime: this.disabledEndTime,
+        disabledMonth: this.disabledEndMonth,
+        enablePrev: !isClosestMonths || this.isMonthYearPanelShow(mode[0]),
+        enableNext: true,
+        clearIcon: clearIcon
+      },
+      on: {
+        inputChange: this.onEndInputChange,
+        inputSelect: this.onEndInputSelect,
+        valueChange: this.onEndValueChange,
+        panelChange: this.onEndPanelChange
+      }
+    });
+    var TodayButtonNode = null;
+    if (showToday) {
+      var todayButtonProps = (0, _propsUtil.mergeProps)(baseProps, {
+        props: {
+          disabled: isTodayInView,
+          value: sValue[0],
+          text: locale.backToToday
+        },
+        on: {
+          today: this.onToday
+        }
+      });
+      TodayButtonNode = h(_TodayButton2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{ key: 'todayButton' }, todayButtonProps]));
+    }
+
+    var TimePickerButtonNode = null;
+    if (props.timePicker) {
+      var timePickerButtonProps = (0, _propsUtil.mergeProps)(baseProps, {
+        props: {
+          showTimePicker: sShowTimePicker || mode[0] === 'time' && mode[1] === 'time',
+          timePickerDisabled: !this.hasSelectedValue() || sHoverValue.length
+        },
+        on: {
+          openTimePicker: this.onOpenTimePicker,
+          closeTimePicker: this.onCloseTimePicker
+        }
+      });
+      TimePickerButtonNode = h(_TimePickerButton2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{ key: 'timePickerButton' }, timePickerButtonProps]));
+    }
+
+    var OkButtonNode = null;
+    if (showOkButton) {
+      var okButtonProps = (0, _propsUtil.mergeProps)(baseProps, {
+        props: {
+          okDisabled: !this.isAllowedDateAndTime(sSelectedValue) || !this.hasSelectedValue() || sHoverValue.length
+        },
+        on: {
+          ok: this.onOk
+        }
+      });
+      OkButtonNode = h(_OkButton2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{ key: 'okButtonNode' }, okButtonProps]));
+    }
+    var extraFooter = this.renderFooter(mode);
+    return h(
+      'div',
+      { ref: 'rootInstance', 'class': className, attrs: { tabIndex: '0' },
+        on: {
+          'keydown': this.onKeyDown
+        }
+      },
+      [props.renderSidebar(), h(
+        'div',
+        { 'class': prefixCls + '-panel' },
+        [showClear && sSelectedValue[0] && sSelectedValue[1] ? h(
+          'a',
+          {
+            attrs: { role: 'button', title: locale.clear },
+            on: {
+              'click': this.clear
+            }
+          },
+          [clearIcon || h('span', { 'class': prefixCls + '-clear-btn' })]
+        ) : null, h(
+          'div',
+          {
+            'class': prefixCls + '-date-panel',
+            on: {
+              'mouseleave': type !== 'both' ? this.onDatePanelLeave : noop,
+              'mouseenter': type !== 'both' ? this.onDatePanelEnter : noop
+            }
+          },
+          [h(_CalendarPart2['default'], leftPartProps), h(
+            'span',
+            { 'class': prefixCls + '-range-middle' },
+            [seperator]
+          ), h(_CalendarPart2['default'], rightPartProps)]
+        ), h(
+          'div',
+          { 'class': cls },
+          [showToday || props.timePicker || showOkButton || extraFooter ? h(
+            'div',
+            { 'class': prefixCls + '-footer-btn' },
+            [extraFooter, TodayButtonNode, TimePickerButtonNode, OkButtonNode]
+          ) : null]
+        )]
+      )]
+    );
+  }
+};
+
+exports['default'] = RangeCalendar;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/CalendarFooter.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/CalendarFooter.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _TodayButton = __webpack_require__(/*! ./TodayButton */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/TodayButton.js");
+
+var _TodayButton2 = _interopRequireDefault(_TodayButton);
+
+var _OkButton = __webpack_require__(/*! ./OkButton */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/OkButton.js");
+
+var _OkButton2 = _interopRequireDefault(_OkButton);
+
+var _TimePickerButton = __webpack_require__(/*! ./TimePickerButton */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/TimePickerButton.js");
+
+var _TimePickerButton2 = _interopRequireDefault(_TimePickerButton);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var CalendarFooter = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    showDateInput: _vueTypes2['default'].bool,
+    disabledTime: _vueTypes2['default'].any,
+    timePicker: _vueTypes2['default'].any,
+    selectedValue: _vueTypes2['default'].any,
+    showOk: _vueTypes2['default'].bool,
+    // onSelect: PropTypes.func,
+    value: _vueTypes2['default'].object,
+    renderFooter: _vueTypes2['default'].func,
+    defaultValue: _vueTypes2['default'].object,
+    locale: _vueTypes2['default'].object,
+    showToday: _vueTypes2['default'].bool,
+    disabledDate: _vueTypes2['default'].func,
+    showTimePicker: _vueTypes2['default'].bool,
+    okDisabled: _vueTypes2['default'].bool,
+    mode: _vueTypes2['default'].string
+  },
+  methods: {
+    onSelect: function onSelect(value) {
+      this.__emit('select', value);
+    },
+    getRootDOMNode: function getRootDOMNode() {
+      return this.$el;
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var value = props.value,
+        prefixCls = props.prefixCls,
+        showOk = props.showOk,
+        timePicker = props.timePicker,
+        renderFooter = props.renderFooter,
+        showToday = props.showToday,
+        mode = props.mode;
+
+    var footerEl = null;
+    var extraFooter = renderFooter && renderFooter(mode);
+    if (showToday || timePicker || extraFooter) {
+      var _cls;
+
+      var btnProps = {
+        props: (0, _extends3['default'])({}, props, {
+          value: value
+        }),
+        on: (0, _propsUtil.getListeners)(this)
+      };
+      var nowEl = null;
+      if (showToday) {
+        nowEl = h(_TodayButton2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{ key: 'todayButton' }, btnProps]));
+      }
+      delete btnProps.props.value;
+      var okBtn = null;
+      if (showOk === true || showOk !== false && !!timePicker) {
+        okBtn = h(_OkButton2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{ key: 'okButton' }, btnProps]));
+      }
+      var timePickerBtn = null;
+      if (timePicker) {
+        timePickerBtn = h(_TimePickerButton2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{ key: 'timePickerButton' }, btnProps]));
+      }
+
+      var footerBtn = void 0;
+      if (nowEl || timePickerBtn || okBtn || extraFooter) {
+        footerBtn = h(
+          'span',
+          { 'class': prefixCls + '-footer-btn' },
+          [extraFooter, nowEl, timePickerBtn, okBtn]
+        );
+      }
+      var cls = (_cls = {}, (0, _defineProperty3['default'])(_cls, prefixCls + '-footer', true), (0, _defineProperty3['default'])(_cls, prefixCls + '-footer-show-ok', !!okBtn), _cls);
+      footerEl = h(
+        'div',
+        { 'class': cls },
+        [footerBtn]
+      );
+    }
+    return footerEl;
+  }
+};
+
+exports['default'] = CalendarFooter;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/CalendarHeader.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/CalendarHeader.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _MonthPanel = __webpack_require__(/*! ../month/MonthPanel */ "./node_modules/ant-design-vue/lib/vc-calendar/src/month/MonthPanel.js");
+
+var _MonthPanel2 = _interopRequireDefault(_MonthPanel);
+
+var _YearPanel = __webpack_require__(/*! ../year/YearPanel */ "./node_modules/ant-design-vue/lib/vc-calendar/src/year/YearPanel.js");
+
+var _YearPanel2 = _interopRequireDefault(_YearPanel);
+
+var _DecadePanel = __webpack_require__(/*! ../decade/DecadePanel */ "./node_modules/ant-design-vue/lib/vc-calendar/src/decade/DecadePanel.js");
+
+var _DecadePanel2 = _interopRequireDefault(_DecadePanel);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+function goMonth(direction) {
+  var next = this.value.clone();
+  next.add(direction, 'months');
+  this.__emit('valueChange', next);
+}
+
+function goYear(direction) {
+  var next = this.value.clone();
+  next.add(direction, 'years');
+  this.__emit('valueChange', next);
+}
+
+function showIf(condition, el) {
+  return condition ? el : null;
+}
+
+var CalendarHeader = {
+  name: 'CalendarHeader',
+  mixins: [_BaseMixin2['default']],
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    value: _vueTypes2['default'].object,
+    // onValueChange: PropTypes.func,
+    showTimePicker: _vueTypes2['default'].bool,
+    // onPanelChange: PropTypes.func,
+    locale: _vueTypes2['default'].object,
+    enablePrev: _vueTypes2['default'].any.def(1),
+    enableNext: _vueTypes2['default'].any.def(1),
+    disabledMonth: _vueTypes2['default'].func,
+    mode: _vueTypes2['default'].any,
+    monthCellRender: _vueTypes2['default'].func,
+    monthCellContentRender: _vueTypes2['default'].func,
+    renderFooter: _vueTypes2['default'].func
+  },
+  data: function data() {
+    this.nextMonth = goMonth.bind(this, 1);
+    this.previousMonth = goMonth.bind(this, -1);
+    this.nextYear = goYear.bind(this, 1);
+    this.previousYear = goYear.bind(this, -1);
+    return {
+      yearPanelReferer: null
+    };
+  },
+
+  methods: {
+    onMonthSelect: function onMonthSelect(value) {
+      this.__emit('panelChange', value, 'date');
+      if ((0, _propsUtil.getListeners)(this).monthSelect) {
+        this.__emit('monthSelect', value);
+      } else {
+        this.__emit('valueChange', value);
+      }
+    },
+    onYearSelect: function onYearSelect(value) {
+      var referer = this.yearPanelReferer;
+      this.setState({ yearPanelReferer: null });
+      this.__emit('panelChange', value, referer);
+      this.__emit('valueChange', value);
+    },
+    onDecadeSelect: function onDecadeSelect(value) {
+      this.__emit('panelChange', value, 'year');
+      this.__emit('valueChange', value);
+    },
+    changeYear: function changeYear(direction) {
+      if (direction > 0) {
+        this.nextYear();
+      } else {
+        this.previousYear();
+      }
+    },
+    monthYearElement: function monthYearElement(showTimePicker) {
+      var _this = this;
+
+      var h = this.$createElement;
+
+      var props = this.$props;
+      var prefixCls = props.prefixCls;
+      var locale = props.locale;
+      var value = props.value;
+      var localeData = value.localeData();
+      var monthBeforeYear = locale.monthBeforeYear;
+      var selectClassName = prefixCls + '-' + (monthBeforeYear ? 'my-select' : 'ym-select');
+      var timeClassName = showTimePicker ? ' ' + prefixCls + '-time-status' : '';
+      var year = h(
+        'a',
+        {
+          'class': prefixCls + '-year-select' + timeClassName,
+          attrs: { role: 'button',
+
+            title: showTimePicker ? null : locale.yearSelect
+          },
+          on: {
+            'click': showTimePicker ? noop : function () {
+              return _this.showYearPanel('date');
+            }
+          }
+        },
+        [value.format(locale.yearFormat)]
+      );
+      var month = h(
+        'a',
+        {
+          'class': prefixCls + '-month-select' + timeClassName,
+          attrs: { role: 'button',
+
+            title: showTimePicker ? null : locale.monthSelect
+          },
+          on: {
+            'click': showTimePicker ? noop : this.showMonthPanel
+          }
+        },
+        [locale.monthFormat ? value.format(locale.monthFormat) : localeData.monthsShort(value)]
+      );
+      var day = void 0;
+      if (showTimePicker) {
+        day = h(
+          'a',
+          { 'class': prefixCls + '-day-select' + timeClassName, attrs: { role: 'button' }
+          },
+          [value.format(locale.dayFormat)]
+        );
+      }
+      var my = [];
+      if (monthBeforeYear) {
+        my = [month, day, year];
+      } else {
+        my = [year, month, day];
+      }
+      return h(
+        'span',
+        { 'class': selectClassName },
+        [my]
+      );
+    },
+    showMonthPanel: function showMonthPanel() {
+      // null means that users' interaction doesn't change value
+      this.__emit('panelChange', null, 'month');
+    },
+    showYearPanel: function showYearPanel(referer) {
+      this.setState({ yearPanelReferer: referer });
+      this.__emit('panelChange', null, 'year');
+    },
+    showDecadePanel: function showDecadePanel() {
+      this.__emit('panelChange', null, 'decade');
+    }
+  },
+
+  render: function render() {
+    var _this2 = this;
+
+    var h = arguments[0];
+
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var prefixCls = props.prefixCls,
+        locale = props.locale,
+        mode = props.mode,
+        value = props.value,
+        showTimePicker = props.showTimePicker,
+        enableNext = props.enableNext,
+        enablePrev = props.enablePrev,
+        disabledMonth = props.disabledMonth,
+        renderFooter = props.renderFooter;
+
+
+    var panel = null;
+    if (mode === 'month') {
+      panel = h(_MonthPanel2['default'], {
+        attrs: {
+          locale: locale,
+          value: value,
+          rootPrefixCls: prefixCls,
+
+          disabledDate: disabledMonth,
+          cellRender: props.monthCellRender,
+          contentRender: props.monthCellContentRender,
+          renderFooter: renderFooter,
+          changeYear: this.changeYear
+        },
+        on: {
+          'select': this.onMonthSelect,
+          'yearPanelShow': function yearPanelShow() {
+            return _this2.showYearPanel('month');
+          }
+        }
+      });
+    }
+    if (mode === 'year') {
+      panel = h(_YearPanel2['default'], {
+        attrs: {
+          locale: locale,
+          defaultValue: value,
+          rootPrefixCls: prefixCls,
+
+          renderFooter: renderFooter
+        },
+        on: {
+          'select': this.onYearSelect,
+          'decadePanelShow': this.showDecadePanel
+        }
+      });
+    }
+    if (mode === 'decade') {
+      panel = h(_DecadePanel2['default'], {
+        attrs: {
+          locale: locale,
+          defaultValue: value,
+          rootPrefixCls: prefixCls,
+
+          renderFooter: renderFooter
+        },
+        on: {
+          'select': this.onDecadeSelect
+        }
+      });
+    }
+
+    return h(
+      'div',
+      { 'class': prefixCls + '-header' },
+      [h(
+        'div',
+        { style: { position: 'relative' } },
+        [showIf(enablePrev && !showTimePicker, h('a', {
+          'class': prefixCls + '-prev-year-btn',
+          attrs: { role: 'button',
+
+            title: locale.previousYear
+          },
+          on: {
+            'click': this.previousYear
+          }
+        })), showIf(enablePrev && !showTimePicker, h('a', {
+          'class': prefixCls + '-prev-month-btn',
+          attrs: { role: 'button',
+
+            title: locale.previousMonth
+          },
+          on: {
+            'click': this.previousMonth
+          }
+        })), this.monthYearElement(showTimePicker), showIf(enableNext && !showTimePicker, h('a', {
+          'class': prefixCls + '-next-month-btn',
+          on: {
+            'click': this.nextMonth
+          },
+          attrs: {
+            title: locale.nextMonth
+          }
+        })), showIf(enableNext && !showTimePicker, h('a', {
+          'class': prefixCls + '-next-year-btn',
+          on: {
+            'click': this.nextYear
+          },
+          attrs: {
+            title: locale.nextYear
+          }
+        }))]
+      ), panel]
+    );
+  }
+};
+
+exports['default'] = CalendarHeader;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/OkButton.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/OkButton.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+function noop() {}
+exports["default"] = {
+  functional: true,
+  render: function render(createElement, context) {
+    var h = arguments[0];
+    var props = context.props,
+        _context$listeners = context.listeners,
+        listeners = _context$listeners === undefined ? {} : _context$listeners;
+    var prefixCls = props.prefixCls,
+        locale = props.locale,
+        okDisabled = props.okDisabled;
+    var _listeners$ok = listeners.ok,
+        ok = _listeners$ok === undefined ? noop : _listeners$ok;
+
+    var className = prefixCls + "-ok-btn";
+    if (okDisabled) {
+      className += " " + prefixCls + "-ok-btn-disabled";
+    }
+    return h(
+      "a",
+      { "class": className, attrs: { role: "button" },
+        on: {
+          "click": okDisabled ? noop : ok
+        }
+      },
+      [locale.ok]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/TimePickerButton.js":
+/*!**************************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/TimePickerButton.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function noop() {}
+exports["default"] = {
+  functional: true,
+  render: function render(h, context) {
+    var _className;
+
+    var props = context.props,
+        _context$listeners = context.listeners,
+        listeners = _context$listeners === undefined ? {} : _context$listeners;
+    var prefixCls = props.prefixCls,
+        locale = props.locale,
+        showTimePicker = props.showTimePicker,
+        timePickerDisabled = props.timePickerDisabled;
+    var _listeners$closeTimeP = listeners.closeTimePicker,
+        closeTimePicker = _listeners$closeTimeP === undefined ? noop : _listeners$closeTimeP,
+        _listeners$openTimePi = listeners.openTimePicker,
+        openTimePicker = _listeners$openTimePi === undefined ? noop : _listeners$openTimePi;
+
+    var className = (_className = {}, (0, _defineProperty3["default"])(_className, prefixCls + "-time-picker-btn", true), (0, _defineProperty3["default"])(_className, prefixCls + "-time-picker-btn-disabled", timePickerDisabled), _className);
+    var onClick = noop;
+    if (!timePickerDisabled) {
+      onClick = showTimePicker ? closeTimePicker : openTimePicker;
+    }
+    return h(
+      "a",
+      { "class": className, attrs: { role: "button" },
+        on: {
+          "click": onClick
+        }
+      },
+      [showTimePicker ? locale.dateSelect : locale.timeSelect]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/TodayButton.js":
+/*!*********************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/TodayButton.js ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _util = __webpack_require__(/*! ../util/ */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js");
+
+function noop() {}
+exports['default'] = {
+  functional: true,
+  render: function render(createElement, context) {
+    var h = arguments[0];
+    var props = context.props,
+        _context$listeners = context.listeners,
+        listeners = _context$listeners === undefined ? {} : _context$listeners;
+    var prefixCls = props.prefixCls,
+        locale = props.locale,
+        value = props.value,
+        timePicker = props.timePicker,
+        disabled = props.disabled,
+        disabledDate = props.disabledDate,
+        text = props.text;
+    var _listeners$today = listeners.today,
+        today = _listeners$today === undefined ? noop : _listeners$today;
+
+    var localeNow = (!text && timePicker ? locale.now : text) || locale.today;
+    var disabledToday = disabledDate && !(0, _util.isAllowedDate)((0, _util.getTodayTime)(value), disabledDate);
+    var isDisabled = disabledToday || disabled;
+    var disabledTodayClass = isDisabled ? prefixCls + '-today-btn-disabled' : '';
+    return h(
+      'a',
+      {
+        'class': prefixCls + '-today-btn ' + disabledTodayClass,
+        attrs: { role: 'button',
+
+          title: (0, _util.getTodayTimeStr)(value)
+        },
+        on: {
+          'click': isDisabled ? noop : today
+        }
+      },
+      [localeNow]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateConstants.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateConstants.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = {
+  DATE_ROW_COUNT: 6,
+  DATE_COL_COUNT: 7
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateInput.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateInput.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _util = __webpack_require__(/*! ../util */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js");
+
+var _KeyCode = __webpack_require__(/*! ../../../_util/KeyCode */ "./node_modules/ant-design-vue/lib/_util/KeyCode.js");
+
+var _KeyCode2 = _interopRequireDefault(_KeyCode);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var cachedSelectionStart = void 0;
+var cachedSelectionEnd = void 0;
+var dateInputInstance = void 0;
+
+var DateInput = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    timePicker: _vueTypes2['default'].object,
+    value: _vueTypes2['default'].object,
+    disabledTime: _vueTypes2['default'].any,
+    format: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].arrayOf(_vueTypes2['default'].string)]),
+    locale: _vueTypes2['default'].object,
+    disabledDate: _vueTypes2['default'].func,
+    // onChange: PropTypes.func,
+    // onClear: PropTypes.func,
+    placeholder: _vueTypes2['default'].string,
+    // onSelect: PropTypes.func,
+    selectedValue: _vueTypes2['default'].object,
+    clearIcon: _vueTypes2['default'].any,
+    inputMode: _vueTypes2['default'].string,
+    inputReadOnly: _vueTypes2['default'].bool
+  },
+
+  data: function data() {
+    var selectedValue = this.selectedValue;
+    return {
+      str: (0, _util.formatDate)(selectedValue, this.format),
+      invalid: false,
+      hasFocus: false
+    };
+  },
+
+  watch: {
+    selectedValue: function selectedValue() {
+      this.setState();
+    },
+    format: function format() {
+      this.setState();
+    }
+  },
+
+  updated: function updated() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      if (dateInputInstance && _this.$data.hasFocus && !_this.invalid && !(cachedSelectionStart === 0 && cachedSelectionEnd === 0)) {
+        dateInputInstance.setSelectionRange(cachedSelectionStart, cachedSelectionEnd);
+      }
+    });
+  },
+  getInstance: function getInstance() {
+    return dateInputInstance;
+  },
+
+  methods: {
+    getDerivedStateFromProps: function getDerivedStateFromProps(nextProps, state) {
+      var newState = {};
+      if (dateInputInstance) {
+        cachedSelectionStart = dateInputInstance.selectionStart;
+        cachedSelectionEnd = dateInputInstance.selectionEnd;
+      }
+      // when popup show, click body will call this, bug!
+      var selectedValue = nextProps.selectedValue;
+      if (!state.hasFocus) {
+        newState = {
+          str: (0, _util.formatDate)(selectedValue, this.format),
+          invalid: false
+        };
+      }
+      return newState;
+    },
+    onClear: function onClear() {
+      this.setState({
+        str: ''
+      });
+      this.__emit('clear', null);
+    },
+    onInputChange: function onInputChange(e) {
+      var _e$target = e.target,
+          str = _e$target.value,
+          composing = _e$target.composing;
+      var _str = this.str,
+          oldStr = _str === undefined ? '' : _str;
+
+      if (e.isComposing || composing || oldStr === str) return;
+
+      var _$props = this.$props,
+          disabledDate = _$props.disabledDate,
+          format = _$props.format,
+          selectedValue = _$props.selectedValue;
+
+      // 没有内容，合法并直接退出
+
+      if (!str) {
+        this.__emit('change', null);
+        this.setState({
+          invalid: false,
+          str: str
+        });
+        return;
+      }
+
+      // 不合法直接退出
+      var parsed = (0, _moment2['default'])(str, format, true);
+      if (!parsed.isValid()) {
+        this.setState({
+          invalid: true,
+          str: str
+        });
+        return;
+      }
+      var value = this.value.clone();
+      value.year(parsed.year()).month(parsed.month()).date(parsed.date()).hour(parsed.hour()).minute(parsed.minute()).second(parsed.second());
+
+      if (!value || disabledDate && disabledDate(value)) {
+        this.setState({
+          invalid: true,
+          str: str
+        });
+        return;
+      }
+
+      if (selectedValue !== value || selectedValue && value && !selectedValue.isSame(value)) {
+        this.setState({
+          invalid: false,
+          str: str
+        });
+        this.__emit('change', value);
+      }
+    },
+    onFocus: function onFocus() {
+      this.setState({ hasFocus: true });
+    },
+    onBlur: function onBlur() {
+      this.setState(function (prevState, prevProps) {
+        return {
+          hasFocus: false,
+          str: (0, _util.formatDate)(prevProps.value, prevProps.format)
+        };
+      });
+    },
+    onKeyDown: function onKeyDown(event) {
+      var keyCode = event.keyCode;
+      var _$props2 = this.$props,
+          value = _$props2.value,
+          disabledDate = _$props2.disabledDate;
+
+      if (keyCode === _KeyCode2['default'].ENTER) {
+        var validateDate = !disabledDate || !disabledDate(value);
+        if (validateDate) {
+          this.__emit('select', value.clone());
+        }
+        event.preventDefault();
+      }
+    },
+    getRootDOMNode: function getRootDOMNode() {
+      return this.$el;
+    },
+    focus: function focus() {
+      if (dateInputInstance) {
+        dateInputInstance.focus();
+      }
+    },
+    saveDateInput: function saveDateInput(dateInput) {
+      dateInputInstance = dateInput;
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+    var invalid = this.invalid,
+        str = this.str,
+        locale = this.locale,
+        prefixCls = this.prefixCls,
+        placeholder = this.placeholder,
+        disabled = this.disabled,
+        showClear = this.showClear,
+        inputMode = this.inputMode,
+        inputReadOnly = this.inputReadOnly;
+
+    var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
+    var invalidClass = invalid ? prefixCls + '-input-invalid' : '';
+    return h(
+      'div',
+      { 'class': prefixCls + '-input-wrap' },
+      [h(
+        'div',
+        { 'class': prefixCls + '-date-input-wrap' },
+        [h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
+          directives: [{
+            name: 'ant-ref',
+            value: this.saveDateInput
+          }, {
+            name: 'ant-input'
+          }]
+        }, {
+          'class': prefixCls + '-input ' + invalidClass,
+          domProps: {
+            'value': str
+          },
+          attrs: {
+            disabled: disabled,
+            placeholder: placeholder,
+
+            inputMode: inputMode,
+            readOnly: inputReadOnly
+          },
+          on: {
+            'input': this.onInputChange,
+            'keydown': this.onKeyDown,
+            'focus': this.onFocus,
+            'blur': this.onBlur
+          }
+        }]))]
+      ), showClear ? h(
+        'a',
+        {
+          attrs: { role: 'button', title: locale.clear },
+          on: {
+            'click': this.onClear
+          }
+        },
+        [clearIcon || h('span', { 'class': prefixCls + '-clear-btn' })]
+      ) : null]
+    );
+  }
+};
+
+exports['default'] = DateInput;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTBody.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTBody.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _propsUtil = __webpack_require__(/*! ../../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _DateConstants = __webpack_require__(/*! ./DateConstants */ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateConstants.js");
+
+var _DateConstants2 = _interopRequireDefault(_DateConstants);
+
+var _util = __webpack_require__(/*! ../util/ */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+function isSameDay(one, two) {
+  return one && two && one.isSame(two, 'day');
+}
+
+function beforeCurrentMonthYear(current, today) {
+  if (current.year() < today.year()) {
+    return 1;
+  }
+  return current.year() === today.year() && current.month() < today.month();
+}
+
+function afterCurrentMonthYear(current, today) {
+  if (current.year() > today.year()) {
+    return 1;
+  }
+  return current.year() === today.year() && current.month() > today.month();
+}
+
+function getIdFromDate(date) {
+  return 'rc-calendar-' + date.year() + '-' + date.month() + '-' + date.date();
+}
+
+var DateTBody = {
+  props: {
+    contentRender: _vueTypes2['default'].func,
+    dateRender: _vueTypes2['default'].func,
+    disabledDate: _vueTypes2['default'].func,
+    prefixCls: _vueTypes2['default'].string,
+    selectedValue: _vueTypes2['default'].oneOfType([_vueTypes2['default'].any, _vueTypes2['default'].arrayOf(_vueTypes2['default'].any)]),
+    value: _vueTypes2['default'].object,
+    hoverValue: _vueTypes2['default'].any.def([]),
+    showWeekNumber: _vueTypes2['default'].bool
+  },
+
+  render: function render() {
+    var h = arguments[0];
+
+    var props = (0, _propsUtil.getOptionProps)(this);
+    var contentRender = props.contentRender,
+        prefixCls = props.prefixCls,
+        selectedValue = props.selectedValue,
+        value = props.value,
+        showWeekNumber = props.showWeekNumber,
+        dateRender = props.dateRender,
+        disabledDate = props.disabledDate,
+        hoverValue = props.hoverValue;
+
+    var _getListeners = (0, _propsUtil.getListeners)(this),
+        _getListeners$select = _getListeners.select,
+        select = _getListeners$select === undefined ? noop : _getListeners$select,
+        _getListeners$dayHove = _getListeners.dayHover,
+        dayHover = _getListeners$dayHove === undefined ? noop : _getListeners$dayHove;
+
+    var iIndex = void 0;
+    var jIndex = void 0;
+    var current = void 0;
+    var dateTable = [];
+    var today = (0, _util.getTodayTime)(value);
+    var cellClass = prefixCls + '-cell';
+    var weekNumberCellClass = prefixCls + '-week-number-cell';
+    var dateClass = prefixCls + '-date';
+    var todayClass = prefixCls + '-today';
+    var selectedClass = prefixCls + '-selected-day';
+    var selectedDateClass = prefixCls + '-selected-date'; // do not move with mouse operation
+    var selectedStartDateClass = prefixCls + '-selected-start-date';
+    var selectedEndDateClass = prefixCls + '-selected-end-date';
+    var inRangeClass = prefixCls + '-in-range-cell';
+    var lastMonthDayClass = prefixCls + '-last-month-cell';
+    var nextMonthDayClass = prefixCls + '-next-month-btn-day';
+    var disabledClass = prefixCls + '-disabled-cell';
+    var firstDisableClass = prefixCls + '-disabled-cell-first-of-row';
+    var lastDisableClass = prefixCls + '-disabled-cell-last-of-row';
+    var lastDayOfMonthClass = prefixCls + '-last-day-of-month';
+    var month1 = value.clone();
+    month1.date(1);
+    var day = month1.day();
+    var lastMonthDiffDay = (day + 7 - value.localeData().firstDayOfWeek()) % 7;
+    // calculate last month
+    var lastMonth1 = month1.clone();
+    lastMonth1.add(0 - lastMonthDiffDay, 'days');
+    var passed = 0;
+    for (iIndex = 0; iIndex < _DateConstants2['default'].DATE_ROW_COUNT; iIndex++) {
+      for (jIndex = 0; jIndex < _DateConstants2['default'].DATE_COL_COUNT; jIndex++) {
+        current = lastMonth1;
+        if (passed) {
+          current = current.clone();
+          current.add(passed, 'days');
+        }
+        dateTable.push(current);
+        passed++;
+      }
+    }
+    var tableHtml = [];
+    passed = 0;
+
+    for (iIndex = 0; iIndex < _DateConstants2['default'].DATE_ROW_COUNT; iIndex++) {
+      var _cx;
+
+      var isCurrentWeek = void 0;
+      var weekNumberCell = void 0;
+      var isActiveWeek = false;
+      var dateCells = [];
+      if (showWeekNumber) {
+        weekNumberCell = h(
+          'td',
+          { key: 'week-' + dateTable[passed].week(), attrs: { role: 'gridcell' },
+            'class': weekNumberCellClass },
+          [dateTable[passed].week()]
+        );
+      }
+      for (jIndex = 0; jIndex < _DateConstants2['default'].DATE_COL_COUNT; jIndex++) {
+        var next = null;
+        var last = null;
+        current = dateTable[passed];
+        if (jIndex < _DateConstants2['default'].DATE_COL_COUNT - 1) {
+          next = dateTable[passed + 1];
+        }
+        if (jIndex > 0) {
+          last = dateTable[passed - 1];
+        }
+        var cls = cellClass;
+        var disabled = false;
+        var selected = false;
+
+        if (isSameDay(current, today)) {
+          cls += ' ' + todayClass;
+          isCurrentWeek = true;
+        }
+
+        var isBeforeCurrentMonthYear = beforeCurrentMonthYear(current, value);
+        var isAfterCurrentMonthYear = afterCurrentMonthYear(current, value);
+
+        if (selectedValue && Array.isArray(selectedValue)) {
+          var rangeValue = hoverValue.length ? hoverValue : selectedValue;
+          if (!isBeforeCurrentMonthYear && !isAfterCurrentMonthYear) {
+            var startValue = rangeValue[0];
+            var endValue = rangeValue[1];
+            if (startValue) {
+              if (isSameDay(current, startValue)) {
+                selected = true;
+                isActiveWeek = true;
+                cls += ' ' + selectedStartDateClass;
+              }
+            }
+            if (startValue || endValue) {
+              if (isSameDay(current, endValue)) {
+                selected = true;
+                isActiveWeek = true;
+                cls += ' ' + selectedEndDateClass;
+              } else if ((startValue === null || startValue === undefined) && current.isBefore(endValue, 'day')) {
+                cls += ' ' + inRangeClass;
+              } else if ((endValue === null || endValue === undefined) && current.isAfter(startValue, 'day')) {
+                cls += ' ' + inRangeClass;
+              } else if (current.isAfter(startValue, 'day') && current.isBefore(endValue, 'day')) {
+                cls += ' ' + inRangeClass;
+              }
+            }
+          }
+        } else if (isSameDay(current, value)) {
+          // keyboard change value, highlight works
+          selected = true;
+          isActiveWeek = true;
+        }
+
+        if (isSameDay(current, selectedValue)) {
+          cls += ' ' + selectedDateClass;
+        }
+
+        if (isBeforeCurrentMonthYear) {
+          cls += ' ' + lastMonthDayClass;
+        }
+        if (isAfterCurrentMonthYear) {
+          cls += ' ' + nextMonthDayClass;
+        }
+
+        if (current.clone().endOf('month').date() === current.date()) {
+          cls += ' ' + lastDayOfMonthClass;
+        }
+
+        if (disabledDate) {
+          if (disabledDate(current, value)) {
+            disabled = true;
+
+            if (!last || !disabledDate(last, value)) {
+              cls += ' ' + firstDisableClass;
+            }
+
+            if (!next || !disabledDate(next, value)) {
+              cls += ' ' + lastDisableClass;
+            }
+          }
+        }
+
+        if (selected) {
+          cls += ' ' + selectedClass;
+        }
+
+        if (disabled) {
+          cls += ' ' + disabledClass;
+        }
+
+        var dateHtml = void 0;
+        if (dateRender) {
+          dateHtml = dateRender(current, value);
+        } else {
+          var content = contentRender ? contentRender(current, value) : current.date();
+          dateHtml = h(
+            'div',
+            {
+              key: getIdFromDate(current),
+              'class': dateClass,
+              attrs: { 'aria-selected': selected,
+                'aria-disabled': disabled
+              }
+            },
+            [content]
+          );
+        }
+
+        dateCells.push(h(
+          'td',
+          {
+            key: passed,
+            on: {
+              'click': disabled ? noop : select.bind(null, current),
+              'mouseenter': disabled ? noop : dayHover.bind(null, current)
+            },
+            attrs: {
+              role: 'gridcell',
+              title: (0, _util.getTitleString)(current)
+            },
+            'class': cls
+          },
+          [dateHtml]
+        ));
+
+        passed++;
+      }
+
+      tableHtml.push(h(
+        'tr',
+        {
+          key: iIndex,
+          attrs: { role: 'row'
+          },
+          'class': (0, _classnames2['default'])((_cx = {}, (0, _defineProperty3['default'])(_cx, prefixCls + '-current-week', isCurrentWeek), (0, _defineProperty3['default'])(_cx, prefixCls + '-active-week', isActiveWeek), _cx))
+        },
+        [weekNumberCell, dateCells]
+      ));
+    }
+    return h(
+      'tbody',
+      { 'class': prefixCls + '-tbody' },
+      [tableHtml]
+    );
+  }
+};
+
+exports['default'] = DateTBody;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTHead.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTHead.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _DateConstants = __webpack_require__(/*! ./DateConstants */ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateConstants.js");
+
+var _DateConstants2 = _interopRequireDefault(_DateConstants);
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = {
+  functional: true,
+  render: function render(createElement, context) {
+    var h = arguments[0];
+    var props = context.props;
+
+    var value = props.value;
+    var localeData = value.localeData();
+    var prefixCls = props.prefixCls;
+    var veryShortWeekdays = [];
+    var weekDays = [];
+    var firstDayOfWeek = localeData.firstDayOfWeek();
+    var showWeekNumberEl = void 0;
+    var now = (0, _moment2['default'])();
+    for (var dateColIndex = 0; dateColIndex < _DateConstants2['default'].DATE_COL_COUNT; dateColIndex++) {
+      var index = (firstDayOfWeek + dateColIndex) % _DateConstants2['default'].DATE_COL_COUNT;
+      now.day(index);
+      veryShortWeekdays[dateColIndex] = localeData.weekdaysMin(now);
+      weekDays[dateColIndex] = localeData.weekdaysShort(now);
+    }
+
+    if (props.showWeekNumber) {
+      showWeekNumberEl = h(
+        'th',
+        {
+          attrs: {
+            role: 'columnheader'
+          },
+          'class': prefixCls + '-column-header ' + prefixCls + '-week-number-header'
+        },
+        [h(
+          'span',
+          { 'class': prefixCls + '-column-header-inner' },
+          ['x']
+        )]
+      );
+    }
+    var weekDaysEls = weekDays.map(function (day, xindex) {
+      return h(
+        'th',
+        { key: xindex, attrs: { role: 'columnheader', title: day },
+          'class': prefixCls + '-column-header' },
+        [h(
+          'span',
+          { 'class': prefixCls + '-column-header-inner' },
+          [veryShortWeekdays[xindex]]
+        )]
+      );
+    });
+    return h('thead', [h(
+      'tr',
+      {
+        attrs: { role: 'row' }
+      },
+      [showWeekNumberEl, weekDaysEls]
+    )]);
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTable.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTable.js ***!
+  \***************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _DateTHead = __webpack_require__(/*! ./DateTHead */ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTHead.js");
+
+var _DateTHead2 = _interopRequireDefault(_DateTHead);
+
+var _DateTBody = __webpack_require__(/*! ./DateTBody */ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTBody.js");
+
+var _DateTBody2 = _interopRequireDefault(_DateTBody);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = {
+  functional: true,
+  render: function render(createElement, context) {
+    var h = arguments[0];
+    var props = context.props,
+        _context$listeners = context.listeners,
+        listeners = _context$listeners === undefined ? {} : _context$listeners;
+
+    var prefixCls = props.prefixCls;
+    var bodyProps = {
+      props: props,
+      on: listeners
+    };
+    return h(
+      'table',
+      { 'class': prefixCls + '-table', attrs: { cellSpacing: '0', role: 'grid' }
+      },
+      [h(_DateTHead2['default'], bodyProps), h(_DateTBody2['default'], bodyProps)]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/decade/DecadePanel.js":
+/*!*******************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/decade/DecadePanel.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var ROW = 4;
+var COL = 3;
+function noop() {}
+function goYear(direction) {
+  var next = this.sValue.clone();
+  next.add(direction, 'years');
+  this.setState({
+    sValue: next
+  });
+}
+
+function chooseDecade(year, event) {
+  var next = this.sValue.clone();
+  next.year(year);
+  next.month(this.sValue.month());
+  this.__emit('select', next);
+  event.preventDefault();
+}
+
+exports['default'] = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    locale: _vueTypes2['default'].object,
+    value: _vueTypes2['default'].object,
+    defaultValue: _vueTypes2['default'].object,
+    rootPrefixCls: _vueTypes2['default'].string,
+    renderFooter: _vueTypes2['default'].func
+  },
+  data: function data() {
+    this.nextCentury = goYear.bind(this, 100);
+    this.previousCentury = goYear.bind(this, -100);
+    return {
+      sValue: this.value || this.defaultValue
+    };
+  },
+  render: function render() {
+    var _this = this;
+
+    var h = arguments[0];
+
+    var value = this.sValue;
+    var _$props = this.$props,
+        locale = _$props.locale,
+        renderFooter = _$props.renderFooter;
+
+    var currentYear = value.year();
+    var startYear = parseInt(currentYear / 100, 10) * 100;
+    var preYear = startYear - 10;
+    var endYear = startYear + 99;
+    var decades = [];
+    var index = 0;
+    var prefixCls = this.rootPrefixCls + '-decade-panel';
+
+    for (var rowIndex = 0; rowIndex < ROW; rowIndex++) {
+      decades[rowIndex] = [];
+      for (var colIndex = 0; colIndex < COL; colIndex++) {
+        var startDecade = preYear + index * 10;
+        var endDecade = preYear + index * 10 + 9;
+        decades[rowIndex][colIndex] = {
+          startDecade: startDecade,
+          endDecade: endDecade
+        };
+        index++;
+      }
+    }
+
+    var footer = renderFooter && renderFooter('decade');
+    var decadesEls = decades.map(function (row, decadeIndex) {
+      var tds = row.map(function (decadeData) {
+        var _classNameMap;
+
+        var dStartDecade = decadeData.startDecade;
+        var dEndDecade = decadeData.endDecade;
+        var isLast = dStartDecade < startYear;
+        var isNext = dEndDecade > endYear;
+        var classNameMap = (_classNameMap = {}, (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-cell', 1), (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-selected-cell', dStartDecade <= currentYear && currentYear <= dEndDecade), (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-last-century-cell', isLast), (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-next-century-cell', isNext), _classNameMap);
+        var content = dStartDecade + '-' + dEndDecade;
+        var clickHandler = noop;
+        if (isLast) {
+          clickHandler = _this.previousCentury;
+        } else if (isNext) {
+          clickHandler = _this.nextCentury;
+        } else {
+          clickHandler = chooseDecade.bind(_this, dStartDecade);
+        }
+        return h(
+          'td',
+          { key: dStartDecade, on: {
+              'click': clickHandler
+            },
+            attrs: { role: 'gridcell' },
+            'class': classNameMap },
+          [h(
+            'a',
+            { 'class': prefixCls + '-decade' },
+            [content]
+          )]
+        );
+      });
+      return h(
+        'tr',
+        { key: decadeIndex, attrs: { role: 'row' }
+        },
+        [tds]
+      );
+    });
+
+    return h(
+      'div',
+      { 'class': prefixCls },
+      [h(
+        'div',
+        { 'class': prefixCls + '-header' },
+        [h('a', {
+          'class': prefixCls + '-prev-century-btn',
+          attrs: { role: 'button',
+
+            title: locale.previousCentury
+          },
+          on: {
+            'click': this.previousCentury
+          }
+        }), h(
+          'div',
+          { 'class': prefixCls + '-century' },
+          [startYear, '-', endYear]
+        ), h('a', {
+          'class': prefixCls + '-next-century-btn',
+          attrs: { role: 'button',
+
+            title: locale.nextCentury
+          },
+          on: {
+            'click': this.nextCentury
+          }
+        })]
+      ), h(
+        'div',
+        { 'class': prefixCls + '-body' },
+        [h(
+          'table',
+          { 'class': prefixCls + '-table', attrs: { cellSpacing: '0', role: 'grid' }
+          },
+          [h(
+            'tbody',
+            { 'class': prefixCls + '-tbody' },
+            [decadesEls]
+          )]
+        )]
+      ), footer && h(
+        'div',
+        { 'class': prefixCls + '-footer' },
+        [footer]
+      )]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/index.js":
 /*!******************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/TableRow.js ***!
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/index.js ***!
   \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -8039,355 +5932,20 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+var _Calendar = __webpack_require__(/*! ./Calendar */ "./node_modules/ant-design-vue/lib/vc-calendar/src/Calendar.js");
 
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _extends4 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends5 = _interopRequireDefault(_extends4);
-
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _store = __webpack_require__(/*! ../../_util/store */ "./node_modules/ant-design-vue/lib/_util/store/index.js");
-
-var _TableCell = __webpack_require__(/*! ./TableCell */ "./node_modules/ant-design-vue/lib/vc-table/src/TableCell.js");
-
-var _TableCell2 = _interopRequireDefault(_TableCell);
-
-var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/vc-table/src/utils.js");
-
-var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+var _Calendar2 = _interopRequireDefault(_Calendar);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function noop() {}
-var TableRow = {
-  name: 'TableRow',
-  mixins: [_BaseMixin2['default']],
-  props: (0, _propsUtil.initDefaultProps)({
-    customRow: _vueTypes2['default'].func,
-    // onRowClick: PropTypes.func,
-    // onRowDoubleClick: PropTypes.func,
-    // onRowContextMenu: PropTypes.func,
-    // onRowMouseEnter: PropTypes.func,
-    // onRowMouseLeave: PropTypes.func,
-    record: _vueTypes2['default'].object,
-    prefixCls: _vueTypes2['default'].string,
-    // onHover: PropTypes.func,
-    columns: _vueTypes2['default'].array,
-    height: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-    index: _vueTypes2['default'].number,
-    rowKey: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]).isRequired,
-    className: _vueTypes2['default'].string,
-    indent: _vueTypes2['default'].number,
-    indentSize: _vueTypes2['default'].number,
-    hasExpandIcon: _vueTypes2['default'].func,
-    hovered: _vueTypes2['default'].bool.isRequired,
-    visible: _vueTypes2['default'].bool.isRequired,
-    store: _vueTypes2['default'].object.isRequired,
-    fixed: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].bool]),
-    renderExpandIcon: _vueTypes2['default'].func,
-    renderExpandIconCell: _vueTypes2['default'].func,
-    components: _vueTypes2['default'].any,
-    expandedRow: _vueTypes2['default'].bool,
-    isAnyColumnsFixed: _vueTypes2['default'].bool,
-    ancestorKeys: _vueTypes2['default'].array.isRequired,
-    expandIconColumnIndex: _vueTypes2['default'].number,
-    expandRowByClick: _vueTypes2['default'].bool
-    // visible: PropTypes.bool,
-    // hovered: PropTypes.bool,
-    // height: PropTypes.any,
-  }, {
-    // expandIconColumnIndex: 0,
-    // expandRowByClick: false,
-    hasExpandIcon: function hasExpandIcon() {},
-    renderExpandIcon: function renderExpandIcon() {},
-    renderExpandIconCell: function renderExpandIconCell() {}
-  }),
-
-  data: function data() {
-    // this.shouldRender = this.visible
-    return {
-      shouldRender: this.visible
-    };
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    if (this.shouldRender) {
-      this.$nextTick(function () {
-        _this.saveRowRef();
-      });
-    }
-  },
-
-  watch: {
-    visible: function visible(val) {
-      if (val) {
-        this.shouldRender = true;
-      }
-    }
-  },
-
-  updated: function updated() {
-    var _this2 = this;
-
-    if (this.shouldRender && !this.rowRef) {
-      this.$nextTick(function () {
-        _this2.saveRowRef();
-      });
-    }
-  },
-
-  methods: {
-    onRowClick: function onRowClick(event) {
-      var record = this.record,
-          index = this.index;
-
-      this.__emit('rowClick', record, index, event);
-    },
-    onRowDoubleClick: function onRowDoubleClick(event) {
-      var record = this.record,
-          index = this.index;
-
-      this.__emit('rowDoubleClick', record, index, event);
-    },
-    onContextMenu: function onContextMenu(event) {
-      var record = this.record,
-          index = this.index;
-
-      this.__emit('rowContextmenu', record, index, event);
-    },
-    onMouseEnter: function onMouseEnter(event) {
-      var record = this.record,
-          index = this.index,
-          rowKey = this.rowKey;
-
-      this.__emit('hover', true, rowKey);
-      this.__emit('rowMouseenter', record, index, event);
-    },
-    onMouseLeave: function onMouseLeave(event) {
-      var record = this.record,
-          index = this.index,
-          rowKey = this.rowKey;
-
-      this.__emit('hover', false, rowKey);
-      this.__emit('rowMouseleave', record, index, event);
-    },
-    setExpanedRowHeight: function setExpanedRowHeight() {
-      var store = this.store,
-          rowKey = this.rowKey;
-
-      var _store$getState = store.getState(),
-          expandedRowsHeight = _store$getState.expandedRowsHeight;
-
-      var height = this.rowRef.getBoundingClientRect().height;
-      expandedRowsHeight = (0, _extends5['default'])({}, expandedRowsHeight, (0, _defineProperty3['default'])({}, rowKey, height));
-      store.setState({ expandedRowsHeight: expandedRowsHeight });
-    },
-    setRowHeight: function setRowHeight() {
-      var store = this.store,
-          rowKey = this.rowKey;
-
-      var _store$getState2 = store.getState(),
-          fixedColumnsBodyRowsHeight = _store$getState2.fixedColumnsBodyRowsHeight;
-
-      var height = this.rowRef.getBoundingClientRect().height;
-      store.setState({
-        fixedColumnsBodyRowsHeight: (0, _extends5['default'])({}, fixedColumnsBodyRowsHeight, (0, _defineProperty3['default'])({}, rowKey, height))
-      });
-    },
-    getStyle: function getStyle() {
-      var height = this.height,
-          visible = this.visible;
-
-      var style = (0, _propsUtil.getStyle)(this);
-      if (height) {
-        style = (0, _extends5['default'])({}, style, { height: height });
-      }
-
-      if (!visible && !style.display) {
-        style = (0, _extends5['default'])({}, style, { display: 'none' });
-      }
-
-      return style;
-    },
-    saveRowRef: function saveRowRef() {
-      this.rowRef = this.$el;
-
-      var isAnyColumnsFixed = this.isAnyColumnsFixed,
-          fixed = this.fixed,
-          expandedRow = this.expandedRow,
-          ancestorKeys = this.ancestorKeys;
-
-
-      if (!isAnyColumnsFixed) {
-        return;
-      }
-
-      if (!fixed && expandedRow) {
-        this.setExpanedRowHeight();
-      }
-
-      if (!fixed && ancestorKeys.length >= 0) {
-        this.setRowHeight();
-      }
-    }
-  },
-
-  render: function render() {
-    var h = arguments[0];
-
-    if (!this.shouldRender) {
-      return null;
-    }
-
-    var prefixCls = this.prefixCls,
-        columns = this.columns,
-        record = this.record,
-        rowKey = this.rowKey,
-        index = this.index,
-        _customRow = this.customRow,
-        customRow = _customRow === undefined ? noop : _customRow,
-        indent = this.indent,
-        indentSize = this.indentSize,
-        hovered = this.hovered,
-        height = this.height,
-        visible = this.visible,
-        components = this.components,
-        hasExpandIcon = this.hasExpandIcon,
-        renderExpandIcon = this.renderExpandIcon,
-        renderExpandIconCell = this.renderExpandIconCell;
-
-    var BodyRow = components.body.row;
-    var BodyCell = components.body.cell;
-
-    var className = '';
-
-    if (hovered) {
-      className += ' ' + prefixCls + '-hover';
-    }
-
-    var cells = [];
-
-    renderExpandIconCell(cells);
-
-    for (var i = 0; i < columns.length; i++) {
-      var column = columns[i];
-
-      (0, _utils.warningOnce)(column.onCellClick === undefined, 'column[onCellClick] is deprecated, please use column[customCell] instead.');
-
-      cells.push(h(_TableCell2['default'], {
-        attrs: {
-          prefixCls: prefixCls,
-          record: record,
-          indentSize: indentSize,
-          indent: indent,
-          index: index,
-          column: column,
-
-          expandIcon: hasExpandIcon(i) && renderExpandIcon(),
-          component: BodyCell
-        },
-        key: column.key || column.dataIndex }));
-    }
-
-    var _ref = customRow(record, index) || {},
-        customClass = _ref['class'],
-        customClassName = _ref.className,
-        customStyle = _ref.style,
-        rowProps = (0, _objectWithoutProperties3['default'])(_ref, ['class', 'className', 'style']);
-
-    var style = { height: typeof height === 'number' ? height + 'px' : height };
-
-    if (!visible) {
-      style.display = 'none';
-    }
-
-    style = (0, _extends5['default'])({}, style, customStyle);
-    var rowClassName = (0, _classnames2['default'])(prefixCls, className, prefixCls + '-level-' + indent, customClassName, customClass);
-    var bodyRowProps = (0, _propsUtil.mergeProps)({
-      on: {
-        click: this.onRowClick,
-        dblclick: this.onRowDoubleClick,
-        mouseenter: this.onMouseEnter,
-        mouseleave: this.onMouseLeave,
-        contextmenu: this.onContextMenu
-      },
-      'class': rowClassName
-    }, (0, _extends5['default'])({}, rowProps, { style: style }), {
-      attrs: {
-        'data-row-key': rowKey
-      }
-    });
-    return h(
-      BodyRow,
-      bodyRowProps,
-      [cells]
-    );
-  }
-};
-
-function getRowHeight(state, props) {
-  var expandedRowsHeight = state.expandedRowsHeight,
-      fixedColumnsBodyRowsHeight = state.fixedColumnsBodyRowsHeight;
-  var fixed = props.fixed,
-      rowKey = props.rowKey;
-
-
-  if (!fixed) {
-    return null;
-  }
-
-  if (expandedRowsHeight[rowKey]) {
-    return expandedRowsHeight[rowKey];
-  }
-
-  if (fixedColumnsBodyRowsHeight[rowKey]) {
-    return fixedColumnsBodyRowsHeight[rowKey];
-  }
-
-  return null;
-}
-
-exports['default'] = (0, _store.connect)(function (state, props) {
-  var currentHoverKey = state.currentHoverKey,
-      expandedRowKeys = state.expandedRowKeys;
-  var rowKey = props.rowKey,
-      ancestorKeys = props.ancestorKeys;
-
-  var visible = ancestorKeys.length === 0 || ancestorKeys.every(function (k) {
-    return ~expandedRowKeys.indexOf(k);
-  });
-
-  return {
-    visible: visible,
-    hovered: currentHoverKey === rowKey,
-    height: getRowHeight(state, props)
-  };
-})(TableRow);
+exports['default'] = _Calendar2['default'];
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-table/src/utils.js":
-/*!***************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-table/src/utils.js ***!
-  \***************************************************************/
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/mixin/CalendarMixin.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/mixin/CalendarMixin.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8397,745 +5955,2725 @@ exports['default'] = (0, _store.connect)(function (state, props) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.measureScrollbar = measureScrollbar;
-exports.debounce = debounce;
-exports.warningOnce = warningOnce;
-exports.remove = remove;
 
-var _warning = __webpack_require__(/*! warning */ "./node_modules/warning/browser.js");
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
-var _warning2 = _interopRequireDefault(_warning);
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+exports.getNowByCurrentStateValue = getNowByCurrentStateValue;
+
+var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _index = __webpack_require__(/*! ../util/index */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var scrollbarVerticalSize = void 0;
-var scrollbarHorizontalSize = void 0;
+function noop() {}
 
-// Measure scrollbar width for padding body during modal show/hide
-var scrollbarMeasure = {
-  position: 'absolute',
-  top: '-9999px',
-  width: '50px',
-  height: '50px'
-};
-
-function measureScrollbar() {
-  var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'vertical';
-
-  if (typeof document === 'undefined' || typeof window === 'undefined') {
-    return 0;
-  }
-  var isVertical = direction === 'vertical';
-  if (isVertical && scrollbarVerticalSize) {
-    return scrollbarVerticalSize;
-  } else if (!isVertical && scrollbarHorizontalSize) {
-    return scrollbarHorizontalSize;
-  }
-  var scrollDiv = document.createElement('div');
-  Object.keys(scrollbarMeasure).forEach(function (scrollProp) {
-    scrollDiv.style[scrollProp] = scrollbarMeasure[scrollProp];
-  });
-  // Append related overflow style
-  if (isVertical) {
-    scrollDiv.style.overflowY = 'scroll';
+function getNowByCurrentStateValue(value) {
+  var ret = void 0;
+  if (value) {
+    ret = (0, _index.getTodayTime)(value);
   } else {
-    scrollDiv.style.overflowX = 'scroll';
+    ret = (0, _moment2['default'])();
   }
-  document.body.appendChild(scrollDiv);
-  var size = 0;
-  if (isVertical) {
-    size = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-    scrollbarVerticalSize = size;
-  } else if (!isVertical) {
-    size = scrollDiv.offsetHeight - scrollDiv.clientHeight;
-    scrollbarHorizontalSize = size;
-  }
-
-  document.body.removeChild(scrollDiv);
-  return size;
+  return ret;
 }
+function isMoment(value) {
+  if (Array.isArray(value)) {
+    return value.length === 0 || value.findIndex(function (val) {
+      return val === undefined || _moment2['default'].isMoment(val);
+    }) !== -1;
+  } else {
+    return value === undefined || _moment2['default'].isMoment(value);
+  }
+}
+var MomentType = _vueTypes2['default'].custom(isMoment);
+var CalendarMixin = {
+  mixins: [_BaseMixin2['default']],
+  name: 'CalendarMixinWrapper',
+  props: {
+    value: MomentType,
+    defaultValue: MomentType
+  },
 
-function debounce(func, wait, immediate) {
-  var timeout = void 0;
-  function debounceFunc() {
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    var context = this;
-    // https://fb.me/react-event-pooling
-    if (args[0] && args[0].persist) {
-      args[0].persist();
-    }
-    var later = function later() {
-      timeout = null;
-      if (!immediate) {
-        func.apply(context, args);
-      }
+  data: function data() {
+    var props = this.$props;
+    var sValue = props.value || props.defaultValue || getNowByCurrentStateValue();
+    return {
+      sValue: sValue,
+      sSelectedValue: props.selectedValue || props.defaultSelectedValue
     };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) {
-      func.apply(context, args);
+  },
+
+  watch: {
+    value: function value(val) {
+      var sValue = val || this.defaultValue || getNowByCurrentStateValue(this.sValue);
+      this.setState({
+        sValue: sValue
+      });
+    },
+    selectedValue: function selectedValue(val) {
+      this.setState({
+        sSelectedValue: val
+      });
     }
-  }
-  debounceFunc.cancel = function cancel() {
-    if (timeout) {
-      clearTimeout(timeout);
-      timeout = null;
-    }
-  };
-  return debounceFunc;
-}
+  },
+  methods: {
+    onSelect: function onSelect(value, cause) {
+      if (value) {
+        this.setValue(value);
+      }
+      this.setSelectedValue(value, cause);
+    },
+    renderRoot: function renderRoot(newProps) {
+      var _className;
 
-var warned = {};
-function warningOnce(condition, format, args) {
-  if (!warned[format]) {
-    (0, _warning2['default'])(condition, format, args);
-    warned[format] = !condition;
-  }
-}
+      var h = this.$createElement;
 
-function remove(array, item) {
-  var index = array.indexOf(item);
-  var front = array.slice(0, index);
-  var last = array.slice(index + 1, array.length);
-  return front.concat(last);
-}
+      var props = this.$props;
+      var prefixCls = props.prefixCls;
 
-/***/ }),
-
-/***/ "./node_modules/dom-closest/index.js":
-/*!*******************************************!*\
-  !*** ./node_modules/dom-closest/index.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/**
- * Module dependencies
- */
-
-var matches = __webpack_require__(/*! dom-matches */ "./node_modules/dom-matches/index.js");
-
-/**
- * @param element {Element}
- * @param selector {String}
- * @param context {Element}
- * @return {Element}
- */
-module.exports = function (element, selector, context) {
-  context = context || document;
-  // guard against orphans
-  element = { parentNode: element };
-
-  while ((element = element.parentNode) && element !== context) {
-    if (matches(element, selector)) {
-      return element;
+      var className = (_className = {}, (0, _defineProperty3['default'])(_className, prefixCls, 1), (0, _defineProperty3['default'])(_className, prefixCls + '-hidden', !props.visible), (0, _defineProperty3['default'])(_className, newProps['class'], !!newProps['class']), _className);
+      return h(
+        'div',
+        {
+          ref: 'rootInstance',
+          'class': className,
+          attrs: { tabIndex: '0'
+          },
+          on: {
+            'keydown': this.onKeyDown || noop,
+            'blur': this.onBlur || noop
+          }
+        },
+        [newProps.children]
+      );
+    },
+    setSelectedValue: function setSelectedValue(selectedValue, cause) {
+      // if (this.isAllowedDate(selectedValue)) {
+      if (!(0, _propsUtil.hasProp)(this, 'selectedValue')) {
+        this.setState({
+          sSelectedValue: selectedValue
+        });
+      }
+      this.__emit('select', selectedValue, cause);
+      // }
+    },
+    setValue: function setValue(value) {
+      var originalValue = this.sValue;
+      if (!(0, _propsUtil.hasProp)(this, 'value')) {
+        this.setState({
+          sValue: value
+        });
+      }
+      if (originalValue && value && !originalValue.isSame(value) || !originalValue && value || originalValue && !value) {
+        this.__emit('change', value);
+      }
+    },
+    isAllowedDate: function isAllowedDate(value) {
+      var disabledDate = this.disabledDate;
+      var disabledTime = this.disabledTime;
+      return (0, _index.isAllowedDate)(value, disabledDate, disabledTime);
     }
   }
 };
 
+exports['default'] = CalendarMixin;
 
 /***/ }),
 
-/***/ "./node_modules/dom-matches/index.js":
-/*!*******************************************!*\
-  !*** ./node_modules/dom-matches/index.js ***!
-  \*******************************************/
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/mixin/CommonMixin.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/mixin/CommonMixin.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-/**
- * Determine if a DOM element matches a CSS selector
- *
- * @param {Element} elem
- * @param {String} selector
- * @return {Boolean}
- * @api public
- */
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = {
+  methods: {
+    getFormat: function getFormat() {
+      var format = this.format;
+      var locale = this.locale,
+          timePicker = this.timePicker;
 
-function matches(elem, selector) {
-  // Vendor-specific implementations of `Element.prototype.matches()`.
-  var proto = window.Element.prototype;
-  var nativeMatches = proto.matches ||
-      proto.mozMatchesSelector ||
-      proto.msMatchesSelector ||
-      proto.oMatchesSelector ||
-      proto.webkitMatchesSelector;
-
-  if (!elem || elem.nodeType !== 1) {
-    return false;
-  }
-
-  var parentElem = elem.parentNode;
-
-  // use native 'matches'
-  if (nativeMatches) {
-    return nativeMatches.call(elem, selector);
-  }
-
-  // native support for `matches` is missing and a fallback is required
-  var nodes = parentElem.querySelectorAll(selector);
-  var len = nodes.length;
-
-  for (var i = 0; i < len; i++) {
-    if (nodes[i] === elem) {
-      return true;
+      if (!format) {
+        if (timePicker) {
+          format = locale.dateTimeFormat;
+        } else {
+          format = locale.dateFormat;
+        }
+      }
+      return format;
+    },
+    focus: function focus() {
+      if (this.focusElement) {
+        this.focusElement.focus();
+      } else if (this.$refs.rootInstance) {
+        this.$refs.rootInstance.focus();
+      }
+    },
+    saveFocusElement: function saveFocusElement(focusElement) {
+      this.focusElement = focusElement;
     }
   }
+};
 
-  return false;
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/month/MonthPanel.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/month/MonthPanel.js ***!
+  \*****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _MonthTable = __webpack_require__(/*! ./MonthTable */ "./node_modules/ant-design-vue/lib/vc-calendar/src/month/MonthTable.js");
+
+var _MonthTable2 = _interopRequireDefault(_MonthTable);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function goYear(direction) {
+  this.changeYear(direction);
 }
 
-/**
- * Expose `matches`
- */
+function noop() {}
 
-module.exports = matches;
+var MonthPanel = {
+  name: 'MonthPanel',
+  mixins: [_BaseMixin2['default']],
+  props: {
+    value: _vueTypes2['default'].any,
+    defaultValue: _vueTypes2['default'].any,
+    cellRender: _vueTypes2['default'].any,
+    contentRender: _vueTypes2['default'].any,
+    locale: _vueTypes2['default'].any,
+    rootPrefixCls: _vueTypes2['default'].string,
+    // onChange: PropTypes.func,
+    disabledDate: _vueTypes2['default'].func,
+    // onSelect: PropTypes.func,
+    renderFooter: _vueTypes2['default'].func,
+    changeYear: _vueTypes2['default'].func.def(noop)
+  },
 
+  data: function data() {
+    var value = this.value,
+        defaultValue = this.defaultValue;
+    // bind methods
+
+    this.nextYear = goYear.bind(this, 1);
+    this.previousYear = goYear.bind(this, -1);
+    return {
+      sValue: value || defaultValue
+    };
+  },
+
+  watch: {
+    value: function value(val) {
+      this.setState({
+        sValue: val
+      });
+    }
+  },
+  methods: {
+    setAndSelectValue: function setAndSelectValue(value) {
+      this.setValue(value);
+      this.__emit('select', value);
+    },
+    setValue: function setValue(value) {
+      if ((0, _propsUtil.hasProp)(this, 'value')) {
+        this.setState({
+          sValue: value
+        });
+      }
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+    var sValue = this.sValue,
+        cellRender = this.cellRender,
+        contentRender = this.contentRender,
+        locale = this.locale,
+        rootPrefixCls = this.rootPrefixCls,
+        disabledDate = this.disabledDate,
+        renderFooter = this.renderFooter;
+
+    var year = sValue.year();
+    var prefixCls = rootPrefixCls + '-month-panel';
+
+    var footer = renderFooter && renderFooter('month');
+    return h(
+      'div',
+      { 'class': prefixCls },
+      [h('div', [h(
+        'div',
+        { 'class': prefixCls + '-header' },
+        [h('a', {
+          'class': prefixCls + '-prev-year-btn',
+          attrs: { role: 'button',
+
+            title: locale.previousYear
+          },
+          on: {
+            'click': this.previousYear
+          }
+        }), h(
+          'a',
+          {
+            'class': prefixCls + '-year-select',
+            attrs: { role: 'button',
+
+              title: locale.yearSelect
+            },
+            on: {
+              'click': (0, _propsUtil.getListeners)(this).yearPanelShow || noop
+            }
+          },
+          [h(
+            'span',
+            { 'class': prefixCls + '-year-select-content' },
+            [year]
+          ), h(
+            'span',
+            { 'class': prefixCls + '-year-select-arrow' },
+            ['x']
+          )]
+        ), h('a', {
+          'class': prefixCls + '-next-year-btn',
+          attrs: { role: 'button',
+
+            title: locale.nextYear
+          },
+          on: {
+            'click': this.nextYear
+          }
+        })]
+      ), h(
+        'div',
+        { 'class': prefixCls + '-body' },
+        [h(_MonthTable2['default'], {
+          attrs: {
+            disabledDate: disabledDate,
+
+            locale: locale,
+            value: sValue,
+            cellRender: cellRender,
+            contentRender: contentRender,
+            prefixCls: prefixCls
+          },
+          on: {
+            'select': this.setAndSelectValue
+          }
+        })]
+      ), footer && h(
+        'div',
+        { 'class': prefixCls + '-footer' },
+        [footer]
+      )])]
+    );
+  }
+};
+
+exports['default'] = MonthPanel;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_assignMergeValue.js":
-/*!**************************************************!*\
-  !*** ./node_modules/lodash/_assignMergeValue.js ***!
-  \**************************************************/
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/month/MonthTable.js":
+/*!*****************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/month/MonthTable.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseAssignValue = __webpack_require__(/*! ./_baseAssignValue */ "./node_modules/lodash/_baseAssignValue.js"),
-    eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js");
+"use strict";
 
-/**
- * This function is like `assignValue` except that it doesn't assign
- * `undefined` values.
- *
- * @private
- * @param {Object} object The object to modify.
- * @param {string} key The key of the property to assign.
- * @param {*} value The value to assign.
- */
-function assignMergeValue(object, key, value) {
-  if ((value !== undefined && !eq(object[key], value)) ||
-      (value === undefined && !(key in object))) {
-    baseAssignValue(object, key, value);
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _index = __webpack_require__(/*! ../util/index */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var ROW = 4;
+var COL = 3;
+
+function noop() {}
+
+var MonthTable = {
+  name: 'MonthTable',
+  mixins: [_BaseMixin2['default']],
+  props: {
+    cellRender: _vueTypes2['default'].func,
+    prefixCls: _vueTypes2['default'].string,
+    value: _vueTypes2['default'].object,
+    locale: _vueTypes2['default'].any,
+    contentRender: _vueTypes2['default'].any,
+    disabledDate: _vueTypes2['default'].func
+  },
+  data: function data() {
+    return {
+      sValue: this.value
+    };
+  },
+
+  watch: {
+    value: function value(val) {
+      this.setState({
+        sValue: val
+      });
+    }
+  },
+  methods: {
+    setAndSelectValue: function setAndSelectValue(value) {
+      this.setState({
+        sValue: value
+      });
+      this.__emit('select', value);
+    },
+    chooseMonth: function chooseMonth(month) {
+      var next = this.sValue.clone();
+      next.month(month);
+      this.setAndSelectValue(next);
+    },
+    months: function months() {
+      var value = this.sValue;
+      var current = value.clone();
+      var months = [];
+      var index = 0;
+      for (var rowIndex = 0; rowIndex < ROW; rowIndex++) {
+        months[rowIndex] = [];
+        for (var colIndex = 0; colIndex < COL; colIndex++) {
+          current.month(index);
+          var content = (0, _index.getMonthName)(current);
+          months[rowIndex][colIndex] = {
+            value: index,
+            content: content,
+            title: content
+          };
+          index++;
+        }
+      }
+      return months;
+    }
+  },
+
+  render: function render() {
+    var _this = this;
+
+    var h = arguments[0];
+
+    var props = this.$props;
+    var value = this.sValue;
+    var today = (0, _index.getTodayTime)(value);
+    var months = this.months();
+    var currentMonth = value.month();
+    var prefixCls = props.prefixCls,
+        locale = props.locale,
+        contentRender = props.contentRender,
+        cellRender = props.cellRender,
+        disabledDate = props.disabledDate;
+
+    var monthsEls = months.map(function (month, index) {
+      var tds = month.map(function (monthData) {
+        var _classNameMap;
+
+        var disabled = false;
+        if (disabledDate) {
+          var testValue = value.clone();
+          testValue.month(monthData.value);
+          disabled = disabledDate(testValue);
+        }
+        var classNameMap = (_classNameMap = {}, (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-cell', 1), (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-cell-disabled', disabled), (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-selected-cell', monthData.value === currentMonth), (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-current-cell', today.year() === value.year() && monthData.value === today.month()), _classNameMap);
+        var cellEl = void 0;
+        if (cellRender) {
+          var currentValue = value.clone();
+          currentValue.month(monthData.value);
+          cellEl = cellRender(currentValue, locale);
+        } else {
+          var content = void 0;
+          if (contentRender) {
+            var _currentValue = value.clone();
+            _currentValue.month(monthData.value);
+            content = contentRender(_currentValue, locale);
+          } else {
+            content = monthData.content;
+          }
+          cellEl = h(
+            'a',
+            { 'class': prefixCls + '-month' },
+            [content]
+          );
+        }
+        return h(
+          'td',
+          {
+            attrs: {
+              role: 'gridcell',
+
+              title: monthData.title
+            },
+            key: monthData.value,
+            on: {
+              'click': disabled ? noop : function () {
+                return _this.chooseMonth(monthData.value);
+              }
+            },
+            'class': classNameMap
+          },
+          [cellEl]
+        );
+      });
+      return h(
+        'tr',
+        { key: index, attrs: { role: 'row' }
+        },
+        [tds]
+      );
+    });
+
+    return h(
+      'table',
+      { 'class': prefixCls + '-table', attrs: { cellSpacing: '0', role: 'grid' }
+      },
+      [h(
+        'tbody',
+        { 'class': prefixCls + '-tbody' },
+        [monthsEls]
+      )]
+    );
   }
+};
+
+exports['default'] = MonthTable;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/picker/placements.js":
+/*!******************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/picker/placements.js ***!
+  \******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var autoAdjustOverflow = {
+  adjustX: 1,
+  adjustY: 1
+};
+
+var targetOffset = [0, 0];
+
+var placements = {
+  bottomLeft: {
+    points: ['tl', 'tl'],
+    overflow: autoAdjustOverflow,
+    offset: [0, -3],
+    targetOffset: targetOffset
+  },
+  bottomRight: {
+    points: ['tr', 'tr'],
+    overflow: autoAdjustOverflow,
+    offset: [0, -3],
+    targetOffset: targetOffset
+  },
+  topRight: {
+    points: ['br', 'br'],
+    overflow: autoAdjustOverflow,
+    offset: [0, 3],
+    targetOffset: targetOffset
+  },
+  topLeft: {
+    points: ['bl', 'bl'],
+    overflow: autoAdjustOverflow,
+    offset: [0, 3],
+    targetOffset: targetOffset
+  }
+};
+
+exports['default'] = placements;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/range-calendar/CalendarPart.js":
+/*!****************************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/range-calendar/CalendarPart.js ***!
+  \****************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _vnode = __webpack_require__(/*! ../../../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _CalendarHeader = __webpack_require__(/*! ../calendar/CalendarHeader */ "./node_modules/ant-design-vue/lib/vc-calendar/src/calendar/CalendarHeader.js");
+
+var _CalendarHeader2 = _interopRequireDefault(_CalendarHeader);
+
+var _DateTable = __webpack_require__(/*! ../date/DateTable */ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateTable.js");
+
+var _DateTable2 = _interopRequireDefault(_DateTable);
+
+var _DateInput = __webpack_require__(/*! ../date/DateInput */ "./node_modules/ant-design-vue/lib/vc-calendar/src/date/DateInput.js");
+
+var _DateInput2 = _interopRequireDefault(_DateInput);
+
+var _index = __webpack_require__(/*! ../util/index */ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+var CalendarPart = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    value: _vueTypes2['default'].any,
+    hoverValue: _vueTypes2['default'].any,
+    selectedValue: _vueTypes2['default'].any,
+    direction: _vueTypes2['default'].any,
+    locale: _vueTypes2['default'].any,
+    showDateInput: _vueTypes2['default'].bool,
+    showTimePicker: _vueTypes2['default'].bool,
+    showWeekNumber: _vueTypes2['default'].bool,
+    format: _vueTypes2['default'].any,
+    placeholder: _vueTypes2['default'].any,
+    disabledDate: _vueTypes2['default'].any,
+    timePicker: _vueTypes2['default'].any,
+    disabledTime: _vueTypes2['default'].any,
+    disabledMonth: _vueTypes2['default'].any,
+    mode: _vueTypes2['default'].any,
+    // onInputSelect: PropTypes.func,
+    timePickerDisabledTime: _vueTypes2['default'].object,
+    enableNext: _vueTypes2['default'].any,
+    enablePrev: _vueTypes2['default'].any,
+    clearIcon: _vueTypes2['default'].any,
+    dateRender: _vueTypes2['default'].func,
+    inputMode: _vueTypes2['default'].string,
+    inputReadOnly: _vueTypes2['default'].bool
+  },
+  render: function render() {
+    var h = arguments[0];
+    var props = this.$props;
+    var prefixCls = props.prefixCls,
+        value = props.value,
+        hoverValue = props.hoverValue,
+        selectedValue = props.selectedValue,
+        mode = props.mode,
+        direction = props.direction,
+        locale = props.locale,
+        format = props.format,
+        placeholder = props.placeholder,
+        disabledDate = props.disabledDate,
+        timePicker = props.timePicker,
+        disabledTime = props.disabledTime,
+        timePickerDisabledTime = props.timePickerDisabledTime,
+        showTimePicker = props.showTimePicker,
+        enablePrev = props.enablePrev,
+        enableNext = props.enableNext,
+        disabledMonth = props.disabledMonth,
+        showDateInput = props.showDateInput,
+        dateRender = props.dateRender,
+        showWeekNumber = props.showWeekNumber,
+        showClear = props.showClear,
+        inputMode = props.inputMode,
+        inputReadOnly = props.inputReadOnly;
+
+    var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
+
+    var _getListeners = (0, _propsUtil.getListeners)(this),
+        _getListeners$inputCh = _getListeners.inputChange,
+        inputChange = _getListeners$inputCh === undefined ? noop : _getListeners$inputCh,
+        _getListeners$inputSe = _getListeners.inputSelect,
+        inputSelect = _getListeners$inputSe === undefined ? noop : _getListeners$inputSe,
+        _getListeners$valueCh = _getListeners.valueChange,
+        valueChange = _getListeners$valueCh === undefined ? noop : _getListeners$valueCh,
+        _getListeners$panelCh = _getListeners.panelChange,
+        panelChange = _getListeners$panelCh === undefined ? noop : _getListeners$panelCh,
+        _getListeners$select = _getListeners.select,
+        select = _getListeners$select === undefined ? noop : _getListeners$select,
+        _getListeners$dayHove = _getListeners.dayHover,
+        dayHover = _getListeners$dayHove === undefined ? noop : _getListeners$dayHove;
+
+    var shouldShowTimePicker = showTimePicker && timePicker;
+    var disabledTimeConfig = shouldShowTimePicker && disabledTime ? (0, _index.getTimeConfig)(selectedValue, disabledTime) : null;
+    var rangeClassName = prefixCls + '-range';
+    var newProps = {
+      locale: locale,
+      value: value,
+      prefixCls: prefixCls,
+      showTimePicker: showTimePicker
+    };
+    var index = direction === 'left' ? 0 : 1;
+    var timePickerEle = null;
+    if (shouldShowTimePicker) {
+      var timePickerProps = (0, _propsUtil.getOptionProps)(timePicker);
+      timePickerEle = (0, _vnode.cloneElement)(timePicker, {
+        props: (0, _extends3['default'])({
+          showHour: true,
+          showMinute: true,
+          showSecond: true
+        }, timePickerProps, disabledTimeConfig, timePickerDisabledTime, {
+          defaultOpenValue: value,
+          value: selectedValue[index]
+        }),
+        on: {
+          change: inputChange
+        }
+      });
+    }
+
+    var dateInputElement = showDateInput && h(_DateInput2['default'], {
+      attrs: {
+        format: format,
+        locale: locale,
+        prefixCls: prefixCls,
+        timePicker: timePicker,
+        disabledDate: disabledDate,
+        placeholder: placeholder,
+        disabledTime: disabledTime,
+        value: value,
+        showClear: showClear || false,
+        selectedValue: selectedValue[index],
+
+        clearIcon: clearIcon,
+        inputMode: inputMode,
+        inputReadOnly: inputReadOnly
+      },
+      on: {
+        'change': inputChange,
+        'select': inputSelect
+      }
+    });
+    var headerProps = {
+      props: (0, _extends3['default'])({}, newProps, {
+        mode: mode,
+        enableNext: enableNext,
+        enablePrev: enablePrev,
+        disabledMonth: disabledMonth
+      }),
+      on: {
+        valueChange: valueChange,
+        panelChange: panelChange
+      }
+    };
+    var tableProps = {
+      props: (0, _extends3['default'])({}, newProps, {
+        hoverValue: hoverValue,
+        selectedValue: selectedValue,
+        dateRender: dateRender,
+        disabledDate: disabledDate,
+        showWeekNumber: showWeekNumber
+      }),
+      on: {
+        select: select,
+        dayHover: dayHover
+      }
+    };
+    return h(
+      'div',
+      { 'class': rangeClassName + '-part ' + rangeClassName + '-' + direction },
+      [dateInputElement, h(
+        'div',
+        { style: { outline: 'none' } },
+        [h(_CalendarHeader2['default'], headerProps), showTimePicker ? h(
+          'div',
+          { 'class': prefixCls + '-time-picker' },
+          [h(
+            'div',
+            { 'class': prefixCls + '-time-picker-panel' },
+            [timePickerEle]
+          )]
+        ) : null, h(
+          'div',
+          { 'class': prefixCls + '-body' },
+          [h(_DateTable2['default'], tableProps)]
+        )]
+      )]
+    );
+  }
+};
+
+exports['default'] = CalendarPart;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js":
+/*!***********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/util/index.js ***!
+  \***********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+exports.getTodayTime = getTodayTime;
+exports.getTitleString = getTitleString;
+exports.getTodayTimeStr = getTodayTimeStr;
+exports.getMonthName = getMonthName;
+exports.syncTime = syncTime;
+exports.getTimeConfig = getTimeConfig;
+exports.isTimeValidByConfig = isTimeValidByConfig;
+exports.isTimeValid = isTimeValid;
+exports.isAllowedDate = isAllowedDate;
+exports.formatDate = formatDate;
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var defaultDisabledTime = {
+  disabledHours: function disabledHours() {
+    return [];
+  },
+  disabledMinutes: function disabledMinutes() {
+    return [];
+  },
+  disabledSeconds: function disabledSeconds() {
+    return [];
+  }
+};
+
+function getTodayTime(value) {
+  var today = (0, _moment2['default'])();
+  today.locale(value.locale()).utcOffset(value.utcOffset());
+  return today;
 }
 
-module.exports = assignMergeValue;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseFor.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_baseFor.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var createBaseFor = __webpack_require__(/*! ./_createBaseFor */ "./node_modules/lodash/_createBaseFor.js");
-
-/**
- * The base implementation of `baseForOwn` which iterates over `object`
- * properties returned by `keysFunc` and invokes `iteratee` for each property.
- * Iteratee functions may exit iteration early by explicitly returning `false`.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @returns {Object} Returns `object`.
- */
-var baseFor = createBaseFor();
-
-module.exports = baseFor;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseMerge.js":
-/*!*******************************************!*\
-  !*** ./node_modules/lodash/_baseMerge.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Stack = __webpack_require__(/*! ./_Stack */ "./node_modules/lodash/_Stack.js"),
-    assignMergeValue = __webpack_require__(/*! ./_assignMergeValue */ "./node_modules/lodash/_assignMergeValue.js"),
-    baseFor = __webpack_require__(/*! ./_baseFor */ "./node_modules/lodash/_baseFor.js"),
-    baseMergeDeep = __webpack_require__(/*! ./_baseMergeDeep */ "./node_modules/lodash/_baseMergeDeep.js"),
-    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
-    keysIn = __webpack_require__(/*! ./keysIn */ "./node_modules/lodash/keysIn.js"),
-    safeGet = __webpack_require__(/*! ./_safeGet */ "./node_modules/lodash/_safeGet.js");
-
-/**
- * The base implementation of `_.merge` without support for multiple sources.
- *
- * @private
- * @param {Object} object The destination object.
- * @param {Object} source The source object.
- * @param {number} srcIndex The index of `source`.
- * @param {Function} [customizer] The function to customize merged values.
- * @param {Object} [stack] Tracks traversed source values and their merged
- *  counterparts.
- */
-function baseMerge(object, source, srcIndex, customizer, stack) {
-  if (object === source) {
-    return;
-  }
-  baseFor(source, function(srcValue, key) {
-    stack || (stack = new Stack);
-    if (isObject(srcValue)) {
-      baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
-    }
-    else {
-      var newValue = customizer
-        ? customizer(safeGet(object, key), srcValue, (key + ''), object, source, stack)
-        : undefined;
-
-      if (newValue === undefined) {
-        newValue = srcValue;
-      }
-      assignMergeValue(object, key, newValue);
-    }
-  }, keysIn);
+function getTitleString(value) {
+  return value.format('LL');
 }
 
-module.exports = baseMerge;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseMergeDeep.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_baseMergeDeep.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var assignMergeValue = __webpack_require__(/*! ./_assignMergeValue */ "./node_modules/lodash/_assignMergeValue.js"),
-    cloneBuffer = __webpack_require__(/*! ./_cloneBuffer */ "./node_modules/lodash/_cloneBuffer.js"),
-    cloneTypedArray = __webpack_require__(/*! ./_cloneTypedArray */ "./node_modules/lodash/_cloneTypedArray.js"),
-    copyArray = __webpack_require__(/*! ./_copyArray */ "./node_modules/lodash/_copyArray.js"),
-    initCloneObject = __webpack_require__(/*! ./_initCloneObject */ "./node_modules/lodash/_initCloneObject.js"),
-    isArguments = __webpack_require__(/*! ./isArguments */ "./node_modules/lodash/isArguments.js"),
-    isArray = __webpack_require__(/*! ./isArray */ "./node_modules/lodash/isArray.js"),
-    isArrayLikeObject = __webpack_require__(/*! ./isArrayLikeObject */ "./node_modules/lodash/isArrayLikeObject.js"),
-    isBuffer = __webpack_require__(/*! ./isBuffer */ "./node_modules/lodash/isBuffer.js"),
-    isFunction = __webpack_require__(/*! ./isFunction */ "./node_modules/lodash/isFunction.js"),
-    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js"),
-    isPlainObject = __webpack_require__(/*! ./isPlainObject */ "./node_modules/lodash/isPlainObject.js"),
-    isTypedArray = __webpack_require__(/*! ./isTypedArray */ "./node_modules/lodash/isTypedArray.js"),
-    safeGet = __webpack_require__(/*! ./_safeGet */ "./node_modules/lodash/_safeGet.js"),
-    toPlainObject = __webpack_require__(/*! ./toPlainObject */ "./node_modules/lodash/toPlainObject.js");
-
-/**
- * A specialized version of `baseMerge` for arrays and objects which performs
- * deep merges and tracks traversed objects enabling objects with circular
- * references to be merged.
- *
- * @private
- * @param {Object} object The destination object.
- * @param {Object} source The source object.
- * @param {string} key The key of the value to merge.
- * @param {number} srcIndex The index of `source`.
- * @param {Function} mergeFunc The function to merge values.
- * @param {Function} [customizer] The function to customize assigned values.
- * @param {Object} [stack] Tracks traversed source values and their merged
- *  counterparts.
- */
-function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
-  var objValue = safeGet(object, key),
-      srcValue = safeGet(source, key),
-      stacked = stack.get(srcValue);
-
-  if (stacked) {
-    assignMergeValue(object, key, stacked);
-    return;
-  }
-  var newValue = customizer
-    ? customizer(objValue, srcValue, (key + ''), object, source, stack)
-    : undefined;
-
-  var isCommon = newValue === undefined;
-
-  if (isCommon) {
-    var isArr = isArray(srcValue),
-        isBuff = !isArr && isBuffer(srcValue),
-        isTyped = !isArr && !isBuff && isTypedArray(srcValue);
-
-    newValue = srcValue;
-    if (isArr || isBuff || isTyped) {
-      if (isArray(objValue)) {
-        newValue = objValue;
-      }
-      else if (isArrayLikeObject(objValue)) {
-        newValue = copyArray(objValue);
-      }
-      else if (isBuff) {
-        isCommon = false;
-        newValue = cloneBuffer(srcValue, true);
-      }
-      else if (isTyped) {
-        isCommon = false;
-        newValue = cloneTypedArray(srcValue, true);
-      }
-      else {
-        newValue = [];
-      }
-    }
-    else if (isPlainObject(srcValue) || isArguments(srcValue)) {
-      newValue = objValue;
-      if (isArguments(objValue)) {
-        newValue = toPlainObject(objValue);
-      }
-      else if (!isObject(objValue) || isFunction(objValue)) {
-        newValue = initCloneObject(srcValue);
-      }
-    }
-    else {
-      isCommon = false;
-    }
-  }
-  if (isCommon) {
-    // Recursively merge objects and arrays (susceptible to call stack limits).
-    stack.set(srcValue, newValue);
-    mergeFunc(newValue, srcValue, srcIndex, customizer, stack);
-    stack['delete'](srcValue);
-  }
-  assignMergeValue(object, key, newValue);
+function getTodayTimeStr(value) {
+  var today = getTodayTime(value);
+  return getTitleString(today);
 }
 
-module.exports = baseMergeDeep;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_baseRest.js":
-/*!******************************************!*\
-  !*** ./node_modules/lodash/_baseRest.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var identity = __webpack_require__(/*! ./identity */ "./node_modules/lodash/identity.js"),
-    overRest = __webpack_require__(/*! ./_overRest */ "./node_modules/lodash/_overRest.js"),
-    setToString = __webpack_require__(/*! ./_setToString */ "./node_modules/lodash/_setToString.js");
-
-/**
- * The base implementation of `_.rest` which doesn't validate or coerce arguments.
- *
- * @private
- * @param {Function} func The function to apply a rest parameter to.
- * @param {number} [start=func.length-1] The start position of the rest parameter.
- * @returns {Function} Returns the new function.
- */
-function baseRest(func, start) {
-  return setToString(overRest(func, start, identity), func + '');
+function getMonthName(month) {
+  var locale = month.locale();
+  var localeData = month.localeData();
+  return localeData[locale === 'zh-cn' ? 'months' : 'monthsShort'](month);
 }
 
-module.exports = baseRest;
+function syncTime(from, to) {
+  if (!_moment2['default'].isMoment(from) || !_moment2['default'].isMoment(to)) return;
+  to.hour(from.hour());
+  to.minute(from.minute());
+  to.second(from.second());
+  to.millisecond(from.millisecond());
+}
 
+function getTimeConfig(value, disabledTime) {
+  var disabledTimeConfig = disabledTime ? disabledTime(value) : {};
+  disabledTimeConfig = (0, _extends3['default'])({}, defaultDisabledTime, disabledTimeConfig);
+  return disabledTimeConfig;
+}
+
+function isTimeValidByConfig(value, disabledTimeConfig) {
+  var invalidTime = false;
+  if (value) {
+    var hour = value.hour();
+    var minutes = value.minute();
+    var seconds = value.second();
+    var disabledHours = disabledTimeConfig.disabledHours();
+    if (disabledHours.indexOf(hour) === -1) {
+      var disabledMinutes = disabledTimeConfig.disabledMinutes(hour);
+      if (disabledMinutes.indexOf(minutes) === -1) {
+        var disabledSeconds = disabledTimeConfig.disabledSeconds(hour, minutes);
+        invalidTime = disabledSeconds.indexOf(seconds) !== -1;
+      } else {
+        invalidTime = true;
+      }
+    } else {
+      invalidTime = true;
+    }
+  }
+  return !invalidTime;
+}
+
+function isTimeValid(value, disabledTime) {
+  var disabledTimeConfig = getTimeConfig(value, disabledTime);
+  return isTimeValidByConfig(value, disabledTimeConfig);
+}
+
+function isAllowedDate(value, disabledDate, disabledTime) {
+  if (disabledDate) {
+    if (disabledDate(value)) {
+      return false;
+    }
+  }
+  if (disabledTime) {
+    if (!isTimeValid(value, disabledTime)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+function formatDate(value, format) {
+  if (!value) {
+    return '';
+  }
+
+  if (Array.isArray(format)) {
+    format = format[0];
+  }
+
+  return value.format(format);
+}
 
 /***/ }),
 
-/***/ "./node_modules/lodash/_createAssigner.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_createAssigner.js ***!
-  \************************************************/
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/util/toTime.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/util/toTime.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseRest = __webpack_require__(/*! ./_baseRest */ "./node_modules/lodash/_baseRest.js"),
-    isIterateeCall = __webpack_require__(/*! ./_isIterateeCall */ "./node_modules/lodash/_isIterateeCall.js");
+"use strict";
 
-/**
- * Creates a function like `_.assign`.
- *
- * @private
- * @param {Function} assigner The function to assign values.
- * @returns {Function} Returns the new assigner function.
- */
-function createAssigner(assigner) {
-  return baseRest(function(object, sources) {
-    var index = -1,
-        length = sources.length,
-        customizer = length > 1 ? sources[length - 1] : undefined,
-        guard = length > 2 ? sources[2] : undefined;
 
-    customizer = (assigner.length > 3 && typeof customizer == 'function')
-      ? (length--, customizer)
-      : undefined;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.goStartMonth = goStartMonth;
+exports.goEndMonth = goEndMonth;
+exports.goTime = goTime;
+exports.includesTime = includesTime;
+function goStartMonth(time) {
+  return time.clone().startOf('month');
+}
 
-    if (guard && isIterateeCall(sources[0], sources[1], guard)) {
-      customizer = length < 3 ? undefined : customizer;
-      length = 1;
-    }
-    object = Object(object);
-    while (++index < length) {
-      var source = sources[index];
-      if (source) {
-        assigner(object, source, index, customizer);
-      }
-    }
-    return object;
+function goEndMonth(time) {
+  return time.clone().endOf('month');
+}
+
+function goTime(time, direction, unit) {
+  return time.clone().add(direction, unit);
+}
+
+function includesTime() {
+  var timeList = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var time = arguments[1];
+  var unit = arguments[2];
+
+  return timeList.some(function (t) {
+    return t.isSame(time, unit);
   });
 }
 
-module.exports = createAssigner;
-
-
 /***/ }),
 
-/***/ "./node_modules/lodash/_createBaseFor.js":
-/*!***********************************************!*\
-  !*** ./node_modules/lodash/_createBaseFor.js ***!
-  \***********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Creates a base function for methods like `_.forIn` and `_.forOwn`.
- *
- * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new base function.
- */
-function createBaseFor(fromRight) {
-  return function(object, iteratee, keysFunc) {
-    var index = -1,
-        iterable = Object(object),
-        props = keysFunc(object),
-        length = props.length;
-
-    while (length--) {
-      var key = props[fromRight ? length : ++index];
-      if (iteratee(iterable[key], key, iterable) === false) {
-        break;
-      }
-    }
-    return object;
-  };
-}
-
-module.exports = createBaseFor;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/_isIterateeCall.js":
-/*!************************************************!*\
-  !*** ./node_modules/lodash/_isIterateeCall.js ***!
-  \************************************************/
+/***/ "./node_modules/ant-design-vue/lib/vc-calendar/src/year/YearPanel.js":
+/*!***************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-calendar/src/year/YearPanel.js ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var eq = __webpack_require__(/*! ./eq */ "./node_modules/lodash/eq.js"),
-    isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
-    isIndex = __webpack_require__(/*! ./_isIndex */ "./node_modules/lodash/_isIndex.js"),
-    isObject = __webpack_require__(/*! ./isObject */ "./node_modules/lodash/isObject.js");
-
-/**
- * Checks if the given arguments are from an iteratee call.
- *
- * @private
- * @param {*} value The potential iteratee value argument.
- * @param {*} index The potential iteratee index or key argument.
- * @param {*} object The potential iteratee object argument.
- * @returns {boolean} Returns `true` if the arguments are from an iteratee call,
- *  else `false`.
- */
-function isIterateeCall(value, index, object) {
-  if (!isObject(object)) {
-    return false;
-  }
-  var type = typeof index;
-  if (type == 'number'
-        ? (isArrayLike(object) && isIndex(index, object.length))
-        : (type == 'string' && index in object)
-      ) {
-    return eq(object[index], value);
-  }
-  return false;
-}
-
-module.exports = isIterateeCall;
+"use strict";
 
 
-/***/ }),
-
-/***/ "./node_modules/lodash/_safeGet.js":
-/*!*****************************************!*\
-  !*** ./node_modules/lodash/_safeGet.js ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-/**
- * Gets the value at `key`, unless `key` is "__proto__" or "constructor".
- *
- * @private
- * @param {Object} object The object to query.
- * @param {string} key The key of the property to get.
- * @returns {*} Returns the property value.
- */
-function safeGet(object, key) {
-  if (key === 'constructor' && typeof object[key] === 'function') {
-    return;
-  }
-
-  if (key == '__proto__') {
-    return;
-  }
-
-  return object[key];
-}
-
-module.exports = safeGet;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isArrayLikeObject.js":
-/*!**************************************************!*\
-  !*** ./node_modules/lodash/isArrayLikeObject.js ***!
-  \**************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var isArrayLike = __webpack_require__(/*! ./isArrayLike */ "./node_modules/lodash/isArrayLike.js"),
-    isObjectLike = __webpack_require__(/*! ./isObjectLike */ "./node_modules/lodash/isObjectLike.js");
-
-/**
- * This method is like `_.isArrayLike` except that it also checks if `value`
- * is an object.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an array-like object,
- *  else `false`.
- * @example
- *
- * _.isArrayLikeObject([1, 2, 3]);
- * // => true
- *
- * _.isArrayLikeObject(document.body.children);
- * // => true
- *
- * _.isArrayLikeObject('abc');
- * // => false
- *
- * _.isArrayLikeObject(_.noop);
- * // => false
- */
-function isArrayLikeObject(value) {
-  return isObjectLike(value) && isArrayLike(value);
-}
-
-module.exports = isArrayLikeObject;
-
-
-/***/ }),
-
-/***/ "./node_modules/lodash/merge.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/merge.js ***!
-  \**************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseMerge = __webpack_require__(/*! ./_baseMerge */ "./node_modules/lodash/_baseMerge.js"),
-    createAssigner = __webpack_require__(/*! ./_createAssigner */ "./node_modules/lodash/_createAssigner.js");
-
-/**
- * This method is like `_.assign` except that it recursively merges own and
- * inherited enumerable string keyed properties of source objects into the
- * destination object. Source properties that resolve to `undefined` are
- * skipped if a destination value exists. Array and plain object properties
- * are merged recursively. Other objects and value types are overridden by
- * assignment. Source objects are applied from left to right. Subsequent
- * sources overwrite property assignments of previous sources.
- *
- * **Note:** This method mutates `object`.
- *
- * @static
- * @memberOf _
- * @since 0.5.0
- * @category Object
- * @param {Object} object The destination object.
- * @param {...Object} [sources] The source objects.
- * @returns {Object} Returns `object`.
- * @example
- *
- * var object = {
- *   'a': [{ 'b': 2 }, { 'd': 4 }]
- * };
- *
- * var other = {
- *   'a': [{ 'c': 3 }, { 'e': 5 }]
- * };
- *
- * _.merge(object, other);
- * // => { 'a': [{ 'b': 2, 'c': 3 }, { 'd': 4, 'e': 5 }] }
- */
-var merge = createAssigner(function(object, source, srcIndex) {
-  baseMerge(object, source, srcIndex);
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-module.exports = merge;
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _vueTypes = __webpack_require__(/*! ../../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var ROW = 4;
+var COL = 3;
+function noop() {}
+function goYear(direction) {
+  var value = this.sValue.clone();
+  value.add(direction, 'year');
+  this.setState({
+    sValue: value
+  });
+}
+
+function chooseYear(year) {
+  var value = this.sValue.clone();
+  value.year(year);
+  value.month(this.sValue.month());
+  this.sValue = value;
+  this.__emit('select', value);
+}
+
+exports['default'] = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    rootPrefixCls: _vueTypes2['default'].string,
+    value: _vueTypes2['default'].object,
+    defaultValue: _vueTypes2['default'].object,
+    locale: _vueTypes2['default'].object,
+    renderFooter: _vueTypes2['default'].func
+  },
+  data: function data() {
+    this.nextDecade = goYear.bind(this, 10);
+    this.previousDecade = goYear.bind(this, -10);
+    return {
+      sValue: this.value || this.defaultValue
+    };
+  },
+
+  methods: {
+    years: function years() {
+      var value = this.sValue;
+      var currentYear = value.year();
+      var startYear = parseInt(currentYear / 10, 10) * 10;
+      var previousYear = startYear - 1;
+      var years = [];
+      var index = 0;
+      for (var rowIndex = 0; rowIndex < ROW; rowIndex++) {
+        years[rowIndex] = [];
+        for (var colIndex = 0; colIndex < COL; colIndex++) {
+          var year = previousYear + index;
+          var content = String(year);
+          years[rowIndex][colIndex] = {
+            content: content,
+            year: year,
+            title: content
+          };
+          index++;
+        }
+      }
+      return years;
+    }
+  },
+
+  render: function render() {
+    var _this = this;
+
+    var h = arguments[0];
+    var value = this.sValue,
+        locale = this.locale,
+        renderFooter = this.renderFooter;
+
+    var decadePanelShow = (0, _propsUtil.getListeners)(this).decadePanelShow || noop;
+    var years = this.years();
+    var currentYear = value.year();
+    var startYear = parseInt(currentYear / 10, 10) * 10;
+    var endYear = startYear + 9;
+    var prefixCls = this.rootPrefixCls + '-year-panel';
+
+    var yeasEls = years.map(function (row, index) {
+      var tds = row.map(function (yearData) {
+        var _classNameMap;
+
+        var classNameMap = (_classNameMap = {}, (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-cell', 1), (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-selected-cell', yearData.year === currentYear), (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-last-decade-cell', yearData.year < startYear), (0, _defineProperty3['default'])(_classNameMap, prefixCls + '-next-decade-cell', yearData.year > endYear), _classNameMap);
+        var clickHandler = noop;
+        if (yearData.year < startYear) {
+          clickHandler = _this.previousDecade;
+        } else if (yearData.year > endYear) {
+          clickHandler = _this.nextDecade;
+        } else {
+          clickHandler = chooseYear.bind(_this, yearData.year);
+        }
+        return h(
+          'td',
+          {
+            attrs: {
+              role: 'gridcell',
+              title: yearData.title
+            },
+            key: yearData.content,
+            on: {
+              'click': clickHandler
+            },
+
+            'class': classNameMap
+          },
+          [h(
+            'a',
+            { 'class': prefixCls + '-year' },
+            [yearData.content]
+          )]
+        );
+      });
+      return h(
+        'tr',
+        { key: index, attrs: { role: 'row' }
+        },
+        [tds]
+      );
+    });
+    var footer = renderFooter && renderFooter('year');
+    return h(
+      'div',
+      { 'class': prefixCls },
+      [h('div', [h(
+        'div',
+        { 'class': prefixCls + '-header' },
+        [h('a', {
+          'class': prefixCls + '-prev-decade-btn',
+          attrs: { role: 'button',
+
+            title: locale.previousDecade
+          },
+          on: {
+            'click': this.previousDecade
+          }
+        }), h(
+          'a',
+          {
+            'class': prefixCls + '-decade-select',
+            attrs: { role: 'button',
+
+              title: locale.decadeSelect
+            },
+            on: {
+              'click': decadePanelShow
+            }
+          },
+          [h(
+            'span',
+            { 'class': prefixCls + '-decade-select-content' },
+            [startYear, '-', endYear]
+          ), h(
+            'span',
+            { 'class': prefixCls + '-decade-select-arrow' },
+            ['x']
+          )]
+        ), h('a', {
+          'class': prefixCls + '-next-decade-btn',
+          attrs: { role: 'button',
+
+            title: locale.nextDecade
+          },
+          on: {
+            'click': this.nextDecade
+          }
+        })]
+      ), h(
+        'div',
+        { 'class': prefixCls + '-body' },
+        [h(
+          'table',
+          { 'class': prefixCls + '-table', attrs: { cellSpacing: '0', role: 'grid' }
+          },
+          [h(
+            'tbody',
+            { 'class': prefixCls + '-tbody' },
+            [yeasEls]
+          )]
+        )]
+      ), footer && h(
+        'div',
+        { 'class': prefixCls + '-footer' },
+        [footer]
+      )])]
+    );
+  }
+};
 
 /***/ }),
 
-/***/ "./node_modules/lodash/toPlainObject.js":
-/*!**********************************************!*\
-  !*** ./node_modules/lodash/toPlainObject.js ***!
-  \**********************************************/
+/***/ "./node_modules/ant-design-vue/lib/vc-time-picker/Combobox.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-time-picker/Combobox.js ***!
+  \********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var copyObject = __webpack_require__(/*! ./_copyObject */ "./node_modules/lodash/_copyObject.js"),
-    keysIn = __webpack_require__(/*! ./keysIn */ "./node_modules/lodash/keysIn.js");
+"use strict";
 
-/**
- * Converts `value` to a plain object flattening inherited enumerable string
- * keyed properties of `value` to own properties of the plain object.
- *
- * @static
- * @memberOf _
- * @since 3.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {Object} Returns the converted plain object.
- * @example
- *
- * function Foo() {
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.assign({ 'a': 1 }, new Foo);
- * // => { 'a': 1, 'b': 2 }
- *
- * _.assign({ 'a': 1 }, _.toPlainObject(new Foo));
- * // => { 'a': 1, 'b': 2, 'c': 3 }
- */
-function toPlainObject(value) {
-  return copyObject(value, keysIn(value));
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _Select = __webpack_require__(/*! ./Select */ "./node_modules/ant-design-vue/lib/vc-time-picker/Select.js");
+
+var _Select2 = _interopRequireDefault(_Select);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var formatOption = function formatOption(option, disabledOptions) {
+  var value = '' + option;
+  if (option < 10) {
+    value = '0' + option;
+  }
+
+  var disabled = false;
+  if (disabledOptions && disabledOptions.indexOf(option) >= 0) {
+    disabled = true;
+  }
+
+  return {
+    value: value,
+    disabled: disabled
+  };
+};
+
+var Combobox = {
+  mixins: [_BaseMixin2['default']],
+  name: 'Combobox',
+  props: {
+    format: _vueTypes2['default'].string,
+    defaultOpenValue: _vueTypes2['default'].object,
+    prefixCls: _vueTypes2['default'].string,
+    value: _vueTypes2['default'].object,
+    // onChange: PropTypes.func,
+    // onAmPmChange: PropTypes.func,
+    showHour: _vueTypes2['default'].bool,
+    showMinute: _vueTypes2['default'].bool,
+    showSecond: _vueTypes2['default'].bool,
+    hourOptions: _vueTypes2['default'].array,
+    minuteOptions: _vueTypes2['default'].array,
+    secondOptions: _vueTypes2['default'].array,
+    disabledHours: _vueTypes2['default'].func,
+    disabledMinutes: _vueTypes2['default'].func,
+    disabledSeconds: _vueTypes2['default'].func,
+    // onCurrentSelectPanelChange: PropTypes.func,
+    use12Hours: _vueTypes2['default'].bool,
+    isAM: _vueTypes2['default'].bool
+  },
+  methods: {
+    onItemChange: function onItemChange(type, itemValue) {
+      var defaultOpenValue = this.defaultOpenValue,
+          use12Hours = this.use12Hours,
+          propValue = this.value,
+          isAM = this.isAM;
+
+      var value = (propValue || defaultOpenValue).clone();
+
+      if (type === 'hour') {
+        if (use12Hours) {
+          if (isAM) {
+            value.hour(+itemValue % 12);
+          } else {
+            value.hour(+itemValue % 12 + 12);
+          }
+        } else {
+          value.hour(+itemValue);
+        }
+      } else if (type === 'minute') {
+        value.minute(+itemValue);
+      } else if (type === 'ampm') {
+        var ampm = itemValue.toUpperCase();
+        if (use12Hours) {
+          if (ampm === 'PM' && value.hour() < 12) {
+            value.hour(value.hour() % 12 + 12);
+          }
+
+          if (ampm === 'AM') {
+            if (value.hour() >= 12) {
+              value.hour(value.hour() - 12);
+            }
+          }
+        }
+        this.__emit('amPmChange', ampm);
+      } else {
+        value.second(+itemValue);
+      }
+      this.__emit('change', value);
+    },
+    onEnterSelectPanel: function onEnterSelectPanel(range) {
+      this.__emit('currentSelectPanelChange', range);
+    },
+    onEsc: function onEsc(e) {
+      this.__emit('esc', e);
+    },
+    getHourSelect: function getHourSelect(hour) {
+      var _this = this;
+
+      var h = this.$createElement;
+      var prefixCls = this.prefixCls,
+          hourOptions = this.hourOptions,
+          disabledHours = this.disabledHours,
+          showHour = this.showHour,
+          use12Hours = this.use12Hours;
+
+      if (!showHour) {
+        return null;
+      }
+      var disabledOptions = disabledHours();
+      var hourOptionsAdj = void 0;
+      var hourAdj = void 0;
+      if (use12Hours) {
+        hourOptionsAdj = [12].concat(hourOptions.filter(function (h) {
+          return h < 12 && h > 0;
+        }));
+        hourAdj = hour % 12 || 12;
+      } else {
+        hourOptionsAdj = hourOptions;
+        hourAdj = hour;
+      }
+
+      return h(_Select2['default'], {
+        attrs: {
+          prefixCls: prefixCls,
+          options: hourOptionsAdj.map(function (option) {
+            return formatOption(option, disabledOptions);
+          }),
+          selectedIndex: hourOptionsAdj.indexOf(hourAdj),
+          type: 'hour'
+        },
+        on: {
+          'select': this.onItemChange,
+          'mouseenter': function mouseenter() {
+            return _this.onEnterSelectPanel('hour');
+          },
+          'esc': this.onEsc
+        }
+      });
+    },
+    getMinuteSelect: function getMinuteSelect(minute) {
+      var _this2 = this;
+
+      var h = this.$createElement;
+      var prefixCls = this.prefixCls,
+          minuteOptions = this.minuteOptions,
+          disabledMinutes = this.disabledMinutes,
+          defaultOpenValue = this.defaultOpenValue,
+          showMinute = this.showMinute,
+          propValue = this.value;
+
+      if (!showMinute) {
+        return null;
+      }
+      var value = propValue || defaultOpenValue;
+      var disabledOptions = disabledMinutes(value.hour());
+
+      return h(_Select2['default'], {
+        attrs: {
+          prefixCls: prefixCls,
+          options: minuteOptions.map(function (option) {
+            return formatOption(option, disabledOptions);
+          }),
+          selectedIndex: minuteOptions.indexOf(minute),
+          type: 'minute'
+        },
+        on: {
+          'select': this.onItemChange,
+          'mouseenter': function mouseenter() {
+            return _this2.onEnterSelectPanel('minute');
+          },
+          'esc': this.onEsc
+        }
+      });
+    },
+    getSecondSelect: function getSecondSelect(second) {
+      var _this3 = this;
+
+      var h = this.$createElement;
+      var prefixCls = this.prefixCls,
+          secondOptions = this.secondOptions,
+          disabledSeconds = this.disabledSeconds,
+          showSecond = this.showSecond,
+          defaultOpenValue = this.defaultOpenValue,
+          propValue = this.value;
+
+      if (!showSecond) {
+        return null;
+      }
+      var value = propValue || defaultOpenValue;
+      var disabledOptions = disabledSeconds(value.hour(), value.minute());
+
+      return h(_Select2['default'], {
+        attrs: {
+          prefixCls: prefixCls,
+          options: secondOptions.map(function (option) {
+            return formatOption(option, disabledOptions);
+          }),
+          selectedIndex: secondOptions.indexOf(second),
+          type: 'second'
+        },
+        on: {
+          'select': this.onItemChange,
+          'mouseenter': function mouseenter() {
+            return _this3.onEnterSelectPanel('second');
+          },
+          'esc': this.onEsc
+        }
+      });
+    },
+    getAMPMSelect: function getAMPMSelect() {
+      var _this4 = this;
+
+      var h = this.$createElement;
+      var prefixCls = this.prefixCls,
+          use12Hours = this.use12Hours,
+          format = this.format,
+          isAM = this.isAM;
+
+      if (!use12Hours) {
+        return null;
+      }
+
+      var AMPMOptions = ['am', 'pm'] // If format has A char, then we should uppercase AM/PM
+      .map(function (c) {
+        return format.match(/\sA/) ? c.toUpperCase() : c;
+      }).map(function (c) {
+        return { value: c };
+      });
+
+      var selected = isAM ? 0 : 1;
+
+      return h(_Select2['default'], {
+        attrs: {
+          prefixCls: prefixCls,
+          options: AMPMOptions,
+          selectedIndex: selected,
+          type: 'ampm'
+        },
+        on: {
+          'select': this.onItemChange,
+          'mouseenter': function mouseenter() {
+            return _this4.onEnterSelectPanel('ampm');
+          },
+          'esc': this.onEsc
+        }
+      });
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+    var prefixCls = this.prefixCls,
+        defaultOpenValue = this.defaultOpenValue,
+        propValue = this.value;
+
+    var value = propValue || defaultOpenValue;
+    return h(
+      'div',
+      { 'class': prefixCls + '-combobox' },
+      [this.getHourSelect(value.hour()), this.getMinuteSelect(value.minute()), this.getSecondSelect(value.second()), this.getAMPMSelect(value.hour())]
+    );
+  }
+};
+
+exports['default'] = Combobox;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-time-picker/Header.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-time-picker/Header.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var Header = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    format: _vueTypes2['default'].string,
+    prefixCls: _vueTypes2['default'].string,
+    disabledDate: _vueTypes2['default'].func,
+    placeholder: _vueTypes2['default'].string,
+    clearText: _vueTypes2['default'].string,
+    value: _vueTypes2['default'].object,
+    inputReadOnly: _vueTypes2['default'].bool.def(false),
+    hourOptions: _vueTypes2['default'].array,
+    minuteOptions: _vueTypes2['default'].array,
+    secondOptions: _vueTypes2['default'].array,
+    disabledHours: _vueTypes2['default'].func,
+    disabledMinutes: _vueTypes2['default'].func,
+    disabledSeconds: _vueTypes2['default'].func,
+    // onChange: PropTypes.func,
+    // onClear: PropTypes.func,
+    // onEsc: PropTypes.func,
+    allowEmpty: _vueTypes2['default'].bool,
+    defaultOpenValue: _vueTypes2['default'].object,
+    currentSelectPanel: _vueTypes2['default'].string,
+    focusOnOpen: _vueTypes2['default'].bool,
+    // onKeyDown: PropTypes.func,
+    clearIcon: _vueTypes2['default'].any
+  },
+  data: function data() {
+    var value = this.value,
+        format = this.format;
+
+    return {
+      str: value && value.format(format) || '',
+      invalid: false
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    if (this.focusOnOpen) {
+      // Wait one frame for the panel to be positioned before focusing
+      var requestAnimationFrame = window.requestAnimationFrame || window.setTimeout;
+      requestAnimationFrame(function () {
+        _this.$refs.input.focus();
+        _this.$refs.input.select();
+      });
+    }
+  },
+
+  watch: {
+    value: function value(val) {
+      var _this2 = this;
+
+      this.$nextTick(function () {
+        _this2.setState({
+          str: val && val.format(_this2.format) || '',
+          invalid: false
+        });
+      });
+    }
+  },
+
+  methods: {
+    onInputChange: function onInputChange(e) {
+      var _e$target = e.target,
+          str = _e$target.value,
+          composing = _e$target.composing;
+      var _str = this.str,
+          oldStr = _str === undefined ? '' : _str;
+
+      if (e.isComposing || composing || oldStr === str) return;
+
+      this.setState({
+        str: str
+      });
+      var format = this.format,
+          hourOptions = this.hourOptions,
+          minuteOptions = this.minuteOptions,
+          secondOptions = this.secondOptions,
+          disabledHours = this.disabledHours,
+          disabledMinutes = this.disabledMinutes,
+          disabledSeconds = this.disabledSeconds,
+          originalValue = this.value;
+
+
+      if (str) {
+        var value = this.getProtoValue().clone();
+        var parsed = (0, _moment2['default'])(str, format, true);
+        if (!parsed.isValid()) {
+          this.setState({
+            invalid: true
+          });
+          return;
+        }
+        value.hour(parsed.hour()).minute(parsed.minute()).second(parsed.second());
+
+        // if time value not allowed, response warning.
+        if (hourOptions.indexOf(value.hour()) < 0 || minuteOptions.indexOf(value.minute()) < 0 || secondOptions.indexOf(value.second()) < 0) {
+          this.setState({
+            invalid: true
+          });
+          return;
+        }
+
+        // if time value is disabled, response warning.
+        var disabledHourOptions = disabledHours();
+        var disabledMinuteOptions = disabledMinutes(value.hour());
+        var disabledSecondOptions = disabledSeconds(value.hour(), value.minute());
+        if (disabledHourOptions && disabledHourOptions.indexOf(value.hour()) >= 0 || disabledMinuteOptions && disabledMinuteOptions.indexOf(value.minute()) >= 0 || disabledSecondOptions && disabledSecondOptions.indexOf(value.second()) >= 0) {
+          this.setState({
+            invalid: true
+          });
+          return;
+        }
+
+        if (originalValue) {
+          if (originalValue.hour() !== value.hour() || originalValue.minute() !== value.minute() || originalValue.second() !== value.second()) {
+            // keep other fields for rc-calendar
+            var changedValue = originalValue.clone();
+            changedValue.hour(value.hour());
+            changedValue.minute(value.minute());
+            changedValue.second(value.second());
+            this.__emit('change', changedValue);
+          }
+        } else if (originalValue !== value) {
+          this.__emit('change', value);
+        }
+      } else {
+        this.__emit('change', null);
+      }
+
+      this.setState({
+        invalid: false
+      });
+    },
+    onKeyDown: function onKeyDown(e) {
+      if (e.keyCode === 27) {
+        this.__emit('esc');
+      }
+      this.__emit('keydown', e);
+    },
+    getProtoValue: function getProtoValue() {
+      return this.value || this.defaultOpenValue;
+    },
+    getInput: function getInput() {
+      var h = this.$createElement;
+      var prefixCls = this.prefixCls,
+          placeholder = this.placeholder,
+          inputReadOnly = this.inputReadOnly,
+          invalid = this.invalid,
+          str = this.str;
+
+      var invalidClass = invalid ? prefixCls + '-input-invalid' : '';
+      return h('input', (0, _babelHelperVueJsxMergeProps2['default'])([{
+        'class': prefixCls + '-input ' + invalidClass,
+        ref: 'input',
+        on: {
+          'keydown': this.onKeyDown,
+          'input': this.onInputChange
+        },
+        domProps: {
+          'value': str
+        },
+        attrs: {
+          placeholder: placeholder,
+
+          readOnly: !!inputReadOnly
+        }
+      }, {
+        directives: [{
+          name: 'ant-input'
+        }]
+      }]));
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+    var prefixCls = this.prefixCls;
+
+    return h(
+      'div',
+      { 'class': prefixCls + '-input-wrap' },
+      [this.getInput()]
+    );
+  }
+};
+
+exports['default'] = Header;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-time-picker/Panel.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-time-picker/Panel.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _Header = __webpack_require__(/*! ./Header */ "./node_modules/ant-design-vue/lib/vc-time-picker/Header.js");
+
+var _Header2 = _interopRequireDefault(_Header);
+
+var _Combobox = __webpack_require__(/*! ./Combobox */ "./node_modules/ant-design-vue/lib/vc-time-picker/Combobox.js");
+
+var _Combobox2 = _interopRequireDefault(_Combobox);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+
+function generateOptions(length, disabledOptions, hideDisabledOptions) {
+  var step = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1;
+
+  var arr = [];
+  for (var value = 0; value < length; value += step) {
+    if (!disabledOptions || disabledOptions.indexOf(value) < 0 || !hideDisabledOptions) {
+      arr.push(value);
+    }
+  }
+  return arr;
 }
 
-module.exports = toPlainObject;
+function toNearestValidTime(time, hourOptions, minuteOptions, secondOptions) {
+  var hour = hourOptions.slice().sort(function (a, b) {
+    return Math.abs(time.hour() - a) - Math.abs(time.hour() - b);
+  })[0];
+  var minute = minuteOptions.slice().sort(function (a, b) {
+    return Math.abs(time.minute() - a) - Math.abs(time.minute() - b);
+  })[0];
+  var second = secondOptions.slice().sort(function (a, b) {
+    return Math.abs(time.second() - a) - Math.abs(time.second() - b);
+  })[0];
+  return (0, _moment2['default'])(hour + ':' + minute + ':' + second, 'HH:mm:ss');
+}
 
+var Panel = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    clearText: _vueTypes2['default'].string,
+    prefixCls: _vueTypes2['default'].string.def('rc-time-picker-panel'),
+    defaultOpenValue: {
+      type: Object,
+      'default': function _default() {
+        return (0, _moment2['default'])();
+      }
+    },
+    value: _vueTypes2['default'].any,
+    defaultValue: _vueTypes2['default'].any,
+    placeholder: _vueTypes2['default'].string,
+    format: _vueTypes2['default'].string,
+    inputReadOnly: _vueTypes2['default'].bool.def(false),
+    disabledHours: _vueTypes2['default'].func.def(noop),
+    disabledMinutes: _vueTypes2['default'].func.def(noop),
+    disabledSeconds: _vueTypes2['default'].func.def(noop),
+    hideDisabledOptions: _vueTypes2['default'].bool,
+    // onChange: PropTypes.func,
+    // onEsc: PropTypes.func,
+    allowEmpty: _vueTypes2['default'].bool,
+    showHour: _vueTypes2['default'].bool,
+    showMinute: _vueTypes2['default'].bool,
+    showSecond: _vueTypes2['default'].bool,
+    // onClear: PropTypes.func,
+    use12Hours: _vueTypes2['default'].bool.def(false),
+    hourStep: _vueTypes2['default'].number,
+    minuteStep: _vueTypes2['default'].number,
+    secondStep: _vueTypes2['default'].number,
+    addon: _vueTypes2['default'].func.def(noop),
+    focusOnOpen: _vueTypes2['default'].bool,
+    // onKeydown: PropTypes.func,
+    clearIcon: _vueTypes2['default'].any
+  },
+  data: function data() {
+    return {
+      sValue: this.value,
+      selectionRange: [],
+      currentSelectPanel: ''
+    };
+  },
+
+  watch: {
+    value: function value(val) {
+      this.setState({
+        sValue: val
+      });
+    }
+  },
+
+  methods: {
+    onChange: function onChange(newValue) {
+      this.setState({ sValue: newValue });
+      this.__emit('change', newValue);
+    },
+    onAmPmChange: function onAmPmChange(ampm) {
+      this.__emit('amPmChange', ampm);
+    },
+    onCurrentSelectPanelChange: function onCurrentSelectPanelChange(currentSelectPanel) {
+      this.setState({ currentSelectPanel: currentSelectPanel });
+    },
+
+
+    // https://github.com/ant-design/ant-design/issues/5829
+    close: function close() {
+      this.__emit('esc');
+    },
+    onEsc: function onEsc(e) {
+      this.__emit('esc', e);
+    },
+    disabledHours2: function disabledHours2() {
+      var use12Hours = this.use12Hours,
+          disabledHours = this.disabledHours;
+
+      var disabledOptions = disabledHours();
+      if (use12Hours && Array.isArray(disabledOptions)) {
+        if (this.isAM()) {
+          disabledOptions = disabledOptions.filter(function (h) {
+            return h < 12;
+          }).map(function (h) {
+            return h === 0 ? 12 : h;
+          });
+        } else {
+          disabledOptions = disabledOptions.map(function (h) {
+            return h === 12 ? 12 : h - 12;
+          });
+        }
+      }
+      return disabledOptions;
+    },
+    isAM: function isAM() {
+      var value = this.sValue || this.defaultOpenValue;
+      return value.hour() >= 0 && value.hour() < 12;
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+    var prefixCls = this.prefixCls,
+        placeholder = this.placeholder,
+        disabledMinutes = this.disabledMinutes,
+        addon = this.addon,
+        disabledSeconds = this.disabledSeconds,
+        hideDisabledOptions = this.hideDisabledOptions,
+        showHour = this.showHour,
+        showMinute = this.showMinute,
+        showSecond = this.showSecond,
+        format = this.format,
+        defaultOpenValue = this.defaultOpenValue,
+        clearText = this.clearText,
+        use12Hours = this.use12Hours,
+        focusOnOpen = this.focusOnOpen,
+        hourStep = this.hourStep,
+        minuteStep = this.minuteStep,
+        secondStep = this.secondStep,
+        inputReadOnly = this.inputReadOnly,
+        sValue = this.sValue,
+        currentSelectPanel = this.currentSelectPanel;
+
+    var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
+
+    var _getListeners = (0, _propsUtil.getListeners)(this),
+        _getListeners$esc = _getListeners.esc,
+        esc = _getListeners$esc === undefined ? noop : _getListeners$esc,
+        _getListeners$keydown = _getListeners.keydown,
+        keydown = _getListeners$keydown === undefined ? noop : _getListeners$keydown;
+
+    var disabledHourOptions = this.disabledHours2();
+    var disabledMinuteOptions = disabledMinutes(sValue ? sValue.hour() : null);
+    var disabledSecondOptions = disabledSeconds(sValue ? sValue.hour() : null, sValue ? sValue.minute() : null);
+    var hourOptions = generateOptions(24, disabledHourOptions, hideDisabledOptions, hourStep);
+    var minuteOptions = generateOptions(60, disabledMinuteOptions, hideDisabledOptions, minuteStep);
+    var secondOptions = generateOptions(60, disabledSecondOptions, hideDisabledOptions, secondStep);
+    var validDefaultOpenValue = toNearestValidTime(defaultOpenValue, hourOptions, minuteOptions, secondOptions);
+    return h(
+      'div',
+      { 'class': prefixCls + '-inner' },
+      [h(_Header2['default'], {
+        attrs: {
+          clearText: clearText,
+          prefixCls: prefixCls,
+          defaultOpenValue: validDefaultOpenValue,
+          value: sValue,
+          currentSelectPanel: currentSelectPanel,
+
+          format: format,
+          placeholder: placeholder,
+          hourOptions: hourOptions,
+          minuteOptions: minuteOptions,
+          secondOptions: secondOptions,
+          disabledHours: this.disabledHours2,
+          disabledMinutes: disabledMinutes,
+          disabledSeconds: disabledSeconds,
+
+          focusOnOpen: focusOnOpen,
+
+          inputReadOnly: inputReadOnly,
+          clearIcon: clearIcon
+        },
+        on: {
+          'esc': esc,
+          'change': this.onChange,
+          'keydown': keydown
+        }
+      }), h(_Combobox2['default'], {
+        attrs: {
+          prefixCls: prefixCls,
+          value: sValue,
+          defaultOpenValue: validDefaultOpenValue,
+          format: format,
+
+          showHour: showHour,
+          showMinute: showMinute,
+          showSecond: showSecond,
+          hourOptions: hourOptions,
+          minuteOptions: minuteOptions,
+          secondOptions: secondOptions,
+          disabledHours: this.disabledHours2,
+          disabledMinutes: disabledMinutes,
+          disabledSeconds: disabledSeconds,
+
+          use12Hours: use12Hours,
+
+          isAM: this.isAM()
+        },
+        on: {
+          'change': this.onChange,
+          'amPmChange': this.onAmPmChange,
+          'currentSelectPanelChange': this.onCurrentSelectPanelChange,
+          'esc': this.onEsc
+        }
+      }), addon(this)]
+    );
+  }
+};
+
+exports['default'] = Panel;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-time-picker/Select.js":
+/*!******************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-time-picker/Select.js ***!
+  \******************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _classnames2 = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames3 = _interopRequireDefault(_classnames2);
+
+var _raf = __webpack_require__(/*! raf */ "./node_modules/raf/index.js");
+
+var _raf2 = _interopRequireDefault(_raf);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+var scrollTo = function scrollTo(element, to, duration) {
+  // jump to target if duration zero
+  if (duration <= 0) {
+    (0, _raf2['default'])(function () {
+      element.scrollTop = to;
+    });
+    return;
+  }
+  var difference = to - element.scrollTop;
+  var perTick = difference / duration * 10;
+
+  (0, _raf2['default'])(function () {
+    element.scrollTop += perTick;
+    if (element.scrollTop === to) return;
+    scrollTo(element, to, duration - 10);
+  });
+};
+
+var Select = {
+  mixins: [_BaseMixin2['default']],
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    options: _vueTypes2['default'].array,
+    selectedIndex: _vueTypes2['default'].number,
+    type: _vueTypes2['default'].string
+    // onSelect: PropTypes.func,
+    // onMouseEnter: PropTypes.func,
+  },
+  data: function data() {
+    return {
+      active: false
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      // jump to selected option
+      _this.scrollToSelected(0);
+    });
+  },
+
+  watch: {
+    selectedIndex: function selectedIndex() {
+      var _this2 = this;
+
+      this.$nextTick(function () {
+        // smooth scroll to selected option
+        _this2.scrollToSelected(120);
+      });
+    }
+  },
+  methods: {
+    onSelect: function onSelect(value) {
+      var type = this.type;
+
+      this.__emit('select', type, value);
+    },
+    onEsc: function onEsc(e) {
+      this.__emit('esc', e);
+    },
+    getOptions: function getOptions() {
+      var _this3 = this;
+
+      var h = this.$createElement;
+      var options = this.options,
+          selectedIndex = this.selectedIndex,
+          prefixCls = this.prefixCls;
+
+      return options.map(function (item, index) {
+        var _classnames;
+
+        var cls = (0, _classnames3['default'])((_classnames = {}, (0, _defineProperty3['default'])(_classnames, prefixCls + '-select-option-selected', selectedIndex === index), (0, _defineProperty3['default'])(_classnames, prefixCls + '-select-option-disabled', item.disabled), _classnames));
+        var onClick = item.disabled ? noop : function () {
+          _this3.onSelect(item.value);
+        };
+        var onKeyDown = function onKeyDown(e) {
+          if (e.keyCode === 13) onClick();else if (e.keyCode === 27) _this3.onEsc();
+        };
+        return h(
+          'li',
+          {
+            attrs: {
+              role: 'button',
+
+              disabled: item.disabled,
+              tabIndex: '0'
+            },
+            on: {
+              'click': onClick,
+              'keydown': onKeyDown
+            },
+
+            'class': cls,
+            key: index },
+          [item.value]
+        );
+      });
+    },
+    handleMouseEnter: function handleMouseEnter(e) {
+      this.setState({ active: true });
+      this.__emit('mouseenter', e);
+    },
+    handleMouseLeave: function handleMouseLeave() {
+      this.setState({ active: false });
+    },
+    scrollToSelected: function scrollToSelected(duration) {
+      // move to selected item
+      var select = this.$el;
+      var list = this.$refs.list;
+      if (!list) {
+        return;
+      }
+      var index = this.selectedIndex;
+      if (index < 0) {
+        index = 0;
+      }
+      var topOption = list.children[index];
+      var to = topOption.offsetTop;
+      scrollTo(select, to, duration);
+    }
+  },
+
+  render: function render() {
+    var _cls;
+
+    var h = arguments[0];
+    var prefixCls = this.prefixCls,
+        options = this.options,
+        active = this.active;
+
+    if (options.length === 0) {
+      return null;
+    }
+
+    var cls = (_cls = {}, (0, _defineProperty3['default'])(_cls, prefixCls + '-select', 1), (0, _defineProperty3['default'])(_cls, prefixCls + '-select-active', active), _cls);
+
+    return h(
+      'div',
+      { 'class': cls, on: {
+          'mouseenter': this.handleMouseEnter,
+          'mouseleave': this.handleMouseLeave
+        }
+      },
+      [h(
+        'ul',
+        { ref: 'list' },
+        [this.getOptions()]
+      )]
+    );
+  }
+};
+
+exports['default'] = Select;
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-time-picker/TimePicker.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-time-picker/TimePicker.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _moment = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _vcTrigger = __webpack_require__(/*! ../vc-trigger */ "./node_modules/ant-design-vue/lib/vc-trigger/index.js");
+
+var _vcTrigger2 = _interopRequireDefault(_vcTrigger);
+
+var _Panel = __webpack_require__(/*! ./Panel */ "./node_modules/ant-design-vue/lib/vc-time-picker/Panel.js");
+
+var _Panel2 = _interopRequireDefault(_Panel);
+
+var _placements = __webpack_require__(/*! ./placements */ "./node_modules/ant-design-vue/lib/vc-time-picker/placements.js");
+
+var _placements2 = _interopRequireDefault(_placements);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function noop() {}
+
+exports['default'] = {
+  name: 'VcTimePicker',
+  mixins: [_BaseMixin2['default']],
+  props: (0, _propsUtil.initDefaultProps)({
+    prefixCls: _vueTypes2['default'].string,
+    clearText: _vueTypes2['default'].string,
+    value: _vueTypes2['default'].any,
+    defaultOpenValue: {
+      type: Object,
+      'default': function _default() {
+        return (0, _moment2['default'])();
+      }
+    },
+    inputReadOnly: _vueTypes2['default'].bool,
+    disabled: _vueTypes2['default'].bool,
+    allowEmpty: _vueTypes2['default'].bool,
+    defaultValue: _vueTypes2['default'].any,
+    open: _vueTypes2['default'].bool,
+    defaultOpen: _vueTypes2['default'].bool,
+    align: _vueTypes2['default'].object,
+    placement: _vueTypes2['default'].any,
+    transitionName: _vueTypes2['default'].string,
+    getPopupContainer: _vueTypes2['default'].func,
+    placeholder: _vueTypes2['default'].string,
+    format: _vueTypes2['default'].string,
+    showHour: _vueTypes2['default'].bool,
+    showMinute: _vueTypes2['default'].bool,
+    showSecond: _vueTypes2['default'].bool,
+    popupClassName: _vueTypes2['default'].string,
+    popupStyle: _vueTypes2['default'].object,
+    disabledHours: _vueTypes2['default'].func,
+    disabledMinutes: _vueTypes2['default'].func,
+    disabledSeconds: _vueTypes2['default'].func,
+    hideDisabledOptions: _vueTypes2['default'].bool,
+    // onChange: PropTypes.func,
+    // onAmPmChange: PropTypes.func,
+    // onOpen: PropTypes.func,
+    // onClose: PropTypes.func,
+    // onFocus: PropTypes.func,
+    // onBlur: PropTypes.func,
+    name: _vueTypes2['default'].string,
+    autoComplete: _vueTypes2['default'].string,
+    use12Hours: _vueTypes2['default'].bool,
+    hourStep: _vueTypes2['default'].number,
+    minuteStep: _vueTypes2['default'].number,
+    secondStep: _vueTypes2['default'].number,
+    focusOnOpen: _vueTypes2['default'].bool,
+    // onKeyDown: PropTypes.func,
+    autoFocus: _vueTypes2['default'].bool,
+    id: _vueTypes2['default'].string,
+    inputIcon: _vueTypes2['default'].any,
+    clearIcon: _vueTypes2['default'].any,
+    addon: _vueTypes2['default'].func
+  }, {
+    clearText: 'clear',
+    prefixCls: 'rc-time-picker',
+    defaultOpen: false,
+    inputReadOnly: false,
+    popupClassName: '',
+    popupStyle: {},
+    align: {},
+    allowEmpty: true,
+    showHour: true,
+    showMinute: true,
+    showSecond: true,
+    disabledHours: noop,
+    disabledMinutes: noop,
+    disabledSeconds: noop,
+    hideDisabledOptions: false,
+    placement: 'bottomLeft',
+    use12Hours: false,
+    focusOnOpen: false
+  }),
+  data: function data() {
+    var defaultOpen = this.defaultOpen,
+        defaultValue = this.defaultValue,
+        _open = this.open,
+        open = _open === undefined ? defaultOpen : _open,
+        _value = this.value,
+        value = _value === undefined ? defaultValue : _value;
+
+    return {
+      sOpen: open,
+      sValue: value
+    };
+  },
+
+
+  watch: {
+    value: function value(val) {
+      this.setState({
+        sValue: val
+      });
+    },
+    open: function open(val) {
+      if (val !== undefined) {
+        this.setState({
+          sOpen: val
+        });
+      }
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$nextTick(function () {
+      if (_this.autoFocus) {
+        _this.focus();
+      }
+    });
+  },
+
+  methods: {
+    onPanelChange: function onPanelChange(value) {
+      this.setValue(value);
+    },
+    onAmPmChange: function onAmPmChange(ampm) {
+      this.__emit('amPmChange', ampm);
+    },
+    onClear: function onClear(event) {
+      event.stopPropagation();
+      this.setValue(null);
+      this.setOpen(false);
+    },
+    onVisibleChange: function onVisibleChange(open) {
+      this.setOpen(open);
+    },
+    onEsc: function onEsc() {
+      this.setOpen(false);
+      this.focus();
+    },
+    onKeyDown: function onKeyDown(e) {
+      if (e.keyCode === 40) {
+        this.setOpen(true);
+      }
+    },
+    onKeyDown2: function onKeyDown2(e) {
+      this.__emit('keydown', e);
+    },
+    setValue: function setValue(value) {
+      if (!(0, _propsUtil.hasProp)(this, 'value')) {
+        this.setState({
+          sValue: value
+        });
+      }
+      this.__emit('change', value);
+    },
+    getFormat: function getFormat() {
+      var format = this.format,
+          showHour = this.showHour,
+          showMinute = this.showMinute,
+          showSecond = this.showSecond,
+          use12Hours = this.use12Hours;
+
+      if (format) {
+        return format;
+      }
+
+      if (use12Hours) {
+        var fmtString = [showHour ? 'h' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : ''].filter(function (item) {
+          return !!item;
+        }).join(':');
+
+        return fmtString.concat(' a');
+      }
+
+      return [showHour ? 'HH' : '', showMinute ? 'mm' : '', showSecond ? 'ss' : ''].filter(function (item) {
+        return !!item;
+      }).join(':');
+    },
+    getPanelElement: function getPanelElement() {
+      var h = this.$createElement;
+      var prefixCls = this.prefixCls,
+          placeholder = this.placeholder,
+          disabledHours = this.disabledHours,
+          addon = this.addon,
+          disabledMinutes = this.disabledMinutes,
+          disabledSeconds = this.disabledSeconds,
+          hideDisabledOptions = this.hideDisabledOptions,
+          inputReadOnly = this.inputReadOnly,
+          showHour = this.showHour,
+          showMinute = this.showMinute,
+          showSecond = this.showSecond,
+          defaultOpenValue = this.defaultOpenValue,
+          clearText = this.clearText,
+          use12Hours = this.use12Hours,
+          focusOnOpen = this.focusOnOpen,
+          onKeyDown2 = this.onKeyDown2,
+          hourStep = this.hourStep,
+          minuteStep = this.minuteStep,
+          secondStep = this.secondStep,
+          sValue = this.sValue;
+
+      var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
+      return h(_Panel2['default'], {
+        attrs: {
+          clearText: clearText,
+          prefixCls: prefixCls + '-panel',
+
+          value: sValue,
+          inputReadOnly: inputReadOnly,
+
+          defaultOpenValue: defaultOpenValue,
+          showHour: showHour,
+          showMinute: showMinute,
+          showSecond: showSecond,
+
+          format: this.getFormat(),
+          placeholder: placeholder,
+          disabledHours: disabledHours,
+          disabledMinutes: disabledMinutes,
+          disabledSeconds: disabledSeconds,
+          hideDisabledOptions: hideDisabledOptions,
+          use12Hours: use12Hours,
+          hourStep: hourStep,
+          minuteStep: minuteStep,
+          secondStep: secondStep,
+          focusOnOpen: focusOnOpen,
+
+          clearIcon: clearIcon,
+          addon: addon
+        },
+        ref: 'panel', on: {
+          'change': this.onPanelChange,
+          'amPmChange': this.onAmPmChange,
+          'esc': this.onEsc,
+          'keydown': onKeyDown2
+        }
+      });
+    },
+    getPopupClassName: function getPopupClassName() {
+      var showHour = this.showHour,
+          showMinute = this.showMinute,
+          showSecond = this.showSecond,
+          use12Hours = this.use12Hours,
+          prefixCls = this.prefixCls,
+          popupClassName = this.popupClassName;
+
+
+      var selectColumnCount = 0;
+      if (showHour) {
+        selectColumnCount += 1;
+      }
+      if (showMinute) {
+        selectColumnCount += 1;
+      }
+      if (showSecond) {
+        selectColumnCount += 1;
+      }
+      if (use12Hours) {
+        selectColumnCount += 1;
+      }
+      // Keep it for old compatibility
+      return (0, _classnames2['default'])(popupClassName, (0, _defineProperty3['default'])({}, prefixCls + '-panel-narrow', (!showHour || !showMinute || !showSecond) && !use12Hours), prefixCls + '-panel-column-' + selectColumnCount);
+    },
+    setOpen: function setOpen(open) {
+      if (this.sOpen !== open) {
+        if (!(0, _propsUtil.hasProp)(this, 'open')) {
+          this.setState({ sOpen: open });
+        }
+        if (open) {
+          this.__emit('open', { open: open });
+        } else {
+          this.__emit('close', { open: open });
+        }
+      }
+    },
+    focus: function focus() {
+      this.$refs.picker.focus();
+    },
+    blur: function blur() {
+      this.$refs.picker.blur();
+    },
+    onFocus: function onFocus(e) {
+      this.__emit('focus', e);
+    },
+    onBlur: function onBlur(e) {
+      this.__emit('blur', e);
+    },
+    renderClearButton: function renderClearButton() {
+      var _this2 = this;
+
+      var h = this.$createElement;
+      var sValue = this.sValue;
+      var _$props = this.$props,
+          prefixCls = _$props.prefixCls,
+          allowEmpty = _$props.allowEmpty,
+          clearText = _$props.clearText,
+          disabled = _$props.disabled;
+
+      if (!allowEmpty || !sValue || disabled) {
+        return null;
+      }
+      var clearIcon = (0, _propsUtil.getComponentFromProp)(this, 'clearIcon');
+      if ((0, _propsUtil.isValidElement)(clearIcon)) {
+        var _ref = (0, _propsUtil.getEvents)(clearIcon) || {},
+            _click = _ref.click;
+
+        return (0, _vnode.cloneElement)(clearIcon, {
+          on: {
+            click: function click() {
+              if (_click) _click.apply(undefined, arguments);
+              _this2.onClear.apply(_this2, arguments);
+            }
+          }
+        });
+      }
+
+      return h(
+        'a',
+        {
+          attrs: {
+            role: 'button',
+
+            title: clearText,
+
+            tabIndex: 0
+          },
+          'class': prefixCls + '-clear', on: {
+            'click': this.onClear
+          }
+        },
+        [clearIcon || h('i', { 'class': prefixCls + '-clear-icon' })]
+      );
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+    var prefixCls = this.prefixCls,
+        placeholder = this.placeholder,
+        placement = this.placement,
+        align = this.align,
+        id = this.id,
+        disabled = this.disabled,
+        transitionName = this.transitionName,
+        getPopupContainer = this.getPopupContainer,
+        name = this.name,
+        autoComplete = this.autoComplete,
+        autoFocus = this.autoFocus,
+        inputReadOnly = this.inputReadOnly,
+        sOpen = this.sOpen,
+        sValue = this.sValue,
+        onFocus = this.onFocus,
+        onBlur = this.onBlur,
+        popupStyle = this.popupStyle;
+
+    var popupClassName = this.getPopupClassName();
+    var inputIcon = (0, _propsUtil.getComponentFromProp)(this, 'inputIcon');
+    return h(
+      _vcTrigger2['default'],
+      {
+        attrs: {
+          prefixCls: prefixCls + '-panel',
+          popupClassName: popupClassName,
+          popupStyle: popupStyle,
+          popupAlign: align,
+          builtinPlacements: _placements2['default'],
+          popupPlacement: placement,
+          action: disabled ? [] : ['click'],
+          destroyPopupOnHide: true,
+          getPopupContainer: getPopupContainer,
+          popupTransitionName: transitionName,
+          popupVisible: sOpen
+        },
+        on: {
+          'popupVisibleChange': this.onVisibleChange
+        }
+      },
+      [h(
+        'template',
+        { slot: 'popup' },
+        [this.getPanelElement()]
+      ), h(
+        'span',
+        { 'class': '' + prefixCls },
+        [h('input', {
+          'class': prefixCls + '-input',
+          ref: 'picker',
+          attrs: { type: 'text',
+            placeholder: placeholder,
+            name: name,
+
+            disabled: disabled,
+
+            autoComplete: autoComplete,
+
+            autoFocus: autoFocus,
+            readOnly: !!inputReadOnly,
+            id: id
+          },
+          on: {
+            'keydown': this.onKeyDown,
+            'focus': onFocus,
+            'blur': onBlur
+          },
+          domProps: {
+            'value': sValue && sValue.format(this.getFormat()) || ''
+          }
+        }), inputIcon || h('span', { 'class': prefixCls + '-icon' }), this.renderClearButton()]
+      )]
+    );
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-time-picker/index.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-time-picker/index.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _TimePicker = __webpack_require__(/*! ./TimePicker */ "./node_modules/ant-design-vue/lib/vc-time-picker/TimePicker.js");
+
+Object.defineProperty(exports, 'default', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_TimePicker)['default'];
+  }
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-time-picker/placements.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-time-picker/placements.js ***!
+  \**********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var autoAdjustOverflow = {
+  adjustX: 1,
+  adjustY: 1
+};
+
+var targetOffset = [0, 0];
+
+var placements = {
+  bottomLeft: {
+    points: ['tl', 'tl'],
+    overflow: autoAdjustOverflow,
+    offset: [0, -3],
+    targetOffset: targetOffset
+  },
+  bottomRight: {
+    points: ['tr', 'tr'],
+    overflow: autoAdjustOverflow,
+    offset: [0, -3],
+    targetOffset: targetOffset
+  },
+  topRight: {
+    points: ['br', 'br'],
+    overflow: autoAdjustOverflow,
+    offset: [0, 3],
+    targetOffset: targetOffset
+  },
+  topLeft: {
+    points: ['bl', 'bl'],
+    overflow: autoAdjustOverflow,
+    offset: [0, 3],
+    targetOffset: targetOffset
+  }
+};
+
+exports['default'] = placements;
 
 /***/ })
 

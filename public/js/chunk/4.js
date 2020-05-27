@@ -1,8 +1,138 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[4],{
 
-/***/ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js":
+/***/ "./node_modules/ant-design-vue/lib/_util/easings.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/easings.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.easeInOutCubic = easeInOutCubic;
+function easeInOutCubic(t, b, c, d) {
+  var cc = c - b;
+  t /= d / 2;
+  if (t < 1) {
+    return cc / 2 * t * t * t + b;
+  }
+  return cc / 2 * ((t -= 2) * t * t + 2) + b;
+}
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/_util/getScroll.js":
+/*!************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/getScroll.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = getScroll;
+function getScroll(target, top) {
+  if (typeof window === 'undefined') {
+    return 0;
+  }
+
+  var prop = top ? 'pageYOffset' : 'pageXOffset';
+  var method = top ? 'scrollTop' : 'scrollLeft';
+  var isWindow = target === window;
+
+  var ret = isWindow ? target[prop] : target[method];
+  // ie6,7,8 standard mode
+  if (isWindow && typeof ret !== 'number') {
+    ret = window.document.documentElement[method];
+  }
+
+  return ret;
+}
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/_util/scrollTo.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/scrollTo.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports['default'] = scrollTo;
+
+var _raf = __webpack_require__(/*! raf */ "./node_modules/raf/index.js");
+
+var _raf2 = _interopRequireDefault(_raf);
+
+var _getScroll = __webpack_require__(/*! ./getScroll */ "./node_modules/ant-design-vue/lib/_util/getScroll.js");
+
+var _getScroll2 = _interopRequireDefault(_getScroll);
+
+var _easings = __webpack_require__(/*! ./easings */ "./node_modules/ant-design-vue/lib/_util/easings.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// interface ScrollToOptions {
+//   /** Scroll container, default as window */
+//   getContainer?: () => HTMLElement | Window;
+//   /** Scroll end callback */
+//   callback?: () => any;
+//   /** Animation duration, default as 450 */
+//   duration?: number;
+// }
+
+function scrollTo(y) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$getContainer = options.getContainer,
+      getContainer = _options$getContainer === undefined ? function () {
+    return window;
+  } : _options$getContainer,
+      callback = options.callback,
+      _options$duration = options.duration,
+      duration = _options$duration === undefined ? 450 : _options$duration;
+
+
+  var container = getContainer();
+  var scrollTop = (0, _getScroll2['default'])(container, true);
+  var startTime = Date.now();
+
+  var frameFunc = function frameFunc() {
+    var timestamp = Date.now();
+    var time = timestamp - startTime;
+    var nextScrollTop = (0, _easings.easeInOutCubic)(time > duration ? duration : time, scrollTop, y, duration);
+    if (container === window) {
+      window.scrollTo(window.pageXOffset, nextScrollTop);
+    } else {
+      container.scrollTop = nextScrollTop;
+    }
+    if (time < duration) {
+      (0, _raf2['default'])(frameFunc);
+    } else if (typeof callback === 'function') {
+      callback();
+    }
+  };
+  (0, _raf2['default'])(frameFunc);
+}
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/_util/transButton.js":
 /*!**************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/checkbox/Checkbox.js ***!
+  !*** ./node_modules/ant-design-vue/lib/_util/transButton.js ***!
   \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -18,331 +148,97 @@ var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-
 
 var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+var _KeyCode = __webpack_require__(/*! ./KeyCode */ "./node_modules/ant-design-vue/lib/_util/KeyCode.js");
 
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+var _KeyCode2 = _interopRequireDefault(_KeyCode);
 
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+var _vueTypes = __webpack_require__(/*! ./vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _vcCheckbox = __webpack_require__(/*! ../vc-checkbox */ "./node_modules/ant-design-vue/lib/vc-checkbox/index.js");
-
-var _vcCheckbox2 = _interopRequireDefault(_vcCheckbox);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function noop() {}
+/**
+ * Wrap of sub component which need use as Button capacity (like Icon component).
+ * This helps accessibility reader to tread as a interactive button to operation.
+ */
+var inlineStyle = {
+  border: 0,
+  background: 'transparent',
+  padding: 0,
+  lineHeight: 'inherit',
+  display: 'inline-block'
+};
 
-exports['default'] = {
-  name: 'ACheckbox',
-  inheritAttrs: false,
-  model: {
-    prop: 'checked'
-  },
+var TransButton = {
   props: {
-    prefixCls: _vueTypes2['default'].string,
-    defaultChecked: _vueTypes2['default'].bool,
-    checked: _vueTypes2['default'].bool,
-    disabled: _vueTypes2['default'].bool,
-    isGroup: _vueTypes2['default'].bool,
-    value: _vueTypes2['default'].any,
-    name: _vueTypes2['default'].string,
-    id: _vueTypes2['default'].string,
-    indeterminate: _vueTypes2['default'].bool,
-    type: _vueTypes2['default'].string.def('checkbox'),
-    autoFocus: _vueTypes2['default'].bool
+    noStyle: _vueTypes2['default'].bool
   },
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } },
-    checkboxGroupContext: { 'default': function _default() {
-        return null;
-      } }
-  },
+
   methods: {
-    handleChange: function handleChange(event) {
-      var targetChecked = event.target.checked;
-      this.$emit('input', targetChecked);
-      this.$emit('change', event);
+    onKeyDown: function onKeyDown(event) {
+      var keyCode = event.keyCode;
+
+      if (keyCode === _KeyCode2['default'].ENTER) {
+        event.preventDefault();
+      }
+    },
+    onKeyUp: function onKeyUp(event) {
+      var keyCode = event.keyCode;
+
+      if (keyCode === _KeyCode2['default'].ENTER) {
+        this.$emit('click', event);
+      }
+    },
+    setRef: function setRef(btn) {
+      this.div = btn;
     },
     focus: function focus() {
-      this.$refs.vcCheckbox.focus();
+      if (this.div) {
+        this.div.focus();
+      }
     },
     blur: function blur() {
-      this.$refs.vcCheckbox.blur();
+      if (this.div) {
+        this.div.blur();
+      }
     }
   },
 
   render: function render() {
-    var _this = this,
-        _classNames;
-
     var h = arguments[0];
-    var checkboxGroup = this.checkboxGroupContext,
-        $listeners = this.$listeners,
-        $slots = this.$slots;
-
-    var props = (0, _propsUtil.getOptionProps)(this);
-    var children = $slots['default'];
-    var _$listeners$mouseente = $listeners.mouseenter,
-        mouseenter = _$listeners$mouseente === undefined ? noop : _$listeners$mouseente,
-        _$listeners$mouseleav = $listeners.mouseleave,
-        mouseleave = _$listeners$mouseleav === undefined ? noop : _$listeners$mouseleav,
-        input = $listeners.input,
-        restListeners = (0, _objectWithoutProperties3['default'])($listeners, ['mouseenter', 'mouseleave', 'input']);
-    var customizePrefixCls = props.prefixCls,
-        indeterminate = props.indeterminate,
-        restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls', 'indeterminate']);
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('checkbox', customizePrefixCls);
-
-    var checkboxProps = {
-      props: (0, _extends3['default'])({}, restProps, { prefixCls: prefixCls }),
-      on: restListeners,
-      attrs: (0, _propsUtil.getAttrs)(this)
-    };
-    if (checkboxGroup) {
-      checkboxProps.on.change = function () {
-        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-          args[_key] = arguments[_key];
-        }
-
-        _this.$emit.apply(_this, ['change'].concat(args));
-        checkboxGroup.toggleOption({ label: children, value: props.value });
-      };
-      checkboxProps.props.checked = checkboxGroup.sValue.indexOf(props.value) !== -1;
-      checkboxProps.props.disabled = props.disabled || checkboxGroup.disabled;
-    } else {
-      checkboxProps.on.change = this.handleChange;
-    }
-    var classString = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper-checked', checkboxProps.props.checked), (0, _defineProperty3['default'])(_classNames, prefixCls + '-wrapper-disabled', checkboxProps.props.disabled), _classNames));
-    var checkboxClass = (0, _classnames2['default'])((0, _defineProperty3['default'])({}, prefixCls + '-indeterminate', indeterminate));
-    return h(
-      'label',
-      { 'class': classString, on: {
-          'mouseenter': mouseenter,
-          'mouseleave': mouseleave
-        }
-      },
-      [h(_vcCheckbox2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([checkboxProps, { 'class': checkboxClass, ref: 'vcCheckbox' }])), children !== undefined && h('span', [children])]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/checkbox/Group.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/checkbox/Group.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
+    var noStyle = this.$props.noStyle;
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js");
-
-var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _propsUtil2 = _interopRequireDefault(_propsUtil);
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function noop() {}
-exports['default'] = {
-  name: 'ACheckboxGroup',
-  model: {
-    prop: 'value'
-  },
-  props: {
-    prefixCls: _vueTypes2['default'].string,
-    defaultValue: _vueTypes2['default'].array,
-    value: _vueTypes2['default'].array,
-    options: _vueTypes2['default'].array.def([]),
-    disabled: _vueTypes2['default'].bool
-  },
-  provide: function provide() {
-    return {
-      checkboxGroupContext: this
-    };
-  },
-
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  data: function data() {
-    var value = this.value,
-        defaultValue = this.defaultValue;
-
-    return {
-      sValue: value || defaultValue || []
-    };
-  },
-
-  watch: {
-    value: function value(val) {
-      this.sValue = val || [];
-    }
-  },
-  methods: {
-    getOptions: function getOptions() {
-      var options = this.options,
-          $scopedSlots = this.$scopedSlots;
-
-      return options.map(function (option) {
-        if (typeof option === 'string') {
-          return {
-            label: option,
-            value: option
-          };
-        }
-        var label = option.label;
-        if (label === undefined && $scopedSlots.label) {
-          label = $scopedSlots.label(option);
-        }
-        return (0, _extends3['default'])({}, option, { label: label });
-      });
-    },
-    toggleOption: function toggleOption(option) {
-      var optionIndex = this.sValue.indexOf(option.value);
-      var value = [].concat((0, _toConsumableArray3['default'])(this.sValue));
-      if (optionIndex === -1) {
-        value.push(option.value);
-      } else {
-        value.splice(optionIndex, 1);
-      }
-      if (!(0, _propsUtil2['default'])(this, 'value')) {
-        this.sValue = value;
-      }
-      this.$emit('input', value);
-      this.$emit('change', value);
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var props = this.$props,
-        state = this.$data,
-        $slots = this.$slots;
-    var customizePrefixCls = props.prefixCls,
-        options = props.options;
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('checkbox', customizePrefixCls);
-
-    var children = $slots['default'];
-    var groupPrefixCls = prefixCls + '-group';
-    if (options && options.length > 0) {
-      children = this.getOptions().map(function (option) {
-        return h(
-          _Checkbox2['default'],
-          {
-            attrs: {
-              prefixCls: prefixCls,
-
-              disabled: 'disabled' in option ? option.disabled : props.disabled,
-              value: option.value,
-              checked: state.sValue.indexOf(option.value) !== -1
-            },
-            key: option.value.toString(), on: {
-              'change': option.onChange || noop
-            },
-
-            'class': groupPrefixCls + '-item'
-          },
-          [option.label]
-        );
-      });
-    }
     return h(
       'div',
-      { 'class': groupPrefixCls },
-      [children]
+      (0, _babelHelperVueJsxMergeProps2['default'])([{
+        attrs: {
+          role: 'button',
+          tabIndex: 0
+        }
+      }, {
+        directives: [{
+          name: 'ant-ref',
+          value: this.setRef
+        }],
+        on: (0, _extends3['default'])({}, this.$listeners, {
+          keydown: this.onKeyDown,
+          keyup: this.onKeyUp
+        })
+      }, {
+        style: (0, _extends3['default'])({}, !noStyle ? inlineStyle : null)
+      }]),
+      [this.$slots['default']]
     );
   }
 };
 
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/checkbox/index.js":
-/*!***********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/checkbox/index.js ***!
-  \***********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _Checkbox = __webpack_require__(/*! ./Checkbox */ "./node_modules/ant-design-vue/lib/checkbox/Checkbox.js");
-
-var _Checkbox2 = _interopRequireDefault(_Checkbox);
-
-var _Group = __webpack_require__(/*! ./Group */ "./node_modules/ant-design-vue/lib/checkbox/Group.js");
-
-var _Group2 = _interopRequireDefault(_Group);
-
-var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
-
-var _base2 = _interopRequireDefault(_base);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-_Checkbox2['default'].Group = _Group2['default'];
-
-/* istanbul ignore next */
-_Checkbox2['default'].install = function (Vue) {
-  Vue.use(_base2['default']);
-  Vue.component(_Checkbox2['default'].name, _Checkbox2['default']);
-  Vue.component(_Group2['default'].name, _Group2['default']);
-};
-
-exports['default'] = _Checkbox2['default'];
+exports['default'] = TransButton;
 
 /***/ }),
 
@@ -383,7 +279,7 @@ exports['default'] = {
       props: (0, _extends3['default'])({}, selectOptionsProps, {
         size: 'small'
       }),
-      on: this.$listeners
+      on: (0, _propsUtil.getListeners)(this)
     };
     return h(
       _select2['default'],
@@ -456,6 +352,7 @@ var PaginationProps = exports.PaginationProps = function PaginationProps() {
   return {
     total: _vueTypes2['default'].number,
     defaultCurrent: _vueTypes2['default'].number,
+    disabled: _vueTypes2['default'].bool,
     current: _vueTypes2['default'].number,
     defaultPageSize: _vueTypes2['default'].number,
     pageSize: _vueTypes2['default'].number,
@@ -464,7 +361,7 @@ var PaginationProps = exports.PaginationProps = function PaginationProps() {
     pageSizeOptions: _vueTypes2['default'].arrayOf(_vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string])),
     buildOptionText: _vueTypes2['default'].func,
     showSizeChange: _vueTypes2['default'].func,
-    showQuickJumper: _vueTypes2['default'].bool,
+    showQuickJumper: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].object]),
     showTotal: _vueTypes2['default'].any,
     size: _vueTypes2['default'].string,
     simple: _vueTypes2['default'].bool,
@@ -472,7 +369,8 @@ var PaginationProps = exports.PaginationProps = function PaginationProps() {
     prefixCls: _vueTypes2['default'].string,
     selectPrefixCls: _vueTypes2['default'].string,
     itemRender: _vueTypes2['default'].any,
-    role: _vueTypes2['default'].string
+    role: _vueTypes2['default'].string,
+    showLessItems: _vueTypes2['default'].bool
   };
 };
 
@@ -575,7 +473,7 @@ exports['default'] = {
         'class': {
           mini: isSmall
         },
-        on: this.$listeners
+        on: (0, _propsUtil.getListeners)(this)
       };
 
       return h(_vcPagination2['default'], paginationProps);
@@ -714,9 +612,9 @@ function shouldDelay(spinning, delay) {
   return !!spinning && !!delay && !isNaN(Number(delay));
 }
 
-function setDefaultIndicator(content) {
-  defaultIndicator = typeof content.indicator === 'function' ? content.indicator : function (h) {
-    return h(content.indicator);
+function setDefaultIndicator(Content) {
+  defaultIndicator = typeof Content.indicator === 'function' ? Content.indicator : function (h) {
+    return h(Content.indicator);
   };
 }
 
@@ -756,9 +654,7 @@ exports['default'] = {
     });
   },
   beforeDestroy: function beforeDestroy() {
-    if (this.updateSpinning && this.updateSpinning.cancel) {
-      this.updateSpinning.cancel();
-    }
+    this.cancelExistingSpin();
   },
 
   methods: {
@@ -767,6 +663,7 @@ exports['default'] = {
           delay = _ref.delay;
 
       if (delay) {
+        this.cancelExistingSpin();
         this.updateSpinning = (0, _debounce2['default'])(this.originalUpdateSpinning, delay);
       }
     },
@@ -776,6 +673,13 @@ exports['default'] = {
 
       if (sSpinning !== spinning) {
         this.setState({ sSpinning: spinning });
+      }
+    },
+    cancelExistingSpin: function cancelExistingSpin() {
+      var updateSpinning = this.updateSpinning;
+
+      if (updateSpinning && updateSpinning.cancel) {
+        updateSpinning.cancel();
       }
     },
     getChildren: function getChildren() {
@@ -788,6 +692,10 @@ exports['default'] = {
       // const h = this.$createElement
       var dotClassName = prefixCls + '-dot';
       var indicator = (0, _propsUtil.getComponentFromProp)(this, 'indicator');
+      // should not be render default indicator when indicator value is null
+      if (indicator === null) {
+        return null;
+      }
       if (Array.isArray(indicator)) {
         indicator = (0, _propsUtil.filterEmpty)(indicator);
         indicator = indicator.length === 1 ? indicator[0] : indicator;
@@ -803,7 +711,7 @@ exports['default'] = {
       return h(
         'span',
         { 'class': dotClassName + ' ' + prefixCls + '-dot-spin' },
-        [h('i'), h('i'), h('i'), h('i')]
+        [h('i', { 'class': prefixCls + '-dot-item' }), h('i', { 'class': prefixCls + '-dot-item' }), h('i', { 'class': prefixCls + '-dot-item' }), h('i', { 'class': prefixCls + '-dot-item' })]
       );
     }
   },
@@ -841,7 +749,9 @@ exports['default'] = {
 
       return h(
         'div',
-        (0, _babelHelperVueJsxMergeProps2['default'])([{ on: this.$listeners }, { 'class': [prefixCls + '-nested-loading', wrapperClassName] }]),
+        (0, _babelHelperVueJsxMergeProps2['default'])([{ on: (0, _propsUtil.getListeners)(this) }, {
+          'class': [prefixCls + '-nested-loading', wrapperClassName]
+        }]),
         [sSpinning && h(
           'div',
           { key: 'loading' },
@@ -969,7 +879,8 @@ exports['default'] = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = {
+exports['default'] = {
+  name: 'FilterDropdownMenuWrapper',
   methods: {
     handelClick: function handelClick(e) {
       e.stopPropagation();
@@ -982,13 +893,13 @@ exports["default"] = {
         handelClick = this.handelClick;
 
     return h(
-      "div",
+      'div',
       {
         on: {
-          "click": handelClick
+          'click': handelClick
         }
       },
-      [$slots["default"]]
+      [$slots['default']]
     );
   }
 };
@@ -1054,16 +965,6 @@ exports['default'] = {
   },
 
   methods: {
-    subscribe: function subscribe() {
-      var _this = this;
-
-      var store = this.store;
-
-      this.unsubscribe = store.subscribe(function () {
-        var checked = _this.getCheckState(_this.$props);
-        _this.setState({ checked: checked });
-      });
-    },
     getCheckState: function getCheckState(props) {
       var store = props.store,
           defaultSelection = props.defaultSelection,
@@ -1076,6 +977,16 @@ exports['default'] = {
         checked = store.getState().selectedRowKeys.indexOf(rowIndex) >= 0 || defaultSelection.indexOf(rowIndex) >= 0;
       }
       return checked;
+    },
+    subscribe: function subscribe() {
+      var _this = this;
+
+      var store = this.store;
+
+      this.unsubscribe = store.subscribe(function () {
+        var checked = _this.getCheckState(_this.$props);
+        _this.setState({ checked: checked });
+      });
     }
   },
 
@@ -1087,23 +998,19 @@ exports['default'] = {
         rowIndex = _getOptionProps.rowIndex,
         rest = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['type', 'rowIndex']);
 
-    var checked = this.checked,
-        $attrs = this.$attrs,
-        $listeners = this.$listeners;
+    var checked = this.checked;
 
     var checkboxProps = {
       props: (0, _extends3['default'])({
         checked: checked
       }, rest),
-      attrs: $attrs,
-      on: $listeners
+      on: (0, _propsUtil.getListeners)(this)
     };
     if (type === 'radio') {
       checkboxProps.props.value = rowIndex;
       return h(_radio2['default'], checkboxProps);
-    } else {
-      return h(_checkbox2['default'], checkboxProps);
     }
+    return h(_checkbox2['default'], checkboxProps);
   }
 };
 
@@ -1126,6 +1033,10 @@ Object.defineProperty(exports, "__esModule", {
 var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _checkbox = __webpack_require__(/*! ../checkbox */ "./node_modules/ant-design-vue/lib/checkbox/index.js");
 
@@ -1155,6 +1066,79 @@ var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+function checkSelection(_ref) {
+  var store = _ref.store,
+      getCheckboxPropsByItem = _ref.getCheckboxPropsByItem,
+      getRecordKey = _ref.getRecordKey,
+      data = _ref.data,
+      type = _ref.type,
+      byDefaultChecked = _ref.byDefaultChecked;
+
+  return byDefaultChecked ? data[type](function (item, i) {
+    return getCheckboxPropsByItem(item, i).defaultChecked;
+  }) : data[type](function (item, i) {
+    return store.getState().selectedRowKeys.indexOf(getRecordKey(item, i)) >= 0;
+  });
+}
+
+function getIndeterminateState(props) {
+  var store = props.store,
+      data = props.data;
+
+  if (!data.length) {
+    return false;
+  }
+
+  var someCheckedNotByDefaultChecked = checkSelection((0, _extends3['default'])({}, props, {
+    data: data,
+    type: 'some',
+    byDefaultChecked: false
+  })) && !checkSelection((0, _extends3['default'])({}, props, {
+    data: data,
+    type: 'every',
+    byDefaultChecked: false
+  }));
+  var someCheckedByDefaultChecked = checkSelection((0, _extends3['default'])({}, props, {
+    data: data,
+    type: 'some',
+    byDefaultChecked: true
+  })) && !checkSelection((0, _extends3['default'])({}, props, {
+    data: data,
+    type: 'every',
+    byDefaultChecked: true
+  }));
+
+  if (store.getState().selectionDirty) {
+    return someCheckedNotByDefaultChecked;
+  }
+  return someCheckedNotByDefaultChecked || someCheckedByDefaultChecked;
+}
+
+function getCheckState(props) {
+  var store = props.store,
+      data = props.data;
+
+  if (!data.length) {
+    return false;
+  }
+  if (store.getState().selectionDirty) {
+    return checkSelection((0, _extends3['default'])({}, props, {
+      data: data,
+      type: 'every',
+      byDefaultChecked: false
+    }));
+  }
+  return checkSelection((0, _extends3['default'])({}, props, {
+    data: data,
+    type: 'every',
+    byDefaultChecked: false
+  })) || checkSelection((0, _extends3['default'])({}, props, {
+    data: data,
+    type: 'every',
+    byDefaultChecked: true
+  }));
+}
+
 exports['default'] = {
   name: 'SelectionCheckboxAll',
   mixins: [_BaseMixin2['default']],
@@ -1164,17 +1148,15 @@ exports['default'] = {
 
     this.defaultSelections = props.hideDefaultSelections ? [] : [{
       key: 'all',
-      text: props.locale.selectAll,
-      onSelect: function onSelect() {}
+      text: props.locale.selectAll
     }, {
       key: 'invert',
-      text: props.locale.selectInvert,
-      onSelect: function onSelect() {}
+      text: props.locale.selectInvert
     }];
 
     return {
-      checked: this.getCheckState(props),
-      indeterminate: this.getIndeterminateState(props)
+      checked: getCheckState(props),
+      indeterminate: getIndeterminateState(props)
     };
   },
 
@@ -1182,8 +1164,9 @@ exports['default'] = {
   watch: {
     $props: {
       handler: function handler() {
-        this.setCheckState();
+        this.setCheckState(this.$props);
       },
+
       deep: true
     }
   },
@@ -1198,20 +1181,11 @@ exports['default'] = {
   },
 
   methods: {
-    subscribe: function subscribe() {
-      var _this = this;
-
-      var store = this.store;
-
-      this.unsubscribe = store.subscribe(function () {
-        _this.setCheckState(_this.$props);
-      });
-    },
     checkSelection: function checkSelection(props, data, type, byDefaultChecked) {
-      var _ref = props || this.$props,
-          store = _ref.store,
-          getCheckboxPropsByItem = _ref.getCheckboxPropsByItem,
-          getRecordKey = _ref.getRecordKey;
+      var _ref2 = props || this.$props,
+          store = _ref2.store,
+          getCheckboxPropsByItem = _ref2.getCheckboxPropsByItem,
+          getRecordKey = _ref2.getRecordKey;
       // type should be 'every' | 'some'
 
 
@@ -1225,8 +1199,8 @@ exports['default'] = {
       return false;
     },
     setCheckState: function setCheckState(props) {
-      var checked = this.getCheckState(props);
-      var indeterminate = this.getIndeterminateState(props);
+      var checked = getCheckState(props);
+      var indeterminate = getIndeterminateState(props);
       this.setState(function (prevState) {
         var newState = {};
         if (indeterminate !== prevState.indeterminate) {
@@ -1238,33 +1212,19 @@ exports['default'] = {
         return newState;
       });
     },
-    getCheckState: function getCheckState(props) {
-      var store = this.store,
-          data = this.data;
-
-      var checked = void 0;
-      if (!data.length) {
-        checked = false;
-      } else {
-        checked = store.getState().selectionDirty ? this.checkSelection(props, data, 'every', false) : this.checkSelection(props, data, 'every', false) || this.checkSelection(props, data, 'every', true);
-      }
-      return checked;
-    },
-    getIndeterminateState: function getIndeterminateState(props) {
-      var store = this.store,
-          data = this.data;
-
-      var indeterminate = void 0;
-      if (!data.length) {
-        indeterminate = false;
-      } else {
-        indeterminate = store.getState().selectionDirty ? this.checkSelection(props, data, 'some', false) && !this.checkSelection(props, data, 'every', false) : this.checkSelection(props, data, 'some', false) && !this.checkSelection(props, data, 'every', false) || this.checkSelection(props, data, 'some', true) && !this.checkSelection(props, data, 'every', true);
-      }
-      return indeterminate;
-    },
     handleSelectAllChange: function handleSelectAllChange(e) {
       var checked = e.target.checked;
+
       this.$emit('select', checked ? 'all' : 'removeAll', 0, null);
+    },
+    subscribe: function subscribe() {
+      var _this = this;
+
+      var store = this.store;
+
+      this.unsubscribe = store.subscribe(function () {
+        _this.setCheckState(_this.$props);
+      });
     },
     renderMenus: function renderMenus(selections) {
       var _this2 = this;
@@ -1435,7 +1395,7 @@ var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/a
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+var _configProvider2 = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-design-vue/lib/table/interface.js");
 
@@ -1463,19 +1423,44 @@ var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-d
 
 var _warning2 = _interopRequireDefault(_warning);
 
+var _scrollTo = __webpack_require__(/*! ../_util/scrollTo */ "./node_modules/ant-design-vue/lib/_util/scrollTo.js");
+
+var _scrollTo2 = _interopRequireDefault(_scrollTo);
+
+var _transButton = __webpack_require__(/*! ../_util/transButton */ "./node_modules/ant-design-vue/lib/_util/transButton.js");
+
+var _transButton2 = _interopRequireDefault(_transButton);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function noop() {}
 
 function stopPropagation(e) {
   e.stopPropagation();
-  if (e.nativeEvent && e.nativeEvent.stopImmediatePropagation) {
-    e.nativeEvent.stopImmediatePropagation();
-  }
 }
 
 function getRowSelection(props) {
   return props.rowSelection || {};
+}
+
+function getColumnKey(column, index) {
+  return column.key || column.dataIndex || index;
+}
+
+function isSameColumn(a, b) {
+  if (a && b && a.key && a.key === b.key) {
+    return true;
+  }
+  return a === b || (0, _shallowequal2['default'])(a, b, function (value, other) {
+    // https://github.com/ant-design/ant-design/issues/12737
+    if (typeof value === 'function' && typeof other === 'function') {
+      return value === other || value.toString() === other.toString();
+    }
+    // https://github.com/ant-design/ant-design/issues/19398
+    if (Array.isArray(value) && Array.isArray(other)) {
+      return value === other || (0, _shallowequal2['default'])(value, other);
+    }
+  });
 }
 
 var defaultPagination = {
@@ -1483,13 +1468,55 @@ var defaultPagination = {
   onShowSizeChange: noop
 };
 
-var ROW_SELECTION_COLUMN_WIDTH = '62px';
-
 /**
  * Avoid creating new object, so that parent component's shouldComponentUpdate
  * can works appropriately。
  */
 var emptyObject = {};
+
+var createComponents = function createComponents() {
+  var components = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+  var bodyRow = components && components.body && components.body.row;
+  return (0, _extends5['default'])({}, components, {
+    body: (0, _extends5['default'])({}, components.body, {
+      row: (0, _createBodyRow2['default'])(bodyRow)
+    })
+  });
+};
+
+function isTheSameComponents() {
+  var components1 = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var components2 = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  return components1 === components2 || ['table', 'header', 'body'].every(function (key) {
+    return (0, _shallowequal2['default'])(components1[key], components2[key]);
+  });
+}
+
+function getFilteredValueColumns(state, columns) {
+  return (0, _util.flatFilter)(columns || (state || {}).columns || [], function (column) {
+    return typeof column.filteredValue !== 'undefined';
+  });
+}
+
+function getFiltersFromColumns(state, columns) {
+  var filters = {};
+  getFilteredValueColumns(state, columns).forEach(function (col) {
+    var colKey = getColumnKey(col);
+    filters[colKey] = col.filteredValue;
+  });
+  return filters;
+}
+
+function isFiltersChanged(state, filters) {
+  if (Object.keys(filters).length !== Object.keys(state.filters).length) {
+    return true;
+  }
+  return Object.keys(filters).some(function (columnKey) {
+    return filters[columnKey] !== state.filters[columnKey];
+  });
+}
 
 exports['default'] = {
   name: 'Table',
@@ -1507,12 +1534,13 @@ exports['default'] = {
     locale: {},
     rowKey: 'key',
     showHeader: true,
-    sortDirections: ['ascend', 'descend']
+    sortDirections: ['ascend', 'descend'],
+    childrenColumnName: 'children'
   }),
 
   inject: {
     configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
+        return _configProvider2.ConfigConsumerProps;
       } }
   },
   // CheckboxPropsCache: {
@@ -1526,18 +1554,19 @@ exports['default'] = {
     // this.columns = props.columns || normalizeColumns(props.children)
     var props = (0, _propsUtil.getOptionProps)(this);
     (0, _warning2['default'])(!props.expandedRowRender || !('scroll' in props), '`expandedRowRender` and `scroll` are not compatible. Please use one of them at one time.');
-    this.createComponents(this.components);
     this.CheckboxPropsCache = {};
 
     this.store = (0, _createStore2['default'])({
       selectedRowKeys: getRowSelection(this.$props).selectedRowKeys || [],
       selectionDirty: false
     });
-    return (0, _extends5['default'])({}, this.getDefaultSortOrder(this.columns), {
+    return (0, _extends5['default'])({}, this.getDefaultSortOrder(props.columns || []), {
       // 减少状态
-      sFilters: this.getFiltersFromColumns(),
+      sFilters: this.getDefaultFilters(props.columns),
       sPagination: this.getDefaultPagination(this.$props),
-      pivot: undefined
+      pivot: undefined,
+      sComponents: createComponents(this.components),
+      filterDataCnt: 0
     });
   },
 
@@ -1574,6 +1603,7 @@ exports['default'] = {
 
       deep: true
     },
+
     dataSource: function dataSource() {
       this.store.setState({
         selectionDirty: false
@@ -1581,29 +1611,43 @@ exports['default'] = {
       this.CheckboxPropsCache = {};
     },
     columns: function columns(val) {
-      if (this.getSortOrderColumns(val).length > 0) {
-        var sortState = this.getSortStateFromColumns(val);
-        if (sortState.sSortColumn !== this.sSortColumn || sortState.sSortOrder !== this.sSortOrder) {
-          this.setState(sortState);
-        }
-      }
-
-      var filteredValueColumns = this.getFilteredValueColumns(val);
+      var filteredValueColumns = getFilteredValueColumns({ columns: val }, val);
       if (filteredValueColumns.length > 0) {
-        var filtersFromColumns = this.getFiltersFromColumns(val);
+        var filtersFromColumns = getFiltersFromColumns({ columns: val }, val);
         var newFilters = (0, _extends5['default'])({}, this.sFilters);
         Object.keys(filtersFromColumns).forEach(function (key) {
           newFilters[key] = filtersFromColumns[key];
         });
-        if (this.isFiltersChanged(newFilters)) {
+        if (isFiltersChanged({ filters: this.sFilters }, newFilters)) {
           this.setState({ sFilters: newFilters });
         }
       }
     },
-    components: function components(val, preVal) {
-      this.createComponents(val, preVal);
+
+    components: {
+      handler: function handler(val, oldVal) {
+        if (!isTheSameComponents(val, oldVal)) {
+          var components = createComponents(val);
+          this.setState({ sComponents: components });
+        }
+      },
+
+      deep: true
     }
   },
+  updated: function updated() {
+    var columns = this.columns,
+        sortColumn = this.sSortColumn,
+        sortOrder = this.sSortOrder;
+
+    if (this.getSortOrderColumns(columns).length > 0) {
+      var sortState = this.getSortStateFromColumns(columns);
+      if (!isSameColumn(sortState.sSortColumn, sortColumn) || sortState.sSortOrder !== sortOrder) {
+        this.setState(sortState);
+      }
+    }
+  },
+
   methods: {
     getCheckboxPropsByItem: function getCheckboxPropsByItem(item, index) {
       var rowSelection = getRowSelection(this.$props);
@@ -1650,94 +1694,25 @@ exports['default'] = {
         pageSize: pageSize || 10
       }) : {};
     },
-    onRow: function onRow(prefixCls, record, index) {
-      var customRow = this.customRow;
-
-      var custom = customRow ? customRow(record, index) : {};
-      return (0, _propsUtil.mergeProps)(custom, {
-        props: {
-          prefixCls: prefixCls,
-          store: this.store,
-          rowKey: this.getRecordKey(record, index)
-        }
-      });
-    },
-    setSelectedRowKeys: function setSelectedRowKeys(selectedRowKeys, selectionInfo) {
-      var _this2 = this;
-
-      var selectWay = selectionInfo.selectWay,
-          record = selectionInfo.record,
-          checked = selectionInfo.checked,
-          changeRowKeys = selectionInfo.changeRowKeys,
-          nativeEvent = selectionInfo.nativeEvent;
-
-      var rowSelection = getRowSelection(this.$props);
-      if (rowSelection && !('selectedRowKeys' in rowSelection)) {
-        this.store.setState({ selectedRowKeys: selectedRowKeys });
-      }
-      var data = this.getFlatData();
-      if (!rowSelection.onChange && !rowSelection[selectWay]) {
-        return;
-      }
-      var selectedRows = data.filter(function (row, i) {
-        return selectedRowKeys.indexOf(_this2.getRecordKey(row, i)) >= 0;
-      });
-      if (rowSelection.onChange) {
-        rowSelection.onChange(selectedRowKeys, selectedRows);
-      }
-      if (selectWay === 'onSelect' && rowSelection.onSelect) {
-        rowSelection.onSelect(record, checked, selectedRows, nativeEvent);
-      } else if (selectWay === 'onSelectMultiple' && rowSelection.onSelectMultiple) {
-        var changeRows = data.filter(function (row, i) {
-          return changeRowKeys.indexOf(_this2.getRecordKey(row, i)) >= 0;
-        });
-        rowSelection.onSelectMultiple(checked, selectedRows, changeRows);
-      } else if (selectWay === 'onSelectAll' && rowSelection.onSelectAll) {
-        var _changeRows = data.filter(function (row, i) {
-          return changeRowKeys.indexOf(_this2.getRecordKey(row, i)) >= 0;
-        });
-        rowSelection.onSelectAll(checked, selectedRows, _changeRows);
-      } else if (selectWay === 'onSelectInvert' && rowSelection.onSelectInvert) {
-        rowSelection.onSelectInvert(selectedRowKeys);
-      }
-    },
-    hasPagination: function hasPagination() {
-      return this.pagination !== false;
-    },
-    isFiltersChanged: function isFiltersChanged(filters) {
-      var _this3 = this;
-
-      var filtersChanged = false;
-      if (Object.keys(filters).length !== Object.keys(this.sFilters).length) {
-        filtersChanged = true;
-      } else {
-        Object.keys(filters).forEach(function (columnKey) {
-          if (filters[columnKey] !== _this3.sFilters[columnKey]) {
-            filtersChanged = true;
-          }
-        });
-      }
-      return filtersChanged;
-    },
     getSortOrderColumns: function getSortOrderColumns(columns) {
       return (0, _util.flatFilter)(columns || this.columns || [], function (column) {
         return 'sortOrder' in column;
       });
     },
-    getFilteredValueColumns: function getFilteredValueColumns(columns) {
-      return (0, _util.flatFilter)(columns || this.columns || [], function (column) {
-        return typeof column.filteredValue !== 'undefined';
-      });
-    },
-    getFiltersFromColumns: function getFiltersFromColumns(columns) {
-      var _this4 = this;
+    getDefaultFilters: function getDefaultFilters(columns) {
+      var definedFilters = getFiltersFromColumns({ columns: this.columns }, columns);
 
-      var filters = {};
-      this.getFilteredValueColumns(columns).forEach(function (col) {
-        var colKey = _this4.getColumnKey(col);
-        filters[colKey] = col.filteredValue;
+      var defaultFilteredValueColumns = (0, _util.flatFilter)(columns || [], function (column) {
+        return typeof column.defaultFilteredValue !== 'undefined';
       });
-      return filters;
+
+      var defaultFilters = defaultFilteredValueColumns.reduce(function (soFar, col) {
+        var colKey = getColumnKey(col);
+        soFar[colKey] = col.defaultFilteredValue;
+        return soFar;
+      }, {});
+
+      return (0, _extends5['default'])({}, defaultFilters, definedFilters);
     },
     getDefaultSortOrder: function getDefaultSortOrder(columns) {
       var definedSortState = this.getSortStateFromColumns(columns);
@@ -1773,6 +1748,23 @@ exports['default'] = {
         sSortOrder: null
       };
     },
+    getMaxCurrent: function getMaxCurrent(total) {
+      var _sPagination = this.sPagination,
+          current = _sPagination.current,
+          pageSize = _sPagination.pageSize;
+
+      if ((current - 1) * pageSize >= total) {
+        return Math.floor((total - 1) / pageSize) + 1;
+      }
+      return current;
+    },
+    getRecordKey: function getRecordKey(record, index) {
+      var rowKey = this.rowKey;
+
+      var recordKey = typeof rowKey === 'function' ? rowKey(record, index) : record[rowKey];
+      (0, _warning2['default'])(recordKey !== undefined, 'Table', 'Each record in dataSource of table should have a unique `key` prop, ' + 'or set `rowKey` of Table to an unique primary key, ');
+      return recordKey === undefined ? index : recordKey;
+    },
     getSorterFn: function getSorterFn(state) {
       var _ref = state || this.$data,
           sortOrder = _ref.sSortOrder,
@@ -1790,6 +1782,155 @@ exports['default'] = {
         return 0;
       };
     },
+    getCurrentPageData: function getCurrentPageData() {
+      var data = this.getLocalData();
+      this.filterDataCnt = data.length;
+      var current = void 0;
+      var pageSize = void 0;
+      var sPagination = this.sPagination;
+      // 如果没有分页的话，默认全部展示
+      if (!this.hasPagination()) {
+        pageSize = Number.MAX_VALUE;
+        current = 1;
+      } else {
+        pageSize = sPagination.pageSize;
+        current = this.getMaxCurrent(sPagination.total || data.length);
+      }
+
+      // 分页
+      // ---
+      // 当数据量少于等于每页数量时，直接设置数据
+      // 否则进行读取分页数据
+      if (data.length > pageSize || pageSize === Number.MAX_VALUE) {
+        data = data.slice((current - 1) * pageSize, current * pageSize);
+      }
+      return data;
+    },
+    getFlatData: function getFlatData() {
+      var childrenColumnName = this.$props.childrenColumnName;
+
+      return (0, _util.flatArray)(this.getLocalData(null, false), childrenColumnName);
+    },
+    getFlatCurrentPageData: function getFlatCurrentPageData() {
+      var childrenColumnName = this.$props.childrenColumnName;
+
+      return (0, _util.flatArray)(this.getCurrentPageData(), childrenColumnName);
+    },
+    getLocalData: function getLocalData(state) {
+      var _this2 = this;
+
+      var filter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+      var currentState = state || this.$data;
+      var filters = currentState.sFilters;
+      var dataSource = this.$props.dataSource;
+
+      var data = dataSource || [];
+      // 优化本地排序
+      data = data.slice(0);
+      var sorterFn = this.getSorterFn(currentState);
+      if (sorterFn) {
+        // 使用新数组，避免改变原数组导致无限循环更新
+        // https://github.com/vueComponent/ant-design-vue/issues/2270
+        data = this.recursiveSort([].concat((0, _toConsumableArray3['default'])(data)), sorterFn);
+      }
+      // 筛选
+      if (filter && filters) {
+        Object.keys(filters).forEach(function (columnKey) {
+          var col = _this2.findColumn(columnKey);
+          if (!col) {
+            return;
+          }
+          var values = filters[columnKey] || [];
+          if (values.length === 0) {
+            return;
+          }
+          var onFilter = col.onFilter;
+          data = onFilter ? data.filter(function (record) {
+            return values.some(function (v) {
+              return onFilter(v, record);
+            });
+          }) : data;
+        });
+      }
+      return data;
+    },
+    onRow: function onRow(prefixCls, record, index) {
+      var customRow = this.customRow;
+
+      var custom = customRow ? customRow(record, index) : {};
+      return (0, _propsUtil.mergeProps)(custom, {
+        props: {
+          prefixCls: prefixCls,
+          store: this.store,
+          rowKey: this.getRecordKey(record, index)
+        }
+      });
+    },
+    setSelectedRowKeys: function setSelectedRowKeys(selectedRowKeys, selectionInfo) {
+      var _this3 = this;
+
+      var selectWay = selectionInfo.selectWay,
+          record = selectionInfo.record,
+          checked = selectionInfo.checked,
+          changeRowKeys = selectionInfo.changeRowKeys,
+          nativeEvent = selectionInfo.nativeEvent;
+
+      var rowSelection = getRowSelection(this.$props);
+      if (rowSelection && !('selectedRowKeys' in rowSelection)) {
+        this.store.setState({ selectedRowKeys: selectedRowKeys });
+      }
+      var data = this.getFlatData();
+      if (!rowSelection.onChange && !rowSelection[selectWay]) {
+        return;
+      }
+      var selectedRows = data.filter(function (row, i) {
+        return selectedRowKeys.indexOf(_this3.getRecordKey(row, i)) >= 0;
+      });
+      if (rowSelection.onChange) {
+        rowSelection.onChange(selectedRowKeys, selectedRows);
+      }
+      if (selectWay === 'onSelect' && rowSelection.onSelect) {
+        rowSelection.onSelect(record, checked, selectedRows, nativeEvent);
+      } else if (selectWay === 'onSelectMultiple' && rowSelection.onSelectMultiple) {
+        var changeRows = data.filter(function (row, i) {
+          return changeRowKeys.indexOf(_this3.getRecordKey(row, i)) >= 0;
+        });
+        rowSelection.onSelectMultiple(checked, selectedRows, changeRows);
+      } else if (selectWay === 'onSelectAll' && rowSelection.onSelectAll) {
+        var _changeRows = data.filter(function (row, i) {
+          return changeRowKeys.indexOf(_this3.getRecordKey(row, i)) >= 0;
+        });
+        rowSelection.onSelectAll(checked, selectedRows, _changeRows);
+      } else if (selectWay === 'onSelectInvert' && rowSelection.onSelectInvert) {
+        rowSelection.onSelectInvert(selectedRowKeys);
+      }
+    },
+    generatePopupContainerFunc: function generatePopupContainerFunc(getPopupContainer) {
+      var scroll = this.$props.scroll;
+
+      var table = this.$refs.vcTable;
+      if (getPopupContainer) {
+        return getPopupContainer;
+      }
+      // Use undefined to let rc component use default logic.
+      return scroll && table ? function () {
+        return table.getTableNode();
+      } : undefined;
+    },
+    scrollToFirstRow: function scrollToFirstRow() {
+      var _this4 = this;
+
+      var scroll = this.$props.scroll;
+
+      if (scroll && scroll.scrollToFirstRowOnChange !== false) {
+        (0, _scrollTo2['default'])(0, {
+          getContainer: function getContainer() {
+            return _this4.$refs.vcTable.getBodyTable();
+          }
+        });
+      }
+    },
     isSameColumn: function isSameColumn(a, b) {
       if (a && b && a.key && a.key === b.key) {
         return true;
@@ -1800,46 +1941,17 @@ exports['default'] = {
         }
       });
     },
-    toggleSortOrder: function toggleSortOrder(column) {
-      if (!column.sorter) {
-        return;
-      }
-      var sortDirections = column.sortDirections || this.sortDirections;
-      var sortOrder = this.sSortOrder,
-          sortColumn = this.sSortColumn;
-      // 只同时允许一列进行排序，否则会导致排序顺序的逻辑问题
-
-      var newSortOrder = void 0;
-      // 切换另一列时，丢弃 sortOrder 的状态
-      if (this.isSameColumn(sortColumn, column) && sortOrder !== undefined) {
-        // 按照sortDirections的内容依次切换排序状态
-        var methodIndex = sortDirections.indexOf(sortOrder) + 1;
-        newSortOrder = methodIndex === sortDirections.length ? undefined : sortDirections[methodIndex];
-      } else {
-        newSortOrder = sortDirections[0];
-      }
-      var newState = {
-        sSortOrder: newSortOrder,
-        sSortColumn: newSortOrder ? column : null
-      };
-
-      // Controlled
-      if (this.getSortOrderColumns().length === 0) {
-        this.setState(newState);
-      }
-      this.$emit.apply(this, ['change'].concat((0, _toConsumableArray3['default'])(this.prepareParamsArguments((0, _extends5['default'])({}, this.$data, newState)))));
-    },
     handleFilter: function handleFilter(column, nextFilters) {
       var _this5 = this;
 
       var props = this.$props;
       var pagination = (0, _extends5['default'])({}, this.sPagination);
-      var filters = (0, _extends5['default'])({}, this.sFilters, (0, _defineProperty3['default'])({}, this.getColumnKey(column), nextFilters));
+      var filters = (0, _extends5['default'])({}, this.sFilters, (0, _defineProperty3['default'])({}, getColumnKey(column), nextFilters));
       // Remove filters not in current columns
       var currentColumnKeys = [];
       (0, _util.treeMap)(this.columns, function (c) {
         if (!c.children) {
-          currentColumnKeys.push(_this5.getColumnKey(c));
+          currentColumnKeys.push(getColumnKey(c));
         }
       });
       Object.keys(filters).forEach(function (columnKey) {
@@ -1860,8 +1972,8 @@ exports['default'] = {
       };
       var filtersToSetState = (0, _extends5['default'])({}, filters);
       // Remove filters which is controlled
-      this.getFilteredValueColumns().forEach(function (col) {
-        var columnKey = _this5.getColumnKey(col);
+      getFilteredValueColumns({ columns: props.columns }).forEach(function (col) {
+        var columnKey = getColumnKey(col);
         if (columnKey) {
           delete filtersToSetState[columnKey];
         }
@@ -1878,6 +1990,7 @@ exports['default'] = {
       }
 
       this.setState(newState, function () {
+        _this5.scrollToFirstRow();
         _this5.store.setState({
           selectionDirty: false
         });
@@ -1898,7 +2011,7 @@ exports['default'] = {
       var key = this.getRecordKey(record, rowIndex);
       var pivot = this.$data.pivot;
 
-      var rows = this.getFlatCurrentPageData(this.$props.childrenColumnName);
+      var rows = this.getFlatCurrentPageData();
       var realIndex = rowIndex;
       if (this.$props.expandedRowRender) {
         realIndex = rows.findIndex(function (row) {
@@ -1963,7 +2076,7 @@ exports['default'] = {
           selectWay: 'onSelect',
           record: record,
           checked: checked,
-          changeRowKeys: void 0,
+          changeRowKeys: undefined,
           nativeEvent: nativeEvent
         });
       }
@@ -1980,14 +2093,14 @@ exports['default'] = {
         selectWay: 'onSelect',
         record: record,
         checked: checked,
-        changeRowKeys: void 0,
+        changeRowKeys: undefined,
         nativeEvent: nativeEvent
       });
     },
     handleSelectRow: function handleSelectRow(selectionKey, index, onSelectFunc) {
       var _this7 = this;
 
-      var data = this.getFlatCurrentPageData(this.$props.childrenColumnName);
+      var data = this.getFlatCurrentPageData();
       var defaultSelection = this.store.getState().selectionDirty ? [] : this.getDefaultSelection();
       var selectedRowKeys = this.store.getState().selectedRowKeys.concat(defaultSelection);
       var changeableRowKeys = data.filter(function (item, i) {
@@ -2079,7 +2192,7 @@ exports['default'] = {
           current: this.sPagination.current
         });
       }
-      this.setState(newState);
+      this.setState(newState, this.scrollToFirstRow);
 
       this.store.setState({
         selectionDirty: false
@@ -2089,242 +2202,6 @@ exports['default'] = {
         sPagination: pagination
       })))));
     },
-    renderSelectionBox: function renderSelectionBox(type) {
-      var _this8 = this;
-
-      var h = this.$createElement;
-
-      return function (_, record, index) {
-        var rowKey = _this8.getRecordKey(record, index); // 从 1 开始
-        var props = _this8.getCheckboxPropsByItem(record, index);
-        var handleChange = function handleChange(e) {
-          type === 'radio' ? _this8.handleRadioSelect(record, index, e) : _this8.handleSelect(record, index, e);
-        };
-        var selectionBoxProps = (0, _propsUtil.mergeProps)({
-          props: {
-            type: type,
-            store: _this8.store,
-            rowIndex: rowKey,
-            defaultSelection: _this8.getDefaultSelection()
-          },
-          on: {
-            change: handleChange
-          }
-        }, props);
-
-        return h(
-          'span',
-          {
-            on: {
-              'click': stopPropagation
-            }
-          },
-          [h(_SelectionBox2['default'], selectionBoxProps)]
-        );
-      };
-    },
-    getRecordKey: function getRecordKey(record, index) {
-      var rowKey = this.rowKey;
-
-      var recordKey = typeof rowKey === 'function' ? rowKey(record, index) : record[rowKey];
-      (0, _warning2['default'])(recordKey !== undefined, 'Each record in dataSource of table should have a unique `key` prop, or set `rowKey` of Table to an unique primary key,');
-      return recordKey === undefined ? index : recordKey;
-    },
-    getPopupContainer: function getPopupContainer() {
-      return this.$el;
-    },
-    generatePopupContainerFunc: function generatePopupContainerFunc() {
-      var scroll = this.$props.scroll;
-
-      // Use undefined to let rc component use default logic.
-
-      return scroll ? this.getPopupContainer : undefined;
-    },
-    renderRowSelection: function renderRowSelection(prefixCls, locale) {
-      var _this9 = this;
-
-      var h = this.$createElement;
-      var rowSelection = this.rowSelection,
-          childrenColumnName = this.childrenColumnName;
-
-      var columns = this.columns.concat();
-      if (rowSelection) {
-        var data = this.getFlatCurrentPageData(childrenColumnName).filter(function (item, index) {
-          if (rowSelection.getCheckboxProps) {
-            return !_this9.getCheckboxPropsByItem(item, index).props.disabled;
-          }
-          return true;
-        });
-        var selectionColumnClass = (0, _classnames2['default'])(prefixCls + '-selection-column', (0, _defineProperty3['default'])({}, prefixCls + '-selection-column-custom', rowSelection.selections));
-        var selectionColumn = {
-          key: 'selection-column',
-          customRender: this.renderSelectionBox(rowSelection.type),
-          className: selectionColumnClass,
-          fixed: rowSelection.fixed,
-          width: rowSelection.columnWidth || ROW_SELECTION_COLUMN_WIDTH,
-          title: rowSelection.columnTitle
-        };
-        if (rowSelection.type !== 'radio') {
-          var checkboxAllDisabled = data.every(function (item, index) {
-            return _this9.getCheckboxPropsByItem(item, index).props.disabled;
-          });
-          selectionColumn.title = selectionColumn.title || h(_SelectionCheckboxAll2['default'], {
-            attrs: {
-              store: this.store,
-              locale: locale,
-              data: data,
-              getCheckboxPropsByItem: this.getCheckboxPropsByItem,
-              getRecordKey: this.getRecordKey,
-              disabled: checkboxAllDisabled,
-              prefixCls: prefixCls,
-
-              selections: rowSelection.selections,
-              hideDefaultSelections: rowSelection.hideDefaultSelections,
-              getPopupContainer: this.generatePopupContainerFunc()
-            },
-            on: {
-              'select': this.handleSelectRow
-            }
-          });
-        }
-        if ('fixed' in rowSelection) {
-          selectionColumn.fixed = rowSelection.fixed;
-        } else if (columns.some(function (column) {
-          return column.fixed === 'left' || column.fixed === true;
-        })) {
-          selectionColumn.fixed = 'left';
-        }
-        if (columns[0] && columns[0].key === 'selection-column') {
-          columns[0] = selectionColumn;
-        } else {
-          columns.unshift(selectionColumn);
-        }
-      }
-      return columns;
-    },
-    getColumnKey: function getColumnKey(column, index) {
-      return column.key || column.dataIndex || index;
-    },
-    getMaxCurrent: function getMaxCurrent(total) {
-      var _sPagination = this.sPagination,
-          current = _sPagination.current,
-          pageSize = _sPagination.pageSize;
-
-      if ((current - 1) * pageSize >= total) {
-        return Math.floor((total - 1) / pageSize) + 1;
-      }
-      return current;
-    },
-    isSortColumn: function isSortColumn(column) {
-      var sortColumn = this.sSortColumn;
-
-      if (!column || !sortColumn) {
-        return false;
-      }
-      return this.getColumnKey(sortColumn) === this.getColumnKey(column);
-    },
-    renderColumnsDropdown: function renderColumnsDropdown(prefixCls, dropdownPrefixCls, columns, locale) {
-      var _this10 = this;
-
-      var h = this.$createElement;
-      var sortOrder = this.sSortOrder,
-          filters = this.sFilters;
-
-      return (0, _util.treeMap)(columns, function (column, i) {
-        var _classNames2;
-
-        var key = _this10.getColumnKey(column, i);
-        var filterDropdown = void 0;
-        var sortButton = void 0;
-        var customHeaderCell = column.customHeaderCell;
-        var title = _this10.renderColumnTitle(column.title);
-        var isSortColumn = _this10.isSortColumn(column);
-        if (column.filters && column.filters.length > 0 || column.filterDropdown) {
-          var colFilters = key in filters ? filters[key] : [];
-          filterDropdown = h(_filterDropdown2['default'], {
-            attrs: {
-              _propsSymbol: Symbol(),
-              locale: locale,
-              column: column,
-              selectedKeys: colFilters,
-              confirmFilter: _this10.handleFilter,
-              prefixCls: prefixCls + '-filter',
-              dropdownPrefixCls: dropdownPrefixCls || 'ant-dropdown',
-              getPopupContainer: _this10.generatePopupContainerFunc()
-            },
-            key: 'filter-dropdown'
-          });
-        }
-        if (column.sorter) {
-          var sortDirections = column.sortDirections || _this10.sortDirections;
-          var isAscend = isSortColumn && sortOrder === 'ascend';
-          var isDescend = isSortColumn && sortOrder === 'descend';
-          var ascend = sortDirections.indexOf('ascend') !== -1 && h(_icon2['default'], {
-            'class': prefixCls + '-column-sorter-up ' + (isAscend ? 'on' : 'off'),
-            attrs: { type: 'caret-up',
-              theme: 'filled'
-            },
-            key: 'caret-up'
-          });
-
-          var descend = sortDirections.indexOf('descend') !== -1 && h(_icon2['default'], {
-            'class': prefixCls + '-column-sorter-down ' + (isDescend ? 'on' : 'off'),
-            attrs: { type: 'caret-down',
-              theme: 'filled'
-            },
-            key: 'caret-down'
-          });
-
-          sortButton = h(
-            'div',
-            {
-              attrs: { title: locale.sortTitle },
-              'class': prefixCls + '-column-sorter', key: 'sorter' },
-            [ascend, descend]
-          );
-          customHeaderCell = function customHeaderCell(col) {
-            var colProps = {};
-            // Get original first
-            if (column.customHeaderCell) {
-              colProps = (0, _extends5['default'])({}, column.customHeaderCell(col));
-            }
-            colProps.on = colProps.on || {};
-            // Add sorter logic
-            var onHeaderCellClick = colProps.on.click;
-            colProps.on.click = function () {
-              _this10.toggleSortOrder(column);
-              if (onHeaderCellClick) {
-                onHeaderCellClick.apply(undefined, arguments);
-              }
-            };
-            return colProps;
-          };
-        }
-        return (0, _extends5['default'])({}, column, {
-          className: (0, _classnames2['default'])(column.className, (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-has-actions', sortButton || filterDropdown), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-has-filters', filterDropdown), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-has-sorters', sortButton), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-column-sort', isSortColumn && sortOrder), _classNames2)),
-          title: [h(
-            'div',
-            { key: 'title', 'class': sortButton ? prefixCls + '-column-sorters' : undefined },
-            [title, sortButton]
-          ), filterDropdown],
-          customHeaderCell: customHeaderCell
-        });
-      });
-    },
-    renderColumnTitle: function renderColumnTitle(title) {
-      var _$data = this.$data,
-          filters = _$data.sFilters,
-          sortOrder = _$data.sSortOrder;
-      // https://github.com/ant-design/ant-design/issues/11246#issuecomment-405009167
-
-      if (title instanceof Function) {
-        return title({
-          filters: filters,
-          sortOrder: sortOrder
-        });
-      }
-      return title;
-    },
     handleShowSizeChange: function handleShowSizeChange(current, pageSize) {
       var pagination = this.sPagination;
       pagination.onShowSizeChange(current, pageSize);
@@ -2332,10 +2209,136 @@ exports['default'] = {
         pageSize: pageSize,
         current: current
       });
-      this.setState({ sPagination: nextPagination });
+      this.setState({ sPagination: nextPagination }, this.scrollToFirstRow);
       this.$emit.apply(this, ['change'].concat((0, _toConsumableArray3['default'])(this.prepareParamsArguments((0, _extends5['default'])({}, this.$data, {
         sPagination: nextPagination
       })))));
+    },
+    toggleSortOrder: function toggleSortOrder(column) {
+      var sortDirections = column.sortDirections || this.sortDirections;
+      var sortOrder = this.sSortOrder,
+          sortColumn = this.sSortColumn;
+      // 只同时允许一列进行排序，否则会导致排序顺序的逻辑问题
+
+      var newSortOrder = void 0;
+      // 切换另一列时，丢弃 sortOrder 的状态
+      if (isSameColumn(sortColumn, column) && sortOrder !== undefined) {
+        // 按照sortDirections的内容依次切换排序状态
+        var methodIndex = sortDirections.indexOf(sortOrder) + 1;
+        newSortOrder = methodIndex === sortDirections.length ? undefined : sortDirections[methodIndex];
+      } else {
+        newSortOrder = sortDirections[0];
+      }
+      var newState = {
+        sSortOrder: newSortOrder,
+        sSortColumn: newSortOrder ? column : null
+      };
+
+      // Controlled
+      if (this.getSortOrderColumns().length === 0) {
+        this.setState(newState, this.scrollToFirstRow);
+      }
+      this.$emit.apply(this, ['change'].concat((0, _toConsumableArray3['default'])(this.prepareParamsArguments((0, _extends5['default'])({}, this.$data, newState), column))));
+    },
+    hasPagination: function hasPagination(props) {
+      return (props || this.$props).pagination !== false;
+    },
+    isSortColumn: function isSortColumn(column) {
+      var sortColumn = this.sSortColumn;
+
+      if (!column || !sortColumn) {
+        return false;
+      }
+      return getColumnKey(sortColumn) === getColumnKey(column);
+    },
+
+
+    // Get pagination, filters, sorter
+    prepareParamsArguments: function prepareParamsArguments(state, column) {
+      var pagination = (0, _extends5['default'])({}, state.sPagination);
+      // remove useless handle function in Table.onChange
+      delete pagination.onChange;
+      delete pagination.onShowSizeChange;
+      var filters = state.sFilters;
+      var sorter = {};
+      var currentColumn = column;
+      if (state.sSortColumn && state.sSortOrder) {
+        currentColumn = state.sSortColumn;
+        sorter.column = state.sSortColumn;
+        sorter.order = state.sSortOrder;
+      }
+
+      if (currentColumn) {
+        sorter.field = currentColumn.dataIndex;
+        sorter.columnKey = getColumnKey(currentColumn);
+      }
+
+      var extra = {
+        currentDataSource: this.getLocalData(state)
+      };
+
+      return [pagination, filters, sorter, extra];
+    },
+    findColumn: function findColumn(myKey) {
+      var column = void 0;
+      (0, _util.treeMap)(this.columns, function (c) {
+        if (getColumnKey(c) === myKey) {
+          column = c;
+        }
+      });
+      return column;
+    },
+    recursiveSort: function recursiveSort(data, sorterFn) {
+      var _this8 = this;
+
+      var _childrenColumnName = this.childrenColumnName,
+          childrenColumnName = _childrenColumnName === undefined ? 'children' : _childrenColumnName;
+
+      return data.sort(sorterFn).map(function (item) {
+        return item[childrenColumnName] ? (0, _extends5['default'])({}, item, (0, _defineProperty3['default'])({}, childrenColumnName, _this8.recursiveSort([].concat((0, _toConsumableArray3['default'])(item[childrenColumnName])), sorterFn))) : item;
+      });
+    },
+    renderExpandIcon: function renderExpandIcon(prefixCls) {
+      var h = this.$createElement;
+
+      return function (_ref2) {
+        var expandable = _ref2.expandable,
+            expanded = _ref2.expanded,
+            needIndentSpaced = _ref2.needIndentSpaced,
+            record = _ref2.record,
+            onExpand = _ref2.onExpand;
+
+        if (expandable) {
+          return h(
+            _LocaleReceiver2['default'],
+            {
+              attrs: { componentName: 'Table', defaultLocale: _default3['default'].Table }
+            },
+            [function (locale) {
+              var _classNames;
+
+              return h(_transButton2['default'], {
+                'class': (0, _classnames2['default'])(prefixCls + '-row-expand-icon', (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-row-collapsed', !expanded), (0, _defineProperty3['default'])(_classNames, prefixCls + '-row-expanded', expanded), _classNames)),
+                on: {
+                  'click': function click(event) {
+                    onExpand(record, event);
+                  }
+                },
+                attrs: {
+                  'aria-label': expanded ? locale.collapse : locale.expand,
+                  noStyle: true
+                }
+              });
+            }]
+          );
+        }
+
+        if (needIndentSpaced) {
+          return h('span', { 'class': prefixCls + '-row-expand-icon ' + prefixCls + '-row-spaced' });
+        }
+
+        return null;
+      };
     },
     renderPagination: function renderPagination(prefixCls, paginationPosition) {
       var h = this.$createElement;
@@ -2353,7 +2356,7 @@ exports['default'] = {
         size = 'small';
       }
       var position = pagination.position || 'bottom';
-      var total = pagination.total || this.getLocalData().length;
+      var total = pagination.total || this.filterDataCnt;
       var cls = pagination['class'],
           style = pagination.style,
           onChange = pagination.onChange,
@@ -2376,196 +2379,324 @@ exports['default'] = {
       });
       return total > 0 && (position === paginationPosition || position === 'both') ? h(_pagination2['default'], paginationProps) : null;
     },
-
-
-    // Get pagination, filters, sorter
-    prepareParamsArguments: function prepareParamsArguments(state) {
-      var pagination = (0, _extends5['default'])({}, state.sPagination);
-      // remove useless handle function in Table.onChange
-      delete pagination.onChange;
-      delete pagination.onShowSizeChange;
-      var filters = state.sFilters;
-      var sorter = {};
-      if (state.sSortColumn && state.sSortOrder) {
-        sorter.column = state.sSortColumn;
-        sorter.order = state.sSortOrder;
-        sorter.field = state.sSortColumn.dataIndex;
-        sorter.columnKey = this.getColumnKey(state.sSortColumn);
-      }
-      var extra = {
-        currentDataSource: this.getLocalData(state)
-      };
-
-      return [pagination, filters, sorter, extra];
-    },
-    findColumn: function findColumn(myKey) {
-      var _this11 = this;
-
-      var column = void 0;
-      (0, _util.treeMap)(this.columns, function (c) {
-        if (_this11.getColumnKey(c) === myKey) {
-          column = c;
-        }
-      });
-      return column;
-    },
-    getCurrentPageData: function getCurrentPageData() {
-      var data = this.getLocalData();
-      var current = void 0;
-      var pageSize = void 0;
-      var sPagination = this.sPagination;
-      // 如果没有分页的话，默认全部展示
-      if (!this.hasPagination()) {
-        pageSize = Number.MAX_VALUE;
-        current = 1;
-      } else {
-        pageSize = sPagination.pageSize;
-        current = this.getMaxCurrent(sPagination.total || data.length);
-      }
-
-      // 分页
-      // ---
-      // 当数据量少于等于每页数量时，直接设置数据
-      // 否则进行读取分页数据
-      if (data.length > pageSize || pageSize === Number.MAX_VALUE) {
-        data = data.filter(function (_, i) {
-          return i >= (current - 1) * pageSize && i < current * pageSize;
-        });
-      }
-      return data;
-    },
-    getFlatData: function getFlatData() {
-      return (0, _util.flatArray)(this.getLocalData(null, false));
-    },
-    getFlatCurrentPageData: function getFlatCurrentPageData(childrenColumnName) {
-      return (0, _util.flatArray)(this.getCurrentPageData(), childrenColumnName);
-    },
-    recursiveSort: function recursiveSort(data, sorterFn) {
-      var _this12 = this;
-
-      var _childrenColumnName = this.childrenColumnName,
-          childrenColumnName = _childrenColumnName === undefined ? 'children' : _childrenColumnName;
-
-      return data.sort(sorterFn).map(function (item) {
-        return item[childrenColumnName] ? (0, _extends5['default'])({}, item, (0, _defineProperty3['default'])({}, childrenColumnName, _this12.recursiveSort(item[childrenColumnName], sorterFn))) : item;
-      });
-    },
-    getLocalData: function getLocalData(state) {
-      var _this13 = this;
-
-      var filter = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-      var currentState = state || this.$data;
-      var filters = currentState.sFilters;
-      var dataSource = this.$props.dataSource;
-
-      var data = dataSource || [];
-      // 优化本地排序
-      data = data.slice(0);
-      var sorterFn = this.getSorterFn(currentState);
-      if (sorterFn) {
-        data = this.recursiveSort(data, sorterFn);
-      }
-      // 筛选
-      if (filter && filters) {
-        Object.keys(filters).forEach(function (columnKey) {
-          var col = _this13.findColumn(columnKey);
-          if (!col) {
-            return;
-          }
-          var values = filters[columnKey] || [];
-          if (values.length === 0) {
-            return;
-          }
-          var onFilter = col.onFilter;
-          data = onFilter ? data.filter(function (record) {
-            return values.some(function (v) {
-              return onFilter(v, record);
-            });
-          }) : data;
-        });
-      }
-      return data;
-    },
-    createComponents: function createComponents() {
-      var components = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var prevComponents = arguments[1];
-
-      var bodyRow = components && components.body && components.body.row;
-      var preBodyRow = prevComponents && prevComponents.body && prevComponents.body.row;
-      if (!this.row || bodyRow !== preBodyRow) {
-        this.row = (0, _createBodyRow2['default'])(bodyRow);
-      }
-      this.customComponents = (0, _extends5['default'])({}, components, {
-        body: (0, _extends5['default'])({}, components.body, {
-          row: this.row
-        })
-      });
-    },
-    renderTable: function renderTable(prefixCls, renderEmpty, dropdownPrefixCls, contextLocale, loading) {
-      var _classNames3,
-          _this14 = this;
+    renderSelectionBox: function renderSelectionBox(type) {
+      var _this9 = this;
 
       var h = this.$createElement;
 
-      var locale = (0, _extends5['default'])({}, contextLocale, this.locale);
+      return function (_, record, index) {
+        var rowKey = _this9.getRecordKey(record, index); // 从 1 开始
+        var props = _this9.getCheckboxPropsByItem(record, index);
+        var handleChange = function handleChange(e) {
+          type === 'radio' ? _this9.handleRadioSelect(record, index, e) : _this9.handleSelect(record, index, e);
+        };
+        var selectionBoxProps = (0, _propsUtil.mergeProps)({
+          props: {
+            type: type,
+            store: _this9.store,
+            rowIndex: rowKey,
+            defaultSelection: _this9.getDefaultSelection()
+          },
+          on: {
+            change: handleChange
+          }
+        }, props);
+
+        return h(
+          'span',
+          {
+            on: {
+              'click': stopPropagation
+            }
+          },
+          [h(_SelectionBox2['default'], selectionBoxProps)]
+        );
+      };
+    },
+    renderRowSelection: function renderRowSelection(_ref3) {
+      var _this10 = this;
+
+      var prefixCls = _ref3.prefixCls,
+          locale = _ref3.locale,
+          getPopupContainer = _ref3.getPopupContainer;
+      var h = this.$createElement;
+      var rowSelection = this.rowSelection;
+
+      var columns = this.columns.concat();
+      if (rowSelection) {
+        var data = this.getFlatCurrentPageData().filter(function (item, index) {
+          if (rowSelection.getCheckboxProps) {
+            return !_this10.getCheckboxPropsByItem(item, index).props.disabled;
+          }
+          return true;
+        });
+        var selectionColumnClass = (0, _classnames2['default'])(prefixCls + '-selection-column', (0, _defineProperty3['default'])({}, prefixCls + '-selection-column-custom', rowSelection.selections));
+        var selectionColumn = (0, _defineProperty3['default'])({
+          key: 'selection-column',
+          customRender: this.renderSelectionBox(rowSelection.type),
+          className: selectionColumnClass,
+          fixed: rowSelection.fixed,
+          width: rowSelection.columnWidth,
+          title: rowSelection.columnTitle
+        }, _vcTable.INTERNAL_COL_DEFINE, {
+          'class': prefixCls + '-selection-col'
+        });
+        if (rowSelection.type !== 'radio') {
+          var checkboxAllDisabled = data.every(function (item, index) {
+            return _this10.getCheckboxPropsByItem(item, index).props.disabled;
+          });
+          selectionColumn.title = selectionColumn.title || h(_SelectionCheckboxAll2['default'], {
+            attrs: {
+              store: this.store,
+              locale: locale,
+              data: data,
+              getCheckboxPropsByItem: this.getCheckboxPropsByItem,
+              getRecordKey: this.getRecordKey,
+              disabled: checkboxAllDisabled,
+              prefixCls: prefixCls,
+
+              selections: rowSelection.selections,
+              hideDefaultSelections: rowSelection.hideDefaultSelections,
+              getPopupContainer: this.generatePopupContainerFunc(getPopupContainer)
+            },
+            on: {
+              'select': this.handleSelectRow
+            }
+          });
+        }
+        if ('fixed' in rowSelection) {
+          selectionColumn.fixed = rowSelection.fixed;
+        } else if (columns.some(function (column) {
+          return column.fixed === 'left' || column.fixed === true;
+        })) {
+          selectionColumn.fixed = 'left';
+        }
+        if (columns[0] && columns[0].key === 'selection-column') {
+          columns[0] = selectionColumn;
+        } else {
+          columns.unshift(selectionColumn);
+        }
+      }
+      return columns;
+    },
+    renderColumnsDropdown: function renderColumnsDropdown(_ref4) {
+      var _this11 = this;
+
+      var prefixCls = _ref4.prefixCls,
+          dropdownPrefixCls = _ref4.dropdownPrefixCls,
+          columns = _ref4.columns,
+          locale = _ref4.locale,
+          getPopupContainer = _ref4.getPopupContainer;
+      var h = this.$createElement;
+      var sortOrder = this.sSortOrder,
+          filters = this.sFilters;
+
+      return (0, _util.treeMap)(columns, function (column, i) {
+        var _classNames3;
+
+        var key = getColumnKey(column, i);
+        var filterDropdown = void 0;
+        var sortButton = void 0;
+        var customHeaderCell = column.customHeaderCell;
+        var isSortColumn = _this11.isSortColumn(column);
+        if (column.filters && column.filters.length > 0 || column.filterDropdown) {
+          var colFilters = key in filters ? filters[key] : [];
+          filterDropdown = h(_filterDropdown2['default'], {
+            attrs: {
+              _propsSymbol: Symbol(),
+              locale: locale,
+              column: column,
+              selectedKeys: colFilters,
+              confirmFilter: _this11.handleFilter,
+              prefixCls: prefixCls + '-filter',
+              dropdownPrefixCls: dropdownPrefixCls || 'ant-dropdown',
+              getPopupContainer: _this11.generatePopupContainerFunc(getPopupContainer)
+            },
+            key: 'filter-dropdown'
+          });
+        }
+        if (column.sorter) {
+          var sortDirections = column.sortDirections || _this11.sortDirections;
+          var isAscend = isSortColumn && sortOrder === 'ascend';
+          var isDescend = isSortColumn && sortOrder === 'descend';
+          var ascend = sortDirections.indexOf('ascend') !== -1 && h(_icon2['default'], {
+            'class': prefixCls + '-column-sorter-up ' + (isAscend ? 'on' : 'off'),
+            attrs: { type: 'caret-up',
+              theme: 'filled'
+            },
+            key: 'caret-up'
+          });
+
+          var descend = sortDirections.indexOf('descend') !== -1 && h(_icon2['default'], {
+            'class': prefixCls + '-column-sorter-down ' + (isDescend ? 'on' : 'off'),
+            attrs: { type: 'caret-down',
+              theme: 'filled'
+            },
+            key: 'caret-down'
+          });
+
+          sortButton = h(
+            'div',
+            {
+              attrs: {
+                title: locale.sortTitle
+              },
+              'class': (0, _classnames2['default'])(prefixCls + '-column-sorter-inner', ascend && descend && prefixCls + '-column-sorter-inner-full'),
+              key: 'sorter'
+            },
+            [ascend, descend]
+          );
+          customHeaderCell = function customHeaderCell(col) {
+            var colProps = {};
+            // Get original first
+            if (column.customHeaderCell) {
+              colProps = (0, _extends5['default'])({}, column.customHeaderCell(col));
+            }
+            colProps.on = colProps.on || {};
+            // Add sorter logic
+            var onHeaderCellClick = colProps.on.click;
+            colProps.on.click = function () {
+              _this11.toggleSortOrder(column);
+              if (onHeaderCellClick) {
+                onHeaderCellClick.apply(undefined, arguments);
+              }
+            };
+            return colProps;
+          };
+        }
+        return (0, _extends5['default'])({}, column, {
+          className: (0, _classnames2['default'])(column.className, (_classNames3 = {}, (0, _defineProperty3['default'])(_classNames3, prefixCls + '-column-has-actions', sortButton || filterDropdown), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-column-has-filters', filterDropdown), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-column-has-sorters', sortButton), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-column-sort', isSortColumn && sortOrder), _classNames3)),
+          title: [h(
+            'span',
+            { key: 'title', 'class': prefixCls + '-header-column' },
+            [h(
+              'div',
+              { 'class': sortButton ? prefixCls + '-column-sorters' : undefined },
+              [h(
+                'span',
+                { 'class': prefixCls + '-column-title' },
+                [_this11.renderColumnTitle(column.title)]
+              ), h(
+                'span',
+                { 'class': prefixCls + '-column-sorter' },
+                [sortButton]
+              )]
+            )]
+          ), filterDropdown],
+          customHeaderCell: customHeaderCell
+        });
+      });
+    },
+    renderColumnTitle: function renderColumnTitle(title) {
+      var _$data = this.$data,
+          filters = _$data.sFilters,
+          sortOrder = _$data.sSortOrder,
+          sortColumn = _$data.sSortColumn;
+      // https://github.com/ant-design/ant-design/issues/11246#issuecomment-405009167
+
+      if (title instanceof Function) {
+        return title({
+          filters: filters,
+          sortOrder: sortOrder,
+          sortColumn: sortColumn
+        });
+      }
+      return title;
+    },
+    renderTable: function renderTable(_ref5) {
+      var _classNames4,
+          _this12 = this;
+
+      var prefixCls = _ref5.prefixCls,
+          renderEmpty = _ref5.renderEmpty,
+          dropdownPrefixCls = _ref5.dropdownPrefixCls,
+          contextLocale = _ref5.contextLocale,
+          contextGetPopupContainer = _ref5.getPopupContainer,
+          transformCellText = _ref5.transformCellText;
+      var h = this.$createElement;
 
       var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
           showHeader = _getOptionProps.showHeader,
-          restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['showHeader']);
+          locale = _getOptionProps.locale,
+          getPopupContainer = _getOptionProps.getPopupContainer,
+          restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['showHeader', 'locale', 'getPopupContainer']);
 
       var data = this.getCurrentPageData();
       var expandIconAsCell = this.expandedRowRender && this.expandIconAsCell !== false;
 
+      // use props.getPopupContainer first
+      var realGetPopupContainer = getPopupContainer || contextGetPopupContainer;
+
+      // Merge too locales
       var mergedLocale = (0, _extends5['default'])({}, contextLocale, locale);
       if (!locale || !locale.emptyText) {
         mergedLocale.emptyText = renderEmpty(h, 'Table');
       }
 
-      var classString = (0, _classnames2['default'])((_classNames3 = {}, (0, _defineProperty3['default'])(_classNames3, prefixCls + '-' + this.size, true), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-bordered', this.bordered), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-empty', !data.length), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-without-column-header', !showHeader), _classNames3));
+      var classString = (0, _classnames2['default'])((_classNames4 = {}, (0, _defineProperty3['default'])(_classNames4, prefixCls + '-' + this.size, true), (0, _defineProperty3['default'])(_classNames4, prefixCls + '-bordered', this.bordered), (0, _defineProperty3['default'])(_classNames4, prefixCls + '-empty', !data.length), (0, _defineProperty3['default'])(_classNames4, prefixCls + '-without-column-header', !showHeader), _classNames4));
 
-      var columns = this.renderRowSelection(prefixCls, mergedLocale);
-      columns = this.renderColumnsDropdown(prefixCls, dropdownPrefixCls, columns, mergedLocale);
-      columns = columns.map(function (column, i) {
+      var columnsWithRowSelection = this.renderRowSelection({
+        prefixCls: prefixCls,
+        locale: mergedLocale,
+        getPopupContainer: realGetPopupContainer
+      });
+      var columns = this.renderColumnsDropdown({
+        columns: columnsWithRowSelection,
+        prefixCls: prefixCls,
+        dropdownPrefixCls: dropdownPrefixCls,
+        locale: mergedLocale,
+        getPopupContainer: realGetPopupContainer
+      }).map(function (column, i) {
         var newColumn = (0, _extends5['default'])({}, column);
-        newColumn.key = _this14.getColumnKey(newColumn, i);
+        newColumn.key = getColumnKey(newColumn, i);
         return newColumn;
       });
+
       var expandIconColumnIndex = columns[0] && columns[0].key === 'selection-column' ? 1 : 0;
       if ('expandIconColumnIndex' in restProps) {
         expandIconColumnIndex = restProps.expandIconColumnIndex;
       }
       var vcTableProps = {
         key: 'table',
-        props: (0, _extends5['default'])({}, restProps, {
+        props: (0, _extends5['default'])({
+          expandIcon: this.renderExpandIcon(prefixCls)
+        }, restProps, {
           customRow: function customRow(record, index) {
-            return _this14.onRow(prefixCls, record, index);
+            return _this12.onRow(prefixCls, record, index);
           },
-          components: this.customComponents,
+          components: this.sComponents,
           prefixCls: prefixCls,
           data: data,
           columns: columns,
           showHeader: showHeader,
           expandIconColumnIndex: expandIconColumnIndex,
           expandIconAsCell: expandIconAsCell,
-          emptyText: !(loading.props && loading.props.spinning) && mergedLocale.emptyText
+          emptyText: mergedLocale.emptyText,
+          transformCellText: transformCellText
         }),
-        on: this.$listeners,
-        'class': classString
+        on: (0, _propsUtil.getListeners)(this),
+        'class': classString,
+        ref: 'vcTable'
       };
       return h(_vcTable2['default'], vcTableProps);
     }
   },
 
   render: function render() {
-    var _this15 = this;
+    var _this13 = this;
 
     var h = arguments[0];
     var customizePrefixCls = this.prefixCls,
-        customizeDropdownPrefixCls = this.dropdownPrefixCls;
+        customizeDropdownPrefixCls = this.dropdownPrefixCls,
+        customizeTransformCellText = this.transformCellText;
 
     var data = this.getCurrentPageData();
+    var _configProvider = this.configProvider,
+        getContextPopupContainer = _configProvider.getPopupContainer,
+        tct = _configProvider.transformCellText;
 
+    var getPopupContainer = this.getPopupContainer || getContextPopupContainer;
+    var transformCellText = customizeTransformCellText || tct;
     var loading = this.loading;
     if (typeof loading === 'boolean') {
       loading = {
@@ -2589,7 +2720,14 @@ exports['default'] = {
         componentName: 'Table',
         defaultLocale: _default3['default'].Table,
         children: function children(locale) {
-          return _this15.renderTable(prefixCls, renderEmpty, dropdownPrefixCls, locale, loading);
+          return _this13.renderTable({
+            prefixCls: prefixCls,
+            renderEmpty: renderEmpty,
+            dropdownPrefixCls: dropdownPrefixCls,
+            contextLocale: locale,
+            getPopupContainer: getPopupContainer,
+            transformCellText: transformCellText
+          });
         }
       }
     });
@@ -2636,13 +2774,15 @@ var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/definePrope
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-exports['default'] = createTableRow;
+exports['default'] = createBodyRow;
 
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 var _createStore = __webpack_require__(/*! ./createStore */ "./node_modules/ant-design-vue/lib/table/createStore.js");
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -2652,7 +2792,7 @@ var BodyRowProps = {
   prefixCls: _vueTypes2['default'].string
 };
 
-function createTableRow() {
+function createBodyRow() {
   var Component = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'tr';
 
   var BodyRow = {
@@ -2701,7 +2841,7 @@ function createTableRow() {
 
       return h(
         Component,
-        (0, _babelHelperVueJsxMergeProps2['default'])([{ 'class': className }, { on: this.$listeners }]),
+        (0, _babelHelperVueJsxMergeProps2['default'])([{ 'class': className }, { on: (0, _propsUtil.getListeners)(this) }]),
         [this.$slots['default']]
       );
     }
@@ -2817,6 +2957,8 @@ var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/a
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
 
+var _util = __webpack_require__(/*! ./util */ "./node_modules/ant-design-vue/lib/table/util.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function stopPropagation(e) {
@@ -2838,7 +2980,8 @@ exports['default'] = {
     return {
       sSelectedKeys: this.selectedKeys,
       sKeyPathOfSelectedItem: {}, // 记录所有有选中子菜单的祖先菜单
-      sVisible: visible
+      sVisible: visible,
+      sValueKeys: (0, _util.generateValueMaps)(this.column.filters)
     };
   },
 
@@ -2847,7 +2990,6 @@ exports['default'] = {
       var nextProps = (0, _propsUtil.getOptionProps)(this);
       var column = nextProps.column;
 
-      this.setNeverShown(column);
       var newState = {};
 
       /**
@@ -2859,6 +3001,9 @@ exports['default'] = {
        */
       if ('selectedKeys' in nextProps && !(0, _shallowequal2['default'])(this.preProps.selectedKeys, nextProps.selectedKeys)) {
         newState.sSelectedKeys = nextProps.selectedKeys;
+      }
+      if (!(0, _shallowequal2['default'])((this.preProps.column || {}).filters, (nextProps.column || {}).filters)) {
+        newState.sValueKeys = (0, _util.generateValueMaps)(nextProps.column.filters);
       }
       if ('filterDropdownVisible' in column) {
         newState.sVisible = column.filterDropdownVisible;
@@ -2877,6 +3022,15 @@ exports['default'] = {
 
     this.$nextTick(function () {
       _this.setNeverShown(column);
+    });
+  },
+  updated: function updated() {
+    var _this2 = this;
+
+    var column = this.column;
+
+    this.$nextTick(function () {
+      _this2.setNeverShown(column);
     });
   },
 
@@ -2916,7 +3070,7 @@ exports['default'] = {
       }, this.handleConfirm);
     },
     handleConfirm: function handleConfirm() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.setVisible(false);
       this.confirmFilter2();
@@ -2924,37 +3078,34 @@ exports['default'] = {
       // https://github.com/ant-design/ant-design/issues/12284
       this.$forceUpdate();
       this.$nextTick(function () {
-        _this2.confirmFilter;
+        _this3.confirmFilter;
       });
     },
     onVisibleChange: function onVisibleChange(visible) {
       this.setVisible(visible);
-      if (!visible) {
+      var column = this.$props.column;
+      // https://github.com/ant-design/ant-design/issues/17833
+
+      if (!visible && !(column.filterDropdown instanceof Function)) {
         this.confirmFilter2();
       }
     },
-    confirmFilter2: function confirmFilter2() {
-      if (!(0, _shallowequal2['default'])(this.sSelectedKeys, this.selectedKeys)) {
-        this.confirmFilter(this.column, this.sSelectedKeys);
-      }
-    },
-    renderMenuItem: function renderMenuItem(item) {
-      var h = this.$createElement;
-      var column = this.column;
+    handleMenuItemClick: function handleMenuItemClick(info) {
       var selectedKeys = this.$data.sSelectedKeys;
 
-      var multiple = 'filterMultiple' in column ? column.filterMultiple : true;
-      var input = multiple ? h(_checkbox2['default'], {
-        attrs: { checked: selectedKeys && selectedKeys.indexOf(item.value.toString()) >= 0 }
-      }) : h(_radio2['default'], {
-        attrs: { checked: selectedKeys && selectedKeys.indexOf(item.value.toString()) >= 0 }
-      });
+      if (!info.keyPath || info.keyPath.length <= 1) {
+        return;
+      }
+      var keyPathOfSelectedItem = this.$data.sKeyPathOfSelectedItem;
 
-      return h(
-        _vcMenu.Item,
-        { key: item.value },
-        [input, h('span', [item.text])]
-      );
+      if (selectedKeys && selectedKeys.indexOf(info.key) >= 0) {
+        // deselect SubMenu child
+        delete keyPathOfSelectedItem[info.key];
+      } else {
+        // select SubMenu child
+        keyPathOfSelectedItem[info.key] = info.keyPath;
+      }
+      this.setState({ sKeyPathOfSelectedItem: keyPathOfSelectedItem });
     },
     hasSubMenu: function hasSubMenu() {
       var _column$filters = this.column.filters,
@@ -2964,48 +3115,54 @@ exports['default'] = {
         return !!(item.children && item.children.length > 0);
       });
     },
+    confirmFilter2: function confirmFilter2() {
+      var _$props = this.$props,
+          column = _$props.column,
+          propSelectedKeys = _$props.selectedKeys,
+          confirmFilter = _$props.confirmFilter;
+      var _$data = this.$data,
+          selectedKeys = _$data.sSelectedKeys,
+          valueKeys = _$data.sValueKeys;
+      var filterDropdown = column.filterDropdown;
+
+
+      if (!(0, _shallowequal2['default'])(selectedKeys, propSelectedKeys)) {
+        confirmFilter(column, filterDropdown ? selectedKeys : selectedKeys.map(function (key) {
+          return valueKeys[key];
+        }).filter(function (key) {
+          return key !== undefined;
+        }));
+      }
+    },
     renderMenus: function renderMenus(items) {
-      var _this3 = this;
+      var _this4 = this;
 
       var h = this.$createElement;
+      var _$props2 = this.$props,
+          dropdownPrefixCls = _$props2.dropdownPrefixCls,
+          prefixCls = _$props2.prefixCls;
 
       return items.map(function (item) {
         if (item.children && item.children.length > 0) {
-          var sKeyPathOfSelectedItem = _this3.sKeyPathOfSelectedItem;
+          var sKeyPathOfSelectedItem = _this4.sKeyPathOfSelectedItem;
 
           var containSelected = Object.keys(sKeyPathOfSelectedItem).some(function (key) {
             return sKeyPathOfSelectedItem[key].indexOf(item.value) >= 0;
           });
-          var subMenuCls = containSelected ? _this3.dropdownPrefixCls + '-submenu-contain-selected' : '';
+          var subMenuCls = (0, _classnames2['default'])(prefixCls + '-dropdown-submenu', (0, _defineProperty3['default'])({}, dropdownPrefixCls + '-submenu-contain-selected', containSelected));
           return h(
             _vcMenu.SubMenu,
             {
-              attrs: { title: item.text },
-              'class': subMenuCls, key: item.value.toString() },
-            [_this3.renderMenus(item.children)]
+              attrs: { title: item.text, popupClassName: subMenuCls },
+              key: item.value.toString() },
+            [_this4.renderMenus(item.children)]
           );
         }
-        return _this3.renderMenuItem(item);
+        return _this4.renderMenuItem(item);
       });
     },
-    handleMenuItemClick: function handleMenuItemClick(info) {
-      var selectedKeys = this.$data.sSelectedKeys;
-
-      if (!info.keyPath || info.keyPath.length <= 1) {
-        return;
-      }
-      var keyPathOfSelectedItem = this.sKeyPathOfSelectedItem;
-      if (selectedKeys && selectedKeys.indexOf(info.key) >= 0) {
-        // deselect SubMenu child
-        delete keyPathOfSelectedItem[info.key];
-      } else {
-        // select SubMenu child
-        keyPathOfSelectedItem[info.key] = info.keyPath;
-      }
-      this.setState({ keyPathOfSelectedItem: keyPathOfSelectedItem });
-    },
     renderFilterIcon: function renderFilterIcon() {
-      var _classNames;
+      var _classNames2;
 
       var h = this.$createElement;
       var column = this.column,
@@ -3018,34 +3175,63 @@ exports['default'] = {
       if (typeof filterIcon === 'function') {
         filterIcon = filterIcon(filtered, column);
       }
-      var dropdownIconClass = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-selected', filtered), (0, _defineProperty3['default'])(_classNames, prefixCls + '-open', this.getDropdownVisible()), _classNames));
+      var dropdownIconClass = (0, _classnames2['default'])((_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-selected', 'filtered' in column ? column.filtered : filtered), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-open', this.getDropdownVisible()), _classNames2));
+      if (!filterIcon) {
+        return h(_icon2['default'], {
+          attrs: {
+            title: locale.filterTitle,
+            type: 'filter',
+            theme: 'filled'
+          },
+          'class': dropdownIconClass,
+          on: {
+            'click': stopPropagation
+          }
+        });
+      }
+      if (filterIcon.length === 1 && (0, _propsUtil.isValidElement)(filterIcon[0])) {
+        return (0, _vnode.cloneElement)(filterIcon[0], {
+          on: {
+            click: stopPropagation
+          },
+          'class': (0, _classnames2['default'])(prefixCls + '-icon', dropdownIconClass)
+        });
+      }
+      return h(
+        'span',
+        { 'class': (0, _classnames2['default'])(prefixCls + '-icon', dropdownIconClass) },
+        [filterIcon]
+      );
+    },
+    renderMenuItem: function renderMenuItem(item) {
+      var h = this.$createElement;
+      var column = this.column;
+      var selectedKeys = this.$data.sSelectedKeys;
 
-      return filterIcon ? (0, _vnode.cloneElement)(filterIcon, {
-        attrs: {
-          title: locale.filterTitle
-        },
-        on: {
-          click: stopPropagation
-        },
-        'class': (0, _classnames2['default'])(prefixCls + '-icon', dropdownIconClass)
-      }) : h(_icon2['default'], {
-        attrs: {
-          title: locale.filterTitle,
-          type: 'filter',
-          theme: 'filled'
-        },
-        'class': dropdownIconClass,
-        on: {
-          'click': stopPropagation
-        }
+      var multiple = 'filterMultiple' in column ? column.filterMultiple : true;
+
+      // We still need trade key as string since Menu render need string
+      // const internalSelectedKeys = (selectedKeys || []).map(key => key.toString());
+
+      var input = multiple ? h(_checkbox2['default'], {
+        attrs: { checked: selectedKeys && selectedKeys.indexOf(item.value.toString()) >= 0 }
+      }) : h(_radio2['default'], {
+        attrs: { checked: selectedKeys && selectedKeys.indexOf(item.value.toString()) >= 0 }
       });
+
+      return h(
+        _vcMenu.Item,
+        { key: item.value },
+        [input, h('span', [item.text])]
+      );
     }
   },
 
   render: function render() {
-    var _this4 = this;
+    var _this5 = this;
 
     var h = arguments[0];
+    var originSelectedKeys = this.$data.sSelectedKeys;
     var column = this.column,
         locale = this.locale,
         prefixCls = this.prefixCls,
@@ -3061,15 +3247,13 @@ exports['default'] = {
       filterDropdown = filterDropdown({
         prefixCls: dropdownPrefixCls + '-custom',
         setSelectedKeys: function setSelectedKeys(selectedKeys) {
-          return _this4.setSelectedKeys({ selectedKeys: selectedKeys });
+          return _this5.setSelectedKeys({ selectedKeys: selectedKeys });
         },
-        selectedKeys: this.sSelectedKeys,
+        selectedKeys: originSelectedKeys,
         confirm: this.handleConfirm,
         clearFilters: this.handleClearFilters,
         filters: column.filters,
-        getPopupContainer: function getPopupContainer(triggerNode) {
-          return triggerNode.parentNode;
-        },
+        visible: this.getDropdownVisible(),
         column: column
       });
     }
@@ -3089,10 +3273,10 @@ exports['default'] = {
 
             prefixCls: dropdownPrefixCls + '-menu',
 
-            selectedKeys: this.sSelectedKeys,
-            getPopupContainer: function getPopupContainer(triggerNode) {
-              return triggerNode.parentNode;
-            }
+            selectedKeys: originSelectedKeys && originSelectedKeys.map(function (val) {
+              return val.toString();
+            }),
+            getPopupContainer: getPopupContainer
           },
           on: {
             'click': this.handleMenuItemClick,
@@ -3175,6 +3359,14 @@ var _Table = __webpack_require__(/*! ./Table */ "./node_modules/ant-design-vue/l
 
 var _Table2 = _interopRequireDefault(_Table);
 
+var _vueRef = __webpack_require__(/*! vue-ref */ "./node_modules/vue-ref/index.js");
+
+var _vueRef2 = _interopRequireDefault(_vueRef);
+
+var _vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+var _vue2 = _interopRequireDefault(_vue);
+
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
@@ -3182,6 +3374,8 @@ var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/li
 var _base2 = _interopRequireDefault(_base);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+_vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' });
 
 var Table = {
   name: 'ATable',
@@ -3270,8 +3464,7 @@ var Table = {
   },
   render: function render() {
     var h = arguments[0];
-    var $listeners = this.$listeners,
-        $slots = this.$slots,
+    var $slots = this.$slots,
         normalize = this.normalize,
         $scopedSlots = this.$scopedSlots;
 
@@ -3293,7 +3486,7 @@ var Table = {
         footer: footer,
         expandedRowRender: expandedRowRender
       }),
-      on: $listeners
+      on: (0, _propsUtil.getListeners)(this)
     };
     return h(_Table2['default'], tProps);
   }
@@ -3359,6 +3552,7 @@ var ColumnProps = exports.ColumnProps = {
   customCell: _vueTypes2['default'].func,
   customHeaderCell: _vueTypes2['default'].func,
   align: _vueTypes2['default'].oneOf(['left', 'right', 'center']),
+  ellipsis: _vueTypes2['default'].bool,
   filters: _vueTypes2['default'].arrayOf(ColumnFilterItem),
   // onFilter: (value: any, record: T) => PropTypes.bool,
   filterMultiple: _vueTypes2['default'].bool,
@@ -3373,6 +3567,8 @@ var ColumnProps = exports.ColumnProps = {
   fixed: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].oneOf(['left', 'right'])]),
   filterIcon: _vueTypes2['default'].any,
   filteredValue: _vueTypes2['default'].array,
+  filtered: _vueTypes2['default'].bool,
+  defaultFilteredValue: _vueTypes2['default'].array,
   sortOrder: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].oneOf(['ascend', 'descend'])]),
   sortDirections: _vueTypes2['default'].array
   // children?: ColumnProps<T>[];
@@ -3402,7 +3598,9 @@ var TableLocale = exports.TableLocale = _vueTypes2['default'].shape({
   emptyText: _vueTypes2['default'].any,
   selectAll: _vueTypes2['default'].any,
   selectInvert: _vueTypes2['default'].any,
-  sortTitle: _vueTypes2['default'].string
+  sortTitle: _vueTypes2['default'].string,
+  expand: _vueTypes2['default'].string,
+  collapse: _vueTypes2['default'].string
 }).loose;
 
 var RowSelectionType = exports.RowSelectionType = _vueTypes2['default'].oneOf(['checkbox', 'radio']);
@@ -3462,7 +3660,10 @@ var TableProps = exports.TableProps = {
   childrenColumnName: _vueTypes2['default'].oneOfType([_vueTypes2['default'].array, _vueTypes2['default'].string]),
   bodyStyle: _vueTypes2['default'].any,
   sortDirections: _vueTypes2['default'].array,
-  expandIcon: _vueTypes2['default'].func
+  tableLayout: _vueTypes2['default'].string,
+  getPopupContainer: _vueTypes2['default'].func,
+  expandIcon: _vueTypes2['default'].func,
+  transformCellText: _vueTypes2['default'].func
   // className?: PropTypes.string,
   // style?: React.CSSProperties;
   // children?: React.ReactNode;
@@ -3566,6 +3767,7 @@ var _extends3 = _interopRequireDefault(_extends2);
 exports.flatArray = flatArray;
 exports.treeMap = treeMap;
 exports.flatFilter = flatFilter;
+exports.generateValueMaps = generateValueMaps;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -3636,6 +3838,19 @@ function flatFilter(tree, callback) {
 //   })
 //   return columns
 // }
+
+function generateValueMaps(items) {
+  var maps = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+  (items || []).forEach(function (_ref) {
+    var value = _ref.value,
+        children = _ref.children;
+
+    maps[value.toString()] = value;
+    generateValueMaps(children, maps);
+  });
+  return maps;
+}
 
 /***/ }),
 
@@ -3728,7 +3943,7 @@ exports['default'] = {
       var goInputText = this.goInputText,
           current = this.current;
 
-      return isNaN(goInputText) ? current : Number(goInputText);
+      return !goInputText || isNaN(goInputText) ? current : Number(goInputText);
     },
     defaultBuildOptionText: function defaultBuildOptionText(opt) {
       return opt.value + ' ' + this.locale.items_per_page;
@@ -3738,16 +3953,21 @@ exports['default'] = {
           value = _e$target.value,
           composing = _e$target.composing;
 
-      if (composing || this.goInputText === value) return;
+      if (e.isComposing || composing || this.goInputText === value) return;
       this.setState({
         goInputText: value
       });
     },
-    handleBlur: function handleBlur() {
-      var goButton = this.goButton,
-          quickGo = this.quickGo;
+    handleBlur: function handleBlur(e) {
+      var _$props = this.$props,
+          goButton = _$props.goButton,
+          quickGo = _$props.quickGo,
+          rootPrefixCls = _$props.rootPrefixCls;
 
       if (goButton) {
+        return;
+      }
+      if (e.relatedTarget && (e.relatedTarget.className.indexOf(rootPrefixCls + '-prev') >= 0 || e.relatedTarget.className.indexOf(rootPrefixCls + '-next') >= 0)) {
         return;
       }
       quickGo(this.getValidValue());
@@ -3901,9 +4121,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -3921,16 +4149,6 @@ exports['default'] = {
       'default': function _default() {}
     }
   },
-  computed: {
-    classes: function classes() {
-      var prefixCls = this.rootPrefixCls + '-item';
-      var cls = prefixCls + ' ' + prefixCls + '-' + this.page;
-      if (this.active) {
-        cls = cls + ' ' + prefixCls + '-active';
-      }
-      return cls;
-    }
-  },
   methods: {
     handleClick: function handleClick() {
       this.$emit('click', this.page);
@@ -3940,21 +4158,13 @@ exports['default'] = {
     }
   },
   render: function render() {
+    var _classNames;
+
     var h = arguments[0];
-    var rootPrefixCls = this.rootPrefixCls,
-        page = this.page,
-        active = this.active;
 
-    var prefixCls = rootPrefixCls + '-item';
-    var cls = prefixCls + ' ' + prefixCls + '-' + page;
-
-    if (active) {
-      cls = cls + ' ' + prefixCls + '-active';
-    }
-
-    if (!page) {
-      cls = cls + ' ' + prefixCls + '-disabled';
-    }
+    var props = this.$props;
+    var prefixCls = props.rootPrefixCls + '-item';
+    var cls = (0, _classnames2['default'])(prefixCls, prefixCls + '-' + props.page, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-active', props.active), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', !props.page), _classNames));
 
     return h(
       'li',
@@ -4085,20 +4295,23 @@ exports['default'] = {
     jumpNextIcon: _vueTypes2['default'].any
   },
   data: function data() {
+    var props = (0, _propsUtil.getOptionProps)(this);
     var hasOnChange = this.onChange !== noop;
-    var hasCurrent = (0, _propsUtil.hasProp)(this, 'current');
+    var hasCurrent = 'current' in props;
     if (hasCurrent && !hasOnChange) {
       console.warn('Warning: You provided a `current` prop to a Pagination component without an `onChange` handler. This will render a read-only component.'); // eslint-disable-line
     }
     var current = this.defaultCurrent;
-    if (hasCurrent) {
+    if ('current' in props) {
       current = this.current;
     }
 
     var pageSize = this.defaultPageSize;
-    if ((0, _propsUtil.hasProp)(this, 'pageSize')) {
+    if ('pageSize' in props) {
       pageSize = this.pageSize;
     }
+
+    current = Math.min(current, calculatePage(pageSize, undefined, props));
 
     return {
       stateCurrent: current,
@@ -4139,6 +4352,24 @@ exports['default'] = {
           }
         }
       });
+    },
+    total: function total() {
+      var newState = {};
+      var newCurrent = calculatePage(this.pageSize, this.$data, this.$props);
+      if ((0, _propsUtil.hasProp)(this, 'current')) {
+        var current = Math.min(this.current, newCurrent);
+        newState.stateCurrent = current;
+        newState.stateCurrentInputValue = current;
+      } else {
+        var _current = this.stateCurrent;
+        if (_current === 0 && newCurrent > 0) {
+          _current = 1;
+        } else {
+          _current = Math.min(this.stateCurrent, newCurrent);
+        }
+        newState.stateCurrent = _current;
+      }
+      this.setState(newState);
     }
   },
   methods: {
@@ -4157,6 +4388,7 @@ exports['default'] = {
     },
     getValidValue: function getValidValue(e) {
       var inputValue = e.target.value;
+      var allPages = calculatePage(undefined, this.$data, this.$props);
       var stateCurrentInputValue = this.$data.stateCurrentInputValue;
 
       var value = void 0;
@@ -4164,13 +4396,15 @@ exports['default'] = {
         value = inputValue;
       } else if (isNaN(Number(inputValue))) {
         value = stateCurrentInputValue;
+      } else if (inputValue >= allPages) {
+        value = allPages;
       } else {
         value = Number(inputValue);
       }
       return value;
     },
     isValid: function isValid(page) {
-      return isInteger(page) && page >= 1 && page !== this.stateCurrent;
+      return isInteger(page) && page !== this.stateCurrent;
     },
     shouldDisplayQuickJumper: function shouldDisplayQuickJumper() {
       var _$props = this.$props,
@@ -4197,7 +4431,7 @@ exports['default'] = {
       }
     },
     handleKeyUp: function handleKeyUp(e) {
-      if (e.target.composing) return;
+      if (e.isComposing || e.target.composing) return;
       var value = this.getValidValue(e);
       var stateCurrentInputValue = this.stateCurrentInputValue;
 
@@ -4252,6 +4486,8 @@ exports['default'] = {
         var currentPage = calculatePage(undefined, this.$data, this.$props);
         if (page > currentPage) {
           page = currentPage;
+        } else if (page < 1) {
+          page = 1;
         }
         if (!(0, _propsUtil.hasProp)(this, 'current')) {
           this.setState({
@@ -4788,7 +5024,7 @@ exports['default'] = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ColumnGroup = exports.Column = undefined;
+exports.INTERNAL_COL_DEFINE = exports.ColumnGroup = exports.Column = undefined;
 
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
@@ -4808,15 +5044,22 @@ var _ColumnGroup2 = _interopRequireDefault(_ColumnGroup);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _utils = __webpack_require__(/*! ./src/utils */ "./node_modules/ant-design-vue/lib/vc-table/src/utils.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-// base rc-table 6.4.3
 var Table = {
   name: 'Table',
   Column: _Column2['default'],
   ColumnGroup: _ColumnGroup2['default'],
   props: _Table2['default'].props,
   methods: {
+    getTableNode: function getTableNode() {
+      return this.$refs.table.tableNode;
+    },
+    getBodyTable: function getBodyTable() {
+      return this.$refs.table.ref_bodyTable;
+    },
     normalize: function normalize() {
       var _this = this;
 
@@ -4859,8 +5102,7 @@ var Table = {
   },
   render: function render() {
     var h = arguments[0];
-    var $listeners = this.$listeners,
-        $slots = this.$slots,
+    var $slots = this.$slots,
         normalize = this.normalize;
 
     var props = (0, _propsUtil.getOptionProps)(this);
@@ -4869,15 +5111,16 @@ var Table = {
       props: (0, _extends3['default'])({}, props, {
         columns: columns
       }),
-      on: $listeners
+      on: (0, _propsUtil.getListeners)(this),
+      ref: 'table'
     };
     return h(_Table2['default'], tProps);
   }
-};
-
+}; // base rc-table 6.10.9
 exports['default'] = Table;
 exports.Column = _Column2['default'];
 exports.ColumnGroup = _ColumnGroup2['default'];
+exports.INTERNAL_COL_DEFINE = _utils.INTERNAL_COL_DEFINE;
 
 /***/ }),
 
@@ -4979,19 +5222,21 @@ var BaseTable = {
           prefixCls = _table.prefixCls,
           childrenColumnName = _table.childrenColumnName,
           rowClassName = _table.rowClassName,
-          _table$$listeners = _table.$listeners,
-          _table$$listeners$row = _table$$listeners.rowClick,
-          onRowClick = _table$$listeners$row === undefined ? noop : _table$$listeners$row,
-          _table$$listeners$row2 = _table$$listeners.rowDoubleclick,
-          onRowDoubleClick = _table$$listeners$row2 === undefined ? noop : _table$$listeners$row2,
-          _table$$listeners$row3 = _table$$listeners.rowContextmenu,
-          onRowContextMenu = _table$$listeners$row3 === undefined ? noop : _table$$listeners$row3,
-          _table$$listeners$row4 = _table$$listeners.rowMouseenter,
-          onRowMouseEnter = _table$$listeners$row4 === undefined ? noop : _table$$listeners$row4,
-          _table$$listeners$row5 = _table$$listeners.rowMouseleave,
-          onRowMouseLeave = _table$$listeners$row5 === undefined ? noop : _table$$listeners$row5,
           _table$customRow = _table.customRow,
           customRow = _table$customRow === undefined ? noop : _table$customRow;
+
+      var _getListeners = (0, _propsUtil.getListeners)(this.table),
+          _getListeners$rowClic = _getListeners.rowClick,
+          onRowClick = _getListeners$rowClic === undefined ? noop : _getListeners$rowClic,
+          _getListeners$rowDoub = _getListeners.rowDoubleclick,
+          onRowDoubleClick = _getListeners$rowDoub === undefined ? noop : _getListeners$rowDoub,
+          _getListeners$rowCont = _getListeners.rowContextmenu,
+          onRowContextMenu = _getListeners$rowCont === undefined ? noop : _getListeners$rowCont,
+          _getListeners$rowMous = _getListeners.rowMouseenter,
+          onRowMouseEnter = _getListeners$rowMous === undefined ? noop : _getListeners$rowMous,
+          _getListeners$rowMous2 = _getListeners.rowMouseleave,
+          onRowMouseLeave = _getListeners$rowMous2 === undefined ? noop : _getListeners$rowMous2;
+
       var getRowKey = this.getRowKey,
           fixed = this.fixed,
           expander = this.expander,
@@ -5072,7 +5317,7 @@ var BaseTable = {
         expander.renderRows(_this.renderRows, rows, record, i, indent, fixed, key, ancestorKeys);
       };
 
-      for (var i = 0; i < renderData.length; i++) {
+      for (var i = 0; i < renderData.length; i += 1) {
         _loop(i);
       }
       return rows;
@@ -5092,18 +5337,19 @@ var BaseTable = {
         tableClassName = _$props2.tableClassName,
         hasHead = _$props2.hasHead,
         hasBody = _$props2.hasBody,
-        fixed = _$props2.fixed;
+        fixed = _$props2.fixed,
+        isAnyColumnsFixed = _$props2.isAnyColumnsFixed;
 
 
     var tableStyle = {};
 
     if (!fixed && scroll.x) {
+      // 当有固定列时，width auto 会导致 body table 的宽度撑不开，从而固定列无法对齐
+      // 详情见：https://github.com/ant-design/ant-design/issues/22160
+      var tableWidthScrollX = isAnyColumnsFixed ? 'max-content' : 'auto';
       // not set width, then use content fixed width
-      if (scroll.x === true) {
-        tableStyle.tableLayout = 'fixed';
-      } else {
-        tableStyle.width = typeof scroll.x === 'number' ? scroll.x + 'px' : scroll.x;
-      }
+      tableStyle.width = scroll.x === true ? tableWidthScrollX : scroll.x;
+      tableStyle.width = typeof tableStyle.width === 'number' ? tableStyle.width + 'px' : tableStyle.width;
     }
 
     var Table = hasBody ? components.table : 'table';
@@ -5151,6 +5397,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -5184,20 +5434,6 @@ exports['default'] = {
         return {};
       } }
   },
-  mounted: function mounted() {
-    this.updateTableRef();
-  },
-  updated: function updated() {
-    this.updateTableRef();
-  },
-
-  methods: {
-    updateTableRef: function updateTableRef() {
-      this.$refs.fixedColumnsBodyLeft && this.table.saveChildrenRef('fixedColumnsBodyLeft', this.$refs.fixedColumnsBodyLeft);
-      this.$refs.fixedColumnsBodyRight && this.table.saveChildrenRef('fixedColumnsBodyRight', this.$refs.fixedColumnsBodyRight);
-      this.$refs.bodyTable && this.table.saveChildrenRef('bodyTable', this.$refs.bodyTable);
-    }
-  },
   render: function render() {
     var h = arguments[0];
     var _table = this.table,
@@ -5211,7 +5447,9 @@ exports['default'] = {
         handleWheel = this.handleWheel,
         expander = this.expander,
         isAnyColumnsFixed = this.isAnyColumnsFixed;
-    var useFixedHeader = this.table.useFixedHeader;
+    var _table2 = this.table,
+        useFixedHeader = _table2.useFixedHeader,
+        saveRef = _table2.saveRef;
 
     var bodyStyle = (0, _extends3['default'])({}, this.table.bodyStyle);
     var innerBodyStyle = {};
@@ -5238,7 +5476,7 @@ exports['default'] = {
       useFixedHeader = true;
 
       // Add negative margin bottom for scroll bar overflow bug
-      var scrollbarWidth = (0, _utils.measureScrollbar)();
+      var scrollbarWidth = (0, _utils.measureScrollbar)({ direction: 'vertical' });
       if (scrollbarWidth > 0 && fixed) {
         bodyStyle.marginBottom = '-' + scrollbarWidth + 'px';
         bodyStyle.paddingBottom = '0px';
@@ -5272,31 +5510,47 @@ exports['default'] = {
         { key: 'bodyTable', 'class': prefixCls + '-body-outer', style: (0, _extends3['default'])({}, bodyStyle) },
         [h(
           'div',
-          {
+          (0, _babelHelperVueJsxMergeProps2['default'])([{
             'class': prefixCls + '-body-inner',
-            style: innerBodyStyle,
-            ref: refName,
+            style: innerBodyStyle
+          }, {
+            directives: [{
+              name: 'ant-ref',
+              value: saveRef(refName)
+            }]
+          }, {
             on: {
               'wheel': handleWheel,
               'scroll': handleBodyScroll
             }
-          },
+          }]),
           [baseTable]
         )]
       );
     }
+    // Should provides `tabIndex` if use scroll to enable keyboard scroll
+    var useTabIndex = scroll && (scroll.x || scroll.y);
+
     return h(
       'div',
-      {
+      (0, _babelHelperVueJsxMergeProps2['default'])([{
+        attrs: {
+          tabIndex: useTabIndex ? -1 : undefined
+        },
         key: 'bodyTable',
         'class': prefixCls + '-body',
-        style: bodyStyle,
-        ref: 'bodyTable',
+        style: bodyStyle
+      }, {
+        directives: [{
+          name: 'ant-ref',
+          value: saveRef('bodyTable')
+        }]
+      }, {
         on: {
           'wheel': handleWheel,
           'scroll': handleBodyScroll
         }
-      },
+      }]),
       [baseTable]
     );
   }
@@ -5318,9 +5572,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
 var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/vc-table/src/utils.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -5359,9 +5619,15 @@ exports['default'] = {
     } else {
       leafColumns = columnManager.leafColumns();
     }
-    cols = cols.concat(leafColumns.map(function (c) {
-      var width = typeof c.width === 'number' ? c.width + 'px' : c.width;
-      return h('col', { key: c.key || c.dataIndex, style: width ? { width: width, minWidth: width } : {} });
+    cols = cols.concat(leafColumns.map(function (_ref) {
+      var key = _ref.key,
+          dataIndex = _ref.dataIndex,
+          width = _ref.width,
+          additionalProps = _ref[_utils.INTERNAL_COL_DEFINE];
+
+      var mergedKey = key !== undefined ? key : dataIndex;
+      var w = typeof width === 'number' ? width + 'px' : width;
+      return h('col', (0, _babelHelperVueJsxMergeProps2['default'])([{ key: mergedKey, style: { width: w, minWidth: w } }, additionalProps]));
     }));
     return h('colgroup', [cols]);
   }
@@ -5392,11 +5658,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 exports['default'] = {
   name: 'Column',
   props: {
+    rowSpan: _vueTypes2['default'].number,
     colSpan: _vueTypes2['default'].number,
     title: _vueTypes2['default'].any,
     dataIndex: _vueTypes2['default'].string,
     width: _vueTypes2['default'].oneOfType([_vueTypes2['default'].number, _vueTypes2['default'].string]),
+    ellipsis: _vueTypes2['default'].bool,
     fixed: _vueTypes2['default'].oneOf([true, 'left', 'right']),
+    align: _vueTypes2['default'].oneOf(['left', 'center', 'right']),
     customRender: _vueTypes2['default'].func,
     className: _vueTypes2['default'].string,
     // onCellClick: PropTypes.func,
@@ -5591,10 +5860,10 @@ var ColumnManager = function () {
               newColumn.children = _groupColumns(newColumn.children, currentRow + 1, newColumn, rows);
               parentColumn.colSpan += newColumn.colSpan;
             } else {
-              parentColumn.colSpan++;
+              parentColumn.colSpan += 1;
             }
             // update rowspan to all same row columns
-            for (var i = 0; i < rows[currentRow].length - 1; ++i) {
+            for (var i = 0; i < rows[currentRow].length - 1; i += 1) {
               setRowSpan(rows[currentRow][i]);
             }
             // last column, update rowspan immediately
@@ -5702,7 +5971,8 @@ exports['default'] = {
           'click': onExpand
         }
       });
-    } else if (needIndentSpaced) {
+    }
+    if (needIndentSpaced) {
       return h('span', { 'class': prefixCls + '-expand-icon ' + prefixCls + '-spaced' });
     }
     return null;
@@ -5769,9 +6039,16 @@ var ExpandableRow = {
 
   methods: {
     hasExpandIcon: function hasExpandIcon(columnIndex) {
-      var expandRowByClick = this.expandRowByClick;
+      var _$props = this.$props,
+          expandRowByClick = _$props.expandRowByClick,
+          expandIcon = _$props.expandIcon;
 
-      return !this.tempExpandIconAsCell && !expandRowByClick && columnIndex === this.tempExpandIconColumnIndex;
+
+      if (this.tempExpandIconAsCell || columnIndex !== this.tempExpandIconColumnIndex) {
+        return false;
+      }
+
+      return !!expandIcon || !expandRowByClick;
     },
     handleExpandChange: function handleExpandChange(record, event) {
       var expanded = this.expanded,
@@ -5878,7 +6155,7 @@ exports['default'] = (0, _store.connect)(function (_ref, _ref2) {
   var expandedRowKeys = _ref.expandedRowKeys;
   var rowKey = _ref2.rowKey;
   return {
-    expanded: !!~expandedRowKeys.indexOf(rowKey)
+    expanded: expandedRowKeys.includes(rowKey)
   };
 })(ExpandableRow);
 
@@ -5978,17 +6255,17 @@ var ExpandableTable = {
         getRowKey = this.getRowKey;
 
 
-    var finnalExpandedRowKeys = [];
+    var finalExpandedRowKeys = [];
     var rows = [].concat((0, _toConsumableArray3['default'])(data));
 
     if (defaultExpandAllRows) {
-      for (var i = 0; i < rows.length; i++) {
+      for (var i = 0; i < rows.length; i += 1) {
         var row = rows[i];
-        finnalExpandedRowKeys.push(getRowKey(row, i));
+        finalExpandedRowKeys.push(getRowKey(row, i));
         rows = rows.concat(row[childrenColumnName] || []);
       }
     } else {
-      finnalExpandedRowKeys = expandedRowKeys || defaultExpandedRowKeys;
+      finalExpandedRowKeys = expandedRowKeys || defaultExpandedRowKeys;
     }
 
     // this.columnManager = props.columnManager
@@ -5996,7 +6273,7 @@ var ExpandableTable = {
 
     this.store.setState({
       expandedRowsHeight: {},
-      expandedRowKeys: finnalExpandedRowKeys
+      expandedRowKeys: finalExpandedRowKeys
     });
     return {};
   },
@@ -6105,7 +6382,7 @@ var ExpandableTable = {
           var _store$getState2 = _this2.store.getState(),
               expandedRowKeys = _store$getState2.expandedRowKeys;
 
-          var expanded = !!~expandedRowKeys.indexOf(parentKey);
+          var expanded = expandedRowKeys.includes(parentKey);
           return {
             attrs: {
               colSpan: colCount
@@ -6161,8 +6438,7 @@ var ExpandableTable = {
   render: function render() {
     var data = this.data,
         childrenColumnName = this.childrenColumnName,
-        $scopedSlots = this.$scopedSlots,
-        $listeners = this.$listeners;
+        $scopedSlots = this.$scopedSlots;
 
     var props = (0, _propsUtil.getOptionProps)(this);
     var needIndentSpaced = data.some(function (record) {
@@ -6171,7 +6447,7 @@ var ExpandableTable = {
 
     return $scopedSlots['default'] && $scopedSlots['default']({
       props: props,
-      on: $listeners,
+      on: (0, _propsUtil.getListeners)(this),
       needIndentSpaced: needIndentSpaced,
       renderRows: this.renderRows,
       handleExpandChange: this.handleExpandChange,
@@ -6198,6 +6474,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
@@ -6207,6 +6491,10 @@ var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/l
 var _BaseTable = __webpack_require__(/*! ./BaseTable */ "./node_modules/ant-design-vue/lib/vc-table/src/BaseTable.js");
 
 var _BaseTable2 = _interopRequireDefault(_BaseTable);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -6224,22 +6512,6 @@ exports['default'] = {
         return {};
       } }
   },
-  mounted: function mounted() {
-    this.updateTableRef();
-  },
-  updated: function updated() {
-    this.updateTableRef();
-  },
-
-  methods: {
-    updateTableRef: function updateTableRef() {
-      var _this = this;
-
-      this.$nextTick(function () {
-        _this.$refs.headTable && _this.table.saveChildrenRef('headTable', _this.$refs.headTable);
-      });
-    }
-  },
   render: function render() {
     var h = arguments[0];
     var columns = this.columns,
@@ -6250,18 +6522,27 @@ exports['default'] = {
         table = this.table;
     var prefixCls = table.prefixCls,
         scroll = table.scroll,
-        showHeader = table.showHeader;
+        showHeader = table.showHeader,
+        saveRef = table.saveRef;
     var useFixedHeader = table.useFixedHeader;
 
     var headStyle = {};
 
+    var scrollbarWidth = (0, _utils.measureScrollbar)({ direction: 'vertical' });
+
     if (scroll.y) {
       useFixedHeader = true;
+      // https://github.com/ant-design/ant-design/issues/17051
+      var scrollbarWidthOfHeader = (0, _utils.measureScrollbar)({ direction: 'horizontal', prefixCls: prefixCls });
       // Add negative margin bottom for scroll bar overflow bug
-      var scrollbarWidth = (0, _utils.measureScrollbar)('horizontal');
-      if (scrollbarWidth > 0 && !fixed) {
-        headStyle.marginBottom = '-' + scrollbarWidth + 'px';
+      if (scrollbarWidthOfHeader > 0 && !fixed) {
+        headStyle.marginBottom = '-' + scrollbarWidthOfHeader + 'px';
         headStyle.paddingBottom = '0px';
+        // https://github.com/ant-design/ant-design/pull/19986
+        headStyle.minWidth = scrollbarWidth + 'px';
+        // https://github.com/ant-design/ant-design/issues/17051
+        headStyle.overflowX = 'scroll';
+        headStyle.overflowY = scrollbarWidth === 0 ? 'hidden' : 'scroll';
       }
     }
 
@@ -6270,15 +6551,20 @@ exports['default'] = {
     }
     return h(
       'div',
-      {
-        key: 'headTable',
-        ref: fixed ? null : 'headTable',
-        'class': prefixCls + '-header',
+      (0, _babelHelperVueJsxMergeProps2['default'])([{
+        key: 'headTable'
+      }, {
+        directives: [{
+          name: 'ant-ref',
+          value: fixed ? function () {} : saveRef('headTable')
+        }]
+      }, {
+        'class': (0, _classnames2['default'])(prefixCls + '-header', (0, _defineProperty3['default'])({}, prefixCls + '-hide-scrollbar', scrollbarWidth > 0)),
         style: headStyle,
         on: {
           'scroll': handleBodyScrollLeft
         }
-      },
+      }]),
       [h(_BaseTable2['default'], {
         attrs: {
           tableClassName: tableClassName,
@@ -6309,9 +6595,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
 var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
 
@@ -6329,13 +6623,21 @@ var _componentClasses = __webpack_require__(/*! component-classes */ "./node_mod
 
 var _componentClasses2 = _interopRequireDefault(_componentClasses);
 
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
 var _vueTypes = __webpack_require__(/*! ../../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/vc-table/src/utils.js");
 
-var _addEventListener = __webpack_require__(/*! ../../_util/Dom/addEventListener */ "./node_modules/ant-design-vue/lib/_util/Dom/addEventListener.js");
+var _warning = __webpack_require__(/*! ../../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+
+var _warning2 = _interopRequireDefault(_warning);
+
+var _addEventListener = __webpack_require__(/*! ../../vc-util/Dom/addEventListener */ "./node_modules/ant-design-vue/lib/vc-util/Dom/addEventListener.js");
 
 var _addEventListener2 = _interopRequireDefault(_addEventListener);
 
@@ -6414,7 +6716,9 @@ exports['default'] = {
     childrenColumnName: _vueTypes2['default'].string,
     indentSize: _vueTypes2['default'].number,
     expandRowByClick: _vueTypes2['default'].bool,
-    expandIcon: _vueTypes2['default'].func
+    expandIcon: _vueTypes2['default'].func,
+    tableLayout: _vueTypes2['default'].string,
+    transformCellText: _vueTypes2['default'].func
   }, {
     data: [],
     useFixedHeader: false,
@@ -6495,10 +6799,10 @@ exports['default'] = {
     var _this2 = this;
 
     ['rowClick', 'rowDoubleclick', 'rowContextmenu', 'rowMouseenter', 'rowMouseleave'].forEach(function (name) {
-      (0, _utils.warningOnce)(_this2.$listeners[name] === undefined, name + ' is deprecated, please use customRow instead.');
+      (0, _warning2['default'])((0, _propsUtil.getListeners)(_this2)[name] === undefined, name + ' is deprecated, please use customRow instead.');
     });
 
-    (0, _utils.warningOnce)(this.getBodyWrapper === undefined, 'getBodyWrapper is deprecated, please use custom components instead.');
+    (0, _warning2['default'])(this.getBodyWrapper === undefined, 'getBodyWrapper is deprecated, please use custom components instead.');
 
     // this.columnManager = new ColumnManager(this.columns, this.$slots.default)
 
@@ -6559,18 +6863,18 @@ exports['default'] = {
     getRowKey: function getRowKey(record, index) {
       var rowKey = this.rowKey;
       var key = typeof rowKey === 'function' ? rowKey(record, index) : record[rowKey];
-      (0, _utils.warningOnce)(key !== undefined, 'Each record in table should have a unique `key` prop,' + 'or set `rowKey` to an unique primary key.');
+      (0, _warning2['default'])(key !== undefined, 'Each record in table should have a unique `key` prop,' + 'or set `rowKey` to an unique primary key.');
       return key === undefined ? index : key;
     },
     setScrollPosition: function setScrollPosition(position) {
       this.scrollPosition = position;
-      if (this.$refs.tableNode) {
+      if (this.tableNode) {
         var prefixCls = this.prefixCls;
 
         if (position === 'both') {
-          (0, _componentClasses2['default'])(this.$refs.tableNode).remove(new RegExp('^' + prefixCls + '-scroll-position-.+$')).add(prefixCls + '-scroll-position-left').add(prefixCls + '-scroll-position-right');
+          (0, _componentClasses2['default'])(this.tableNode).remove(new RegExp('^' + prefixCls + '-scroll-position-.+$')).add(prefixCls + '-scroll-position-left').add(prefixCls + '-scroll-position-right');
         } else {
-          (0, _componentClasses2['default'])(this.$refs.tableNode).remove(new RegExp('^' + prefixCls + '-scroll-position-.+$')).add(prefixCls + '-scroll-position-' + position);
+          (0, _componentClasses2['default'])(this.tableNode).remove(new RegExp('^' + prefixCls + '-scroll-position-.+$')).add(prefixCls + '-scroll-position-' + position);
         }
       }
     },
@@ -6588,12 +6892,42 @@ exports['default'] = {
         this.setScrollPosition('middle');
       }
     },
+    isTableLayoutFixed: function isTableLayoutFixed() {
+      var _$props = this.$props,
+          tableLayout = _$props.tableLayout,
+          _$props$columns = _$props.columns,
+          columns = _$props$columns === undefined ? [] : _$props$columns,
+          useFixedHeader = _$props.useFixedHeader,
+          _$props$scroll = _$props.scroll,
+          scroll = _$props$scroll === undefined ? {} : _$props$scroll;
+
+      if (typeof tableLayout !== 'undefined') {
+        return tableLayout === 'fixed';
+      }
+      // if one column is ellipsis, use fixed table layout to fix align issue
+      if (columns.some(function (_ref) {
+        var ellipsis = _ref.ellipsis;
+        return !!ellipsis;
+      })) {
+        return true;
+      }
+      // if header fixed, use fixed table layout to fix align issue
+      if (useFixedHeader || scroll.y) {
+        return true;
+      }
+      // if scroll.x is number/px/% width value, we should fixed table layout
+      // to avoid long word layout broken issue
+      if (scroll.x && scroll.x !== true && scroll.x !== 'max-content') {
+        return true;
+      }
+      return false;
+    },
     handleWindowResize: function handleWindowResize() {
       this.syncFixedTableRowHeight();
       this.setScrollPositionClassName();
     },
     syncFixedTableRowHeight: function syncFixedTableRowHeight() {
-      var tableRect = this.$refs.tableNode.getBoundingClientRect();
+      var tableRect = this.tableNode.getBoundingClientRect();
       // If tableNode's height less than 0, suppose it is hidden and don't recalculate rowHeight.
       // see: https://github.com/ant-design/ant-design/issues/4836
       if (tableRect.height !== undefined && tableRect.height <= 0) {
@@ -6604,7 +6938,7 @@ exports['default'] = {
       var headRows = this.ref_headTable ? this.ref_headTable.querySelectorAll('thead') : this.ref_bodyTable.querySelectorAll('thead');
       var bodyRows = this.ref_bodyTable.querySelectorAll('.' + prefixCls + '-row') || [];
       var fixedColumnsHeadRowsHeight = [].map.call(headRows, function (row) {
-        return row.getBoundingClientRect().height || 'auto';
+        return row.getBoundingClientRect().height ? row.getBoundingClientRect().height - 0.5 : 'auto';
       });
       var state = this.store.getState();
       var fixedColumnsBodyRowsHeight = [].reduce.call(bodyRows, function (acc, row) {
@@ -6690,8 +7024,8 @@ exports['default'] = {
       this.handleBodyScrollTop(e);
     },
     handleWheel: function handleWheel(event) {
-      var _$props$scroll = this.$props.scroll,
-          scroll = _$props$scroll === undefined ? {} : _$props$scroll;
+      var _$props$scroll2 = this.$props.scroll,
+          scroll = _$props$scroll2 === undefined ? {} : _$props$scroll2;
 
       if (window.navigator.userAgent.match(/Trident\/7\./) && scroll.y) {
         event.preventDefault();
@@ -6720,8 +7054,19 @@ exports['default'] = {
         }
       }
     },
-    saveChildrenRef: function saveChildrenRef(name, node) {
-      this['ref_' + name] = node;
+
+    // saveChildrenRef(name, node) {
+    //   this[`ref_${name}`] = node;
+    // },
+    saveRef: function saveRef(name) {
+      var _this5 = this;
+
+      return function (node) {
+        _this5['ref_' + name] = node;
+      };
+    },
+    saveTableNodeRef: function saveTableNodeRef(node) {
+      this.tableNode = node;
     },
     renderMainTable: function renderMainTable() {
       var h = this.$createElement;
@@ -6849,25 +7194,19 @@ exports['default'] = {
   },
 
   render: function render() {
-    var _this5 = this;
+    var _classNames,
+        _this6 = this;
 
     var h = arguments[0];
 
     var props = (0, _propsUtil.getOptionProps)(this);
-    var $listeners = this.$listeners,
-        columnManager = this.columnManager,
+    var columnManager = this.columnManager,
         getRowKey = this.getRowKey;
 
     var prefixCls = props.prefixCls;
-    var className = props.prefixCls;
-    if (props.useFixedHeader || props.scroll && props.scroll.y) {
-      className += ' ' + prefixCls + '-fixed-header';
-    }
-    if (this.scrollPosition === 'both') {
-      className += ' ' + prefixCls + '-scroll-position-left ' + prefixCls + '-scroll-position-right';
-    } else {
-      className += ' ' + prefixCls + '-scroll-position-' + this.scrollPosition;
-    }
+
+    var tableClassName = (0, _classnames2['default'])(props.prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-fixed-header', props.useFixedHeader || props.scroll && props.scroll.y), (0, _defineProperty3['default'])(_classNames, prefixCls + '-scroll-position-left ' + prefixCls + '-scroll-position-right', this.scrollPosition === 'both'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-scroll-position-' + this.scrollPosition, this.scrollPosition !== 'both'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-layout-fixed', this.isTableLayoutFixed()), _classNames));
+
     var hasLeftFixed = columnManager.isAnyColumnsLeftFixed();
     var hasRightFixed = columnManager.isAnyColumnsRightFixed();
 
@@ -6876,22 +7215,26 @@ exports['default'] = {
         columnManager: columnManager,
         getRowKey: getRowKey
       }),
-      on: (0, _extends3['default'])({}, $listeners),
+      on: (0, _propsUtil.getListeners)(this),
       scopedSlots: {
         'default': function _default(expander) {
-          _this5.expander = expander;
+          _this6.expander = expander;
           return h(
             'div',
-            {
-              ref: 'tableNode',
-              'class': className
+            (0, _babelHelperVueJsxMergeProps2['default'])([{
+              directives: [{
+                name: 'ant-ref',
+                value: _this6.saveTableNodeRef
+              }]
+            }, {
+              'class': tableClassName
               // style={props.style}
               // id={props.id}
-            },
-            [_this5.renderTitle(), h(
+            }]),
+            [_this6.renderTitle(), h(
               'div',
               { 'class': prefixCls + '-content' },
-              [_this5.renderMainTable(), hasLeftFixed && _this5.renderLeftFixedTable(), hasRightFixed && _this5.renderRightFixedTable()]
+              [_this6.renderMainTable(), hasLeftFixed && _this6.renderLeftFixedTable(), hasRightFixed && _this6.renderRightFixedTable()]
             )]
           );
         }
@@ -6923,6 +7266,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
@@ -6934,6 +7285,10 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 var _get = __webpack_require__(/*! lodash/get */ "./node_modules/lodash/get.js");
 
 var _get2 = _interopRequireDefault(_get);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
 
 var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
@@ -6955,6 +7310,11 @@ exports['default'] = {
     expandIcon: _vueTypes2['default'].any,
     component: _vueTypes2['default'].any
   },
+  inject: {
+    table: { 'default': function _default() {
+        return {};
+      } }
+  },
   methods: {
     handleClick: function handleClick(e) {
       var record = this.record,
@@ -6967,6 +7327,8 @@ exports['default'] = {
   },
 
   render: function render() {
+    var _classNames;
+
     var h = arguments[0];
     var record = this.record,
         indentSize = this.indentSize,
@@ -6980,10 +7342,10 @@ exports['default'] = {
         customRender = column.customRender,
         _column$className = column.className,
         className = _column$className === undefined ? '' : _column$className;
-
-    var cls = className || column['class'];
+    var transformCellText = this.table.transformCellText;
     // We should return undefined if no dataIndex is specified, but in order to
     // be compatible with object-path's behavior, we return the record object instead.
+
     var text = void 0;
     if (typeof dataIndex === 'number') {
       text = (0, _get2['default'])(record, dataIndex);
@@ -6995,7 +7357,6 @@ exports['default'] = {
     var tdProps = {
       props: {},
       attrs: {},
-      'class': cls,
       on: {
         click: this.handleClick
       }
@@ -7004,10 +7365,12 @@ exports['default'] = {
     var rowSpan = void 0;
 
     if (customRender) {
-      text = customRender(text, record, index);
+      text = customRender(text, record, index, column);
       if (isInvalidRenderCellText(text)) {
         tdProps.attrs = text.attrs || {};
         tdProps.props = text.props || {};
+        tdProps['class'] = text['class'];
+        tdProps.style = text.style;
         colSpan = tdProps.attrs.colSpan;
         rowSpan = tdProps.attrs.rowSpan;
         text = text.children;
@@ -7023,6 +7386,10 @@ exports['default'] = {
       text = null;
     }
 
+    if (transformCellText) {
+      text = transformCellText({ text: text, column: column, record: record, index: index });
+    }
+
     var indentText = expandIcon ? h('span', {
       style: { paddingLeft: indentSize * indent + 'px' },
       'class': prefixCls + '-indent indent-level-' + indent
@@ -7032,12 +7399,25 @@ exports['default'] = {
       return null;
     }
     if (column.align) {
-      tdProps.style = (0, _extends3['default'])({}, tdProps.style, { textAlign: column.align });
+      tdProps.style = (0, _extends3['default'])({ textAlign: column.align }, tdProps.style);
+    }
+
+    var cellClassName = (0, _classnames2['default'])(className, column['class'], (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-cell-ellipsis', !!column.ellipsis), (0, _defineProperty3['default'])(_classNames, prefixCls + '-cell-break-word', !!column.width), _classNames));
+
+    if (column.ellipsis) {
+      if (typeof text === 'string') {
+        tdProps.attrs.title = text;
+      } else if (text) {
+        // const { props: textProps } = text;
+        // if (textProps && textProps.children && typeof textProps.children === 'string') {
+        //   tdProps.attrs.title = textProps.children;
+        // }
+      }
     }
 
     return h(
       BodyCell,
-      tdProps,
+      (0, _babelHelperVueJsxMergeProps2['default'])([{ 'class': cellClassName }, tdProps]),
       [indentText, expandIcon, text]
     );
   }
@@ -7069,27 +7449,40 @@ var _TableHeaderRow2 = _interopRequireDefault(_TableHeaderRow);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function getHeaderRows(columns) {
-  var currentRow = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  var rows = arguments[2];
+function getHeaderRows(_ref) {
+  var _ref$columns = _ref.columns,
+      columns = _ref$columns === undefined ? [] : _ref$columns,
+      _ref$currentRow = _ref.currentRow,
+      currentRow = _ref$currentRow === undefined ? 0 : _ref$currentRow,
+      _ref$rows = _ref.rows,
+      rows = _ref$rows === undefined ? [] : _ref$rows,
+      _ref$isLast = _ref.isLast,
+      isLast = _ref$isLast === undefined ? true : _ref$isLast;
 
   rows = rows || [];
   rows[currentRow] = rows[currentRow] || [];
 
-  columns.forEach(function (column) {
+  columns.forEach(function (column, i) {
     if (column.rowSpan && rows.length < column.rowSpan) {
       while (rows.length < column.rowSpan) {
         rows.push([]);
       }
     }
+    var cellIsLast = isLast && i === columns.length - 1;
     var cell = {
       key: column.key,
       className: column.className || column['class'] || '',
       children: column.title,
+      isLast: cellIsLast,
       column: column
     };
     if (column.children) {
-      getHeaderRows(column.children, currentRow + 1, rows);
+      getHeaderRows({
+        columns: column.children,
+        currentRow: currentRow + 1,
+        rows: rows,
+        isLast: cellIsLast
+      });
     }
     if ('colSpan' in column) {
       cell.colSpan = column.colSpan;
@@ -7135,7 +7528,7 @@ exports['default'] = {
       return null;
     }
 
-    var rows = getHeaderRows(columns);
+    var rows = getHeaderRows({ columns: columns });
 
     expander.renderExpandIndentCell(rows, fixed);
 
@@ -7244,25 +7637,26 @@ var TableHeaderRow = {
       HeaderRow,
       (0, _babelHelperVueJsxMergeProps2['default'])([rowProps, { style: style }]),
       [row.map(function (cell, i) {
+        var _classNames;
+
         var column = cell.column,
+            isLast = cell.isLast,
             children = cell.children,
             className = cell.className,
-            cellProps = (0, _objectWithoutProperties3['default'])(cell, ['column', 'children', 'className']);
+            cellProps = (0, _objectWithoutProperties3['default'])(cell, ['column', 'isLast', 'children', 'className']);
 
-        var cls = cell['class'] || className;
         var customProps = column.customHeaderCell ? column.customHeaderCell(column) : {};
-
         var headerCellProps = (0, _propsUtil.mergeProps)({
-          attrs: (0, _extends3['default'])({}, cellProps),
-          'class': cls
+          attrs: (0, _extends3['default'])({}, cellProps)
         }, (0, _extends3['default'])({}, customProps, {
           key: column.key || column.dataIndex || i
         }));
 
         if (column.align) {
           headerCellProps.style = (0, _extends3['default'])({}, customProps.style, { textAlign: column.align });
-          headerCellProps['class'] = (0, _classnames2['default'])(customProps.cls, column['class'], column.className, (0, _defineProperty3['default'])({}, prefixCls + '-align-' + column.align, !!column.align));
         }
+
+        headerCellProps['class'] = (0, _classnames2['default'])(customProps['class'], customProps.className, column['class'], column.className, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-align-' + column.align, !!column.align), (0, _defineProperty3['default'])(_classNames, prefixCls + '-row-cell-ellipsis', !!column.ellipsis), (0, _defineProperty3['default'])(_classNames, prefixCls + '-row-cell-break-word', !!column.width), (0, _defineProperty3['default'])(_classNames, prefixCls + '-row-cell-last', isLast), _classNames));
 
         if (typeof HeaderCell === 'function') {
           return HeaderCell(h, headerCellProps, children);
@@ -7346,13 +7740,15 @@ var _TableCell = __webpack_require__(/*! ./TableCell */ "./node_modules/ant-desi
 
 var _TableCell2 = _interopRequireDefault(_TableCell);
 
-var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/vc-table/src/utils.js");
-
 var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _BaseMixin = __webpack_require__(/*! ../../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
 
 var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _warning = __webpack_require__(/*! ../../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+
+var _warning2 = _interopRequireDefault(_warning);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -7437,40 +7833,50 @@ var TableRow = {
 
   methods: {
     onRowClick: function onRowClick(event) {
+      var rowPropFunc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
       var record = this.record,
           index = this.index;
 
       this.__emit('rowClick', record, index, event);
+      rowPropFunc(event);
     },
     onRowDoubleClick: function onRowDoubleClick(event) {
+      var rowPropFunc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
       var record = this.record,
           index = this.index;
 
       this.__emit('rowDoubleClick', record, index, event);
+      rowPropFunc(event);
     },
     onContextMenu: function onContextMenu(event) {
+      var rowPropFunc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
       var record = this.record,
           index = this.index;
 
       this.__emit('rowContextmenu', record, index, event);
+      rowPropFunc(event);
     },
     onMouseEnter: function onMouseEnter(event) {
+      var rowPropFunc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
       var record = this.record,
           index = this.index,
           rowKey = this.rowKey;
 
       this.__emit('hover', true, rowKey);
       this.__emit('rowMouseenter', record, index, event);
+      rowPropFunc(event);
     },
     onMouseLeave: function onMouseLeave(event) {
+      var rowPropFunc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : noop;
       var record = this.record,
           index = this.index,
           rowKey = this.rowKey;
 
       this.__emit('hover', false, rowKey);
       this.__emit('rowMouseleave', record, index, event);
+      rowPropFunc(event);
     },
-    setExpanedRowHeight: function setExpanedRowHeight() {
+    setExpandedRowHeight: function setExpandedRowHeight() {
       var store = this.store,
           rowKey = this.rowKey;
 
@@ -7522,7 +7928,7 @@ var TableRow = {
       }
 
       if (!fixed && expandedRow) {
-        this.setExpanedRowHeight();
+        this.setExpandedRowHeight();
       }
 
       if (!fixed && ancestorKeys.length >= 0) {
@@ -7532,6 +7938,8 @@ var TableRow = {
   },
 
   render: function render() {
+    var _this3 = this;
+
     var h = arguments[0];
 
     if (!this.shouldRender) {
@@ -7568,10 +7976,10 @@ var TableRow = {
 
     renderExpandIconCell(cells);
 
-    for (var i = 0; i < columns.length; i++) {
+    for (var i = 0; i < columns.length; i += 1) {
       var column = columns[i];
 
-      (0, _utils.warningOnce)(column.onCellClick === undefined, 'column[onCellClick] is deprecated, please use column[customCell] instead.');
+      (0, _warning2['default'])(column.onCellClick === undefined, 'column[onCellClick] is deprecated, please use column[customCell] instead.');
 
       cells.push(h(_TableCell2['default'], {
         attrs: {
@@ -7602,16 +8010,27 @@ var TableRow = {
 
     style = (0, _extends5['default'])({}, style, customStyle);
     var rowClassName = (0, _classnames2['default'])(prefixCls, className, prefixCls + '-level-' + indent, customClassName, customClass);
-    var bodyRowProps = (0, _propsUtil.mergeProps)({
+    var rowPropEvents = rowProps.on || {};
+    var bodyRowProps = (0, _propsUtil.mergeProps)((0, _extends5['default'])({}, rowProps, { style: style }), {
       on: {
-        click: this.onRowClick,
-        dblclick: this.onRowDoubleClick,
-        mouseenter: this.onMouseEnter,
-        mouseleave: this.onMouseLeave,
-        contextmenu: this.onContextMenu
+        click: function click(e) {
+          _this3.onRowClick(e, rowPropEvents.click);
+        },
+        dblclick: function dblclick(e) {
+          _this3.onRowDoubleClick(e, rowPropEvents.dblclick);
+        },
+        mouseenter: function mouseenter(e) {
+          _this3.onMouseEnter(e, rowPropEvents.mouseenter);
+        },
+        mouseleave: function mouseleave(e) {
+          _this3.onMouseLeave(e, rowPropEvents.mouseleave);
+        },
+        contextmenu: function contextmenu(e) {
+          _this3.onContextMenu(e, rowPropEvents.contextmenu);
+        }
       },
       'class': rowClassName
-    }, (0, _extends5['default'])({}, rowProps, { style: style }), {
+    }, {
       attrs: {
         'data-row-key': rowKey
       }
@@ -7653,7 +8072,7 @@ exports['default'] = (0, _store.connect)(function (state, props) {
       ancestorKeys = props.ancestorKeys;
 
   var visible = ancestorKeys.length === 0 || ancestorKeys.every(function (k) {
-    return ~expandedRowKeys.indexOf(k);
+    return expandedRowKeys.includes(k);
   });
 
   return {
@@ -7680,15 +8099,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.measureScrollbar = measureScrollbar;
 exports.debounce = debounce;
-exports.warningOnce = warningOnce;
 exports.remove = remove;
-
-var _warning = __webpack_require__(/*! warning */ "./node_modules/warning/browser.js");
-
-var _warning2 = _interopRequireDefault(_warning);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
 var scrollbarVerticalSize = void 0;
 var scrollbarHorizontalSize = void 0;
 
@@ -7700,8 +8111,12 @@ var scrollbarMeasure = {
   height: '50px'
 };
 
-function measureScrollbar() {
-  var direction = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'vertical';
+var INTERNAL_COL_DEFINE = exports.INTERNAL_COL_DEFINE = 'RC_TABLE_INTERNAL_COL_DEFINE';
+
+function measureScrollbar(_ref) {
+  var _ref$direction = _ref.direction,
+      direction = _ref$direction === undefined ? 'vertical' : _ref$direction,
+      prefixCls = _ref.prefixCls;
 
   if (typeof document === 'undefined' || typeof window === 'undefined') {
     return 0;
@@ -7709,13 +8124,17 @@ function measureScrollbar() {
   var isVertical = direction === 'vertical';
   if (isVertical && scrollbarVerticalSize) {
     return scrollbarVerticalSize;
-  } else if (!isVertical && scrollbarHorizontalSize) {
+  }
+  if (!isVertical && scrollbarHorizontalSize) {
     return scrollbarHorizontalSize;
   }
   var scrollDiv = document.createElement('div');
   Object.keys(scrollbarMeasure).forEach(function (scrollProp) {
     scrollDiv.style[scrollProp] = scrollbarMeasure[scrollProp];
   });
+  // apply hide scrollbar className ahead
+  scrollDiv.className = prefixCls + '-hide-scrollbar scroll-div-append-to-body';
+
   // Append related overflow style
   if (isVertical) {
     scrollDiv.style.overflowY = 'scroll';
@@ -7727,7 +8146,7 @@ function measureScrollbar() {
   if (isVertical) {
     size = scrollDiv.offsetWidth - scrollDiv.clientWidth;
     scrollbarVerticalSize = size;
-  } else if (!isVertical) {
+  } else {
     size = scrollDiv.offsetHeight - scrollDiv.clientHeight;
     scrollbarHorizontalSize = size;
   }
@@ -7768,14 +8187,6 @@ function debounce(func, wait, immediate) {
     }
   };
   return debounceFunc;
-}
-
-var warned = {};
-function warningOnce(condition, format, args) {
-  if (!warned[format]) {
-    (0, _warning2['default'])(condition, format, args);
-    warned[format] = !condition;
-  }
 }
 
 function remove(array, item) {

@@ -33,11 +33,17 @@ var _debounce2 = _interopRequireDefault(_debounce);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _propsUtil2 = _interopRequireDefault(_propsUtil);
+
 var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
 
 var _base2 = _interopRequireDefault(_base);
+
+var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+
+var _warning2 = _interopRequireDefault(_warning);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -52,7 +58,8 @@ if (typeof window !== 'undefined') {
       removeListener: function removeListener() {}
     };
   };
-  window.matchMedia = window.matchMedia || matchMediaPolyfill;
+  // ref: https://github.com/ant-design/ant-design/issues/18774
+  if (!window.matchMedia) window.matchMedia = matchMediaPolyfill;
 }
 // Use require over import (will be lifted up)
 // make sure matchMedia polyfill run before require('vc-slick')
@@ -102,7 +109,8 @@ var CarouselProps = exports.CarouselProps = {
   variableWidth: _vueTypes2['default'].bool,
   useCSS: _vueTypes2['default'].bool,
   slickGoTo: _vueTypes2['default'].number,
-  responsive: _vueTypes2['default'].array
+  responsive: _vueTypes2['default'].array,
+  dotPosition: _vueTypes2['default'].oneOf(['top', 'bottom', 'left', 'right'])
 };
 
 var Carousel = {
@@ -124,6 +132,9 @@ var Carousel = {
     });
   },
   mounted: function mounted() {
+    if ((0, _propsUtil2['default'])(this, 'vertical')) {
+      (0, _warning2['default'])(!this.vertical, 'Carousel', '`vertical` is deprecated, please use `dotPosition` instead.');
+    }
     var autoplay = this.autoplay;
 
     if (autoplay) {
@@ -142,6 +153,15 @@ var Carousel = {
   },
 
   methods: {
+    getDotPosition: function getDotPosition() {
+      if (this.dotPosition) {
+        return this.dotPosition;
+      }
+      if ((0, _propsUtil2['default'])(this, 'vertical')) {
+        return this.vertical ? 'right' : 'bottom';
+      }
+      return 'bottom';
+    },
     onWindowResized: function onWindowResized() {
       // Fix https://github.com/ant-design/ant-design/issues/2550
       var autoplay = this.autoplay;
@@ -167,8 +187,7 @@ var Carousel = {
     var h = arguments[0];
 
     var props = (0, _extends3['default'])({}, this.$props);
-    var $slots = this.$slots,
-        $listeners = this.$listeners;
+    var $slots = this.$slots;
 
 
     if (props.effect === 'fade') {
@@ -177,7 +196,10 @@ var Carousel = {
 
     var getPrefixCls = this.configProvider.getPrefixCls;
     var className = getPrefixCls('carousel', props.prefixCls);
-
+    var dotsClass = 'slick-dots';
+    var dotPosition = this.getDotPosition();
+    props.vertical = dotPosition === 'left' || dotPosition === 'right';
+    props.dotsClass = dotsClass + ' ' + dotsClass + '-' + (dotPosition || 'bottom') + ' ' + props.dotsClass;
     if (props.vertical) {
       className = className + ' ' + className + '-vertical';
     }
@@ -186,17 +208,17 @@ var Carousel = {
         nextArrow: (0, _propsUtil.getComponentFromProp)(this, 'nextArrow'),
         prevArrow: (0, _propsUtil.getComponentFromProp)(this, 'prevArrow')
       }),
-      on: $listeners,
+      on: (0, _propsUtil.getListeners)(this),
       scopedSlots: this.$scopedSlots
     };
-
+    var children = (0, _propsUtil.filterEmpty)($slots['default']);
     return h(
       'div',
       { 'class': className },
       [h(
         SlickCarousel,
         (0, _babelHelperVueJsxMergeProps2['default'])([{ ref: 'slick' }, SlickCarouselProps]),
-        [(0, _propsUtil.filterEmpty)($slots['default'])]
+        [children]
       )]
     );
   }
@@ -939,7 +961,7 @@ exports['default'] = {
       var slidesToLoad = state.lazyLoadedList.filter(function (value) {
         return _this4.lazyLoadedList.indexOf(value) < 0;
       });
-      if (this.$listeners.lazyLoad && slidesToLoad.length > 0) {
+      if ((0, _propsUtil.getListeners)(this).lazyLoad && slidesToLoad.length > 0) {
         this.$emit('lazyLoad', slidesToLoad);
       }
       this.setState(state, function () {
@@ -1719,7 +1741,7 @@ exports['default'] = {
         children: newChildren,
         __propsSymbol__: Symbol()
       }),
-      on: (0, _extends3['default'])({}, this.$listeners),
+      on: (0, _propsUtil.getListeners)(this),
       directives: [{
         name: 'ant-ref',
         value: this.innerSliderRefHandler

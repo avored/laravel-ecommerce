@@ -14,19 +14,29 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
 
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
 var _extends4 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends5 = _interopRequireDefault(_extends4);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
 var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
 
 var _icon2 = _interopRequireDefault(_icon);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -52,7 +62,7 @@ exports['default'] = {
     src: String,
     /** Srcset of image avatar */
     srcSet: String,
-    icon: String,
+    icon: _vueTypes2['default'].any,
     alt: String,
     loadError: Function
   },
@@ -64,6 +74,7 @@ exports['default'] = {
   data: function data() {
     return {
       isImgExist: true,
+      isMounted: false,
       scale: 1
     };
   },
@@ -83,37 +94,34 @@ exports['default'] = {
   mounted: function mounted() {
     var _this2 = this;
 
-    this.prevChildren = this.$slots['default'];
-    this.prevState = (0, _extends5['default'])({}, this.$data);
     this.$nextTick(function () {
       _this2.setScale();
+      _this2.isMounted = true;
     });
   },
   updated: function updated() {
     var _this3 = this;
 
-    if (this.preChildren !== this.$slots['default'] || this.prevState.scale !== this.$data.scale && this.$data.scale === 1 || this.prevState.isImgExist !== this.$data.isImgExist) {
-      this.$nextTick(function () {
-        _this3.setScale();
-      });
-    }
-    this.preChildren = this.$slots['default'];
-    this.prevState = (0, _extends5['default'])({}, this.$data);
+    this.$nextTick(function () {
+      _this3.setScale();
+    });
   },
 
   methods: {
     setScale: function setScale() {
-      var childrenNode = this.$refs.avatarChildren;
-      if (childrenNode) {
-        var childrenWidth = childrenNode.offsetWidth;
-        var avatarWidth = this.$el.getBoundingClientRect().width;
-        if (avatarWidth - 8 < childrenWidth) {
-          this.scale = (avatarWidth - 8) / childrenWidth;
-        } else {
-          this.scale = 1;
-        }
-        this.$forceUpdate();
+      if (!this.$refs.avatarChildren || !this.$refs.avatarNode) {
+        return;
       }
+      var childrenWidth = this.$refs.avatarChildren.offsetWidth; // offsetWidth avoid affecting be transform scale
+      var nodeWidth = this.$refs.avatarNode.offsetWidth;
+      // denominator is 0 is no meaning
+      if (childrenWidth === 0 || nodeWidth === 0 || this.lastChildrenWidth === childrenWidth && this.lastNodeWidth === nodeWidth) {
+        return;
+      }
+      this.lastChildrenWidth = childrenWidth;
+      this.lastNodeWidth = nodeWidth;
+      // add 4px gap for each side to get better performance
+      this.scale = nodeWidth - 8 < childrenWidth ? (nodeWidth - 8) / childrenWidth : 1;
     },
     handleImgLoadError: function handleImgLoadError() {
       var loadError = this.$props.loadError;
@@ -133,17 +141,17 @@ exports['default'] = {
         shape = _$props.shape,
         size = _$props.size,
         src = _$props.src,
-        icon = _$props.icon,
         alt = _$props.alt,
         srcSet = _$props.srcSet;
 
-
+    var icon = (0, _propsUtil.getComponentFromProp)(this, 'icon');
     var getPrefixCls = this.configProvider.getPrefixCls;
     var prefixCls = getPrefixCls('avatar', customizePrefixCls);
 
     var _$data = this.$data,
         isImgExist = _$data.isImgExist,
-        scale = _$data.scale;
+        scale = _$data.scale,
+        isMounted = _$data.isMounted;
 
 
     var sizeCls = (_sizeCls = {}, (0, _defineProperty3['default'])(_sizeCls, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_sizeCls, prefixCls + '-sm', size === 'small'), _sizeCls);
@@ -166,12 +174,16 @@ exports['default'] = {
         }
       });
     } else if (icon) {
-      children = h(_icon2['default'], {
-        attrs: { type: icon }
-      });
+      if (typeof icon === 'string') {
+        children = h(_icon2['default'], {
+          attrs: { type: icon }
+        });
+      } else {
+        children = icon;
+      }
     } else {
       var childrenNode = this.$refs.avatarChildren;
-      if (childrenNode || scale !== 1 && childrenNode) {
+      if (childrenNode || scale !== 1) {
         var transformString = 'scale(' + scale + ') translateX(-50%)';
         var childrenStyle = {
           msTransform: transformString,
@@ -191,16 +203,20 @@ exports['default'] = {
           [children]
         );
       } else {
+        var _childrenStyle = {};
+        if (!isMounted) {
+          _childrenStyle.opacity = 0;
+        }
         children = h(
           'span',
-          { 'class': prefixCls + '-string', ref: 'avatarChildren' },
+          { 'class': prefixCls + '-string', ref: 'avatarChildren', style: { opacity: 0 } },
           [children]
         );
       }
     }
     return h(
       'span',
-      { on: this.$listeners, 'class': classString, style: sizeStyle },
+      (0, _babelHelperVueJsxMergeProps2['default'])([{ ref: 'avatarNode' }, { on: (0, _propsUtil.getListeners)(this), 'class': classString, style: sizeStyle }]),
       [children]
     );
   }

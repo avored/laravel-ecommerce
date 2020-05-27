@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-
+const tailwindcss = require('tailwindcss')
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -17,12 +17,15 @@ mix.webpackConfig({
     }
 })
 
-mix.js('packages/framework/resources/js/app.js', 'public/avored-admin/js/app.js');
-mix.less('packages/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
+mix.js('vendor/avored/framework/resources/js/app.js', 'public/avored-admin/js/app.js');
+mix.less('vendor/avored/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
     javascriptEnabled: true,
     modifyVars: {
         'primary-color': '#E64448',
         'link-color': '#C12E32',
         'border-radius-base': '5px',
     },
+}).options({
+    processCssUrls: false,
+    postCss: [ tailwindcss('tailwind.config.js') ],
 })

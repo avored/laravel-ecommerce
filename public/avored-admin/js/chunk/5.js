@@ -1,86 +1,5 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[5],{
 
-/***/ "./node_modules/ant-design-vue/lib/_util/throttleByAnimationFrame.js":
-/*!***************************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/_util/throttleByAnimationFrame.js ***!
-  \***************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _toConsumableArray2 = __webpack_require__(/*! babel-runtime/helpers/toConsumableArray */ "./node_modules/babel-runtime/helpers/toConsumableArray.js");
-
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
-
-exports['default'] = throttleByAnimationFrame;
-exports.throttleByAnimationFrameDecorator = throttleByAnimationFrameDecorator;
-
-var _raf = __webpack_require__(/*! raf */ "./node_modules/raf/index.js");
-
-var _raf2 = _interopRequireDefault(_raf);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function throttleByAnimationFrame(fn) {
-  var requestId = void 0;
-
-  var later = function later(args) {
-    return function () {
-      requestId = null;
-      fn.apply(undefined, (0, _toConsumableArray3['default'])(args));
-    };
-  };
-
-  var throttled = function throttled() {
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    if (requestId == null) {
-      requestId = (0, _raf2['default'])(later(args));
-    }
-  };
-
-  throttled.cancel = function () {
-    return _raf2['default'].cancel(requestId);
-  };
-
-  return throttled;
-}
-
-function throttleByAnimationFrameDecorator() {
-  return function (target, key, descriptor) {
-    var fn = descriptor.value;
-    var definingProperty = false;
-    return {
-      configurable: true,
-      get: function get() {
-        if (definingProperty || this === target.prototype || this.hasOwnProperty(key)) {
-          return fn;
-        }
-
-        var boundFn = throttleByAnimationFrame(fn.bind(this));
-        definingProperty = true;
-        Object.defineProperty(this, key, {
-          value: boundFn,
-          configurable: true,
-          writable: true
-        });
-        definingProperty = false;
-        return boundFn;
-      }
-    };
-  };
-}
-
-/***/ }),
-
 /***/ "./node_modules/ant-design-vue/lib/card/Card.js":
 /*!******************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/card/Card.js ***!
@@ -123,15 +42,7 @@ var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/an
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
-var _addEventListener = __webpack_require__(/*! ../_util/Dom/addEventListener */ "./node_modules/ant-design-vue/lib/_util/Dom/addEventListener.js");
-
-var _addEventListener2 = _interopRequireDefault(_addEventListener);
-
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _throttleByAnimationFrame = __webpack_require__(/*! ../_util/throttleByAnimationFrame */ "./node_modules/ant-design-vue/lib/_util/throttleByAnimationFrame.js");
-
-var _throttleByAnimationFrame2 = _interopRequireDefault(_throttleByAnimationFrame);
 
 var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
 
@@ -158,6 +69,7 @@ exports['default'] = {
     size: _vueTypes2['default'].oneOf(['default', 'small']),
     actions: _vueTypes2['default'].any,
     tabList: _vueTypes2['default'].array,
+    tabBarExtraContent: _vueTypes2['default'].any,
     activeTabKey: _vueTypes2['default'].string,
     defaultActiveTabKey: _vueTypes2['default'].string
   },
@@ -167,47 +79,25 @@ exports['default'] = {
       } }
   },
   data: function data() {
-    this.updateWiderPaddingCalled = false;
     return {
       widerPadding: false
     };
   },
-  beforeMount: function beforeMount() {
-    this.updateWiderPadding = (0, _throttleByAnimationFrame2['default'])(this.updateWiderPadding);
-  },
-  mounted: function mounted() {
-    this.updateWiderPadding();
-    this.resizeEvent = (0, _addEventListener2['default'])(window, 'resize', this.updateWiderPadding);
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.resizeEvent) {
-      this.resizeEvent.remove();
-    }
-    this.updateWiderPadding.cancel && this.updateWiderPadding.cancel();
-  },
 
   methods: {
-    updateWiderPadding: function updateWiderPadding() {
-      var _this = this;
+    getAction: function getAction(actions) {
+      var h = this.$createElement;
 
-      var cardContainerRef = this.$refs.cardContainerRef;
-      if (!cardContainerRef) {
-        return;
-      }
-      // 936 is a magic card width pixel number indicated by designer
-      var WIDTH_BOUNDARY_PX = 936;
-      if (cardContainerRef.offsetWidth >= WIDTH_BOUNDARY_PX && !this.widerPadding) {
-        this.setState({ widerPadding: true }, function () {
-          _this.updateWiderPaddingCalled = true; // first render without css transition
-        });
-      }
-      if (cardContainerRef.offsetWidth < WIDTH_BOUNDARY_PX && this.widerPadding) {
-        this.setState({ widerPadding: false }, function () {
-          _this.updateWiderPaddingCalled = true; // first render without css transition
-        });
-      }
+      var actionList = actions.map(function (action, index) {
+        return h(
+          'li',
+          { style: { width: 100 / actions.length + '%' }, key: 'action-' + index },
+          [h('span', [action])]
+        );
+      });
+      return actionList;
     },
-    onHandleTabChange: function onHandleTabChange(key) {
+    onTabChange: function onTabChange(key) {
       this.$emit('tabChange', key);
     },
     isContainGrid: function isContainGrid() {
@@ -220,25 +110,10 @@ exports['default'] = {
         }
       });
       return containGrid;
-    },
-    getAction: function getAction(actions) {
-      var h = this.$createElement;
-
-      if (!actions || !actions.length) {
-        return null;
-      }
-      var actionList = actions.map(function (action, index) {
-        return h(
-          'li',
-          { style: { width: 100 / actions.length + '%' }, key: 'action-' + index },
-          [h('span', [action])]
-        );
-      });
-      return actionList;
     }
   },
   render: function render() {
-    var _classString;
+    var _classString, _props;
 
     var h = arguments[0];
     var _$props = this.$props,
@@ -263,11 +138,10 @@ exports['default'] = {
     var prefixCls = getPrefixCls('card', customizePrefixCls);
 
     var $slots = this.$slots,
-        $scopedSlots = this.$scopedSlots,
-        $listeners = this.$listeners;
+        $scopedSlots = this.$scopedSlots;
 
-
-    var classString = (_classString = {}, (0, _defineProperty3['default'])(_classString, '' + prefixCls, true), (0, _defineProperty3['default'])(_classString, prefixCls + '-loading', loading), (0, _defineProperty3['default'])(_classString, prefixCls + '-bordered', bordered), (0, _defineProperty3['default'])(_classString, prefixCls + '-hoverable', !!hoverable), (0, _defineProperty3['default'])(_classString, prefixCls + '-wider-padding', this.widerPadding), (0, _defineProperty3['default'])(_classString, prefixCls + '-padding-transition', this.updateWiderPaddingCalled), (0, _defineProperty3['default'])(_classString, prefixCls + '-contain-grid', this.isContainGrid($slots['default'])), (0, _defineProperty3['default'])(_classString, prefixCls + '-contain-tabs', tabList && tabList.length), (0, _defineProperty3['default'])(_classString, prefixCls + '-' + size, size !== 'default'), (0, _defineProperty3['default'])(_classString, prefixCls + '-type-' + type, !!type), _classString);
+    var tabBarExtraContent = (0, _propsUtil.getComponentFromProp)(this, 'tabBarExtraContent');
+    var classString = (_classString = {}, (0, _defineProperty3['default'])(_classString, '' + prefixCls, true), (0, _defineProperty3['default'])(_classString, prefixCls + '-loading', loading), (0, _defineProperty3['default'])(_classString, prefixCls + '-bordered', bordered), (0, _defineProperty3['default'])(_classString, prefixCls + '-hoverable', !!hoverable), (0, _defineProperty3['default'])(_classString, prefixCls + '-contain-grid', this.isContainGrid($slots['default'])), (0, _defineProperty3['default'])(_classString, prefixCls + '-contain-tabs', tabList && tabList.length), (0, _defineProperty3['default'])(_classString, prefixCls + '-' + size, size !== 'default'), (0, _defineProperty3['default'])(_classString, prefixCls + '-type-' + type, !!type), _classString);
 
     var loadingBlockStyle = bodyStyle.padding === 0 || bodyStyle.padding === '0px' ? { padding: 24 } : undefined;
 
@@ -369,11 +243,11 @@ exports['default'] = {
 
     var hasActiveTabKey = activeTabKey !== undefined;
     var tabsProps = {
-      props: (0, _defineProperty3['default'])({
+      props: (_props = {
         size: 'large'
-      }, hasActiveTabKey ? 'activeKey' : 'defaultActiveKey', hasActiveTabKey ? activeTabKey : defaultActiveTabKey),
+      }, (0, _defineProperty3['default'])(_props, hasActiveTabKey ? 'activeKey' : 'defaultActiveKey', hasActiveTabKey ? activeTabKey : defaultActiveTabKey), (0, _defineProperty3['default'])(_props, 'tabBarExtraContent', tabBarExtraContent), _props),
       on: {
-        change: this.onHandleTabChange
+        change: this.onTabChange
       },
       'class': prefixCls + '-head-tabs'
     };
@@ -440,7 +314,7 @@ exports['default'] = {
       (0, _babelHelperVueJsxMergeProps2['default'])([{
         'class': classString,
         ref: 'cardContainerRef'
-      }, { on: (0, _omit2['default'])($listeners, ['tabChange', 'tab-change']) }]),
+      }, { on: (0, _omit2['default'])((0, _propsUtil.getListeners)(this), ['tabChange', 'tab-change']) }]),
       [head, coverDom, children ? body : null, actionDom]
     );
   }
@@ -476,13 +350,16 @@ var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
 var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports['default'] = {
   name: 'ACardGrid',
   __ANT_CARD_GRID: true,
   props: {
-    prefixCls: _vueTypes2['default'].string
+    prefixCls: _vueTypes2['default'].string,
+    hoverable: _vueTypes2['default'].bool
   },
   inject: {
     configProvider: { 'default': function _default() {
@@ -490,17 +367,22 @@ exports['default'] = {
       } }
   },
   render: function render() {
+    var _classString;
+
     var h = arguments[0];
-    var customizePrefixCls = this.$props.prefixCls;
+    var _$props = this.$props,
+        customizePrefixCls = _$props.prefixCls,
+        _$props$hoverable = _$props.hoverable,
+        hoverable = _$props$hoverable === undefined ? true : _$props$hoverable;
 
 
     var getPrefixCls = this.configProvider.getPrefixCls;
     var prefixCls = getPrefixCls('card', customizePrefixCls);
 
-    var classString = (0, _defineProperty3['default'])({}, prefixCls + '-grid', true);
+    var classString = (_classString = {}, (0, _defineProperty3['default'])(_classString, prefixCls + '-grid', true), (0, _defineProperty3['default'])(_classString, prefixCls + '-grid-hoverable', hoverable), _classString);
     return h(
       'div',
-      (0, _babelHelperVueJsxMergeProps2['default'])([{ on: this.$listeners }, { 'class': classString }]),
+      (0, _babelHelperVueJsxMergeProps2['default'])([{ on: (0, _propsUtil.getListeners)(this) }, { 'class': classString }]),
       [this.$slots['default']]
     );
   }
@@ -588,7 +470,7 @@ exports['default'] = {
     ) : null;
     return h(
       'div',
-      (0, _babelHelperVueJsxMergeProps2['default'])([{ on: this.$listeners }, { 'class': classString }]),
+      (0, _babelHelperVueJsxMergeProps2['default'])([{ on: (0, _propsUtil.getListeners)(this) }, { 'class': classString }]),
       [avatarDom, MetaDetail]
     );
   }

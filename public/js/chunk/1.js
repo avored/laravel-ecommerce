@@ -1,5 +1,232 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[1],{
 
+/***/ "./node_modules/ant-design-vue/lib/input/ClearableLabeledInput.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/input/ClearableLabeledInput.js ***!
+  \************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+exports.hasPrefixSuffix = hasPrefixSuffix;
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _Input = __webpack_require__(/*! ./Input */ "./node_modules/ant-design-vue/lib/input/Input.js");
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+function hasPrefixSuffix(instance) {
+  return !!((0, _propsUtil.getComponentFromProp)(instance, 'prefix') || (0, _propsUtil.getComponentFromProp)(instance, 'suffix') || instance.$props.allowClear);
+}
+
+var ClearableInputType = ['text', 'input'];
+
+var ClearableLabeledInput = {
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    inputType: _vueTypes2['default'].oneOf(ClearableInputType),
+    value: _vueTypes2['default'].any,
+    defaultValue: _vueTypes2['default'].any,
+    allowClear: _vueTypes2['default'].bool,
+    element: _vueTypes2['default'].any,
+    handleReset: _vueTypes2['default'].func,
+    disabled: _vueTypes2['default'].bool,
+    size: _vueTypes2['default'].oneOf(['small', 'large', 'default']),
+    suffix: _vueTypes2['default'].any,
+    prefix: _vueTypes2['default'].any,
+    addonBefore: _vueTypes2['default'].any,
+    addonAfter: _vueTypes2['default'].any,
+    className: _vueTypes2['default'].string,
+    readOnly: _vueTypes2['default'].bool
+  },
+  methods: {
+    renderClearIcon: function renderClearIcon(prefixCls) {
+      var h = this.$createElement;
+      var _$props = this.$props,
+          allowClear = _$props.allowClear,
+          value = _$props.value,
+          disabled = _$props.disabled,
+          readOnly = _$props.readOnly,
+          inputType = _$props.inputType,
+          handleReset = _$props.handleReset;
+
+      if (!allowClear || disabled || readOnly || value === undefined || value === null || value === '') {
+        return null;
+      }
+      var className = inputType === ClearableInputType[0] ? prefixCls + '-textarea-clear-icon' : prefixCls + '-clear-icon';
+      return h(_icon2['default'], {
+        attrs: {
+          type: 'close-circle',
+          theme: 'filled',
+
+          role: 'button'
+        },
+        on: {
+          'click': handleReset
+        },
+
+        'class': className });
+    },
+    renderSuffix: function renderSuffix(prefixCls) {
+      var h = this.$createElement;
+      var _$props2 = this.$props,
+          suffix = _$props2.suffix,
+          allowClear = _$props2.allowClear;
+
+      if (suffix || allowClear) {
+        return h(
+          'span',
+          { 'class': prefixCls + '-suffix' },
+          [this.renderClearIcon(prefixCls), suffix]
+        );
+      }
+      return null;
+    },
+    renderLabeledIcon: function renderLabeledIcon(prefixCls, element) {
+      var _classNames;
+
+      var h = this.$createElement;
+
+      var props = this.$props;
+      var suffix = this.renderSuffix(prefixCls);
+      if (!hasPrefixSuffix(this)) {
+        return (0, _vnode.cloneElement)(element, {
+          props: { value: props.value }
+        });
+      }
+
+      var prefix = props.prefix ? h(
+        'span',
+        { 'class': prefixCls + '-prefix' },
+        [props.prefix]
+      ) : null;
+
+      var affixWrapperCls = (0, _classnames2['default'])(props.className, prefixCls + '-affix-wrapper', (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-affix-wrapper-sm', props.size === 'small'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-affix-wrapper-lg', props.size === 'large'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-affix-wrapper-input-with-clear-btn', props.suffix && props.allowClear && this.$props.value), _classNames));
+
+      return h(
+        'span',
+        { 'class': affixWrapperCls, style: props.style },
+        [prefix, (0, _vnode.cloneElement)(element, {
+          style: null,
+          props: { value: props.value },
+          'class': (0, _Input.getInputClassName)(prefixCls, props.size, props.disabled)
+        }), suffix]
+      );
+    },
+    renderInputWithLabel: function renderInputWithLabel(prefixCls, labeledElement) {
+      var _classNames3;
+
+      var h = this.$createElement;
+      var _$props3 = this.$props,
+          addonBefore = _$props3.addonBefore,
+          addonAfter = _$props3.addonAfter,
+          style = _$props3.style,
+          size = _$props3.size,
+          className = _$props3.className;
+      // Not wrap when there is not addons
+
+      if (!addonBefore && !addonAfter) {
+        return labeledElement;
+      }
+
+      var wrapperClassName = prefixCls + '-group';
+      var addonClassName = wrapperClassName + '-addon';
+      var addonBeforeNode = addonBefore ? h(
+        'span',
+        { 'class': addonClassName },
+        [addonBefore]
+      ) : null;
+      var addonAfterNode = addonAfter ? h(
+        'span',
+        { 'class': addonClassName },
+        [addonAfter]
+      ) : null;
+
+      var mergedWrapperClassName = (0, _classnames2['default'])(prefixCls + '-wrapper', (0, _defineProperty3['default'])({}, wrapperClassName, addonBefore || addonAfter));
+
+      var mergedGroupClassName = (0, _classnames2['default'])(className, prefixCls + '-group-wrapper', (_classNames3 = {}, (0, _defineProperty3['default'])(_classNames3, prefixCls + '-group-wrapper-sm', size === 'small'), (0, _defineProperty3['default'])(_classNames3, prefixCls + '-group-wrapper-lg', size === 'large'), _classNames3));
+
+      // Need another wrapper for changing display:table to display:inline-block
+      // and put style prop in wrapper
+      return h(
+        'span',
+        { 'class': mergedGroupClassName, style: style },
+        [h(
+          'span',
+          { 'class': mergedWrapperClassName },
+          [addonBeforeNode, (0, _vnode.cloneElement)(labeledElement, { style: null }), addonAfterNode]
+        )]
+      );
+    },
+    renderTextAreaWithClearIcon: function renderTextAreaWithClearIcon(prefixCls, element) {
+      var h = this.$createElement;
+      var _$props4 = this.$props,
+          value = _$props4.value,
+          allowClear = _$props4.allowClear,
+          className = _$props4.className,
+          style = _$props4.style;
+
+      if (!allowClear) {
+        return (0, _vnode.cloneElement)(element, {
+          props: { value: value }
+        });
+      }
+      var affixWrapperCls = (0, _classnames2['default'])(className, prefixCls + '-affix-wrapper', prefixCls + '-affix-wrapper-textarea-with-clear-btn');
+      return h(
+        'span',
+        { 'class': affixWrapperCls, style: style },
+        [(0, _vnode.cloneElement)(element, {
+          style: null,
+          props: { value: value }
+        }), this.renderClearIcon(prefixCls)]
+      );
+    },
+    renderClearableLabeledInput: function renderClearableLabeledInput() {
+      var _$props5 = this.$props,
+          prefixCls = _$props5.prefixCls,
+          inputType = _$props5.inputType,
+          element = _$props5.element;
+
+      if (inputType === ClearableInputType[0]) {
+        return this.renderTextAreaWithClearIcon(prefixCls, element);
+      }
+      return this.renderInputWithLabel(prefixCls, this.renderLabeledIcon(prefixCls, element));
+    }
+  },
+  render: function render() {
+    return this.renderClearableLabeledInput();
+  }
+};
+
+exports['default'] = ClearableLabeledInput;
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/input/Group.js":
 /*!********************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/input/Group.js ***!
@@ -66,11 +293,10 @@ exports['default'] = {
   methods: {},
   render: function render() {
     var h = arguments[0];
-    var $listeners = this.$listeners;
 
     return h(
       'span',
-      (0, _babelHelperVueJsxMergeProps2['default'])([{ 'class': this.classes }, { on: $listeners }]),
+      (0, _babelHelperVueJsxMergeProps2['default'])([{ 'class': this.classes }, { on: (0, _propsUtil.getListeners)(this) }]),
       [(0, _propsUtil.filterEmpty)(this.$slots['default'])]
     );
   }
@@ -96,13 +322,17 @@ var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-
 
 var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
+exports.fixControlledValue = fixControlledValue;
+exports.resolveOnChange = resolveOnChange;
+exports.getInputClassName = getInputClassName;
 
 var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 
@@ -122,13 +352,11 @@ var _inputProps2 = _interopRequireDefault(_inputProps);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
-var _env = __webpack_require__(/*! ../_util/env */ "./node_modules/ant-design-vue/lib/_util/env.js");
-
 var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
-var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+var _ClearableLabeledInput = __webpack_require__(/*! ./ClearableLabeledInput */ "./node_modules/ant-design-vue/lib/input/ClearableLabeledInput.js");
 
-var _icon2 = _interopRequireDefault(_icon);
+var _ClearableLabeledInput2 = _interopRequireDefault(_ClearableLabeledInput);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -141,8 +369,36 @@ function fixControlledValue(value) {
   return value;
 }
 
-function hasPrefixSuffix(instance) {
-  return !!((0, _propsUtil.getComponentFromProp)(instance, 'prefix') || (0, _propsUtil.getComponentFromProp)(instance, 'suffix') || instance.$props.allowClear);
+function resolveOnChange(target, e, onChange) {
+  if (onChange) {
+    var event = e;
+    if (e.type === 'click') {
+      // click clear icon
+      //event = Object.create(e);
+      Object.defineProperty(event, 'target', {
+        writable: true
+      });
+      Object.defineProperty(event, 'currentTarget', {
+        writable: true
+      });
+      event.target = target;
+      event.currentTarget = target;
+      var originalInputValue = target.value;
+      // change target ref value cause e.target.value should be '' when clear input
+      target.value = '';
+      onChange(event);
+      // reset target ref value
+      target.value = originalInputValue;
+      return;
+    }
+    onChange(event);
+  }
+}
+
+function getInputClassName(prefixCls, size, disabled) {
+  var _classNames;
+
+  return (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-sm', size === 'small'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', disabled), _classNames));
 }
 
 exports['default'] = {
@@ -159,14 +415,10 @@ exports['default'] = {
       } }
   },
   data: function data() {
-    var _$props = this.$props,
-        _$props$value = _$props.value,
-        value = _$props$value === undefined ? '' : _$props$value,
-        _$props$defaultValue = _$props.defaultValue,
-        defaultValue = _$props$defaultValue === undefined ? '' : _$props$defaultValue;
-
+    var props = this.$props;
+    var value = typeof props.value === 'undefined' ? props.defaultValue : props.value;
     return {
-      stateValue: !(0, _propsUtil.hasProp)(this, 'value') ? defaultValue : value
+      stateValue: typeof value === 'undefined' ? '' : value
     };
   },
 
@@ -182,16 +434,16 @@ exports['default'] = {
       if (_this.autoFocus) {
         _this.focus();
       }
+      _this.clearPasswordValueAttribute();
     });
+  },
+  beforeDestroy: function beforeDestroy() {
+    if (this.removePasswordTimeout) {
+      clearTimeout(this.removePasswordTimeout);
+    }
   },
 
   methods: {
-    handleKeyDown: function handleKeyDown(e) {
-      if (e.keyCode === 13) {
-        this.$emit('pressEnter', e);
-      }
-      this.$emit('keydown', e);
-    },
     focus: function focus() {
       this.$refs.input.focus();
     },
@@ -201,169 +453,43 @@ exports['default'] = {
     select: function select() {
       this.$refs.input.select();
     },
-    getInputClassName: function getInputClassName(prefixCls) {
-      var _ref;
-
-      var _$props2 = this.$props,
-          size = _$props2.size,
-          disabled = _$props2.disabled;
-
-      return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-sm', size === 'small'), (0, _defineProperty3['default'])(_ref, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_ref, prefixCls + '-disabled', disabled), _ref;
-    },
-    setValue: function setValue(value, e) {
+    setValue: function setValue(value, callback) {
       if (this.stateValue === value) {
         return;
       }
       if (!(0, _propsUtil.hasProp)(this, 'value')) {
         this.stateValue = value;
+        this.$nextTick(function () {
+          callback && callback();
+        });
       } else {
-        this.$forceUpdate();
+        // 不在严格受控
+        // https://github.com/vueComponent/ant-design-vue/issues/2207，modal 是 新 new 实例，更新队列和当前不在同一个更新队列中
+        // this.$forceUpdate();
       }
-      this.$emit('change.value', value);
-      var event = e;
-      if (e.type === 'click' && this.$refs.input) {
-        // click clear icon
-        event = (0, _extends3['default'])({}, e);
-        event.target = this.$refs.input;
-        event.currentTarget = this.$refs.input;
-        var originalInputValue = this.$refs.input.value;
-        // change input value cause e.target.value should be '' when clear input
-        this.$refs.input.value = '';
-        this.$emit('change', event);
-        this.$emit('input', event);
-        // reset input value
-        this.$refs.input.value = originalInputValue;
-        return;
-      }
+    },
+    onChange: function onChange(e) {
+      this.$emit('change.value', e.target.value);
       this.$emit('change', e);
       this.$emit('input', e);
     },
     handleReset: function handleReset(e) {
       var _this2 = this;
 
-      this.setValue('', e);
-      this.$nextTick(function () {
+      this.setValue('', function () {
         _this2.focus();
       });
-    },
-    handleChange: function handleChange(e) {
-      var _e$target = e.target,
-          value = _e$target.value,
-          composing = _e$target.composing;
-
-      if (composing || this.stateValue === value) return;
-      this.setValue(value, e);
-    },
-    renderClearIcon: function renderClearIcon(prefixCls) {
-      var h = this.$createElement;
-      var _$props3 = this.$props,
-          allowClear = _$props3.allowClear,
-          disabled = _$props3.disabled;
-      var stateValue = this.stateValue;
-
-      if (!allowClear || disabled || stateValue === undefined || stateValue === null || stateValue === '') {
-        return null;
-      }
-      return h(_icon2['default'], {
-        attrs: {
-          type: 'close-circle',
-          theme: 'filled',
-
-          role: 'button'
-        },
-        on: {
-          'click': this.handleReset
-        },
-
-        'class': prefixCls + '-clear-icon' });
-    },
-    renderSuffix: function renderSuffix(prefixCls) {
-      var h = this.$createElement;
-      var allowClear = this.$props.allowClear;
-
-      var suffix = (0, _propsUtil.getComponentFromProp)(this, 'suffix');
-      if (suffix || allowClear) {
-        return h(
-          'span',
-          { 'class': prefixCls + '-suffix', key: 'suffix' },
-          [this.renderClearIcon(prefixCls), suffix]
-        );
-      }
-      return null;
-    },
-    renderLabeledInput: function renderLabeledInput(prefixCls, children) {
-      var _mergedWrapperClassNa, _classNames;
-
-      var h = this.$createElement;
-
-      var props = this.$props;
-      var addonAfter = (0, _propsUtil.getComponentFromProp)(this, 'addonAfter');
-      var addonBefore = (0, _propsUtil.getComponentFromProp)(this, 'addonBefore');
-      // Not wrap when there is not addons
-      if (!addonBefore && !addonAfter) {
-        return children;
-      }
-
-      var wrapperClassName = prefixCls + '-group';
-      var addonClassName = wrapperClassName + '-addon';
-      addonBefore = addonBefore ? h(
-        'span',
-        { 'class': addonClassName },
-        [addonBefore]
-      ) : null;
-
-      addonAfter = addonAfter ? h(
-        'span',
-        { 'class': addonClassName },
-        [addonAfter]
-      ) : null;
-
-      var mergedWrapperClassName = (_mergedWrapperClassNa = {}, (0, _defineProperty3['default'])(_mergedWrapperClassNa, prefixCls + '-wrapper', true), (0, _defineProperty3['default'])(_mergedWrapperClassNa, wrapperClassName, addonBefore || addonAfter), _mergedWrapperClassNa);
-
-      var mergedGroupClassName = (0, _classnames2['default'])(prefixCls + '-group-wrapper', (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-group-wrapper-sm', props.size === 'small'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-group-wrapper-lg', props.size === 'large'), _classNames));
-      return h(
-        'span',
-        { 'class': mergedGroupClassName },
-        [h(
-          'span',
-          { 'class': mergedWrapperClassName },
-          [addonBefore, children, addonAfter]
-        )]
-      );
-    },
-    renderLabeledIcon: function renderLabeledIcon(prefixCls, children) {
-      var _classNames2;
-
-      var h = this.$createElement;
-      var size = this.$props.size;
-
-      var suffix = this.renderSuffix(prefixCls);
-      if (!hasPrefixSuffix(this)) {
-        return children;
-      }
-      var prefix = (0, _propsUtil.getComponentFromProp)(this, 'prefix');
-      prefix = prefix ? h(
-        'span',
-        { 'class': prefixCls + '-prefix', key: 'prefix' },
-        [prefix]
-      ) : null;
-
-      var affixWrapperCls = (0, _classnames2['default'])(prefixCls + '-affix-wrapper', (_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-affix-wrapper-sm', size === 'small'), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-affix-wrapper-lg', size === 'large'), _classNames2));
-      return h(
-        'span',
-        { 'class': affixWrapperCls, key: 'affix' },
-        [prefix, children, suffix]
-      );
+      resolveOnChange(this.$refs.input, e, this.onChange);
     },
     renderInput: function renderInput(prefixCls) {
       var h = this.$createElement;
 
-      var otherProps = (0, _omit2['default'])(this.$props, ['prefixCls', 'addonBefore', 'addonAfter', 'prefix', 'suffix', 'allowClear', 'value', 'defaultValue']);
+      var otherProps = (0, _omit2['default'])(this.$props, ['prefixCls', 'addonBefore', 'addonAfter', 'prefix', 'suffix', 'allowClear', 'value', 'defaultValue', 'lazy', 'size', 'inputType', 'className']);
       var stateValue = this.stateValue,
-          getInputClassName = this.getInputClassName,
           handleKeyDown = this.handleKeyDown,
           handleChange = this.handleChange,
-          $listeners = this.$listeners;
+          size = this.size,
+          disabled = this.disabled;
 
       var inputProps = {
         directives: [{ name: 'ant-input' }],
@@ -371,43 +497,83 @@ exports['default'] = {
           value: fixControlledValue(stateValue)
         },
         attrs: (0, _extends3['default'])({}, otherProps, this.$attrs),
-        on: (0, _extends3['default'])({}, $listeners, {
+        on: (0, _extends3['default'])({}, (0, _propsUtil.getListeners)(this), {
           keydown: handleKeyDown,
           input: handleChange,
           change: noop
         }),
-        'class': getInputClassName(prefixCls),
+        'class': getInputClassName(prefixCls, size, disabled),
         ref: 'input',
         key: 'ant-input'
       };
-      return this.renderLabeledIcon(prefixCls, h('input', inputProps));
+      return h('input', inputProps);
+    },
+    clearPasswordValueAttribute: function clearPasswordValueAttribute() {
+      var _this3 = this;
+
+      // https://github.com/ant-design/ant-design/issues/20541
+      this.removePasswordTimeout = setTimeout(function () {
+        if (_this3.$refs.input && _this3.$refs.input.getAttribute && _this3.$refs.input.getAttribute('type') === 'password' && _this3.$refs.input.hasAttribute('value')) {
+          _this3.$refs.input.removeAttribute('value');
+        }
+      });
+    },
+    handleChange: function handleChange(e) {
+      var _e$target = e.target,
+          value = _e$target.value,
+          composing = _e$target.composing;
+      // https://github.com/vueComponent/ant-design-vue/issues/2203
+
+      if ((e.isComposing || composing) && this.lazy || this.stateValue === value) return;
+      this.setValue(value, this.clearPasswordValueAttribute);
+      resolveOnChange(this.$refs.input, e, this.onChange);
+    },
+    handleKeyDown: function handleKeyDown(e) {
+      if (e.keyCode === 13) {
+        this.$emit('pressEnter', e);
+      }
+      this.$emit('keydown', e);
     }
   },
   render: function render() {
     var h = arguments[0];
 
     if (this.$props.type === 'textarea') {
-      var $listeners = this.$listeners;
-
       var textareaProps = {
         props: this.$props,
         attrs: this.$attrs,
-        on: (0, _extends3['default'])({}, $listeners, {
+        on: (0, _extends3['default'])({}, (0, _propsUtil.getListeners)(this), {
           input: this.handleChange,
           keydown: this.handleKeyDown,
           change: noop
-        }),
-        directives: [{
-          name: 'ant-input'
-        }]
+        })
       };
       return h(_TextArea2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([textareaProps, { ref: 'input' }]));
     }
     var customizePrefixCls = this.$props.prefixCls;
+    var stateValue = this.$data.stateValue;
 
     var getPrefixCls = this.configProvider.getPrefixCls;
     var prefixCls = getPrefixCls('input', customizePrefixCls);
-    return this.renderLabeledInput(prefixCls, this.renderInput(prefixCls));
+    var addonAfter = (0, _propsUtil.getComponentFromProp)(this, 'addonAfter');
+    var addonBefore = (0, _propsUtil.getComponentFromProp)(this, 'addonBefore');
+    var suffix = (0, _propsUtil.getComponentFromProp)(this, 'suffix');
+    var prefix = (0, _propsUtil.getComponentFromProp)(this, 'prefix');
+    var props = {
+      props: (0, _extends3['default'])({}, (0, _propsUtil.getOptionProps)(this), {
+        prefixCls: prefixCls,
+        inputType: 'input',
+        value: fixControlledValue(stateValue),
+        element: this.renderInput(prefixCls),
+        handleReset: this.handleReset,
+        addonAfter: addonAfter,
+        addonBefore: addonBefore,
+        suffix: suffix,
+        prefix: prefix
+      }),
+      on: (0, _propsUtil.getListeners)(this)
+    };
+    return h(_ClearableLabeledInput2['default'], props);
   }
 };
 
@@ -475,6 +641,7 @@ var ActionMap = {
 exports['default'] = {
   name: 'AInputPassword',
   mixins: [_BaseMixin2['default']],
+  inheritAttrs: false,
   model: {
     prop: 'value',
     event: 'change.value'
@@ -492,7 +659,16 @@ exports['default'] = {
   },
 
   methods: {
-    onChange: function onChange() {
+    focus: function focus() {
+      this.$refs.input.focus();
+    },
+    blur: function blur() {
+      this.$refs.input.blur();
+    },
+    onVisibleChange: function onVisibleChange() {
+      if (this.disabled) {
+        return;
+      }
       this.setState({
         visible: !this.visible
       });
@@ -510,7 +686,7 @@ exports['default'] = {
         props: {
           type: this.visible ? 'eye' : 'eye-invisible'
         },
-        on: (_on = {}, (0, _defineProperty3['default'])(_on, iconTrigger, this.onChange), (0, _defineProperty3['default'])(_on, 'mousedown', function mousedown(e) {
+        on: (_on = {}, (0, _defineProperty3['default'])(_on, iconTrigger, this.onVisibleChange), (0, _defineProperty3['default'])(_on, 'mousedown', function mousedown(e) {
           // Prevent focused state lost
           // https://github.com/ant-design/ant-design/issues/15173
           e.preventDefault();
@@ -547,11 +723,224 @@ exports['default'] = {
         type: this.visible ? 'text' : 'password'
       }),
       'class': inputClassName,
-      on: this.$listeners
+      ref: 'input',
+      on: (0, _propsUtil.getListeners)(this)
     };
     return h(_Input2['default'], inputProps);
   }
 };
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/input/ResizableTextArea.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/input/ResizableTextArea.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _vcResizeObserver = __webpack_require__(/*! ../vc-resize-observer */ "./node_modules/ant-design-vue/lib/vc-resize-observer/index.js");
+
+var _vcResizeObserver2 = _interopRequireDefault(_vcResizeObserver);
+
+var _omit = __webpack_require__(/*! omit.js */ "./node_modules/omit.js/es/index.js");
+
+var _omit2 = _interopRequireDefault(_omit);
+
+var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+
+var _classnames2 = _interopRequireDefault(_classnames);
+
+var _calculateNodeHeight = __webpack_require__(/*! ./calculateNodeHeight */ "./node_modules/ant-design-vue/lib/input/calculateNodeHeight.js");
+
+var _calculateNodeHeight2 = _interopRequireDefault(_calculateNodeHeight);
+
+var _raf = __webpack_require__(/*! ../_util/raf */ "./node_modules/ant-design-vue/lib/_util/raf.js");
+
+var _raf2 = _interopRequireDefault(_raf);
+
+var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+
+var _warning2 = _interopRequireDefault(_warning);
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _inputProps = __webpack_require__(/*! ./inputProps */ "./node_modules/ant-design-vue/lib/input/inputProps.js");
+
+var _inputProps2 = _interopRequireDefault(_inputProps);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var RESIZE_STATUS_NONE = 0;
+var RESIZE_STATUS_RESIZING = 1;
+var RESIZE_STATUS_RESIZED = 2;
+
+var TextAreaProps = (0, _extends3['default'])({}, _inputProps2['default'], {
+  autosize: _vueTypes2['default'].oneOfType([Object, Boolean]),
+  autoSize: _vueTypes2['default'].oneOfType([Object, Boolean])
+});
+var ResizableTextArea = {
+  name: 'ResizableTextArea',
+  props: TextAreaProps,
+  data: function data() {
+    return {
+      textareaStyles: {},
+      resizeStatus: RESIZE_STATUS_NONE
+    };
+  },
+
+  mixins: [_BaseMixin2['default']],
+  mounted: function mounted() {
+    this.resizeTextarea();
+  },
+  beforeDestroy: function beforeDestroy() {
+    _raf2['default'].cancel(this.nextFrameActionId);
+    _raf2['default'].cancel(this.resizeFrameId);
+  },
+
+  watch: {
+    value: function value() {
+      var _this = this;
+
+      this.$nextTick(function () {
+        _this.resizeTextarea();
+      });
+    }
+  },
+  methods: {
+    handleResize: function handleResize(size) {
+      var resizeStatus = this.$data.resizeStatus;
+      var autoSize = this.$props.autoSize;
+
+
+      if (resizeStatus !== RESIZE_STATUS_NONE) {
+        return;
+      }
+      this.$emit('resize', size);
+      if (autoSize) {
+        this.resizeOnNextFrame();
+      }
+    },
+    resizeOnNextFrame: function resizeOnNextFrame() {
+      _raf2['default'].cancel(this.nextFrameActionId);
+      this.nextFrameActionId = (0, _raf2['default'])(this.resizeTextarea);
+    },
+    resizeTextarea: function resizeTextarea() {
+      var _this2 = this;
+
+      var autoSize = this.$props.autoSize || this.$props.autosize;
+      if (!autoSize || !this.$refs.textArea) {
+        return;
+      }
+      var minRows = autoSize.minRows,
+          maxRows = autoSize.maxRows;
+
+      var textareaStyles = (0, _calculateNodeHeight2['default'])(this.$refs.textArea, false, minRows, maxRows);
+      this.setState({ textareaStyles: textareaStyles, resizeStatus: RESIZE_STATUS_RESIZING }, function () {
+        _raf2['default'].cancel(_this2.resizeFrameId);
+        _this2.resizeFrameId = (0, _raf2['default'])(function () {
+          _this2.setState({ resizeStatus: RESIZE_STATUS_RESIZED }, function () {
+            _this2.resizeFrameId = (0, _raf2['default'])(function () {
+              _this2.setState({ resizeStatus: RESIZE_STATUS_NONE });
+              _this2.fixFirefoxAutoScroll();
+            });
+          });
+        });
+      });
+    },
+
+    // https://github.com/ant-design/ant-design/issues/21870
+    fixFirefoxAutoScroll: function fixFirefoxAutoScroll() {
+      try {
+        if (document.activeElement === this.$refs.textArea) {
+          var currentStart = this.$refs.textArea.selectionStart;
+          var currentEnd = this.$refs.textArea.selectionEnd;
+          this.$refs.textArea.setSelectionRange(currentStart, currentEnd);
+        }
+      } catch (e) {
+        // Fix error in Chrome:
+        // Failed to read the 'selectionStart' property from 'HTMLInputElement'
+        // http://stackoverflow.com/q/21177489/3040605
+      }
+    },
+    renderTextArea: function renderTextArea() {
+      var h = this.$createElement;
+
+      var props = (0, _propsUtil.getOptionProps)(this);
+      var prefixCls = props.prefixCls,
+          autoSize = props.autoSize,
+          autosize = props.autosize,
+          disabled = props.disabled;
+      var _$data = this.$data,
+          textareaStyles = _$data.textareaStyles,
+          resizeStatus = _$data.resizeStatus;
+
+      (0, _warning2['default'])(autosize === undefined, 'Input.TextArea', 'autosize is deprecated, please use autoSize instead.');
+      var otherProps = (0, _omit2['default'])(props, ['prefixCls', 'autoSize', 'autosize', 'defaultValue', 'allowClear', 'type', 'lazy', 'value']);
+      var cls = (0, _classnames2['default'])(prefixCls, (0, _defineProperty3['default'])({}, prefixCls + '-disabled', disabled));
+      var domProps = {};
+      // Fix https://github.com/ant-design/ant-design/issues/6776
+      // Make sure it could be reset when using form.getFieldDecorator
+      if ('value' in props) {
+        domProps.value = props.value || '';
+      }
+      var style = (0, _extends3['default'])({}, textareaStyles, resizeStatus === RESIZE_STATUS_RESIZING ? { overflowX: 'hidden', overflowY: 'hidden' } : null);
+      var textareaProps = {
+        attrs: otherProps,
+        domProps: domProps,
+        style: style,
+        'class': cls,
+        on: (0, _omit2['default'])((0, _propsUtil.getListeners)(this), 'pressEnter'),
+        directives: [{
+          name: 'ant-input'
+        }]
+      };
+      return h(
+        _vcResizeObserver2['default'],
+        {
+          on: {
+            'resize': this.handleResize
+          },
+          attrs: { disabled: !(autoSize || autosize) }
+        },
+        [h('textarea', (0, _babelHelperVueJsxMergeProps2['default'])([textareaProps, { ref: 'textArea' }]))]
+      );
+    }
+  },
+
+  render: function render() {
+    return this.renderTextArea();
+  }
+};
+
+exports['default'] = ResizableTextArea;
 
 /***/ }),
 
@@ -585,6 +974,8 @@ var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnam
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
+var _isMobile = __webpack_require__(/*! is-mobile */ "./node_modules/is-mobile/index.js");
+
 var _Input = __webpack_require__(/*! ./Input */ "./node_modules/ant-design-vue/lib/input/Input.js");
 
 var _Input2 = _interopRequireDefault(_Input);
@@ -603,11 +994,11 @@ var _button2 = _interopRequireDefault(_button);
 
 var _vnode = __webpack_require__(/*! ../_util/vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
 
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
 var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
 var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
@@ -621,7 +1012,8 @@ exports['default'] = {
     event: 'change.value'
   },
   props: (0, _extends3['default'])({}, _inputProps2['default'], {
-    enterButton: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, _vueTypes2['default'].string, _vueTypes2['default'].object])
+    // 不能设置默认值 https://github.com/vueComponent/ant-design-vue/issues/1916
+    enterButton: _vueTypes2['default'].any
   }),
   inject: {
     configProvider: { 'default': function _default() {
@@ -629,9 +1021,20 @@ exports['default'] = {
       } }
   },
   methods: {
+    onChange: function onChange(e) {
+      if (e && e.target && e.type === 'click') {
+        this.$emit('search', e.target.value, e);
+      }
+      this.$emit('change', e);
+    },
     onSearch: function onSearch(e) {
+      if (this.loading || this.disabled) {
+        return;
+      }
       this.$emit('search', this.$refs.input.stateValue, e);
-      this.$refs.input.focus();
+      if (!(0, _isMobile.isMobile)({ tablet: true })) {
+        this.$refs.input.focus();
+      }
     },
     focus: function focus() {
       this.$refs.input.focus();
@@ -639,14 +1042,41 @@ exports['default'] = {
     blur: function blur() {
       this.$refs.input.blur();
     },
+    renderLoading: function renderLoading(prefixCls) {
+      var h = this.$createElement;
+      var size = this.$props.size;
+
+      var enterButton = (0, _propsUtil.getComponentFromProp)(this, 'enterButton');
+      // 兼容 <a-input-search enterButton />， 因enterButton类型为 any，此类写法 enterButton 为空字符串
+      enterButton = enterButton || enterButton === '';
+      if (enterButton) {
+        return h(
+          _button2['default'],
+          { 'class': prefixCls + '-button', attrs: { type: 'primary', size: size },
+            key: 'enterButton' },
+          [h(_icon2['default'], {
+            attrs: { type: 'loading' }
+          })]
+        );
+      }
+      return h(_icon2['default'], { 'class': prefixCls + '-icon', attrs: { type: 'loading' },
+        key: 'loadingIcon' });
+    },
     renderSuffix: function renderSuffix(prefixCls) {
       var h = this.$createElement;
+      var loading = this.loading;
 
       var suffix = (0, _propsUtil.getComponentFromProp)(this, 'suffix');
       var enterButton = (0, _propsUtil.getComponentFromProp)(this, 'enterButton');
+      // 兼容 <a-input-search enterButton />， 因enterButton类型为 any，此类写法 enterButton 为空字符串
+      enterButton = enterButton || enterButton === '';
+      if (loading && !enterButton) {
+        return [suffix, this.renderLoading(prefixCls)];
+      }
+
       if (enterButton) return suffix;
 
-      var node = h(_icon2['default'], { 'class': prefixCls + '-icon', attrs: { type: 'search' },
+      var icon = h(_icon2['default'], { 'class': prefixCls + '-icon', attrs: { type: 'search' },
         key: 'searchIcon', on: {
           'click': this.onSearch
         }
@@ -659,26 +1089,33 @@ exports['default'] = {
         //     key: 'originSuffix',
         //   });
         // }
-        return [suffix, node];
+        return [suffix, icon];
       }
 
-      return node;
+      return icon;
     },
     renderAddonAfter: function renderAddonAfter(prefixCls) {
       var h = this.$createElement;
       var size = this.size,
-          disabled = this.disabled;
+          disabled = this.disabled,
+          loading = this.loading;
 
-      var enterButton = (0, _propsUtil.getComponentFromProp)(this, 'enterButton');
-      var addonAfter = (0, _propsUtil.getComponentFromProp)(this, 'addonAfter');
-      if (!enterButton) return addonAfter;
       var btnClassName = prefixCls + '-button';
+      var enterButton = (0, _propsUtil.getComponentFromProp)(this, 'enterButton');
+      enterButton = enterButton || enterButton === '';
+      var addonAfter = (0, _propsUtil.getComponentFromProp)(this, 'addonAfter');
+      if (loading && enterButton) {
+        return [this.renderLoading(prefixCls), addonAfter];
+      }
+      if (!enterButton) return addonAfter;
       var enterButtonAsElement = Array.isArray(enterButton) ? enterButton[0] : enterButton;
       var button = void 0;
-      if (enterButtonAsElement.tag === 'button' || enterButtonAsElement.componentOptions && enterButtonAsElement.componentOptions.Ctor.extendOptions.__ANT_BUTTON) {
+      var isAntdButton = enterButtonAsElement.componentOptions && enterButtonAsElement.componentOptions.Ctor.extendOptions.__ANT_BUTTON;
+      if (enterButtonAsElement.tag === 'button' || isAntdButton) {
         button = (0, _vnode.cloneElement)(enterButtonAsElement, {
-          'class': btnClassName,
-          props: { size: size },
+          key: 'enterButton',
+          'class': isAntdButton ? btnClassName : '',
+          props: isAntdButton ? { size: size } : {},
           on: {
             click: this.onSearch
           }
@@ -697,7 +1134,7 @@ exports['default'] = {
               'click': this.onSearch
             }
           },
-          [enterButton === true ? h(_icon2['default'], {
+          [enterButton === true || enterButton === '' ? h(_icon2['default'], {
             attrs: { type: 'search' }
           }) : enterButton]
         );
@@ -716,7 +1153,8 @@ exports['default'] = {
         customizePrefixCls = _getOptionProps.prefixCls,
         customizeInputPrefixCls = _getOptionProps.inputPrefixCls,
         size = _getOptionProps.size,
-        others = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'inputPrefixCls', 'size']);
+        loading = _getOptionProps.loading,
+        others = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'inputPrefixCls', 'size', 'loading']);
 
     var getPrefixCls = this.configProvider.getPrefixCls;
     var prefixCls = getPrefixCls('input-search', customizePrefixCls);
@@ -724,6 +1162,7 @@ exports['default'] = {
 
     var enterButton = (0, _propsUtil.getComponentFromProp)(this, 'enterButton');
     var addonBefore = (0, _propsUtil.getComponentFromProp)(this, 'addonBefore');
+    enterButton = enterButton || enterButton === '';
     var inputClassName = void 0;
     if (enterButton) {
       var _classNames;
@@ -733,7 +1172,7 @@ exports['default'] = {
       inputClassName = prefixCls;
     }
 
-    var on = (0, _extends3['default'])({}, this.$listeners);
+    var on = (0, _extends3['default'])({}, (0, _propsUtil.getListeners)(this));
     delete on.search;
     var inputProps = {
       props: (0, _extends3['default'])({}, others, {
@@ -742,14 +1181,16 @@ exports['default'] = {
         suffix: this.renderSuffix(prefixCls),
         prefix: (0, _propsUtil.getComponentFromProp)(this, 'prefix'),
         addonAfter: this.renderAddonAfter(prefixCls),
-        addonBefore: addonBefore
+        addonBefore: addonBefore,
+        className: inputClassName
       }),
       attrs: this.$attrs,
-      'class': inputClassName,
       ref: 'input',
       on: (0, _extends3['default'])({
         pressEnter: this.onSearch
-      }, on)
+      }, on, {
+        change: this.onChange
+      })
     };
     return h(_Input2['default'], inputProps);
   }
@@ -775,33 +1216,21 @@ var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-
 
 var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+var _ClearableLabeledInput = __webpack_require__(/*! ./ClearableLabeledInput */ "./node_modules/ant-design-vue/lib/input/ClearableLabeledInput.js");
 
-var _classnames2 = _interopRequireDefault(_classnames);
+var _ClearableLabeledInput2 = _interopRequireDefault(_ClearableLabeledInput);
 
-var _omit = __webpack_require__(/*! omit.js */ "./node_modules/omit.js/es/index.js");
+var _ResizableTextArea = __webpack_require__(/*! ./ResizableTextArea */ "./node_modules/ant-design-vue/lib/input/ResizableTextArea.js");
 
-var _omit2 = _interopRequireDefault(_omit);
-
-var _resizeObserverPolyfill = __webpack_require__(/*! resize-observer-polyfill */ "./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js");
-
-var _resizeObserverPolyfill2 = _interopRequireDefault(_resizeObserverPolyfill);
+var _ResizableTextArea2 = _interopRequireDefault(_ResizableTextArea);
 
 var _inputProps = __webpack_require__(/*! ./inputProps */ "./node_modules/ant-design-vue/lib/input/inputProps.js");
 
 var _inputProps2 = _interopRequireDefault(_inputProps);
-
-var _calculateNodeHeight = __webpack_require__(/*! ./calculateNodeHeight */ "./node_modules/ant-design-vue/lib/input/calculateNodeHeight.js");
-
-var _calculateNodeHeight2 = _interopRequireDefault(_calculateNodeHeight);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
@@ -809,112 +1238,66 @@ var _propsUtil2 = _interopRequireDefault(_propsUtil);
 
 var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
+var _Input = __webpack_require__(/*! ./Input */ "./node_modules/ant-design-vue/lib/input/Input.js");
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function onNextFrame(cb) {
-  if (window.requestAnimationFrame) {
-    return window.requestAnimationFrame(cb);
-  }
-  return window.setTimeout(cb, 1);
-}
-
-function clearNextFrameAction(nextFrameId) {
-  if (window.cancelAnimationFrame) {
-    window.cancelAnimationFrame(nextFrameId);
-  } else {
-    window.clearTimeout(nextFrameId);
-  }
-}
-function fixControlledValue(value) {
-  if (typeof value === 'undefined' || value === null) {
-    return '';
-  }
-  return value;
-}
-function noop() {}
+var TextAreaProps = (0, _extends3['default'])({}, _inputProps2['default'], {
+  autosize: _vueTypes2['default'].oneOfType([Object, Boolean]),
+  autoSize: _vueTypes2['default'].oneOfType([Object, Boolean])
+});
 
 exports['default'] = {
   name: 'ATextarea',
+  inheritAttrs: false,
   model: {
     prop: 'value',
     event: 'change.value'
   },
-  props: (0, _extends3['default'])({}, _inputProps2['default'], {
-    autosize: [Object, Boolean]
-  }),
+  props: (0, _extends3['default'])({}, TextAreaProps),
   inject: {
     configProvider: { 'default': function _default() {
         return _configProvider.ConfigConsumerProps;
       } }
   },
   data: function data() {
-    var _$props = this.$props,
-        _$props$value = _$props.value,
-        value = _$props$value === undefined ? '' : _$props$value,
-        _$props$defaultValue = _$props.defaultValue,
-        defaultValue = _$props$defaultValue === undefined ? '' : _$props$defaultValue;
-
+    var value = typeof this.value === 'undefined' ? this.defaultValue : this.value;
     return {
-      stateValue: fixControlledValue(!(0, _propsUtil2['default'])(this, 'value') ? defaultValue : value),
-      nextFrameActionId: undefined,
-      textareaStyles: {}
+      stateValue: typeof value === 'undefined' ? '' : value
     };
   },
 
   computed: {},
   watch: {
     value: function value(val) {
-      var _this = this;
-
-      this.$nextTick(function () {
-        _this.resizeOnNextFrame();
-      });
-      this.stateValue = fixControlledValue(val);
-    },
-    autosize: function autosize(val) {
-      if (!val && this.$refs.textArea) {
-        this.textareaStyles = (0, _omit2['default'])(this.textareaStyles, ['overflowY']);
-      }
+      this.stateValue = val;
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this = this;
 
     this.$nextTick(function () {
-      _this2.resizeTextarea();
-      _this2.updateResizeObserverHook();
-      if (_this2.autoFocus) {
-        _this2.focus();
+      if (_this.autoFocus) {
+        _this.focus();
       }
     });
   },
-  updated: function updated() {
-    this.updateResizeObserverHook();
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
-    }
-  },
 
   methods: {
-    resizeOnNextFrame: function resizeOnNextFrame() {
-      if (this.nextFrameActionId) {
-        clearNextFrameAction(this.nextFrameActionId);
-      }
-      this.nextFrameActionId = onNextFrame(this.resizeTextarea);
-    },
-
-    // We will update hooks if `autosize` prop change
-    updateResizeObserverHook: function updateResizeObserverHook() {
-      if (!this.resizeObserver && this.$props.autosize) {
-        // Add resize observer
-        this.resizeObserver = new _resizeObserverPolyfill2['default'](this.resizeOnNextFrame);
-        this.resizeObserver.observe(this.$refs.textArea);
-      } else if (this.resizeObserver && !this.$props.autosize) {
-        // Remove resize observer
-        this.resizeObserver.disconnect();
-        this.resizeObserver = null;
+    setValue: function setValue(value, callback) {
+      if (!(0, _propsUtil2['default'])(this, 'value')) {
+        this.stateValue = value;
+        this.$nextTick(function () {
+          callback && callback();
+        });
+      } else {
+        // 不在严格受控
+        // https://github.com/vueComponent/ant-design-vue/issues/2207，modal 是 新 new 实例，更新队列和当前不在同一个更新队列中
+        // this.$forceUpdate();
       }
     },
     handleKeyDown: function handleKeyDown(e) {
@@ -923,77 +1306,76 @@ exports['default'] = {
       }
       this.$emit('keydown', e);
     },
-    resizeTextarea: function resizeTextarea() {
-      var autosize = this.$props.autosize;
-
-      if (!autosize || !this.$refs.textArea) {
-        return;
-      }
-      var minRows = autosize.minRows,
-          maxRows = autosize.maxRows;
-
-      var textareaStyles = (0, _calculateNodeHeight2['default'])(this.$refs.textArea, false, minRows, maxRows);
-      this.textareaStyles = textareaStyles;
+    onChange: function onChange(e) {
+      this.$emit('change.value', e.target.value);
+      this.$emit('change', e);
+      this.$emit('input', e);
     },
-    handleTextareaChange: function handleTextareaChange(e) {
+    handleChange: function handleChange(e) {
+      var _this2 = this;
+
       var _e$target = e.target,
           value = _e$target.value,
           composing = _e$target.composing;
 
-      if (composing || this.stateValue === value) return;
-      if (!(0, _propsUtil2['default'])(this, 'value')) {
-        this.stateValue = value;
-        this.resizeTextarea();
-      } else {
-        this.$forceUpdate();
-      }
+      if ((e.isComposing || composing) && this.lazy || this.stateValue === value) return;
 
-      this.$emit('change.value', value);
-      this.$emit('change', e);
-      this.$emit('input', e);
+      this.setValue(e.target.value, function () {
+        _this2.$refs.resizableTextArea.resizeTextarea();
+      });
+      (0, _Input.resolveOnChange)(this.$refs.resizableTextArea.$refs.textArea, e, this.onChange);
     },
     focus: function focus() {
-      this.$refs.textArea.focus();
+      this.$refs.resizableTextArea.$refs.textArea.focus();
     },
     blur: function blur() {
-      this.$refs.textArea.blur();
+      this.$refs.resizableTextArea.$refs.textArea.blur();
+    },
+    handleReset: function handleReset(e) {
+      var _this3 = this;
+
+      this.setValue('', function () {
+        _this3.$refs.resizableTextArea.renderTextArea();
+        _this3.focus();
+      });
+      (0, _Input.resolveOnChange)(this.$refs.resizableTextArea.$refs.textArea, e, this.onChange);
+    },
+    renderTextArea: function renderTextArea(prefixCls) {
+      var h = this.$createElement;
+
+      var props = (0, _propsUtil.getOptionProps)(this);
+      var resizeProps = {
+        props: (0, _extends3['default'])({}, props, {
+          prefixCls: prefixCls
+        }),
+        on: (0, _extends3['default'])({}, (0, _propsUtil.getListeners)(this), {
+          input: this.handleChange,
+          keydown: this.handleKeyDown
+        }),
+        attrs: this.$attrs
+      };
+      return h(_ResizableTextArea2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([resizeProps, { ref: 'resizableTextArea' }]));
     }
   },
   render: function render() {
     var h = arguments[0];
     var stateValue = this.stateValue,
-        handleKeyDown = this.handleKeyDown,
-        handleTextareaChange = this.handleTextareaChange,
-        textareaStyles = this.textareaStyles,
-        $attrs = this.$attrs,
-        $listeners = this.$listeners,
-        customizePrefixCls = this.prefixCls,
-        disabled = this.disabled;
+        customizePrefixCls = this.prefixCls;
 
-    var otherProps = (0, _omit2['default'])(this.$props, ['prefixCls', 'autosize', 'type', 'value', 'defaultValue']);
     var getPrefixCls = this.configProvider.getPrefixCls;
     var prefixCls = getPrefixCls('input', customizePrefixCls);
 
-    var cls = (0, _classnames2['default'])(prefixCls, (0, _defineProperty3['default'])({}, prefixCls + '-disabled', disabled));
-
-    var textareaProps = {
-      directives: [{ name: 'ant-input' }],
-      attrs: (0, _extends3['default'])({}, otherProps, $attrs),
-      on: (0, _extends3['default'])({}, $listeners, {
-        keydown: handleKeyDown,
-        input: handleTextareaChange,
-        change: noop
-      })
+    var props = {
+      props: (0, _extends3['default'])({}, (0, _propsUtil.getOptionProps)(this), {
+        prefixCls: prefixCls,
+        inputType: 'text',
+        value: (0, _Input.fixControlledValue)(stateValue),
+        element: this.renderTextArea(prefixCls),
+        handleReset: this.handleReset
+      }),
+      on: (0, _propsUtil.getListeners)(this)
     };
-    return h('textarea', (0, _babelHelperVueJsxMergeProps2['default'])([textareaProps, {
-      domProps: {
-        'value': stateValue
-      },
-
-      'class': cls,
-      style: textareaStyles,
-      ref: 'textArea'
-    }]));
+    return h(_ClearableLabeledInput2['default'], props);
   }
 };
 
@@ -1104,10 +1486,10 @@ function calculateNodeHeight(uiTextNode) {
 
   if (boxSizing === 'border-box') {
     // border-box: add border, since height = content + padding + border
-    height = height + borderSize;
+    height += borderSize;
   } else if (boxSizing === 'content-box') {
     // remove padding, since height = content
-    height = height - paddingSize;
+    height -= paddingSize;
   }
 
   if (minRows !== null || maxRows !== null) {
@@ -1129,11 +1511,6 @@ function calculateNodeHeight(uiTextNode) {
       overflowY = height > maxHeight ? '' : 'hidden';
       height = Math.min(maxHeight, height);
     }
-  }
-  // Remove scroll bar flash when autosize without maxRows
-  // donot remove in vue
-  if (!maxRows) {
-    overflowY = 'hidden';
   }
   return {
     height: height + 'px',
@@ -1237,24 +1614,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 exports['default'] = {
   prefixCls: _vueTypes2['default'].string,
   inputPrefixCls: _vueTypes2['default'].string,
-  defaultValue: [String, Number],
-  value: [String, Number],
+  defaultValue: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
+  value: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
   placeholder: [String, Number],
   type: {
     'default': 'text',
     type: String
   },
   name: String,
-  size: {
-    validator: function validator(value) {
-      return ['small', 'large', 'default'].includes(value);
-    }
-  },
-  disabled: {
-    'default': false,
-    type: Boolean
-  },
-  readOnly: Boolean,
+  size: _vueTypes2['default'].oneOf(['small', 'large', 'default']),
+  disabled: _vueTypes2['default'].bool,
+  readOnly: _vueTypes2['default'].bool,
   addonBefore: _vueTypes2['default'].any,
   addonAfter: _vueTypes2['default'].any,
   // onPressEnter?: React.FormEventHandler<any>;
@@ -1265,10 +1635,171 @@ exports['default'] = {
   // onBlur?: React.FormEventHandler<any>;
   prefix: _vueTypes2['default'].any,
   suffix: _vueTypes2['default'].any,
-  spellCheck: Boolean,
+  // spellCheck: Boolean,
   autoFocus: Boolean,
-  allowClear: Boolean
+  allowClear: Boolean,
+  lazy: {
+    'default': true,
+    type: Boolean
+  },
+  maxLength: _vueTypes2['default'].number,
+  loading: _vueTypes2['default'].bool,
+  className: _vueTypes2['default'].string
 };
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/vc-resize-observer/index.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-resize-observer/index.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _resizeObserverPolyfill = __webpack_require__(/*! resize-observer-polyfill */ "./node_modules/resize-observer-polyfill/dist/ResizeObserver.es.js");
+
+var _resizeObserverPolyfill2 = _interopRequireDefault(_resizeObserverPolyfill);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// Still need to be compatible with React 15, we use class component here
+var VueResizeObserver = {
+  name: 'ResizeObserver',
+  props: {
+    disabled: Boolean
+  },
+  data: function data() {
+    this.currentElement = null;
+    this.resizeObserver = null;
+    return {
+      width: 0,
+      height: 0
+    };
+  },
+  mounted: function mounted() {
+    this.onComponentUpdated();
+  },
+  updated: function updated() {
+    this.onComponentUpdated();
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.destroyObserver();
+  },
+
+  methods: {
+    onComponentUpdated: function onComponentUpdated() {
+      var disabled = this.$props.disabled;
+
+      // Unregister if disabled
+
+      if (disabled) {
+        this.destroyObserver();
+        return;
+      }
+
+      // Unregister if element changed
+      var element = this.$el;
+      var elementChanged = element !== this.currentElement;
+      if (elementChanged) {
+        this.destroyObserver();
+        this.currentElement = element;
+      }
+
+      if (!this.resizeObserver && element) {
+        this.resizeObserver = new _resizeObserverPolyfill2['default'](this.onResize);
+        this.resizeObserver.observe(element);
+      }
+    },
+    onResize: function onResize(entries) {
+      var target = entries[0].target;
+
+      var _target$getBoundingCl = target.getBoundingClientRect(),
+          width = _target$getBoundingCl.width,
+          height = _target$getBoundingCl.height;
+      /**
+       * Resize observer trigger when content size changed.
+       * In most case we just care about element size,
+       * let's use `boundary` instead of `contentRect` here to avoid shaking.
+       */
+
+
+      var fixedWidth = Math.floor(width);
+      var fixedHeight = Math.floor(height);
+
+      if (this.width !== fixedWidth || this.height !== fixedHeight) {
+        var size = { width: fixedWidth, height: fixedHeight };
+        this.width = fixedWidth;
+        this.fixedHeight = fixedHeight;
+        this.$emit('resize', size);
+      }
+    },
+    destroyObserver: function destroyObserver() {
+      if (this.resizeObserver) {
+        this.resizeObserver.disconnect();
+        this.resizeObserver = null;
+      }
+    }
+  },
+
+  render: function render() {
+    return this.$slots['default'][0];
+  }
+}; // based on rc-resize-observer 0.1.3
+exports['default'] = VueResizeObserver;
+
+/***/ }),
+
+/***/ "./node_modules/is-mobile/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/is-mobile/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = isMobile
+module.exports.isMobile = isMobile
+module.exports.default = isMobile
+
+var mobileRE = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series[46]0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i
+
+var tabletRE = /(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series[46]0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino|android|ipad|playbook|silk/i
+
+function isMobile (opts) {
+  if (!opts) opts = {}
+  var ua = opts.ua
+  if (!ua && typeof navigator !== 'undefined') ua = navigator.userAgent
+  if (ua && ua.headers && typeof ua.headers['user-agent'] === 'string') {
+    ua = ua.headers['user-agent']
+  }
+  if (typeof ua !== 'string') return false
+
+  var result = opts.tablet ? tabletRE.test(ua) : mobileRE.test(ua)
+
+  if (
+    !result &&
+    opts.tablet &&
+    opts.featureDetect &&
+    navigator &&
+    navigator.maxTouchPoints > 1 &&
+    ua.indexOf('Macintosh') !== -1 &&
+    ua.indexOf('Safari') !== -1
+  ) {
+    result = true
+  }
+
+  return result
+}
+
 
 /***/ })
 

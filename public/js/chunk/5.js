@@ -14,9 +14,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
 var _vcProgress = __webpack_require__(/*! ../vc-progress */ "./node_modules/ant-design-vue/lib/vc-progress/index.js");
 
 var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/progress/utils.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var statusColorMap = {
   normal: '#108ee9',
@@ -48,6 +54,8 @@ function getStrokeColor(_ref2) {
 var Circle = {
   functional: true,
   render: function render(h, context) {
+    var _wrapperClassName;
+
     var props = context.props,
         children = context.children;
     var prefixCls = props.prefixCls,
@@ -68,16 +76,20 @@ var Circle = {
     var circleWidth = strokeWidth || 6;
     var gapPos = gapPosition || type === 'dashboard' && 'bottom' || 'top';
     var gapDeg = gapDegree || type === 'dashboard' && 75;
+    var strokeColor = getStrokeColor(props);
+    var isGradient = Object.prototype.toString.call(strokeColor) === '[object Object]';
+
+    var wrapperClassName = (_wrapperClassName = {}, (0, _defineProperty3['default'])(_wrapperClassName, prefixCls + '-inner', true), (0, _defineProperty3['default'])(_wrapperClassName, prefixCls + '-circle-gradient', isGradient), _wrapperClassName);
 
     return h(
       'div',
-      { 'class': prefixCls + '-inner', style: circleStyle },
+      { 'class': wrapperClassName, style: circleStyle },
       [h(_vcProgress.Circle, {
         attrs: {
           percent: getPercentage(props),
           strokeWidth: circleWidth,
           trailWidth: circleWidth,
-          strokeColor: getStrokeColor(props),
+          strokeColor: strokeColor,
           strokeLinecap: strokeLinecap,
           trailColor: trailColor,
           prefixCls: prefixCls,
@@ -148,9 +160,115 @@ exports['default'] = _progress2['default'];
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.handleGradient = exports.sortGradient = undefined;
+
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _slicedToArray2 = __webpack_require__(/*! babel-runtime/helpers/slicedToArray */ "./node_modules/babel-runtime/helpers/slicedToArray.js");
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
 var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/progress/utils.js");
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+/**
+ * {
+ *   '0%': '#afc163',
+ *   '75%': '#009900',
+ *   '50%': 'green',     ====>     '#afc163 0%, #66FF00 25%, #00CC00 50%, #009900 75%, #ffffff 100%'
+ *   '25%': '#66FF00',
+ *   '100%': '#ffffff'
+ * }
+ */
+var sortGradient = exports.sortGradient = function sortGradient(gradients) {
+  var tempArr = [];
+  // eslint-disable-next-line no-restricted-syntax
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = Object.entries(gradients)[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var _ref = _step.value;
+
+      var _ref2 = (0, _slicedToArray3['default'])(_ref, 2);
+
+      var key = _ref2[0];
+      var value = _ref2[1];
+
+      var formatKey = parseFloat(key.replace(/%/g, ''));
+      if (isNaN(formatKey)) {
+        return {};
+      }
+      tempArr.push({
+        key: formatKey,
+        value: value
+      });
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator['return']) {
+        _iterator['return']();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  tempArr = tempArr.sort(function (a, b) {
+    return a.key - b.key;
+  });
+  return tempArr.map(function (_ref3) {
+    var key = _ref3.key,
+        value = _ref3.value;
+    return value + ' ' + key + '%';
+  }).join(', ');
+};
+
+/**
+ * {
+ *   '0%': '#afc163',
+ *   '25%': '#66FF00',
+ *   '50%': '#00CC00',     ====>  linear-gradient(to right, #afc163 0%, #66FF00 25%,
+ *   '75%': '#009900',              #00CC00 50%, #009900 75%, #ffffff 100%)
+ *   '100%': '#ffffff'
+ * }
+ *
+ * Then this man came to realize the truth:
+ * Besides six pence, there is the moon.
+ * Besides bread and butter, there is the bug.
+ * And...
+ * Besides women, there is the code.
+ */
+var handleGradient = function handleGradient(strokeColor) {
+  var _strokeColor$from = strokeColor.from,
+      from = _strokeColor$from === undefined ? '#1890ff' : _strokeColor$from,
+      _strokeColor$to = strokeColor.to,
+      to = _strokeColor$to === undefined ? '#1890ff' : _strokeColor$to,
+      _strokeColor$directio = strokeColor.direction,
+      direction = _strokeColor$directio === undefined ? 'to right' : _strokeColor$directio,
+      rest = (0, _objectWithoutProperties3['default'])(strokeColor, ['from', 'to', 'direction']);
+
+  if (Object.keys(rest).length !== 0) {
+    var sortedGradients = sortGradient(rest);
+    return { backgroundImage: 'linear-gradient(' + direction + ', ' + sortedGradients + ')' };
+  }
+  return { backgroundImage: 'linear-gradient(' + direction + ', ' + from + ', ' + to + ')' };
+};
+
+exports.handleGradient = handleGradient;
 var Line = {
   functional: true,
   render: function render(h, context) {
@@ -164,16 +282,24 @@ var Line = {
         strokeColor = props.strokeColor,
         strokeLinecap = props.strokeLinecap;
 
-    var percentStyle = {
+    var backgroundProps = void 0;
+    if (strokeColor && typeof strokeColor !== 'string') {
+      backgroundProps = handleGradient(strokeColor);
+    } else {
+      backgroundProps = {
+        background: strokeColor
+      };
+    }
+    var percentStyle = (0, _extends3['default'])({
       width: (0, _utils.validProgress)(percent) + '%',
       height: (strokeWidth || (size === 'small' ? 6 : 8)) + 'px',
       background: strokeColor,
       borderRadius: strokeLinecap === 'square' ? 0 : '100px'
-    };
+    }, backgroundProps);
     var successPercentStyle = {
       width: (0, _utils.validProgress)(successPercent) + '%',
       height: (strokeWidth || (size === 'small' ? 6 : 8)) + 'px',
-      borderRadius: strokeLinecap === 'square' ? 0 : '100px'
+      borderRadius: strokeLinecap === 'square' ? 0 : ''
     };
     var successSegment = successPercent !== undefined ? h('div', { 'class': prefixCls + '-success-bg', style: successPercentStyle }) : null;
     return h('div', [h(
@@ -215,10 +341,6 @@ var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
 var _classnames = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 
 var _classnames2 = _interopRequireDefault(_classnames);
@@ -247,11 +369,7 @@ var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/l
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-function addUnit(num, unit) {
-  var unitType = unit || 'px';
-  return num ? num + unitType : null;
-}
-
+var ProgressStatuses = ['normal', 'exception', 'active', 'success'];
 var ProgressType = exports.ProgressType = _vueTypes2['default'].oneOf(['line', 'circle', 'dashboard']);
 var ProgressSize = exports.ProgressSize = _vueTypes2['default'].oneOf(['default', 'small']);
 
@@ -261,11 +379,11 @@ var ProgressProps = exports.ProgressProps = {
   percent: _vueTypes2['default'].number,
   successPercent: _vueTypes2['default'].number,
   format: _vueTypes2['default'].func,
-  status: _vueTypes2['default'].oneOf(['normal', 'success', 'active', 'exception']),
+  status: _vueTypes2['default'].oneOf(ProgressStatuses),
   showInfo: _vueTypes2['default'].bool,
   strokeWidth: _vueTypes2['default'].number,
-  strokeLinecap: _vueTypes2['default'].oneOf(['round', 'square']),
-  strokeColor: _vueTypes2['default'].string,
+  strokeLinecap: _vueTypes2['default'].oneOf(['butt', 'round', 'square']),
+  strokeColor: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].object]),
   trailColor: _vueTypes2['default'].string,
   width: _vueTypes2['default'].number,
   gapDegree: _vueTypes2['default'].number,
@@ -290,14 +408,30 @@ exports['default'] = {
       } }
   },
   methods: {
+    getPercentNumber: function getPercentNumber() {
+      var _$props = this.$props,
+          successPercent = _$props.successPercent,
+          _$props$percent = _$props.percent,
+          percent = _$props$percent === undefined ? 0 : _$props$percent;
+
+      return parseInt(successPercent !== undefined ? successPercent.toString() : percent.toString(), 10);
+    },
+    getProgressStatus: function getProgressStatus() {
+      var status = this.$props.status;
+
+      if (ProgressStatuses.indexOf(status) < 0 && this.getPercentNumber() >= 100) {
+        return 'success';
+      }
+      return status || 'normal';
+    },
     renderProcessInfo: function renderProcessInfo(prefixCls, progressStatus) {
       var h = this.$createElement;
-      var _$props = this.$props,
-          showInfo = _$props.showInfo,
-          format = _$props.format,
-          type = _$props.type,
-          percent = _$props.percent,
-          successPercent = _$props.successPercent;
+      var _$props2 = this.$props,
+          showInfo = _$props2.showInfo,
+          format = _$props2.format,
+          type = _$props2.type,
+          percent = _$props2.percent,
+          successPercent = _$props2.successPercent;
 
       if (!showInfo) return null;
 
@@ -332,31 +466,16 @@ exports['default'] = {
 
     var props = (0, _propsUtil.getOptionProps)(this);
     var customizePrefixCls = props.prefixCls,
-        _props$percent = props.percent,
-        percent = _props$percent === undefined ? 0 : _props$percent,
-        status = props.status,
-        format = props.format,
-        trailColor = props.trailColor,
         size = props.size,
-        successPercent = props.successPercent,
         type = props.type,
-        strokeWidth = props.strokeWidth,
-        width = props.width,
-        showInfo = props.showInfo,
-        _props$gapDegree = props.gapDegree,
-        gapDegree = _props$gapDegree === undefined ? 0 : _props$gapDegree,
-        gapPosition = props.gapPosition,
-        strokeColor = props.strokeColor,
-        _props$strokeLinecap = props.strokeLinecap,
-        strokeLinecap = _props$strokeLinecap === undefined ? 'round' : _props$strokeLinecap,
-        restProps = (0, _objectWithoutProperties3['default'])(props, ['prefixCls', 'percent', 'status', 'format', 'trailColor', 'size', 'successPercent', 'type', 'strokeWidth', 'width', 'showInfo', 'gapDegree', 'gapPosition', 'strokeColor', 'strokeLinecap']);
+        showInfo = props.showInfo;
 
     var getPrefixCls = this.configProvider.getPrefixCls;
     var prefixCls = getPrefixCls('progress', customizePrefixCls);
-
-    var progressStatus = parseInt(successPercent !== undefined ? successPercent.toString() : percent.toString(), 10) >= 100 && !('status' in props) ? 'success' : status || 'normal';
-    var progress = void 0;
+    var progressStatus = this.getProgressStatus();
     var progressInfo = this.renderProcessInfo(prefixCls, progressStatus);
+
+    var progress = void 0;
 
     // Render progress shape
     if (type === 'line') {
@@ -387,8 +506,7 @@ exports['default'] = {
     var classString = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-' + (type === 'dashboard' && 'circle' || type), true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-status-' + progressStatus, true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-show-info', showInfo), (0, _defineProperty3['default'])(_classNames, prefixCls + '-' + size, size), _classNames));
 
     var progressProps = {
-      props: (0, _extends3['default'])({}, restProps),
-      on: this.$listeners,
+      on: (0, _propsUtil.getListeners)(this),
       'class': classString
     };
     return h(
@@ -418,7 +536,8 @@ exports.validProgress = validProgress;
 function validProgress(progress) {
   if (!progress || progress < 0) {
     return 0;
-  } else if (progress > 100) {
+  }
+  if (progress > 100) {
     return 100;
   }
   return progress;
@@ -465,7 +584,7 @@ exports['default'] = {
       props: (0, _extends3['default'])({}, props, {
         type: 'drag'
       }),
-      on: this.$listeners,
+      on: (0, _propsUtil.getListeners)(this),
       style: { height: this.height }
     };
     return h(
@@ -486,12 +605,16 @@ exports['default'] = {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(process) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.UploadProps = undefined;
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
 var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
@@ -512,6 +635,10 @@ var _uniqBy2 = _interopRequireDefault(_uniqBy);
 var _findIndex = __webpack_require__(/*! lodash/findIndex */ "./node_modules/lodash/findIndex.js");
 
 var _findIndex2 = _interopRequireDefault(_findIndex);
+
+var _pick = __webpack_require__(/*! lodash/pick */ "./node_modules/lodash/pick.js");
+
+var _pick2 = _interopRequireDefault(_pick);
 
 var _vcUpload = __webpack_require__(/*! ../vc-upload */ "./node_modules/ant-design-vue/lib/vc-upload/index.js");
 
@@ -607,24 +734,11 @@ exports['default'] = {
         fileList: nextFileList
       });
       // fix ie progress
-      if (!window.FormData) {
+      if (!window.File || process.env.TEST_IE) {
         this.autoUpdateProgress(0, targetItem);
       }
     },
-    autoUpdateProgress: function autoUpdateProgress(_, file) {
-      var _this = this;
-
-      var getPercent = (0, _utils.genPercentAdd)();
-      var curPercent = 0;
-      this.clearProgressTimer();
-      this.progressTimer = setInterval(function () {
-        curPercent = getPercent(curPercent);
-        _this.onProgress({
-          percent: curPercent * 100
-        }, file);
-      }, 200);
-    },
-    onSuccess: function onSuccess(response, file) {
+    onSuccess: function onSuccess(response, file, xhr) {
       this.clearProgressTimer();
       try {
         if (typeof response === 'string') {
@@ -641,6 +755,7 @@ exports['default'] = {
       }
       targetItem.status = 'done';
       targetItem.response = response;
+      targetItem.xhr = xhr;
       this.onChange({
         file: (0, _extends3['default'])({}, targetItem),
         fileList: fileList
@@ -680,23 +795,28 @@ exports['default'] = {
       this.$emit('reject', fileList);
     },
     handleRemove: function handleRemove(file) {
-      var _this2 = this;
+      var _this = this;
 
-      var remove = this.remove;
-      var status = file.status;
+      var onRemove = this.remove;
+      var fileList = this.$data.sFileList;
 
-      file.status = 'removed'; // eslint-disable-line
 
-      Promise.resolve(typeof remove === 'function' ? remove(file) : remove).then(function (ret) {
+      Promise.resolve(typeof onRemove === 'function' ? onRemove(file) : onRemove).then(function (ret) {
         // Prevent removing file
         if (ret === false) {
-          file.status = status;
           return;
         }
 
-        var removedFileList = (0, _utils.removeFileItem)(file, _this2.sFileList);
+        var removedFileList = (0, _utils.removeFileItem)(file, fileList);
+
         if (removedFileList) {
-          _this2.onChange({
+          file.status = 'removed'; // eslint-disable-line
+
+          if (_this.upload) {
+            _this.upload.abort(file);
+          }
+
+          _this.onChange({
             file: file,
             fileList: removedFileList
           });
@@ -721,14 +841,17 @@ exports['default'] = {
       });
     },
     reBeforeUpload: function reBeforeUpload(file, fileList) {
-      if (!this.beforeUpload) {
+      var beforeUpload = this.$props.beforeUpload;
+      var stateFileList = this.$data.sFileList;
+
+      if (!beforeUpload) {
         return true;
       }
-      var result = this.beforeUpload(file, fileList);
+      var result = beforeUpload(file, fileList);
       if (result === false) {
         this.onChange({
           file: file,
-          fileList: (0, _uniqBy2['default'])(this.sFileList.concat(fileList.map(_utils.fileToObject)), function (item) {
+          fileList: (0, _uniqBy2['default'])(stateFileList.concat(fileList.map(_utils.fileToObject)), function (item) {
             return item.uid;
           })
         });
@@ -742,32 +865,49 @@ exports['default'] = {
     clearProgressTimer: function clearProgressTimer() {
       clearInterval(this.progressTimer);
     },
+    autoUpdateProgress: function autoUpdateProgress(_, file) {
+      var _this2 = this;
+
+      var getPercent = (0, _utils.genPercentAdd)();
+      var curPercent = 0;
+      this.clearProgressTimer();
+      this.progressTimer = setInterval(function () {
+        curPercent = getPercent(curPercent);
+        _this2.onProgress({
+          percent: curPercent * 100
+        }, file);
+      }, 200);
+    },
     renderUploadList: function renderUploadList(locale) {
       var h = this.$createElement;
 
       var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
           _getOptionProps$showU = _getOptionProps.showUploadList,
           showUploadList = _getOptionProps$showU === undefined ? {} : _getOptionProps$showU,
-          listType = _getOptionProps.listType;
+          listType = _getOptionProps.listType,
+          previewFile = _getOptionProps.previewFile,
+          disabled = _getOptionProps.disabled,
+          propLocale = _getOptionProps.locale;
 
       var showRemoveIcon = showUploadList.showRemoveIcon,
-          showPreviewIcon = showUploadList.showPreviewIcon;
+          showPreviewIcon = showUploadList.showPreviewIcon,
+          showDownloadIcon = showUploadList.showDownloadIcon;
+      var fileList = this.$data.sFileList;
 
       var uploadListProps = {
         props: {
           listType: listType,
-          items: this.sFileList,
-          showRemoveIcon: showRemoveIcon,
+          items: fileList,
+          previewFile: previewFile,
+          showRemoveIcon: !disabled && showRemoveIcon,
           showPreviewIcon: showPreviewIcon,
-          locale: (0, _extends3['default'])({}, locale, this.$props.locale)
+          showDownloadIcon: showDownloadIcon,
+          locale: (0, _extends3['default'])({}, locale, propLocale)
         },
-        on: {
+        on: (0, _extends3['default'])({
           remove: this.handleManualRemove
-        }
+        }, (0, _pick2['default'])((0, _propsUtil.getListeners)(this), ['download', 'preview']))
       };
-      if (this.$listeners.preview) {
-        uploadListProps.on.preview = this.$listeners.preview;
-      }
       return h(_UploadList2['default'], uploadListProps);
     }
   },
@@ -783,6 +923,10 @@ exports['default'] = {
         type = _getOptionProps2.type,
         disabled = _getOptionProps2.disabled;
 
+    var _$data = this.$data,
+        fileList = _$data.sFileList,
+        dragState = _$data.dragState;
+
     var getPrefixCls = this.configProvider.getPrefixCls;
     var prefixCls = getPrefixCls('upload', customizePrefixCls);
 
@@ -792,7 +936,6 @@ exports['default'] = {
         beforeUpload: this.reBeforeUpload
       }),
       on: {
-        // ...this.$listeners,
         start: this.onStart,
         error: this.onError,
         progress: this.onProgress,
@@ -816,9 +959,9 @@ exports['default'] = {
     if (type === 'drag') {
       var _classNames;
 
-      var dragCls = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-drag', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-drag-uploading', this.sFileList.some(function (file) {
+      var dragCls = (0, _classnames2['default'])(prefixCls, (_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-drag', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-drag-uploading', fileList.some(function (file) {
         return file.status === 'uploading';
-      })), (0, _defineProperty3['default'])(_classNames, prefixCls + '-drag-hover', this.dragState === 'dragover'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', disabled), _classNames));
+      })), (0, _defineProperty3['default'])(_classNames, prefixCls + '-drag-hover', dragState === 'dragover'), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', disabled), _classNames));
       return h('span', [h(
         'div',
         {
@@ -831,7 +974,7 @@ exports['default'] = {
         },
         [h(
           _vcUpload2['default'],
-          vcUploadProps,
+          (0, _babelHelperVueJsxMergeProps2['default'])([vcUploadProps, { 'class': prefixCls + '-btn' }]),
           [h(
             'div',
             { 'class': prefixCls + '-drag-container' },
@@ -845,7 +988,7 @@ exports['default'] = {
 
     // Remove id to avoid open by label when trigger is hidden
     // https://github.com/ant-design/ant-design/issues/14298
-    if (!children) {
+    if (!children || disabled) {
       delete vcUploadProps.props.id;
     }
 
@@ -860,11 +1003,16 @@ exports['default'] = {
     );
 
     if (listType === 'picture-card') {
-      return h('span', [uploadList, uploadButton]);
+      return h(
+        'span',
+        { 'class': prefixCls + '-picture-card-wrapper' },
+        [uploadList, uploadButton]
+      );
     }
     return h('span', [uploadButton, uploadList]);
   }
 };
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../process/browser.js */ "./node_modules/process/browser.js")))
 
 /***/ }),
 
@@ -906,6 +1054,8 @@ var _getTransitionProps2 = _interopRequireDefault(_getTransitionProps);
 
 var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
+var _utils = __webpack_require__(/*! ./utils */ "./node_modules/ant-design-vue/lib/upload/utils.js");
+
 var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
 
 var _icon2 = _interopRequireDefault(_icon);
@@ -926,47 +1076,6 @@ var _interface = __webpack_require__(/*! ./interface */ "./node_modules/ant-desi
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var imageTypes = ['image', 'webp', 'png', 'svg', 'gif', 'jpg', 'jpeg', 'bmp', 'dpg', 'ico'];
-// https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL
-var previewFile = function previewFile(file, callback) {
-  if (file.type && !imageTypes.includes(file.type)) {
-    callback('');
-  }
-  var reader = new window.FileReader();
-  reader.onloadend = function () {
-    return callback(reader.result);
-  };
-  reader.readAsDataURL(file);
-};
-
-var extname = function extname(url) {
-  if (!url) {
-    return '';
-  }
-  var temp = url.split('/');
-  var filename = temp[temp.length - 1];
-  var filenameWithoutSuffix = filename.split(/#|\?/)[0];
-  return (/\.[^./\\]*$/.exec(filenameWithoutSuffix) || [''])[0];
-};
-
-var isImageUrl = function isImageUrl(file) {
-  if (imageTypes.includes(file.type)) {
-    return true;
-  }
-  var url = file.thumbUrl || file.url;
-  var extension = extname(url);
-  if (/^data:image\//.test(url) || /(webp|svg|png|gif|jpg|jpeg|bmp|dpg|ico)$/i.test(extension)) {
-    return true;
-  } else if (/^data:/.test(url)) {
-    // other file types of base64
-    return false;
-  } else if (extension) {
-    // other file types which have extension
-    return false;
-  }
-  return true;
-};
-
 exports['default'] = {
   name: 'AUploadList',
   mixins: [_BaseMixin2['default']],
@@ -977,7 +1086,9 @@ exports['default'] = {
       showInfo: false
     },
     showRemoveIcon: true,
-    showPreviewIcon: true
+    showDownloadIcon: false,
+    showPreviewIcon: true,
+    previewFile: _utils.previewImage
   }),
   inject: {
     configProvider: { 'default': function _default() {
@@ -988,43 +1099,59 @@ exports['default'] = {
     var _this = this;
 
     this.$nextTick(function () {
-      if (_this.listType !== 'picture' && _this.listType !== 'picture-card') {
+      var _$props = _this.$props,
+          listType = _$props.listType,
+          items = _$props.items,
+          previewFile = _$props.previewFile;
+
+      if (listType !== 'picture' && listType !== 'picture-card') {
         return;
       }
-      (_this.items || []).forEach(function (file) {
-        if (typeof document === 'undefined' || typeof window === 'undefined' || !window.FileReader || !window.File || !(file.originFileObj instanceof window.File) || file.thumbUrl !== undefined) {
+      (items || []).forEach(function (file) {
+        if (typeof document === 'undefined' || typeof window === 'undefined' || !window.FileReader || !window.File || !(file.originFileObj instanceof File || file.originFileObj instanceof Blob) || file.thumbUrl !== undefined) {
           return;
         }
         /*eslint-disable */
         file.thumbUrl = '';
-        /*eslint -enable */
-        previewFile(file.originFileObj, function (previewDataUrl) {
-          /*eslint-disable */
-          file.thumbUrl = previewDataUrl;
-          /*eslint -enable todo */
-          // this.forceUpdate()
-        });
+        if (previewFile) {
+          previewFile(file.originFileObj).then(function (previewDataUrl) {
+            // Need append '' to avoid dead loop
+            file.thumbUrl = previewDataUrl || '';
+            _this.$forceUpdate();
+          });
+        }
       });
     });
   },
 
   methods: {
-    handleClose: function handleClose(file) {
-      this.$emit('remove', file);
-    },
     handlePreview: function handlePreview(file, e) {
-      var preview = this.$listeners.preview;
+      var _getListeners = (0, _propsUtil.getListeners)(this),
+          preview = _getListeners.preview;
 
       if (!preview) {
         return;
       }
       e.preventDefault();
       return this.$emit('preview', file);
+    },
+    handleDownload: function handleDownload(file) {
+      var _getListeners2 = (0, _propsUtil.getListeners)(this),
+          download = _getListeners2.download;
+
+      if (typeof download === 'function') {
+        download(file);
+      } else if (file.url) {
+        window.open(file.url);
+      }
+    },
+    handleClose: function handleClose(file) {
+      this.$emit('remove', file);
     }
   },
   render: function render() {
     var _this2 = this,
-        _classNames2;
+        _classNames4;
 
     var h = arguments[0];
 
@@ -1035,13 +1162,15 @@ exports['default'] = {
         listType = _getOptionProps.listType,
         showPreviewIcon = _getOptionProps.showPreviewIcon,
         showRemoveIcon = _getOptionProps.showRemoveIcon,
-        locale = _getOptionProps.locale;
+        showDownloadIcon = _getOptionProps.showDownloadIcon,
+        locale = _getOptionProps.locale,
+        progressAttr = _getOptionProps.progressAttr;
 
     var getPrefixCls = this.configProvider.getPrefixCls;
     var prefixCls = getPrefixCls('upload', customizePrefixCls);
 
     var list = items.map(function (file) {
-      var _classNames;
+      var _classNames, _classNames2;
 
       var progress = void 0;
       var icon = h(_icon2['default'], {
@@ -1059,8 +1188,12 @@ exports['default'] = {
           icon = h(_icon2['default'], { 'class': prefixCls + '-list-item-thumbnail', attrs: { type: 'picture', theme: 'twoTone' }
           });
         } else {
-          var thumbnail = isImageUrl(file) ? h('img', {
-            attrs: { src: file.thumbUrl || file.url, alt: file.name }
+          var thumbnail = (0, _utils.isImageUrl)(file) ? h('img', {
+            attrs: {
+              src: file.thumbUrl || file.url,
+              alt: file.name
+            },
+            'class': prefixCls + '-list-item-image'
           }) : h(_icon2['default'], {
             attrs: { type: 'file', theme: 'twoTone' },
             'class': prefixCls + '-list-item-icon' });
@@ -1086,7 +1219,7 @@ exports['default'] = {
 
       if (file.status === 'uploading') {
         var progressProps = {
-          props: (0, _extends3['default'])({}, _this2.progressAttr, {
+          props: (0, _extends3['default'])({}, progressAttr, {
             type: 'line',
             percent: file.percent
           })
@@ -1100,9 +1233,53 @@ exports['default'] = {
           [loadingProgress]
         );
       }
-      var infoUploadingClass = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-list-item', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-list-item-' + file.status, true), _classNames));
+      var infoUploadingClass = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls + '-list-item', true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-list-item-' + file.status, true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-list-item-list-type-' + listType, true), _classNames));
       var linkProps = typeof file.linkProps === 'string' ? JSON.parse(file.linkProps) : file.linkProps;
-      var preview = file.url ? h(
+
+      var removeIcon = showRemoveIcon ? h(_icon2['default'], {
+        attrs: { type: 'delete', title: locale.removeFile },
+        on: {
+          'click': function click() {
+            return _this2.handleClose(file);
+          }
+        }
+      }) : null;
+      var downloadIcon = showDownloadIcon && file.status === 'done' ? h(_icon2['default'], {
+        attrs: {
+          type: 'download',
+          title: locale.downloadFile
+        },
+        on: {
+          'click': function click() {
+            return _this2.handleDownload(file);
+          }
+        }
+      }) : null;
+      var downloadOrDelete = listType !== 'picture-card' && h(
+        'span',
+        {
+          key: 'download-delete',
+          'class': prefixCls + '-list-item-card-actions ' + (listType === 'picture' ? 'picture' : '')
+        },
+        [downloadIcon && h(
+          'a',
+          {
+            attrs: { title: locale.downloadFile }
+          },
+          [downloadIcon]
+        ), removeIcon && h(
+          'a',
+          {
+            attrs: { title: locale.removeFile }
+          },
+          [removeIcon]
+        )]
+      );
+      var listItemNameClass = (0, _classnames2['default'])((_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-list-item-name', true), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-list-item-name-icon-count-' + [downloadIcon, removeIcon].filter(function (x) {
+        return x;
+      }).length, true), _classNames2));
+
+      var preview = file.url ? [h(
         'a',
         (0, _babelHelperVueJsxMergeProps2['default'])([{
           attrs: {
@@ -1111,7 +1288,7 @@ exports['default'] = {
 
             title: file.name
           },
-          'class': prefixCls + '-list-item-name' }, linkProps, {
+          'class': listItemNameClass }, linkProps, {
           attrs: {
             href: file.url
           },
@@ -1122,9 +1299,10 @@ exports['default'] = {
           }
         }]),
         [file.name]
-      ) : h(
+      ), downloadOrDelete] : [h(
         'span',
         {
+          key: 'view',
           'class': prefixCls + '-list-item-name',
           on: {
             'click': function click(e) {
@@ -1136,7 +1314,7 @@ exports['default'] = {
           }
         },
         [file.name]
-      );
+      ), downloadOrDelete];
       var style = file.url || file.thumbUrl ? undefined : {
         pointerEvents: 'none',
         opacity: 0.5
@@ -1162,40 +1340,20 @@ exports['default'] = {
           attrs: { type: 'eye-o' }
         })]
       ) : null;
-      var iconProps = {
-        props: {
-          type: 'delete',
-          title: locale.removeFile
-        },
-        on: {
-          click: function click() {
-            _this2.handleClose(file);
-          }
-        }
-      };
-      var iconProps1 = (0, _extends3['default'])({}, iconProps, { props: { type: 'close' } });
-      var removeIcon = showRemoveIcon ? h(_icon2['default'], iconProps) : null;
-      var removeIconClose = showRemoveIcon ? h(_icon2['default'], iconProps1) : null;
-      var actions = listType === 'picture-card' && file.status !== 'uploading' ? h(
+      var actions = listType === 'picture-card' && file.status !== 'uploading' && h(
         'span',
         { 'class': prefixCls + '-list-item-actions' },
-        [previewIcon, removeIcon]
-      ) : removeIconClose;
+        [previewIcon, file.status === 'done' && downloadIcon, removeIcon]
+      );
       var message = void 0;
       if (file.response && typeof file.response === 'string') {
         message = file.response;
       } else {
         message = file.error && file.error.statusText || locale.uploadError;
       }
-      var iconAndPreview = file.status === 'error' ? h(
-        _tooltip2['default'],
-        {
-          attrs: { title: message }
-        },
-        [icon, preview]
-      ) : h('span', [icon, preview]);
+      var iconAndPreview = h('span', [icon, preview]);
       var transitionProps = (0, _getTransitionProps2['default'])('fade');
-      return h(
+      var dom = h(
         'div',
         { 'class': infoUploadingClass, key: file.uid },
         [h(
@@ -1208,8 +1366,20 @@ exports['default'] = {
           [progress]
         )]
       );
+      var listContainerNameClass = (0, _classnames2['default'])((0, _defineProperty3['default'])({}, prefixCls + '-list-picture-card-container', listType === 'picture-card'));
+      return h(
+        'div',
+        { key: file.uid, 'class': listContainerNameClass },
+        [file.status === 'error' ? h(
+          _tooltip2['default'],
+          {
+            attrs: { title: message }
+          },
+          [dom]
+        ) : h('span', [dom])]
+      );
     });
-    var listClassNames = (0, _classnames2['default'])((_classNames2 = {}, (0, _defineProperty3['default'])(_classNames2, prefixCls + '-list', true), (0, _defineProperty3['default'])(_classNames2, prefixCls + '-list-' + listType, true), _classNames2));
+    var listClassNames = (0, _classnames2['default'])((_classNames4 = {}, (0, _defineProperty3['default'])(_classNames4, prefixCls + '-list', true), (0, _defineProperty3['default'])(_classNames4, prefixCls + '-list-' + listType, true), _classNames4));
     var animationDirection = listType === 'picture-card' ? 'animate-inline' : 'animate';
     var transitionGroupProps = (0, _getTransitionProps2['default'])(prefixCls + '-' + animationDirection);
     return h(
@@ -1363,6 +1533,7 @@ var ShowUploadListInterface = exports.ShowUploadListInterface = _vueTypes2['defa
 var UploadLocale = exports.UploadLocale = _vueTypes2['default'].shape({
   uploading: _vueTypes2['default'].string,
   removeFile: _vueTypes2['default'].string,
+  downloadFile: _vueTypes2['default'].string,
   uploadError: _vueTypes2['default'].string,
   previewFile: _vueTypes2['default'].string
 }).loose;
@@ -1375,6 +1546,7 @@ var UploadProps = exports.UploadProps = {
   action: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].func]),
   directory: _vueTypes2['default'].bool,
   data: _vueTypes2['default'].oneOfType([_vueTypes2['default'].object, _vueTypes2['default'].func]),
+  method: _vueTypes2['default'].oneOf(['POST', 'PUT', 'post', 'put']),
   headers: _vueTypes2['default'].object,
   showUploadList: _vueTypes2['default'].oneOfType([_vueTypes2['default'].bool, ShowUploadListInterface]),
   multiple: _vueTypes2['default'].bool,
@@ -1394,7 +1566,9 @@ var UploadProps = exports.UploadProps = {
   openFileDialogOnClick: _vueTypes2['default'].bool,
   locale: UploadLocale,
   height: _vueTypes2['default'].number,
-  id: _vueTypes2['default'].string
+  id: _vueTypes2['default'].string,
+  previewFile: _vueTypes2['default'].func,
+  transformFile: _vueTypes2['default'].func
 };
 
 var UploadState = exports.UploadState = {
@@ -1412,8 +1586,10 @@ var UploadListProps = exports.UploadListProps = {
   progressAttr: _vueTypes2['default'].object,
   prefixCls: _vueTypes2['default'].string,
   showRemoveIcon: _vueTypes2['default'].bool,
+  showDownloadIcon: _vueTypes2['default'].bool,
   showPreviewIcon: _vueTypes2['default'].bool,
-  locale: UploadLocale
+  locale: UploadLocale,
+  previewFile: _vueTypes2['default'].func
 };
 
 /***/ }),
@@ -1431,6 +1607,7 @@ var UploadListProps = exports.UploadListProps = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.isImageUrl = undefined;
 
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
@@ -1441,6 +1618,7 @@ exports.fileToObject = fileToObject;
 exports.genPercentAdd = genPercentAdd;
 exports.getFileItem = getFileItem;
 exports.removeFileItem = removeFileItem;
+exports.previewImage = previewImage;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -1504,6 +1682,83 @@ function removeFileItem(file, fileList) {
   return removed;
 }
 
+// ==================== Default Image Preview ====================
+var extname = function extname() {
+  var url = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+
+  var temp = url.split('/');
+  var filename = temp[temp.length - 1];
+  var filenameWithoutSuffix = filename.split(/#|\?/)[0];
+  return (/\.[^./\\]*$/.exec(filenameWithoutSuffix) || [''])[0];
+};
+
+var isImageFileType = function isImageFileType(type) {
+  return !!type && type.indexOf('image/') === 0;
+};
+
+var isImageUrl = exports.isImageUrl = function isImageUrl(file) {
+  if (isImageFileType(file.type)) {
+    return true;
+  }
+  var url = file.thumbUrl || file.url;
+  var extension = extname(url);
+  if (/^data:image\//.test(url) || /(webp|svg|png|gif|jpg|jpeg|jfif|bmp|dpg|ico)$/i.test(extension)) {
+    return true;
+  }
+  if (/^data:/.test(url)) {
+    // other file types of base64
+    return false;
+  }
+  if (extension) {
+    // other file types which have extension
+    return false;
+  }
+  return true;
+};
+
+var MEASURE_SIZE = 200;
+function previewImage(file) {
+  return new Promise(function (resolve) {
+    if (!isImageFileType(file.type)) {
+      resolve('');
+      return;
+    }
+
+    var canvas = document.createElement('canvas');
+    canvas.width = MEASURE_SIZE;
+    canvas.height = MEASURE_SIZE;
+    canvas.style.cssText = 'position: fixed; left: 0; top: 0; width: ' + MEASURE_SIZE + 'px; height: ' + MEASURE_SIZE + 'px; z-index: 9999; display: none;';
+    document.body.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+    var img = new Image();
+    img.onload = function () {
+      var width = img.width,
+          height = img.height;
+
+
+      var drawWidth = MEASURE_SIZE;
+      var drawHeight = MEASURE_SIZE;
+      var offsetX = 0;
+      var offsetY = 0;
+
+      if (width < height) {
+        drawHeight = height * (MEASURE_SIZE / width);
+        offsetY = -(drawHeight - drawWidth) / 2;
+      } else {
+        drawWidth = width * (MEASURE_SIZE / height);
+        offsetX = -(drawWidth - drawHeight) / 2;
+      }
+
+      ctx.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+      var dataURL = canvas.toDataURL();
+      document.body.removeChild(canvas);
+
+      resolve(dataURL);
+    };
+    img.src = window.URL.createObjectURL(file);
+  });
+}
+
 /***/ }),
 
 /***/ "./node_modules/ant-design-vue/lib/vc-progress/index.js":
@@ -1528,7 +1783,7 @@ var _src2 = _interopRequireDefault(_src);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 exports.Line = _src.Line;
-exports.Circle = _src.Circle; // based on rc-progress 2.3.0
+exports.Circle = _src.Circle; // based on rc-progress 2.5.2
 
 exports['default'] = _src2['default'];
 
@@ -1593,54 +1848,69 @@ var circleDefaultProps = (0, _extends3['default'])({}, _types.defaultProps, {
 
 _vue2['default'].use(_vueRef2['default'], { name: 'ant-ref' });
 
+var gradientSeed = 0;
+
+function stripPercentToNumber(percent) {
+  return +percent.replace('%', '');
+}
+
+function toArray(symArray) {
+  return Array.isArray(symArray) ? symArray : [symArray];
+}
+
+function getPathStyles(offset, percent, strokeColor, strokeWidth) {
+  var gapDegree = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
+  var gapPosition = arguments[5];
+
+  var radius = 50 - strokeWidth / 2;
+  var beginPositionX = 0;
+  var beginPositionY = -radius;
+  var endPositionX = 0;
+  var endPositionY = -2 * radius;
+  switch (gapPosition) {
+    case 'left':
+      beginPositionX = -radius;
+      beginPositionY = 0;
+      endPositionX = 2 * radius;
+      endPositionY = 0;
+      break;
+    case 'right':
+      beginPositionX = radius;
+      beginPositionY = 0;
+      endPositionX = -2 * radius;
+      endPositionY = 0;
+      break;
+    case 'bottom':
+      beginPositionY = radius;
+      endPositionY = 2 * radius;
+      break;
+    default:
+  }
+  var pathString = 'M 50,50 m ' + beginPositionX + ',' + beginPositionY + '\n   a ' + radius + ',' + radius + ' 0 1 1 ' + endPositionX + ',' + -endPositionY + '\n   a ' + radius + ',' + radius + ' 0 1 1 ' + -endPositionX + ',' + endPositionY;
+  var len = Math.PI * 2 * radius;
+
+  var pathStyle = {
+    stroke: strokeColor,
+    strokeDasharray: percent / 100 * (len - gapDegree) + 'px ' + len + 'px',
+    strokeDashoffset: '-' + (gapDegree / 2 + offset / 100 * (len - gapDegree)) + 'px',
+    transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s' // eslint-disable-line
+  };
+
+  return {
+    pathString: pathString,
+    pathStyle: pathStyle
+  };
+}
+
 var Circle = {
   props: (0, _propsUtil.initDefaultProps)(circlePropTypes, circleDefaultProps),
   created: function created() {
     this.paths = {};
+    this.gradientId = gradientSeed;
+    gradientSeed += 1;
   },
 
   methods: {
-    getPathStyles: function getPathStyles(offset, percent, strokeColor, strokeWidth) {
-      var gapDegree = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0;
-      var gapPosition = arguments[5];
-
-      var radius = 50 - strokeWidth / 2;
-      var beginPositionX = 0;
-      var beginPositionY = -radius;
-      var endPositionX = 0;
-      var endPositionY = -2 * radius;
-      switch (gapPosition) {
-        case 'left':
-          beginPositionX = -radius;
-          beginPositionY = 0;
-          endPositionX = 2 * radius;
-          endPositionY = 0;
-          break;
-        case 'right':
-          beginPositionX = radius;
-          beginPositionY = 0;
-          endPositionX = -2 * radius;
-          endPositionY = 0;
-          break;
-        case 'bottom':
-          beginPositionY = radius;
-          endPositionY = 2 * radius;
-          break;
-        default:
-      }
-      var pathString = 'M 50,50 m ' + beginPositionX + ',' + beginPositionY + '\n       a ' + radius + ',' + radius + ' 0 1 1 ' + endPositionX + ',' + -endPositionY + '\n       a ' + radius + ',' + radius + ' 0 1 1 ' + -endPositionX + ',' + endPositionY;
-      var len = Math.PI * 2 * radius;
-      var pathStyle = {
-        stroke: strokeColor,
-        strokeDasharray: percent / 100 * (len - gapDegree) + 'px ' + len + 'px',
-        strokeDashoffset: '-' + (gapDegree / 2 + offset / 100 * (len - gapDegree)) + 'px',
-        transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s' // eslint-disable-line
-      };
-      return {
-        pathString: pathString,
-        pathStyle: pathStyle
-      };
-    },
     getStokeList: function getStokeList() {
       var _this = this;
 
@@ -1654,14 +1924,15 @@ var Circle = {
           gapDegree = _$props.gapDegree,
           gapPosition = _$props.gapPosition;
 
-      var percentList = Array.isArray(percent) ? percent : [percent];
-      var strokeColorList = Array.isArray(strokeColor) ? strokeColor : [strokeColor];
+      var percentList = toArray(percent);
+      var strokeColorList = toArray(strokeColor);
 
       var stackPtg = 0;
       return percentList.map(function (ptg, index) {
         var color = strokeColorList[index] || strokeColorList[strokeColorList.length - 1];
+        var stroke = Object.prototype.toString.call(color) === '[object Object]' ? 'url(#' + prefixCls + '-gradient-' + _this.gradientId + ')' : '';
 
-        var _getPathStyles = _this.getPathStyles(stackPtg, ptg, color, strokeWidth, gapDegree, gapPosition),
+        var _getPathStyles = getPathStyles(stackPtg, ptg, color, strokeWidth, gapDegree, gapPosition),
             pathString = _getPathStyles.pathString,
             pathStyle = _getPathStyles.pathStyle;
 
@@ -1671,6 +1942,7 @@ var Circle = {
           key: index,
           attrs: {
             d: pathString,
+            stroke: stroke,
             'stroke-linecap': strokeLinecap,
             'stroke-width': ptg === 0 ? 0 : strokeWidth,
             'fill-opacity': '0'
@@ -1699,14 +1971,18 @@ var Circle = {
         gapPosition = _$props2.gapPosition,
         trailColor = _$props2.trailColor,
         strokeLinecap = _$props2.strokeLinecap,
-        restProps = (0, _objectWithoutProperties3['default'])(_$props2, ['prefixCls', 'strokeWidth', 'trailWidth', 'gapDegree', 'gapPosition', 'trailColor', 'strokeLinecap']);
+        strokeColor = _$props2.strokeColor,
+        restProps = (0, _objectWithoutProperties3['default'])(_$props2, ['prefixCls', 'strokeWidth', 'trailWidth', 'gapDegree', 'gapPosition', 'trailColor', 'strokeLinecap', 'strokeColor']);
 
-    var _getPathStyles2 = this.getPathStyles(0, 100, trailColor, strokeWidth, gapDegree, gapPosition),
+    var _getPathStyles2 = getPathStyles(0, 100, trailColor, strokeWidth, gapDegree, gapPosition),
         pathString = _getPathStyles2.pathString,
         pathStyle = _getPathStyles2.pathStyle;
 
     delete restProps.percent;
-    delete restProps.strokeColor;
+    var strokeColorList = toArray(strokeColor);
+    var gradient = strokeColorList.find(function (color) {
+      return Object.prototype.toString.call(color) === '[object Object]';
+    });
     var pathFirst = {
       attrs: {
         d: pathString,
@@ -1723,7 +1999,24 @@ var Circle = {
       'svg',
       (0, _babelHelperVueJsxMergeProps2['default'])([{ 'class': prefixCls + '-circle', attrs: { viewBox: '0 0 100 100' }
       }, restProps]),
-      [h('path', pathFirst), this.getStokeList()]
+      [gradient && h('defs', [h(
+        'linearGradient',
+        {
+          attrs: {
+            id: prefixCls + '-gradient-' + this.gradientId,
+            x1: '100%',
+            y1: '0%',
+            x2: '0%',
+            y2: '0%'
+          }
+        },
+        [Object.keys(gradient).sort(function (a, b) {
+          return stripPercentToNumber(a) - stripPercentToNumber(b);
+        }).map(function (key, index) {
+          return h('stop', { key: index, attrs: { offset: key, 'stop-color': gradient[key] }
+          });
+        })]
+      )]), h('path', pathFirst), this.getStokeList().reverse()]
     );
   }
 };
@@ -1791,7 +2084,8 @@ var Line = {
         strokeWidth = _$props.strokeWidth,
         trailColor = _$props.trailColor,
         trailWidth = _$props.trailWidth,
-        restProps = (0, _objectWithoutProperties3['default'])(_$props, ['percent', 'prefixCls', 'strokeColor', 'strokeLinecap', 'strokeWidth', 'trailColor', 'trailWidth']);
+        transition = _$props.transition,
+        restProps = (0, _objectWithoutProperties3['default'])(_$props, ['percent', 'prefixCls', 'strokeColor', 'strokeLinecap', 'strokeWidth', 'trailColor', 'trailWidth', 'transition']);
 
 
     delete restProps.gapPosition;
@@ -1828,7 +2122,7 @@ var Line = {
         var pathStyle = {
           strokeDasharray: ptg + 'px, 100px',
           strokeDashoffset: '-' + stackPtg + 'px',
-          transition: 'stroke-dashoffset 0.3s ease 0s, stroke-dasharray .3s ease 0s, stroke 0.3s linear'
+          transition: transition || 'stroke-dashoffset 0.3s ease 0s, stroke-dasharray .3s ease 0s, stroke 0.3s linear'
         };
         var color = strokeColorList[index] || strokeColorList[strokeColorList.length - 1];
 
@@ -1983,7 +2277,7 @@ var propTypes = exports.propTypes = {
   // className: PropTypes.string,
   percent: _vueTypes2['default'].oneOfType([mixedType, _vueTypes2['default'].arrayOf(mixedType)]),
   prefixCls: _vueTypes2['default'].string,
-  strokeColor: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].arrayOf(_vueTypes2['default'].string)]),
+  strokeColor: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].arrayOf(_vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].object])), _vueTypes2['default'].object]),
   strokeLinecap: _vueTypes2['default'].oneOf(['butt', 'round', 'square']),
   strokeWidth: mixedType,
   // style: PropTypes.object,
@@ -2013,7 +2307,7 @@ var _src2 = _interopRequireDefault(_src);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _src2['default']; // rc-upload 2.6.3
+exports['default'] = _src2['default']; // rc-upload 2.9.4
 
 /***/ }),
 
@@ -2071,6 +2365,8 @@ var _traverseFileTree = __webpack_require__(/*! ./traverseFileTree */ "./node_mo
 
 var _traverseFileTree2 = _interopRequireDefault(_traverseFileTree);
 
+var _propsUtil = __webpack_require__(/*! ../../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var upLoadPropTypes = {
@@ -2092,7 +2388,8 @@ var upLoadPropTypes = {
   customRequest: _vueTypes2['default'].func,
   // onProgress: PropTypes.func,
   withCredentials: _vueTypes2['default'].bool,
-  openFileDialogOnClick: _vueTypes2['default'].bool
+  openFileDialogOnClick: _vueTypes2['default'].bool,
+  transformFile: _vueTypes2['default'].func
 };
 
 var AjaxUploader = {
@@ -2135,6 +2432,8 @@ var AjaxUploader = {
     onFileDrop: function onFileDrop(e) {
       var _this = this;
 
+      var multiple = this.$props.multiple;
+
       e.preventDefault();
       if (e.type === 'dragover') {
         return;
@@ -2147,9 +2446,15 @@ var AjaxUploader = {
         var files = (0, _partition2['default'])(Array.prototype.slice.call(e.dataTransfer.files), function (file) {
           return (0, _attrAccept2['default'])(file, _this.accept);
         });
-        this.uploadFiles(files[0]);
-        if (files[1].length) {
-          this.$emit('reject', files[1]);
+        var successFiles = files[0];
+        var errorFiles = files[1];
+        if (multiple === false) {
+          successFiles = successFiles.slice(0, 1);
+        }
+        this.uploadFiles(successFiles);
+
+        if (errorFiles.length) {
+          this.$emit('reject', errorFiles);
         }
       }
     },
@@ -2157,8 +2462,10 @@ var AjaxUploader = {
       var _this2 = this;
 
       var postFiles = Array.prototype.slice.call(files);
-      postFiles.forEach(function (file) {
+      postFiles.map(function (file) {
         file.uid = (0, _uid2['default'])();
+        return file;
+      }).forEach(function (file) {
         _this2.upload(file, postFiles);
       });
     },
@@ -2195,11 +2502,14 @@ var AjaxUploader = {
       if (!this._isMounted) {
         return;
       }
-      var data = this.$props.data;
+      var props = this.$props;
+      var data = props.data;
+      var _props$transformFile = props.transformFile,
+          transformFile = _props$transformFile === undefined ? function (originFile) {
+        return originFile;
+      } : _props$transformFile;
 
-      if (typeof data === 'function') {
-        data = data(file);
-      }
+
       new Promise(function (resolve) {
         var action = _this4.action;
 
@@ -2211,26 +2521,37 @@ var AjaxUploader = {
         var uid = file.uid;
 
         var request = _this4.customRequest || _request2['default'];
-        _this4.reqs[uid] = request({
-          action: action,
-          filename: _this4.name,
-          file: file,
-          data: data,
-          headers: _this4.headers,
-          withCredentials: _this4.withCredentials,
-          onProgress: function onProgress(e) {
-            _this4.$emit('progress', e, file);
-          },
-          onSuccess: function onSuccess(ret, xhr) {
-            delete _this4.reqs[uid];
-            _this4.$emit('success', ret, file, xhr);
-          },
-          onError: function onError(err, ret) {
-            delete _this4.reqs[uid];
-            _this4.$emit('error', err, ret, file);
-          }
+        var transform = Promise.resolve(transformFile(file))['catch'](function (e) {
+          console.error(e); // eslint-disable-line no-console
         });
-        _this4.$emit('start', file);
+        transform.then(function (transformedFile) {
+          if (typeof data === 'function') {
+            data = data(file);
+          }
+
+          var requestOption = {
+            action: action,
+            filename: _this4.name,
+            data: data,
+            file: transformedFile,
+            headers: _this4.headers,
+            withCredentials: _this4.withCredentials,
+            method: props.method || 'post',
+            onProgress: function onProgress(e) {
+              _this4.$emit('progress', e, file);
+            },
+            onSuccess: function onSuccess(ret, xhr) {
+              delete _this4.reqs[uid];
+              _this4.$emit('success', ret, file, xhr);
+            },
+            onError: function onError(err, ret) {
+              delete _this4.reqs[uid];
+              _this4.$emit('error', err, ret, file);
+            }
+          };
+          _this4.reqs[uid] = request(requestOption);
+          _this4.$emit('start', file);
+        });
       });
     },
     reset: function reset() {
@@ -2246,13 +2567,13 @@ var AjaxUploader = {
         if (file && file.uid) {
           uid = file.uid;
         }
-        if (reqs[uid]) {
+        if (reqs[uid] && reqs[uid].abort) {
           reqs[uid].abort();
-          delete reqs[uid];
         }
+        delete reqs[uid];
       } else {
         Object.keys(reqs).forEach(function (uid) {
-          if (reqs[uid]) {
+          if (reqs[uid] && reqs[uid].abort) {
             reqs[uid].abort();
           }
 
@@ -2279,12 +2600,12 @@ var AjaxUploader = {
     var cls = (0, _classnames2['default'])((_classNames = {}, (0, _defineProperty3['default'])(_classNames, prefixCls, true), (0, _defineProperty3['default'])(_classNames, prefixCls + '-disabled', disabled), _classNames));
     var events = disabled ? {} : {
       click: openFileDialogOnClick ? this.onClick : function () {},
-      keydown: this.onKeyDown,
+      keydown: openFileDialogOnClick ? this.onKeyDown : function () {},
       drop: this.onFileDrop,
       dragover: this.onFileDrop
     };
     var tagProps = {
-      on: (0, _extends3['default'])({}, this.$listeners, events),
+      on: (0, _extends3['default'])({}, (0, _propsUtil.getListeners)(this), events),
       attrs: {
         role: 'button',
         tabIndex: disabled ? null : '0'
@@ -2305,11 +2626,15 @@ var AjaxUploader = {
           multiple: multiple
         },
         ref: 'fileInputRef',
-        key: this.uid,
-        style: { display: 'none' }, on: {
+        on: {
+          'click': function click(e) {
+            return e.stopPropagation();
+          },
           'change': this.onChange
-        }
-      }), this.$slots['default']]
+        },
+        // https://github.com/ant-design/ant-design/issues/19948
+        key: this.uid,
+        style: { display: 'none' } }), this.$slots['default']]
     );
   }
 };
@@ -2712,7 +3037,6 @@ exports['default'] = {
 
     this.$nextTick(function () {
       if (_this.supportServerRender) {
-        /* eslint react/no-did-mount-set-state:0 */
         _this.setState({
           Component: _this.getComponent()
         }, function () {
@@ -2736,7 +3060,7 @@ exports['default'] = {
 
     var componentProps = {
       props: (0, _extends3['default'])({}, this.$props),
-      on: this.$listeners,
+      on: (0, _propsUtil.getListeners)(this),
       ref: 'uploaderRef',
       attrs: this.$attrs
     };
@@ -2841,10 +3165,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports['default'] = upload;
 function getError(option, xhr) {
-  var msg = 'cannot post ' + option.action + ' ' + xhr.status + '\'';
+  var msg = 'cannot ' + option.method + ' ' + option.action + ' ' + xhr.status + '\'';
   var err = new Error(msg);
   err.status = xhr.status;
-  err.method = 'post';
+  err.method = option.method;
   err.url = option.action;
   return err;
 }
@@ -2888,7 +3212,18 @@ function upload(option) {
   var formData = new window.FormData();
 
   if (option.data) {
-    Object.keys(option.data).map(function (key) {
+    Object.keys(option.data).forEach(function (key) {
+      var value = option.data[key];
+      // support key-value array data
+      if (Array.isArray(value)) {
+        value.forEach(function (item) {
+          // { list: [ 11, 22 ] }
+          // formData.append('list[]', 11);
+          formData.append(key + '[]', item);
+        });
+        return;
+      }
+
       formData.append(key, option.data[key]);
     });
   }
@@ -2909,7 +3244,7 @@ function upload(option) {
     option.onSuccess(getBody(xhr), xhr);
   };
 
-  xhr.open('post', option.action, true);
+  xhr.open(option.method, option.action, true);
 
   // Has to be after `.open()`. See https://github.com/enyo/dropzone/issues/179
   if (option.withCredentials && 'withCredentials' in xhr) {
@@ -2982,6 +3317,20 @@ var traverseFileTree = function traverseFileTree(files, callback, isAccepted) {
     if (item.isFile) {
       item.file(function (file) {
         if (isAccepted(file)) {
+          // https://github.com/ant-design/ant-design/issues/16426
+          if (item.fullPath && !file.webkitRelativePath) {
+            Object.defineProperties(file, {
+              webkitRelativePath: {
+                writable: true
+              }
+            });
+            file.webkitRelativePath = item.fullPath.replace(/^\//, '');
+            Object.defineProperties(file, {
+              webkitRelativePath: {
+                writable: false
+              }
+            });
+          }
           callback([file]);
         }
       });
@@ -3301,6 +3650,77 @@ function baseIsNaN(value) {
 }
 
 module.exports = baseIsNaN;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_basePick.js":
+/*!******************************************!*\
+  !*** ./node_modules/lodash/_basePick.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var basePickBy = __webpack_require__(/*! ./_basePickBy */ "./node_modules/lodash/_basePickBy.js"),
+    hasIn = __webpack_require__(/*! ./hasIn */ "./node_modules/lodash/hasIn.js");
+
+/**
+ * The base implementation of `_.pick` without support for individual
+ * property identifiers.
+ *
+ * @private
+ * @param {Object} object The source object.
+ * @param {string[]} paths The property paths to pick.
+ * @returns {Object} Returns the new object.
+ */
+function basePick(object, paths) {
+  return basePickBy(object, paths, function(value, path) {
+    return hasIn(object, path);
+  });
+}
+
+module.exports = basePick;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/_basePickBy.js":
+/*!********************************************!*\
+  !*** ./node_modules/lodash/_basePickBy.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGet = __webpack_require__(/*! ./_baseGet */ "./node_modules/lodash/_baseGet.js"),
+    baseSet = __webpack_require__(/*! ./_baseSet */ "./node_modules/lodash/_baseSet.js"),
+    castPath = __webpack_require__(/*! ./_castPath */ "./node_modules/lodash/_castPath.js");
+
+/**
+ * The base implementation of  `_.pickBy` without support for iteratee shorthands.
+ *
+ * @private
+ * @param {Object} object The source object.
+ * @param {string[]} paths The property paths to pick.
+ * @param {Function} predicate The function invoked per property.
+ * @returns {Object} Returns the new object.
+ */
+function basePickBy(object, paths, predicate) {
+  var index = -1,
+      length = paths.length,
+      result = {};
+
+  while (++index < length) {
+    var path = paths[index],
+        value = baseGet(object, path);
+
+    if (predicate(value, path)) {
+      baseSet(result, castPath(path, object), value);
+    }
+  }
+  return result;
+}
+
+module.exports = basePickBy;
 
 
 /***/ }),
@@ -3643,6 +4063,42 @@ var partition = createAggregator(function(result, value, key) {
 }, function() { return [[], []]; });
 
 module.exports = partition;
+
+
+/***/ }),
+
+/***/ "./node_modules/lodash/pick.js":
+/*!*************************************!*\
+  !*** ./node_modules/lodash/pick.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var basePick = __webpack_require__(/*! ./_basePick */ "./node_modules/lodash/_basePick.js"),
+    flatRest = __webpack_require__(/*! ./_flatRest */ "./node_modules/lodash/_flatRest.js");
+
+/**
+ * Creates an object composed of the picked `object` properties.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The source object.
+ * @param {...(string|string[])} [paths] The property paths to pick.
+ * @returns {Object} Returns the new object.
+ * @example
+ *
+ * var object = { 'a': 1, 'b': '2', 'c': 3 };
+ *
+ * _.pick(object, ['a', 'c']);
+ * // => { 'a': 1, 'c': 3 }
+ */
+var pick = flatRest(function(object, paths) {
+  return object == null ? {} : basePick(object, paths);
+});
+
+module.exports = pick;
 
 
 /***/ }),
