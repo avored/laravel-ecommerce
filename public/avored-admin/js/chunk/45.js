@@ -1,103 +1,260 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[45],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./packages/framework/resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./packages/framework/resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/ant-design-vue/lib/avatar/Avatar.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/avatar/Avatar.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_quill_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-quill-editor */ "./node_modules/vue-quill-editor/dist/vue-quill-editor.js");
-/* harmony import */ var vue_quill_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_quill_editor__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_1__);
 
 
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['userGroup', 'baseUrl'],
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _extends4 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends5 = _interopRequireDefault(_extends4);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = {
+  name: 'AAvatar',
+  props: {
+    prefixCls: {
+      type: String,
+      'default': undefined
+    },
+    shape: {
+      validator: function validator(val) {
+        return ['circle', 'square'].includes(val);
+      },
+      'default': 'circle'
+    },
+    size: {
+      validator: function validator(val) {
+        return typeof val === 'number' || ['small', 'large', 'default'].includes(val);
+      },
+      'default': 'default'
+    },
+    src: String,
+    /** Srcset of image avatar */
+    srcSet: String,
+    icon: _vueTypes2['default'].any,
+    alt: String,
+    loadError: Function
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
   data: function data() {
     return {
-      userGroupForm: this.$form.createForm(this),
-      is_default: 1
+      isImgExist: true,
+      isMounted: false,
+      scale: 1
     };
   },
-  methods: {
-    handleSubmit: function handleSubmit() {
-      this.userGroupForm.validateFields(function (err, values) {
-        if (err) {
-          e.preventDefault();
-        }
+
+  watch: {
+    src: function src() {
+      var _this = this;
+
+      this.$nextTick(function () {
+        _this.isImgExist = true;
+        _this.scale = 1;
+        // force uodate for position
+        _this.$forceUpdate();
       });
-    },
-    isDefaultSwitchChange: function isDefaultSwitchChange(val) {
-      if (val) {
-        this.is_default = 1;
-      } else {
-        this.is_default = 0;
-      }
-    },
-    cancelUserGroup: function cancelUserGroup() {
-      window.location = this.baseUrl + '/user-group';
     }
   },
   mounted: function mounted() {
-    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_1___default()(this.userGroup)) {
-      this.is_default = this.userGroup.is_default;
+    var _this2 = this;
+
+    this.$nextTick(function () {
+      _this2.setScale();
+      _this2.isMounted = true;
+    });
+  },
+  updated: function updated() {
+    var _this3 = this;
+
+    this.$nextTick(function () {
+      _this3.setScale();
+    });
+  },
+
+  methods: {
+    setScale: function setScale() {
+      if (!this.$refs.avatarChildren || !this.$refs.avatarNode) {
+        return;
+      }
+      var childrenWidth = this.$refs.avatarChildren.offsetWidth; // offsetWidth avoid affecting be transform scale
+      var nodeWidth = this.$refs.avatarNode.offsetWidth;
+      // denominator is 0 is no meaning
+      if (childrenWidth === 0 || nodeWidth === 0 || this.lastChildrenWidth === childrenWidth && this.lastNodeWidth === nodeWidth) {
+        return;
+      }
+      this.lastChildrenWidth = childrenWidth;
+      this.lastNodeWidth = nodeWidth;
+      // add 4px gap for each side to get better performance
+      this.scale = nodeWidth - 8 < childrenWidth ? (nodeWidth - 8) / childrenWidth : 1;
+    },
+    handleImgLoadError: function handleImgLoadError() {
+      var loadError = this.$props.loadError;
+
+      var errorFlag = loadError ? loadError() : undefined;
+      if (errorFlag !== false) {
+        this.isImgExist = false;
+      }
     }
+  },
+  render: function render() {
+    var _sizeCls, _extends3;
+
+    var h = arguments[0];
+    var _$props = this.$props,
+        customizePrefixCls = _$props.prefixCls,
+        shape = _$props.shape,
+        size = _$props.size,
+        src = _$props.src,
+        alt = _$props.alt,
+        srcSet = _$props.srcSet;
+
+    var icon = (0, _propsUtil.getComponentFromProp)(this, 'icon');
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('avatar', customizePrefixCls);
+
+    var _$data = this.$data,
+        isImgExist = _$data.isImgExist,
+        scale = _$data.scale,
+        isMounted = _$data.isMounted;
+
+
+    var sizeCls = (_sizeCls = {}, (0, _defineProperty3['default'])(_sizeCls, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_sizeCls, prefixCls + '-sm', size === 'small'), _sizeCls);
+
+    var classString = (0, _extends5['default'])((0, _defineProperty3['default'])({}, prefixCls, true), sizeCls, (_extends3 = {}, (0, _defineProperty3['default'])(_extends3, prefixCls + '-' + shape, shape), (0, _defineProperty3['default'])(_extends3, prefixCls + '-image', src && isImgExist), (0, _defineProperty3['default'])(_extends3, prefixCls + '-icon', icon), _extends3));
+
+    var sizeStyle = typeof size === 'number' ? {
+      width: size + 'px',
+      height: size + 'px',
+      lineHeight: size + 'px',
+      fontSize: icon ? size / 2 + 'px' : '18px'
+    } : {};
+
+    var children = this.$slots['default'];
+    if (src && isImgExist) {
+      children = h('img', {
+        attrs: { src: src, srcSet: srcSet, alt: alt },
+        on: {
+          'error': this.handleImgLoadError
+        }
+      });
+    } else if (icon) {
+      if (typeof icon === 'string') {
+        children = h(_icon2['default'], {
+          attrs: { type: icon }
+        });
+      } else {
+        children = icon;
+      }
+    } else {
+      var childrenNode = this.$refs.avatarChildren;
+      if (childrenNode || scale !== 1) {
+        var transformString = 'scale(' + scale + ') translateX(-50%)';
+        var childrenStyle = {
+          msTransform: transformString,
+          WebkitTransform: transformString,
+          transform: transformString
+        };
+        var sizeChildrenStyle = typeof size === 'number' ? {
+          lineHeight: size + 'px'
+        } : {};
+        children = h(
+          'span',
+          {
+            'class': prefixCls + '-string',
+            ref: 'avatarChildren',
+            style: (0, _extends5['default'])({}, sizeChildrenStyle, childrenStyle)
+          },
+          [children]
+        );
+      } else {
+        var _childrenStyle = {};
+        if (!isMounted) {
+          _childrenStyle.opacity = 0;
+        }
+        children = h(
+          'span',
+          { 'class': prefixCls + '-string', ref: 'avatarChildren', style: { opacity: 0 } },
+          [children]
+        );
+      }
+    }
+    return h(
+      'span',
+      (0, _babelHelperVueJsxMergeProps2['default'])([{ ref: 'avatarNode' }, { on: (0, _propsUtil.getListeners)(this), 'class': classString, style: sizeStyle }]),
+      [children]
+    );
   }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/avatar/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/avatar/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-/***/ }),
+var _Avatar = __webpack_require__(/*! ./Avatar */ "./node_modules/ant-design-vue/lib/avatar/Avatar.js");
 
-/***/ "./packages/framework/resources/components/user/user-group/UserGroupSave.vue":
-/*!***********************************************************************************!*\
-  !*** ./packages/framework/resources/components/user/user-group/UserGroupSave.vue ***!
-  \***********************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+var _Avatar2 = _interopRequireDefault(_Avatar);
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _UserGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserGroupSave.vue?vue&type=script&lang=js& */ "./packages/framework/resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
 
+var _base2 = _interopRequireDefault(_base);
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
+/* istanbul ignore next */
+_Avatar2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
+  Vue.component(_Avatar2['default'].name, _Avatar2['default']);
+};
 
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _UserGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "packages/framework/resources/components/user/user-group/UserGroupSave.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./packages/framework/resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************!*\
-  !*** ./packages/framework/resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UserGroupSave.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./packages/framework/resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+exports['default'] = _Avatar2['default'];
 
 /***/ })
 

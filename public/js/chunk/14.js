@@ -1,343 +1,371 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/ProductPage.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/ProductPage.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lodash_isEqual__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/isEqual */ "./node_modules/lodash/isEqual.js");
-/* harmony import */ var lodash_isEqual__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_isEqual__WEBPACK_IMPORTED_MODULE_1__);
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['product', 'variations'],
-  data: function data() {
-    return {
-      qty: 1,
-      attributes: {},
-      price: 0,
-      productQty: 0,
-      productMainImage: '',
-      selectedAttributes: {}
-    };
-  },
-  methods: {
-    changeQty: function changeQty(value) {
-      this.qty = value;
-    },
-    attributeDropdownOption: function attributeDropdownOption(val) {
-      console.log(val);
-      return 'attribute_dropdown_option_' + val;
-    },
-    checkIfSameVariation: function checkIfSameVariation(variations) {
-      var comparableVariation = {};
-      variations.forEach(function (variation) {
-        if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(comparableVariation[variation['attribute_id']])) {
-          comparableVariation[variation['attribute_id']] = {};
-        }
-
-        comparableVariation[variation.attribute_id] = variation.attribute_dropdown_option_id;
-      });
-      return lodash_isEqual__WEBPACK_IMPORTED_MODULE_1___default()(comparableVariation, this.selectedAttributes);
-    },
-    changeAttributeVariable: function changeAttributeVariable(value) {
-      var _this = this;
-
-      if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(value.target)) {
-        value = value.target.value;
-      }
-
-      var attributeValue = JSON.parse(value);
-      var attributeRef = this.$refs['attribute-' + attributeValue.attribute_id];
-      var attributeLength = JSON.parse(attributeRef.$attrs['data-attribute-length']);
-      var app = this;
-      this.selectedAttributes[attributeValue['attribute_id']] = attributeValue['attribute_dropdown_option_id'];
-      var selectedVariationId = null;
-      var selectedVariation = null;
-
-      if (Object.keys(this.selectedAttributes).length === attributeLength) {
-        Object.keys(app.variations).forEach(function (key) {
-          var variation = app.variations[key];
-          var result = app.checkIfSameVariation(variation);
-
-          if (result) {
-            selectedVariationId = key;
-            selectedVariation = variation[0].variation;
-          }
-        });
-        this.price = selectedVariation.price;
-        this.productQty = selectedVariation['qty'];
-        selectedVariation.images.forEach(function (image) {
-          if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(image.is_main_image) && image.is_main_image == 1) {
-            _this.productMainImage = '/storage/' + image.path;
-          }
-        });
-
-        if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.attributes['attribute_product_value_id'])) {
-          this.attributes['attribute_product_value_id'] = [];
-        }
-
-        this.attributes['attribute_product_value_id'] = selectedVariation.id;
-      }
-    }
-  },
-  mounted: function mounted() {
-    var _this2 = this;
-
-    this.price = this.product['price'];
-    this.productQty = this.product['qty'];
-    this.product.images.forEach(function (image) {
-      if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(image.is_main_image) && image.is_main_image == 1) {
-        _this2.productMainImage = '/storage/' + image.path;
-      }
-    });
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/lodash/isEqual.js":
-/*!****************************************!*\
-  !*** ./node_modules/lodash/isEqual.js ***!
-  \****************************************/
+/***/ "./node_modules/ant-design-vue/lib/switch/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/switch/index.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseIsEqual = __webpack_require__(/*! ./_baseIsEqual */ "./node_modules/lodash/_baseIsEqual.js");
+"use strict";
 
-/**
- * Performs a deep comparison between two values to determine if they are
- * equivalent.
- *
- * **Note:** This method supports comparing arrays, array buffers, booleans,
- * date objects, error objects, maps, numbers, `Object` objects, regexes,
- * sets, strings, symbols, and typed arrays. `Object` objects are compared
- * by their own, not inherited, enumerable properties. Functions and DOM
- * nodes are compared by strict equality, i.e. `===`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Lang
- * @param {*} value The value to compare.
- * @param {*} other The other value to compare.
- * @returns {boolean} Returns `true` if the values are equivalent, else `false`.
- * @example
- *
- * var object = { 'a': 1 };
- * var other = { 'a': 1 };
- *
- * _.isEqual(object, other);
- * // => true
- *
- * object === other;
- * // => false
- */
-function isEqual(value, other) {
-  return baseIsEqual(value, other);
-}
 
-module.exports = isEqual;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _propsUtil2 = _interopRequireDefault(_propsUtil);
+
+var _vcSwitch = __webpack_require__(/*! ../vc-switch */ "./node_modules/ant-design-vue/lib/vc-switch/index.js");
+
+var _vcSwitch2 = _interopRequireDefault(_vcSwitch);
+
+var _wave = __webpack_require__(/*! ../_util/wave */ "./node_modules/ant-design-vue/lib/_util/wave.js");
+
+var _wave2 = _interopRequireDefault(_wave);
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
+
+var _base2 = _interopRequireDefault(_base);
+
+var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
+
+var _warning2 = _interopRequireDefault(_warning);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var Switch = {
+  name: 'ASwitch',
+  __ANT_SWITCH: true,
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: {
+    prefixCls: _vueTypes2['default'].string,
+    // size=default and size=large are the same
+    size: _vueTypes2['default'].oneOf(['small', 'default', 'large']),
+    disabled: _vueTypes2['default'].bool,
+    checkedChildren: _vueTypes2['default'].any,
+    unCheckedChildren: _vueTypes2['default'].any,
+    tabIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
+    checked: _vueTypes2['default'].bool,
+    defaultChecked: _vueTypes2['default'].bool,
+    autoFocus: _vueTypes2['default'].bool,
+    loading: _vueTypes2['default'].bool
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  methods: {
+    focus: function focus() {
+      this.$refs.refSwitchNode.focus();
+    },
+    blur: function blur() {
+      this.$refs.refSwitchNode.blur();
+    }
+  },
+  created: function created() {
+    (0, _warning2['default'])((0, _propsUtil2['default'])(this, 'checked') || !(0, _propsUtil2['default'])(this, 'value'), 'Switch', '`value` is not validate prop, do you mean `checked`?');
+  },
+  render: function render() {
+    var _classes;
+
+    var h = arguments[0];
+
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        customizePrefixCls = _getOptionProps.prefixCls,
+        size = _getOptionProps.size,
+        loading = _getOptionProps.loading,
+        disabled = _getOptionProps.disabled,
+        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'size', 'loading', 'disabled']);
+
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('switch', customizePrefixCls);
+
+    var classes = (_classes = {}, (0, _defineProperty3['default'])(_classes, prefixCls + '-small', size === 'small'), (0, _defineProperty3['default'])(_classes, prefixCls + '-loading', loading), _classes);
+    var loadingIcon = loading ? h(_icon2['default'], {
+      attrs: { type: 'loading' },
+      'class': prefixCls + '-loading-icon' }) : null;
+    var switchProps = {
+      props: (0, _extends3['default'])({}, restProps, {
+        prefixCls: prefixCls,
+        loadingIcon: loadingIcon,
+        checkedChildren: (0, _propsUtil.getComponentFromProp)(this, 'checkedChildren'),
+        unCheckedChildren: (0, _propsUtil.getComponentFromProp)(this, 'unCheckedChildren'),
+        disabled: disabled || loading
+      }),
+      on: (0, _propsUtil.getListeners)(this),
+      'class': classes,
+      ref: 'refSwitchNode'
+    };
+    return h(
+      _wave2['default'],
+      {
+        attrs: { insertExtraNode: true }
+      },
+      [h(_vcSwitch2['default'], switchProps)]
+    );
+  }
+};
+
+/* istanbul ignore next */
+Switch.install = function (Vue) {
+  Vue.use(_base2['default']);
+  Vue.component(Switch.name, Switch);
+};
+
+exports['default'] = Switch;
 
 /***/ }),
 
-/***/ "./node_modules/lodash/isNil.js":
-/*!**************************************!*\
-  !*** ./node_modules/lodash/isNil.js ***!
-  \**************************************/
+/***/ "./node_modules/ant-design-vue/lib/vc-switch/PropTypes.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-switch/PropTypes.js ***!
+  \****************************************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-/**
- * Checks if `value` is `null` or `undefined`.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
- * @example
- *
- * _.isNil(null);
- * // => true
- *
- * _.isNil(void 0);
- * // => true
- *
- * _.isNil(NaN);
- * // => false
- */
-function isNil(value) {
-  return value == null;
-}
+"use strict";
 
-module.exports = isNil;
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.switchPropTypes = undefined;
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var switchPropTypes = exports.switchPropTypes = {
+  prefixCls: _vueTypes2['default'].string,
+  disabled: _vueTypes2['default'].bool.def(false),
+  checkedChildren: _vueTypes2['default'].any,
+  unCheckedChildren: _vueTypes2['default'].any,
+  // onChange: PropTypes.func,
+  // onMouseUp: PropTypes.func,
+  // onClick: PropTypes.func,
+  tabIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
+  checked: _vueTypes2['default'].bool.def(false),
+  defaultChecked: _vueTypes2['default'].bool.def(false),
+  autoFocus: _vueTypes2['default'].bool.def(false),
+  loadingIcon: _vueTypes2['default'].any
+};
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/ant-design-vue/lib/vc-switch/Switch.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-switch/Switch.js ***!
+  \*************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
 
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
 
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
 
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
+var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
 
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
-      : injectStyles
-  }
+var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _PropTypes = __webpack_require__(/*! ./PropTypes */ "./node_modules/ant-design-vue/lib/vc-switch/PropTypes.js");
+
+var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
+
+var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// function noop () {
+// }
+exports['default'] = {
+  name: 'VcSwitch',
+  mixins: [_BaseMixin2['default']],
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: (0, _extends3['default'])({}, _PropTypes.switchPropTypes, {
+    prefixCls: _PropTypes.switchPropTypes.prefixCls.def('rc-switch')
+    // onChange: switchPropTypes.onChange.def(noop),
+    // onClick: switchPropTypes.onClick.def(noop),
+  }),
+  data: function data() {
+    var checked = false;
+    if ((0, _propsUtil.hasProp)(this, 'checked')) {
+      checked = !!this.checked;
     } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
+      checked = !!this.defaultChecked;
     }
-  }
+    return {
+      stateChecked: checked
+    };
+  },
 
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
+  watch: {
+    checked: function checked(val) {
+      this.stateChecked = val;
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
 
+    this.$nextTick(function () {
+      var autoFocus = _this.autoFocus,
+          disabled = _this.disabled;
+
+      if (autoFocus && !disabled) {
+        _this.focus();
+      }
+    });
+  },
+
+  methods: {
+    setChecked: function setChecked(checked, e) {
+      if (this.disabled) {
+        return;
+      }
+      if (!(0, _propsUtil.hasProp)(this, 'checked')) {
+        this.stateChecked = checked;
+      }
+      this.$emit('change', checked, e);
+    },
+    handleClick: function handleClick(e) {
+      var checked = !this.stateChecked;
+      this.setChecked(checked, e);
+      this.$emit('click', checked, e);
+    },
+    handleKeyDown: function handleKeyDown(e) {
+      if (e.keyCode === 37) {
+        // Left
+        this.setChecked(false, e);
+      } else if (e.keyCode === 39) {
+        // Right
+        this.setChecked(true, e);
+      }
+    },
+    handleMouseUp: function handleMouseUp(e) {
+      if (this.$refs.refSwitchNode) {
+        this.$refs.refSwitchNode.blur();
+      }
+      this.$emit('mouseup', e);
+    },
+    focus: function focus() {
+      this.$refs.refSwitchNode.focus();
+    },
+    blur: function blur() {
+      this.$refs.refSwitchNode.blur();
+    }
+  },
+  render: function render() {
+    var _switchClassName;
+
+    var h = arguments[0];
+
+    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
+        prefixCls = _getOptionProps.prefixCls,
+        disabled = _getOptionProps.disabled,
+        loadingIcon = _getOptionProps.loadingIcon,
+        tabIndex = _getOptionProps.tabIndex,
+        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'disabled', 'loadingIcon', 'tabIndex']);
+
+    var checked = this.stateChecked;
+    var switchClassName = (_switchClassName = {}, (0, _defineProperty3['default'])(_switchClassName, prefixCls, true), (0, _defineProperty3['default'])(_switchClassName, prefixCls + '-checked', checked), (0, _defineProperty3['default'])(_switchClassName, prefixCls + '-disabled', disabled), _switchClassName);
+    var spanProps = {
+      props: (0, _extends3['default'])({}, restProps),
+      on: (0, _extends3['default'])({}, (0, _propsUtil.getListeners)(this), {
+        keydown: this.handleKeyDown,
+        click: this.handleClick,
+        mouseup: this.handleMouseUp
+      }),
+      attrs: {
+        type: 'button',
+        role: 'switch',
+        'aria-checked': checked,
+        disabled: disabled,
+        tabIndex: tabIndex
+      },
+      'class': switchClassName,
+      ref: 'refSwitchNode'
+    };
+    return h(
+      'button',
+      spanProps,
+      [loadingIcon, h(
+        'span',
+        { 'class': prefixCls + '-inner' },
+        [checked ? (0, _propsUtil.getComponentFromProp)(this, 'checkedChildren') : (0, _propsUtil.getComponentFromProp)(this, 'unCheckedChildren')]
+      )]
+    );
+  }
+};
 
 /***/ }),
 
-/***/ "./resources/components/ProductPage.vue":
-/*!**********************************************!*\
-  !*** ./resources/components/ProductPage.vue ***!
-  \**********************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/ant-design-vue/lib/vc-switch/index.js":
+/*!************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/vc-switch/index.js ***!
+  \************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ProductPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductPage.vue?vue&type=script&lang=js& */ "./resources/components/ProductPage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _Switch = __webpack_require__(/*! ./Switch */ "./node_modules/ant-design-vue/lib/vc-switch/Switch.js");
 
-/* normalize component */
+var _Switch2 = _interopRequireDefault(_Switch);
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _ProductPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
-  render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  null
-  
-)
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/components/ProductPage.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/components/ProductPage.vue?vue&type=script&lang=js&":
-/*!***********************************************************************!*\
-  !*** ./resources/components/ProductPage.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib??ref--4-0!../../node_modules/vue-loader/lib??vue-loader-options!./ProductPage.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/ProductPage.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductPage_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+exports['default'] = _Switch2['default']; // base rc-switch 1.9.0
 
 /***/ })
 

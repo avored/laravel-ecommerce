@@ -67,7 +67,7 @@ Vue.component('account-save', () => import('../components/account/AccountSave.vu
 Vue.component('account-upload', () => import('../components/account/AccountUpload.vue'))
 Vue.component('category-page', () => import('../components/CategoryPage.vue'))
 Vue.component('product-page', () => import('../components/ProductPage.vue'))
-Vue.component('checkout-page', () => import('../components/CheckoutPage.vue'))
+Vue.component('checkout-page', require('../components/CheckoutPage.vue').default)
 Vue.component('cart-page', () => import('../components/CartPage.vue'))
 Vue.component('avored-layout', () => import('../components/layout/Layout.vue'))
 Vue.component('login-fields', () => import('../components/auth/LoginFields.vue'))

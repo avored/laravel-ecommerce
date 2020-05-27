@@ -1,5 +1,271 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[7],{
 
+/***/ "./node_modules/ant-design-vue/lib/_util/Portal.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/Portal.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vueTypes = __webpack_require__(/*! ./vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _vnode = __webpack_require__(/*! ./vnode */ "./node_modules/ant-design-vue/lib/_util/vnode.js");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = {
+  name: 'Portal',
+  props: {
+    getContainer: _vueTypes2['default'].func.isRequired,
+    children: _vueTypes2['default'].any.isRequired,
+    didUpdate: _vueTypes2['default'].func
+  },
+  mounted: function mounted() {
+    this.createContainer();
+  },
+  updated: function updated() {
+    var _this = this;
+
+    var didUpdate = this.$props.didUpdate;
+
+    if (didUpdate) {
+      this.$nextTick(function () {
+        didUpdate(_this.$props);
+      });
+    }
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.removeContainer();
+  },
+
+  methods: {
+    createContainer: function createContainer() {
+      this._container = this.$props.getContainer();
+      this.$forceUpdate();
+    },
+    removeContainer: function removeContainer() {
+      if (this._container && this._container.parentNode) {
+        this._container.parentNode.removeChild(this._container);
+      }
+    }
+  },
+
+  render: function render() {
+    if (this._container) {
+      return (0, _vnode.cloneElement)(this.$props.children, {
+        directives: [{
+          name: 'ant-portal',
+          value: this._container
+        }]
+      });
+    }
+    return null;
+  }
+};
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/_util/PortalWrapper.js":
+/*!****************************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/PortalWrapper.js ***!
+  \****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
+
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
+
+var _typeof2 = __webpack_require__(/*! babel-runtime/helpers/typeof */ "./node_modules/babel-runtime/helpers/typeof.js");
+
+var _typeof3 = _interopRequireDefault(_typeof2);
+
+var _vueTypes = __webpack_require__(/*! ./vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+var _switchScrollingEffect2 = __webpack_require__(/*! ./switchScrollingEffect */ "./node_modules/ant-design-vue/lib/_util/switchScrollingEffect.js");
+
+var _switchScrollingEffect3 = _interopRequireDefault(_switchScrollingEffect2);
+
+var _setStyle = __webpack_require__(/*! ./setStyle */ "./node_modules/ant-design-vue/lib/_util/setStyle.js");
+
+var _setStyle2 = _interopRequireDefault(_setStyle);
+
+var _Portal = __webpack_require__(/*! ./Portal */ "./node_modules/ant-design-vue/lib/_util/Portal.js");
+
+var _Portal2 = _interopRequireDefault(_Portal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var openCount = 0;
+var windowIsUndefined = !(typeof window !== 'undefined' && window.document && window.document.createElement);
+// https://github.com/ant-design/ant-design/issues/19340
+// https://github.com/ant-design/ant-design/issues/19332
+var cacheOverflow = {};
+
+exports['default'] = {
+  name: 'PortalWrapper',
+  props: {
+    wrapperClassName: _vueTypes2['default'].string,
+    forceRender: _vueTypes2['default'].bool,
+    getContainer: _vueTypes2['default'].any,
+    children: _vueTypes2['default'].func,
+    visible: _vueTypes2['default'].bool
+  },
+  data: function data() {
+    var visible = this.$props.visible;
+
+    openCount = visible ? openCount + 1 : openCount;
+    return {};
+  },
+  updated: function updated() {
+    this.setWrapperClassName();
+  },
+
+  watch: {
+    visible: function visible(val) {
+      openCount = val ? openCount + 1 : openCount - 1;
+    },
+    getContainer: function getContainer(_getContainer, prevGetContainer) {
+      var getContainerIsFunc = typeof _getContainer === 'function' && typeof prevGetContainer === 'function';
+      if (getContainerIsFunc ? _getContainer.toString() !== prevGetContainer.toString() : _getContainer !== prevGetContainer) {
+        this.removeCurrentContainer(false);
+      }
+    }
+  },
+  beforeDestroy: function beforeDestroy() {
+    var visible = this.$props.visible;
+    // 离开时不会 render， 导到离开时数值不变，改用 func 。。
+
+    openCount = visible && openCount ? openCount - 1 : openCount;
+    this.removeCurrentContainer(visible);
+  },
+
+  methods: {
+    getParent: function getParent() {
+      var getContainer = this.$props.getContainer;
+
+      if (getContainer) {
+        if (typeof getContainer === 'string') {
+          return document.querySelectorAll(getContainer)[0];
+        }
+        if (typeof getContainer === 'function') {
+          return getContainer();
+        }
+        if ((typeof getContainer === 'undefined' ? 'undefined' : (0, _typeof3['default'])(getContainer)) === 'object' && getContainer instanceof window.HTMLElement) {
+          return getContainer;
+        }
+      }
+      return document.body;
+    },
+    getDomContainer: function getDomContainer() {
+      if (windowIsUndefined) {
+        return null;
+      }
+      if (!this.container) {
+        this.container = document.createElement('div');
+        var parent = this.getParent();
+        if (parent) {
+          parent.appendChild(this.container);
+        }
+      }
+      this.setWrapperClassName();
+      return this.container;
+    },
+    setWrapperClassName: function setWrapperClassName() {
+      var wrapperClassName = this.$props.wrapperClassName;
+
+      if (this.container && wrapperClassName && wrapperClassName !== this.container.className) {
+        this.container.className = wrapperClassName;
+      }
+    },
+    savePortal: function savePortal(c) {
+      // Warning: don't rename _component
+      // https://github.com/react-component/util/pull/65#discussion_r352407916
+      this._component = c;
+    },
+    removeCurrentContainer: function removeCurrentContainer() {
+      this.container = null;
+      this._component = null;
+    },
+
+
+    /**
+     * Enhance ./switchScrollingEffect
+     * 1. Simulate document body scroll bar with
+     * 2. Record body has overflow style and recover when all of PortalWrapper invisible
+     * 3. Disable body scroll when PortalWrapper has open
+     *
+     * @memberof PortalWrapper
+     */
+    switchScrollingEffect: function switchScrollingEffect() {
+      if (openCount === 1 && !Object.keys(cacheOverflow).length) {
+        (0, _switchScrollingEffect3['default'])();
+        // Must be set after switchScrollingEffect
+        cacheOverflow = (0, _setStyle2['default'])({
+          overflow: 'hidden',
+          overflowX: 'hidden',
+          overflowY: 'hidden'
+        });
+      } else if (!openCount) {
+        (0, _setStyle2['default'])(cacheOverflow);
+        cacheOverflow = {};
+        (0, _switchScrollingEffect3['default'])(true);
+      }
+    }
+  },
+
+  render: function render() {
+    var h = arguments[0];
+    var _$props = this.$props,
+        children = _$props.children,
+        forceRender = _$props.forceRender,
+        visible = _$props.visible;
+
+    var portal = null;
+    var childProps = {
+      getOpenCount: function getOpenCount() {
+        return openCount;
+      },
+      getContainer: this.getDomContainer,
+      switchScrollingEffect: this.switchScrollingEffect
+    };
+    if (forceRender || visible || this._component) {
+      portal = h(_Portal2['default'], (0, _babelHelperVueJsxMergeProps2['default'])([{
+        attrs: {
+          getContainer: this.getDomContainer,
+          children: children(childProps)
+        }
+      }, {
+        directives: [{
+          name: 'ant-ref',
+          value: this.savePortal
+        }]
+      }]));
+    }
+    return portal;
+  }
+};
+
+/***/ }),
+
 /***/ "./node_modules/ant-design-vue/lib/_util/getScrollBarSize.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/ant-design-vue/lib/_util/getScrollBarSize.js ***!
@@ -52,6 +318,50 @@ function getScrollBarSize(fresh) {
   }
   return cached;
 }
+
+/***/ }),
+
+/***/ "./node_modules/ant-design-vue/lib/_util/setStyle.js":
+/*!***********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/_util/setStyle.js ***!
+  \***********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+/**
+ * Easy to set element style, return previous style
+ * IE browser compatible(IE browser doesn't merge overflow style, need to set it separately)
+ * https://github.com/ant-design/ant-design/issues/19393
+ *
+ */
+function setStyle(style) {
+  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var _options$element = options.element,
+      element = _options$element === undefined ? document.body : _options$element;
+
+  var oldStyle = {};
+
+  var styleKeys = Object.keys(style);
+
+  // IE browser compatible
+  styleKeys.forEach(function (key) {
+    oldStyle[key] = element.style[key];
+  });
+
+  styleKeys.forEach(function (key) {
+    element.style[key] = style[key];
+  });
+
+  return oldStyle;
+}
+
+exports["default"] = setStyle;
 
 /***/ }),
 
@@ -183,7 +493,10 @@ exports['default'] = {
             // It's unnecessary to set loading=false, for the Modal will be unmounted after close.
             // this.setState({ loading: false });
             closeModal.apply(undefined, arguments);
-          }, function () {
+          }, function (e) {
+            // Emit error when catch promise reject
+            // eslint-disable-next-line no-console
+            console.error(e);
             // See: https://github.com/ant-design/ant-design/issues/6183
             _this2.setState({ loading: false });
           });
@@ -279,7 +592,7 @@ exports['default'] = {
         _props$closable = props.closable,
         closable = _props$closable === undefined ? false : _props$closable;
 
-    (0, _warning2['default'])(!('iconType' in props), 'The property \'iconType\' is deprecated. Use the property \'icon\' instead.');
+    (0, _warning2['default'])(!('iconType' in props), 'Modal', 'The property \'iconType\' is deprecated. Use the property \'icon\' instead.');
     var icon = props.icon ? props.icon : iconType;
     var okType = props.okType || 'primary';
     var prefixCls = props.prefixCls || 'ant-modal';
@@ -353,10 +666,10 @@ exports['default'] = {
         [h(
           'div',
           { 'class': contentPrefixCls + '-body' },
-          [iconNode, h(
+          [iconNode, props.title === undefined ? null : h(
             'span',
             { 'class': contentPrefixCls + '-title' },
-            [typeof props.title === 'function' ? props.title(h) : props.title]
+            [props.title]
           ), h(
             'div',
             { 'class': contentPrefixCls + '-content' },
@@ -421,7 +734,7 @@ var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/an
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
-var _addEventListener = __webpack_require__(/*! ../_util/Dom/addEventListener */ "./node_modules/ant-design-vue/lib/_util/Dom/addEventListener.js");
+var _addEventListener = __webpack_require__(/*! ../vc-util/Dom/addEventListener */ "./node_modules/ant-design-vue/lib/vc-util/Dom/addEventListener.js");
 
 var _addEventListener2 = _interopRequireDefault(_addEventListener);
 
@@ -445,7 +758,7 @@ var _LocaleReceiver2 = _interopRequireDefault(_LocaleReceiver);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+var _configProvider2 = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -453,7 +766,25 @@ var ButtonType = (0, _buttonTypes2['default'])().type;
 
 
 var mousePosition = null;
-var mousePositionEventBinded = false;
+// ref: https://github.com/ant-design/ant-design/issues/15795
+var getClickPosition = function getClickPosition(e) {
+  mousePosition = {
+    x: e.pageX,
+    y: e.pageY
+  };
+  // 100ms 内发生过点击事件，则从点击位置动画展示
+  // 否则直接 zoom 展示
+  // 这样可以兼容非点击方式展开
+  setTimeout(function () {
+    return mousePosition = null;
+  }, 100);
+};
+
+// 只有点击事件支持从鼠标位置动画展开
+if (typeof window !== 'undefined' && window.document && window.document.documentElement) {
+  (0, _addEventListener2['default'])(document.documentElement, 'click', getClickPosition, true);
+}
+
 function noop() {}
 var modalProps = function modalProps() {
   var defaultProps = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -468,6 +799,7 @@ var modalProps = function modalProps() {
     title: _vueTypes2['default'].any,
     /** 是否显示右上角的关闭按钮*/
     closable: _vueTypes2['default'].bool,
+    closeIcon: _vueTypes2['default'].any,
     /** 点击确定回调*/
     // onOk: (e: React.MouseEvent<any>) => void,
     /** 点击模态框右上角叉、取消按钮、Props.maskClosable 值为 true 时的遮罩层或键盘按下 Esc 时的回调*/
@@ -502,7 +834,8 @@ var modalProps = function modalProps() {
     maskStyle: _vueTypes2['default'].object,
     mask: _vueTypes2['default'].bool,
     keyboard: _vueTypes2['default'].bool,
-    wrapProps: _vueTypes2['default'].object
+    wrapProps: _vueTypes2['default'].object,
+    focusTriggerAfterClose: _vueTypes2['default'].bool
   };
   return (0, _propsUtil.initDefaultProps)(props, defaultProps);
 };
@@ -511,6 +844,7 @@ var destroyFns = exports.destroyFns = [];
 
 exports['default'] = {
   name: 'AModal',
+  inheritAttrs: false,
   model: {
     prop: 'visible',
     event: 'change'
@@ -522,34 +856,23 @@ exports['default'] = {
     confirmLoading: false,
     visible: false,
     okType: 'primary'
-    // okButtonDisabled: false,
-    // cancelButtonDisabled: false,
   }),
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  mounted: function mounted() {
-    if (mousePositionEventBinded) {
-      return;
-    }
-    // 只有点击事件支持从鼠标位置动画展开
-    (0, _addEventListener2['default'])(document.documentElement, 'click', function (e) {
-      mousePosition = {
-        x: e.pageX,
-        y: e.pageY
-      };
-      // 100ms 内发生过点击事件，则从点击位置动画展示
-      // 否则直接 zoom 展示
-      // 这样可以兼容非点击方式展开
-      setTimeout(function () {
-        mousePosition = null;
-      }, 100);
-    });
-    mousePositionEventBinded = true;
+  data: function data() {
+    return {
+      sVisible: !!this.visible
+    };
   },
 
+  watch: {
+    visible: function visible(val) {
+      this.sVisible = val;
+    }
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider2.ConfigConsumerProps;
+      } }
+  },
   // static info: ModalFunc;
   // static success: ModalFunc;
   // static error: ModalFunc;
@@ -592,14 +915,19 @@ exports['default'] = {
   render: function render() {
     var h = arguments[0];
     var customizePrefixCls = this.prefixCls,
-        visible = this.visible,
+        visible = this.sVisible,
         wrapClassName = this.wrapClassName,
         centered = this.centered,
-        $listeners = this.$listeners,
-        $slots = this.$slots;
+        getContainer = this.getContainer,
+        $slots = this.$slots,
+        $scopedSlots = this.$scopedSlots,
+        $attrs = this.$attrs;
 
+    var children = $scopedSlots['default'] ? $scopedSlots['default']() : $slots['default'];
+    var _configProvider = this.configProvider,
+        getPrefixCls = _configProvider.getPrefixCls,
+        getContextPopupContainer = _configProvider.getPopupContainer;
 
-    var getPrefixCls = this.configProvider.getPrefixCls;
     var prefixCls = getPrefixCls('modal', customizePrefixCls);
 
     var defaultFooter = h(_LocaleReceiver2['default'], {
@@ -609,34 +937,37 @@ exports['default'] = {
       },
       scopedSlots: { 'default': this.renderFooter }
     });
-    var closeIcon = h(
+    var closeIcon = (0, _propsUtil.getComponentFromProp)(this, 'closeIcon');
+    var closeIconToRender = h(
       'span',
       { 'class': prefixCls + '-close-x' },
-      [h(_icon2['default'], { 'class': prefixCls + '-close-icon', attrs: { type: 'close' }
+      [closeIcon || h(_icon2['default'], { 'class': prefixCls + '-close-icon', attrs: { type: 'close' }
       })]
     );
     var footer = (0, _propsUtil.getComponentFromProp)(this, 'footer');
     var title = (0, _propsUtil.getComponentFromProp)(this, 'title');
     var dialogProps = {
       props: (0, _extends3['default'])({}, this.$props, {
+        getContainer: getContainer === undefined ? getContextPopupContainer : getContainer,
         prefixCls: prefixCls,
         wrapClassName: (0, _classnames2['default'])((0, _defineProperty3['default'])({}, prefixCls + '-centered', !!centered), wrapClassName),
         title: title,
         footer: footer === undefined ? defaultFooter : footer,
         visible: visible,
         mousePosition: mousePosition,
-        closeIcon: closeIcon
+        closeIcon: closeIconToRender
       }),
-      on: (0, _extends3['default'])({}, $listeners, {
+      on: (0, _extends3['default'])({}, (0, _propsUtil.getListeners)(this), {
         close: this.handleCancel
       }),
       'class': (0, _propsUtil.getClass)(this),
-      style: (0, _propsUtil.getStyle)(this)
+      style: (0, _propsUtil.getStyle)(this),
+      attrs: $attrs
     };
     return h(
       _vcDialog2['default'],
       dialogProps,
-      [$slots['default']]
+      [children]
     );
   }
 };
@@ -677,6 +1008,10 @@ var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/li
 
 var _base2 = _interopRequireDefault(_base);
 
+var _omit = __webpack_require__(/*! omit.js */ "./node_modules/omit.js/es/index.js");
+
+var _omit2 = _interopRequireDefault(_omit);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 function confirm(config) {
@@ -684,7 +1019,7 @@ function confirm(config) {
   var el = document.createElement('div');
   div.appendChild(el);
   document.body.appendChild(div);
-  var currentConfig = (0, _extends3['default'])({}, config, { close: close, visible: true });
+  var currentConfig = (0, _extends3['default'])({}, (0, _omit2['default'])(config, ['parentContext']), { close: close, visible: true });
 
   var confirmDialogInstance = null;
   var confirmDialogProps = { props: {} };
@@ -726,6 +1061,7 @@ function confirm(config) {
     var V = _base2['default'].Vue || _vue2['default'];
     return new V({
       el: el,
+      parent: config.parentContext,
       data: function data() {
         return { confirmDialogProps: confirmDialogProps };
       },
@@ -841,7 +1177,7 @@ var warning = function warning(props) {
 };
 var warn = warning;
 
-var confirm = function confirm(props) {
+var confirm = function confirmFn(props) {
   var config = (0, _extends3['default'])({
     type: 'confirm',
     okCancel: true
@@ -855,7 +1191,7 @@ _Modal2['default'].warning = warning;
 _Modal2['default'].warn = warn;
 _Modal2['default'].confirm = confirm;
 
-_Modal2['default'].destroyAll = function () {
+_Modal2['default'].destroyAll = function destroyAllFn() {
   while (_Modal.destroyFns.length) {
     var close = _Modal.destroyFns.pop();
     if (close) {
@@ -871,55 +1207,6 @@ _Modal2['default'].install = function (Vue) {
 };
 
 exports['default'] = _Modal2['default'];
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/modal/locale.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/modal/locale.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-exports.changeConfirmLocale = changeConfirmLocale;
-exports.getConfirmLocale = getConfirmLocale;
-
-var _default = __webpack_require__(/*! ../locale-provider/default */ "./node_modules/ant-design-vue/lib/locale-provider/default.js");
-
-var _default2 = _interopRequireDefault(_default);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-// export interface ModalLocale {
-//   okText: string;
-//   cancelText: string;
-//   justOkText: string;
-// }
-
-var runtimeLocale = (0, _extends3['default'])({}, _default2['default'].Modal);
-
-function changeConfirmLocale(newLocale) {
-  if (newLocale) {
-    runtimeLocale = (0, _extends3['default'])({}, runtimeLocale, newLocale);
-  } else {
-    runtimeLocale = (0, _extends3['default'])({}, _default2['default'].Modal);
-  }
-}
-
-function getConfirmLocale() {
-  return runtimeLocale;
-}
 
 /***/ }),
 
@@ -945,9 +1232,9 @@ var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/definePrope
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _extends3 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
-var _extends4 = _interopRequireDefault(_extends3);
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
@@ -955,7 +1242,7 @@ var _KeyCode = __webpack_require__(/*! ../_util/KeyCode */ "./node_modules/ant-d
 
 var _KeyCode2 = _interopRequireDefault(_KeyCode);
 
-var _contains = __webpack_require__(/*! ../_util/Dom/contains */ "./node_modules/ant-design-vue/lib/_util/Dom/contains.js");
+var _contains = __webpack_require__(/*! ../vc-util/Dom/contains */ "./node_modules/ant-design-vue/lib/vc-util/Dom/contains.js");
 
 var _contains2 = _interopRequireDefault(_contains);
 
@@ -971,9 +1258,9 @@ var _getTransitionProps = __webpack_require__(/*! ../_util/getTransitionProps */
 
 var _getTransitionProps2 = _interopRequireDefault(_getTransitionProps);
 
-var _switchScrollingEffect = __webpack_require__(/*! ../_util/switchScrollingEffect */ "./node_modules/ant-design-vue/lib/_util/switchScrollingEffect.js");
+var _switchScrollingEffect2 = __webpack_require__(/*! ../_util/switchScrollingEffect */ "./node_modules/ant-design-vue/lib/_util/switchScrollingEffect.js");
 
-var _switchScrollingEffect2 = _interopRequireDefault(_switchScrollingEffect);
+var _switchScrollingEffect3 = _interopRequireDefault(_switchScrollingEffect2);
 
 var _IDialogPropTypes = __webpack_require__(/*! ./IDialogPropTypes */ "./node_modules/ant-design-vue/lib/vc-dialog/IDialogPropTypes.js");
 
@@ -985,7 +1272,6 @@ var IDialogPropTypes = (0, _IDialogPropTypes2['default'])();
 
 var uuid = 0;
 
-/* eslint react/no-is-mounted:0 */
 function noop() {}
 function getScroll(w, top) {
   var ret = w['page' + (top ? 'Y' : 'X') + 'Offset'];
@@ -1021,6 +1307,8 @@ function offset(el) {
   return pos;
 }
 
+var cacheOverflow = {};
+
 exports['default'] = {
   mixins: [_BaseMixin2['default']],
   props: (0, _propsUtil.initDefaultProps)(IDialogPropTypes, {
@@ -1033,11 +1321,17 @@ exports['default'] = {
     prefixCls: 'rc-dialog',
     getOpenCount: function getOpenCount() {
       return null;
-    }
+    },
+    focusTriggerAfterClose: true
   }),
   data: function data() {
     return {
       destroyPopup: false
+    };
+  },
+  provide: function provide() {
+    return {
+      dialogContext: this
     };
   },
 
@@ -1054,16 +1348,6 @@ exports['default'] = {
       });
     }
   },
-
-  // private inTransition: boolean;
-  // private titleId: string;
-  // private openTime: number;
-  // private lastOutSideFocusNode: HTMLElement | null;
-  // private wrap: HTMLElement;
-  // private dialog: any;
-  // private sentinel: HTMLElement;
-  // private bodyIsOverflowing: boolean;
-  // private scrollbarWidth: number;
 
   beforeMount: function beforeMount() {
     this.inTransition = false;
@@ -1085,20 +1369,27 @@ exports['default'] = {
         getOpenCount = this.getOpenCount;
 
     if ((visible || this.inTransition) && !getOpenCount()) {
-      this.removeScrollingEffect();
+      this.switchScrollingEffect();
     }
     clearTimeout(this.timeoutId);
   },
 
   methods: {
+    // 对外暴露的 api 不要更改名称或删除
+    getDialogWrap: function getDialogWrap() {
+      return this.$refs.wrap;
+    },
     updatedCallback: function updatedCallback(visible) {
       var mousePosition = this.mousePosition;
+      var mask = this.mask,
+          focusTriggerAfterClose = this.focusTriggerAfterClose;
+
       if (this.visible) {
         // first show
         if (!visible) {
           this.openTime = Date.now();
           // this.lastOutSideFocusNode = document.activeElement
-          this.addScrollingEffect();
+          this.switchScrollingEffect();
           // this.$refs.wrap.focus()
           this.tryFocus();
           var dialogNode = this.$refs.dialog.$el;
@@ -1111,7 +1402,7 @@ exports['default'] = {
         }
       } else if (visible) {
         this.inTransition = true;
-        if (this.mask && this.lastOutSideFocusNode) {
+        if (mask && this.lastOutSideFocusNode && focusTriggerAfterClose) {
           try {
             this.lastOutSideFocusNode.focus();
           } catch (e) {
@@ -1140,7 +1431,7 @@ exports['default'] = {
         this.destroyPopup = true;
       }
       this.inTransition = false;
-      this.removeScrollingEffect();
+      this.switchScrollingEffect();
       if (afterClose) {
         afterClose();
       }
@@ -1198,9 +1489,12 @@ exports['default'] = {
           tempFooter = this.footer,
           bodyStyle = this.bodyStyle,
           visible = this.visible,
-          bodyProps = this.bodyProps;
+          bodyProps = this.bodyProps,
+          forceRender = this.forceRender,
+          dialogStyle = this.dialogStyle,
+          dialogClass = this.dialogClass;
 
-      var dest = {};
+      var dest = (0, _extends3['default'])({}, dialogStyle);
       if (width !== undefined) {
         dest.width = typeof width === 'number' ? width + 'px' : width;
       }
@@ -1252,9 +1546,9 @@ exports['default'] = {
         );
       }
 
-      var style = (0, _extends4['default'])({}, this.dialogStyle, dest);
+      var style = dest;
       var sentinelStyle = { width: 0, height: 0, overflow: 'hidden' };
-      var cls = (0, _extends4['default'])((0, _defineProperty3['default'])({}, prefixCls, true), this.dialogClass);
+      var cls = (0, _defineProperty3['default'])({}, prefixCls, true);
       var transitionName = this.getTransitionName();
       var dialogElement = h(
         _LazyRenderBox2['default'],
@@ -1265,12 +1559,13 @@ exports['default'] = {
           }],
 
           key: 'dialog-element',
-          attrs: { role: 'document'
+          attrs: { role: 'document',
+
+            forceRender: forceRender
           },
           ref: 'dialog',
           style: style,
-          'class': cls,
-          on: {
+          'class': [cls, dialogClass], on: {
             'mousedown': this.onDialogMouseDown
           }
         },
@@ -1306,10 +1601,10 @@ exports['default'] = {
       return style;
     },
     getWrapStyle: function getWrapStyle() {
-      return (0, _extends4['default'])({}, this.getZIndexStyle(), this.wrapStyle);
+      return (0, _extends3['default'])({}, this.getZIndexStyle(), this.wrapStyle);
     },
     getMaskStyle: function getMaskStyle() {
-      return (0, _extends4['default'])({}, this.getZIndexStyle(), this.maskStyle);
+      return (0, _extends3['default'])({}, this.getZIndexStyle(), this.maskStyle);
     },
     getMaskElement: function getMaskElement() {
       var h = this.$createElement;
@@ -1363,27 +1658,49 @@ exports['default'] = {
     //     document.body.style.paddingRight = `${this.scrollbarWidth}px`;
     //   }
     // },
-    addScrollingEffect: function addScrollingEffect() {
+    switchScrollingEffect: function switchScrollingEffect() {
       var getOpenCount = this.getOpenCount;
 
       var openCount = getOpenCount();
-      if (openCount !== 1) {
-        return;
+      if (openCount === 1) {
+        if (cacheOverflow.hasOwnProperty('overflowX')) {
+          return;
+        }
+        cacheOverflow = {
+          overflowX: document.body.style.overflowX,
+          overflowY: document.body.style.overflowY,
+          overflow: document.body.style.overflow
+        };
+        (0, _switchScrollingEffect3['default'])();
+        // Must be set after switchScrollingEffect
+        document.body.style.overflow = 'hidden';
+      } else if (!openCount) {
+        // IE browser doesn't merge overflow style, need to set it separately
+        // https://github.com/ant-design/ant-design/issues/19393
+        if (cacheOverflow.overflow !== undefined) {
+          document.body.style.overflow = cacheOverflow.overflow;
+        }
+        if (cacheOverflow.overflowX !== undefined) {
+          document.body.style.overflowX = cacheOverflow.overflowX;
+        }
+        if (cacheOverflow.overflowY !== undefined) {
+          document.body.style.overflowY = cacheOverflow.overflowY;
+        }
+        cacheOverflow = {};
+        (0, _switchScrollingEffect3['default'])(true);
       }
-      (0, _switchScrollingEffect2['default'])();
-      document.body.style.overflow = 'hidden';
     },
-    removeScrollingEffect: function removeScrollingEffect() {
-      var getOpenCount = this.getOpenCount;
 
-      var openCount = getOpenCount();
-      if (openCount !== 0) {
-        return;
-      }
-      document.body.style.overflow = '';
-      (0, _switchScrollingEffect2['default'])(true);
-      // this.resetAdjustments();
-    },
+    // removeScrollingEffect() {
+    //   const { getOpenCount } = this;
+    //   const openCount = getOpenCount();
+    //   if (openCount !== 0) {
+    //     return;
+    //   }
+    //   document.body.style.overflow = '';
+    //   switchScrollingEffect(true);
+    //   // this.resetAdjustments();
+    // },
     close: function close(e) {
       this.__emit('close', e);
     }
@@ -1403,27 +1720,31 @@ exports['default'] = {
     if (visible) {
       style.display = null;
     }
-    return h('div', [this.getMaskElement(), h(
+    return h(
       'div',
-      (0, _babelHelperVueJsxMergeProps2['default'])([{
-        attrs: {
-          tabIndex: -1,
+      { 'class': prefixCls + '-root' },
+      [this.getMaskElement(), h(
+        'div',
+        (0, _babelHelperVueJsxMergeProps2['default'])([{
+          attrs: {
+            tabIndex: -1,
 
-          role: 'dialog',
-          'aria-labelledby': title ? this.titleId : null
-        },
-        on: {
-          'keydown': this.onKeydown,
-          'click': maskClosable ? this.onMaskClick : noop,
-          'mouseup': maskClosable ? this.onMaskMouseUp : noop
-        },
+            role: 'dialog',
+            'aria-labelledby': title ? this.titleId : null
+          },
+          on: {
+            'keydown': this.onKeydown,
+            'click': maskClosable ? this.onMaskClick : noop,
+            'mouseup': maskClosable ? this.onMaskMouseUp : noop
+          },
 
-        'class': prefixCls + '-wrap ' + (wrapClassName || ''),
-        ref: 'wrap',
-        style: style
-      }, wrapProps]),
-      [this.getDialogElement()]
-    )]);
+          'class': prefixCls + '-wrap ' + (wrapClassName || ''),
+          ref: 'wrap',
+          style: style
+        }, wrapProps]),
+        [this.getDialogElement()]
+      )]
+    );
   }
 };
 
@@ -1443,9 +1764,9 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
 
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
 var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
 
@@ -1455,100 +1776,67 @@ var _Dialog = __webpack_require__(/*! ./Dialog */ "./node_modules/ant-design-vue
 
 var _Dialog2 = _interopRequireDefault(_Dialog);
 
-var _ContainerRender = __webpack_require__(/*! ../_util/ContainerRender */ "./node_modules/ant-design-vue/lib/_util/ContainerRender.js");
-
-var _ContainerRender2 = _interopRequireDefault(_ContainerRender);
-
 var _IDialogPropTypes = __webpack_require__(/*! ./IDialogPropTypes */ "./node_modules/ant-design-vue/lib/vc-dialog/IDialogPropTypes.js");
 
 var _IDialogPropTypes2 = _interopRequireDefault(_IDialogPropTypes);
 
 var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
 
+var _PortalWrapper = __webpack_require__(/*! ../_util/PortalWrapper */ "./node_modules/ant-design-vue/lib/_util/PortalWrapper.js");
+
+var _PortalWrapper2 = _interopRequireDefault(_PortalWrapper);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var IDialogPropTypes = (0, _IDialogPropTypes2['default'])();
 var DialogWrap = {
+  inheritAttrs: false,
   props: (0, _extends3['default'])({}, IDialogPropTypes, {
     visible: IDialogPropTypes.visible.def(false)
   }),
-  data: function data() {
-    this.renderComponent = function () {};
-    this.removeContainer = function () {};
-    return {};
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this.visible) {
-      this.renderComponent({
-        afterClose: this.removeContainer,
-        visible: false,
-        on: {
-          close: function close() {}
-        }
-      });
-    } else {
-      this.removeContainer();
-    }
-  },
-
-  methods: {
-    getComponent: function getComponent() {
-      var extra = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var h = this.$createElement;
-      var $attrs = this.$attrs,
-          $listeners = this.$listeners,
-          $props = this.$props,
-          $slots = this.$slots;
-      var on = extra.on,
-          otherProps = (0, _objectWithoutProperties3['default'])(extra, ['on']);
-
-      var dialogProps = {
-        props: (0, _extends3['default'])({}, $props, {
-          dialogClass: (0, _propsUtil.getClass)(this),
-          dialogStyle: (0, _propsUtil.getStyle)(this)
-        }, otherProps),
-        attrs: $attrs,
-        ref: '_component',
-        key: 'dialog',
-        on: (0, _extends3['default'])({}, $listeners, on)
-      };
-      return h(
-        _Dialog2['default'],
-        dialogProps,
-        [$slots['default']]
-      );
-    },
-    getContainer2: function getContainer2() {
-      var container = document.createElement('div');
-      if (this.getContainer) {
-        this.getContainer().appendChild(container);
-      } else {
-        document.body.appendChild(container);
-      }
-      return container;
-    }
-  },
 
   render: function render() {
     var _this = this;
 
     var h = arguments[0];
-    var visible = this.visible;
+    var _$props = this.$props,
+        visible = _$props.visible,
+        getContainer = _$props.getContainer,
+        forceRender = _$props.forceRender;
 
-    return h(_ContainerRender2['default'], {
+    var dialogProps = {
+      props: this.$props,
+      attrs: this.$attrs,
+      ref: '_component',
+      key: 'dialog',
+      on: (0, _propsUtil.getListeners)(this)
+    };
+    // 渲染在当前 dom 里；
+    if (getContainer === false) {
+      return h(
+        _Dialog2['default'],
+        (0, _babelHelperVueJsxMergeProps2['default'])([dialogProps, {
+          attrs: {
+            getOpenCount: function getOpenCount() {
+              return 2;
+            } // 不对 body 做任何操作。。
+          }
+        }]),
+        [this.$slots['default']]
+      );
+    }
+    return h(_PortalWrapper2['default'], {
       attrs: {
-        parent: this,
         visible: visible,
-        autoDestroy: false,
-        getComponent: this.getComponent,
-        getContainer: this.getContainer2,
-        children: function children(_ref) {
-          var renderComponent = _ref.renderComponent,
-              removeContainer = _ref.removeContainer;
-
-          _this.renderComponent = renderComponent;
-          _this.removeContainer = removeContainer;
-          return null;
+        forceRender: forceRender,
+        getContainer: getContainer,
+        children: function children(childProps) {
+          dialogProps.props = (0, _extends3['default'])({}, dialogProps.props, childProps);
+          return h(
+            _Dialog2['default'],
+            dialogProps,
+            [_this.$slots['default']]
+          );
         }
       }
     });
@@ -1611,11 +1899,16 @@ function IDialogPropTypes() {
     maskProps: _vueTypes2['default'].any,
     wrapProps: _vueTypes2['default'].any,
     getContainer: _vueTypes2['default'].any,
-    dialogStyle: _vueTypes2['default'].object.def({}),
-    dialogClass: _vueTypes2['default'].object.def({}),
+    dialogStyle: _vueTypes2['default'].object.def(function () {
+      return {};
+    }),
+    dialogClass: _vueTypes2['default'].object.def(''),
     closeIcon: _vueTypes2['default'].any,
     forceRender: _vueTypes2['default'].bool,
-    getOpenCount: _vueTypes2['default'].func
+    getOpenCount: _vueTypes2['default'].func,
+    // https://github.com/ant-design/ant-design/issues/19771
+    // https://github.com/react-component/dialog/issues/95
+    focusTriggerAfterClose: _vueTypes2['default'].bool
   };
 }
 
@@ -1641,11 +1934,14 @@ var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/an
 
 var _vueTypes2 = _interopRequireDefault(_vueTypes);
 
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 var ILazyRenderBoxPropTypes = {
   visible: _vueTypes2['default'].bool,
-  hiddenClassName: _vueTypes2['default'].string
+  hiddenClassName: _vueTypes2['default'].string,
+  forceRender: _vueTypes2['default'].bool
 };
 
 exports['default'] = {
@@ -1655,7 +1951,7 @@ exports['default'] = {
 
     return h(
       'div',
-      { on: this.$listeners },
+      { on: (0, _propsUtil.getListeners)(this) },
       [this.$slots['default']]
     );
   }
@@ -1683,7 +1979,7 @@ var _DialogWrap2 = _interopRequireDefault(_DialogWrap);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-exports['default'] = _DialogWrap2['default']; // based on vc-dialog 7.5.5
+exports['default'] = _DialogWrap2['default']; // based on vc-dialog 7.5.14
 
 /***/ })
 

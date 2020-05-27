@@ -36,7 +36,7 @@ var Divider = {
     prefixCls: _vueTypes2['default'].string,
     type: _vueTypes2['default'].oneOf(['horizontal', 'vertical', '']).def('horizontal'),
     dashed: _vueTypes2['default'].bool,
-    orientation: _vueTypes2['default'].oneOf(['left', 'right'])
+    orientation: _vueTypes2['default'].oneOf(['left', 'right', 'center'])
   },
   inject: {
     configProvider: { 'default': function _default() {
@@ -52,7 +52,7 @@ var Divider = {
         $slots = this.$slots,
         dashed = this.dashed,
         _orientation = this.orientation,
-        orientation = _orientation === undefined ? '' : _orientation;
+        orientation = _orientation === undefined ? 'center' : _orientation;
 
     var getPrefixCls = this.configProvider.getPrefixCls;
     var prefixCls = getPrefixCls('divider', customizePrefixCls);
@@ -62,7 +62,8 @@ var Divider = {
 
     return h(
       'div',
-      { 'class': classString },
+      { 'class': classString, attrs: { role: 'separator' }
+      },
       [$slots['default'] && h(
         'span',
         { 'class': prefixCls + '-inner-text' },
