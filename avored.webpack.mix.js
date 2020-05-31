@@ -11,11 +11,11 @@ const tailwindcss = require('tailwindcss')
  |
  */
 
-mix.webpackConfig({
-    output: {
-        chunkFilename: mix.inProduction() ? "avored-admin/js/chunk/[name].[chunkhash].js" : "avored-admin/js/chunk/[name].js",
-    }
-})
+// mix.webpackConfig({
+//     output: {
+//         chunkFilename: mix.inProduction() ? "avored-admin/js/chunk/[name].[chunkhash].js" : "avored-admin/js/chunk/[name].js",
+//     }
+// })
 
 mix.js('vendor/avored/framework/resources/js/app.js', 'public/avored-admin/js/app.js');
 mix.less('vendor/avored/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
