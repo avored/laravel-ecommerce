@@ -1,144 +1,241 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[20],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/catalog/property/PropertySave.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/catalog/property/PropertySave.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
-
-var id = 0;
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var columns = [{
+  label: "ID",
+  fieldKey: "id"
+}, {
+  label: "Name",
+  fieldKey: "name"
+}, {
+  label: "Is Default",
+  fieldKey: "is_default"
+}, {
+  label: "Actions",
+  slotName: "action"
+}];
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['property', 'baseUrl'],
+  props: ['baseUrl', 'initUserGroups'],
   data: function data() {
     return {
-      propertyForm: this.$form.createForm(this),
-      use_for_all_products: 0,
-      use_for_category_filter: 0,
-      is_visible_frontend: 0,
-      data_type: '',
-      field_type: '',
-      dropdownOptions: []
+      columns: columns
     };
   },
   methods: {
-    handleSubmit: function handleSubmit() {
-      this.propertyForm.validateFields(function (err, values) {
-        if (err) {
-          e.preventDefault();
+    getEditUrl: function getEditUrl(record) {
+      return this.baseUrl + '/user-group/' + record.id + '/edit';
+    },
+    getDeleteUrl: function getDeleteUrl(record) {
+      return this.baseUrl + '/user-group/' + record.id;
+    },
+    deleteOnClick: function deleteOnClick(record) {
+      var url = this.baseUrl + '/user-group/' + record.id;
+      var app = this;
+      this.$confirm({
+        title: 'Do you Want to delete ' + record.name + ' user-group?',
+        okType: 'danger',
+        onOk: function onOk() {
+          axios["delete"](url).then(function (response) {
+            if (response.data.success === true) {
+              app.$notification.error({
+                key: 'user.group.delete.success',
+                message: response.data.message
+              });
+            }
+
+            window.location.reload();
+          })["catch"](function (errors) {
+            app.$notification.error({
+              key: 'user.group.delete.error',
+              message: errors.message
+            });
+          });
+        },
+        onCancel: function onCancel() {// Do nothing
         }
       });
-    },
-    fieldTypeChange: function fieldTypeChange(val) {
-      this.field_type = val;
-
-      if (val === 'SELECT' || val === 'RADIO') {
-        this.dropdownOptions.push(this.randomString());
-      } else {
-        this.dropdownOptions = [];
-      }
-    },
-    dataTypeChange: function dataTypeChange(val) {
-      this.data_type = val;
-    },
-    useForAllProductSwitchChange: function useForAllProductSwitchChange(val) {
-      if (val) {
-        this.use_for_all_products = 1;
-      } else {
-        this.use_for_all_products = 0;
-      }
-    },
-    useForCategoryFilterSwitchChange: function useForCategoryFilterSwitchChange(val) {
-      if (val) {
-        this.use_for_category_filter = 1;
-      } else {
-        this.use_for_category_filter = 0;
-      }
-    },
-    isVisibleInFrontendSwitchChange: function isVisibleInFrontendSwitchChange(val) {
-      if (val) {
-        this.is_visible_frontend = 1;
-      } else {
-        this.is_visible_frontend = 0;
-      }
-    },
-    cancelProperty: function cancelProperty() {
-      window.location = this.baseUrl + '/property';
-    },
-    randomString: function randomString() {
-      var random_string = '';
-      var random_ascii;
-
-      for (var i = 0; i < 6; i++) {
-        random_ascii = Math.floor(Math.random() * 25 + 97);
-        random_string += String.fromCharCode(random_ascii);
-      }
-
-      return random_string;
-    },
-    dropdownOptionChange: function dropdownOptionChange(index) {
-      if (index == this.dropdownOptions.length - 1) {
-        this.dropdownOptions.push(this.randomString());
-      } else {
-        this.dropdownOptions.splice(index, 1);
-      }
-    },
-    dropdown_options: function dropdown_options(index) {
-      return 'dropdown_option[' + index + ']';
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.property)) {
-      this.is_visible_frontend = this.property.is_visible_frontend;
-      this.use_for_all_products = this.property.use_for_all_products;
-      this.data_type = this.property.data_type;
-      this.field_type = this.property.field_type;
-
-      if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.property.dropdown_options) && this.property.dropdown_options.length > 0) {
-        this.property.dropdown_options.forEach(function (element) {
-          _this.dropdownOptions.push(element.id);
-
-          _this.propertyForm.getFieldDecorator('dropdown_options[' + element.id + ']', {
-            initialValue: element.display_text,
-            preserve: true
-          });
-        });
-      }
     }
   }
 });
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/catalog/property/PropertySave.vue":
-/*!****************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/catalog/property/PropertySave.vue ***!
-  \****************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92&":
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92& ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "mt-3" },
+    [
+      _c(
+        "avored-table",
+        {
+          attrs: {
+            columns: _vm.columns,
+            from: _vm.initUserGroups.from,
+            to: _vm.initUserGroups.to,
+            total: _vm.initUserGroups.total,
+            prev_page_url: _vm.initUserGroups.prev_page_url,
+            next_page_url: _vm.initUserGroups.next_page_url,
+            items: _vm.initUserGroups.data
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function(ref) {
+                var item = ref.item
+                return [
+                  _c("div", { staticClass: "flex items-center" }, [
+                    _c("a", { attrs: { href: _vm.getEditUrl(item) } }, [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "h-6 w-6",
+                          attrs: {
+                            fill: "currentColor",
+                            xmlns: "http://www.w3.org/2000/svg"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "heroicon-ui",
+                            attrs: {
+                              d:
+                                "M6.3 12.3l10-10a1 1 0 011.4 0l4 4a1 1 0 010 1.4l-10 10a1 1 0 01-.7.3H7a1 1 0 01-1-1v-4a1 1 0 01.3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 012 0v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6c0-1.1.9-2 2-2h6a1 1 0 010 2H4v14h14v-6z"
+                            }
+                          })
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.deleteOnClick(item)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "h-6 w-6",
+                            attrs: {
+                              fill: "currentColor",
+                              xmlns: "http://www.w3.org/2000/svg"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              staticClass: "heroicon-ui",
+                              attrs: {
+                                d:
+                                  "M8 6V4c0-1.1.9-2 2-2h4a2 2 0 012 2v2h5a1 1 0 010 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V8H3a1 1 0 110-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 011 1v6a1 1 0 01-2 0v-6a1 1 0 011-1zm4 0a1 1 0 011 1v6a1 1 0 01-2 0v-6a1 1 0 011-1z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              }
+            }
+          ])
+        },
+        [_vm._v("\n      >\n      ")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue":
+/*!*****************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _PropertySave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PropertySave.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/catalog/property/PropertySave.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
+/* harmony import */ var _UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserGroupTable.vue?vue&type=template&id=2793cb92& */ "./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92&");
+/* harmony import */ var _UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserGroupTable.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _PropertySave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -148,22 +245,40 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vendor/avored/framework/resources/components/catalog/property/PropertySave.vue"
+component.options.__file = "vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/catalog/property/PropertySave.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/catalog/property/PropertySave.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************/
+/***/ "./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PropertySave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./PropertySave.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/catalog/property/PropertySave.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_PropertySave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UserGroupTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92&":
+/*!************************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92& ***!
+  \************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UserGroupTable.vue?vue&type=template&id=2793cb92& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ })
 

@@ -1,310 +1,285 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[16],{
 
-/***/ "./node_modules/ant-design-vue/lib/tag/CheckableTag.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/tag/CheckableTag.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-exports['default'] = {
-  name: 'ACheckableTag',
-  model: {
-    prop: 'checked'
-  },
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'avored-input',
   props: {
-    prefixCls: _vueTypes2['default'].string,
-    checked: Boolean
-  },
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  computed: {
-    classes: function classes() {
-      var _ref;
-
-      var checked = this.checked,
-          customizePrefixCls = this.prefixCls;
-
-      var getPrefixCls = this.configProvider.getPrefixCls;
-      var prefixCls = getPrefixCls('tag', customizePrefixCls);
-      return _ref = {}, (0, _defineProperty3['default'])(_ref, '' + prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-checkable', true), (0, _defineProperty3['default'])(_ref, prefixCls + '-checkable-checked', checked), _ref;
+    labelText: {
+      type: [String],
+      "default": ''
+    },
+    labelClass: {
+      type: [String],
+      "default": ''
+    },
+    inputClass: {
+      type: [String],
+      "default": ''
+    },
+    inputType: {
+      type: [String],
+      "default": 'text'
+    },
+    initValue: {
+      type: [String],
+      "default": ''
+    },
+    errorText: {
+      type: [String],
+      "default": ''
+    },
+    fieldName: {
+      type: [String],
+      "default": ''
     }
-  },
-  methods: {
-    handleClick: function handleClick() {
-      var checked = this.checked;
-
-      this.$emit('input', !checked);
-      this.$emit('change', !checked);
-    }
-  },
-  render: function render() {
-    var h = arguments[0];
-    var classes = this.classes,
-        handleClick = this.handleClick,
-        $slots = this.$slots;
-
-    return h(
-      'div',
-      { 'class': classes, on: {
-          'click': handleClick
-        }
-      },
-      [$slots['default']]
-    );
-  }
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/tag/Tag.js":
-/*!****************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/tag/Tag.js ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
-
-var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
-
-var _icon2 = _interopRequireDefault(_icon);
-
-var _getTransitionProps = __webpack_require__(/*! ../_util/getTransitionProps */ "./node_modules/ant-design-vue/lib/_util/getTransitionProps.js");
-
-var _getTransitionProps2 = _interopRequireDefault(_getTransitionProps);
-
-var _omit = __webpack_require__(/*! omit.js */ "./node_modules/omit.js/es/index.js");
-
-var _omit2 = _interopRequireDefault(_omit);
-
-var _wave = __webpack_require__(/*! ../_util/wave */ "./node_modules/ant-design-vue/lib/_util/wave.js");
-
-var _wave2 = _interopRequireDefault(_wave);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
-
-var _warning2 = _interopRequireDefault(_warning);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var PresetColorTypes = ['pink', 'red', 'yellow', 'orange', 'cyan', 'green', 'blue', 'purple', 'geekblue', 'magenta', 'volcano', 'gold', 'lime'];
-var PresetColorRegex = new RegExp('^(' + PresetColorTypes.join('|') + ')(-inverse)?$');
-
-exports['default'] = {
-  name: 'ATag',
-  mixins: [_BaseMixin2['default']],
-  model: {
-    prop: 'visible',
-    event: 'close.visible'
-  },
-  props: {
-    prefixCls: _vueTypes2['default'].string,
-    color: _vueTypes2['default'].string,
-    closable: _vueTypes2['default'].bool.def(false),
-    visible: _vueTypes2['default'].bool,
-    afterClose: _vueTypes2['default'].func
-  },
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
   },
   data: function data() {
-    var _visible = true;
-    var props = (0, _propsUtil.getOptionProps)(this);
-    if ('visible' in props) {
-      _visible = this.visible;
-    }
-    (0, _warning2['default'])(!('afterClose' in props), 'Tag', "'afterClose' will be deprecated, please use 'close' event, we will remove this in the next version.");
     return {
-      _visible: _visible
+      changeValue: this.initValue
     };
   },
-
   watch: {
-    visible: function visible(val) {
-      this.setState({
-        _visible: val
-      });
+    changeValue: function changeValue(newValue) {
+      this.$emit('input', newValue);
     }
   },
-  methods: {
-    setVisible: function setVisible(visible, e) {
-      this.$emit('close', e);
-      this.$emit('close.visible', false);
-      var afterClose = this.afterClose;
-      if (afterClose) {
-        // next version remove.
-        afterClose();
-      }
-      if (e.defaultPrevented) {
-        return;
-      }
-      if (!(0, _propsUtil.hasProp)(this, 'visible')) {
-        this.setState({ _visible: visible });
-      }
-    },
-    handleIconClick: function handleIconClick(e) {
-      e.stopPropagation();
-      this.setVisible(false, e);
-    },
-    isPresetColor: function isPresetColor() {
-      var color = this.$props.color;
-
-      if (!color) {
-        return false;
-      }
-      return PresetColorRegex.test(color);
-    },
-    getTagStyle: function getTagStyle() {
-      var color = this.$props.color;
-
-      var isPresetColor = this.isPresetColor();
-      return {
-        backgroundColor: color && !isPresetColor ? color : undefined
-      };
-    },
-    getTagClassName: function getTagClassName(prefixCls) {
-      var _ref;
-
-      var color = this.$props.color;
-
-      var isPresetColor = this.isPresetColor();
-      return _ref = {}, (0, _defineProperty3['default'])(_ref, prefixCls, true), (0, _defineProperty3['default'])(_ref, prefixCls + '-' + color, isPresetColor), (0, _defineProperty3['default'])(_ref, prefixCls + '-has-color', color && !isPresetColor), _ref;
-    },
-    renderCloseIcon: function renderCloseIcon() {
-      var h = this.$createElement;
-      var closable = this.$props.closable;
-
-      return closable ? h(_icon2['default'], {
-        attrs: { type: 'close' },
-        on: {
-          'click': this.handleIconClick
-        }
-      }) : null;
+  mounted: function mounted() {
+    if (this.errorText) {
+      this.inputClass += ' border-red-500';
     }
-  },
-
-  render: function render() {
-    var h = arguments[0];
-    var customizePrefixCls = this.$props.prefixCls;
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('tag', customizePrefixCls);
-    var visible = this.$data._visible;
-
-    var tag = h(
-      'span',
-      (0, _babelHelperVueJsxMergeProps2['default'])([{
-        directives: [{
-          name: 'show',
-          value: visible
-        }]
-      }, { on: (0, _omit2['default'])((0, _propsUtil.getListeners)(this), ['close']) }, {
-        'class': this.getTagClassName(prefixCls),
-        style: this.getTagStyle()
-      }]),
-      [this.$slots['default'], this.renderCloseIcon()]
-    );
-    var transitionProps = (0, _getTransitionProps2['default'])(prefixCls + '-zoom', {
-      appear: false
-    });
-    return h(_wave2['default'], [h(
-      'transition',
-      transitionProps,
-      [tag]
-    )]);
   }
-};
+});
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/tag/index.js":
-/*!******************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/tag/index.js ***!
-  \******************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=template&id=b41eb23c&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=template&id=b41eb23c& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "relative w-full mb-6" }, [
+    _vm.labelText
+      ? _c(
+          "label",
+          {
+            staticClass: "text-sm pb-2 w-full text-gray-600",
+            class: _vm.labelClass,
+            attrs: { for: _vm.fieldName }
+          },
+          [_vm._v("\n        " + _vm._s(_vm.labelText) + "\n    ")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.inputType === "checkbox"
+      ? _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.changeValue,
+              expression: "changeValue"
+            }
+          ],
+          staticClass:
+            "px-3 w-full py-2 outline-none focus:shadow focus:border rounded border block border-gray-400",
+          class: _vm.inputClass,
+          attrs: { id: _vm.fieldName, name: _vm.fieldName, type: "checkbox" },
+          domProps: {
+            checked: Array.isArray(_vm.changeValue)
+              ? _vm._i(_vm.changeValue, null) > -1
+              : _vm.changeValue
+          },
+          on: {
+            change: function($event) {
+              var $$a = _vm.changeValue,
+                $$el = $event.target,
+                $$c = $$el.checked ? true : false
+              if (Array.isArray($$a)) {
+                var $$v = null,
+                  $$i = _vm._i($$a, $$v)
+                if ($$el.checked) {
+                  $$i < 0 && (_vm.changeValue = $$a.concat([$$v]))
+                } else {
+                  $$i > -1 &&
+                    (_vm.changeValue = $$a
+                      .slice(0, $$i)
+                      .concat($$a.slice($$i + 1)))
+                }
+              } else {
+                _vm.changeValue = $$c
+              }
+            }
+          }
+        })
+      : _vm.inputType === "radio"
+      ? _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.changeValue,
+              expression: "changeValue"
+            }
+          ],
+          staticClass:
+            "px-3 w-full py-2 outline-none focus:shadow focus:border rounded border block border-gray-400",
+          class: _vm.inputClass,
+          attrs: { id: _vm.fieldName, name: _vm.fieldName, type: "radio" },
+          domProps: { checked: _vm._q(_vm.changeValue, null) },
+          on: {
+            change: function($event) {
+              _vm.changeValue = null
+            }
+          }
+        })
+      : _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.changeValue,
+              expression: "changeValue"
+            }
+          ],
+          staticClass:
+            "px-3 w-full py-2 outline-none focus:shadow focus:border rounded border block border-gray-400",
+          class: _vm.inputClass,
+          attrs: {
+            id: _vm.fieldName,
+            name: _vm.fieldName,
+            type: _vm.inputType
+          },
+          domProps: { value: _vm.changeValue },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.changeValue = $event.target.value
+            }
+          }
+        }),
+    _vm._v(" "),
+    _vm.errorText
+      ? _c("div", { staticClass: "text-sm text-red-500 absolute" }, [
+          _vm._v("\n        " + _vm._s(_vm.errorText) + "\n    ")
+        ])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var _Tag = __webpack_require__(/*! ./Tag */ "./node_modules/ant-design-vue/lib/tag/Tag.js");
+/***/ }),
 
-var _Tag2 = _interopRequireDefault(_Tag);
+/***/ "./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue":
+/*!***********************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-var _CheckableTag = __webpack_require__(/*! ./CheckableTag */ "./node_modules/ant-design-vue/lib/tag/CheckableTag.js");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _AvoRedInput_vue_vue_type_template_id_b41eb23c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AvoRedInput.vue?vue&type=template&id=b41eb23c& */ "./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=template&id=b41eb23c&");
+/* harmony import */ var _AvoRedInput_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AvoRedInput.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-var _CheckableTag2 = _interopRequireDefault(_CheckableTag);
 
-var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
 
-var _base2 = _interopRequireDefault(_base);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-_Tag2['default'].CheckableTag = _CheckableTag2['default'];
+/* normalize component */
 
-/* istanbul ignore next */
-_Tag2['default'].install = function (Vue) {
-  Vue.use(_base2['default']);
-  Vue.component(_Tag2['default'].name, _Tag2['default']);
-  Vue.component(_Tag2['default'].CheckableTag.name, _Tag2['default'].CheckableTag);
-};
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _AvoRedInput_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _AvoRedInput_vue_vue_type_template_id_b41eb23c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _AvoRedInput_vue_vue_type_template_id_b41eb23c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
 
-exports['default'] = _Tag2['default'];
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedInput_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AvoRedInput.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedInput_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=template&id=b41eb23c&":
+/*!******************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=template&id=b41eb23c& ***!
+  \******************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedInput_vue_vue_type_template_id_b41eb23c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AvoRedInput.vue?vue&type=template&id=b41eb23c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/forms/AvoRedInput.vue?vue&type=template&id=b41eb23c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedInput_vue_vue_type_template_id_b41eb23c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AvoRedInput_vue_vue_type_template_id_b41eb23c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ })
 

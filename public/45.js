@@ -1,284 +1,260 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[45],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/ant-design-vue/lib/avatar/Avatar.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/avatar/Avatar.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var columns = [{
-  label: "ID",
-  fieldKey: "id"
-}, {
-  label: "Name",
-  fieldKey: "name"
-}, {
-  label: "Is Default",
-  fieldKey: "is_default"
-}, {
-  label: "Actions",
-  slotName: "action"
-}];
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['baseUrl', 'initUserGroups'],
-  data: function data() {
-    return {
-      columns: columns
-    };
-  },
-  methods: {
-    getEditUrl: function getEditUrl(record) {
-      return this.baseUrl + '/user-group/' + record.id + '/edit';
-    },
-    getDeleteUrl: function getDeleteUrl(record) {
-      return this.baseUrl + '/user-group/' + record.id;
-    },
-    deleteOnClick: function deleteOnClick(record) {
-      var url = this.baseUrl + '/user-group/' + record.id;
-      var app = this;
-      this.$confirm({
-        title: 'Do you Want to delete ' + record.name + ' user-group?',
-        okType: 'danger',
-        onOk: function onOk() {
-          axios["delete"](url).then(function (response) {
-            if (response.data.success === true) {
-              app.$notification.error({
-                key: 'user.group.delete.success',
-                message: response.data.message
-              });
-            }
 
-            window.location.reload();
-          })["catch"](function (errors) {
-            app.$notification.error({
-              key: 'user.group.delete.error',
-              message: errors.message
-            });
-          });
-        },
-        onCancel: function onCancel() {// Do nothing
-        }
-      });
-    }
-  }
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
 });
 
-/***/ }),
+var _babelHelperVueJsxMergeProps = __webpack_require__(/*! babel-helper-vue-jsx-merge-props */ "./node_modules/babel-helper-vue-jsx-merge-props/index.js");
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92&":
-/*!******************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92& ***!
-  \******************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+var _babelHelperVueJsxMergeProps2 = _interopRequireDefault(_babelHelperVueJsxMergeProps);
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "mt-3" },
-    [
-      _c(
-        "avored-table",
-        {
-          attrs: {
-            columns: _vm.columns,
-            from: _vm.initUserGroups.from,
-            to: _vm.initUserGroups.to,
-            total: _vm.initUserGroups.total,
-            prev_page_url: _vm.initUserGroups.prev_page_url,
-            next_page_url: _vm.initUserGroups.next_page_url,
-            items: _vm.initUserGroups.data
+var _extends4 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
+
+var _extends5 = _interopRequireDefault(_extends4);
+
+var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
+
+var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
+
+var _icon2 = _interopRequireDefault(_icon);
+
+var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
+
+var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
+
+var _vueTypes2 = _interopRequireDefault(_vueTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+exports['default'] = {
+  name: 'AAvatar',
+  props: {
+    prefixCls: {
+      type: String,
+      'default': undefined
+    },
+    shape: {
+      validator: function validator(val) {
+        return ['circle', 'square'].includes(val);
+      },
+      'default': 'circle'
+    },
+    size: {
+      validator: function validator(val) {
+        return typeof val === 'number' || ['small', 'large', 'default'].includes(val);
+      },
+      'default': 'default'
+    },
+    src: String,
+    /** Srcset of image avatar */
+    srcSet: String,
+    icon: _vueTypes2['default'].any,
+    alt: String,
+    loadError: Function
+  },
+  inject: {
+    configProvider: { 'default': function _default() {
+        return _configProvider.ConfigConsumerProps;
+      } }
+  },
+  data: function data() {
+    return {
+      isImgExist: true,
+      isMounted: false,
+      scale: 1
+    };
+  },
+
+  watch: {
+    src: function src() {
+      var _this = this;
+
+      this.$nextTick(function () {
+        _this.isImgExist = true;
+        _this.scale = 1;
+        // force uodate for position
+        _this.$forceUpdate();
+      });
+    }
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    this.$nextTick(function () {
+      _this2.setScale();
+      _this2.isMounted = true;
+    });
+  },
+  updated: function updated() {
+    var _this3 = this;
+
+    this.$nextTick(function () {
+      _this3.setScale();
+    });
+  },
+
+  methods: {
+    setScale: function setScale() {
+      if (!this.$refs.avatarChildren || !this.$refs.avatarNode) {
+        return;
+      }
+      var childrenWidth = this.$refs.avatarChildren.offsetWidth; // offsetWidth avoid affecting be transform scale
+      var nodeWidth = this.$refs.avatarNode.offsetWidth;
+      // denominator is 0 is no meaning
+      if (childrenWidth === 0 || nodeWidth === 0 || this.lastChildrenWidth === childrenWidth && this.lastNodeWidth === nodeWidth) {
+        return;
+      }
+      this.lastChildrenWidth = childrenWidth;
+      this.lastNodeWidth = nodeWidth;
+      // add 4px gap for each side to get better performance
+      this.scale = nodeWidth - 8 < childrenWidth ? (nodeWidth - 8) / childrenWidth : 1;
+    },
+    handleImgLoadError: function handleImgLoadError() {
+      var loadError = this.$props.loadError;
+
+      var errorFlag = loadError ? loadError() : undefined;
+      if (errorFlag !== false) {
+        this.isImgExist = false;
+      }
+    }
+  },
+  render: function render() {
+    var _sizeCls, _extends3;
+
+    var h = arguments[0];
+    var _$props = this.$props,
+        customizePrefixCls = _$props.prefixCls,
+        shape = _$props.shape,
+        size = _$props.size,
+        src = _$props.src,
+        alt = _$props.alt,
+        srcSet = _$props.srcSet;
+
+    var icon = (0, _propsUtil.getComponentFromProp)(this, 'icon');
+    var getPrefixCls = this.configProvider.getPrefixCls;
+    var prefixCls = getPrefixCls('avatar', customizePrefixCls);
+
+    var _$data = this.$data,
+        isImgExist = _$data.isImgExist,
+        scale = _$data.scale,
+        isMounted = _$data.isMounted;
+
+
+    var sizeCls = (_sizeCls = {}, (0, _defineProperty3['default'])(_sizeCls, prefixCls + '-lg', size === 'large'), (0, _defineProperty3['default'])(_sizeCls, prefixCls + '-sm', size === 'small'), _sizeCls);
+
+    var classString = (0, _extends5['default'])((0, _defineProperty3['default'])({}, prefixCls, true), sizeCls, (_extends3 = {}, (0, _defineProperty3['default'])(_extends3, prefixCls + '-' + shape, shape), (0, _defineProperty3['default'])(_extends3, prefixCls + '-image', src && isImgExist), (0, _defineProperty3['default'])(_extends3, prefixCls + '-icon', icon), _extends3));
+
+    var sizeStyle = typeof size === 'number' ? {
+      width: size + 'px',
+      height: size + 'px',
+      lineHeight: size + 'px',
+      fontSize: icon ? size / 2 + 'px' : '18px'
+    } : {};
+
+    var children = this.$slots['default'];
+    if (src && isImgExist) {
+      children = h('img', {
+        attrs: { src: src, srcSet: srcSet, alt: alt },
+        on: {
+          'error': this.handleImgLoadError
+        }
+      });
+    } else if (icon) {
+      if (typeof icon === 'string') {
+        children = h(_icon2['default'], {
+          attrs: { type: icon }
+        });
+      } else {
+        children = icon;
+      }
+    } else {
+      var childrenNode = this.$refs.avatarChildren;
+      if (childrenNode || scale !== 1) {
+        var transformString = 'scale(' + scale + ') translateX(-50%)';
+        var childrenStyle = {
+          msTransform: transformString,
+          WebkitTransform: transformString,
+          transform: transformString
+        };
+        var sizeChildrenStyle = typeof size === 'number' ? {
+          lineHeight: size + 'px'
+        } : {};
+        children = h(
+          'span',
+          {
+            'class': prefixCls + '-string',
+            ref: 'avatarChildren',
+            style: (0, _extends5['default'])({}, sizeChildrenStyle, childrenStyle)
           },
-          scopedSlots: _vm._u([
-            {
-              key: "action",
-              fn: function(ref) {
-                var item = ref.item
-                return [
-                  _c("div", { staticClass: "flex items-center" }, [
-                    _c("a", { attrs: { href: _vm.getEditUrl(item) } }, [
-                      _c(
-                        "svg",
-                        {
-                          staticClass: "h-6 w-6",
-                          attrs: {
-                            fill: "currentColor",
-                            xmlns: "http://www.w3.org/2000/svg"
-                          }
-                        },
-                        [
-                          _c("path", {
-                            staticClass: "heroicon-ui",
-                            attrs: {
-                              d:
-                                "M6.3 12.3l10-10a1 1 0 011.4 0l4 4a1 1 0 010 1.4l-10 10a1 1 0 01-.7.3H7a1 1 0 01-1-1v-4a1 1 0 01.3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 012 0v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6c0-1.1.9-2 2-2h6a1 1 0 010 2H4v14h14v-6z"
-                            }
-                          })
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        attrs: { type: "button" },
-                        on: {
-                          click: function($event) {
-                            $event.preventDefault()
-                            return _vm.deleteOnClick(item)
-                          }
-                        }
-                      },
-                      [
-                        _c(
-                          "svg",
-                          {
-                            staticClass: "h-6 w-6",
-                            attrs: {
-                              fill: "currentColor",
-                              xmlns: "http://www.w3.org/2000/svg"
-                            }
-                          },
-                          [
-                            _c("path", {
-                              staticClass: "heroicon-ui",
-                              attrs: {
-                                d:
-                                  "M8 6V4c0-1.1.9-2 2-2h4a2 2 0 012 2v2h5a1 1 0 010 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V8H3a1 1 0 110-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 011 1v6a1 1 0 01-2 0v-6a1 1 0 011-1zm4 0a1 1 0 011 1v6a1 1 0 01-2 0v-6a1 1 0 011-1z"
-                              }
-                            })
-                          ]
-                        )
-                      ]
-                    )
-                  ])
-                ]
-              }
-            }
-          ])
-        },
-        [_vm._v("\n      >\n      ")]
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
+          [children]
+        );
+      } else {
+        var _childrenStyle = {};
+        if (!isMounted) {
+          _childrenStyle.opacity = 0;
+        }
+        children = h(
+          'span',
+          { 'class': prefixCls + '-string', ref: 'avatarChildren', style: { opacity: 0 } },
+          [children]
+        );
+      }
+    }
+    return h(
+      'span',
+      (0, _babelHelperVueJsxMergeProps2['default'])([{ ref: 'avatarNode' }, { on: (0, _propsUtil.getListeners)(this), 'class': classString, style: sizeStyle }]),
+      [children]
+    );
+  }
+};
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue":
-/*!*****************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue ***!
-  \*****************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ "./node_modules/ant-design-vue/lib/avatar/index.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/ant-design-vue/lib/avatar/index.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserGroupTable.vue?vue&type=template&id=2793cb92& */ "./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92&");
-/* harmony import */ var _UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserGroupTable.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
+var _Avatar = __webpack_require__(/*! ./Avatar */ "./node_modules/ant-design-vue/lib/avatar/Avatar.js");
 
+var _Avatar2 = _interopRequireDefault(_Avatar);
 
-/* normalize component */
+var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
+var _base2 = _interopRequireDefault(_base);
 
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-/***/ }),
+/* istanbul ignore next */
+_Avatar2['default'].install = function (Vue) {
+  Vue.use(_base2['default']);
+  Vue.component(_Avatar2['default'].name, _Avatar2['default']);
+};
 
-/***/ "./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UserGroupTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92&":
-/*!************************************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92& ***!
-  \************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UserGroupTable.vue?vue&type=template&id=2793cb92& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=2793cb92&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_2793cb92___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
+exports['default'] = _Avatar2['default'];
 
 /***/ })
 

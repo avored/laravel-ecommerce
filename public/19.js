@@ -1,251 +1,96 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[19],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/catalog/product/ProductSave.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/catalog/product/ProductSave.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
-/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lodash_isObject__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/isObject */ "./node_modules/lodash/isObject.js");
-/* harmony import */ var lodash_isObject__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_isObject__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var vue_quill_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-quill-editor */ "./node_modules/vue-quill-editor/dist/vue-quill-editor.js");
-/* harmony import */ var vue_quill_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_quill_editor__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
-
-
-
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var columns = [{
-  dataIndex: 'name',
-  key: 'name',
-  title: 'Name',
-  scopedSlots: {
-    customRender: 'name'
-  }
+  label: "ID",
+  fieldKey: "id"
 }, {
-  title: 'Price',
-  dataIndex: 'price',
-  key: 'price',
-  scopedSlots: {
-    customRender: 'price'
-  }
+  label: "Name",
+  fieldKey: "name"
 }, {
-  title: 'Qty',
-  dataIndex: 'qty',
-  key: 'qty',
-  scopedSlots: {
-    customRender: 'qty'
-  }
-}, {
-  title: 'Action',
-  key: 'action',
-  scopedSlots: {
-    customRender: 'action'
-  }
+  label: "Actions",
+  slotName: "action"
 }];
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['product', 'baseUrl', 'productProperties', 'productAttributes', 'productVariations'],
-  components: {
-    'quil-editor': vue_quill_editor__WEBPACK_IMPORTED_MODULE_2__["quillEditor"]
-  },
+  props: ['baseUrl', 'initRoles'],
   data: function data() {
     return {
-      productForm: this.$form.createForm(this),
-      variationForm: this.$form.createForm(this),
-      type: null,
-      headers: {},
-      description: null,
-      status: 0,
-      track_stock: 0,
-      is_taxable: 0,
-      categories: [],
-      property: {},
-      productImages: [],
-      attributeIds: [],
-      variationUploadImagePath: '',
-      variationImageList: {},
-      columns: columns,
-      variationModelVisible: false,
-      variationFields: ['id', 'name', 'slug', 'barcode', 'sku', 'qty', 'price', 'weight', 'length', 'width', 'height']
+      columns: columns
     };
   },
   methods: {
-    handleUploadImageChange: function handleUploadImageChange() {},
-    clickVariationSave: function clickVariationSave(e) {
-      var _this = this;
-
-      this.variationForm.validateFields(function (err, data) {
-        if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(err)) {
-          var url = _this.baseUrl + '/variation/' + _this.product.id + '/save-variation';
-          var app = _this;
-          axios__WEBPACK_IMPORTED_MODULE_3___default.a.post(url, data).then(function (res) {
-            if (res.data.success) {
-              app.$notification.success({
-                key: 'product.save.variation.success',
-                message: res.data.message
+    getEditUrl: function getEditUrl(record) {
+      return this.baseUrl + '/role/' + record.id + '/edit';
+    },
+    getDeleteUrl: function getDeleteUrl(record) {
+      return this.baseUrl + '/role/' + record.id;
+    },
+    deleteOnClick: function deleteOnClick(record) {
+      var url = this.baseUrl + '/role/' + record.id;
+      var app = this;
+      this.$confirm({
+        title: 'Do you Want to delete ' + record.name + ' role?',
+        okType: 'danger',
+        onOk: function onOk() {
+          axios["delete"](url).then(function (response) {
+            if (response.data.success === true) {
+              app.$notification.error({
+                key: 'role.delete.success',
+                message: response.data.message
               });
-              window.location.reload();
-            } else {
-              alert('there is an error');
             }
+
+            window.location.reload();
+          })["catch"](function (errors) {
+            app.$notification.error({
+              key: 'role.delete.error',
+              message: errors.message
+            });
           });
+        },
+        onCancel: function onCancel() {// Do nothing
         }
-      });
-    },
-    deleteVariation: function deleteVariation(model) {
-      var url = this.baseUrl + '/variation/' + model.variation_id;
-      var app = this;
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"](url).then(function (res) {
-        if (res.data.success) {
-          app.$notification.success({
-            key: 'product.delete.variation.success',
-            message: res.data.message
-          });
-          window.location.reload();
-        } else {
-          alert('there is an error');
-        }
-      });
-    },
-    getVariationUploadAction: function getVariationUploadAction() {},
-    editVariationModel: function editVariationModel(model) {
-      var _this2 = this;
-
-      this.variationModelVisible = true;
-      var variationModel = model.variation;
-      this.variationFields.forEach(function (field) {
-        _this2.variationForm.getFieldDecorator(field, {
-          initialValue: variationModel[field]
-        });
-      });
-      this.variationUploadImagePath = this.baseUrl + '/product-image/' + variationModel.id + '/upload';
-
-      if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(variationModel.images[0])) {
-        var fileName = variationModel.images[0].path.replace(/^.*[\\\/]/, '');
-        this.variationImageList = [{
-          uid: variationModel.images[0].id,
-          name: fileName,
-          status: 'done',
-          url: '/storage/' + variationModel.images[0].path
-        }];
-      } else {
-        this.variationImageList = [];
-      }
-    },
-    handleSubmit: function handleSubmit(e) {
-      this.productForm.validateFields(function (err, values) {
-        if (err !== null) {
-          e.preventDefault();
-        }
-      });
-    },
-    handleVariationBtnClick: function handleVariationBtnClick(e) {
-      var data = {
-        attributes: this.attributeIds
-      };
-      var url = this.baseUrl + '/variation/' + this.product.id + '/create-variation';
-      var app = this;
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post(url, data).then(function (res) {
-        if (res.data.success) {
-          app.$notification.success({
-            key: 'product.create.variation.success',
-            message: res.data.message
-          });
-          window.location.reload();
-        } else {
-          alert('there is an error');
-        }
-      });
-    },
-    changeVariation: function changeVariation(values) {
-      var app = this;
-      values.forEach(function (val) {
-        app.attributeIds.push(val);
-      });
-    },
-    handlePropertyChange: function handlePropertyChange(id, val) {
-      var propertyValue = '';
-      propertyValue = val;
-
-      if (lodash_isObject__WEBPACK_IMPORTED_MODULE_1___default()(val)) {
-        propertyValue = val.target.value;
-      }
-
-      this.property[id] = propertyValue;
-    },
-    handleTypeChange: function handleTypeChange(val) {
-      this.type = val;
-    },
-    handleStatusChange: function handleStatusChange(val) {
-      if (val) {
-        this.status = 1;
-      } else {
-        this.status = 0;
-      }
-    },
-    handleCategoryChange: function handleCategoryChange(val) {
-      this.categories = val;
-    },
-    handleTrackStockChange: function handleTrackStockChange(val) {
-      if (val) {
-        this.track_stock = 1;
-      } else {
-        this.track_stock = 0;
-      }
-    },
-    handleIsTaxableChange: function handleIsTaxableChange(val) {
-      if (val) {
-        this.is_taxable = 1;
-      } else {
-        this.is_taxable = 0;
-      }
-    },
-    cancelProduct: function cancelProduct() {
-      window.location = this.baseUrl + '/product';
-    },
-    uploadFileChange: function uploadFileChange(file) {
-      if (file.file.status == 'done') {
-        this.productImages.push(file.file.response.image);
-      }
-    },
-    deleteImage: function deleteImage(id) {
-      var deleteImageUrl = this.baseUrl + '/product-image/' + id;
-      var app = this;
-      var imageId = id;
-      axios__WEBPACK_IMPORTED_MODULE_3___default.a["delete"](deleteImageUrl).then(function (result) {
-        if (result.data.success) {
-          var index = app.productImages.findIndex(function (image) {
-            return image.id === imageId;
-          });
-          app.productImages.splice(index, 1);
-        }
-      });
-    }
-  },
-  mounted: function mounted() {
-    var _this3 = this;
-
-    this.headers = {
-      'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-    };
-
-    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.product)) {
-      this.type = this.product.type;
-      this.description = this.product.description;
-      this.productProperties.forEach(function (record) {
-        _this3.property[record.id] = record.product_value.value;
-      });
-      this.productAttributes.forEach(function (record) {
-        _this3.attributeIds.push(record.id);
-      });
-      this.product.images.forEach(function (record) {
-        _this3.productImages.push(record);
       });
     }
   }
@@ -253,28 +98,141 @@ var columns = [{
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/catalog/product/ProductSave.vue":
-/*!**************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/catalog/product/ProductSave.vue ***!
-  \**************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=template&id=32968840&":
+/*!*********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=template&id=32968840& ***!
+  \*********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "mt-3" },
+    [
+      _c(
+        "avored-table",
+        {
+          attrs: {
+            columns: _vm.columns,
+            from: _vm.initRoles.from,
+            to: _vm.initRoles.to,
+            total: _vm.initRoles.total,
+            prev_page_url: _vm.initRoles.prev_page_url,
+            next_page_url: _vm.initRoles.next_page_url,
+            items: _vm.initRoles.data
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function(ref) {
+                var item = ref.item
+                return [
+                  _c("div", { staticClass: "flex items-center" }, [
+                    _c("a", { attrs: { href: _vm.getEditUrl(item) } }, [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "h-6 w-6",
+                          attrs: {
+                            fill: "currentColor",
+                            xmlns: "http://www.w3.org/2000/svg"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "heroicon-ui",
+                            attrs: {
+                              d:
+                                "M6.3 12.3l10-10a1 1 0 011.4 0l4 4a1 1 0 010 1.4l-10 10a1 1 0 01-.7.3H7a1 1 0 01-1-1v-4a1 1 0 01.3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 012 0v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6c0-1.1.9-2 2-2h6a1 1 0 010 2H4v14h14v-6z"
+                            }
+                          })
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.deleteOnClick(item)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "h-6 w-6",
+                            attrs: {
+                              fill: "currentColor",
+                              xmlns: "http://www.w3.org/2000/svg"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              staticClass: "heroicon-ui",
+                              attrs: {
+                                d:
+                                  "M8 6V4c0-1.1.9-2 2-2h4a2 2 0 012 2v2h5a1 1 0 010 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V8H3a1 1 0 110-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 011 1v6a1 1 0 01-2 0v-6a1 1 0 011-1zm4 0a1 1 0 011 1v6a1 1 0 01-2 0v-6a1 1 0 011-1z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              }
+            }
+          ])
+        },
+        [_vm._v("\n      >\n      ")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/system/role/RoleTable.vue":
+/*!********************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/role/RoleTable.vue ***!
+  \********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _ProductSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProductSave.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/catalog/product/ProductSave.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-var render, staticRenderFns
+/* harmony import */ var _RoleTable_vue_vue_type_template_id_32968840___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoleTable.vue?vue&type=template&id=32968840& */ "./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=template&id=32968840&");
+/* harmony import */ var _RoleTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoleTable.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _ProductSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
-  render,
-  staticRenderFns,
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _RoleTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RoleTable_vue_vue_type_template_id_32968840___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RoleTable_vue_vue_type_template_id_32968840___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -284,22 +242,40 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vendor/avored/framework/resources/components/catalog/product/ProductSave.vue"
+component.options.__file = "vendor/avored/framework/resources/components/system/role/RoleTable.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/catalog/product/ProductSave.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/catalog/product/ProductSave.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************/
+/***/ "./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./ProductSave.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/catalog/product/ProductSave.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./RoleTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=template&id=32968840&":
+/*!***************************************************************************************************************!*\
+  !*** ./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=template&id=32968840& ***!
+  \***************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleTable_vue_vue_type_template_id_32968840___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./RoleTable.vue?vue&type=template&id=32968840& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/role/RoleTable.vue?vue&type=template&id=32968840&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleTable_vue_vue_type_template_id_32968840___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleTable_vue_vue_type_template_id_32968840___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ })
 
