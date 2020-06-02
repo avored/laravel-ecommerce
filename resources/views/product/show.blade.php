@@ -16,8 +16,19 @@
 @section('content')
 <product-page :product="{{ $product }}" :variations="{{ $product->getVariations() }}" inline-template>
 <div>
+
+    
+    @if (session('type') === 'success')
+      @include('components.success', ['message' => session('message')])
+    @endif
+    @if (session('type') === 'error')
+      @include('components.error', ['message' => session('message')])
+    @endif
+   
   <a-row :gutter="15">
+    
     <a-col :span="8">
+      
       <a-card>
           <img class="product-main-image" :src="productMainImage" /> 
       </a-card>

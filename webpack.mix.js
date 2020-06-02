@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
-
+const tailwindcss = require('tailwindcss')
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -25,4 +25,7 @@ mix.less('resources/less/app.less', 'public/css/app.css', {
         'link-color': '#C12E32',
         'border-radius-base': '5px',
     },
+}).options({
+    processCssUrls: false,
+    postCss: [ tailwindcss('tailwind.config.js') ],
 })
