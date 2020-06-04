@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[14],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -46,20 +46,20 @@ var columns = [{
   label: "ID",
   fieldKey: "id"
 }, {
-  label: "First Name",
-  fieldKey: "first_name"
+  label: "Name",
+  fieldKey: "name"
 }, {
-  label: "Last Name",
-  fieldKey: "last_name"
+  label: "Code",
+  fieldKey: "code"
 }, {
-  label: "Email",
-  fieldKey: "email"
+  label: "Conversation Rate",
+  fieldKey: "conversation_rate"
 }, {
   label: "Actions",
   slotName: "action"
 }];
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['baseUrl', 'initAdminUsers'],
+  props: ['baseUrl', 'initCurrencies'],
   data: function data() {
     return {
       columns: columns
@@ -67,22 +67,22 @@ var columns = [{
   },
   methods: {
     getEditUrl: function getEditUrl(record) {
-      return this.baseUrl + '/admin-user/' + record.id + '/edit';
+      return this.baseUrl + '/currency/' + record.id + '/edit';
     },
     getDeleteUrl: function getDeleteUrl(record) {
-      return this.baseUrl + '/admin-user/' + record.id;
+      return this.baseUrl + '/currency/' + record.id;
     },
     deleteOnClick: function deleteOnClick(record) {
-      var url = this.baseUrl + '/admin-user/' + record.id;
+      var url = this.baseUrl + '/currency/' + record.id;
       var app = this;
       this.$confirm({
-        title: 'Do you Want to delete ' + record.name + ' admin-user?',
+        title: 'Do you Want to delete ' + record.name + ' currency?',
         okType: 'danger',
         onOk: function onOk() {
           axios["delete"](url).then(function (response) {
             if (response.data.success === true) {
               app.$notification.error({
-                key: 'admin.user.delete.success',
+                key: 'currency.delete.success',
                 message: response.data.message
               });
             }
@@ -90,7 +90,7 @@ var columns = [{
             window.location.reload();
           })["catch"](function (errors) {
             app.$notification.error({
-              key: 'admin.user.delete.error',
+              key: 'currency.delete.error',
               message: errors.message
             });
           });
@@ -104,10 +104,10 @@ var columns = [{
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=template&id=7854c16e&":
-/*!********************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=template&id=7854c16e& ***!
-  \********************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=template&id=3e96b136&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=template&id=3e96b136& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -128,12 +128,12 @@ var render = function() {
         {
           attrs: {
             columns: _vm.columns,
-            from: _vm.initAdminUsers.from,
-            to: _vm.initAdminUsers.to,
-            total: _vm.initAdminUsers.total,
-            prev_page_url: _vm.initAdminUsers.prev_page_url,
-            next_page_url: _vm.initAdminUsers.next_page_url,
-            items: _vm.initAdminUsers.data
+            from: _vm.initCurrencies.from,
+            to: _vm.initCurrencies.to,
+            total: _vm.initCurrencies.total,
+            prev_page_url: _vm.initCurrencies.prev_page_url,
+            next_page_url: _vm.initCurrencies.next_page_url,
+            items: _vm.initCurrencies.data
           },
           scopedSlots: _vm._u([
             {
@@ -216,18 +216,18 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue":
-/*!*******************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue ***!
-  \*******************************************************************************************/
+/***/ "./packages/framework/resources/components/system/currency/CurrencyTable.vue":
+/*!***********************************************************************************!*\
+  !*** ./packages/framework/resources/components/system/currency/CurrencyTable.vue ***!
+  \***********************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _AdminUserTable_vue_vue_type_template_id_7854c16e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./AdminUserTable.vue?vue&type=template&id=7854c16e& */ "./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=template&id=7854c16e&");
-/* harmony import */ var _AdminUserTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./AdminUserTable.vue?vue&type=script&lang=js& */ "./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _CurrencyTable_vue_vue_type_template_id_3e96b136___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CurrencyTable.vue?vue&type=template&id=3e96b136& */ "./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=template&id=3e96b136&");
+/* harmony import */ var _CurrencyTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CurrencyTable.vue?vue&type=script&lang=js& */ "./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -236,9 +236,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _AdminUserTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _AdminUserTable_vue_vue_type_template_id_7854c16e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _AdminUserTable_vue_vue_type_template_id_7854c16e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _CurrencyTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CurrencyTable_vue_vue_type_template_id_3e96b136___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CurrencyTable_vue_vue_type_template_id_3e96b136___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -248,38 +248,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue"
+component.options.__file = "packages/framework/resources/components/system/currency/CurrencyTable.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************************/
+/***/ "./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************!*\
+  !*** ./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminUserTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminUserTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminUserTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CurrencyTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CurrencyTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CurrencyTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=template&id=7854c16e&":
-/*!**************************************************************************************************************************!*\
-  !*** ./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=template&id=7854c16e& ***!
-  \**************************************************************************************************************************/
+/***/ "./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=template&id=3e96b136&":
+/*!******************************************************************************************************************!*\
+  !*** ./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=template&id=3e96b136& ***!
+  \******************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminUserTable_vue_vue_type_template_id_7854c16e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../../node_modules/vue-loader/lib??vue-loader-options!./AdminUserTable.vue?vue&type=template&id=7854c16e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./vendor/avored/framework/resources/components/system/admin-user/AdminUserTable.vue?vue&type=template&id=7854c16e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminUserTable_vue_vue_type_template_id_7854c16e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CurrencyTable_vue_vue_type_template_id_3e96b136___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./CurrencyTable.vue?vue&type=template&id=3e96b136& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./packages/framework/resources/components/system/currency/CurrencyTable.vue?vue&type=template&id=3e96b136&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CurrencyTable_vue_vue_type_template_id_3e96b136___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_AdminUserTable_vue_vue_type_template_id_7854c16e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CurrencyTable_vue_vue_type_template_id_3e96b136___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

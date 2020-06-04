@@ -46,7 +46,7 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "AvoRed\\Framework\\Tests\\": "vendor/avored/framework/tests/"
+            "AvoRed\\Framework\\Tests\\": "packages/framework/tests/"
 
         }
     },

@@ -17,8 +17,8 @@ const tailwindcss = require('tailwindcss')
 //     }
 // })
 
-mix.js('vendor/avored/framework/resources/js/app.js', 'public/avored-admin/js/app.js');
-mix.less('vendor/avored/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
+mix.js('packages/framework/resources/js/app.js', 'public/avored-admin/js/app.js');
+mix.less('packages/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
     javascriptEnabled: true,
     modifyVars: {
         'primary-color': '#E64448',

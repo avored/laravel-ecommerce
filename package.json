@@ -39,6 +39,7 @@
     },
     "dependencies": {
         "tailwindcss": "^1.4.6",
+        "v-click-outside": "^3.0.1",
         "vue-i18n": "^8.18.1"
     }
 }
