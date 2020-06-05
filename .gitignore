@@ -13,4 +13,5 @@ npm-debug.log
 yarn-error.log
 composer.lock
 .DS_Store
-
+/packages
+/storage/debugbar
