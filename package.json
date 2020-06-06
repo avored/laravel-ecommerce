@@ -11,7 +11,7 @@
         "avored:prod": "npm run production -- --env.mixfile=avored.webpack.mix.js",
         "avored:watch": "npm run development -- --env.mixfile=avored.webpack.mix.js  --watch",
         "avored:dev": "npm run development -- --env.mixfile=avored.webpack.mix.js",
-        "avored:hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --https --key ~/.config/valet/Certificates/laravel-ecommerce.test.key --cert ~/.config/valet/Certificates/laravel-ecommerce.test.crt --config=node_modules/laravel-mix/setup/webpack.config.js --env.mixfile=avored.webpack.mix.js"
+        "avored:hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --https --key ~/.config/valet/Certificates/laravel-ecommerce.test.key --cert ~/.config/valet/Certificates/laravel-ecommerce.test.crt --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
         "ant-design-vue": "^1.3.13",

@@ -1,371 +1,284 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[20],{
 
-/***/ "./node_modules/ant-design-vue/lib/switch/index.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/switch/index.js ***!
-  \*********************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-var _propsUtil2 = _interopRequireDefault(_propsUtil);
-
-var _vcSwitch = __webpack_require__(/*! ../vc-switch */ "./node_modules/ant-design-vue/lib/vc-switch/index.js");
-
-var _vcSwitch2 = _interopRequireDefault(_vcSwitch);
-
-var _wave = __webpack_require__(/*! ../_util/wave */ "./node_modules/ant-design-vue/lib/_util/wave.js");
-
-var _wave2 = _interopRequireDefault(_wave);
-
-var _icon = __webpack_require__(/*! ../icon */ "./node_modules/ant-design-vue/lib/icon/index.js");
-
-var _icon2 = _interopRequireDefault(_icon);
-
-var _configProvider = __webpack_require__(/*! ../config-provider */ "./node_modules/ant-design-vue/lib/config-provider/index.js");
-
-var _base = __webpack_require__(/*! ../base */ "./node_modules/ant-design-vue/lib/base/index.js");
-
-var _base2 = _interopRequireDefault(_base);
-
-var _warning = __webpack_require__(/*! ../_util/warning */ "./node_modules/ant-design-vue/lib/_util/warning.js");
-
-var _warning2 = _interopRequireDefault(_warning);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var Switch = {
-  name: 'ASwitch',
-  __ANT_SWITCH: true,
-  model: {
-    prop: 'checked',
-    event: 'change'
-  },
-  props: {
-    prefixCls: _vueTypes2['default'].string,
-    // size=default and size=large are the same
-    size: _vueTypes2['default'].oneOf(['small', 'default', 'large']),
-    disabled: _vueTypes2['default'].bool,
-    checkedChildren: _vueTypes2['default'].any,
-    unCheckedChildren: _vueTypes2['default'].any,
-    tabIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-    checked: _vueTypes2['default'].bool,
-    defaultChecked: _vueTypes2['default'].bool,
-    autoFocus: _vueTypes2['default'].bool,
-    loading: _vueTypes2['default'].bool
-  },
-  inject: {
-    configProvider: { 'default': function _default() {
-        return _configProvider.ConfigConsumerProps;
-      } }
-  },
-  methods: {
-    focus: function focus() {
-      this.$refs.refSwitchNode.focus();
-    },
-    blur: function blur() {
-      this.$refs.refSwitchNode.blur();
-    }
-  },
-  created: function created() {
-    (0, _warning2['default'])((0, _propsUtil2['default'])(this, 'checked') || !(0, _propsUtil2['default'])(this, 'value'), 'Switch', '`value` is not validate prop, do you mean `checked`?');
-  },
-  render: function render() {
-    var _classes;
-
-    var h = arguments[0];
-
-    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-        customizePrefixCls = _getOptionProps.prefixCls,
-        size = _getOptionProps.size,
-        loading = _getOptionProps.loading,
-        disabled = _getOptionProps.disabled,
-        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'size', 'loading', 'disabled']);
-
-    var getPrefixCls = this.configProvider.getPrefixCls;
-    var prefixCls = getPrefixCls('switch', customizePrefixCls);
-
-    var classes = (_classes = {}, (0, _defineProperty3['default'])(_classes, prefixCls + '-small', size === 'small'), (0, _defineProperty3['default'])(_classes, prefixCls + '-loading', loading), _classes);
-    var loadingIcon = loading ? h(_icon2['default'], {
-      attrs: { type: 'loading' },
-      'class': prefixCls + '-loading-icon' }) : null;
-    var switchProps = {
-      props: (0, _extends3['default'])({}, restProps, {
-        prefixCls: prefixCls,
-        loadingIcon: loadingIcon,
-        checkedChildren: (0, _propsUtil.getComponentFromProp)(this, 'checkedChildren'),
-        unCheckedChildren: (0, _propsUtil.getComponentFromProp)(this, 'unCheckedChildren'),
-        disabled: disabled || loading
-      }),
-      on: (0, _propsUtil.getListeners)(this),
-      'class': classes,
-      ref: 'refSwitchNode'
-    };
-    return h(
-      _wave2['default'],
-      {
-        attrs: { insertExtraNode: true }
-      },
-      [h(_vcSwitch2['default'], switchProps)]
-    );
-  }
-};
-
-/* istanbul ignore next */
-Switch.install = function (Vue) {
-  Vue.use(_base2['default']);
-  Vue.component(Switch.name, Switch);
-};
-
-exports['default'] = Switch;
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-switch/PropTypes.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-switch/PropTypes.js ***!
-  \****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.switchPropTypes = undefined;
-
-var _vueTypes = __webpack_require__(/*! ../_util/vue-types */ "./node_modules/ant-design-vue/lib/_util/vue-types/index.js");
-
-var _vueTypes2 = _interopRequireDefault(_vueTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var switchPropTypes = exports.switchPropTypes = {
-  prefixCls: _vueTypes2['default'].string,
-  disabled: _vueTypes2['default'].bool.def(false),
-  checkedChildren: _vueTypes2['default'].any,
-  unCheckedChildren: _vueTypes2['default'].any,
-  // onChange: PropTypes.func,
-  // onMouseUp: PropTypes.func,
-  // onClick: PropTypes.func,
-  tabIndex: _vueTypes2['default'].oneOfType([_vueTypes2['default'].string, _vueTypes2['default'].number]),
-  checked: _vueTypes2['default'].bool.def(false),
-  defaultChecked: _vueTypes2['default'].bool.def(false),
-  autoFocus: _vueTypes2['default'].bool.def(false),
-  loadingIcon: _vueTypes2['default'].any
-};
-
-/***/ }),
-
-/***/ "./node_modules/ant-design-vue/lib/vc-switch/Switch.js":
-/*!*************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-switch/Switch.js ***!
-  \*************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _defineProperty2 = __webpack_require__(/*! babel-runtime/helpers/defineProperty */ "./node_modules/babel-runtime/helpers/defineProperty.js");
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-var _objectWithoutProperties2 = __webpack_require__(/*! babel-runtime/helpers/objectWithoutProperties */ "./node_modules/babel-runtime/helpers/objectWithoutProperties.js");
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _extends2 = __webpack_require__(/*! babel-runtime/helpers/extends */ "./node_modules/babel-runtime/helpers/extends.js");
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _PropTypes = __webpack_require__(/*! ./PropTypes */ "./node_modules/ant-design-vue/lib/vc-switch/PropTypes.js");
-
-var _BaseMixin = __webpack_require__(/*! ../_util/BaseMixin */ "./node_modules/ant-design-vue/lib/_util/BaseMixin.js");
-
-var _BaseMixin2 = _interopRequireDefault(_BaseMixin);
-
-var _propsUtil = __webpack_require__(/*! ../_util/props-util */ "./node_modules/ant-design-vue/lib/_util/props-util.js");
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-// function noop () {
-// }
-exports['default'] = {
-  name: 'VcSwitch',
-  mixins: [_BaseMixin2['default']],
-  model: {
-    prop: 'checked',
-    event: 'change'
-  },
-  props: (0, _extends3['default'])({}, _PropTypes.switchPropTypes, {
-    prefixCls: _PropTypes.switchPropTypes.prefixCls.def('rc-switch')
-    // onChange: switchPropTypes.onChange.def(noop),
-    // onClick: switchPropTypes.onClick.def(noop),
-  }),
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+var columns = [{
+  label: "ID",
+  fieldKey: "id"
+}, {
+  label: "Name",
+  fieldKey: "name"
+}, {
+  label: "Is Default",
+  fieldKey: "is_default"
+}, {
+  label: "Actions",
+  slotName: "action"
+}];
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['baseUrl', 'initUserGroups'],
   data: function data() {
-    var checked = false;
-    if ((0, _propsUtil.hasProp)(this, 'checked')) {
-      checked = !!this.checked;
-    } else {
-      checked = !!this.defaultChecked;
-    }
     return {
-      stateChecked: checked
+      columns: columns
     };
   },
-
-  watch: {
-    checked: function checked(val) {
-      this.stateChecked = val;
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    this.$nextTick(function () {
-      var autoFocus = _this.autoFocus,
-          disabled = _this.disabled;
-
-      if (autoFocus && !disabled) {
-        _this.focus();
-      }
-    });
-  },
-
   methods: {
-    setChecked: function setChecked(checked, e) {
-      if (this.disabled) {
-        return;
-      }
-      if (!(0, _propsUtil.hasProp)(this, 'checked')) {
-        this.stateChecked = checked;
-      }
-      this.$emit('change', checked, e);
+    getEditUrl: function getEditUrl(record) {
+      return this.baseUrl + '/user-group/' + record.id + '/edit';
     },
-    handleClick: function handleClick(e) {
-      var checked = !this.stateChecked;
-      this.setChecked(checked, e);
-      this.$emit('click', checked, e);
+    getDeleteUrl: function getDeleteUrl(record) {
+      return this.baseUrl + '/user-group/' + record.id;
     },
-    handleKeyDown: function handleKeyDown(e) {
-      if (e.keyCode === 37) {
-        // Left
-        this.setChecked(false, e);
-      } else if (e.keyCode === 39) {
-        // Right
-        this.setChecked(true, e);
-      }
-    },
-    handleMouseUp: function handleMouseUp(e) {
-      if (this.$refs.refSwitchNode) {
-        this.$refs.refSwitchNode.blur();
-      }
-      this.$emit('mouseup', e);
-    },
-    focus: function focus() {
-      this.$refs.refSwitchNode.focus();
-    },
-    blur: function blur() {
-      this.$refs.refSwitchNode.blur();
+    deleteOnClick: function deleteOnClick(record) {
+      var url = this.baseUrl + '/user-group/' + record.id;
+      var app = this;
+      this.$confirm({
+        title: 'Do you Want to delete ' + record.name + ' user-group?',
+        okType: 'danger',
+        onOk: function onOk() {
+          axios["delete"](url).then(function (response) {
+            if (response.data.success === true) {
+              app.$notification.error({
+                key: 'user.group.delete.success',
+                message: response.data.message
+              });
+            }
+
+            window.location.reload();
+          })["catch"](function (errors) {
+            app.$notification.error({
+              key: 'user.group.delete.error',
+              message: errors.message
+            });
+          });
+        },
+        onCancel: function onCancel() {// Do nothing
+        }
+      });
     }
-  },
-  render: function render() {
-    var _switchClassName;
-
-    var h = arguments[0];
-
-    var _getOptionProps = (0, _propsUtil.getOptionProps)(this),
-        prefixCls = _getOptionProps.prefixCls,
-        disabled = _getOptionProps.disabled,
-        loadingIcon = _getOptionProps.loadingIcon,
-        tabIndex = _getOptionProps.tabIndex,
-        restProps = (0, _objectWithoutProperties3['default'])(_getOptionProps, ['prefixCls', 'disabled', 'loadingIcon', 'tabIndex']);
-
-    var checked = this.stateChecked;
-    var switchClassName = (_switchClassName = {}, (0, _defineProperty3['default'])(_switchClassName, prefixCls, true), (0, _defineProperty3['default'])(_switchClassName, prefixCls + '-checked', checked), (0, _defineProperty3['default'])(_switchClassName, prefixCls + '-disabled', disabled), _switchClassName);
-    var spanProps = {
-      props: (0, _extends3['default'])({}, restProps),
-      on: (0, _extends3['default'])({}, (0, _propsUtil.getListeners)(this), {
-        keydown: this.handleKeyDown,
-        click: this.handleClick,
-        mouseup: this.handleMouseUp
-      }),
-      attrs: {
-        type: 'button',
-        role: 'switch',
-        'aria-checked': checked,
-        disabled: disabled,
-        tabIndex: tabIndex
-      },
-      'class': switchClassName,
-      ref: 'refSwitchNode'
-    };
-    return h(
-      'button',
-      spanProps,
-      [loadingIcon, h(
-        'span',
-        { 'class': prefixCls + '-inner' },
-        [checked ? (0, _propsUtil.getComponentFromProp)(this, 'checkedChildren') : (0, _propsUtil.getComponentFromProp)(this, 'unCheckedChildren')]
-      )]
-    );
   }
-};
+});
 
 /***/ }),
 
-/***/ "./node_modules/ant-design-vue/lib/vc-switch/index.js":
-/*!************************************************************!*\
-  !*** ./node_modules/ant-design-vue/lib/vc-switch/index.js ***!
-  \************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=0d2d9472&":
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=0d2d9472& ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "mt-3" },
+    [
+      _c(
+        "avored-table",
+        {
+          attrs: {
+            columns: _vm.columns,
+            from: _vm.initUserGroups.from,
+            to: _vm.initUserGroups.to,
+            total: _vm.initUserGroups.total,
+            prev_page_url: _vm.initUserGroups.prev_page_url,
+            next_page_url: _vm.initUserGroups.next_page_url,
+            items: _vm.initUserGroups.data
+          },
+          scopedSlots: _vm._u([
+            {
+              key: "action",
+              fn: function(ref) {
+                var item = ref.item
+                return [
+                  _c("div", { staticClass: "flex items-center" }, [
+                    _c("a", { attrs: { href: _vm.getEditUrl(item) } }, [
+                      _c(
+                        "svg",
+                        {
+                          staticClass: "h-6 w-6",
+                          attrs: {
+                            fill: "currentColor",
+                            xmlns: "http://www.w3.org/2000/svg"
+                          }
+                        },
+                        [
+                          _c("path", {
+                            staticClass: "heroicon-ui",
+                            attrs: {
+                              d:
+                                "M6.3 12.3l10-10a1 1 0 011.4 0l4 4a1 1 0 010 1.4l-10 10a1 1 0 01-.7.3H7a1 1 0 01-1-1v-4a1 1 0 01.3-.7zM8 16h2.59l9-9L17 4.41l-9 9V16zm10-2a1 1 0 012 0v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6c0-1.1.9-2 2-2h6a1 1 0 010 2H4v14h14v-6z"
+                            }
+                          })
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        attrs: { type: "button" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            return _vm.deleteOnClick(item)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "h-6 w-6",
+                            attrs: {
+                              fill: "currentColor",
+                              xmlns: "http://www.w3.org/2000/svg"
+                            }
+                          },
+                          [
+                            _c("path", {
+                              staticClass: "heroicon-ui",
+                              attrs: {
+                                d:
+                                  "M8 6V4c0-1.1.9-2 2-2h4a2 2 0 012 2v2h5a1 1 0 010 2h-1v12a2 2 0 01-2 2H6a2 2 0 01-2-2V8H3a1 1 0 110-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 011 1v6a1 1 0 01-2 0v-6a1 1 0 011-1zm4 0a1 1 0 011 1v6a1 1 0 01-2 0v-6a1 1 0 011-1z"
+                              }
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              }
+            }
+          ])
+        },
+        [_vm._v("\n      >\n      ")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var _Switch = __webpack_require__(/*! ./Switch */ "./node_modules/ant-design-vue/lib/vc-switch/Switch.js");
+/***/ }),
 
-var _Switch2 = _interopRequireDefault(_Switch);
+/***/ "./packages/framework/resources/components/user/user-group/UserGroupTable.vue":
+/*!************************************************************************************!*\
+  !*** ./packages/framework/resources/components/user/user-group/UserGroupTable.vue ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _UserGroupTable_vue_vue_type_template_id_0d2d9472___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserGroupTable.vue?vue&type=template&id=0d2d9472& */ "./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=0d2d9472&");
+/* harmony import */ var _UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserGroupTable.vue?vue&type=script&lang=js& */ "./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
-exports['default'] = _Switch2['default']; // base rc-switch 1.9.0
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UserGroupTable_vue_vue_type_template_id_0d2d9472___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UserGroupTable_vue_vue_type_template_id_0d2d9472___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "packages/framework/resources/components/user/user-group/UserGroupTable.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************!*\
+  !*** ./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UserGroupTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=0d2d9472&":
+/*!*******************************************************************************************************************!*\
+  !*** ./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=0d2d9472& ***!
+  \*******************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_0d2d9472___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./UserGroupTable.vue?vue&type=template&id=0d2d9472& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./packages/framework/resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=0d2d9472&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_0d2d9472___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_0d2d9472___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
 
 /***/ })
 
