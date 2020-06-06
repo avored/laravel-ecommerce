@@ -15,3 +15,6 @@ composer.lock
 .DS_Store
 /packages
 /storage/debugbar
+Dockerfile
+docker-compose.yml
+/Docker
