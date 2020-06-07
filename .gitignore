@@ -18,3 +18,4 @@ composer.lock
 Dockerfile
 docker-compose.yml
 /Docker
+docker-command.md
