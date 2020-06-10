@@ -10,7 +10,7 @@ const tailwindcss = require('tailwindcss')
  | file for the application as well as bundling up all the JS files.
  |
  */
-
+    
 
 
 mix.webpackConfig({
@@ -25,19 +25,19 @@ mix.webpackConfig({
 //         chunkFilename: mix.inProduction() ? "js/chunk/[name].[chunkhash].js" : "js/chunk/[name].js",
 //     }
 // })
-// mix.js('resources/js/app.js', 'public/js/app.js');
+mix.js('resources/js/app.js', 'public/js/app.js');
 
-// mix.less('resources/less/app.less', 'public/css/app.css', {
-//     javascriptEnabled: true,
-//     modifyVars: {
-//         'primary-color': '#E64448',
-//         'link-color': '#C12E32',
-//         'border-radius-base': '5px',
-//     },
-// }).options({
-//     processCssUrls: false,
-//     postCss: [ tailwindcss('tailwind.config.js') ],
-// })
+mix.less('resources/less/app.less', 'public/css/app.css', {
+    javascriptEnabled: true,
+    modifyVars: {
+        'primary-color': '#E64448',
+        'link-color': '#C12E32',
+        'border-radius-base': '5px',
+    },
+}).options({
+    processCssUrls: false,
+    postCss: [ tailwindcss('tailwind.config.js') ],
+})
 
 let url = process.env.APP_URL.replace(/(^\w+:|^)\/\//, '');
 mix.options({
