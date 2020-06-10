@@ -30,7 +30,7 @@ class OrderController extends Controller
     /**
      * @var \AvoRed\Framework\Database\Repository\OrderProductRepository
      */
-    protected $oderProductRepository;
+    protected $orderProductRepository;
 
     /**
      * @var \AvoRed\Framework\Database\Repository\OrderProductAttributeRepository
@@ -82,7 +82,7 @@ class OrderController extends Controller
         $this->addressRepository = $addressRepository;
         $this->orderRepository = $orderRepository;
         $this->oderStatusRepository = $orderStatusRepository;
-        $this->oderProductRepository = $orderProductRepository;
+        $this->orderProductRepository = $orderProductRepository;
         $this->oderProductAttributeRepository = $orderProductAttributeRepository;
     }
 
@@ -240,7 +240,7 @@ class OrderController extends Controller
                 'price' => $cartProduct->price(),
                 'tax_amount' => $cartProduct->taxAmount(),
             ];
-            $orderProductModel = $this->oderProductRepository->create($orderProductData);
+            $orderProductModel = $this->orderProductRepository->create($orderProductData);
 
             $attributes = $cartProduct->attributes();
 
@@ -251,8 +251,7 @@ class OrderController extends Controller
                         'attribute_id' => $attribute['attribute_id'],
                         'attribute_dropdown_option_id' => $attribute['attribute_dropdown_option_id'],
                     ];
-                    $orderProductAttributeModel = $this->oderProductAttributeRepository
-                        ->create($orderProductAttributeData);
+                    $this->oderProductAttributeRepository->create($orderProductAttributeData);
                 }
             }
         }

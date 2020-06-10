@@ -12,3 +12,10 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 composer.lock
+.DS_Store
+/packages
+/storage/debugbar
+Dockerfile
+docker-compose.yml
+/Docker
+docker-command.md
