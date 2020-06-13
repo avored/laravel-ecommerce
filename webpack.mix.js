@@ -1,5 +1,6 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
 const tailwindcss = require('tailwindcss')
+
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -13,11 +14,11 @@ const tailwindcss = require('tailwindcss')
     
 
 
-mix.webpackConfig({
-    output: {
-        chunkFilename: mix.inProduction() ? "avored-admin/js/chunk/[name].[chunkhash].js" : "avored-admin/js/chunk/[name].js",
-    }
-})
+// mix.webpackConfig({
+//     output: {
+//         chunkFilename: mix.inProduction() ? "avored-admin/js/chunk/[name].[chunkhash].js" : "avored-admin/js/chunk/[name].js",
+//     }
+// })
 
 
 // mix.webpackConfig({
@@ -39,19 +40,26 @@ mix.less('resources/less/app.less', 'public/css/app.css', {
     postCss: [ tailwindcss('tailwind.config.js') ],
 })
 
-let url = process.env.APP_URL.replace(/(^\w+:|^)\/\//, '');
-mix.options({
-   hmrOptions: {
-       host: url,
-       port: 8080 // Can't use 443 here because address already in use
-   }
-});
+
+// let url = process.env.APP_URL.replace(/(^\w+:|^)\/\//, '')
+// mix.options({
+//    hmrOptions: {
+//        host: url,
+//        port: 8080 // Can't use 443 here because address already in use
+//    }
+// })
 
 
 /******** AVORED ADMIN JS  **********/
-mix.js('packages/framework/resources/js/app.js', 'public/avored-admin/js/app.js');
+let publicPath = './public/avored-admin'
+// let publicPath = 'packages/framework/assets/avored-admin'
+
+mix.setPublicPath(publicPath)
+
+mix.js('packages/framework/resources/js/app.js', 'js/app.js')
+
 /******** AVORED ADMIN CSS  **********/
-mix.less('packages/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
+mix.less('packages/framework/resources/less/app.less', 'css/app.css', {
     javascriptEnabled: true,
     modifyVars: {
         'primary-color': '#E64448',
