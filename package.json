@@ -41,6 +41,9 @@
         "tailwindcss": "^1.4.6",
         "v-click-outside": "^3.0.1",
         "vue-i18n": "^8.18.1",
-        "vue-zondicons": "^0.1.10"
+        "vue-js-modal": "^2.0.0-rc.3",
+        "vue-sweetalert2": "^3.0.5",
+        "vue-zondicons": "^0.1.10",
+        "vuex": "^3.4.0"
     }
 }

@@ -26,19 +26,19 @@ const tailwindcss = require('tailwindcss')
 //         chunkFilename: mix.inProduction() ? "js/chunk/[name].[chunkhash].js" : "js/chunk/[name].js",
 //     }
 // })
-mix.js('resources/js/app.js', 'public/js/app.js');
+// mix.js('resources/js/app.js', 'public/js/app.js');
 
-mix.less('resources/less/app.less', 'public/css/app.css', {
-    javascriptEnabled: true,
-    modifyVars: {
-        'primary-color': '#E64448',
-        'link-color': '#C12E32',
-        'border-radius-base': '5px',
-    },
-}).options({
-    processCssUrls: false,
-    postCss: [ tailwindcss('tailwind.config.js') ],
-})
+// mix.less('resources/less/app.less', 'public/css/app.css', {
+//     javascriptEnabled: true,
+//     modifyVars: {
+//         'primary-color': '#E64448',
+//         'link-color': '#C12E32',
+//         'border-radius-base': '5px',
+//     },
+// }).options({
+//     processCssUrls: false,
+//     postCss: [ tailwindcss('tailwind.config.js') ],
+// })
 
 
 // let url = process.env.APP_URL.replace(/(^\w+:|^)\/\//, '')
@@ -51,7 +51,7 @@ mix.less('resources/less/app.less', 'public/css/app.css', {
 
 
 /******** AVORED ADMIN JS  **********/
-let publicPath = './public/avored-admin'
+let publicPath =        './public/avored-admin'
 // let publicPath = 'packages/framework/assets/avored-admin'
 
 mix.setPublicPath(publicPath)
@@ -59,14 +59,14 @@ mix.setPublicPath(publicPath)
 mix.js('packages/framework/resources/js/app.js', 'js/app.js')
 
 /******** AVORED ADMIN CSS  **********/
-mix.less('packages/framework/resources/less/app.less', 'css/app.css', {
-    javascriptEnabled: true,
-    modifyVars: {
-        'primary-color': '#E64448',
-        'link-color': '#C12E32',
-        'border-radius-base': '5px',
-    },
-}).options({
-    processCssUrls: false,
-    postCss: [ tailwindcss('tailwind.config.js') ],
-})
+// mix.less('packages/framework/resources/less/app.less', 'css/app.css', {
+//     javascriptEnabled: true,
+//     modifyVars: {
+//         'primary-color': '#E64448',
+//         'link-color': '#C12E32',
+//         'border-radius-base': '5px',
+//     },
+// }).options({
+//     processCssUrls: false,
+//     postCss: [ tailwindcss('tailwind.config.js') ],
+// })
