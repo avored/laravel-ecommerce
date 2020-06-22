@@ -9,6 +9,8 @@
     <a href="https://packagist.org/packages/avored/framework" target="_blank"><img src="https://poser.pugx.org/avored/framework/license" alt="License"></a>
 </p> 
 
+#### [AvoRed](https://www.avored.com/) is commin up as a headless graphql version.
+
 [AvoRed](https://www.avored.com/) is a free open-source e-commerce platform written in PHP based on Laravel.    
 Its an ingenuous and modular e-commerce that is easily customizable according to your needs, with a modern responsive mobile friendly interface as default.    
 The main advantage of being an modular E-Commerce is that you can download each module separately that is necessary for your store.
