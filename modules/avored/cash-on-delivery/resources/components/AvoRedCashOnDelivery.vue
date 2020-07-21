@@ -23,12 +23,12 @@ export default {
             } else {
                 this.selectedCashOnDeliveryPaymentOption = false
             }
-            EventBus.$emit('selectedPaymentIdentifier', identifier)
+            window.EventBus.$emit('selectedPaymentIdentifier', identifier)
         }
     },
     mounted() {        
         var app = this
-        var eventBus = EventBus
+        var eventBus = window.EventBus
         eventBus.$on('placeOrderBefore', function() {
             if (app.selectedCashOnDeliveryPaymentOption) {
                 eventBus.$emit('placeOrderAfter')

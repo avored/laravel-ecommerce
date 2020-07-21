@@ -17,31 +17,44 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    @stack('styles')
-    <script src="https://js.stripe.com/v3/"></script>
+    @if(file_exists(public_path('mix-manifest.json')))
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @else
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @endif
+    {{-- <script src="https://js.stripe.com/v3/"></script> --}}
 </head>
 <body>
     <div id="app">
         <avored-layout inline-template>
             <div>
-                <a-layout id="components-layout-demo-top" class="layout">
-                    @include('partials.nav')
-
-                    <a-layout-content style="padding: 0 50px">
+                @include('partials.nav')
+                <div class="mt-5">
                     @include('partials.breadcrumb')
-                    <div :style="{ background: '#fff', padding: '24px', minHeight: '280px' }">
+                    <div class="bg-white">
                         @yield('content')
                     </div>
-                    </a-layout-content>
-                    
+                </div>
+                
+                <div  class="border-t">
                     @include('partials.footer')
-                </a-layout>
+                </div>
             </div>
         </avored-layout>
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/review.js') }}"></script>
+   
+    @if(file_exists(public_path('mix-manifest.json')))
+        <script src="{{ mix('js/avored.js') }}"></script>
+    @else
+        <script src="{{ asset('js/avored.js') }}"></script>
+    @endif
+    
     @stack('scripts')
+    
+    @if(file_exists(public_path('mix-manifest.json')))
+        <script src="{{ mix('js/app.js') }}"></script>
+    @else
+        <script src="{{ asset('js/app.js') }}"></script>
+    @endif
 </body>
 </html>

@@ -11,21 +11,20 @@ mix.options({
    }
 })
 
-mix.alias({'@': '/resources/js'})
-
-class GraphQlLoader {
-    webpackRules() {
-        return {
-            test: /\.(graphql|gql)(\?.*$|$)/,
-            loader: 'graphql-tag/loader'
-        };
-    }
-}
-
-mix.extend('graphql', new GraphQlLoader());
 
 
-mix.js('resources/js/main.js', 'js/app.js').graphql();
+mix.alias({'@': 'resources/js'})
+
+
+/******** AVORED ADMIN JS  **********/
+mix.js('resources/js/avored.js', 'js/avored.js')
+    // .extract(['vue', 'ant-design-vue'])
+
+mix.js('resources/js/app.js', 'js/app.js')
+
+/******** AVORED COPY IMAGES  **********/
+mix.copyDirectory('resources/images', 'public/images')
+
 
 mix.sass('resources/sass/tailwind.scss', 'css/app.css')
 .options({
