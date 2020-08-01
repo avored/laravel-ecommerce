@@ -1,8 +1,9 @@
 <template>
     <div>
-        <a-switch @change="handlePaymentChange($event, 'a-cash-on-delivery')">
-        </a-switch> 
-        Cash On Delivery
+        <avored-toggle
+            label-text="Cash On Delivery"
+            @change="handlePaymentChange($event, 'a-cash-on-delivery')"
+        ></avored-toggle>
     </div>    
 </template>
 

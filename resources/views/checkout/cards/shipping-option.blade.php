@@ -1,9 +1,11 @@
 
-<a-divider><h4 class="mt-1">{{ __('Shipping Options') }}</h4></a-divider>
+<div><h4 class="text-lg text-red-700 font-semibold my-5">{{ __('Shipping Options') }}</h4></div>
 
 
 @foreach ($shippingOptions as $shipping)
-    <a-switch @change="handleShippingChange($event, '{{ $shipping->identifier() }}')"></a-switch>
-    {{ $shipping->name() }}
+    <avored-toggle
+        label-text="{{ $shipping->name() }}"
+        error-text="{{ $errors->first('shipping_option') }}"
+        field-name="shipping_option"
+    ></avored-toggle>    
 @endforeach
-<input type="hidden" name="shipping_option" v-model="shippingOption" />

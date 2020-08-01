@@ -5,7 +5,6 @@ export default {
     props: ['items', 'addresses'],
     data() {
         return {
-            form: this.$form.createForm(this),
             submitStatus:false,
             newAccount: true,
             useDifferentBillingAddress: false,
@@ -24,7 +23,6 @@ export default {
         handleSubmit (e) {
             //var app = this
             e.preventDefault()
-            window.x = this
             EventBus.$emit('placeOrderBefore')
 
             return
@@ -105,13 +103,3 @@ export default {
     }
 }
 </script>
-<style lang="less">
-.checkout-right {
-    background: #e9e6e6;
-    min-height: 400px;
-    border-radius: 5px;
-}
-.mt-1 {
-    margin-top: 1rem;
-}
-</style>

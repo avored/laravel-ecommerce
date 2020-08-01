@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use AvoRed\Framework\Support\Facades\Payment;
 use AvoRed\Framework\Support\Facades\Shipping;
 use AvoRed\Framework\Database\Contracts\AddressModelInterface;
