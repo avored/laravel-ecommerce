@@ -42,6 +42,46 @@ class CartController extends Controller
     {
         if ($request->get('promotion_code') !== null) {
             Cart::applyCoupon($request->get('promotion_code'));
+
+			// Add an if-else condition into the applyCoupon function 
+			// to check the return value of promotionModel variable.
+			// If the return value is not null, the applyCoupon codes keep executing.
+			// Else the return value is null, the webpage will trigger the alert box
+            // to inform the user regarding the invalid coupon.
+
+            // The modified code is displayed at below as the changes could not be done
+            // directly to the package service provider
+            //The path of this function is found at :
+            // C:\wamp64\www\YC\laravel-ecommerce\vendor\avored\framework\src\Cart\Manager.php
+
+            // public function applyCoupon(string $code)
+            // {
+            //     $promotionModel = $this->promotionCodeRepository->findByCode($code);
+                
+            //     if($promotionModel!=null)
+            //     {
+            //     $this->promotionList->push($promotionModel);
+        
+            //     $message = __('avored::catalog.promotion_code_errot_notification');
+            //     if ($promotionModel->type === 'FIXED') {
+            //         $this->totalDiscount = $promotionModel->amount;
+            //         $message = __('avored::catalog.promotion_code_success_notification');
+            //     }
+        
+            //     $this->sessionManager->put(
+            //         $this->getPromotionKey(),
+            //         ['total' => $this->totalDiscount, 'list' => $this->promotionList]
+            //     );
+        
+            //     return $message;
+            //     }
+            //     else
+            //     {
+            //         echo '<script>alert("Invalid Coupon")</script>';
+            //     }
+            // }
+
+			
         }
         $cartProducts = Cart::all();
 
