@@ -6,4 +6,3 @@
         {{ $payment->render() }}
     </p>
 @endforeach
-<input type="hidden" name="payment_option" v-model="paymentOption" />

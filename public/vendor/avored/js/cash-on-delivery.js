@@ -104,6 +104,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'avored-cash-on-delivery',
   props: [],
@@ -194,11 +195,10 @@ var render = function() {
     "div",
     [
       _c("avored-toggle", {
-        attrs: { "label-text": "Cash On Delivery" },
-        on: {
-          change: function($event) {
-            return _vm.handlePaymentChange($event, "a-cash-on-delivery")
-          }
+        attrs: {
+          "label-text": "Cash On Delivery",
+          "field-name": "payment_option",
+          "toggle-on-value": "a-cash-on-delivery"
         }
       })
     ],

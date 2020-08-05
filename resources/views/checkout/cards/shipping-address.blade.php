@@ -9,7 +9,7 @@
                 error-text="{{ $errors->first('shopping.first_name') }}"
             ></avored-input>
         </div>
-        <div class="w-1/2">
+        <div class="w-1/2 ml-3">
             <avored-input
                 label-text="{{ __('Last Name') }}"
                 field-name="shopping[last_name]"

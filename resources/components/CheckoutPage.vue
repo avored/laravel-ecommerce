@@ -25,25 +25,33 @@ export default {
             e.preventDefault()
             EventBus.$emit('placeOrderBefore')
 
-            return
+            let beforSubmitResult = this.handleBeforeSubmit()
 
-            this.handleBeforeSubmit().then(result => {
-                if (result.error) {
-                    var errorElement = document.getElementById('card-errors')
-                    errorElement.textContent = result.error.message
-                    return false
-                } else {
-                    app.stripeToken = result.token.id
-                    console.log(app.stripeToken, 'i am ready for submit')
-                    document.getElementById('checkout-form').submit()
-                    return true
-                }
-            })
+            
+            if (typeof beforSubmitResult === 'undefined') {
+                document.getElementById('checkout-form').submit()
+                return true
+            } else {
+                beforSubmitResult.then(result => {
+                    if (result.error) {
+                        var errorElement = document.getElementById('card-errors')
+                        errorElement.textContent = result.error.message
+                        return falspe
+                    } else {
+                        app.stripeToken = result.token.id
+                        console.log(app.stripeToken, 'i am ready for submit')
+                        
+                    }
+                })
+            }
         },
         stripePlaceOrderBefore() {
             console.log('here');    
         },
         handleBeforeSubmit() {
+            if (typeof stripe === 'undefined') {
+                return
+            }
             return stripe.createToken(card)
         },
         shippingCountryOptionChange(val) {

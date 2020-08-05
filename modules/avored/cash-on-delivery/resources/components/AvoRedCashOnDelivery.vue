@@ -2,7 +2,8 @@
     <div>
         <avored-toggle
             label-text="Cash On Delivery"
-            @change="handlePaymentChange($event, 'a-cash-on-delivery')"
+            field-name="payment_option"
+            toggle-on-value="a-cash-on-delivery"
         ></avored-toggle>
     </div>    
 </template>
