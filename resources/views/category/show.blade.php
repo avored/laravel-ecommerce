@@ -3,16 +3,16 @@
 
 @section('breadcrumb')
       
-<a-breadcrumb style="margin: 16px 0">
-    <a-breadcrumb-item>
+<div>
+    <div>
       <a href="{{ route('home') }}" title="home">
         {{ __('Home') }}
       </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
+    </div>
+    <div>
         {{ $category->name }}
-    </a-breadcrumb-item>
-</a-breadcrumb>
+    </div>
+</div>
 @endsection
 
 @section('content')
@@ -21,19 +21,20 @@
   :filter-prop="{{ json_encode(request()->all()) }}"
   inline-template>
   
-  <a-row :gutter="15" >
-    <a-col :span="6">
+  <div class="flex container mx-auto">
+    <div class="w-1/6">
       @include('category.card.filters')
-    </a-col>
-    <a-col :span="18">
-      <a-row :gutter="15" justify="center" >
-        @foreach ($categoryProducts as $product)
-            <a-col :xs="24" :sm="12" :md="8">
-              @include('category.card.product', ['product' => $product])
-            </a-col>
-        @endforeach
-      </a-row>
-    </a-col>
-  </a-row>
+    </div>
+    <div class="w-5/6 ml-3">
+      <h1 class="text-red-700 mt-3 ml-5 text-2xl uppercase font-semibold">{{ $category->name }}</h1>
+      <div class="block">
+        <div class=" flex flex-wrap">
+          @foreach ($categoryProducts as $product)  
+            @include('category.card.product', ['product' => $product])
+          @endforeach
+        </div>
+      </div>
+    </div>
+  </div>
 </category-page>
 @endsection

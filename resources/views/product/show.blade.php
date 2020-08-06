@@ -1,21 +1,21 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-<a-breadcrumb style="margin: 16px 0">
-    <a-breadcrumb-item>
+<div style="margin: 16px 0">
+    <div>
       <a href="{{ route('home') }}" title="home">
         {{ __('Home') }}
       </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
+    </div>
+    <div>
         {{ $product->name }}
-    </a-breadcrumb-item>
-</a-breadcrumb>
+    </div>
+</div>
 @endsection
 
 @section('content')
 <product-page :product="{{ $product }}" :variations="{{ $product->getVariations() }}" inline-template>
-<div>
+<div class="container mx-auto">
 
     
     @if (session('type') === 'success')
@@ -25,16 +25,16 @@
       @include('components.error', ['message' => session('message')])
     @endif
    
-  <a-row :gutter="15">
+  <div class="flex pb-6">
     
-    <a-col :span="8">
+    <div class="w-1/3">
       
-      <a-card>
+      <div class="rounded object-cover border">
           <img class="product-main-image" :src="productMainImage" /> 
-      </a-card>
-    </a-col>
-    <a-col :span="16">
-      <h2 class="name">{{ $product->name }}</h2>
+      </div>
+    </div>
+    <div class="w-2/3 ml-5">
+      <h2 class="text-semibold text-red-700 text-2xl py-6">{{ $product->name }}</h2>
 
         @if ($product->type === 'BASIC') 
           @include('product.type.basic')
@@ -42,39 +42,31 @@
         @if ($product->type === 'VARIABLE_PRODUCT') 
           @include('product.type.variable')
         @endif
-    </a-col>
-  </a-row>
-  <a-row>
-    <a-col>
+    </div>
+  </div>
+  <div class="rounded border p-6">
+    <div>
       <div class="description">
-          <div class="title">{{ __('Description') }}</div>
-          <p>{!! $product->description !!}</p>
+          <div class="text-semibold text-red-700 text-2xl border-b py-6">{{ __('Description') }}</div>
+          <p class="mt-5">{!! $product->description !!}</p>
       </div>
-    </a-col>
-    <a-col>
+    </div>
+    <div>
       <div class="description">
-          <div class="title">{{ __('Properties') }}</div>
-          @php
-            $properties = $product->getProperties();
-          @endphp
-
-          @if ($properties !== null && $properties->count() > 0)
-            @foreach ($properties as $property)
-                <p>{{ $property->name }}: {{ $property->getPropertyDisplayTextByProductId($product->id) }}</p>
-            @endforeach
-          @endif
+          <div class="text-semibold text-red-700 text-2xl py-6">{{ __('Properties') }}</div>
+          <div class="mt-5">
+            @php
+              $properties = $product->getProperties();
+            @endphp
+            @if ($properties !== null && $properties->count() > 0)
+              @foreach ($properties as $property)
+                  <p>{{ $property->name }}: {{ $property->getPropertyDisplayTextByProductId($product->id) }}</p>
+              @endforeach
+            @endif
+          </div>
       </div>
-    </a-col>
-  </a-row>
-  <a-row>
-    <a-col :span="24">
-      <a-review
-        product-id="{{ $product->id }}"
-        :reviews="{{ $reviews }}"
-        save-review-url="{{ route('review.save') }}">
-      </a-review>
-    </a-col>
-  </a-row>
+    </div>
+  </div>
 </div>
 </product-page>
 

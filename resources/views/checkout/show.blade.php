@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-<a-breadcrumb style="margin: 16px 0">
-    <a-breadcrumb-item>
+<div class="flex">
+    <div class="mr-3">
       <a href="{{ route('home') }}" title="home">
         {{ __('Home') }}
       </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
+    </div>
+    <div>
         {{ __('Checkout') }}
-    </a-breadcrumb-item>
-</a-breadcrumb>
+    </div>
+</div>
 @endsection
 
 
@@ -19,37 +19,31 @@
     :items="{{ Cart::toArray() }}"
     :addresses="{{ $addresses }}"
     inline-template>
-    <div>
-    <h1>{{ __('Checkout Page') }}</h1>
-    <a-form :form="form" @submit.prevent="handleSubmit" id="checkout-form"  method="post" action="{{ route('order.place') }}">
+    <div class="container mx-auto">
+    <h1 class="text-lg text-red-700 font-semibold my-5">{{ __('Checkout Page') }}</h1>
+    <form @submit.prevent="handleSubmit" id="checkout-form"  method="post" action="{{ route('order.place') }}">
       @csrf          
-      <a-row :gutter="15">
-        <a-col :span="12">
+      <div class="flex">
+        <div class="w-1/2">
          
               @include('checkout.cards.personal')   
           
               @include('checkout.cards.shipping-address')
               @include('checkout.cards.billing-address')
         
-        </a-col>
-        <a-col :span="12">
+        </div>
+        <div class="w-1/2 ml-3">
               @include('checkout.cards.shipping-option')   
               @include('checkout.cards.payment-option')   
               @include('checkout.cards.cart-items')   
-              <a-form-item class="mt-1">
-                <a-button
-                    type="primary"
-                    :loading="submitStatus"
-                    html-type="submit">
-                    PlaceOrder
-                </a-button>
-            </a-form-item>
+              
+              <button type="submit" class="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded">
+                  Place Order
+              </button>
            
-        </a-col>
-      </a-row>
-
-      
-    </a-form>
+        </div>
+      </div>
+    </form>
     </div>
   </checkout-page>
 @endsection

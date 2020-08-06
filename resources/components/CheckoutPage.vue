@@ -5,7 +5,6 @@ export default {
     props: ['items', 'addresses'],
     data() {
         return {
-            form: this.$form.createForm(this),
             submitStatus:false,
             newAccount: true,
             useDifferentBillingAddress: false,
@@ -24,28 +23,35 @@ export default {
         handleSubmit (e) {
             //var app = this
             e.preventDefault()
-            window.x = this
             EventBus.$emit('placeOrderBefore')
 
-            return
+            let beforSubmitResult = this.handleBeforeSubmit()
 
-            this.handleBeforeSubmit().then(result => {
-                if (result.error) {
-                    var errorElement = document.getElementById('card-errors')
-                    errorElement.textContent = result.error.message
-                    return false
-                } else {
-                    app.stripeToken = result.token.id
-                    console.log(app.stripeToken, 'i am ready for submit')
-                    document.getElementById('checkout-form').submit()
-                    return true
-                }
-            })
+            
+            if (typeof beforSubmitResult === 'undefined') {
+                document.getElementById('checkout-form').submit()
+                return true
+            } else {
+                beforSubmitResult.then(result => {
+                    if (result.error) {
+                        var errorElement = document.getElementById('card-errors')
+                        errorElement.textContent = result.error.message
+                        return falspe
+                    } else {
+                        app.stripeToken = result.token.id
+                        console.log(app.stripeToken, 'i am ready for submit')
+                        
+                    }
+                })
+            }
         },
         stripePlaceOrderBefore() {
             console.log('here');    
         },
         handleBeforeSubmit() {
+            if (typeof stripe === 'undefined') {
+                return
+            }
             return stripe.createToken(card)
         },
         shippingCountryOptionChange(val) {
@@ -105,13 +111,3 @@ export default {
     }
 }
 </script>
-<style lang="less">
-.checkout-right {
-    background: #e9e6e6;
-    min-height: 400px;
-    border-radius: 5px;
-}
-.mt-1 {
-    margin-top: 1rem;
-}
-</style>

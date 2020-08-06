@@ -64,11 +64,11 @@ class Module extends ServiceProvider
      */
     protected function registerTab()
     {
-        Tab::put('catalog.product', function (TabItem $tab) {
-            $tab->key('catalog.product.review')
-                ->label('a-review::review.product-tab')
-                ->view('a-review::admin.review.tab');
-        });
+        // Tab::put('catalog.product', function (TabItem $tab) {
+        //     $tab->key('catalog.product.review')
+        //         ->label('a-review::review.product-tab')
+        //         ->view('a-review::admin.review.tab');
+        // });
     }
 
     /**

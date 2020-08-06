@@ -28,11 +28,10 @@
                 <a-row type="flex">
                     <a-col :span="20" :offset="2">
                         <a-card title="Account Management">
-                            <a-form
-                                :form="loginForm"
+                            <form
                                 method="post"
                                 action="{{ route('login') }}"
-                                @submit="handleSubmit"
+                                
                             >
                                 @csrf()
                                 <a-form-item
@@ -76,13 +75,12 @@
                                 <a-form-item>
                                     <a-button
                                         type="primary"
-                                        :loading="loadingSubmitBtn"
                                         html-type="submit"
                                     >
                                         Login
                                     </a-button>
                                 </a-form-item>
-                            </a-form>
+                            </form>
                         </a-card>
                     </a-col>
                 </a-row>
