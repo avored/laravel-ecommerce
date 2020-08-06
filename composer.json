@@ -10,10 +10,7 @@
     "require": {
         "php": ">=7.2",
         "avored/framework": "^3.0",
-        "fideloper/proxy": "^4.0",
-        "laravel/framework": "^6.2",
-        "laravel/tinker": "^1.0",
-        "orchestra/testbench": "^5.3"
+        "fideloper/proxy": "^4.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",
