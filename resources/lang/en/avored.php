@@ -36,7 +36,10 @@ return [
         'register' => [
             'title' => 'Register your Account',
         ],
-
+        'account_dashboard' => [
+            'title' => 'Dashboard'
+        ],
+ 
     ],
 
 ];

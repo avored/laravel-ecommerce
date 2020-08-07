@@ -32,7 +32,17 @@
                 <div class="mt-5">
                     @include('partials.breadcrumb')
                     <div class="bg-white">
-                        @yield('content')
+                        <div class="flex">
+                            <div class="w-64">
+                                @include('partials.account-nav')
+                            </div>
+                            <div class="flex-1 ml-5">
+                                <div>
+                                    @yield('breadcrumb')
+                                </div>
+                                @yield('content')
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
