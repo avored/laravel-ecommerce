@@ -33,7 +33,7 @@ Route::post('order', 'OrderController@place')->name('order.place');
 
 Route::get('order/{order}', 'OrderController@successful')->name('order.successful');
 
-Route::middleware('auth')
+Route::middleware('auth:customer')
     ->name('account.')
     ->prefix('account')
     ->namespace('Account')

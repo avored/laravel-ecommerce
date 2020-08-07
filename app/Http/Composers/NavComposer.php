@@ -28,7 +28,7 @@ class NavComposer
      */
     public function compose(View $view)
     {
-        if (Auth::check()) {
+        if (Auth::guard('customer')->check()) {
             $menus = $this->menuGroupRepository->getTreeByIdentifier('main-auth-menu');
         } else {
             $menus = $this->menuGroupRepository->getTreeByIdentifier('main-menu');

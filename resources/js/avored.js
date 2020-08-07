@@ -6,10 +6,10 @@ window.AvoRed = (function() {
         initialize: function(callback) {
             callback(window.Vue)
         }
-    };
-})();
+    }
+})()
 
 
 window.EventBus = new Vue()
 
-exports = module.exports = AvoRed;
+exports = module.exports = AvoRed
