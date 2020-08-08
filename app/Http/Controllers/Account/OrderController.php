@@ -33,7 +33,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $userOrders = $this->orderRepository->findByUserId(Auth::user()->id);
+        $userOrders = $this->orderRepository->findByCustomerId(Auth::guard('customer')->user()->id);
 
         return view('account.order.index')
             ->with(compact('userOrders'));

@@ -211,7 +211,6 @@ class OrderController extends Controller
     {
         $payment = Payment::get(request()->get('payment_option'));
 
-        dd(request()->get('payment_option'));
         $payment->process();
     }
 

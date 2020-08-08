@@ -1,42 +1,36 @@
 @extends('layouts.user')
 
 @section('breadcrumb')
-<a-breadcrumb style="margin: 16px 0">
-    <a-breadcrumb-item>
-      <a href="{{ route('home') }}" title="home">
-        Home
+<div class="flex">
+    <div>
+      <a href="{{ route('home') }}" class="text-gray-700" title="home">
+        {{ __('Home') }} >>
       </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
-      <a href="{{ route('account.dashboard') }}" title="user dashboard">
-        User Dashboard
+    </div>
+    <div class="ml-1">
+      <a href="{{ route('account.dashboard') }}" class="text-gray-700" title="user dashboard">
+        {{ __('User Dashboard') }} >>
       </a>
-    </a-breadcrumb-item>
-
-    <a-breadcrumb-item>
-        Orders
-    </a-breadcrumb-item>
-</a-breadcrumb>
+    </div>
+    
+    <div class="ml-1 text-gray-700">
+        {{ __('Orders') }}
+    </div>
+</div>
 @endsection
 
 @section('content')
-<a-row type="flex" class="mb-1" justify="start">
-    <a-col>
-        <h1>{{  __('Orders') }}</h1>
-    </a-col>
-</a-row>
-<a-row type="flex" :gutter="15" class="mt-1">
-    <a-col :span="24">
-        <user-order-table inline-template>
-            <a-table :columns="columns" row-key="id" :data-source="{{ $userOrders }}">
-                <span slot="action" slot-scope="text, record">
-                    <a :href="getShowUrl(record)">
-                        <a-icon type="eye"></a-icon>
-                    </a>
-                </span>
-            </a-table>
+<div class="flex">
+    <div class="flex">
+        <h1 class="text-2xl font-semibold text-red-700 my-5">{{  __('Orders') }}</h1>
+    </div>
+</div>
+<div class="flex">
+    <div class="w-full">
+        <user-order-table base-url="{{ route('account.order.index') }}" :init-orders="{{ json_encode($userOrders) }}">
+        
         </user-order-table>
-    </a-col>
-</a-row>
+    </div>
+</div>
 
 @endsection
