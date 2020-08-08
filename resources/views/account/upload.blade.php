@@ -1,73 +1,67 @@
 @extends('layouts.user')
 
 @section('breadcrumb')
-<a-breadcrumb style="margin: 16px 0">
-    <a-breadcrumb-item>
-      <a href="{{ route('home') }}" title="home">
-        {{ __('Home') }}
+<div class="flex">
+    <div>
+      <a href="{{ route('home') }}" class="text-gray-700" title="home">
+        {{ __('Home') }} >>
       </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
-      <a href="{{ route('account.dashboard') }}" title="user dashboard">
-        {{ __('User Dashboard') }}
+    </div>
+    <div class="ml-1">
+      <a href="{{ route('account.dashboard') }}" class="text-gray-700" title="user dashboard">
+        {{ __('User Dashboard') }} >>
       </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
+    </div>
+    
+    <div class="ml-1 text-gray-700">
         {{ __('Upload') }}
-    </a-breadcrumb-item>
-</a-breadcrumb>
+    </div>
+</div>
 @endsection
 
 
 @section('content')
-<a-row type="flex" justify="center">
-    <a-col :span="24">
+<div class="flex">
+    <div class="w-full">
         <account-upload inline-template>
         <div>
-            <a-form 
-                :form="form"
-                method="post"
-                action="{{ route('account.save') }}"                    
-                @submit="handleSubmit">
-
+            <form method="post" action="{{ route('account.upload.image') }}" enctype="multipart/form-data">
                 @csrf
+                <div class="mt-3">
+                    <label class="block w-full mb-3" for="user-image">
+                        {{ __('avored.fields.image') }}
+                    </label>
+                    <input id="user-image" class="block border w-full" type="file" name="file" />
+                    @if ($errors->has('file'))
+                        <p>
+                            {{ $errors->first('file') }}
+                        </p>
+                    @endif
+                </div>
                 
-                <a-form-item
-                  @if ($errors->has('file'))
-                      validate-status="error"
-                      help="{{ $errors->first('file') }}"
-                  @endif
-                  label="{{ __('Image') }}"
-                >
-                    <a-upload action="{{ route('account.upload.image') }}" name="file" :headers="headers" @change="handleChange" >
-                        <a-button>      
-                            <a-icon type="upload"></a-icon> Click to Upload
-                        </a-button>
-                    </a-uploa> 
-                </a-form-item>
-                <input type="hidden" name="image" v-model="image_path" />
-                <input type="hidden" name="name" value="{{ $user->name }}" />
+                <div class="mt-3 py-3">
+                    <button type="submit"
+                        class="px-6 py-3 font-semibold leading-7  text-white hover:text-white bg-red-600 rounded hover:bg-red-700"
+                    >   
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 inline-flex w-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M0 2C0 .9.9 0 2 0h14l4 4v14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm5 0v6h10V2H5zm6 1h3v4h-3V3z"/>
+                        </svg>
+                        <span class="ml-3">{{ __('avored.btn.save') }}</span>
+                    </button>
+                    
+                    <a href="{{ route('account.dashboard') }}"
+                        class="px-6 py-3 font-semibold inline-block text-white leading-7 hover:text-white bg-gray-500 rounded hover:bg-gray-600">
+                        <span class="leading-7">
+                            {{ __('avored.btn.cancel') }}
+                        </span>
+                    </a>
+                </div>
                 
-                </a-form-item>
-                <a-form-item>
-                <a-button
-                    type="primary"
-                    html-type="submit"
-                >
-                    {{ __('avored::system.btn.save') }}
-                </a-button>
+                  
                 
-                <a-button
-                    class="ml-1"
-                    type="default"
-                    v-on:click.prevent="cancelBtnClick"
-                >
-                    {{ __('avored::system.btn.cancel') }}
-                </a-button>
-            </a-form-item>
-            </a-form>
+            </form>
             </div>
-        </address-save>
-    </a-col>
-</a-row>
+        </address-upload>
+    </div>
+</div>
 @endsection

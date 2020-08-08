@@ -18,14 +18,18 @@ return [
         'password' => 'Password',
         'first_name' => 'First Name',
         'last_name' => 'Last Name',
-        'password_confirmation' => 'Confirm password'
+        'password_confirmation' => 'Confirm password',
+        'image' => 'Image'
     ],
     'terms' => [
         ''
     ],
     'btn' => [
         'sign_in' => 'Sign In',
-        'register' => 'Register'
+        'register' => 'Register',
+        'save' => 'Save',
+        'cancel' => 'Cancel',
+        'create' => 'Create'
     ],
     'pages' => [
         'login' => [

@@ -31,11 +31,8 @@
                 @include('partials.nav')
                 <div class="mt-5">
                     @include('partials.breadcrumb')
-                    <div class="bg-white">
+                    <div class="bg-white container mx-auto">
                         <div class="flex">
-                            <div class="w-64">
-                                @include('partials.account-nav')
-                            </div>
                             <div class="flex-1 ml-5">
                                 <div>
                                     @yield('breadcrumb')
