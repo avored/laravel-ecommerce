@@ -7,5 +7,6 @@
         label-text="{{ $shipping->name() }}"
         error-text="{{ $errors->first('shipping_option') }}"
         field-name="shipping_option"
+        toggle-on-value="{{ $shipping->identifier() }}"
     ></avored-toggle>    
 @endforeach
