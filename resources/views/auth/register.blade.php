@@ -1,131 +1,112 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-<a-breadcrumb style="margin: 16px 0">
-    <a-breadcrumb-item>
+<div>
+    <div>
       <a href="{{ route('home') }}" title="home">
         {{ __('Home') }}
       </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
-        {{ __('Register') }}
-    </a-breadcrumb-item>
-</a-breadcrumb>
+    </div>
+    <div>
+        {{ __('Login') }}
+    </div>
+</div>
 @endsection
 
 @section('content')
-<register-fields inline-template>
-    <div>
-        <a-row type="flex" align="middle">
-            <a-col :span="12">
-                <a-row type="flex" align="middle" class="h-100 text-center">
-                <a-col :span="24">
-                    
-                </a-col>
-                </a-row>
-            </a-col>
-            <a-col :span="12">
-                <a-row type="flex">
-                <a-col :span="20" :offset="2">
-                    <a-card title="Account Management">
-                        <a-form
-                            :form="form"
-                            method="post"
-                            action="{{ route('register') }}"
-                            @submit="handleSubmit"
-                        >
-                            @csrf()
-                            <a-form-item
-                                @if ($errors->has('name'))
-                                    validate-status="error"
-                                    help="{{ $errors->first('name') }}"
-                                @endif
-                                label="Name">
-                            <a-input
-                                :auto-focus="true"
-                                name="name"
-                                v-decorator="[
-                                'name',
-                                {
-                                    rules: [
-                                        {   required: true, 
-                                            message: 'The Name field is required' 
-                                        }
-                                    ]
-                                }
-                                ]"
-                            />
-                            </a-form-item>
-                            <a-form-item
-                                @if ($errors->has('email'))
-                                    validate-status="error"
-                                    help="{{ $errors->first('email') }}"
-                                @endif
-                                label="Email Address">
-                            <a-input
-                                name="email"
-                                v-decorator="[
-                                'email',
-                                {
-                                    rules: [
-                                        {   required: true, 
-                                            message: 'The Email field is required' 
-                                        }
-                                    ]
-                                }
-                                ]"
-                            />
-                            </a-form-item>
-                            
-                            <a-form-item 
-                                @if ($errors->has('password'))
-                                    validate-status="error"
-                                    help="{{ $errors->first('password') }}"
-                                @endif
-                                label="Password">
-                                <a-input
-                                    name="password"
-                                    type="password"
-                                    v-decorator="[
-                                    'password',
-                                    {rules: [{ required: true, message: 'The password field is required' }]}
-                                    ]"
-                                />
-                            </a-form-item>
+    <div class="flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-lg w-full bg-white rounded-md shadow-md p-6">
+            <div>
+                <a href="https://avored.com" target="_blank">
+                    <img class="mx-auto h-12 w-auto" 
+                        src="{{ asset('/images/logo.svg') }}" 
+                        alt="AvoRed Ecommerce" />
+                </a>
+                <h2 class="mt-6 text-center text-3xl text-gray-400 font-extrabold text-gray-900">
+                    {{ __('avored.pages.register.title') }}
+                </h2>
+            </div>
+            <form class="mt-8" action="{{ route('register') }}" method="POST">
+                @csrf()
+                <div class="rounded-md shadow-sm">
+                    <div class="flex items-center">
+                        <div class="mt-3 w-1/2">
+                            <avored-input
+                                label-text="{{ __('avored.fields.first_name') }}"
+                                label-class="w-full block"
+                                input-class="w-full block"
+                                field-name="first_name"
+                                input-type="first_name"
+                                error-text="{{ $errors->first('first_name') }}"
+                            ></avored-input>
+                        </div>
+                        <div class="mt-3 w-1/2 ml-3">
+                            <avored-input
+                                label-text="{{ __('avored.fields.last_name') }}"
+                                label-class="w-full block"
+                                input-class="w-full block"
+                                field-name="last_name"
+                                input-type="last_name"
+                                error-text="{{ $errors->first('last_name') }}"
+                            ></avored-input>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <avored-input
+                            label-text="{{ __('avored.fields.email') }}"
+                            label-class="w-full block"
+                            input-class="w-full block"
+                            field-name="email"
+                            input-type="email"
+                            error-text="{{ $errors->first('email') }}"
+                        ></avored-input>
+                    </div>
 
-                            <a-form-item 
-                                @if ($errors->has('password_confirmation'))
-                                    validate-status="error"
-                                    help="{{ $errors->first('password_confirmation') }}"
-                                @endif
-                                label="Password Confirmation">
-                                <a-input
-                                    name="password_confirmation"
-                                    type="password"
-                                    v-decorator="[
-                                    'password_confirmation',
-                                    {rules: [{ required: true, message: 'The password confirmation field is required' }]}
-                                    ]"
-                                />
-                            </a-form-item>
-                            
-                            <a-form-item>
-                                <a-button
-                                    type="primary"
-                                    :loading="loadingSubmitBtn"
-                                    html-type="submit"
-                                >
-                                    Register
-                                </a-button>
-                            </a-form-item>
-                        </a-form>
-                    </a-card>
-                </a-col>
-                </a-row>
-            </a-col>
-        
-            
-        </a-row>
+                    <div class="flex items-center">
+                    
+                        <div class="mt-3 w-1/2">
+                            <avored-input
+                                label-text="{{ __('avored.fields.password') }}"
+                                label-class="w-full block"
+                                input-class="w-full block"
+                                field-name="password"
+                                input-type="password"
+                                error-text="{{ $errors->first('password') }}"
+                            ></avored-input>
+                        </div>
+                        <div class="mt-3 w-1/2 m-3">
+                            <avored-input
+                                label-text="{{ __('avored.fields.password_confirmation') }}"
+                                label-class="w-full block"
+                                input-class="w-full block"
+                                field-name="password_confirmation"
+                                input-type="password"
+                                error-text="{{ $errors->first('password_confirmation') }}"
+                            ></avored-input>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6">
+                    <button 
+                        type="submit" 
+                        class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-500 focus:outline-none focus:border-red-700 focus:shadow-outline-red active:bg-red-700"
+                    >
+                    <span class="absolute left-0 inset-y pl-3">
+                        <svg 
+                            class="h-5 w-5 text-red-500 group-hover:text-red-400" 
+                            fill="currentColor" 
+                            viewBox="0 0 20 20"
+                        >
+                            <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" 
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </span>
+                        {{ __('avored.btn.register') }}
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-</register-fields>
 @endsection

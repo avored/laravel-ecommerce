@@ -1,78 +1,93 @@
 @extends('layouts.user')
 
 @section('breadcrumb')
-<a-breadcrumb style="margin: 16px 0">
-    <a-breadcrumb-item>
-      <a href="{{ route('home') }}" title="home">
-        Home
+<div class="flex">
+    <div>
+      <a href="{{ route('home') }}" class="text-gray-700" title="home">
+        {{ __('Home') }} >>
       </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
-      <a href="{{ route('account.dashboard') }}" title="user dashboard">
-        User Dashboard
+    </div>
+    <div class="ml-1">
+      <a href="{{ route('account.dashboard') }}" class="text-gray-700" title="user dashboard">
+        {{ __('User Dashboard') }} >>
       </a>
-    </a-breadcrumb-item>
-
-    <a-breadcrumb-item>
-        Order details
-    </a-breadcrumb-item>
-</a-breadcrumb>
+    </div>
+    
+    <div class="ml-1 text-gray-700">
+        {{ __('Show Order') }}
+    </div>
+</div>
 @endsection
 
 
 @section('content')
-<a-row type="flex" class="mb-1" justify="start">
-    <a-col>
-        <h1>{{  __('Order') }}</h1>
-    </a-col>
-</a-row>
-<a-row type="flex" :gutter="15" class="mt-1">
-    <a-col :span="24">
-        <a-card title="{{ __('Order Information')}}">
-            <a-card-content>
-                <p>{{ __('Shipping:') }} {{ $order->shipping_option }}</p>
-                <p>{{ __('Payment:') }} {{ $order->payment_option }}</p>
-                <p>{{ __('Order Status:') }} {{ $order->orderStatus->name }}</p>
-            </a-card-content>
-        </a-card>
-        <a-card class="mt-1" title="{{ __('User Information')}}">
-            <a-card-content>
-                <a-row type="flex">
-                    <a-col :span="8">
-                        {{ __('Name:') }} {{ $order->user->name }}
-                    </a-col>
-                
-                    <a-col :span="8">
-                        <h4>{{ __('Shipping Address:') }}</h4>
-                        <p>{{ $order->shippingAddress->first_name }} {{ $order->shippingAddress->last_name }}</p>
-                        <p>{{ $order->shippingAddress->phone }}</p>
-                        <p>{{ $order->shippingAddress->address1 }}, {{ $order->shippingAddress->address2 }}</p>
-                        <p>{{ $order->shippingAddress->city }} {{ $order->shippingAddress->postcode }}</p>
-                        <p>{{ $order->shippingAddress->state }} </p>
-                        <p>{{ $order->shippingAddress->country->name }}</p>
-                    </a-col>
-              
-                    <a-col :span="8">
-                        <h4>{{ __('Billing Address:') }}</h4>
-                        <p>{{ $order->billingAddress->first_name }} {{ $order->billingAddress->last_name }}</p>
-                        <p>{{ $order->billingAddress->phone }}</p>
-                        <p>{{ $order->billingAddress->address1 }}, {{ $order->billingAddress->address2 }}</p>
-                        <p>{{ $order->billingAddress->city }} {{ $order->billingAddress->postcode }}</p>
-                        <p>{{ $order->billingAddress->state }} </p>
-                        <p>{{ $order->billingAddress->country->name }}</p>
-                    </a-col>
-                </a-row>
-               
-                
-            </a-card-content>
-        </a-card>
+<div class="block mt-5">
+    <div class="border rounded">
+        <div class="border-b font-semibold text-red-500 p-5 py-3">
+            {{ __('avored::order.order.show.info') }}
+        </div>
+        <div class="p-5">
+            <p>{{ __('avored::order.order.show.id')}}: <b>{{ $order->id }}</b></p>
+            <p>{{ __('avored::order.order.show.payment_option')}}: <b>{{ $order->payment_option }}</b></p>
+            <p>{{ __('avored::order.order.show.shipping_option')}}: <b>{{ $order->shipping_option }}</b></p>
+            <p>{{ __('avored::order.order.show.created_at')}}: <b>{{ $order->created_at->format('d-M-Y') }}</b></p>    
+        </div>
+    </div>
 
-        <a-card class="mt-1" title="{{ __('Order Products')}}">
-            <a-card-content>
-                <p>{{ __('@todo:') }}</p>
-            </a-card-content>
-        </a-card>
-    </a-col>
-</a-row>
 
+   <div class="border mt-5 rounded">
+        <div class="border-b font-semibold text-red-500 p-5 py-3">
+            {{ __('avored::order.order.show.product_info') }}
+        </div>
+        <div class="p-5">
+            @php
+            $total = 0;
+        @endphp
+        @foreach ($order->products as $product)
+            <div class="flex py-3 items-center">
+                <div class="w-3/6">
+                    {{ $product->product->name }}
+                </div>
+                <div class="w-1/6">
+                    {{ number_format($product->qty, 2) }}
+                </div>
+                <div class="w-1/6">
+                    {{ $order->currency->symbol }} {{ number_format($product->product->price, 2) }}
+                </div>
+                <div class="w-1/6">
+                    {{ $order->currency->symbol }} {{ number_format($product->tax_amount, 2) }}
+                </div>
+                <div class="w-1/6">
+                    <div class="font-semibold">
+                        {{ $order->currency->symbol }} {{ number_format($product->price * $product->qty, 2) }}
+                    </div>
+                </div>
+            </div>
+            @php
+                $total += $product->price * $product->qty;
+            @endphp
+            <hr/>
+            <div class="flex py-3 items-center">
+                <div class="w-3/6">
+                    
+                </div>
+                <div class="w-1/6">
+                    
+                </div>
+                <div class="w-1/6">
+                    
+                </div>
+                <div class="w-1/6">
+                    Total
+                </div>
+                <div class="w-1/6">
+                    <div class="font-semibold">
+                        {{ $order->currency->symbol }} {{ number_format($total, 2) }}
+                    </div>
+                </div>
+            </div>
+        @endforeach    
+        </div>
+    </div>
+</div>
 @endsection

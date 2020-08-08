@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
-use App\ViewModels\Account\EditViewModel;
 use Illuminate\Support\Facades\Auth;
 
 class EditController extends Controller
@@ -14,6 +13,8 @@ class EditController extends Controller
      */
     public function __invoke()
     {
-        return view('account.edit', new EditViewModel(Auth::user()));
+        $user = Auth::guard('customer')->user();
+        return view('account.edit')
+            ->with('user', $user);
     }
 }
