@@ -18,13 +18,22 @@ class LoginTest extends DuskTestCase
      */
     public function testLogin()
     {
-        $customer = factory(User::class)->create();
-
-        dd($customer);
-        $this->browse(function (Browser $browser) {
+        $password = 'testpassword';
+        $customer = factory(Customer::class)->create(['password' => $password]);
+       
+        $this->browse(function (Browser $browser) use ($customer, $password) {
+            $email = $customer->email;
             $browser->visit('/login')
-                    ->assertSee(__('avored.pages.login.title'))
-                    ->type('');
+                    // ->assertSee(__('avored.pages.login.title'))
+                    ->type('#email', $email)
+                    ->type('#password', $password)
+                    ->press(__('avored.btn.sign_in'));
+            $firstName = $customer->first_name;
+            $lastName = $customer->last_name;
+            $browser->visit('/account')
+                    ->assertSee($firstName)
+                    ->assertSee($lastName)
+                    ;
         });
     }
 }
