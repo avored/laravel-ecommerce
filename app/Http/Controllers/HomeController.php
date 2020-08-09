@@ -49,7 +49,10 @@ class HomeController extends Controller
         $wishlists = $this->wishlistRepository->userWishlists();
         $page = $this->pageRepository->findBySlug('home-page');
         $allProducts = $this->productRepository->getAllWithoutVaiation();
-        $heroProduct = $allProducts->load('mainImage')->random(1)->first();
+        $heroProduct = null;
+        if ($allProducts->count() > 0) {
+            $heroProduct = $allProducts->load('mainImage')->random(1)->first();
+        }
         $products = collect();
         
         if ($allProducts->count() > 0) {
