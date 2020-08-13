@@ -1,9 +1,9 @@
 <template>
     <div class="flex justify-center my-6">
         <div
-            class="flex flex-col w-full p-8 text-gray-800 bg-white shadow-lg pin-r pin-y md:w-4/5 lg:w-4/5"
+            class="w-full p-8 text-gray-800 bg-white shadow-lg"
         >
-            <div class="flex-1">
+            <div class="">
                 <table class="w-full text-sm lg:text-base" cellspacing="0">
                     <thead>
                         <tr class="h-12 uppercase">
@@ -75,41 +75,76 @@
                    
                     <div class="lg:px-2 lg:w-full">
                         <div class="flex justify-between pt-4 border-b">
-                                <div
-                                    class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800"
-                                >
-                                    Subtotal
-                                </div>
-                                <div
-                                    class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
-                                >
-                                   {{ defaultCurrency.symbol }} {{ subtotal  }}
+                            <div
+                                class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800"
+                            >
+                                Subtotal
+                            </div>
+                            <div
+                                class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
+                            >
+                                {{ defaultCurrency.symbol }} {{ subtotal  }}
+                            </div>
+                        </div>
+                        <div class="flex justify-between pt-4 border-b">
+                            <div
+                                class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800"
+                            >
+                                Tax
+                            </div>
+                            <div
+                                class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
+                            >
+                                {{ defaultCurrency.symbol }} {{ totalTax }}
+                            </div>
+                        </div>
+                        <div class="flex justify-between pt-4 border-b">
+                            <div
+                                class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800"
+                            >
+                                Discount Coupon
+                            </div>
+                            <div
+                                class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
+                            >
+                                <div class="flex items-center">
+                                    <avored-input
+                                        v-model="promotionCode"
+                                    ></avored-input>
+                                    <button
+                                        @click="applyPromotionCodeClicked"
+                                        type="button" 
+                                        class="ml-3 bg-red-500 text-white text-xs px-2 py-3 leading-6 rounded">
+                                        Apply
+                                    </button>
                                 </div>
                             </div>
-                            <div class="flex justify-between pt-4 border-b">
-                                <div
-                                    class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800"
-                                >
-                                    Tax
-                                </div>
-                                <div
-                                    class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
-                                >
-                                    {{ defaultCurrency.symbol }} {{ totalTax }}
-                                </div>
+                        </div>
+                        <div class="flex justify-between pt-4 border-b">
+                            <div
+                                class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800"
+                            >
+                                Discount
                             </div>
-                            <div class="flex justify-between pt-4 border-b">
-                                <div
-                                    class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800"
-                                >
-                                    Total
-                                </div>
-                                <div
-                                    class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
-                                >
-                                    {{ defaultCurrency.symbol }} {{ total }}
-                                </div>
+                            <div
+                                class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
+                            >
+                                
+                                - {{ defaultCurrency.symbol }} {{ discountTotal }}
                             </div>
+                        </div>
+                        <div class="flex justify-between pt-4 border-b">
+                            <div
+                                class="lg:px-4 lg:py-2 m-2 text-lg lg:text-xl font-bold text-center text-gray-800"
+                            >
+                                Total
+                            </div>
+                            <div
+                                class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
+                            >
+                                {{ defaultCurrency.symbol }} {{ cartTotal }}
+                            </div>
+                        </div>
                             <a :href="checkoutUrl">
                                 <button
                                     class="flex justify-center w-full px-10 py-3 mt-6 font-medium text-white uppercase bg-gray-800 rounded-full shadow item-center hover:bg-gray-700 focus:shadow-outline focus:outline-none"
@@ -143,7 +178,7 @@
 import axios from "axios";
 
 export default {
-    props: ["items", "couponUrl", "cartDeleteUrl", "cartUpdateUrl", 'defaultCurrency', 'checkoutUrl'],
+    props: ["items", "couponUrl", "cartDeleteUrl", "cartUpdateUrl", 'defaultCurrency', 'checkoutUrl', 'cartTotal', 'discountTotal'],
     data() {
         return {
             showCartActionBtn: false,
@@ -151,7 +186,8 @@ export default {
             cartUpdateModalVisibility: false,
             totalTax: 0,
             subtotal: 0,
-            total: 0
+            total: 0,
+            promotionCode: ''
         };
     },
     methods: {
@@ -170,24 +206,32 @@ export default {
                 this.showCartActionBtn = false;
             }
         },
+        applyPromotionCodeClicked() {
+            var app = this
+            axios({
+                method: "post",
+                url: this.couponUrl + '/' + this.promotionCode
+            }).then(response => {
+                if (response.data.success == true) {
+                    app.$alert(response.data.message)
+                    location.reload();
+                } else {
+                    app.$alert(response.data.message)
+                }
+            });
+        },
         delteCartProductClick() {
-            var app = this;
+            var app = this
             axios({
                 method: "delete",
                 url: this.cartDeleteUrl,
                 data: { products: this.cartActionProducts }
             }).then(response => {
                 if (response.data.success == true) {
-                    app.$notification.success({
-                        key: "cart.destroy.success",
-                        message: response.data.message
-                    });
+                    app.$alert(response.data.message)
                     location.reload();
                 } else {
-                    app.$notification.error({
-                        key: "cart.destroy.error",
-                        message: response.data.message
-                    });
+                    app.$alert(response.data.message)
                 }
             });
         },
@@ -206,16 +250,10 @@ export default {
                 data: { products: this.cartActionProducts }
             }).then(response => {
                 if (response.data.success == true) {
-                    app.$notification.success({
-                        key: "cart.update.success",
-                        message: response.data.message
-                    });
+                    app.$alert(response.data.message)
                     location.reload();
                 } else {
-                    app.$notification.error({
-                        key: "cart.update.error",
-                        message: response.data.message
-                    });
+                    app.$alert(response.data.message)
                 }
             });
         }
