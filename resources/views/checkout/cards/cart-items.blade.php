@@ -21,15 +21,25 @@
         </p>
     </div>
     <div class="w-1/6">@{{ parseFloat(item.qty).toFixed(2) }}</div>
-    <div class="w-1/6">$@{{ parseFloat(item.price).toFixed(2) }}</div>
-    <div class="w-1/6">$@{{ parseFloat((item.qty * item.price) + item.tax).toFixed(2) }}(incl tax)</div>
+    <div class="w-1/6">{{ session()->get('default_currency')->symbol }}@{{ parseFloat(item.price).toFixed(2) }}</div>
+    <div class="w-1/6">{{ session()->get('default_currency')->symbol }}@{{ parseFloat((item.qty * item.price) + item.tax).toFixed(2) }}</div>
+    
 </div>
 <div class="flex items-center">
     <div class="w-1/6"></div>
     <div class="w-2/6"></div>
     <div class="w-1/6"></div>
-    <div class="w-1/6"></div>
+    <div class="w-1/6">Discount</div>
     <div class="w-1/6">
-        ${{ Cart::total() }}
+        - {{ session()->get('default_currency')->symbol }}{{ Cart::discount() }}
+    </div>
+</div>
+<div class="flex items-center">
+    <div class="w-1/6"></div>
+    <div class="w-2/6"></div>
+    <div class="w-1/6"></div>
+    <div class="w-1/6">Total</div>
+    <div class="w-1/6">
+        {{ session()->get('default_currency')->symbol }}{{ Cart::total() }}
     </div>
 </div>

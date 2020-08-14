@@ -12611,8 +12611,8 @@ exports = module.exports = AvoRed;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/purvesh/code/laravel-ecommerce/vendor/avored/framework/resources/js/avored.js */"./resources/js/avored.js");
-module.exports = __webpack_require__(/*! /Users/purvesh/code/laravel-ecommerce/vendor/avored/framework/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/purvesh/code/laravel-ecommerce/packages/framework/resources/js/avored.js */"./resources/js/avored.js");
+module.exports = __webpack_require__(/*! /Users/purvesh/code/laravel-ecommerce/packages/framework/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

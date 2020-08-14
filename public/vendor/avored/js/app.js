@@ -8221,10 +8221,10 @@ var columns = [{
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/customer-group/CustomerGroupSave.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/user/customer-group/CustomerGroupSave.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8234,14 +8234,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['customerGroup', 'baseUrl'],
+  props: ['userGroup', 'baseUrl'],
   data: function data() {
     return {
+      userGroupForm: this.$form.createForm(this),
       is_default: 1
     };
   },
   methods: {
-    handleSubmit: function handleSubmit() {},
+    handleSubmit: function handleSubmit() {
+      this.userGroupForm.validateFields(function (err, values) {
+        if (err) {
+          e.preventDefault();
+        }
+      });
+    },
     isDefaultSwitchChange: function isDefaultSwitchChange(val) {
       if (val) {
         this.is_default = 1;
@@ -8250,22 +8257,22 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     cancelUserGroup: function cancelUserGroup() {
-      window.location = this.baseUrl + '/customer-group';
+      window.location = this.baseUrl + '/user-group';
     }
   },
   mounted: function mounted() {
-    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.customerGroup)) {
-      this.is_default = this.customerGroup.is_default;
+    if (!lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(this.userGroup)) {
+      this.is_default = this.userGroup.is_default;
     }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8318,7 +8325,7 @@ var columns = [{
   slotName: "action"
 }];
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['baseUrl', 'initCustomerGroups'],
+  props: ['baseUrl', 'initUserGroups'],
   data: function data() {
     return {
       columns: columns
@@ -8326,22 +8333,22 @@ var columns = [{
   },
   methods: {
     getEditUrl: function getEditUrl(record) {
-      return this.baseUrl + '/customer-group/' + record.id + '/edit';
+      return this.baseUrl + '/user-group/' + record.id + '/edit';
     },
     getDeleteUrl: function getDeleteUrl(record) {
-      return this.baseUrl + '/customer-group/' + record.id;
+      return this.baseUrl + '/user-group/' + record.id;
     },
     deleteOnClick: function deleteOnClick(record) {
-      var url = this.baseUrl + '/customer-group/' + record.id;
+      var url = this.baseUrl + '/user-group/' + record.id;
       var app = this;
       this.$confirm({
-        title: 'Do you Want to delete ' + record.name + ' customer-group?',
+        title: 'Do you Want to delete ' + record.name + ' user-group?',
         okType: 'danger',
         onOk: function onOk() {
           axios["delete"](url).then(function (response) {
             if (response.data.success === true) {
               app.$notification.error({
-                key: 'customer.group.delete.success',
+                key: 'user.group.delete.success',
                 message: response.data.message
               });
             }
@@ -8349,7 +8356,7 @@ var columns = [{
             window.location.reload();
           })["catch"](function (errors) {
             app.$notification.error({
-              key: 'customer.group.delete.error',
+              key: 'user.group.delete.error',
               message: errors.message
             });
           });
@@ -33141,7 +33148,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_vm._v("Hello Test")])
+  return _c("div", [_vm._v("Hello Test Update")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -34553,10 +34560,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=template&id=a1f2face&":
-/*!**************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=template&id=a1f2face& ***!
-  \**************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=e12d1e0e&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=e12d1e0e& ***!
+  \******************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -34577,12 +34584,12 @@ var render = function() {
         {
           attrs: {
             columns: _vm.columns,
-            from: _vm.initCustomerGroups.from,
-            to: _vm.initCustomerGroups.to,
-            total: _vm.initCustomerGroups.total,
-            prev_page_url: _vm.initCustomerGroups.prev_page_url,
-            next_page_url: _vm.initCustomerGroups.next_page_url,
-            items: _vm.initCustomerGroups.data
+            from: _vm.initUserGroups.from,
+            to: _vm.initUserGroups.to,
+            total: _vm.initUserGroups.total,
+            prev_page_url: _vm.initUserGroups.prev_page_url,
+            next_page_url: _vm.initUserGroups.next_page_url,
+            items: _vm.initUserGroups.data
           },
           scopedSlots: _vm._u([
             {
@@ -62130,16 +62137,16 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/components/user/customer-group/CustomerGroupSave.vue":
-/*!************************************************************************!*\
-  !*** ./resources/components/user/customer-group/CustomerGroupSave.vue ***!
-  \************************************************************************/
+/***/ "./resources/components/user/user-group/UserGroupSave.vue":
+/*!****************************************************************!*\
+  !*** ./resources/components/user/user-group/UserGroupSave.vue ***!
+  \****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CustomerGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CustomerGroupSave.vue?vue&type=script&lang=js& */ "./resources/components/user/customer-group/CustomerGroupSave.vue?vue&type=script&lang=js&");
+/* harmony import */ var _UserGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserGroupSave.vue?vue&type=script&lang=js& */ "./resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
 
@@ -62149,7 +62156,7 @@ var render, staticRenderFns
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _CustomerGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  _UserGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
   render,
   staticRenderFns,
   false,
@@ -62161,36 +62168,36 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/components/user/customer-group/CustomerGroupSave.vue"
+component.options.__file = "resources/components/user/user-group/UserGroupSave.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/components/user/customer-group/CustomerGroupSave.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************!*\
-  !*** ./resources/components/user/customer-group/CustomerGroupSave.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************/
+/***/ "./resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./CustomerGroupSave.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/customer-group/CustomerGroupSave.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./UserGroupSave.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/user-group/UserGroupSave.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupSave_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/components/user/customer-group/CustomerGroupTable.vue":
-/*!*************************************************************************!*\
-  !*** ./resources/components/user/customer-group/CustomerGroupTable.vue ***!
-  \*************************************************************************/
+/***/ "./resources/components/user/user-group/UserGroupTable.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/components/user/user-group/UserGroupTable.vue ***!
+  \*****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CustomerGroupTable_vue_vue_type_template_id_a1f2face___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CustomerGroupTable.vue?vue&type=template&id=a1f2face& */ "./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=template&id=a1f2face&");
-/* harmony import */ var _CustomerGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CustomerGroupTable.vue?vue&type=script&lang=js& */ "./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _UserGroupTable_vue_vue_type_template_id_e12d1e0e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UserGroupTable.vue?vue&type=template&id=e12d1e0e& */ "./resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=e12d1e0e&");
+/* harmony import */ var _UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UserGroupTable.vue?vue&type=script&lang=js& */ "./resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -62200,9 +62207,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _CustomerGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CustomerGroupTable_vue_vue_type_template_id_a1f2face___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CustomerGroupTable_vue_vue_type_template_id_a1f2face___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UserGroupTable_vue_vue_type_template_id_e12d1e0e___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _UserGroupTable_vue_vue_type_template_id_e12d1e0e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -62212,38 +62219,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/components/user/customer-group/CustomerGroupTable.vue"
+component.options.__file = "resources/components/user/user-group/UserGroupTable.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************!*\
-  !*** ./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************/
+/***/ "./resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./CustomerGroupTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./UserGroupTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/user-group/UserGroupTable.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=template&id=a1f2face&":
-/*!********************************************************************************************************!*\
-  !*** ./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=template&id=a1f2face& ***!
-  \********************************************************************************************************/
+/***/ "./resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=e12d1e0e&":
+/*!************************************************************************************************!*\
+  !*** ./resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=e12d1e0e& ***!
+  \************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerGroupTable_vue_vue_type_template_id_a1f2face___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./CustomerGroupTable.vue?vue&type=template&id=a1f2face& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/customer-group/CustomerGroupTable.vue?vue&type=template&id=a1f2face&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerGroupTable_vue_vue_type_template_id_a1f2face___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_e12d1e0e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./UserGroupTable.vue?vue&type=template&id=e12d1e0e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/user/user-group/UserGroupTable.vue?vue&type=template&id=e12d1e0e&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_e12d1e0e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CustomerGroupTable_vue_vue_type_template_id_a1f2face___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UserGroupTable_vue_vue_type_template_id_e12d1e0e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -62287,8 +62294,8 @@ Vue.use(vddl__WEBPACK_IMPORTED_MODULE_4___default.a);
 Vue.component('order-table', __webpack_require__(/*! ../components/order/order/OrderTable.vue */ "./resources/components/order/order/OrderTable.vue")["default"]); // Vue.component('language-table', require('../components/system/language/LanguageTable.vue').default)
 // Vue.component('language-save', require('../components/system/language/LanguageSave.vue').default)
 
-Vue.component('customer-group-table', __webpack_require__(/*! ../components/user/customer-group/CustomerGroupTable.vue */ "./resources/components/user/customer-group/CustomerGroupTable.vue")["default"]);
-Vue.component('customer-group-save', __webpack_require__(/*! ../components/user/customer-group/CustomerGroupSave.vue */ "./resources/components/user/customer-group/CustomerGroupSave.vue")["default"]); // Vue.component('tax-group-table', require('../components/system/tax-group/TaxGroupTable.vue').default)
+Vue.component('user-group-table', __webpack_require__(/*! ../components/user/user-group/UserGroupTable.vue */ "./resources/components/user/user-group/UserGroupTable.vue")["default"]);
+Vue.component('user-group-save', __webpack_require__(/*! ../components/user/user-group/UserGroupSave.vue */ "./resources/components/user/user-group/UserGroupSave.vue")["default"]); // Vue.component('tax-group-table', require('../components/system/tax-group/TaxGroupTable.vue').default)
 // Vue.component('tax-group-save', require('../components/system/tax-group/TaxGroupSave.vue').default)
 // Vue.component('tax-rate-table', require('../components/system/tax-rate/TaxRateTable.vue').default)
 // Vue.component('tax-rate-save', require('../components/system/tax-rate/TaxRateSave.vue').default)
@@ -62429,7 +62436,7 @@ __webpack_require__.r(__webpack_exports__);
 /*! exports provided: admin_menus, default */
 /***/ (function(module) {
 
-module.exports = JSON.parse("{\"admin_menus\":{\"admin-user\":\"Staff\",\"attribute\":\"Attribute\",\"catalog\":\"Catalog\",\"category\":\"Category\",\"currency\":\"Currency\",\"cms\":\"CMS\",\"menu\":\"Menu\",\"configuration\":\"Configuration\",\"language\":\"Language\",\"order\":\"Order\",\"order-status\":\"Order Status\",\"page\":\"Page\",\"product\":\"Product\",\"property\":\"Product Property\",\"role\":\"Role\",\"system\":\"System\",\"state\":\"State\",\"user\":\"User\",\"customer-group\":\"Customer Group\",\"tax-group\":\"Tax Group\",\"tax-rate\":\"Tax Rate\",\"promo-code\":\"Promotion Code\",\"promotion\":\"Promotion\"}}");
+module.exports = JSON.parse("{\"admin_menus\":{\"admin-user\":\"Staff\",\"attribute\":\"Attribute\",\"catalog\":\"Catalog\",\"category\":\"Category\",\"currency\":\"Currency\",\"cms\":\"CMS\",\"menu\":\"Menu\",\"configuration\":\"Configuration\",\"language\":\"Language\",\"order\":\"Order\",\"order-status\":\"Order Status\",\"page\":\"Page\",\"product\":\"Product\",\"property\":\"Product Property\",\"role\":\"Role\",\"system\":\"System\",\"state\":\"State\",\"user\":\"User\",\"user-group\":\"User Group\",\"tax-group\":\"Tax Group\",\"tax-rate\":\"Tax Rate\",\"promo-code\":\"Promotion Code\",\"promotion\":\"Promotion\"}}");
 
 /***/ }),
 
@@ -62551,7 +62558,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/purvesh/code/laravel-ecommerce/vendor/avored/framework/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/purvesh/code/laravel-ecommerce/packages/framework/resources/js/app.js */"./resources/js/app.js");
 
 
 /***/ }),
