@@ -40,9 +40,6 @@ class CartController extends Controller
      */
     public function show(Request $request)
     {
-        if ($request->get('promotion_code') !== null) {
-            Cart::applyCoupon($request->get('promotion_code'));
-        }
         $cartProducts = Cart::all();
 
         return view('cart.show')->with(compact('cartProducts'));
@@ -77,5 +74,17 @@ class CartController extends Controller
         }
         
         return response()->json(['success' => true, 'message' => 'Product Update from Cart Successfully']);
+    }
+
+    /**
+     * Apply the Promotion Code into a cart
+     * @param string $code
+     * @return JsonResponse 
+     */
+    public function applyPromotionCode(string $code)
+    {
+        $message = Cart::applyCoupon($code);
+    
+        return ['message' => $message, 'success' => true];
     }
 }

@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-<a-breadcrumb style="margin: 16px 0">
-    <a-breadcrumb-item>
-      <a href="{{ route('home') }}" title="home">
-        {{ __('Home') }}
+<div class="flex text-sm">
+    <div>
+      <a class="text-gray-700" href="{{ route('home') }}" title="home">
+        {{ __('Home') }} >> 
       </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
+    </div>
+    <div class="text-gray-700" class="pl-2">
         {{ __('Cart') }}
-    </a-breadcrumb-item>
-</a-breadcrumb>
+    </div>
+</div>
 @endsection
 
 @section('content')
@@ -18,6 +18,9 @@
         :items="{{ Cart::toArray() }}"
         cart-update-url="{{ route('cart.update') }}"
         checkout-url="{{ route('checkout.show') }}"
+        discount-total="{{ Cart::discount() }}"
+        cart-total="{{ Cart::total() }}"
+        coupon-url="/apply-promotion-code"
         :default-currency="{{ json_encode(session()->get('default_currency')) }}"
         cart-delete-url="{{ route('cart.destroy') }}">
        

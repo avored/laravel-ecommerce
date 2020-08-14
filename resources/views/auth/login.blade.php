@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-<div>
+<div class="flex pb-3">
     <div>
-      <a href="{{ route('home') }}" title="home">
-        {{ __('Home') }}
+      <a href="{{ route('home') }}" class="text-gray-700" title="home">
+        {{ __('Home') }} >>
       </a>
     </div>
-    <div>
+    <div class="ml-1 text-gray-700">
         {{ __('Login') }}
     </div>
 </div>

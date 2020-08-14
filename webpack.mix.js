@@ -16,10 +16,10 @@ mix.options({
 mix.alias({'@': 'resources/js'})
 
 
-/******** AVORED ADMIN JS  **********/
+/******** AVORED Global Vue and AvoRed Instance for custom modular component register JS  **********/
 mix.js('resources/js/avored.js', 'js/avored.js')
-    // .extract(['vue', 'ant-design-vue'])
 
+/******** AVORED JS  **********/
 mix.js('resources/js/app.js', 'js/app.js')
 
 /******** AVORED COPY IMAGES  **********/

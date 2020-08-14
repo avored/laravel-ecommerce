@@ -6,6 +6,7 @@
 /modules/avored/stripe
 /modules/avored/pos
 .env
+.env.dusk.local
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
