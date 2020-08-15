@@ -1,6 +1,6 @@
 {
-	"name" : "avored/cash-on-delivery",
-	"description" : "AvoRed Laravel E commerce - Cash On Delivery Module",
+	"name" : "avored/pickup",
+	"description" : "AvoRed Laravel E commerce - Pickup Module",
 	"keywords" : [
 		"framework",
 		"banner",
