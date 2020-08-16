@@ -1312,10 +1312,10 @@ autoprefixer@^9.4.2, autoprefixer@^9.4.5:
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
 
-avored-components@^0.1.2:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/avored-components/-/avored-components-0.1.2.tgz#12846cbbd8466d4840b332ce5be6480bf3d21186"
-  integrity sha512-hSttMFUvV1craKQiMXP+NcXNITSzSKkqIay/vKuc8U5+B4dRjs0P4US2BeQQoc5xMfynGQAKXmE+kOKFVkbmNQ==
+avored-components@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/avored-components/-/avored-components-0.1.5.tgz#2df4a6d5b44b6d1965a475181cccc6c86f198b8b"
+  integrity sha512-Mdu7IRoyUuiqbqEtdVh7Y6IzX1433xdP/zRydPIhG5aQ4A5unA4j8hXzFIW4k0qlZV4p/V1FHpnGmy6gRKwWDg==
   dependencies:
     axios "^0.19.2"
     core-js "^3.6.5"
