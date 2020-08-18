@@ -25,7 +25,6 @@
       @csrf          
       <div class="flex">
         <div class="w-1/2">
-         
               @include('checkout.cards.personal')   
           
               @include('checkout.cards.shipping-address')

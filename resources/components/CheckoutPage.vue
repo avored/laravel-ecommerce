@@ -21,7 +21,6 @@ export default {
     },
     methods: {
         handleSubmit (e) {
-            //var app = this
             e.preventDefault()
             EventBus.$emit('placeOrderBefore')
 
@@ -39,8 +38,6 @@ export default {
                         return falspe
                     } else {
                         app.stripeToken = result.token.id
-                        console.log(app.stripeToken, 'i am ready for submit')
-                        
                     }
                 })
             }
@@ -63,8 +60,8 @@ export default {
         newAccountSwitchChange(val) {
             this.newAccount = val;
         },
-        useDifferentBillingAddressSwitchChange(val) {
-            this.useDifferentBillingAddress = !val;
+        useDifferentBillingAddressSwitchChange() {
+            this.useDifferentBillingAddress = !this.useDifferentBillingAddress
         },
         // handlePaymentChange(identifier) {
         //     console.log('i am listener', identifier)
@@ -84,14 +81,29 @@ export default {
         if (!isNil(this.addresses)) {
             this.addresses.forEach(address => {
                 if (address.type === 'SHIPPING') {
-                    this.shippingAddresses.push(address);
+                    var addressLabel = ''
+                    addressLabel += address.company_name + ', '
+                    addressLabel += address.first_name + ' ' + address.last_name + ', '
+                    addressLabel += address.address1 + ', '
+                    addressLabel += address.address2 + ', '
+                    addressLabel += address.city + ', '
+                    addressLabel += address.state + ' ' + address.country.name
+                    this.shippingAddresses.push(addressLabel)
 
                     if (isNil(this.selectedShippingAddress)) {
                         this.selectedShippingAddress = address;
                     }
                 }
                 if (address.type === 'BILLING') {
-                    this.billingAddresses.push(address);
+                    var addressLabel = ''
+                    addressLabel += address.company_name + ', '
+                    addressLabel += address.first_name + ' ' + address.last_name + ', '
+                    addressLabel += address.address1 + ', '
+                    addressLabel += address.address2 + ', '
+                    addressLabel += address.city + ', '
+                    addressLabel += address.state + ' ' + address.country.name
+                    this.billingAddresses.push(addressLabel);
+                    
                     if (isNil(this.selectedBillingAddress)) {
                         this.selectedBillingAddress = address;
                     }

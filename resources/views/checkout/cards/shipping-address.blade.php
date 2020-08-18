@@ -99,8 +99,7 @@
                     error-text="{{ $errors->first('shipping.address_id') }}"
                     field-name="field_type"
                     :options="shippingAddresses"
-                >
-                </avored-select>
+                ></avored-select>
             </div>
         
             
@@ -109,14 +108,13 @@
                 <div class="text-xl p-5 border-b">
                     Selected Shipping Address
                 </div>
-                <div>
-                    @{{ selectedShippingAddress.id }}<br/>
+                <div class="p-5">
                     @{{ selectedShippingAddress.company_name }}<br/>
                     @{{ selectedShippingAddress.first_name }} @{{ selectedShippingAddress.last_name }} <br/>
                     @{{ selectedShippingAddress.address1 }} @{{ selectedShippingAddress.address2 }} <br/>
                     @{{ selectedShippingAddress.city }} <br/>
                     @{{ selectedShippingAddress.state }} <br/>
-                    @{{ selectedShippingAddress.country }} @{{ selectedShippingAddress.postcode }}<br/>
+                    @{{ selectedShippingAddress.country.name }} @{{ selectedShippingAddress.postcode }}<br/>
                 </div>
             </div>
         </div>
@@ -128,9 +126,9 @@
     <avored-toggle
         label-text="{{ __('User Different Billing Address') }}"
         error-text="{{ $errors->first('use_different_address') }}"
-        @change="useDifferentBillingAddressSwitchChange"
+        @input="useDifferentBillingAddressSwitchChange"
         field-name="use_different_address"
-        init-value="1"
-    >
+        init-value="0"
+    > 
     </avored-toggle>
 </div>

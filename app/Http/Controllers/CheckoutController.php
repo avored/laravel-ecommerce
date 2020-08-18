@@ -39,8 +39,8 @@ class CheckoutController extends Controller
     public function show()
     {
         $addresses = Collection::make([]);
-        if (Auth::check()) {
-            $addresses = $this->addressRepository->getByUserId(Auth::user()->id);
+        if (Auth::guard('customer')->check()) {
+            $addresses = $this->addressRepository->getByCustomerId(Auth::guard('customer')->user()->id);
         }
 
         $paymentOptions = Payment::all();
