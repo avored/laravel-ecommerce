@@ -35,7 +35,7 @@
 </div>
 <div class="flex mt-5">
     @foreach ($userAddresses as $address)
-        <div class="w-1/2">
+        <div class="w-1/2 mr-3">
             <div class="border">
                 <div class="p-5 flex border-b">
                     <span class="">

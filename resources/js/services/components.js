@@ -24,5 +24,6 @@ Vue.component('avored-tab', AvoRedTab)
 Vue.component('avored-modal', AvoRedModal)
 Vue.component('avored-dropdown', AvoRedDropdown)
 
+
 Vue.use(AvoRedAlert)
 Vue.use(AvoRedConfirm)

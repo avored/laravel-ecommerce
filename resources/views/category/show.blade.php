@@ -3,13 +3,13 @@
 
 @section('breadcrumb')
       
-<div>
+<div class="flex mb-2">
     <div>
-      <a href="{{ route('home') }}" title="home">
-        {{ __('Home') }}
+      <a href="{{ route('home') }}" class="text-sm text-gray-700" title="home">
+        {{ __('Home') }} >> 
       </a>
     </div>
-    <div>
+    <div class="ml-1 text-sm text-gray-700">
         {{ $category->name }}
     </div>
 </div>

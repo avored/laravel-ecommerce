@@ -19,7 +19,14 @@ return [
         'first_name' => 'First Name',
         'last_name' => 'Last Name',
         'password_confirmation' => 'Confirm password',
-        'image' => 'Image'
+        'image' => 'Image',
+        'address2' => 'Address2',
+        'company_name' => 'Company Name',
+        'phone' => 'Phone',
+        'address1' => 'Address 1',
+        'postcode' => 'Postcode',
+        'state' => 'State',
+        'city' => 'City'
     ],
     'terms' => [
         ''

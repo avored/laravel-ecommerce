@@ -21,3 +21,4 @@ docker-compose.yml
 /Docker
 docker-command.md
 public/avored-admin
+public/mix-manifest.json

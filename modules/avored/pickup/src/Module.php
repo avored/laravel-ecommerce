@@ -3,6 +3,8 @@ namespace AvoRed\Pickup;
 
 use Illuminate\Support\ServiceProvider;
 use AvoRed\Framework\Support\Facades\Shipping;
+use AvoRed\Framework\Support\Facades\Tab;
+use AvoRed\Framework\Tab\TabItem;
 
 class Module extends ServiceProvider
 {
@@ -16,6 +18,7 @@ class Module extends ServiceProvider
     {
         $this->registerResources();
         $this->registerShippingOption();
+        $this->registerTab();
     }
 
     /**
@@ -37,8 +40,8 @@ class Module extends ServiceProvider
     protected function registerResources()
     {
         //$this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        //$this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-pickup');
-        //$this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-pickup');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-pickup');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-pickup');
     }
 
      /**
@@ -49,5 +52,14 @@ class Module extends ServiceProvider
     {
         $shipping = new Pickup();
         Shipping::put($shipping);
+    }
+
+    public function registerTab()
+    {
+        Tab::put('system.configuration', function (TabItem $tab) {
+            $tab->key('system.configuration.pickup')
+                ->label('avored-pickup::pickup.config-title')
+                ->view('avored-pickup::system.configuration.pickup');
+        });
     }
 }

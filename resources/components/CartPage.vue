@@ -8,11 +8,13 @@
                     <thead>
                         <tr class="h-12 uppercase">
                             <th class="hidden md:table-cell"></th>
-                            <th class="text-left">Product</th>
+                            <th class="text-left">
+                                Product
+                            </th>
                             <th class="lg:text-right text-left pl-5 lg:pl-0">
-                                <span class="lg:hidden" title="Quantity"
-                                    >Qtd</span
-                                >
+                                <span class="lg:hidden" title="Quantity">
+                                    Qtd
+                                </span>
                                 <span class="hidden lg:inline">Quantity</span>
                             </th>
                             <th class="hidden text-right md:table-cell">
@@ -58,12 +60,12 @@
                             </td>
                             <td class="hidden text-right md:table-cell">
                                 <span class="text-sm lg:text-base font-medium">
-                                    {{ item.price }}
+                                    {{ defaultCurrency.symbol }}{{ parseFloat(item.price).toFixed(2) }}
                                 </span>
                             </td>
                             <td class="text-right">
                                 <span class="text-sm lg:text-base font-medium">
-                                    {{ item.price * item.qty }}
+                                    {{ defaultCurrency.symbol }}{{ parseFloat(item.price * item.qty).toFixed(2) }}
                                 </span>
                             </td>
                         </tr>
@@ -83,7 +85,7 @@
                             <div
                                 class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
                             >
-                                {{ defaultCurrency.symbol }} {{ subtotal  }}
+                                {{ defaultCurrency.symbol }}{{ subtotal.toFixed(2)  }}
                             </div>
                         </div>
                         <div class="flex justify-between pt-4 border-b">
@@ -95,7 +97,7 @@
                             <div
                                 class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
                             >
-                                {{ defaultCurrency.symbol }} {{ totalTax }}
+                                {{ defaultCurrency.symbol }}{{ totalTax.toFixed(2) }}
                             </div>
                         </div>
                         <div class="flex justify-between pt-4 border-b">
@@ -130,7 +132,7 @@
                                 class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
                             >
                                 
-                                - {{ defaultCurrency.symbol }} {{ discountTotal }}
+                                - {{ defaultCurrency.symbol }}{{ discountTotal }}
                             </div>
                         </div>
                         <div class="flex justify-between pt-4 border-b">
@@ -142,7 +144,7 @@
                             <div
                                 class="lg:px-4 lg:py-2 m-2 lg:text-lg font-bold text-center text-gray-900"
                             >
-                                {{ defaultCurrency.symbol }} {{ cartTotal }}
+                                {{ defaultCurrency.symbol }}{{ cartTotal }}
                             </div>
                         </div>
                             <a :href="checkoutUrl">
@@ -263,6 +265,7 @@ export default {
             this.items.forEach((item) => {
                 this.subtotal += item.price * item.qty
                 this.total += item.tax
+                this.totalTax += item.tax
             })
 
              this.total = this.subtotal + this.totalTax

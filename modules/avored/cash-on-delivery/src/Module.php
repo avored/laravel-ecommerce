@@ -63,7 +63,7 @@ class Module extends ServiceProvider
     public function publishFiles()
     {
         $this->publishes([
-            __DIR__ . '/../dist/js' => public_path('avored-admin/js'),
+            __DIR__ . '/../dist/js' => public_path('vendor/avored/js'),
         ]);
     }
 
