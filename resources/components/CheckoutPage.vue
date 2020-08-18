@@ -16,7 +16,9 @@ export default {
             shippingOption: '',
             shippingCountry: 0,
             billingCountry: 0,
-            stripeToken: ''
+            stripeToken: '',
+            initShippingAddress: null,
+            initBillingAddress: null
         }
     },
     methods: {
@@ -89,6 +91,7 @@ export default {
                     addressLabel += address.city + ', '
                     addressLabel += address.state + ' ' + address.country.name
                     this.shippingAddresses.push(addressLabel)
+                    this.initShippingAddress = 0
 
                     if (isNil(this.selectedShippingAddress)) {
                         this.selectedShippingAddress = address;
@@ -102,10 +105,11 @@ export default {
                     addressLabel += address.address2 + ', '
                     addressLabel += address.city + ', '
                     addressLabel += address.state + ' ' + address.country.name
-                    this.billingAddresses.push(addressLabel);
+                    this.billingAddresses.push(addressLabel)
+                    this.initBillingAddress = 0
                     
                     if (isNil(this.selectedBillingAddress)) {
-                        this.selectedBillingAddress = address;
+                        this.selectedBillingAddress = address
                     }
                 }
                 

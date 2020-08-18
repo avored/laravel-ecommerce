@@ -98,6 +98,7 @@
                     label-text="{{ __('Shipping Address') }}"
                     error-text="{{ $errors->first('shipping.address_id') }}"
                     field-name="field_type"
+                    :init-value="initShippingAddress"
                     :options="shippingAddresses"
                 ></avored-select>
             </div>

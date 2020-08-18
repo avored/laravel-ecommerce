@@ -99,6 +99,7 @@
                         label-text="{{ __('Billing Address') }}"
                         error-text="{{ $errors->first('billing.address_id') }}"
                         field-name="field_type"
+                        :init-value="initBillingAddress"
                         :options="billingAddresses"
                     ></avored-select>
                 </div>
