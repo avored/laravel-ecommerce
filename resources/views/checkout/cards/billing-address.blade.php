@@ -103,8 +103,6 @@
                         :options="billingAddresses"
                     ></avored-select>
                 </div>
-            
-                
                 
                 <div class="border shadow">
                     <div class="text-xl p-5 border-b">

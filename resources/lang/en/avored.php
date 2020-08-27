@@ -31,6 +31,7 @@ return [
     'terms' => [
         ''
     ],
+    'cart_page' => 'Cart Page',
     'btn' => [
         'sign_in' => 'Sign In',
         'register' => 'Register',
@@ -39,6 +40,7 @@ return [
         'create' => 'Create'
     ],
     'pages' => [
+       
         'login' => [
             'title' => 'Login to your Account',
             'remember_me' => 'Remember Me',
