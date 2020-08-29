@@ -1,6 +1,6 @@
 
 <script>
-import axios from "axios";
+import axios from "axios"
 
 export default {
     props: ["items", "couponUrl", "cartDeleteUrl", "cartUpdateUrl", 'defaultCurrency', 'checkoutUrl', 'cartTotal', 'discountTotal'],
@@ -13,29 +13,22 @@ export default {
             subtotal: 0,
             total: 0,
             promotionCode: '',
-            cartUpdateDisplay: false
+            cartUpdateDisplay: false,
+            cartItems: null
         };
     },
     methods: {
         checkboxChange(event, product) {
-            console.log(window.x = event)
             if (event.target.checked) {
-                this.cartUpdateDisplay = true
-            } else {
-                this.cartUpdateDisplay = false
-            }
-            console.log(product)
-        },
-        clickOnCheckBox(e, product) {
-            if (e.target.checked) {
-                this.cartActionProducts.push(product);
+                this.cartActionProducts.push(product)
             } else {
                 const index = this.cartActionProducts.findIndex(
                     ele => ele.slug === product.slug
-                );
-                this.cartActionProducts.splice(index, 1);
+                )
+                this.cartActionProducts.splice(index, 1)
             }
-            if (this.cartActionProducts.length > 0) {
+
+             if (this.cartActionProducts.length > 0) {
                 this.showCartActionBtn = true;
             } else {
                 this.showCartActionBtn = false;
@@ -76,9 +69,8 @@ export default {
         clickOnCartUpdateCancel() {
             this.cartUpdateModalVisibility = false;
         },
-        clickOnCartUpdateOk() {
-            var app = this;
-
+        clickOnCartUpdate() {
+            var app = this
             axios({
                 method: "put",
                 url: this.cartUpdateUrl,
@@ -94,6 +86,7 @@ export default {
         }
     },
     mounted() {
+        this.cartItems = this.items
         if (this.items.length > 0 ) {
             this.items.forEach((item) => {
                 this.subtotal += item.price * item.qty
