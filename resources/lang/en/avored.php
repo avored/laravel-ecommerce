@@ -26,18 +26,28 @@ return [
         'address1' => 'Address 1',
         'postcode' => 'Postcode',
         'state' => 'State',
-        'city' => 'City'
+        'city' => 'City',
     ],
-    'terms' => [
-        ''
-    ],
-    'cart_page' => 'Cart Page',
+
+    'home' => 'Home',
+    'cart' => 'Cart',
+    'page' => 'Page',
+    'product' => 'Product',
+    'qty' => 'Qty',
+    'unit_price' => 'Unit Price',
+    'total_price' => 'Total Price',
+    'subtotal' => 'Sub Total',
+    'discount_coupon' => 'Discount Coupon',
+    'discount' => 'Discount',
+    'total' => 'Total',
+    'checkout' => 'Checkout',
     'btn' => [
         'sign_in' => 'Sign In',
         'register' => 'Register',
         'save' => 'Save',
         'cancel' => 'Cancel',
-        'create' => 'Create'
+        'create' => 'Create',
+        'apply' => 'Apply'
     ],
     'pages' => [
        
