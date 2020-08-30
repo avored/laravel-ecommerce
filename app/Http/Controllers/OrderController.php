@@ -131,7 +131,7 @@ class OrderController extends Controller
      */
     public function customer($request)
     {
-        if (Auth::check()) {
+        if (Auth::guard('customer')->check()) {
             $this->customer = Auth::guard('customer')->user();
         } else {            
             $email = $request->get('email');

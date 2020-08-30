@@ -3,12 +3,12 @@
 @section('breadcrumb')
 <div class="flex">
     <div class="mr-3">
-      <a href="{{ route('home') }}" title="home">
-        {{ __('Home') }}
+      <a href="{{ route('home') }}" class="text-gray-700" title="home">
+        {{ __('avored.home') }} >>
       </a>
     </div>
-    <div>
-        {{ __('Checkout') }}
+    <div class="text-gray-700">
+        {{ __('avored.checkout') }}
     </div>
 </div>
 @endsection
@@ -20,7 +20,7 @@
     :addresses="{{ $addresses }}"
     inline-template>
     <div class="container mx-auto">
-    <h1 class="text-lg text-red-700 font-semibold my-5">{{ __('Checkout Page') }}</h1>
+    <h1 class="text-lg text-red-700 font-semibold my-5">{{ __('avored.checkout') }} {{ __('avored.page') }}</h1>
     <form @submit.prevent="handleSubmit" id="checkout-form"  method="post" action="{{ route('order.place') }}">
       @csrf          
       <div class="flex">
@@ -37,7 +37,7 @@
               @include('checkout.cards.cart-items')   
               
               <button type="submit" class="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded">
-                  Place Order
+                  {{ __('avored.btn.place_order') }}
               </button>
            
         </div>

@@ -27,6 +27,7 @@ return [
         'postcode' => 'Postcode',
         'state' => 'State',
         'city' => 'City',
+        'country_id' => 'Country'
     ],
 
     'home' => 'Home',
@@ -41,13 +42,18 @@ return [
     'discount' => 'Discount',
     'total' => 'Total',
     'checkout' => 'Checkout',
+    'user_personal_info' => 'User Personal Information',
+    'user_shipping_address' => 'User Shipping Address',
+    'user' => 'User',
+    'billing_address' => 'Billing Address',
     'btn' => [
         'sign_in' => 'Sign In',
         'register' => 'Register',
         'save' => 'Save',
         'cancel' => 'Cancel',
         'create' => 'Create',
-        'apply' => 'Apply'
+        'apply' => 'Apply',
+        'place_order' => 'Place Order'
     ],
     'pages' => [
        
