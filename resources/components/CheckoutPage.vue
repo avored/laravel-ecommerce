@@ -8,8 +8,8 @@ export default {
             submitStatus:false,
             newAccount: true,
             useDifferentBillingAddress: false,
-            billingAddresses: [],
-            shippingAddresses: [],
+            billingAddresses: {},
+            shippingAddresses: {},
             selectedShippingAddress: null,
             selectedBillingAddress: null,
             paymentOption: '',
@@ -18,7 +18,14 @@ export default {
             billingCountry: 0,
             stripeToken: '',
             initShippingAddress: null,
-            initBillingAddress: null
+            initBillingAddress: null,
+            displayShippingAddressFields: false,
+            shippingAddressId: null,
+            billingAddressId: null,
+            newBillingAddressId: null,
+            displayShippingDropdown: false,
+            displayBillingDropdown: false
+
         }
     },
     methods: {
@@ -70,14 +77,31 @@ export default {
         //     //this.paymentOption = val;
         // },
         handleShippingChange(e, val) {
-            this.shippingOption = val;
+            this.shippingOption = val
         },
         changeSelectedShippingAddress(val) {
-            this.selectedShippingAddress = this.shippingAddresses[val];
+            console.log(val[0] == this.newShippingAddressId)
+            if (val[0] == this.newShippingAddressId) {
+                this.displayShippingAddressFields = true
+                this.selectedShippingAddress = null
+                this.shippingAddressId = null
+            } else {
+                this.selectedShippingAddress = this.shippingAddresses[val[0]]
+                this.shippingAddressId = this.shippingAddresses[val[0]]
+                this.displayShippingAddressFields = false
+            }
         },
         changeSelectedBillingAddress(val) {
-            this.selectedBillingAddress = this.billingAddresses[val];
-        }
+            if (val[0] == this.newBillingAddressId) {
+                this.displayBillingAddressFields = true
+                this.selectedBillingAddress = null
+                this.billingAddressId = null
+            } else {
+                this.selectedBillingAddress = this.billingAddresses[val[0]]
+                this.billingAddressId = this.billingAddresses[val[0]]
+                this.displayBillingAddressFields = false
+            }
+        },
     },
     mounted() {
         if (!isNil(this.addresses)) {
@@ -90,8 +114,10 @@ export default {
                     addressLabel += address.address2 + ', '
                     addressLabel += address.city + ', '
                     addressLabel += address.state + ' ' + address.country.name
-                    this.shippingAddresses.push(addressLabel)
-                    this.initShippingAddress = 0
+                    this.shippingAddresses[address.id] = addressLabel
+                    this.shippingAddressId = address.id
+                    this.initShippingAddress = address.id
+                    this.displayShippingDropdown = true
 
                     if (isNil(this.selectedShippingAddress)) {
                         this.selectedShippingAddress = address;
@@ -105,15 +131,21 @@ export default {
                     addressLabel += address.address2 + ', '
                     addressLabel += address.city + ', '
                     addressLabel += address.state + ' ' + address.country.name
-                    this.billingAddresses.push(addressLabel)
-                    this.initBillingAddress = 0
+                    this.billingAddresses[address.id] = addressLabel
+                    this.initBillingAddress = address.id
+                    this.billingAddressId = address.id
+                    this.displayBillingDropdown = true
                     
                     if (isNil(this.selectedBillingAddress)) {
                         this.selectedBillingAddress = address
                     }
                 }
-                
             });
+            let addNewAddressLabel = 'Add New Address'
+            this.shippingAddresses['add_new'] = addNewAddressLabel
+            this.newShippingAddressId = 'add_new'
+            this.billingAddresses['add_new'] = addNewAddressLabel
+            this.newBillingAddressId = 'add_new'
         }
         var app = this
         EventBus.$on('selectedPaymentIdentifier', function(identifier) {
@@ -121,7 +153,6 @@ export default {
         })
 
         EventBus.$on('placeOrderAfter', function() {
-            console.log('placeorder after')
             document.getElementById('checkout-form').submit()
         })
     }

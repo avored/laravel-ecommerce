@@ -1,20 +1,38 @@
-<div v-if="useDifferentBillingAddress">
-    <h4 class="text-lg text-red-700 font-semibold my-5">{{ __('User Billing Address') }}</h4>
-
-    <div v-if="billingAddresses.length <= 0">
+<div v-show="useDifferentBillingAddress">
+    <h4 class="text-lg text-red-700 font-semibold my-5">
+        {{ __('avored.user') }} {{ __('avored.billing_address') }}
+    </h4>
+    <div v-if="displayBillingDropdown">
+        <div class="flex items-center">
+            <div class="w-full">
+                <div class="mt-3 flex w-full">
+                    <avored-select
+                        label-text="{{ __('avored.billing_address') }}"
+                        error-text="{{ $errors->first('billing.address_id') }}"
+                        field-name="field_type"
+                        :init-value="initBillingAddress"
+                        @input="changeSelectedBillingAddress"
+                        :options="billingAddresses"
+                    ></avored-select>
+                    <input type="hidden" name="billing[address_id]" v-model="billingAddressId" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div v-if="billingAddresses.length <= 0  || selectedBillingAddress === null">
         <div class="flex">
             <div class="w-1/2">
                 <avored-input
-                    label-text="{{ __('First Name') }}"
-                    field-name="shopping[first_name]"
-                    error-text="{{ $errors->first('shopping.first_name') }}"
+                    label-text="{{ __('avored.first_name') }}"
+                    field-name="billing[first_name]"
+                    error-text="{{ $errors->first('billing.first_name') }}"
                 ></avored-input>
             </div>
             <div class="w-1/2 ml-3">
                 <avored-input
-                    label-text="{{ __('Last Name') }}"
-                    field-name="shopping[last_name]"
-                    error-text="{{ $errors->first('shopping.last_name') }}"
+                    label-text="{{ __('avored.last_name') }}"
+                    field-name="billing[last_name]"
+                    error-text="{{ $errors->first('billing.last_name') }}"
                 ></avored-input>
             </div>
         </div>
@@ -22,16 +40,16 @@
         <div class="flex items-center">
             <div class="w-1/2">
                 <avored-input
-                    label-text="{{ __('Company Name') }}"
-                    field-name="shopping[company_name]"
-                    error-text="{{ $errors->first('shopping.company_name') }}"
+                    label-text="{{ __('avored.company_name') }}"
+                    field-name="billing[company_name]"
+                    error-text="{{ $errors->first('billing.company_name') }}"
                 ></avored-input>
             </div>
             <div class="w-1/2 ml-3">
                 <avored-input
-                    label-text="{{ __('Phone Number') }}"
-                    field-name="shopping[phone]"
-                    error-text="{{ $errors->first('shopping.phone') }}"
+                    label-text="{{ __('avored.phone') }}"
+                    field-name="billing[phone]"
+                    error-text="{{ $errors->first('billing.phone') }}"
                 ></avored-input>
             </div>
         </div>
@@ -39,16 +57,16 @@
         <div class="flex items-center">
             <div class="w-1/2">
                 <avored-input
-                    label-text="{{ __('Address 1') }}"
-                    field-name="shopping[address1]"
-                    error-text="{{ $errors->first('shopping.address1') }}"
+                    label-text="{{ __('avored.address1') }}"
+                    field-name="billing[address1]"
+                    error-text="{{ $errors->first('billing.address1') }}"
                 ></avored-input>
             </div>
             <div class="w-1/2 ml-3">
                 <avored-input
-                    label-text="{{ __('Address 2') }}"
-                    field-name="shopping[address2]"
-                    error-text="{{ $errors->first('shopping.address2') }}"
+                    label-text="{{ __('avored.address2') }}"
+                    field-name="billing[address2]"
+                    error-text="{{ $errors->first('billing.address2') }}"
                 ></avored-input>
             </div>
         </div>
@@ -56,7 +74,7 @@
         <div class="flex items-center">
             <div class="w-1/2">
                 <avored-select
-                    label-text="{{ __('Billing Country') }}"
+                    label-text="{{ __('avored.country_id') }}"
                     error-text="{{ $errors->first('billing.country_id') }}"
                     field-name="country_id"
                     :options="{{ json_encode($countryOptions) }}"
@@ -65,9 +83,9 @@
             </div>
             <div class="w-1/2 ml-3">
                 <avored-input
-                    label-text="{{ __('State') }}"
-                    field-name="shopping[state]"
-                    error-text="{{ $errors->first('shopping.state') }}"
+                    label-text="{{ __('avored.state') }}"
+                    field-name="billing[state]"
+                    error-text="{{ $errors->first('billing.state') }}"
                 ></avored-input>
             </div>
         </div>
@@ -75,52 +93,20 @@
         <div class="flex items-center">
             <div class="w-1/2 ml-3">
                 <avored-input
-                    label-text="{{ __('Postcode') }}"
-                    field-name="shopping[postcode]"
-                    error-text="{{ $errors->first('shopping.postcode') }}"
+                    label-text="{{ __('avored.postcode') }}"
+                    field-name="billing[postcode]"
+                    error-text="{{ $errors->first('billing.postcode') }}"
                 ></avored-input>
             </div>
             <div class="w-1/2 ml-3">
                 <avored-input
-                    label-text="{{ __('City') }}"
-                    field-name="shopping[city]"
-                    error-text="{{ $errors->first('shopping.city') }}"
+                    label-text="{{ __('avored.city') }}"
+                    field-name="billing[city]"
+                    error-text="{{ $errors->first('billing.city') }}"
                 ></avored-input>
             </div>
         </div>
     </div>
 
-    <div v-if="billingAddresses.length > 0">
-
-        <div class="flex items-center">
-            <div class="w-full">
-                <div class="mt-3 flex w-full">
-                    <avored-select
-                        label-text="{{ __('Billing Address') }}"
-                        error-text="{{ $errors->first('billing.address_id') }}"
-                        field-name="field_type"
-                        :init-value="initBillingAddress"
-                        :options="billingAddresses"
-                    ></avored-select>
-                </div>
-            
-                
-                
-                <div class="border shadow">
-                    <div class="text-xl p-5 border-b">
-                        Selected Billing Address
-                    </div>
-                    <div class="p-5">
-                        @{{ selectedBillingAddress.company_name }}<br/>
-                        @{{ selectedBillingAddress.first_name }} @{{ selectedBillingAddress.last_name }} <br/>
-                        @{{ selectedBillingAddress.address1 }} @{{ selectedBillingAddress.address2 }} <br/>
-                        @{{ selectedBillingAddress.city }} <br/>
-                        @{{ selectedBillingAddress.state }} <br/>
-                        @{{ selectedBillingAddress.country.name }} @{{ selectedBillingAddress.postcode }}<br/>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+    
 </div>
