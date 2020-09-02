@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-<div style="margin: 16px 0">
-    <div>
-      <a href="{{ route('home') }}" title="home">
-        {{ __('Home') }}
-      </a>
-    </div>
-    <div>
-        {{ $product->name }}
-    </div>
+<div class="bg-gray-200 p-3 rounded text-sm mb-5">
+    <ol class="list-reset flex text-gray-700">
+      <li>
+          <a class=" font-semibold" href="{{ route('home') }}">
+              {{ __('avored.home') }}
+          </a>&nbsp; > &nbsp;
+      </li>
+       <li> <span class="">{{ $product->name }}</span></li>
+    </ol>
 </div>
 @endsection
 
