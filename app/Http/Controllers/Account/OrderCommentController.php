@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Http\Controllers\Account;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Account\OrderCommentRequest;
+use AvoRed\Framework\Database\Contracts\OrderCommentModelInterface;
+use AvoRed\Framework\Database\Models\Customer;
+use Illuminate\Support\Facades\Auth;
+
+class OrderCommentController extends Controller
+{
+
+    /**
+     * Order Comment Repository
+     * @param OrderCommentRepository $orderCommentRepository
+     */
+    protected $orderCommentRepository;
+
+
+    /**
+     * Order Comment Construct
+     * @param OrderCommentRepository $orderCommentRepository
+     */
+    public function __construct(OrderCommentModelInterface $orderCommentRepository)
+    {
+        $this->orderCommentRepository = $orderCommentRepository;
+    }
+
+    /**
+     * Store Order Comment into database
+     * @param int $orderId //Do not need route binding at this stage.
+     * @param OrderCommentRequest $request
+     * @return Redirect
+     */
+    public function store($orderId, OrderCommentRequest $request)
+    {
+        $data = $request->all();
+        $data['order_id'] = $orderId;
+        $data['commentable_id'] = Auth::guard('customer')->user()->id;
+        $data['commentable_type'] = Customer::class;
+        $data['is_private'] = false;
+    
+        $this->orderCommentRepository->create($data);
+
+        return redirect()->route('account.order.show', $orderId);
+    }
+
+}

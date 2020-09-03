@@ -80,14 +80,15 @@ export default {
             this.shippingOption = val
         },
         changeSelectedShippingAddress(val) {
-            console.log(val[0] == this.newShippingAddressId)
+
+            console.log(val[0])
             if (val[0] == this.newShippingAddressId) {
                 this.displayShippingAddressFields = true
                 this.selectedShippingAddress = null
                 this.shippingAddressId = null
             } else {
                 this.selectedShippingAddress = this.shippingAddresses[val[0]]
-                this.shippingAddressId = this.shippingAddresses[val[0]]
+                this.shippingAddressId = val[0]
                 this.displayShippingAddressFields = false
             }
         },
@@ -98,7 +99,7 @@ export default {
                 this.billingAddressId = null
             } else {
                 this.selectedBillingAddress = this.billingAddresses[val[0]]
-                this.billingAddressId = this.billingAddresses[val[0]]
+                this.billingAddressId = val[0]
                 this.displayBillingAddressFields = false
             }
         },

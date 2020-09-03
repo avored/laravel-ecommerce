@@ -28,19 +28,21 @@
     <div id="app">
         <avored-layout inline-template>
             <div class="">
-                @include('partials.nav')
-                <div class="mt-5 container mx-auto">
-                    @include('partials.breadcrumb')
-                    <div class="bg-white">
-                        <div class="flex">
-                            <div class="w-64">
-                                @include('partials.account-nav')
-                            </div>
-                            <div class="flex-1 ml-5">
-                                <div>
-                                    @yield('breadcrumb')
+                <div>
+                    @include('partials.nav')
+                    <div class="mt-5 container mx-auto">
+                        @yield('breadcrumb')
+                        <div class="bg-white">
+                            <div class="flex">
+                                <div class="w-40">
+                                    @include('partials.account-nav')
                                 </div>
-                                @yield('content')
+                                <div class="flex-1 ml-5">
+                                    <div>
+                                        
+                                    </div>
+                                    @yield('content')
+                                </div>
                             </div>
                         </div>
                     </div>

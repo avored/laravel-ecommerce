@@ -1,15 +1,16 @@
 @extends('layouts.app')
 
 @section('breadcrumb')
-<div class="flex text-sm">
-    <div>
-      <a class="text-gray-700" href="{{ route('home') }}" title="home">
-        {{ __('avored.home') }} >> 
-      </a>
-    </div>
-    <div class="text-gray-700" class="pl-2">
-        {{ __('avored.cart') }}
-    </div>
+
+<div class="bg-gray-200 p-3 rounded text-sm mb-5">
+    <ol class="list-reset flex text-gray-700">
+       <li>
+            <a class="text-gray-700" href="{{ route('home') }}" title="home">
+                {{ __('avored.home') }} >> 
+            </a>
+        </li>
+       <li> <span class="">{{ __('avored.cart') }}</span></li>
+    </ol>
 </div>
 @endsection
 

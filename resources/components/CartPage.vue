@@ -93,8 +93,7 @@ export default {
                 this.total += item.tax
                 this.totalTax += item.tax
             })
-
-             this.total = this.subtotal + this.totalTax
+            this.total = this.subtotal + this.totalTax
         }
     }
 };

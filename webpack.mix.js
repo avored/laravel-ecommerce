@@ -11,23 +11,19 @@ mix.options({
    }
 })
 
-
-
 mix.alias({'@': 'resources/js'})
-
 
 /******** AVORED Global Vue and AvoRed Instance for custom modular component register JS  **********/
 mix.js('resources/js/avored.js', 'js/avored.js')
-
 /******** AVORED JS  **********/
 mix.js('resources/js/app.js', 'js/app.js')
 
 /******** AVORED COPY IMAGES  **********/
 mix.copyDirectory('resources/images', 'public/images')
 
-
+/******** AVORED CSS  **********/
 mix.sass('resources/sass/tailwind.scss', 'css/app.css')
-.options({
-    processCssUrls: false,
-    postCss: [ tailwindcss('tailwind.config.js') ],
-})
+    .options({
+        processCssUrls: false,
+        postCss: [ tailwindcss('tailwind.config.js') ],
+    })

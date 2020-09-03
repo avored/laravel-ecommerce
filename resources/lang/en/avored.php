@@ -31,6 +31,8 @@ return [
     ],
 
     'home' => 'Home',
+    'user_dashboard' => 'User Dashboard',
+    'show_order' => 'Show Order',
     'cart' => 'Cart',
     'page' => 'Page',
     'product' => 'Product',

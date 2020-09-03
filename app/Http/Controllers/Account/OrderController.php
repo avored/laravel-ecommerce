@@ -47,6 +47,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
+        $order->load(['products', 'orderComments.commentable', 'customer', 'shippingAddress.country', 'billingAddress.country']);
         return view('account.order.show')
             ->with(compact('order'));
     }
