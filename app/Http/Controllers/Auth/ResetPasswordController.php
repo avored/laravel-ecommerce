@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 
 class ResetPasswordController extends Controller
 {
@@ -25,7 +27,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -35,5 +37,24 @@ class ResetPasswordController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+    }
+
+    /**
+     * Using an Customer Guard for the Auth.
+     * @return \Illuminate\Auth\SessionGuard
+     */
+    protected function guard()
+    {
+        return Auth::guard('customer');
+    }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker('customers');
     }
 }
