@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Account;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\OrderCommentRequest;
+use App\Mails\OrderCommentMail;
+use AvoRed\Framework\Database\Contracts\ConfigurationModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderCommentModelInterface;
 use AvoRed\Framework\Database\Models\Customer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class OrderCommentController extends Controller
 {
@@ -16,15 +19,23 @@ class OrderCommentController extends Controller
      * @param OrderCommentRepository $orderCommentRepository
      */
     protected $orderCommentRepository;
+    /**
+     * Configuration Repository
+     * @param ConfigurationRepository $configurationRepository
+     */
+    protected $configurationRepository;
 
 
     /**
      * Order Comment Construct
      * @param OrderCommentRepository $orderCommentRepository
      */
-    public function __construct(OrderCommentModelInterface $orderCommentRepository)
-    {
+    public function __construct(
+        OrderCommentModelInterface $orderCommentRepository,
+        ConfigurationModelInterface $configurationRepository
+    ) {
         $this->orderCommentRepository = $orderCommentRepository;
+        $this->configurationRepository = $configurationRepository;
     }
 
     /**
@@ -42,6 +53,9 @@ class OrderCommentController extends Controller
         $data['is_private'] = false;
     
         $this->orderCommentRepository->create($data);
+        $email = $this->configurationRepository->getValueByCode('order_email_address');
+        $url = route('admin.order.show', $orderId);
+        Mail::to($email)->send(new OrderCommentMail($url));   
 
         return redirect()->route('account.order.show', $orderId);
     }
