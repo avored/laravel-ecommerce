@@ -22,6 +22,7 @@ import './services/components'
 
 /*************** AVORED CREATED VUE COMPONENTS ***************/
 
+Vue.component('user-order-show', require('../components/account/order/OrderShow.vue').default)
 Vue.component('address-save', require('../components/address/AddressSave.vue').default)
 Vue.component('user-order-table', require('../components/account/order/OrderTable.vue').default)
 Vue.component('account-upload', require('../components/account/AccountUpload.vue').default)

@@ -31,6 +31,11 @@ return [
     ],
 
     'home' => 'Home',
+    'reset_password' => 'Reset Password',
+    'login' => 'Login',
+    'password_update' => 'Update Password',
+    'user_dashboard' => 'User Dashboard',
+    'show_order' => 'Show Order',
     'cart' => 'Cart',
     'page' => 'Page',
     'product' => 'Product',
