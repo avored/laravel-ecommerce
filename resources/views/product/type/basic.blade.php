@@ -28,8 +28,6 @@
     <input type="hidden" name="slug" value="{{ $product->slug }}" />
 </form>
 
-
-
 <?php 
     $wishlistRepository = app(\AvoRed\Wishlist\Database\Contracts\WishlistModelInterface::class);
     $customer = auth()->guard('customer')->user();
