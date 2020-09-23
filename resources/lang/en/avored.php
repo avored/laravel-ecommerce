@@ -30,6 +30,11 @@ return [
         'country_id' => 'Country'
     ],
 
+    'not_available' => 'Not Available',
+    'add_to_cart' => 'Add To Cart',
+    'add_to_wishlist' => 'Add To Wishlist',
+    'remove_to_wishlist' => 'Remove from Wishlist',
+    'availability' => 'Availability: Total In Stock',
     'home' => 'Home',
     'reset_password' => 'Reset Password',
     'login' => 'Login',
