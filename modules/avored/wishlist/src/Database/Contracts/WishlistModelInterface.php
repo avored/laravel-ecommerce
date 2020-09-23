@@ -55,7 +55,8 @@ interface WishlistModelInterface
     /**
      * Get All Wishlist of the logged in user.
      * @param Customer $customer
+     * @param array $with
      * @return \Illuminate\Support\Collection $wishlists
      */
-    public function customerWishlists(Customer $customer) : SupportCollection;
+    public function customerWishlists(Customer $customer, $with = []) : SupportCollection;
 }

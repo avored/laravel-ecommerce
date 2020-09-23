@@ -29,7 +29,8 @@ return [
         'city' => 'City',
         'country_id' => 'Country'
     ],
-
+    'my_wishlist' => 'My Wishlist',
+    'customer_wishlists' => 'Customer Wishlists',
     'not_available' => 'Not Available',
     'add_to_cart' => 'Add To Cart',
     'add_to_wishlist' => 'Add To Wishlist',

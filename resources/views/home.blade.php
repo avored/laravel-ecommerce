@@ -6,9 +6,7 @@
        <li> <span class="">{{ __('avored.home') }}</span></li>
     </ol>
 </div>
-
 @endsection
-
 
 @section('content')
   <div class="container m-auto">

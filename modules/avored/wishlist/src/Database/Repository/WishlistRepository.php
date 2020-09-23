@@ -53,11 +53,12 @@ class WishlistRepository implements WishlistModelInterface
     /**
      * Get all the wishlistes from the connected database.
      * @param Customer $customer
+     * @param array $with
      * @return \Illuminate\Database\Eloquent\Collection $wishlists
      */
-    public function customerWishlists(Customer $customer) : SupportCollection
+    public function customerWishlists(Customer $customer, $with = []) : SupportCollection
     {
-        return Wishlist::whereCustomerId($customer->id)->get();
+        return Wishlist::with($with)->whereCustomerId($customer->id)->get();
     }
 
     /**
