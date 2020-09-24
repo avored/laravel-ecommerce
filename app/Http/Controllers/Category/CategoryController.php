@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Category;
 
 use Illuminate\Http\Request;
 use AvoRed\Framework\Database\Contracts\CategoryModelInterface;

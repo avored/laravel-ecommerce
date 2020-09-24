@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Checkout;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
