@@ -43,7 +43,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $userAddresses = $this->addressRepository->getByUserId(Auth::user()->id);
+        $userAddresses = $this->addressRepository->getByCustomerId(Auth::user()->id);
 
         return view('account.address.index')
             ->with(compact('userAddresses'));
@@ -71,7 +71,7 @@ class AddressController extends Controller
      */
     public function store(AddressRequest $request)
     {
-        $request->merge(['user_id' => Auth::user()->id]);
+        $request->merge(['customer_id' => Auth::guard('customer')->user()->id]);
         $this->addressRepository->create($request->all());
 
         return redirect()->route('account.address.index');

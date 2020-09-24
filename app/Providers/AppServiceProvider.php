@@ -7,6 +7,9 @@ use AvoRed\Framework\Menu\MenuItem;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use AvoRed\Framework\Support\Facades\Menu;
+use Barryvdh\Debugbar\Facade;
+use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
+use Illuminate\Foundation\AliasLoader;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,7 +20,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        if ($this->app->environment() != 'production') {
+            /**
+             * Loader for registering facades.
+             */
+            $loader = AliasLoader::getInstance();
+    
+            /*
+             * Load third party local providers
+             */
+            $this->app->register(DebugbarServiceProvider::class);
+    
+            /*
+             * Load third party local aliases
+             */
+            $loader->alias('Debugbar', Facade::class);
+        }
     }
 
     /**

@@ -14,6 +14,8 @@ class UploadController extends Controller
      */
     public function __invoke()
     {
-        return view('account.upload', new EditViewModel(Auth::user()));
+        return view('account.upload')
+            ->with('user', Auth::guard('customer')->user())
+        ;
     }
 }

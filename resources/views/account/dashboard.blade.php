@@ -1,24 +1,36 @@
 @extends('layouts.user')
 
 @section('breadcrumb')
-<a-breadcrumb style="margin: 16px 0">
-    <a-breadcrumb-item>
+<div class="flex items-center text-xs text-gray-700 mb-3">
+    <div>
       <a href="{{ route('home') }}" title="home">
-        {{ __('Home') }}
+        {{ __('Home') }} >>
       </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
+    </div>
+    <div class="ml-1">
         {{ __('User Dashboard') }}
-    </a-breadcrumb-item>
-</a-breadcrumb>
+    </div>
+</div>
 @endsection
 
 @section('content')
-     <a-card title="User Dashboard Page">
-      <a href="{{ route('account.edit') }}" slot="extra">
-        <a-icon type="edit"></a-icon>
-      </a>
-      <p>Name: {{ $user->name }} </p>
-      <p>Email: {{ $user->email }} </p>
-    </a-card>
+     <div class="border rounded mb-5">
+      <div class="p-5 border-b">
+        <div class="flex">
+          <span>
+            {{ __('avored.pages.account_dashboard.title') }}
+          </span>
+          <span class="ml-auto">
+            <a href="{{ route('account.edit') }}" slot="extra">
+              Edit
+            </a>
+          </span>
+        </div>
+      </div>
+      <div class="p-5">
+        <p>First Name: {{ $user->first_name }} </p>
+        <p>Last Name: {{ $user->last_name }} </p>
+        <p>Email: {{ $user->email }} </p>
+      </div>
+    </div>
 @endsection

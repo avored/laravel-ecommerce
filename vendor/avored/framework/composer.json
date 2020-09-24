@@ -1,0 +1,78 @@
+{
+	"name" : "avored/framework",
+	"description" : "AvoRed Laravel E commerce Framework",
+	"keywords" : [
+		"framework",
+		"cart",
+		"laravel",
+		"e commerce",
+		"laravel5",
+		"shop",
+		"shopping-cart",
+		"e-commerce",
+		"shopping cart",
+		"e commerce"
+	],
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Purvesh  ",
+			"email" : "ind.purvesh@gmail.com"
+		}
+	],
+	"type" : "library",
+	"require" : {
+		"php" : ">=7.2",
+		"symfony/yaml": "^4.2",
+		"laravel/passport": "^7.4|^8.0|^9.0",
+		"barryvdh/laravel-dompdf": "^0.8.4",
+		"laravel/helpers": "^1.1",
+		"laravel/framework" : "^5.8.15|^6.0|^7.0",
+		"rebing/graphql-laravel": "^5.1",
+		"laravel/ui": "^2.0|^1.0"
+	},
+	"require-dev" : {
+		"phpunit/phpunit": "^8.0|^9.0",
+		"orchestra/testbench": "^3.8|^4.0|^5.0",
+		"phpstan/phpstan": "^0.12.27"
+	},
+	"autoload" : {
+		"classmap": [
+            "database/factories"
+        ],
+		"psr-4" : {
+			"AvoRed\\Framework\\" : "src/"
+			
+		}
+	},
+	"autoload-dev" : {
+		"psr-4" : {
+			"AvoRed\\Framework\\Tests\\" : "tests/"
+		}
+	},
+	"extra" : {
+		"laravel" : {
+			"providers" : [
+				"AvoRed\\Framework\\AvoRedProvider"
+			],
+			"aliases" : {
+				"Breadcrumb" : "AvoRed\\Framework\\Support\\Facades\\Breadcrumb",
+				"Cart" : "AvoRed\\Framework\\Support\\Facades\\Cart",
+				"Menu" : "AvoRed\\Framework\\Support\\Facades\\Menu",
+				"Module" : "AvoRed\\Framework\\Support\\Facades\\Module",
+				"Payment" : "AvoRed\\Framework\\Support\\Facades\\Payment",
+				"Permission" : "AvoRed\\Framework\\Support\\Facades\\Permission",
+				"Shipping" : "AvoRed\\Framework\\Support\\Facades\\Shipping",
+				"Tab" : "AvoRed\\Framework\\Support\\Facades\\Tab",
+				"Widget" : "AvoRed\\Framework\\Support\\Facades\\Widget"
+			}
+		}
+	},
+	"homepage" : "https://www.avored.com",
+	"support" : {
+		"email" : "ind.purvesh@gmail.com",
+		"issues" : "https://www.avored.com/discussion",
+		"forum" : "https://www.avored.com/discussion",
+		"wiki" : "https://www.avored.com/docs",
+		"source" : "https://www.github.com/avored/framework"
+	}
+}

@@ -9,15 +9,16 @@
     "license": "MIT",
     "require": {
         "php": ">=7.2",
-        "avored/framework": "^3.0",
-        "fideloper/proxy": "^4.0",
-        "laravel/framework": "^6.2",
-        "laravel/tinker": "^1.0"
+        "avored/framework": "^3.1",
+        "fideloper/proxy": "^4.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.3",
         "beyondcode/laravel-dump-server": "^1.0",
+        "deployer/deployer": "^6.8",
         "facade/ignition": "^1.4",
         "fzaninotto/faker": "^1.4",
+        "laravel/dusk": "^6.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
         "phpunit/phpunit": "^8.0"
@@ -29,7 +30,9 @@
     },
     "extra": {
         "laravel": {
-            "dont-discover": []
+            "dont-discover": [
+                "barryvdh/laravel-debugbar"
+            ]
         }
     },
     "autoload": {
@@ -45,7 +48,7 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "AvoRed\\Framework\\Tests\\": "vendor/avored/framework/tests/"
+            "AvoRed\\Framework\\Tests\\": "packages/framework/tests/"
 
         }
     },

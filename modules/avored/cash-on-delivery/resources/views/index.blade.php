@@ -1,5 +1,5 @@
 <avored-cash-on-delivery>
 </avored-cash-on-delivery>
 @push('scripts')
-<script src="{{ asset('avored-admin/js/cash-on-delivery.js') }}"></script>
+<script src="{{ asset('vendor/avored/js/cash-on-delivery.js') }}"></script>
 @endpush

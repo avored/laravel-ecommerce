@@ -1,140 +1,69 @@
-<a-divider>
-<h4 class="mt-1">{{ __('User Personal Information') }}</h4>
-</a-divider>
-@guest()
-<a-row :gutter="15">
-    <a-col :span="12">
-        <a-form-item
-                @if ($errors->has('first_name'))
-                    validate-status="error"
-                    help="{{ $errors->first('first_name') }}"
-                @endif
-                label="{{ __('First Name') }}">
-            <a-input
-                :auto-focus="true"
-                name="first_name"
-                v-decorator="[
-                'first_name',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('First Name') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
-    </a-col>
-    <a-col :span="12">
-        <a-form-item
-                @if ($errors->has('last_name'))
-                    validate-status="error"
-                    help="{{ $errors->first('last_name') }}"
-                @endif
-                label="{{ __('Last Name') }}">
-            <a-input
-                name="last_name"
-                v-decorator="[
-                'last_name',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('Last Name') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
-    </a-col>
-</a-row>
+<h4 class="text-lg text-red-700 font-semibold my-5">{{ __('avored.user_personal_info') }}</h4>
+@guest('customer')
+    <div class="flex items-center">
+        <div class="w-1/2">
+            <div class="mt-3 flex w-full">
+                <avored-input
+                    label-text="{{ __('avored.fields.first_name') }}"
+                    field-name="first_name"
+                    error-text="{{ $errors->first('first_name') }}"
+                >
+                </avored-input>
+            </div>
+        </div>
+        <div class="w-1/2 ml-3">
+            <div class="mt-3 flex w-full">
+                <avored-input
+                    label-text="{{ __('avored.fields.last_name') }}"
+                    field-name="last_name"
+                    error-text="{{ $errors->first('last_name') }}"
+                >
+                </avored-input>
+            </div>
+        </div>
+    
+    </div>
 
-<a-row :gutter="15">
-    <a-col :span="24">
-        <a-form-item
-                @if ($errors->has('email'))
-                    validate-status="error"
-                    help="{{ $errors->first('email') }}"
-                @endif
-                label="{{ __('Email Address') }}">
-            <a-input
-                name="email"
-                v-decorator="[
-                'email',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('Email Address') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
-    </a-col>
-</a-row>
-<!--
-<a-row :gutter="15">
-    <a-col :span="24">
-        <a-switch @change="newAccountSwitchChange"></a-switch> Create New Account?
-    </a-col>
-</a-row>
--->
+    <div class="flex items-center">
+        <div class="w-full">
+            <avored-input
+                label-text="{{ __('avored.fields.email') }}"
+                field-name="email"
+                error-text="{{ $errors->first('email') }}"
+            >
+            </avored-input>
+        </div>
+    </div>
 
 
-<a-row v-if="newAccount" :gutter="15">
-    <a-col :span="12">
-        <a-form-item
-                @if ($errors->has('password'))
-                    validate-status="error"
-                    help="{{ $errors->first('password') }}"
-                @endif
-                label="{{ __('Password') }}">
-            <a-input
-                name="password"
-                v-decorator="[
-                'password',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('Password') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
-    </a-col>
-    <a-col :span="12">
-        <a-form-item
-                @if ($errors->has('password_confirmation'))
-                    validate-status="error"
-                    help="{{ $errors->first('password_confirmation') }}"
-                @endif
-                label="{{ __('Confirm Password') }}">
-            <a-input
-                name="password_confirmation"
-                v-decorator="[
-                'password_confirmation',
-                {
-                    rules: [
-                        {   required: true, 
-                            message: 'The {{ __('Confirm Password') }} field is required' 
-                        }
-                    ]
-                }
-                ]"
-            />
-        </a-form-item>
-    </a-col>
-</a-row>
+
+    <div class="flex items-center" v-if="newAccount">
+        <div class="w-1/2">
+            <avored-input
+                label-text="{{ __('avored.fields.password') }}"
+                field-name="password"
+                input-type="password"
+                error-text="{{ $errors->first('password') }}"
+            >
+            </avored-input>
+        </div>
+        <div class="w-1/2 ml-3">
+            <avored-input
+                label-text="{{ __('avored.fields.password_confirmation') }}"
+                field-name="password_confirmation"
+                input-type="password"
+                error-text="{{ $errors->first('password_confirmation') }}"
+            ></avored-input>
+        </div>
+    </div>
 @else
-
-<a-row :gutter="15">
-    <a-col :span="24">
-        <a-card title="{{ Auth()->user()->name }}">
-        </a-card>
-    </a-col>
-</a-row>
+    <div class="flex">
+        <div class="w-full">
+            <div class="border shadow rounded">
+                <div class="p-5 border-b">
+                    {{ auth()->guard('customer')->user()->full_name }}
+                </div>
+            </div>
+        </div>
+    </div>
 @endGuest

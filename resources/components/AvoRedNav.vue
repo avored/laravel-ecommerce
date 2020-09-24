@@ -4,7 +4,8 @@
         theme="light"
         mode="horizontal"
         :default-selected-keys="[]"
-        class="navigation">
+        class="navigation"
+        :style="{border: none}">
             <template v-for="menu in menus">
                 <a-menu-item v-if="menu.submenus.length<=0" :key="menu.id">
                     <a :href="menu.url">

@@ -1,0 +1,6 @@
+mutation AdminAuth ($email: String!, $password: String!) {
+  adminAuth (email: $email, password: $password) {
+    access_token
+    token_type
+  }
+}

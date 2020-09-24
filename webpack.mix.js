@@ -1,28 +1,29 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
+const tailwindcss = require('tailwindcss')
+require('laravel-mix-alias')
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
-
-mix.webpackConfig({
-    output: {
-        chunkFilename: mix.inProduction() ? "js/chunk/[name].[chunkhash].js" : "js/chunk/[name].js",
-    }
+// console.log(process.env.APP_URL)
+let url = process.env.APP_URL.replace(/(^\w+:|^)\/\//, '')
+mix.options({
+   hmrOptions: {
+       host: url,
+       port: 8081
+   }
 })
-mix.js('resources/js/app.js', 'public/js/app.js');
 
-mix.less('resources/less/app.less', 'public/css/app.css', {
-    javascriptEnabled: true,
-    modifyVars: {
-        'primary-color': '#E64448',
-        'link-color': '#C12E32',
-        'border-radius-base': '5px',
-    },
-})
+mix.alias({'@': 'resources/js'})
+
+/******** AVORED Global Vue and AvoRed Instance for custom modular component register JS  **********/
+mix.js('resources/js/avored.js', 'js/avored.js')
+/******** AVORED JS  **********/
+mix.js('resources/js/app.js', 'js/app.js')
+
+/******** AVORED COPY IMAGES  **********/
+mix.copyDirectory('resources/images', 'public/images')
+
+/******** AVORED CSS  **********/
+mix.sass('resources/sass/tailwind.scss', 'css/app.css')
+    .options({
+        processCssUrls: false,
+        postCss: [ tailwindcss('tailwind.config.js') ],
+    })

@@ -1,5 +1,6 @@
 <?php
 
+use AvoRed\Framework\Database\Models\Address;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -10,7 +11,13 @@ use Faker\Factory;
 use AvoRed\Framework\Database\Models\Property;
 use AvoRed\Framework\Database\Models\Attribute;
 use AvoRed\Framework\Database\Models\CategoryFilter;
+use AvoRed\Framework\Database\Models\Country;
+use AvoRed\Framework\Database\Models\Currency;
+use AvoRed\Framework\Database\Models\Customer;
 use AvoRed\Framework\Database\Models\MenuGroup;
+use AvoRed\Framework\Database\Models\Order;
+use AvoRed\Framework\Database\Models\OrderProduct;
+use AvoRed\Framework\Database\Models\OrderStatus;
 use AvoRed\Framework\Database\Models\Page;
 
 class AvoredDemoDataSchema extends Migration
@@ -363,6 +370,16 @@ class AvoredDemoDataSchema extends Migration
                 'slug' => 'home-page',
                 'content' => '%%%avored-banner%%%']
             );
+
+            $customer = Customer::create([
+                'first_name' => $faker->firstName(),
+                'last_name' => $faker->lastName(),
+                'email' => $faker->safeEmail(),
+                'password' => 'secret',
+            ]);
+
+            $this->createOrder($faker, $customer);
+            $this->createOrder($faker, $customer);
     }
 
     /**
@@ -375,5 +392,59 @@ class AvoredDemoDataSchema extends Migration
         Schema::disableForeignKeyConstraints();
         
         Schema::enableForeignKeyConstraints();
+    }
+
+    public function createOrder($faker, $customer)
+    {
+        $shippingAddress = $customer->addresses()->create([
+            'type' => Address::SHIPPING,
+            'company_name' => $faker->company,
+            'first_name' => $faker->firstName,
+            'last_name' => $faker->lastName,
+            'address1' => $faker->streetAddress,
+            'address2' => $faker->streetSuffix,
+            'postcode' => $faker->postcode,
+            'city' => $faker->city,
+            'state' => $faker->state,
+            'country_id' => Country::all()->random(1)->first()->id,
+            'phone' => $faker->phoneNumber,
+        ]);
+        $billingAddress = $customer->addresses()->create([
+            'type' => Address::BILLING,
+            'company_name' => $faker->company,
+            'first_name' => $faker->firstName,
+            'last_name' => $faker->lastName,
+            'address1' => $faker->streetAddress,
+            'address2' => $faker->streetSuffix,
+            'postcode' => $faker->postcode,
+            'city' => $faker->city,
+            'state' => $faker->state,
+            'country_id' => Country::all()->random(1)->first()->id,
+            'phone' => $faker->phoneNumber,
+        ]);
+
+        $orderData = [
+            'shipping_option' => 'pickup',
+            'payment_option' => 'a-cash-on-delivery',
+            'order_status_id' => OrderStatus::whereIsDefault(1)->first()->id,
+            'currency_id' => Currency::all()->first()->id,
+            'customer_id' => $customer->id,
+            'shipping_address_id' => $shippingAddress->id,
+            'billing_address_id' => $billingAddress->id,
+        ];
+        $order = Order::create($orderData);
+
+        $qty = rand(1, 10);
+        $product = Product::all()->random(1)->first();
+        $orderProductData = [
+            'product_id' => $product->id,
+            'order_id' => $order->id,
+            'qty' => $qty,
+            'price' => $product->price,
+            'tax_amount' => 0,
+        ];
+
+        OrderProduct::create($orderProductData);
+        
     }
 }

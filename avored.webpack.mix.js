@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require('laravel-mix')
 const tailwindcss = require('tailwindcss')
 /*
  |--------------------------------------------------------------------------
@@ -11,14 +11,14 @@ const tailwindcss = require('tailwindcss')
  |
  */
 
-mix.webpackConfig({
-    output: {
-        chunkFilename: mix.inProduction() ? "avored-admin/js/chunk/[name].[chunkhash].js" : "avored-admin/js/chunk/[name].js",
-    }
-})
+// mix.webpackConfig({
+//     output: {
+//         chunkFilename: mix.inProduction() ? "avored-admin/js/chunk/[name].[chunkhash].js" : "avored-admin/js/chunk/[name].js",
+//     }
+// })
 
-mix.js('vendor/avored/framework/resources/js/app.js', 'public/avored-admin/js/app.js');
-mix.less('vendor/avored/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
+mix.js('packages/framework/resources/js/app.js', 'public/avored-admin/js/app.js');
+mix.less('packages/framework/resources/less/app.less', 'public/avored-admin/css/app.css', {
     javascriptEnabled: true,
     modifyVars: {
         'primary-color': '#E64448',

@@ -2,17 +2,16 @@
 
 
 @section('breadcrumb')
-      
-<a-breadcrumb style="margin: 16px 0">
-    <a-breadcrumb-item>
-      <a href="{{ route('home') }}" title="home">
-        {{ __('Home') }}
-      </a>
-    </a-breadcrumb-item>
-    <a-breadcrumb-item>
-        {{ $category->name }}
-    </a-breadcrumb-item>
-</a-breadcrumb>
+<div class="bg-gray-200 p-3 rounded text-sm mb-5">
+    <ol class="list-reset flex text-gray-700">
+      <li>
+          <a class=" font-semibold" href="{{ route('home') }}">
+              {{ __('avored.home') }}
+          </a>&nbsp; > &nbsp;
+      </li>
+       <li> <span class="">{{ $category->name }}</span></li>
+    </ol>
+</div>
 @endsection
 
 @section('content')
@@ -20,20 +19,29 @@
   current-url="{{ request()->url() }}"
   :filter-prop="{{ json_encode(request()->all()) }}"
   inline-template>
-  
-  <a-row :gutter="15" >
-    <a-col :span="6">
-      @include('category.card.filters')
-    </a-col>
-    <a-col :span="18">
-      <a-row :gutter="15" justify="center" >
-        @foreach ($categoryProducts as $product)
-            <a-col :xs="24" :sm="12" :md="8">
+  <div>
+      @if (session('type') === 'success')
+        @include('components.success', ['message' => session('message')])
+      @endif
+      @if (session('type') === 'error')
+        @include('components.error', ['message' => session('message')])
+      @endif
+    <div class="flex container mx-auto">
+
+      <div class="w-1/6">
+        @include('category.card.filters')
+      </div>
+      <div class="w-5/6 ml-3">
+        <h1 class="text-red-700 mt-3 ml-5 text-2xl uppercase font-semibold">{{ $category->name }}</h1>
+        <div class="block">
+          <div class=" flex flex-wrap">
+            @foreach ($categoryProducts as $product)  
               @include('category.card.product', ['product' => $product])
-            </a-col>
-        @endforeach
-      </a-row>
-    </a-col>
-  </a-row>
+            @endforeach
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </category-page>
 @endsection
