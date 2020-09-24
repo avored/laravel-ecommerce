@@ -14,6 +14,7 @@ use AvoRed\Framework\Database\Contracts\OrderStatusModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductAttributeModelInterface;
 use AvoRed\Framework\Support\Facades\Payment;
+use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {

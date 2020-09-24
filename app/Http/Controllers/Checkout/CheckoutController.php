@@ -8,6 +8,7 @@ use AvoRed\Framework\Support\Facades\Payment;
 use AvoRed\Framework\Support\Facades\Shipping;
 use AvoRed\Framework\Database\Contracts\AddressModelInterface;
 use AvoRed\Framework\Database\Contracts\CountryModelInterface;
+use App\Http\Controllers\Controller;
 
 class CheckoutController extends Controller
 {

@@ -7,6 +7,7 @@ use App\Http\Requests\CartRequest;
 use AvoRed\Framework\Support\Facades\Cart;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Arr;
+use App\Http\Controllers\Controller;
 
 class CartController extends Controller
 {
