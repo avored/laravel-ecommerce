@@ -1,6 +1,8 @@
 <?php
 namespace AvoRed\Wishlist;
 
+use AvoRed\Framework\Menu\MenuItem;
+use AvoRed\Framework\Support\Facades\Menu;
 use AvoRed\Wishlist\Database\Contracts\WishlistModelInterface;
 use AvoRed\Wishlist\Database\Repository\WishlistRepository;
 use Illuminate\Support\ServiceProvider;
@@ -16,6 +18,7 @@ class Module extends ServiceProvider
     public function boot()
     {
         $this->registerResources();
+        $this->registerMenu();
     }
 
     /**
@@ -37,8 +40,17 @@ class Module extends ServiceProvider
     protected function registerResources()
     {
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'a-wishlist');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-wishlist');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
-        //$this->loadViewsFrom(__DIR__ . '/../resources/views', 'a-wishlist');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-wishlist');
+    }
+
+    protected function registerMenu()
+    {
+        Menu::make('account.wishlist.index', function (MenuItem $menu) {
+            $menu->label('avored-wishlist::system.menu-label')
+                ->type(MenuItem::FRONT)
+                ->route('account.wishlist.index');
+        });
     }
 }

@@ -38,7 +38,7 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "AvoRed\\Framework\\": "packages/framework/src/"
+            "AvoRed\\Framework\\": "packages/avored/framework/src/"
         },
         "classmap": [
             "database/seeds",

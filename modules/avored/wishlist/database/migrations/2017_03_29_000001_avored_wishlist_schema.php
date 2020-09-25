@@ -14,9 +14,10 @@ class AvoredWishlistSchema extends Migration
     {
         Schema::create('wishlists', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('user_id')->unsigned()->nullable()->default(null);
+            $table->bigInteger('customer_id')->unsigned()->nullable()->default(null);
             $table->bigInteger('product_id')->unsigned()->nullable()->default(null);
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
+            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }

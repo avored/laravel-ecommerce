@@ -9,12 +9,8 @@ use AvoRed\Framework\Database\Models\Product;
 use AvoRed\Wishlist\Database\Contracts\WishlistModelInterface;
 use Illuminate\Support\Facades\Auth;
 
-class WishlistController extends Controller
+class AccountWishlistController extends Controller
 {
-    /**
-     * @var \AvoRed\Framework\Database\Repository\ProductRepository
-     */
-    protected $productRepository;
     /**
      * @var \AvoRed\Wishlist\Database\Repository\WishlistRepository
      */
@@ -24,32 +20,22 @@ class WishlistController extends Controller
      * home controller construct.
      */
     public function __construct(
-        ProductModelInterface $productRepository,
         WishlistModelInterface $wishlistRepository
     ) {
-        $this->productRepository = $productRepository;
         $this->wishlistRepository = $wishlistRepository;
     }
 
     /**
-     * Construct for the  Wishlist Controller
-     * @param \Illuminate\Http\Request $request
-     * @param string $productSlug
+     * Account Wishlist Index Resource
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function index()
     {
-        $product = $this->productRepository->findBySlug($request->get('slug'));
         $customer = Auth::guard('customer')->user();
+        $wishlists = $this->wishlistRepository->customerWishlists($customer, 'product');
         
-        if (!$this->wishlistRepository->customerHasProduct($customer, $product->id)) {
-            $data = ['product_id' => $product->id, 'customer_id' => Auth::guard('customer')->user()->id];
-            $this->wishlistRepository->create($data);
-        }
-        
-        return redirect()
-            ->back()
-            ->with('notificationText', __('a-wishlist.wishlist.saveNotificationText'));
+        return view('avored-wishlist::account.wishlist.index')
+            ->with('wishlists', $wishlists);
     }
 
     /**

@@ -48,4 +48,8 @@ Route::middleware('auth:customer')
         Route::resource('address', 'AddressController');
         Route::resource('order', 'OrderController')->only(['index', 'show']);
         Route::resource('order/{order}/order-comment', 'OrderCommentController');
+        Route::get(
+            'wishlist', 
+            [\AvoRed\Wishlist\Http\Controllers\AccountWishlistController::class, 'index']
+        )->name('wishlist.index');
     });
