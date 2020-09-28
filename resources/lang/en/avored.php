@@ -29,7 +29,13 @@ return [
         'city' => 'City',
         'country_id' => 'Country'
     ],
-
+    'my_wishlist' => 'My Wishlist',
+    'customer_wishlists' => 'Customer Wishlists',
+    'not_available' => 'Not Available',
+    'add_to_cart' => 'Add To Cart',
+    'add_to_wishlist' => 'Add To Wishlist',
+    'remove_to_wishlist' => 'Remove from Wishlist',
+    'availability' => 'Availability: Total In Stock',
     'home' => 'Home',
     'reset_password' => 'Reset Password',
     'login' => 'Login',

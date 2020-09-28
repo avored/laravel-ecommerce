@@ -6,6 +6,7 @@ use AvoRed\Framework\Database\Contracts\PageModelInterface;
 use AvoRed\Framework\Database\Contracts\ProductModelInterface;
 use AvoRed\Wishlist\Database\Contracts\WishlistModelInterface;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -47,7 +48,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $wishlists = $this->wishlistRepository->userWishlists();
+        
         $page = $this->pageRepository->findBySlug('home-page');
         $allProducts = $this->productRepository->getAllWithoutVaiation();
         $heroProduct = null;
@@ -66,7 +67,6 @@ class HomeController extends Controller
         return view('home')
             ->with('heroProduct', $heroProduct)
             ->with('products', $products)
-            ->with('page', $page)
-            ->with('wishlists', $wishlists);
+            ->with('page', $page);
     }
 }
