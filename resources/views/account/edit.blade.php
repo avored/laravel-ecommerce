@@ -59,6 +59,36 @@
                     error-text="{{ $errors->first('email') }}"
                 ></avored-input>
             </div>
+            <div class="mt-3">
+                <label class="block text-sm leading-5 text-gray-500">Current Password</label>
+                <avored-input
+                    label-class="w-full block"
+                    input-class="w-full block"
+                    field-name="password_current"
+                    input-type="password"
+                    error-text="{{ $errors->first('password_current') }}"
+                ></avored-input>
+            </div>
+            <div class="mt-3">
+                <avored-input
+                    label-text="{{ __('avored.fields.password') }}"
+                    label-class="w-full block"
+                    input-class="w-full block"
+                    field-name="password"
+                    input-type="password"
+                    error-text="{{ $errors->first('password') }}"
+                ></avored-input>
+            </div>
+            <div class="mt-3">
+                <avored-input
+                    label-text="{{ __('avored.fields.password_confirmation') }}"
+                    label-class="w-full block"
+                    input-class="w-full block"
+                    field-name="password_confirmation"
+                    input-type="password"
+                    error-text="{{ $errors->first('password_confirmation') }}"
+                ></avored-input>
+            </div>
             <div class="mt-3 py-3">
                 <button type="submit"
                     class="px-6 py-3 font-semibold leading-7  text-white hover:text-white bg-red-600 rounded hover:bg-red-700"
