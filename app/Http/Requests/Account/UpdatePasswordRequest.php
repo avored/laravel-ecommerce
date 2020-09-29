@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Account;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\CurrentPassword;
 
-
-class SaveRequest extends FormRequest
+class UpdatePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,8 @@ class SaveRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required|max:255',
-            'last_name' => 'required|max:255',
+            'password_current' => ['required', new CurrentPassword()],
+            'password' => 'required|string|min:6|confirmed',
         ];
     }
 }

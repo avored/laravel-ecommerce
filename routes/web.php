@@ -44,6 +44,7 @@ Route::middleware('auth:customer')
         Route::get('edit', EditController::class)->name('edit');
         Route::get('upload', UploadController::class)->name('upload');
         Route::post('save', SaveController::class)->name('save');
+        Route::post('password', UpdatePasswordController::class)->name('password');
         Route::post('upload-image', UploadImageController::class)->name('upload.image');
         Route::resource('address', 'AddressController');
         Route::resource('order', 'OrderController')->only(['index', 'show']);

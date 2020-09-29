@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Account;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Account\SaveRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+
 
 class SaveController extends Controller
 {
@@ -22,7 +22,7 @@ class SaveController extends Controller
         $customer->update([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
-            'password' => Hash::make($request->password)
+            //'password' => Hash::make($request->password)
        ]);
 
         return redirect()->route('account.dashboard');
