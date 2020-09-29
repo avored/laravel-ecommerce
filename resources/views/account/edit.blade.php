@@ -76,7 +76,6 @@
                     </a>
                 </div>
             </div>
-          
         </form>
         <form method="post" action="{{ route('account.password') }}">
             @csrf
