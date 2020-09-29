@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Account\PasswordRequest;
 use Illuminate\Support\Facades\Hash;
 
-class PasswordController extends Controller
+class UpdatePasswordController extends Controller
 {
     public function __invoke(PasswordRequest $request)
     {
