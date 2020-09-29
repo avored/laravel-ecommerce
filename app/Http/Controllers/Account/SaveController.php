@@ -22,7 +22,7 @@ class SaveController extends Controller
         $customer->update([
             'first_name' => $request->input('first_name'),
             'last_name' => $request->input('last_name'),
-            'password' => Hash::make($request->password)
+            //'password' => Hash::make($request->password)
        ]);
 
         return redirect()->route('account.dashboard');

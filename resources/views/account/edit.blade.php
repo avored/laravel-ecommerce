@@ -59,6 +59,10 @@
                     error-text="{{ $errors->first('email') }}"
                 ></avored-input>
             </div>
+          
+        </form>
+        <form method="post" action="{{ route('account.password') }}">
+            @csrf
             <div class="mt-3">
                 <label class="block text-sm leading-5 text-gray-500">Current Password</label>
                 <avored-input
