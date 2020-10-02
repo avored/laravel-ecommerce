@@ -2,14 +2,14 @@
 
 namespace AvoRed\Review;
 
-use AvoRed\Framework\Support\Facades\Menu;
-use AvoRed\Framework\Support\Facades\Tab;
-use AvoRed\Framework\Tab\TabItem;
 use AvoRed\Review\Database\Contracts\ProductReviewModelInterface;
 use AvoRed\Review\Database\Repository\ProductReviewRepository;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use AvoRed\Review\Http\ViewComposers\ProductReviewComposer;
+use AvoRed\Framework\Support\Facades\Breadcrumb as BreadcrumbFacade;
+use AvoRed\Framework\Support\Facades\Tab;
+use AvoRed\Framework\Tab\TabItem;
 
 class Module extends ServiceProvider
 {
@@ -22,8 +22,6 @@ class Module extends ServiceProvider
         $this->registerResources();
         $this->registerTab();
         $this->registerViewComposer();
-        // $this->publishFiles();
-        //$this->registerListener();
     }
 
     /**
@@ -43,8 +41,8 @@ class Module extends ServiceProvider
      */
     protected function registerResources()
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'a-review');
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'a-review');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'avored-review');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'avored-review');
         $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
     }
@@ -55,7 +53,7 @@ class Module extends ServiceProvider
      */
     protected function registerViewComposer()
     {
-        View::composer('a-review::admin.review.tab', ProductReviewComposer::class);
+        View::composer('avored-review::admin.review.tab', ProductReviewComposer::class);
     }
 
     /**
@@ -64,23 +62,10 @@ class Module extends ServiceProvider
      */
     protected function registerTab()
     {
-        // Tab::put('catalog.product', function (TabItem $tab) {
-        //     $tab->key('catalog.product.review')
-        //         ->label('a-review::review.product-tab')
-        //         ->view('a-review::admin.review.tab');
-        // });
-    }
-
-    /**
-     * Register the Admin Breadcrumb.
-     *
-     * @return void
-     */
-    protected function registerBreadCrumb()
-    {
-        BreadcrumbFacade::make('admin.review.index', function ($breadcrumbs) {
-            $breadcrumbs->label('Review')
-                ->parent('admin.dashboard');
+        Tab::put('catalog.product', function (TabItem $tab) {
+            $tab->key('catalog.product.review')
+                ->label('avored-review::review.product-tab')
+                ->view('avored-review::admin.review.tab');
         });
     }
 

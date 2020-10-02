@@ -81,44 +81,143 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/Review.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/Review.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/CatalogReview.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/components/CatalogReview.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/isNil */ "./node_modules/lodash/isNil.js");
+/* harmony import */ var lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_isNil__WEBPACK_IMPORTED_MODULE_0__);
+
+var columns = [{
+  title: 'Name',
+  dataIndex: 'name',
+  key: 'name',
+  sorter: true
+}, {
+  title: 'Email',
+  dataIndex: 'email',
+  key: 'email',
+  sorter: true
+}, {
+  title: 'Action',
+  key: 'action',
+  scopedSlots: {
+    customRender: 'action'
+  },
+  sorter: false,
+  width: "10%"
+}];
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['baseUrl', 'reviews'],
   data: function data() {
     return {
-      star: 0,
-      givenRating: 0
+      columns: columns
     };
   },
   methods: {
-    onStarOver: function onStarOver(val) {
-      this.star = val;
+    handleTableChange: function handleTableChange(pagination, filters, sorter) {
+      this.banners.sort(function (a, b) {
+        var columnKey = sorter.columnKey;
+        var order = sorter.order;
+
+        if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(a[columnKey])) {
+          a[columnKey] = '';
+        }
+
+        if (lodash_isNil__WEBPACK_IMPORTED_MODULE_0___default()(b[columnKey])) {
+          b[columnKey] = '';
+        }
+
+        if (order === 'ascend') {
+          if (a[columnKey] < b[columnKey]) return -1;
+          if (a[columnKey] > b[columnKey]) return 1;
+        }
+
+        if (order === 'descend') {
+          if (a[columnKey] > b[columnKey]) return -1;
+          if (a[columnKey] < b[columnKey]) return 1;
+        }
+
+        return 0;
+      });
     },
-    clickOnStar: function clickOnStar(val) {
-      this.givenRating = val;
+    getApprovedUrl: function getApprovedUrl(record) {
+      return this.baseUrl + '/review/' + record.id + '/approved';
     },
-    onStarLeave: function onStarLeave() {
-      this.star = 0;
+    clickOnApproved: function clickOnApproved(record, e) {
+      var url = this.baseUrl + '/review/' + record.id + '/approved';
+      var app = this;
+      this.$confirm({
+        title: 'Do you Want to approved this review',
+        okType: 'success',
+        onOk: function onOk() {
+          axios.post(url).then(function (response) {
+            if (response.data.success === true) {
+              app.$notification.success({
+                key: 'review.approved.success',
+                message: response.data.message
+              });
+              window.location.reload();
+            }
+          })["catch"](function (errors) {
+            app.$notification.error({
+              key: 'review.approved.error',
+              message: errors.message
+            });
+          });
+        },
+        onCancel: function onCancel() {// Do nothing
+        }
+      });
     }
-  },
-  mounted: function mounted() {
-    console.info('avored review frontend components');
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/lodash/isNil.js":
+/*!**************************************!*\
+  !*** ./node_modules/lodash/isNil.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is `null` or `undefined`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is nullish, else `false`.
+ * @example
+ *
+ * _.isNil(null);
+ * // => true
+ *
+ * _.isNil(void 0);
+ * // => true
+ *
+ * _.isNil(NaN);
+ * // => false
+ */
+function isNil(value) {
+  return value == null;
+}
+
+module.exports = isNil;
+
 
 /***/ }),
 
@@ -234,16 +333,16 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ "./resources/components/Review.vue":
-/*!*****************************************!*\
-  !*** ./resources/components/Review.vue ***!
-  \*****************************************/
+/***/ "./resources/components/CatalogReview.vue":
+/*!************************************************!*\
+  !*** ./resources/components/CatalogReview.vue ***!
+  \************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Review.vue?vue&type=script&lang=js& */ "./resources/components/Review.vue?vue&type=script&lang=js&");
+/* harmony import */ var _CatalogReview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CatalogReview.vue?vue&type=script&lang=js& */ "./resources/components/CatalogReview.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
 
@@ -253,7 +352,7 @@ var render, staticRenderFns
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
-  _Review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  _CatalogReview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
   render,
   staticRenderFns,
   false,
@@ -265,46 +364,46 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/components/Review.vue"
+component.options.__file = "resources/components/CatalogReview.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/components/Review.vue?vue&type=script&lang=js&":
-/*!******************************************************************!*\
-  !*** ./resources/components/Review.vue?vue&type=script&lang=js& ***!
-  \******************************************************************/
+/***/ "./resources/components/CatalogReview.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/components/CatalogReview.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib??ref--4-0!../../node_modules/vue-loader/lib??vue-loader-options!./Review.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/Review.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Review_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogReview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/babel-loader/lib??ref--4-0!../../node_modules/vue-loader/lib??vue-loader-options!./CatalogReview.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/components/CatalogReview.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CatalogReview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/review.js":
-/*!********************************!*\
-  !*** ./resources/js/review.js ***!
-  \********************************/
+/***/ "./resources/js/admin.js":
+/*!*******************************!*\
+  !*** ./resources/js/admin.js ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 AvoRed.initialize(function (Vue) {
-  Vue.component('avored-review-save', __webpack_require__(/*! ../components/Review.vue */ "./resources/components/Review.vue")["default"]);
+  Vue.component('catalog-review', __webpack_require__(/*! ../components/CatalogReview.vue */ "./resources/components/CatalogReview.vue")["default"]);
 });
 
 /***/ }),
 
-/***/ 0:
-/*!**************************************!*\
-  !*** multi ./resources/js/review.js ***!
-  \**************************************/
+/***/ 1:
+/*!*************************************!*\
+  !*** multi ./resources/js/admin.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/purvesh/code/laravel-ecommerce/modules/avored/review/resources/js/review.js */"./resources/js/review.js");
+module.exports = __webpack_require__(/*! /Users/purvesh/code/laravel-ecommerce/modules/avored/review/resources/js/admin.js */"./resources/js/admin.js");
 
 
 /***/ })

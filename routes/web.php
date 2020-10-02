@@ -21,8 +21,8 @@ Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('', 'HomeController@index')->name('home');
 
-Route::get('category/{category}', 'CategoryController@show')->name('category.show');
-Route::get('product/{product}', 'ProductController@show')->name('product.show');
+Route::get('category/{category}', 'Category\CategoryController@show')->name('category.show');
+Route::get('product/{product}', 'Product\ProductController@show')->name('product.show');
 
 Route::get('cart', 'Cart\CartController@show')->name('cart.show');
 Route::post('apply-promotion-code/{code}', 'Cart\CartController@applyPromotionCode')->name('promotion-code.apply');

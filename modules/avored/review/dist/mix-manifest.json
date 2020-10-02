@@ -1,4 +1,4 @@
 {
-    "/js/admin/review.js": "/js/admin/review.js",
-    "/js/front/review.js": "/js/front/review.js"
+    "/js/admin-review.js": "/js/admin-review.js",
+    "/js/review.js": "/js/review.js"
 }

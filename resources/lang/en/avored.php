@@ -29,6 +29,7 @@ return [
         'city' => 'City',
         'country_id' => 'Country'
     ],
+    'properties' => 'Properties',
     'my_wishlist' => 'My Wishlist',
     'customer_wishlists' => 'Customer Wishlists',
     'not_available' => 'Not Available',

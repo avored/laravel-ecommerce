@@ -1,3 +1,3 @@
 AvoRed.initialize((Vue) => {
-    Vue.component('a-review', require('../components/Review.vue').default)  
+    Vue.component('avored-review-save', require('../components/Review.vue').default)  
 })
