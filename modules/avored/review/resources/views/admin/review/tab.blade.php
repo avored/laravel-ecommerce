@@ -1,3 +1,11 @@
 <div>
-    Review List
+    <div class="mb-5 text-red-700 font-semibold text-2xl">
+        {{ __('avored-review::review.review-list') }}
+    </div>
+    <catalog-avored-review
+        base-url="{{ asset(config('avored.admin_url')) }}"
+        :init-reviews="{{ json_encode($reviews) }}"></catawlog-avored-review>
 </div>
+@push('scripts')
+    <script src="/admin/js/avored-review.js"></script>
+@endpush

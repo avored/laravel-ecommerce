@@ -1,90 +1,89 @@
+<template>
+  <div>
+    <div class="mt-3">
+         <avored-table
+            :columns="columns"
+            :from="initReviews.from"
+            :to="initReviews.to"
+            :total="initReviews.total"
+            :prev_page_url="initReviews.prev_page_url"
+            :next_page_url="initReviews.next_page_url"
+            :items="initReviews.data"
+        >
+         
+          <template slot="action" slot-scope="{item}">
+            <div class="flex items-center">
+                <button type="button" class="px-2 py-1 text-white hover:text-white bg-red-600 rounded hover:bg-red-700" 
+                    v-if="item.status != 'APPROVED'" 
+                    @click.prevent="doApprovedRequest(item)">
+                  {{ $t('system.approved') }}
+                </button>
+                <div v-else class="text-green-500 font-semibold">
+                  {{ $t('system.approved') }}
+                </div>
+            </div>
+          </template>
+        </avored-table>
+    </div>
+  </div>
+</template>
+
 <script>
-import isNil from 'lodash/isNil'
-
-const columns = [
-    {
-        title: 'Name',
-        dataIndex: 'name',
-        key: 'name',
-        sorter: true,
-    },
-    {
-        title: 'Email',
-        dataIndex: 'email',
-        key: 'email',
-        sorter: true,
-    },
-    {
-        title: 'Action',
-        key: 'action',
-        scopedSlots: { customRender: 'action' },
-        sorter: false,
-        width: "10%"
-    }
-];
-
 
 export default {
-  props: ['baseUrl', 'reviews'],
+  props: ['baseUrl', 'initReviews'],
   data () {
     return {
-        columns
+        columns: [],
     };
   },
+  mounted() {
+    this.columns = [
+        {
+          label: this.$t('system.id'),
+          fieldKey: "id"
+        },
+        {
+          label: this.$t('system.name'),
+          fieldKey: "name"
+        },
+        {
+          label: this.$t('system.email'),
+          fieldKey: "email"
+        },
+        {
+          label: this.$t('system.rating'),
+          fieldKey: "star"
+        },
+        {
+          label: this.$t('system.status'),
+          fieldKey: "status"
+        },
+        {
+          label: this.$t('system.actions'),
+          slotName: "action"
+        }
+    ];
+
+  },
   methods: {
-      handleTableChange(pagination, filters, sorter) {
-        this.banners.sort(function(a, b){
-            let columnKey = sorter.columnKey
-            let order = sorter.order
-            
-            if (isNil(a[columnKey])) {
-                a[columnKey] = ''
-            }
-            if (isNil(b[columnKey])) {
-                b[columnKey] = ''
-            }
-            if (order === 'ascend'){
-                if(a[columnKey] < b[columnKey]) return -1;
-                if(a[columnKey] > b[columnKey]) return 1;
-            }
-            if (order === 'descend') {
-                if(a[columnKey] > b[columnKey]) return -1;
-                if(a[columnKey] < b[columnKey]) return 1;
-            }
-            return 0;
-        });
-      },
-      getApprovedUrl(record) {
-          return this.baseUrl + '/review/' + record.id + '/approved';
-      },
-      clickOnApproved(record, e) {
-        var url = this.baseUrl + '/review/' + record.id + '/approved';
+     
+      doApprovedRequest(record) {
+        var url = this.baseUrl  + '/review/' + record.id + '/approved/'
         var app = this;
-        this.$confirm({
-            title: 'Do you Want to approved this review',
-            okType: 'success',
-            onOk() {    
-                axios.post(url)
-                    .then(response =>  {
-                        if (response.data.success === true) {
-                            app.$notification.success({
-                                key: 'review.approved.success',
-                                message: response.data.message,
-                            });
-                            window.location.reload();
-                        }
-                    })
-                    .catch(errors => {
-                        app.$notification.error({
-                            key: 'review.approved.error',
-                            message: errors.message
-                        });
-                    });
-            },
-            onCancel() {
-                // Do nothing
-            },
-        });
+        this.$confirm({message: this.$t('system.approved_modal_message', {name: record.name, term: this.$t('system.rating')}), callback: () => {
+            axios.post(url)
+              .then(response =>  {
+                  if (response.data.success === true) {
+                      app.$alert(response.data.message)
+                  }
+                  window.location.reload();
+              })
+              .catch(errors => {
+                  app.$alert(errors.message)
+              });
+        }})
+     
     },
   }
 };

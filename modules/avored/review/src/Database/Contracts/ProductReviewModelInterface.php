@@ -5,6 +5,7 @@ namespace AvoRed\Review\Database\Contracts;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Collection;
 use AvoRed\Review\Database\Models\ProductReview;
+use Illuminate\Contracts\Pagination\Paginator;
 
 interface ProductReviewModelInterface
 {
@@ -37,7 +38,9 @@ interface ProductReviewModelInterface
 
     /**
      * Get All ProductReview from the database by given Product Id.
+     * @param int $productId 
+     * @param int $perPage
      * @return \Illuminate\Support\Collection $reviews
      */
-    public function getAllReviewsByProductId(int $productId) : SupportCollection;
+    public function getAllReviewsByProductId(int $productId) : Paginator;
 }
