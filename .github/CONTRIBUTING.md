@@ -9,7 +9,7 @@
 #### **Bug Reporting**
 * **Ensure the bug was not already reported** by searching on GitHub under [Issues.](https://github.com/avored/laravel-ecommerce/issues)
 * If you're unable to find an open issue that relates to your problem, [open a new one.](https://github.com/avored/laravel-ecommerce/issues/new) Please be sure to follow the issue template as much as possible.
-* **Ensure that the bug you are reporting is a Avored issue** and not specific to your individual setup. For these types of issues please use the [Community Forum.](https://www.avored.com/discussion)
+* **Ensure that the bug you are reporting is a Avored issue** and not specific to your individual setup. For these types of issues please use the [Community Forum.](https://avored.com/discussion)
 
 #### **Did you fix a bug?**
 

@@ -34,12 +34,12 @@
 			"AvoRed\\Review\\" : "src/"
 		}
 	},
-	"homepage" : "https://www.avored.com/",
+	"homepage" : "https://avored.com/",
 	"support" : {
 		"email" : "ind.purvesh@gmail.com",
-		"issues" : "https://www.avored.com/discussion",
-		"forum" : "https://www.avored.com/discussion",
-		"wiki" : "https://www.avored.com/docs",
+		"issues" : "https://avored.com/discussion",
+		"forum" : "https://avored.com/discussion",
+		"wiki" : "https://avored.com/docs",
 		"source" : "https://www.github.com/avored/review"
 	}
 }
