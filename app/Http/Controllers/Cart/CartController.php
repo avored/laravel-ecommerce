@@ -42,6 +42,7 @@ class CartController extends Controller
     public function show(Request $request)
     {
         $cartProducts = Cart::all();
+        //var_dump($cartProducts);
 
         return view('cart.show')->with(compact('cartProducts'));
     }
