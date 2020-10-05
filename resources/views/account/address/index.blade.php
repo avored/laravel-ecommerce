@@ -74,20 +74,6 @@
 
                 </div>
                 <div class="p-5">
-                    {{-- <a-dropdown slot="extra">
-                        <a class="ant-dropdown-link"  href="">
-                            {{ __('Options') }} <a-icon type="down" />
-                        </a>
-                        <a-menu slot="overlay">
-                            <a-menu-item>
-                                <a href="{{ route('account.address.edit', $address->id) }}">{{ __('Edit') }}</a>
-                            </a-menu-item>
-                            <a-menu-item>
-                                <a onClick="event.preventDefault();document.getElementById('address-destory-{{ $address->id }}').submit()"
-                                    href="#">{{ __('Delete') }}</a>
-                            </a-menu-item>
-                        </a-menu>
-                    </a-dropdown> --}}
                         <form style="display:none"
                             id="address-destory-{{ $address->id }}"
                             method="post"
