@@ -96,12 +96,16 @@
                             @csrf
                             @method('delete')
                         </form>
+                        @if(empty($address))
                         <p>{{ $address->first_name }} {{ $address->last_name }}</p>
                         <p>{{ $address->company_name }}</p>
                         <p>{{ $address->phone }}</p>
                         <p>{{ $address->address1 }}, {{ $address->address2 }}</p>
                         <p>{{ $address->city }}, {{ $address->postcode }}</p>
                         <p>{{ $address->state }}: {{ $address->country->name }}</p>
+                        @else
+                          The Shipping Address is empty
+                        @endif
                     </div>
             </div>
         </div>
