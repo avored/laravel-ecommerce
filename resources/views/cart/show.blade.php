@@ -15,6 +15,7 @@
 @endsection
 
 @section('content')
+@if(empty(Cart::toArray()))
 <cart-page 
     :items="{{ Cart::toArray() }}"
     cart-update-url="{{ route('cart.update') }}"
@@ -216,4 +217,10 @@
 
 </div>
 </cart-page>
+@else 
+<div class="my-6">
+    <h1 class="mb-6 text-red-800 font-semibold text-2xl">
+The cart is empty</h1>
+</div>
+@endif
 @endsection

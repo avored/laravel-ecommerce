@@ -15,7 +15,7 @@ use AvoRed\Framework\Database\Contracts\OrderProductModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductAttributeModelInterface;
 use AvoRed\Framework\Support\Facades\Payment;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Order\CustomerRequest;
+use App\Http\Requests\Order\OrderPlaceRequest;
 use Illuminate\Support\Facades\Hash;
 
 class OrderController extends Controller
@@ -101,7 +101,7 @@ class OrderController extends Controller
      * Place the Order .
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function place(CustomerRequest $request)
+    public function place(OrderPlaceRequest $request)
     {
         $this->customer($request);
         $this->shippingAddress($request);
