@@ -90,3 +90,30 @@
     <input type="hidden" name="slug" value="{{ $product->slug }}" />
     <input type="hidden" name="qty" v-model="qty" />
 </form>
+
+<?php 
+    $wishlistRepository = app(\AvoRed\Wishlist\Database\Contracts\WishlistModelInterface::class);
+    $customer = auth()->guard('customer')->user();
+?>
+@if (($customer === null) ||  !($customer && $wishlistRepository->customerHasProduct($customer, $product->id)))
+
+<form method="post" class="pb-5 w-40" action="{{ route('wishlist.store') }}">
+    @csrf
+    <button class="text-white mt-5 px-4 bg-gray-500 border-0 py-2 
+        focus:outline-none hover:bg-gray-700 leading-7 rounded text-xs">
+            {{ __('avored.add_to_wishlist') }}
+    </button>
+    <input type="hidden" name="slug" value="{{ $product->slug }}" />
+</form>
+@else 
+<form method="post" class="pb-5 w-56" action="{{ route('wishlist.destroy') }}">
+    @csrf
+    <button class="text-white mt-5 px-4 bg-gray-500 border-0 py-2 
+        focus:outline-none hover:bg-gray-700 leading-7 rounded text-xs">
+            {{ __('avored.remove_to_wishlist') }}
+    </button>
+    <input type="hidden" name="slug" value="{{ $product->slug }}" />
+</form>
+@endif
+
+</div>

@@ -2,6 +2,7 @@
 
 namespace AvoRed\Wishlist\Database\Repository;
 
+use AvoRed\Framework\Database\Models\Customer;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Database\Eloquent\Collection;
 use AvoRed\Wishlist\Database\Models\Wishlist;
@@ -51,43 +52,37 @@ class WishlistRepository implements WishlistModelInterface
 
     /**
      * Get all the wishlistes from the connected database.
+     * @param Customer $customer
+     * @param array $with
      * @return \Illuminate\Database\Eloquent\Collection $wishlists
      */
-    public function userWishlists() : SupportCollection
+    public function customerWishlists(Customer $customer, $with = []) : SupportCollection
     {
-        $user = Auth::user();
-        if ($user) {
-            return Wishlist::whereUserId($user->id)->get();
-        }
-
-        return SupportCollection::make([]);
+        return Wishlist::with($with)->whereCustomerId($customer->id)->get();
     }
 
     /**
      * Find Wishlist Resource into a database.
+     * @param Customer $customer
      * @param int $productId
      * @return \AvoRed\Wishlist\Database\Models\Wishlist $wishlist
      */
-    public function getWishlistByProductId(int $productId) : Wishlist
+    public function getWishlistByProductId(Customer $customer, int $productId) : Wishlist
     {
-        $user = Auth::user();
-        if ($user === null) {
-            return null;
-        }
-        return Wishlist::select('id')->whereProductId($productId)->whereUserId($user->id)->first();
+        return Wishlist::select('id')
+            ->whereProductId($productId)
+            ->whereCustomerId($customer->id)
+            ->first();
     }
+    
     /**
      * Find Wishlist Resource into a database.
      * @param int $productId
      * @return bool
      */
-    public function userHasProduct(int $productId) : bool
+    public function customerHasProduct(Customer $customer, int $productId) : bool
     {
-        $user = Auth::user();
-        if ($user === null) {
-            return false;
-        }
-        $count =  Wishlist::select('id')->whereProductId($productId)->whereUserId($user->id)->count();
+        $count =  Wishlist::select('id')->whereProductId($productId)->whereCustomerId($customer->id)->count();
         if ($count > 0) {
             return true;
         }

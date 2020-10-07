@@ -40,9 +40,10 @@ class WishlistController extends Controller
     public function store(Request $request)
     {
         $product = $this->productRepository->findBySlug($request->get('slug'));
+        $customer = Auth::guard('customer')->user();
         
-        if (!$this->wishlistRepository->userHasProduct($product->id)) {
-            $data = ['product_id' => $product->id, 'user_id' => Auth::user()->id];
+        if (!$this->wishlistRepository->customerHasProduct($customer, $product->id)) {
+            $data = ['product_id' => $product->id, 'customer_id' => Auth::guard('customer')->user()->id];
             $this->wishlistRepository->create($data);
         }
         
@@ -60,7 +61,8 @@ class WishlistController extends Controller
     public function destroy(Request $request)
     {
         $product = $this->productRepository->findBySlug($request->get('slug'));
-        $this->wishlistRepository->getWishlistByProductId($product->id)->delete();
+        $customer = Auth::guard('customer')->user();
+        $this->wishlistRepository->getWishlistByProductId($customer, $product->id)->delete();
         
         return redirect()
             ->back()

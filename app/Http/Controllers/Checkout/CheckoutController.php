@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Checkout;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -8,6 +8,7 @@ use AvoRed\Framework\Support\Facades\Payment;
 use AvoRed\Framework\Support\Facades\Shipping;
 use AvoRed\Framework\Database\Contracts\AddressModelInterface;
 use AvoRed\Framework\Database\Contracts\CountryModelInterface;
+use App\Http\Controllers\Controller;
 
 class CheckoutController extends Controller
 {

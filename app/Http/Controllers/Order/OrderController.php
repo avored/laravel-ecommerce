@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Order;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,6 +14,9 @@ use AvoRed\Framework\Database\Contracts\OrderStatusModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductModelInterface;
 use AvoRed\Framework\Database\Contracts\OrderProductAttributeModelInterface;
 use AvoRed\Framework\Support\Facades\Payment;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Order\OrderPlaceRequest;
+use Illuminate\Support\Facades\Hash;
 
 class OrderController extends Controller
 {
@@ -98,7 +101,7 @@ class OrderController extends Controller
      * Place the Order .
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function place(Request $request)
+    public function place(OrderPlaceRequest $request)
     {
         $this->customer($request);
         $this->shippingAddress($request);
@@ -135,11 +138,16 @@ class OrderController extends Controller
             $this->customer = Auth::guard('customer')->user();
         } else {            
             $email = $request->get('email');
-
-            $this->customer = $this->customerRepository->findByEmail($email);
+           
+            $this->customer = $this->customerRepository->findByEmail($email);     
 
             if ($this->customer === null) {
-                $this->customer = $this->customerRepository->create($request->all());
+                $this->customer = $this->customerRepository->create([
+                    'first_name' => $request->input('first_name'),
+                    'last_name' => $request->input('last_name'),
+                    'email' => $request->input('email'),
+                    'password' => Hash::make($request->input('password'))
+                ]);
                
             }
         }
@@ -154,6 +162,7 @@ class OrderController extends Controller
     public function shippingAddress($request)
     {
         $addressData = $request->get('shipping');
+        //var_dump($addressData);
 
         if (isset($addressData['address_id'])) {
             $this->shippingAddress = $this->addressRepository->find($addressData['address_id']);
