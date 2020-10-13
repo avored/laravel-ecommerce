@@ -21,14 +21,14 @@
 	],
 	"type" : "library",
 	"require" : {
-		"php" : ">=7.2",
+		"php" : ">=7.3.5",
 		"symfony/yaml": "^4.2",
 		"laravel/passport": "^7.4|^8.0|^9.0",
 		"barryvdh/laravel-dompdf": "^0.8.4",
 		"laravel/helpers": "^1.1",
-		"laravel/framework" : "^5.8.15|^6.0|^7.0",
+		"laravel/framework" : "^5.8.15|^6.0|^7.0|^8.0",
 		"rebing/graphql-laravel": "^5.1",
-		"laravel/ui": "^2.0|^1.0"
+		"laravel/ui": "^3.0|^2.0|^1.0"
 	},
 	"require-dev" : {
 		"phpunit/phpunit": "^8.0|^9.0",
