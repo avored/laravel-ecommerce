@@ -13,22 +13,22 @@
 
 #### **Did you fix a bug?**
 
-* To provide a code contribution for an issue you will need to set up your own fork of the Avored repository, make your code changes, commit the changes and make a Pull Request to the dev branch on the Avored repository. 
+* To provide a code contribution for an issue you will need to set up your own fork of the Avored repository, make your code changes, commit the changes and make a Pull Request to the `developed` branch on the Avored repository. 
 * Separate each fix into a new branch in your repository and name it with the issue ID e.g. bugfix_3062 or issue-1234.
 * When committing to your individual bugfix branch, please try and use the following as your commit message 
 ```Fixed #1234 - <the subject of the issue>```. By using this format we can easily include all bug fixes within major and minor release notes in our [Changelog](https://github.com/avored/laravel-ecommerce/blob/master/CHANGELOG.md).
 * If you are new to writing commit messages in git, follow the guide [here.](http://chris.beams.io/posts/git-commit/#seven-rules)
 * After you have made your commits and pushed them up to your forked repository you then create a [Pull Request](https://help.github.com/articles/about-pull-requests/) to be reviewed and merged into the Avored repository. Make a new Pull Request for each issue you fix.    **do not combine multiple bugfixes into one Pull Request**.
-* Ensure that you send your Pull Request to the dev.
+* Ensure that you send your Pull Request to the `developed`.
 
 
 #### **Did you create a new feature or enhancement?**
 
-* Changes that can be considered a new feature or enhancement should be made to the dev branch.
+* Changes that can be considered a new feature or enhancement should be made to the `developed` branch.
 * To contribute a feature you must create a fork of Avored and set up your git and development environment.
-  Once done, create a new branch from **dev** and name it relevant to the feature's purpose.
+  Once done, create a new branch from **developed** and name it relevant to the feature's purpose.
   Make sure your commit messages are relevant and descriptive. When ready to submit for review, make a Pull Request detailing your feature's functionality.
-  Ensure that your Pull Requests base fork is **avored/laravel-ecommerce**, the base branch is **dev**, the head fork is your repository, and the base branch is your feature branch.
+  Ensure that your Pull Requests base fork is **avored/laravel-ecommerce**, the base branch is **developed**, the head fork is your repository, and the base branch is your feature branch.
 * Add any new PHPUnit tests to the new feature branch if required.
 
 ## Issue and Pull Request Labels

@@ -35,7 +35,7 @@ Please read our [contributing guide](.github/CONTRIBUTING.md) if you want to con
 
 ## Contributors
 
-[AvoRed](https://avored.com/) exists thanks to all the people who contribute. [[Contribute]](CONTRIBUTING.md).
+[AvoRed](https://avored.com/) exists thanks to all the people who contribute. [[Contribute]](.github/CONTRIBUTING.md).
 <a href="https://github.com/avored/laravel-ecommerce/graphs/contributors"><img src="https://opencollective.com/laravel-ecommerce/contributors.svg?width=890" title="contributors" alt="contributors" /></a>
 
 ## Sponsors

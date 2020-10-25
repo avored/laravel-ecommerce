@@ -18,7 +18,7 @@
         "less": "^3.11.3",
         "less-loader": "^6.2.0",
         "lodash": "^4.17.19",
-        "tailwindcss": "^1.4.6",
+        "tailwindcss": "^1.8.10",
         "vddl": "^0.7.1",
         "vue": "^2.5",
         "vue-i18n": "^8.18.2",
