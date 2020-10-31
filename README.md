@@ -27,7 +27,7 @@ Please visit the [AvoRed Documentation](https://avored.com/docs) to get started 
 
 ## Demo 
 
-a demo store can be found at [https://demo.avored.com](https://demo.avored.com/).
+A demo store can be found at [https://demo.avored.com](https://demo.avored.com/).
 
 ## Contributing
 
