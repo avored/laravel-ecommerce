@@ -22,7 +22,7 @@ $product->main_image_url = empty($product->mainImage) ? 'https://placehold.it/25
                       <input type="hidden" name="slug" value="{{ $product->slug }}" />
                       <input type="hidden" name="qty" value="1" />
                       <button type="submit" class="px-3 py-1 bg-red-500 text-white text-sm font-semibold rounded">
-                          Add to cart
+                          {{__('avored.add_to_cart')}}
                       </button>
                   </form>
                   <div>
