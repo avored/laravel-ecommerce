@@ -10,6 +10,7 @@ use AvoRed\Framework\Support\Facades\Menu;
 use Barryvdh\Debugbar\Facade;
 use Barryvdh\Debugbar\ServiceProvider as DebugbarServiceProvider;
 use Illuminate\Foundation\AliasLoader;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
