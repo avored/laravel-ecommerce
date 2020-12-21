@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": ">=7.3",
+        "avored/banner": "^2.4",
         "avored/framework": "^3.2",
         "fideloper/proxy": "^4.0"
     },
