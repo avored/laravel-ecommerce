@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "avored-components": "^0.1",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "cross-env": "^7.0.2",
         "laravel-mix": "^5.0.4",
         "laravel-mix-alias": "^1.0.2",
