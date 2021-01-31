@@ -13,6 +13,17 @@ return [
     |
     */
 
+    'shipping_options' => 'Shipping Options',
+    'first_name' => 'First Name',
+    'last_name' => 'Last Name',
+    'company_name' => 'Company Name',
+    'phone' => 'Phone',
+    'address1' => 'Address1',
+    'address2' => 'Address2',
+    'country_id' => 'Country',
+    'state' => 'State',
+    'city' => 'City',
+    'postcode' => 'Postcode',
     'fields' => [
         'email' => 'Email Address',
         'password' => 'Password',

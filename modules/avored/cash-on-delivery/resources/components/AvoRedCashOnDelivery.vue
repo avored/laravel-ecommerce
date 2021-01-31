@@ -1,13 +1,3 @@
-<template>
-    <div>
-        <avored-toggle
-            label-text="Cash On Delivery"
-            field-name="payment_option"
-            toggle-on-value="a-cash-on-delivery"
-        ></avored-toggle>
-    </div>    
-</template>
-
 <script>
 
 export default {
