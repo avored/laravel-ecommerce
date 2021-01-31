@@ -2,12 +2,13 @@
 
 namespace AvoRed\Review;
 
+use AvoRed\Assets\AssetItem;
+use AvoRed\Assets\Support\Facades\Asset;
 use AvoRed\Review\Database\Contracts\ProductReviewModelInterface;
 use AvoRed\Review\Database\Repository\ProductReviewRepository;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use AvoRed\Review\Http\ViewComposers\ProductReviewComposer;
-use AvoRed\Framework\Support\Facades\Breadcrumb as BreadcrumbFacade;
 use AvoRed\Framework\Support\Facades\Tab;
 use AvoRed\Framework\Tab\TabItem;
 
@@ -32,8 +33,25 @@ class Module extends ServiceProvider
     public function register()
     {
         $this->app->bind(ProductReviewModelInterface::class, ProductReviewRepository::class);
+        $this->registerAssets();
     }
 
+
+    /**
+     * Registering AvoRed Assets.
+     * @return void
+     */
+    public function registerAssets()
+    {
+        Asset::registerJS(function (AssetItem $item) {
+            $item->key('avored.admin.review.js')
+                ->path(__DIR__ . '/../dist/js/admin-review.js');
+        });
+        Asset::registerJS(function (AssetItem $item) {
+            $item->key('avored.review.js')
+                ->path(__DIR__ . '/../dist/js/review.js');
+        });
+    }
     /**
      * Registering AvoRed featured Resource
      * e.g. Route, View, Database  & Translation Path

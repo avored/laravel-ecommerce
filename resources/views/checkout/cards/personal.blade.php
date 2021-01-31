@@ -35,8 +35,6 @@
         </div>
     </div>
 
-
-
     <div class="flex items-center" v-if="newAccount">
         <div class="w-1/2">
             <avored-input

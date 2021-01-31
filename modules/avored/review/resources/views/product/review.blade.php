@@ -146,5 +146,5 @@
 </div>
 
 @push('scripts')
-    <script src="/js/avored-review.js"></script>
+    <script src="{{ route('admin.script', 'avored.review.js') }}"></script>
 @endpush
