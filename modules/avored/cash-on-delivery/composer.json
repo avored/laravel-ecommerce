@@ -24,7 +24,7 @@
 	"require" : {
 		"php": "^7.2",
 		"avored/module-installer" : "1.*",
-		"avored/framework" : "~3.1"
+		"avored/framework" : "~3.2"
 	},
 	"autoload" : {
 		"classmap" : [
