@@ -23,14 +23,14 @@
     <div class="flex">
         <div class="w-1/2">
             <avored-input
-                label-text="{{ __('avored.fields.first_name') }}"
+                label-text="{{ __('avored.first_name') }}"
                 field-name="shipping[first_name]"
                 error-text="{{ $errors->first('shipping.first_name') }}"
             ></avored-input>
         </div>
         <div class="w-1/2 ml-3">
             <avored-input
-                label-text="{{ __('avored.fields.last_name') }}"
+                label-text="{{ __('avored.last_name') }}"
                 field-name="shipping[last_name]"
                 error-text="{{ $errors->first('shipping.last_name') }}"
             ></avored-input>

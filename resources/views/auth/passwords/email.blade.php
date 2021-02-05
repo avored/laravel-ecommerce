@@ -32,7 +32,7 @@
                 <div class="rounded-md shadow-sm">
                     <div class="mt-3">
                         <avored-input
-                            label-text="{{ __('avored.fields.email') }}"
+                            label-text="{{ __('avored.email') }}"
                             label-class="w-full block"
                             input-class="w-full block"
                             field-name="email"

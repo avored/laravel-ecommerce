@@ -32,7 +32,7 @@
                     <div class="flex items-center">
                         <div class="mt-3 w-1/2">
                             <avored-input
-                                label-text="{{ __('avored.fields.first_name') }}"
+                                label-text="{{ __('avored.first_name') }}"
                                 label-class="w-full block"
                                 input-class="w-full block"
                                 field-name="first_name"
@@ -42,7 +42,7 @@
                         </div>
                         <div class="mt-3 w-1/2 ml-3">
                             <avored-input
-                                label-text="{{ __('avored.fields.last_name') }}"
+                                label-text="{{ __('avored.last_name') }}"
                                 label-class="w-full block"
                                 input-class="w-full block"
                                 field-name="last_name"
@@ -53,7 +53,7 @@
                     </div>
                     <div class="mt-3">
                         <avored-input
-                            label-text="{{ __('avored.fields.email') }}"
+                            label-text="{{ __('avored.email') }}"
                             label-class="w-full block"
                             input-class="w-full block"
                             field-name="email"
@@ -66,7 +66,7 @@
                     
                         <div class="mt-3 w-1/2">
                             <avored-input
-                                label-text="{{ __('avored.fields.password') }}"
+                                label-text="{{ __('avored.password') }}"
                                 label-class="w-full block"
                                 input-class="w-full block"
                                 field-name="password"
@@ -76,7 +76,7 @@
                         </div>
                         <div class="mt-3 w-1/2 m-3">
                             <avored-input
-                                label-text="{{ __('avored.fields.password_confirmation') }}"
+                                label-text="{{ __('avored.password_confirmation') }}"
                                 label-class="w-full block"
                                 input-class="w-full block"
                                 field-name="password_confirmation"
