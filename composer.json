@@ -9,8 +9,9 @@
     "license": "MIT",
     "require": {
         "php": ">=7.3",
-        "avored/banner": "^2.2",
-        "avored/framework": "^3.1",
+        "avored/banner": "^2.4",
+        "avored/framework": "~3.2",
+        "darkghosthunter/rememberable-query": "^1.1",
         "fideloper/proxy": "^4.0"
     },
     "require-dev": {
