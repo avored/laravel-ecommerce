@@ -52,6 +52,24 @@ return [
     'create_address' => 'Create Address',
     'create' => 'Create',
     'show_order' => 'Show Order',
-    'add_to_cart' => 'Add to cart'
+    'add_to_cart' => 'Add to cart',
+    'reset_password' => 'Reset Password',
+    'password_update' => 'Update your password',
+    'cart_page' => 'Cart Page',
+    'product' => 'Product',
+    'qty' => 'Qty',
+    'unit_price' => 'Unit Price',
+    'total_price' => 'Total Price',
+    'subtotal' => 'Sub Total',
+    'discount_coupon' => 'Discount Coupon',
+    'apply' => 'Apply',
+    'discount' => 'Discount',
+    'total' => 'Total',
+    'checkout' => 'Checkout',
+    'checkout_page' => 'Checkout Page',
+    'user_shipping_address' => 'User shipping address',
+    'place_order' => 'Place Order',
+    'payment_options' => 'Payment Options',
+    'cart_information' => 'Cart Information'
 
 ];

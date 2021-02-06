@@ -1,6 +1,10 @@
+
 @foreach ($categoryFilters as $categoryFilter)        
-    <div class="rounded border">
-        <div class="border-b p-5">{{ $categoryFilter->filter->name }}</div>
+    <div class="mb-5 rounded border">
+        <div class="border-b p-5">
+            {{ $categoryFilter->filter->name }}
+        </div>
+        
         <div class="p-5">
             @if($categoryFilter->type == 'PROPERTY' && $categoryFilter->filter->use_for_category_filter)
                 @if (
@@ -38,8 +42,9 @@
                     @foreach ($categoryFilter->filter->dropdown as $dropdownOption)
                     <p>
                         
-                        <input type="checked"
-                            @if(request()->get('a___' . $categoryFilter->filter->slug) !== null &&
+                        <input type="checkbox"
+                            @if(
+                                request()->get('a___' . $categoryFilter->filter->slug) !== null &&
                                 in_array($dropdownOption->id, request()->get('a___' . $categoryFilter->filter->slug))
                             )
                                 checked
@@ -49,7 +54,7 @@
                                 '{{ $categoryFilter->filter->slug }}',
                                 '{{ $dropdownOption->id }}',
                                 'ATTRIBUTE')" 
-                        /> 
+                        > 
                             {{ $dropdownOption->display_text }}
                         
                     </p>
@@ -57,5 +62,6 @@
                 @endif
             @endif
         </div>
+
     </div>
 @endforeach
