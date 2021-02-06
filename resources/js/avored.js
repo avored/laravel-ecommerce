@@ -1,5 +1,7 @@
 
-window.Vue = require('vue')
+import Vue from 'vue'
+
+window.Vue = Vue
 
 window.AvoRed = (function() {
     return {
