@@ -17,7 +17,7 @@
         "laravel-mix-alias": "^1.0.2",
         "less": "^3.11.3",
         "less-loader": "^6.2.0",
-        "lodash": "^4.17.19",
+        "lodash": "^4.17.21",
         "tailwindcss": "^1.8.10",
         "vddl": "^0.7.1",
         "vue": "^2.5",
