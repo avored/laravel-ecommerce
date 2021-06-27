@@ -8,8 +8,10 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=7.2",
-        "avored/framework": "^3.1",
+        "php": ">=7.3",
+        "avored/banner": "^2.4",
+        "avored/framework": "~3.2",
+        "darkghosthunter/rememberable-query": "^1.1",
         "fideloper/proxy": "^4.0"
     },
     "require-dev": {
@@ -38,7 +40,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "AvoRed\\Framework\\": "packages/avored/framework/src/"
+            "AvoRed\\Framework\\": "packages/avored/framework/src/",
+            "AvoRed\\Assets\\": "packages/avored/assets/src/"
         },
         "classmap": [
             "database/seeds",
@@ -48,7 +51,7 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/",
-            "AvoRed\\Framework\\Tests\\": "packages/framework/tests/"
+            "AvoRed\\Framework\\Tests\\": "packages/avored/framework/tests/"
 
         }
     },

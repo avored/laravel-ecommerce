@@ -1,5 +1,5 @@
 
-<div><h4 class="text-lg text-red-700 font-semibold my-5">{{ __('Cart Information') }}</h4></div>
+<div><h4 class="text-lg text-red-700 font-semibold my-5">{{ __('avored.cart_information') }}</h4></div>
 
 <div class="flex">
     <div class="w-1/6">Image</div>
@@ -25,15 +25,17 @@
     <div class="w-1/6">{{ session()->get('default_currency')->symbol }}@{{ parseFloat((item.qty * item.price) + item.tax).toFixed(2) }}</div>
     
 </div>
-<div class="flex items-center">
-    <div class="w-1/6"></div>
-    <div class="w-2/6"></div>
-    <div class="w-1/6"></div>
-    <div class="w-1/6">Discount</div>
-    <div class="w-1/6">
-        - {{ session()->get('default_currency')->symbol }}{{ Cart::discount() }}
+@if(Cart::discount() > 0)
+    <div class="flex items-center">
+        <div class="w-1/6"></div>
+        <div class="w-2/6"></div>
+        <div class="w-1/6"></div>
+        <div class="w-1/6">Discount</div>
+        <div class="w-1/6">
+            - {{ session()->get('default_currency')->symbol }}{{ Cart::discount() }}
+        </div>
     </div>
-</div>
+@endif
 <div class="flex items-center">
     <div class="w-1/6"></div>
     <div class="w-2/6"></div>

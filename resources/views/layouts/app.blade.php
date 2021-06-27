@@ -17,7 +17,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    @if(file_exists(public_path('mix-manifest.json')))
+    @if(env('APP_ENV') === 'testing1' && file_exists(public_path('mix-manifest.json')))
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @else
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -50,15 +50,15 @@
         </avored-layout>
     </div>
    
-    @if(file_exists(public_path('mix-manifest.json')))
+    @if(env('APP_ENV') === 'local' && file_exists(public_path('mix-manifest.json')))
         <script src="{{ mix('js/avored.js') }}"></script>
     @else
         <script src="{{ asset('js/avored.js') }}"></script>
     @endif
     
-    @stack('scripts')
+    {{-- @stack('scripts') --}}
     
-    @if(file_exists(public_path('mix-manifest.json')))
+    @if(env('APP_ENV') === 'local' && file_exists(public_path('mix-manifest.json')))
         <script src="{{ mix('js/app.js') }}"></script>
     @else
         <script src="{{ asset('js/app.js') }}"></script>

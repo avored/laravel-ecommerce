@@ -12,8 +12,8 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-	
-	'failed' => 'Ці облікові дані не відповідають нашим записам.',
+
+    'failed' => 'Ці облікові дані не відповідають нашим записам.',
     'throttle' => 'Забагато спроб входу. Повторіть спробу через: секунди секунд. ',
 
 ];

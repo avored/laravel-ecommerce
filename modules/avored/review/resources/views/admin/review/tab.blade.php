@@ -7,5 +7,5 @@
         :init-reviews="{{ json_encode($reviews) }}"></catawlog-avored-review>
 </div>
 @push('scripts')
-    <script src="/admin/js/avored-review.js"></script>
+    <script src="{{ route('admin.script', 'avored.admin.review.js') }}"></script>
 @endpush
