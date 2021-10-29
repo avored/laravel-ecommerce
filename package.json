@@ -1,35 +1,32 @@
 {
-    "private": true,
-    "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --https --key ~/.config/valet/Certificates/laravel-ecommerce.test.key --cert ~/.config/valet/Certificates/laravel-ecommerce.test.crt --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-    },
-    "dependencies": {
-        "avored-components": "^0.1",
-        "axios": "^0.21.1",
-        "cross-env": "^7.0.2",
-        "laravel-mix": "^5.0.4",
-        "laravel-mix-alias": "^1.0.2",
-        "less": "^3.11.3",
-        "less-loader": "^6.2.0",
-        "lodash": "^4.17.21",
-        "tailwindcss": "^1.8.10",
-        "vddl": "^0.7.1",
-        "vue": "^2.5",
-        "vue-i18n": "^8.18.2",
-        "vue-router": "^3.3.4",
-        "vue-simplemde": "^1.1.2",
-        "vue-zondicons": "^0.1.10",
-        "vuex": "^3.5.1"
-    },
-    "devDependencies": {
-        "sass": "^1.26.10",
-        "sass-loader": "^8.0.2",
-        "vue-template-compiler": "^2.6.11"
-    }
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "vue": "^3.0.0",
+    "vue-class-component": "^8.0.0-0",
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0",
+    "typescript": "~4.1.5"
+  }
 }

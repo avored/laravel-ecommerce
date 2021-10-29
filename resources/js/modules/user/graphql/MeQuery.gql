@@ -1,6 +1,0 @@
-#import './AdminUserFragment.gql'
-query MeQuery {
-  meQuery {
-    ...AdminUser
-  }
-}

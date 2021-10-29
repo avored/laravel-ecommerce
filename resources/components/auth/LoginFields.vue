@@ -1,6 +1,0 @@
-<script>
-
-export default {
- 
-};
-</script>
