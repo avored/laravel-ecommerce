@@ -1,15 +1,43 @@
 <template>
   <div class="home">
-    <h1 class="text-2xl text-red-600">Hello world</h1>
+    <h1 class="text-4xl text-red-600">Hello world</h1>
+      <div v-if="!fetching">
+          <div v-for="(category, index) in data.allCategory" :key="index">
+              {{ category.name }}  
+          </div> 
+      </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { useQuery } from '@urql/vue';
+import { defineComponent } from 'vue'
 
-@Options({
-  components: {
+export default defineComponent({
+  props: {
+    message: {
+      type: String,
+      required: true
+    }
   },
+
+  setup() {
+    const result = useQuery({
+      query: `
+        {
+          allCategory {
+            id
+            name
+          }
+        }
+      `
+    });
+
+    return {
+      fetching: result.fetching,
+      data: result.data,
+      error: result.error,
+    };
+  }
 })
-export default class Home extends Vue {}
 </script>
