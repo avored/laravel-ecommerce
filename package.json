@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "laravel-ecommerce",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -14,6 +14,7 @@
     "core-js": "^3.6.5",
     "feather-icons": "^4.28.0",
     "graphql": "^15.7.2",
+    "lodash": "^4.17.21",
     "postcss": "^7",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.2",
     "vue": "^3.2.20",
@@ -23,6 +24,7 @@
     "vuex": "^4.0.0-0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.176",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",
