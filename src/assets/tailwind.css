@@ -3,3 +3,11 @@
 @tailwind components;
 
 @tailwind utilities;
+
+
+.avored-input {
+    @apply w-full px-3 py-2 ring-gray-300 ring-1 rounded shadow-sm appearance-none text-gray-700;
+}
+.avored-input:hover, .avored-input:active , .avored-input:focus {
+    @apply ring-red-500 outline-none;
+}

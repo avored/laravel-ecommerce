@@ -5,4 +5,10 @@ import store from './store'
 import './assets/tailwind.css'
 import urql from '@urql/vue'
 
-createApp(App).use(store).use(router).use(urql, {url: process.env.VUE_APP_GRAPHQL_API_ENDPOINT}).mount('#app')
+const app = createApp(App)
+
+app.use(store)
+app.use(router)
+app.use(urql, {url: process.env.VUE_APP_GRAPHQL_API_ENDPOINT})
+
+app.mount('#app')

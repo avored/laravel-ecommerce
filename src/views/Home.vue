@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <Header />
+    
     <section class="px-10 mt-5 w-full mx-auto">
         <h1 class="my-5 text-2xl text-red-700">Latest Products</h1>
         <div class="grid grid-cols-4 gap-6">
@@ -43,42 +43,23 @@
             </div>
         </div>
     </section>
-    <Footer />
+   
   </div>
 </template>
 
 <script lang="ts">
-import { useQuery } from "@urql/vue"
 import { defineComponent } from "vue"
 import VueFeather from 'vue-feather'
-import Footer from '@/components/layouts/Footer.vue'
-import Header from '@/components/layouts/Header.vue'
 
 export default defineComponent({
   components: {
     VueFeather,
-    Footer,
-    Header
   },
   setup() {
-    const result = useQuery({
-      query: `
-        {
-          allCategory {
-            id
-            name
-          }
-        }
-      `,
-    });
-
     const products = [1, 2, 3, 4, 5, 6, 7, 8]
 
     return {
       products: products,
-      fetching: result.fetching,
-      data: result.data,
-      error: result.error,
     };
   },
 });
