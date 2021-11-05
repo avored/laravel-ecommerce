@@ -37,6 +37,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/auth/Login.vue'),
     meta: {'middleware': 'guest', 'layout': 'app' }
   },
+  {
+    path: '/register',
+    name: 'auth.register',
+    component: () => import('../views/auth/Register.vue'),
+    meta: {'middleware': 'guest', 'layout': 'app' }
+  },
 
 
 
@@ -60,10 +66,12 @@ router.beforeEach((to, from, next) => {
           if (objectKey === "middleware" && to.meta.middleware == 'guest' && guest()) {
               next()
           }
-          if (objectKey === "middleware" && to.meta.middleware == 'auth' && auth()) {
+          if (objectKey === "middleware" && to.meta.middleware == 'auth') {
+            if (auth()) {
               next()
-          } else {
-            next('/login')
+            } else {
+              next('/login')
+            }
           }
       });
     } else {

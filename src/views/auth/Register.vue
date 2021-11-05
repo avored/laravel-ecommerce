@@ -1,26 +1,41 @@
 <template>
   <div class="w-full flex justify-center mx-auto">
     <div class="relative py-20 sm:max-w-md w-full">
-      <div class="relative w-full rounded-3xl px-6 py-4 bg-gray-100 shadow-md">
+      <div class="relative w-full rounded-3xl px-6 py-4 border shadow-md">
         <div class="block mt-3 text-red-700 text-center text-2xl font-semibold">
-          Login
+          Register
         </div>
         
-        <form method="#" action="#" class="mt-10">
-          <div>
-            <input
-              type="email"
-              placeholder="Email Address"
-              class="avored-input"
-            />
+        <form method="#" action="#" @submit.prevent="onFormSubmit" class="mt-10">
+          <div class="mt-5">
+              <avored-input 
+                  field-name="first_name" 
+                  field-label="First Name"
+                  v-model="first_name"
+              />
           </div>
-
-          <div class="mt-7">
-            <input
-              type="password"
-              placeholder="Password"
-              class="avored-input"
-            />
+          <div class="mt-5">
+              <avored-input 
+                  field-name="last_name" 
+                  field-label="Last Name"
+                  v-model="last_name"
+              />
+          </div>
+          <div class="mt-5">
+              <avored-input 
+                  field-name="email" 
+                  field-type="email" 
+                  field-label="Email address"
+                  v-model="email"
+              />
+          </div>
+          <div class="mt-5">
+              <avored-input 
+                  field-name="password" 
+                  field-type="password" 
+                  field-label="Password"
+                  v-model="password"
+              />
           </div>
 
           <div class="mt-7 flex">
@@ -45,15 +60,6 @@
               />
               <span class="ml-2 text-sm text-gray-600">Remember me</span>
             </label>
-
-            <div class="w-full text-right">
-              <a
-                class="underline text-sm text-gray-600 hover:text-gray-900"
-                href="#"
-              >
-                Forgot your password?
-              </a>
-            </div>
           </div>
 
           <div class="mt-7">
@@ -74,7 +80,7 @@
                 hover:-translate-x hover:scale-105
               "
             >
-              Login
+              Register
             </button>
           </div>
 
@@ -85,7 +91,7 @@
             </label>
             <hr class="border-gray-300 border-1 w-full rounded-md" />
           </div>
-
+<!-- 
           <div class="flex mt-7 justify-center w-full">
             <button
               class="
@@ -129,13 +135,13 @@
             >
               Google
             </button>
-          </div>
+          </div> -->
 
           <div class="mt-7">
             <div class="flex justify-center items-center">
-              <label class="mr-2">Don't have an account with us?</label>
+              <label class="mr-2">Already have an account with us?</label>
               <router-link
-                :to="{name: 'auth.register'}"
+                :to="{name: 'auth.login'}"
                 class="
                   text-blue-500
                   transition
@@ -145,7 +151,7 @@
                   hover:-translate-x hover:scale-105
                 "
               >
-                Register
+                Login
               </router-link>
             </div>
           </div>
@@ -154,3 +160,30 @@
     </div>
   </div>
 </template>
+
+
+<script lang="ts">
+import { defineComponent, ref } from "vue"
+import AvoRedInput from '@/components/forms/AvoRedInput.vue'
+import { useMutation } from "@urql/vue"
+
+export default defineComponent({
+    components: {
+      'avored-input': AvoRedInput
+    },
+    setup () {
+        var email: String, password: String, first_name, last_name = ref('')
+
+        const onFormSubmit = () => {
+          console.log(email)
+        };
+        return {
+            onFormSubmit,
+            email,
+            password,
+            first_name,
+            last_name
+        }
+    }
+})
+</script>
