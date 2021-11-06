@@ -9,6 +9,6 @@ const app = createApp(App)
 
 app.use(store)
 app.use(router)
-app.use(urql, {url: process.env.VUE_APP_GRAPHQL_API_ENDPOINT})
+app.use(urql, {url: process.env.VUE_APP_GRAPHQL_API_ENDPOINT || 'https://docker-laravel.test/graphql'})
 
 app.mount('#app')

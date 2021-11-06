@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import isNil from 'lodash/isNil'
-import guest from '../middleware/guest'
 import auth from '../middleware/auth'
 
 declare module 'vue-router' {
@@ -44,7 +43,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: {'middleware': 'guest', 'layout': 'app' }
   },
 
-
+  {
+    path: '/logout',
+    name: 'logout',
+    component: () => import('../views/auth/Logout.vue'),
+    meta: {'middleware': 'guest', 'layout': 'app' }
+  },
 
   {
     path: '/account',
@@ -63,7 +67,7 @@ router.beforeEach((to, from, next) => {
   if (!isNil(to.meta.middleware))
   {
       Object.keys(to.meta).map(function(objectKey) {
-          if (objectKey === "middleware" && to.meta.middleware == 'guest' && guest()) {
+          if (objectKey === "middleware" && to.meta.middleware == 'guest') {
               next()
           }
           if (objectKey === "middleware" && to.meta.middleware == 'auth') {
