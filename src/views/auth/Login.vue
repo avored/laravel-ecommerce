@@ -6,21 +6,22 @@
           Login
         </div>
         
-        <form method="#" action="#" class="mt-10">
-          <div>
-            <input
-              type="email"
-              placeholder="Email Address"
-              class="avored-input"
-            />
+        <form method="#" action="#" @submit.prevent="onFormSubmit" class="mt-10">
+          <div class="mt-5">
+              <avored-input 
+                  field-name="email" 
+                  field-type="email" 
+                  field-label="Email address"
+                  v-model="email"
+              />
           </div>
-
-          <div class="mt-7">
-            <input
-              type="password"
-              placeholder="Password"
-              class="avored-input"
-            />
+          <div class="mt-5">
+              <avored-input 
+                  field-name="password" 
+                  field-type="password" 
+                  field-label="Password"
+                  v-model="password"
+              />
           </div>
 
           <div class="mt-7 flex">
@@ -77,60 +78,7 @@
               Login
             </button>
           </div>
-
-          <div class="flex mt-7 items-center text-center">
-            <hr class="border-gray-300 border-1 w-full rounded-md" />
-            <label class="block font-medium text-sm text-gray-600 w-full">
-              Login With
-            </label>
-            <hr class="border-gray-300 border-1 w-full rounded-md" />
-          </div>
-
-          <div class="flex mt-7 justify-center w-full">
-            <button
-              class="
-                mr-5
-                bg-blue-500
-                border-none
-                px-4
-                py-2
-                rounded-xl
-                cursor-pointer
-                text-white
-                shadow-xl
-                hover:shadow-inner
-                transition
-                duration-500
-                ease-in-out
-                transform
-                hover:-translate-x hover:scale-105
-              "
-            >
-              Facebook
-            </button>
-
-            <button
-              class="
-                bg-red-500
-                border-none
-                px-4
-                py-2
-                rounded-xl
-                cursor-pointer
-                text-white
-                shadow-xl
-                hover:shadow-inner
-                transition
-                duration-500
-                ease-in-out
-                transform
-                hover:-translate-x hover:scale-105
-              "
-            >
-              Google
-            </button>
-          </div>
-
+          
           <div class="mt-7">
             <div class="flex justify-center items-center">
               <label class="mr-2">Don't have an account with us?</label>
@@ -154,3 +102,57 @@
     </div>
   </div>
 </template>
+
+
+<script lang="ts">
+import { defineComponent, ref } from "vue"
+import AvoRedInput from '@/components/forms/AvoRedInput.vue'
+import { useMutation } from "@urql/vue"
+import { AUTH_TOKEN } from "@/constants"
+import { useRouter } from "vue-router"
+
+export default defineComponent({
+    components: {
+        'avored-input': AvoRedInput
+    },
+    setup () {
+        const router = useRouter()
+        const email = ref('')
+        const password = ref('')
+
+        const registerMutation = useMutation(`
+            mutation CustomerLogin( 
+                $email: String!,
+                $password: String!,
+            ) {
+                login (
+                    email: $email,
+                    password: $password
+                ) {
+                    token_type
+                    access_token
+                    expires_in
+                    refresh_token
+                }
+            }
+          `);
+
+        const onFormSubmit = async () => {
+            const variables = { 
+              email: email.value, 
+              password: password.value 
+            };
+
+            await registerMutation.executeMutation(variables).then((result) => {
+                localStorage.setItem(AUTH_TOKEN, result.data.login.access_token)
+                router.push({name: 'home'})
+            })
+        };
+        return {
+            onFormSubmit,
+            email,
+            password,
+        }
+    }
+})
+</script>

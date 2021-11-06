@@ -35,7 +35,7 @@ export default defineComponent({
       required: false,
     },
     modelValue: {
-      default: null,
+      default: '',
       required: false,
     },
   },

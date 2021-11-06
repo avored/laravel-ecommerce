@@ -91,52 +91,6 @@
             </label>
             <hr class="border-gray-300 border-1 w-full rounded-md" />
           </div>
-<!-- 
-          <div class="flex mt-7 justify-center w-full">
-            <button
-              class="
-                mr-5
-                bg-blue-500
-                border-none
-                px-4
-                py-2
-                rounded-xl
-                cursor-pointer
-                text-white
-                shadow-xl
-                hover:shadow-inner
-                transition
-                duration-500
-                ease-in-out
-                transform
-                hover:-translate-x hover:scale-105
-              "
-            >
-              Facebook
-            </button>
-
-            <button
-              class="
-                bg-red-500
-                border-none
-                px-4
-                py-2
-                rounded-xl
-                cursor-pointer
-                text-white
-                shadow-xl
-                hover:shadow-inner
-                transition
-                duration-500
-                ease-in-out
-                transform
-                hover:-translate-x hover:scale-105
-              "
-            >
-              Google
-            </button>
-          </div> -->
-
           <div class="mt-7">
             <div class="flex justify-center items-center">
               <label class="mr-2">Already have an account with us?</label>
@@ -168,11 +122,10 @@ import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import { useMutation } from "@urql/vue"
 import { AUTH_TOKEN } from "@/constants"
 import { useRouter } from "vue-router"
-import { PromiseOrValue } from "graphql/jsutils/PromiseOrValue"
 
 export default defineComponent({
-  components: {
-    'avored-input': AvoRedInput
+    components: {
+        'avored-input': AvoRedInput
     },
     setup () {
         const router = useRouter()
