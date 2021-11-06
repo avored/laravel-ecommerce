@@ -166,16 +166,65 @@
 import { defineComponent, ref } from "vue"
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import { useMutation } from "@urql/vue"
+import { AUTH_TOKEN } from "@/constants"
+// import { useRouter } from "vue-router"
+import router from '@/router'
+import { useRouter } from "vue-router"
+
+// declare global {
+//     interface Window { x: any; }
+// }
+
+
+
 
 export default defineComponent({
     components: {
       'avored-input': AvoRedInput
     },
     setup () {
-        var email: String, password: String, first_name, last_name = ref('')
+        const email = ref('')
+        const password = ref('')
+        const first_name = ref('')
+        const last_name = ref('')
+        const registerMutation = useMutation(`
+            mutation CustomerRegistration(
+                $email: String!,
+                $password: String!,
+                $firstName: String!
+                $lastName: String!
+            ) {
+                register (
+                    email: $email,
+                    password: $password
+                    first_name: $firstName
+                    last_name: $lastName
+                ) {
+                    token_type
+                    access_token
+                    expires_in
+                    refresh_token
+                }
+            }
+          `);
+
+        const router = useRouter()
+        const setLocalStorage  = (token: string) => {
+          localStorage.setItem(AUTH_TOKEN, token)
+        }
 
         const onFormSubmit = () => {
-          console.log(email)
+            const variables = { 
+              email: email.value, 
+              password: password.value, 
+              firstName: first_name.value, 
+              lastName: last_name.value 
+            };
+            registerMutation.executeMutation(variables).then((result) => {
+                const resultData = result.data.register
+                setLocalStorage(resultData.access_token)
+                router.push('/')
+            });
         };
         return {
             onFormSubmit,
