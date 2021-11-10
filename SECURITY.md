@@ -1,3 +1,3 @@
 ## Reporting a Vulnerability
 
-If you discover any security related issues, please email YOUREMAILHERE instead of using the issue tracker.
+If you discover any security related issues, please email <email> instead of using the issue tracker.
