@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/category/:slug',
     name: 'category',
-    component: () => import('../views/Account.vue'),
+    component: () => import('../views/Category.vue'),
     meta: {'middleware': 'guest', 'layout': 'app' }
   },
   {
