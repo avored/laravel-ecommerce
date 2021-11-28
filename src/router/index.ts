@@ -71,7 +71,7 @@ router.beforeEach((to, from, next) => {
               next()
           }
           if (objectKey === "middleware" && to.meta.middleware == 'auth') {
-            if (auth()) {
+            if (auth.isAuth()) {
               next()
             } else {
               next('/login')
