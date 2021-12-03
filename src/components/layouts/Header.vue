@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts">
-import { useQuery } from "@urql/vue";
+import { useQuery } from "@urql/vue"
 import { defineComponent } from "vue"
 import VueFeather from 'vue-feather'
 

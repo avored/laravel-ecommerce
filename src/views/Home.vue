@@ -11,9 +11,7 @@
                 <img class="w-full transition duration-700 ease-in-out group-hover:opacity-60" src="https://klbtheme.com/shopwise/fashion/wp-content/uploads/2020/04/product_img10-1.jpg" alt="image" />
                 <div class="w-full">
                     <div class="flex justify-center w-full absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
-                        <a href="cart.html" class="bg-gray-700 px-3 py-3 hover:bg-red-500 transition duration-300 ease-in-out">
-                            <VueFeather type="shopping-cart" class="transition duration-300 ease-in-out flex justify-center items-center text-gray-100"></VueFeather>
-                        </a>
+                        <AddToCart slug="avored-single-bed" />
                         <a href="random.html" class="bg-gray-700 px-3 py-3 hover:bg-red-500 transition duration-300 ease-in-out">
                             <VueFeather type="heart" class="transition duration-300 ease-in-out flex justify-center items-center text-gray-100"></VueFeather>
                         </a>
@@ -49,10 +47,12 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import VueFeather from 'vue-feather'
+import AddToCart from  '@/components/catalog/AddToCart.vue'
 
 export default defineComponent({
   components: {
     VueFeather,
+    AddToCart
   },
   setup() {
     const products = [1, 2, 3, 4, 5, 6, 7, 8]

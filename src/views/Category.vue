@@ -1,46 +1,57 @@
 <template>
   <div class="">
-    <h1>This is an category page</h1>
+    <h1>This is an category page {{ slug.value }}</h1>
     <p>{{ data }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { useQuery } from "@urql/vue"
-import { defineComponent } from "vue"
+import { defineComponent, getCurrentInstance, ref, watch } from "vue"
 // import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 // import { useMutation } from "@urql/vue"
 // import { AUTH_TOKEN } from "@/constants"
-// import { useRouter } from "vue-router"
+import { useRouter } from "vue-router"
 
 export default defineComponent({
     components: {
         // 'avored-input': AvoRedInput
     },
+  
     setup () {
-      const result = useQuery({
-                        query: `
-                          query ($slug: String!) {
-                            category(slug: $slug,) {
-                              id
-                              name
-                              products {
+        const router = useRouter()
+        const slug = ref(router.currentRoute.value.params.slug) 
+
+        watch(router.currentRoute, (newValue, oldValue) => {
+            console.log('The new counter value is: ' + newValue.params.slug)
+            slug.value = newValue.params.slug
+            const instance = getCurrentInstance()
+            console.log(instance)
+            // instance.proxy.$forceUpdate();
+        })
+        console.log(router.currentRoute.value.params.slug)
+        const result = useQuery({
+                          query: `
+                            query ($slug: String!) {
+                              category(slug: $slug,) {
                                 id
                                 name
-                                price
+                                products {
+                                  id
+                                  name
+                                  price
+                                }
                               }
                             }
-                          }
-                        `,
-                        variables: { slug: 'avored' }
-                      });
+                          `,
+                        variables: { slug: slug.value}
+                      })
 
-    console.log(result.data)
-    return {
-      fetching: result.fetching,
-      data: result.data,
-      error: result.error, 
-    }
+        return {
+          fetching: result.fetching,
+          data: result.data,
+          error: result.error, 
+        }
     }
 })
 </script>

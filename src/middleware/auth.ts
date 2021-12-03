@@ -26,12 +26,11 @@ const getToken = async () => {
         const loginMutationRef = useMutation(loginMutation)
         const result = await loginMutationRef.executeMutation({})
         localStorage.setItem('access_token', result.data.login.access_token)
-        console.log(result.data.login.access_token)
         localStorage.removeItem(TOKEN_IN_PROGRESS)
     }
 
     //@todo fix this later on 
-    return process.env.ACCESS_TOKEN
+    return process.env.VUE_APP_ACCESS_TOKEN
 }
 
 export default {

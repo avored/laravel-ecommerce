@@ -27,7 +27,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/cart',
     name: 'cart',
-    component: () => import('../views/Account.vue'),
+    component: () => import('../views/Cart.vue'),
     meta: {'middleware': 'guest', 'layout': 'app' }
   },
   {

@@ -22,7 +22,7 @@ app.use(urql, {
         //     //@todo fixed this
         //     return res ? { headers: { Authorization: `Bearer ${res}` } } : {}
         // })
-        const token = process.env.ACCESS_TOKEN
+        const token = process.env.VUE_APP_ACCESS_TOKEN
         return token ? { headers: { Authorization: `Bearer ${token}` } } : {}
     },
 })
