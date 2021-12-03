@@ -31,6 +31,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: {'middleware': 'guest', 'layout': 'app' }
   },
   {
+    path: '/checkout',
+    name: 'checkout',
+    component: () => import('../views/Checkout.vue'),
+    meta: { 'middleware': 'guest', 'layout': 'app' }
+  },
+  {
     path: '/login',
     name: 'auth.login',
     component: () => import('../views/auth/Login.vue'),

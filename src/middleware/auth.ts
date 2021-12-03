@@ -29,6 +29,7 @@ const getToken = async () => {
         localStorage.removeItem(TOKEN_IN_PROGRESS)
     }
 
+    console.log(process.env.VUE_APP_ACCESS_TOKEN)
     //@todo fix this later on 
     return process.env.VUE_APP_ACCESS_TOKEN
 }
