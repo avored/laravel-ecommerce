@@ -207,52 +207,11 @@
                 Delivery method
             </h4>
             <div class="mt-6">
-              <button
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  w-full
-                  bg-white
-                  rounded-md
-                  border-2 border-blue-500
-                  p-4
-                  focus:outline-none
-                "
-              >
-                <label class="flex items-center">
-                  <input
-                    type="radio"
-                    class="form-radio h-5 w-5 text-blue-600"
-                    checked
-                  /><span class="ml-2 text-sm text-gray-700">MS Delivery</span>
-                </label>
-
-                <span class="text-gray-600 text-sm">$18</span>
-              </button>
-              <button
-                class="
-                  mt-6
-                  flex
-                  items-center
-                  justify-between
-                  w-full
-                  bg-white
-                  rounded-md
-                  border
-                  p-4
-                  focus:outline-none
-                "
-              >
-                <label class="flex items-center">
-                  <input
-                    type="radio"
-                    class="form-radio h-5 w-5 text-blue-600"
-                  /><span class="ml-2 text-sm text-gray-700">DC Delivery</span>
-                </label>
-
-                <span class="text-gray-600 text-sm">$26</span>
-              </button>
+              <div v-if="!shippingFetching" class="mt-6">
+              <template v-for="(shipping, index) in shippingOptions.shippingQuery" :key="index">
+                  <span v-html="shipping.view"></span>
+              </template>
+            </div>
             </div>
           </div>
 
@@ -260,56 +219,10 @@
             <h4 class="text-lg text-red-700 font-semibold my-5">
               Payment Method
             </h4>
-            <div class="mt-6">
-              <button
-                class="
-                  flex
-                  items-center
-                  justify-between
-                  w-full
-                  bg-white
-                  rounded-md
-                  border-2 border-blue-500
-                  p-4
-                  focus:outline-none
-                "
-              >
-                <label class="flex items-center">
-                  <input
-                    type="radio"
-                    checked
-                    class="form-radio h-5 w-5 text-blue-600"
-                  />
-                  <span class="ml-2 text-sm text-gray-700">
-                    Cash on Delivery
-                  </span>
-                </label>
-                <span class="text-gray-600 text-sm"></span>
-              </button>
-              <button
-                class="
-                  mt-6
-                  flex
-                  items-center
-                  justify-between
-                  w-full
-                  bg-white
-                  rounded-md
-                  border
-                  p-4
-                  focus:outline-none
-                "
-              >
-                <label class="flex items-center">
-                  <input
-                    type="radio"
-                    class="form-radio h-5 w-5 text-blue-600"
-                  />
-                  <span class="ml-2 text-sm text-gray-700"> Bank Deposit </span>
-                </label>
-
-                <span class="text-gray-600 text-sm"></span>
-              </button>
+            <div v-if="!paymentFetching" class="mt-6">
+              <template v-for="(payment, index) in paymentOptions.paymentQuery" :key="index">
+                  <span v-html="payment.view"></span>
+              </template>
             </div>
           </div>
 
@@ -430,9 +343,37 @@ export default defineComponent({
           }
       }
       `,
-    });
+    })
+    const paymentQuery = useQuery({
+      query: `
+        query {
+            paymentQuery {
+                    name
+                    identifier
+                    view
+            }
+        }
+      `,
+    })
+    const shippingQuery = useQuery({
+      query: `
+        query {
+            shippingQuery {
+                    name
+                    identifier
+                    view
+            }
+        }
+      `,
+    })
     return {
       handleSubmit,
+      paymentFetching: paymentQuery.fetching,
+      paymentOptions: paymentQuery.data,
+      paymentError: paymentQuery.error,
+      shippingFetching: shippingQuery.fetching,
+      shippingOptions: shippingQuery.data,
+      shippingError: shippingQuery.error,
       fetching: result.fetching,
       data: result.data,
       error: result.error,
