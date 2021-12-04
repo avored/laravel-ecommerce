@@ -62,6 +62,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('../views/Account.vue'),
     meta: {'middleware': 'auth', 'layout': 'app' }
   },
+  {
+    path: '/account/edit',
+    name: 'account.edit',
+    component: () => import('../views/AccountEdit.vue'),
+    meta: { 'middleware': 'auth', 'layout': 'app' }
+  },
 ]
 
 const router = createRouter({

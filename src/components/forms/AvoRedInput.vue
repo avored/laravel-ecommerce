@@ -7,6 +7,7 @@
         ref="input"
         :name="fieldName"
         :type="fieldType"
+        :disabled="isDisabled"
         class="avored-input"
         :value="value"
         @change="change"
@@ -22,6 +23,11 @@ export default defineComponent({
     fieldLabel: {
       type: String,
       default: "",
+      required: false,
+    },
+    isDisabled: {
+      type: Boolean,
+      default: false,
       required: false,
     },
     fieldName: {
