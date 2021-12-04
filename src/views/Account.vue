@@ -1,5 +1,154 @@
 <template>
   <div class="">
-    <h1>This is an account page</h1>
+    <div>
+      <div class="my-5 container mx-auto">
+        <div class="bg-white">
+          <div v-if="!fetching" class="flex">
+            <div
+              class="
+                w-40
+                bg-white
+                shadow
+                overflow-hidden
+                sm:rounded-lg
+                text-center
+              "
+            >
+              <nav class="">
+                <ul class="block text-center">
+                  <li class="py-3 border-b block">
+                    <a class="py-3" href="#"> Profile </a>
+                  </li>
+                  <li class="py-3 border-b block">
+                    <a class="py-3" href="#"> Addresses </a>
+                  </li>
+                  <li class="py-3 border-b block">
+                    <a class="py-3" href="#"> Orders </a>
+                  </li>
+                  <li class="py-3 border-b block">
+                    <a class="py-3" href="#"> My Wishlist </a>
+                  </li>
+                  <li class="py-3 border-b block">
+                    <a class="py-3" href="#"> Logout </a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div class="flex-1 ml-5">
+              <div>
+                <div class="bg-white shadow overflow-hidden sm:rounded-lg">
+                  <div class="px-4 py-5 sm:px-6">
+                    <div class="flex w-full">
+                      <h3 class="text-lg leading-6 font-medium text-gray-900">
+                        Personal Information
+                      </h3>
+                      <div class="ml-auto">
+                        <a href="#"> Edit </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="border-t border-gray-200">
+                    <dl>
+                      <div
+                        class="
+                          bg-gray-50
+                          px-4
+                          py-5
+                          sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
+                        "
+                      >
+                        <dt class="text-sm font-medium text-gray-500">
+                          First Name
+                        </dt>
+                        <dd
+                          class="
+                            mt-1
+                            text-sm text-gray-900
+                            sm:mt-0 sm:col-span-2
+                          "
+                        >
+                          {{ data.customerQuery.first_name  }}
+                        </dd>
+                      </div>
+                      <div
+                        class="
+                          bg-white
+                          px-4
+                          py-5
+                          sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
+                        "
+                      >
+                        <dt class="text-sm font-medium text-gray-500">
+                          Last Name
+                        </dt>
+                        <dd
+                          class="
+                            mt-1
+                            text-sm text-gray-900
+                            sm:mt-0 sm:col-span-2
+                          "
+                        >
+                          {{ data.customerQuery.last_name  }}
+                        </dd>
+                      </div>
+                      <div
+                        class="
+                          bg-gray-50
+                          px-4
+                          py-5
+                          sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
+                        "
+                      >
+                        <dt class="text-sm font-medium text-gray-500">Email</dt>
+                        <dd
+                          class="
+                            mt-1
+                            text-sm text-gray-900
+                            sm:mt-0 sm:col-span-2
+                          "
+                        >
+                          {{ data.customerQuery.email }}
+                        </dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import { useQuery } from "@urql/vue";
+
+export default defineComponent({
+  components: {
+  },
+  setup() {
+    const result = useQuery({
+      query: `
+        query GetCustomer{
+            customerQuery {
+                    id
+                    first_name
+                    last_name
+                    email
+                    created_at
+                    updated_at
+            }
+        }
+      `,
+    });
+    return {
+      fetching: result.fetching,
+      data: result.data,
+      error: result.error,
+    };
+  },
+});
+</script>
