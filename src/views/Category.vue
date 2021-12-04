@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div v-if="!fetching" class="">
     <h1>This is an category page {{ slug.value }}</h1>
     <p>{{ data }}</p>
   </div>
@@ -21,15 +21,14 @@ export default defineComponent({
     setup () {
         const router = useRouter()
         const slug = ref(router.currentRoute.value.params.slug) 
-
-        watch(router.currentRoute, (newValue, oldValue) => {
-            console.log('The new counter value is: ' + newValue.params.slug)
+        watch(router.currentRoute, (newValue) => {
+            // console.log('The new counter value is: ' + newValue.params.slug)
             slug.value = newValue.params.slug
             const instance = getCurrentInstance()
             console.log(instance)
             // instance.proxy.$forceUpdate();
         })
-        console.log(router.currentRoute.value.params.slug)
+        // console.log(router.currentRoute.value.params.slug)
         const result = useQuery({
                           query: `
                             query ($slug: String!) {
@@ -48,6 +47,7 @@ export default defineComponent({
                       })
 
         return {
+          slug,
           fetching: result.fetching,
           data: result.data,
           error: result.error, 
