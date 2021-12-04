@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto">
-    <h1 class="text-2xl text-red-700 font-semibold my-5">Checkout PAge</h1>
+    <h1 class="text-2xl text-red-700 font-semibold my-5">Checkout Page</h1>
     <form
       @submit.prevent="handleSubmit"
       id="checkout-form"
@@ -203,7 +203,9 @@
         </div>
         <div class="w-1/2 ml-3">
           <div>
-            <h4 class="text-sm text-gray-500 font-medium">Delivery method</h4>
+            <h4 class="text-lg text-red-700 font-semibold my-5">
+                Delivery method
+            </h4>
             <div class="mt-6">
               <button
                 class="
@@ -255,7 +257,9 @@
           </div>
 
           <div class="mt-8">
-            <h4 class="text-sm text-gray-500 font-medium">Payment method</h4>
+            <h4 class="text-lg text-red-700 font-semibold my-5">
+              Payment Method
+            </h4>
             <div class="mt-6">
               <button
                 class="
@@ -273,6 +277,7 @@
                 <label class="flex items-center">
                   <input
                     type="radio"
+                    checked
                     class="form-radio h-5 w-5 text-blue-600"
                   />
                   <span class="ml-2 text-sm text-gray-700">
@@ -309,12 +314,14 @@
           </div>
 
           <div class="mt-8">
-            <h4 class="text-sm text-gray-500 font-medium">Cart Items</h4>
-            <div v-if="!fetching" class="flex mt-5 w-full ml-3">
+            <h4 class="text-lg text-red-700 font-semibold my-5">
+                Cart Items
+            </h4>
+            <div v-if="!fetching" class="mt-5 ml-3">
               <div
                 v-for="(cartItem, index) in data.cartItems"
                 :key="`category-link-${index}`"
-                class="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5"
+                class="flex items-center hover:bg-gray-100 px-6 py-5"
               >
                 <div class="flex w-2/5">
                   <!-- product -->
@@ -378,6 +385,8 @@
             type="submit"
             class="
               px-3
+              mt-8
+              ml-5
               py-1
               bg-red-500
               text-white text-sm

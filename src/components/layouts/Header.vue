@@ -32,8 +32,11 @@
         </div>
       </div>
     
-      <router-link class="navbar-burger self-center text-black mr-12" :to="{name: 'account'}">
+      <router-link class="navbar-burger self-center text-black mr-3" :to="{name: 'account'}">
           <vue-feature type="user"></vue-feature>
+      </router-link>
+      <router-link class="navbar-burger self-center text-black mr-3" :to="{name: 'cart'}">
+          <vue-feature type="shopping-cart"></vue-feature>
       </router-link>
       <router-link class="navbar-burger self-center text-black mr-12" :to="{name: 'logout'}">
           Logout
