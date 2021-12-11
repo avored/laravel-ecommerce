@@ -2,16 +2,21 @@
   <div v-if="!fetching" class="">
     <h1>This is an category page {{ slug.value }}</h1>
     <p>{{ data }}</p>
+    <p> {{ t('avored') }}</p>
   </div>
 </template>
 
 <script lang="ts">
 import { useQuery } from "@urql/vue"
 import { defineComponent, getCurrentInstance, ref, watch } from "vue"
+import { useI18n } from 'vue-i18n'
+
 // import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 // import { useMutation } from "@urql/vue"
 // import { AUTH_TOKEN } from "@/constants"
 import { useRouter } from "vue-router"
+import { GetCategory } from '@/graphql/GetCategory'
+
 
 export default defineComponent({
     components: {
@@ -19,25 +24,11 @@ export default defineComponent({
     },
   
     setup () {
+        const { t } = useI18n() 
         const router = useRouter()
         const slug = ref(router.currentRoute.value.params.slug) 
         
-        const result = useQuery({
-                          query: `
-                            query ($slug: String!) {
-                              category(slug: $slug,) {
-                                id
-                                name
-                                products {
-                                  id
-                                  name
-                                  price
-                                }
-                              }
-                            }
-                          `,
-                        variables: { slug: slug.value}
-                      })
+        const result = useQuery({query: GetCategory, variables: { slug: slug.value}})
 
 
         watch(router.currentRoute, (newValue) => {
@@ -60,11 +51,11 @@ export default defineComponent({
         
 
         return {
+          t,
           slug,
           fetching: result.fetching,
           data: result.data,
-          error: result.error, 
-         
+          error: result.error,
         }
     }
 })

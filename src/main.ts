@@ -2,8 +2,14 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import i18n from './i18n'
+
 import './assets/tailwind.css'
+
+
 import urql from '@urql/vue'
+
+
 import auth from './middleware/auth'
 
 const app = createApp(App)
@@ -13,8 +19,10 @@ declare global {
 }
 
 
+
 app.use(store)
 app.use(router)
+app.use(i18n)
 app.use(urql, {
     url: process.env.VUE_APP_GRAPHQL_API_ENDPOINT || 'https://docker-laravel.test/graphql',
     fetchOptions: () => {
