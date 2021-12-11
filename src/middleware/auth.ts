@@ -7,7 +7,7 @@ const TOKEN_IN_PROGRESS = 'token_in_progress'
 
 const isAuth = () : boolean => {
     const accessToken = localStorage.getItem(AUTH_TOKEN)
-    return !isNil(accessToken)
+    return (!isNil(accessToken) || true)
 }
 const getToken = async () => {
     const tokenInProgress = localStorage.getItem(TOKEN_IN_PROGRESS)

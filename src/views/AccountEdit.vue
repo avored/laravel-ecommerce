@@ -145,16 +145,39 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
-import { useQuery } from "@urql/vue"
+import { useMutation, useQuery, gql } from "@urql/vue"
 
 export default defineComponent({
   components: {
     'avored-input': AvoRedInput
   },
   setup() {
+    const customerUpdateMutation =useMutation(gql `
+                                    mutation UpdateCustomer(
+                                          $first_name: String!,
+                                          $last_name: String!,
+                                      ) {
+                                          customerUpdate(
+                                            
+                                              first_name: $first_name,
+                                              last_name: $last_name
+                                          )  {
+                                              first_name
+                                              last_name
+                                          }
+                                      }
+                                `)
+    
     const handleSubmit = () => {
-      console.log("call mutation")
+        let mutationVariables = {
+          first_name: result.data.value.customerQuery.first_name,
+          last_name: result.data.value.customerQuery.last_name
+        } 
+        customerUpdateMutation.executeMutation(mutationVariables).then((result) => {
+            console.log(result.data)
+        })
     }
+  
     const result = useQuery({
       query: `
         query GetCustomer{
