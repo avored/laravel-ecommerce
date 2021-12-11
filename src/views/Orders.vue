@@ -53,6 +53,7 @@ import { defineComponent } from "vue"
 import { useQuery } from "@urql/vue"
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
 
+
 export default defineComponent({
   components: {
     'account-side-nav': AccountSideNav

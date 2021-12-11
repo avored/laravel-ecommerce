@@ -63,6 +63,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: {'middleware': 'auth', 'layout': 'app' }
   },
   {
+    path: '/orders',
+    name: 'orders.index',
+    component: () => import('../views/Orders.vue'),
+    meta: { 'middleware': 'auth', 'layout': 'app' }
+  },
+  {
     path: '/account/address',
     name: 'address.index',
     component: () => import('../views/Address.vue'),

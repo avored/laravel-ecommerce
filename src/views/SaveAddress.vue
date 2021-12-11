@@ -4,37 +4,8 @@
       <div class="my-5 container mx-auto">
         <div class="bg-white">
           <div v-if="!fetching" class="flex">
-            <div
-              class="
-                w-40
-                bg-white
-                shadow
-                overflow-hidden
-                sm:rounded-lg
-                text-center
-              "
-            >
-              <nav class="">
-                <ul class="block text-center">
-                  <li class="py-3 border-b block">
-                    <router-link :to="{name: 'account.edit'}" class="py-3">Edit Profile </router-link>
-                  </li>
-                  <li class="py-3 border-b block">
-                      <router-link :to="{name: 'address.index'}" class="py-3">
-                          Addresses
-                      </router-link>
-                    </li>
-                  <li class="py-3 border-b block">
-                    <a class="py-3" href="#"> Orders </a>
-                  </li>
-                  <li class="py-3 border-b block">
-                    <a class="py-3" href="#"> My Wishlist </a>
-                  </li>
-                  <li class="py-3 border-b block">
-                    <a class="py-3" href="#"> Logout </a>
-                  </li>
-                </ul>
-              </nav>
+            <div class="w-40 bg-white shadow overflow-hidden sm:rounded-lg text-center">
+              <account-side-nav />
             </div>
 
 
@@ -169,8 +140,8 @@
                           <button @click="handleSubmit"
                             class="bg-red-500 block font-semibold hover:bg-red-600 py-3 text-sm text-white uppercase w-full">
                               <span class="flex justify-center">
-                                <vue-feather class="mr-5" type="shopping-cart"></vue-feather>
-                                Update Profile
+                                  <vue-feather class="mr-5" type="shopping-cart"></vue-feather>
+                                  Save Address
                               </span>
                           </button>
                         </dd>
@@ -190,10 +161,12 @@ import { defineComponent } from "vue"
 import { useQuery } from "@urql/vue"
 
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
+import AccountSideNav from '@/components/account/AccountSideNav.vue'
 
 export default defineComponent({
   components: {
-    'avored-input': AvoRedInput
+    'avored-input': AvoRedInput,
+    'account-side-nav': AccountSideNav
   },
   setup() {
 

@@ -4,35 +4,8 @@
       <div class="my-5 container mx-auto">
         <div class="bg-white">
           <div v-if="!fetching" class="flex">
-            <div
-              class="
-                w-40
-                bg-white
-                shadow
-                overflow-hidden
-                sm:rounded-lg
-                text-center
-              "
-            >
-              <nav class="">
-                <ul class="block text-center">
-                  <li class="py-3 border-b block">
-                    <router-link :to="{name: 'account.edit'}" class="py-3">Edit Profile </router-link>
-                  </li>
-                  <li class="py-3 border-b block">
-                    <a class="py-3" href="#"> Addresses </a>
-                  </li>
-                  <li class="py-3 border-b block">
-                    <a class="py-3" href="#"> Orders </a>
-                  </li>
-                  <li class="py-3 border-b block">
-                    <a class="py-3" href="#"> My Wishlist </a>
-                  </li>
-                  <li class="py-3 border-b block">
-                    <a class="py-3" href="#"> Logout </a>
-                  </li>
-                </ul>
-              </nav>
+            <div class="w-40 bg-white shadow overflow-hidden sm:rounded-lg text-center">
+              <account-side-nav />
             </div>
             <div class="flex-1 ml-5">
               <div>
@@ -145,11 +118,13 @@
 <script lang="ts">
 import { defineComponent } from "vue"
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
+import AccountSideNav from '@/components/account/AccountSideNav.vue'
 import { useMutation, useQuery, gql } from "@urql/vue"
 
 export default defineComponent({
   components: {
-    'avored-input': AvoRedInput
+    'avored-input': AvoRedInput,
+    'account-side-nav': AccountSideNav
   },
   setup() {
     const customerUpdateMutation =useMutation(gql `
