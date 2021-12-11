@@ -36,16 +36,20 @@
                 </ul>
               </nav>
             </div>
+
+
             <div class="flex-1 ml-5">
               <div>
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                   <div class="px-4 py-5 sm:px-6">
                     <div class="flex w-full">
                       <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Personal Information
+                        Address Information
                       </h3>
                       <div class="ml-auto">
-                        <a href="#"> Edit </a>
+                          <router-link :to="{name:'address.save'}">
+                              Create
+                          </router-link>
                       </div>
                     </div>
                   </div>
@@ -59,58 +63,7 @@
                           sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
                         "
                       >
-                        <dt class="text-sm font-medium text-gray-500">
-                          First Name
-                        </dt>
-                        <dd
-                          class="
-                            mt-1
-                            text-sm text-gray-900
-                            sm:mt-0 sm:col-span-2
-                          "
-                        >
-                          {{ data.customerQuery.first_name  }}
-                        </dd>
-                      </div>
-                      <div
-                        class="
-                          bg-white
-                          px-4
-                          py-5
-                          sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
-                        "
-                      >
-                        <dt class="text-sm font-medium text-gray-500">
-                          Last Name
-                        </dt>
-                        <dd
-                          class="
-                            mt-1
-                            text-sm text-gray-900
-                            sm:mt-0 sm:col-span-2
-                          "
-                        >
-                          {{ data.customerQuery.last_name  }}
-                        </dd>
-                      </div>
-                      <div
-                        class="
-                          bg-gray-50
-                          px-4
-                          py-5
-                          sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
-                        "
-                      >
-                        <dt class="text-sm font-medium text-gray-500">Email</dt>
-                        <dd
-                          class="
-                            mt-1
-                            text-sm text-gray-900
-                            sm:mt-0 sm:col-span-2
-                          "
-                        >
-                          {{ data.customerQuery.email }}
-                        </dd>
+                        ADdress goes here
                       </div>
                     </dl>
                   </div>
@@ -134,12 +87,9 @@ export default defineComponent({
   setup() {
     const result = useQuery({
       query: `
-        query GetCustomer{
-            customerQuery {
+        query AllAddresses{
+            allAddress {
                     id
-                    first_name
-                    last_name
-                    email
                     created_at
                     updated_at
             }
