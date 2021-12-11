@@ -15,13 +15,8 @@
                   <div class="px-4 py-5 sm:px-6">
                     <div class="flex w-full">
                       <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Address Information
+                        Orders Information
                       </h3>
-                      <div class="ml-auto">
-                          <router-link :to="{name:'address.save'}">
-                              Create
-                          </router-link>
-                      </div>
                     </div>
                   </div>
                   <div class="border-t border-gray-200">
@@ -34,7 +29,11 @@
                           sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
                         "
                       >
-                        ADdress goes here
+                          Orders List goes here
+                          <div>
+                            {{  data }}
+                          </div>
+                          
                       </div>
                     </dl>
                   </div>
@@ -61,8 +60,8 @@ export default defineComponent({
   setup() {
     const result = useQuery({
       query: `
-        query AllAddresses{
-            allAddress {
+        query AllOrders{
+            allOrders {
                     id
                     created_at
                     updated_at

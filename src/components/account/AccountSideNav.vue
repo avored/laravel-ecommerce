@@ -14,9 +14,9 @@
                 Orders
             </router-link>
         </li>
-        <li class="py-3 border-b block">
-        <a class="py-3" href="#"> My Wishlist </a>
-        </li>
+        <!-- <li class="py-3 border-b block">
+            <a class="py-3" href="#"> My Wishlist </a>
+        </li> -->
         <li class="py-3 border-b block">
         <a class="py-3" href="#"> Logout </a>
         </li>
