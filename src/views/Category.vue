@@ -15,8 +15,7 @@ import { useI18n } from 'vue-i18n'
 // import { useMutation } from "@urql/vue"
 // import { AUTH_TOKEN } from "@/constants"
 import { useRouter } from "vue-router"
-import { GetCategory } from '@/graphql/GetCategory'
-
+import GetCategory from '@/graphql/GetCategory'
 
 export default defineComponent({
     components: {
