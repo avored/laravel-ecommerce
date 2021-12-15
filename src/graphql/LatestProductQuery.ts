@@ -5,6 +5,7 @@ const LatestProductQuery = gql`
       latestProductQuery {
           name
           slug
+          main_image_url
           price
       }
   }

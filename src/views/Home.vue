@@ -3,12 +3,11 @@
     <section class="px-10 mt-5 w-full mx-auto">
         <h1 class="my-5 text-2xl text-red-700">Latest Products</h1>
         <div class="grid grid-cols-4 gap-6">
-          
           <div v-for="(card, index) in products.latestProductQuery"
             :key="`product-card-${index}`" class="shadow hover:shadow-lg transition duration-300 ease-in-out xl:mb-0 lg:mb-0 md:mb-0 mb-6 cursor-pointer group">
                 <div class="overflow-hidden relative">
                 <img class="w-full transition duration-700 ease-in-out group-hover:opacity-60" 
-                    src="https://klbtheme.com/shopwise/fashion/wp-content/uploads/2020/04/product_img10-1.jpg" 
+                    :src="card.main_image_url" 
                     :alt="card.name" />
                 <div class="w-full">
                     <div class="flex justify-center w-full absolute bottom-4 transition duration-500 ease-in-out opacity-0 group-hover:opacity-100">
@@ -38,7 +37,7 @@
                     </div> -->
                 </div>
             </div>
-            </div>
+          </div>
         </div>
     </section>
   </div>
