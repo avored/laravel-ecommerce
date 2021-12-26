@@ -15,13 +15,13 @@
           <div class="flex items-center">
             <div class="w-1/2">
               <div class="mt-3 flex w-full">
-                <avored-input field-label="First Name" field-name="first_name">
+                <avored-input field-label="First Name" v-model="user.first_name" field-name="first_name">
                 </avored-input>
               </div>
             </div>
             <div class="w-1/2 ml-3">
               <div class="mt-3 flex w-full">
-                <avored-input field-label="Last Name" field-name="last_name">
+                <avored-input field-label="Last Name" v-model="user.last_name" field-name="last_name">
                 </avored-input>
               </div>
             </div>
@@ -29,7 +29,7 @@
 
           <div class="flex items-center">
             <div class="w-full">
-              <avored-input field-label="Email Address" field-name="email">
+              <avored-input field-label="Email Address" v-model="user.email" field-name="email">
               </avored-input>
             </div>
           </div>
@@ -39,15 +39,17 @@
               <avored-input
                 field-label="Password"
                 field-name="password"
-                input-type="password"
+                v-model="user.password" 
+                field-type="password"
               >
               </avored-input>
             </div>
             <div class="w-1/2 ml-3">
               <avored-input
                 field-label="Password confirmation"
+                v-model="user.confirm_password" 
                 field-name="password_confirmation"
-                input-type="password"
+                field-type="password"
               ></avored-input>
             </div>
           </div>
@@ -60,12 +62,14 @@
               <div class="w-1/2">
                 <avored-input
                   field-label="First Name"
+                  v-model="shippingAddress.first_name"
                   field-name="shipping[first_name]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="Last Name"
+                  v-model="shippingAddress.last_name"
                   field-name="shipping[last_name]"
                 ></avored-input>
               </div>
@@ -75,12 +79,14 @@
               <div class="w-1/2">
                 <avored-input
                   field-label="Company Name"
+                  v-model="shippingAddress.company_name"
                   field-name="shipping[company_name]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="Phone"
+                  v-model="shippingAddress.phone"
                   field-name="shipping[phone]"
                 ></avored-input>
               </div>
@@ -90,22 +96,30 @@
               <div class="w-1/2">
                 <avored-input
                   field-label="Address1"
+                  v-model="shippingAddress.address1"
                   field-name="shipping[address1]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="Address 2"
+                  v-model="shippingAddress.address2"
                   field-name="shipping[address2]"
                 ></avored-input>
               </div>
             </div>
 
             <div class="flex items-center">
-              <div class="w-1/2">country dropdown goes here</div>
+              <div class="w-1/2">
+                  <select v-model="shippingAddress.country_id">
+                      <option value="1">New Zealand</option>
+                      <option value="2">United State</option>
+                  </select>
+              </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="State"
+                  v-model="shippingAddress.state"
                   field-name="shipping[state]"
                 ></avored-input>
               </div>
@@ -115,12 +129,14 @@
               <div class="w-1/2">
                 <avored-input
                   field-label="Postcode"
+                  v-model="shippingAddress.postcode"
                   field-name="shipping[postcode]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="City"
+                  v-model="shippingAddress.city"
                   field-name="shipping[city]"
                 ></avored-input>
               </div>
@@ -134,12 +150,14 @@
               <div class="w-1/2">
                 <avored-input
                   field-label="First Name"
+                  v-model="billingAddress.first_name"
                   field-name="shipping[first_name]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="Last Name"
+                  v-model="billingAddress.last_name"
                   field-name="shipping[last_name]"
                 ></avored-input>
               </div>
@@ -149,12 +167,14 @@
               <div class="w-1/2">
                 <avored-input
                   field-label="Company Name"
+                  v-model="billingAddress.company_name"
                   field-name="shipping[company_name]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="Phone"
+                  v-model="billingAddress.phone"
                   field-name="shipping[phone]"
                 ></avored-input>
               </div>
@@ -164,22 +184,30 @@
               <div class="w-1/2">
                 <avored-input
                   field-label="Address1"
+                  v-model="billingAddress.address1"
                   field-name="shipping[address1]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="Address 2"
+                  v-model="billingAddress.address2"
                   field-name="shipping[address2]"
                 ></avored-input>
               </div>
             </div>
 
             <div class="flex items-center">
-              <div class="w-1/2">country dropdown goes here</div>
+              <div class="w-1/2">
+                  <select v-model="billingAddress.country_id">
+                      <option value="1">New Zealand</option>
+                      <option value="2">United State</option>
+                  </select>
+              </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="State"
+                  v-model="billingAddress.state"
                   field-name="shipping[state]"
                 ></avored-input>
               </div>
@@ -189,12 +217,14 @@
               <div class="w-1/2">
                 <avored-input
                   field-label="Postcode"
+                  v-model="billingAddress.postcode"
                   field-name="shipping[postcode]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="City"
+                  v-model="billingAddress.city"
                   field-name="shipping[city]"
                 ></avored-input>
               </div>
@@ -318,10 +348,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import VueFeather from "vue-feather";
-import { useQuery } from "@urql/vue";
-import AvoRedInput from "@/components/forms/AvoRedInput.vue";
+import { defineComponent, ref } from "vue"
+import VueFeather from "vue-feather"
+import { useQuery } from "@urql/vue"
+import AvoRedInput from "@/components/forms/AvoRedInput.vue"
 
 export default defineComponent({
   components: {
@@ -366,7 +396,45 @@ export default defineComponent({
         }
       `,
     })
+
+    const user = ref({
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
+      confirm_password: ''
+    })
+
+    const shippingAddress = ref({
+      first_name: '',
+      last_name: '',
+      company_name: '',
+      phone: '',
+      address1: '',
+      address2: '',
+      state: '',
+      city: '',
+      postcode: '',
+      country_id: ''
+    })
+
+    const billingAddress = ref({
+      first_name: '',
+      last_name: '',
+      company_name: '',
+      phone: '',
+      address1: '',
+      address2: '',
+      state: '',
+      city: '',
+      postcode: '',
+      country_id: ''
+    })
+
     return {
+      user: user,
+      shippingAddress: shippingAddress,
+      billingAddress: billingAddress,
       handleSubmit,
       paymentFetching: paymentQuery.fetching,
       paymentOptions: paymentQuery.data,
