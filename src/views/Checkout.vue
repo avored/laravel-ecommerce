@@ -351,6 +351,7 @@
 
 import CustomerRegister from '@/graphql/CustomerRegister'
 import AddressCreate from '@/graphql/AddressCreate'
+import PlaceOrder from '@/graphql/PlaceOrder'
 import { defineComponent, ref } from "vue"
 import VueFeather from "vue-feather"
 import { useMutation, useQuery } from "@urql/vue"
@@ -402,8 +403,17 @@ export default defineComponent({
       country_id: ''
     })
 
+    const placeOrderData = ref({
+      shipping_option: "pickup", //@todo fixed this 
+      payment_option: "cash-on-delivery", //@todo fix this
+      order_status_id: "817e28e2-1708-466d-b88e-a596a44e5317",
+      customer_id : "71339c41-13a7-4b01-8fab-3375f15c9e39",
+      shipping_address_id: "ac2ed320-0cae-4b2c-a628-bf7ed111c955",
+      billing_address_id: "ac2ed320-0cae-4b2c-a628-bf7ed111c955"     
+    })
     const customerRegister = useMutation(CustomerRegister)
     const addressCreate = useMutation(AddressCreate)
+    const placeOrder = useMutation(PlaceOrder)
 
     const handleSubmit = () => {
         console.log("handle submit order")
@@ -423,6 +433,11 @@ export default defineComponent({
 
         billingAddress.value.customer_id = '71339c41-13a7-4b01-8fab-3375f15c9e39'
         addressCreate.executeMutation(billingAddress.value).then((result) => {
+            console.log(result.data)
+        })
+
+
+        placeOrder.executeMutation(placeOrderData.value).then((result) => {
             console.log(result.data)
         })
     }
