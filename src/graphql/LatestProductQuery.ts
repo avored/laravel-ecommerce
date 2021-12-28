@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 const LatestProductQuery = gql`
-    query LatestProductQuery{
+    query LatestProductQuery {
       latestProductQuery {
           name
           slug

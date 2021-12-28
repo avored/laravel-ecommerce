@@ -112,8 +112,8 @@
             <div class="flex items-center">
               <div class="w-1/2">
                   <select v-model="shippingAddress.country_id">
-                      <option value="1">New Zealand</option>
-                      <option value="2">United State</option>
+                      <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">New Zealand</option>
+                      <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">United State</option>
                   </select>
               </div>
               <div class="w-1/2 ml-3">
@@ -200,8 +200,8 @@
             <div class="flex items-center">
               <div class="w-1/2">
                   <select v-model="billingAddress.country_id">
-                      <option value="1">New Zealand</option>
-                      <option value="2">United State</option>
+                      <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">New Zealand</option>
+                      <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">United State</option>
                   </select>
               </div>
               <div class="w-1/2 ml-3">
@@ -348,10 +348,15 @@
 </template>
 
 <script lang="ts">
+
+import CustomerRegister from '@/graphql/CustomerRegister'
+import AddressCreate from '@/graphql/AddressCreate'
 import { defineComponent, ref } from "vue"
 import VueFeather from "vue-feather"
-import { useQuery } from "@urql/vue"
+import { useMutation, useQuery } from "@urql/vue"
 import AvoRedInput from "@/components/forms/AvoRedInput.vue"
+import _ from 'lodash'
+
 
 export default defineComponent({
   components: {
@@ -359,9 +364,73 @@ export default defineComponent({
     "avored-input": AvoRedInput,
   },
   setup() {
+    const user = ref({
+      first_name: '',
+      last_name: '',
+      email: '',
+      password: '',
+      confirm_password: ''
+    })
+
+    const shippingAddress = ref({
+      type: 'SHIPPING',
+      customer_id: '',
+      first_name: '',
+      last_name: '',
+      company_name: '',
+      phone: '',
+      address1: '',
+      address2: '',
+      state: '',
+      city: '',
+      postcode: '',
+      country_id: ''
+    })
+
+    const billingAddress = ref({
+      type: 'BILLING',
+      customer_id: '',
+      first_name: '',
+      last_name: '',
+      company_name: '',
+      phone: '',
+      address1: '',
+      address2: '',
+      state: '',
+      city: '',
+      postcode: '',
+      country_id: ''
+    })
+
+    const customerRegister = useMutation(CustomerRegister)
+    const addressCreate = useMutation(AddressCreate)
+
     const handleSubmit = () => {
-      console.log("handle submit order");
-    };
+        console.log("handle submit order")
+  
+        customerRegister.executeMutation(
+          _.pick(user.value, ['first_name', 'last_name', 'email', 'password'])
+        ).then((result) => {
+            //@todo assign customer_id to a billingAddress and shippingAddress
+            console.log(result.data)
+        })
+
+        shippingAddress.value.customer_id = '71339c41-13a7-4b01-8fab-3375f15c9e39'
+        addressCreate.executeMutation(shippingAddress.value)
+          .then((result) => {
+              console.log(result.data)
+          })
+
+        billingAddress.value.customer_id = '71339c41-13a7-4b01-8fab-3375f15c9e39'
+        addressCreate.executeMutation(billingAddress.value).then((result) => {
+            console.log(result.data)
+        })
+    }
+
+
+    
+
+
     const result = useQuery({
       query: `
         query CartItems {
@@ -395,40 +464,6 @@ export default defineComponent({
             }
         }
       `,
-    })
-
-    const user = ref({
-      first_name: '',
-      last_name: '',
-      email: '',
-      password: '',
-      confirm_password: ''
-    })
-
-    const shippingAddress = ref({
-      first_name: '',
-      last_name: '',
-      company_name: '',
-      phone: '',
-      address1: '',
-      address2: '',
-      state: '',
-      city: '',
-      postcode: '',
-      country_id: ''
-    })
-
-    const billingAddress = ref({
-      first_name: '',
-      last_name: '',
-      company_name: '',
-      phone: '',
-      address1: '',
-      address2: '',
-      state: '',
-      city: '',
-      postcode: '',
-      country_id: ''
     })
 
     return {
