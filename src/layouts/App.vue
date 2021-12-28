@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="bg-gray-200">
         <app-header></app-header>
-            <slot />
+        <slot />
         <app-footer></app-footer>
     </div>
 </template>
