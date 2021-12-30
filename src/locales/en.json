@@ -1,3 +1,8 @@
 {
-    "avored": "English AvoRed"
+    "avored": "AvoRed",
+    "avored_tagline": "AvoRed an open source laravel e-commerce",
+    "categories": "Categories",
+    "signup_for_our_newsletter" : "Signup for our newsletter",
+    "enter_your_email_address": "Enter your email address",
+    "notify_me": "Notify me"
 }

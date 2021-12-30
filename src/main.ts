@@ -25,12 +25,23 @@ app.use(router)
 app.use(i18n)
 app.use(urql, {
     url: process.env.VUE_APP_GRAPHQL_API_ENDPOINT || 'https://docker-laravel.test/graphql',
-    fetchOptions: () => {
+    fetchOptions: async () => {
         // return auth.getToken().then((res) => {
         //     //@todo fixed this
         //     return res ? { headers: { Authorization: `Bearer ${res}` } } : {}
         // })
-        const token = process.env.VUE_APP_ACCESS_TOKEN
+
+        const token = localStorage.getItem('access_token')
+        // while (token === null) {
+            setTimeout(() => {
+                auth.getToken()
+            }, 500);
+        // }
+        // const myToken = await auth.getToken()
+        
+        // console.info("ignore" + myToken)
+        // const token = myToken// process.env.VUE_APP_ACCESS_TOKEN
+        // console
         return token ? { headers: { Authorization: `Bearer ${token}` } } : {}
     },
 })

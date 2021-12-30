@@ -1,17 +1,15 @@
 <template>
   <div class="mt-12">
-    <footer class="text-gray-600 body-font bg-gray-700">
+    <footer class="text-gray-600 body-font bg-white">
       <div
         class="
           container
-          px-5
-          py-24
+          py-12
           mx-auto
           flex
           md:items-center
           lg:items-start
-          md:flex-row md:flex-nowrap
-          flex-wrap flex-col
+          w-full
         "
       >
         <div
@@ -25,27 +23,13 @@
               items-center
               md:justify-start
               justify-center
-              text-gray-900
             "
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-10 h-10 text-white p-2 bg-red-700 rounded-full"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-              />
-            </svg>
-            <span class="ml-3 text-xl text-white">DEV</span>
+            <img class="w-10 h-10  p-2 bg-white rounded-full" src="../../assets/logo_only.svg" alt="avored e commerce" />
+            <span class="ml-3 text-xl ">{{ t('avored') }}</span>
           </a>
-          <p class="mt-2 text-sm text-white">
-            Air plant banjo lyft occupy retro adaptogen indego
+          <p class="mt-2 text-sm ">
+              {{ t('avored_tagline') }}
           </p>
         </div>
         <div
@@ -59,133 +43,42 @@
             text-center
           "
         >
-          <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+          <div v-if="!fetching" class="lg:w-1/4 md:w-1/2 w-full px-4">
             <h2
               class="
-                title-font
-                font-bold
-                text-white
+                font-semibold
+                
                 tracking-widest
                 text-md
                 mb-3
               "
             >
-              CATEGORIES
+              {{ t('categories') }}
             </h2>
             <nav class="list-none mb-10">
-              <li>
-                <a class="text-white hover:text-red-300" href="#">First Link</a>
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#"
-                  >Second Link</a
-                >
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#">Third Link</a>
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#"
-                  >Fourth Link</a
-                >
+              <li v-for="(category, index) in data.allCategory"
+                  :key="`footer-category-link-${index}`">
+                <router-link class=" hover:text-red-300" 
+                    :to="{name: 'category', params: {slug: category.slug}}">
+                      {{ category.name }}
+                  </router-link>
               </li>
             </nav>
           </div>
-          <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2
-              class="
-                title-font
-                font-bold
-                text-white
-                tracking-widest
-                text-md
-                mb-3
-              "
-            >
-              CATEGORIES
-            </h2>
-            <nav class="list-none mb-10">
-              <li>
-                <a class="text-white hover:text-red-300" href="#">First Link</a>
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#"
-                  >Second Link</a
-                >
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#">Third Link</a>
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#"
-                  >Fourth Link</a
-                >
-              </li>
-            </nav>
-          </div>
-          <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2
-              class="
-                title-font
-                font-bold
-                text-white
-                tracking-widest
-                text-md
-                mb-3
-              "
-            >
-              CATEGORIES
-            </h2>
-            <nav class="list-none mb-10">
-              <li>
-                <a class="text-white hover:text-red-300" href="#">First Link</a>
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#"
-                  >Second Link</a
-                >
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#">Third Link</a>
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#"
-                  >Fourth Link</a
-                >
-              </li>
-            </nav>
-          </div>
-          <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-            <h2
-              class="
-                title-font
-                font-bold
-                text-white
-                tracking-widest
-                text-md
-                mb-3
-              "
-            >
-              CATEGORIES
-            </h2>
-            <nav class="list-none mb-10">
-              <li>
-                <a class="text-white hover:text-red-300" href="#">First Link</a>
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#"
-                  >Second Link</a
-                >
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#">Third Link</a>
-              </li>
-              <li>
-                <a class="text-white hover:text-red-300" href="#"
-                  >Fourth Link</a
-                >
-              </li>
-            </nav>
+          <div class="lg:w-3/4 md:w-1/2 w-full px-4">
+              <h5 class=" tracking-widest font-semibold">{{ t('signup_for_our_newsletter') }}</h5>
+              <div class="mt-5 flex w-full">
+                  <div class="lg:w-2/4 md:w-3/4">
+                      <input
+                          :placeholder="t('enter_your_email_address')"
+                          type="email"
+                          class="w-full px-4 py-3 ring-gray-300 ring-1 focus:ring-red-500 focus:outline-none rounded shadow-sm appearance-none text-gray-700"
+                      />
+                  </div>
+                  <button class="ml-3 px-4 py-3 ring-1 ring-red-500 shadow-lg text-white font-semibold bg-red-500 rounded-md ">
+                      {{ t('notify_me') }}
+                  </button>
+              </div>
           </div>
         </div>
       </div>
@@ -201,13 +94,13 @@
           "
         >
           <p class="text-white text-sm text-center sm:text-left">
-            © 2020 Dev —
+            © {{ year }} —
             <a
-              href="https://twitter.com/knyttneve"
+              href="https://www.avored.com/"
               rel="noopener noreferrer"
               class="ml-1"
               target="_blank"
-              >@Developer</a
+              >@AvoRed E commerce</a
             >
           </p>
           <span
@@ -288,8 +181,25 @@
 </template>
 
 <script lang="ts">
+import CategoryAllQuery from '@/graphql/CategoryAllQuery'
+import { useQuery } from "@urql/vue"
+
 import { defineComponent } from "vue"
+import { useI18n } from "vue-i18n"
 
 export default defineComponent({
+
+  setup () {
+    const result = useQuery({query: CategoryAllQuery})
+    const { t } = useI18n() 
+    const year = new Date().getFullYear()
+
+    return {
+      year,
+      t,
+      fetching: result.fetching,
+      data: result.data,
+    }
+  }
 });
 </script>

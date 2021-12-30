@@ -82,11 +82,11 @@ export default defineComponent({
         
 
         return {
-          t,
-          slug,
-          fetching: result.fetching,
-          data: result.data,
-          error: result.error,
+            t,
+            slug,
+            fetching: result.fetching,
+            data: result.data,
+            error: result.error,
         }
     }
 })

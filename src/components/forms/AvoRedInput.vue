@@ -5,9 +5,11 @@
     </label>
     <input
         ref="input"
+        :placeholder="placeholder"
         :name="fieldName"
         :type="fieldType"
         :disabled="isDisabled"
+        :class="customClass"
         class="avored-input"
         :value="value"
         @change="change"
@@ -16,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from "vue"
 
 export default defineComponent({
   props: {
@@ -36,6 +38,16 @@ export default defineComponent({
       required: true,
     },
     fieldType: {
+      type: String,
+      default: "text",
+      required: false,
+    },
+    customClass: {
+      type: String,
+      default: "text",
+      required: false,
+    },
+    placeholder: {
       type: String,
       default: "text",
       required: false,

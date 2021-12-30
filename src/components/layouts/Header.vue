@@ -11,7 +11,8 @@
               <li v-for="(category, index) in data.allCategory"
                   :key="`category-link-${index}`"
               >
-                  <router-link class="text-gray-600 hover:text-red-500 font-semibold" :to="{name: 'category', params: {slug: category.slug}}">
+                  <router-link class="text-gray-600 hover:text-red-500 font-semibold" 
+                    :to="{name: 'category', params: {slug: category.slug}}">
                       {{ category.name }}
                   </router-link>
               </li>
@@ -25,7 +26,7 @@
                     <vue-feature type="shopping-cart"></vue-feature>
                 </router-link>
               </li>
-              <li>
+              <li v-if="isAuth">
                 <router-link class="self-center hover:text-red-500 " :to="{name: 'logout'}">
                     <vue-feature type="log-out"></vue-feature>
                 </router-link>
@@ -38,6 +39,8 @@
 </template>
 
 <script lang="ts">
+import CategoryAllQuery from '@/graphql/CategoryAllQuery'
+import isAuth from '@/middleware/auth'
 import { useQuery } from "@urql/vue"
 import { defineComponent } from "vue"
 import VueFeather from 'vue-feather'
@@ -47,24 +50,12 @@ export default defineComponent({
     'vue-feature': VueFeather
   },
   setup() {
-    const result = useQuery({
-      query: `
-        {
-          allCategory {
-            name
-            slug
-          }
-        }
-      `,
-    })
-
-
+    const result = useQuery({query: CategoryAllQuery})
     return {
-      fetching: result.fetching,
-      data: result.data,
-      error: result.error, 
+        isAuth,
+        fetching: result.fetching,
+        data: result.data,
     }
-
   }
 });
 </script>

@@ -13,8 +13,8 @@ const getToken = async () => {
     const tokenInProgress = localStorage.getItem(TOKEN_IN_PROGRESS)
     localStorage.setItem(TOKEN_IN_PROGRESS, 'true')
     
-    const token = localStorage.getItem('access_token')
-    if (token === null && tokenInProgress === null) {
+    // const token = localStorage.getItem('access_token')
+    if (tokenInProgress === null) {
         const loginMutation = gql `mutation {
                                 login {
                                     token_type
@@ -24,14 +24,22 @@ const getToken = async () => {
                                 }
                             }`
         const loginMutationRef = useMutation(loginMutation)
-        const result = await loginMutationRef.executeMutation({})
-        localStorage.setItem('access_token', result.data.login.access_token)
-        localStorage.removeItem(TOKEN_IN_PROGRESS)
-    }
+        const myTestToken = await loginMutationRef.executeMutation({}).then((result) => {
+            // console.log('auth', result)
 
-    console.log(process.env.VUE_APP_ACCESS_TOKEN)
+            return result.data.login.access_token
+        })
+
+        console.log(myTestToken)
+        localStorage.setItem('access_token', myTestToken)
+        // return myTestToken
+        // const result = await loginMutationRef.executeMutation({})
+        // localStorage.removeItem(TOKEN_IN_PROGRESS)
+    }
+// 
+    // console.log(process.env.VUE_APP_ACCESS_TOKEN)
     //@todo fix this later on 
-    return process.env.VUE_APP_ACCESS_TOKEN
+    // return process.env.VUE_APP_ACCESS_TOKEN
 }
 
 export default {
