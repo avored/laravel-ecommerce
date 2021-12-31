@@ -70,12 +70,13 @@
               <div class="mt-5 flex w-full">
                   <div class="lg:w-2/4 md:w-3/4">
                       <input
+                          v-model="subscriberEmail"
                           :placeholder="t('enter_your_email_address')"
                           type="email"
                           class="w-full px-4 py-3 ring-gray-300 ring-1 focus:ring-red-500 focus:outline-none rounded shadow-sm appearance-none text-gray-700"
                       />
                   </div>
-                  <button class="ml-3 px-4 py-3 ring-1 ring-red-500 shadow-lg text-white font-semibold bg-red-500 rounded-md ">
+                  <button @click="notifyMeOnClick" class="ml-3 px-4 py-3 ring-1 ring-red-500 shadow-lg text-white font-semibold bg-red-500 rounded-md ">
                       {{ t('notify_me') }}
                   </button>
               </div>
@@ -166,23 +167,34 @@
 
 <script lang="ts">
 import CategoryAllQuery from '@/graphql/CategoryAllQuery'
-import { useQuery } from "@urql/vue"
-
-import { defineComponent } from "vue"
+import { useMutation, useQuery } from "@urql/vue"
+import CreateSubscriberMutation from '@/graphql/CreateSubscriberMutation'
+import { defineComponent, ref } from "vue"
 import { useI18n } from "vue-i18n"
 
 export default defineComponent({
 
   setup () {
+    const createSubscriberMutation = useMutation(CreateSubscriberMutation)
     const result = useQuery({query: CategoryAllQuery})
     const { t } = useI18n() 
     const year = new Date().getFullYear()
+    const subscriberEmail = ref('')
 
+    const notifyMeOnClick = () => {
+        createSubscriberMutation.executeMutation({email: subscriberEmail.value})
+            .then((result) => {
+                //@todo display succssfull message clear email once we got successfulll response
+                subscriberEmail.value = ''
+            })
+    } 
     return {
+      notifyMeOnClick,
       year,
       t,
       fetching: result.fetching,
       data: result.data,
+      subscriberEmail
     }
   }
 });
