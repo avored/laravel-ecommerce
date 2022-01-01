@@ -10,7 +10,7 @@ import './assets/tailwind.css'
 import urql from '@urql/vue'
 
 
-import auth from './middleware/auth'
+// import auth from './middleware/auth'
 
 const app = createApp(App)
 
@@ -25,7 +25,7 @@ app.use(router)
 app.use(i18n)
 app.use(urql, {
     url: process.env.VUE_APP_GRAPHQL_API_ENDPOINT || 'https://docker-laravel.test/graphql',
-    fetchOptions: async () => {
+    fetchOptions: () => {
         // return auth.getToken().then((res) => {
         //     //@todo fixed this
         //     return res ? { headers: { Authorization: `Bearer ${res}` } } : {}
@@ -33,9 +33,9 @@ app.use(urql, {
 
         const token = localStorage.getItem('access_token')
         // while (token === null) {
-            setTimeout(() => {
-                auth.getToken()
-            }, 500);
+            // setTimeout(() => {
+            //     auth.getToken()
+            // }, 500);
         // }
         // const myToken = await auth.getToken()
         
