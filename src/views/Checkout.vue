@@ -1,6 +1,8 @@
 <template>
   <div class="container mx-auto">
-    <h1 class="text-2xl text-red-700 font-semibold my-5">Checkout Page</h1>
+    <h1 class="text-2xl text-red-700 font-semibold my-5">
+        {{ t('checkout_page') }}
+    </h1>
     <form
       @submit.prevent="handleSubmit"
       id="checkout-form"
@@ -10,18 +12,18 @@
       <div class="flex">
         <div class="w-1/2">
           <h4 class="text-lg text-red-700 font-semibold my-5">
-            Personal Information
+              {{ t('personal_information') }}
           </h4>
           <div class="flex items-center">
             <div class="w-1/2">
               <div class="mt-3 flex w-full">
-                <avored-input field-label="First Name" v-model="user.first_name" field-name="first_name">
+                <avored-input :field-label="t('first_name')" v-model="user.first_name" field-name="first_name">
                 </avored-input>
               </div>
             </div>
             <div class="w-1/2 ml-3">
               <div class="mt-3 flex w-full">
-                <avored-input field-label="Last Name" v-model="user.last_name" field-name="last_name">
+                <avored-input :field-label="t('last_name')" v-model="user.last_name" field-name="last_name">
                 </avored-input>
               </div>
             </div>
@@ -29,7 +31,7 @@
 
           <div class="flex items-center">
             <div class="w-full">
-              <avored-input field-label="Email Address" v-model="user.email" field-name="email">
+              <avored-input :field-label="t('email')" v-model="user.email" field-name="email">
               </avored-input>
             </div>
           </div>
@@ -37,7 +39,7 @@
           <div class="flex items-center">
             <div class="w-1/2">
               <avored-input
-                field-label="Password"
+                :field-label="t('password')"
                 field-name="password"
                 v-model="user.password" 
                 field-type="password"
@@ -46,7 +48,7 @@
             </div>
             <div class="w-1/2 ml-3">
               <avored-input
-                field-label="Password confirmation"
+                :field-label="t('password_confirmation')"
                 v-model="user.confirm_password" 
                 field-name="password_confirmation"
                 field-type="password"
@@ -55,20 +57,20 @@
           </div>
 
           <h4 class="text-lg text-red-700 font-semibold my-5">
-            Shipping Address
+              t('shipping_address')
           </h4>
           <div>
             <div class="flex">
               <div class="w-1/2">
                 <avored-input
-                  field-label="First Name"
+                  :field-label="t('first_name')"
                   v-model="shippingAddress.first_name"
                   field-name="shipping[first_name]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
-                  field-label="Last Name"
+                  :field-label="t('last_name')"
                   v-model="shippingAddress.last_name"
                   field-name="shipping[last_name]"
                 ></avored-input>
@@ -78,14 +80,14 @@
             <div class="flex items-center">
               <div class="w-1/2">
                 <avored-input
-                  field-label="Company Name"
+                  :field-label="t('company_name')"
                   v-model="shippingAddress.company_name"
                   field-name="shipping[company_name]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
-                  field-label="Phone"
+                  :field-label="t('phone')"
                   v-model="shippingAddress.phone"
                   field-name="shipping[phone]"
                 ></avored-input>
@@ -95,14 +97,14 @@
             <div class="flex items-center">
               <div class="w-1/2">
                 <avored-input
-                  field-label="Address1"
+                  :field-label="t('address1')"
                   v-model="shippingAddress.address1"
                   field-name="shipping[address1]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
-                  field-label="Address 2"
+                  :field-label="t('address2')"
                   v-model="shippingAddress.address2"
                   field-name="shipping[address2]"
                 ></avored-input>
@@ -111,14 +113,15 @@
 
             <div class="flex items-center">
               <div class="w-1/2">
-                  <select v-model="shippingAddress.country_id">
+                  <label class="text-gray-500 block text-sm">{{ t('country') }}</label>
+                  <select class="block w-full px-3 focus:ring-1 focus:ring-red-500 py-2 text-gray-600" v-model="shippingAddress.country_id">
                       <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">New Zealand</option>
                       <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">United State</option>
                   </select>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
-                  field-label="State"
+                  :field-label="t('state')"
                   v-model="shippingAddress.state"
                   field-name="shipping[state]"
                 ></avored-input>
@@ -128,14 +131,14 @@
             <div class="flex items-center">
               <div class="w-1/2">
                 <avored-input
-                  field-label="Postcode"
+                  :field-label="t('postcode')"
                   v-model="shippingAddress.postcode"
                   field-name="shipping[postcode]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
-                  field-label="City"
+                  :field-label="t('city')"
                   v-model="shippingAddress.city"
                   field-name="shipping[city]"
                 ></avored-input>
@@ -143,20 +146,20 @@
             </div>
           </div>
           <h4 class="text-lg text-red-700 font-semibold my-5">
-            Billing Address
+              {{ t('billing_address') }}
           </h4>
           <div>
             <div class="flex">
               <div class="w-1/2">
                 <avored-input
-                  field-label="First Name"
+                  :field-label="t('first_name')"
                   v-model="billingAddress.first_name"
                   field-name="shipping[first_name]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
-                  field-label="Last Name"
+                  :field-label="t('last_name')"
                   v-model="billingAddress.last_name"
                   field-name="shipping[last_name]"
                 ></avored-input>
@@ -166,14 +169,14 @@
             <div class="flex items-center">
               <div class="w-1/2">
                 <avored-input
-                  field-label="Company Name"
+                  :field-label="t('company_name')"
                   v-model="billingAddress.company_name"
                   field-name="shipping[company_name]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
-                  field-label="Phone"
+                  :field-label="t('phone')"
                   v-model="billingAddress.phone"
                   field-name="shipping[phone]"
                 ></avored-input>
@@ -183,14 +186,14 @@
             <div class="flex items-center">
               <div class="w-1/2">
                 <avored-input
-                  field-label="Address1"
+                  :field-label="t('address1')"
                   v-model="billingAddress.address1"
                   field-name="shipping[address1]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
-                  field-label="Address 2"
+                  :field-label="t('address2')"
                   v-model="billingAddress.address2"
                   field-name="shipping[address2]"
                 ></avored-input>
@@ -199,7 +202,8 @@
 
             <div class="flex items-center">
               <div class="w-1/2">
-                  <select v-model="billingAddress.country_id">
+                  <label class="text-gray-500 block text-sm">{{ t('country') }}</label>
+                  <select class="block w-full px-3 focus:ring-1 focus:ring-red-500 py-2 text-gray-600" v-model="billingAddress.country_id">
                       <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">New Zealand</option>
                       <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">United State</option>
                   </select>
@@ -234,7 +238,7 @@
         <div class="w-1/2 ml-3">
           <div>
             <h4 class="text-lg text-red-700 font-semibold my-5">
-                Delivery method
+                {{ t('delivery_method') }}
             </h4>
             <div class="mt-6">
               <div v-if="!shippingFetching" class="mt-6">
@@ -247,7 +251,7 @@
 
           <div class="mt-8">
             <h4 class="text-lg text-red-700 font-semibold my-5">
-              Payment Method
+                {{ t('payment_method') }}
             </h4>
             <div v-if="!paymentFetching" class="mt-6">
               <template v-for="(payment, index) in paymentOptions.paymentQuery" :key="index">
@@ -258,7 +262,7 @@
 
           <div class="mt-8">
             <h4 class="text-lg text-red-700 font-semibold my-5">
-                Cart Items
+                {{ t('cart_items')  }}
             </h4>
             <div v-if="!fetching" class="mt-5 ml-3">
               <div
@@ -338,7 +342,7 @@
             "
           >
             <VueFeather class="h-6 w-6 leading-norma l" type="shopping-cart" />
-            Place Order
+            {{ t('place_order') }}
           </button>
         </div>
       </div>
@@ -348,6 +352,8 @@
 
 <script lang="ts">
 import CartItemAllQuery from "@/graphql/CartItemAllQuery"
+import ShippingQuery from "@/graphql/ShippingQuery"
+import PaymentQuery from "@/graphql/PaymentQuery"
 import CustomerRegister from '@/graphql/CustomerRegister'
 import AddressCreate from '@/graphql/AddressCreate'
 import PlaceOrder from '@/graphql/PlaceOrder'
@@ -356,6 +362,7 @@ import VueFeather from "vue-feather"
 import { useMutation, useQuery } from "@urql/vue"
 import AvoRedInput from "@/components/forms/AvoRedInput.vue"
 import _ from 'lodash'
+import { useI18n } from "vue-i18n"
 
 
 export default defineComponent({
@@ -364,6 +371,8 @@ export default defineComponent({
     "avored-input": AvoRedInput,
   },
   setup() {
+    const { t } = useI18n() 
+
     const user = ref({
       first_name: '',
       last_name: '',
@@ -442,30 +451,11 @@ export default defineComponent({
     }
 
     const result = useQuery({query: CartItemAllQuery})
-    const paymentQuery = useQuery({
-      query: `
-        query {
-            paymentQuery {
-                    name
-                    identifier
-                    view
-            }
-        }
-      `,
-    })
-    const shippingQuery = useQuery({
-      query: `
-        query {
-            shippingQuery {
-                    name
-                    identifier
-                    view
-            }
-        }
-      `,
-    })
+    const paymentQuery = useQuery({query: PaymentQuery})
+    const shippingQuery = useQuery({query: ShippingQuery})
 
     return {
+      t,
       user: user,
       shippingAddress: shippingAddress,
       billingAddress: billingAddress,
