@@ -3,6 +3,7 @@
     <div class="container mx-auto">
       <nav class="justify-between">
         <div class="py-4 flex w-full items-center">
+          
           <router-link class="flex items-center" :to="{name: 'home'}">
             <img class="w-6 h-6" src="../../assets/logo_only.svg" alt="avored e commerce" />
             <span class="text-2xl ml-3 text-red-700">AvoRed</span>
@@ -32,6 +33,12 @@
                 </router-link>
               </li>
           </ul>
+          <div v-else class="lds-ellipsis">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+          </div>
         </div>
       </nav>
     </div>

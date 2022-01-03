@@ -11,7 +11,6 @@ const AddToCart = gql`
         )  {
             visitor_id
             product_id
-            price
             qty
         }
     }

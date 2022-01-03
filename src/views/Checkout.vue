@@ -276,8 +276,7 @@
                     />
                   </div>
                   <div class="flex flex-col justify-between ml-4 flex-grow">
-                    <span class="font-bold text-sm">Iphone 6S</span>
-                    <span class="text-red-500 text-xs">Apple</span>
+                    <span class="font-bold text-sm">{{ cartItem.product.name }}</span>
                     <a
                       href="#"
                       class="
@@ -315,10 +314,10 @@
                   </svg>
                 </div>
                 <span class="text-center w-1/5 font-semibold text-sm"
-                  >${{ cartItem.price }}</span
+                  >${{ cartItem.product.price }}</span
                 >
                 <span class="text-center w-1/5 font-semibold text-sm"
-                  >${{ cartItem.price * cartItem.qty }}</span
+                  >${{ cartItem.product.price * cartItem.qty }}</span
                 >
               </div>
             </div>
@@ -348,7 +347,7 @@
 </template>
 
 <script lang="ts">
-
+import CartItemAllQuery from "@/graphql/CartItemAllQuery"
 import CustomerRegister from '@/graphql/CustomerRegister'
 import AddressCreate from '@/graphql/AddressCreate'
 import PlaceOrder from '@/graphql/PlaceOrder'
@@ -442,22 +441,7 @@ export default defineComponent({
         })
     }
 
-
-    
-
-
-    const result = useQuery({
-      query: `
-        query CartItems {
-          cartItems  {
-              visitor_id
-              product_id
-              price
-              qty
-          }
-      }
-      `,
-    })
+    const result = useQuery({query: CartItemAllQuery})
     const paymentQuery = useQuery({
       query: `
         query {

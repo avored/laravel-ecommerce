@@ -54,13 +54,12 @@
               <div class="w-20">
                 <img
                   class="h-24"
-                  src="https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z"
+                  :src="cartItem.product.main_image_url"
                   alt=""
                 />
               </div>
               <div class="flex flex-col justify-between ml-4 flex-grow">
-                <span class="font-bold text-sm">Iphone 6S</span>
-                <span class="text-red-500 text-xs">Apple</span>
+                <span class="font-bold text-sm">{{ cartItem.product.name }}</span>
                 <a
                   href="#"
                   class="font-semibold hover:text-red-500 text-gray-500 text-xs"
@@ -88,10 +87,10 @@
               </svg>
             </div>
             <span class="text-center w-1/5 font-semibold text-sm"
-              >${{ cartItem.price }}</span
+              >${{ cartItem.product.price }}</span
             >
             <span class="text-center w-1/5 font-semibold text-sm"
-              >${{ cartItem.price * cartItem.qty }}</span
+              >${{ cartItem.product.price * cartItem.qty }}</span
             >
           </div>
         </div>
@@ -115,18 +114,18 @@
       <div id="summary" class="w-1/4 px-8 py-10">
         <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
         <div class="flex justify-between mt-10 mb-5">
-          <span class="font-semibold text-sm uppercase">Items 3</span>
-          <span class="font-semibold text-sm">590$</span>
+          <span class="font-semibold text-sm uppercase">Items {{ data.cartItems.length }}</span>
+          <span class="font-semibold text-sm">$ {{ getTotal(data.cartItems) }}</span>
         </div>
-        <div>
+        <!-- <div>
           <label class="font-medium inline-block mb-3 text-sm uppercase"
             >Shipping</label
           >
           <select class="block p-2 text-gray-600 w-full text-sm">
             <option>Standard shipping - $10.00</option>
           </select>
-        </div>
-        <div class="py-10">
+        </div> -->
+        <!-- <div class="py-10">
           <label
             for="promo"
             class="font-semibold inline-block mb-3 text-sm uppercase"
@@ -138,9 +137,9 @@
             placeholder="Enter your code"
             class="p-2 text-sm w-full"
           />
-        </div>
+        </div> -->
 
-        <button
+        <!-- <button
           class="
             bg-red-500
             hover:bg-red-600
@@ -151,14 +150,14 @@
           "
         >
           Apply
-        </button>
+        </button> -->
 
         <div class="border-t mt-8">
           <div
             class="flex font-semibold justify-between py-6 text-sm uppercase"
           >
             <span>Total cost</span>
-            <span>$600</span>
+            <span>${{  getTotal(data.cartItems) }}</span>
           </div>
         </div>
 
@@ -176,28 +175,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import CartItemAllQuery from "@/graphql/CartItemAllQuery"
+import { defineComponent } from "vue"
 import VueFeather from 'vue-feather'
-import { useQuery } from "@urql/vue";
+import { useQuery } from "@urql/vue"
+
+
+type CartItem = {
+  id: string,
+  qty: number,
+  product: {
+    id: string,
+    price: number,
+    name: string
+  }
+
+}
 
 export default defineComponent({
   components: {
     'vue-feather' :VueFeather,
   },
   setup() {
-    const result = useQuery({
-      query: `
-        query CartItems {
-          cartItems  {
-              visitor_id
-              product_id
-              price
-              qty
-          }
+      const result = useQuery({query: CartItemAllQuery})
+
+      const getTotal = (cartItems : Array <CartItem>) : number => {
+          var total = 0.00
+          cartItems.forEach (item => {
+            total += item.product.price
+          })
+          return total
       }
-      `,
-    });
     return {
+      getTotal,
       fetching: result.fetching,
       data: result.data,
       error: result.error,
