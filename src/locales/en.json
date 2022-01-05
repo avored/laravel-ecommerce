@@ -33,5 +33,7 @@
     "total": "Total",
     "continue_shopping": "Continue Shopping",
     "price": "Price",
-    "checkout": "Checkout"
+    "checkout": "Checkout",
+    "edit": "Edit",
+    "update_profile": "Update Profile"
 }

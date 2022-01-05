@@ -13,7 +13,7 @@
                   <div class="px-4 py-5 sm:px-6">
                     <div class="flex w-full">
                       <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Edit Personal Information
+                          {{ t('edit') }} {{ t('personal_information') }}
                       </h3>
                     </div>
                   </div>
@@ -34,8 +34,8 @@
                           "
                         >
                           <avored-input
-                            field-label="First Name"
-                            :model-value="data.customerQuery.first_name"
+                            :field-label="t('first_name')"
+                            v-model="data.customerQuery.first_name"
                           ></avored-input>
                         </dd>
                       </div>
@@ -54,8 +54,8 @@
                           "
                         >
                           <avored-input
-                            field-label="Last Name"
-                            :model-value="data.customerQuery.last_name"
+                            :field-label="t('last_name')"
+                            v-model="data.customerQuery.last_name"
                           ></avored-input>
                         </dd>
                       </div>
@@ -98,7 +98,7 @@
                             class="bg-red-500 block font-semibold hover:bg-red-600 py-3 text-sm text-white uppercase w-full">
                               <span class="flex justify-center">
                                 <vue-feather class="mr-5" type="shopping-cart"></vue-feather>
-                                Update Profile
+                                {{ t('update_profile') }}
                               </span>
                           </button>
                         </dd>
@@ -117,9 +117,12 @@
 
 <script lang="ts">
 import { defineComponent } from "vue"
+import CustomerEditMutation from "@/graphql/CustomerEditMutation"
+import GetCustomerQuery from "@/graphql/GetCustomerQuery"
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
-import { useMutation, useQuery, gql } from "@urql/vue"
+import { useMutation, useQuery } from "@urql/vue"
+import { useI18n } from "vue-i18n"
 
 export default defineComponent({
   components: {
@@ -127,22 +130,8 @@ export default defineComponent({
     'account-side-nav': AccountSideNav
   },
   setup() {
-    const customerUpdateMutation =useMutation(gql `
-                                    mutation UpdateCustomer(
-                                          $first_name: String!,
-                                          $last_name: String!,
-                                      ) {
-                                          customerUpdate(
-                                            
-                                              first_name: $first_name,
-                                              last_name: $last_name
-                                          )  {
-                                              first_name
-                                              last_name
-                                          }
-                                      }
-                                `)
-    
+    const { t } =  useI18n()
+    const customerUpdateMutation = useMutation(CustomerEditMutation)
     const handleSubmit = () => {
         let mutationVariables = {
           first_name: result.data.value.customerQuery.first_name,
@@ -152,22 +141,10 @@ export default defineComponent({
             console.log(result.data)
         })
     }
-  
-    const result = useQuery({
-      query: `
-        query GetCustomer{
-            customerQuery {
-                    id
-                    first_name
-                    last_name
-                    email
-                    created_at
-                    updated_at
-            }
-        }
-      `,
-    });
+    const result = useQuery({query: GetCustomerQuery})
+
     return {
+      t,
       handleSubmit,
       fetching: result.fetching,
       data: result.data,

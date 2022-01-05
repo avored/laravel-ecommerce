@@ -13,10 +13,10 @@
                   <div class="px-4 py-5 sm:px-6">
                     <div class="flex w-full">
                       <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Personal Information
+                          {{ t('personal_information') }}
                       </h3>
                       <div class="ml-auto">
-                        <a href="#"> Edit </a>
+                        <router-link :to="{name: 'account.edit'}"> {{ t('edit') }} </router-link>
                       </div>
                     </div>
                   </div>
@@ -31,7 +31,7 @@
                         "
                       >
                         <dt class="text-sm font-medium text-gray-500">
-                          First Name
+                            {{ t('first_name') }}
                         </dt>
                         <dd
                           class="
@@ -52,7 +52,7 @@
                         "
                       >
                         <dt class="text-sm font-medium text-gray-500">
-                          Last Name
+                            {{ t('last_name') }}
                         </dt>
                         <dd
                           class="
@@ -72,7 +72,9 @@
                           sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
                         "
                       >
-                        <dt class="text-sm font-medium text-gray-500">Email</dt>
+                        <dt class="text-sm font-medium text-gray-500">
+                            {{ t('email') }}
+                        </dt>
                         <dd
                           class="
                             mt-1
@@ -100,6 +102,7 @@ import { defineComponent } from "vue"
 import { useQuery } from "@urql/vue"
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
 import GetCustomerQuery from "@/graphql/GetCustomerQuery"
+import { useI18n } from "vue-i18n"
 
 export default defineComponent({
   components: {
@@ -107,8 +110,9 @@ export default defineComponent({
   },
   setup() {
       const result = useQuery({query: GetCustomerQuery})
-      console.log(result.data, result.fetching.value)
+      const { t } = useI18n()
       return {
+          t,
           fetching: result.fetching,
           data: result.data,
           error: result.error,

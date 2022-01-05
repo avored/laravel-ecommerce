@@ -66,25 +66,25 @@ const routes: Array<RouteRecordRaw> = [
     path: '/orders',
     name: 'orders.index',
     component: () => import('../views/Orders.vue'),
-    meta: { 'middleware': 'auth', 'layout': 'app' }
+    meta: { 'middleware': 'customer', 'layout': 'app' }
   },
   {
     path: '/account/address',
     name: 'address.index',
     component: () => import('../views/Address.vue'),
-    meta: { 'middleware': 'auth', 'layout': 'app' }
+    meta: { 'middleware': 'customer', 'layout': 'app' }
   },
   {
     path: '/account/save-address/:id?',
     name: 'address.save',
     component: () => import('../views/SaveAddress.vue'),
-    meta: { 'middleware': 'auth', 'layout': 'app' }
+    meta: { 'middleware': 'customer', 'layout': 'app' }
   },
   {
     path: '/account/edit',
     name: 'account.edit',
     component: () => import('../views/AccountEdit.vue'),
-    meta: { 'middleware': 'auth', 'layout': 'app' }
+    meta: { 'middleware': 'customer', 'layout': 'app' }
   },
 ]
 
