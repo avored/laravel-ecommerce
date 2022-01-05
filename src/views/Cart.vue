@@ -3,14 +3,14 @@
     <div class="flex shadow-md my-10">
       <div class="w-3/4 bg-white px-10 py-10">
         <div class="flex justify-between border-b pb-8">
-          <h1 class="font-semibold text-2xl">Shopping Cart</h1>
+          <h1 class="font-semibold text-2xl">{{ t('shopping_cart') }}</h1>
           <h2 class="font-semibold text-2xl">
-            <span> {{ data.cartItems.length }} Items </span>
+            <span> {{ data.cartItems.length }} {{ t('items') }} </span>
           </h2>
         </div>
         <div class="flex mt-10 mb-5">
           <h3 class="font-semibold text-gray-600 text-xs uppercase w-2/5">
-            Product Details
+            {{ t('product_details') }}
           </h3>
           <h3
             class="
@@ -20,7 +20,7 @@
               w-1/5
             "
           >
-            Quantity
+            {{ t('quantity') }}
           </h3>
           <h3
             class="
@@ -30,7 +30,7 @@
               w-1/5
             "
           >
-            Price
+            {{ t('price') }}
           </h3>
           <h3
             class="
@@ -40,7 +40,7 @@
               w-1/5
             "
           >
-            Total
+            {{ t('total') }}
           </h3>
         </div>
         <div>
@@ -107,12 +107,12 @@
               d="M134.059 296H436c6.627 0 12-5.373 12-12v-56c0-6.627-5.373-12-12-12H134.059v-46.059c0-21.382-25.851-32.09-40.971-16.971L7.029 239.029c-9.373 9.373-9.373 24.569 0 33.941l86.059 86.059c15.119 15.119 40.971 4.411 40.971-16.971V296z"
             />
           </svg>
-          Continue Shopping
+          {{ t('continue_shopping') }}
         </router-link>
       </div>
 
       <div id="summary" class="w-1/4 px-8 py-10">
-        <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
+      <h1 class="font-semibold text-2xl border-b pb-8">{{ t('order_summary') }}</h1>
         <div class="flex justify-between mt-10 mb-5">
           <span class="font-semibold text-sm uppercase">Items {{ data.cartItems.length }}</span>
           <span class="font-semibold text-sm">$ {{ getTotal(data.cartItems) }}</span>
@@ -165,7 +165,7 @@
             class="bg-red-500 block font-semibold hover:bg-red-600 py-3 text-sm text-white uppercase w-full">
               <span class="flex justify-center">
                 <vue-feather class="mr-5" type="shopping-cart"></vue-feather>
-                Checkout
+                {{ t('checkout') }}
               </span>
           </router-link>
 
@@ -179,6 +179,7 @@ import CartItemAllQuery from "@/graphql/CartItemAllQuery"
 import { defineComponent } from "vue"
 import VueFeather from 'vue-feather'
 import { useQuery } from "@urql/vue"
+import { useI18n } from "vue-i18n"
 
 
 type CartItem = {
@@ -197,6 +198,7 @@ export default defineComponent({
     'vue-feather' :VueFeather,
   },
   setup() {
+      const { t } = useI18n()
       const result = useQuery({query: CartItemAllQuery})
 
       const getTotal = (cartItems : Array <CartItem>) : number => {
@@ -207,6 +209,7 @@ export default defineComponent({
           return total
       }
     return {
+      t,
       getTotal,
       fetching: result.fetching,
       data: result.data,

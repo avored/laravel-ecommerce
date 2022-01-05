@@ -99,31 +99,20 @@
 import { defineComponent } from "vue"
 import { useQuery } from "@urql/vue"
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
+import GetCustomerQuery from "@/graphql/GetCustomerQuery"
 
 export default defineComponent({
   components: {
-    'account-side-nav': AccountSideNav
+      'account-side-nav': AccountSideNav
   },
   setup() {
-    const result = useQuery({
-      query: `
-        query GetCustomer{
-            customerQuery {
-                    id
-                    first_name
-                    last_name
-                    email
-                    created_at
-                    updated_at
-            }
-        }
-      `,
-    });
-    return {
-      fetching: result.fetching,
-      data: result.data,
-      error: result.error,
-    };
+      const result = useQuery({query: GetCustomerQuery})
+      console.log(result.data, result.fetching.value)
+      return {
+          fetching: result.fetching,
+          data: result.data,
+          error: result.error,
+      }
   },
 });
 </script>

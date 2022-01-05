@@ -1,13 +1,21 @@
-import { AUTH_TOKEN } from '../constants/index'
+import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from '../constants/index'
 import isNil from 'lodash/isNil'
-import { useMutation, gql } from "@urql/vue"
+import { useMutation, gql, useQuery } from "@urql/vue"
 import { NoUndefinedVariablesRule } from 'graphql'
+import GetCustomerQuery from "@/graphql/GetCustomerQuery"
 
 const TOKEN_IN_PROGRESS = 'token_in_progress'
 
 const isAuth = () : boolean => {
     const accessToken = localStorage.getItem(AUTH_TOKEN)
-    return (!isNil(accessToken) || true)
+
+    return !isNil(accessToken)
+}
+const isCustomer = (): boolean => {
+    
+    const customerLoggedIn = localStorage.getItem(CUSTOMER_LOGGED_IN)
+
+    return !isNil(customerLoggedIn)
 }
 const getToken = () => {
     // const tokenInProgress = localStorage.getItem(TOKEN_IN_PROGRESS)
@@ -44,5 +52,6 @@ const getToken = () => {
 
 export default {
     isAuth,
-    getToken
+    getToken,
+    isCustomer
 }

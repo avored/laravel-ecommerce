@@ -274,9 +274,9 @@
                   <!-- product -->
                   <div class="w-20">
                     <img
-                      class="h-24"
-                      src="https://drive.google.com/uc?id=18KkAVkGFvaGNqPy2DIvTqmUH_nk39o3z"
-                      alt=""
+                      class="h-20 rounded object-cover"
+                      :src="cartItem.product.main_image_url"
+                      :alt="cartItem.product.name"
                     />
                   </div>
                   <div class="flex flex-col justify-between ml-4 flex-grow">

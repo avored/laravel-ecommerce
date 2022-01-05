@@ -120,7 +120,7 @@
 import { defineComponent, ref } from "vue"
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import { useMutation } from "@urql/vue"
-import { AUTH_TOKEN } from "@/constants"
+import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants"
 import { useRouter } from "vue-router"
 
 export default defineComponent({
@@ -165,6 +165,7 @@ export default defineComponent({
 
             await registerMutation.executeMutation(variables).then((result) => {
                 localStorage.setItem(AUTH_TOKEN, result.data.register.access_token)
+                localStorage.setItem(CUSTOMER_LOGGED_IN, 'true')
                 router.push({name: 'home'})
             })
         };

@@ -60,7 +60,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/account',
     name: 'account',
     component: () => import('../views/Account.vue'),
-    meta: {'middleware': 'auth', 'layout': 'app' }
+    meta: {'middleware': 'customer', 'layout': 'app' }
   },
   {
     path: '/orders',
@@ -100,13 +100,16 @@ router.beforeEach((to, from, next) => {
           if (objectKey === "middleware" && to.meta.middleware == 'guest') {
               next()
           }
-          if (objectKey === "middleware" && to.meta.middleware == 'auth') {
-            if (auth.isAuth()) {
-              next()
+        if (objectKey === "middleware" && (to.meta.middleware == 'auth' || to.meta.middleware == 'customer')) {
+
+            if (to.meta.middleware == 'auth' && auth.isAuth()) {
+                next()
+            } else if (to.meta.middleware == 'customer' && auth.isCustomer()) {
+                next()
             } else {
               next('/login')
             }
-          }
+        }
       });
     } else {
       next()
