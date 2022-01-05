@@ -3,21 +3,23 @@
     <div class="relative py-20 sm:max-w-md w-full">
       <div class="relative w-full rounded-3xl px-6 py-4 border shadow-md">
         <div class="block mt-3 text-red-700 text-center text-2xl font-semibold">
-          Register
+          {{ t('register') }}
         </div>
         
         <form method="#" action="#" @submit.prevent="onFormSubmit" class="mt-10">
           <div class="mt-5">
               <avored-input 
                   field-name="first_name" 
-                  field-label="First Name"
+                  :field-label="t('first_name')"
+                  :placeholder="t('first_name')"
                   v-model="first_name"
               />
           </div>
           <div class="mt-5">
               <avored-input 
                   field-name="last_name" 
-                  field-label="Last Name"
+                  :field-label="t('last_name')"
+                  :placeholder="t('last_name')"
                   v-model="last_name"
               />
           </div>
@@ -25,7 +27,8 @@
               <avored-input 
                   field-name="email" 
                   field-type="email" 
-                  field-label="Email address"
+                  :field-label="t('email')"
+                  :placeholder="t('email')"
                   v-model="email"
               />
           </div>
@@ -33,39 +36,16 @@
               <avored-input 
                   field-name="password" 
                   field-type="password" 
-                  field-label="Password"
+                  :field-label="t('password')"
+                  :placeholder="t('password')"
                   v-model="password"
               />
-          </div>
-
-          <div class="mt-7 flex">
-            <label
-              for="remember_me"
-              class="inline-flex items-center w-full cursor-pointer"
-            >
-              <input
-                id="remember_me"
-                type="checkbox"
-                class="
-                  rounded
-                  border-gray-300
-                  text-indigo-600
-                  shadow-sm
-                  focus:border-indigo-300
-                  focus:ring
-                  focus:ring-indigo-200
-                  focus:ring-opacity-50
-                "
-                name="remember"
-              />
-              <span class="ml-2 text-sm text-gray-600">Remember me</span>
-            </label>
           </div>
 
           <div class="mt-7">
             <button
               class="
-                bg-blue-500
+                bg-red-500
                 w-full
                 py-3
                 rounded-xl
@@ -80,24 +60,16 @@
                 hover:-translate-x hover:scale-105
               "
             >
-              Register
+              {{ t('register') }}
             </button>
-          </div>
-
-          <div class="flex mt-7 items-center text-center">
-            <hr class="border-gray-300 border-1 w-full rounded-md" />
-            <label class="block font-medium text-sm text-gray-600 w-full">
-              Login With
-            </label>
-            <hr class="border-gray-300 border-1 w-full rounded-md" />
           </div>
           <div class="mt-7">
             <div class="flex justify-center items-center">
-              <label class="mr-2">Already have an account with us?</label>
+              <label class="mr-2">{{ t('already_have_account_with_us') }}</label>
               <router-link
                 :to="{name: 'auth.login'}"
                 class="
-                  text-blue-500
+                  text-red-500
                   transition
                   duration-500
                   ease-in-out
@@ -105,7 +77,7 @@
                   hover:-translate-x hover:scale-105
                 "
               >
-                Login
+                {{ t('login') }}
               </router-link>
             </div>
           </div>
@@ -122,12 +94,14 @@ import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import { useMutation } from "@urql/vue"
 import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants"
 import { useRouter } from "vue-router"
+import { useI18n } from "vue-i18n"
 
 export default defineComponent({
     components: {
         'avored-input': AvoRedInput
     },
     setup () {
+        const { t } = useI18n()
         const router = useRouter()
         const email = ref('')
         const password = ref('')
@@ -170,6 +144,7 @@ export default defineComponent({
             })
         };
         return {
+            t,
             onFormSubmit,
             email,
             password,

@@ -3,7 +3,7 @@
     <div class="relative py-20 sm:max-w-md w-full">
       <div class="relative w-full rounded-3xl px-6 py-4 bg-gray-100 shadow-md">
         <div class="block mt-3 text-red-700 text-center text-2xl font-semibold">
-          Login
+            {{  t('login') }}
         </div>
 
         <form
@@ -16,7 +16,8 @@
             <avored-input
               field-name="email"
               field-type="email"
-              field-label="Email address"
+              :placeholder="t('email')"
+              :field-label="t('email')"
               v-model="email"
             />
           </div>
@@ -24,40 +25,20 @@
             <avored-input
               field-name="password"
               field-type="password"
-              field-label="Password"
+              :class="t('password')"
+              :placeholder="t('password')"
+              :field-label="t('password')"
               v-model="password"
             />
           </div>
 
           <div class="mt-7 flex">
-            <label
-              for="remember_me"
-              class="inline-flex items-center w-full cursor-pointer"
-            >
-              <input
-                id="remember_me"
-                type="checkbox"
-                class="
-                  rounded
-                  border-gray-300
-                  text-indigo-600
-                  shadow-sm
-                  focus:border-indigo-300
-                  focus:ring
-                  focus:ring-indigo-200
-                  focus:ring-opacity-50
-                "
-                name="remember"
-              />
-              <span class="ml-2 text-sm text-gray-600">Remember me</span>
-            </label>
-
             <div class="w-full text-right">
               <a
                 class="underline text-sm text-gray-600 hover:text-gray-900"
                 href="#"
               >
-                Forgot your password?
+                {{ t('forgot_your_password') }}
               </a>
             </div>
           </div>
@@ -65,7 +46,7 @@
           <div class="mt-7">
             <button
               class="
-                bg-blue-500
+                bg-red-500
                 w-full
                 py-3
                 rounded-xl
@@ -80,17 +61,17 @@
                 hover:-translate-x hover:scale-105
               "
             >
-              Login
+              {{ t('login') }}
             </button>
           </div>
 
           <div class="mt-7">
             <div class="flex justify-center items-center">
-              <label class="mr-2">Don't have an account with us?</label>
+              <label class="mr-2">{{ t('dont_have_account_with_us') }}</label>
               <router-link
                 :to="{ name: 'auth.register' }"
                 class="
-                  text-blue-500
+                  text-red-500
                   transition
                   duration-500
                   ease-in-out
@@ -98,7 +79,7 @@
                   hover:-translate-x hover:scale-105
                 "
               >
-                Register
+                {{ t('register') }}
               </router-link>
             </div>
           </div>
@@ -110,21 +91,22 @@
 
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
-import LoginMutation from "@/graphql/LoginMutation";
-import AvoRedInput from "@/components/forms/AvoRedInput.vue";
-import { useMutation } from "@urql/vue";
-import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants";
-import { useRouter } from "vue-router";
+import { defineComponent, ref } from "vue"
+import AvoRedInput from "@/components/forms/AvoRedInput.vue"
+import { useMutation } from "@urql/vue"
+import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants"
+import { useRouter } from "vue-router"
+import { useI18n } from "vue-i18n"
 
 export default defineComponent({
   components: {
     "avored-input": AvoRedInput,
   },
   setup() {
-    const router = useRouter();
-    const email = ref("");
-    const password = ref("");
+    const { t } = useI18n()
+    const router = useRouter()
+    const email = ref("")
+    const password = ref("")
 
     const loginMutation = useMutation(`
           mutation VisitorLogin (
@@ -141,25 +123,26 @@ export default defineComponent({
                   refresh_token
               }
           }
-        `);
+        `)
 
     const onFormSubmit = async () => {
       const variables = {
         email: email.value,
         password: password.value,
-      };
+      }
 
       const accessToken = await loginMutation
         .executeMutation(variables)
         .then((result) => {
           return result.data.login.access_token;
-        });
+        })
 
       localStorage.setItem(AUTH_TOKEN, accessToken);
       localStorage.setItem(CUSTOMER_LOGGED_IN, "true");
       router.push({ name: "home" });
-    };
+    }
     return {
+      t,
       onFormSubmit,
       email,
       password,

@@ -35,5 +35,10 @@
     "price": "Price",
     "checkout": "Checkout",
     "edit": "Edit",
-    "update_profile": "Update Profile"
+    "update_profile": "Update Profile",
+    "login": "Login",
+    "forgot_your_password": "Forgot your password?",
+    "dont_have_account_with_us": "Don't have an account with us?",
+    "register": "Register",
+    "already_have_account_with_us": "Already have an account with us?"
 }
