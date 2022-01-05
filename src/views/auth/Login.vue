@@ -5,23 +5,28 @@
         <div class="block mt-3 text-red-700 text-center text-2xl font-semibold">
           Login
         </div>
-        
-        <form method="#" action="#" @submit.prevent="onFormSubmit" class="mt-10">
+
+        <form
+          method="#"
+          action="#"
+          @submit.prevent="onFormSubmit"
+          class="mt-10"
+        >
           <div class="mt-5">
-              <avored-input 
-                  field-name="email" 
-                  field-type="email" 
-                  field-label="Email address"
-                  v-model="email"
-              />
+            <avored-input
+              field-name="email"
+              field-type="email"
+              field-label="Email address"
+              v-model="email"
+            />
           </div>
           <div class="mt-5">
-              <avored-input 
-                  field-name="password" 
-                  field-type="password" 
-                  field-label="Password"
-                  v-model="password"
-              />
+            <avored-input
+              field-name="password"
+              field-type="password"
+              field-label="Password"
+              v-model="password"
+            />
           </div>
 
           <div class="mt-7 flex">
@@ -78,12 +83,12 @@
               Login
             </button>
           </div>
-          
+
           <div class="mt-7">
             <div class="flex justify-center items-center">
               <label class="mr-2">Don't have an account with us?</label>
               <router-link
-                :to="{name: 'auth.register'}"
+                :to="{ name: 'auth.register' }"
                 class="
                   text-blue-500
                   transition
@@ -105,54 +110,60 @@
 
 
 <script lang="ts">
-import { defineComponent, ref } from "vue"
-import AvoRedInput from '@/components/forms/AvoRedInput.vue'
-import { useMutation } from "@urql/vue"
-import { AUTH_TOKEN } from "@/constants"
-import { useRouter } from "vue-router"
+import { defineComponent, ref } from "vue";
+import LoginMutation from "@/graphql/LoginMutation";
+import AvoRedInput from "@/components/forms/AvoRedInput.vue";
+import { useMutation } from "@urql/vue";
+import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
-    components: {
-        'avored-input': AvoRedInput
-    },
-    setup () {
-        const router = useRouter()
-        const email = ref('')
-        const password = ref('')
+  components: {
+    "avored-input": AvoRedInput,
+  },
+  setup() {
+    const router = useRouter();
+    const email = ref("");
+    const password = ref("");
 
-        const registerMutation = useMutation(`
-            mutation CustomerLogin( 
-                $email: String!,
-                $password: String!,
-            ) {
-                login (
-                    email: $email,
-                    password: $password
-                ) {
-                    token_type
-                    access_token
-                    expires_in
-                    refresh_token
-                }
-            }
-          `);
+    const loginMutation = useMutation(`
+          mutation VisitorLogin (
+                  $password: String!
+                  $email: String!
+              ){
+              login (
+                  email: $email
+                  password: $password
+              ){
+                  token_type
+                  access_token
+                  expires_in
+                  refresh_token
+              }
+          }
+        `);
 
-        const onFormSubmit = async () => {
-            const variables = { 
-              email: email.value, 
-              password: password.value 
-            };
+    const onFormSubmit = async () => {
+      const variables = {
+        email: email.value,
+        password: password.value,
+      };
 
-            await registerMutation.executeMutation(variables).then((result) => {
-                localStorage.setItem(AUTH_TOKEN, result.data.login.access_token)
-                router.push({name: 'home'})
-            })
-        };
-        return {
-            onFormSubmit,
-            email,
-            password,
-        }
-    }
-})
+      const accessToken = await loginMutation
+        .executeMutation(variables)
+        .then((result) => {
+          return result.data.login.access_token;
+        });
+
+      localStorage.setItem(AUTH_TOKEN, accessToken);
+      localStorage.setItem(CUSTOMER_LOGGED_IN, "true");
+      router.push({ name: "home" });
+    };
+    return {
+      onFormSubmit,
+      email,
+      password,
+    };
+  },
+});
 </script>

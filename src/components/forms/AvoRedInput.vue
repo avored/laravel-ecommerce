@@ -35,7 +35,7 @@ export default defineComponent({
     fieldName: {
       type: String,
       default: "",
-      required: true,
+      required: false,
     },
     fieldType: {
       type: String,

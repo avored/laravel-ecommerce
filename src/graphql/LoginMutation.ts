@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 
 const LoginMutation = gql`
     mutation VisitorLogin{
-        login{
+        login {
             token_type
             access_token
             expires_in

@@ -123,14 +123,18 @@ import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
 import { useMutation, useQuery } from "@urql/vue"
 import { useI18n } from "vue-i18n"
+import { useRouter } from "vue-router"
+import VueFeather from "vue-feather"
 
 export default defineComponent({
   components: {
     'avored-input': AvoRedInput,
-    'account-side-nav': AccountSideNav
+    'account-side-nav': AccountSideNav,
+    'vue-feather': VueFeather
   },
   setup() {
     const { t } =  useI18n()
+    const router = useRouter()
     const customerUpdateMutation = useMutation(CustomerEditMutation)
     const handleSubmit = () => {
         let mutationVariables = {
@@ -138,7 +142,9 @@ export default defineComponent({
           last_name: result.data.value.customerQuery.last_name
         } 
         customerUpdateMutation.executeMutation(mutationVariables).then((result) => {
-            console.log(result.data)
+            //@todo check for error
+            console.log(result)
+            router.push({name: 'account'})  
         })
     }
     const result = useQuery({query: GetCustomerQuery})
