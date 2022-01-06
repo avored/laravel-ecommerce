@@ -108,9 +108,12 @@
                                   <label class="text-sm text-gray-700">
                                       {{ t('country') }}
                                   </label>
-                                  <select class="w-full p-2 text-md text-gray-700">
-                                      <option>New Zealand</option>
-                                      <option>United States</option>
+                                  <select class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
+                                      <template v-for="countryOption in countryOptionsResult.countryOptions" :key="countryOption.value" >
+                                          <option :value="countryOption.value">
+                                            {{ countryOption.label }}
+                                          </option>
+                                      </template>
                                   </select>
                               </div>
                           </div>
@@ -176,6 +179,7 @@ import { useQuery } from "@urql/vue"
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
 import { useI18n } from "vue-i18n"
+import CountryOptionsQuery from "@/graphql/CountryOptionsQuery"
 
 export default defineComponent({
   components: {
@@ -188,7 +192,9 @@ export default defineComponent({
       console.log("call mutation")
     }
 
+    const countryQueryResult = useQuery({query: CountryOptionsQuery})
 
+    // console.log(countryQueryResult.data.value)
     // we  don't need this query we need a mutation
     const result = useQuery({
       query: `
@@ -204,6 +210,7 @@ export default defineComponent({
     return {
       t,
       handleSubmit,
+      countryOptionsResult: countryQueryResult.data,
       fetching: result.fetching,
       data: result.data,
       error: result.error,

@@ -47,5 +47,6 @@
     "address_type": "Address Type",
     "shipping": "Shipping",
     "billing": "Billing",
-    "save_address": "Save Address"
+    "save_address": "Save Address",
+    "phone": "Phone"
 }
