@@ -15,7 +15,7 @@
                   <div class="px-4 py-5 sm:px-6">
                     <div class="flex w-full">
                         <h3 class="text-lg leading-6 font-medium text-gray-900">
-                            Save Address Information
+                            {{ t('save_address_information') }}
                         </h3>
                     </div>
                   </div>
@@ -30,10 +30,12 @@
                       >
                             <div class="mt-3 flex w-full">
                               <div class="block w-full">
-                                  <label class="text-sm w-full text-gray-700">Address Type</label>
+                                  <label class="text-sm w-full text-gray-700">
+                                      {{ t('address_type') }}
+                                  </label>
                                   <select class="w-full px-4 py-2 text-md text-gray-700">
-                                      <option>Billing</option>
-                                      <option>Shipping</option>
+                                      <option value="BILLING">{{ t('billing') }}</option>
+                                      <option value="SHIPPING">{{ t('shipping') }}</option>
                                   </select>
                               </div>
                           </div>
@@ -41,14 +43,16 @@
                           <div class="mt-3 flex w-full">
                               <div class="w-1/2">
                                   <avored-input
-                                      field-label="First Name"
+                                      :field-label="t('first_name')"
+                                      :placeholder="t('first_name')"
                                       field-name="first_name"
                                   >
                                   </avored-input>
                               </div>
                               <div class="w-1/2 ml-3">
                                   <avored-input
-                                      field-label="Last Name"
+                                      :field-label="t('last_name')"
+                                      :placeholder="t('last_name')"
                                       field-name="last_name"
                                   >
                                   </avored-input>
@@ -57,14 +61,16 @@
                           <div class="mt-3 flex w-full">
                               <div class="w-1/2">
                                   <avored-input
-                                      field-label="Compant Name"
+                                      :field-label="t('company_name')"
+                                      :placeholder="t('company_name')"
                                       field-name="company_name"
                                   >
                                   </avored-input>
                               </div>
                               <div class="w-1/2 ml-3">
                                   <avored-input
-                                      field-label="Phone"
+                                      :field-label="t('phone')"
+                                      :placeholder="t('phone')"
                                       field-name="phone"
                                   >
                                   </avored-input>
@@ -73,14 +79,16 @@
                           <div class="mt-3 flex w-full">
                               <div class="w-1/2">
                                   <avored-input
-                                      field-label="Address1"
+                                      :field-label="t('address1')"
+                                      :placeholder="t('address1')"
                                       field-name="address1"
                                   >
                                   </avored-input>
                               </div>
                               <div class="w-1/2 ml-3">
                                   <avored-input
-                                      field-label="Address2"
+                                      :field-label="t('address2')"
+                                      :placeholder="t('address2')"
                                       field-name="address2"
                                   >
                                   </avored-input>
@@ -89,14 +97,17 @@
                           <div class="mt-3 flex w-full">
                               <div class="w-1/2">
                                   <avored-input
-                                      field-label="Postcode"
+                                      :field-label="t('postcode')"
+                                      :placeholder="t('postcode')"
                                       field-name="postcode"
                                   >
                                   </avored-input>
                               </div>
                               <div class="flex ml-3 w-1/2">
                               <div class="w-full">
-                                  <label class="text-sm text-gray-700">Country</label>
+                                  <label class="text-sm text-gray-700">
+                                      {{ t('country') }}
+                                  </label>
                                   <select class="w-full p-2 text-md text-gray-700">
                                       <option>New Zealand</option>
                                       <option>United States</option>
@@ -107,14 +118,16 @@
                           <div class="mt-3 flex w-full">
                               <div class="w-1/2">
                                   <avored-input
-                                      field-label="State"
+                                      :field-label="t('state')"
+                                      :placeholder="t('state')"
                                       field-name="state"
                                   >
                                   </avored-input>
                               </div>
                               <div class="w-1/2 ml-3">
                                   <avored-input
-                                      field-label="City"
+                                      :field-label="t('city')"
+                                      :placeholder="t('city')"
                                       field-name="city"
                                   >
                                   </avored-input>
@@ -141,7 +154,7 @@
                             class="bg-red-500 block font-semibold hover:bg-red-600 py-3 text-sm text-white uppercase w-full">
                               <span class="flex justify-center">
                                   <vue-feather class="mr-5" type="shopping-cart"></vue-feather>
-                                  Save Address
+                                  {{  t('save_address') }}
                               </span>
                           </button>
                         </dd>
@@ -162,6 +175,7 @@ import { useQuery } from "@urql/vue"
 
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
+import { useI18n } from "vue-i18n"
 
 export default defineComponent({
   components: {
@@ -169,12 +183,13 @@ export default defineComponent({
     'account-side-nav': AccountSideNav
   },
   setup() {
-
+    const { t } = useI18n()
     const handleSubmit = () => {
       console.log("call mutation")
     }
 
 
+    // we  don't need this query we need a mutation
     const result = useQuery({
       query: `
         query AllAddresses{
@@ -187,6 +202,7 @@ export default defineComponent({
       `,
     });
     return {
+      t,
       handleSubmit,
       fetching: result.fetching,
       data: result.data,

@@ -8,18 +8,17 @@
               <account-side-nav />
             </div>
 
-
             <div class="flex-1 ml-5">
               <div>
                 <div class="bg-white shadow overflow-hidden sm:rounded-lg">
                   <div class="px-4 py-5 sm:px-6">
                     <div class="flex w-full">
                       <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Address Information
+                          {{ t('address_information') }}
                       </h3>
                       <div class="ml-auto">
                           <router-link :to="{name:'address.save'}">
-                              Create
+                              {{ t('create') }}
                           </router-link>
                       </div>
                     </div>
@@ -52,24 +51,18 @@
 import { defineComponent } from "vue"
 import { useQuery } from "@urql/vue"
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
+import { useI18n } from "vue-i18n"
+import AddressAllQuery from "@/graphql/AddressAllQuery"
 
 export default defineComponent({
   components: {
     'account-side-nav': AccountSideNav
   },
   setup() {
-    const result = useQuery({
-      query: `
-        query AllAddresses{
-            allAddress {
-                    id
-                    created_at
-                    updated_at
-            }
-        }
-      `,
-    });
+    const { t } = useI18n()
+    const result = useQuery({query: AddressAllQuery})
     return {
+      t,
       fetching: result.fetching,
       data: result.data,
       error: result.error,
