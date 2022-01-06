@@ -75,9 +75,15 @@ const routes: Array<RouteRecordRaw> = [
     meta: { 'middleware': 'customer', 'layout': 'app' }
   },
   {
-    path: '/account/save-address/:id?',
-    name: 'address.save',
-    component: () => import('../views/SaveAddress.vue'),
+    path: '/account/update-address/:id?',
+    name: 'address.update',
+    component: () => import('../views/UpdateAddress.vue'),
+    meta: { 'middleware': 'customer', 'layout': 'app' }
+  },
+  {
+    path: '/account/create/',
+    name: 'address.create',
+    component: () => import('../views/CreateAddress.vue'),
     meta: { 'middleware': 'customer', 'layout': 'app' }
   },
   {

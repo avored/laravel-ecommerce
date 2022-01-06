@@ -17,7 +17,7 @@
                           {{ t('address_information') }}
                       </h3>
                       <div class="ml-auto">
-                          <router-link :to="{name:'address.save'}">
+                          <router-link :to="{name:'address.create'}">
                               {{ t('create') }}
                           </router-link>
                       </div>
@@ -30,10 +30,25 @@
                           bg-gray-50
                           px-4
                           py-5
-                          sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6
+                          sm:grid sm:grid-cols-2 sm:gap-4 sm:px-6
                         "
                       >
-                        ADdress goes here
+                        <div class="border p-5 w-full" v-for="address in data.allAddress" :key="address.id">
+                            <div class="flex p-3 mb-5 border-b">
+                                <span>{{ address.type}}</span>
+                                <span class="ml-auto">
+                                    <router-link :to="{name: 'address.update', params: {id: address.id}}">
+                                        {{ t('edit') }}
+                                    </router-link>
+                                </span>
+                            </div>
+                            <p>{{  address.first_name }} {{  address.last_name }}</p>
+                            <p>{{  address.company_name }} {{  address.phone }}</p>
+                            <p>{{  address.address1 }}, </p>
+                            <p>{{  address.address2 }}</p>
+                            <p>{{  address.city }}</p>
+                            <p>{{  address.state }} {{  address.postcode }}</p>
+                        </div>
                       </div>
                     </dl>
                   </div>

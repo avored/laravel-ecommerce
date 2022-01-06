@@ -33,7 +33,7 @@
                                   <label class="text-sm w-full text-gray-700">
                                       {{ t('address_type') }}
                                   </label>
-                                  <select class="w-full px-4 py-2 text-md text-gray-700">
+                                  <select v-model="address.addressQuery.type" class="w-full px-4 py-2 text-md text-gray-700">
                                       <option value="BILLING">{{ t('billing') }}</option>
                                       <option value="SHIPPING">{{ t('shipping') }}</option>
                                   </select>
@@ -43,6 +43,7 @@
                           <div class="mt-3 flex w-full">
                               <div class="w-1/2">
                                   <avored-input
+                                      v-model="address.addressQuery.first_name"
                                       :field-label="t('first_name')"
                                       :placeholder="t('first_name')"
                                       field-name="first_name"
@@ -51,6 +52,7 @@
                               </div>
                               <div class="w-1/2 ml-3">
                                   <avored-input
+                                      v-model="address.addressQuery.last_name"
                                       :field-label="t('last_name')"
                                       :placeholder="t('last_name')"
                                       field-name="last_name"
@@ -61,6 +63,7 @@
                           <div class="mt-3 flex w-full">
                               <div class="w-1/2">
                                   <avored-input
+                                      v-model="address.addressQuery.company_name"
                                       :field-label="t('company_name')"
                                       :placeholder="t('company_name')"
                                       field-name="company_name"
@@ -69,6 +72,7 @@
                               </div>
                               <div class="w-1/2 ml-3">
                                   <avored-input
+                                      v-model="address.addressQuery.phone"
                                       :field-label="t('phone')"
                                       :placeholder="t('phone')"
                                       field-name="phone"
@@ -79,6 +83,7 @@
                           <div class="mt-3 flex w-full">
                               <div class="w-1/2">
                                   <avored-input
+                                      v-model="address.addressQuery.address1"
                                       :field-label="t('address1')"
                                       :placeholder="t('address1')"
                                       field-name="address1"
@@ -87,6 +92,7 @@
                               </div>
                               <div class="w-1/2 ml-3">
                                   <avored-input
+                                      v-model="address.addressQuery.address2"
                                       :field-label="t('address2')"
                                       :placeholder="t('address2')"
                                       field-name="address2"
@@ -97,6 +103,7 @@
                           <div class="mt-3 flex w-full">
                               <div class="w-1/2">
                                   <avored-input
+                                      v-model="address.addressQuery.postcode"
                                       :field-label="t('postcode')"
                                       :placeholder="t('postcode')"
                                       field-name="postcode"
@@ -104,11 +111,11 @@
                                   </avored-input>
                               </div>
                               <div class="flex ml-3 w-1/2">
-                              <div class="w-full">
+                              <div class="w-full" v-if="!countryOptionsResultFetching">
                                   <label class="text-sm text-gray-700">
                                       {{ t('country') }}
                                   </label>
-                                  <select class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
+                                  <select v-model="address.addressQuery.country_id" class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
                                       <template v-for="countryOption in countryOptionsResult.countryOptions" :key="countryOption.value" >
                                           <option :value="countryOption.value">
                                             {{ countryOption.label }}
@@ -121,6 +128,7 @@
                           <div class="mt-3 flex w-full">
                               <div class="w-1/2">
                                   <avored-input
+                                      v-model="address.addressQuery.state"
                                       :field-label="t('state')"
                                       :placeholder="t('state')"
                                       field-name="state"
@@ -129,6 +137,7 @@
                               </div>
                               <div class="w-1/2 ml-3">
                                   <avored-input
+                                      v-model="address.addressQuery.city"
                                       :field-label="t('city')"
                                       :placeholder="t('city')"
                                       field-name="city"
@@ -156,7 +165,7 @@
                           <button @click="handleSubmit"
                             class="bg-red-500 block font-semibold hover:bg-red-600 py-3 text-sm text-white uppercase w-full">
                               <span class="flex justify-center">
-                                  <vue-feather class="mr-5" type="shopping-cart"></vue-feather>
+                                  <vue-feather class="mr-5" type="save"></vue-feather>
                                   {{  t('save_address') }}
                               </span>
                           </button>
@@ -173,48 +182,53 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
-import { useQuery } from "@urql/vue"
+import { defineComponent, Ref, ref } from "vue"
+import { useMutation, useQuery, UseQueryResponse } from "@urql/vue"
 
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
 import { useI18n } from "vue-i18n"
 import CountryOptionsQuery from "@/graphql/CountryOptionsQuery"
+import CreateAddressMutation from "@/graphql/UpdateAddressMutation"
+import VueFeather from "vue-feather"
+import { useRoute, useRouter } from "vue-router"
+import AddressQuery from "@/graphql/AddressQuery"
 
 export default defineComponent({
   components: {
     'avored-input': AvoRedInput,
-    'account-side-nav': AccountSideNav
+    'account-side-nav': AccountSideNav,
+    'vue-feather': VueFeather
   },
   setup() {
     const { t } = useI18n()
+    const router = useRouter()
+    const route = useRoute()
+
+    const addressId = route.params.id
+    const addressResult = useQuery({query: AddressQuery, variables: {addressId: addressId}})
+    const address = addressResult.data
+
+        // address = addressResult.data
     const handleSubmit = () => {
-      console.log("call mutation")
+        createAddressMutation.executeMutation(address.value.addressQuery).then((result) => {
+            console.log(result)
+
+            router.push({name: 'account'})
+        })
     }
 
+    const createAddressMutation = useMutation(CreateAddressMutation)
     const countryQueryResult = useQuery({query: CountryOptionsQuery})
 
-    // console.log(countryQueryResult.data.value)
-    // we  don't need this query we need a mutation
-    const result = useQuery({
-      query: `
-        query AllAddresses{
-            allAddress {
-                    id
-                    created_at
-                    updated_at
-            }
-        }
-      `,
-    });
     return {
       t,
+      address: addressResult.data,
       handleSubmit,
       countryOptionsResult: countryQueryResult.data,
-      fetching: result.fetching,
-      data: result.data,
-      error: result.error,
-    };
+      countryOptionsResultFetching: countryQueryResult.fetching,
+      fetching: addressResult.fetching,
+    }
   },
 });
 </script>
