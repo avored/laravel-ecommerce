@@ -218,7 +218,6 @@ export default defineComponent({
     })
     
     const handleSubmit = () => {
-
         createAddressMutation.executeMutation(address).then((result) => {
             // @todo check for success
             console.log(result)

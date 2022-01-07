@@ -112,13 +112,18 @@
             </div>
 
             <div class="flex items-center">
-              <div class="w-1/2">
-                  <label class="text-gray-500 block text-sm">{{ t('country') }}</label>
-                  <select class="block w-full px-3 focus:ring-1 focus:ring-red-500 py-2 text-gray-600" v-model="shippingAddress.country_id">
-                      <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">New Zealand</option>
-                      <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">United State</option>
-                  </select>
-              </div>
+                <div class="w-1/2" v-if="!countryOptionsResultFetching">
+                    <label class="text-sm text-gray-700">
+                        {{ t('country') }}
+                    </label>
+                    <select v-model="shippingAddress.country_id" class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
+                        <template v-for="countryOption in countryOptionsResult.countryOptions" :key="countryOption.value" >
+                            <option :value="countryOption.value">
+                              {{ countryOption.label }}
+                            </option>
+                        </template>
+                    </select>
+                </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   :field-label="t('state')"
@@ -201,13 +206,18 @@
             </div>
 
             <div class="flex items-center">
-              <div class="w-1/2">
-                  <label class="text-gray-500 block text-sm">{{ t('country') }}</label>
-                  <select class="block w-full px-3 focus:ring-1 focus:ring-red-500 py-2 text-gray-600" v-model="billingAddress.country_id">
-                      <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">New Zealand</option>
-                      <option value="7d58b6b1-9e26-4984-a3bf-99022a966307">United State</option>
-                  </select>
-              </div>
+              <div class="w-1/2" v-if="!countryOptionsResultFetching">
+                    <label class="text-sm text-gray-700">
+                        {{ t('country') }}
+                    </label>
+                    <select v-model="billingAddress.country_id" class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
+                        <template v-for="countryOption in countryOptionsResult.countryOptions" :key="countryOption.value" >
+                            <option :value="countryOption.value">
+                              {{ countryOption.label }}
+                            </option>
+                        </template>
+                    </select>
+                </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   field-label="State"
@@ -362,6 +372,7 @@ import VueFeather from "vue-feather"
 import { useMutation, useQuery } from "@urql/vue"
 import AvoRedInput from "@/components/forms/AvoRedInput.vue"
 import _ from 'lodash'
+import CountryOptionsQuery from "@/graphql/CountryOptionsQuery"
 import { useI18n } from "vue-i18n"
 
 
@@ -372,6 +383,7 @@ export default defineComponent({
   },
   setup() {
     const { t } = useI18n() 
+    const countryQueryResult = useQuery({query: CountryOptionsQuery})
 
     const user = ref({
       first_name: '',
@@ -468,6 +480,8 @@ export default defineComponent({
       shippingError: shippingQuery.error,
       fetching: result.fetching,
       data: result.data,
+      countryOptionsResult: countryQueryResult.data,
+      countryOptionsResultFetching: countryQueryResult.fetching,
       error: result.error,
     };
   },
