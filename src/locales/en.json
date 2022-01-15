@@ -48,5 +48,7 @@
     "shipping": "Shipping",
     "billing": "Billing",
     "save_address": "Save Address",
-    "phone": "Phone"
+    "phone": "Phone",
+    "reset_password": "Reset Password",
+    "new_password": "New Password"
 }
