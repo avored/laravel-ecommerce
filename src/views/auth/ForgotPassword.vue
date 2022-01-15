@@ -3,7 +3,7 @@
     <div class="relative py-20 sm:max-w-md w-full">
       <div class="relative w-full rounded-3xl px-6 py-4 bg-gray-100 shadow-md">
         <div class="block mt-3 text-red-700 text-center text-2xl font-semibold">
-            {{  t('login') }}
+            {{  t('forgot_your_password') }}
         </div>
 
         <form
@@ -21,26 +21,7 @@
               v-model="email"
             />
           </div>
-          <div class="mt-5">
-            <avored-input
-              field-name="password"
-              field-type="password"
-              :class="t('password')"
-              :placeholder="t('password')"
-              :field-label="t('password')"
-              v-model="password"
-            />
-          </div>
-
-          <div class="mt-7 flex">
-            <div class="w-full text-right">
-              <router-link :to=" {name: 'auth.forgot.password' }"
-                class="underline text-sm text-gray-600 hover:text-gray-900"
-              >
-                {{ t('forgot_your_password') }}
-              </router-link>
-            </div>
-          </div>
+          
 
           <div class="mt-7">
             <button
@@ -60,27 +41,8 @@
                 hover:-translate-x hover:scale-105
               "
             >
-              {{ t('login') }}
+              {{ t('submit') }}
             </button>
-          </div>
-
-          <div class="mt-7">
-            <div class="flex justify-center items-center">
-              <label class="mr-2">{{ t('dont_have_account_with_us') }}</label>
-              <router-link
-                :to="{ name: 'auth.register' }"
-                class="
-                  text-red-500
-                  transition
-                  duration-500
-                  ease-in-out
-                  transform
-                  hover:-translate-x hover:scale-105
-                "
-              >
-                {{ t('register') }}
-              </router-link>
-            </div>
           </div>
         </form>
       </div>

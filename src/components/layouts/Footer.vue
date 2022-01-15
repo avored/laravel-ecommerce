@@ -47,7 +47,6 @@
             <h2
               class="
                 font-semibold
-                
                 tracking-widest
                 text-md
                 mb-3
