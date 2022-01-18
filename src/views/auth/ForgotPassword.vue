@@ -58,6 +58,7 @@ import { useMutation } from "@urql/vue"
 import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants"
 import { useRouter } from "vue-router"
 import { useI18n } from "vue-i18n"
+import ForgotPasswordMutation from "@/graphql/ForgotPasswordMutation"
 
 export default defineComponent({
   components: {
@@ -67,46 +68,28 @@ export default defineComponent({
     const { t } = useI18n()
     const router = useRouter()
     const email = ref("")
-    const password = ref("")
 
-    const loginMutation = useMutation(`
-          mutation VisitorLogin (
-                  $password: String!
-                  $email: String!
-              ){
-              login (
-                  email: $email
-                  password: $password
-              ){
-                  token_type
-                  access_token
-                  expires_in
-                  refresh_token
-              }
-          }
-        `)
+    const forgotPasswordMutation = useMutation(ForgotPasswordMutation)
 
     const onFormSubmit = async () => {
       const variables = {
-        email: email.value,
-        password: password.value,
+        email: email.value
       }
 
-      const accessToken = await loginMutation
+      const mutationResult = await forgotPasswordMutation
         .executeMutation(variables)
         .then((result) => {
-          return result.data.login.access_token;
+          return result.data.login.access_token
         })
 
-      localStorage.setItem(AUTH_TOKEN, accessToken);
-      localStorage.setItem(CUSTOMER_LOGGED_IN, "true");
-      router.push({ name: "home" });
+        console.log(mutationResult)
+      // router.push({ name: "home" })
     }
+
     return {
       t,
       onFormSubmit,
       email,
-      password,
     };
   },
 });
