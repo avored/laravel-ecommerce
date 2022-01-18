@@ -50,5 +50,6 @@
     "save_address": "Save Address",
     "phone": "Phone",
     "reset_password": "Reset Password",
-    "new_password": "New Password"
+    "new_password": "New Password",
+    "submit": "Submit"
 }

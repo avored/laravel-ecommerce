@@ -14,6 +14,14 @@
         >
           <div class="mt-5">
             <avored-input
+              field-type="email"
+              :placeholder="t('email')"
+              :field-label="t('email')"
+              v-model="email"
+            />
+          </div>
+          <div class="mt-5">
+            <avored-input
               field-name="password"
               field-type="password"
               :placeholder="t('new_password')"
@@ -64,9 +72,9 @@
 import { defineComponent, ref } from "vue"
 import AvoRedInput from "@/components/forms/AvoRedInput.vue"
 import { useMutation } from "@urql/vue"
-import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants"
 import { useRouter } from "vue-router"
 import { useI18n } from "vue-i18n"
+import ResetPasswordMutation from "@/graphql/ResetPasswordMutation"
 
 export default defineComponent({
   components: {
@@ -77,45 +85,33 @@ export default defineComponent({
     const router = useRouter()
     const password_confirmation = ref("")
     const password = ref("")
-
-    const loginMutation = useMutation(`
-          mutation VisitorLogin (
-                  $password: String!
-                  $email: String!
-              ){
-              login (
-                  email: $email
-                  password: $password
-              ){
-                  token_type
-                  access_token
-                  expires_in
-                  refresh_token
-              }
-          }
-        `)
+    const email = ref("")
+    const resetPasswordMutation = useMutation(ResetPasswordMutation)
 
     const onFormSubmit = async () => {
       const variables = {
+        email: email.value,
+        token: router.currentRoute.value.query.token,
         password_confirmation: password_confirmation.value,
         password: password.value,
       }
 
-      const accessToken = await loginMutation
+      const result = await resetPasswordMutation
         .executeMutation(variables)
         .then((result) => {
-          return result.data.login.access_token;
+          return result.data.success
         })
 
-      localStorage.setItem(AUTH_TOKEN, accessToken);
-      localStorage.setItem(CUSTOMER_LOGGED_IN, "true");
-      router.push({ name: "home" });
+      if (result) {
+          router.push({ name: "auth.login" });
+      }
     }
     return {
       t,
       onFormSubmit,
       password_confirmation,
       password,
+      email
     };
   },
 });

@@ -49,7 +49,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { 'middleware': 'guest', 'layout': 'app' }
   },
   {
-    path: '/rest-password',
+    path: '/reset-password',
     name: 'auth.reset.password',
     component: () => import('../views/auth/ResetPassword.vue'),
     meta: { 'middleware': 'guest', 'layout': 'app' }
