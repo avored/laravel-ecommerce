@@ -27,11 +27,18 @@
 </template>
 
 <script lang="ts">
-import LoginMutation from "@/graphql/LoginMutation"
 import AddToCartMutation from "@/graphql/AddToCartMutation"
-import { defineComponent } from "vue"
+import { defineComponent, ref } from "vue"
 import VueFeather from "vue-feather"
-import { createClient, provideClient, useMutation } from "@urql/vue"
+import { useMutation } from "@urql/vue"
+import { CART_TOKEN } from "@/constants"
+
+
+type CartVariables = {
+  slug: string,
+  qty: number,
+  visitor_id: string | null
+}
 
 export default defineComponent({
     components: {
@@ -44,32 +51,27 @@ export default defineComponent({
         },
     },
     setup(props) {
-        
-        
-        const loginMutation = useMutation(LoginMutation)
         const addToCartMutation = useMutation(AddToCartMutation)
 
         const addToCartOnClick = async () => {
-            if (!localStorage.getItem('access_token')) {
-                const accessToken = await loginMutation.executeMutation({}).then((result) => {
-                    return result.data.login.access_token
-                })
+            var variables : CartVariables = {
+                slug: '',
+                qty: 1,
+                visitor_id: ''
+            }
+            variables.slug = props.slug
 
-                localStorage.setItem('access_token', accessToken)
-                const client = createClient({
-                    url: process.env.VUE_APP_GRAPHQL_API_ENDPOINT || 'https://docker-laravel.test/graphql',
-                    fetchOptions: () => {
-                        return accessToken ? { headers: { Authorization: `Bearer ${accessToken}` } } : {}
-                    },
-                })
-                provideClient(client)
+            if (localStorage.getItem(CART_TOKEN)) {
+                variables.visitor_id = localStorage.getItem(CART_TOKEN)
             }
             addToCartMutation
-                .executeMutation({ slug: props.slug, qty: 1 })
+                .executeMutation(variables)
                 .then((result) => {
-                    console.log(result.data);
+                    const items = result.data.addToCart
+                    console.log(items)
+                    localStorage.setItem(CART_TOKEN, items[0].visitor_id)
                 })
-        }
+            }
 
         return {
             addToCartOnClick,

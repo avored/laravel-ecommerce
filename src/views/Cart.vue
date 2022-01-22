@@ -145,6 +145,7 @@ import { defineComponent } from "vue"
 import VueFeather from 'vue-feather'
 import { useQuery } from "@urql/vue"
 import { useI18n } from "vue-i18n"
+import { CART_TOKEN } from "@/constants"
 
 
 type CartItem = {
@@ -164,7 +165,12 @@ export default defineComponent({
   },
   setup() {
       const { t } = useI18n()
-      const result = useQuery({query: CartItemAllQuery})
+      var variables: any = {}
+      if (localStorage.getItem(CART_TOKEN)) {
+        variables = {visitor_id: localStorage.getItem(CART_TOKEN)}
+      }
+      console.log(variables)
+      const result = useQuery({query: CartItemAllQuery, variables})
 
       const getTotal = (cartItems : Array <CartItem>) : number => {
           var total = 0.00

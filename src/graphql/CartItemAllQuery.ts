@@ -1,8 +1,12 @@
 import gql from 'graphql-tag'
 
 const CartItemAllQuery = gql`
-    query CartItemAllQuery {
-        cartItems {
+    query CartItemAllQuery (
+        $visitor_id: String!
+    ) {
+        cartItems (
+            visitor_id: $visitor_id
+        ) {
                 visitor_id
                 product_id
                 product {
