@@ -12,6 +12,7 @@ const CartItemAllQuery = gql`
                 product {
                     id
                     name
+                    slug
                     price
                     main_image_url
                 }

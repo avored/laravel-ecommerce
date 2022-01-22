@@ -51,5 +51,6 @@
     "phone": "Phone",
     "reset_password": "Reset Password",
     "new_password": "New Password",
-    "submit": "Submit"
+    "submit": "Submit",
+    "remove": "Remove"
 }

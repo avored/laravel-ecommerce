@@ -59,12 +59,13 @@
                 />
               </div>
               <div class="flex flex-col justify-between ml-4 flex-grow">
-                <span class="font-bold text-sm">{{ cartItem.product.name }}</span>
-                <a
-                  href="#"
-                  class="font-semibold hover:text-red-500 text-gray-500 text-xs"
-                  >Remove</a
-                >
+                  <span class="font-bold text-sm">{{ cartItem.product.name }}</span>
+                  <button
+                    type="button"
+                    @click.prevent="deleteCartItemOnClick(cartItem.product.slug)"
+                    class="font-semibold hover:text-red-500 text-gray-500 text-xs"
+                    >{{ t('remove') }}
+                  </button>
               </div>
             </div>
             <div class="flex justify-center w-1/5">
@@ -143,10 +144,10 @@
 import CartItemAllQuery from "@/graphql/CartItemAllQuery"
 import { defineComponent } from "vue"
 import VueFeather from 'vue-feather'
-import { useQuery } from "@urql/vue"
+import { useMutation, useQuery } from "@urql/vue"
 import { useI18n } from "vue-i18n"
 import { CART_TOKEN } from "@/constants"
-
+import DeleteCartMutation from "@/graphql/DeleteCartMutation"
 
 type CartItem = {
   id: string,
@@ -166,6 +167,8 @@ export default defineComponent({
   setup() {
       const { t } = useI18n()
       var variables: any = {}
+      var deleteCartItemVariables: any = {}
+      const deleteCartMutation = useMutation(DeleteCartMutation)
       if (localStorage.getItem(CART_TOKEN)) {
         variables = {visitor_id: localStorage.getItem(CART_TOKEN)}
       }
@@ -179,12 +182,26 @@ export default defineComponent({
           })
           return total
       }
+
+
+    const deleteCartItemOnClick = (slug: string) => {
+        if (localStorage.getItem(CART_TOKEN)) {
+            deleteCartItemVariables = {visitor_id: localStorage.getItem(CART_TOKEN), slug: slug}
+            deleteCartMutation.executeMutation(deleteCartItemVariables)
+              .then((result) => {
+                  console.log(result)
+              })
+        }
+    }
+
+
     return {
-      t,
-      getTotal,
-      fetching: result.fetching,
-      data: result.data,
-      error: result.error,
+        t,
+        getTotal,
+        fetching: result.fetching,
+        data: result.data,
+        error: result.error,
+        deleteCartItemOnClick
     };
   },
 });
