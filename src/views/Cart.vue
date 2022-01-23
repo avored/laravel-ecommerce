@@ -78,7 +78,8 @@
               <input
                 class="mx-2 border text-center w-8"
                 type="text"
-                :value="cartItem.qty"
+                v-model="cartItem.qty"
+                @change="updateCartItemOnChange(cartItem.product.slug, cartItem.qty)"
               />
 
               <svg class="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
@@ -123,7 +124,7 @@
             class="flex font-semibold justify-between py-6 text-sm uppercase"
           >
             <span>Total cost</span>
-            <span>${{  getTotal(data.cartItems) }}</span>
+            <span>${{ getTotal(data.cartItems) }}</span>
           </div>
         </div>
 
@@ -148,6 +149,7 @@ import { useMutation, useQuery } from "@urql/vue"
 import { useI18n } from "vue-i18n"
 import { CART_TOKEN } from "@/constants"
 import DeleteCartMutation from "@/graphql/DeleteCartMutation"
+import UpdateCartMutation from "@/graphql/UpdateCartMutation"
 
 type CartItem = {
   id: string,
@@ -168,17 +170,19 @@ export default defineComponent({
       const { t } = useI18n()
       var variables: any = {}
       var deleteCartItemVariables: any = {}
+      var updateCartItemVariables: any = {}
       const deleteCartMutation = useMutation(DeleteCartMutation)
+      const updateCartMutation = useMutation(UpdateCartMutation)
+
       if (localStorage.getItem(CART_TOKEN)) {
         variables = {visitor_id: localStorage.getItem(CART_TOKEN)}
       }
-      console.log(variables)
       const result = useQuery({query: CartItemAllQuery, variables})
 
       const getTotal = (cartItems : Array <CartItem>) : number => {
           var total = 0.00
           cartItems.forEach (item => {
-            total += item.product.price
+            total += item.product.price * item.qty
           })
           return total
       }
@@ -193,6 +197,17 @@ export default defineComponent({
               })
         }
     }
+    const updateCartItemOnChange = (slug: string, qty: any) => {
+        if (localStorage.getItem(CART_TOKEN)) {
+            updateCartItemVariables = {visitor_id: localStorage.getItem(CART_TOKEN), slug: slug, qty: parseFloat(qty)}
+
+            console.log(updateCartItemVariables)
+            updateCartMutation.executeMutation(updateCartItemVariables)
+              .then((result) => {
+                  console.log(result)
+              })
+        }
+    }
 
 
     return {
@@ -201,7 +216,8 @@ export default defineComponent({
         fetching: result.fetching,
         data: result.data,
         error: result.error,
-        deleteCartItemOnClick
+        deleteCartItemOnClick,
+        updateCartItemOnChange
     };
   },
 });
