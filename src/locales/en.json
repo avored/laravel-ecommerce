@@ -52,5 +52,6 @@
     "reset_password": "Reset Password",
     "new_password": "New Password",
     "submit": "Submit",
-    "remove": "Remove"
+    "remove": "Remove",
+    "add_to_cart": "AddToCart"
 }

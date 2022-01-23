@@ -16,12 +16,17 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     component: Home,
     meta: {'middleware': 'guest', 'layout': 'app' }
-  },
-  
+  },  
   {
     path: '/category/:slug',
     name: 'category',
     component: () => import('../views/Category.vue'),
+    meta: {'middleware': 'guest', 'layout': 'app' }
+  },
+  {
+    path: '/product/:slug',
+    name: 'product.show',
+    component: () => import('../views/Product.vue'),
     meta: {'middleware': 'guest', 'layout': 'app' }
   },
   {
