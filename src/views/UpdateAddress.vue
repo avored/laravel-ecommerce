@@ -182,8 +182,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, Ref, ref } from "vue"
-import { useMutation, useQuery, UseQueryResponse } from "@urql/vue"
+import { defineComponent } from "vue"
+import { useMutation, useQuery } from "@urql/vue"
 
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import AccountSideNav from '@/components/account/AccountSideNav.vue'

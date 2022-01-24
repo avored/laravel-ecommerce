@@ -39,7 +39,7 @@
 <script lang="ts">
 import AddToCart from  '@/components/catalog/AddToCart.vue'
 import { useQuery } from "@urql/vue"
-import { defineComponent, getCurrentInstance, ref, watch } from "vue"
+import { defineComponent, ref } from "vue"
 import { useI18n } from 'vue-i18n'
 import ProductQuery from '@/graphql/ProductQuery'
 // import AvoRedInput from '@/components/forms/AvoRedInput.vue'

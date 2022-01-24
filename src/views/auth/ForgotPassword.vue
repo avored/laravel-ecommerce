@@ -55,8 +55,6 @@
 import { defineComponent, ref } from "vue"
 import AvoRedInput from "@/components/forms/AvoRedInput.vue"
 import { useMutation } from "@urql/vue"
-import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants"
-import { useRouter } from "vue-router"
 import { useI18n } from "vue-i18n"
 import ForgotPasswordMutation from "@/graphql/ForgotPasswordMutation"
 
@@ -66,7 +64,6 @@ export default defineComponent({
   },
   setup() {
     const { t } = useI18n()
-    const router = useRouter()
     const email = ref("")
 
     const forgotPasswordMutation = useMutation(ForgotPasswordMutation)

@@ -53,5 +53,8 @@
     "new_password": "New Password",
     "submit": "Submit",
     "remove": "Remove",
-    "add_to_cart": "AddToCart"
+    "add_to_cart": "AddToCart",
+    "shipping_option": "Shipping Option",
+    "payment_option": "Payment Option",
+    "created_at": "Created at"
 }
