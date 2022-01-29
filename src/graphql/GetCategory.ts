@@ -6,11 +6,20 @@ const GetCategoryQuery = gql`
           id
           name
           products {
-            id
-            slug
-            name
-            price
-            main_image_url
+            total
+            per_page
+            current_page
+            from
+            to
+            last_page
+            has_more_pages
+            data {
+              id
+              slug
+              name
+              price
+              main_image_url
+            }
           }
       }
     }

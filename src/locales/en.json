@@ -56,5 +56,8 @@
     "add_to_cart": "AddToCart",
     "shipping_option": "Shipping Option",
     "payment_option": "Payment Option",
-    "created_at": "Created at"
+    "created_at": "Created at",
+    "previous": "Previous",
+    "next": "Next",
+    "pagination_result_text": "Showing {from} to {to} of {total} results"
 }
