@@ -111,7 +111,7 @@ export default defineComponent({
 
         const result = useQuery({
         query: GetCategoryQuery,
-        variables: { slug: slug.value },
+            variables: { slug: slug },
         })
 
         watch(router.currentRoute, (newValue) => {

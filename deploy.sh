@@ -10,5 +10,5 @@ cd dist
 git init
 git add -A
 git commit -m 'deploy'
-git push -f https://github.com/avored/laravel-ecommerce.git master:gh-pages
-cd ..
+git remote add origin git@github.com:avored/laravel-ecommerce.git
+git push -u -f origin master:gh-pages

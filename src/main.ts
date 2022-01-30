@@ -24,7 +24,7 @@ app.use(store)
 app.use(router)
 app.use(i18n)
 app.use(urql, {
-    url: process.env.VUE_APP_GRAPHQL_API_ENDPOINT || 'https://docker-laravel.test/graphql',
+    url: process.env.VUE_APP_GRAPHQL_API_ENDPOINT || 'https://api.avored.com/graphql',
     fetchOptions: () => {
         // return auth.getToken().then((res) => {
         //     //@todo fixed this
