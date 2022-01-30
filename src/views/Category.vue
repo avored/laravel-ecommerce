@@ -81,9 +81,13 @@
                 <Pagination 
                     @previous="previousButtonOnClick"
                     @next="nextButtonOnClick"
+                    :total="data.category.products.total"
+                    :per-page="data.category.products.per_page"
+                    :current-page="data.category.products.current_page"
                     :from="data.category.products.from" 
                     :to="data.category.products.to" 
-                    :total="data.category.products.total"
+                    :last-page="data.category.products.last_page"
+                    :has-more-pages="data.category.products.has_more_pages"
                 />
             </div>
         </section>
@@ -108,25 +112,40 @@ export default defineComponent({
         const { t } = useI18n()
         const router = useRouter()
         const slug = ref(router.currentRoute.value.params.slug)
+        const page = ref(1)
 
         const result = useQuery({
         query: GetCategoryQuery,
-            variables: { slug: slug },
+            variables: { slug: slug, page: page },
         })
 
         watch(router.currentRoute, (newValue) => {
-            slug.value = newValue.params.slug;
-            console.log(newValue.params.slug);
+            slug.value = newValue.params.slug
+            
             result.executeQuery({
-                variables: { slug: newValue.params.slug },
+                variables: { slug: newValue.params.slug, page: page },
                 requestPolicy: "network-only",
             })
         })
         const nextButtonOnClick = () => {
-            console.log('next')
+            page.value += 1
+            console.log('page ' +  page.value)
+            result.executeQuery({
+                variables: { slug: slug, page: page },
+                requestPolicy: "network-only",
+            })
         }
         const previousButtonOnClick = () => {
-            console.log('previous')
+            
+            page.value -= 1
+            if (page.value < 0) {
+                page.value = 0
+            }
+            console.log('page ' +  page.value)
+            result.executeQuery({
+                variables: { slug: slug, page: page },
+                requestPolicy: "network-only",
+            })
         }
         return {
             t,

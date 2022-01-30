@@ -1,8 +1,14 @@
 import gql from 'graphql-tag'
 
 const GetCategoryQuery = gql`
-    query GetCategoryQuery($slug: String!) {
-      category(slug: $slug) {
+    query GetCategoryQuery(
+      $slug: String!
+      $page : Int
+    ) {
+      category(
+        slug: $slug
+        page: $page
+      ) {
           id
           name
           products {
