@@ -43,16 +43,15 @@ import LatestProductQuery from '@/graphql/LatestProductQuery'
 
 export default defineComponent({
   components: {
-    // VueFeather,
-    AddToCart
+      AddToCart
   },
   setup() {
-    const result = useQuery({query: LatestProductQuery})
-
-    return {
-      fetching: result.fetching,
-      products: result.data,
-    }
+      const result = useQuery({query: LatestProductQuery})
+      document.title = "AvoRed Laravel E commerce"
+      return {
+          fetching: result.fetching,
+          products: result.data,
+      }
   },
-});
+})
 </script>
