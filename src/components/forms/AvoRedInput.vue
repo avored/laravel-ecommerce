@@ -14,6 +14,7 @@
         :value="value"
         @change="change"
     />
+    <p class="text-red-500 mt-1 text-sm">{{ fieldError }}</p>
   </div>
 </template>
 
@@ -23,6 +24,11 @@ import { defineComponent } from "vue"
 export default defineComponent({
   props: {
     fieldLabel: {
+      type: String,
+      default: "",
+      required: false,
+    },
+     fieldError: {
       type: String,
       default: "",
       required: false,

@@ -31,9 +31,9 @@
                             <div class="mt-3 flex w-full">
                               <div class="block w-full">
                                   <label class="text-sm w-full text-gray-700">
-                                      {{ t('address_type') }}
+                                      TEST {{ t('address_type') }}
                                   </label>
-                                  <select v-model="address.type" class="w-full px-4 py-2 text-md text-gray-700">
+                                  <select v-model="address.type" class="w-full px-4 py-2 text-md bg-red-400 text-gray-700">
                                       <option value="BILLING">{{ t('billing') }}</option>
                                       <option value="SHIPPING">{{ t('shipping') }}</option>
                                   </select>
@@ -116,8 +116,8 @@
                                       {{ t('country') }}
                                   </label>
                                   <select v-model="address.country_id" class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
-                                      <template v-for="countryOption in countryOptionsResult.countryOptions" :key="countryOption.value" >
-                                          <option :value="countryOption.value">
+                                      <template v-for="countryOption in countryOptionsResult.countryOptions" >
+                                          <option :value="countryOption.value" :key="countryOption.value">
                                             {{ countryOption.label }}
                                           </option>
                                       </template>

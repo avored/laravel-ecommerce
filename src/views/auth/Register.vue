@@ -11,6 +11,7 @@
               <avored-input 
                   field-name="first_name" 
                   :field-label="t('first_name')"
+                  :field-error="_.get(validationErrors, 'first_name.0')"
                   :placeholder="t('first_name')"
                   v-model="first_name"
               />
@@ -39,6 +40,15 @@
                   :field-label="t('password')"
                   :placeholder="t('password')"
                   v-model="password"
+              />
+          </div>
+          <div class="mt-5">
+              <avored-input 
+                  field-name="password_confirmation" 
+                  field-type="password" 
+                  :field-label="t('password_confirmation')"
+                  :placeholder="t('password_confirmation')"
+                  v-model="password_confirmation"
               />
           </div>
 
@@ -89,12 +99,13 @@
 
 
 <script lang="ts">
-import { defineComponent, ref } from "vue"
+import { defineComponent, ref } from 'vue'
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
-import { useMutation } from "@urql/vue"
-import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants"
-import { useRouter } from "vue-router"
-import { useI18n } from "vue-i18n"
+import { useMutation } from '@urql/vue'
+import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from '@/constants'
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import _ from 'lodash'
 
 export default defineComponent({
     components: {
@@ -105,19 +116,23 @@ export default defineComponent({
         const router = useRouter()
         const email = ref('')
         const password = ref('')
+        const password_confirmation = ref('')
         const first_name = ref('')
         const last_name = ref('')
+        const validationErrors = ref({})
 
         const registerMutation = useMutation(`
             mutation CustomerRegistration( 
                 $email: String!,
                 $password: String!,
+                $password_confirmation: String!,
                 $firstName: String!
                 $lastName: String!
             ) {
                 register (
                     email: $email,
                     password: $password
+                    password_confirmation: $password_confirmation
                     first_name: $firstName
                     last_name: $lastName
                 ) {
@@ -131,25 +146,32 @@ export default defineComponent({
 
         const onFormSubmit = async () => {
             const variables = { 
-              email: email.value, 
-              password: password.value, 
-              firstName: first_name.value, 
-              lastName: last_name.value 
-            };
-
+                email: email.value, 
+                password: password.value, 
+                firstName: first_name.value, 
+                lastName: last_name.value,
+                password_confirmation: password_confirmation.value 
+            }
             await registerMutation.executeMutation(variables).then((result) => {
-                localStorage.setItem(AUTH_TOKEN, result.data.register.access_token)
-                localStorage.setItem(CUSTOMER_LOGGED_IN, 'true')
-                router.push({name: 'home'})
+                if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
+                    validationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
+                } else {
+                    localStorage.setItem(AUTH_TOKEN, result.data.register.access_token)
+                    localStorage.setItem(CUSTOMER_LOGGED_IN, 'true')
+                    router.push({name: 'home'})
+                }
             })
         };
         return {
             t,
+            _,
+            validationErrors,
             onFormSubmit,
             email,
             password,
             first_name,
-            last_name
+            last_name,
+            password_confirmation
         }
     }
 })
