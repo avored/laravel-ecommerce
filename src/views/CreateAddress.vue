@@ -116,8 +116,8 @@
                                       {{ t('country') }}
                                   </label>
                                   <select v-model="address.country_id" class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
-                                      <template v-for="countryOption in countryOptionsResult.countryOptions" >
-                                          <option :value="countryOption.value" :key="countryOption.value">
+                                      <template v-for="countryOption in countryOptionsResult.countryOptions" :key="countryOption.value">
+                                          <option :value="countryOption.value">
                                             {{ countryOption.label }}
                                           </option>
                                       </template>
