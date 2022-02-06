@@ -12,15 +12,16 @@ First thing first we will install laravel backend api service. First thing first
 
     composer create-project laravel/laravel avored-backend
     cd avored-backend
-    composer required avored/framework
-    composer required avored/dummy-data
-    composer required avored/cash-on-delivery
-    composer required avored/pickup
+    composer require avored/framework
+    composer require avored/dummy-data
+    composer require avored/cash-on-delivery
+    composer require avored/pickup
 
 Set up your .env values. 
 Once the .env setup is done then we can install the AvoRed E commerce
 
     php artisan avored:install
+    php artisan vendor:publish --provider="AvoRed\Framework\AvoRedServiceProvider"
     yoursite.com/graphiql
 
 Once the avored/framework has been installed after that we will make sure we setup the CORS to allow access of an graphql api via any frontend.
