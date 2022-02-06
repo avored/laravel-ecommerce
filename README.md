@@ -11,11 +11,11 @@ A  heardless e commerce GraphQL API which uses Laravel as a backend.
 First thing first we will install laravel backend api service. First thing first we will install the laravel app. 
 
     composer create-project laravel/laravel avored-backend
+    cd avored-backend
     composer required avored/framework
     composer required avored/dummy-data
     composer required avored/cash-on-delivery
     composer required avored/pickup
-    cd avored-backend
 
 Set up your .env values. 
 Once the .env setup is done then we can install the AvoRed E commerce
