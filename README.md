@@ -12,6 +12,9 @@ First thing first we will install laravel backend api service. First thing first
 
     composer create-project laravel/laravel avored-backend
     composer required avored/framework
+    composer required avored/dummy-data
+    composer required avored/cash-on-delivery
+    composer required avored/pickup
     cd avored-backend
 
 Set up your .env values. 
