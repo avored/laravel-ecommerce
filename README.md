@@ -17,7 +17,13 @@ First thing first we will install laravel backend api service. First thing first
     composer require avored/cash-on-delivery
     composer require avored/pickup
 
-Set up your .env values. 
+Set up your .env values and CORS
+
+To fixed the CORS in your laravel8 app. You can open `config/cors.php` and replace the code like below in the file.
+
+    'allowed_origins' => ['http://localhost:8080'],
+
+
 Once the .env setup is done then we can install the AvoRed E commerce
 
     php artisan avored:install
