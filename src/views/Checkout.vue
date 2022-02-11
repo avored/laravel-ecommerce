@@ -17,7 +17,11 @@
           <div class="flex items-center">
             <div class="w-1/2">
               <div class="mt-3 flex w-full">
-                <avored-input :field-label="t('first_name')" v-model="user.first_name" field-name="first_name">
+                <avored-input 
+                  :field-label="t('first_name')" 
+                  :placeholder="t('first_name')" 
+                  :field-error="_.get(customerValidationErrors, 'first_name.0')"
+                  v-model="user.first_name" field-name="first_name">
                 </avored-input>
               </div>
             </div>
@@ -49,7 +53,7 @@
             <div class="w-1/2 ml-3">
               <avored-input
                 :field-label="t('password_confirmation')"
-                v-model="user.confirm_password" 
+                v-model="user.password_confirmation" 
                 field-name="password_confirmation"
                 field-type="password"
               ></avored-input>
@@ -57,7 +61,7 @@
           </div>
 
           <h4 class="text-lg text-red-700 font-semibold my-5">
-              t('shipping_address')
+              {{ t('shipping_address') }}
           </h4>
           <div>
             <div class="flex">
@@ -361,41 +365,47 @@
 </template>
 
 <script lang="ts">
-import CartItemAllQuery from "@/graphql/CartItemAllQuery"
-import ShippingQuery from "@/graphql/ShippingQuery"
-import PaymentQuery from "@/graphql/PaymentQuery"
+import CartItemAllQuery from '@/graphql/CartItemAllQuery'
+import ShippingQuery from '@/graphql/ShippingQuery'
+import PaymentQuery from '@/graphql/PaymentQuery'
 import CustomerRegister from '@/graphql/CustomerRegister'
 import AddressCreate from '@/graphql/AddressCreate'
 import PlaceOrder from '@/graphql/PlaceOrder'
-import { defineComponent, ref } from "vue"
-import VueFeather from "vue-feather"
-import { useMutation, useQuery } from "@urql/vue"
-import AvoRedInput from "@/components/forms/AvoRedInput.vue"
+import { defineComponent, ref } from 'vue'
+import VueFeather from 'vue-feather'
+import { useMutation, useQuery } from '@urql/vue'
+import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import _ from 'lodash'
-import CountryOptionsQuery from "@/graphql/CountryOptionsQuery"
-import { useI18n } from "vue-i18n"
-
+import CountryOptionsQuery from '@/graphql/CountryOptionsQuery'
+import { useI18n } from 'vue-i18n'
+import { AUTH_TOKEN, CUSTOMER_LOGGED_IN, CART_TOKEN } from '@/constants'
 
 export default defineComponent({
   components: {
     VueFeather,
-    "avored-input": AvoRedInput,
+    'avored-input': AvoRedInput
   },
   setup() {
     const { t } = useI18n() 
     const countryQueryResult = useQuery({query: CountryOptionsQuery})
+    var variables: any = {}
+    const customerValidationErrors = ref({})
+    const customerId = ref('')
+    const shipping_address_id = ref('')
+    const shippingAddressValidationErrors = ref({})
+    const billing_address_id = ref('')
+    const billingAddressValidationErrors = ref({})
 
     const user = ref({
       first_name: '',
       last_name: '',
       email: '',
       password: '',
-      confirm_password: ''
+      password_confirmation: ''
     })
 
     const shippingAddress = ref({
       type: 'SHIPPING',
-      customer_id: '',
       first_name: '',
       last_name: '',
       company_name: '',
@@ -422,52 +432,71 @@ export default defineComponent({
       postcode: '',
       country_id: ''
     })
-
-    const placeOrderData = ref({
-      shipping_option: "pickup", //@todo fixed this 
-      payment_option: "cash-on-delivery", //@todo fix this
-      order_status_id: "817e28e2-1708-466d-b88e-a596a44e5317",
-      customer_id : "71339c41-13a7-4b01-8fab-3375f15c9e39",
-      shipping_address_id: "ac2ed320-0cae-4b2c-a628-bf7ed111c955",
-      billing_address_id: "ac2ed320-0cae-4b2c-a628-bf7ed111c955"     
-    })
     const customerRegister = useMutation(CustomerRegister)
     const addressCreate = useMutation(AddressCreate)
     const placeOrder = useMutation(PlaceOrder)
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log("handle submit order")
   
-        customerRegister.executeMutation(
-          _.pick(user.value, ['first_name', 'last_name', 'email', 'password'])
+        await customerRegister.executeMutation(
+          _.pick(user.value, ['first_name', 'last_name', 'email', 'password', 'password_confirmation'])
         ).then((result) => {
-            //@todo assign customer_id to a billingAddress and shippingAddress
-            console.log(result.data)
+            if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
+                    customerValidationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
+            } else {
+                localStorage.setItem(AUTH_TOKEN, result.data.register.access_token)
+                localStorage.setItem(CUSTOMER_LOGGED_IN, 'true')
+                customerId.value = result.data.register.id
+            }
         })
 
-        shippingAddress.value.customer_id = '71339c41-13a7-4b01-8fab-3375f15c9e39'
-        addressCreate.executeMutation(shippingAddress.value)
+        // shippingAddress.value.customer_id = customerId.value
+        await addressCreate.executeMutation(
+            _.pick(shippingAddress.value, ['type', 'first_name', 'last_name', 'company_name', 'phone', 'address1', 'address2', 'country_id', 'state', 'postcode', 'city'])
+          )
           .then((result) => {
-              console.log(result.data)
+              if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
+                  shippingAddressValidationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
+              } else {
+                  shipping_address_id.value = result.data.createAddress.id
+              }
           })
 
-        billingAddress.value.customer_id = '71339c41-13a7-4b01-8fab-3375f15c9e39'
-        addressCreate.executeMutation(billingAddress.value).then((result) => {
-            console.log(result.data)
+        // billingAddress.value.customer_id = customerId.value
+        await addressCreate.executeMutation(_.pick(billingAddress.value, ['type', 'first_name', 'last_name', 'company_name', 'phone', 'address1', 'address2', 'country_id', 'state', 'postcode', 'city'])).then((result) => {
+            if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
+                billingAddressValidationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
+            } else {
+                billing_address_id.value = result.data.createAddress.id
+            }
         })
 
-
-        placeOrder.executeMutation(placeOrderData.value).then((result) => {
-            console.log(result.data)
+        const placeOrderData = ref({
+            shipping_option: 'pickup',
+            payment_option: "cash-on-delivery", //@todo fix this
+            customer_id : customerId.value,
+            shipping_address_id: shipping_address_id.value,
+            billing_address_id: billing_address_id.value   
+        })
+        await placeOrder.executeMutation(placeOrderData.value).then((result) => {
+            console.log(result)
         })
     }
 
-    const result = useQuery({query: CartItemAllQuery})
+    if (localStorage.getItem(CART_TOKEN)) {
+        variables = {visitor_id: localStorage.getItem(CART_TOKEN)}
+    }
+    const result = useQuery({query: CartItemAllQuery, variables})
     const paymentQuery = useQuery({query: PaymentQuery})
     const shippingQuery = useQuery({query: ShippingQuery})
 
     return {
       t,
+      _,
+      customerValidationErrors,
+      shippingAddressValidationErrors,
+      billingAddressValidationErrors,
       user: user,
       shippingAddress: shippingAddress,
       billingAddress: billingAddress,

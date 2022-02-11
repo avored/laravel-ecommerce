@@ -20,6 +20,7 @@
     "state": "State",
     "postcode": "Postcode",
     "city": "City",
+    "shipping_address": "Shipping Address",
     "billing_address": "Billing Address",
     "delivery_method": "Delivery method",
     "payment_method": "Payment method",

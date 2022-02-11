@@ -142,14 +142,14 @@
 </template>
 
 <script lang="ts">
-import CartItemAllQuery from "@/graphql/CartItemAllQuery"
-import { defineComponent } from "vue"
+import CartItemAllQuery from '@/graphql/CartItemAllQuery'
+import { defineComponent } from 'vue'
 import VueFeather from 'vue-feather'
-import { useMutation, useQuery } from "@urql/vue"
-import { useI18n } from "vue-i18n"
-import { CART_TOKEN } from "@/constants"
-import DeleteCartMutation from "@/graphql/DeleteCartMutation"
-import UpdateCartMutation from "@/graphql/UpdateCartMutation"
+import { useMutation, useQuery } from '@urql/vue'
+import { useI18n } from 'vue-i18n'
+import { CART_TOKEN } from '@/constants'
+import DeleteCartMutation from '@/graphql/DeleteCartMutation'
+import UpdateCartMutation from '@/graphql/UpdateCartMutation'
 
 type CartItem = {
   id: string,
