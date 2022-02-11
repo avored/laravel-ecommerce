@@ -27,7 +27,12 @@
             </div>
             <div class="w-1/2 ml-3">
               <div class="mt-3 flex w-full">
-                <avored-input :field-label="t('last_name')" v-model="user.last_name" field-name="last_name">
+                <avored-input 
+                    :field-label="t('last_name')" 
+                    :placeholder="t('last_name')" 
+                    :field-error="_.get(customerValidationErrors, 'last_name.0')" 
+                    v-model="user.last_name" 
+                  >
                 </avored-input>
               </div>
             </div>
@@ -35,7 +40,11 @@
 
           <div class="flex items-center">
             <div class="w-full">
-              <avored-input :field-label="t('email')" v-model="user.email" field-name="email">
+              <avored-input 
+                  :field-label="t('email')" 
+                  :placeholder="t('email')" 
+                  :field-error="_.get(customerValidationErrors, 'email.0')" 
+                  v-model="user.email">
               </avored-input>
             </div>
           </div>
@@ -44,7 +53,8 @@
             <div class="w-1/2">
               <avored-input
                 :field-label="t('password')"
-                field-name="password"
+                :placeholder="t('password')"
+                :field-error="_.get(customerValidationErrors, 'password.0')"
                 v-model="user.password" 
                 field-type="password"
               >
@@ -53,8 +63,9 @@
             <div class="w-1/2 ml-3">
               <avored-input
                 :field-label="t('password_confirmation')"
+                :placeholder="t('password_confirmation')"
+                :field-error="_.get(customerValidationErrors, 'password_confirmation.0')"
                 v-model="user.password_confirmation" 
-                field-name="password_confirmation"
                 field-type="password"
               ></avored-input>
             </div>
@@ -68,13 +79,16 @@
               <div class="w-1/2">
                 <avored-input
                   :field-label="t('first_name')"
+                  :placeholder="t('first_name')"
+                  :field-error="_.get(shippingAddressValidationErrors, 'first_name.0')"
                   v-model="shippingAddress.first_name"
-                  field-name="shipping[first_name]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   :field-label="t('last_name')"
+                  :placeholder="t('last_name')"
+                  :field-error="_.get(shippingAddressValidationErrors, 'last_name.0')"
                   v-model="shippingAddress.last_name"
                   field-name="shipping[last_name]"
                 ></avored-input>
@@ -85,6 +99,8 @@
               <div class="w-1/2">
                 <avored-input
                   :field-label="t('company_name')"
+                  :placeholder="t('company_name')"
+                  :field-error="_.get(shippingAddressValidationErrors, 'company_name.0')"
                   v-model="shippingAddress.company_name"
                   field-name="shipping[company_name]"
                 ></avored-input>
@@ -92,6 +108,8 @@
               <div class="w-1/2 ml-3">
                 <avored-input
                   :field-label="t('phone')"
+                  :placeholder="t('phone')"
+                  :field-error="_.get(shippingAddressValidationErrors, 'phone.0')"
                   v-model="shippingAddress.phone"
                   field-name="shipping[phone]"
                 ></avored-input>
@@ -102,6 +120,8 @@
               <div class="w-1/2">
                 <avored-input
                   :field-label="t('address1')"
+                  :placeholder="t('address1')"
+                  :field-error="_.get(shippingAddressValidationErrors, 'address1.0')"
                   v-model="shippingAddress.address1"
                   field-name="shipping[address1]"
                 ></avored-input>
@@ -109,6 +129,8 @@
               <div class="w-1/2 ml-3">
                 <avored-input
                   :field-label="t('address2')"
+                  :placeholder="t('address2')"
+                  :field-error="_.get(shippingAddressValidationErrors, 'address2.0')"
                   v-model="shippingAddress.address2"
                   field-name="shipping[address2]"
                 ></avored-input>
@@ -127,10 +149,16 @@
                             </option>
                         </template>
                     </select>
+                    <p v-if="_.get(shippingAddressValidationErrors, 'country_id.0')" 
+                      class="text-red-500 mt-1 text-sm">
+                        {{ _.get(shippingAddressValidationErrors, 'country_id.0') }}
+                    </p>
                 </div>
               <div class="w-1/2 ml-3">
                 <avored-input
                   :field-label="t('state')"
+                  :placeholder="t('state')"
+                  :field-error="_.get(shippingAddressValidationErrors, 'state.0')"
                   v-model="shippingAddress.state"
                   field-name="shipping[state]"
                 ></avored-input>
@@ -141,6 +169,8 @@
               <div class="w-1/2">
                 <avored-input
                   :field-label="t('postcode')"
+                  :placeholder="t('postcode')"
+                  :field-error="_.get(shippingAddressValidationErrors, 'postcode.0')"
                   v-model="shippingAddress.postcode"
                   field-name="shipping[postcode]"
                 ></avored-input>
@@ -148,6 +178,8 @@
               <div class="w-1/2 ml-3">
                 <avored-input
                   :field-label="t('city')"
+                  :placeholder="t('city')"
+                  :field-error="_.get(shippingAddressValidationErrors, 'city.0')"
                   v-model="shippingAddress.city"
                   field-name="shipping[city]"
                 ></avored-input>
@@ -162,6 +194,8 @@
               <div class="w-1/2">
                 <avored-input
                   :field-label="t('first_name')"
+                  :placeholder="t('first_name')"
+                  :field-error="_.get(billingAddressValidationErrors, 'first_name.0')"
                   v-model="billingAddress.first_name"
                   field-name="shipping[first_name]"
                 ></avored-input>
@@ -169,6 +203,8 @@
               <div class="w-1/2 ml-3">
                 <avored-input
                   :field-label="t('last_name')"
+                  :placeholder="t('last_name')"
+                  :field-error="_.get(billingAddressValidationErrors, 'last_name.0')"
                   v-model="billingAddress.last_name"
                   field-name="shipping[last_name]"
                 ></avored-input>
@@ -179,6 +215,8 @@
               <div class="w-1/2">
                 <avored-input
                   :field-label="t('company_name')"
+                  :placeholder="t('company_name')"
+                  :field-error="_.get(billingAddressValidationErrors, 'company_name.0')"
                   v-model="billingAddress.company_name"
                   field-name="shipping[company_name]"
                 ></avored-input>
@@ -186,6 +224,8 @@
               <div class="w-1/2 ml-3">
                 <avored-input
                   :field-label="t('phone')"
+                  :phone="t('phone')"
+                  :field-error="_.get(billingAddressValidationErrors, 'phone.0')"
                   v-model="billingAddress.phone"
                   field-name="shipping[phone]"
                 ></avored-input>
@@ -196,6 +236,8 @@
               <div class="w-1/2">
                 <avored-input
                   :field-label="t('address1')"
+                  :placeholder="t('address1')"
+                  :field-error="_.get(billingAddressValidationErrors, 'address1.0')"
                   v-model="billingAddress.address1"
                   field-name="shipping[address1]"
                 ></avored-input>
@@ -203,6 +245,8 @@
               <div class="w-1/2 ml-3">
                 <avored-input
                   :field-label="t('address2')"
+                  :placeholder="t('address2')"
+                  :field-error="_.get(billingAddressValidationErrors, 'address2.0')"
                   v-model="billingAddress.address2"
                   field-name="shipping[address2]"
                 ></avored-input>
@@ -221,10 +265,16 @@
                             </option>
                         </template>
                     </select>
+                    <p v-if="_.get(billingAddressValidationErrors, 'country_id.0')" 
+                      class="text-red-500 mt-1 text-sm">
+                        {{ _.get(billingAddressValidationErrors, 'country_id.0') }}
+                    </p>
                 </div>
               <div class="w-1/2 ml-3">
                 <avored-input
-                  field-label="State"
+                  :field-label="t('state')"
+                  :placeholder="t('state')"
+                  :field-error="_.get(billingAddressValidationErrors, 'state.0')"
                   v-model="billingAddress.state"
                   field-name="shipping[state]"
                 ></avored-input>
@@ -234,14 +284,18 @@
             <div class="flex items-center">
               <div class="w-1/2">
                 <avored-input
-                  field-label="Postcode"
+                  :field-label="t('postcode')"
+                  :placeholder="t('postcode')"
+                  :field-error="_.get(billingAddressValidationErrors, 'postcode.0')"
                   v-model="billingAddress.postcode"
                   field-name="shipping[postcode]"
                 ></avored-input>
               </div>
               <div class="w-1/2 ml-3">
                 <avored-input
-                  field-label="City"
+                  :field-label="t('city')"
+                  :placeholder="t('city')"
+                  :field-error="_.get(billingAddressValidationErrors, 'city.0')"
                   v-model="billingAddress.city"
                   field-name="shipping[city]"
                 ></avored-input>
@@ -257,7 +311,16 @@
             <div class="mt-6">
               <div v-if="!shippingFetching" class="mt-6">
               <template v-for="(shipping, index) in shippingOptions.shippingQuery" :key="index">
-                  <span v-html="shipping.view"></span>
+                  <button
+                    class="flex items-center justify-between w-full bg-white rounded-md border-2 border-blue-500 p-4 focus:outline-none">
+                    <label class="flex items-center">
+                        <input type="radio" v-model="placeOrderData.shipping_option" checked value="shipping.identifier" class="form-radio h-5 w-5 text-blue-600" />
+                        <span class="ml-2 text-sm text-gray-700">
+                            {{ shipping.name }}
+                        </span>
+                    </label>
+                    <span class="text-gray-600 text-sm"></span>
+                </button>
               </template>
             </div>
             </div>
@@ -268,8 +331,19 @@
                 {{ t('payment_method') }}
             </h4>
             <div v-if="!paymentFetching" class="mt-6">
+
               <template v-for="(payment, index) in paymentOptions.paymentQuery" :key="index">
-                  <span v-html="payment.view"></span>
+                  <button
+                    class="flex items-center justify-between w-full bg-white rounded-md border-2 border-blue-500 p-4 focus:outline-none">
+                    <label class="flex items-center">
+                        <input type="radio" v-model="placeOrderData.payment_option" checked value="payment.identifier" class="form-radio h-5 w-5 text-blue-600" />
+                        <span class="ml-2 text-sm text-gray-700">
+                            {{ payment.name }}
+                        </span>
+                    </label>
+                    <span class="text-gray-600 text-sm"></span>
+                </button>
+
               </template>
             </div>
           </div>
@@ -418,6 +492,13 @@ export default defineComponent({
       country_id: ''
     })
 
+    const placeOrderData = ref({
+        shipping_option: 'pickup',
+        payment_option: "cash-on-delivery", //@todo fix this
+        customer_id : customerId.value,
+        shipping_address_id: shipping_address_id.value,
+        billing_address_id: billing_address_id.value   
+    })
     const billingAddress = ref({
       type: 'BILLING',
       customer_id: '',
@@ -472,13 +553,9 @@ export default defineComponent({
             }
         })
 
-        const placeOrderData = ref({
-            shipping_option: 'pickup',
-            payment_option: "cash-on-delivery", //@todo fix this
-            customer_id : customerId.value,
-            shipping_address_id: shipping_address_id.value,
-            billing_address_id: billing_address_id.value   
-        })
+        placeOrderData.value.shipping_address_id = shipping_address_id.value
+        placeOrderData.value.billing_address_id = billing_address_id.value
+        
         await placeOrder.executeMutation(placeOrderData.value).then((result) => {
             console.log(result)
         })
@@ -512,6 +589,7 @@ export default defineComponent({
       countryOptionsResult: countryQueryResult.data,
       countryOptionsResultFetching: countryQueryResult.fetching,
       error: result.error,
+      placeOrderData,
     };
   },
 });

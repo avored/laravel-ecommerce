@@ -4,14 +4,12 @@ const PlaceOrder = gql`
     mutation PlaceOrderMutation (
         $shipping_option: String!
         $payment_option: String!
-        $customer_id: String! 
         $shipping_address_id: String!
         $billing_address_id: String!
     ) {
         placeOrder (
             shipping_option: $shipping_option
             payment_option: $payment_option
-            customer_id: $customer_id
             shipping_address_id: $shipping_address_id
             billing_address_id: $billing_address_id
         ) {
