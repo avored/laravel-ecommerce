@@ -14,61 +14,80 @@
           <h4 class="text-lg text-red-700 font-semibold my-5">
               {{ t('personal_information') }}
           </h4>
-          <div class="flex items-center">
-            <div class="w-1/2">
-              <div class="mt-3 flex w-full">
-                <avored-input 
-                  :field-label="t('first_name')" 
-                  :placeholder="t('first_name')" 
-                  :field-error="_.get(customerValidationErrors, 'first_name.0')"
-                  v-model="user.first_name" field-name="first_name">
-                </avored-input>
+          <div>
+              <div v-if="!fetchingCustomer" class="bg-white p-5 border-2 border-blue-600 rounded-lg">
+                  <div class="flex w-full">
+                      <span class="text-xl">
+                          {{ _.get(customerData, 'customerQuery.first_name') }}
+                      </span>
+                      <span class="text-xl ml-3">
+                          {{ _.get(customerData, 'customerQuery.last_name') }}
+                      </span>
+                  </div>
+                  <div class="w-full mt-2 flex">
+                    <span class="text-sm text-gray-500">
+                      {{ _.get(customerData, 'customerQuery.email') }}
+                    </span>
+                  </div>
               </div>
-            </div>
-            <div class="w-1/2 ml-3">
-              <div class="mt-3 flex w-full">
-                <avored-input 
-                    :field-label="t('last_name')" 
-                    :placeholder="t('last_name')" 
-                    :field-error="_.get(customerValidationErrors, 'last_name.0')" 
-                    v-model="user.last_name" 
-                  >
-                </avored-input>
+              <div v-else class="flex item-center w-full">
+                  <div class="flex items-center">
+                    <div class="w-1/2">
+                      <div class="mt-3 flex w-full">
+                        <avored-input 
+                          :field-label="t('first_name')" 
+                          :placeholder="t('first_name')" 
+                          :field-error="_.get(customerValidationErrors, 'first_name.0')"
+                          v-model="user.first_name" field-name="first_name">
+                        </avored-input>
+                      </div>
+                    </div>
+                    <div class="w-1/2 ml-3">
+                      <div class="mt-3 flex w-full">
+                        <avored-input 
+                            :field-label="t('last_name')" 
+                            :placeholder="t('last_name')" 
+                            :field-error="_.get(customerValidationErrors, 'last_name.0')" 
+                            v-model="user.last_name" 
+                          >
+                        </avored-input>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center">
+                    <div class="w-full">
+                      <avored-input 
+                          :field-label="t('email')" 
+                          :placeholder="t('email')" 
+                          :field-error="_.get(customerValidationErrors, 'email.0')" 
+                          v-model="user.email">
+                      </avored-input>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center">
+                    <div class="w-1/2">
+                      <avored-input
+                        :field-label="t('password')"
+                        :placeholder="t('password')"
+                        :field-error="_.get(customerValidationErrors, 'password.0')"
+                        v-model="user.password" 
+                        field-type="password"
+                      >
+                      </avored-input>
+                    </div>
+                    <div class="w-1/2 ml-3">
+                      <avored-input
+                        :field-label="t('password_confirmation')"
+                        :placeholder="t('password_confirmation')"
+                        :field-error="_.get(customerValidationErrors, 'password_confirmation.0')"
+                        v-model="user.password_confirmation" 
+                        field-type="password"
+                      ></avored-input>
+                    </div>
+                  </div>
               </div>
-            </div>
-          </div>
-
-          <div class="flex items-center">
-            <div class="w-full">
-              <avored-input 
-                  :field-label="t('email')" 
-                  :placeholder="t('email')" 
-                  :field-error="_.get(customerValidationErrors, 'email.0')" 
-                  v-model="user.email">
-              </avored-input>
-            </div>
-          </div>
-
-          <div class="flex items-center">
-            <div class="w-1/2">
-              <avored-input
-                :field-label="t('password')"
-                :placeholder="t('password')"
-                :field-error="_.get(customerValidationErrors, 'password.0')"
-                v-model="user.password" 
-                field-type="password"
-              >
-              </avored-input>
-            </div>
-            <div class="w-1/2 ml-3">
-              <avored-input
-                :field-label="t('password_confirmation')"
-                :placeholder="t('password_confirmation')"
-                :field-error="_.get(customerValidationErrors, 'password_confirmation.0')"
-                v-model="user.password_confirmation" 
-                field-type="password"
-              ></avored-input>
-            </div>
           </div>
 
           <h4 class="text-lg text-red-700 font-semibold my-5">
@@ -442,6 +461,7 @@
 import CartItemAllQuery from '@/graphql/CartItemAllQuery'
 import ShippingQuery from '@/graphql/ShippingQuery'
 import PaymentQuery from '@/graphql/PaymentQuery'
+import GetCustomerQuery from '@/graphql/GetCustomerQuery'
 import CustomerRegister from '@/graphql/CustomerRegister'
 import AddressCreate from '@/graphql/AddressCreate'
 import PlaceOrder from '@/graphql/PlaceOrder'
@@ -469,7 +489,6 @@ export default defineComponent({
     const shippingAddressValidationErrors = ref({})
     const billing_address_id = ref('')
     const billingAddressValidationErrors = ref({})
-
     const user = ref({
       first_name: '',
       last_name: '',
@@ -477,7 +496,6 @@ export default defineComponent({
       password: '',
       password_confirmation: ''
     })
-
     const shippingAddress = ref({
       type: 'SHIPPING',
       first_name: '',
@@ -491,7 +509,6 @@ export default defineComponent({
       postcode: '',
       country_id: ''
     })
-
     const placeOrderData = ref({
         shipping_option: 'pickup',
         payment_option: "cash-on-delivery", //@todo fix this
@@ -513,6 +530,7 @@ export default defineComponent({
       postcode: '',
       country_id: ''
     })
+    
     const customerRegister = useMutation(CustomerRegister)
     const addressCreate = useMutation(AddressCreate)
     const placeOrder = useMutation(PlaceOrder)
@@ -561,6 +579,11 @@ export default defineComponent({
         })
     }
 
+    var customerQueryResult = null
+    if (localStorage.getItem(AUTH_TOKEN)) {
+      customerQueryResult = useQuery({query: GetCustomerQuery})
+    }
+
     if (localStorage.getItem(CART_TOKEN)) {
         variables = {visitor_id: localStorage.getItem(CART_TOKEN)}
     }
@@ -590,6 +613,8 @@ export default defineComponent({
       countryOptionsResultFetching: countryQueryResult.fetching,
       error: result.error,
       placeOrderData,
+      customerData: _.get(customerQueryResult, 'data'),
+      fetchingCustomer: _.get(customerQueryResult, 'fetching')
     };
   },
 });
