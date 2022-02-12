@@ -10,7 +10,7 @@
       action="#"
     >
       <div class="flex">
-        <div class="w-1/2">
+        <div class="w-1/2" v-if="!fetchingCustomer">
           <h4 class="text-lg text-red-700 font-semibold my-5">
               {{ t('personal_information') }}
           </h4>
@@ -94,232 +94,291 @@
               {{ t('shipping_address') }}
           </h4>
           <div>
-            <div class="flex">
-              <div class="w-1/2">
-                <avored-input
-                  :field-label="t('first_name')"
-                  :placeholder="t('first_name')"
-                  :field-error="_.get(shippingAddressValidationErrors, 'first_name.0')"
-                  v-model="shippingAddress.first_name"
-                ></avored-input>
-              </div>
-              <div class="w-1/2 ml-3">
-                <avored-input
-                  :field-label="t('last_name')"
-                  :placeholder="t('last_name')"
-                  :field-error="_.get(shippingAddressValidationErrors, 'last_name.0')"
-                  v-model="shippingAddress.last_name"
-                  field-name="shipping[last_name]"
-                ></avored-input>
-              </div>
-            </div>
-
-            <div class="flex items-center">
-              <div class="w-1/2">
-                <avored-input
-                  :field-label="t('company_name')"
-                  :placeholder="t('company_name')"
-                  :field-error="_.get(shippingAddressValidationErrors, 'company_name.0')"
-                  v-model="shippingAddress.company_name"
-                  field-name="shipping[company_name]"
-                ></avored-input>
-              </div>
-              <div class="w-1/2 ml-3">
-                <avored-input
-                  :field-label="t('phone')"
-                  :placeholder="t('phone')"
-                  :field-error="_.get(shippingAddressValidationErrors, 'phone.0')"
-                  v-model="shippingAddress.phone"
-                  field-name="shipping[phone]"
-                ></avored-input>
-              </div>
-            </div>
-
-            <div class="flex items-center">
-              <div class="w-1/2">
-                <avored-input
-                  :field-label="t('address1')"
-                  :placeholder="t('address1')"
-                  :field-error="_.get(shippingAddressValidationErrors, 'address1.0')"
-                  v-model="shippingAddress.address1"
-                  field-name="shipping[address1]"
-                ></avored-input>
-              </div>
-              <div class="w-1/2 ml-3">
-                <avored-input
-                  :field-label="t('address2')"
-                  :placeholder="t('address2')"
-                  :field-error="_.get(shippingAddressValidationErrors, 'address2.0')"
-                  v-model="shippingAddress.address2"
-                  field-name="shipping[address2]"
-                ></avored-input>
-              </div>
-            </div>
-
-            <div class="flex items-center">
-                <div class="w-1/2" v-if="!countryOptionsResultFetching">
-                    <label class="text-sm text-gray-700">
-                        {{ t('country') }}
-                    </label>
-                    <select v-model="shippingAddress.country_id" class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
-                        <template v-for="countryOption in countryOptionsResult.countryOptions" :key="countryOption.value" >
-                            <option :value="countryOption.value">
-                              {{ countryOption.label }}
-                            </option>
-                        </template>
-                    </select>
-                    <p v-if="_.get(shippingAddressValidationErrors, 'country_id.0')" 
-                      class="text-red-500 mt-1 text-sm">
-                        {{ _.get(shippingAddressValidationErrors, 'country_id.0') }}
-                    </p>
+            <div v-if="!setShippingAddress(_.get(customerData, 'customerQuery.addresses'))">
+              <div class="flex">
+                <div class="w-1/2">
+                  <avored-input
+                    :field-label="t('first_name')"
+                    :placeholder="t('first_name')"
+                    :field-error="_.get(shippingAddressValidationErrors, 'first_name.0')"
+                    v-model="shippingAddress.first_name"
+                  ></avored-input>
                 </div>
-              <div class="w-1/2 ml-3">
-                <avored-input
-                  :field-label="t('state')"
-                  :placeholder="t('state')"
-                  :field-error="_.get(shippingAddressValidationErrors, 'state.0')"
-                  v-model="shippingAddress.state"
-                  field-name="shipping[state]"
-                ></avored-input>
+                <div class="w-1/2 ml-3">
+                  <avored-input
+                    :field-label="t('last_name')"
+                    :placeholder="t('last_name')"
+                    :field-error="_.get(shippingAddressValidationErrors, 'last_name.0')"
+                    v-model="shippingAddress.last_name"
+                    field-name="shipping[last_name]"
+                  ></avored-input>
+                </div>
+              </div>
+
+              <div class="flex items-center">
+                <div class="w-1/2">
+                  <avored-input
+                    :field-label="t('company_name')"
+                    :placeholder="t('company_name')"
+                    :field-error="_.get(shippingAddressValidationErrors, 'company_name.0')"
+                    v-model="shippingAddress.company_name"
+                    field-name="shipping[company_name]"
+                  ></avored-input>
+                </div>
+                <div class="w-1/2 ml-3">
+                  <avored-input
+                    :field-label="t('phone')"
+                    :placeholder="t('phone')"
+                    :field-error="_.get(shippingAddressValidationErrors, 'phone.0')"
+                    v-model="shippingAddress.phone"
+                    field-name="shipping[phone]"
+                  ></avored-input>
+                </div>
+              </div>
+
+              <div class="flex items-center">
+                <div class="w-1/2">
+                  <avored-input
+                    :field-label="t('address1')"
+                    :placeholder="t('address1')"
+                    :field-error="_.get(shippingAddressValidationErrors, 'address1.0')"
+                    v-model="shippingAddress.address1"
+                    field-name="shipping[address1]"
+                  ></avored-input>
+                </div>
+                <div class="w-1/2 ml-3">
+                  <avored-input
+                    :field-label="t('address2')"
+                    :placeholder="t('address2')"
+                    :field-error="_.get(shippingAddressValidationErrors, 'address2.0')"
+                    v-model="shippingAddress.address2"
+                    field-name="shipping[address2]"
+                  ></avored-input>
+                </div>
+              </div>
+
+              <div class="flex items-center">
+                  <div class="w-1/2" v-if="!countryOptionsResultFetching">
+                      <label class="text-sm text-gray-700">
+                          {{ t('country') }}
+                      </label>
+                      <select v-model="shippingAddress.country_id" class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
+                          <template v-for="countryOption in countryOptionsResult.countryOptions" :key="countryOption.value" >
+                              <option :value="countryOption.value">
+                                {{ countryOption.label }}
+                              </option>
+                          </template>
+                      </select>
+                      <p v-if="_.get(shippingAddressValidationErrors, 'country_id.0')" 
+                        class="text-red-500 mt-1 text-sm">
+                          {{ _.get(shippingAddressValidationErrors, 'country_id.0') }}
+                      </p>
+                  </div>
+                <div class="w-1/2 ml-3">
+                  <avored-input
+                    :field-label="t('state')"
+                    :placeholder="t('state')"
+                    :field-error="_.get(shippingAddressValidationErrors, 'state.0')"
+                    v-model="shippingAddress.state"
+                    field-name="shipping[state]"
+                  ></avored-input>
+                </div>
+              </div>
+
+              <div class="flex items-center">
+                <div class="w-1/2">
+                  <avored-input
+                    :field-label="t('postcode')"
+                    :placeholder="t('postcode')"
+                    :field-error="_.get(shippingAddressValidationErrors, 'postcode.0')"
+                    v-model="shippingAddress.postcode"
+                    field-name="shipping[postcode]"
+                  ></avored-input>
+                </div>
+                <div class="w-1/2 ml-3">
+                  <avored-input
+                    :field-label="t('city')"
+                    :placeholder="t('city')"
+                    :field-error="_.get(shippingAddressValidationErrors, 'city.0')"
+                    v-model="shippingAddress.city"
+                    field-name="shipping[city]"
+                  ></avored-input>
+                </div>
               </div>
             </div>
-
-            <div class="flex items-center">
-              <div class="w-1/2">
-                <avored-input
-                  :field-label="t('postcode')"
-                  :placeholder="t('postcode')"
-                  :field-error="_.get(shippingAddressValidationErrors, 'postcode.0')"
-                  v-model="shippingAddress.postcode"
-                  field-name="shipping[postcode]"
-                ></avored-input>
-              </div>
-              <div class="w-1/2 ml-3">
-                <avored-input
-                  :field-label="t('city')"
-                  :placeholder="t('city')"
-                  :field-error="_.get(shippingAddressValidationErrors, 'city.0')"
-                  v-model="shippingAddress.city"
-                  field-name="shipping[city]"
-                ></avored-input>
-              </div>
+            <div v-else>
+                <div class="border-2 border-blue-500 p-5">
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerShippingAddress, 'first_name') }}</span>
+                          <span class="ml-2">{{ _.get(customerShippingAddress, 'last_name') }}</span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerShippingAddress, 'company_name')}}</span>
+                          <span class="ml-2">{{ _.get(customerShippingAddress, 'phone') }}</span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerShippingAddress, 'address1') }},</span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerShippingAddress, 'address2') }},</span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerShippingAddress, 'city') }} </span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerShippingAddress, 'state') }},</span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerShippingAddress, 'country_name') }} {{ _.get(customerShippingAddress, 'postcode') }}</span>
+                      </div>
+                  </div>
             </div>
           </div>
+          
           <h4 class="text-lg text-red-700 font-semibold my-5">
               {{ t('billing_address') }}
           </h4>
           <div>
-            <div class="flex">
-              <div class="w-1/2">
-                <avored-input
-                  :field-label="t('first_name')"
-                  :placeholder="t('first_name')"
-                  :field-error="_.get(billingAddressValidationErrors, 'first_name.0')"
-                  v-model="billingAddress.first_name"
-                  field-name="shipping[first_name]"
-                ></avored-input>
-              </div>
-              <div class="w-1/2 ml-3">
-                <avored-input
-                  :field-label="t('last_name')"
-                  :placeholder="t('last_name')"
-                  :field-error="_.get(billingAddressValidationErrors, 'last_name.0')"
-                  v-model="billingAddress.last_name"
-                  field-name="shipping[last_name]"
-                ></avored-input>
-              </div>
-            </div>
+              <div v-if="!setBillingAddress(_.get(customerData, 'customerQuery.addresses'))">
+                    <div class="flex">
+                      <div class="w-1/2">
+                        <avored-input
+                          :field-label="t('first_name')"
+                          :placeholder="t('first_name')"
+                          :field-error="_.get(billingAddressValidationErrors, 'first_name.0')"
+                          v-model="billingAddress.first_name"
+                          field-name="shipping[first_name]"
+                        ></avored-input>
+                      </div>
+                      <div class="w-1/2 ml-3">
+                        <avored-input
+                          :field-label="t('last_name')"
+                          :placeholder="t('last_name')"
+                          :field-error="_.get(billingAddressValidationErrors, 'last_name.0')"
+                          v-model="billingAddress.last_name"
+                          field-name="shipping[last_name]"
+                        ></avored-input>
+                      </div>
+                    </div>
 
-            <div class="flex items-center">
-              <div class="w-1/2">
-                <avored-input
-                  :field-label="t('company_name')"
-                  :placeholder="t('company_name')"
-                  :field-error="_.get(billingAddressValidationErrors, 'company_name.0')"
-                  v-model="billingAddress.company_name"
-                  field-name="shipping[company_name]"
-                ></avored-input>
-              </div>
-              <div class="w-1/2 ml-3">
-                <avored-input
-                  :field-label="t('phone')"
-                  :phone="t('phone')"
-                  :field-error="_.get(billingAddressValidationErrors, 'phone.0')"
-                  v-model="billingAddress.phone"
-                  field-name="shipping[phone]"
-                ></avored-input>
-              </div>
-            </div>
+                    <div class="flex items-center">
+                      <div class="w-1/2">
+                        <avored-input
+                          :field-label="t('company_name')"
+                          :placeholder="t('company_name')"
+                          :field-error="_.get(billingAddressValidationErrors, 'company_name.0')"
+                          v-model="billingAddress.company_name"
+                          field-name="shipping[company_name]"
+                        ></avored-input>
+                      </div>
+                      <div class="w-1/2 ml-3">
+                        <avored-input
+                          :field-label="t('phone')"
+                          :phone="t('phone')"
+                          :field-error="_.get(billingAddressValidationErrors, 'phone.0')"
+                          v-model="billingAddress.phone"
+                          field-name="shipping[phone]"
+                        ></avored-input>
+                      </div>
+                    </div>
 
-            <div class="flex items-center">
-              <div class="w-1/2">
-                <avored-input
-                  :field-label="t('address1')"
-                  :placeholder="t('address1')"
-                  :field-error="_.get(billingAddressValidationErrors, 'address1.0')"
-                  v-model="billingAddress.address1"
-                  field-name="shipping[address1]"
-                ></avored-input>
-              </div>
-              <div class="w-1/2 ml-3">
-                <avored-input
-                  :field-label="t('address2')"
-                  :placeholder="t('address2')"
-                  :field-error="_.get(billingAddressValidationErrors, 'address2.0')"
-                  v-model="billingAddress.address2"
-                  field-name="shipping[address2]"
-                ></avored-input>
-              </div>
-            </div>
+                    <div class="flex items-center">
+                      <div class="w-1/2">
+                        <avored-input
+                          :field-label="t('address1')"
+                          :placeholder="t('address1')"
+                          :field-error="_.get(billingAddressValidationErrors, 'address1.0')"
+                          v-model="billingAddress.address1"
+                          field-name="shipping[address1]"
+                        ></avored-input>
+                      </div>
+                      <div class="w-1/2 ml-3">
+                        <avored-input
+                          :field-label="t('address2')"
+                          :placeholder="t('address2')"
+                          :field-error="_.get(billingAddressValidationErrors, 'address2.0')"
+                          v-model="billingAddress.address2"
+                          field-name="shipping[address2]"
+                        ></avored-input>
+                      </div>
+                    </div>
 
-            <div class="flex items-center">
-              <div class="w-1/2" v-if="!countryOptionsResultFetching">
-                    <label class="text-sm text-gray-700">
-                        {{ t('country') }}
-                    </label>
-                    <select v-model="billingAddress.country_id" class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
-                        <template v-for="countryOption in countryOptionsResult.countryOptions" :key="countryOption.value" >
-                            <option :value="countryOption.value">
-                              {{ countryOption.label }}
-                            </option>
-                        </template>
-                    </select>
-                    <p v-if="_.get(billingAddressValidationErrors, 'country_id.0')" 
-                      class="text-red-500 mt-1 text-sm">
-                        {{ _.get(billingAddressValidationErrors, 'country_id.0') }}
-                    </p>
-                </div>
-              <div class="w-1/2 ml-3">
-                <avored-input
-                  :field-label="t('state')"
-                  :placeholder="t('state')"
-                  :field-error="_.get(billingAddressValidationErrors, 'state.0')"
-                  v-model="billingAddress.state"
-                  field-name="shipping[state]"
-                ></avored-input>
-              </div>
-            </div>
+                    <div class="flex items-center">
+                      <div class="w-1/2" v-if="!countryOptionsResultFetching">
+                            <label class="text-sm text-gray-700">
+                                {{ t('country') }}
+                            </label>
+                            <select v-model="billingAddress.country_id" class="w-full p-2 text-md text-gray-700 focus:ring-1 focus:ring-red-600">
+                                <template v-for="countryOption in countryOptionsResult.countryOptions" :key="countryOption.value" >
+                                    <option :value="countryOption.value">
+                                      {{ countryOption.label }}
+                                    </option>
+                                </template>
+                            </select>
+                            <p v-if="_.get(billingAddressValidationErrors, 'country_id.0')" 
+                              class="text-red-500 mt-1 text-sm">
+                                {{ _.get(billingAddressValidationErrors, 'country_id.0') }}
+                            </p>
+                        </div>
+                      <div class="w-1/2 ml-3">
+                        <avored-input
+                          :field-label="t('state')"
+                          :placeholder="t('state')"
+                          :field-error="_.get(billingAddressValidationErrors, 'state.0')"
+                          v-model="billingAddress.state"
+                          field-name="shipping[state]"
+                        ></avored-input>
+                      </div>
+                    </div>
 
-            <div class="flex items-center">
-              <div class="w-1/2">
-                <avored-input
-                  :field-label="t('postcode')"
-                  :placeholder="t('postcode')"
-                  :field-error="_.get(billingAddressValidationErrors, 'postcode.0')"
-                  v-model="billingAddress.postcode"
-                  field-name="shipping[postcode]"
-                ></avored-input>
+                    <div class="flex items-center">
+                      <div class="w-1/2">
+                        <avored-input
+                          :field-label="t('postcode')"
+                          :placeholder="t('postcode')"
+                          :field-error="_.get(billingAddressValidationErrors, 'postcode.0')"
+                          v-model="billingAddress.postcode"
+                          field-name="shipping[postcode]"
+                        ></avored-input>
+                      </div>
+                      <div class="w-1/2 ml-3">
+                        <avored-input
+                          :field-label="t('city')"
+                          :placeholder="t('city')"
+                          :field-error="_.get(billingAddressValidationErrors, 'city.0')"
+                          v-model="billingAddress.city"
+                          field-name="shipping[city]"
+                        ></avored-input>
+                      </div>
+                    </div>
               </div>
-              <div class="w-1/2 ml-3">
-                <avored-input
-                  :field-label="t('city')"
-                  :placeholder="t('city')"
-                  :field-error="_.get(billingAddressValidationErrors, 'city.0')"
-                  v-model="billingAddress.city"
-                  field-name="shipping[city]"
-                ></avored-input>
+              <div v-else>
+                  <div class="border-2 border-blue-500 p-5">
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerBillingAddress, 'first_name') }}</span>
+                          <span class="ml-2">{{ _.get(customerBillingAddress, 'last_name') }}</span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerBillingAddress, 'company_name')}}</span>
+                          <span class="ml-2">{{ _.get(customerBillingAddress, 'phone') }}</span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerBillingAddress, 'address1') }},</span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerBillingAddress, 'address2') }},</span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerBillingAddress, 'city') }} </span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerBillingAddress, 'state') }},</span>
+                      </div>
+                      <div class="flex w-full">
+                          <span>{{ _.get(customerBillingAddress, 'country_name') }} {{ _.get(customerBillingAddress, 'postcode') }}</span>
+                      </div>
+                  </div>
               </div>
-            </div>
           </div>
         </div>
         <div class="w-1/2 ml-3">
@@ -489,6 +548,9 @@ export default defineComponent({
     const shippingAddressValidationErrors = ref({})
     const billing_address_id = ref('')
     const billingAddressValidationErrors = ref({})
+    const customerBillingAddress = ref({})
+    const customerShippingAddress = ref({})
+
     const user = ref({
       first_name: '',
       last_name: '',
@@ -590,10 +652,38 @@ export default defineComponent({
     const result = useQuery({query: CartItemAllQuery, variables})
     const paymentQuery = useQuery({query: PaymentQuery})
     const shippingQuery = useQuery({query: ShippingQuery})
+    const setBillingAddress = (addresses: Array<any>|null) => {
+        customerBillingAddress.value = _.find(addresses, (address) => {
+            if (address.type === 'BILLING') {
+              return address
+            }
+        })
+        if (customerBillingAddress.value) {
+          return true
+        }
+
+        return false
+    }
+    const setShippingAddress = (addresses: Array<any>|null) => {
+        customerShippingAddress.value = _.find(addresses, (address) => {
+            if (address.type === 'SHIPPING') {
+              return address
+            }
+        })
+        if (customerShippingAddress.value) {
+          return true
+        }
+
+        return false
+    }
 
     return {
       t,
       _,
+      setBillingAddress,
+      setShippingAddress,
+      customerBillingAddress,
+      customerShippingAddress,
       customerValidationErrors,
       shippingAddressValidationErrors,
       billingAddressValidationErrors,
