@@ -94,7 +94,7 @@
               {{ t('shipping_address') }}
           </h4>
           <div>
-            <div v-if="!setShippingAddress(_.get(customerData, 'customerQuery.addresses'))">
+            <div v-if="setShippingAddress(_.get(customerData, 'customerQuery.addresses'))">
               <div class="flex">
                 <div class="w-1/2">
                   <avored-input
@@ -206,40 +206,40 @@
                 </div>
               </div>
             </div>
-            <div v-else>
+            <!-- <div v-else>
                 <div class="border-2 border-blue-500 p-5">
                       <div class="flex w-full">
-                          <span>{{ _.get(customerShippingAddress, 'first_name') }}</span>
-                          <span class="ml-2">{{ _.get(customerShippingAddress, 'last_name') }}</span>
+                          <span>{{ _.get(shippingAddress, 'first_name') }}</span>
+                          <span class="ml-2">{{ _.get(shippingAddress, 'last_name') }}</span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerShippingAddress, 'company_name')}}</span>
-                          <span class="ml-2">{{ _.get(customerShippingAddress, 'phone') }}</span>
+                          <span>{{ _.get(shippingAddress, 'company_name')}}</span>
+                          <span class="ml-2">{{ _.get(shippingAddress, 'phone') }}</span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerShippingAddress, 'address1') }},</span>
+                          <span>{{ _.get(shippingAddress, 'address1') }},</span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerShippingAddress, 'address2') }},</span>
+                          <span>{{ _.get(shippingAddress, 'address2') }},</span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerShippingAddress, 'city') }} </span>
+                          <span>{{ _.get(shippingAddress, 'city') }} </span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerShippingAddress, 'state') }},</span>
+                          <span>{{ _.get(shippingAddress, 'state') }},</span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerShippingAddress, 'country_name') }} {{ _.get(customerShippingAddress, 'postcode') }}</span>
+                          <span>{{ _.get(shippingAddress, 'country_name') }} {{ _.get(shippingAddress, 'postcode') }}</span>
                       </div>
                   </div>
-            </div>
+            </div> -->
           </div>
           
           <h4 class="text-lg text-red-700 font-semibold my-5">
               {{ t('billing_address') }}
           </h4>
           <div>
-              <div v-if="!setBillingAddress(_.get(customerData, 'customerQuery.addresses'))">
+              <div v-if="setBillingAddress(_.get(customerData, 'customerQuery.addresses'))">
                     <div class="flex">
                       <div class="w-1/2">
                         <avored-input
@@ -352,33 +352,33 @@
                       </div>
                     </div>
               </div>
-              <div v-else>
+              <!-- <div v-else>
                   <div class="border-2 border-blue-500 p-5">
                       <div class="flex w-full">
-                          <span>{{ _.get(customerBillingAddress, 'first_name') }}</span>
-                          <span class="ml-2">{{ _.get(customerBillingAddress, 'last_name') }}</span>
+                          <span>{{ _.get(billingAddress, 'first_name') }}</span>
+                          <span class="ml-2">{{ _.get(billingAddress, 'last_name') }}</span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerBillingAddress, 'company_name')}}</span>
-                          <span class="ml-2">{{ _.get(customerBillingAddress, 'phone') }}</span>
+                          <span>{{ _.get(billingAddress, 'company_name')}}</span>
+                          <span class="ml-2">{{ _.get(billingAddress, 'phone') }}</span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerBillingAddress, 'address1') }},</span>
+                          <span>{{ _.get(billingAddress, 'address1') }},</span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerBillingAddress, 'address2') }},</span>
+                          <span>{{ _.get(billingAddress, 'address2') }},</span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerBillingAddress, 'city') }} </span>
+                          <span>{{ _.get(billingAddress, 'city') }} </span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerBillingAddress, 'state') }},</span>
+                          <span>{{ _.get(billingAddress, 'state') }},</span>
                       </div>
                       <div class="flex w-full">
-                          <span>{{ _.get(customerBillingAddress, 'country_name') }} {{ _.get(customerBillingAddress, 'postcode') }}</span>
+                          <span>{{ _.get(billingAddress, 'country_name') }} {{ _.get(billingAddress, 'postcode') }}</span>
                       </div>
                   </div>
-              </div>
+              </div> -->
           </div>
         </div>
         <div class="w-1/2 ml-3">
@@ -532,6 +532,7 @@ import _ from 'lodash'
 import CountryOptionsQuery from '@/graphql/CountryOptionsQuery'
 import { useI18n } from 'vue-i18n'
 import { AUTH_TOKEN, CUSTOMER_LOGGED_IN, CART_TOKEN } from '@/constants'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   components: {
@@ -548,8 +549,8 @@ export default defineComponent({
     const shippingAddressValidationErrors = ref({})
     const billing_address_id = ref('')
     const billingAddressValidationErrors = ref({})
-    const customerBillingAddress = ref({})
-    const customerShippingAddress = ref({})
+    const router = useRouter()
+    // const customerQueryResult = ref({})
 
     const user = ref({
       first_name: '',
@@ -559,6 +560,7 @@ export default defineComponent({
       password_confirmation: ''
     })
     const shippingAddress = ref({
+      id: '',
       type: 'SHIPPING',
       first_name: '',
       last_name: '',
@@ -578,42 +580,29 @@ export default defineComponent({
         shipping_address_id: shipping_address_id.value,
         billing_address_id: billing_address_id.value   
     })
-    const billingAddress = ref({
-      type: 'BILLING',
-      customer_id: '',
-      first_name: '',
-      last_name: '',
-      company_name: '',
-      phone: '',
-      address1: '',
-      address2: '',
-      state: '',
-      city: '',
-      postcode: '',
-      country_id: ''
-    })
     
     const customerRegister = useMutation(CustomerRegister)
     const addressCreate = useMutation(AddressCreate)
     const placeOrder = useMutation(PlaceOrder)
 
     const handleSubmit = async () => {
-        console.log("handle submit order")
-  
-        await customerRegister.executeMutation(
-          _.pick(user.value, ['first_name', 'last_name', 'email', 'password', 'password_confirmation'])
-        ).then((result) => {
-            if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
-                    customerValidationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
-            } else {
-                localStorage.setItem(AUTH_TOKEN, result.data.register.access_token)
-                localStorage.setItem(CUSTOMER_LOGGED_IN, 'true')
-                customerId.value = result.data.register.id
-            }
-        })
+        
+        if (!localStorage.getItem(CUSTOMER_LOGGED_IN)) {
+          await customerRegister.executeMutation(
+            _.pick(user.value, ['first_name', 'last_name', 'email', 'password', 'password_confirmation'])
+          ).then((result) => {
+              if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
+                      customerValidationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
+              } else {
+                  localStorage.setItem(AUTH_TOKEN, result.data.register.access_token)
+                  localStorage.setItem(CUSTOMER_LOGGED_IN, 'true')
+                  customerId.value = result.data.register.id
+              }
+          })
+        }
 
-        // shippingAddress.value.customer_id = customerId.value
-        await addressCreate.executeMutation(
+        if (!shippingAddress.value.id) {
+          await addressCreate.executeMutation(
             _.pick(shippingAddress.value, ['type', 'first_name', 'last_name', 'company_name', 'phone', 'address1', 'address2', 'country_id', 'state', 'postcode', 'city'])
           )
           .then((result) => {
@@ -623,27 +612,31 @@ export default defineComponent({
                   shipping_address_id.value = result.data.createAddress.id
               }
           })
+        }
 
-        // billingAddress.value.customer_id = customerId.value
-        await addressCreate.executeMutation(_.pick(billingAddress.value, ['type', 'first_name', 'last_name', 'company_name', 'phone', 'address1', 'address2', 'country_id', 'state', 'postcode', 'city'])).then((result) => {
-            if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
-                billingAddressValidationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
-            } else {
-                billing_address_id.value = result.data.createAddress.id
-            }
-        })
+        if (!billingAddress.value.id) {
+          await addressCreate.executeMutation(_.pick(billingAddress.value, ['type', 'first_name', 'last_name', 'company_name', 'phone', 'address1', 'address2', 'country_id', 'state', 'postcode', 'city'])).then((result) => {
+              if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
+                  billingAddressValidationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
+              } else {
+                  billing_address_id.value = result.data.createAddress.id
+              }
+          })
+        }
 
-        placeOrderData.value.shipping_address_id = shipping_address_id.value
-        placeOrderData.value.billing_address_id = billing_address_id.value
+        placeOrderData.value.shipping_address_id = shippingAddress.value.id
+        placeOrderData.value.billing_address_id = billingAddress.value.id
         
         await placeOrder.executeMutation(placeOrderData.value).then((result) => {
             console.log(result)
+            router.push({name: 'checkout.successs'})
+
         })
     }
 
     var customerQueryResult = null
     if (localStorage.getItem(AUTH_TOKEN)) {
-      customerQueryResult = useQuery({query: GetCustomerQuery})
+        customerQueryResult = useQuery({query: GetCustomerQuery})
     }
 
     if (localStorage.getItem(CART_TOKEN)) {
@@ -652,25 +645,41 @@ export default defineComponent({
     const result = useQuery({query: CartItemAllQuery, variables})
     const paymentQuery = useQuery({query: PaymentQuery})
     const shippingQuery = useQuery({query: ShippingQuery})
+
+      const billingAddress = ref({
+          id: '',
+          type: 'BILLING',
+          customer_id: '',
+          first_name: '',
+          last_name: '',
+          company_name: '',
+          phone: '',
+          address1: '',
+          address2: '',
+          state: '',
+          city: '',
+          postcode: '',
+          country_id: ''
+      })
     const setBillingAddress = (addresses: Array<any>|null) => {
-        customerBillingAddress.value = _.find(addresses, (address) => {
+        billingAddress.value = _.find(addresses, (address) => {
             if (address.type === 'BILLING') {
               return address
             }
         })
-        if (customerBillingAddress.value) {
+        if (billingAddress.value.id) {
           return true
         }
 
         return false
     }
     const setShippingAddress = (addresses: Array<any>|null) => {
-        customerShippingAddress.value = _.find(addresses, (address) => {
+        shippingAddress.value = _.find(addresses, (address) => {
             if (address.type === 'SHIPPING') {
               return address
             }
         })
-        if (customerShippingAddress.value) {
+        if (shippingAddress.value.id) {
           return true
         }
 
@@ -682,14 +691,12 @@ export default defineComponent({
       _,
       setBillingAddress,
       setShippingAddress,
-      customerBillingAddress,
-      customerShippingAddress,
+      shippingAddress,
       customerValidationErrors,
       shippingAddressValidationErrors,
       billingAddressValidationErrors,
       user: user,
-      shippingAddress: shippingAddress,
-      billingAddress: billingAddress,
+      billingAddress,
       handleSubmit,
       paymentFetching: paymentQuery.fetching,
       paymentOptions: paymentQuery.data,
