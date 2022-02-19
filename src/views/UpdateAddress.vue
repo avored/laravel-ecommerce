@@ -37,6 +37,10 @@
                                       <option value="BILLING">{{ t('billing') }}</option>
                                       <option value="SHIPPING">{{ t('shipping') }}</option>
                                   </select>
+                                  <p v-if="_.get(validationErrors, 'type.0')" 
+                                    class="text-red-500 mt-1 text-sm">
+                                      {{ _.get(validationErrors, 'type.0') }}
+                                  </p>
                               </div>
                           </div>
 
@@ -46,6 +50,7 @@
                                       v-model="address.addressQuery.first_name"
                                       :field-label="t('first_name')"
                                       :placeholder="t('first_name')"
+                                      :field-error="_.get(validationErrors, 'first_name.0')"
                                       field-name="first_name"
                                   >
                                   </avored-input>
@@ -55,6 +60,7 @@
                                       v-model="address.addressQuery.last_name"
                                       :field-label="t('last_name')"
                                       :placeholder="t('last_name')"
+                                      :field-error="_.get(validationErrors, 'last_name.0')"
                                       field-name="last_name"
                                   >
                                   </avored-input>
@@ -66,6 +72,7 @@
                                       v-model="address.addressQuery.company_name"
                                       :field-label="t('company_name')"
                                       :placeholder="t('company_name')"
+                                      :field-error="_.get(validationErrors, 'company_name.0')"
                                       field-name="company_name"
                                   >
                                   </avored-input>
@@ -75,6 +82,7 @@
                                       v-model="address.addressQuery.phone"
                                       :field-label="t('phone')"
                                       :placeholder="t('phone')"
+                                      :field-error="_.get(validationErrors, 'phone.0')"
                                       field-name="phone"
                                   >
                                   </avored-input>
@@ -86,6 +94,7 @@
                                       v-model="address.addressQuery.address1"
                                       :field-label="t('address1')"
                                       :placeholder="t('address1')"
+                                      :field-error="_.get(validationErrors, 'address1.0')"
                                       field-name="address1"
                                   >
                                   </avored-input>
@@ -95,6 +104,7 @@
                                       v-model="address.addressQuery.address2"
                                       :field-label="t('address2')"
                                       :placeholder="t('address2')"
+                                      :field-error="_.get(validationErrors, 'address2.0')"
                                       field-name="address2"
                                   >
                                   </avored-input>
@@ -105,6 +115,7 @@
                                   <avored-input
                                       v-model="address.addressQuery.postcode"
                                       :field-label="t('postcode')"
+                                      :field-error="_.get(validationErrors, 'postcode.0')"
                                       :placeholder="t('postcode')"
                                       field-name="postcode"
                                   >
@@ -122,6 +133,10 @@
                                           </option>
                                       </template>
                                   </select>
+                                  <p v-if="_.get(validationErrors, 'country_id.0')" 
+                                    class="text-red-500 mt-1 text-sm">
+                                      {{ _.get(validationErrors, 'country_id.0') }}
+                                  </p>
                               </div>
                           </div>
                           </div>
@@ -130,6 +145,7 @@
                                   <avored-input
                                       v-model="address.addressQuery.state"
                                       :field-label="t('state')"
+                                      :field-error="_.get(validationErrors, 'state.0')"
                                       :placeholder="t('state')"
                                       field-name="state"
                                   >
@@ -139,6 +155,7 @@
                                   <avored-input
                                       v-model="address.addressQuery.city"
                                       :field-label="t('city')"
+                                      :field-error="_.get(validationErrors, 'city.0')"
                                       :placeholder="t('city')"
                                       field-name="city"
                                   >
@@ -182,17 +199,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
-import { useMutation, useQuery } from "@urql/vue"
+import { defineComponent, ref } from 'vue'
+import { useMutation, useQuery } from '@urql/vue'
 
 import AvoRedInput from '@/components/forms/AvoRedInput.vue'
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
-import { useI18n } from "vue-i18n"
-import CountryOptionsQuery from "@/graphql/CountryOptionsQuery"
-import CreateAddressMutation from "@/graphql/UpdateAddressMutation"
-import VueFeather from "vue-feather"
-import { useRoute, useRouter } from "vue-router"
-import AddressQuery from "@/graphql/AddressQuery"
+import { useI18n } from 'vue-i18n'
+import CountryOptionsQuery from '@/graphql/CountryOptionsQuery'
+import CreateAddressMutation from '@/graphql/UpdateAddressMutation'
+import VueFeather from 'vue-feather'
+import { useRoute, useRouter } from 'vue-router'
+import AddressQuery from '@/graphql/AddressQuery'
+import _ from 'lodash'
 
 export default defineComponent({
   components: {
@@ -204,7 +222,7 @@ export default defineComponent({
     const { t } = useI18n()
     const router = useRouter()
     const route = useRoute()
-
+    const validationErrors = ref({})
     const addressId = route.params.id
     const addressResult = useQuery({query: AddressQuery, variables: {addressId: addressId}})
     const address = addressResult.data
@@ -212,9 +230,11 @@ export default defineComponent({
         // address = addressResult.data
     const handleSubmit = () => {
         createAddressMutation.executeMutation(address.value.addressQuery).then((result) => {
-            console.log(result)
-
-            router.push({name: 'account'})
+            if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
+                validationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
+            } else {
+                router.push({name: 'account'})
+            }
         })
     }
 
@@ -223,6 +243,8 @@ export default defineComponent({
 
     return {
       t,
+      _,
+      validationErrors,
       address: addressResult.data,
       handleSubmit,
       countryOptionsResult: countryQueryResult.data,

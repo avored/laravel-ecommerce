@@ -20,6 +20,7 @@
     "state": "State",
     "postcode": "Postcode",
     "city": "City",
+    "shipping_address": "Shipping Address",
     "billing_address": "Billing Address",
     "delivery_method": "Delivery method",
     "payment_method": "Payment method",
@@ -59,5 +60,7 @@
     "created_at": "Created at",
     "previous": "Previous",
     "next": "Next",
-    "pagination_result_text": "Showing {from} to {to} of {total} results"
+    "pagination_result_text": "Showing {from} to {to} of {total} results",
+    "checkout_success_page": "Checkout Success",
+    "success_order_placed_message": "Your Order has been placed. Your order no: {order_id}"
 }

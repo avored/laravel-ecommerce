@@ -42,6 +42,12 @@ const routes: Array<RouteRecordRaw> = [
     meta: { 'middleware': 'guest', 'layout': 'app' }
   },
   {
+    path: '/checkout/success',
+    name: 'checkout.successs',
+    component: () => import('../views/Success.vue'),
+    meta: { 'middleware': 'customer', 'layout': 'app' }
+  },
+  {
     path: '/login',
     name: 'auth.login',
     component: () => import('../views/auth/Login.vue'),
