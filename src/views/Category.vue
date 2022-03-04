@@ -115,7 +115,7 @@ export default defineComponent({
         const page = ref(1)
 
         const result = useQuery({
-        query: GetCategoryQuery,
+            query: GetCategoryQuery,
             variables: { slug: slug, page: page },
         })
 

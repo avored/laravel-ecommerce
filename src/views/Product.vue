@@ -24,9 +24,9 @@
                         <span class="font-bold text-5xl leading-none align-baseline">
                             {{ data.product.price }}
                         </span>
-                    </div>
-                    <div class="inline-block align-bottom">
-                        <AddToCart :slug="data.product.slug" />
+                        <span class="align-bottom ml-5">
+                            <AddToCart :slug="data.product.slug" />
+                        </span>
                     </div>
                 </div>
             </div>

@@ -23,7 +23,7 @@
                   <div class="px-4 py-5 sm:px-6">
                     <div class="flex w-full">
                       <h3 class="text-lg leading-6 font-medium text-gray-900">
-                        Orders Information
+                          Orders Information
                       </h3>
                     </div>
                   </div>
@@ -116,6 +116,21 @@
                               >
                                 {{ t('status')  }}
                               </th>
+                              <th
+                                class="
+                                  px-5
+                                  py-3
+                                  border-b-2 border-gray-200
+                                  bg-gray-100
+                                  text-left text-xs
+                                  font-semibold
+                                  text-gray-600
+                                  uppercase
+                                  tracking-wider
+                                "
+                              >
+                                {{ t('action')  }}
+                              </th>
                             </tr>
                           </thead>
                           <tbody>
@@ -204,6 +219,19 @@
                                   <span class="relative text-white">{{ order.order_status_name }}</span>
                                 </span>
                               </td>
+                              <td
+                                class="
+                                  px-5
+                                  py-5
+                                  border-b border-gray-200
+                                  bg-white
+                                  text-sm
+                                "
+                              > 
+                                <router-link :to="{name: 'order.show', params: {order: order.id}}">
+                                    <vue-feather type="eye"></vue-feather>
+                                </router-link>
+                              </td>
                             </tr>
                           </tbody>
                         </table>
@@ -221,15 +249,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue"
-import { useQuery } from "@urql/vue"
-import AccountSideNav from "@/components/account/AccountSideNav.vue"
-import OrderAllQuery from "@/graphql/OrderAllQuery"
-import { useI18n } from "vue-i18n"
+import { defineComponent } from 'vue'
+import VueFeather from 'vue-feather'
+import { useQuery } from '@urql/vue'
+import AccountSideNav from '@/components/account/AccountSideNav.vue'
+import OrderAllQuery from '@/graphql/OrderAllQuery'
+import { useI18n } from 'vue-i18n'
 
 export default defineComponent({
   components: {
-    "account-side-nav": AccountSideNav,
+    'account-side-nav': AccountSideNav,
+    'vue-feather': VueFeather,
   },
   setup() {
     const { t } = useI18n()

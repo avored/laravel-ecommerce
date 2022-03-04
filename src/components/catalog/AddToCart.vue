@@ -1,34 +1,26 @@
 <template>
-  <a
-    @click.prevent="addToCartOnClick"
-    class="
-      bg-gray-700
-      px-3
-      py-3
-      hover:bg-red-500
-      transition
-      duration-300
-      ease-in-out
-    "
-  >
-    <VueFeather
-        type="shopping-cart"
+    <a
+        @click.prevent="addToCartOnClick"
         class="
-            transition
-            duration-300
-            ease-in-out
-            flex
-            justify-center
-            items-center
-            text-gray-100
+        bg-gray-700
+        inline-block
+        px-3
+        py-3
+        hover:bg-red-500
+        transition
+        duration-300
+        ease-in-out
         "
-    ></VueFeather>
-  </a>
+    >
+        <VueFeather type="shopping-cart" class="transition duration-300 ease-in-out flex justify-center items-center text-gray-100">
+            Test
+        </VueFeather>
+    </a>
 </template>
 
 <script lang="ts">
 import AddToCartMutation from "@/graphql/AddToCartMutation"
-import { defineComponent, ref } from "vue"
+import { defineComponent } from "vue"
 import VueFeather from "vue-feather"
 import { useMutation } from "@urql/vue"
 import { CART_TOKEN } from "@/constants"
