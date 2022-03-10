@@ -2,7 +2,7 @@
 
 # AvoRed an laravel headless e commerce 
 
-A  heardless e commerce GraphQL API which uses Laravel as a backend.
+A  headless e commerce GraphQL API which uses Laravel as a backend.
 
 ## Installation 
 
