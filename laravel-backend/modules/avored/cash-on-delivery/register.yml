@@ -1,0 +1,5 @@
+name: avored cash-on-delivery
+identifier: avored-cash-on-delivery
+status: active
+description: avored cash-on-delivery Module
+namespace: AvoRed\CashOnDelivery\

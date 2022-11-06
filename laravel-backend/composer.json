@@ -6,6 +6,10 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "avored/cash-on-delivery": "^5.0",
+        "avored/dummy-data": "^5.0",
+        "avored/framework": "^5.0",
+        "avored/pickup": "^5.0",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
@@ -57,7 +61,9 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "allow-plugins": {
-            "pestphp/pest-plugin": true
+            "pestphp/pest-plugin": true,
+            "composer/installers": true,
+            "avored/module-installer": true
         }
     },
     "minimum-stability": "dev",

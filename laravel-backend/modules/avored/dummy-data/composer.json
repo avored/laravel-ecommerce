@@ -1,0 +1,41 @@
+{
+	"name" : "avored/dummy-data",
+	"type" : "avored-module",
+	"description" : "AvoRed Laravel 5 E commerce Dummy Data",
+	"keywords" : [
+		"framework",
+		"install",
+		"cart",
+		"laravel",
+		"e commerce",
+		"laravel5",
+		"shop",
+		"shopping-cart",
+		"e-commerce",
+		"shopping cart",
+		"e commerce"
+	],
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Purvesh  ",
+			"email" : "ind.purvesh@gmail.com"
+		}
+	],
+	"require" : {
+		"php" : ">=7.1.3",
+		"avored/module-installer" : "1.*"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"AvoRed\\DummyData\\" : "src"
+		}
+	},
+	"homepage" : "https://www.avored.com/",
+	"support" : {
+		"email" : "ind.purvesh@gmail.com",
+		"issues" : "https://www.avored.com/discussion",
+		"forum" : "https://www.avored.com/discussion",
+		"wiki" : "https://www.avored.com/docs",
+		"source" : "https://www.github.com/avored/dummy-data"
+	}
+}
