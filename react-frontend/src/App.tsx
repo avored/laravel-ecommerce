@@ -9,6 +9,7 @@ export default function App() {
     <div className="antialiased">
         <Routes>
           <Route path="/" element={ <HomePage/> } />
+          <Route path="/about" element={ <HomePage/> } />
           <Route path="login" element={ <LoginPage/> } />
         </Routes>
     </div>
