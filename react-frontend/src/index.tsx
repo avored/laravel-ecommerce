@@ -8,7 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { createClient, Provider  as GraphqlProvider } from 'urql';
 
 const client = createClient({
-  url: 'http://localhost:8000/graphql',
+  url: 'https://avored-backend.test/graphql',
   // fetchOptions: () => {
   //   const token = getToken();
   //   return {
