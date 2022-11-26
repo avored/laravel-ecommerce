@@ -1,0 +1,293 @@
+import React, { Fragment, useState } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import Logo from "../logo.svg";
+import {
+  BellIcon,
+  Bars3Icon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/solid";
+import { isAuth } from "../features/userLogin/userLoginSlice";
+import { useAppSelector } from "../app/hooks";
+import { Link } from "react-router-dom";
+
+export const Header = () => {
+  const isUserLoggedIn = useAppSelector(isAuth);
+
+  const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
+
+  const triggerMobileMenu = () => {
+    setIsMobileMenuVisible((isMobileMenuVisible) => !isMobileMenuVisible);
+  };
+
+  const userMenu = () => {
+    return (
+      <>
+        <button
+          type="button"
+          className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+        >
+          <span className="sr-only">View notifications</span>
+          <BellIcon className="h-6 w-6" />
+        </button>
+        <Menu as="div" className="relative inline-block ml-2 text-left">
+          <div>
+            <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <img
+                className="h-4 w-4 rounded-full"
+                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                alt=""
+              />
+              <ChevronDownIcon
+                className="ml-2 -mr-1 h-5 w-5 text-red-200 hover:text-red-100"
+                aria-hidden="true"
+              />
+            </Menu.Button>
+          </div>
+          <Transition
+            as={Fragment}
+            enter="transition ease-out duration-100"
+            enterFrom="transform opacity-0 scale-95"
+            enterTo="transform opacity-100 scale-100"
+            leave="transition ease-in duration-75"
+            leaveFrom="transform opacity-100 scale-100"
+            leaveTo="transform opacity-0 scale-95"
+          >
+            <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="px-1 py-1 ">
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      className={`${
+                        active ? "bg-red-500 text-white" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      Edit
+                    </button>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      className={`${
+                        active ? "bg-red-500 text-white" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      Duplicate
+                    </button>
+                  )}
+                </Menu.Item>
+              </div>
+              <div className="px-1 py-1">
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      className={`${
+                        active ? "bg-red-500 text-white" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      Archive
+                    </button>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      className={`${
+                        active ? "bg-red-500 text-white" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      Move
+                    </button>
+                  )}
+                </Menu.Item>
+              </div>
+              <div className="px-1 py-1">
+                <Menu.Item>
+                  {({ active }) => (
+                    <button
+                      className={`${
+                        active ? "bg-red-500 text-white" : "text-gray-900"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                    >
+                      Delete
+                    </button>
+                  )}
+                </Menu.Item>
+              </div>
+            </Menu.Items>
+          </Transition>
+        </Menu>
+      </>
+    );
+  };
+
+  return (
+    <>
+      <nav className="bg-red-400">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <img className="h-8 w-8" src={Logo} alt="AvoRed Ecommerce" />
+              </div>
+              <div className="hidden md:block">
+                <div className="ml-10 flex items-baseline space-x-4">
+                  <a
+                    href="#"
+                    className="bg-red-300 text-white px-3 py-2 rounded-md text-sm font-medium"
+                    aria-current="page"
+                  >
+                    Dashboard
+                  </a>
+
+                  <a
+                    href="#"
+                    className="text-red-800 hover:bg-red-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Team
+                  </a>
+
+                  <a
+                    href="#"
+                    className="text-red-800 hover:bg-red-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Projects
+                  </a>
+
+                  <a
+                    href="#"
+                    className="text-red-800 hover:bg-red-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Calendar
+                  </a>
+
+                  <a
+                    href="#"
+                    className="text-red-800 hover:bg-red-900 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+                  >
+                    Reports
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-4 flex items-center md:ml-6">
+                {isUserLoggedIn ? userMenu() : <Link to="/login">Login</Link>}
+              </div>
+            </div>
+            <div className="-mr-2 flex md:hidden">
+              <button
+                type="button"
+                className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                aria-controls="mobile-menu"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Open main menu</span>
+
+                <Bars3Icon onClick={triggerMobileMenu} className="w-6 h-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <Transition
+          show={isMobileMenuVisible}
+          enter="transition ease-in-out duration-300 transform"
+          enterFrom="-translate-x-full"
+          enterTo="translate-x-0"
+          leave="transition ease-in-out duration-300 transform"
+          leaveFrom="translate-x-0"
+          leaveTo="-translate-x-full"
+        >
+          <div className="md:hidden" id="mobile-menu">
+            <div className="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+              <a
+                href="#"
+                className="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                aria-current="page"
+              >
+                Dashboard
+              </a>
+
+              <a
+                href="#"
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
+                Team
+              </a>
+
+              <a
+                href="#"
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
+                Projects
+              </a>
+
+              <a
+                href="#"
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
+                Calendar
+              </a>
+
+              <a
+                href="#"
+                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+              >
+                Reports
+              </a>
+            </div>
+            <div className="border-t border-gray-700 pt-4 pb-3">
+              <div className="flex items-center px-5">
+                <div className="flex-shrink-0">
+                  <img
+                    className="h-10 w-10 rounded-full"
+                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                    alt=""
+                  />
+                </div>
+                <div className="ml-3">
+                  <div className="text-base font-medium leading-none text-white">
+                    Tom Cook
+                  </div>
+                  <div className="text-sm font-medium leading-none text-gray-400">
+                    tom@example.com
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  className="ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                >
+                  <span className="sr-only">View notifications</span>
+                  <BellIcon className="w-6 h-6" />
+                </button>
+              </div>
+              <div className="mt-3 space-y-1 px-2">
+                <a
+                  href="#"
+                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                >
+                  Your Profile
+                </a>
+
+                <a
+                  href="#"
+                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                >
+                  Settings
+                </a>
+
+                <a
+                  href="#"
+                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
+                >
+                  Sign out
+                </a>
+              </div>
+            </div>
+          </div>
+        </Transition>
+      </nav>
+    </>
+  );
+};

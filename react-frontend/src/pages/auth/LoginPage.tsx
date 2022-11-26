@@ -5,9 +5,12 @@ import { LockClosedIcon } from '@heroicons/react/24/solid'
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
   setAccessToken,
-  accessToken
+  accessToken,
+  setAuth,
+  isAuth
 } from '../../features/userLogin/userLoginSlice';
 import { get } from "lodash";
+import { useNavigate } from "react-router-dom";
 
 
 const CustomerLogin = `
@@ -37,6 +40,8 @@ const CustomerLogin = `
 export const LoginPage = () => {
 
   const currentAccessToken = useAppSelector(accessToken);
+  const isUserAuth = useAppSelector(isAuth)
+  const navigate = useNavigate();
 
 
   const [customerLoginResult, customerLogin] = useMutation(CustomerLogin)
@@ -68,9 +73,10 @@ export const LoginPage = () => {
       // dispatch(performLoginAsync(variables))
       // console.log('button pressed')
       customerLogin(variables).then(({data}) => {
-        const access_token = get(data, 'login.access_token')
-        dispatch(setAccessToken(access_token))
-        console.log(access_token)
+          const access_token = get(data, 'login.access_token')
+          dispatch(setAccessToken(access_token))
+          dispatch(setAuth(true))
+          navigate('/user')
       });
   }
   return (
