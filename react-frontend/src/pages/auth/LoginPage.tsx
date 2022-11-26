@@ -2,6 +2,13 @@ import React, { useState } from "react";
 import { useMutation } from "urql";
 import Logo from "../../logo.svg";
 import { LockClosedIcon } from '@heroicons/react/24/solid'
+import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import {
+  setAccessToken,
+  accessToken
+} from '../../features/userLogin/userLoginSlice';
+import { get } from "lodash";
+
 
 const CustomerLogin = `
     mutation CustomerLogin (
@@ -28,7 +35,12 @@ const CustomerLogin = `
 // }
 
 export const LoginPage = () => {
+
+  const currentAccessToken = useAppSelector(accessToken);
+
+
   const [customerLoginResult, customerLogin] = useMutation(CustomerLogin)
+  const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -53,14 +65,19 @@ export const LoginPage = () => {
   const submitHandle = () => {
       const variables = { email, password }
       // const variables = { id, title: newTitle || '' };
+      // dispatch(performLoginAsync(variables))
+      // console.log('button pressed')
       customerLogin(variables).then(({data}) => {
-        console.log(data)
+        const access_token = get(data, 'login.access_token')
+        dispatch(setAccessToken(access_token))
+        console.log(access_token)
       });
   }
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full shadow-md py-12 px-4 sm:px-6 lg:px-8  max-w-md space-y-8">
         <div>
+          {currentAccessToken}
           <img
             className="mx-auto h-12 w-auto"
             src={Logo}
