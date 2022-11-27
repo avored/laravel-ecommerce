@@ -7,6 +7,7 @@ import { Product } from "./pages/Product";
 import { LoginPage } from "./pages/auth/LoginPage";
 import { Dashboard } from "./pages/user/Dashboard";
 import { PrivateRoute } from "./routes/PrivateRoute";
+import { CategoryShow } from "./pages/category/CategoryShow";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Index />} />
         <Route path="/product" element={<Product />} />
+        <Route path="/category/:slug" element={<CategoryShow />} />
 
         {/* ***********  User Navigation Routes or Protected routes ************  */}
         <Route path="/user" element={<PrivateRoute />}>

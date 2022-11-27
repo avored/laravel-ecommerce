@@ -30,13 +30,6 @@ const CustomerLogin = `
     }
 `;
 
-// interface LoginResponse {
-//   token: string;
-//   expire_in: number;
-//   refresh_token: string;
-//   token_type: string
-// }
-
 export const LoginPage = () => {
 
   const currentAccessToken = useAppSelector(accessToken);
@@ -69,9 +62,6 @@ export const LoginPage = () => {
 
   const submitHandle = () => {
       const variables = { email, password }
-      // const variables = { id, title: newTitle || '' };
-      // dispatch(performLoginAsync(variables))
-      // console.log('button pressed')
       customerLogin(variables).then(({data}) => {
           const access_token = get(data, 'login.access_token')
           dispatch(setAccessToken(access_token))
