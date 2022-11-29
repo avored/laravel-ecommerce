@@ -7,8 +7,10 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { createClient, Provider  as GraphqlProvider } from 'urql';
 
+const graphQLUrl: string = process.env.REACT_APP_GRAPHQL_URL ?? 'http://localhost:8000/graphql'
+
 const client = createClient({
-  url: 'https://avored-backend.test/graphql',
+  url: graphQLUrl,
   // fetchOptions: () => {
   //   const token = getToken();
   //   return {
