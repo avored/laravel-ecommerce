@@ -3,4 +3,5 @@ export type Product = {
     id: string
     __typename: string
     price: number
+    main_image_url: string
 }

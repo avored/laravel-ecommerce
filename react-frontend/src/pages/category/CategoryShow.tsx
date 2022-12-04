@@ -20,6 +20,7 @@ query GetCategory ($slug: String!) {
             id
             name
             price
+            main_image_url
         }
     }
   }
@@ -495,13 +496,10 @@ export const CategoryShow = () => {
                           </form>
 
                           <div className="lg:col-span-3">
-                            <div className="h-96 rounded-lg border-4 border-dashed border-gray-200 lg:h-full">
-
-                              <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+                              <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
                               {get(data, 'category.products.data', []).map((product: Product) => {
                                   return <ProductCard key={product.id} product={product} />
                               })}
-                              </div>
                             </div>
                           </div>
                         </div>
