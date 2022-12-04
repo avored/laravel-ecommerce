@@ -1,6 +1,6 @@
 import { Menu, Transition } from '@headlessui/react';
 import { get } from 'lodash';
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { useQuery } from 'urql';
 import { Header } from '../../components/Header';
@@ -12,6 +12,7 @@ query GetProduct ($slug: String!) {
   product (slug: $slug) {
     id
     name
+    sku
     slug
     description
     price
@@ -23,11 +24,14 @@ query GetProduct ($slug: String!) {
 export const ProductShow = () => {
 
   let { slug } = useParams();
+  const [qty, setQty] = useState('1');
   // let { slug } = useParams();
 
-  const [{ fetching, data }] = useQuery({ query: GetProduct, variables: { slug } });
+  const addToCartOnClick = () => {
+    console.log('Add To Cart: ' + slug)
+  }
 
-  const product = { name : 'Basic Tee'};
+  const [{ fetching, data }] = useQuery({ query: GetProduct, variables: { slug } });
 
   return (
     <div className="min-h-full">
@@ -42,28 +46,23 @@ export const ProductShow = () => {
             <h1 className="text-3xl font-bold tracking-tight text-gray-900">
               {get(data, 'product.name')}
             </h1>
+            <p className="mt-1 text-sm text-gray-500">SKU: #{get(data, 'product.sku')}</p>
           </div>
         </header>
       
 
 <section>
   <div className="relative mx-auto max-w-screen-xl px-4 py-8">
-    <div>
-      <h1 className="text-2xl font-bold lg:text-3xl">Simple Clothes Basic Tee</h1>
-
-      <p className="mt-1 text-sm text-gray-500">SKU: #012345</p>
-    </div>
-
     <div className="grid gap-8 lg:grid-cols-4 lg:items-start">
       <div className="lg:col-span-3">
         <div className="relative mt-4">
           <img
-            alt="Tee"
-            src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+            alt={get(data, 'product.name')}
+            src={get(data, 'product.main_image_url')}
             className="h-72 w-full rounded-xl object-cover lg:h-[540px]"
           />
 
-          <div
+          {/* <div
             className="absolute bottom-4 left-1/2 inline-flex -translate-x-1/2 items-center rounded-full bg-black/75 px-3 py-1.5 text-white"
           >
             <svg
@@ -82,10 +81,10 @@ export const ProductShow = () => {
             </svg>
 
             <span className="ml-1.5 text-xs"> Hover to zoom </span>
-          </div>
+          </div> */}
         </div>
 
-        <ul className="mt-1 flex gap-1">
+        {/* <ul className="mt-1 flex gap-1">
           <li>
             <img
               alt="Tee"
@@ -117,12 +116,12 @@ export const ProductShow = () => {
               className="h-16 w-16 rounded-md object-cover"
             />
           </li>
-        </ul>
+        </ul> */}
       </div>
 
       <div className="lg:sticky lg:top-0">
-        <form className="space-y-4 lg:pt-8">
-          <fieldset>
+        <div className="space-y-4 lg:pt-4">
+          {/* <fieldset>
             <legend className="text-lg font-bold">Color</legend>
 
             <div className="mt-2 flex gap-1">
@@ -230,7 +229,7 @@ export const ProductShow = () => {
                 </span>
               </label>
             </div>
-          </fieldset>
+          </fieldset> */}
 
           <div className="rounded border bg-gray-100 p-4">
             <p className="text-sm">
@@ -241,23 +240,38 @@ export const ProductShow = () => {
           </div>
 
           <div>
-            <p className="text-xl font-bold">$19.99</p>
+            <div className="mb-3 rounded-md shadow-sm">
+                <label htmlFor="qty" className="text-gray-500 pl-1">
+                  QTY
+                </label>
+                <input
+                  id="qty"
+                  name="qty"
+                  onChange={(e) => {setQty(e.target.value)}}
+                  type="number"
+                  value={qty}
+                  className="block w-full rounded border border-gray-300 px-3 py-2 text-gray-900 focus:z-10 focus:border-red-500 focus:outline-none focus:ring-red-500 sm:text-sm"
+                  placeholder="Qty"
+                />
+              </div>
+            <p className="text-xl font-bold">${get(data, 'product.price')}</p>
           </div>
 
           <button
-            type="submit"
+            type="button"
+            onClick={addToCartOnClick}
             className="w-full rounded bg-red-700 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white"
           >
             Add to cart
           </button>
 
-          <button
+          {/* <button
             type="button"
             className="w-full rounded border border-gray-300 bg-gray-100 px-6 py-3 text-sm font-bold uppercase tracking-wide"
           >
             Notify when on sale
-          </button>
-        </form>
+          </button> */}
+        </div>
       </div>
 
       <div className="lg:col-span-3">
