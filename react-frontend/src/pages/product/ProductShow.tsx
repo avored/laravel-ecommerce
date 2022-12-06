@@ -1,10 +1,12 @@
 import { Menu, Transition } from '@headlessui/react';
-import { get } from 'lodash';
+import { get, isEmpty } from 'lodash';
 import React, { Fragment, useState } from 'react'
-import { useParams } from 'react-router-dom';
-import { useQuery } from 'urql';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery } from 'urql';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Header } from '../../components/Header';
 import { ProductCard } from '../../components/ProductCard';
+import { setVisitorId, visitorId } from '../../features/cart/cartSlice';
 import { Product } from '../../types/ProductType';
 
 const GetProduct = `
@@ -21,14 +23,57 @@ query GetProduct ($slug: String!) {
 }
 `;
 
+const AddToCartMutation = `
+    mutation AddToCart(
+      $visitorId: String,
+      $slug: String!, 
+      $qty: Float!
+    ) {
+      addToCart(
+        visitor_id: $visitorId,
+        slug: $slug, 
+        qty: $qty
+      ) {
+          visitor_id
+          product_id
+          product {
+            main_image_url
+            price
+            name
+          }
+          qty
+      }
+    }
+`;
+
 export const ProductShow = () => {
 
   let { slug } = useParams();
-  const [qty, setQty] = useState('1');
-  // let { slug } = useParams();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const [qty, setQty] = useState(1);
+  const currentVisitorId = useAppSelector(visitorId)
+
+  const [addToCartMutationResult, addToCartMutation] = useMutation(AddToCartMutation)
 
   const addToCartOnClick = () => {
-    console.log('Add To Cart: ' + slug)
+
+    var variables = {}
+    if (isEmpty(currentVisitorId)) {
+      variables = {slug, qty}
+    } else {
+      variables = {slug, qty, visitorId: currentVisitorId}
+    }
+
+    addToCartMutation(variables).then(({ data }) => {
+        if (isEmpty(currentVisitorId)) {
+          const cartVisitorId: string = get(data, 'addToCart.0.visitor_id')
+          dispatch(setVisitorId(cartVisitorId))
+        }
+        navigate('/cart')
+
+    });
+
   }
 
   const [{ fetching, data }] = useQuery({ query: GetProduct, variables: { slug } });
@@ -47,6 +92,7 @@ export const ProductShow = () => {
               {get(data, 'product.name')}
             </h1>
             <p className="mt-1 text-sm text-gray-500">SKU: #{get(data, 'product.sku')}</p>
+            <p className="mt-1 text-sm text-gray-500">{currentVisitorId}</p>
           </div>
         </header>
       
@@ -83,7 +129,9 @@ export const ProductShow = () => {
             <span className="ml-1.5 text-xs"> Hover to zoom </span>
           </div> */}
         </div>
+          <div>
 
+          
         {/* <ul className="mt-1 flex gap-1">
           <li>
             <img
@@ -117,6 +165,7 @@ export const ProductShow = () => {
             />
           </li>
         </ul> */}
+        </div>
       </div>
 
       <div className="lg:sticky lg:top-0">
@@ -247,7 +296,7 @@ export const ProductShow = () => {
                 <input
                   id="qty"
                   name="qty"
-                  onChange={(e) => {setQty(e.target.value)}}
+                  onChange={(e) => {setQty(parseFloat(e.target.value))}}
                   type="number"
                   value={qty}
                   className="block w-full rounded border border-gray-300 px-3 py-2 text-gray-900 focus:z-10 focus:border-red-500 focus:outline-none focus:ring-red-500 sm:text-sm"

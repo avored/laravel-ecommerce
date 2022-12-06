@@ -182,6 +182,7 @@ export const Header = () => {
             </div>
             <div className="hidden md:block">
               <div className="ml-4 flex items-center md:ml-6">
+              <Link className="text-white px-3 hover:bg-red-600 py-2 rounded-md text-sm font-medium" to="/cart">Cart</Link>
                 {isUserLoggedIn ? userMenu() : <Link className="text-white px-3 hover:bg-red-600 py-2 rounded-md text-sm font-medium" to="/login">Login</Link>}
               </div>
             </div>

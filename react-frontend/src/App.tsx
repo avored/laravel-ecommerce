@@ -9,6 +9,7 @@ import { Dashboard } from "./pages/user/Dashboard";
 import { PrivateRoute } from "./routes/PrivateRoute";
 import { CategoryShow } from "./pages/category/CategoryShow";
 import { ProductShow } from "./pages/product/ProductShow";
+import { CartShow } from "./pages/cart/CartShow";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/product" element={<Product />} />
         <Route path="/category/:slug" element={<CategoryShow />} />
         <Route path="/product/:slug" element={<ProductShow />} />
+        <Route path="/cart" element={<CartShow />} />
 
         {/* ***********  User Navigation Routes or Protected routes ************  */}
         <Route path="/user" element={<PrivateRoute />}>
