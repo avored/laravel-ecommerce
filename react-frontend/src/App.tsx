@@ -10,6 +10,7 @@ import { PrivateRoute } from "./routes/PrivateRoute";
 import { CategoryShow } from "./pages/category/CategoryShow";
 import { ProductShow } from "./pages/product/ProductShow";
 import { CartShow } from "./pages/cart/CartShow";
+import { CheckoutShow } from "./pages/checkout/CheckoutShow";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/category/:slug" element={<CategoryShow />} />
         <Route path="/product/:slug" element={<ProductShow />} />
         <Route path="/cart" element={<CartShow />} />
+        <Route path="/checkout" element={<CheckoutShow />} />
 
         {/* ***********  User Navigation Routes or Protected routes ************  */}
         <Route path="/user" element={<PrivateRoute />}>

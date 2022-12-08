@@ -29,13 +29,9 @@ query GetCategory ($slug: String!) {
 `;
 
 export const CategoryShow = () => {
-
   let { slug } = useParams();
-
   const [{ fetching, data }] = useQuery({ query: GetCategory, variables: { slug } });
-
-  const product = { name : 'Basic Tee'};
-
+  
   return (
     <div className="min-h-full">
       <Header />

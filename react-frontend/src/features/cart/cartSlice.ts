@@ -6,7 +6,7 @@ export interface CartState {
 }
 
 const initialState: CartState = {
-  visitor_id: '1fea5356-4835-45fc-9b96-057b22b99a96'
+  visitor_id: ''
 };
 
 export const cartSlice = createSlice({
