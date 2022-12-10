@@ -1,8 +1,10 @@
 import { get } from 'lodash';
 import React from 'react'
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { useQuery } from 'urql';
 import { useAppSelector } from '../../app/hooks'
+import { FormInput } from '../../components/Form/FormInput';
+import { FormLabel } from '../../components/Form/FormLabel';
 import { Header } from '../../components/Header'
 import { visitorId } from '../../features/cart/cartSlice'
 
@@ -24,6 +26,14 @@ query CartItems($visitorId: String!)  {
 
 export const CheckoutShow = () => {
 
+
+
+
+  // var cartTotal: number = 0
+  // var shippingCost: number = 10.00
+  const incrementCartTotal = (itemPrice: number, itemQty: number) => {
+    // cartTotal += (itemPrice * itemQty)
+  }
   const currentVisitorId = useAppSelector(visitorId)
   const [{ fetching, data }] = useQuery({ query: GetCartItems, variables: { visitorId: currentVisitorId } });
   return (
@@ -36,13 +46,57 @@ export const CheckoutShow = () => {
         <>
         <div className="flex my-10">
           
-          <div id="summary" className="w-1/4 px-8 py-10">
-            
-            
-            <div className="border-t mt-8">
-              
-              <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Place Order</button>
+          <div id="summary" className="w-1/2 border border-red-500 px-3 py-5">
+          <div className="flex mt-10 mb-5">
+              <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">Product Details</h3>
+              <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">Quantity</h3>
+              <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">Price</h3>
+              <h3 className="font-semibold text-gray-600 text-xs uppercase w-1/5 text-center">Total</h3>
             </div>
+            {get(data, 'cartItems', []).map((cartItem:any) => {
+
+              incrementCartTotal(get(cartItem, 'product.price'), get(cartItem, 'qty', 1))
+              return (<div className="flex items-center hover:bg-gray-100 py-5">
+                <div className="flex w-2/5">
+                  <div className="w-20">
+                    <img className="h-24" src={get(cartItem, 'product.main_image_url')} alt={get(cartItem, 'product.name')} />
+                  </div>
+                  <div className="flex flex-col justify-between ml-4 flex-grow">
+                    <span className="font-bold text-sm">{get(cartItem, 'product.name')}</span>
+                    <div className="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</div>
+                  </div>
+                </div>
+                <div className="flex justify-center w-1/5">
+                  <input
+                    name="qty"
+                    type="text"
+                    value={get(cartItem, 'qty')}
+                    className="mx-2 border text-center w-24 rounded border-gray-300 px-3 py-2 text-gray-900 focus:z-10 focus:border-red-500 focus:outline-none focus:ring-red-500 sm:text-sm"
+                  />
+                </div>
+                <span className="text-center w-1/5 font-semibold text-sm">${get(cartItem, 'product.price')}</span>
+                <span className="text-center w-1/5 font-semibold text-sm">${get(cartItem, 'product.price') * get(cartItem, 'qty')}</span>
+              </div>)
+            })}
+          </div>
+          <div id="order-info" className="w-1/2 border border-red-500 px-3 py-5">
+              <div className="border border-gray-300 rounded shadow-sm">
+                  <div className="p-3 border-b ">
+                    Your Information
+                  </div>
+                  <div className="flex w-full">
+                      <FormLabel forId='first-name' labelText='First Name' />
+                      <FormInput id="first-name" placeholder='First Name' />
+                  </div>
+                  <div className='flex w-full mt-3'>
+                    <FormLabel forId='last-name' labelText='Last Name' />
+                    <FormInput id="last-name" placeholder='Last Name' />
+                  </div>
+                  <div className='flex w-full mt-3'>
+                    <FormLabel forId='email-address' labelText='Email address' />
+                    <FormInput id="email-address" type='email' placeholder='Email address' />
+                  </div>
+              </div>
           </div>
 
         </div>

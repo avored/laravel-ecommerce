@@ -12,6 +12,8 @@ import {
 import { get } from "lodash";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
+import { FormLabel } from "../../components/Form/FormLabel";
+import { FormInput } from "../../components/Form/FormInput";
 
 
 const CustomerLogin = `
@@ -44,24 +46,15 @@ export const LoginPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>, type: string) => {
-    switch (type) {
-      case 'email': {
-        setEmail(event.target.value)
-        break;
-      }
-      case 'password': {
-        setPassword(event.target.value)
-        break;
-      }
-      default: {
-        console.log(`The provided ${type}  handle change type event is not supported in auth/login page`)
-        break;
-      }
-    }
+  const emailOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+  }
+  const passwordOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
   }
 
-  const submitHandle = () => {
+  const submitHandle = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     const variables = { email, password }
     customerLogin(variables).then(({ data }) => {
       const access_token = get(data, 'login.access_token')
@@ -89,35 +82,14 @@ export const LoginPage = () => {
               </h2>
 
             </div>
-            <form className="mt-8 space-y-6" action="#" method="POST">
-              <div className="space-y-2 rounded-md shadow-sm">
-                <label htmlFor="email-address" className="text-gray-500 pl-1">
-                  Email address
-                </label>
-                <input
-                  id="email-address"
-                  name="email"
-                  onChange={e => handleChange(e, 'email')}
-                  type="email"
-                  value={email}
-                  className="block w-full rounded border border-gray-300 px-3 py-2 text-gray-900 focus:z-10 focus:border-red-500 focus:outline-none focus:ring-red-500 sm:text-sm"
-                  placeholder="Email address"
-                />
+            <form className="mt-8 space-y-6" onSubmit={(e) => submitHandle(e)} action="#" method="POST">
+              <div className="space-y-1 rounded-md shadow-sm">
+                <FormLabel forId="email-address" labelText="Email address" />
+                <FormInput id="email-address" type="email" setOnChange={emailOnChange} placeholder="Email address" />
               </div>
-
-              <div className="space-y-2 rounded-md shadow-sm">
-                <label htmlFor="password" className="text-gray-500 pl-1">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  onChange={e => handleChange(e, 'password')}
-                  value={password}
-                  type="password"
-                  className="block w-full rounded border border-gray-300 px-3 py-2 text-gray-900 focus:z-10 focus:border-red-500 focus:outline-none focus:ring-red-500 sm:text-sm"
-                  placeholder="Password"
-                />
+              <div className="space-y-1 rounded-md shadow-sm">
+                <FormLabel forId="password" labelText="Password" />
+                <FormInput id="password" type="password" setOnChange={passwordOnChange} placeholder="Password" />
               </div>
 
               <div className="flex">
@@ -133,8 +105,7 @@ export const LoginPage = () => {
 
               <div>
                 <button
-                  type="button"
-                  onClick={submitHandle}
+                  type="submit"
                   className="group relative flex w-full justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 >
                   <LockClosedIcon className="absolute w-7 h-7 opacity-40 inset-y-1 left-0 flex items-center pl-3" />
