@@ -113,7 +113,7 @@ export const CartShow = () => {
                 <span>$ {cartTotal + shippingCost}</span>
               </div>
               <Link to="/checkout">
-                  <button className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">
+                  <button className="bg-red-500 font-semibold hover:bg-red-600 py-3 text-sm text-white uppercase w-full">
                       Checkout
                   </button>
               </Link>
