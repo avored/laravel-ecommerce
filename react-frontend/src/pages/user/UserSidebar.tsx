@@ -18,7 +18,7 @@ export const UserSidebar = () => {
         </div>
         
         <div className='mt-3'>
-        <Link to="/logout">Logout</Link>
+        <Link to="/user/logout">Logout</Link>
         </div>
     </div>
   )

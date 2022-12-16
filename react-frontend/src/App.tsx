@@ -20,6 +20,7 @@ import { UserOrders } from "./pages/user/UserOrders";
 import { UserAddresses } from "./pages/user/UserAddresses";
 import { UserAddresseCreate } from "./pages/user/UserAddresseCreate";
 import { UserAddresseEdit } from "./pages/user/UserAddressesEdit";
+import { UserLogout } from "./pages/user/UserLogout";
 
 function App() {
     return (
@@ -44,6 +45,7 @@ function App() {
                     <Route path="addresses" element={<UserAddresses/>}/>
                     <Route path="addresse/create" element={<UserAddresseCreate/>}/>
                     <Route path="addresse/:id/edit" element={<UserAddresseEdit/>}/>
+                    <Route path="logout" element={<UserLogout/>}/>
                 </Route>
 
                 <Route path="/login" element={<LoginPage/>}/>
