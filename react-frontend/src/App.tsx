@@ -5,7 +5,7 @@ import {Routes, Route} from "react-router-dom";
 import {Index} from "./pages/Index";
 import {Product} from "./pages/Product";
 import {LoginPage} from "./pages/auth/LoginPage";
-import {Dashboard} from "./pages/user/Dashboard";
+import {Profile} from "./pages/user/Profile";
 import {PrivateRoute} from "./routes/PrivateRoute";
 import {CategoryShow} from "./pages/category/CategoryShow";
 import {ProductShow} from "./pages/product/ProductShow";
@@ -15,6 +15,11 @@ import {CheckoutShippingAddressShow} from "./pages/checkout/CheckoutShippingAddr
 import {CheckoutPaymentShow} from "./pages/checkout/CheckoutPaymentShow";
 import {CheckoutShippingShow} from "./pages/checkout/CheckoutShippingShow";
 import { CheckoutSummaryShow } from "./pages/checkout/CheckoutSummaryShow";
+import { EditProfile } from "./pages/user/EditProfile";
+import { UserOrders } from "./pages/user/UserOrders";
+import { UserAddresses } from "./pages/user/UserAddresses";
+import { UserAddresseCreate } from "./pages/user/UserAddresseCreate";
+import { UserAddresseEdit } from "./pages/user/UserAddressesEdit";
 
 function App() {
     return (
@@ -33,7 +38,12 @@ function App() {
 
                 {/* ***********  User Navigation Routes or Protected routes ************  */}
                 <Route path="/user" element={<PrivateRoute/>}>
-                    <Route path="" element={<Dashboard/>}/>
+                    <Route path="profile" element={<Profile/>}/>
+                    <Route path="edit-profile" element={<EditProfile/>}/>
+                    <Route path="orders" element={<UserOrders/>}/>
+                    <Route path="addresses" element={<UserAddresses/>}/>
+                    <Route path="addresse/create" element={<UserAddresseCreate/>}/>
+                    <Route path="addresse/:id/edit" element={<UserAddresseEdit/>}/>
                 </Route>
 
                 <Route path="/login" element={<LoginPage/>}/>

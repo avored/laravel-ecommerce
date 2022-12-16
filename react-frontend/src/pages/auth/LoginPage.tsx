@@ -60,7 +60,7 @@ export const LoginPage = () => {
       const access_token = get(data, 'login.access_token')
       dispatch(setAccessToken(access_token))
       dispatch(setAuth(true))
-      navigate('/user')
+      navigate('/user/profile')
     });
   }
   return (

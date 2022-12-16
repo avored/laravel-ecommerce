@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Header } from '../../components/Header'
+import { UserSidebar } from './UserSidebar'
 
-export const Dashboard = () => {
+export const UserAddresseCreate = () => {
   return (
     <div className="min-h-full">
       <Header />
@@ -10,15 +11,22 @@ export const Dashboard = () => {
       <header className="bg-white shadow">
         <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
-            User Dashboard Page
+            User Addresss Create
           </h1>
         </div>
       </header>
       <main>
         <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
           <div className="px-4 py-6 sm:px-0">
-            <div className="h-96 rounded-lg border-4 border-dashed border-gray-200"></div>
-            <div className="h-96"></div>
+              <div className='flex w-full'>
+                <div className='w-64 border '>
+                  <UserSidebar />
+                </div>
+                <div className='flex-1 ml-3'>
+                   User Addresse Create
+                </div>
+
+              </div>
           </div>
         </div>
       </main>
