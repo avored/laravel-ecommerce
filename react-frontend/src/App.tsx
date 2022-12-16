@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import {Routes, Route} from "react-router-dom";
 
 import {Index} from "./pages/Index";
@@ -21,6 +20,7 @@ import { UserAddresses } from "./pages/user/UserAddresses";
 import { UserAddresseCreate } from "./pages/user/UserAddresseCreate";
 import { UserAddresseEdit } from "./pages/user/UserAddressesEdit";
 import { UserLogout } from "./pages/user/UserLogout";
+import { ForgotPasswordlPage } from "./pages/auth/ForgotPasswordlPage";
  
 function App() {
     return (
@@ -49,6 +49,7 @@ function App() {
                 </Route>
 
                 <Route path="/login" element={<LoginPage/>}/>
+                <Route path="/forgot-password" element={<ForgotPasswordlPage/>}/>
             </Routes>
         </>
     );

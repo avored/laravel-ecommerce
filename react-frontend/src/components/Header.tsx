@@ -189,7 +189,7 @@ export const Header = () => {
             <div className="-mr-2 flex md:hidden">
               <button
                 type="button"
-                className="inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                className="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-900 hover:bg-white hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-600 focus:ring-offset-2 focus:ring-offset-gray-600"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
               >

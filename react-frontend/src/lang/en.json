@@ -1,3 +1,5 @@
 {
-    "home_page" : "Home Page"
+    "home_page" : "Home Page",
+    "reset_password": "Reset password",
+    "email_address": "Email Address"
 }

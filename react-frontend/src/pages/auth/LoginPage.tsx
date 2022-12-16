@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { FormLabel } from "../../components/Form/FormLabel";
 import { FormInput } from "../../components/Form/FormInput";
+import { Link } from "react-router-dom";
 
 
 const CustomerLogin = `
@@ -94,12 +95,12 @@ export const LoginPage = () => {
 
               <div className="flex">
                 <div className="text-sm ml-auto">
-                  <a
-                    href="#"
+                  <Link
+                    to="/forgot-password"
                     className="font-medium text-red-600 hover:text-red-500"
                   >
                     Forgot your password?
-                  </a>
+                  </Link>
                 </div>
               </div>
 
