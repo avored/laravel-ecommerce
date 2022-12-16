@@ -7,7 +7,23 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { createClient, Provider  as GraphqlProvider } from 'urql';
 
+import {IntlProvider} from 'react-intl';
+import French from './lang/fr.json';
+import English from './lang/en.json';
+
+const locale:string = "en";
+
+let lang;
+  if (locale === "en") {
+    lang = English;
+  } 
+  if (locale === "fr") {
+      lang = French;
+  }
+
+
 const graphQLUrl: string = process.env.REACT_APP_GRAPHQL_URL ?? 'http://localhost:8000/graphql'
+
 
 const client = createClient({
   url: graphQLUrl,
@@ -31,11 +47,13 @@ const root = createRoot(container);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <GraphqlProvider value={client}>
-          <App />
-        </GraphqlProvider>
-      </BrowserRouter>
+      <IntlProvider locale ={locale} messages={lang}>
+        <BrowserRouter>
+          <GraphqlProvider value={client}>
+            <App />
+          </GraphqlProvider>
+        </BrowserRouter>
+        </IntlProvider>
     </Provider>
   </React.StrictMode>
 );

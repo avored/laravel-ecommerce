@@ -1,5 +1,6 @@
 import React from "react";
 import { Header } from "../components/Header";
+import {FormattedMessage} from 'react-intl';
 
 export const Index = () => {
   return (
@@ -9,6 +10,7 @@ export const Index = () => {
       <header className="bg-white shadow">
         <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
+          <FormattedMessage id="home_page" />
             AvoRed E commerce Demo
           </h1>
         </div>
