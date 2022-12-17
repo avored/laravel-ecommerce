@@ -1,13 +1,10 @@
-import { Menu, Transition } from '@headlessui/react';
 import { get, isEmpty } from 'lodash';
-import React, { Fragment, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useMutation, useQuery } from 'urql';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Header } from '../../components/Header';
-import { ProductCard } from '../../components/ProductCard';
 import { setVisitorId, visitorId } from '../../features/cart/cartSlice';
-import { Product } from '../../types/ProductType';
 
 const GetProduct = `
 query GetProduct ($slug: String!) {
@@ -56,8 +53,7 @@ export const ProductShow = () => {
 
   const [addToCartMutationResult, addToCartMutation] = useMutation(AddToCartMutation)
 
-  const addToCartOnClick = () => {
-
+  const addToCartOnClick = async () => {
     var variables = {}
     if (isEmpty(currentVisitorId)) {
       variables = {slug, qty}
@@ -65,15 +61,12 @@ export const ProductShow = () => {
       variables = {slug, qty, visitorId: currentVisitorId}
     }
 
-    addToCartMutation(variables).then(({ data }) => {
-        if (isEmpty(currentVisitorId)) {
-          const cartVisitorId: string = get(data, 'addToCart.0.visitor_id')
-          dispatch(setVisitorId(cartVisitorId))
-        }
-        navigate('/cart')
-
-    });
-
+    await addToCartMutation(variables)
+    if (isEmpty(currentVisitorId)) {
+      const cartVisitorId: string = get(addToCartMutationResult, 'data.addToCart.0.visitor_id')
+      dispatch(setVisitorId(cartVisitorId))
+    }
+    navigate('/cart')
   }
 
   const [{ fetching, data }] = useQuery({ query: GetProduct, variables: { slug } });
