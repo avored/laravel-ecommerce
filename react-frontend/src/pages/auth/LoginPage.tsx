@@ -4,10 +4,10 @@ import Logo from "../../logo.svg";
 import { LockClosedIcon } from '@heroicons/react/24/solid'
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import {
-  setAccessToken,
-  accessToken,
-  setAuth,
-  isAuth
+  setAuthInfo,
+  isAuth,
+  getAuthUserInfo,
+  setIsAuth
 } from '../../features/userLogin/userLoginSlice';
 import { get } from "lodash";
 import { useNavigate } from "react-router-dom";
@@ -26,17 +26,29 @@ const CustomerLogin = `
       email: $email
       password: $password
     ) {
-      token_type
-      access_token
-      expires_in
-      refresh_token
-    }
+      first_name
+        last_name
+        email
+        image_path
+        id
+        created_at
+        updated_at
+        addresses {
+            id
+        }
+        token_info {
+            token_type
+            access_token
+            expires_in
+            refresh_token
+        }
+      }
     }
 `;
 
 export const LoginPage = () => {
 
-  const currentAccessToken = useAppSelector(accessToken);
+  const currentUserInfo = useAppSelector(getAuthUserInfo);
   const isUserAuth = useAppSelector(isAuth)
   const navigate = useNavigate();
 
@@ -51,16 +63,17 @@ export const LoginPage = () => {
     setEmail(e.target.value)
   }
   const passwordOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value)
+    setPassword(e.target.value)
   }
 
   const submitHandle = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const variables = { email, password }
     customerLogin(variables).then(({ data }) => {
-      const access_token = get(data, 'login.access_token')
-      dispatch(setAccessToken(access_token))
-      dispatch(setAuth(true))
+      const authInfo = get(data, 'login')
+      console.log(authInfo)
+      dispatch(setAuthInfo(authInfo))
+      dispatch(setIsAuth(true))
       navigate('/user/profile')
     });
   }
@@ -72,7 +85,7 @@ export const LoginPage = () => {
         <div className="flex justify-center mt-5">
           <div className="w-full shadow-md py-12 px-4 sm:px-6 lg:px-8  max-w-md space-y-8">
             <div>
-              {currentAccessToken}
+              {JSON.stringify(currentUserInfo)}
               <img
                 className="mx-auto h-12 w-auto"
                 src={Logo}

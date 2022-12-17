@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Header } from '../../components/Header'
 import { UserSidebar } from './UserSidebar'
 
@@ -22,6 +23,7 @@ export const Profile = () => {
                     <UserSidebar />
                 </div>
                 <div className='flex-1 ml-3'>
+                  <Link to="/login">Login Page</Link>
                    Right side
                 </div>
 

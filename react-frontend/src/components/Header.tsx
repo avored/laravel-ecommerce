@@ -6,11 +6,12 @@ import {
   Bars3Icon,
   ChevronDownIcon,
 } from "@heroicons/react/24/solid";
-import { isAuth } from "../features/userLogin/userLoginSlice";
+import { AuthUserState, getAuthUserInfo, isAuth } from "../features/userLogin/userLoginSlice";
 import { useAppSelector } from "../app/hooks";
 import { Link } from "react-router-dom";
 import { useQuery } from "urql";
 import { get } from "lodash";
+import { FormattedMessage } from "react-intl";
 interface Category {
   id: string,
   name: string,
@@ -24,6 +25,7 @@ interface Category {
 
 export const Header = () => {
   const isUserLoggedIn = useAppSelector(isAuth);
+  const currentUserInfo: AuthUserState = useAppSelector(getAuthUserInfo);
 
   const CategoryAllQuery = `
   query CategoryAllQuery{
@@ -59,6 +61,9 @@ export const Header = () => {
         <Menu as="div" className="relative inline-block ml-2 text-left">
           <div>
             <Menu.Button className="inline-flex w-full justify-center rounded-md bg-black bg-opacity-20 px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <span className="mr-3">
+                {currentUserInfo.first_name} {currentUserInfo.last_name}
+              </span>
               <img
                 className="h-4 w-4 rounded-full"
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -83,61 +88,52 @@ export const Header = () => {
               <div className="px-1 py-1 ">
                 <Menu.Item>
                   {({ active }) => (
-                    <button
+                    <Link
+                      to="/user/edit-profile"
                       className={`${
                         active ? "bg-red-500 text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
-                      Edit
-                    </button>
+                      <FormattedMessage id="edit_profile" />
+                    </Link>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <button
+                    <Link
+                      to="/user/orders"
                       className={`${
                         active ? "bg-red-500 text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
-                      Duplicate
-                    </button>
-                  )}
-                </Menu.Item>
-              </div>
-              <div className="px-1 py-1">
-                <Menu.Item>
-                  {({ active }) => (
-                    <button
-                      className={`${
-                        active ? "bg-red-500 text-white" : "text-gray-900"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                    >
-                      Archive
-                    </button>
+                      <FormattedMessage id="orders" />
+                    </Link>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <button
+                    <Link
+                      to="/user/addresses"
                       className={`${
                         active ? "bg-red-500 text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
-                      Move
-                    </button>
+                      <FormattedMessage id="addresses" />
+                    </Link>
                   )}
                 </Menu.Item>
               </div>
               <div className="px-1 py-1">
                 <Menu.Item>
                   {({ active }) => (
-                    <button
+                    <Link
+                      to="/user/logout"
                       className={`${
                         active ? "bg-red-500 text-white" : "text-gray-900"
                       } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                     >
-                      Delete
-                    </button>
+                      <FormattedMessage id="logout" />
+                    </Link>
                   )}
                 </Menu.Item>
               </div>
