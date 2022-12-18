@@ -57,11 +57,27 @@ export const userLoginSlice = createSlice({
     setIsAuth: (state, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;
     },
+    performUserLogout: (state, action: PayloadAction<boolean>) => {
+      if (action.payload) {
+        state.id = '';
+        state.first_name = '';
+        state.last_name = ''
+        state.email = '';
+        state.image_path = '';
+        state.created_at = '';
+        state.updated_at = ''
+        state.token_info.token_type = '';
+        state.token_info.access_token = '';
+        state.token_info.expires_in = 0;
+        state.token_info.refresh_token = '';
+        state.isAuth = false;
+      }
+    },
   },
 
 });
 
-export const { setAuthInfo, setIsAuth } = userLoginSlice.actions;
+export const { setAuthInfo, setIsAuth, performUserLogout } = userLoginSlice.actions;
 
 export const getAuthUserInfo = (state: RootState) => state.userLogin;
 export const isAuth = (state: RootState) => state.userLogin.isAuth;
