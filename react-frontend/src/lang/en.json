@@ -5,5 +5,8 @@
     "edit_profile": "Edit Profile",
     "orders": "Orders",
     "addresses": "Addresses",
-    "logout": "Logout"
+    "logout": "Logout",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "password": "Password"
 }

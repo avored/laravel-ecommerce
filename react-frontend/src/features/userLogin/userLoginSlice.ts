@@ -53,6 +53,8 @@ export const userLoginSlice = createSlice({
       state.token_info.access_token = action.payload.token_info.access_token;
       state.token_info.expires_in = action.payload.token_info.expires_in;
       state.token_info.refresh_token = action.payload.token_info.refresh_token;
+
+      localStorage.setItem('access_token', action.payload.token_info.access_token)
     },
     setIsAuth: (state, action: PayloadAction<boolean>) => {
       state.isAuth = action.payload;

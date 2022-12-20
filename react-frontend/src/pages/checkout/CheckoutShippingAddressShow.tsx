@@ -145,56 +145,56 @@ export const CheckoutShippingAddressShow = () => {
 
                                             <div className="space-y-1 rounded-md shadow-sm">
                                                 <FormLabel forId="first-name" labelText="First Name"/>
-                                                <FormInput id="first-name" type="text" setOnChange={firstNameOnChange}
+                                                <FormInput id="first-name" value={firstName} type="text" setOnChange={firstNameOnChange}
                                                     placeholder="First Name"/>
                                             </div>
 
                                             <div className="space-y-1 rounded-md shadow-sm">
                                                 <FormLabel forId="last-name" labelText="Last name"/>
-                                                <FormInput id="last-name" type="text" setOnChange={lastNameOnChange}
+                                                <FormInput id="last-name" value={lastName}  type="text" setOnChange={lastNameOnChange}
                                                     placeholder="Last name"/>
                                             </div>
 
                                             <div className="space-y-1 rounded-md shadow-sm">
                                                 <FormLabel forId="company-name" labelText="Company Name"/>
-                                                <FormInput id="company-name" type="text" setOnChange={companyNameOnChange}
+                                                <FormInput id="company-name" value={companyName}  type="text" setOnChange={companyNameOnChange}
                                                     placeholder="Company Name"/>
                                             </div>
 
                                             <div className="space-y-1 rounded-md shadow-sm">
                                                 <FormLabel forId="address1" labelText="Address1"/>
-                                                <FormInput id="address1" type="text" setOnChange={address1OnChange}
+                                                <FormInput id="address1" value={address1}  type="text" setOnChange={address1OnChange}
                                                     placeholder="Address1"/>
                                             </div>
 
 
                                             <div className="space-y-1 rounded-md shadow-sm">
                                                 <FormLabel forId="address2" labelText="Address2"/>
-                                                <FormInput id="address2" type="text" setOnChange={address2OnChange}
+                                                <FormInput id="address2" value={address2}  type="text" setOnChange={address2OnChange}
                                                     placeholder="Address2"/>
                                             </div>
 
                                             <div className="space-y-1 rounded-md shadow-sm">
                                                 <FormLabel forId="postcode" labelText="PostCode"/>
-                                                <FormInput id="postcode" type="text" setOnChange={postcodeOnChange}
+                                                <FormInput id="postcode" value={postcode}  type="text" setOnChange={postcodeOnChange}
                                                     placeholder="PostCode"/>
                                             </div>
 
                                             <div className="space-y-1 rounded-md shadow-sm">
                                                 <FormLabel forId="city" labelText="City"/>
-                                                <FormInput id="city" type="text" setOnChange={cityOnChange}
+                                                <FormInput id="city" value={city}  type="text" setOnChange={cityOnChange}
                                                     placeholder="City"/>
                                             </div>
 
                                             <div className="space-y-1 rounded-md shadow-sm">
                                                 <FormLabel forId="phone" labelText="Phone"/>
-                                                <FormInput id="phone" type="text" setOnChange={phoneOnChange}
+                                                <FormInput id="phone" value={phone}  type="text" setOnChange={phoneOnChange}
                                                     placeholder="Phone"/>
                                             </div>
 
                                             <div className="space-y-1 rounded-md shadow-sm">
                                                 <FormLabel forId="country-id" labelText="Country"/>
-                                                <FormInput id="country-id" type="text" setOnChange={countryIdOnChange}
+                                                <FormInput id="country-id" value={countryId}  type="text" setOnChange={countryIdOnChange}
                                                     placeholder="Country"/>
                                             </div>
 

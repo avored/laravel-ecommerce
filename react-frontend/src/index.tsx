@@ -10,6 +10,9 @@ import { createClient, Provider  as GraphqlProvider } from 'urql';
 import {IntlProvider} from 'react-intl';
 import French from './lang/fr.json';
 import English from './lang/en.json';
+import { useAppSelector } from "./app/hooks";
+import { getAuthUserInfo } from "./features/userLogin/userLoginSlice";
+import { get } from "lodash";
 
 const locale:string = "en";
 
@@ -27,17 +30,17 @@ const graphQLUrl: string = process.env.REACT_APP_GRAPHQL_URL ?? 'http://localhos
 
 const client = createClient({
   url: graphQLUrl,
-  // fetchOptions: () => {
-  //   const token = getToken();
-  //   return {
-  //     headers: { authorization: token ? `Bearer ${token}` : '' },
-  //   };
-  // },
+  fetchOptions: () => {
+    const token = getToken()
+    return {
+      headers: { authorization: token ? `Bearer ${token}` : '' },
+    };
+  },
 });
 
 
-function getToken (): string {
-  return 'abcd'
+function getToken (): string|null {
+  return localStorage.getItem('access_token')
 }
 
 

@@ -132,6 +132,7 @@ export const ForgotPasswordlPage = () => {
                 />
                 <FormInput
                   id="email-address"
+                  value={email}
                   type="email"
                   setOnChange={emailOnChange}
                   placeholder={intl.formatMessage({ id: "email_address" })}

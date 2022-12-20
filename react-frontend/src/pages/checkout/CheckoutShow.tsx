@@ -124,37 +124,37 @@ export const CheckoutShow = () => {
 
                                     <div className="space-y-1 rounded-md shadow-sm">
                                         <FormLabel forId="first-name" labelText="First Name"/>
-                                        <FormInput id="first-name" type="text" setOnChange={firstNameOnChange}
+                                        <FormInput value={firstName} id="first-name" type="text" setOnChange={firstNameOnChange}
                                                    placeholder="First Name"/>
                                     </div>
 
                                     <div className="space-y-1 rounded-md shadow-sm">
                                         <FormLabel forId="last-name" labelText="Last name"/>
-                                        <FormInput id="last-name" type="text" setOnChange={lastNameOnChange}
+                                        <FormInput value={lastName} id="last-name" type="text" setOnChange={lastNameOnChange}
                                                    placeholder="Last name"/>
                                     </div>
 
                                    <div className="space-y-1 rounded-md shadow-sm">
                                         <FormLabel forId="email-address" labelText="Email address"/>
-                                        <FormInput id="email-address" type="email" setOnChange={emailOnChange}
+                                        <FormInput value={email} id="email-address" type="email" setOnChange={emailOnChange}
                                                    placeholder="Email address"/>
                                     </div>
 
                                     <div className="space-y-1 rounded-md shadow-sm">
                                         <FormLabel forId="company-name" labelText="Company Name"/>
-                                        <FormInput id="company-name" type="text" setOnChange={companyNameOnChange}
+                                        <FormInput value={companyName} id="company-name" type="text" setOnChange={companyNameOnChange}
                                             placeholder="Company Name"/>
                                     </div>
 
                                     <div className="space-y-1 rounded-md shadow-sm">
                                         <FormLabel forId="password" labelText="Password"/>
-                                        <FormInput id="password" type="password" setOnChange={passwordOnChange}
+                                        <FormInput value={password} id="password" type="password" setOnChange={passwordOnChange}
                                             placeholder="Password"/>
                                     </div>
 
                                     <div className="space-y-1 rounded-md shadow-sm">
                                         <FormLabel forId="conform-password" labelText="Confirm Password"/>
-                                        <FormInput id="conform-password" type="password" setOnChange={passwordConfirmationOnChange}
+                                        <FormInput value={passwordComfirmation} id="conform-password" type="password" setOnChange={passwordConfirmationOnChange}
                                             placeholder="Confirm Password"/>
                                     </div>
 

@@ -56,8 +56,8 @@ export const LoginPage = () => {
   const [customerLoginResult, customerLogin] = useMutation(CustomerLogin)
   const dispatch = useAppDispatch();
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('ind.purvesh@gmail.com')
+  const [password, setPassword] = useState('admin123')
 
   const emailOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
@@ -99,11 +99,11 @@ export const LoginPage = () => {
             <form className="mt-8 space-y-6" onSubmit={(e) => submitHandle(e)} action="#" method="POST">
               <div className="space-y-1 rounded-md shadow-sm">
                 <FormLabel forId="email-address" labelText="Email address" />
-                <FormInput id="email-address" type="email" setOnChange={emailOnChange} placeholder="Email address" />
+                <FormInput id="email-address" value={email} type="email" setOnChange={emailOnChange} placeholder="Email address" />
               </div>
               <div className="space-y-1 rounded-md shadow-sm">
                 <FormLabel forId="password" labelText="Password" />
-                <FormInput id="password" type="password" setOnChange={passwordOnChange} placeholder="Password" />
+                <FormInput id="password" type="password" value={password} setOnChange={passwordOnChange} placeholder="Password" />
               </div>
 
               <div className="flex">
