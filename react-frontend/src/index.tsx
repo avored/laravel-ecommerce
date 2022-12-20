@@ -5,7 +5,7 @@ import { store } from "./app/store";
 import App from "./App";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import { createClient, Provider  as GraphqlProvider } from 'urql';
+import { cacheExchange, createClient, dedupExchange, Provider  as GraphqlProvider } from 'urql';
 
 import {IntlProvider} from 'react-intl';
 import French from './lang/fr.json';
@@ -13,6 +13,7 @@ import English from './lang/en.json';
 import { useAppSelector } from "./app/hooks";
 import { getAuthUserInfo } from "./features/userLogin/userLoginSlice";
 import { get } from "lodash";
+import { multipartFetchExchange } from "@urql/exchange-multipart-fetch";
 
 const locale:string = "en";
 
@@ -30,10 +31,12 @@ const graphQLUrl: string = process.env.REACT_APP_GRAPHQL_URL ?? 'http://localhos
 
 const client = createClient({
   url: graphQLUrl,
+  exchanges: [dedupExchange, cacheExchange, multipartFetchExchange],
   fetchOptions: () => {
     const token = getToken()
     return {
       headers: { authorization: token ? `Bearer ${token}` : '' },
+
     };
   },
 });

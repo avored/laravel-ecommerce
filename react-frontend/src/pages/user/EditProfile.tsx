@@ -15,14 +15,17 @@ const customerUpdate = `
     mutation CustomerUpdate(
       $firstName: String!
       $lastName: String!
+      $profileImage: Upload!
     ) {
       customerUpdate(   
           first_name: $firstName
           last_name: $lastName
+          profile_image: $profileImage
       ) {
           id
           first_name
           last_name
+          image_path_url
           email
           created_at
           updated_at
@@ -38,6 +41,7 @@ export const EditProfile = () => {
   const [firstName, setFirstName] = useState(currentUserInfo.first_name);
   const [lastName, setLastName] = useState(currentUserInfo.last_name);
   const [emailName, setEmail] = useState(currentUserInfo.email);
+  const [profileImage, setProfileImage] = useState<File>();
 
   const firstNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFirstName(e.target.value);
@@ -48,12 +52,17 @@ export const EditProfile = () => {
   const emailOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
+  const profileImageOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    setProfileImage(get(files, '0'));
+
+  };
 
   const navigate = useNavigate()
   
   const submitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const variables = { firstName, lastName };
+    const variables = { firstName, lastName, profileImage };
     await customerUpdateMutation(variables);
 
     const customerID = get(customerUpdateResult, "data.customerUpdate.id");
@@ -79,7 +88,7 @@ export const EditProfile = () => {
           <div className="px-4 py-6 sm:px-0">
             <div className="flex w-full">
               <div className="w-64 border ">
-                <UserSidebar />
+                <UserSidebar user={currentUserInfo} />
               </div>
               <form className="flex-1 ml-3" onSubmit={submitHandle}>
                 <div className="">
@@ -122,6 +131,20 @@ export const EditProfile = () => {
                           type="text"
                           setOnChange={emailOnChange}
                           placeholder="Email Address"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex w-full">
+                    <div className="w-5/6 font-semibold">
+                      <div className="space-y-1 rounded-md shadow-sm">
+                        <FormLabel forId="profile-image" labelText="Profile Image" />
+                        <FormInput
+                          value=''
+                          id="profile-image"
+                          type="file"
+                          setOnChange={profileImageOnChange}
+                          placeholder="Profile Image"
                         />
                       </div>
                     </div>

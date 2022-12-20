@@ -66,8 +66,8 @@ export const Header = () => {
               </span>
               <img
                 className="h-4 w-4 rounded-full"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt=""
+                src={currentUserInfo.image_path_url}
+                alt={`${currentUserInfo.first_name} ${currentUserInfo.last_name} `}
               />
               <ChevronDownIcon
                 className="ml-2 -mr-1 h-5 w-5 text-red-200 hover:text-red-100"
@@ -230,8 +230,8 @@ export const Header = () => {
                 <div className="flex-shrink-0">
                   <img
                     className="h-10 w-10 rounded-full"
-                    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                    alt=""
+                    src={currentUserInfo.image_path_url}
+                    alt={`${currentUserInfo.first_name} ${currentUserInfo.last_name}`}
                   />
                 </div>
                 <div className="ml-3">

@@ -26,7 +26,7 @@ export const Profile = () => {
           <div className="px-4 py-6 sm:px-0">
               <div className='flex w-full'>
                 <div className='w-64 border '>
-                    <UserSidebar />
+                    <UserSidebar user={currentUserInfo} />
                     <Link to="/login">Login Page</Link>
                 </div>
                 <div className='flex-1 ml-3'>

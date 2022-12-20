@@ -130,6 +130,7 @@ return [
 
         'types' => [
             'Category' => CategoryType::class,
+            \Rebing\GraphQL\Support\UploadType::class,
             'Product' => ProductType::class,
             'Customer' => CustomerType::class,
             'Order' => OrderType::class,

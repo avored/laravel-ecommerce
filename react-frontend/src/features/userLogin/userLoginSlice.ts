@@ -6,7 +6,7 @@ export interface AuthUserState {
   first_name: string,
   last_name: string,
   email: string,
-  image_path: string,
+  image_path_url: string,
   created_at: string,
   updated_at: string,
   isAuth: boolean,
@@ -24,7 +24,7 @@ const initialState: AuthUserState = {
   first_name: '',
   last_name: '',
   email: '',
-  image_path: '',
+  image_path_url: '',
   created_at: '',
   updated_at: '',
   token_info: {
@@ -46,7 +46,7 @@ export const userLoginSlice = createSlice({
       state.first_name = action.payload.first_name;
       state.last_name = action.payload.last_name;
       state.email = action.payload.email;
-      state.image_path = action.payload.image_path;
+      state.image_path_url = action.payload.image_path_url;
       state.created_at = action.payload.created_at;
       state.updated_at = action.payload.updated_at
       state.token_info.token_type = action.payload.token_info.token_type;
@@ -65,7 +65,7 @@ export const userLoginSlice = createSlice({
         state.first_name = '';
         state.last_name = ''
         state.email = '';
-        state.image_path = '';
+        state.image_path_url = '';
         state.created_at = '';
         state.updated_at = ''
         state.token_info.token_type = '';

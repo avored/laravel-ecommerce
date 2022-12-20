@@ -1,8 +1,13 @@
 import React from 'react'
+import { useAppSelector } from '../../app/hooks';
 import { Header } from '../../components/Header'
+import { getAuthUserInfo } from '../../features/userLogin/userLoginSlice';
 import { UserSidebar } from './UserSidebar'
 
 export const UserAddresses = () => {
+
+  const currentUserInfo = useAppSelector(getAuthUserInfo);
+  
   return (
     <div className="min-h-full">
       <Header />
@@ -19,7 +24,7 @@ export const UserAddresses = () => {
           <div className="px-4 py-6 sm:px-0">
               <div className='flex w-full'>
                 <div className='w-64 border '>
-                    <UserSidebar />
+                    <UserSidebar user={currentUserInfo} />
                 </div>
                 <div className='flex-1 ml-3'>
                    User Addresses
