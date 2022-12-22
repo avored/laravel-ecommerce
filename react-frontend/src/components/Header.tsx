@@ -10,7 +10,6 @@ import { AuthUserState, getAuthUserInfo, isAuth } from "../features/userLogin/us
 import { useAppSelector } from "../app/hooks";
 import { Link } from "react-router-dom";
 import { useQuery } from "urql";
-import { get } from "lodash";
 import { FormattedMessage } from "react-intl";
 interface Category {
   id: string,
@@ -28,21 +27,23 @@ export const Header = () => {
   const currentUserInfo: AuthUserState = useAppSelector(getAuthUserInfo);
 
   const CategoryAllQuery = `
-  query CategoryAllQuery{
-      allCategory {
-          id
-          name
-          slug
-          description
-          meta_title
-          meta_description
-          created_at
-          updated_at
-          
+      query CategoryAllQuery{
+          allCategory {
+              id
+              name
+              slug
+              description
+              meta_title
+              meta_description
+              created_at
+              updated_at
+              
+          }
       }
-  }
-`;
+  `;
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
+
+  const [{ fetching, data }] = useQuery({query: CategoryAllQuery});
 
   const triggerMobileMenu = () => {
     setIsMobileMenuVisible((isMobileMenuVisible) => !isMobileMenuVisible);
@@ -144,7 +145,7 @@ export const Header = () => {
     );
   };
 
-  const [{ fetching, data }] = useQuery({query: CategoryAllQuery});
+
 
   return (
     <>
@@ -251,26 +252,9 @@ export const Header = () => {
                 </button>
               </div>
               <div className="mt-3 space-y-1 px-2">
-                <a
-                  href="#"
-                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                >
-                  Your Profile
-                </a>
-
-                <a
-                  href="#"
-                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                >
-                  Settings
-                </a>
-
-                <a
-                  href="#"
-                  className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white"
-                >
-                  Sign out
-                </a>
+                  <Link to="/user/logout" className="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
+                      Logout
+                  </Link>
               </div>
             </div>
           </div>

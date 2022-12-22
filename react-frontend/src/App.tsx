@@ -43,7 +43,7 @@ function App() {
                     <Route path="edit-profile" element={<EditProfile/>}/>
                     <Route path="orders" element={<UserOrders/>}/>
                     <Route path="addresses" element={<UserAddresses/>}/>
-                    <Route path="addresse/create" element={<UserAddresseCreate/>}/>
+                    <Route path="address/create" element={<UserAddresseCreate/>}/>
                     <Route path="addresse/:id/edit" element={<UserAddresseEdit/>}/>
                     <Route path="logout" element={<UserLogout/>}/>
                 </Route>

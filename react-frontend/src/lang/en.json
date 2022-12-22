@@ -8,5 +8,8 @@
     "logout": "Logout",
     "first_name": "First Name",
     "last_name": "Last Name",
-    "password": "Password"
+    "password": "Password",
+    "user_addresses": "User Addresses",
+    "create": "Create",
+    "user_address_create": "Create User Address"
 }

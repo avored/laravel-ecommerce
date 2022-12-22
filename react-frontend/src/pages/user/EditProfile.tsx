@@ -1,7 +1,6 @@
-import { LockClosedIcon, PencilIcon } from "@heroicons/react/24/solid";
+import { PencilIcon } from "@heroicons/react/24/solid";
 import { get } from "lodash";
 import React, { useState } from "react";
-import { FormattedMessage } from "react-intl";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "urql";
 import { useAppSelector } from "../../app/hooks";
@@ -15,7 +14,7 @@ const customerUpdate = `
     mutation CustomerUpdate(
       $firstName: String!
       $lastName: String!
-      $profileImage: Upload!
+      $profileImage: Upload
     ) {
       customerUpdate(   
           first_name: $firstName
