@@ -11,5 +11,14 @@
     "password": "Password",
     "user_addresses": "User Addresses",
     "create": "Create",
-    "user_address_create": "Create User Address"
+    "user_address_create": "Create User Address",
+    "company_name": "Company Name",
+    "phone": "Phone",
+    "country_id": "Country",
+    "postcode": "Postcode",
+    "address1": "Address1",
+    "address2": "Address2",
+    "city": "City",
+    "state": "State"
+
 }
