@@ -46,6 +46,11 @@ const CustomerLogin = `
     }
 `;
 
+
+declare global {
+  interface Window { x: any; }
+}
+
 export const LoginPage = () => {
 
   const currentUserInfo = useAppSelector(getAuthUserInfo);
@@ -54,6 +59,9 @@ export const LoginPage = () => {
 
 
   const [customerLoginResult, customerLogin] = useMutation(CustomerLogin)
+
+
+  console.log(window.x = customerLogin)
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState('ind.purvesh@gmail.com')
@@ -75,6 +83,8 @@ export const LoginPage = () => {
       dispatch(setAuthInfo(authInfo))
       dispatch(setIsAuth(true))
       navigate('/user/profile')
+
+      
     });
   }
   return (

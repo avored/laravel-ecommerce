@@ -51,6 +51,7 @@ export const UserAddresseCreate = () => {
   const intl = useIntl();
   const currentUserInfo = useAppSelector(getAuthUserInfo);
   const [addressCreateResult, addressCreateMutation] = useMutation(addressCreate);
+
   const navigate = useNavigate()
 
   const types: Array <OptionType> = [{label: "Shipping", value: "SHIPPING"}, {label: "Billing", value: "BILLING"}]
