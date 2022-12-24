@@ -18,7 +18,7 @@ import { EditProfile } from "./pages/user/EditProfile";
 import { UserOrders } from "./pages/user/UserOrders";
 import { UserAddresses } from "./pages/user/UserAddresses";
 import { UserAddresseCreate } from "./pages/user/UserAddresseCreate";
-import { UserAddresseEdit } from "./pages/user/UserAddressesEdit";
+import { EditAddress } from "./pages/user/EditAddress";
 import { UserLogout } from "./pages/user/UserLogout";
 import { ForgotPasswordlPage } from "./pages/auth/ForgotPasswordlPage";
  
@@ -44,7 +44,7 @@ function App() {
                     <Route path="orders" element={<UserOrders/>}/>
                     <Route path="addresses" element={<UserAddresses/>}/>
                     <Route path="address/create" element={<UserAddresseCreate/>}/>
-                    <Route path="addresse/:id/edit" element={<UserAddresseEdit/>}/>
+                    <Route path="edit-address/:id" element={<EditAddress/>}/>
                     <Route path="logout" element={<UserLogout/>}/>
                 </Route>
 
