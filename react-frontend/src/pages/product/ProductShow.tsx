@@ -53,20 +53,22 @@ export const ProductShow = () => {
 
   const [addToCartMutationResult, addToCartMutation] = useMutation(AddToCartMutation)
 
-  const addToCartOnClick = async () => {
+  const addToCartOnClick = () => {
     var variables = {}
     if (isEmpty(currentVisitorId)) {
       variables = {slug, qty}
     } else {
       variables = {slug, qty, visitorId: currentVisitorId}
     }
+    addToCartMutation(variables).then ((result) => {
+        if (isEmpty(currentVisitorId)) {
+          const cartVisitorId: string = get(addToCartMutationResult, 'data.addToCart.0.visitor_id')
+          // console.log
+          dispatch(setVisitorId(cartVisitorId))
+        }
+        navigate('/cart')     
+    })
 
-    await addToCartMutation(variables)
-    if (isEmpty(currentVisitorId)) {
-      const cartVisitorId: string = get(addToCartMutationResult, 'data.addToCart.0.visitor_id')
-      dispatch(setVisitorId(cartVisitorId))
-    }
-    navigate('/cart')
   }
 
   const [{ fetching, data }] = useQuery({ query: GetProduct, variables: { slug } });
@@ -74,6 +76,7 @@ export const ProductShow = () => {
   return (
     <div className="min-h-full">
       <Header />
+      VisitorID: {currentVisitorId}
 
       {fetching === true ? (
           <p>Loading</p>
