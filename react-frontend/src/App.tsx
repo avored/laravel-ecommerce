@@ -44,7 +44,7 @@ function App() {
                     <Route path="orders" element={<UserOrders/>}/>
                     <Route path="addresses" element={<UserAddresses/>}/>
                     <Route path="address/create" element={<UserAddresseCreate/>}/>
-                    <Route path="edit-address/:id" element={<EditAddress/>}/>
+                    <Route path="edit-address/:addressId" element={<EditAddress/>}/>
                     <Route path="logout" element={<UserLogout/>}/>
                 </Route>
 
