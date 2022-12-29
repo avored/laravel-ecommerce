@@ -1,6 +1,5 @@
 import {get} from 'lodash';
 import React, {useState} from 'react'
-// import { Link } from 'react-router-dom';
 import {useQuery} from 'urql';
 import {useAppSelector} from '../../app/hooks'
 import {FormInput} from '../../components/Form/FormInput';
@@ -8,6 +7,7 @@ import {FormLabel} from '../../components/Form/FormLabel';
 import {Header} from '../../components/Header'
 import {visitorId} from '../../features/cart/cartSlice'
 import {useNavigate} from "react-router-dom";
+import { getAuthUserInfo } from '../../features/userLogin/userLoginSlice'
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -28,7 +28,30 @@ query CartItems($visitorId: String!)  {
 
 export const CheckoutShippingAddressShow = () => {
     const navigate = useNavigate()
+    const currentUserInfo = useAppSelector(getAuthUserInfo);
 
+    console.log(currentUserInfo)
+    const AddressesAllQuery = `
+      query AddressAllQuery{
+          allAddress {
+              id
+              type
+              first_name
+              last_name
+              company_name
+              phone
+              address1
+              address2
+              city
+              state
+              postcode
+              country_id
+              created_at
+              updated_at
+          }
+      }
+    `;
+    const [addressQueryData] = useQuery({ query: AddressesAllQuery });
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [companyName, setCompanyName] = useState('')

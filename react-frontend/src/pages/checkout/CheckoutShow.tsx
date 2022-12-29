@@ -1,7 +1,8 @@
 import {get} from 'lodash';
 import React, {useState} from 'react'
-// import { Link } from 'react-router-dom';
+import { getAuthUserInfo } from '../../features/userLogin/userLoginSlice'
 import {useQuery} from 'urql';
+import { isEmpty } from 'lodash';
 import {useAppSelector} from '../../app/hooks'
 import {FormInput} from '../../components/Form/FormInput';
 import {FormLabel} from '../../components/Form/FormLabel';
@@ -26,7 +27,13 @@ query CartItems($visitorId: String!)  {
 
 
 export const CheckoutShow = () => {
-
+    const navigate = useNavigate();
+    
+    const currentUserInfo = useAppSelector(getAuthUserInfo);
+    if (!isEmpty(currentUserInfo.id)) {
+        navigate('/checkout/shipping-address')
+    }
+    console.log(currentUserInfo)
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -34,7 +41,7 @@ export const CheckoutShow = () => {
     const [password, setPassword] = useState('')
     const [passwordComfirmation, setPasswordComfirmation] = useState('')
 
-    const navigate = useNavigate();
+    
 
     const emailOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(e.target.value)

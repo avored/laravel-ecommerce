@@ -12,7 +12,7 @@ import { CardTitle } from "../../components/Layout/CardTitle";
 import { getAuthUserInfo } from "../../features/userLogin/userLoginSlice";
 import { UserSidebar } from "./UserSidebar";
 
-interface Address {
+export interface Address {
   id: string;
   type: string;
   address1: string;
