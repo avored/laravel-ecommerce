@@ -1,0 +1,24 @@
+{
+    "home_page" : "Home Page",
+    "reset_password": "Reset password",
+    "email_address": "Email Address",
+    "edit_profile": "Edit Profile",
+    "orders": "Orders",
+    "addresses": "Addresses",
+    "logout": "Logout",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "password": "Password",
+    "user_addresses": "User Addresses",
+    "create": "Create",
+    "user_address_create": "Create User Address",
+    "company_name": "Company Name",
+    "phone": "Phone",
+    "country_id": "Country",
+    "postcode": "Postcode",
+    "address1": "Address1",
+    "address2": "Address2",
+    "city": "City",
+    "state": "State"
+
+}
