@@ -62,8 +62,7 @@ export const ProductShow = () => {
     }
     addToCartMutation(variables).then ((result) => {
         if (isEmpty(currentVisitorId)) {
-          const cartVisitorId: string = get(addToCartMutationResult, 'data.addToCart.0.visitor_id')
-          // console.log
+          const cartVisitorId: string = get(result, 'data.addToCart.0.visitor_id')
           dispatch(setVisitorId(cartVisitorId))
         }
         navigate('/cart')     

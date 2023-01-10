@@ -94,7 +94,7 @@ export const CheckoutShow = () => {
                                 {get(data, 'cartItems', []).map((cartItem: any) => {
 
                                     incrementCartTotal(get(cartItem, 'product.price'), get(cartItem, 'qty', 1))
-                                    return (<div className="flex items-center hover:bg-gray-100 py-5">
+                                    return (<div key={get(cartItem, 'product.id')}  className="flex items-center hover:bg-gray-100 py-5">
                                         <div className="flex w-2/5">
                                             <div className="w-20">
                                                 <img className="h-24" src={get(cartItem, 'product.main_image_url')}

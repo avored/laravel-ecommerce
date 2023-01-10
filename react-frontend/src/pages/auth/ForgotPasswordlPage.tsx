@@ -49,7 +49,7 @@ export const ForgotPasswordlPage = () => {
     (get(forgotPasswordResult, 'data.forgotPassword.success')) ?? openModal()
   };
   return (
-    <div className="min-h-full">
+    <div className="">
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child

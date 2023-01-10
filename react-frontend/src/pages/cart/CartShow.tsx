@@ -33,6 +33,10 @@ export const CartShow = () => {
     cartTotal += (itemPrice * itemQty)
   }
 
+  const cartItemQtyOnchange = () => {
+    console.log('tests')
+  }
+
   
 
   return (
@@ -62,7 +66,7 @@ export const CartShow = () => {
             {get(data, 'cartItems', []).map((cartItem:any) => {
 
               incrementCartTotal(get(cartItem, 'product.price'), get(cartItem, 'qty', 1))
-              return (<div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
+              return (<div key={get(cartItem, 'product.id')} className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
                 <div className="flex w-2/5">
                   <div className="w-20">
                     <img className="h-24" src={get(cartItem, 'product.main_image_url')} alt={get(cartItem, 'product.name')} />
@@ -76,6 +80,7 @@ export const CartShow = () => {
                   <input
                     name="qty"
                     type="text"
+                    onChange={cartItemQtyOnchange}
                     value={get(cartItem, 'qty')}
                     className="mx-2 border text-center w-24 rounded border-gray-300 px-3 py-2 text-gray-900 focus:z-10 focus:border-red-500 focus:outline-none focus:ring-red-500 sm:text-sm"
                   />
