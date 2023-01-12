@@ -19,6 +19,8 @@
     "address1": "Address1",
     "address2": "Address2",
     "city": "City",
-    "state": "State"
+    "state": "State",
+    "register_for_avored_account": "Register for avored account",
+    "confirm_password": "Confirm Password"
 
 }
