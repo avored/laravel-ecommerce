@@ -35,6 +35,20 @@ const CustomerLogin = `
         updated_at
         addresses {
             id
+            type
+            customer_id
+            first_name
+            last_name
+            company_name
+            address1
+            address2
+            postcode
+            city
+            state
+            country_id
+            phone
+            created_at
+            updated_at
         }
         token_info {
             token_type
@@ -64,8 +78,8 @@ export const LoginPage = () => {
   console.log(window.x = customerLogin)
   const dispatch = useAppDispatch();
 
-  const [email, setEmail] = useState('ind.purvesh@gmail.com')
-  const [password, setPassword] = useState('admin123')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   const emailOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)

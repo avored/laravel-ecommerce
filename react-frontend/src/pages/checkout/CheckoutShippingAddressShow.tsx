@@ -1,4 +1,4 @@
-import {get} from 'lodash';
+import {add, get} from 'lodash';
 import React, {useState} from 'react'
 import {useQuery} from 'urql';
 import {useAppSelector} from '../../app/hooks'
@@ -7,7 +7,8 @@ import {FormLabel} from '../../components/Form/FormLabel';
 import {Header} from '../../components/Header'
 import {visitorId} from '../../features/cart/cartSlice'
 import {useNavigate} from "react-router-dom";
-import { getAuthUserInfo } from '../../features/userLogin/userLoginSlice'
+import { AddressType, getAuthUserInfo } from '../../features/userLogin/userLoginSlice'
+import FormSelect, { OptionType } from '../../components/Form/FormSelect';
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -20,7 +21,6 @@ query CartItems($visitorId: String!)  {
             main_image_url
             price
         }
-
     }
 }
 `;
@@ -30,7 +30,6 @@ export const CheckoutShippingAddressShow = () => {
     const navigate = useNavigate()
     const currentUserInfo = useAppSelector(getAuthUserInfo);
 
-    console.log(currentUserInfo)
     const AddressesAllQuery = `
       query AddressAllQuery{
           allAddress {
@@ -52,6 +51,7 @@ export const CheckoutShippingAddressShow = () => {
       }
     `;
     const [addressQueryData] = useQuery({ query: AddressesAllQuery });
+    const [selectedAddress, setSelectedAddress] = useState<AddressType>({id: ''})
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
     const [companyName, setCompanyName] = useState('')
@@ -98,6 +98,33 @@ export const CheckoutShippingAddressShow = () => {
         setCountryId(e.target.value)
     }
 
+    const customerAddressOnChange = (addressValue: string) : void => {
+        console.log(addressValue)
+    }
+
+    const addressOptions: Array <OptionType> = []
+
+
+    var selectedCustomerAddress: AddressType = {id: ''}
+
+    if (currentUserInfo.addresses.length > 0) {
+        // addressOptions.push({label: "Billing", value: "BILLING"})
+        // addressOptions.push({label: "Address Full Text", value: "123 232"})
+
+        currentUserInfo.addresses.map((address: AddressType) => {
+            let addressLabel: string = ''
+            if (address.type === 'BILLING') {
+                addressLabel += address.address1 + ' ' + address.address2 
+                addressLabel += ' ' + address.city + ' ' + address.state + ' ' + address.postcode 
+                
+                selectedCustomerAddress = address
+                addressOptions.push({label: addressLabel, value: address.id})
+            }
+            
+
+        })
+    }
+
 
     const submitHandler = () => {
         console.log('Click Submit')
@@ -121,6 +148,9 @@ export const CheckoutShippingAddressShow = () => {
                                 <>
                                 <div className="flex  my-10">
                                     <div id="summary" className="w-1/2 border border-red-500 px-3 py-5">
+                                        <div>
+                                            {JSON.stringify(currentUserInfo.addresses)}
+                                        </div>
                                         <div className="flex mt-10 mb-5">
                                             <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">Product
                                                 Details</h3>
@@ -165,61 +195,79 @@ export const CheckoutShippingAddressShow = () => {
                                             <div className="p-3 border-b ">
                                                 Shipping Address
                                             </div>
+                                            {(currentUserInfo.addresses.length > 0) ? 
+                                                <>
+                                                    Inside If
+                                                    <FormSelect options={addressOptions} setOnChange={customerAddressOnChange} 
+                                                        value={selectedCustomerAddress.id} />
 
-                                            <div className="space-y-1 rounded-md shadow-sm">
-                                                <FormLabel forId="first-name" labelText="First Name"/>
-                                                <FormInput id="first-name" value={firstName} type="text" setOnChange={firstNameOnChange}
-                                                    placeholder="First Name"/>
-                                            </div>
+                                                    {/* <div className='selected-address'>
+                                                        <div>
+                                                            {selectedCustomerAddress.first_name} {selectedCustomerAddress.last_name}
+                                                        </div>
+                                                    </div> */}
+                                                </>
+                                                : 
+                                                <>
+                                                    <div className="space-y-1 rounded-md shadow-sm">
+                                                        <FormLabel forId="first-name" labelText="First Name"/>
+                                                        <FormInput id="first-name" value={firstName} type="text" setOnChange={firstNameOnChange}
+                                                            placeholder="First Name"/>
+                                                    </div>
 
-                                            <div className="space-y-1 rounded-md shadow-sm">
-                                                <FormLabel forId="last-name" labelText="Last name"/>
-                                                <FormInput id="last-name" value={lastName}  type="text" setOnChange={lastNameOnChange}
-                                                    placeholder="Last name"/>
-                                            </div>
+                                                    <div className="space-y-1 rounded-md shadow-sm">
+                                                        <FormLabel forId="last-name" labelText="Last name"/>
+                                                        <FormInput id="last-name" value={lastName}  type="text" setOnChange={lastNameOnChange}
+                                                            placeholder="Last name"/>
+                                                    </div>
 
-                                            <div className="space-y-1 rounded-md shadow-sm">
-                                                <FormLabel forId="company-name" labelText="Company Name"/>
-                                                <FormInput id="company-name" value={companyName}  type="text" setOnChange={companyNameOnChange}
-                                                    placeholder="Company Name"/>
-                                            </div>
+                                                    <div className="space-y-1 rounded-md shadow-sm">
+                                                        <FormLabel forId="company-name" labelText="Company Name"/>
+                                                        <FormInput id="company-name" value={companyName}  type="text" setOnChange={companyNameOnChange}
+                                                            placeholder="Company Name"/>
+                                                    </div>
 
-                                            <div className="space-y-1 rounded-md shadow-sm">
-                                                <FormLabel forId="address1" labelText="Address1"/>
-                                                <FormInput id="address1" value={address1}  type="text" setOnChange={address1OnChange}
-                                                    placeholder="Address1"/>
-                                            </div>
+                                                    <div className="space-y-1 rounded-md shadow-sm">
+                                                        <FormLabel forId="address1" labelText="Address1"/>
+                                                        <FormInput id="address1" value={address1}  type="text" setOnChange={address1OnChange}
+                                                            placeholder="Address1"/>
+                                                    </div>
 
 
-                                            <div className="space-y-1 rounded-md shadow-sm">
-                                                <FormLabel forId="address2" labelText="Address2"/>
-                                                <FormInput id="address2" value={address2}  type="text" setOnChange={address2OnChange}
-                                                    placeholder="Address2"/>
-                                            </div>
+                                                    <div className="space-y-1 rounded-md shadow-sm">
+                                                        <FormLabel forId="address2" labelText="Address2"/>
+                                                        <FormInput id="address2" value={address2}  type="text" setOnChange={address2OnChange}
+                                                            placeholder="Address2"/>
+                                                    </div>
 
-                                            <div className="space-y-1 rounded-md shadow-sm">
-                                                <FormLabel forId="postcode" labelText="PostCode"/>
-                                                <FormInput id="postcode" value={postcode}  type="text" setOnChange={postcodeOnChange}
-                                                    placeholder="PostCode"/>
-                                            </div>
+                                                    <div className="space-y-1 rounded-md shadow-sm">
+                                                        <FormLabel forId="postcode" labelText="PostCode"/>
+                                                        <FormInput id="postcode" value={postcode}  type="text" setOnChange={postcodeOnChange}
+                                                            placeholder="PostCode"/>
+                                                    </div>
 
-                                            <div className="space-y-1 rounded-md shadow-sm">
-                                                <FormLabel forId="city" labelText="City"/>
-                                                <FormInput id="city" value={city}  type="text" setOnChange={cityOnChange}
-                                                    placeholder="City"/>
-                                            </div>
+                                                    <div className="space-y-1 rounded-md shadow-sm">
+                                                        <FormLabel forId="city" labelText="City"/>
+                                                        <FormInput id="city" value={city}  type="text" setOnChange={cityOnChange}
+                                                            placeholder="City"/>
+                                                    </div>
 
-                                            <div className="space-y-1 rounded-md shadow-sm">
-                                                <FormLabel forId="phone" labelText="Phone"/>
-                                                <FormInput id="phone" value={phone}  type="text" setOnChange={phoneOnChange}
-                                                    placeholder="Phone"/>
-                                            </div>
+                                                    <div className="space-y-1 rounded-md shadow-sm">
+                                                        <FormLabel forId="phone" labelText="Phone"/>
+                                                        <FormInput id="phone" value={phone}  type="text" setOnChange={phoneOnChange}
+                                                            placeholder="Phone"/>
+                                                    </div>
 
-                                            <div className="space-y-1 rounded-md shadow-sm">
-                                                <FormLabel forId="country-id" labelText="Country"/>
-                                                <FormInput id="country-id" value={countryId}  type="text" setOnChange={countryIdOnChange}
-                                                    placeholder="Country"/>
-                                            </div>
+                                                    <div className="space-y-1 rounded-md shadow-sm">
+                                                        <FormLabel forId="country-id" labelText="Country"/>
+                                                        <FormInput id="country-id" value={countryId}  type="text" setOnChange={countryIdOnChange}
+                                                            placeholder="Country"/>
+                                                    </div>
+                                                </>
+                                            } 
+                                            
+                                            
+                                            
 
 
                                         </div>
