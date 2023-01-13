@@ -75,7 +75,7 @@ export const LoginPage = () => {
   const [customerLoginResult, customerLogin] = useMutation(CustomerLogin)
 
 
-  console.log(window.x = customerLogin)
+  // console.log(window.x = customerLogin)
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState('')
@@ -93,7 +93,6 @@ export const LoginPage = () => {
     const variables = { email, password }
     customerLogin(variables).then(({ data }) => {
       const authInfo = get(data, 'login')
-      console.log(authInfo)
       dispatch(setAuthInfo(authInfo))
       dispatch(setIsAuth(true))
       navigate('/user/profile')

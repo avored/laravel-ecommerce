@@ -2,12 +2,13 @@ import {get} from 'lodash';
 import React, {useState} from 'react'
 // import { Link } from 'react-router-dom';
 import {useQuery} from 'urql';
-import {useAppSelector} from '../../app/hooks'
+import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {FormInput} from '../../components/Form/FormInput';
 import {FormLabel} from '../../components/Form/FormLabel';
 import {Header} from '../../components/Header'
 import {visitorId} from '../../features/cart/cartSlice'
 import {useNavigate} from "react-router-dom";
+import { getCheckoutInformation, setPaymentMethod } from '../../features/checkout/checkoutSlice';
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -28,53 +29,19 @@ query CartItems($visitorId: String!)  {
 export const CheckoutPaymentShow = () => {
 
     const navigate = useNavigate()
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [companyName, setCompanyName] = useState('')
-    const [address1, setAddress1] = useState('')
-    const [address2, setAddress2] = useState('')
-    const [postcode, setPostcode] = useState('')
-    const [city, setCity] = useState('')
-    const [countryId, setCountryId] = useState('')
-    const [phone, setPhone] = useState('')
+    const dispatch = useAppDispatch();
 
-    const firstNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFirstName(e.target.value)
-    }
-    const lastNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLastName(e.target.value)
-    }
-    const companyNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCompanyName(e.target.value)
-    }
 
-    const address1OnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAddress1(e.target.value)
-    }
 
-    const address2OnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAddress2(e.target.value)
+    const [payment, setPayment] = useState('CASH_ON_DELIVERY');  
+    const paymentOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPayment(e.target.value)
     }
-
-    const postcodeOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPostcode(e.target.value)
-    }
-
-    const cityOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCity(e.target.value)
-    }
-
-    const phoneOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPhone(e.target.value)
-    }
-
-    const countryIdOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCountryId(e.target.value)
-    }
-
+    
+    const stateCheckout = useAppSelector(getCheckoutInformation);
 
     const submitHandler = () => {
-        console.log('Click Submit')
+        dispatch(setPaymentMethod(payment))
         navigate('/checkout/summary')
 
     }
@@ -89,6 +56,9 @@ export const CheckoutPaymentShow = () => {
     return (
             <>
             <Header/>
+            <div className="mx-auto my-5 max-w-7xl">
+                {JSON.stringify(stateCheckout)}
+            </div>
             <div className="mx-auto max-w-7xl">
                 {fetching == true ? (
                         <p>Loading</p>
@@ -141,12 +111,12 @@ export const CheckoutPaymentShow = () => {
                                                 Payment Information
                                             </div>
                                             <div className="flex items-center pl-4 rounded border border-gray-200 dark:border-gray-700">
-                                                <input id="bordered-radio-1" type="radio" value="" name="bordered-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                                <label htmlFor="bordered-radio-1" className="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Default radio</label>
+                                                <input id="bordered-radio-1" defaultChecked={payment === 'CASH_ON_DELIVERY'} onChange={paymentOnChange} type="radio" value="CASH_ON_DELIVERY" name="bordered-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                                <label htmlFor="bordered-radio-1" className="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Cash on Delivery</label>
                                             </div>
                                             <div className="flex items-center pl-4 rounded border border-gray-200 dark:border-gray-700">
-                                                <input defaultChecked id="bordered-radio-2" type="radio" value="" name="bordered-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                                                <label htmlFor="bordered-radio-2" className="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Checked state</label>
+                                                <input id="bordered-radio-2" defaultChecked={payment === 'CREDIT_CARD'}  onChange={paymentOnChange}  type="radio" value="CREDIT_CARD" name="bordered-radio" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+                                                <label htmlFor="bordered-radio-2" className="py-4 ml-2 w-full text-sm font-medium text-gray-900 dark:text-gray-300">Credit Card</label>
                                             </div>
 
 

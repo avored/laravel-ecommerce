@@ -8,6 +8,7 @@ import {FormLabel} from '../../components/Form/FormLabel';
 import {Header} from '../../components/Header'
 import {visitorId} from '../../features/cart/cartSlice'
 import {useNavigate} from "react-router-dom";
+import { getCheckoutInformation } from '../../features/checkout/checkoutSlice';
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -28,50 +29,8 @@ query CartItems($visitorId: String!)  {
 export const CheckoutSummaryShow = () => {
 
     const navigate = useNavigate()
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [companyName, setCompanyName] = useState('')
-    const [address1, setAddress1] = useState('')
-    const [address2, setAddress2] = useState('')
-    const [postcode, setPostcode] = useState('')
-    const [city, setCity] = useState('')
-    const [countryId, setCountryId] = useState('')
-    const [phone, setPhone] = useState('')
-
-    const firstNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFirstName(e.target.value)
-    }
-    const lastNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLastName(e.target.value)
-    }
-    const companyNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCompanyName(e.target.value)
-    }
-
-    const address1OnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAddress1(e.target.value)
-    }
-
-    const address2OnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAddress2(e.target.value)
-    }
-
-    const postcodeOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPostcode(e.target.value)
-    }
-
-    const cityOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCity(e.target.value)
-    }
-
-    const phoneOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPhone(e.target.value)
-    }
-
-    const countryIdOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCountryId(e.target.value)
-    }
-
+    
+    const stateCheckout = useAppSelector(getCheckoutInformation);
 
     const submitHandler = () => {
           console.log('Place Order')
@@ -88,6 +47,9 @@ export const CheckoutSummaryShow = () => {
     return (
             <>
             <Header/>
+            <div className="mx-auto my-5 max-w-7xl">
+                {JSON.stringify(stateCheckout)}
+            </div>
             <div className="mx-auto max-w-7xl">
                 {fetching == true ? (
                         <p>Loading</p>

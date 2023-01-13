@@ -1,7 +1,7 @@
 import {add, get} from 'lodash';
 import React, {useState} from 'react'
 import {useQuery} from 'urql';
-import {useAppSelector} from '../../app/hooks'
+import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {FormInput} from '../../components/Form/FormInput';
 import {FormLabel} from '../../components/Form/FormLabel';
 import {Header} from '../../components/Header'
@@ -9,6 +9,7 @@ import {visitorId} from '../../features/cart/cartSlice'
 import {useNavigate} from "react-router-dom";
 import { AddressType, getAuthUserInfo } from '../../features/userLogin/userLoginSlice'
 import FormSelect, { OptionType } from '../../components/Form/FormSelect';
+import { setBillingAddressId, setShippingAddressId } from '../../features/checkout/checkoutSlice';
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -50,6 +51,8 @@ export const CheckoutShippingAddressShow = () => {
           }
       }
     `;
+    
+    const dispatch = useAppDispatch();
     const [addressQueryData] = useQuery({ query: AddressesAllQuery });
     const [selectedAddress, setSelectedAddress] = useState<AddressType>({id: ''})
     const [firstName, setFirstName] = useState('')
@@ -113,21 +116,23 @@ export const CheckoutShippingAddressShow = () => {
 
         currentUserInfo.addresses.map((address: AddressType) => {
             let addressLabel: string = ''
-            if (address.type === 'BILLING') {
+            if (address.type === 'SHIPPING') {
                 addressLabel += address.address1 + ' ' + address.address2 
                 addressLabel += ' ' + address.city + ' ' + address.state + ' ' + address.postcode 
                 
                 selectedCustomerAddress = address
                 addressOptions.push({label: addressLabel, value: address.id})
             }
-            
-
         })
     }
 
-
     const submitHandler = () => {
-        console.log('Click Submit')
+        console.log(selectedCustomerAddress.id)
+
+        dispatch(setShippingAddressId(selectedCustomerAddress.id))
+        
+        // tmp hard coded value
+        setBillingAddressId('484db84a-ca20-472f-a196-8a0afb61ae43')
         navigate('/checkout/shipping')
     }
 
