@@ -8,7 +8,7 @@ import {FormLabel} from '../../components/Form/FormLabel';
 import {Header} from '../../components/Header'
 import {visitorId} from '../../features/cart/cartSlice'
 import {useNavigate} from "react-router-dom";
-import { getCheckoutInformation, setShippingMethod } from '../../features/checkout/checkoutSlice';
+import { getCheckoutInformation, setShippingOption } from '../../features/checkout/checkoutSlice';
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -40,8 +40,7 @@ export const CheckoutShippingShow = () => {
     }
 
     const submitHandler = () => {
-        console.log(shipping)
-        dispatch(setShippingMethod(shipping))
+        dispatch(setShippingOption(shipping))
         navigate('/checkout/payment')
 
     }

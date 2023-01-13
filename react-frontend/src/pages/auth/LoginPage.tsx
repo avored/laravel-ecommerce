@@ -96,8 +96,6 @@ export const LoginPage = () => {
       dispatch(setAuthInfo(authInfo))
       dispatch(setIsAuth(true))
       navigate('/user/profile')
-
-      
     });
   }
   return (

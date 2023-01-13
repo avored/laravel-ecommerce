@@ -132,7 +132,7 @@ export const CheckoutShippingAddressShow = () => {
         dispatch(setShippingAddressId(selectedCustomerAddress.id))
         
         // tmp hard coded value
-        setBillingAddressId('484db84a-ca20-472f-a196-8a0afb61ae43')
+        dispatch(setBillingAddressId('484db84a-ca20-472f-a196-8a0afb61ae43'))
         navigate('/checkout/shipping')
     }
 

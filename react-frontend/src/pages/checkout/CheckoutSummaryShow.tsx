@@ -1,7 +1,7 @@
-import {get} from 'lodash';
+import {get, isEmpty} from 'lodash';
 import React, {useState} from 'react'
 // import { Link } from 'react-router-dom';
-import {useQuery} from 'urql';
+import {useMutation, useQuery} from 'urql';
 import {useAppSelector} from '../../app/hooks'
 import {FormInput} from '../../components/Form/FormInput';
 import {FormLabel} from '../../components/Form/FormLabel';
@@ -26,14 +26,53 @@ query CartItems($visitorId: String!)  {
 }
 `;
 
+const PlaceOrderMutationQuery = `
+    mutation PlaceOrderMutation (
+        $shipping_option: String!
+        $payment_option: String!
+        $shipping_address_id: String!
+        $billing_address_id: String!
+    ) {
+        placeOrder (
+            shipping_option: $shipping_option
+            payment_option: $payment_option
+            shipping_address_id: $shipping_address_id
+            billing_address_id: $billing_address_id
+        ) {
+            id 
+            shipping_option
+            payment_option
+            order_status_id
+            shipping_address_id
+            billing_address_id
+            track_code
+            created_at
+            updated_at
+        }
+    }
+`;
+
 export const CheckoutSummaryShow = () => {
 
     const navigate = useNavigate()
     
     const stateCheckout = useAppSelector(getCheckoutInformation);
+    const [placeOrderMutationResult, placeOrderMutation] = useMutation(PlaceOrderMutationQuery)
 
     const submitHandler = () => {
-          console.log('Place Order')
+        const variables = {
+            shipping_address_id: stateCheckout.shipping_address_id,
+            billing_address_id: stateCheckout.billing_address_id,
+            shipping_option: stateCheckout.shipping_option,
+            payment_option: stateCheckout.payment_option
+        }
+
+        console.log(variables)
+        placeOrderMutation(variables).then(({ data }) => {
+            if (!isEmpty(data.placeOrder.id)) {
+                navigate('/')
+            }
+        });
 
     }
 
