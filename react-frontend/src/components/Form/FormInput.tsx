@@ -4,6 +4,7 @@ import React, { ReactHTML, ReactHTMLElement } from 'react'
 interface FormInputProps {
     id: string
     type?: string
+    autofocus?: boolean
     placeholder?: string
     disabled? : boolean
     value: string|number
@@ -23,6 +24,7 @@ export const FormInput = (props: FormInputProps) => {
             type={get(props, 'type', 'text')}
             placeholder={props.placeholder} 
             value={props.value}
+            autoFocus={props.autofocus}
             disabled={props.disabled}
             // {(props.disabled === true) ?? disabled}
             onChange={(e) => handleChange(e)}

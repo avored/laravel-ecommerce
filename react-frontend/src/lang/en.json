@@ -1,4 +1,5 @@
 {
+    "avored_ecommerce_title": "Avored is a headless ecommerce for Laravel",
     "home_page" : "Home Page",
     "reset_password": "Reset password",
     "email_address": "Email Address",
@@ -21,6 +22,8 @@
     "city": "City",
     "state": "State",
     "register_for_avored_account": "Register for avored account",
-    "confirm_password": "Confirm Password"
+    "confirm_password": "Confirm Password",
+    "sign_into_your_account": "Sign in to your account",
+    "forgot_your_password": "Forgot your password?"
 
 }
