@@ -24,6 +24,7 @@
     "register_for_avored_account": "Register for avored account",
     "confirm_password": "Confirm Password",
     "sign_into_your_account": "Sign in to your account",
-    "forgot_your_password": "Forgot your password?"
+    "forgot_your_password": "Forgot your password?",
+    "sign_in": "Sign in"
 
 }
