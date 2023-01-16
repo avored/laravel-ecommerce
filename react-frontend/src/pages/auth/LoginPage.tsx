@@ -58,9 +58,10 @@ export const LoginPage = () => {
     customerLogin(variables).then((mutationResult) => {
       if (!isEmpty(get(mutationResult, 'error.graphQLErrors[0].originalError.debugMessage'))) {
         setDebugMessage(get(mutationResult, 'error.graphQLErrors[0].originalError.debugMessage', ''))
+        return
       }
-      var data = mutationResult.data
-      const authInfo = get(data, 'login')
+      
+      const authInfo = get(mutationResult, 'data.login')
       if (!isEmpty(authInfo)) {
         dispatch(setAuthInfo(authInfo))
         dispatch(setIsAuth(true))
