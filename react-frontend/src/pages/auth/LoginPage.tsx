@@ -20,12 +20,14 @@ import { FormLink } from "../../components/Form/FormLink";
 import { FormButton } from "../../components/Form/FormButton";
 import { AvoRedApp } from "../../components/Layout/AvoRedApp";
 import { setMessage } from "../../features/flash/flashSlice";
+import { DebugGraphqlErrorMessage } from "../../components/DebugGraphqlErrorMessage";
 declare global {
   interface Window { x: any; }
 }
 
 export const LoginPage = () => {
 
+  const [debugMessage, setDebugMessage] = useState('');
   const currentUserInfo = useAppSelector(getAuthUserInfo);
   const isUserAuth = useAppSelector(isAuth)
   const navigate = useNavigate();
@@ -54,7 +56,9 @@ export const LoginPage = () => {
     e.preventDefault()
     const variables = { email, password }
     customerLogin(variables).then((mutationResult) => {
-      console.log(mutationResult)
+      if (!isEmpty(get(mutationResult, 'error.graphQLErrors[0].originalError.debugMessage'))) {
+        setDebugMessage(get(mutationResult, 'error.graphQLErrors[0].originalError.debugMessage', ''))
+      }
       var data = mutationResult.data
       const authInfo = get(data, 'login')
       if (!isEmpty(authInfo)) {
@@ -80,6 +84,9 @@ export const LoginPage = () => {
                 </h2>
 
                 <form className="mt-8 space-y-6" onSubmit={(e) => submitHandle(e)} action="#" method="POST">
+                  
+                  <DebugGraphqlErrorMessage message={debugMessage} />
+
                   <div className="space-y-1 rounded-md shadow-sm">
                     <FormLabel 
                         forId="email-address"
