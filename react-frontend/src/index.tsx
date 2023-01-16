@@ -31,7 +31,11 @@ const graphQLUrl: string = process.env.REACT_APP_GRAPHQL_URL ?? 'http://localhos
 
 const client = createClient({
   url: graphQLUrl,
-  exchanges: [dedupExchange, cacheExchange, multipartFetchExchange],
+  exchanges: [
+    dedupExchange,
+    cacheExchange,
+    multipartFetchExchange,
+  ],
   fetchOptions: () => {
     const token = getToken()
     return {
@@ -39,6 +43,7 @@ const client = createClient({
 
     };
   },
+
 });
 
 

@@ -10,7 +10,7 @@ import {
   getAuthUserInfo,
   setIsAuth
 } from '../../features/userLogin/userLoginSlice';
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header";
 import { FormLabel } from "../../components/Form/FormLabel";
@@ -53,12 +53,16 @@ export const LoginPage = () => {
   const submitHandle = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const variables = { email, password }
-    customerLogin(variables).then(({ data }) => {
+    customerLogin(variables).then((mutationResult) => {
+      console.log(mutationResult)
+      var data = mutationResult.data
       const authInfo = get(data, 'login')
-      dispatch(setAuthInfo(authInfo))
-      dispatch(setIsAuth(true))
-      dispatch(setMessage('You successfuly logged into your avored account'))
-      navigate('/user/profile')
+      if (!isEmpty(authInfo)) {
+        dispatch(setAuthInfo(authInfo))
+        dispatch(setIsAuth(true))
+        dispatch(setMessage('You successfuly logged into your avored account'))
+        navigate('/user/profile')
+      }
     });
   }
   return (
