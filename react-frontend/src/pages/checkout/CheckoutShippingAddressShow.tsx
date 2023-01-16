@@ -10,6 +10,7 @@ import {useNavigate} from "react-router-dom";
 import { AddressType, getAuthUserInfo } from '../../features/userLogin/userLoginSlice'
 import FormSelect, { OptionType } from '../../components/Form/FormSelect';
 import { setBillingAddressId, setShippingAddressId } from '../../features/checkout/checkoutSlice';
+import { AvoRedApp } from '../../components/Layout/AvoRedApp';
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -144,8 +145,7 @@ export const CheckoutShippingAddressShow = () => {
     const currentVisitorId = useAppSelector(visitorId)
     const [{fetching, data}] = useQuery({query: GetCartItems, variables: {visitorId: currentVisitorId}});
     return (
-            <>
-            <Header/>
+        <AvoRedApp>
             <div className="mx-auto max-w-7xl">
                 {fetching == true ? (
                         <p>Loading</p>
@@ -286,7 +286,6 @@ export const CheckoutShippingAddressShow = () => {
                                 )
                 }
             </div>
-
-            </>
-            )
+        </AvoRedApp>
+    )
 }

@@ -16,6 +16,7 @@ import { FormLabel } from "../../components/Form/FormLabel";
 import { FormInput } from "../../components/Form/FormInput";
 import { Link } from "react-router-dom";
 import { FormattedMessage, useIntl } from "react-intl";
+import { AvoRedApp } from "../../components/Layout/AvoRedApp";
 
 
 const RegisterMutationQuery = `
@@ -98,9 +99,7 @@ export const RegisterPage = () => {
     });
   }
   return (
-
-    <div className="min-h-full">
-      <Header />
+    <AvoRedApp>
       <main>
         <div className="flex justify-center mt-5">
           <div className="w-full shadow-md py-12 px-4 sm:px-6 lg:px-8  max-w-md space-y-8">
@@ -165,6 +164,6 @@ export const RegisterPage = () => {
           </div>
         </div>
       </main>
-    </div>
+    </AvoRedApp>
   );
 };

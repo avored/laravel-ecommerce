@@ -9,6 +9,7 @@ import {Header} from '../../components/Header'
 import {visitorId} from '../../features/cart/cartSlice'
 import {useNavigate} from "react-router-dom";
 import { getCheckoutInformation, setPaymentOption } from '../../features/checkout/checkoutSlice';
+import { AvoRedApp } from '../../components/Layout/AvoRedApp';
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -54,8 +55,8 @@ export const CheckoutPaymentShow = () => {
     const currentVisitorId = useAppSelector(visitorId)
     const [{fetching, data}] = useQuery({query: GetCartItems, variables: {visitorId: currentVisitorId}});
     return (
-            <>
-            <Header/>
+        <AvoRedApp>
+
             <div className="mx-auto my-5 max-w-7xl">
                 {JSON.stringify(stateCheckout)}
             </div>
@@ -131,7 +132,6 @@ export const CheckoutPaymentShow = () => {
                                 )
                 }
             </div>
-
-            </>
-            )
+        </AvoRedApp>
+    )
 }
