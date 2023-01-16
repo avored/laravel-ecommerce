@@ -5,15 +5,14 @@ import { useAppSelector } from '../../app/hooks'
 import { Header } from '../../components/Header'
 import { getAuthUserInfo } from '../../features/userLogin/userLoginSlice'
 import { UserSidebar } from './UserSidebar'
+import { AvoRedApp } from '../../components/Layout/AvoRedApp'
 
 export const Profile = () => {
 
   const currentUserInfo = useAppSelector(getAuthUserInfo);
 
   return (
-    <div className="min-h-full">
-      <Header />
-
+    <AvoRedApp>
       <header className="bg-white shadow">
         <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
@@ -60,6 +59,7 @@ export const Profile = () => {
           </div>
         </div>
       </main>
-    </div>
+    </AvoRedApp>
+    
     )
 }
