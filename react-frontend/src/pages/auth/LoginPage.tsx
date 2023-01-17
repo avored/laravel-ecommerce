@@ -28,6 +28,7 @@ declare global {
 export const LoginPage = () => {
 
   const [debugMessage, setDebugMessage] = useState('');
+  const [formValidation, setFormValidation] = useState({});
   const currentUserInfo = useAppSelector(getAuthUserInfo);
   const isUserAuth = useAppSelector(isAuth)
   const navigate = useNavigate();
@@ -56,10 +57,17 @@ export const LoginPage = () => {
     e.preventDefault()
     const variables = { email, password }
     customerLogin(variables).then((mutationResult) => {
+
       if (!isEmpty(get(mutationResult, 'error.graphQLErrors[0].originalError.debugMessage'))) {
         setDebugMessage(get(mutationResult, 'error.graphQLErrors[0].originalError.debugMessage', ''))
         return
       }
+
+      if (!isEmpty(get(mutationResult, 'error.graphQLErrors.0.extensions.validation'))) {
+        setFormValidation(get(mutationResult, 'error.graphQLErrors.0.extensions.validation', {}))
+      }
+
+
       
       const authInfo = get(mutationResult, 'data.login')
       if (!isEmpty(authInfo)) {
@@ -88,7 +96,7 @@ export const LoginPage = () => {
                   
                   <DebugGraphqlErrorMessage message={debugMessage} />
 
-                  <div className="space-y-1 rounded-md shadow-sm">
+                  <div className="space-y-1 rounded-md">
                     <FormLabel 
                         forId="email-address"
                         labelText={intl.formatMessage({id: "email_address"})}
@@ -97,7 +105,8 @@ export const LoginPage = () => {
                         autofocus={true} 
                         id="email-address" 
                         value={email} 
-                        type="email" 
+                        errorMessages={get(formValidation, 'email', [])}
+                        type="text" 
                         setOnChange={emailOnChange} 
                         placeholder={intl.formatMessage({id: "email_address"})}
                       />
