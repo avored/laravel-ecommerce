@@ -1,13 +1,15 @@
-import {get} from 'lodash';
+import {get, isEmpty} from 'lodash';
 import React, {useState} from 'react'
 // import { Link } from 'react-router-dom';
-import {useQuery} from 'urql';
+import {useMutation, useQuery} from 'urql';
 import {useAppSelector} from '../../app/hooks'
 import {FormInput} from '../../components/Form/FormInput';
 import {FormLabel} from '../../components/Form/FormLabel';
 import {Header} from '../../components/Header'
 import {visitorId} from '../../features/cart/cartSlice'
 import {useNavigate} from "react-router-dom";
+import { getCheckoutInformation } from '../../features/checkout/checkoutSlice';
+import { AvoRedApp } from '../../components/Layout/AvoRedApp';
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -25,56 +27,53 @@ query CartItems($visitorId: String!)  {
 }
 `;
 
+const PlaceOrderMutationQuery = `
+    mutation PlaceOrderMutation (
+        $shipping_option: String!
+        $payment_option: String!
+        $shipping_address_id: String!
+        $billing_address_id: String!
+    ) {
+        placeOrder (
+            shipping_option: $shipping_option
+            payment_option: $payment_option
+            shipping_address_id: $shipping_address_id
+            billing_address_id: $billing_address_id
+        ) {
+            id 
+            shipping_option
+            payment_option
+            order_status_id
+            shipping_address_id
+            billing_address_id
+            track_code
+            created_at
+            updated_at
+        }
+    }
+`;
+
 export const CheckoutSummaryShow = () => {
 
     const navigate = useNavigate()
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [companyName, setCompanyName] = useState('')
-    const [address1, setAddress1] = useState('')
-    const [address2, setAddress2] = useState('')
-    const [postcode, setPostcode] = useState('')
-    const [city, setCity] = useState('')
-    const [countryId, setCountryId] = useState('')
-    const [phone, setPhone] = useState('')
-
-    const firstNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFirstName(e.target.value)
-    }
-    const lastNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setLastName(e.target.value)
-    }
-    const companyNameOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCompanyName(e.target.value)
-    }
-
-    const address1OnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAddress1(e.target.value)
-    }
-
-    const address2OnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setAddress2(e.target.value)
-    }
-
-    const postcodeOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPostcode(e.target.value)
-    }
-
-    const cityOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCity(e.target.value)
-    }
-
-    const phoneOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPhone(e.target.value)
-    }
-
-    const countryIdOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setCountryId(e.target.value)
-    }
-
+    
+    const stateCheckout = useAppSelector(getCheckoutInformation);
+    const [placeOrderMutationResult, placeOrderMutation] = useMutation(PlaceOrderMutationQuery)
 
     const submitHandler = () => {
-          console.log('Place Order')
+        const variables = {
+            shipping_address_id: stateCheckout.shipping_address_id,
+            billing_address_id: stateCheckout.billing_address_id,
+            shipping_option: stateCheckout.shipping_option,
+            payment_option: stateCheckout.payment_option
+        }
+
+        console.log(variables)
+        placeOrderMutation(variables).then(({ data }) => {
+            if (!isEmpty(data.placeOrder.id)) {
+                navigate('/')
+            }
+        });
 
     }
 
@@ -86,8 +85,10 @@ export const CheckoutSummaryShow = () => {
     const currentVisitorId = useAppSelector(visitorId)
     const [{fetching, data}] = useQuery({query: GetCartItems, variables: {visitorId: currentVisitorId}});
     return (
-            <>
-            <Header/>
+        <AvoRedApp>
+            <div className="mx-auto my-5 max-w-7xl">
+                {JSON.stringify(stateCheckout)}
+            </div>
             <div className="mx-auto max-w-7xl">
                 {fetching == true ? (
                         <p>Loading</p>
@@ -140,7 +141,7 @@ export const CheckoutSummaryShow = () => {
                                                 Order Summary
                                             </div>
 
-                                           
+                                        
 
 
                                         </div>
@@ -154,7 +155,6 @@ export const CheckoutSummaryShow = () => {
                                 )
                 }
             </div>
-
-            </>
-            )
+        </AvoRedApp>
+    )
 }

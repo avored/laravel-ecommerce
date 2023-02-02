@@ -9,6 +9,7 @@ import { FormLabel } from "../../components/Form/FormLabel";
 import { FormInput } from "../../components/Form/FormInput";
 import { FormattedMessage, useIntl } from "react-intl";
 import { Dialog, Transition } from "@headlessui/react";
+import { AvoRedApp } from "../../components/Layout/AvoRedApp";
 
 const ForgotPasswordMutation = `
 mutation ForgotPasswordMutation ($email: String!) {
@@ -49,63 +50,7 @@ export const ForgotPasswordlPage = () => {
     (get(forgotPasswordResult, 'data.forgotPassword.success')) ?? openModal()
   };
   return (
-    <div className="min-h-full">
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
-          <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                  <Dialog.Title
-                    as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
-                  >
-                    <FormattedMessage id="reset_password" />
-                  </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your reset password email has been sent successfully.
-                      Please check your email and follow link to reset your password.
-                    </p>
-                  </div>
-
-                  <div className="mt-4">
-                    <button
-                      type="button"
-                      className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                      onClick={closeModal}
-                    >
-                      Close
-                    </button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
-          </div>
-        </Dialog>
-      </Transition>
-      
-      <Header />
+    <AvoRedApp>
       <main>
         <div className="flex justify-center mt-5">
           <div className="w-full shadow-md py-12 px-4 sm:px-6 lg:px-8  max-w-md space-y-8">
@@ -152,6 +97,6 @@ export const ForgotPasswordlPage = () => {
           </div>
         </div>
       </main>
-    </div>
+    </AvoRedApp>
   );
 };

@@ -3,12 +3,14 @@ import React, {useState} from 'react'
 import { getAuthUserInfo } from '../../features/userLogin/userLoginSlice'
 import {useQuery} from 'urql';
 import { isEmpty } from 'lodash';
-import {useAppSelector} from '../../app/hooks'
+import {useAppDispatch, useAppSelector} from '../../app/hooks'
 import {FormInput} from '../../components/Form/FormInput';
 import {FormLabel} from '../../components/Form/FormLabel';
 import {Header} from '../../components/Header'
 import {visitorId} from '../../features/cart/cartSlice'
 import {useNavigate} from "react-router-dom";
+import { setCustomerId } from '../../features/checkout/checkoutSlice';
+import { AvoRedApp } from '../../components/Layout/AvoRedApp';
 
 const GetCartItems = `
 query CartItems($visitorId: String!)  {
@@ -28,12 +30,14 @@ query CartItems($visitorId: String!)  {
 
 export const CheckoutShow = () => {
     const navigate = useNavigate();
-    
+    const dispatch = useAppDispatch();
+
     const currentUserInfo = useAppSelector(getAuthUserInfo);
     if (!isEmpty(currentUserInfo.id)) {
+        dispatch(setCustomerId(currentUserInfo.id))
+        
         navigate('/checkout/shipping-address')
     }
-    console.log(currentUserInfo)
     const [email, setEmail] = useState('')
     const [firstName, setFirstName] = useState('')
     const [lastName, setLastName] = useState('')
@@ -75,8 +79,7 @@ export const CheckoutShow = () => {
     const currentVisitorId = useAppSelector(visitorId)
     const [{fetching, data}] = useQuery({query: GetCartItems, variables: {visitorId: currentVisitorId}});
     return (
-        <>
-            <Header/>
+        <AvoRedApp>
             <div className="mx-auto max-w-7xl">
                 {fetching == true ? (
                     <p>Loading</p>
@@ -94,11 +97,11 @@ export const CheckoutShow = () => {
                                 {get(data, 'cartItems', []).map((cartItem: any) => {
 
                                     incrementCartTotal(get(cartItem, 'product.price'), get(cartItem, 'qty', 1))
-                                    return (<div className="flex items-center hover:bg-gray-100 py-5">
+                                    return (<div key={get(cartItem, 'product.id')}  className="flex items-center hover:bg-gray-100 py-5">
                                         <div className="flex w-2/5">
                                             <div className="w-20">
                                                 <img className="h-24" src={get(cartItem, 'product.main_image_url')}
-                                                     alt={get(cartItem, 'product.name')}/>
+                                                        alt={get(cartItem, 'product.name')}/>
                                             </div>
                                             <div className="flex flex-col justify-between ml-4 flex-grow">
                                                 <span
@@ -132,19 +135,19 @@ export const CheckoutShow = () => {
                                     <div className="space-y-1 rounded-md shadow-sm">
                                         <FormLabel forId="first-name" labelText="First Name"/>
                                         <FormInput value={firstName} id="first-name" type="text" setOnChange={firstNameOnChange}
-                                                   placeholder="First Name"/>
+                                                    placeholder="First Name"/>
                                     </div>
 
                                     <div className="space-y-1 rounded-md shadow-sm">
                                         <FormLabel forId="last-name" labelText="Last name"/>
                                         <FormInput value={lastName} id="last-name" type="text" setOnChange={lastNameOnChange}
-                                                   placeholder="Last name"/>
+                                                    placeholder="Last name"/>
                                     </div>
 
-                                   <div className="space-y-1 rounded-md shadow-sm">
+                                    <div className="space-y-1 rounded-md shadow-sm">
                                         <FormLabel forId="email-address" labelText="Email address"/>
                                         <FormInput value={email} id="email-address" type="email" setOnChange={emailOnChange}
-                                                   placeholder="Email address"/>
+                                                    placeholder="Email address"/>
                                     </div>
 
                                     <div className="space-y-1 rounded-md shadow-sm">
@@ -177,7 +180,6 @@ export const CheckoutShow = () => {
                 )
                 }
             </div>
-
-        </>
+        </AvoRedApp>
     )
 }

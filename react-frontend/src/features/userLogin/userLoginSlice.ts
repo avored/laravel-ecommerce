@@ -1,6 +1,23 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
+export interface AddressType {
+  id: string
+  type?: string
+  customer_id?: string
+  first_name?: string
+  last_name?: string
+  company_name?: string
+  address1?: string
+  address2?: string
+  postcode?: string
+  city?: string
+  state?: string
+  country_id?: string
+  phone?: string
+  created_at?: string
+  updated_at?: string
+}
 export interface AuthUserState {
   id: string,
   first_name: string,
@@ -10,6 +27,7 @@ export interface AuthUserState {
   created_at: string,
   updated_at: string,
   isAuth: boolean,
+  addresses: Array<AddressType>
   token_info: {
     access_token: string,
     token_type: string,
@@ -27,6 +45,7 @@ const initialState: AuthUserState = {
   image_path_url: '',
   created_at: '',
   updated_at: '',
+  addresses: [],
   token_info: {
     access_token : '',
     token_type: '',
@@ -53,6 +72,12 @@ export const userLoginSlice = createSlice({
       state.token_info.access_token = action.payload.token_info.access_token;
       state.token_info.expires_in = action.payload.token_info.expires_in;
       state.token_info.refresh_token = action.payload.token_info.refresh_token;
+
+      action.payload.addresses.map((address: AddressType) => {
+        state.addresses.push(address)
+      })
+      // action.payload.addresses.map
+      // state.addresses.id = action.payload.addresses.refresh_token;
 
       localStorage.setItem('access_token', action.payload.token_info.access_token)
     },

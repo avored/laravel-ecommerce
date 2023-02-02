@@ -21,6 +21,7 @@ import { UserAddresseCreate } from "./pages/user/UserAddresseCreate";
 import { EditAddress } from "./pages/user/EditAddress";
 import { UserLogout } from "./pages/user/UserLogout";
 import { ForgotPasswordlPage } from "./pages/auth/ForgotPasswordlPage";
+import { RegisterPage } from "./pages/auth/RegisterPage";
  
 function App() {
     return (
@@ -48,6 +49,7 @@ function App() {
                     <Route path="logout" element={<UserLogout/>}/>
                 </Route>
 
+                <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/forgot-password" element={<ForgotPasswordlPage/>}/>
             </Routes>
