@@ -22,6 +22,7 @@ import { EditAddress } from "./pages/user/EditAddress";
 import { UserLogout } from "./pages/user/UserLogout";
 import { ForgotPasswordlPage } from "./pages/auth/ForgotPasswordlPage";
 import { RegisterPage } from "./pages/auth/RegisterPage";
+import { ResetPasswordlPage } from "./pages/auth/ResetPasswordlPage";
  
 function App() {
     return (
@@ -52,6 +53,7 @@ function App() {
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/forgot-password" element={<ForgotPasswordlPage/>}/>
+                <Route path="/reset-password" element={<ResetPasswordlPage/>}/>
             </Routes>
         </>
     );

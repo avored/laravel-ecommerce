@@ -29,15 +29,12 @@ export const LoginPage = () => {
 
   const [debugMessage, setDebugMessage] = useState('');
   const [formValidation, setFormValidation] = useState({});
-  const currentUserInfo = useAppSelector(getAuthUserInfo);
-  const isUserAuth = useAppSelector(isAuth)
   const navigate = useNavigate();
   const intl = useIntl()
+  const dispatch = useAppDispatch()
 
   const CustomerLoginQuery = loader('../../graphql/mutation/auth/Login.graphql')
   const [customerLoginResult, customerLogin] = useMutation(CustomerLoginQuery)
-
-  const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -50,24 +47,21 @@ export const LoginPage = () => {
   }
 
   useEffect(() => {
-      document.title = 'Login into your avored account';
+      document.title = intl.formatMessage({id: "sign_into_your_account"});
   }, []);
 
   const submitHandle = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const variables = { email, password }
     customerLogin(variables).then((mutationResult) => {
-
-      if (!isEmpty(get(mutationResult, 'error.graphQLErrors[0].originalError.debugMessage'))) {
-        setDebugMessage(get(mutationResult, 'error.graphQLErrors[0].originalError.debugMessage', ''))
+      if (!isEmpty(get(mutationResult, 'error.graphQLErrors.0.originalError.debugMessage'))) {
+        setDebugMessage(get(mutationResult, 'error.graphQLErrors.0.originalError.debugMessage', ''))
         return
       }
 
-      if (!isEmpty(get(mutationResult, 'error.graphQLErrors.0.extensions.validation'))) {
-        setFormValidation(get(mutationResult, 'error.graphQLErrors.0.extensions.validation', {}))
+      if (get(mutationResult, 'error.graphQLErrors.0.extensions.category') === 'validation') {
+        setFormValidation(get(mutationResult, 'error.graphQLErrors.0.extensions.validation', ['']))
       }
-
-
       
       const authInfo = get(mutationResult, 'data.login')
       if (!isEmpty(authInfo)) {
@@ -112,7 +106,7 @@ export const LoginPage = () => {
                       />
                   </div>
                   
-                  <div className="space-y-1 rounded-md shadow-sm">
+                  <div className="space-y-1 rounded-md">
                     <FormLabel
                         forId="password"
                         labelText={intl.formatMessage({id: "password"})}
@@ -120,6 +114,7 @@ export const LoginPage = () => {
                     <FormInput
                         id="password"
                         type="password"
+                        errorMessages={get(formValidation, 'password', [])}
                         value={password}
                         setOnChange={passwordOnChange}
                         placeholder={intl.formatMessage({id: "password"})}

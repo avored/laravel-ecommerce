@@ -13,7 +13,6 @@ interface FormInputProps {
 }
 
 export const FormInput = (props: FormInputProps) => {
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const onChangeValue = props.setOnChange
 
@@ -35,9 +34,11 @@ export const FormInput = (props: FormInputProps) => {
 
             {(props.errorMessages && props.errorMessages.length > 0) ? 
                 props.errorMessages.map((errorMessage) => {
-                <span key={errorMessage} className='text-sm mt-1 text-red-500'>
-                    {errorMessage}
-                </span>
+                    return (
+                        <span key={errorMessage} className='text-sm mt-1 text-red-500'>
+                            {errorMessage}
+                        </span>
+                    )
                 } )
                 :
                 ''
