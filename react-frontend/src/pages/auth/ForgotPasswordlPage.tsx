@@ -22,44 +22,68 @@ mutation ForgotPasswordMutation ($email: String!) {
 `;
 
 export const ForgotPasswordlPage = () => {
-  const [debugMessage, setDebugMessage] = useState('');
+  const [debugMessage, setDebugMessage] = useState("");
   const [formValidation, setFormValidation] = useState({});
   const intl = useIntl();
-  const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    document.title = intl.formatMessage({id: 'forgot_your_password'});
-}, []);
+    document.title = "Forgot your password";
+  }, []);
 
-  const [forgotPasswordResult, forgotPassword] = useMutation(ForgotPasswordMutation);
+  const [forgotPasswordResult, forgotPassword] = useMutation(
+    ForgotPasswordMutation
+  );
+
+  console.log(forgotPasswordResult);
   const [email, setEmail] = useState("");
 
   const emailOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
 
-
   const submitHandle = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const variables = { email };
 
     forgotPassword(variables).then((mutationResult) => {
-      if (!isEmpty(get(mutationResult, 'error.graphQLErrors.0.originalError.debugMessage'))) {
-        setDebugMessage(get(mutationResult, 'error.graphQLErrors.0.originalError.debugMessage', ''))
-        return
+      if (
+        !isEmpty(
+          get(
+            mutationResult,
+            "error.graphQLErrors.0.originalError.debugMessage"
+          )
+        )
+      ) {
+        setDebugMessage(
+          get(
+            mutationResult,
+            "error.graphQLErrors.0.originalError.debugMessage",
+            ""
+          )
+        );
+        return;
       }
 
-      if (get(mutationResult, 'error.graphQLErrors.0.extensions.category') === 'validation') {
-        setFormValidation(get(mutationResult, 'error.graphQLErrors.0.extensions.validation', ['']))
+      if (
+        get(mutationResult, "error.graphQLErrors.0.extensions.category") ===
+        "validation"
+      ) {
+        setFormValidation(
+          get(mutationResult, "error.graphQLErrors.0.extensions.validation", [
+            "",
+          ])
+        );
       }
-      
-      dispatch(setMessage('You will received an email in regards with reseting your password soon.'))
-      navigate('/login')
+
+      dispatch(
+        setMessage(
+          "You will received an email in regards with reseting your password soon."
+        )
+      );
+      navigate("/login");
     });
-
-
-
   };
   return (
     <AvoRedApp>
@@ -93,7 +117,7 @@ export const ForgotPasswordlPage = () => {
                   id="email-address"
                   value={email}
                   type="email"
-                  errorMessages={get(formValidation, 'email', [])}
+                  errorMessages={get(formValidation, "email", [])}
                   setOnChange={emailOnChange}
                   placeholder={intl.formatMessage({ id: "email_address" })}
                 />
@@ -105,7 +129,7 @@ export const ForgotPasswordlPage = () => {
                   className="group relative flex w-full justify-center rounded-md border border-transparent bg-red-600 py-2 px-4 text-sm font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 >
                   <LockOpenIcon className="absolute w-7 h-7 opacity-40 inset-y-1 left-0 flex items-center pl-3" />
-                  <FormattedMessage id="sent" />
+                  <FormattedMessage id="sent_reset_password_link" />
                 </button>
               </div>
             </form>

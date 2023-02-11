@@ -25,6 +25,7 @@
     "confirm_password": "Confirm Password",
     "sign_into_your_account": "Sign in to your account",
     "forgot_your_password": "Forgot your password?",
-    "sign_in": "Sign in"
+    "sign_in": "Sign in",
+    "sent_reset_password_link": "Sent Reset Password Link"
 
 }
