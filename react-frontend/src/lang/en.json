@@ -26,6 +26,7 @@
     "sign_into_your_account": "Sign in to your account",
     "forgot_your_password": "Forgot your password?",
     "sign_in": "Sign in",
-    "sent_reset_password_link": "Sent Reset Password Link"
-
+    "sent_reset_password_link": "Sent Reset Password Link",
+    "customer_information": "Customer Information",
+    "register_success_message": "You successfuly registered with avored account"
 }

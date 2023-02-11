@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useMutation } from "urql";
 import Logo from "../../logo.svg";
 import { LockClosedIcon } from '@heroicons/react/24/solid'
-import { useAppSelector, useAppDispatch } from '../../app/hooks';
+import { useAppDispatch } from '../../app/hooks';
 import { loader } from 'graphql.macro'
 import {
   setAuthInfo,
-  isAuth,
-  getAuthUserInfo,
   setIsAuth
 } from '../../features/userLogin/userLoginSlice';
 import { get, isEmpty } from "lodash";
 import { useNavigate } from "react-router-dom";
-import { Header } from "../../components/Header";
 import { FormLabel } from "../../components/Form/FormLabel";
 import { FormInput } from "../../components/Form/FormInput";
 import { FormattedMessage, useIntl } from "react-intl";
@@ -47,7 +44,7 @@ export const LoginPage = () => {
   }
 
   useEffect(() => {
-      document.title = intl.formatMessage({id: "sign_into_your_account"});
+      document.title = "Sign into your account";
   }, []);
 
   const submitHandle = (e: React.FormEvent<HTMLFormElement>) => {
