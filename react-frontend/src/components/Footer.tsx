@@ -51,7 +51,7 @@ export const Footer = () => {
                   </li>
                   <li>
                     <a
-                      href="https://discord.gg/4eeurUVvTy"
+                      href="https://join.slack.com/t/avored/shared_invite/zt-5osaf044-nuTeldrwVsa~xI0XyVlZjQ"
                       className="hover:underline"
                     >
                       Slack
