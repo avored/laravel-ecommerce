@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '@/views/HomeView.vue'
+import isNil from 'lodash/isNil'
+import auth from '../middleware/auth'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,17 +9,38 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {'middleware': 'guest', 'layout': 'app' }
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue')
+      component: () => import('@/views/AboutView.vue'),
+      meta: {'middleware': 'guest', 'layout': 'app' }
     }
   ]
 })
+router.beforeEach((to, from, next) => {
+  if (!isNil(to.meta.middleware))
+  {
+      Object.keys(to.meta).map(function(objectKey) {
+          if (objectKey === "middleware" && to.meta.middleware == 'guest') {
+              next()
+          }
+        if (objectKey === "middleware" && (to.meta.middleware == 'auth' || to.meta.middleware == 'customer')) {
+
+            if (to.meta.middleware == 'auth' && auth.isAuth()) {
+                next()
+            } else if (to.meta.middleware == 'customer' && auth.isCustomer()) {
+                next()
+            } else {
+              next('/login')
+            }
+        }
+      });
+    } else {
+      next()
+    }
+});
 
 export default router
