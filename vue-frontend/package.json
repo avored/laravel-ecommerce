@@ -16,19 +16,21 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.11",
-    "@types/lodash": "^4.14.192",
     "@vue/apollo-composable": "^4.0.0-beta.4",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
     "lodash": "^4.17.21",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
+    "vue-feather-icons": "^5.1.0",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/jsdom": "^21.1.0",
+    "@types/lodash": "^4.14.192",
     "@types/node": "^18.14.2",
+    "@types/vue-feather-icons": "^5.0.4",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",
