@@ -23,6 +23,7 @@
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
     "vue-feather-icons": "^5.1.0",
+    "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
@@ -31,6 +32,7 @@
     "@types/lodash": "^4.14.192",
     "@types/node": "^18.14.2",
     "@types/vue-feather-icons": "^5.0.4",
+    "@types/webpack-env": "^1.18.0",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vitejs/plugin-vue-jsx": "^3.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",

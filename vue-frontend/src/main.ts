@@ -1,7 +1,7 @@
 import { createApp, provide, h  } from 'vue'
 import { createPinia } from 'pinia'
 import './index.css'
-
+import i18n from './i18n'
 
 
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
@@ -38,5 +38,6 @@ const app = createApp({
 
 app.use(createPinia())
 app.use(router)
+app.use(i18n)
 
 app.mount('#app')

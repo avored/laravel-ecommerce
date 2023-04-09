@@ -1,21 +1,16 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView, useRouter } from 'vue-router'
+import App from '@/layouts/App.vue'
+import Guest from '@/layouts/Guest.vue'
+
+const router = useRouter()
+
+const layout =  (router.currentRoute.value.meta.layout == 'guest') ? Guest : App
+        
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="block">
-      <HelloWorld msg="Hello AvoRed!" />
-
-      <nav class="flex w-full mt-5 space-x-4">
-        <RouterLink class="text-red-500" to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <component :is="layout">
+        <router-view />
+    </component>
 </template>
