@@ -50,7 +50,7 @@ const router = createRouter({
     {
       path: '/login',
       name: 'auth.login',
-      component: () => import('../views/HomeView.vue'),
+      component: () => import('../views/auth/Login.vue'),
       meta: {'middleware': 'guest', 'layout': 'app' }
     },
     {
@@ -85,42 +85,42 @@ const router = createRouter({
       component: () => import('../views/HomeView.vue'),
       meta: {'middleware': 'customer', 'layout': 'app' }
     },
-    // {
-    //   path: '/orders',
-    //   name: 'orders.index',
-    //   component: () => import('../views/Orders.vue'),
-    //   meta: { 'middleware': 'customer', 'layout': 'app' }
-    // },
-    // {
-    //   path: '/order/:order',
-    //   name: 'order.show',
-    //   component: () => import('../views/OrderShow.vue'),
-    //   meta: { 'middleware': 'customer', 'layout': 'app' }
-    // },
-    // {
-    //   path: '/account/address',
-    //   name: 'address.index',
-    //   component: () => import('../views/Address.vue'),
-    //   meta: { 'middleware': 'customer', 'layout': 'app' }
-    // },
-    // {
-    //   path: '/account/update-address/:id?',
-    //   name: 'address.update',
-    //   component: () => import('../views/UpdateAddress.vue'),
-    //   meta: { 'middleware': 'customer', 'layout': 'app' }
-    // },
-    // {
-    //   path: '/account/create/',
-    //   name: 'address.create',
-    //   component: () => import('../views/CreateAddress.vue'),
-    //   meta: { 'middleware': 'customer', 'layout': 'app' }
-    // },
-    // {
-    //   path: '/account/edit',
-    //   name: 'account.edit',
-    //   component: () => import('../views/AccountEdit.vue'),
-    //   meta: { 'middleware': 'customer', 'layout': 'app' }
-    // },
+    {
+      path: '/orders',
+      name: 'orders.index',
+      component: () => import('../views/Orders.vue'),
+      meta: { 'middleware': 'customer', 'layout': 'app' }
+    },
+    {
+      path: '/order/:order',
+      name: 'order.show',
+      component: () => import('../views/OrderShow.vue'),
+      meta: { 'middleware': 'customer', 'layout': 'app' }
+    },
+    {
+      path: '/account/address',
+      name: 'address.index',
+      component: () => import('../views/Address.vue'),
+      meta: { 'middleware': 'customer', 'layout': 'app' }
+    },
+    {
+      path: '/account/update-address/:id?',
+      name: 'address.update',
+      component: () => import('../views/UpdateAddress.vue'),
+      meta: { 'middleware': 'customer', 'layout': 'app' }
+    },
+    {
+      path: '/account/create/',
+      name: 'address.create',
+      component: () => import('../views/CreateAddress.vue'),
+      meta: { 'middleware': 'customer', 'layout': 'app' }
+    },
+    {
+      path: '/account/edit',
+      name: 'account.edit',
+      component: () => import('../views/AccountEdit.vue'),
+      meta: { 'middleware': 'customer', 'layout': 'app' }
+    },
   ]
 })
 router.beforeEach((to, from, next) => {

@@ -17,21 +17,21 @@
                       {{ category.name }}
                   </router-link>
               </li>
-              <!-- <li>
+              <li>
                 <router-link class="self-center hover:text-red-500 " :to="{name: 'account'}">
-                    <UsersIcon />
+                  <vue-feather type="user"></vue-feather>
                 </router-link>
-              </li> -->
-              <!-- <li>
+              </li>
+              <li>
                 <router-link class="self-center hover:text-red-500 " :to="{name: 'cart'}">
-                    <ShoppingCartIcon />
+                  <vue-feather type="shopping-cart"></vue-feather>
                 </router-link>
               </li>
               <li v-if="isAuth">
                 <router-link class="self-center hover:text-red-500 " :to="{name: 'logout'}">
-                    <LogOutIcon />
+                  <vue-feather type="log-out"></vue-feather>
                 </router-link>
-              </li> -->
+              </li>
           </ul>
           <div v-else class="lds-ellipsis">
               <div></div>
@@ -48,8 +48,7 @@
 <script setup lang="ts">
 import CategoryAllQuery from '@/graphql/CategoryAllQuery'
 import isAuth from '@/middleware/auth'
-import { useQuery } from '@vue/apollo-composable';
-import { UsersIcon, ShoppingCartIcon, LogOutIcon } from 'vue-feather-icons';
+import { useQuery } from '@vue/apollo-composable'
 
 const { loading, result }  = useQuery(CategoryAllQuery)
 
