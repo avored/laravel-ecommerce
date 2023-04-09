@@ -82,7 +82,7 @@ const router = createRouter({
     {
       path: '/account',
       name: 'account',
-      component: () => import('../views/HomeView.vue'),
+      component: () => import('../views/Account.vue'),
       meta: {'middleware': 'customer', 'layout': 'app' }
     },
     {
@@ -131,7 +131,6 @@ router.beforeEach((to, from, next) => {
               next()
           }
         if (objectKey === "middleware" && (to.meta.middleware == 'auth' || to.meta.middleware == 'customer')) {
-
             if (to.meta.middleware == 'auth' && auth.isAuth()) {
                 next()
             } else if (to.meta.middleware == 'customer' && auth.isCustomer()) {

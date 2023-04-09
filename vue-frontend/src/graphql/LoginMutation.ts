@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 
 const LoginMutation = gql`
-    mutation VisitorLogin{
+    mutation VisitorLogin {
         login {
             token_type
             access_token

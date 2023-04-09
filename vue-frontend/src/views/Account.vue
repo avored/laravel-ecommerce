@@ -3,9 +3,9 @@
     <div>
       <div class="my-5 container mx-auto">
         <div class="bg-white">
-          <div v-if="!fetching" class="flex">
+          <div v-if="!loading" class="flex">
             <div class="w-40 bg-white shadow overflow-hidden sm:rounded-lg text-center">
-              <account-side-nav />
+              <AccountSideNav />
             </div>
             <div class="flex-1 ml-5">
               <div>
@@ -40,7 +40,7 @@
                             sm:mt-0 sm:col-span-2
                           "
                         >
-                          {{ data.customerQuery.first_name  }}
+                          {{ result.customerQuery.first_name }}
                         </dd>
                       </div>
                       <div
@@ -61,7 +61,7 @@
                             sm:mt-0 sm:col-span-2
                           "
                         >
-                          {{ data.customerQuery.last_name  }}
+                        {{ result.customerQuery.last_name }}
                         </dd>
                       </div>
                       <div
@@ -82,7 +82,7 @@
                             sm:mt-0 sm:col-span-2
                           "
                         >
-                          {{ data.customerQuery.email }}
+                        {{ result.customerQuery.email }}
                         </dd>
                       </div>
                     </dl>
@@ -97,26 +97,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue"
-import { useQuery } from "@urql/vue"
+<script setup lang="ts">
 import AccountSideNav from '@/components/account/AccountSideNav.vue'
 import GetCustomerQuery from "@/graphql/GetCustomerQuery"
 import { useI18n } from "vue-i18n"
+import { useQuery } from "@vue/apollo-composable";
 
-export default defineComponent({
-  components: {
-      'account-side-nav': AccountSideNav
-  },
-  setup() {
-      const result = useQuery({query: GetCustomerQuery})
-      const { t } = useI18n()
-      return {
-          t,
-          fetching: result.fetching,
-          data: result.data,
-          error: result.error,
-      }
-  },
-});
+  const { loading, result } = useQuery(GetCustomerQuery)
+  const { t } = useI18n()
+      
 </script>

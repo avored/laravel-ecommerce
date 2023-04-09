@@ -93,44 +93,34 @@
 
 <script setup lang="ts">
 import _ from 'lodash'
-import { defineComponent, ref } from "vue"
+import { ref } from "vue"
 import AvoRedInput from "@/components/forms/AvoRedInput.vue"
 import CustomerLoginMutation from '@/graphql/CustomerLoginMutation'
 import { AUTH_TOKEN, CUSTOMER_LOGGED_IN } from "@/constants"
 import { useRouter } from "vue-router"
 import { useI18n } from "vue-i18n"
-
+import { useMutation } from '@vue/apollo-composable'
 
     const { t } = useI18n()
     const router = useRouter()
-    const email = ref("")
+    const email = ref('')
     const validationErrors = ref({})
-    const password = ref("")
+    const password = ref('')
     const userAuthData = ref({
       email: '',
       password: ''
     })
 
-    // const loginMutation = useMutation(CustomerLoginMutation)
-
+    const { mutate: CustomerLogin }  = useMutation(CustomerLoginMutation)
     const onFormSubmit = async () => {
-      // const variables = {
-      //   email: email.value,
-      //   password: password.value,
-      // }
+      const result = await CustomerLogin(userAuthData.value)
 
-    //   const accessToken = await loginMutation
-    //     .executeMutation(userAuthData)
-    //     .then((result) => {
-    //       if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
-    //           validationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation')
-    //       } else {
-    //           localStorage.setItem(AUTH_TOKEN, result.data.login.access_token);
-    //           localStorage.setItem(CUSTOMER_LOGGED_IN, "true");
-    //           router.push({ name: "home" })  
-    //       }
-    //     })
-
-    //   ;
+      if (_.get(result, 'error.graphQLErrors.0.extensions.category') === 'validation') {
+          validationErrors.value =  _.get(result, 'error.graphQLErrors.0.extensions.validation', {})
+      } else {
+          localStorage.setItem(AUTH_TOKEN, _.get(result, 'data.login.token_info.access_token', ''));
+          localStorage.setItem(CUSTOMER_LOGGED_IN, "true");
+          router.push({ name: "home" })  
+      }
     }
 </script>
