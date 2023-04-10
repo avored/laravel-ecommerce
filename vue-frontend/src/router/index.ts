@@ -15,15 +15,10 @@ const router = createRouter({
     {
       path: '/category/:slug',
       name: 'category',
-      component: () => import('../views/HomeView.vue'),
+      component: () => import('../views/Category.vue'),
       meta: {'middleware': 'guest', 'layout': 'app' }
     },
-    {
-      path: '/about',
-      name: 'about',
-      component: () => import('@/views/AboutView.vue'),
-      meta: {'middleware': 'guest', 'layout': 'app' }
-    },{
+   {
       path: '/product/:slug',
       name: 'product.show',
       component: () => import('../views/HomeView.vue'),
@@ -32,7 +27,7 @@ const router = createRouter({
     {
       path: '/cart',
       name: 'cart',
-      component: () => import('../views/HomeView.vue'),
+      component: () => import('../views/Cart.vue'),
       meta: {'middleware': 'guest', 'layout': 'app' }
     },
     {
@@ -75,7 +70,7 @@ const router = createRouter({
     {
       path: '/logout',
       name: 'logout',
-      component: () => import('../views/HomeView.vue'),
+      component: () => import('../views/auth/Logout.vue'),
       meta: {'middleware': 'guest', 'layout': 'app' }
     },
   

@@ -1,12 +1,12 @@
 <template>
-    <div v-if="!fetching" class="">
+    <div v-if="!loading" class="">
         <section class="px-10 mt-5 w-full mx-auto">
             <h1 class="my-5 text-4xl font-semibold text-red-700">
-                {{ data.category.name }}
+                {{ result.category.name }}
             </h1>
             <div class="grid grid-cols-4 gap-6">
                 <div
-                v-for="(card, index) in data.category.products.data"
+                v-for="(card, index) in result.category.products.data"
                 :key="`product-card-${index}`"
                 class="
                     shadow
@@ -81,13 +81,13 @@
                 <Pagination 
                     @previous="previousButtonOnClick"
                     @next="nextButtonOnClick"
-                    :total="data.category.products.total"
-                    :per-page="data.category.products.per_page"
-                    :current-page="data.category.products.current_page"
-                    :from="data.category.products.from" 
-                    :to="data.category.products.to" 
-                    :last-page="data.category.products.last_page"
-                    :has-more-pages="data.category.products.has_more_pages"
+                    :total="result.category.products.total"
+                    :per-page="result.category.products.per_page"
+                    :current-page="result.category.products.current_page"
+                    :from="result.category.products.from" 
+                    :to="result.category.products.to" 
+                    :last-page="result.category.products.last_page"
+                    :has-more-pages="result.category.products.has_more_pages"
                 />
             </div>
         </section>
@@ -109,10 +109,7 @@ import { useQuery } from "@vue/apollo-composable"
         const slug = ref(router.currentRoute.value.params.slug)
         const page = ref(1)
 
-        const {loading, result } = useQuery({
-            query: GetCategoryQuery,
-            variables: { slug: slug, page: page },
-        })
+        const {loading, result } = useQuery(GetCategoryQuery, { slug: slug, page: page })
 
         // watch(router.currentRoute, (newValue) => {
         //     slug.value = newValue.params.slug
@@ -122,16 +119,18 @@ import { useQuery } from "@vue/apollo-composable"
         //         requestPolicy: "network-only",
         //     })
         // })
-        // const nextButtonOnClick = () => {
-        //     page.value += 1
-        //     console.log('page ' +  page.value)
-        //     result.executeQuery({
-        //         variables: { slug: slug, page: page },
-        //         requestPolicy: "network-only",
-        //     })
-        // }
-        // const previousButtonOnClick = () => {
-            
+        const nextButtonOnClick = () => {
+            console.log('next')
+            // page.value += 1
+            // console.log('page ' +  page.value)
+            // result.executeQuery({
+                //     variables: { slug: slug, page: page },
+                //     requestPolicy: "network-only",
+                // })
+            }
+            const previousButtonOnClick = () => {
+                
+                console.log('prev')
         //     page.value -= 1
         //     if (page.value < 0) {
         //         page.value = 0
@@ -141,6 +140,6 @@ import { useQuery } from "@vue/apollo-composable"
         //         variables: { slug: slug, page: page },
         //         requestPolicy: "network-only",
         //     })
-        // }
+             }
           
 </script>
