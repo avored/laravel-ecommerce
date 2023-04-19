@@ -1,5 +1,8 @@
 <?php
 
+use AvoRed\Framework\AvoRed\AvoRed;
+use AvoRed\Framework\Database\Contracts\CategoryModelInterface;
+use AvoRed\Framework\Database\Models\Category;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
     return view('welcome');
 });
