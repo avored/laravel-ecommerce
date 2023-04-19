@@ -1,8 +1,6 @@
 <?php
 
-use AvoRed\Framework\AvoRed\AvoRed;
-use AvoRed\Framework\Database\Contracts\CategoryModelInterface;
-use AvoRed\Framework\Database\Models\Category;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
